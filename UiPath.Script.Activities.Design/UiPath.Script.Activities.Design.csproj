@@ -53,7 +53,8 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DesignerMetadata.cs" />
-    <Compile Include="Editors\ArgumentCollectionEditor.cs" />
+    <Compile Include="Editors\CollectionArgumentEditor.cs" />
+    <Compile Include="Editors\DictionaryArgumentEditor.cs" />
     <Compile Include="Editors\EditorTemplates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

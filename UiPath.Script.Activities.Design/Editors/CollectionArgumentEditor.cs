@@ -9,11 +9,11 @@ namespace UiPath.Script.Activities.Design.Editors
     /// <summary>
     /// Interaction logic for ArgumentDictionaryEditor.xaml
     /// </summary>
-    public partial class ArgumentCollectionEditor : DialogPropertyValueEditor
+    public partial class CollectionArgumentEditor : DialogPropertyValueEditor
     {
-        private static DataTemplate EditorTemplate = (DataTemplate)new EditorTemplates()["ArgumentCollectionEditor"];
+        private static DataTemplate EditorTemplate = (DataTemplate)new EditorTemplates()["CollectionArgumentEditor"];
 
-        public ArgumentCollectionEditor()
+        public CollectionArgumentEditor()
         {
             this.InlineEditorTemplate = EditorTemplate;
         }
