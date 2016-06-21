@@ -2,6 +2,7 @@
 using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using UiPath.Script.Powershell;
 
@@ -22,10 +23,14 @@ namespace UiPath.Script.Activities.PowerShell
 
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
+            var scriptPath = ScriptPath.Get(context);
+            if (Path.GetExtension(scriptPath) != ".ps1")
+                throw new ArgumentException($"'{Path.GetExtension(scriptPath)}' is not a valid PowerShell file type.");
+
             var parameters = Parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value.Get(context))).ToList();
             var psExec = new PowerShellExecutor();
             context.UserState = psExec;
-            return psExec.ExecuteScript(ScriptPath.Get(context), parameters, callback, state);
+            return psExec.ExecuteScript(scriptPath, parameters, callback, state);
         }
 
         protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
@@ -62,19 +67,6 @@ namespace UiPath.Script.Activities.PowerShell
                 executor.Dispose();
             }
             base.Cancel(context);
-        }
-
-        protected override void CacheMetadata(CodeActivityMetadata metadata)
-        {
-            base.CacheMetadata(metadata);
-            foreach (KeyValuePair<string, InArgument> parameter in Parameters)
-            {
-                string name = parameter.Key;
-                InArgument argument = parameter.Value;
-                RuntimeArgument ra = new RuntimeArgument(name, argument.ArgumentType, argument.Direction, false);
-                metadata.Bind(argument, ra);
-                metadata.AddArgument(ra);
-            }
         }
     }
 }
