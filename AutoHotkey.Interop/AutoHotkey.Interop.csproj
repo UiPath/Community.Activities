@@ -77,13 +77,9 @@
     <Compile Include="Util\ProcessorType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="x64\v1_AutoHotkey.dll" />
     <None Include="x86\v1_AutoHotkey.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="x64\AutoHotkey.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="x86\AutoHotkey.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
