@@ -53,7 +53,7 @@
     </Compile>
     <Compile Include="PowerShell\RunPowerShellScript.cs" />
     <Compile Include="ScriptActivity.cs" />
-    <Compile Include="AutoHotKey\ExecuteAutoHotKey.cs" />
+    <Compile Include="AutoHotKey\RunAutoHotKeyScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

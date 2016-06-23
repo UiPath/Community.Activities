@@ -9,7 +9,7 @@ using UiPath.Script.AutoHotKey;
 
 namespace UiPath.Script.Activities.AutoHotKey
 {
-    public sealed class ExecuteAutoHotKey : ScriptActivity<string>
+    public sealed class RunAutoHotKeyScript : ScriptActivity<string>
     {
         private AutoHotkeyExecutor Engine;
                 

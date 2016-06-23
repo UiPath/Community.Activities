@@ -16,7 +16,7 @@ namespace UiPath.Script.Activities.Design
             var builder = new AttributeTableBuilder();
 
             var categoryAttribute = new CategoryAttribute("App Scripting");
-            var autoHotKeyType = typeof(ExecuteAutoHotKey);
+            var autoHotKeyType = typeof(RunAutoHotKeyScript);
 
             builder.AddCustomAttributes(autoHotKeyType, categoryAttribute);
             builder.AddCustomAttributes(autoHotKeyType, "Parameters", new EditorAttribute(typeof(CollectionArgumentEditor), typeof(DialogPropertyValueEditor)));
