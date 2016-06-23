@@ -1,0 +1,47 @@
+﻿<sap:ActivityDesigner x:Class="UiPath.Script.Activities.Design.ScriptActivityDesigner"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:uip="clr-namespace:UiPath.Script.Activities.Design.Controls" 
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+    xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation">
+
+    <sap:ActivityDesigner.Resources>
+        <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+    </sap:ActivityDesigner.Resources>
+
+    <sap:ActivityDesigner.Icon>
+        <DrawingBrush Viewbox="0,0,49.98,43.68" ViewboxUnits="Absolute">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="#FF6E6F71" Geometry="M46.51,6.4699993 L3.4699968,6.4699993 3.4699968,40.209993 46.51,40.209993 z M49.980001,1.7400002 L49.980001,41.939993 C49.980001,42.899993 49.200001,43.679993 48.250001,43.679993 L1.7399966,43.679993 C0.77999653,43.679993 -3.5400394E-06,42.899993 -3.5400394E-06,41.939993 L-3.5400394E-06,1.7400002 C-3.5400394E-06,0.78000035 0.77999653,4.8828116E-07 1.7399966,4.8828116E-07 L48.250001,4.8828116E-07 C49.200001,4.8828116E-07 49.980001,0.78000035 49.980001,1.7400002" />
+                    <DrawingGroup>
+                        <DrawingGroup.Transform>
+                            <MatrixTransform Matrix="1,0,0,1,3.47,6.47" />
+                        </DrawingGroup.Transform>
+                        <GeometryDrawing Brush="White" Geometry="M17.929998,17.249996 L17.929998,14.329997 C17.929998,14.069997 17.809999,13.839997 17.599999,13.689997 L7.7400005,6.8099982 C7.5100006,6.6399982 7.2000006,6.6199982 6.9400007,6.7599982 6.6900007,6.8899981 6.5300008,7.1499981 6.5300008,7.4399981 L6.5300008,10.859997 C6.5300008,11.099997 6.6400007,11.319997 6.8200007,11.459997 L12.23,15.779997 6.8200007,20.139996 C6.6400007,20.279996 6.5300008,20.499996 6.5300008,20.739996 L6.5300008,24.179995 C6.5300008,24.469995 6.6900007,24.729995 6.9500007,24.869995 7.0600006,24.929995 7.1800006,24.959995 7.3000006,24.959995 7.4600006,24.959995 7.6100005,24.909995 7.7400005,24.809995 L17.599999,17.879996 C17.809999,17.739996 17.929998,17.499996 17.929998,17.249996 M32.079996,26.129995 L32.079996,24.879995 C32.079996,24.249995 31.559996,23.729995 30.919996,23.729995 L18.159998,23.729995 C17.519999,23.729995 16.999999,24.249995 16.999999,24.879995 L16.999999,26.129995 C16.999999,26.759995 17.519999,27.279995 18.159998,27.279995 L30.919996,27.279995 C31.559996,27.279995 32.079996,26.759995 32.079996,26.129995 M43.039994,33.739994 L2.0507808E-06,33.739994 2.0507808E-06,-7.3242177E-07 43.039994,-7.3242177E-07 z" />
+                    </DrawingGroup>
+                    <DrawingGroup>
+                        <DrawingGroup.Transform>
+                            <MatrixTransform Matrix="1,0,0,1,20.47,30.2" />
+                        </DrawingGroup.Transform>
+                        <GeometryDrawing Brush="#FF6E6F71" Geometry="M15.080007,1.149999 L15.080007,2.4000033 C15.080007,3.0300055 14.560007,3.5500073 13.920006,3.5500073 L1.1599946,3.5500073 C0.51999407,3.5500073 -6.3964901E-06,3.0300055 -6.3964901E-06,2.4000033 L-6.3964901E-06,1.149999 C-6.3964901E-06,0.51999688 0.51999407,-4.9072434E-06 1.1599946,-4.9072434E-06 L13.920006,-4.9072434E-06 C14.560007,-4.9072434E-06 15.080007,0.51999688 15.080007,1.149999" />
+                    </DrawingGroup>
+                    <DrawingGroup>
+                        <DrawingGroup.Transform>
+                            <MatrixTransform Matrix="1,0,0,1,10,13.137" />
+                        </DrawingGroup.Transform>
+                        <GeometryDrawing Brush="#FF6E6F71" Geometry="M1.2100023,18.142999 C1.0800024,18.243 0.93000252,18.293001 0.77000265,18.293001 0.65000275,18.293001 0.53000285,18.263001 0.42000293,18.203 0.16000314,18.062998 3.2714818E-06,17.802994 3.2714818E-06,17.512989 L3.2714818E-06,14.072937 C3.2714818E-06,13.832934 0.11000318,13.612931 0.29000304,13.472928 L5.6999987,9.1128628 0.29000304,4.7927978 C0.11000318,4.6527957 3.2714818E-06,4.4327923 3.2714818E-06,4.1927887 L3.2714818E-06,0.77273724 C3.2714818E-06,0.48273288 0.16000314,0.22272896 0.41000294,0.092727006 0.67000273,-0.047275101 0.98000248,-0.0272748 1.2100023,0.14272776 L11.069994,7.0228313 C11.279994,7.1728336 11.399994,7.4028371 11.399994,7.662841 L11.399994,10.582885 C11.399994,10.832889 11.279994,11.072892 11.069994,11.212894 z" />
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </sap:ActivityDesigner.Icon>
+
+    <DockPanel Width="300">
+        <uip:FilePathControl ModelItem="{Binding ModelItem}"  HintText="File name. Text must be quoted" PropertyName="ScriptPath" 
+                             Expression="{Binding Path=ModelItem.ScriptPath, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In, Mode=TwoWay}" />
+
+    </DockPanel>
+
+</sap:ActivityDesigner>
