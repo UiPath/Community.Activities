@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activitie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activities.Design", "Google Spreadsheet\GoogleSpreadsheet.Activities.Design\GoogleSpreadsheet.Activities.Design.csproj", "{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activities.UnitTest", "GoogleSpreadsheet.Activities.UnitTest\GoogleSpreadsheet.Activities.UnitTest.csproj", "{DD10478C-3521-4088-BAD7-256D7D099912}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activities.UnitTest", "Google Spreadsheet\GoogleSpreadsheet.Activities.UnitTest\GoogleSpreadsheet.Activities.UnitTest.csproj", "{FF53D74C-98C1-4486-8548-C1B6FAA45133}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,14 +42,14 @@ Global
 		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}.Release|x64.ActiveCfg = Release|Any CPU
 		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}.Release|x64.Build.0 = Release|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Debug|x64.Build.0 = Debug|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Release|x64.ActiveCfg = Release|Any CPU
-		{DD10478C-3521-4088-BAD7-256D7D099912}.Release|x64.Build.0 = Release|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Debug|x64.Build.0 = Debug|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Release|x64.ActiveCfg = Release|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,7 +57,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{42BF8242-66AC-43B3-827A-F69DE1A15310} = {A33C1A73-4FD5-499F-9742-001AC852D96E}
 		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5} = {A33C1A73-4FD5-499F-9742-001AC852D96E}
-		{DD10478C-3521-4088-BAD7-256D7D099912} = {A33C1A73-4FD5-499F-9742-001AC852D96E}
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133} = {A33C1A73-4FD5-499F-9742-001AC852D96E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80E44DEF-976F-46BF-9DD8-F07334768E20}
