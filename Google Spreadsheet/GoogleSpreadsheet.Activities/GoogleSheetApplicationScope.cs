@@ -16,15 +16,15 @@ namespace GoogleSpreadsheet.Activities
         
         [Category("Authentication")]
         [RequiredArgument]
-        public InArgument<string> ServiceAccountEmail { get; set; } = "uipathrobot@polar-outlet-181712.iam.gserviceaccount.com";
+        public InArgument<string> ServiceAccountEmail { get; set; } 
 
         [Category("Authentication")]
         [RequiredArgument]
-        public InArgument<string> KeyPath { get; set; } = "key.p12";
+        public InArgument<string> KeyPath { get; set; } 
 
         [Category("Authentication")]
         [RequiredArgument]
-        public InArgument<string> Password { get; set; } = "notasecret";
+        public InArgument<string> Password { get; set; } 
 
         [Category("Input")]
         [RequiredArgument]
