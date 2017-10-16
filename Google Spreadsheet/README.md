@@ -4,21 +4,21 @@ Guidelines for using Google Spreadsheet Activities
 
     a) Authentication
 
-        - To use this app scope you'll need a google service account, an encryption key and a password to encrypt that key.
+    - To use this app scope you'll need a google service account, an encryption key and a password to encrypt that key.
 
     b) Spreadsheet calls
 
-        - To make requests to a Google Spreadsheet you'll need to specify the SpreadsheetId
+    - To make requests to a Google Spreadsheet you'll need to specify the SpreadsheetId
 
 2. Read Range
 
-    - needs to have specified: Sheet, Range and optional IncludeHeaders
-    - the output of this will be a DataTable object (Result property)
-    - if you don't specify the Sheet, it'll use the default sheet of the Google Spreadsheet
+    - Needs to have specified: Sheet, Range and optional IncludeHeaders
+    - The output of this will be a DataTable object (Result property)
+    - If you don't specify the Sheet, it'll use the default sheet of the Google Spreadsheet
 
 3. Write Range
 
-    - needs to have specified: Sheet, Range, StartingCell and optional IncludeHeaders
+    - Needs to have specified: Sheet, Range, StartingCell and optional IncludeHeaders
 
 
 Note: both read range and write should be very similar in usage as the ones from the excel package.
