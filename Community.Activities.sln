@@ -20,13 +20,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activitie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Script", "Script", "{0B0557F4-1337-43CE-A070-AB63D04435EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Script.Activities.Design", "..\Community.Activities-master\Script\UiPath.Script.Activities.Design\UiPath.Script.Activities.Design.csproj", "{EADDCFB3-FCC2-4BD8-AA70-552EF91098A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Script.Activities.Design", "Script\UiPath.Script.Activities.Design\UiPath.Script.Activities.Design.csproj", "{EADDCFB3-FCC2-4BD8-AA70-552EF91098A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Script.Activities", "..\Community.Activities-master\Script\UiPath.Script.Activities\UiPath.Script.Activities.csproj", "{D3FB95AA-DA87-4C7F-91FB-3CF4A74CE814}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Script.Activities", "Script\UiPath.Script.Activities\UiPath.Script.Activities.csproj", "{D3FB95AA-DA87-4C7F-91FB-3CF4A74CE814}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Script", "..\Community.Activities-master\Script\UiPath.Script\UiPath.Script.csproj", "{75025F8E-52CC-4300-B46F-3DA5B8CBC4E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Script", "Script\UiPath.Script\UiPath.Script.csproj", "{75025F8E-52CC-4300-B46F-3DA5B8CBC4E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoHotkey.Interop", "..\Community.Activities-master\Script\AutoHotkey.Interop\AutoHotkey.Interop.csproj", "{2869DBFE-7762-4930-95EA-2B0C111CF353}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoHotkey.Interop", "Script\AutoHotkey.Interop\AutoHotkey.Interop.csproj", "{2869DBFE-7762-4930-95EA-2B0C111CF353}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
