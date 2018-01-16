@@ -1,0 +1,22 @@
+﻿<sap:ActivityDesigner x:Class="GoogleSpreadsheet.Activities.Design.GoogleSheetApplicationDesigner"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:s="clr-namespace:System;assembly=mscorlib"
+                xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+                xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+                xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+                xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation">
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+    <DockPanel>
+        <sapv:ExpressionTextBox OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" ToolTip="Spreadsheet ID. Text must be quoted." DockPanel.Dock="Top" MinWidth="400" 
+                        Expression="{Binding Path=ModelItem.SpreadsheetId,Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In, Mode=TwoWay}"/>
+        <sap:WorkflowItemPresenter x:Uid="sad:WorkflowItemPresenter_1"  AutomationProperties.AutomationId="Activity" Margin="0,10,0,0"
+                        Item="{Binding Path=ModelItem.Body.Handler, Mode=TwoWay}" AllowedItemType="{x:Type sa:Activity}" HintText="Drop activity here" MinWidth="400" DockPanel.Dock="Bottom" />
+    </DockPanel>
+</sap:ActivityDesigner>
