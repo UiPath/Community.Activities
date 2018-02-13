@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>http://www.uipath.com</projectUrl>
+    <projectUrl>https://github.com/UiPath/Community.Activities/tree/master/Script</projectUrl>
     <iconUrl>http://www.uipath.com/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
