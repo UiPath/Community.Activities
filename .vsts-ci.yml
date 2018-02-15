@@ -1,0 +1,61 @@
+queue:
+  name: Hosted VS2017
+  demands: 
+    - msbuild
+    - visualstudio
+    - vstest
+
+variables:
+  Solution: "Community.Activities.sln"
+  BuildConfiguration: "Release"
+  BuildPlatform: "Any CPU"
+
+steps:
+
+- task: NuGetToolInstaller@0
+  displayName: "Use NuGet 4.3.0"
+
+- task: NuGetCommand@2
+  displayName: "Restore Nuget packages"
+  inputs:
+    restoreSolution: "$(Solution)"
+    feedsToUse: "config"
+    nugetConfigPath: ".nuget/NuGet.Config"
+
+- task: VSBuild@1
+  displayName: "Build Solution"
+  inputs:
+    solution: '$(Solution)'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+
+- task: VSTest@2
+  displayName: "Run unit tests"
+  inputs:
+    testAssemblyVer2: |
+          **\$(BuildConfiguration)\*test*.dll
+          !**\obj\**
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+
+- task: PublishSymbols@1
+  displayName: "Publish symbols"
+  inputs:
+    SearchPattern: '**\bin\**\*.pdb'
+  continueOnError: true
+
+- task: CopyFiles@2
+  displayName: "Copy files to artifacts staging directory"
+  inputs:
+    SourceFolder: '$(build.sourcesdirectory)'
+    Contents: '**\bin\$(BuildConfiguration)\**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish symbols"
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'drop'
+    ArtifactType: 'Container'
+
+
