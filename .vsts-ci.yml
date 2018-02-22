@@ -1,5 +1,4 @@
 queue:
-  name: Hosted VS2017
   demands: 
     - msbuild
     - visualstudio
@@ -11,6 +10,21 @@ variables:
   BuildPlatform: "Any CPU"
 
 steps:
+
+- task: PowerShell@1
+  displayName: "Set Build Version"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: " $major = 1 \n
+$minor = 0 \n
+$now = Get-Date \n
+$y2k = Get-Date -Year 2000 -Month 1 -Day 1 \n
+$build = [int]($now - $y2k).TotalDays \n
+$revision = [int]($now.TimeOfDay.TotalSeconds / 2) \n
+$version = \"$major.$minor.$build.$revision\" \n
+Write-Host \"$version\" \n
+Write-Host \"##vso[build.updatebuildnumber]$version\""
+
 
 - task: NuGetToolInstaller@0
   displayName: "Use NuGet 4.3.0"
@@ -38,24 +52,29 @@ steps:
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
 
-- task: PublishSymbols@1
-  displayName: "Publish symbols"
+- task: PowerShell@1
+  displayName: "Set 'PackagesToPack' variable"
   inputs:
-    SearchPattern: '**\bin\**\*.pdb'
-  continueOnError: true
+    scriptType: "inlineScript"
+    inlineScript: "$files = Get-ChildItem *.nuspec -Recurse | foreach {$_.Name -replace '.nuspec','.csproj'} \n
+    $pattern = '' \n
+    ForEach($file in $files) { $pattern+=\"**\\$file;\" } \n
+   Write-Host \"##vso[task.setvariable variable=PackagesToPack;]$pattern\" "
 
-- task: CopyFiles@2
-  displayName: "Copy files to artifacts staging directory"
+- task: NuGetCommand@2
+  displayName: "Create Nuget packages"
   inputs:
-    SourceFolder: '$(build.sourcesdirectory)'
-    Contents: '**\bin\$(BuildConfiguration)\**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    command: "pack"
+    packagesToPack: "$(PackagesToPack)"
+    versioningScheme: "byBuildNumber"
+    includeSymbols: "true"
+    outputDir: "$(ArtifactsOutputPath)"
+    configurationToPack: "$(BuildConfiguration)"
+    includeReferencedProjects: "true"
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish symbols"
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
-    ArtifactName: 'drop'
+    PathtoPublish: '$(ArtifactsOutputPath)'
+    ArtifactName: 'Setup'
     ArtifactType: 'Container'
-
-
