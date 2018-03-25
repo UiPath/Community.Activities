@@ -6,5 +6,4 @@ using System.Windows.Markup;
 [assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: XmlnsPrefix("http://schemas.uipath.com/workflow/activities", "ui")]
-[assembly: AssemblyVersion("1.0.2")]
+[assembly: AssemblyVersion("1.1.0")]
