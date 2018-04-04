@@ -9,7 +9,7 @@ using System.Windows.Markup;
 [assembly: AssemblyTitle("GoogleSpreadsheet.Activities")]
 [assembly: AssemblyDescription("GoogleSpreadsheet activities designers")]
 [assembly: AssemblyConfiguration("")]
-[assembly: XmlnsDefinition("http://schemas.uipath.com/workflow/activities", "GoogleSpreadsheet")]
+[assembly: XmlnsDefinition("http://schemas.uipath.com/workflow/activities/googlespreadsheet", "GoogleSpreadsheet.Activities")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
