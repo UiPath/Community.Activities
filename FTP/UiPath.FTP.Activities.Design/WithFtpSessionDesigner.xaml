@@ -1,0 +1,24 @@
+﻿<sap:ActivityDesigner x:Class="UiPath.FTP.Activities.Design.WithFtpSessionDesigner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+             xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+             xmlns:uip="clr-namespace:UiPath.Activities.Presentation"
+             xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+             Collapsible="True">
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes\Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+
+    <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
+        <DockPanel LastChildFill="True">
+            <sap:WorkflowItemPresenter AutomationProperties.AutomationId="Activity" Margin="0,10,0,0"
+                        Item="{Binding Path=ModelItem.Body.Handler, Mode=TwoWay}" AllowedItemType="{x:Type sa:Activity}" HintText="Drop activity here" MinWidth="400" DockPanel.Dock="Bottom" />
+        </DockPanel>
+    </uip:ActivityDecoratorControl>
+</sap:ActivityDesigner>
