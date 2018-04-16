@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4e20c041-2f59-408e-adb3-0bcfab48de61</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>UiPath.Shared.Activities</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ActivitiesConstraints.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskCodeActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BookmarkResumptionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeImplementation.cs" />
+  </ItemGroup>
+</Project>
