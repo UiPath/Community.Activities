@@ -15,7 +15,7 @@ Guidelines for contribuing to this repository
 ### Assembly and Package Info
 
    * GlobalAssemblyInfo.cs should be used
-   * Public namespaces should specify an **XmlnsDefinitionAttribute** that is usually **http://schemas.comapny.com/workflow/activities**
+   * Public namespaces should specify an **XmlnsDefinitionAttribute** that is usually **http://schemas.company.com/workflow/activities**
    * NuSpec file should have the approximately same structure as the others
 
    
