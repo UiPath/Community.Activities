@@ -89,8 +89,7 @@ namespace UiPath.Shared.Activities
 
         public void BookmarkResumptionCallback(NativeActivityContext context, object value)
         {
-            var ex = value as Exception;
-            if (ex != null)
+            if (value is Exception ex)
             {
                 throw new InvalidOperationException(ex.Message, ex);
             }
