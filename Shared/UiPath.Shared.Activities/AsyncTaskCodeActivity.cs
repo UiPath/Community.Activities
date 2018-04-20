@@ -8,7 +8,7 @@ namespace UiPath.Shared.Activities
 {
     public abstract class AsyncTaskCodeActivity : AsyncCodeActivity, IDisposable
     {
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _cancellationTokenSource;
         private bool _tokenDisposed = false;
 
         protected override void Cancel(AsyncCodeActivityContext context)
@@ -31,6 +31,14 @@ namespace UiPath.Shared.Activities
 
         protected sealed override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
+            if (!_tokenDisposed)
+            {
+                _cancellationTokenSource?.Dispose();
+            }
+
+            _cancellationTokenSource = new CancellationTokenSource();
+            _tokenDisposed = false;
+
             TaskCompletionSource<Action<AsyncCodeActivityContext>> taskCompletionSource = new TaskCompletionSource<Action<AsyncCodeActivityContext>>(state);
             Task<Action<AsyncCodeActivityContext>> task = ExecuteAsync(context, _cancellationTokenSource.Token);
 
