@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ActivitiesConstraints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskCodeActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskCodeActivityContinue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeActivityContinue.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeActivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BookmarkResumptionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeImplementation.cs" />

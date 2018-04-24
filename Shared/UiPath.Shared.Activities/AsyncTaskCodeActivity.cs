@@ -29,7 +29,7 @@ namespace UiPath.Shared.Activities
             base.CacheMetadata(metadata);
         }
 
-        protected sealed override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
+        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
             if (!_tokenDisposed)
             {
@@ -63,7 +63,7 @@ namespace UiPath.Shared.Activities
             return taskCompletionSource.Task;
         }
 
-        protected sealed override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
+        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
         {
             Task<Action<AsyncCodeActivityContext>> task = (Task<Action<AsyncCodeActivityContext>>)result;
 

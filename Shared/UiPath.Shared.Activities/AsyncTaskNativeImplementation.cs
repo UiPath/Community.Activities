@@ -91,7 +91,7 @@ namespace UiPath.Shared.Activities
         {
             if (value is Exception ex)
             {
-                throw new InvalidOperationException(ex.Message, ex);
+                throw ex;
             }
 
             _noPersistHandle.Get(context).Exit(context);
