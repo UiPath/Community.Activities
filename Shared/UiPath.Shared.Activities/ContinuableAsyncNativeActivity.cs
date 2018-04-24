@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace UiPath.Shared.Activities
 {
-    public abstract class AsyncTaskNativeActivityContinue : AsyncTaskNativeActivity
+    public abstract class ContinuableAsyncNativeActivity : AsyncTaskNativeActivity
     {
         public InArgument<bool> ContinueOnError { get; set; } = false;
 

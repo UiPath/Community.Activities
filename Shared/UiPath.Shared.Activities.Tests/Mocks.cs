@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UiPath.Shared.Activities.Tests
 {
-    internal class FailsAfterDelayNativeActivity : AsyncTaskNativeActivityContinue
+    internal class FailsAfterDelayNativeActivity : ContinuableAsyncNativeActivity
     {
         public InArgument<int> Delay { get; set; }
 
@@ -27,7 +27,7 @@ namespace UiPath.Shared.Activities.Tests
         }
     }
 
-    internal class FailsWhenReturningNativeActivity : AsyncTaskNativeActivityContinue
+    internal class FailsWhenReturningNativeActivity : ContinuableAsyncNativeActivity
     {
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
@@ -42,7 +42,7 @@ namespace UiPath.Shared.Activities.Tests
         }
     }
 
-    internal class FailsAfterDelayCodeActivity : AsyncTaskCodeActivityContinue
+    internal class FailsAfterDelayCodeActivity : ContinuableAsyncCodeActivity
     {
         public InArgument<int> Delay { get; set; }
 
@@ -64,7 +64,7 @@ namespace UiPath.Shared.Activities.Tests
         }
     }
 
-    internal class FailsWhenReturningCodeActivity : AsyncTaskCodeActivityContinue
+    internal class FailsWhenReturningCodeActivity : ContinuableAsyncCodeActivity
     {
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {

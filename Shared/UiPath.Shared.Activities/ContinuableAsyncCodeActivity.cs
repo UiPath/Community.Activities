@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UiPath.Shared.Activities
 {
-    public abstract class AsyncTaskCodeActivityContinue : AsyncTaskCodeActivity
+    public abstract class ContinuableAsyncCodeActivity : AsyncTaskCodeActivity
     {
         public InArgument<bool> ContinueOnError { get; set; } = false;
 
