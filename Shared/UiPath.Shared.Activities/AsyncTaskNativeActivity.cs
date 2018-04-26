@@ -10,7 +10,8 @@ namespace UiPath.Shared.Activities
         private AsyncTaskNativeImplementation _impl = new AsyncTaskNativeImplementation();
 
         // Always true because we create bookmarks.
-        protected override bool CanInduceIdle { get { return true; } }
+        protected override bool CanInduceIdle => true;
+
         protected override void Abort(NativeActivityAbortContext context)
         {
             base.Abort(context);
@@ -33,12 +34,12 @@ namespace UiPath.Shared.Activities
 
         protected abstract Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken);
 
-        protected sealed override void Execute(NativeActivityContext context)
+        protected override void Execute(NativeActivityContext context)
         {
             _impl.Execute(context, ExecuteAsync, BookmarkResumptionCallback);
         }
 
-        private void BookmarkResumptionCallback(NativeActivityContext context, Bookmark bookmark, object value)
+        protected virtual void BookmarkResumptionCallback(NativeActivityContext context, Bookmark bookmark, object value)
         {
             _impl.BookmarkResumptionCallback(context, value);
         }
@@ -48,7 +49,7 @@ namespace UiPath.Shared.Activities
     {
         private AsyncTaskNativeImplementation _impl = new AsyncTaskNativeImplementation();
 
-        protected override bool CanInduceIdle { get { return true; } }
+        protected override bool CanInduceIdle => true;
 
         protected override void Abort(NativeActivityAbortContext context)
         {
@@ -74,7 +75,7 @@ namespace UiPath.Shared.Activities
             _impl.Execute(context, ExecuteAsync, BookmarkResumptionCallback);
         }
 
-        private void BookmarkResumptionCallback(NativeActivityContext context, Bookmark bookmark, object value)
+        protected virtual void BookmarkResumptionCallback(NativeActivityContext context, Bookmark bookmark, object value)
         {
             _impl.BookmarkResumptionCallback(context, value);
         }
