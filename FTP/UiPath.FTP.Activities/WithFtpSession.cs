@@ -9,7 +9,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class WithFtpSession : AsyncTaskNativeActivity
+    public class WithFtpSession : ContinuableAsyncNativeActivity
     {
         private IFtpSession _ftpSession;
 

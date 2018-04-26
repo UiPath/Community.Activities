@@ -8,7 +8,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class FileExists : AsyncTaskCodeActivity
+    public class FileExists : ContinuableAsyncCodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -19,7 +19,7 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.Exists))]
         public OutArgument<bool> Exists { get; set; }
 
-        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
+        protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
             IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
