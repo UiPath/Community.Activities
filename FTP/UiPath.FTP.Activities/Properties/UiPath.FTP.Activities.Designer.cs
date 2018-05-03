@@ -133,6 +133,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        internal static string Files {
+            get {
+                return ResourceManager.GetString("Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No FTP session found..
         /// </summary>
         internal static string FTPSessionNotFoundException {

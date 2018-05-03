@@ -3,6 +3,7 @@
     public enum FtpObjectType
     {
         Directory,
-        File
+        File,
+        Link
     }
 }

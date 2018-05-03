@@ -204,4 +204,7 @@
   <data name="Exists" xml:space="preserve">
     <value>Exists</value>
   </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
 </root>
