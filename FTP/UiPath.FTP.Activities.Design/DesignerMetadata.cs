@@ -19,6 +19,7 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(Delete), new CategoryAttribute(Resources.FTPActivitiesCategory));
             builder.AddCustomAttributes(typeof(DirectoryExists), new CategoryAttribute(Resources.FTPActivitiesCategory));
             builder.AddCustomAttributes(typeof(DownloadFiles), new CategoryAttribute(Resources.FTPActivitiesCategory));
+            builder.AddCustomAttributes(typeof(EnumerateObjects), new CategoryAttribute(Resources.FTPActivitiesCategory));
             builder.AddCustomAttributes(typeof(FileExists), new CategoryAttribute(Resources.FTPActivitiesCategory));
             builder.AddCustomAttributes(typeof(UploadFiles), new CategoryAttribute(Resources.FTPActivitiesCategory));
             builder.AddCustomAttributes(typeof(WithFtpSession), new CategoryAttribute(Resources.FTPActivitiesCategory));

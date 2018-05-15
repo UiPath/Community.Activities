@@ -48,6 +48,7 @@
     <Compile Include="Delete.cs" />
     <Compile Include="DirectoryExists.cs" />
     <Compile Include="DownloadFiles.cs" />
+    <Compile Include="EnumerateObjects.cs" />
     <Compile Include="FileExists.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

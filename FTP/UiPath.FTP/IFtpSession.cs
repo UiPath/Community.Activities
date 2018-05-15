@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,9 +8,6 @@ namespace UiPath.FTP
     // TODO: Need to test if all sessions get disposed in case of an exception.
     public interface IFtpSession : IDisposable
     {
-        Task<bool> IsConnectedAsync();
-        void Open();
-        Task OpenAsync(CancellationToken cancellationToken);
         void Close();
         Task CloseAsync(CancellationToken cancellationToken);
         void CreateDirectory(string path);
@@ -24,6 +22,12 @@ namespace UiPath.FTP
         Task<bool> FileExistsAsync(string path, CancellationToken cancellationToken);
         FtpObjectType GetObjectType(string path);
         Task<FtpObjectType> GetObjectTypeAsync(string path, CancellationToken cancellationToken);
+        bool IsConnected();
+        Task<bool> IsConnectedAsync(CancellationToken cancellationToken);
+        IEnumerable<FtpObjectInfo> EnumerateObjects(string remotePath, bool recursive);
+        Task<IEnumerable<FtpObjectInfo>> EnumerateObjectsAsync(string remotePath, bool recursive, CancellationToken cancellationToken);
+        void Open();
+        Task OpenAsync(CancellationToken cancellationToken);
         void Upload(string localPath, string remotePath, bool overwrite, bool recursive);
         Task UploadAsync(string localPath, string remotePath, bool overwrite, bool recursive, CancellationToken cancellationToken);
     }

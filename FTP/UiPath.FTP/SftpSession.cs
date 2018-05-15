@@ -104,6 +104,36 @@ namespace UiPath.FTP
             return listing;
         }
 
+        private IEnumerable<FtpObjectInfo> GetRemoteListing(string remotePath, bool recursive)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
+            {
+                throw new ArgumentNullException(nameof(remotePath));
+            }
+
+            string initialWorkingDirectory = _sftpClient.WorkingDirectory;
+            _sftpClient.ChangeDirectory(remotePath);
+
+            SftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
+
+            List<FtpObjectInfo> listing = new List<FtpObjectInfo>();
+            IEnumerable<SftpFile> items = _sftpClient.ListDirectory(currentDirectory.FullName).Where(sf => sf.Name != "." && sf.Name != "..");
+
+            listing.AddRange(items.Select(sf => sf.ToFtpObjectInfo()));
+
+            if (recursive)
+            {
+                foreach (SftpFile directory in items.Where(i => i.IsDirectory))
+                {
+                    listing.AddRange(GetRemoteListing(directory.FullName, recursive));
+                }
+            }
+
+            _sftpClient.ChangeDirectory(initialWorkingDirectory);
+
+            return listing;
+        }
+
         private async Task<IEnumerable<Tuple<string, string>>> GetRemoteListingAsync(string remotePath, string localPath, bool recursive, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(remotePath))
@@ -147,10 +177,55 @@ namespace UiPath.FTP
             return listing;
         }
 
-        #region IFtpSession members
-        Task<bool> IFtpSession.IsConnectedAsync()
+        private async Task<IEnumerable<FtpObjectInfo>> GetRemoteListingAsync(string remotePath, bool recursive, CancellationToken cancellationToken)
         {
-            return Task.Run(() => _sftpClient.IsConnected);
+            if (string.IsNullOrWhiteSpace(remotePath))
+            {
+                throw new ArgumentNullException(nameof(remotePath));
+            }
+            if (cancellationToken == null)
+            {
+                throw new ArgumentNullException(nameof(cancellationToken));
+            }
+
+            string initialWorkingDirectory = _sftpClient.WorkingDirectory;
+            _sftpClient.ChangeDirectory(remotePath);
+
+            SftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
+
+            List<FtpObjectInfo> listing = new List<FtpObjectInfo>();
+            IEnumerable<SftpFile> items = await Task.Factory.FromAsync(_sftpClient.BeginListDirectory(currentDirectory.FullName, null, null), _sftpClient.EndListDirectory);
+            items = items.Where(sf => sf.Name != "." && sf.Name != "..");
+
+            listing.AddRange(items.Select(sf => sf.ToFtpObjectInfo()));
+
+            if (recursive)
+            {
+                foreach (SftpFile directory in items.Where(i => i.IsDirectory))
+                {
+                    listing.AddRange(await GetRemoteListingAsync(directory.FullName, recursive, cancellationToken));
+                }
+            }
+
+            _sftpClient.ChangeDirectory(initialWorkingDirectory);
+
+            return listing;
+        }
+
+        #region IFtpSession members
+        bool IFtpSession.IsConnected()
+        {
+            return _sftpClient.IsConnected;
+        }
+
+        Task<bool> IFtpSession.IsConnectedAsync(CancellationToken cancellationToken)
+        {
+            if (cancellationToken == null)
+            {
+                throw new ArgumentNullException(nameof(cancellationToken));
+            }
+
+            return Task.Run(() => _sftpClient.IsConnected, cancellationToken);
         }
 
         void IFtpSession.Open()
@@ -426,23 +501,7 @@ namespace UiPath.FTP
                 throw new ArgumentException(string.Format(Resources.PathNotFoundException, path), nameof(path));
             }
 
-            SftpFile objectInfo = _sftpClient.Get(path);
-
-            if (objectInfo.IsDirectory)
-            {
-                return FtpObjectType.Directory;
-            }
-            else
-            {
-                if (objectInfo.IsRegularFile)
-                {
-                    return FtpObjectType.File;
-                }
-                else
-                {
-                    throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
-                }
-            }
+            return _sftpClient.Get(path).GetFtpObjectType();
         }
 
         Task<FtpObjectType> IFtpSession.GetObjectTypeAsync(string path, CancellationToken cancellationToken)
@@ -461,23 +520,31 @@ namespace UiPath.FTP
                 throw new ArgumentException(string.Format(Resources.PathNotFoundException, path), nameof(path));
             }
 
-            SftpFile objectInfo = _sftpClient.Get(path);
+            return Task.Run(() => _sftpClient.Get(path).GetFtpObjectType(), cancellationToken);
+        }
 
-            if (objectInfo.IsDirectory)
+        IEnumerable<FtpObjectInfo> IFtpSession.EnumerateObjects(string remotePath, bool recursive)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
             {
-                return Task.FromResult(FtpObjectType.Directory);
+                throw new ArgumentNullException(nameof(remotePath));
             }
-            else
+
+            return GetRemoteListing(remotePath, recursive);
+        }
+
+        Task<IEnumerable<FtpObjectInfo>> IFtpSession.EnumerateObjectsAsync(string remotePath, bool recursive, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
             {
-                if (objectInfo.IsRegularFile)
-                {
-                    return Task.FromResult(FtpObjectType.File);
-                }
-                else
-                {
-                    throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
-                }
+                throw new ArgumentNullException(nameof(remotePath));
             }
+            if (cancellationToken == null)
+            {
+                throw new ArgumentNullException(nameof(cancellationToken));
+            }
+
+            return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
         }
 
         void IFtpSession.Upload(string localPath, string remotePath, bool overwrite, bool recursive)

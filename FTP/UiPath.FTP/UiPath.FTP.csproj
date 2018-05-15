@@ -55,8 +55,11 @@
     <Compile Include="..\FTPAssemblyInfo.cs">
       <Link>Properties\FTPAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="FtpConfiguration.cs" />
+    <Compile Include="FtpObjectInfo.cs" />
     <Compile Include="FtpObjectType.cs" />
+    <Compile Include="FtpPermissions.cs" />
     <Compile Include="FtpSession.cs" />
     <Compile Include="FtpsMode.cs" />
     <Compile Include="IFtpSession.cs" />
