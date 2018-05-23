@@ -6,6 +6,7 @@ using Google.Apis.Sheets.v4;
 using System.ComponentModel;
 using Google.Apis.Sheets.v4.Data;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace GoogleSpreadsheet.Activities
 {
@@ -19,10 +20,10 @@ namespace GoogleSpreadsheet.Activities
 
         [Category("Input")]
         public InArgument<string> Sheet { get; set; }
-        
+
         [Category("Options")]
         public bool IncludeHeaders { get; set; }
-        
+
         #endregion
 
         #region GoogleInteropActivity
@@ -48,7 +49,7 @@ namespace GoogleSpreadsheet.Activities
             {
                 SpreadsheetsResource.ValuesResource.GetRequest request =
                    sheetService.Spreadsheets.Values.Get(SpreadsheetId, rangeToPassToService);
-                
+
                 ValueRange response = request.Execute();
                 IList<IList<Object>> values = response.Values;
 
@@ -77,12 +78,12 @@ namespace GoogleSpreadsheet.Activities
         {
             int startIndex = includeHeaders ? 1 : 0;
 
-            for (int i=startIndex; i<values.Count; i++)
+            for (int i = startIndex; i < values.Count; i++)
             {
                 output.Rows.Add(((List<object>)values[i]).ToArray());
             }
         }
-        
+
         #endregion
 
         #region Helpers
@@ -94,13 +95,57 @@ namespace GoogleSpreadsheet.Activities
             var firstLetter = (int)rangeParts[0][0];
             var secondLetter = (int)rangeParts[1][0];
 
-            if (secondLetter < firstLetter)
+            /* if (secondLetter < firstLetter)
+             {
+                 throw new Exception("Invalid range specified.");
+             }*/
+
+
+            // Handle also columns after AA
+            Regex regexRange = new Regex(@"([A-Z]+)\d+");
+
+            Match match = regexRange.Match(rangeParts[0]);
+            string firstColName, secondColName;
+            int firstColNumber = 0, secondColNumber = 0;
+            if (match.Success)
+            {
+                firstColName = match.Groups[1].Value;
+                firstColNumber = letterToColumn(firstColName);
+            }
+            else
+            {
+                throw new Exception("Invalid range specified.");
+            }
+            Match match2 = regexRange.Match(rangeParts[1]);
+            if (match2.Success)
+            {
+                secondColName = match2.Groups[1].Value;
+                secondColNumber = letterToColumn(secondColName);
+            }
+            else
             {
                 throw new Exception("Invalid range specified.");
             }
 
-            return secondLetter - firstLetter + 1;
+            return secondColNumber - firstColNumber + 1;
+
+            //return secondLetter - firstLetter + 1;
         }
+
+
+        public static int letterToColumn(String letter)
+        {
+
+            var column = 0;
+            var length = letter.Length;
+            for (var i = 0; i < length; i++)
+            {
+                column += (letter.Substring(i, 1)[0] - 64) * (int)(Math.Pow(26, length - i - 1));
+            }
+
+            return column;
+        }
+
 
         private static string[] GetRangeParts(string range)
         {
