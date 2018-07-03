@@ -26,6 +26,8 @@ namespace GoogleSpreadsheet.Activities
 
         #endregion
 
+        public static Regex regexRange = new Regex(@"([A-Z]+)\d+", RegexOptions.Compiled);
+
         #region GoogleInteropActivity
 
         protected override Task<DataTable> ExecuteAsync(AsyncCodeActivityContext context, SheetsService sheetService)
@@ -100,9 +102,7 @@ namespace GoogleSpreadsheet.Activities
                  throw new Exception("Invalid range specified.");
              }*/
 
-
-            // Handle also columns after AA
-            Regex regexRange = new Regex(@"([A-Z]+)\d+");
+            
 
             Match match = regexRange.Match(rangeParts[0]);
             string firstColName, secondColName;
@@ -110,21 +110,21 @@ namespace GoogleSpreadsheet.Activities
             if (match.Success)
             {
                 firstColName = match.Groups[1].Value;
-                firstColNumber = letterToColumn(firstColName);
+                firstColNumber = LetterToColumn(firstColName);
             }
             else
             {
-                throw new Exception("Invalid range specified.");
+                throw new ArgumentException("Invalid range specified: expected upper case letter(s) followed by digits for the first part of the range");
             }
             Match match2 = regexRange.Match(rangeParts[1]);
             if (match2.Success)
             {
                 secondColName = match2.Groups[1].Value;
-                secondColNumber = letterToColumn(secondColName);
+                secondColNumber = LetterToColumn(secondColName);
             }
             else
             {
-                throw new Exception("Invalid range specified.");
+                throw new ArgumentException("Invalid range specified: expected upper case letter(s) followed by digits for the second part of the range");
             }
 
             return secondColNumber - firstColNumber + 1;
@@ -133,7 +133,7 @@ namespace GoogleSpreadsheet.Activities
         }
 
 
-        public static int letterToColumn(String letter)
+        public static int LetterToColumn(String letter)
         {
 
             var column = 0;
