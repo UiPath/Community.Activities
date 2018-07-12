@@ -55,7 +55,9 @@ namespace GoogleSpreadsheet.Activities
                 
                 SpreadsheetsResource.ValuesResource.UpdateRequest request =
                    sheetService.Spreadsheets.Values.Update(requestBody, SpreadsheetId, cellToPassToService);
-                request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
+
+                //request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
+                request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
 
                 var response = request.Execute();
                 
