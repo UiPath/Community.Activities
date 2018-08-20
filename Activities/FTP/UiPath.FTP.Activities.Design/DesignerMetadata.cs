@@ -24,6 +24,8 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(UploadFiles), new CategoryAttribute(Resources.FTPActivitiesCategory));
             builder.AddCustomAttributes(typeof(WithFtpSession), new CategoryAttribute(Resources.FTPActivitiesCategory));
 
+            builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.UseAnonymousLogin), new DescriptionAttribute(Resources.UseAnonymousLoginDescription));
+
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }
     }
