@@ -441,9 +441,16 @@ namespace UiPath.FTP
             {
                 if (objectType == FtpObjectType.File)
                 {
-                    if (File.Exists(localPath) && !overwrite)
+                    if (File.Exists(localPath))
                     {
-                        throw new IOException(Resources.FileExistsException);
+                        if (overwrite)
+                        {
+                            File.Delete(localPath);
+                        }
+                        else
+                        {
+                            throw new IOException(Resources.FileExistsException);
+                        }
                     }
 
                     using (Stream fileStream = File.OpenWrite(localPath))
