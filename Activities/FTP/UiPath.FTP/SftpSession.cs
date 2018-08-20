@@ -212,6 +212,52 @@ namespace UiPath.FTP
             return listing;
         }
 
+        private IEnumerable<string> GetMissingDirectories(string remotePath)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
+            {
+                throw new ArgumentNullException(nameof(remotePath));
+            }
+            List<string> missingDirectories = new List<string>();
+            // TODO: We really need to find a better alternative to custom code for unix path handling.
+            const char separator = '/';
+            string currentPath = remotePath.StartsWith(separator.ToString()) ? separator.ToString() : string.Empty;
+            foreach (string directory in remotePath.Trim(separator).Split(separator))
+            {
+                currentPath += directory + separator;
+                if (!((IFtpSession)this).DirectoryExists(currentPath))
+                {
+                    missingDirectories.Add(currentPath);
+                }
+            }
+            return missingDirectories;
+        }
+
+        private async Task<IEnumerable<string>> GetMissingDirectoriesAsync(string remotePath, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
+            {
+                throw new ArgumentNullException(nameof(remotePath));
+            }
+            if (cancellationToken == null)
+            {
+                throw new ArgumentNullException(nameof(cancellationToken));
+            }
+            List<string> missingDirectories = new List<string>();
+            // TODO: We really need to find a better alternative to custom code for unix path handling.
+            const char separator = '/';
+            string currentPath = remotePath.StartsWith(separator.ToString()) ? separator.ToString() : string.Empty;
+            foreach (string directory in remotePath.Trim(separator).Split(separator))
+            {
+                currentPath += directory + separator;
+                if (!await ((IFtpSession)this).DirectoryExistsAsync(currentPath, cancellationToken))
+                {
+                    missingDirectories.Add(currentPath);
+                }
+            }
+            return missingDirectories;
+        }
+
         #region IFtpSession members
         bool IFtpSession.IsConnected()
         {
@@ -273,10 +319,13 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            _sftpClient.CreateDirectory(path);
+            foreach (string directory in GetMissingDirectories(path))
+            {
+                _sftpClient.CreateDirectory(directory);
+            }
         }
 
-        Task IFtpSession.CreateDirectoryAsync(string path, CancellationToken cancellationToken)
+        async Task IFtpSession.CreateDirectoryAsync(string path, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -287,7 +336,10 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(cancellationToken));
             }
 
-            return Task.Run(() => _sftpClient.CreateDirectory(path), cancellationToken);
+            foreach (string directory in await GetMissingDirectoriesAsync(path, cancellationToken))
+            {
+                await Task.Run(() => _sftpClient.CreateDirectory(directory), cancellationToken);
+            }
         }
 
         void IFtpSession.Delete(string path)

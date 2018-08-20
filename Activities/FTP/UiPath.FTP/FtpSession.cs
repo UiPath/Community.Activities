@@ -75,7 +75,7 @@ namespace UiPath.FTP
         {
             Trace.TraceInformation("Validating server certificate.");
 
-            e.Accept = acceptAllCertificates ? true : e.PolicyErrors == SslPolicyErrors.None;
+            e.Accept = acceptAllCertificates || e.PolicyErrors == SslPolicyErrors.None;
 
             // Only for development purposes.
             //if (e.Accept == false && e.Chain.ChainStatus.Length == 1 && e.Chain.ChainStatus[0].Status == X509ChainStatusFlags.RevocationStatusUnknown)
