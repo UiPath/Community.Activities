@@ -94,6 +94,11 @@ namespace UiPath.FTP.Activities
             {
                 ftpConfiguration.Username = Username.Get(context);
                 ftpConfiguration.Password = Password.Get(context);
+
+                if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
+                {
+                    throw new InvalidOperationException(Resources.EmptyUsernameException);
+                }
             }
 
             if (UseSftp)

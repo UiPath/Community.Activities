@@ -207,4 +207,7 @@
   <data name="Files" xml:space="preserve">
     <value>Files</value>
   </data>
+  <data name="EmptyUsernameException" xml:space="preserve">
+    <value>Username cannot be empty.</value>
+  </data>
 </root>
