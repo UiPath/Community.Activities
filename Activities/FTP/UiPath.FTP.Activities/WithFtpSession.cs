@@ -97,7 +97,7 @@ namespace UiPath.FTP.Activities
 
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
                 {
-                    throw new InvalidOperationException(Resources.EmptyUsernameException);
+                    throw new ArgumentNullException(Resources.EmptyUsernameException);
                 }
             }
 
