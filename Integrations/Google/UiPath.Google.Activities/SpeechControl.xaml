@@ -1,0 +1,17 @@
+﻿<Window x:Class="UiPath.Google.Activities.SpeechControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Height="150" Width="300" WindowStartupLocation="CenterScreen" Title="Speech Recognition" Cursor="AppStarting">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+
+        <Button Name="startButton" Grid.Row="1" Grid.Column="0" Width="100" Height="40" DockPanel.Dock="Left" Click="Button_Click">Start</Button>
+        <Button Name="stopButton" x:FieldModifier="public" Grid.Row="1" Grid.Column="1" Width="100" Height="40" DockPanel.Dock="Right" Click="Button_Click_1">Stop</Button>
+    </Grid>
+
+</Window>
