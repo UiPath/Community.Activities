@@ -56,7 +56,7 @@ Write-Host \"##vso[build.updatebuildnumber]$version\""
   displayName: "Set 'PackagesToPack' variable"
   inputs:
     scriptType: "inlineScript"
-    inlineScript: "$files = Get-ChildItem *.nuspec -Recurse | foreach {$_.Name -replace '.nuspec','.csproj'} \n
+    inlineScript: "$files = Get-ChildItem \"$($ENV:BUILD_SOURCESDIRECTORY)\\Activities\\*.nuspec\" -Recurse | foreach {$_.Name -replace '.nuspec','.csproj'} \n
     $pattern = '' \n
     ForEach($file in $files) { $pattern+=\"**\\$file;\" } \n
    Write-Host \"##vso[task.setvariable variable=PackagesToPack;]$pattern\" "
