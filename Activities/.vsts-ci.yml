@@ -5,7 +5,7 @@ queue:
     - vstest
 
 variables:
-  Solution: "Community.Activities.sln"
+  Solution: "$(Build.SourcesDirectory)/Activities/Community.Activities.sln"
   BuildConfiguration: "Release"
   BuildPlatform: "Any CPU"
 
@@ -34,7 +34,7 @@ Write-Host \"##vso[build.updatebuildnumber]$version\""
   inputs:
     restoreSolution: "$(Solution)"
     feedsToUse: "config"
-    nugetConfigPath: ".nuget/NuGet.Config"
+    nugetConfigPath: "$(Build.SourcesDirectory)/Activities/.nuget/NuGet.Config"
 
 - task: VSBuild@1
   displayName: "Build Solution"
@@ -56,7 +56,7 @@ Write-Host \"##vso[build.updatebuildnumber]$version\""
   displayName: "Set 'PackagesToPack' variable"
   inputs:
     scriptType: "inlineScript"
-    inlineScript: "$files = Get-ChildItem *.nuspec -Recurse | foreach {$_.Name -replace '.nuspec','.csproj'} \n
+    inlineScript: "$files = Get-ChildItem \"$($ENV:BUILD_SOURCESDIRECTORY)\\Activities\\*.nuspec\" -Recurse | foreach {$_.Name -replace '.nuspec','.csproj'} \n
     $pattern = '' \n
     ForEach($file in $files) { $pattern+=\"**\\$file;\" } \n
    Write-Host \"##vso[task.setvariable variable=PackagesToPack;]$pattern\" "
@@ -68,13 +68,13 @@ Write-Host \"##vso[build.updatebuildnumber]$version\""
     packagesToPack: "$(PackagesToPack)"
     versioningScheme: "byBuildNumber"
     includeSymbols: "true"
-    outputDir: "$(ArtifactsOutputPath)"
+    outputDir: "$(Build.ArtifactStagingDirectory)"
     configurationToPack: "$(BuildConfiguration)"
     includeReferencedProjects: "true"
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish symbols"
   inputs:
-    PathtoPublish: '$(ArtifactsOutputPath)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Setup'
     ArtifactType: 'Container'
