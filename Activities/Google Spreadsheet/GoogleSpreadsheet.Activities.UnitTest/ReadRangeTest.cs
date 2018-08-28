@@ -37,5 +37,24 @@ namespace GoogleSpreadSheetUnitTests
             Assert.AreEqual(4, numberOfRows);
         }
 
+        [TestMethod]
+        public void GetNumberOfColumnsFromRangeAfterColumnZTest1()
+        {
+            var range = "A3:AD7";
+
+            var numberOfColumns = ReadRange.GetNumberOfColumnsFromRange(range);
+
+            Assert.AreEqual(30, numberOfColumns);
+        }
+
+        [TestMethod]
+        public void GetNumberOfColumnsFromRangeAfterColumnZTest2()
+        {
+            var range = "Z3:AF7";
+
+            var numberOfColumns = ReadRange.GetNumberOfColumnsFromRange(range);
+
+            Assert.AreEqual(7, numberOfColumns);
+        }
     }
 }
