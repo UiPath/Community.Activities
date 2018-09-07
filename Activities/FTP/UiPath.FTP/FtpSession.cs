@@ -193,10 +193,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(localPath));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -233,10 +229,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(remotePath));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             string initialWorkingDirectory = _ftpClient.GetWorkingDirectory();
             _ftpClient.SetWorkingDirectory(remotePath);
@@ -269,11 +261,6 @@ namespace UiPath.FTP
 
         Task<bool> IFtpSession.IsConnectedAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             return Task.Run(() => _ftpClient.IsConnected, cancellationToken);
         }
 
@@ -286,11 +273,6 @@ namespace UiPath.FTP
 
         Task IFtpSession.OpenAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             Trace.TraceInformation("Attempting to asynchronously open an FTP connection.");
 
             // TODO: Should we check for cancellation here?
@@ -306,11 +288,6 @@ namespace UiPath.FTP
 
         Task IFtpSession.CloseAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             Trace.TraceInformation("Attempting to asynchronously close an FTP connection.");
 
             // TODO: Should we check for cancellation here?
@@ -332,10 +309,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             // TODO: Should we check for cancellation here?
@@ -368,10 +341,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(path));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             switch (await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken))
             {
@@ -401,10 +370,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             // TODO: Should we check for cancellation here?
@@ -460,10 +425,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(localPath));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             FtpObjectType objectType = await ((IFtpSession)this).GetObjectTypeAsync(remotePath, cancellationToken);
             if (objectType == FtpObjectType.Directory)
@@ -511,10 +472,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(path));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             // TODO: Should we check for cancellation here?
             return _ftpClient.FileExistsAsync(path);
@@ -561,10 +518,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(path));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             FtpObjectType objectType = FtpObjectType.File;
             FtpListItem objectInfo = await _ftpClient.GetObjectInfoAsync(path);
@@ -609,10 +562,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(remotePath))
             {
                 throw new ArgumentNullException(nameof(remotePath));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
@@ -665,10 +614,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(remotePath))
             {
                 throw new ArgumentNullException(nameof(remotePath));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             if (Directory.Exists(localPath))
