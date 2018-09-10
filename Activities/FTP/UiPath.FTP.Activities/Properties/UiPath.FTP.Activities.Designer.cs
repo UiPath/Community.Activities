@@ -115,6 +115,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username cannot be empty..
+        /// </summary>
+        internal static string EmptyUsernameException {
+            get {
+                return ResourceManager.GetString("EmptyUsernameException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exists.
         /// </summary>
         internal static string Exists {

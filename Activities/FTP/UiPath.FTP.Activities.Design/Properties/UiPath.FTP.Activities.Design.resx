@@ -120,4 +120,7 @@
   <data name="FTPActivitiesCategory" xml:space="preserve">
     <value>App Integration.FTP</value>
   </data>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.</value>
+  </data>
 </root>

@@ -144,10 +144,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(localPath));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -183,10 +179,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(remotePath));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             string initialWorkingDirectory = _sftpClient.WorkingDirectory;
             _sftpClient.ChangeDirectory(remotePath);
@@ -212,6 +204,49 @@ namespace UiPath.FTP
             return listing;
         }
 
+        private IEnumerable<string> GetMissingDirectories(string remotePath)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
+            {
+                throw new ArgumentNullException(nameof(remotePath));
+            }
+            List<string> missingDirectories = new List<string>();
+            // TODO: We really need to find a better alternative to custom code for unix path handling.
+            const char separator = '/';
+            string currentPath = remotePath.StartsWith(separator.ToString()) ? separator.ToString() : string.Empty;
+            foreach (string directory in remotePath.Trim(separator).Split(separator))
+            {
+                currentPath += directory + separator;
+                if (!((IFtpSession)this).DirectoryExists(currentPath))
+                {
+                    missingDirectories.Add(currentPath);
+                }
+            }
+            return missingDirectories;
+        }
+
+        private async Task<IEnumerable<string>> GetMissingDirectoriesAsync(string remotePath, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
+            {
+                throw new ArgumentNullException(nameof(remotePath));
+            }
+
+            List<string> missingDirectories = new List<string>();
+            // TODO: We really need to find a better alternative to custom code for unix path handling.
+            const char separator = '/';
+            string currentPath = remotePath.StartsWith(separator.ToString()) ? separator.ToString() : string.Empty;
+            foreach (string directory in remotePath.Trim(separator).Split(separator))
+            {
+                currentPath += directory + separator;
+                if (!await ((IFtpSession)this).DirectoryExistsAsync(currentPath, cancellationToken))
+                {
+                    missingDirectories.Add(currentPath);
+                }
+            }
+            return missingDirectories;
+        }
+
         #region IFtpSession members
         bool IFtpSession.IsConnected()
         {
@@ -220,11 +255,6 @@ namespace UiPath.FTP
 
         Task<bool> IFtpSession.IsConnectedAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             return Task.Run(() => _sftpClient.IsConnected, cancellationToken);
         }
 
@@ -237,11 +267,6 @@ namespace UiPath.FTP
 
         Task IFtpSession.OpenAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             Trace.TraceInformation("Attempting to asynchronously open an SFTP connection.");
 
             return Task.Run(() => _sftpClient.Connect(), cancellationToken);
@@ -256,11 +281,6 @@ namespace UiPath.FTP
 
         Task IFtpSession.CloseAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             Trace.TraceInformation("Attempting to asynchronously close an SFTP connection.");
 
             return Task.Run(() => _sftpClient.Disconnect(), cancellationToken);
@@ -273,21 +293,23 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            _sftpClient.CreateDirectory(path);
+            foreach (string directory in GetMissingDirectories(path))
+            {
+                _sftpClient.CreateDirectory(directory);
+            }
         }
 
-        Task IFtpSession.CreateDirectoryAsync(string path, CancellationToken cancellationToken)
+        async Task IFtpSession.CreateDirectoryAsync(string path, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
-            return Task.Run(() => _sftpClient.CreateDirectory(path), cancellationToken);
+            foreach (string directory in await GetMissingDirectoriesAsync(path, cancellationToken))
+            {
+                await Task.Run(() => _sftpClient.CreateDirectory(directory), cancellationToken);
+            }
         }
 
         void IFtpSession.Delete(string path)
@@ -305,10 +327,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             return Task.Run(() => _sftpClient.Delete(path), cancellationToken);
@@ -329,10 +347,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             if (_sftpClient.Exists(path))
@@ -406,10 +420,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(localPath));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
             if (objectType == FtpObjectType.Directory)
@@ -441,9 +451,16 @@ namespace UiPath.FTP
             {
                 if (objectType == FtpObjectType.File)
                 {
-                    if (File.Exists(localPath) && !overwrite)
+                    if (File.Exists(localPath))
                     {
-                        throw new IOException(Resources.FileExistsException);
+                        if (overwrite)
+                        {
+                            File.Delete(localPath);
+                        }
+                        else
+                        {
+                            throw new IOException(Resources.FileExistsException);
+                        }
                     }
 
                     using (Stream fileStream = File.OpenWrite(localPath))
@@ -473,10 +490,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             if (_sftpClient.Exists(path))
@@ -510,10 +523,6 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(nameof(path));
             }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
 
             if (!_sftpClient.Exists(path))
             {
@@ -538,10 +547,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(remotePath))
             {
                 throw new ArgumentNullException(nameof(remotePath));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
@@ -606,10 +611,6 @@ namespace UiPath.FTP
             if (string.IsNullOrWhiteSpace(remotePath))
             {
                 throw new ArgumentNullException(nameof(remotePath));
-            }
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
             }
 
             if (Directory.Exists(localPath))

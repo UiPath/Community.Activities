@@ -68,5 +68,14 @@ namespace UiPath.FTP.Activities.Design.Properties {
                 return ResourceManager.GetString("FTPActivitiesCategory", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
+        /// </summary>
+        internal static string UseAnonymousLoginDescription {
+            get {
+                return ResourceManager.GetString("UseAnonymousLoginDescription", resourceCulture);
+            }
+        }
     }
 }
