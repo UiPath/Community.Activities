@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FUiPath%2FCommunity.Activities.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FUiPath%2FCommunity.Activities?ref=badge_shield)
+
 Guidelines for contribuing to this repository
 ================
 
@@ -78,3 +80,7 @@ As with type 2 changes, these require judgment: what is reasonable and what’s 
 * If you're not sure in which bucket applies to a given change, contact us as well.
 * It doesn't matter if the old behavior is "wrong", we still need to think through the implications.
 * If a change is deemed too breaking, we can help identify alternatives such as introducing a new API and obsoleting the old one.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FUiPath%2FCommunity.Activities.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FUiPath%2FCommunity.Activities?ref=badge_large)
