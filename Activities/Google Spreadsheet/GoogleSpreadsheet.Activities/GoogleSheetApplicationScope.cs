@@ -14,17 +14,25 @@ namespace GoogleSpreadsheet.Activities
         [Browsable(false)]
         public ActivityAction<GoogleSheetProperty> Body { get; set; }
         
-        [Category("Authentication")]
+        [Category("Service Account Authentication")]
         [RequiredArgument]
+        [OverloadGroup("Service Account Authentication")]
         public InArgument<string> ServiceAccountEmail { get; set; } 
 
-        [Category("Authentication")]
+        [Category("Service Account Authentication")]
         [RequiredArgument]
+        [OverloadGroup("Service Account Authentication")]
         public InArgument<string> KeyPath { get; set; } 
 
-        [Category("Authentication")]
+        [Category("Service Account Authentication")]
         [RequiredArgument]
-        public InArgument<string> Password { get; set; } 
+        [OverloadGroup("Service Account Authentication")]
+        public InArgument<string> Password { get; set; }
+
+        [Category("Key Authentication")]
+        [RequiredArgument]
+        [OverloadGroup("Key Authentication")]
+        public InArgument<string> ApiKey { get; set; }
 
         [Category("Input")]
         [RequiredArgument]
@@ -46,27 +54,10 @@ namespace GoogleSpreadsheet.Activities
             string serviceAccountEmail = ServiceAccountEmail.Get(context);
             string keyPath = KeyPath.Get(context);
             string password = Password.Get(context);
-            
-            var certificate = new X509Certificate2(@keyPath, password, X509KeyStorageFlags.Exportable);
+            string apiKey = ApiKey.Get(context);
+            string spreadsheetId = SpreadsheetId.Get(context);
 
-            ServiceAccountCredential credential = new ServiceAccountCredential(
-               new ServiceAccountCredential.Initializer(serviceAccountEmail)
-               {
-                   Scopes = new[] { SheetsService.Scope.Spreadsheets }
-               }.FromCertificate(certificate));
-
-            // Create the service.
-            var sheetService = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "UiPath Robot",
-            });
-
-            var googleSheetProperty = new GoogleSheetProperty()
-            {
-                SheetsService = sheetService,
-                SpreadsheetId = SpreadsheetId.Get(context)
-            };
+            var googleSheetProperty = string.IsNullOrEmpty(apiKey) ? new GoogleSheetProperty(keyPath, password, serviceAccountEmail, spreadsheetId) : new GoogleSheetProperty(apiKey, spreadsheetId) ;
 
             if (Body != null)
             {
@@ -88,6 +79,42 @@ namespace GoogleSpreadsheet.Activities
     public class GoogleSheetProperty
     {
         public SheetsService SheetsService { get; set; }
+
+        public GoogleSheetProperty() {
+
+        }
+
+        public GoogleSheetProperty(string keyPath, string password, string serviceAccountEmail, string spreadsheetId)
+        {
+            SpreadsheetId = spreadsheetId;
+
+            var certificate = new X509Certificate2(keyPath, password, X509KeyStorageFlags.Exportable);
+
+            ServiceAccountCredential credential = new ServiceAccountCredential(
+               new ServiceAccountCredential.Initializer(serviceAccountEmail)
+               {
+                   Scopes = new[] { SheetsService.Scope.Spreadsheets }
+               }.FromCertificate(certificate));
+
+            // Create the service.
+            SheetsService = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "UiPath Robot",
+            });
+        }
+
+        public GoogleSheetProperty(string apiKey, string spreadsheetId)
+        {
+            SpreadsheetId = spreadsheetId;
+
+            // Create the service.
+            SheetsService = new SheetsService(new BaseClientService.Initializer()
+            {
+                ApiKey = apiKey,
+                ApplicationName = "UiPath Robot",
+            });
+        }
 
         public string SpreadsheetId { get; set; }
     }
