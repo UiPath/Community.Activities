@@ -1,10 +1,6 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.Sheets.v4;
-using System;
+﻿using System;
 using System.Activities;
 using System.ComponentModel;
-using System.Security.Cryptography.X509Certificates;
 using System.Activities.Statements;
 
 namespace GoogleSpreadsheet.Activities
@@ -13,35 +9,68 @@ namespace GoogleSpreadsheet.Activities
     {
         [Browsable(false)]
         public ActivityAction<GoogleSheetProperty> Body { get; set; }
-        
-        [Category("Service Account Authentication")]
-        [RequiredArgument]
-        [OverloadGroup("Service Account Authentication")]
-        public InArgument<string> ServiceAccountEmail { get; set; } 
 
         [Category("Service Account Authentication")]
-        [RequiredArgument]
-        [OverloadGroup("Service Account Authentication")]
-        public InArgument<string> KeyPath { get; set; } 
+        public InArgument<string> ServiceAccountEmail { get; set; }
 
         [Category("Service Account Authentication")]
-        [RequiredArgument]
-        [OverloadGroup("Service Account Authentication")]
+        public InArgument<string> KeyPath { get; set; }
+
+        [Category("Service Account Authentication")]
         public InArgument<string> Password { get; set; }
 
+        [Category("User Account Authentication")]
+        public InArgument<string> CredentialID { get; set; }
+
+        [Category("User Account Authentication")]
+        public InArgument<string> CredentialSecret { get; set; }
+
         [Category("Key Authentication")]
-        [RequiredArgument]
-        [OverloadGroup("Key Authentication")]
         public InArgument<string> ApiKey { get; set; }
 
         [Category("Input")]
         [RequiredArgument]
         public InArgument<string> SpreadsheetId { get; set; }
 
+        [Category("Input")]
+        public GoogleAuthenticationType AuthenticationType { get; set; }
+
         internal static string GoogleSheetPropertyTag { get { return "GoogleSheetScope"; } }
-        
+
+        protected override void CacheMetadata(NativeActivityMetadata metadata)
+        {
+            base.CacheMetadata(metadata);
+            switch (AuthenticationType)
+            {
+                case GoogleAuthenticationType.Select:
+                    metadata.AddValidationError("Please select an authentication type and fill in the appropriate fields");
+                    break;
+                case GoogleAuthenticationType.Token:
+                    if (ApiKey == null)
+                    {
+                        metadata.AddValidationError("Please input API key field");
+                    }
+                    break;
+                case GoogleAuthenticationType.OAuth2_User:
+                    if (CredentialID == null || CredentialSecret == null)
+                    {
+                        metadata.AddValidationError("Please fill in CredentialId and CredentialSecret");
+                    }
+                    break;
+                case GoogleAuthenticationType.OAuth2_ServiceAccount:
+                    if (ServiceAccountEmail == null || KeyPath == null || Password == null)
+                    {
+                        metadata.AddValidationError("Please provide ServiceAccountEmail, json/p12 file path and password");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public GoogleSheetApplicationScope()
         {
+            AuthenticationType = 0;
             Body = new ActivityAction<GoogleSheetProperty>
             {
                 Argument = new DelegateInArgument<GoogleSheetProperty>(GoogleSheetPropertyTag),
@@ -51,13 +80,31 @@ namespace GoogleSpreadsheet.Activities
 
         protected override void Execute(NativeActivityContext context)
         {
-            string serviceAccountEmail = ServiceAccountEmail.Get(context);
-            string keyPath = KeyPath.Get(context);
-            string password = Password.Get(context);
-            string apiKey = ApiKey.Get(context);
-            string spreadsheetId = SpreadsheetId.Get(context);
 
-            var googleSheetProperty = string.IsNullOrEmpty(apiKey) ? new GoogleSheetProperty(keyPath, password, serviceAccountEmail, spreadsheetId) : new GoogleSheetProperty(apiKey, spreadsheetId) ;
+            string spreadsheetId = SpreadsheetId.Get(context);
+            GoogleSheetProperty googleSheetProperty;
+
+            switch (AuthenticationType)
+            {
+                case GoogleAuthenticationType.Token:
+                    string apiKey = ApiKey.Get(context);
+                    googleSheetProperty = new GoogleSheetProperty(apiKey, spreadsheetId);
+                    break;
+                case GoogleAuthenticationType.OAuth2_User:
+                    string credentialID = CredentialID.Get(context);
+                    string credentialSecret = CredentialSecret.Get(context);
+                    googleSheetProperty = new GoogleSheetProperty(credentialID, credentialSecret, spreadsheetId);
+                    break;
+                case GoogleAuthenticationType.OAuth2_ServiceAccount:
+                    string serviceAccountEmail = ServiceAccountEmail.Get(context);
+                    string keyPath = KeyPath.Get(context);
+                    string password = Password.Get(context);
+                    googleSheetProperty = new GoogleSheetProperty(keyPath, password, serviceAccountEmail, spreadsheetId);
+                    break;
+                default:
+                    googleSheetProperty = new GoogleSheetProperty();
+                    break;
+            }
 
             if (Body != null)
             {
@@ -76,46 +123,5 @@ namespace GoogleSpreadsheet.Activities
         }
     }
 
-    public class GoogleSheetProperty
-    {
-        public SheetsService SheetsService { get; set; }
 
-        public GoogleSheetProperty() {
-
-        }
-
-        public GoogleSheetProperty(string keyPath, string password, string serviceAccountEmail, string spreadsheetId)
-        {
-            SpreadsheetId = spreadsheetId;
-
-            var certificate = new X509Certificate2(keyPath, password, X509KeyStorageFlags.Exportable);
-
-            ServiceAccountCredential credential = new ServiceAccountCredential(
-               new ServiceAccountCredential.Initializer(serviceAccountEmail)
-               {
-                   Scopes = new[] { SheetsService.Scope.Spreadsheets }
-               }.FromCertificate(certificate));
-
-            // Create the service.
-            SheetsService = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "UiPath Robot",
-            });
-        }
-
-        public GoogleSheetProperty(string apiKey, string spreadsheetId)
-        {
-            SpreadsheetId = spreadsheetId;
-
-            // Create the service.
-            SheetsService = new SheetsService(new BaseClientService.Initializer()
-            {
-                ApiKey = apiKey,
-                ApplicationName = "UiPath Robot",
-            });
-        }
-
-        public string SpreadsheetId { get; set; }
-    }
 }

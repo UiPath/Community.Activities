@@ -1,9 +1,6 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Services;
-using Google.Apis.Sheets.v4;
+﻿using Google.Apis.Sheets.v4;
 using System;
 using System.Activities;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace GoogleSpreadsheet.Activities
