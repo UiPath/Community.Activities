@@ -5,38 +5,83 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Threading;
 using Google.Apis.Util.Store;
+using System;
 
 namespace GoogleSpreadsheet
 {
     public enum GoogleAuthenticationType
     {
         Select,
-        Token,
-        OAuth2_User,
-        OAuth2_ServiceAccount
+        ApiKey,
+        OAuth2User,
+        OAuth2ServiceAccount
     }
 
     public class GoogleSheetProperty
     {
+        #region public members
         public SheetsService SheetsService { get; set; }
         public string SpreadsheetId { get; set; }
+        #endregion
 
+        #region public methods
+        // Method for constructing token
+        public static GoogleSheetProperty Create(string apiKey, string spreadsheetId)
+        {
+            var ret = new GoogleSheetProperty(spreadsheetId);
+            return ret.InitializeApiKey(apiKey);
+        }
+
+        // Method for constructing OAuth2 User account
+        public static Task<GoogleSheetProperty> Create(string clientID, string clientSecret, string spreadsheetId)
+        {
+            var ret = new GoogleSheetProperty(spreadsheetId);
+            return ret.InitializeUserCredential(clientID, clientSecret);
+        }
+
+        // Method for constructing OAuth2 Service account
+        public static GoogleSheetProperty Create(string keyPath, string password, string serviceAccountEmail, string spreadsheetId)
+        {
+            var ret = new GoogleSheetProperty(spreadsheetId);
+            return ret.InitializeServiceAccount(keyPath, password, serviceAccountEmail);
+        }
+        #endregion
+        #region private members
         private const string applicationName = "UiPath Robot";
         private const string tokenStoragePath = "Datastore.GoogleSpreadsheet";
+        private ICredential credential;
 
-        public GoogleSheetProperty()
-        {
-
-        }
-
-        // Constructor for OAuth2 user account
-        public GoogleSheetProperty(string clientID, string clientSecret, string spreadsheetId)
+        #endregion
+        #region private methods
+        private GoogleSheetProperty(string spreadsheetId)
         {
             SpreadsheetId = spreadsheetId;
+        }
 
-            UserCredential credential = AuthorizeUserCredential(clientID, clientSecret, new[] { SheetsService.Scope.Spreadsheets }, tokenStoragePath).Result;
+        private async Task<GoogleSheetProperty> InitializeUserCredential(string clientID, string clientSecret)
+        {
+            credential = await AuthorizeUserCredential(clientID, clientSecret, new[] { SheetsService.Scope.Spreadsheets }, tokenStoragePath, CancellationToken.None);
+            await RefreshLocalToken((UserCredential)credential, CancellationToken.None);
+            CreateService();
+            return this;
+        }
 
-            // Create the service.
+        private GoogleSheetProperty InitializeServiceAccount(string keyPath, string password, string serviceAccountEmail)
+        {
+            credential = AuthorizeServiceAccountCredential(keyPath, password, serviceAccountEmail, new[] { SheetsService.Scope.Spreadsheets });
+            CreateService();
+            return this;
+        }
+
+        private GoogleSheetProperty InitializeApiKey(string apiKey)
+        {
+            CreateService(apiKey);
+            return this;
+        }
+
+        private void CreateService ()
+        {
+            // Create the service using the credentials obtained.
             SheetsService = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
@@ -44,27 +89,9 @@ namespace GoogleSpreadsheet
             });
         }
 
-        // Constructor for OAuth2 service account
-        public GoogleSheetProperty(string keyPath, string password, string serviceAccountEmail, string spreadsheetId)
+        private void CreateService(string apiKey)
         {
-            SpreadsheetId = spreadsheetId;
-
-            ServiceAccountCredential credential = AuthorizeServiceAccountCredential(keyPath, password, serviceAccountEmail, new[] { SheetsService.Scope.Spreadsheets });
-
-            // Create the service.
-            SheetsService = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = applicationName,
-            });
-        }
-
-        // Constructor for Token authentication
-        public GoogleSheetProperty(string apiKey, string spreadsheetId)
-        {
-            SpreadsheetId = spreadsheetId;
-
-            // Create the service.
+            // Create the service using a provided api key.
             SheetsService = new SheetsService(new BaseClientService.Initializer()
             {
                 ApiKey = apiKey,
@@ -72,7 +99,19 @@ namespace GoogleSpreadsheet
             });
         }
 
-        private async Task<UserCredential> AuthorizeUserCredential(string clientID, string clientSecret, string[] scopes, string fileDataStorePath)
+        private async Task<bool> RefreshLocalToken(UserCredential credential, CancellationToken cancellationToken)
+        {
+            if (credential.Token.IsExpired(credential.Flow.Clock))
+            {
+                return await credential.RefreshTokenAsync(cancellationToken);
+            }
+            else
+            {
+                return await Task.FromResult(true);
+            }
+        }
+
+        private async Task<UserCredential> AuthorizeUserCredential(string clientID, string clientSecret, string[] scopes, string fileDataStorePath, CancellationToken cancellationToken)
         {
             return await GoogleWebAuthorizationBroker.AuthorizeAsync(
                 new ClientSecrets
@@ -82,7 +121,7 @@ namespace GoogleSpreadsheet
                 },
                 scopes,
                 "user",
-                CancellationToken.None,
+                cancellationToken,
                 new FileDataStore(fileDataStorePath));
         }
 
@@ -98,6 +137,6 @@ namespace GoogleSpreadsheet
 
             return credential;
         }
-
+        #endregion
     }
 }

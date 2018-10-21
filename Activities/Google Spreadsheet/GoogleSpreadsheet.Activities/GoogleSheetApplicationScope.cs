@@ -2,6 +2,7 @@
 using System.Activities;
 using System.ComponentModel;
 using System.Activities.Statements;
+using System.Threading.Tasks;
 
 namespace GoogleSpreadsheet.Activities
 {
@@ -45,19 +46,19 @@ namespace GoogleSpreadsheet.Activities
                 case GoogleAuthenticationType.Select:
                     metadata.AddValidationError("Please select an authentication type and fill in the appropriate fields");
                     break;
-                case GoogleAuthenticationType.Token:
+                case GoogleAuthenticationType.ApiKey:
                     if (ApiKey == null)
                     {
                         metadata.AddValidationError("Please input API key field");
                     }
                     break;
-                case GoogleAuthenticationType.OAuth2_User:
+                case GoogleAuthenticationType.OAuth2User:
                     if (CredentialID == null || CredentialSecret == null)
                     {
                         metadata.AddValidationError("Please fill in CredentialId and CredentialSecret");
                     }
                     break;
-                case GoogleAuthenticationType.OAuth2_ServiceAccount:
+                case GoogleAuthenticationType.OAuth2ServiceAccount:
                     if (ServiceAccountEmail == null || KeyPath == null || Password == null)
                     {
                         metadata.AddValidationError("Please provide ServiceAccountEmail, json/p12 file path and password");
@@ -86,23 +87,26 @@ namespace GoogleSpreadsheet.Activities
 
             switch (AuthenticationType)
             {
-                case GoogleAuthenticationType.Token:
+                case GoogleAuthenticationType.ApiKey:
                     string apiKey = ApiKey.Get(context);
-                    googleSheetProperty = new GoogleSheetProperty(apiKey, spreadsheetId);
+                    googleSheetProperty = GoogleSheetProperty.Create(apiKey, spreadsheetId);
                     break;
-                case GoogleAuthenticationType.OAuth2_User:
+                case GoogleAuthenticationType.OAuth2User:
                     string credentialID = CredentialID.Get(context);
                     string credentialSecret = CredentialSecret.Get(context);
-                    googleSheetProperty = new GoogleSheetProperty(credentialID, credentialSecret, spreadsheetId);
+                    googleSheetProperty = Task.Run(async () =>
+                    {
+                        return await GoogleSheetProperty.Create(credentialID, credentialSecret, spreadsheetId);
+                    }).Result;
                     break;
-                case GoogleAuthenticationType.OAuth2_ServiceAccount:
+                case GoogleAuthenticationType.OAuth2ServiceAccount:
                     string serviceAccountEmail = ServiceAccountEmail.Get(context);
                     string keyPath = KeyPath.Get(context);
                     string password = Password.Get(context);
-                    googleSheetProperty = new GoogleSheetProperty(keyPath, password, serviceAccountEmail, spreadsheetId);
+                    googleSheetProperty = GoogleSheetProperty.Create(keyPath, password, serviceAccountEmail, spreadsheetId);
                     break;
                 default:
-                    googleSheetProperty = new GoogleSheetProperty();
+                    googleSheetProperty = GoogleSheetProperty.Create("wrongkey", spreadsheetId);
                     break;
             }
 
