@@ -1,0 +1,27 @@
+﻿<sap:ActivityDesigner x:Class="UiPath.Python.Activities.Design.PythonScopeDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:p="clr-namespace:UiPath.Python.Activities.Design.Properties"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+    xmlns:uip="clr-namespace:UiPath.Activities.Presentation"
+    xmlns:uipc="clr-namespace:UiPath.Activities.Presentation.Converters"
+>
+
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <uipc:ActivityIconConverter x:Key="ActivityIconConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+
+    <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
+        <StackPanel>
+            <sap:WorkflowItemPresenter x:Uid="sap:WorkflowItemPresenter_2" Name="BodyHandlerContainer" HintText="{x:Static p:Resources.DropActivityHere}"
+                                      Item="{Binding Path=ModelItem.Body.Handler, Mode=TwoWay}"/>
+        </StackPanel>
+    </uip:ActivityDecoratorControl>
+</sap:ActivityDesigner>

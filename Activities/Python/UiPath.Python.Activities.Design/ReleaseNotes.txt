@@ -1,0 +1,1 @@
+We understood your need for supporting machine learning models, so we have improved the Python Activities pack, adding support for Python x64. Also, the Python Scope activity has a new property reflecting this implementation, called Target, which enables you to select between using the x86 and x64 versions of Python.
