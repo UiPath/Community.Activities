@@ -74,11 +74,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities.Tests", "Cryptography\UiPath.Cryptography.Activities.Tests\UiPath.Cryptography.Activities.Tests.csproj", "{32563B0E-C9B0-468F-85CC-04BB4802FE37}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Java", "Java", "{C94C49B6-DB81-47C2-BD39-72376423F2F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Java", "Java\UiPath.Java\UiPath.Java.csproj", "{89957ABF-8A15-484A-94BA-6565969046AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Java.Activities", "Java\UiPath.Java.Activities\UiPath.Java.Activities.csproj", "{7747A478-8986-4A56-8342-093752FC07C3}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Activities.Design", "Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.shproj", "{7FE013FD-58BD-4D0D-A9D0-BE7849CA4E65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Java.Activities.Design", "Java\UiPath.Java.Activities.Design\UiPath.Java.Activities.Design.csproj", "{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Java.Test", "Java\UiPath.Java.Test\UiPath.Java.Test.csproj", "{49C33D77-EADB-4F07-A1A2-91B88F531E8D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{2e040804-8ed9-4fb8-bb8a-4a38479e2a9e}*SharedItemsImports = 13
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{4e20c041-2f59-408e-adb3-0bcfab48de61}*SharedItemsImports = 13
+		Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems*{5e102b9e-dcef-4d8b-8a02-3fdf0fcc0d59}*SharedItemsImports = 4
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{7421a593-343b-4d49-afbe-a1b8be179ce2}*SharedItemsImports = 4
+		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{7747a478-8986-4a56-8342-093752fc07c3}*SharedItemsImports = 4
+		Shared\UiPath.Shared\UiPath.Shared.projitems*{7747a478-8986-4a56-8342-093752fc07c3}*SharedItemsImports = 4
+		Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems*{7fe013fd-58bd-4d0d-a9d0-be7849ca4e65}*SharedItemsImports = 13
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{92e8345e-2ca1-439d-926d-d979893840f5}*SharedItemsImports = 4
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{fdfc92ee-090c-4e23-9422-f90eb94c43dd}*SharedItemsImports = 4
 	EndGlobalSection
@@ -265,6 +281,38 @@ Global
 		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Release|x64.ActiveCfg = Release|Any CPU
 		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Release|x64.Build.0 = Release|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{89957ABF-8A15-484A-94BA-6565969046AD}.Release|x64.Build.0 = Release|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Debug|x64.Build.0 = Debug|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Release|x64.ActiveCfg = Release|Any CPU
+		{7747A478-8986-4A56-8342-093752FC07C3}.Release|x64.Build.0 = Release|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Debug|x64.Build.0 = Debug|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Release|x64.ActiveCfg = Release|Any CPU
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59}.Release|x64.Build.0 = Release|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Debug|x64.Build.0 = Debug|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Release|x64.ActiveCfg = Release|Any CPU
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -294,6 +342,11 @@ Global
 		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3} = {FBD4F6B1-98F2-4985-9111-C65C5A1C8D75}
 		{2629567D-4737-4A1B-9876-F00C948270E3} = {FBD4F6B1-98F2-4985-9111-C65C5A1C8D75}
 		{32563B0E-C9B0-468F-85CC-04BB4802FE37} = {FBD4F6B1-98F2-4985-9111-C65C5A1C8D75}
+		{89957ABF-8A15-484A-94BA-6565969046AD} = {C94C49B6-DB81-47C2-BD39-72376423F2F0}
+		{7747A478-8986-4A56-8342-093752FC07C3} = {C94C49B6-DB81-47C2-BD39-72376423F2F0}
+		{7FE013FD-58BD-4D0D-A9D0-BE7849CA4E65} = {4B6FEFA2-F51E-4577-858E-320B8A094289}
+		{5E102B9E-DCEF-4D8B-8A02-3FDF0FCC0D59} = {C94C49B6-DB81-47C2-BD39-72376423F2F0}
+		{49C33D77-EADB-4F07-A1A2-91B88F531E8D} = {C94C49B6-DB81-47C2-BD39-72376423F2F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80E44DEF-976F-46BF-9DD8-F07334768E20}
