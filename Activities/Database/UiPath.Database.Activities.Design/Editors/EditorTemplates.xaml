@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Class="UiPath.Activities.Presentation.Editors.EditorTemplates"
+                    xmlns:PropertyEditing="clr-namespace:System.Activities.Presentation.PropertyEditing;assembly=System.Activities.Presentation"
+                    xmlns:src="clr-namespace:UiPath.Activities.Presentation.Editors"
+                    xmlns:p="clr-namespace:UiPath.Database.Activities.Design.Properties">
+
+    <DataTemplate x:Key="ArgumentDictionaryEditor">
+        <DockPanel LastChildFill="True">
+            <TextBlock Text="{x:Static p:Resources.CollectionLabel}" TextTrimming="CharacterEllipsis" IsEnabled="False"/>
+            <PropertyEditing:EditModeSwitchButton TargetEditMode="Dialog" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+        </DockPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

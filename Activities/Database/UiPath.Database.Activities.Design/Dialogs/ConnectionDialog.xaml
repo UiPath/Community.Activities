@@ -1,0 +1,58 @@
+﻿<sap:WorkflowElementDialog x:Class="UiPath.Database.Activities.Design.ConnectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        xmlns:src="clr-namespace:UiPath.Database.Activities.Design"
+        xmlns:uidb="clr-namespace:UiPath.Database;assembly=UiPath.Database"
+        xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+        xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+        xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+        xmlns:p="clr-namespace:UiPath.Database.Activities.Design.Properties"
+        Title="{x:Static p:Resources.EditConnectionSettings}" WindowResizeMode="NoResize" Width="320" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <sap:WorkflowElementDialog.Resources>
+        <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+
+        <Style x:Key="ShowExistingStyle">
+            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ModelItem.Content}" Value="{x:Null}">
+                    <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </sap:WorkflowElementDialog.Resources>
+
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Background="{x:Static SystemColors.ControlBrush}" Style="{StaticResource ShowExistingStyle}">
+            <TextBlock Text="{x:Static p:Resources.ExistingDatabaseConnection}" Margin="0, 4,0,0" DockPanel.Dock="Top"/>
+            
+            <Separator VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Margin="0, 10, 0, 4"/>
+            
+            <sapv:ExpressionTextBox Expression="{Binding Path=ModelItem.ExistingDbConnection, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In, UpdateSourceTrigger=PropertyChanged}"  
+                                    OwnerActivity="{Binding Path=ModelItem}" ExpressionType="{x:Type uidb:DatabaseConnection}" 
+                                    HintText="{x:Static p:Resources.DatabaseConnection}" MaxLines="1"  Background="White"
+                                    DockPanel.Dock="Left" Margin="0,4,0,0" VerticalAlignment="Bottom" Height="24"/>
+
+        </DockPanel>
+        
+        <DockPanel  Margin="0, 4, 0, 8" DockPanel.Dock="Bottom" Background="{x:Static SystemColors.ControlBrush}" x:Name="ConnectionSettings">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
+                <TextBlock Text="{x:Static p:Resources.NewDatabaseConnection}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" />
+              
+                <Button Content="{x:Static p:Resources.ConnectionWizard}" Click="NewConnectionButton_Click" VerticalAlignment="Center" HorizontalAlignment="Right"
+                        Margin="30,0,0,0" Width="130" Padding="5,0" Height="24"/>
+            </StackPanel>
+            
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" Margin="0,6,0,0">
+                <sapv:ExpressionTextBox Expression="{Binding Path=ModelItem.ConnectionString, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In, UpdateSourceTrigger=PropertyChanged}" x:Name="ConnStringExpr"  
+                                    OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" MaxLines="1" Background="White"
+                                    HintText="{x:Static p:Resources.ConnectionString}" Margin="0,8,0,0" Height="24" VerticalAlignment="Stretch"/>
+
+                <ComboBox Margin="0,10,0,0" VerticalAlignment="Stretch" Height="23" Background="White" 
+                                     ItemsSource="{Binding ProviderNames}" SelectionChanged="ComboboxControl_SelectionChanged"
+                                     SelectedItem="{Binding ModelItem.ProviderName, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </DockPanel>
+    </DockPanel>
+</sap:WorkflowElementDialog>
