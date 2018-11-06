@@ -1,0 +1,1 @@
+The moment is finally here - the entire UiPath Platform has been localized, so that you can have a truly immersive experience, from install to design and execution. Now, besides English, you can access everything, including our online documentation, in Japanese.

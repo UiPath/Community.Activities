@@ -1,0 +1,49 @@
+﻿<sap:ActivityDesigner x:Class="UiPath.Java.Activities.Design.InvokeJavaMethodDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+    xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+    xmlns:uip="clr-namespace:UiPath.Activities.Presentation" 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:UiPath.Java;assembly=UiPath.Java"
+    xmlns:p="clr-namespace:UiPath.Java.Activities.Design.Properties">
+
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+
+    <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
+        <StackPanel Width="300">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Content="{x:Static p:Resources.MethodNameLabel}"/>
+                <sapv:ExpressionTextBox Grid.Column="1" OwnerActivity="{Binding ModelItem}" ExpressionType="sys:String" HintText="{x:Static p:Resources.MethodNameHintText}" Margin="0, 0, 0, 5"
+                                Expression="{Binding Path=ModelItem.MethodName, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In, Mode=TwoWay}"/>
+
+                <Label Grid.Row="1" Content="{x:Static p:Resources.TargetObjectLabel}"/>
+                <sapv:ExpressionTextBox Grid.Row="1" Grid.Column="1" OwnerActivity="{Binding ModelItem}" ExpressionType="local:JavaObject" HintText="{x:Static p:Resources.TargetObjectHintText}" Margin="0, 0, 0, 5"
+                                Expression="{Binding Path=ModelItem.TargetObject, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In, Mode=TwoWay}"/>
+
+                <Label Grid.Row="2" Content="{x:Static p:Resources.TargetTypeLabel}"/>
+                <sapv:ExpressionTextBox Grid.Row="2" Grid.Column="1" OwnerActivity="{Binding ModelItem}" ExpressionType="sys:String" HintText="{x:Static p:Resources.TargetTypeHintText}" Margin="0, 0, 0, 5"
+                                Expression="{Binding Path=ModelItem.TargetType, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In, Mode=TwoWay}" />
+            </Grid>
+        </StackPanel>
+    </uip:ActivityDecoratorControl>
+</sap:ActivityDesigner>

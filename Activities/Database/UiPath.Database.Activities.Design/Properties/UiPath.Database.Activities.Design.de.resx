@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SqlQueryHint" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="CategoryDatabase" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ConfigureConnection" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="TableNameDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="AffectedRecordsDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="InsertDataTableDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ExecuteQuery" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ConnectionWizard" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="DefaultWidth" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value/>
+    <comment>activity name</comment>
+  </data>
+  <data name="DoubleClickToView" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ExistingDatabaseConnection" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="DatabaseConnection" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="CategoryAppIntegration" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ExistingDbConnectionDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ExecuteNonQueryDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ProviderNameDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ExecuteQueryDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="AffectedRecordsInsertDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="TableNameHint" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="DatabaseConnectionDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="EditSql" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ConnectionStringDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ExecuteNonQuery" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="TimeoutMSDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="EditConnectionSettings" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="SqlDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="NewDatabaseConnection" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="InserDataTableInputDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value/>
+    <comment>activity name</comment>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value/>
+    <comment>property name</comment>
+  </data>
+  <data name="DatabaseConnectDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="ConnectionString" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="StartTransaction" xml:space="preserve">
+    <value/>
+    <comment>activity name</comment>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value/>
+    <comment>activity name</comment>
+  </data>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="DbTransactionDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="CommandTypeDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="QueryTimeoutMSDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="EditQuery" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="UseTransactionDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="DataTableDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="DatabaseDisconnectDescription" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value/>
+  </data>
+</root>

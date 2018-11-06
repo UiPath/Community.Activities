@@ -1,0 +1,10 @@
+GDPR has been our favorite pastime lately, so we understand the importance of securing operational data. The new Cryptography Activities Package comes to meet this necessity, by offering some activities that feature state of the art encryption algorithms:
+
+Encrypt Text - Encrypts a string with a key, based on a specified key encoding and algorithm.
+Decrypt Text - Decrypts a string, based on a specified key encoding and algorithm.
+Encrypt File - Encrypts a file with a key, based on a specified key encoding and algorithm.
+Decrypt File - Decrypts a file, based on a specified key encoding and algorithm.
+Hash Text - Hashes a string using a specified algorithm and encoding format.
+Hash File - Hashes a file using a specified algorithm.
+Hash Text With Key - Hashes a string with a key, using a specified algorithm and encoding format.
+Hash File With Key - Hashes a file with a key, using a specified algorithm and encoding format.

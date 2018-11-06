@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AffectedRecordsDescription" xml:space="preserve">
+    <value>Le résultat de l'exécution de la commande sql. Pour les instructions UPDATE, INSERT et DELETE, la valeur de retour est le nombre de lignes affectées par la commande. Pour tous les autres types d'instructions, la valeur de retour est de -1.</value>
+  </data>
+  <data name="CategoryDatabase" xml:space="preserve">
+    <value>Base de donnés</value>
+  </data>
+  <data name="CommandTypeDescription" xml:space="preserve">
+    <value>Spécifie comment une chaîne de commande est interprétée</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Connect</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ConnectionStringDescription" xml:space="preserve">
+    <value>La chaîne de connexion utilisée pour établir une connexion à la base de données</value>
+  </data>
+  <data name="DatabaseConnectDescription" xml:space="preserve">
+    <value>Se connecte à une base de données.</value>
+  </data>
+  <data name="DatabaseConnectionDescription" xml:space="preserve">
+    <value>La connexion à la base de données utilisée pour les opérations dans cette activité</value>
+  </data>
+  <data name="DatabaseDisconnectDescription" xml:space="preserve">
+    <value>Ferme une connexion à une base de données.</value>
+  </data>
+  <data name="DataTableDescription" xml:space="preserve">
+    <value>La sortie de la commande sql encapsulée dans un objet DataTable</value>
+  </data>
+  <data name="DbTransactionDescription" xml:space="preserve">
+    <value>Se connecte à une base de données et renvoie un objet DatabaseConnection, fournissant par la même une portée pour les activités de la base de données. Si l'objet UseTransaction est défini sur True, les opérations autonomes sont exécutées dans une transaction unique, et appliquées à la fin si aucune d'entre elles n'a échoué. Si l'objet UseTransaction est défini sur False, toutes les opérations sont validées individuellement. Lorsque cette activité se termine, la connexion à la base de données se ferme.</value>
+  </data>
+  <data name="DefaultWidth" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>Disconnect</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExecuteNonQueryDescription" xml:space="preserve">
+    <value>Exécute sur une instruction sur une base de données. Pour les instructions UPDATE, INSERT et DELETE, la valeur de retour est le nombre de lignes affectées par la commande. Pour tous les autres types d'instructions, la valeur de retour est de -1.</value>
+  </data>
+  <data name="ExecuteQueryDescription" xml:space="preserve">
+    <value>Exécute une requête sur une base de données et renvoie le résultat de la requête dans un objet Data Table.</value>
+  </data>
+  <data name="ExistingDbConnectionDescription" xml:space="preserve">
+    <value>Une connexion à la base de données déjà ouverte. Si cette propriété est définie, les propriétés Connection String et Provider Name sont ignorées</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="InsertDataTableDescription" xml:space="preserve">
+    <value>Insère un objet DataTable compatible dans une table existante. Renvoie le nombre de lignes affectées.</value>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>Dictionnaire de paramètres nommés qui sont liés à la commande sql. La liaison s'effectue en spécifiant l'instruction '@parameterName' dans la commande sql. Au runtime, l'objet parameterName sera remplacé par sa valeur du dictionnaire</value>
+  </data>
+  <data name="ProviderNameDescription" xml:space="preserve">
+    <value>Le nom de fournisseur de base de données pour accéder à la base de données. Une liste de fournisseurs de données est disponible sur http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
+  </data>
+  <data name="SqlDescription" xml:space="preserve">
+    <value>Une commande sql à exécuter.</value>
+  </data>
+  <data name="StartTransaction" xml:space="preserve">
+    <value>Start Transaction</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="TableNameDescription" xml:space="preserve">
+    <value>La table de base de données cible</value>
+  </data>
+  <data name="TimeoutMSDescription" xml:space="preserve">
+    <value>Spécifie la durée (en millisecondes) d'attente de l'exécution de la commande sql avant qu'une erreur soit générée. La valeur par défaut est de 30 000 millisecondes (30 secondes) et doit être supérieure ou égale à 0.</value>
+  </data>
+  <data name="UseTransactionDescription" xml:space="preserve">
+    <value>Spécifie si les opérations de la base de données dans cette activité doivent être encapsulées dans une transaction de base de données</value>
+  </data>
+  <data name="AffectedRecordsInsertDescription" xml:space="preserve">
+    <value>Le nombre de lignes insérées</value>
+  </data>
+  <data name="ConfigureConnection" xml:space="preserve">
+    <value>Configurer la connexion...</value>
+  </data>
+  <data name="InserDataTableInputDescription" xml:space="preserve">
+    <value>L'objet DataTable qui sera inséré dans la table. La description des colonnes DataTable doit correspondre aux colonnes de la table de base de données</value>
+  </data>
+  <data name="ConnectionWizard" xml:space="preserve">
+    <value>Assistant de connexion</value>
+  </data>
+  <data name="DoubleClickToView" xml:space="preserve">
+    <value>Double-cliquer pour afficher</value>
+  </data>
+  <data name="EditConnectionSettings" xml:space="preserve">
+    <value>Modifier les paramètres de connexion</value>
+  </data>
+  <data name="EditQuery" xml:space="preserve">
+    <value>Modifier la requête...</value>
+  </data>
+  <data name="NewDatabaseConnection" xml:space="preserve">
+    <value>Nouvelle connexion à la base de données</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConnectionString" xml:space="preserve">
+    <value>Chaîne de connexion</value>
+  </data>
+  <data name="DatabaseConnection" xml:space="preserve">
+    <value>Connexion à la base de données</value>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value>Table de données</value>
+  </data>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>Déposer l'activité ici</value>
+  </data>
+  <data name="EditSql" xml:space="preserve">
+    <value>Modifier Sql</value>
+  </data>
+  <data name="ExistingDatabaseConnection" xml:space="preserve">
+    <value>Connexion à la base de données existante</value>
+  </data>
+  <data name="SqlQueryHint" xml:space="preserve">
+    <value>Requête Sql. Le texte doit être entre parenthèses</value>
+  </data>
+  <data name="TableNameHint" xml:space="preserve">
+    <value>Nom de la table. Le texte doit être entre parenthèses</value>
+  </data>
+  <data name="QueryTimeoutMSDescription" xml:space="preserve">
+    <value>Spécifie la durée (en millisecondes) d'attente de l'exécution de la requête sql avant qu'une erreur soit générée (elle n'incluent pas le temps de réponse pour la récupération du résultat de la requête). La valeur par défaut est de 30 000 millisecondes (30 secondes) et doit être supérieure ou égale à 0.</value>
+  </data>
+  <data name="CategoryAppIntegration" xml:space="preserve">
+    <value>Intégration de l'appli</value>
+  </data>
+  <data name="ExecuteNonQuery" xml:space="preserve">
+    <value>Exécuter la non-requête</value>
+  </data>
+  <data name="ExecuteQuery" xml:space="preserve">
+    <value>Exécuter la requête</value>
+  </data>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(Collection)</value>
+  </data>
+</root>
