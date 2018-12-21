@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>DocAcquire.Activities</id>
+    <version>1.0.1</version>
+    <title>DocAcquire.Activities</title>
+    <authors>DocAcquire</authors>
+    <owners>DocAcquire</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>http://www.docacquire.com/</projectUrl>
+    <iconUrl>https://docacquire.com/wp-content/themes/docacquire/images/iconified/favicon.ico</iconUrl>
+    <description>Custom UiPath Activities to enable you automate ocr/data extraction from business documents like invoices, purchase orders, contracts etc.</description>
+    <summary>Custom UiPath Activities for DocAcquire</summary>
+    <copyright>Copyright ©2018 DocAcquire Ltd</copyright>
+    <language></language>
+    <tags>ocr, docacquire</tags>
+  </metadata>
+  <files>
+    <file src="lib\DocAcquire.Activities.Design.dll" target="lib\DocAcquire.Activities.Design.dll" />
+    <file src="lib\DocAcquire.Activities.dll" target="lib\DocAcquire.Activities.dll" />
+    <file src="lib\DocAcquire.dll" target="lib\DocAcquire.dll" />
+    <file src="lib\Newtonsoft.Json.dll" target="lib\Newtonsoft.Json.dll" />
+    <file src="lib\System.Net.Http.Formatting.dll" target="lib\System.Net.Http.Formatting.dll" />
+  </files>
+</package>
