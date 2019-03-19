@@ -3,7 +3,7 @@
 A library of Activities for Microsoft Office Products
 
 ## Installation
-Studio -> Manage Packages -> Community -> (Search) csmutils -> Install -> Save
+Studio -> Manage Packages -> Community -> (Search) excel.activities -> Install -> Save
 
 ## Activities
 ### Excel
