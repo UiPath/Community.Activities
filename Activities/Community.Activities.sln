@@ -106,6 +106,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Tests", "Pyth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.TestUtils", "Shared\UiPath.TestUtils\UiPath.TestUtils.csproj", "{D2C94889-1E86-4ABD-9D5E-631B3463DA86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel.Activities", "Microsoft Office\Excel.Activities\Excel.Activities.csproj", "{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft Office", "Microsoft Office", "{5672ED6C-C05C-4584-B74F-0F71587A71B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel.Activities.Test", "Microsoft Office\Excel.Activities.Test\Excel.Activities.Test.csproj", "{A57239F8-0CE6-4F34-9FA1-81755517D9B2}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{0fbf5f7e-2ae4-4f4a-84cb-26b3a9e3119c}*SharedItemsImports = 4
@@ -399,6 +405,22 @@ Global
 		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|x64.ActiveCfg = Release|Any CPU
 		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|x64.Build.0 = Release|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Debug|x64.Build.0 = Debug|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Release|x64.ActiveCfg = Release|Any CPU
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5}.Release|x64.Build.0 = Release|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Debug|x64.Build.0 = Debug|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Release|x64.ActiveCfg = Release|Any CPU
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -442,6 +464,8 @@ Global
 		{BCBA78DF-1513-44D3-83B3-37655A7F3887} = {913E6ED1-5915-4C4C-85BE-94E8CEE315FF}
 		{9E913818-9270-4570-A8F4-80812EBFA09E} = {913E6ED1-5915-4C4C-85BE-94E8CEE315FF}
 		{D2C94889-1E86-4ABD-9D5E-631B3463DA86} = {4B6FEFA2-F51E-4577-858E-320B8A094289}
+		{D568BFA0-E6DB-408E-A36F-62CB2D86DDD5} = {5672ED6C-C05C-4584-B74F-0F71587A71B2}
+		{A57239F8-0CE6-4F34-9FA1-81755517D9B2} = {5672ED6C-C05C-4584-B74F-0F71587A71B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80E44DEF-976F-46BF-9DD8-F07334768E20}
