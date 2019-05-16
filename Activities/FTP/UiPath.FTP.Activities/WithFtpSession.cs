@@ -45,6 +45,11 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.FtpsMode))]
         public FtpsMode FtpsMode { get; set; }
 
+        [DefaultValue(FtpSslProtocols.Default)]
+        [LocalizedCategory(nameof(Resources.Security))]
+        [LocalizedDisplayName(nameof(Resources.SslProtocols))]
+        public FtpSslProtocols SslProtocols { get; set; }
+
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Security))]
         [LocalizedDisplayName(nameof(Resources.UseSftp))]
@@ -66,6 +71,7 @@ namespace UiPath.FTP.Activities
         public WithFtpSession()
         {
             FtpsMode = FtpsMode.None;
+            SslProtocols = FtpSslProtocols.Default;
             Body = new ActivityAction<IFtpSession>()
             {
                 Argument = new DelegateInArgument<IFtpSession>(FtpSessionPropertyName),
@@ -75,8 +81,6 @@ namespace UiPath.FTP.Activities
 
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
-            // TODO: Validation code here.
-
             base.CacheMetadata(metadata);
         }
 
@@ -86,6 +90,7 @@ namespace UiPath.FTP.Activities
             FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
             ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
             ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
+            ftpConfiguration.SslProtocols = SslProtocols;
             ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
             ftpConfiguration.ClientCertificatePassword = ClientCertificatePassword.Get(context);
             ftpConfiguration.AcceptAllCertificates = AcceptAllCertificates;

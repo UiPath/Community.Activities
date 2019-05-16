@@ -12,6 +12,7 @@ namespace UiPath.FTP
         public string Username { get; set; }
         public string Password { get; set; }
         public bool UseAnonymousLogin { get; set; }
+        public FtpSslProtocols SslProtocols { get; set; }
         public string ClientCertificatePath { get; set; }
         public string ClientCertificatePassword { get; set; }
         public bool AcceptAllCertificates { get; set; }
