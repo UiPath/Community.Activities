@@ -304,6 +304,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSL protocols.
+        /// </summary>
+        internal static string SslProtocols {
+            get {
+                return ResourceManager.GetString("SslProtocols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unsupported object type encountered..
         /// </summary>
         internal static string UnsupportedObjectTypeException {

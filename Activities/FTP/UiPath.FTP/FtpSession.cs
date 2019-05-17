@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,6 +53,7 @@ namespace UiPath.FTP
 
             if (ftpsMode != FtpsMode.None)
             {
+                _ftpClient.SslProtocols = (SslProtocols)ftpConfiguration.SslProtocols;
                 _ftpClient.ValidateCertificate += (control, e) => _ftpClient_ValidateCertificate(control, e, ftpConfiguration.AcceptAllCertificates);
 
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath) == false)

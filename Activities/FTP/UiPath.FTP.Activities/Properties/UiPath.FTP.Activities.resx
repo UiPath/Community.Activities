@@ -210,4 +210,7 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>Username cannot be empty.</value>
   </data>
+  <data name="SslProtocols" xml:space="preserve">
+    <value>SSL protocols</value>
+  </data>
 </root>
