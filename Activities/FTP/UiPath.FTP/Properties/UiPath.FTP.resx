@@ -129,4 +129,7 @@
   <data name="UnsupportedObjectTypeException" xml:space="preserve">
     <value>Unsupported object type encountered.</value>
   </data>
+  <data name="NoValidAuthenticationMethod" xml:space="preserve">
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password</value>
+  </data>
 </root>

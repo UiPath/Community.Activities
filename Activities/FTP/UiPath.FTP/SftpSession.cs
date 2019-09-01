@@ -24,13 +24,35 @@ namespace UiPath.FTP
 
             ConnectionInfo connectionInfo = null;
 
+            var authMethods = new List<AuthenticationMethod>();
+            
+            //Add password authentication method if password is provided
+            if (!String.IsNullOrEmpty(ftpConfiguration.Password))
+            {
+                authMethods.Add(new PasswordAuthenticationMethod(ftpConfiguration.Username, ftpConfiguration.Password));
+            }
+
+            //Add private key authentication method if private key is provided
+            if (!String.IsNullOrEmpty(ftpConfiguration.ClientCertificatePath))
+            {
+                PrivateKeyFile keyFile = new PrivateKeyFile(ftpConfiguration.ClientCertificatePath, ftpConfiguration.ClientCertificatePassword);
+                var keyFiles = new[] { keyFile };
+                authMethods.Add(new PrivateKeyAuthenticationMethod(ftpConfiguration.Username, keyFiles));
+            }
+
+            //Throw an error if we ended up with no authentication method
+            if (authMethods.Count == 0)
+            {
+                throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
+            }
+
             if (ftpConfiguration.Port == null)
             {
-                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Username, new PasswordAuthenticationMethod(ftpConfiguration.Username, ftpConfiguration.Password));
+                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Username, authMethods.ToArray());
             }
             else
             {
-                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Port.Value, ftpConfiguration.Username, new PasswordAuthenticationMethod(ftpConfiguration.Username, ftpConfiguration.Password));
+                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Port.Value, ftpConfiguration.Username, authMethods.ToArray());
             }
 
             _sftpClient = new SftpClient(connectionInfo);

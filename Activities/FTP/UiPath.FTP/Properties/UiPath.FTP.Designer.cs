@@ -95,5 +95,14 @@ namespace UiPath.FTP.Properties {
                 return ResourceManager.GetString("UnsupportedObjectTypeException", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported object type encountered..
+        /// </summary>
+        internal static string NoValidAuthenticationMethod {
+            get {
+                return ResourceManager.GetString("NoValidAuthenticationMethod", resourceCulture);
+            }
+        }
     }
 }
