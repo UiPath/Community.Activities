@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <iconUrl>http://www.uipath.com/favicon.ico</iconUrl>
+    <iconUrl>https://download.uipath.com/UI_icon.png?google</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
   </metadata>

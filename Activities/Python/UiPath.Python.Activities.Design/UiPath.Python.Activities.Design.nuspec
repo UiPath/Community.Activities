@@ -7,7 +7,7 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <projectUrl>https://activities.uipath.com/docs/about-the-python-activities-pack</projectUrl>
-    <iconUrl>http://www.uipath.com/favicon.ico</iconUrl>
+    <iconUrl>https://download.uipath.com/UI_icon.png?python</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://www.uipath.com/hubfs/legalspot/UiPath_Activity_License_Agreement.pdf</licenseUrl>
     <description>$description$</description>
