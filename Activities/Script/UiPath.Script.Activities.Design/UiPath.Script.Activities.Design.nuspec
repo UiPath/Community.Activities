@@ -7,7 +7,7 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <projectUrl>https://github.com/UiPath/Community.Activities/tree/master/Script</projectUrl>
-    <iconUrl>http://www.uipath.com/favicon.ico</iconUrl>
+    <iconUrl>https://download.uipath.com/UI_icon.png?script</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
   </metadata>
