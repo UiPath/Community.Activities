@@ -150,9 +150,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Cryptography.Activities.Design.de.resx">
-      <DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Cryptography.Activities.Design.fr.resx">
       <DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
     </EmbeddedResource>

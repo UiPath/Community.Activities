@@ -70,9 +70,6 @@
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Python.de.resx">
-      <DependentUpon>UiPath.Python.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Python.fr.resx">
       <DependentUpon>UiPath.Python.resx</DependentUpon>
     </EmbeddedResource>

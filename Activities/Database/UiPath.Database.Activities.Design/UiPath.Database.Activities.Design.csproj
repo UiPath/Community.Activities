@@ -101,9 +101,6 @@
       <DependentUpon>SqlEditorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.cs" />
-    <EmbeddedResource Include="Properties\UiPath.Database.Activities.Design.de.resx">
-      <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Database.Activities.Design.fr.resx">
       <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
     </EmbeddedResource>

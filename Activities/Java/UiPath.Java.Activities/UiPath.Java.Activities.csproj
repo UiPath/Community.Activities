@@ -66,9 +66,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Java.Activities.de.resx">
-      <DependentUpon>UiPath.Java.Activities.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Java.Activities.fr.resx">
       <DependentUpon>UiPath.Java.Activities.resx</DependentUpon>
     </EmbeddedResource>
