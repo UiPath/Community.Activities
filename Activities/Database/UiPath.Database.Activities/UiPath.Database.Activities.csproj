@@ -78,9 +78,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Database.Activities.de.resx">
-      <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Database.Activities.fr.resx">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
     </EmbeddedResource>

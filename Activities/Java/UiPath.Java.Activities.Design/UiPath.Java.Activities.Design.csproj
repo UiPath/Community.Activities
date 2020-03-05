@@ -129,9 +129,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Java.Activities.Design.de.resx">
-      <DependentUpon>UiPath.Java.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Java.Activities.Design.fr.resx">
       <DependentUpon>UiPath.Java.Activities.Design.resx</DependentUpon>
     </EmbeddedResource>

@@ -62,9 +62,6 @@
     <Compile Include="Properties\Resources.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Database.de.resx">
-      <DependentUpon>UiPath.Database.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Database.fr.resx">
       <DependentUpon>UiPath.Database.resx</DependentUpon>
     </EmbeddedResource>

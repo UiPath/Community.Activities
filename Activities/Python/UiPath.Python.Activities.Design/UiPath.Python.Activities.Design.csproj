@@ -78,9 +78,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Python.Activities.Design.de.resx">
-      <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Python.Activities.Design.fr.resx">
       <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
     </EmbeddedResource>

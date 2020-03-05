@@ -66,9 +66,6 @@
     <Compile Include="Service\Impl\JavaResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Java.de.resx">
-      <DependentUpon>UiPath.Java.resx</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\UiPath.Java.fr.resx">
       <DependentUpon>UiPath.Java.resx</DependentUpon>
     </EmbeddedResource>
