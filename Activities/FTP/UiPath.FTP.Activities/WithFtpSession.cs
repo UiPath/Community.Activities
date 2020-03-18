@@ -57,6 +57,7 @@ namespace UiPath.FTP.Activities
 
         [LocalizedCategory(nameof(Resources.Security))]
         [LocalizedDisplayName(nameof(Resources.ClientCertificatePath))]
+        [LocalizedDescription(nameof(Resources.ClientCertificatePathDesc))]
         public InArgument<string> ClientCertificatePath { get; set; }
 
         [LocalizedCategory(nameof(Resources.Security))]
@@ -103,6 +104,11 @@ namespace UiPath.FTP.Activities
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
                 {
                     throw new ArgumentNullException(Resources.EmptyUsernameException);
+                }
+
+                if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
+                {
+                    throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
                 }
             }
 

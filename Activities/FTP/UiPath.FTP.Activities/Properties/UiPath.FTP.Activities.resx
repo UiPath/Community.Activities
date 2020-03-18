@@ -213,4 +213,10 @@
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL protocols</value>
   </data>
+  <data name="ClientCertificatePathDesc" xml:space="preserve">
+    <value>Path to the Private key in PKCS #1 PEM format</value>
+  </data>
+  <data name="NoValidAuthenticationMethod" xml:space="preserve">
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password</value>
+  </data>
 </root>

@@ -19,7 +19,7 @@ namespace UiPath.FTP.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UiPath_FTP_Activities {
@@ -84,6 +84,15 @@ namespace UiPath.FTP.Activities.Properties {
         internal static string ClientCertificatePath {
             get {
                 return ResourceManager.GetString("ClientCertificatePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path to the Private key in PKCS #1 PEM format.
+        /// </summary>
+        internal static string ClientCertificatePathDesc {
+            get {
+                return ResourceManager.GetString("ClientCertificatePathDesc", resourceCulture);
             }
         }
         
@@ -201,6 +210,15 @@ namespace UiPath.FTP.Activities.Properties {
         internal static string LocalPath {
             get {
                 return ResourceManager.GetString("LocalPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password.
+        /// </summary>
+        internal static string NoValidAuthenticationMethod {
+            get {
+                return ResourceManager.GetString("NoValidAuthenticationMethod", resourceCulture);
             }
         }
         
