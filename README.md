@@ -33,7 +33,7 @@ Guidelines for contribuing to this repository
 
 ### Breaking changes:
 
-*(Inspired from https://github.com/dotnet/corefx/blob/master/Documentation/coding-guidelines/breaking-changes.md)*
+*(Inspired by https://github.com/dotnet/corefx/blob/master/Documentation/coding-guidelines/breaking-changes.md)*
 
 To help triage breaking changes, we classify them into three buckets:
 
@@ -74,7 +74,7 @@ As with type 2 changes, these require judgment: what is reasonable and what’s 
 
 
 #### What This Means for Contributors
-* All bucket 1, 2, and 3 breaking changes require talking to the repo owners first.
-* If you're not sure in which bucket applies to a given change, contact us as well.
-* It doesn't matter if the old behavior is "wrong", we still need to think through the implications.
-* If a change is deemed too breaking, we can help identify alternatives such as introducing a new API and obsoleting the old one.
+* All buckets (1, 2, and 3) breaking changes require talking to the repo owners first.
+* If you're not sure which bucket applies to a given change, contact us as well.
+* It doesn't matter if the old behavior is "wrong", we still need to think the implications through.
+* If a change is deemed too breaking, we can help identify alternatives such as introducing a new API and depricating the old one.
