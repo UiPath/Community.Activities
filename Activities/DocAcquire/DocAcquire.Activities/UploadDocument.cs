@@ -12,12 +12,12 @@ namespace DocAcquire.Activities
     {
         private readonly IDocumentUploadService documentService;
 
-        public UploadDocument(IDocumentUploadService documentService)
+        internal UploadDocument(IDocumentUploadService documentService)
         {
             this.documentService = documentService;
         }
 
-        public UploadDocument()
+        internal UploadDocument()
         {
             this.documentService = new DocumentUploadService();
         }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DocAcquire
 {
-    public interface IDocumentUploadService
+    internal interface IDocumentUploadService
     {
         Task<FileUploadResponse> UploadAsync(AttachmentItem attachment, string token, string baseUrl);
     }

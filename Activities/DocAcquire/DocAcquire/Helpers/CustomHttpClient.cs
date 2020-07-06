@@ -21,7 +21,7 @@ namespace DocAcquire.Helpers
         {
             if (string.IsNullOrEmpty(baseUrl))
             {
-                throw new ArgumentNullException("baseUrl");
+                throw new ArgumentNullException(nameof(baseUrl));
             }
             
             if (instance == null)
@@ -33,6 +33,8 @@ namespace DocAcquire.Helpers
                 };
                 instance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
+            
+            instance.DefaultRequestHeaders.Clear();
             return instance;
         }
     }

@@ -19,7 +19,6 @@ namespace DocAcquire
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
             var httpClient = CustomHttpClient.GetInstance(baseUrl);
-            httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);

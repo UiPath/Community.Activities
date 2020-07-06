@@ -8,9 +8,10 @@ namespace DocAcquire
 {
     public class DocumentUploadService : IDocumentUploadService
     {
+        private const string ApiUrl = "api/External/Documents/UploadSingle";
+
         public async Task<FileUploadResponse> UploadAsync(AttachmentItem attachment, string token, string baseUrl)
         {
-            var apiUrl = "api/External/Documents/UploadSingle";
             var requestContent = new MultipartFormDataContent();
 
             var imageContent = new ByteArrayContent(attachment.Content);
@@ -18,13 +19,12 @@ namespace DocAcquire
             requestContent.Add(new StringContent(attachment.Name), "\"name\"");
 
             var httpClient = CustomHttpClient.GetInstance(baseUrl);
-            httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("enctype", "multipart/form-data");
             httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + token);
 
-            var result = await httpClient.PostAsync(apiUrl, requestContent);
+            var result = await httpClient.PostAsync(ApiUrl, requestContent);
             result.EnsureSuccessStatusCode();
             return await result.Content.ReadAsAsync<FileUploadResponse>();
         }

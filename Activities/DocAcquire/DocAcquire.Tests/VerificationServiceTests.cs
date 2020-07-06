@@ -1,25 +1,26 @@
-﻿using Xunit;
+﻿using System.Threading.Tasks;
+using Xunit;
 
 namespace DocAcquire.Tests
 {
     public class VerificationServiceTests
     {
         [Fact]
-        public void TestGetVerifiedDataAsync()
+        public async void TestGetVerifiedDataAsync()
         {
             //arrange
             var activity = new VerificationService();
 
             //act
-            var result = activity.GetVerifiedDataAsync(
+            var result = await activity.GetVerifiedDataAsync(
                 new int[] { /*Document Ids will go here*/ },
                "<AUTH TOKEN HERE>"
                , "http://localhost/" //DocAcquire Service Base Url
-               ).Result;
+               );
 
 
             //assert
-            //Assert.True(result.Count > 0);
+            Assert.True(result.Count > 0);
         }
     }
 }

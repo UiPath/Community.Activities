@@ -17,7 +17,6 @@ namespace DocAcquire
             requestContent.Add(new StringContent(attachment.Name), "\"name\"");
 
             var httpClient = CustomHttpClient.GetInstance(baseUrl);
-            httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("enctype", "multipart/form-data");
