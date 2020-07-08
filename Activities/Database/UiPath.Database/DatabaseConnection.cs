@@ -134,7 +134,8 @@ namespace UiPath.Database
                 {
                     dbParameter.Size = -1;
                 }
-                dbParameter.Value = param.Value.Item1;
+
+                dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
                 _command.Parameters.Add(dbParameter);
             }
         }
