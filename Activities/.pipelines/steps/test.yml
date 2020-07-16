@@ -1,0 +1,33 @@
+parameters:
+  BuildConfiguration: "Release"
+  BuildPlatform: "Any CPU"
+  rootPath: $(Build.SourcesDirectory)  
+  NuGetConfigPath: "$(Build.SourcesDirectory)/Activities/.nuget/NuGet.Config"
+  packagesDirectory: ""
+  testList: []
+
+steps:
+- ${{ each test in parameters.testList }}:
+  - task: NuGetCommand@2
+    displayName: "Restore tests packages ${{ test }}"
+    inputs:
+      restoreSolution:    ${{ format('{0}{1}', parameters.rootPath, test) }}
+      feedsToUse:         "config"
+      nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
+      packagesdirectory:  ${{ parameters.packagesDirectory }}
+      
+  - task: VSBuild@1
+    displayName: "Build tests ${{ test }}"
+    inputs:
+      solution:       ${{ format('{0}{1}', parameters.rootPath, test) }}
+      platform:       ${{ parameters.BuildPlatform }}
+      configuration:  ${{ parameters.BuildConfiguration }}
+
+- task: VSTest@2
+  displayName: "Run tests"
+  inputs:
+    testAssemblyVer2: |
+          ${{ parameters.rootPath }}**\${{ parameters.BuildConfiguration }}\*test*.dll
+          !**\obj\**
+    platform: ${{ parameters.BuildPlatform }}
+    configuration: ${{ parameters.BuildConfiguration }}

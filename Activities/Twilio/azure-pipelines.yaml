@@ -1,0 +1,16 @@
+trigger: none
+
+pr: none
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "UiPath.Twilio.Activities/UiPath.Twilio.Activities.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Twilio\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      versionReference: "UiPath.Twilio.Activitie/Properties/AssemblyInfo.cs"
+
+
+      

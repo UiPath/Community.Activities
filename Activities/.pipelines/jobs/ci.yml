@@ -1,0 +1,53 @@
+parameters:
+  BuildProject: "$(Build.SourcesDirectory)/Activities/Community.Activities.sln"
+  BuildConfiguration: "Release"
+  BuildPlatform: "Any CPU"
+  VmImage: "windows-latest"
+  Demands: 
+  - msbuild
+  - visualstudio
+  - vstest
+  Dependencies: []
+  restoreDependencies: []
+  rootPath: $(Build.SourcesDirectory)
+  packagesDirectory: $(Build.SourcesDirectory)/packages/
+  testList: []
+  versionReference: ""
+
+jobs:
+- job: CI_Community_Activities_${{ replace(replace(parameters.BuildProject, '/', '_'), '.', '_') }}
+  displayName: ${{ replace(replace(parameters.BuildProject, '/', '_'), '.', '_') }}
+
+  pool:
+    vmImage: ${{ parameters.VmImage }}
+    demands: ${{ parameters.Demands }}
+
+  steps:
+  - template: "../steps/pre_build.yml"
+    parameters:
+      rootPath:         ${{ parameters.rootPath }}
+      versionReference: ${{ parameters.versionReference }}
+
+  - template: "../steps/build.yml"
+    parameters:
+      BuildProject:         ${{ parameters.BuildProject }}
+      BuildConfiguration:   ${{ parameters.BuildConfiguration }}
+      BuildPlatform:        ${{ parameters.BuildPlatform }}
+      Dependencies:         ${{ parameters.Dependencies }}
+      restoreDependencies:  ${{ parameters.restoreDependencies }}
+      rootPath:             ${{ parameters.rootPath }}
+      packagesDirectory:    ${{ parameters.packagesDirectory }}
+
+  - template: "../steps/test.yml"
+    parameters:
+      BuildConfiguration: ${{ parameters.BuildConfiguration }}
+      BuildPlatform:      ${{ parameters.BuildPlatform }}
+      rootPath:           ${{ parameters.rootPath }}      
+      packagesDirectory:  ${{ parameters.packagesDirectory }}
+      testList:           ${{ parameters.testList }}
+
+  - template: "../steps/package.yml"
+    parameters:
+      BuildProject:       ${{ parameters.BuildProject }}
+      BuildConfiguration: ${{ parameters.BuildConfiguration }}
+      rootPath:           ${{ parameters.rootPath }}

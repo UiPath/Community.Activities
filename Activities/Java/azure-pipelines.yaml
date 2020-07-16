@@ -1,0 +1,19 @@
+trigger: none
+
+pr: none
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "UiPath.Java.Activities.Design/UiPath.Java.Activities.Design.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Java\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "UiPath.Java/UiPath.Java.csproj"
+        - "UiPath.Java.Activities/UiPath.Java.Activities.csproj"
+      testList: 
+        - "UiPath.Java.Test/UiPath.Java.Test.csproj"
+      versionReference: "JavaPackageVersion.cs"
+

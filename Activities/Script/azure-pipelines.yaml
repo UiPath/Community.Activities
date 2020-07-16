@@ -1,0 +1,17 @@
+trigger: none
+
+pr: none
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "UiPath.Script.Activities.Design/UiPath.Script.Activities.Design.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Script\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "AutoHotkey.Interop/AutoHotkey.Interop.csproj"
+        - "UiPath.Script/UiPath.Script.csproj"
+        - "UiPath.Script.Activities/UiPath.Script.Activities.csproj"
+      versionReference: "UiPath.Script.Activities.Design/Properties/AssemblyInfo.cs"

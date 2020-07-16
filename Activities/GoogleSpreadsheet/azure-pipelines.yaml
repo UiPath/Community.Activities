@@ -1,0 +1,18 @@
+trigger: none
+
+pr: none
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "GoogleSpreadsheet.Activities.Design/GoogleSpreadsheet.Activities.Design.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\GoogleSpreadsheet\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "GoogleSpreadsheet/GoogleSpreadsheet.csproj"
+        - "GoogleSpreadsheet.Activities/GoogleSpreadsheet.Activities.csproj"
+      testList: 
+        - "GoogleSpreadsheet.Activities.UnitTest/GoogleSpreadsheet.Activities.UnitTest.csproj"      
+      versionReference: "GoogleSpreadsheetVersion.cs"

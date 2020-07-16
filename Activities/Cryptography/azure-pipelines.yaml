@@ -1,0 +1,18 @@
+trigger: none
+
+pr: none
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "UiPath.Cryptography.Activities.Design/UiPath.Cryptography.Activities.Design.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Cryptography\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "UiPath.Cryptography/UiPath.Cryptography.csproj"
+        - "UiPath.Cryptography.Activities/UiPath.Cryptography.Activities.csproj"
+      testList: 
+        - "UiPath.Cryptography.Activities.Tests/UiPath.Cryptography.Activities.Tests.csproj"        
+      versionReference: "CryptographyAssemblyInfo.cs"

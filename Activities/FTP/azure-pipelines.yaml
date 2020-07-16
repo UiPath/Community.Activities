@@ -1,0 +1,16 @@
+trigger: none
+
+pr: none
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "UiPath.FTP.Activities.Design/UiPath.FTP.Activities.Design.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\FTP\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "UiPath.FTP.Activities/UiPath.FTP.Activities.csproj"
+        - "UiPath.FTP/UiPath.FTP.csproj"      
+      versionReference: "FTPAssemblyInfo.cs"

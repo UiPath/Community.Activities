@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - master
+      - release/*
+      - support/*
+  paths:
+    include:
+      - Activities/Python/*
+
+pr:
+  branches:
+    include:
+      - master
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/Python/*
+      - Activities/.pipelines/*
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "UiPath.Python.Activities.Design/UiPath.Python.Activities.Design.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Python\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "UiPath.Python/UiPath.Python.csproj"
+        - "UiPath.Python.Activitiess/UiPath.Python.Activities.csproj"
+      testList: 
+        - "UiPath.Python.Tests/UiPath.Python.Tests.csproj"
+      versionReference: "PythonPackageVersion.cs"

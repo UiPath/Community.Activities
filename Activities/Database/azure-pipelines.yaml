@@ -1,0 +1,18 @@
+trigger: none
+
+pr: none
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "UiPath.Database.Activities.Design/UiPath.Database.Activities.Design.csproj"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Database\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "UiPath.Database/UiPath.Database.csproj"
+        - "UiPath.Database.Activities/UiPath.Database.Activities.csproj"
+      testList: 
+        - "UiPath.Database.Tests/UiPath.Database.Tests.csproj"
+      versionReference: "DatabaseAssemblyVersion.cs"
