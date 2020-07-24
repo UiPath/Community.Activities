@@ -27,6 +27,7 @@ namespace UiPath.FTP
         IEnumerable<FtpObjectInfo> EnumerateObjects(string remotePath, bool recursive);
         Task<IEnumerable<FtpObjectInfo>> EnumerateObjectsAsync(string remotePath, bool recursive, CancellationToken cancellationToken);
         void Open();
+        void Move(string RemotePath, string newPath);
         Task OpenAsync(CancellationToken cancellationToken);
         void Upload(string localPath, string remotePath, bool overwrite, bool recursive);
         Task UploadAsync(string localPath, string remotePath, bool overwrite, bool recursive, CancellationToken cancellationToken);

@@ -261,6 +261,7 @@ namespace UiPath.FTP
             return _ftpClient.IsConnected;
         }
 
+
         Task<bool> IFtpSession.IsConnectedAsync(CancellationToken cancellationToken)
         {
             return Task.Run(() => _ftpClient.IsConnected, cancellationToken);
@@ -569,6 +570,63 @@ namespace UiPath.FTP
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
         }
 
+        public void MoveDirectory(string RemotePath, string newPath)
+        {
+            if (string.IsNullOrWhiteSpace(RemotePath))
+            {
+                throw new ArgumentNullException(nameof(RemotePath));
+            }
+            if (string.IsNullOrWhiteSpace(newPath))
+            {
+                throw new ArgumentNullException(nameof(newPath));
+            }
+
+
+            if (_ftpClient.DirectoryExists(newPath))
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+            var ftpItem = _ftpClient.GetObjectInfo(RemotePath);
+            if (ftpItem.Type == FtpFileSystemObjectType.Directory)
+            {
+
+            }
+            else if (ftpItem.Type == FtpFileSystemObjectType.File)
+            {
+
+            }
+            else
+            {
+                throw new NotSupportedException(Resources.ItemTypeNotSupported);
+            }
+            _ftpClient.MoveDirectory(RemotePath, RemotePath);
+        }
+
+        void IFtpSession.Move(string RemotePath, string newPath)
+        {
+            if (string.IsNullOrWhiteSpace(RemotePath))
+            {
+                throw new ArgumentNullException(nameof(RemotePath));
+            }
+            if (string.IsNullOrWhiteSpace(newPath))
+            {
+                throw new ArgumentNullException(nameof(newPath));
+            }
+
+            if (!_ftpClient.Exists(newPath))
+            {
+                throw new IOException(Resources.PathNotFoundException);
+            }
+
+            if (_ftpClient.Exists(newPath))
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+
+            var file = _ftpClient.Get(RemotePath);
+            file.MoveTo(newPath);
+        }
+
         void IFtpSession.Upload(string localPath, string remotePath, bool overwrite, bool recursive)
         {
             if (string.IsNullOrWhiteSpace(localPath))
@@ -682,6 +740,7 @@ namespace UiPath.FTP
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }
