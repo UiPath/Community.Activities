@@ -581,19 +581,26 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(newPath));
             }
 
-
-            if (_ftpClient.DirectoryExists(newPath))
-            {
-                throw new IOException(Resources.FileExistsException);
-            }
             var ftpItem = _ftpClient.GetObjectInfo(RemotePath);
+            if (ftpItem == null)
+            {
+                throw new IOException(string.Format(Resources.PathNotFoundException, RemotePath));
+            }
             if (ftpItem.Type == FtpFileSystemObjectType.Directory)
             {
-                _ftpClient.MoveDirectory(RemotePath, RemotePath);
+                if (_ftpClient.DirectoryExists(newPath))
+                {
+                    throw new IOException(Resources.DirectoryExistsException);
+                }
+                _ftpClient.MoveDirectory(RemotePath, newPath);
             }
             else if (ftpItem.Type == FtpFileSystemObjectType.File)
             {
-                _ftpClient.MoveFile(RemotePath, RemotePath);
+                if (_ftpClient.FileExists(newPath))
+                {
+                    throw new IOException(Resources.FileExistsException);
+                }
+                _ftpClient.MoveFile(RemotePath, newPath);
             }
             else
             {

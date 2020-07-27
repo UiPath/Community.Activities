@@ -19,7 +19,7 @@ namespace UiPath.FTP.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UiPath_FTP {
@@ -61,11 +61,29 @@ namespace UiPath.FTP.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The destination directory already exists.
+        /// </summary>
+        internal static string DirectoryExistsException {
+            get {
+                return ResourceManager.GetString("DirectoryExistsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The destination file already exists..
         /// </summary>
         internal static string FileExistsException {
             get {
                 return ResourceManager.GetString("FileExistsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password.
+        /// </summary>
+        internal static string NoValidAuthenticationMethod {
+            get {
+                return ResourceManager.GetString("NoValidAuthenticationMethod", resourceCulture);
             }
         }
         
@@ -93,15 +111,6 @@ namespace UiPath.FTP.Properties {
         internal static string UnsupportedObjectTypeException {
             get {
                 return ResourceManager.GetString("UnsupportedObjectTypeException", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Unsupported object type encountered..
-        /// </summary>
-        internal static string NoValidAuthenticationMethod {
-            get {
-                return ResourceManager.GetString("NoValidAuthenticationMethod", resourceCulture);
             }
         }
     }
