@@ -8,7 +8,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class MoveDirectory : ContinuableAsyncCodeActivity
+    public class MoveItem : CodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -17,9 +17,9 @@ namespace UiPath.FTP.Activities
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.NewPath))]
-        public InArgument<string> newPath { get; set; }
+        public InArgument<string> NewPath { get; set; }
 
-        protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
+        protected override void Execute(CodeActivityContext context)
         {
             PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
             IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
@@ -28,13 +28,7 @@ namespace UiPath.FTP.Activities
             {
                 throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
             }
-
-            await ftpSession.MoveDirectory(RemotePath.Get(context), cancellationToken);
-
-            return (asyncCodeActivityContext) =>
-            {
-
-            };
+            ftpSession.Move(RemotePath.Get(context), NewPath.Get(context));
         }
     }
 }

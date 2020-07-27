@@ -45,7 +45,7 @@
     <Compile Include="..\FTPAssemblyInfo.cs">
       <Link>Properties\FTPAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="MoveDirectory.cs" />
+    <Compile Include="MoveItem.cs" />
     <Compile Include="Delete.cs" />
     <Compile Include="DirectoryExists.cs" />
     <Compile Include="DownloadFiles.cs" />

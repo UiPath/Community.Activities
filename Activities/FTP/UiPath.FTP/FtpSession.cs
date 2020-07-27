@@ -570,7 +570,7 @@ namespace UiPath.FTP
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
         }
 
-        public void MoveDirectory(string RemotePath, string newPath)
+        void IFtpSession.Move(string RemotePath, string newPath)
         {
             if (string.IsNullOrWhiteSpace(RemotePath))
             {
@@ -589,42 +589,16 @@ namespace UiPath.FTP
             var ftpItem = _ftpClient.GetObjectInfo(RemotePath);
             if (ftpItem.Type == FtpFileSystemObjectType.Directory)
             {
-
+                _ftpClient.MoveDirectory(RemotePath, RemotePath);
             }
             else if (ftpItem.Type == FtpFileSystemObjectType.File)
             {
-
+                _ftpClient.MoveFile(RemotePath, RemotePath);
             }
             else
             {
-                throw new NotSupportedException(Resources.ItemTypeNotSupported);
+                throw new NotSupportedException(Resources.UnsupportedObjectTypeException);
             }
-            _ftpClient.MoveDirectory(RemotePath, RemotePath);
-        }
-
-        void IFtpSession.Move(string RemotePath, string newPath)
-        {
-            if (string.IsNullOrWhiteSpace(RemotePath))
-            {
-                throw new ArgumentNullException(nameof(RemotePath));
-            }
-            if (string.IsNullOrWhiteSpace(newPath))
-            {
-                throw new ArgumentNullException(nameof(newPath));
-            }
-
-            if (!_ftpClient.Exists(newPath))
-            {
-                throw new IOException(Resources.PathNotFoundException);
-            }
-
-            if (_ftpClient.Exists(newPath))
-            {
-                throw new IOException(Resources.FileExistsException);
-            }
-
-            var file = _ftpClient.Get(RemotePath);
-            file.MoveTo(newPath);
         }
 
         void IFtpSession.Upload(string localPath, string remotePath, bool overwrite, bool recursive)
