@@ -124,7 +124,7 @@ namespace UiPath.Python.Impl
         public Task<PythonObject> LoadScript(string code, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
-            return Task.Run(() =>
+            return RunSTA(() =>
             {
                 using (_py.GIL())
                 {
@@ -150,7 +150,7 @@ namespace UiPath.Python.Impl
                         Trace.TraceInformation($"Load script took {sw.ElapsedMilliseconds} ms");
                     }
                 }
-            }, ct);
+            });
         }
 
         public Task<PythonObject> InvokeMethod(PythonObject instance, string method, IEnumerable<object> args, CancellationToken cancellationToken)
@@ -189,7 +189,7 @@ namespace UiPath.Python.Impl
         public Task Execute(string code, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return Task.Run(() =>
+            return RunSTA(() =>
             {
                 using (_py.GIL())
                 {
@@ -210,6 +210,9 @@ namespace UiPath.Python.Impl
                         Trace.TraceInformation($"Script execution took {sw.ElapsedMilliseconds} ms");
                     }
                 }
+
+                // used as placeholder
+                return true;
             });
         }
 
@@ -287,6 +290,29 @@ namespace UiPath.Python.Impl
                 var reader = new StreamReader(str);
                 return reader.ReadToEnd();
             }
+        }
+        #endregion
+
+        #region STA
+        private Task<T> RunSTA<T>(Func<T> func)
+        {
+            var tcs = new TaskCompletionSource<T>();
+            Thread thread = new Thread(() =>
+            {
+                try
+                {
+                    tcs.SetResult(func());
+                }
+                catch (Exception e)
+                {
+                    tcs.SetException(e);
+                }
+            });
+
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            
+            return tcs.Task;
         }
         #endregion
     }
