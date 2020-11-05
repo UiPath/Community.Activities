@@ -11,11 +11,12 @@ namespace UiPath.Database
 {
     public class DatabaseConnection : IDisposable
     {
-        private string OracleDriverPattern = "SQORA";
         private DbConnection _connection;
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
+        private const string OracleDriverPattern = "SQORA";
+        private const string OraclePattern = "oracle";
 
         internal DatabaseConnection Initialize(string connectionString, string providerName)
         {
@@ -119,11 +120,6 @@ namespace UiPath.Database
             {
                 _command.CommandTimeout = ceilVal;
             }
-            //Oracle has different implementation for Odbc Stored Procedure calling
-            if (_connection.GetType() == typeof(OdbcConnection)
-                && ((OdbcConnection)_connection).Driver.StartsWith(OracleDriverPattern)
-                && commandType == CommandType.StoredProcedure)
-                sql = GetOracleOdbcSqlSPString(sql, parameters.Count);
 
             _command.CommandType = commandType;
             _command.CommandText = sql;
@@ -137,24 +133,22 @@ namespace UiPath.Database
                 DbParameter dbParameter = _command.CreateParameter();
                 dbParameter.ParameterName = param.Key;
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Item2);
-                if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
-                {
-                    dbParameter.Size = 10000000;
-                }
 
+                dbParameter.Size = GetParameterSize(dbParameter);
                 dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
                 _command.Parameters.Add(dbParameter);
             }
         }
-        private string GetOracleOdbcSqlSPString(string sql, int parametersCount)
+        private int GetParameterSize(DbParameter dbParameter)
         {
-            if (sql.Trim().Split(' ').Length > 1)
-                return sql;
-            string pattern = "CALL {0} ({1})";
-            string[] parameterString = new string[parametersCount];
-            for (int i = 0; i < parametersCount; i++)
-                parameterString[i] = "?";
-            return string.Format(pattern, sql, string.Join(",", parameterString));
+            if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
+            {
+                if ((_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(OracleDriverPattern))
+                   || _connection.GetType().ToString().ToLower().Contains(OraclePattern))
+                    return 1000000;
+
+            }
+            return -1;
         }
 
         private string GetColumnNames(DataTable table)
