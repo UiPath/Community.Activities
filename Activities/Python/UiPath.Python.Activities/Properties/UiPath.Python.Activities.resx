@@ -242,7 +242,7 @@
     <comment>activity name</comment>
   </data>
   <data name="ScriptFileDescription" xml:space="preserve">
-    <value>Python script file</value>
+    <value>Full path to Python script file</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
     <value>File</value>

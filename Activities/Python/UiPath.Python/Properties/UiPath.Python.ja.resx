@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -125,5 +125,8 @@
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
     <value>Python ランタイムの型／メソッド／プロパティが見つかりません: {0}</value>
+  </data>
+  <data name="UnsupportedVersionException" xml:space="preserve">
+    <value/>
   </data>
 </root>

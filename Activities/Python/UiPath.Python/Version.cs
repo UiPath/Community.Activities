@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using UiPath.Python.Properties;
 
 namespace UiPath.Python
 {
@@ -59,11 +62,22 @@ namespace UiPath.Python
             return attr.AssemblyName;
         }
 
-        internal static Version Get(this FileVersionInfo fileVersion)
+        internal static Version GetVersionFromStr(this string fileVersion)
         {
-            return GetPythonVersion(fileVersion.ProductMajorPart, fileVersion.ProductMinorPart);
-        }
+            var regex = new Regex(@"(?<=Python )[0-9]+(\.[0-9]+)*");
+            var nrVer = regex.Matches(fileVersion);
+            if (nrVer.Count == 1)
+            {
+                var versionDetails = nrVer[0].Value.Split(new char[] { '.' });
+                var version = GetPythonVersion(Int32.Parse(versionDetails[0]), Int32.Parse(versionDetails[1]));
+                if (!version.IsValid())
+                    throw new ArgumentException(string.Format(Resources.UnsupportedVersionException, nrVer[0].Value, string.Join(", ", Enum.GetNames(typeof(Version)).Where(x => x != Version.Auto.ToString()))));
+                return version;
+            }
+            else 
+                return Version.Auto;
 
+        }
         internal static Version Get(this System.Version version)
         {
             return GetPythonVersion(version.Major, version.Minor);
