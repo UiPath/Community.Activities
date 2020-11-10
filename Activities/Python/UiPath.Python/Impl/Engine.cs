@@ -62,6 +62,7 @@ namespace UiPath.Python.Impl
         }
 
         #region IEngine
+        public Version Version { get { return _version; } }
         public async Task Initialize(string workingFolder, CancellationToken ct)
         {
             if (!_initialized)
@@ -89,10 +90,10 @@ namespace UiPath.Python.Impl
                         ct.ThrowIfCancellationRequested();
 
                         _pyEngine.PythonHome = _path;
-                        if(_version == Version.Python_33 || _version==Version.Python_34)
+                        if (_version == Version.Python_33 || _version == Version.Python_34)
                             _pyEngine.Initialize(null, null);
                         else
-                            _pyEngine.Initialize(null, null, null); 
+                            _pyEngine.Initialize(null, null, null);
                         ct.ThrowIfCancellationRequested();
 
                         _pythreads = _pyEngine.BeginAllowThreads();
@@ -249,6 +250,8 @@ namespace UiPath.Python.Impl
 
         #region script name caching
         private Dictionary<string, string> _cachedModules = new Dictionary<string, string>();
+
+        
 
         /// <summary>
         /// gets the module name based on the script content hash

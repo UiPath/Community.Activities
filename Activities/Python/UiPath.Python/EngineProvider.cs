@@ -20,9 +20,10 @@ namespace UiPath.Python
         private static object _lock = new object();
         private static Dictionary<Version, IEngine> _cache = new Dictionary<Version, IEngine>();
 
-        public static IEngine Get(Version version, string path, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
+        public static IEngine Get(string path, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
         {
             IEngine engine = null;
+            Version version;
             lock (_lock)
             {
                 if (string.IsNullOrEmpty(path))

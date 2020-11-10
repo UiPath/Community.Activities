@@ -28,7 +28,11 @@ namespace UiPath.Python
 
         private void DisposePythonObject()
         {
-            PyObject?.Dispose();
+            //Pythonnet added a check on refcount and when RefCount==1 sometimes throws a Memory access violation error from Python engine, validation that was not in previous pythonnet versions
+            //
+            if(PyObject?.Refcount != 1)
+                PyObject?.Dispose();
+           
             PyObject = null;
         }
 

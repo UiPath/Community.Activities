@@ -76,7 +76,7 @@ namespace UiPath.Python.Tests
             {
                 new object[]
                 {
-                    @"C:\Python27",
+                    @"C:\Python\python27-x86",
                     Version.Python_27
                 },
                 new object[]
@@ -199,7 +199,9 @@ namespace UiPath.Python.Tests
         private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
-            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            var engine = EngineProvider.Get(path, inProcess, target, true);
+            Assert.Equal(engine.Version, version);
+
             await engine.Initialize(null, _ct);
             // load test script
             var pyScript = await engine.LoadScript(_typeTestScript, _ct);
@@ -224,7 +226,9 @@ namespace UiPath.Python.Tests
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
-            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            var engine = EngineProvider.Get(path, inProcess, target, true);
+            Assert.Equal(engine.Version, version);
+
             await engine.Initialize(null, _ct);
 
             await engine.Execute(_basicTestScript, _ct);

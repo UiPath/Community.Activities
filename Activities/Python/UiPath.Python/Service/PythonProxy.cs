@@ -23,9 +23,9 @@ namespace UiPath.Python.Service
             _channel.Execute(code);
         }
 
-        public void Initialize(string path, Version version, string workingFolder)
+        public void Initialize(string path, string workingFolder)
         {
-            _channel.Initialize(path, version, workingFolder);
+            _channel.Initialize(path, workingFolder);
         }
 
         public Guid InvokeMethod(Guid instance, string method, IEnumerable<Argument> args)

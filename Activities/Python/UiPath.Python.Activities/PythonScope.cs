@@ -69,7 +69,6 @@ namespace UiPath.Python.Activities
 
         public PythonScope()
         {
-            Version = Version.Auto;
             Body = new ActivityAction<object>
             {
                 Argument = new DelegateInArgument<object>(PythonEngineSessionProperty),
@@ -90,7 +89,7 @@ namespace UiPath.Python.Activities
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            _pythonEngine = EngineProvider.Get(Version, path, !Isolated, TargetPlatform, ShowConsole);
+            _pythonEngine = EngineProvider.Get(path, !Isolated, TargetPlatform, ShowConsole);
 
             var workingFolder = WorkingFolder.Get(context);
             if (!workingFolder.IsNullOrEmpty())
