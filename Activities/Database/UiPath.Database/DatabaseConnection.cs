@@ -141,8 +141,7 @@ namespace UiPath.Database
                 {
                     dbParameter.Size = 10000000;
                 }
-
-                dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
+                dbParameter.Value = param.Value.Item1;
                 _command.Parameters.Add(dbParameter);
             }
         }
