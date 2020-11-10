@@ -116,7 +116,7 @@ namespace UiPath.Database
             if (ceilVal != 0)
             {
                 _command.CommandTimeout = ceilVal;
-            } 
+            }
 
             _command.CommandType = commandType;
             _command.CommandText = sql;
