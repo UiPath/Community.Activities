@@ -3,7 +3,6 @@ using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.Odbc;
 using System.Text;
 using UiPath.Database.Properties;
 
@@ -11,7 +10,6 @@ namespace UiPath.Database
 {
     public class DatabaseConnection : IDisposable
     {
-        private string OracleDriverPattern = "SQORA";
         private DbConnection _connection;
         private DbCommand _command;
         private DbTransaction _transaction;
@@ -119,11 +117,6 @@ namespace UiPath.Database
             {
                 _command.CommandTimeout = ceilVal;
             }
-            //Oracle has different implementation for Odbc Stored Procedure calling
-            if (_connection.GetType() == typeof(OdbcConnection)
-                && ((OdbcConnection)_connection).Driver.StartsWith(OracleDriverPattern)
-                && commandType == CommandType.StoredProcedure)
-                sql = GetOracleOdbcSqlSPString(sql, parameters.Count);
 
             _command.CommandType = commandType;
             _command.CommandText = sql;
@@ -139,21 +132,11 @@ namespace UiPath.Database
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Item2);
                 if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
                 {
-                    dbParameter.Size = 10000000;
+                    dbParameter.Size = -1;
                 }
                 dbParameter.Value = param.Value.Item1;
                 _command.Parameters.Add(dbParameter);
             }
-        }
-        private string GetOracleOdbcSqlSPString(string sql, int parametersCount)
-        {
-            if (sql.Trim().Split(' ').Length > 1)
-                return sql;
-            string pattern = "CALL {0} ({1})";
-            string[] parameterString = new string[parametersCount];
-            for (int i = 0; i < parametersCount; i++)
-                parameterString[i] = "?";
-            return string.Format(pattern, sql, string.Join(",", parameterString));
         }
 
         private string GetColumnNames(DataTable table)

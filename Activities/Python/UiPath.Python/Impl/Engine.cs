@@ -89,7 +89,10 @@ namespace UiPath.Python.Impl
                         ct.ThrowIfCancellationRequested();
 
                         _pyEngine.PythonHome = _path;
-                        _pyEngine.Initialize(null, null);
+                        if(_version == Version.Python_33 || _version==Version.Python_34)
+                            _pyEngine.Initialize(null, null);
+                        else
+                            _pyEngine.Initialize(null, null, null); 
                         ct.ThrowIfCancellationRequested();
 
                         _pythreads = _pyEngine.BeginAllowThreads();

@@ -15,6 +15,7 @@ namespace UiPath.Python.Activities
     [LocalizedDescription(nameof(Resources.PythonScopeDescription))]
     public class PythonScope : AsyncTaskNativeActivity
     {
+        [Browsable(false)]
         [DefaultValue(Version.Auto)]
         public Version Version { get; set; }
 
