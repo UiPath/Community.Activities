@@ -111,12 +111,12 @@ namespace UiPath.Database
 
             _command = _command ?? _connection.CreateCommand();
 
-            var ceilVal = (int)Math.Ceiling((double)commandTimeout / 1000);
+            var ceilVal = (int) Math.Ceiling((double) commandTimeout / 1000);
 
             if (ceilVal != 0)
             {
                 _command.CommandTimeout = ceilVal;
-            }
+            } 
 
             _command.CommandType = commandType;
             _command.CommandText = sql;
@@ -134,7 +134,8 @@ namespace UiPath.Database
                 {
                     dbParameter.Size = -1;
                 }
-                dbParameter.Value = param.Value.Item1;
+
+                dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
                 _command.Parameters.Add(dbParameter);
             }
         }
