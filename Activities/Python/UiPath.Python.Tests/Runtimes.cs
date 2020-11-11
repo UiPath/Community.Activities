@@ -149,6 +149,19 @@ namespace UiPath.Python.Tests
 
         [SkippableTheory]
         [Trait(TestCategories.Category, Category)]
+        [MemberData(nameof(AllEngines))]
+        public void AutomaticVersionDetection(string path, Version version)
+        {
+            Skip.IfNot(ValidateRuntime(path));
+            var target = X64Engines.Any(x => x[0].Equals(path) && x[1].Equals(version))
+                ? TargetPlatform.x64
+                : TargetPlatform.x86;
+            var engine = EngineProvider.Get(Version.Auto, path, true, target, true);
+            Assert.Equal(engine.Version, version);
+        }
+
+        [SkippableTheory]
+        [Trait(TestCategories.Category, Category)]
         [MemberData(nameof(X86Engines))]
         public async Task Simple_InProcess(string path, Version version)
         {
@@ -199,8 +212,7 @@ namespace UiPath.Python.Tests
         private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
-            var engine = EngineProvider.Get(Version.Auto, path, inProcess, target, true);
-            Assert.Equal(engine.Version, version);
+            var engine = EngineProvider.Get(version, path, inProcess, target, true);
 
             await engine.Initialize(null, _ct);
             // load test script
@@ -226,8 +238,7 @@ namespace UiPath.Python.Tests
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
-            var engine = EngineProvider.Get(Version.Auto, path, inProcess, target, true);
-            Assert.Equal(engine.Version, version);
+            var engine = EngineProvider.Get(version, path, inProcess, target, true);
 
             await engine.Initialize(null, _ct);
 
