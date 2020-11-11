@@ -20,7 +20,7 @@ namespace UiPath.Python.Impl
 
         #region Runtime info
         private Version _version;
-        private string _path;     
+        private string _path;
         #endregion
 
         internal OutOfProcessEngine(Version version, string path, TargetPlatform target, bool visible )

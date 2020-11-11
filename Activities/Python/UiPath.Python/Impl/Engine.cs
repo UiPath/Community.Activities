@@ -251,8 +251,6 @@ namespace UiPath.Python.Impl
         #region script name caching
         private Dictionary<string, string> _cachedModules = new Dictionary<string, string>();
 
-        
-
         /// <summary>
         /// gets the module name based on the script content hash
         /// </summary>
