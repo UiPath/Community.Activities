@@ -15,6 +15,7 @@ namespace UiPath.Python.Activities
     [LocalizedDescription(nameof(Resources.PythonScopeDescription))]
     public class PythonScope : AsyncTaskNativeActivity
     {
+
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.VersionNameDisplayName))]
