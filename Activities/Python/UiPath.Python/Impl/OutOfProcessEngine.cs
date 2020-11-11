@@ -49,7 +49,7 @@ namespace UiPath.Python.Impl
             };
             _provider.Create();
             _proxy = new PythonProxy(_provider.Endpoint);
-            _proxy.Initialize(_version, _path, workingFolder); 
+            _proxy.Initialize(_path, _version, workingFolder); 
 
             sw.Stop();
 

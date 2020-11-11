@@ -23,7 +23,6 @@ namespace UiPath.Python
         public static IEngine Get(Version version, string path, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
         {
             IEngine engine = null;
-            
             lock (_lock)
             {
                 if (string.IsNullOrEmpty(path))
@@ -32,11 +31,13 @@ namespace UiPath.Python
                     path = Environment.GetEnvironmentVariable(PythonHomeEnv);
                     Trace.TraceInformation($"Found Pyhton path {path}");
                 }
-                if(version == Version.Auto)
-                    Autodetect(path, out version);
                 if (!version.IsValid())
                 {
-                    throw new ArgumentException(Resources.DetectVersionException);
+                    Autodetect(path, out version);
+                    if (!version.IsValid())
+                    {
+                        throw new ArgumentException(Resources.DetectVersionException);
+                    }
                 }
 
                 // TODO: target&visible are meaningless when running in-process (at least now), maybe it should be split

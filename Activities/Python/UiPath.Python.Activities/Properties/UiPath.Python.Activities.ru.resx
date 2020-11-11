@@ -271,7 +271,6 @@
   <data name="Output" xml:space="preserve">
     <value>Output</value>
   </data>
-
   <data name="WorkingFolderDescription" xml:space="preserve">
     <value/>
   </data>
@@ -280,6 +279,9 @@
     <comment>property name</comment>
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="InvalidVersionException" xml:space="preserve">
     <value/>
   </data>
 </root>

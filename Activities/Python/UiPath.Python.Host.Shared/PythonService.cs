@@ -50,7 +50,7 @@ namespace UiPath.Python.Host
             }
         }
 
-        public void Initialize(Version version, string path, string workingFolder)
+        public void Initialize(string path, Version version, string workingFolder)
         {
             try
             {

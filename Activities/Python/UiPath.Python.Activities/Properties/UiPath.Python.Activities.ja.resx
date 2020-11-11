@@ -265,4 +265,7 @@
   <data name="WorkingFolderDescription" xml:space="preserve">
     <value/>
   </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value/>
+  </data>
 </root>
