@@ -15,7 +15,10 @@ namespace UiPath.Python.Activities
     [LocalizedDescription(nameof(Resources.PythonScopeDescription))]
     public class PythonScope : AsyncTaskNativeActivity
     {
-        [Browsable(false)]
+        [RequiredArgument]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.VersionNameDisplayName))]
+        [LocalizedDescription(nameof(Resources.VersionDescription))]
         [DefaultValue(Version.Auto)]
         public Version Version { get; set; }
 
@@ -69,6 +72,7 @@ namespace UiPath.Python.Activities
 
         public PythonScope()
         {
+            Version = Version.Auto;
             Body = new ActivityAction<object>
             {
                 Argument = new DelegateInArgument<object>(PythonEngineSessionProperty),
@@ -89,7 +93,7 @@ namespace UiPath.Python.Activities
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            _pythonEngine = EngineProvider.Get(path, !Isolated, TargetPlatform, ShowConsole);
+            _pythonEngine = EngineProvider.Get(Version, path, !Isolated, TargetPlatform, ShowConsole);
 
             var workingFolder = WorkingFolder.Get(context);
             if (!workingFolder.IsNullOrEmpty())
@@ -110,6 +114,13 @@ namespace UiPath.Python.Activities
             {
                 Trace.TraceError($"Error initializing Python engine: {e.ToString()}");
                 Cleanup();
+                if (Version != Version.Auto)
+                {
+                    Version autodetected = Version.Auto;
+                    EngineProvider.Autodetect(path, out autodetected);
+                    if (autodetected != Version.Auto && autodetected != Version)
+                        throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToString(), autodetected.ToString()));
+                }
                 throw new InvalidOperationException(Resources.PythonInitializeException, e);
             }
 

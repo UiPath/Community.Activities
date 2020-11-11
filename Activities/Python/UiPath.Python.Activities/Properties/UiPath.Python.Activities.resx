@@ -281,4 +281,7 @@
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
     <value>WorkingFolder path is not valid</value>
   </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value>Selected version {0} is different from the version found {1}</value>
+  </data>
 </root>

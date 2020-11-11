@@ -50,11 +50,11 @@ namespace UiPath.Python.Host
             }
         }
 
-        public void Initialize(string path, string workingFolder)
+        public void Initialize(Version version, string path, string workingFolder)
         {
             try
             {
-                _engine = EngineProvider.Get(path);
+                _engine = EngineProvider.Get(version, path);
                 _engine.Initialize(workingFolder, _ct).Wait();
             }
             catch (Exception ex)

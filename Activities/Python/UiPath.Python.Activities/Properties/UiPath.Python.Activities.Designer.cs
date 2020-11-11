@@ -169,6 +169,15 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected version {0} is different from the version found {1}.
+        /// </summary>
+        internal static string InvalidVersionException {
+            get {
+                return ResourceManager.GetString("InvalidVersionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error invoking Python method.
         /// </summary>
         internal static string InvokeException {

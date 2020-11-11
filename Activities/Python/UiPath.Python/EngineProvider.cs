@@ -20,10 +20,10 @@ namespace UiPath.Python
         private static object _lock = new object();
         private static Dictionary<Version, IEngine> _cache = new Dictionary<Version, IEngine>();
 
-        public static IEngine Get(string path, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
+        public static IEngine Get(Version version, string path, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
         {
             IEngine engine = null;
-            Version version;
+            
             lock (_lock)
             {
                 if (string.IsNullOrEmpty(path))
@@ -32,8 +32,8 @@ namespace UiPath.Python
                     path = Environment.GetEnvironmentVariable(PythonHomeEnv);
                     Trace.TraceInformation($"Found Pyhton path {path}");
                 }
-
-                Autodetect(path, out version);
+                if(version == Version.Auto)
+                    Autodetect(path, out version);
                 if (!version.IsValid())
                 {
                     throw new ArgumentException(Resources.DetectVersionException);
@@ -57,7 +57,7 @@ namespace UiPath.Python
             return engine;
         }
 
-        private static void Autodetect(string path, out Version version)
+        public static void Autodetect(string path, out Version version)
         {
             Trace.TraceInformation($"Trying to autodetect Python version from path {path}");
             string pyExe = Path.GetFullPath(Path.Combine(path, PythonExe));

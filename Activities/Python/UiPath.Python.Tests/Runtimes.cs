@@ -101,7 +101,7 @@ namespace UiPath.Python.Tests
                 },
                 new object[]
                 {
-                    @"C:\Python\python37-x86",
+                     @"C:\Python\python37-x86",
                     Version.Python_37
                 },
                 new object[]
@@ -199,7 +199,7 @@ namespace UiPath.Python.Tests
         private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
-            var engine = EngineProvider.Get(path, inProcess, target, true);
+            var engine = EngineProvider.Get(Version.Auto, path, inProcess, target, true);
             Assert.Equal(engine.Version, version);
 
             await engine.Initialize(null, _ct);
@@ -226,7 +226,7 @@ namespace UiPath.Python.Tests
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
-            var engine = EngineProvider.Get(path, inProcess, target, true);
+            var engine = EngineProvider.Get(Version.Auto, path, inProcess, target, true);
             Assert.Equal(engine.Version, version);
 
             await engine.Initialize(null, _ct);

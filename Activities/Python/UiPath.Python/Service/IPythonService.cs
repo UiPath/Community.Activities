@@ -9,7 +9,7 @@ namespace UiPath.Python.Service
     public interface IPythonService
     {
         [OperationContract]
-        void Initialize(string path, string workingFolder);
+        void Initialize(Version version, string path, string workingFolder);
 
         [OperationContract]
         void Shutdown();
