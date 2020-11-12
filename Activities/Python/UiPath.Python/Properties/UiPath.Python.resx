@@ -126,4 +126,7 @@
   <data name="PythonRuntimeTypeException" xml:space="preserve">
     <value>Python runtime type/method/property not found: {0}</value>
   </data>
+  <data name="UnsupportedVersionException" xml:space="preserve">
+    <value>Python version {0} is not supported. Supported versions are: {1}</value>
+  </data>
 </root>

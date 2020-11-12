@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -122,7 +122,8 @@
   </data>
   <data name="CodeNameDisplayName" xml:space="preserve">
     <value>コード</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ConvertException" xml:space="preserve">
     <value>Python オブジェクトの変換中にエラーが発生しました</value>
   </data>
@@ -134,7 +135,8 @@
   </data>
   <data name="GetObjectNameDisplayName" xml:space="preserve">
     <value>Python のオブジェクトを取得</value>
-  <comment>activity name</comment></data>
+    <comment>activity name</comment>
+  </data>
   <data name="GetObjectResultDescription" xml:space="preserve">
     <value>Python オブジェクトに対応する .NET の型です。</value>
   </data>
@@ -146,7 +148,8 @@
   </data>
   <data name="InstanceNameDisplayName" xml:space="preserve">
     <value>インスタンス</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="InvalidMethodNameException" xml:space="preserve">
     <value>メソッド名が無効です</value>
   </data>
@@ -161,7 +164,8 @@
   </data>
   <data name="InvokeMethodNameDisplayName" xml:space="preserve">
     <value>Python メソッドの呼び出し</value>
-  <comment>activity name</comment></data>
+    <comment>activity name</comment>
+  </data>
   <data name="LoadScriptDescription" xml:space="preserve">
     <value>Python スクリプトをロードし、実行します。(Load Python Script)</value>
   </data>
@@ -170,31 +174,36 @@
   </data>
   <data name="LoadScriptNameDisplayName" xml:space="preserve">
     <value>Python スクリプトをロード</value>
-  <comment>activity name</comment></data>
+    <comment>activity name</comment>
+  </data>
   <data name="MethodNameDescription" xml:space="preserve">
     <value>呼び出すメソッドの名前です。</value>
   </data>
   <data name="NameDisplayName" xml:space="preserve">
     <value>名前</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="NoScriptSpecifiedException" xml:space="preserve">
     <value>コード／スクリプトが指定されていません</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>出力</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Python スクリプトの入力パラメーターです。</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
     <value>入力パラメーター</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Python のホームパスです。</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
     <value>パス</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
     <value>Python エンジンセッションが見つかりませんでした</value>
   </data>
@@ -206,19 +215,22 @@
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
     <value>Python オブジェクト</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="PythonScopeDescription" xml:space="preserve">
     <value>Python アクティビティコンテナーです。(Python Scope)</value>
   </data>
   <data name="PythonScopeNameDisplayName" xml:space="preserve">
     <value>Python スコープ</value>
-  <comment>activity name</comment></data>
+    <comment>activity name</comment>
+  </data>
   <data name="ResultDescription" xml:space="preserve">
     <value>スクリプト呼び出しの結果です。</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
     <value>結果</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="RunScriptDescription" xml:space="preserve">
     <value>Python スクリプトアクティビティを呼び出します。(Run Python Script)</value>
   </data>
@@ -227,13 +239,15 @@
   </data>
   <data name="RunScriptNameDisplayName" xml:space="preserve">
     <value>Python スクリプトを実行</value>
-  <comment>activity name</comment></data>
+    <comment>activity name</comment>
+  </data>
   <data name="ScriptFileDescription" xml:space="preserve">
     <value>Python スクリプトファイルです。</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
     <value>ファイル</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>指定のスクリプトファイルは見つかりませんでした</value>
   </data>
@@ -245,24 +259,16 @@
   </data>
   <data name="VersionNameDisplayName" xml:space="preserve">
     <value>バージョン</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
     <value>ターゲット</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
     <value>Python のランタイムプラットフォームを指定します。</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>出力</value>
-  </data>
-  <data name="WorkingFolderPathInvalid" xml:space="preserve">
-    <value/>
-  </data>
-  <data name="WorkingFolder" xml:space="preserve">
-    <value/>
-    <comment>property name</comment>
-  </data>
-  <data name="WorkingFolderDescription" xml:space="preserve">
-    <value/>
   </data>
 </root>
