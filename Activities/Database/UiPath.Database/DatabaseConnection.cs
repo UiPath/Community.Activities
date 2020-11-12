@@ -142,7 +142,10 @@ namespace UiPath.Database
                 dbParameter.ParameterName = param.Key;
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Item2);
                 if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
+                {
                     dbParameter.Size = GetParameterSize(dbParameter);
+                }
+
                 dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
                 _command.Parameters?.Add(dbParameter);
             }
