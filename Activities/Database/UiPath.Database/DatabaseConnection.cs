@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
+using System.Data.OleDb;
 using System.Text;
 using UiPath.Database.Properties;
 
@@ -15,9 +16,15 @@ namespace UiPath.Database
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
-        private const string OracleDriverPattern = "SQORA";
+        private const string OracleOdbcDriverPattern = "SQORA";
         private const string OraclePattern = "oracle";
 
+        internal DatabaseConnection Initialize(DbConnection connection)
+        {
+            _connection = connection;
+            OpenConnection();
+            return this;
+        }
         internal DatabaseConnection Initialize(string connectionString, string providerName)
         {
             _providerName = providerName;
@@ -37,7 +44,9 @@ namespace UiPath.Database
             SetupCommand(sql, parameters, commandTimeout, commandType);
             _command.Transaction = _transaction;
             DataTable dt = new DataTable();
-            dt.Load(_command.ExecuteReader());
+            var dataReader = _command.ExecuteReader();
+            if(dataReader!=null)
+                dt.Load(dataReader);
             return dt;
         }
 
@@ -123,7 +132,7 @@ namespace UiPath.Database
 
             _command.CommandType = commandType;
             _command.CommandText = sql;
-            _command.Parameters.Clear();
+            _command.Parameters?.Clear();
             if (parameters == null)
             {
                 return;
@@ -133,21 +142,17 @@ namespace UiPath.Database
                 DbParameter dbParameter = _command.CreateParameter();
                 dbParameter.ParameterName = param.Key;
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Item2);
-
-                dbParameter.Size = GetParameterSize(dbParameter);
+                if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
+                    dbParameter.Size = GetParameterSize(dbParameter);
                 dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
-                _command.Parameters.Add(dbParameter);
+                _command.Parameters?.Add(dbParameter);
             }
         }
         private int GetParameterSize(DbParameter dbParameter)
         {
-            if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
-            {
-                if ((_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(OracleDriverPattern))
-                   || _connection.GetType().ToString().ToLower().Contains(OraclePattern))
-                    return 1000000;
-
-            }
+            if ((_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern))
+               || _connection.ToString().ToLower().Contains(OraclePattern))
+                return 1000000;
             return -1;
         }
 
