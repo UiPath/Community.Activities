@@ -73,18 +73,20 @@ namespace UiPath.Database.Tests
         {
             var con = new Mock<DbConnection>();
             var cmd = new Mock<DbCommand>();
+            var dbParameterCollection = new Mock<DbParameterCollection>();
             var param = new Mock<DbParameter>();
             var dataReader = new Mock<DbDataReader>();
-            var dbParameterCollection = new Mock<DbParameterCollection>();
 
-            cmd.SetReturnsDefault<DbParameter>(param.Object);
-            cmd.SetReturnsDefault<DbDataReader>(dataReader.Object);
-            cmd.SetReturnsDefault<DbParameterCollection>(dbParameterCollection.Object);
             con.SetReturnsDefault<DbCommand>(cmd.Object);
             con.SetReturnsDefault<string>(provider);
 
+            cmd.SetReturnsDefault<DbParameterCollection>(dbParameterCollection.Object);
+            cmd.SetReturnsDefault<DbParameter>(param.Object);
+            cmd.SetReturnsDefault<DbDataReader>(dataReader.Object);
+            
             param.SetupAllProperties();
             param.SetReturnsDefault<ParameterDirection>(ParameterDirection.InputOutput);
+
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);
             var parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>() { { "param1", new Tuple<object, ArgumentDirection>("", ArgumentDirection.Out) } };
             databaseConnection.ExecuteQuery("TestProcedure", parameters, 0);
