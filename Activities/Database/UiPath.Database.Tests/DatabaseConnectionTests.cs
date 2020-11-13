@@ -72,12 +72,17 @@ namespace UiPath.Database.Tests
         public void TestSize(string provider)
         {
             var con = new Mock<DbConnection>();
-            //con.
             var cmd = new Mock<DbCommand>();
             var param = new Mock<DbParameter>();
+            var dataReader = new Mock<DbDataReader>();
+            var dbParameterCollection = new Mock<DbParameterCollection>();
+
             cmd.SetReturnsDefault<DbParameter>(param.Object);
+            cmd.SetReturnsDefault<DbDataReader>(dataReader.Object);
+            cmd.SetReturnsDefault<DbParameterCollection>(dbParameterCollection.Object);
             con.SetReturnsDefault<DbCommand>(cmd.Object);
             con.SetReturnsDefault<string>(provider);
+
             param.SetupAllProperties();
             param.SetReturnsDefault<ParameterDirection>(ParameterDirection.InputOutput);
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);

@@ -44,8 +44,7 @@ namespace UiPath.Database
             _command.Transaction = _transaction;
             DataTable dt = new DataTable();
             var dataReader = _command.ExecuteReader();
-            if(dataReader!=null)
-                dt.Load(dataReader);
+            dt.Load(dataReader);
             return dt;
         }
 
@@ -131,7 +130,7 @@ namespace UiPath.Database
 
             _command.CommandType = commandType;
             _command.CommandText = sql;
-            _command.Parameters?.Clear();
+            _command.Parameters.Clear();
             if (parameters == null)
             {
                 return;
@@ -147,7 +146,7 @@ namespace UiPath.Database
                 }
 
                 dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
-                _command.Parameters?.Add(dbParameter);
+                _command.Parameters.Add(dbParameter);
             }
         }
         private int GetParameterSize(DbParameter dbParameter)
