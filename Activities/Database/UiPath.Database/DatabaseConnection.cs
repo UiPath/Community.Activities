@@ -120,7 +120,7 @@ namespace UiPath.Database
 
             _command = _command ?? _connection.CreateCommand();
 
-            var ceilVal = (int)Math.Ceiling((double)commandTimeout / 1000);
+            var ceilVal = (int) Math.Ceiling((double) commandTimeout / 1000);
 
             if (ceilVal != 0)
             {
