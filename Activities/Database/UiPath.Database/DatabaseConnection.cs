@@ -43,8 +43,7 @@ namespace UiPath.Database
             SetupCommand(sql, parameters, commandTimeout, commandType);
             _command.Transaction = _transaction;
             DataTable dt = new DataTable();
-            var dataReader = _command.ExecuteReader();
-            dt.Load(dataReader);
+            dt.Load(_command.ExecuteReader());
             return dt;
         }
 
