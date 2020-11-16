@@ -76,18 +76,38 @@ namespace UiPath.Python.Tests
             {
                 new object[]
                 {
-                    @"C:\Python\python-2.7.0-x86",
+                    @"C:\Python\python27-x86",
                     Version.Python_27
                 },
                 new object[]
                 {
-                    @"C:\Python\python-3.5.4-x86",
+                    @"C:\Python\python33-x86",
+                    Version.Python_33
+                },
+                new object[]
+                {
+                    @"C:\Python\python34-x86",
+                    Version.Python_34
+                },
+                new object[]
+                {
+                    @"C:\Python\python35-x86",
                     Version.Python_35
                 },
                 new object[]
                 {
-                    @"C:\Python\python-3.6.4-x86",
+                    @"C:\Python\python36-x86",
                     Version.Python_36
+                },
+                new object[]
+                {
+                     @"C:\Python\python37-x86",
+                    Version.Python_37
+                },
+                new object[]
+                {
+                    @"C:\Python\python38-x86",
+                    Version.Python_38
                 }
             };
 
@@ -96,13 +116,28 @@ namespace UiPath.Python.Tests
             {
                 new object[]
                 {
-                    @"C:\Python\python-3.5.4-x64",
+                    @"C:\Python\python27-x64",
+                    Version.Python_27
+                },
+                new object[]
+                {
+                    @"C:\Python\python35-x64",
                     Version.Python_35
                 },
                 new object[]
                 {
-                    @"C:\Python\python-3.6.4-x64",
+                    @"C:\Python\python36-x64",
                     Version.Python_36
+                },
+                new object[]
+                {
+                    @"C:\Python\python37-x64",
+                    Version.Python_37
+                },
+                new object[]
+                {
+                    @"C:\Python\python38-x64",
+                    Version.Python_38
                 }
             };
 
@@ -111,6 +146,19 @@ namespace UiPath.Python.Tests
         #endregion
 
         #region Test cases
+
+        [SkippableTheory]
+        [Trait(TestCategories.Category, Category)]
+        [MemberData(nameof(AllEngines))]
+        public void AutomaticVersionDetection(string path, Version version)
+        {
+            Skip.IfNot(ValidateRuntime(path));
+            var target = X64Engines.Any(x => x[0].Equals(path) && x[1].Equals(version))
+                ? TargetPlatform.x64
+                : TargetPlatform.x86;
+            var engine = EngineProvider.Get(Version.Auto, path, true, target, true);
+            Assert.Equal(engine.Version, version);
+        }
 
         [SkippableTheory]
         [Trait(TestCategories.Category, Category)]
