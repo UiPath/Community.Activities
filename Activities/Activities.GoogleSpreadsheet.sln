@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet", "Google Spreadsheet\GoogleSpreadsheet\GoogleSpreadsheet.csproj", "{27EC779B-47AA-42C6-83E4-B101F6B286E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activities", "Google Spreadsheet\GoogleSpreadsheet.Activities\GoogleSpreadsheet.Activities.csproj", "{42BF8242-66AC-43B3-827A-F69DE1A15310}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activities.Design", "Google Spreadsheet\GoogleSpreadsheet.Activities.Design\GoogleSpreadsheet.Activities.Design.csproj", "{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSpreadsheet.Activities.UnitTest", "Google Spreadsheet\GoogleSpreadsheet.Activities.UnitTest\GoogleSpreadsheet.Activities.UnitTest.csproj", "{FF53D74C-98C1-4486-8548-C1B6FAA45133}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27EC779B-47AA-42C6-83E4-B101F6B286E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27EC779B-47AA-42C6-83E4-B101F6B286E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27EC779B-47AA-42C6-83E4-B101F6B286E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27EC779B-47AA-42C6-83E4-B101F6B286E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42BF8242-66AC-43B3-827A-F69DE1A15310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42BF8242-66AC-43B3-827A-F69DE1A15310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42BF8242-66AC-43B3-827A-F69DE1A15310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42BF8242-66AC-43B3-827A-F69DE1A15310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE91FF5-B3AA-4DB7-BDED-9046BC0EB5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF53D74C-98C1-4486-8548-C1B6FAA45133}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AC55779-EA32-41AD-BAAD-1808F8A412CB}
+	EndGlobalSection
+EndGlobal

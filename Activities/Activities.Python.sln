@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python", "Python\UiPath.Python\UiPath.Python.csproj", "{A1783EAB-5BAF-49F1-8372-B467B57063CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Activities", "Python\UiPath.Python.Activities\UiPath.Python.Activities.csproj", "{E270608B-BA9E-4972-A18E-34B93E6552B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Activities.Design", "Python\UiPath.Python.Activities.Design\UiPath.Python.Activities.Design.csproj", "{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Host", "Python\UiPath.Python.Host\UiPath.Python.Host.csproj", "{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Python.Host.Shared", "Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.shproj", "{25FF4279-6EE6-441E-9D40-A40DB81CB57C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Host32", "Python\UiPath.Python.Host32\UiPath.Python.Host32.csproj", "{BCBA78DF-1513-44D3-83B3-37655A7F3887}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Tests", "Python\UiPath.Python.Tests\UiPath.Python.Tests.csproj", "{9E913818-9270-4570-A8F4-80812EBFA09E}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{0fbf5f7e-2ae4-4f4a-84cb-26b3a9e3119c}*SharedItemsImports = 4
+		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{0fbf5f7e-2ae4-4f4a-84cb-26b3a9e3119c}*SharedItemsImports = 4
+		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{25ff4279-6ee6-441e-9d40-a40db81cb57c}*SharedItemsImports = 13
+		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{a1783eab-5baf-49f1-8372-b467b57063cc}*SharedItemsImports = 4
+		Shared\UiPath.Shared\UiPath.Shared.projitems*{a1783eab-5baf-49f1-8372-b467b57063cc}*SharedItemsImports = 4
+		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 4
+		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 4
+		Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems*{e116c90e-c6a0-4292-b1ff-e0746ffe95d5}*SharedItemsImports = 4
+		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{e270608b-ba9e-4972-a18e-34b93e6552b4}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1783EAB-5BAF-49F1-8372-B467B57063CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1783EAB-5BAF-49F1-8372-B467B57063CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1783EAB-5BAF-49F1-8372-B467B57063CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1783EAB-5BAF-49F1-8372-B467B57063CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E270608B-BA9E-4972-A18E-34B93E6552B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E270608B-BA9E-4972-A18E-34B93E6552B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E270608B-BA9E-4972-A18E-34B93E6552B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E270608B-BA9E-4972-A18E-34B93E6552B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCBA78DF-1513-44D3-83B3-37655A7F3887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCBA78DF-1513-44D3-83B3-37655A7F3887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCBA78DF-1513-44D3-83B3-37655A7F3887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCBA78DF-1513-44D3-83B3-37655A7F3887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E913818-9270-4570-A8F4-80812EBFA09E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E913818-9270-4570-A8F4-80812EBFA09E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E913818-9270-4570-A8F4-80812EBFA09E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E913818-9270-4570-A8F4-80812EBFA09E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AC55779-EA32-41AD-BAAD-1808F8A412CB}
+	EndGlobalSection
+EndGlobal
