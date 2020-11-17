@@ -1,6 +1,25 @@
-trigger: none
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+  paths:
+    include:
+      - Activities/Script/*
 
-pr: none
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/Script/*
 
 jobs:
   - template: "../.pipelines/jobs/ci.yml"

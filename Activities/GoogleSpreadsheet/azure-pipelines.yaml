@@ -1,11 +1,32 @@
-trigger: none
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+  paths:
+    include:
+      - Activities/GoogleSpreadsheet/*
+      - Activities/Activities.GoogleSpreadsheet.sln
 
-pr: none
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/GoogleSpreadsheet/*
+      - Activities/Activities.GoogleSpreadsheet.sln
 
 jobs:
   - template: "../.pipelines/jobs/ci.yml"
     parameters:
-      BuildProject: "GoogleSpreadsheet.Activities.Design/GoogleSpreadsheet.Activities.Design.csproj"
+      BuildProject: "../Activities.GoogleSpreadsheet.sln"
       BuildConfiguration: "Release"
       BuildPlatform: "AnyCPU"
       rootPath: $(Build.SourcesDirectory)\Activities\GoogleSpreadsheet\

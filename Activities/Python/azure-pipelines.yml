@@ -2,28 +2,31 @@ trigger:
   branches:
     include:
       - master
+      - develop
       - release/*
       - support/*
   paths:
     include:
       - Activities/Python/*
+      - Activities/Activities.Python.sln
 
 pr:
   branches:
     include:
       - master
+      - develop
       - release/*
       - support/*
       - feature/*
   paths:
     include:
       - Activities/Python/*
-      - Activities/.pipelines/*
+      - Activities/Activities.Python.sln
 
 jobs:
   - template: "../.pipelines/jobs/ci.yml"
     parameters:
-      BuildProject: "UiPath.Python.Activities.Design/UiPath.Python.Activities.Design.csproj"
+      BuildProject: "../Activities.Python.sln"
       BuildConfiguration: "Release"
       BuildPlatform: "AnyCPU"
       rootPath: $(Build.SourcesDirectory)\Activities\Python\

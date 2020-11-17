@@ -1,6 +1,6 @@
 parameters:
   BuildConfiguration: "Release"
-  BuildPlatform: "Any CPU"
+  BuildPlatform: "AnyCPU"
   rootPath: $(Build.SourcesDirectory)  
   NuGetConfigPath: "$(Build.SourcesDirectory)/Activities/.nuget/NuGet.Config"
   packagesDirectory: ""

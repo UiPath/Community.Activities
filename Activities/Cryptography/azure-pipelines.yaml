@@ -1,11 +1,32 @@
-trigger: none
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+  paths:
+    include:
+      - Activities/Cryptography/*
+      - Activities/Activities.Cryptography.sln
 
-pr: none
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/Cryptography/*
+      - Activities/Activities.Cryptography.sln
 
 jobs:
   - template: "../.pipelines/jobs/ci.yml"
     parameters:
-      BuildProject: "UiPath.Cryptography.Activities.Design/UiPath.Cryptography.Activities.Design.csproj"
+      BuildProject: "../Activities.Cryptography.sln"
       BuildConfiguration: "Release"
       BuildPlatform: "AnyCPU"
       rootPath: $(Build.SourcesDirectory)\Activities\Cryptography\

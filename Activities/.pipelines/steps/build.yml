@@ -1,7 +1,7 @@
 parameters:
   BuildProject: ""
   BuildConfiguration: "Release"
-  BuildPlatform: "Any CPU"
+  BuildPlatform: "AnyCPU"
   NuGetVersionSpec: "4.3.0"
   NuGetConfigPath: "$(Build.SourcesDirectory)/Activities/.nuget/NuGet.Config"
   Dependencies: []

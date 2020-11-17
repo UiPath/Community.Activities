@@ -1,7 +1,7 @@
 parameters:
-  BuildProject: "$(Build.SourcesDirectory)/Activities/Community.Activities.sln"
+  BuildProject: ""
   BuildConfiguration: "Release"
-  BuildPlatform: "Any CPU"
+  BuildPlatform: "AnyCPU"
   VmImage: "windows-latest"
   Demands: 
   - msbuild
@@ -51,3 +51,5 @@ jobs:
       BuildProject:       ${{ parameters.BuildProject }}
       BuildConfiguration: ${{ parameters.BuildConfiguration }}
       rootPath:           ${{ parameters.rootPath }}
+
+

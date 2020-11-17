@@ -1,11 +1,32 @@
-trigger: none
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+  paths:
+    include:
+      - Activities/Database/*
+      - Activities/Activities.Database.sln
 
-pr: none
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/Database/*
+      - Activities/Activities.Database.sln
 
 jobs:
   - template: "../.pipelines/jobs/ci.yml"
     parameters:
-      BuildProject: "UiPath.Database.Activities.Design/UiPath.Database.Activities.Design.csproj"
+      BuildProject: "../Activities.Database.sln"
       BuildConfiguration: "Release"
       BuildPlatform: "AnyCPU"
       rootPath: $(Build.SourcesDirectory)\Activities\Database\

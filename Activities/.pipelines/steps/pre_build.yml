@@ -38,10 +38,6 @@ steps:
       Write-Host "$version" 
       Write-Host "##vso[build.updatebuildnumber]$version"
 
-- powershell: |      
-      Write-Output "##vso[task.setvariable variable=sourceBranch;]${{ variables['Build.SourceBranch'] }}" >  $(Build.ArtifactStagingDirectory)/pipeline.env
-  displayName: "Add variables to artifacts"
-
 - task: NuGetToolInstaller@1
   displayName: "Use NuGet ${{ parameters.NuGetVersionSpec }}"
   inputs:
