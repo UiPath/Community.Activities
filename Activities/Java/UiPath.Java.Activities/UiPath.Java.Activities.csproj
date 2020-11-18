@@ -79,6 +79,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UiPath.Java.Activities.Designer.cs</LastGenOutput>
       <CustomToolNamespace>UiPath.Java.Activities</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

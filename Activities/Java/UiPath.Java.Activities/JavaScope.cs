@@ -20,6 +20,11 @@ namespace UiPath.Java.Activities
         [LocalizedDescription(nameof(Resources.JavaPathDescription))]
         public InArgument<string> JavaPath { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.TimeoutMSDisplayName))]
+        [LocalizedDescription(nameof(Resources.TimeoutMSDescription))]
+        public InArgument<int> TimeoutMS { get; set; }
+
         [Browsable(false)]
         public ActivityAction<object> Body { get; set; }
 
@@ -62,9 +67,15 @@ namespace UiPath.Java.Activities
             }
             _invoker = new JavaInvoker(javaPath);
 
+            int initTimeout = TimeoutMS.Get(context);
+            if (initTimeout < 0)
+            {
+                throw new ArgumentException(UiPath.Java.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
+            }
+
             try
             {
-                await _invoker.StartJavaService();
+                await _invoker.StartJavaService(initTimeout);
             }
             catch (Exception e)
             {
