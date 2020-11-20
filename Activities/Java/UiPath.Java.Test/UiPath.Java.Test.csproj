@@ -68,6 +68,7 @@
     <Compile Include="JavaInvokeCoreLibraries.cs" />
     <Compile Include="Fixtures\JavaTestBaseFixture.cs" />
     <Compile Include="JavaTestImportCoordinate.cs" />
+    <Compile Include="JavaTestInvokerParams.cs" />
     <Compile Include="JavaTestNewFeatures.cs" />
     <Compile Include="JavaTestProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -90,7 +90,7 @@ namespace UiPath.Java.Service
                 catch (Exception)
                 {
                     if (ct.IsCancellationRequested)
-                        throw new TimeoutException(UiPath.Java.Properties.Resources.JavaTimeoutException);
+                        throw new NullReferenceException(UiPath.Java.Properties.Resources.JavaTimeoutException);
                     throw;
                 }
             }
