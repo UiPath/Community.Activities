@@ -1,12 +1,12 @@
 Guidelines for contribuing to this repository
-================
+=================
 
 ### Anatomy of an Activity pack
 
    * API
    * API.Activities
    * API.Activities.Design
-  
+
     API should be the name of the service this pack integrates with (e.g. Excel, Sharepoint, Mail)
     API is not necessary if the activities use standard .NET types
     API.Activities.Design is not necessary if designers do not exist but design specific attributes should be placed in a separate file (DesignerMetadata.cs)
@@ -18,7 +18,7 @@ Guidelines for contribuing to this repository
    * Public namespaces should specify an **XmlnsDefinitionAttribute** that is usually **http://schemas.company.com/workflow/activities**
    * NuSpec file should have the approximately same structure as the others
 
-   
+
 ### Testing and deploying
 
   * To pack the packages run nuget.exe with the desired project
