@@ -13,8 +13,8 @@
     <description>$description$</description>
   </metadata>
   <files>
-    <file src="$SolutionDir$Python\3rdparty\Python.Runtime*.dll" target="lib\net452\x86"/>
-    <file src="$SolutionDir$Python\3rdparty\x64\Python.Runtime*.dll" target="lib\net452\x64"/>
+    <file src="..\3rdparty\Python.Runtime*.dll" target="lib\net452\x86"/>
+    <file src="..\3rdparty\x64\Python.Runtime*.dll" target="lib\net452\x64"/>
     <file src="$OutputPath$**\UiPath.Python*resources.dll" target="lib\net452" />
     <file src="$OutputPath$UiPath.Python.Host*.exe" target="lib\net452" />
   </files>

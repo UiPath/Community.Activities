@@ -1,0 +1,37 @@
+parameters:
+  BuildProject: ""
+  BuildConfiguration: "Release"
+  rootPath: $(Build.SourcesDirectory)
+
+steps:
+- task: PowerShell@1
+  displayName: "Set 'PackagesToPack' variable"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: |
+      Write-Output $ENV:BUILD_SOURCESDIRECTORY
+      Write-Output $files
+      $files = Get-ChildItem "${{ parameters.rootPath }}*.nuspec" -Recurse | foreach {$_.Name -replace '.nuspec','.csproj'} 
+      Write-Output $files
+      $pattern = '' 
+      ForEach($file in $files) { $pattern+="**\$file;" } 
+      Write-Host "##vso[task.setvariable variable=PackagesToPack;]$pattern" 
+
+- task: NuGetCommand@2
+  displayName: "Create Nuget packages ${{ parameters.BuildProject }}"
+  inputs:
+    command: "pack"
+    packagesToPack: "$(PackagesToPack)"
+    versioningScheme: "byBuildNumber"
+    includeSymbols: "true"
+    outputDir: "$(Build.ArtifactStagingDirectory)"
+    configurationToPack: ${{ parameters.BuildConfiguration }}
+    includeReferencedProjects: "true"
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish symbols"
+  inputs:
+    PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
+    ArtifactName:   'Setup'
+    ArtifactType:   'Container'
+    
