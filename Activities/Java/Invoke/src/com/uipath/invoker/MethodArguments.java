@@ -36,6 +36,7 @@ public class MethodArguments {
     private  void setParameters() {
         if (json.has("parameters")) {
             JSONArray array = null;
+            String runtime_arrayType= null;
             try {
                 array = json.getJSONArray("parameters");
             } catch (JSONException e) {
@@ -54,10 +55,18 @@ public class MethodArguments {
                 JSONObject item = new JSONObject();
                 try {
                     item = array.getJSONObject(i);
+                    runtime_arrayType = item.getString("runtime_arrayType");
                 } catch (JSONException e) {}
-                JavaObject result = new TypeSerializerFactory(context).CreateType(item).DeserializeToJavaObject(item);
-                parameters[i] = result.getRawObject();
-                parametersTypes[i] = result.getType();
+                if (item.isNull("value") && runtime_arrayType == null){
+                    JavaObject result = new TypeSerializerFactory(context).CreateType(item).DeserializeToJavaObject(item);
+                    parameters[i] = null;
+                    parametersTypes[i] = null;
+                }
+                else {
+                    JavaObject result = new TypeSerializerFactory(context).CreateType(item).DeserializeToJavaObject(item);
+                    parameters[i] = result.getRawObject();
+                    parametersTypes[i] = result.getType();
+                }
             }
         }
     }
