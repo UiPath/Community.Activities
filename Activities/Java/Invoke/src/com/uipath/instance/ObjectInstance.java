@@ -210,23 +210,23 @@ public class ObjectInstance {
 
     private static Method getMethod(String methodName, Class<?> loadedClass, Class<?>[] parameterTypes) throws NoSuchMethodException {
         Method[] methods = loadedClass.getMethods();
-        Method returnedMethod=null;
+        Method returnedMethod = null;
         if (methods == null) {
             throw new NoSuchMethodException();
         }
         InvocationTarget invocationTarget = new InvocationTarget(methodName, parameterTypes);
         for (Method method:methods) {
             InvocationTarget loadedInvocationTarget = new InvocationTarget(method);
-            if (invocationTarget.equals(loadedInvocationTarget)) {
-                if (returnedMethod != null){
+            if (loadedInvocationTarget.equals(invocationTarget)) {
+                if (returnedMethod!=null){
                     throw new NoSuchMethodException("Ambiguous Execution");
                 }
                 returnedMethod = method;
+                //return method;
             }
         }
-        if (returnedMethod != null)
+        if (returnedMethod!=null)
             return returnedMethod;
-
         throw new NoSuchMethodException();
     }
 
@@ -334,11 +334,9 @@ class InvocationTarget {
             return false;
         }
         for (int i = 0; i < parameterTypes.length; ++i) {
-            /*if (parameterTypes[i] == null || that.parameterTypes[i] == null) {
-                return false;
-            }*/
-            if (parameterTypes[i] == null)
+            if (parameterTypes[i] == null || that.parameterTypes[i] == null) {
                 continue;
+            }
             Class<?> thisType = getWrappedType(parameterTypes[i]);
             Class<?> thatType = getWrappedType(that.parameterTypes[i]);
             if (!thisType.isAssignableFrom(thatType)) {
