@@ -210,7 +210,6 @@ public class ObjectInstance {
 
     private static Method getMethod(String methodName, Class<?> loadedClass, Class<?>[] parameterTypes) throws NoSuchMethodException {
         Method[] methods = loadedClass.getMethods();
-        Method returnedMethod = null;
         if (methods == null) {
             throw new NoSuchMethodException();
         }
@@ -218,21 +217,15 @@ public class ObjectInstance {
         for (Method method:methods) {
             InvocationTarget loadedInvocationTarget = new InvocationTarget(method);
             if (loadedInvocationTarget.equals(invocationTarget)) {
-                if (returnedMethod!=null){
-                    throw new NoSuchMethodException("Ambiguous Execution");
-                }
-                returnedMethod = method;
-                //return method;
+                return method;
             }
         }
-        if (returnedMethod!=null)
-            return returnedMethod;
         throw new NoSuchMethodException();
     }
 
     private static Constructor<?> getConstructor(Class<?> loadedClass, Class<?>[] parameterTypes) throws NoSuchMethodException {
         Constructor<?>[] constructors = loadedClass.getConstructors();
-        Constructor<?> returnedCons = null;
+
         if (constructors == null) {
             throw new NoSuchMethodException();
         }
@@ -240,14 +233,10 @@ public class ObjectInstance {
         for (Constructor<?> constructor:constructors) {
             InvocationTarget loadedInvocationTarget = new InvocationTarget(constructor);
             if (invocationTarget.equals(loadedInvocationTarget)) {
-                if (returnedCons!=null) {
-                    throw new NoSuchMethodException("Ambiguous Execution");
-                }
-                returnedCons = constructor;
+                return constructor;
             }
         }
-        if (returnedCons != null)
-            return returnedCons;
+
         throw new NoSuchMethodException();
     }
 

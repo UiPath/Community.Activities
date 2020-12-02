@@ -48,6 +48,14 @@ namespace UiPath.Java.Activities
             List<object> parameters = ParametersList.Get(context) ?? Parameters.Select(arg => arg.Get(context)).ToList();
             return parameters;
         }
-
+        protected List<Type> GetParameterTypes(AsyncCodeActivityContext context)
+        {
+            List<Type> parameterTyps = new List<Type>();
+            foreach (var param in Parameters)
+            {
+                parameterTyps.Add(param?.ArgumentType ?? typeof(object));
+            }
+            return parameterTyps;
+        }
     }
 }

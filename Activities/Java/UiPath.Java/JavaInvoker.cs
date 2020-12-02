@@ -152,7 +152,7 @@ namespace UiPath.Java
                 FieldName = fieldName,
                 Instance = javaObject?.Instance,
             };
-            request.AddParametersToRequest(parameters);
+            request.AddParametersToRequest(parameters, parametersTypes);
 
             JavaResponse response = await _javaService.RequestAsync(request, ct);
 

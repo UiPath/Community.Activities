@@ -25,9 +25,13 @@ public class ArrayTypeSerializer implements TypeSerializerInterface {
             runtimeArrayType = obj.getString("runtime_arrayType");
         }
         catch (JSONException e) {  }
-
+        
         if (array == null) {
-            return new JavaObject(new EmptyClass(), boolean.class);
+            try {
+                runtimeArrayType = obj.getString("runtime_arrayType");
+            }
+            catch (JSONException e) {  }
+            return EmptyTypeSerializer.DeserializeToNullJavaObject(runtimeArrayType);
         }
         Class<?> arrayType = getArrayType(context, array);
         int length = array.length();

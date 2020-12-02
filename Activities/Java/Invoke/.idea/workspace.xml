@@ -2,112 +2,66 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="InvokeJava" />
+      <artifact name="InvokeJava:jar" />
     </artifacts-to-build>
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:test" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c872a7ce-189b-4632-8cda-df664538ecdb" name="Default" comment="" />
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
+    <list default="true" id="c872a7ce-189b-4632-8cda-df664538ecdb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/artifacts/InvokeJava.jar" beforeDir="false" afterPath="$PROJECT_DIR$/artifacts/InvokeJava.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ArrayTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ArrayTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/BoolTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/BoolTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ByteTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ByteTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/CharTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/CharTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/DoubleTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/DoubleTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/FloatTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/FloatTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/IntTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/IntTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/LongTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/LongTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ShortTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ShortTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/StringTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/StringTypeSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/instance/ObjectInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/instance/ObjectInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/uipath/invoker/MethodArguments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/invoker/MethodArguments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UiPath.Java.Activities/CreateJavaObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java.Activities/CreateJavaObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UiPath.Java.Activities/InvokeJavaMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java.Activities/InvokeJavaMethod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UiPath.Java.Activities/JavaActivityWithParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java.Activities/JavaActivityWithParameters.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UiPath.Java/JavaInvoker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java/JavaInvoker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UiPath.Java/Service/Impl/JavaRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java/Service/Impl/JavaRequest.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ShortTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ShortTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="18" selection-start-line="18" selection-end-line="20" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ByteTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ByteTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoolTypeSerializer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/BoolTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LongTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/LongTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JavaObjectSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/JavaObjectSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="32" column="1" lean-forward="true" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IntTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/IntTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FloatTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/FloatTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" selection-start-line="19" selection-end-line="23" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EmptyTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DoubleTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/DoubleTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="18" column="80" selection-start-line="18" selection-start-column="80" selection-end-line="18" selection-end-column="80" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CharTypeSerializer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/CharTypeSerializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -118,196 +72,26 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>getString</find>
-      <find>AddError</find>
-      <find>getField</find>
-      <find>sy</find>
-      <find>IllegalArgumentException</find>
-      <find>invocationt</find>
-      <find>system.c</find>
-      <find>itemClass</find>
-      <find>getCla</find>
-      <find>append</find>
-      <find>className</find>
-      <find>invoke</find>
-      <find>@since</find>
-      <find>addError</find>
-      <find>getClassFromName</find>
-      <find>invokeMethod</find>
-      <find>tostring</find>
-      <find>withE</find>
-      <find>syste</find>
-      <find>sys</find>
-      <find>classLoader</find>
-      <find>getPara</find>
-      <find>instanceN</find>
-      <find>:</find>
-      <find>equals</find>
-      <find>class</find>
-      <find>addur</find>
-      <find>getur</find>
-      <find>equals(</find>
-      <find>loadedClassURLs</find>
-    </findStrings>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/CharTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/DoubleTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/FloatTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/IntTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/LongTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/ShortTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/StringTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/JavaObject.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/TypeSerializerInterface.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/ArrayTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Invoker.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/company/RequestType.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Response.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/JavaObjectSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/ObjectState.java" />
-        <option value="$PROJECT_DIR$/src/com/company/InvokerContext.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/TypeSerializerFactory.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/EmptyType.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/EmptyClass.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaTypes/EmptyTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/DotNetJavaBroker.java" />
-        <option value="$PROJECT_DIR$/src/com/company/ObjectInstance.java" />
-        <option value="$PROJECT_DIR$/src/com/company/MethodArguments.java" />
-        <option value="$PROJECT_DIR$/src/com/UiPath/MethodArguments.java" />
-        <option value="$PROJECT_DIR$/src/com/UiPath/Invoker/InvokerContext.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/Invoker/MethodArguments.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/server/DotNetJavaBroker.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/server/RequestType.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/server/Response.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/instance/ObjectState.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/server/DotNetProcessRequest.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ArrayTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/TypeSerializerBase.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/invoker/MethodArguments.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/invoker/InvokerContext.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/TypeSerializerFactory.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/instance/ObjectInstance.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/StringTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/TypeSerializerInterface.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ShortTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/LongTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/JavaObjectSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/IntTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/FloatTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/DoubleTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/CharTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ByteTypeSerializer.java" />
-        <option value="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/BoolTypeSerializer.java" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="uipath" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="uipath" type="462c0819:PsiDirectoryNode" />
-              <item name="dotnetjavatypes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="uipath" type="462c0819:PsiDirectoryNode" />
-              <item name="instance" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="uipath" type="462c0819:PsiDirectoryNode" />
-              <item name="instance" type="462c0819:PsiDirectoryNode" />
-              <item name="ObjectInstance.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="uipath" type="462c0819:PsiDirectoryNode" />
-              <item name="invoker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Invoke" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="uipath" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Invoke" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectId" id="1l5qqcxldeM51GtuDrehYTfHQEK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -317,6 +101,9 @@
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
@@ -324,6 +111,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -337,45 +125,25 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.45" visible="true" weight="0.32946146" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.55" side_tool="true" visible="true" weight="0.32946146" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34904602" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18020834" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49791667" weight="0.31045407" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.41605067" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-    </layout>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="WindowStateProjectService">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1606902551307">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606902551307" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="6" />
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="new File(jarPath).toURI().toURL()" language="JAVA" />
@@ -414,449 +182,5 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zE06B95E63/DotNetProcessRequest$1.class" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zE06B9F114/DotNetProcessRequest.class" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zE06B75104/DotNetProcessRequest.class" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zE06B8CCB4/InvokerContext.class" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zE06B519A4/InvokerContext.class" />
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zE06B1A094/InvokerContext.class" />
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/reflect/InvocationTargetException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
-          <caret line="108" column="21" selection-start-line="108" selection-start-column="21" selection-end-line="108" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/StringBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2105">
-          <caret line="39" column="16" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/io/PrintWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="97" column="11" selection-start-line="97" selection-start-column="11" selection-end-line="97" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/StackTraceElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="91" column="13" selection-start-line="91" selection-start-column="7" selection-end-line="91" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/Throwable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13056">
-          <caret line="819" column="24" selection-start-line="819" selection-start-column="24" selection-end-line="819" selection-end-column="24" />
-          <folding>
-            <element signature="e#17394#17395#0" expanded="true" />
-            <element signature="e#17445#17446#0" expanded="true" />
-            <element signature="e#29570#29571#0" expanded="true" />
-            <element signature="e#29628#29629#0" expanded="true" />
-            <element signature="e#33082#33083#0" expanded="true" />
-            <element signature="e#33131#33132#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/InstantiationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="45" column="6" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/IllegalAccessException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/SecurityException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/IllegalArgumentException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="35" column="6" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/Character.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="124" column="6" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/reflect/AccessibleObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="72" column="13" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/reflect/Executable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="237" column="31" selection-start-line="237" selection-start-column="31" selection-end-line="237" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/reflect/Method.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="307" column="22" selection-start-line="307" selection-start-column="22" selection-end-line="307" selection-end-column="22" />
-          <folding>
-            <element signature="e#10010#10011#0" expanded="true" />
-            <element signature="e#10055#10056#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/reflect/Constructor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="472" column="13" selection-start-line="472" selection-start-column="13" selection-end-line="472" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/TypeSerializerBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ArrayTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="64" column="34" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/instance/ObjectState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Downloads/json-20080701.jar!/org/json/JSONObject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="481" column="22" selection-start-line="481" selection-start-column="22" selection-end-line="481" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/Class.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="448" column="25" lean-forward="true" selection-start-line="448" selection-start-column="25" selection-end-line="448" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/server/Response.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="47" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#845#846#0" expanded="true" />
-            <element signature="e#878#879#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/server/RequestType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="156" column="19" selection-start-line="156" selection-start-column="19" selection-end-line="156" selection-end-column="19" />
-          <folding>
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5913#5914#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/server/DotNetProcessRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/jdk/internal/loader/URLClassPath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="262" column="17" selection-start-line="262" selection-start-column="17" selection-end-line="262" selection-end-column="17" />
-          <folding>
-            <element signature="e#4992#4993#0" expanded="true" />
-            <element signature="e#5029#5030#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/net/URLClassLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="92" column="54" lean-forward="true" selection-start-line="91" selection-start-column="9" selection-end-line="92" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/net/URL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3590">
-          <caret line="683" column="28" selection-start-line="683" selection-start-column="21" selection-end-line="683" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/invoker/InvokerContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="81" column="48" selection-start-line="81" selection-start-column="48" selection-end-line="81" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3107#3108#0" expanded="true" />
-            <element signature="e#3135#3136#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/invoker/MethodArguments.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="103" column="21" lean-forward="true" selection-start-line="103" selection-start-column="21" selection-end-line="103" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/instance/ObjectInstance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="240" column="10" selection-start-line="240" selection-start-column="10" selection-end-line="240" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/TypeSerializerFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="14" column="43" lean-forward="true" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/TypeSerializerInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="80" selection-start-line="10" selection-start-column="80" selection-end-line="10" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/StringTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" selection-start-line="18" selection-end-line="20" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/JavaObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/LongTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/IntTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/FloatTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" selection-start-line="19" selection-end-line="23" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/DoubleTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="80" selection-start-line="18" selection-start-column="80" selection-end-line="18" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/JavaObjectSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="32" column="1" lean-forward="true" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ShortTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" selection-start-line="18" selection-end-line="20" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/CharTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ByteTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/BoolTypeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor>
-            <show-content>
-              <type id="library" />
-            </show-content>
-          </artifact-editor>
-          <last-edited>InvokeJava</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>json-20080701</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>10</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>Invoke</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>json-20080701</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
