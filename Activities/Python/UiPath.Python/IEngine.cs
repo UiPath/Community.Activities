@@ -19,6 +19,7 @@ namespace UiPath.Python
     /// </summary>
     public interface IEngine : IDisposable
     {
+        Version  Version { get; }
         #region Lifecycle
         Task Initialize(string workingFolder, CancellationToken ct);
 
