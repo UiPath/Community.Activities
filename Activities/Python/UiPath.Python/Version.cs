@@ -50,6 +50,9 @@ namespace UiPath.Python
 
         [Version(3, 8, "Python.Runtime.38.dll")]
         Python_38,
+
+        [Version(3, 9, "Python.Runtime.39.dll")]
+        Python_39,
     }
 
     /// <summary>
