@@ -61,9 +61,10 @@ namespace UiPath.Java.Service
             {
                 return;
             }
-
+            int index = -1;
             foreach (object param in parameters)
             {
+                index++;
                 if (param is JavaObject jo)
                 {
                     Parameters.Add(jo.Instance);
@@ -72,7 +73,7 @@ namespace UiPath.Java.Service
                 {
                     if (param==null)
                     {
-                        var type = types[parameters.IndexOf(param)];
+                        var type = types[index];
                         if (typeof(IEnumerable).IsAssignableFrom(type) && type != typeof(string))
                         {
                             Parameters.Add(new JavaObjectInstance
