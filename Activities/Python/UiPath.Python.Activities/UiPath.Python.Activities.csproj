@@ -52,6 +52,7 @@
     <Compile Include="..\PythonPackageVersion.cs">
       <Link>Properties\PythonPackageVersion.cs</Link>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InvokeMethod.cs" />
     <Compile Include="GetObject.cs" />
     <Compile Include="LoadScript.cs" />

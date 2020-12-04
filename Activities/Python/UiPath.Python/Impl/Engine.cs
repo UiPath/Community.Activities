@@ -65,7 +65,7 @@ namespace UiPath.Python.Impl
         public Version Version { get { return _version; } }
         public async Task Initialize(string workingFolder, CancellationToken ct)
         {
-            if (!_initialized)
+            if (!_initialized) 
             {
                 lock (this)
                 {
@@ -95,7 +95,10 @@ namespace UiPath.Python.Impl
                         if (_version == Version.Python_33 || _version == Version.Python_34)
                             _pyEngine.Initialize(null, null);
                         else
-                            _pyEngine.Initialize(null, null, null);
+                            if(_version == Version.Python_39)
+                                _pyEngine.Initialize(null, null, null, null);
+                            else
+                                _pyEngine.Initialize(null, null, null);
                         ct.ThrowIfCancellationRequested();
 
                         _pythreads = _pyEngine.BeginAllowThreads();
