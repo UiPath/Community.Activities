@@ -1,0 +1,39 @@
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+  paths:
+    include:
+      - Activities/Cryptography/*
+      - Activities/Activities.Cryptography.sln
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/Cryptography/*
+      - Activities/Activities.Cryptography.sln
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "../Activities.Cryptography.sln"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Cryptography\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "UiPath.Cryptography/UiPath.Cryptography.csproj"
+        - "UiPath.Cryptography.Activities/UiPath.Cryptography.Activities.csproj"
+      testList: 
+        - "UiPath.Cryptography.Activities.Tests/UiPath.Cryptography.Activities.Tests.csproj"        
+      versionReference: "CryptographyAssemblyInfo.cs"

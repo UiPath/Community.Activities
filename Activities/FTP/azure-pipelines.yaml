@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+  paths:
+    include:
+      - Activities/FTP/*
+      - Activities/Activities.FTP.sln
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/FTP/*
+      - Activities/Activities.FTP.sln
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "../Activities.FTP.sln"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\FTP\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "UiPath.FTP.Activities/UiPath.FTP.Activities.csproj"
+        - "UiPath.FTP/UiPath.FTP.csproj"      
+      versionReference: "FTPAssemblyInfo.cs"

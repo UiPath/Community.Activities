@@ -117,8 +117,8 @@
     <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.4.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.4.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)Python\3rdparty\*" "$(TargetDir)x86\" /Y
-xcopy "$(SolutionDir)Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)..\..\Python\3rdparty\*" "$(TargetDir)x86\" /Y
+xcopy "$(ProjectDir)..\..\Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\EmguCV-UiPath.3.2.0.2721\build\EmguCV-UiPath.targets" Condition="Exists('..\..\packages\EmguCV-UiPath.3.2.0.2721\build\EmguCV-UiPath.targets')" />
   <Import Project="..\..\packages\xunit.core.2.4.0\build\xunit.core.targets" Condition="Exists('..\..\packages\xunit.core.2.4.0\build\xunit.core.targets')" />
