@@ -108,6 +108,11 @@ namespace UiPath.Python.Tests
                 {
                     @"C:\Python\python38-x86",
                     Version.Python_38
+                },
+                new object[]
+                {
+                    @"C:\Python\Python39-x86",
+                    Version.Python_39
                 }
             };
 
@@ -138,6 +143,11 @@ namespace UiPath.Python.Tests
                 {
                     @"C:\Python\python38-x64",
                     Version.Python_38
+                },
+                new object[]
+                {
+                    @"C:\Python\python39-x64",
+                    Version.Python_39
                 }
             };
 
