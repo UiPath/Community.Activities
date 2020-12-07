@@ -54,7 +54,8 @@ namespace UiPath.Java
         {
             try
             {
-                _timeout = timeout;
+                if(timeout>0)
+                    _timeout = timeout;
                 using (var cts = new CancellationTokenSource(_timeout))
                 {
                     var startServiceTask = _javaService.StartServiceAsync(cts.Token);

@@ -511,7 +511,7 @@ namespace UiPath.Java.Activities {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The amount of time (in miliseconds) to wait for the Java runtime connection..
+        ///   Looks up a localized string similar to The amount of time (in miliseconds) to wait for the Java runtime connection (default 15000ms)..
         /// </summary>
         internal static string TimeoutMSDescription {
             get {

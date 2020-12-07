@@ -23,6 +23,7 @@ namespace UiPath.Java.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.TimeoutMSDisplayName))]
         [LocalizedDescription(nameof(Resources.TimeoutMSDescription))]
+        [DefaultValue(15000)]
         public InArgument<int> TimeoutMS { get; set; }
 
         [Browsable(false)]

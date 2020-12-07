@@ -295,6 +295,6 @@
     <value>The value provided for TimeoutMS must be &gt;= 0</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>The amount of time (in miliseconds) to wait for the Java runtime connection.</value>
+    <value>The amount of time (in miliseconds) to wait for the Java runtime connection (default 15000ms).</value>
   </data>
 </root>

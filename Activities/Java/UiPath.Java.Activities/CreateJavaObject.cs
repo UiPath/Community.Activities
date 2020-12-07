@@ -33,7 +33,7 @@ namespace UiPath.Java.Activities
                 throw new ArgumentNullException(nameof(TargetType));
             }
             List<object> parameters = GetParameters(context);
-            var types = GetParameterTypes(context);
+            var types = GetParameterTypes(context, parameters);
             JavaObject instance = null;
             try
             {

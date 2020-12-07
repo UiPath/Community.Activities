@@ -51,7 +51,7 @@ namespace UiPath.Java.Activities
             }
 
             List<object> parameters = GetParameters(context);
-            var types = GetParameterTypes(context);
+            var types = GetParameterTypes(context, parameters);
             JavaObject instance = null;
 
             try
