@@ -178,7 +178,7 @@ namespace UiPath.Java.Test
                 null,
                 null,
                 _ct
-                );
+            );
             Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
             String testString = "StringXY";
@@ -189,7 +189,7 @@ namespace UiPath.Java.Test
                 new List<object> { testString },
                 new List<Type> { typeof(string) },
                 _ct
-                );
+            );
 
             string result = "Generic method " + testString;
             Assert.StartsWith(result, stringObj.Convert<string>());
@@ -208,7 +208,7 @@ namespace UiPath.Java.Test
                 new List<object> { testString },
                 new List<Type> { typeof(string) },
                 _ct
-                );
+            );
 
             Assert.Equal(testString, stringObj.Convert<string[]>());
         }
