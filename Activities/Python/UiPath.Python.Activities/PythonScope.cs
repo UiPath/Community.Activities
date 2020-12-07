@@ -114,7 +114,11 @@ namespace UiPath.Python.Activities
             catch (Exception e)
             {
                 Trace.TraceError($"Error initializing Python engine: {e.ToString()}");
-                Cleanup();
+                try
+                {
+                    Cleanup();
+                }
+                catch (Exception) { }
                 if (Version != Version.Auto)
                 {
                     Version autodetected = Version.Auto;

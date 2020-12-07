@@ -15,6 +15,7 @@ namespace UiPath.Database
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
+        private const string SqlOdbcDriverPattern = "SQLSRV";
         private const string OracleOdbcDriverPattern = "SQORA";
         private const string OraclePattern = "oracle";
 
@@ -153,6 +154,8 @@ namespace UiPath.Database
             if ((_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern))
                || _connection.ToString().ToLower().Contains(OraclePattern))
                 return 1000000;
+            if (_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(SqlOdbcDriverPattern))
+                return 4000;
             return -1;
         }
 
