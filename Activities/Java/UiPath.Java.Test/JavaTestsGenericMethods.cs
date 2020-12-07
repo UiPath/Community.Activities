@@ -31,45 +31,39 @@ namespace UiPath.Java.Test
         [TestPriority(0)]
         public async Task GenericMethodsConstructor_NoParams()
         {
-
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var javaObject = await _invoker.InvokeConstructor(
                 "uipath.java.test.GenericMethods",
                 null,
                 null,
                 _ct
             );
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
-
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
         }
 
         [Fact]
         [TestPriority(0)]
         public async Task GenericMethodsConstructor_WithParams()
         {
-
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var objParam = new List<object> {"Test Param" };
            
             var javaObject = await _invoker.InvokeConstructor(                
-               
                 "uipath.java.test.GenericMethods",
                  objParam,
                 null,
                 _ct
             );
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
             //verifying the parameter using the property
             var javaMethod = await _invoker.InvokeMethod(
-              "getMessage",
-              null,
-              javaObject,
-              null,
-               null,
-               _ct
-           );
-            Assert.Contains(objParam[0].ToString(), javaMethod.Convert<string>());
+                "getMessage",
+                null,
+                javaObject,
+                null,
+                null,
+                _ct
+            );
+            Assert.StartsWith(objParam[0].ToString(), javaMethod.Convert<string>());
         }
 
         [Fact]
@@ -79,13 +73,12 @@ namespace UiPath.Java.Test
             var objParam = new List<object> { "Test Param" };
 
             var javaObject = await _invoker.InvokeConstructor(
-
                 "uipath.java.test.GenericMethods",
                  objParam,
                 null,
                 _ct
             );
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
             String[] Strings = { "S1", "S22", "3.3d", "4.4f", "5", "null" };
             
@@ -107,7 +100,7 @@ namespace UiPath.Java.Test
         {      
             var objparam1 = "String 1";
             var objparam2 = "String 2";
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+
             var javaObject = await _invoker.InvokeConstructor(
                 "uipath.java.test.GenericMethods",
                 null,
@@ -115,7 +108,7 @@ namespace UiPath.Java.Test
                 _ct
             );
 
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
             var javaMethod = await _invoker.InvokeMethod(
                 "GenericMethods",
@@ -126,7 +119,7 @@ namespace UiPath.Java.Test
                 _ct
             );
             string result = objparam1.ToString() + objparam2.ToString(); 
-            Assert.Contains(result, javaMethod.Convert<string>());
+            Assert.StartsWith(result, javaMethod.Convert<string>());
         }
 
         [Fact]
@@ -134,8 +127,6 @@ namespace UiPath.Java.Test
         public async Task GenericMethodsIntArray()
         {
             
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
-
             var javaObject = await _invoker.InvokeConstructor(
                 "uipath.java.test.GenericMethods",
                 null,
@@ -143,15 +134,15 @@ namespace UiPath.Java.Test
                 _ct
             );
 
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
             int[] intArray = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
            
             
             var javaMethod = await _invoker.InvokeMethod(
-               "IntArr",
-               null,
-               javaObject,
+                "IntArr",
+                null,
+                javaObject,
                 new List<object> { intArray },
                 null,
                 _ct
@@ -165,15 +156,15 @@ namespace UiPath.Java.Test
         public async Task FloatType()
         {
             var objParmFloat = new List<object> { 1.2f};
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+
             var objFloatMethod = await _invoker.InvokeMethod(
-            "FloatType",
-            "uipath.java.test.GenericMethods",
-            null,
-            objParmFloat,
-            null,
-            _ct
-        );
+                "FloatType",
+                "uipath.java.test.GenericMethods",
+                null,
+                objParmFloat,
+                null,
+                _ct
+            );
             Assert.Equal(objParmFloat[0], objFloatMethod.Convert<float>());
         }
 
@@ -182,20 +173,18 @@ namespace UiPath.Java.Test
         [TestPriority(2)]
         public async Task GenericsExtendString()
         {
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var javaObject = await _invoker.InvokeConstructor(
                 "uipath.java.test.GenericMethods",
                 null,
                 null,
                 _ct
                 );
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
             String testString = "StringXY";
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var stringObj = await _invoker.InvokeMethod(
                 "GenericsExtString",
-               null,
+                null,
                 javaObject,
                 new List<object> { testString },
                 new List<Type> { typeof(string) },
@@ -203,18 +192,15 @@ namespace UiPath.Java.Test
                 );
 
             string result = "Generic method " + testString;
-            Assert.Contains(result, stringObj.Convert<string>());
+            Assert.StartsWith(result, stringObj.Convert<string>());
         }
 
         [Fact]
         [TestPriority(2)]
         public async Task StringArrStatic()
         {
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
-          
             String []testString = { "string1", "string2" };
 
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var stringObj = await _invoker.InvokeMethod(
                 "StringArrStatic",
                "uipath.java.test.GenericMethods",
@@ -233,15 +219,15 @@ namespace UiPath.Java.Test
         public async Task IntType()
         {
             var intParm = new List<object> { 123 };
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+
             var objInttMethod = await _invoker.InvokeMethod(
-            "IntType",
-            "uipath.java.test.GenericMethods",
-            null,
-            intParm,
-            null,
-            _ct
-        );
+                "IntType",
+                "uipath.java.test.GenericMethods",
+                null,
+                intParm,
+                null,
+                _ct
+            );
             Assert.Equal(intParm[0], objInttMethod.Convert<int>());
         }
 
@@ -251,15 +237,15 @@ namespace UiPath.Java.Test
         public async Task BoolType()
         {
             var boolParm = new List<object> { true };
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+
             var objInttMethod = await _invoker.InvokeMethod(
-            "BoolType",
-            "uipath.java.test.GenericMethods",
-            null,
-            boolParm,
-            null,
-            _ct
-        );
+                "BoolType",
+                "uipath.java.test.GenericMethods",
+                null,
+                boolParm,
+                null,
+                _ct
+            );
             Assert.Equal(boolParm[0], objInttMethod.Convert<bool>());
         }
 
@@ -273,10 +259,9 @@ namespace UiPath.Java.Test
                 null,
                 null,
                 _ct
-                );
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            );
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var stringObj2 = await _invoker.InvokeMethod(
                 "GenericsExtObj",
                null,
@@ -284,8 +269,8 @@ namespace UiPath.Java.Test
                 new List<object> { "test string" },
                 null,
                 _ct
-                );
-            Assert.Contains("Generic method with Object ", stringObj2.Convert<string>());
+            );
+            Assert.StartsWith("Generic method with Object ", stringObj2.Convert<string>());
         }
 
         [Fact]
@@ -293,49 +278,47 @@ namespace UiPath.Java.Test
         public async Task GenericsExtObj2()
         {
             float floatobj = (2.3f);
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+
             var javaObject = await _invoker.InvokeConstructor(
                 "uipath.java.test.GenericMethods",
                 null,
                 null,
                 _ct
-                );
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            );
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
 
             var stringObj2 = await _invoker.InvokeMethod(
                 "GenericsExtObj",
-               null,
+                null,
                 javaObject,
                 new List<object> { floatobj },
                 null,
                 _ct
-                );
-            Assert.Contains("Generic method with Object " + floatobj, stringObj2.Convert<string>());
+            );
+            Assert.StartsWith("Generic method with Object " + floatobj, stringObj2.Convert<string>());
         }
 
         [Fact]
         [TestPriority(5)]
         public async Task Finalize()
         {
-            await _invoker.LoadJar(System.IO.Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var javaObject = await _invoker.InvokeConstructor(
-            "uipath.java.test.GenericMethods",
-            null,
-            null,
-            _ct
-         );
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+                "uipath.java.test.GenericMethods",
+                null,
+                null,
+                _ct
+            );
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var JOFinalize = await _invoker.InvokeMethod(
-            "finalize",
-            null,
-            javaObject,
-            null,
-            null,
-            _ct
-        );
+                "finalize",
+                null,
+                javaObject,
+                null,
+                null,
+                _ct
+            );
 
         }
 
@@ -344,14 +327,14 @@ namespace UiPath.Java.Test
         public async Task GenericsR_String()
         {
             var javaObject = await _invoker.InvokeConstructor(
-            "uipath.java.test.GenericMethods",
-            null,
-            null,
-            _ct
+                "uipath.java.test.GenericMethods",
+                null,
+                null,
+                _ct
             );
             string objParam = "String Param";
             string objResponse = "Generic method with return " + objParam;
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+
             var stringObj = await _invoker.InvokeMethod(
                 "GenericsR",
                 null,
@@ -360,7 +343,7 @@ namespace UiPath.Java.Test
                 null,
                 _ct
             );
-            Assert.Contains(objResponse, stringObj.Convert<string>());
+            Assert.StartsWith(objResponse, stringObj.Convert<string>());
         }
 
         [Fact]
@@ -369,15 +352,15 @@ namespace UiPath.Java.Test
         {
 
             var javaObject = await _invoker.InvokeConstructor(
-            "uipath.java.test.GenericMethods",
-            null,
-            null,
-            _ct
-             );
+                "uipath.java.test.GenericMethods",
+                null,
+                null,
+                _ct
+            );
 
             var objParam = 100;
             string objResponse = "Generic method with return " + objParam;
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+
             var intObj = await _invoker.InvokeMethod(
                "GenericsR",
                null,
@@ -385,8 +368,8 @@ namespace UiPath.Java.Test
                new List<object> { 100 },
                new List<Type> { typeof(int) },
                _ct
-               );
-            Assert.Contains(objResponse, intObj.Convert<string>());
+            );
+            Assert.StartsWith(objResponse, intObj.Convert<string>());
         }
 
         [Fact]
@@ -395,12 +378,12 @@ namespace UiPath.Java.Test
         {
             var objParam = 2.3d;
             var javaObject = await _invoker.InvokeConstructor(
-            "uipath.java.test.GenericMethods",
-            null,
-            null,
-            _ct
-             );
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+                "uipath.java.test.GenericMethods",
+                null,
+                null,
+                _ct
+            );
+
             var objResponse = "Generic method with return " + 2.3;
             var doubleObj = await _invoker.InvokeMethod(
                 "GenericsR",
@@ -410,15 +393,13 @@ namespace UiPath.Java.Test
                 null,
                 _ct
             );
-            Assert.Contains(objResponse, doubleObj.Convert<string>());
+            Assert.StartsWith(objResponse, doubleObj.Convert<string>());
         }
 
         [Fact]
         [TestPriority(0)]
         public async Task ConcatenateXYZ()
         {
-          
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
             var javaObject = await _invoker.InvokeConstructor(
                 "uipath.java.test.GenericMethods",
                 null,
@@ -426,7 +407,7 @@ namespace UiPath.Java.Test
                 _ct
             );
 
-            Assert.Contains("uipath.java.test.GenericMethods", javaObject.Convert<string>());
+            Assert.StartsWith("uipath.java.test.GenericMethods", javaObject.Convert<string>());
 
             var javaMethod = await _invoker.InvokeMethod(
                 "ConcatenateXYZ",
@@ -436,7 +417,7 @@ namespace UiPath.Java.Test
                 null,
                 _ct
             );
-            Assert.Contains("XYZ", javaMethod.Convert<string>());
+            Assert.StartsWith("XYZ", javaMethod.Convert<string>());
         }
 
 
@@ -446,12 +427,12 @@ namespace UiPath.Java.Test
         {
             var objParam = 5;
             var javaObject = await _invoker.InvokeConstructor(
-            "uipath.java.test.GenericMethods",
-            null,
-            null,
-            _ct
-             );
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
+                "uipath.java.test.GenericMethods",
+                null,
+                null,
+                _ct
+            );
+
            
             var intObj = await _invoker.InvokeMethod(
                 "RecursiveCallTest",
@@ -469,7 +450,6 @@ namespace UiPath.Java.Test
         public async Task RecursiveCallTestStatic()
         {
             var objParam = new List<object> { 4 };
-            await _invoker.LoadJar(Path.Combine(JavaTestBaseFixture.JavaFilesPath, "TestProgram.Jar"), _ct);
 
             var intObj = await _invoker.InvokeMethod(
                 "StaticRecursiveCallTest",
