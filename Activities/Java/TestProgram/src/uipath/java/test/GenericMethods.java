@@ -1,96 +1,87 @@
 package uipath.java.test;
 
 public class GenericMethods {
-    public  String message;
-    String[] arr;
-
-    public GenericMethods() {
-        System.out.println("Constructor without parameters");
-    }
-
-    public GenericMethods(String[] cons) {
-        System.out.println("Constructor with String[]");
-    }
-
-    public GenericMethods(String p1, String p2) {
-        System.out.println("Constructor with String and String");
-    }
-
-    public GenericMethods(String cons) {
-        System.out.println("Constructor with String");
-    }
-
-    public GenericMethods(int[] cons) {
-        System.out.println("Constructor with int[]");
-    }
-
-    public static void Write(String[] args) {
-        System.out.println("Static method with String[]");
-        if (args!=null) {
-            System.out.println(args.length);
-        }
-    }
-
-    public static void Write(String args) {
-        System.out.println("Static method with String");
-        System.out.println(args);
-    }
-
-    public static void Write(int args) {
-        System.out.println("Static method with int");
-        System.out.println(args);
-    }
-
-    public static void Write(boolean args) {
-        System.out.println("Static method with boolean");
-        System.out.println(args);
-    }
-
-    public static void Write(float args) {
-        System.out.println("Static method with float");
-        System.out.println(args);
-    }
-
-    public void WriteObj(String[] args) {
-        System.out.println("Instance method with String[]");
-        System.out.println(args);
-    }
-
-    public void WriteObj(String args) {
-        System.out.println("Instance method with String");
-        System.out.println(args);
-    }
-
-    public void WriteObj(float args) {
-        System.out.println("Instance method with float");
-        System.out.println(args);
-    }
-
-    public <T extends Object> T GenericsExtObj(Object a) {
-        message = "Generic method with Object " + a;
-        return (T) ("Generic method with Object " + a);
-    }
-
-    public <T extends String> Object GenericsExtString(T a) {
-        message = "Generic method " + a;
-        return "Generic method: " + a;
-    }
-
-    public void GenericsS(String a) {
-        message = "Method that is named Generics " + a;
-        System.out.println("Method that is named Generics");
-    }
-
-    public <T> T GenericsR(T a) {
-        message = "Generic method with return " + a;
-        System.out.println("Generic method with return");
-        System.out.println(a);
-        return a;
-    }
-
-    public void finalize() throws Throwable{
-        System.out.println("Object is destroyed by the Garbage Collector");
-    }
-
-    public static void foo(){}
+  private String message;
+  
+  public GenericMethods() {}
+  
+  public GenericMethods(String sParam) {
+    this.message = sParam;
+  }
+  
+  public String getMessage() {
+    return this.message;
+  }
+  
+  public String[] GenericMethods(String[] strArrParam) {
+    return strArrParam;
+  }
+  
+  public String GenericMethods(String s1, String s2) {
+    return s1 + s2;
+  }
+  
+  public int[] IntArr(int[] intArrParam) {
+    return intArrParam;
+  }
+  
+  public static String[] StringArrStatic(String[] args) {
+    return args;
+  }
+  
+  public static int IntType(int args) {
+    return args;
+  }
+  
+  public static boolean BoolType(boolean args) {
+    return args;
+  }
+  
+  public static float FloatType(float args) {
+    return args;
+  }
+  
+  public String[] StringArrNonStatic(String[] args) {
+    return args;
+  }
+  
+  public <T> T GenericsExtObj(Object a) {
+    this.message = "Generic method with Object " + a;
+    return (T)this.message;
+  }
+  
+  public <T extends String> Object GenericsExtString(T a) {
+    this.message = "Generic method " + a;
+    return this.message;
+  }
+  
+  public <T> T GenericsR(T a) {
+    this.message = "Generic method with return " + a;
+    return (T)this.message;
+  }
+  
+  public void finalize() throws Throwable {}
+  
+  public String StringParamValidation(String X) {
+    return X;
+  }
+  
+  public String ConcatenateXYZ() {
+    String X = "X";
+    String Y = "Y";
+    String Z = "Z";
+    return StringParamValidation(X) + StringParamValidation(Y) + StringParamValidation(Z);
+  }
+  
+  public int RecursiveCallTest(int k) {
+    if (k < 2)
+      return 1; 
+    return k * RecursiveCallTest(k - 1);
+  }
+  
+  public static int StaticRecursiveCallTest(int k) {
+    if (k < 2)
+      return 1; 
+    return k * StaticRecursiveCallTest(k - 1);
+  }
 }
