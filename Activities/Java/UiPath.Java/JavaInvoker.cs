@@ -23,7 +23,7 @@ namespace UiPath.Java
 
         private static readonly string _defaultJavaInvokerPath = GetPathToJavaProgram();
 
-        private const int _timeout = 15000;
+        private int _timeout = 15000;
 
         #endregion
 
@@ -50,10 +50,12 @@ namespace UiPath.Java
 
         #region Start/Stop Java Service
 
-        public async Task StartJavaService()
+        public async Task StartJavaService(int timeout)
         {
             try
             {
+                if(timeout>0)
+                    _timeout = timeout;
                 using (var cts = new CancellationTokenSource(_timeout))
                 {
                     var startServiceTask = _javaService.StartServiceAsync(cts.Token);
@@ -151,7 +153,7 @@ namespace UiPath.Java
                 FieldName = fieldName,
                 Instance = javaObject?.Instance,
             };
-            request.AddParametersToRequest(parameters);
+            request.AddParametersToRequest(parameters, parametersTypes);
 
             JavaResponse response = await _javaService.RequestAsync(request, ct);
 

@@ -13,7 +13,7 @@ public class BoolTypeSerializer implements TypeSerializerInterface {
                 return new JavaObject (value, boolean.class);
             } catch (JSONException e) {  }
         }
-        return new JavaObject(new EmptyClass(), boolean.class);
+        return new JavaObject(null, boolean.class);
     }
 
     public JSONObject SerializeToDotNet(ObjectInstance obj) throws JSONException{
