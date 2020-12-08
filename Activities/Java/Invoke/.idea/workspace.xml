@@ -38,25 +38,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c872a7ce-189b-4632-8cda-df664538ecdb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/artifacts/InvokeJava.jar" beforeDir="false" afterPath="$PROJECT_DIR$/artifacts/InvokeJava.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ArrayTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ArrayTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/BoolTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/BoolTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ByteTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ByteTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/CharTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/CharTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/DoubleTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/DoubleTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/EmptyTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/FloatTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/FloatTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/IntTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/IntTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/LongTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/LongTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ShortTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/ShortTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/StringTypeSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/dotnetjavatypes/StringTypeSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/instance/ObjectInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/instance/ObjectInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/uipath/invoker/MethodArguments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/uipath/invoker/MethodArguments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UiPath.Java.Activities/CreateJavaObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java.Activities/CreateJavaObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UiPath.Java.Activities/InvokeJavaMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java.Activities/InvokeJavaMethod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UiPath.Java.Activities/JavaActivityWithParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java.Activities/JavaActivityWithParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UiPath.Java/JavaInvoker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java/JavaInvoker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UiPath.Java/Service/Impl/JavaRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UiPath.Java/Service/Impl/JavaRequest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
