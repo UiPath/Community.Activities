@@ -53,8 +53,8 @@ namespace UiPath.Java.Activities
             List<Type> parameterTypes = new List<Type>();
             for(int index=0;index<Parameters.Count;index++)
             {
-                if(null != parameters.ElementAt(index))
-                    parameterTypes.Add(parameters.ElementAt(index).GetType());
+                if(null != parameters[index])
+                    parameterTypes.Add(parameters[index].GetType());
                 else
                     parameterTypes.Add(Parameters[index]?.ArgumentType ?? typeof(object));
             }

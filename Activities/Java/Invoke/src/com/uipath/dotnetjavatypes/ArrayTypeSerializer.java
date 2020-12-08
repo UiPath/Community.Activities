@@ -35,7 +35,7 @@ public class ArrayTypeSerializer implements TypeSerializerInterface {
         }
         Class<?> arrayType = getArrayType(context, array);
         int length = array.length();
-        if (array.length() == 0){
+        if (length == 0){
             return EmptyTypeSerializer.DeserializeToJavaObject(runtimeArrayType);
         }
         Object result = Array.newInstance(arrayType, length);
