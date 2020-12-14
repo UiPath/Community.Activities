@@ -12,7 +12,7 @@ trigger:
 
 variables:
   majorVersion: '1'
-  minorVersion: '3'
+  minorVersion: '4'
   revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
   packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
 
