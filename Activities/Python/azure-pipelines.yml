@@ -10,6 +10,12 @@ trigger:
       - Activities/Python/*
       - Activities/Activities.Python.sln
 
+variables:
+  majorVersion: '1'
+  minorVersion: '2'
+  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
+  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
+
 pr:
   branches:
     include:
@@ -37,3 +43,4 @@ jobs:
       testList: 
         - "UiPath.Python.Tests/UiPath.Python.Tests.csproj"
       versionReference: "PythonPackageVersion.cs"
+      versionNumber: ${{ variables.packageVersion }}

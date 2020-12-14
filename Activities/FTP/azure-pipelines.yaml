@@ -10,6 +10,12 @@ trigger:
       - Activities/FTP/*
       - Activities/Activities.FTP.sln
 
+variables:
+  majorVersion: '2'
+  minorVersion: '1'
+  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
+  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
+
 pr:
   branches:
     include:
@@ -35,3 +41,4 @@ jobs:
         - "UiPath.FTP.Activities/UiPath.FTP.Activities.csproj"
         - "UiPath.FTP/UiPath.FTP.csproj"      
       versionReference: "FTPAssemblyInfo.cs"
+      versionNumber: ${{ variables.packageVersion }}

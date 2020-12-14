@@ -2,6 +2,7 @@ parameters:
   NuGetVersionSpec: "4.3.0"
   rootPath: ""
   versionReference: ""
+  versionNumber: ""
 
 steps:
 - task: PowerShell@1
@@ -9,32 +10,7 @@ steps:
   inputs:
     scriptType: "inlineScript"
     inlineScript: |
-      $versionReferenceFile = "${{ parameters.rootPath }}${{ parameters.versionReference }}"
-      Write-Host "versionReferenceFile: $versionReferenceFile"
-
-      $major = 1
-      $minor = 0
-
-      if (-not (Test-Path -Path  $versionReferenceFile )) {
-        Write-Host "file $versionReferenceFile not found"
-      } else {
-        # select the version line, remove any comments 
-        $vers = cat $versionReferenceFile|Select-String -Pattern AssemblyVersion|Select-String -NotMatch "^//.*AssemblyVersion"|select -Last 1
-
-        $match =  $vers.Line.split("(").split(".")[1].replace('"','')
-        if (  $match -match "^\d*$" ){ $major = $match } 
-        else {  Write-Host "version major was not found" }
-        
-        $match =  $vers.Line.split("(").split(".")[2] 
-        if (  $match -match "^\d*$" ){ $minor = $match } 
-        else {  Write-Host "version minor was not found" }
-      }
-
-      $now = Get-Date 
-      $y2k = Get-Date -Year 2000 -Month 1 -Day 1 
-      $build = [int]($now - $y2k).TotalDays 
-      $revision = [int]($now.TimeOfDay.TotalSeconds / 2) 
-      $version = "$major.$minor.$build.$revision" 
+      $version = "${{ parameters.versionNumber }}"  
       Write-Host "$version" 
       Write-Host "##vso[build.updatebuildnumber]$version"
 
@@ -42,3 +18,22 @@ steps:
   displayName: "Use NuGet ${{ parameters.NuGetVersionSpec }}"
   inputs:
     versionSpec: ${{ parameters.NuGetVersionSpec }}
+
+- task: Assembly-Info-NetFramework@2
+  displayName: "Set Assembly version to ${{ parameters.versionNumber }}"
+  inputs:
+    Path: "${{ parameters.rootPath }}" 
+    FileNames: |
+      **\AssemblyInfo.cs
+      **\*AssemblyInfo.cs
+      **\${{ parameters.versionReference }}
+    InsertAttributes: false
+    FileEncoding: 'auto'
+    WriteBOM: false
+    Configuration: ${{ parameters.BuildConfiguration }}
+    LogLevel: 'verbose'
+    FailOnWarning: false
+    DisableTelemetry: false
+    InformationalVersion: "${{ parameters.versionNumber }}"
+    FileVersionNumber: "${{ parameters.versionNumber }}" 
+    VersionNumber:  "${{ parameters.versionNumber }}" 
