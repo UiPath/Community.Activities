@@ -8,6 +8,8 @@ parameters:
   restoreDependencies: []
   rootPath: $(Build.SourcesDirectory)
   packagesDirectory: ""
+  versionNumber: ""
+  versionSuffix: ""
 
 steps:
 - ${{ each depend in parameters.restoreDependencies }}:
@@ -33,3 +35,4 @@ steps:
     solution:       ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
     platform:       ${{ parameters.BuildPlatform }}
     configuration:  ${{ parameters.BuildConfiguration }}
+    msbuildArgs:    '/p:Version=$(versionNumber)$(versionSuffix)'

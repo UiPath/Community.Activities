@@ -13,8 +13,10 @@ trigger:
 variables:
   majorVersion: '1'
   minorVersion: '1'
-  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
-  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
+  patchVersion: '0'
+  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when patch gets bumped.
+  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
+  versionSuffix: 'alpha$(revision)' #this can be empty
 
 pr:
   branches:
@@ -38,4 +40,5 @@ jobs:
       rootPath: $(Build.SourcesDirectory)\Activities\Twilio\
       packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
       versionReference: "UiPath.Twilio.Activitie/Properties/AssemblyInfo.cs"
-      versionNumber: ${{ variables.packageVersion }}
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

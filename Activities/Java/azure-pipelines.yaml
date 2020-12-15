@@ -13,8 +13,11 @@ trigger:
 variables:
   majorVersion: '1'
   minorVersion: '2'
-  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
-  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
+  patchVersion: '0'
+  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when patch gets bumped.
+  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
+  versionSuffix: 'alpha$(revision)' #this can be empty
+
 
 pr:
   branches:
@@ -43,5 +46,6 @@ jobs:
       testList: 
         - "UiPath.Java.Test/UiPath.Java.Test.csproj"
       versionReference: "JavaPackageVersion.cs"
-      versionNumber: ${{ variables.packageVersion }}
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}
 
