@@ -10,6 +10,12 @@ trigger:
       - Activities/Twilio/*
       - Activities/Activities.Twilio.sln
 
+variables:
+  majorVersion: '1'
+  minorVersion: '1'
+  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
+  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
+
 pr:
   branches:
     include:
@@ -32,4 +38,4 @@ jobs:
       rootPath: $(Build.SourcesDirectory)\Activities\Twilio\
       packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
       versionReference: "UiPath.Twilio.Activitie/Properties/AssemblyInfo.cs"
-      
+      versionNumber: ${{ variables.packageVersion }}

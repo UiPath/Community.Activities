@@ -9,6 +9,11 @@ trigger:
     include:
       - Activities/Cryptography/*
       - Activities/Activities.Cryptography.sln
+variables:
+  majorVersion: '1'
+  minorVersion: '2'
+  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
+  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
 
 pr:
   branches:
@@ -37,3 +42,4 @@ jobs:
       testList: 
         - "UiPath.Cryptography.Activities.Tests/UiPath.Cryptography.Activities.Tests.csproj"        
       versionReference: "CryptographyAssemblyInfo.cs"
+      versionNumber: ${{ variables.packageVersion }}

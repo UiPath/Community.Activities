@@ -10,6 +10,12 @@ trigger:
       - Activities/GoogleSpreadsheet/*
       - Activities/Activities.GoogleSpreadsheet.sln
 
+variables:
+  majorVersion: '1'
+  minorVersion: '2'
+  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
+  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
+
 pr:
   branches:
     include:
@@ -37,3 +43,4 @@ jobs:
       testList: 
         - "GoogleSpreadsheet.Activities.UnitTest/GoogleSpreadsheet.Activities.UnitTest.csproj"      
       versionReference: "GoogleSpreadsheetVersion.cs"
+      versionNumber: ${{ variables.packageVersion }}
