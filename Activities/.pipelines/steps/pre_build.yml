@@ -1,18 +1,27 @@
 parameters:
+  BuildConfiguration: "Release"
+  BuildPlatform: "AnyCPU"
   NuGetVersionSpec: "4.3.0"
   rootPath: ""
   versionReference: ""
   versionNumber: ""
+  versionSuffix: ""
 
 steps:
 - task: PowerShell@1
   displayName: "Set Build Version"
   inputs:
     scriptType: "inlineScript"
-    inlineScript: |
-      $version = "${{ parameters.versionNumber }}"  
-      Write-Host "$version" 
-      Write-Host "##vso[build.updatebuildnumber]$version"
+    ${{ if eq(parameters.versionSuffix, '') }}:
+     inlineScript: |
+       $version = "${{ parameters.versionNumber }}" 
+       Write-Host "$version" 
+       Write-Host "##vso[build.updatebuildnumber]$version"
+    ${{ if ne(parameters.versionSuffix, '') }}:
+     inlineScript: |
+       $version = "${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}" 
+       Write-Host "$version" 
+       Write-Host "##vso[build.updatebuildnumber]$version"
 
 - task: NuGetToolInstaller@1
   displayName: "Use NuGet ${{ parameters.NuGetVersionSpec }}"
@@ -20,7 +29,10 @@ steps:
     versionSpec: ${{ parameters.NuGetVersionSpec }}
 
 - task: Assembly-Info-NetFramework@2
-  displayName: "Set Assembly version to ${{ parameters.versionNumber }}"
+  ${{ if eq(parameters.versionSuffix, '') }}:
+   displayName: "Set Assembly version to ${{ parameters.versionNumber }}"
+  ${{ if ne(parameters.versionSuffix, '') }}:
+   displayName: "Set Assembly version to ${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
   inputs:
     Path: "${{ parameters.rootPath }}" 
     FileNames: |
@@ -34,6 +46,6 @@ steps:
     LogLevel: 'verbose'
     FailOnWarning: false
     DisableTelemetry: false
-    InformationalVersion: "${{ parameters.versionNumber }}"
+    InformationalVersion: "${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
     FileVersionNumber: "${{ parameters.versionNumber }}" 
     VersionNumber:  "${{ parameters.versionNumber }}" 
