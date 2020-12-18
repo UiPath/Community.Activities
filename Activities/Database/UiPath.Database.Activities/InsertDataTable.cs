@@ -3,6 +3,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Windows.Markup;
@@ -57,34 +58,41 @@ namespace UiPath.Database.Activities
 
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
-            DataTable dataTable = null;
-            string connString = null;
-            string provName = null;
-            string tableName = null;
             try
             {
-                DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                tableName = TableName.Get(context); 
-                dataTable = DataTable.Get(context);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-            // create the action for doing the actual work
-            Func<int> action = () =>
-            {
-                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString, provName);
-                if (DbConnection == null)
+                DataTable dataTable = null;
+                string connString = null;
+                string provName = null;
+                string tableName = null;
+                try
                 {
-                    return 0;
+                    DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    tableName = TableName.Get(context);
+                    dataTable = DataTable.Get(context);
                 }
-                return DbConnection.InsertDataTable(tableName, dataTable);
-            };
-            context.UserState = action;
-            return action.BeginInvoke(callback, state);
+                catch (Exception ex)
+                {
+                    HandleException(ex, ContinueOnError.Get(context));
+                }
+                // create the action for doing the actual work
+                Func<int> action = () =>
+                {
+                    DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString, provName);
+                    if (DbConnection == null)
+                    {
+                        return 0;
+                    }
+                    return DbConnection.InsertDataTable(tableName, dataTable);
+                };
+                context.UserState = action;
+                return action.BeginInvoke(callback, state);
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
+            }
         }
 
         private void HandleException(Exception ex, bool continueOnError)
@@ -95,23 +103,30 @@ namespace UiPath.Database.Activities
 
         protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
         {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
             try
             {
-                Func<int> action = (Func<int>)context.UserState;
-                int affectedRecords = action.EndInvoke(result);
-                this.AffectedRecords.Set(context, affectedRecords);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-            finally
-            {
-                if (existingConnection == null)
+                DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
+                try
                 {
-                    DbConnection.Dispose();
+                    Func<int> action = (Func<int>)context.UserState;
+                    int affectedRecords = action.EndInvoke(result);
+                    this.AffectedRecords.Set(context, affectedRecords);
                 }
+                catch (Exception ex)
+                {
+                    HandleException(ex, ContinueOnError.Get(context));
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection.Dispose();
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
             }
         }
     }

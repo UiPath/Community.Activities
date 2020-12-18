@@ -3,6 +3,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Windows.Markup;
@@ -84,53 +85,60 @@ namespace UiPath.Database.Activities
 
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
-            var dataTable = DataTable.Get(context);
-            string connString = null;
-            string provName = null;
-            string sql = string.Empty;
-            int commandTimeout = TimeoutMS.Get(context);
-            if (commandTimeout < 0)
-            {
-                throw new ArgumentException(UiPath.Database.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
-            }
-            Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
             try
             {
-                DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                sql = Sql.Get(context);
-                if (Parameters != null)
+                var dataTable = DataTable.Get(context);
+                string connString = null;
+                string provName = null;
+                string sql = string.Empty;
+                int commandTimeout = TimeoutMS.Get(context);
+                if (commandTimeout < 0)
                 {
-                    parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();
-                    foreach (var param in Parameters)
+                    throw new ArgumentException(UiPath.Database.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
+                }
+                Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
+                try
+                {
+                    DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    sql = Sql.Get(context);
+                    if (Parameters != null)
                     {
-                        parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
+                        parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();
+                        foreach (var param in Parameters)
+                        {
+                            parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-
-            // create the action for doing the actual work
-            Func<DataTable> action = () =>
+                catch (Exception ex)
                 {
-                    if (DbConnection == null)
-                    {
-                        DbConnection = new DatabaseConnection().Initialize(connString, provName);
-                    }
-                    if (DbConnection == null)
-                    {
-                        return null;
-                    }
-                    return DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType);
-                };
+                    HandleException(ex, ContinueOnError.Get(context));
+                }
 
-            context.UserState = action;
+                // create the action for doing the actual work
+                Func<DataTable> action = () =>
+                    {
+                        if (DbConnection == null)
+                        {
+                            DbConnection = new DatabaseConnection().Initialize(connString, provName);
+                        }
+                        if (DbConnection == null)
+                        {
+                            return null;
+                        }
+                        return DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType);
+                    };
 
-            return action.BeginInvoke(callback, state);
+                context.UserState = action;
+
+                return action.BeginInvoke(callback, state);
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
+            }
         }
 
         private void HandleException(Exception ex, bool continueOnError)
@@ -141,25 +149,32 @@ namespace UiPath.Database.Activities
 
         protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
         {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
             try
             {
-                Func<DataTable> action = (Func<DataTable>)context.UserState;
-                DataTable dt = action.EndInvoke(result);
-                if (dt == null) return;
-
-                DataTable.Set(context, dt);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-            finally
-            {
-                if (existingConnection == null)
+                DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
+                try
                 {
-                    DbConnection.Dispose();
+                    Func<DataTable> action = (Func<DataTable>)context.UserState;
+                    DataTable dt = action.EndInvoke(result);
+                    if (dt == null) return;
+
+                    DataTable.Set(context, dt);
                 }
+                catch (Exception ex)
+                {
+                    HandleException(ex, ContinueOnError.Get(context));
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection.Dispose();
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
             }
         }
     }

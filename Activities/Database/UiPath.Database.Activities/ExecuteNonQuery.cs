@@ -3,6 +3,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Windows.Markup;
@@ -85,54 +86,61 @@ namespace UiPath.Database.Activities
 
         protected override System.IAsyncResult BeginExecute(AsyncCodeActivityContext context, System.AsyncCallback callback, object state)
         {
-            string connString = null;
-            string provName = null;
-            string sql = string.Empty;
-            int commandTimeout = TimeoutMS.Get(context);
-            if (commandTimeout < 0)
-            {
-                throw new ArgumentException(UiPath.Database.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
-            }
-            Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
             try
             {
-                sql = Sql.Get(context);
-                DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                if (Parameters != null)
+                string connString = null;
+                string provName = null;
+                string sql = string.Empty;
+                int commandTimeout = TimeoutMS.Get(context);
+                if (commandTimeout < 0)
                 {
-                    parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();
-                    foreach (var param in Parameters)
+                    throw new ArgumentException(UiPath.Database.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
+                }
+                Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
+                try
+                {
+                    sql = Sql.Get(context);
+                    DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    if (Parameters != null)
                     {
-                        parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
+                        parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();
+                        foreach (var param in Parameters)
+                        {
+                            parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-
-            // create the action for doing the actual work
-            Func<DBExecuteCommandResult> action = () =>
-            {
-                DBExecuteCommandResult executeResult = new DBExecuteCommandResult();
-                if (DbConnection == null)
+                catch (Exception ex)
                 {
-                    DbConnection = new DatabaseConnection().Initialize(connString, provName);
+                    HandleException(ex, ContinueOnError.Get(context));
                 }
-                if (DbConnection == null)
+
+                // create the action for doing the actual work
+                Func<DBExecuteCommandResult> action = () =>
                 {
+                    DBExecuteCommandResult executeResult = new DBExecuteCommandResult();
+                    if (DbConnection == null)
+                    {
+                        DbConnection = new DatabaseConnection().Initialize(connString, provName);
+                    }
+                    if (DbConnection == null)
+                    {
+                        return executeResult;
+                    }
+                    executeResult = new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
                     return executeResult;
-                }
-                executeResult = new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
-                return executeResult;
-            };
+                };
 
-            context.UserState = action;
+                context.UserState = action;
 
-            return action.BeginInvoke(callback, state);
+                return action.BeginInvoke(callback, state);
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
+            }
         }
 
         private void HandleException(Exception ex, bool continueOnError)
@@ -143,31 +151,38 @@ namespace UiPath.Database.Activities
 
         protected override void EndExecute(AsyncCodeActivityContext context, System.IAsyncResult result)
         {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
             try
             {
-                Func<DBExecuteCommandResult> action = (Func<DBExecuteCommandResult>)context.UserState;
-                DBExecuteCommandResult commandResult = action.EndInvoke(result);
-                this.AffectedRecords.Set(context, commandResult.Result);
-                foreach (var param in commandResult.ParametersBind)
+                DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
+                try
                 {
-                    var currentParam = Parameters[param.Key];
-                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                    Func<DBExecuteCommandResult> action = (Func<DBExecuteCommandResult>)context.UserState;
+                    DBExecuteCommandResult commandResult = action.EndInvoke(result);
+                    this.AffectedRecords.Set(context, commandResult.Result);
+                    foreach (var param in commandResult.ParametersBind)
                     {
-                        currentParam.Set(context, param.Value.Item1);
+                        var currentParam = Parameters[param.Key];
+                        if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                        {
+                            currentParam.Set(context, param.Value.Item1);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    HandleException(ex, ContinueOnError.Get(context));
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection.Dispose();
                     }
                 }
             }
-            catch (Exception ex)
+            catch (DbException ex)
             {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-            finally
-            {
-                if (existingConnection == null)
-                {
-                    DbConnection.Dispose();
-                }
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
             }
         }
 

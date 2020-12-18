@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Activities;
 using System.ComponentModel;
+using System.Data.Common;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
@@ -14,18 +15,32 @@ namespace UiPath.Database.Activities
 
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
-            var dbConnection = DatabaseConnection.Get(context);
-            // create the action for doing the actual work
-            Action action = () => dbConnection.Dispose();
-            context.UserState = action;
+            try
+            {
+                var dbConnection = DatabaseConnection.Get(context);
+                // create the action for doing the actual work
+                Action action = () => dbConnection.Dispose();
+                context.UserState = action;
 
-            return action.BeginInvoke(callback, state);
+                return action.BeginInvoke(callback, state);
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
+            }
         }
 
         protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
         {
-            Action action = (Action)context.UserState;
-            action.EndInvoke(result);
+            try
+            {
+                Action action = (Action)context.UserState;
+                action.EndInvoke(result);
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Activities;
 using System.Activities.Statements;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
@@ -75,19 +76,26 @@ namespace UiPath.Database.Activities
 
         protected override void EndExecute(NativeActivityContext context, IAsyncResult result)
         {
-            var databaseConn = ConnectionInitFunc.EndInvoke(result);
-            if (databaseConn == null) return;
-
-            if (UseTransaction)
+            try
             {
-                databaseConn.BeginTransaction();
+                var databaseConn = ConnectionInitFunc.EndInvoke(result);
+                if (databaseConn == null) return;
+
+                if (UseTransaction)
+                {
+                    databaseConn.BeginTransaction();
+                }
+
+                DatabaseConnection.Set(context, databaseConn);
+
+                if (Body != null)
+                {
+                    context.ScheduleActivity(Body, OnCompletedCallback, OnFaultedCallback);
+                }
             }
-
-            DatabaseConnection.Set(context, databaseConn);
-
-            if (Body != null)
+            catch (DbException ex)
             {
-                context.ScheduleActivity(Body, OnCompletedCallback, OnFaultedCallback);
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
             }
         }
 

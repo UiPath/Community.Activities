@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Activities;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
@@ -40,19 +41,33 @@ namespace UiPath.Database.Activities
 
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
-            var connString = ConnectionString.Get(context);
-            var provName = ProviderName.Get(context);
-            Func<DatabaseConnection> action = () => _connectionFactory.Create(connString, provName);
-            context.UserState = action;
+            try
+            {
+                var connString = ConnectionString.Get(context);
+                var provName = ProviderName.Get(context);
+                Func<DatabaseConnection> action = () => _connectionFactory.Create(connString, provName);
+                context.UserState = action;
 
-            return action.BeginInvoke(callback, state);
+                return action.BeginInvoke(callback, state);
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
+            }
         }
 
         protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
         {
-            Func<DatabaseConnection> action = (Func<DatabaseConnection>)context.UserState;
-            var dbConn = action.EndInvoke(result);
-            DatabaseConnection.Set(context, dbConn);
+            try
+            {
+                Func<DatabaseConnection> action = (Func<DatabaseConnection>)context.UserState;
+                var dbConn = action.EndInvoke(result);
+                DatabaseConnection.Set(context, dbConn);
+            }
+            catch (DbException ex)
+            {
+                throw new Exception("[Database driver error]: " + ex.Message + " " + ex?.InnerException?.Message, ex);
+            }
         }
     }
 }
