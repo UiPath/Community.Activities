@@ -14,9 +14,13 @@ variables:
   majorVersion: '1'
   minorVersion: '2'
   patchVersion: '0'
-  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when patch gets bumped.
+  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when minor gets bumped.
+  versionSuffix: ''
   versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
-  versionSuffix: 'alpha$(revision)' #this can be empty
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+   versionSuffix: 'alpha.$(revision)'
+  ${{ if contains(variables['Build.SourceBranchName'], 'release') }}:
+   versionSuffix: 'beta.$(revision)'
 
 
 pr:

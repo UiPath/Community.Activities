@@ -12,8 +12,14 @@ trigger:
 variables:
   majorVersion: '1'
   minorVersion: '2'
-  revision: $[counter(variables['minorVersion'], 1)] #this will get reset when minor gets bumped.
-  packageVersion: '$(majorVersion).$(minorVersion).$(revision)'
+  patchVersion: '0'
+  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when minor gets bumped.
+  versionSuffix: ''
+  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+   versionSuffix: 'alpha.$(revision)'
+  ${{ if contains(variables['Build.SourceBranchName'], 'release') }}:
+   versionSuffix: 'beta.$(revision)'
 
 pr:
   branches:
