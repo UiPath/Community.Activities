@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Twilio/*
       - develop
-      - release/*
-      - support/*
+      - release/Twilio/*
+      - support/Twilio/*
   paths:
     include:
       - Activities/Twilio/*

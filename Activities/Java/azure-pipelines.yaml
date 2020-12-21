@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Java/*
       - develop
-      - release/*
-      - support/*
+      - release/Java/*
+      - support/Java/*
   paths:
     include:
       - Activities/Java/*

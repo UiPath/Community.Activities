@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/FTP/*
       - develop
-      - release/*
-      - support/*
+      - release/FTP/*
+      - support/FTP/*
   paths:
     include:
       - Activities/FTP/*

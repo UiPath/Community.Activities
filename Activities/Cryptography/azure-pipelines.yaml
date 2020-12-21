@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Cryptography/*
       - develop
-      - release/*
-      - support/*
+      - release/Cryptography/*
+      - support/Cryptography/*
   paths:
     include:
       - Activities/Cryptography/*

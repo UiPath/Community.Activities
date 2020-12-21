@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/GoogleSpreadsheet/*
       - develop
-      - release/*
-      - support/*
+      - release/GoogleSpreadsheet/*
+      - support/GoogleSpreadsheet/*
   paths:
     include:
       - Activities/GoogleSpreadsheet/*

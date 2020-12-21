@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Python/*
       - develop
-      - release/*
-      - support/*
+      - release/Python/*
+      - support/Python/*
   paths:
     include:
       - Activities/Python/*

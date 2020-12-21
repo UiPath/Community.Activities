@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Database/*
       - develop
-      - release/*
-      - support/*
+      - release/Database/*
+      - support/Database/*
   paths:
     include:
       - Activities/Database/*
