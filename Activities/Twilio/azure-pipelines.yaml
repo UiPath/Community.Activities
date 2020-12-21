@@ -11,12 +11,8 @@ trigger:
       - Activities/Activities.Twilio.sln
 
 variables:
-  majorVersion: '1'
-  minorVersion: '1'
-  patchVersion: '0'
-  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when minor gets bumped.
-  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
-  -template: "../.pipelines/variables/vars.yml"
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
 
 pr:
   branches:

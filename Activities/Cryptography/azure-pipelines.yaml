@@ -10,12 +10,8 @@ trigger:
       - Activities/Cryptography/*
       - Activities/Activities.Cryptography.sln
 variables:
-  majorVersion: '1'
-  minorVersion: '2'
-  patchVersion: '0'
-  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when minor gets bumped.
-  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
-  -template: "../.pipelines/variables/vars.yml"
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
 
 pr:
   branches:
@@ -45,3 +41,4 @@ jobs:
         - "UiPath.Cryptography.Activities.Tests/UiPath.Cryptography.Activities.Tests.csproj"        
       versionReference: "CryptographyAssemblyInfo.cs"
       versionNumber: ${{ variables.packageVersion }}
+      versionSuffix: ${{ variables.versionSuffix }}
