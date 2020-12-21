@@ -1,0 +1,7 @@
+variables:
+  ${{ if contains(variables['Build.SourceBranchName'], 'master') }}:
+   versionSuffix: ''
+  ${{ if contains(variables['Build.SourceBranchName'], 'release') }}:
+   versionSuffix: 'beta.$(revision)'
+  ${{ if and(not(contains(variables['Build.SourceBranchName'], 'release')), not(contains(variables['Build.SourceBranchName'], 'master'))) }}:
+   versionSuffix: 'alpha.$(revision)'

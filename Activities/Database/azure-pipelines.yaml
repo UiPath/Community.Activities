@@ -15,12 +15,8 @@ variables:
   minorVersion: '4'
   patchVersion: '0'
   revision: $[counter(variables['patchVersion'], 1)] #this will get reset when minor gets bumped.
-  versionSuffix: 'alpha.$(revision)'
   versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
-  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
-   versionSuffix: ''
-  ${{ if contains(variables['Build.SourceBranchName'], 'release') }}:
-   versionSuffix: 'beta.$(revision)'
+  -template: "../.pipelines/variables/vars.yml"
 
 pr:
   branches:
