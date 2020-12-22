@@ -48,4 +48,13 @@ steps:
     DisableTelemetry: false
     InformationalVersion: "${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
     FileVersionNumber: "${{ parameters.versionNumber }}" 
-    VersionNumber:  "${{ parameters.versionNumber }}" 
+    VersionNumber:  "${{ parameters.versionNumber }}"
+
+- task: PowerShell@1
+  displayName: "Print variables"
+  condition: always()
+  continueOnError: true
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"Variables for current build:\" \n
+      Get-ChildItem ENV:*"
