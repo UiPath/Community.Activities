@@ -1,7 +1,7 @@
 variables:
-  ${{ if contains(variables['Build.SourceBranchName'], 'master') }}:
+  ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/master') }}:
    versionSuffix: ''
-  ${{ if contains(variables['Build.SourceBranchName'], 'release') }}:
+  ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/release') }}:
    versionSuffix: 'beta.$(revision)'
-  ${{ if and(not(contains(variables['Build.SourceBranchName'], 'release')), not(contains(variables['Build.SourceBranchName'], 'master'))) }}:
+  ${{ if and(not(startsWith(variables['Build.SourceBranch'], 'refs/heads/release')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters'))) }}:
    versionSuffix: 'alpha.$(revision)'
