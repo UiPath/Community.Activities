@@ -214,6 +214,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Path.
+        /// </summary>
+        internal static string NewPath {
+            get {
+                return ResourceManager.GetString("NewPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password.
         /// </summary>
         internal static string NoValidAuthenticationMethod {
