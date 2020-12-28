@@ -40,5 +40,5 @@ jobs:
       testList: 
         - "UiPath.Cryptography.Activities.Tests/UiPath.Cryptography.Activities.Tests.csproj"        
       versionReference: "CryptographyAssemblyInfo.cs"
-      versionNumber: ${{ variables.packageVersion }}
+      versionNumber: ${{ variables.versionNumber }}
       versionSuffix: ${{ variables.versionSuffix }}
