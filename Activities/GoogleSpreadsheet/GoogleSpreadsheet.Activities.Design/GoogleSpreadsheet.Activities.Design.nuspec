@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GoogleSpreadsheet.Activities</id>
-    <version>$version$</version>
+    <version>$ver$</version>
     <title>GoogleSpreadsheet.Activities</title>
     <authors>bogdan.popescu</authors>
     <owners>bogdan.popescu</owners>

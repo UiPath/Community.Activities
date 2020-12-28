@@ -10,6 +10,18 @@ trigger:
       - Activities/Database/*
       - Activities/Activities.Database.sln
 
+variables:
+  majorVersion: '1'
+  minorVersion: '4'
+  patchVersion: '0'
+  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when minor gets bumped.
+  versionSuffix: 'alpha.$(revision)'
+  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
+  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+   versionSuffix: ''
+  ${{ if contains(variables['Build.SourceBranchName'], 'release') }}:
+   versionSuffix: 'beta.$(revision)'
+
 pr:
   branches:
     include:
@@ -37,3 +49,5 @@ jobs:
       testList: 
         - "UiPath.Database.Tests/UiPath.Database.Tests.csproj"
       versionReference: "DatabaseAssemblyVersion.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

@@ -10,6 +10,19 @@ trigger:
       - Activities/Python/*
       - Activities/Activities.Python.sln
 
+variables:
+  majorVersion: '1'
+  minorVersion: '3'
+  patchVersion: '0'
+  revision: $[counter(variables['patchVersion'], 1)] #this will get reset when minor gets bumped.
+  versionSuffix: 'alpha.$(revision)'
+  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
+  ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+   versionSuffix: ''
+  ${{ if contains(variables['Build.SourceBranchName'], 'release') }}:
+   versionSuffix: 'beta.$(revision)'
+
+
 pr:
   branches:
     include:
@@ -37,3 +50,5 @@ jobs:
       testList: 
         - "UiPath.Python.Tests/UiPath.Python.Tests.csproj"
       versionReference: "PythonPackageVersion.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

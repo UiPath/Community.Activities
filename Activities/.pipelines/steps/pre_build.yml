@@ -1,44 +1,51 @@
 parameters:
+  BuildConfiguration: "Release"
+  BuildPlatform: "AnyCPU"
   NuGetVersionSpec: "4.3.0"
   rootPath: ""
   versionReference: ""
+  versionNumber: ""
+  versionSuffix: ""
 
 steps:
 - task: PowerShell@1
   displayName: "Set Build Version"
   inputs:
     scriptType: "inlineScript"
-    inlineScript: |
-      $versionReferenceFile = "${{ parameters.rootPath }}${{ parameters.versionReference }}"
-      Write-Host "versionReferenceFile: $versionReferenceFile"
-
-      $major = 1
-      $minor = 0
-
-      if (-not (Test-Path -Path  $versionReferenceFile )) {
-        Write-Host "file $versionReferenceFile not found"
-      } else {
-        # select the version line, remove any comments 
-        $vers = cat $versionReferenceFile|Select-String -Pattern AssemblyVersion|Select-String -NotMatch "^//.*AssemblyVersion"|select -Last 1
-
-        $match =  $vers.Line.split("(").split(".")[1].replace('"','')
-        if (  $match -match "^\d*$" ){ $major = $match } 
-        else {  Write-Host "version major was not found" }
-        
-        $match =  $vers.Line.split("(").split(".")[2] 
-        if (  $match -match "^\d*$" ){ $minor = $match } 
-        else {  Write-Host "version minor was not found" }
-      }
-
-      $now = Get-Date 
-      $y2k = Get-Date -Year 2000 -Month 1 -Day 1 
-      $build = [int]($now - $y2k).TotalDays 
-      $revision = [int]($now.TimeOfDay.TotalSeconds / 2) 
-      $version = "$major.$minor.$build.$revision" 
-      Write-Host "$version" 
-      Write-Host "##vso[build.updatebuildnumber]$version"
+    ${{ if eq(parameters.versionSuffix, '') }}:
+     inlineScript: |
+       $version = "${{ parameters.versionNumber }}" 
+       Write-Host "$version" 
+       Write-Host "##vso[build.updatebuildnumber]$version"
+    ${{ if ne(parameters.versionSuffix, '') }}:
+     inlineScript: |
+       $version = "${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}" 
+       Write-Host "$version" 
+       Write-Host "##vso[build.updatebuildnumber]$version"
 
 - task: NuGetToolInstaller@1
   displayName: "Use NuGet ${{ parameters.NuGetVersionSpec }}"
   inputs:
     versionSpec: ${{ parameters.NuGetVersionSpec }}
+
+- task: Assembly-Info-NetFramework@2
+  ${{ if eq(parameters.versionSuffix, '') }}:
+   displayName: "Set Assembly version to ${{ parameters.versionNumber }}"
+  ${{ if ne(parameters.versionSuffix, '') }}:
+   displayName: "Set Assembly version to ${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
+  inputs:
+    Path: "${{ parameters.rootPath }}" 
+    FileNames: |
+      **\AssemblyInfo.cs
+      **\*AssemblyInfo.cs
+      **\${{ parameters.versionReference }}
+    InsertAttributes: false
+    FileEncoding: 'auto'
+    WriteBOM: false
+    Configuration: ${{ parameters.BuildConfiguration }}
+    LogLevel: 'verbose'
+    FailOnWarning: false
+    DisableTelemetry: false
+    InformationalVersion: "${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
+    FileVersionNumber: "${{ parameters.versionNumber }}" 
+    VersionNumber:  "${{ parameters.versionNumber }}" 
