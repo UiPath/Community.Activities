@@ -74,6 +74,7 @@ namespace UiPath.Database.Tests
             var con = new Mock<DbConnection>();
             var cmd = new Mock<DbCommand>();
             var dbParameterCollection = new Mock<DbParameterCollection>();
+            var iEnum = new List<DbParameter>();
             var param = new Mock<DbParameter>();
             var dataReader = new Mock<DbDataReader>();
 
@@ -83,7 +84,7 @@ namespace UiPath.Database.Tests
             cmd.SetReturnsDefault<DbParameterCollection>(dbParameterCollection.Object);
             cmd.SetReturnsDefault<DbParameter>(param.Object);
             cmd.SetReturnsDefault<DbDataReader>(dataReader.Object);
-            
+            dbParameterCollection.Setup(x => x.GetEnumerator()).Returns(iEnum.GetEnumerator());
             param.SetupAllProperties();
             param.SetReturnsDefault<ParameterDirection>(ParameterDirection.InputOutput);
 
