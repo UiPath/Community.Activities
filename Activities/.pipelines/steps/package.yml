@@ -22,15 +22,12 @@ steps:
   inputs:
     command: "pack"
     packagesToPack: "$(PackagesToPack)"
-    versioningScheme: "off"
+    versioningScheme: "byEnvVar"
     includeSymbols: "true"
     outputDir: "$(Build.ArtifactStagingDirectory)"
     configurationToPack: ${{ parameters.BuildConfiguration }}
     includeReferencedProjects: "true"
-    ${{ if eq(parameters.versionSuffix, '') }}:
-     buildProperties: 'ver=${{ parameters.versionNumber }}'
-    ${{ if ne(parameters.versionSuffix, '') }}:
-     buildProperties: 'ver=${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}'
+    versionEnvVar: "BUILD_BUILDNUMBER"
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish symbols"
