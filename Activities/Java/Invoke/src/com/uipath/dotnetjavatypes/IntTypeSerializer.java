@@ -12,7 +12,7 @@ public class IntTypeSerializer implements TypeSerializerInterface {
                 return new JavaObject(value, int.class);
             } catch (JSONException e) {  }
         }
-        return new JavaObject(new EmptyClass(), EmptyClass.class);
+        return new JavaObject(null, int.class);
     }
 
     public JSONObject SerializeToDotNet(ObjectInstance obj) throws JSONException{
