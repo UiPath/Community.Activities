@@ -115,7 +115,7 @@ namespace UiPath.Database.Activities
             }
 
             // create the action for doing the actual work
-            Func<DataTable> action = () =>
+            Func<DBExecuteQueryResult> action = () =>
                 {
                     if (DbConnection == null)
                     {
@@ -125,7 +125,7 @@ namespace UiPath.Database.Activities
                     {
                         return null;
                     }
-                    return DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType);
+                    return new DBExecuteQueryResult(DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType), parameters);
                 };
 
             context.UserState = action;
@@ -144,11 +144,20 @@ namespace UiPath.Database.Activities
             DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
             try
             {
-                Func<DataTable> action = (Func<DataTable>)context.UserState;
-                DataTable dt = action.EndInvoke(result);
+                Func<DBExecuteQueryResult> action = (Func<DBExecuteQueryResult>)context.UserState;
+                DBExecuteQueryResult commandResult = action.EndInvoke(result);
+                DataTable dt = commandResult.Result;
                 if (dt == null) return;
 
                 DataTable.Set(context, dt);
+                foreach (var param in commandResult.ParametersBind)
+                {
+                    var currentParam = Parameters[param.Key];
+                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                    {
+                        currentParam.Set(context, param.Value.Item1);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -160,6 +169,23 @@ namespace UiPath.Database.Activities
                 {
                     DbConnection.Dispose();
                 }
+            }
+        }
+        private class DBExecuteQueryResult
+        {
+            public DataTable Result { get; }
+            public Dictionary<string, Tuple<object, ArgumentDirection>> ParametersBind { get; }
+
+            public DBExecuteQueryResult()
+            {
+                this.Result = new DataTable();
+                this.ParametersBind = new Dictionary<string, Tuple<object, ArgumentDirection>>();
+            }
+
+            public DBExecuteQueryResult(DataTable result, Dictionary<string, Tuple<object, ArgumentDirection>> parametersBind)
+            {
+                this.Result = result;
+                this.ParametersBind = parametersBind;
             }
         }
     }

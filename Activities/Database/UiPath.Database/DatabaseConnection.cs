@@ -45,6 +45,11 @@ namespace UiPath.Database
             _command.Transaction = _transaction;
             DataTable dt = new DataTable();
             dt.Load(_command.ExecuteReader());
+            foreach (var param in _command.Parameters)
+            {
+                var dbParam = param as DbParameter;
+                parameters[dbParam.ParameterName] = new Tuple<object, ArgumentDirection>(dbParam.Value, WokflowParameterDirectionToDbParameter(dbParam.Direction));
+            }
             return dt;
         }
 
