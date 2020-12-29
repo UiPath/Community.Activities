@@ -15,9 +15,12 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.RemotePath))]
         public InArgument<string> RemotePath { get; set; }
         [RequiredArgument]
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.NewPath))]
         public InArgument<string> NewPath { get; set; }
+        [LocalizedCategory(nameof(Resources.Options))]
+        [LocalizedDisplayName(nameof(Resources.Overwrite))]
+        public bool Overwrite { get; set; }
 
         protected override void Execute(CodeActivityContext context)
         {
@@ -28,7 +31,7 @@ namespace UiPath.FTP.Activities
             {
                 throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
             }
-            ftpSession.Move(RemotePath.Get(context), NewPath.Get(context));
+            ftpSession.Move(RemotePath.Get(context), NewPath.Get(context), Overwrite);
         }
     }
 }

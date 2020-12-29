@@ -574,7 +574,7 @@ namespace UiPath.FTP
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
         }
 
-        void IFtpSession.Move(string remotePath, string newPath)
+        void IFtpSession.Move(string remotePath, string newPath, bool overwrite)
         {
             if (string.IsNullOrWhiteSpace(remotePath))
             {
@@ -590,12 +590,35 @@ namespace UiPath.FTP
                 throw new IOException(string.Format(Resources.PathNotFoundException, remotePath));
             }
 
-            if (_sftpClient.Exists(newPath))
+            if (_sftpClient.Exists(newPath) && _sftpClient.Get(newPath).IsRegularFile &&  !overwrite)
             {
                 throw new IOException(Resources.FileExistsException);
             }
-
+            
             var file = _sftpClient.Get(remotePath);
+            
+            if(_sftpClient.Exists(newPath) && file.IsRegularFile)
+            {
+                var movePath = _sftpClient.Get(newPath);
+                if (movePath.IsDirectory)
+                {
+                    var newFP = string.Format("{0}/{1}", movePath.FullName, file.Name);
+                    if (_sftpClient.Exists(newFP) && _sftpClient.Get(newFP).IsRegularFile)
+                    {
+                        if (overwrite)
+                            _sftpClient.DeleteFile(newFP);
+                        else
+                            throw new IOException(Resources.FileExistsException);
+                    }
+                }
+                else
+                {
+                    if (overwrite)
+                        movePath.Delete();
+                    else
+                        throw new IOException(Resources.FileExistsException);
+                }
+            }
             file.MoveTo(newPath);
         }
 
