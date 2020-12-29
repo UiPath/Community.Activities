@@ -1,14 +1,17 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Cryptography/*
       - develop
-      - release/*
-      - support/*
+      - release/Cryptography/*
+      - support/Cryptography/*
   paths:
     include:
       - Activities/Cryptography/*
       - Activities/Activities.Cryptography.sln
+variables:
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
 
 pr:
   branches:
@@ -37,3 +40,5 @@ jobs:
       testList: 
         - "UiPath.Cryptography.Activities.Tests/UiPath.Cryptography.Activities.Tests.csproj"        
       versionReference: "CryptographyAssemblyInfo.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

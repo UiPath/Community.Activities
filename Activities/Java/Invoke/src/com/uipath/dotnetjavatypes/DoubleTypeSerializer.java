@@ -13,7 +13,7 @@ public class DoubleTypeSerializer implements TypeSerializerInterface {
                 return new JavaObject(value, double.class);
             } catch (JSONException e) {  }
         }
-        return new JavaObject(new EmptyClass(), EmptyClass.class);
+        return new JavaObject(null, double.class);
     }
 
     public JSONObject SerializeToDotNet(ObjectInstance obj) throws JSONException{

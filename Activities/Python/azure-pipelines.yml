@@ -1,14 +1,19 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Python/*
       - develop
-      - release/*
-      - support/*
+      - release/Python/*
+      - support/Python/*
   paths:
     include:
       - Activities/Python/*
       - Activities/Activities.Python.sln
+
+variables:
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
+
 
 pr:
   branches:
@@ -37,3 +42,5 @@ jobs:
       testList: 
         - "UiPath.Python.Tests/UiPath.Python.Tests.csproj"
       versionReference: "PythonPackageVersion.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

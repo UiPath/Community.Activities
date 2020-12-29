@@ -1,14 +1,19 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Java/*
       - develop
-      - release/*
-      - support/*
+      - release/Java/*
+      - support/Java/*
   paths:
     include:
       - Activities/Java/*
       - Activities/Activities.Java.sln
+
+variables:
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
+
 
 pr:
   branches:
@@ -37,4 +42,6 @@ jobs:
       testList: 
         - "UiPath.Java.Test/UiPath.Java.Test.csproj"
       versionReference: "JavaPackageVersion.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}
 

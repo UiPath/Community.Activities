@@ -1,14 +1,18 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/FTP/*
       - develop
-      - release/*
-      - support/*
+      - release/FTP/*
+      - support/FTP/*
   paths:
     include:
       - Activities/FTP/*
       - Activities/Activities.FTP.sln
+
+variables:
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
 
 pr:
   branches:
@@ -35,3 +39,5 @@ jobs:
         - "UiPath.FTP.Activities/UiPath.FTP.Activities.csproj"
         - "UiPath.FTP/UiPath.FTP.csproj"      
       versionReference: "FTPAssemblyInfo.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

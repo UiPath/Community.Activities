@@ -1,14 +1,18 @@
 trigger:
   branches:
     include:
-      - master
+      - masters/Database/*
       - develop
-      - release/*
-      - support/*
+      - release/Database/*
+      - support/Database/*
   paths:
     include:
       - Activities/Database/*
       - Activities/Activities.Database.sln
+
+variables:
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
 
 pr:
   branches:
@@ -37,3 +41,5 @@ jobs:
       testList: 
         - "UiPath.Database.Tests/UiPath.Database.Tests.csproj"
       versionReference: "DatabaseAssemblyVersion.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

@@ -13,7 +13,7 @@ public class CharTypeSerializer implements TypeSerializerInterface {
                 return new JavaObject(value, char.class);
             } catch (JSONException e) {  }
         }
-        return new JavaObject(new EmptyClass(), EmptyClass.class);
+        return new JavaObject(null, char.class);
     }
 
     public JSONObject SerializeToDotNet(ObjectInstance obj) throws JSONException{

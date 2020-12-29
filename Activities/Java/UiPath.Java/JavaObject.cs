@@ -30,5 +30,10 @@ namespace UiPath.Java
 
         #endregion 
 
+        public bool IsNull()
+        {
+            return Instance == null;
+        }
+
     }
 }

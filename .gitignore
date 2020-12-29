@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/Activities/Java/Invoke/out
+/Activities/Java/Invoke/.idea
+/Activities/Java/Invoke/.idea/artifacts
+/Activities/Java/TestProgram/.idea
+/Activities/Java/TestProgram/out
