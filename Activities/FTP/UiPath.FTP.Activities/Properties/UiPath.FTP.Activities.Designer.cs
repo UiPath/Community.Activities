@@ -214,7 +214,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Path.
+        ///   Looks up a localized string similar to New remote path.
         /// </summary>
         internal static string NewPath {
             get {
