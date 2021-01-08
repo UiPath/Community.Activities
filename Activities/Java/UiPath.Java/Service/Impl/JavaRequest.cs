@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -60,19 +61,45 @@ namespace UiPath.Java.Service
             {
                 return;
             }
-
+            int index = -1;
             foreach (object param in parameters)
             {
+                index++;
                 if (param is JavaObject jo)
                 {
                     Parameters.Add(jo.Instance);
                 }
                 else
                 {
-                    Parameters.Add(new JavaObjectInstance
+                    if (param==null)
                     {
-                        Value = param
-                    });
+                        var type = types[index];
+                        if (typeof(IEnumerable).IsAssignableFrom(type) && type != typeof(string))
+                        {
+                            Parameters.Add(new JavaObjectInstance
+                            {
+                                Value = param,
+                                RunTimeType = "Array",
+                                RunTimeArrayType = type.FullName
+                            }); 
+                        }
+                        else
+                        {
+                            Parameters.Add(new JavaObjectInstance
+                            {
+                                Value = param,
+                                RunTimeType = type.FullName
+                            });
+                        }
+                    }
+                    else
+                    {
+                        Parameters.Add(new JavaObjectInstance
+                        {
+                            Value = param
+                        });
+                    }
+                    
                 }
             }
         }

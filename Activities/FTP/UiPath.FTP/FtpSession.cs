@@ -261,6 +261,7 @@ namespace UiPath.FTP
             return _ftpClient.IsConnected;
         }
 
+
         Task<bool> IFtpSession.IsConnectedAsync(CancellationToken cancellationToken)
         {
             return Task.Run(() => _ftpClient.IsConnected, cancellationToken);
@@ -569,6 +570,44 @@ namespace UiPath.FTP
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
         }
 
+        void IFtpSession.Move(string RemotePath, string newPath)
+        {
+            if (string.IsNullOrWhiteSpace(RemotePath))
+            {
+                throw new ArgumentNullException(nameof(RemotePath));
+            }
+            if (string.IsNullOrWhiteSpace(newPath))
+            {
+                throw new ArgumentNullException(nameof(newPath));
+            }
+
+            var ftpItem = _ftpClient.GetObjectInfo(RemotePath);
+            if (ftpItem == null)
+            {
+                throw new IOException(string.Format(Resources.PathNotFoundException, RemotePath));
+            }
+            if (ftpItem.Type == FtpFileSystemObjectType.Directory)
+            {
+                if (_ftpClient.DirectoryExists(newPath))
+                {
+                    throw new IOException(Resources.DirectoryExistsException);
+                }
+                _ftpClient.MoveDirectory(RemotePath, newPath);
+            }
+            else if (ftpItem.Type == FtpFileSystemObjectType.File)
+            {
+                if (_ftpClient.FileExists(newPath))
+                {
+                    throw new IOException(Resources.FileExistsException);
+                }
+                _ftpClient.MoveFile(RemotePath, newPath);
+            }
+            else
+            {
+                throw new NotSupportedException(Resources.UnsupportedObjectTypeException);
+            }
+        }
+
         void IFtpSession.Upload(string localPath, string remotePath, bool overwrite, bool recursive)
         {
             if (string.IsNullOrWhiteSpace(localPath))
@@ -682,6 +721,7 @@ namespace UiPath.FTP
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

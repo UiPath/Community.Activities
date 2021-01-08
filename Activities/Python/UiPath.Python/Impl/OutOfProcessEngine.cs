@@ -32,6 +32,7 @@ namespace UiPath.Python.Impl
         }
 
         #region IEngine
+        public Version Version { get { return _version; } }
         public Task Initialize(string workingFolder, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
@@ -48,7 +49,7 @@ namespace UiPath.Python.Impl
             };
             _provider.Create();
             _proxy = new PythonProxy(_provider.Endpoint);
-            _proxy.Initialize(_path, _version, workingFolder);
+            _proxy.Initialize(_path, _version, workingFolder); 
 
             sw.Stop();
 

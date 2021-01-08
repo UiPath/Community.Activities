@@ -62,9 +62,10 @@ namespace UiPath.Python.Impl
         }
 
         #region IEngine
+        public Version Version { get { return _version; } }
         public async Task Initialize(string workingFolder, CancellationToken ct)
         {
-            if (!_initialized)
+            if (!_initialized) 
             {
                 lock (this)
                 {
@@ -89,7 +90,15 @@ namespace UiPath.Python.Impl
                         ct.ThrowIfCancellationRequested();
 
                         _pyEngine.PythonHome = _path;
-                        _pyEngine.Initialize(null, null);
+
+                        //Pythonnet removed support for version 3.3 and 3.4 so we have the old dlls. Initialize method was updated in current package. 
+                        if (_version == Version.Python_33 || _version == Version.Python_34)
+                            _pyEngine.Initialize(null, null);
+                        else
+                            if(_version == Version.Python_39)
+                                _pyEngine.Initialize(null, null, null, null);
+                            else
+                                _pyEngine.Initialize(null, null, null);
                         ct.ThrowIfCancellationRequested();
 
                         _pythreads = _pyEngine.BeginAllowThreads();

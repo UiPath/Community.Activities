@@ -225,6 +225,7 @@ public class ObjectInstance {
 
     private static Constructor<?> getConstructor(Class<?> loadedClass, Class<?>[] parameterTypes) throws NoSuchMethodException {
         Constructor<?>[] constructors = loadedClass.getConstructors();
+
         if (constructors == null) {
             throw new NoSuchMethodException();
         }
@@ -235,6 +236,7 @@ public class ObjectInstance {
                 return constructor;
             }
         }
+
         throw new NoSuchMethodException();
     }
 
@@ -322,7 +324,7 @@ class InvocationTarget {
         }
         for (int i = 0; i < parameterTypes.length; ++i) {
             if (parameterTypes[i] == null || that.parameterTypes[i] == null) {
-                return false;
+                continue;
             }
             Class<?> thisType = getWrappedType(parameterTypes[i]);
             Class<?> thatType = getWrappedType(that.parameterTypes[i]);

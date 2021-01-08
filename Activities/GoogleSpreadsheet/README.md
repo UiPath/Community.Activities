@@ -1,4 +1,4 @@
-Guidelines for using Google Spreadsheet Activities
+Guidelines for using GoogleSpreadsheet Activities
 
 1. Google Sheet Application Scope
 
@@ -8,13 +8,13 @@ Guidelines for using Google Spreadsheet Activities
 
     b) Spreadsheet calls
 
-    - To make requests to a Google Spreadsheet you'll need to specify the SpreadsheetId
+    - To make requests to a GoogleSpreadsheet you'll need to specify the SpreadsheetId
 
 2. Read Range
 
     - Needs to have specified: Sheet, Range and optional IncludeHeaders
     - The output of this will be a DataTable object (Result property)
-    - If you don't specify the Sheet, it'll use the default sheet of the Google Spreadsheet
+    - If you don't specify the Sheet, it'll use the default sheet of the GoogleSpreadsheet
 
 3. Write Range
 

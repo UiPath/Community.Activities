@@ -13,7 +13,7 @@
     <description>$description$</description>
   </metadata>
   <files>
-    <file src="$SolutionDir$Java\Invoke\artifacts\InvokeJava.jar" target="lib\java_files\InvokeJava.jar"/>
+    <file src="..\Invoke\artifacts\InvokeJava.jar" target="lib\java_files\InvokeJava.jar"/>
     <file src="$OutputPath$**\UiPath.Java*resources.dll" target="lib\net452" />
   </files>
 </package>

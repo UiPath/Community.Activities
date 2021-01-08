@@ -14,6 +14,7 @@ namespace UiPath.Python
     {
         private const string PythonHomeEnv = "PYTHONHOME";
         private const string PythonExe = "python.exe";
+        private const string PythonVersionArgument = "--version";
 
         // engines cache
         private static object _lock = new object();
@@ -30,7 +31,6 @@ namespace UiPath.Python
                     path = Environment.GetEnvironmentVariable(PythonHomeEnv);
                     Trace.TraceInformation($"Found Pyhton path {path}");
                 }
-
                 if (!version.IsValid())
                 {
                     Autodetect(path, out version);
@@ -58,7 +58,7 @@ namespace UiPath.Python
             return engine;
         }
 
-        private static void Autodetect(string path, out Version version)
+        public static void Autodetect(string path, out Version version)
         {
             Trace.TraceInformation($"Trying to autodetect Python version from path {path}");
             string pyExe = Path.GetFullPath(Path.Combine(path, PythonExe));
@@ -66,9 +66,26 @@ namespace UiPath.Python
             {
                 throw new FileNotFoundException(Resources.PythonExeNotFoundException, pyExe);
             }
-
-            version = FileVersionInfo.GetVersionInfo(pyExe).Get();
+            Process process = new Process();
+            process.StartInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                FileName = pyExe,
+                Arguments = PythonVersionArgument,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
+            };
+            process.Start();
+            // Now read the value, parse to int and add 1 (from the original script)
+            string ver = process.StandardError.ReadToEnd();
+            if(string.IsNullOrEmpty(ver))
+                ver = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            version = ver.GetVersionFromStr();
             Trace.TraceInformation($"Autodetected Python version {version}");
         }
+        
     }
 }
