@@ -242,7 +242,7 @@
     <comment>activity name</comment>
   </data>
   <data name="ScriptFileDescription" xml:space="preserve">
-    <value>Python script file</value>
+    <value>Full path to Python script file</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
     <value>File</value>
@@ -280,5 +280,8 @@
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
     <value>WorkingFolder path is not valid</value>
+  </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value>Selected version {0} is different from the version found {1}</value>
   </data>
 </root>

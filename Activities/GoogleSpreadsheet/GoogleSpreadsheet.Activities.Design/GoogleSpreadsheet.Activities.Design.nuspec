@@ -9,6 +9,6 @@
     <projectUrl>https://github.com/UiPath/Community.Activities</projectUrl>
     <iconUrl>https://download.uipath.com/UI_icon.png?google-spreadsheet</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Interacts with Google Spreadsheet by calling Google API.</description>
+    <description>Interacts with GoogleSpreadsheet by calling Google API.</description>
   </metadata>
 </package>

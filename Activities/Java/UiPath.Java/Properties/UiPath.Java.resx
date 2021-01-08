@@ -159,6 +159,9 @@
   <data name="JarNotLoadedException" xml:space="preserve">
     <value>Jar could not be loaded.</value>
   </data>
+  <data name="JavaTimeoutException" xml:space="preserve">
+    <value>Java initialization timeout expired.</value>
+  </data>
   <data name="MethodNotFoundException" xml:space="preserve">
     <value>Method could not be invoked.</value>
   </data>

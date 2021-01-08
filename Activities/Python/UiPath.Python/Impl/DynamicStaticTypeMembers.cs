@@ -42,7 +42,7 @@ namespace Nito.KitchenSink.Dynamic
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(this.type != null);
+            Contract.Invariant(type != null);
         }
 
         /// <summary>
@@ -58,12 +58,12 @@ namespace Nito.KitchenSink.Dynamic
             Contract.Assume(binder != null);
             Contract.Assume(binder.Name != null);
 
-            Trace.TraceEvent(TraceEventType.Verbose, 0, "Getting the value of static property " + binder.Name + " on type " + this.type.Name);
+            Trace.TraceEvent(TraceEventType.Verbose, 0, "Getting the value of static property " + binder.Name + " on type " + type.Name);
 
-            var prop = this.type.GetProperty(binder.Name, BindingFlags.FlattenHierarchy | BindingFlags.Static | BindingFlags.Public);
+            var prop = type.GetProperty(binder.Name, BindingFlags.FlattenHierarchy | BindingFlags.Static | BindingFlags.Public);
             if (prop == null)
             {
-                Trace.TraceEvent(TraceEventType.Error, 0, "Could not find static property " + binder.Name + " on type " + this.type.Name);
+                Trace.TraceEvent(TraceEventType.Error, 0, "Could not find static property " + binder.Name + " on type " + type.Name);
                 result = null;
                 return false;
             }
@@ -85,12 +85,12 @@ namespace Nito.KitchenSink.Dynamic
             Contract.Assume(binder != null);
             Contract.Assume(binder.Name != null);
 
-            Trace.TraceEvent(TraceEventType.Verbose, 0, "Setting the value of static property " + binder.Name + " on type " + this.type.Name);
+            Trace.TraceEvent(TraceEventType.Verbose, 0, "Setting the value of static property " + binder.Name + " on type " + type.Name);
 
-            var prop = this.type.GetProperty(binder.Name, BindingFlags.FlattenHierarchy | BindingFlags.Static | BindingFlags.Public);
+            var prop = type.GetProperty(binder.Name, BindingFlags.FlattenHierarchy | BindingFlags.Static | BindingFlags.Public);
             if (prop == null)
             {
-                Trace.TraceEvent(TraceEventType.Error, 0, "Could not find static property " + binder.Name + " on type " + this.type.Name);
+                Trace.TraceEvent(TraceEventType.Error, 0, "Could not find static property " + binder.Name + " on type " + type.Name);
                 return false;
             }
 
@@ -113,7 +113,7 @@ namespace Nito.KitchenSink.Dynamic
             Contract.Assume(binder.Name != null);
             Contract.Assume(args != null);
 
-            Trace.TraceEvent(TraceEventType.Verbose, 0, "Invoking static method " + binder.Name + " on type " + this.type.Name + " with argument types { " + string.Join(", ", args.Select(x => x == null ? "<unknown>" : x.GetType().Name)) + " }");
+            Trace.TraceEvent(TraceEventType.Verbose, 0, "Invoking static method " + binder.Name + " on type " + type.Name + " with argument types { " + string.Join(", ", args.Select(x => x == null ? "<unknown>" : x.GetType().Name)) + " }");
 
             // Convert any RefOutArg arguments into ref/out arguments
             var refArguments = new RefOutArg[args.Length];
@@ -132,7 +132,7 @@ namespace Nito.KitchenSink.Dynamic
             MethodBase method;
             try
             {
-                var methods = this.type.GetMethods(flags).Where(x => x.Name == binder.Name);
+                var methods = type.GetMethods(flags).Where(x => x.Name == binder.Name);
                 Contract.Assume(Type.DefaultBinder != null);
                 method = Type.DefaultBinder.BindToMethod(flags, methods.ToArray(), ref args, null, null, null, out state);
                 Contract.Assume(method != null);
@@ -140,14 +140,14 @@ namespace Nito.KitchenSink.Dynamic
             }
             catch (Exception ex)
             {
-                Trace.TraceEvent(TraceEventType.Error, 0, "Could not find static method " + binder.Name + " on type " + this.type.Name + ": [" + ex.GetType() + "] " + ex.Message);
+                Trace.TraceEvent(TraceEventType.Error, 0, "Could not find static method " + binder.Name + " on type " + type.Name + ": [" + ex.GetType() + "] " + ex.Message);
                 throw;
             }
 
             // Ensure that all ref/out arguments were properly wrapped
             if (method.GetParameters().Count(x => x.ParameterType.IsByRef) != refArguments.Count(x => x != null))
             {
-                throw new ArgumentException("ref/out parameters need a RefOutArg wrapper when invoking " + this.type.Name + "." + binder.Name + ".");
+                throw new ArgumentException("ref/out parameters need a RefOutArg wrapper when invoking " + type.Name + "." + binder.Name + ".");
             }
 
             // Invoke the method, allowing exceptions to propogate
@@ -206,7 +206,7 @@ namespace Nito.KitchenSink.Dynamic
         /// <returns>A <see cref="System.String"/> that represents this instance.</returns>
         public override string ToString()
         {
-            return this.type.Name;
+            return type.Name;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.Odbc;
 using System.Text;
 using UiPath.Database.Properties;
 
@@ -14,7 +15,16 @@ namespace UiPath.Database
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
+        private const string SqlOdbcDriverPattern = "SQLSRV";
+        private const string OracleOdbcDriverPattern = "SQORA";
+        private const string OraclePattern = "oracle";
 
+        internal DatabaseConnection Initialize(DbConnection connection)
+        {
+            _connection = connection;
+            OpenConnection();
+            return this;
+        }
         internal DatabaseConnection Initialize(string connectionString, string providerName)
         {
             _providerName = providerName;
@@ -35,6 +45,11 @@ namespace UiPath.Database
             _command.Transaction = _transaction;
             DataTable dt = new DataTable();
             dt.Load(_command.ExecuteReader());
+            foreach (var param in _command.Parameters)
+            {
+                var dbParam = param as DbParameter;
+                parameters[dbParam.ParameterName] = new Tuple<object, ArgumentDirection>(dbParam.Value, WokflowParameterDirectionToDbParameter(dbParam.Direction));
+            }
             return dt;
         }
 
@@ -116,8 +131,8 @@ namespace UiPath.Database
             if (ceilVal != 0)
             {
                 _command.CommandTimeout = ceilVal;
-            } 
-            
+            }
+
             _command.CommandType = commandType;
             _command.CommandText = sql;
             _command.Parameters.Clear();
@@ -132,12 +147,21 @@ namespace UiPath.Database
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Item2);
                 if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
                 {
-                    dbParameter.Size = -1;
+                    dbParameter.Size = GetParameterSize(dbParameter);
                 }
 
                 dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
                 _command.Parameters.Add(dbParameter);
             }
+        }
+        private int GetParameterSize(DbParameter dbParameter)
+        {
+            if ((_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern))
+               || _connection.ToString().ToLower().Contains(OraclePattern))
+                return 1000000;
+            if (_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(SqlOdbcDriverPattern))
+                return 4000;
+            return -1;
         }
 
         private string GetColumnNames(DataTable table)

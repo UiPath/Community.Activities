@@ -1,0 +1,46 @@
+trigger:
+  branches:
+    include:
+      - masters/GoogleSpreadsheet/*
+      - develop
+      - release/GoogleSpreadsheet/*
+      - support/GoogleSpreadsheet/*
+  paths:
+    include:
+      - Activities/GoogleSpreadsheet/*
+      - Activities/Activities.GoogleSpreadsheet.sln
+
+variables:
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
+
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/GoogleSpreadsheet/*
+      - Activities/Activities.GoogleSpreadsheet.sln
+
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "../Activities.GoogleSpreadsheet.sln"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\GoogleSpreadsheet\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      restoreDependencies: 
+        - "GoogleSpreadsheet/GoogleSpreadsheet.csproj"
+        - "GoogleSpreadsheet.Activities/GoogleSpreadsheet.Activities.csproj"
+      testList: 
+        - "GoogleSpreadsheet.Activities.UnitTest/GoogleSpreadsheet.Activities.UnitTest.csproj"      
+      versionReference: "GoogleSpreadsheetVersion.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}

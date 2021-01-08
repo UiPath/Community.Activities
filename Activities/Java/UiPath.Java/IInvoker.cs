@@ -9,7 +9,7 @@ namespace UiPath.Java
 {
     public interface IInvoker
     {
-        Task StartJavaService();
+        Task StartJavaService(int timeout);
 
         Task LoadJar(string jarPath, CancellationToken ct);
 

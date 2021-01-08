@@ -19,7 +19,7 @@ namespace UiPath.Java.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UiPath_Java {
@@ -124,7 +124,7 @@ namespace UiPath.Java.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An illegalal or inapropriate parameter has been passed..
+        ///   Looks up a localized string similar to An illegal or inapropriate parameter has been passed..
         /// </summary>
         internal static string IllegalArgumentsException {
             get {
@@ -183,6 +183,15 @@ namespace UiPath.Java.Properties {
         internal static string JarNotLoadedException {
             get {
                 return ResourceManager.GetString("JarNotLoadedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Java initialization timeout expired..
+        /// </summary>
+        internal static string JavaTimeoutException {
+            get {
+                return ResourceManager.GetString("JavaTimeoutException", resourceCulture);
             }
         }
         

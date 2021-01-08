@@ -19,7 +19,7 @@ namespace UiPath.Java.Activities {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UiPath_Java_Activities {
@@ -507,6 +507,33 @@ namespace UiPath.Java.Activities {
         internal static string TargetTypeDisplayName {
             get {
                 return ResourceManager.GetString("TargetTypeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of time (in miliseconds) to wait for the Java runtime connection (default 15000ms)..
+        /// </summary>
+        internal static string TimeoutMSDescription {
+            get {
+                return ResourceManager.GetString("TimeoutMSDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Init timeout (milliseconds).
+        /// </summary>
+        internal static string TimeoutMSDisplayName {
+            get {
+                return ResourceManager.GetString("TimeoutMSDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value provided for TimeoutMS must be &gt;= 0.
+        /// </summary>
+        internal static string TimeoutMSException {
+            get {
+                return ResourceManager.GetString("TimeoutMSException", resourceCulture);
             }
         }
         

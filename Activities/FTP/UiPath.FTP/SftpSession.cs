@@ -102,7 +102,7 @@ namespace UiPath.FTP
 
             string initialWorkingDirectory = _sftpClient.WorkingDirectory;
             _sftpClient.ChangeDirectory(remotePath);
-
+            
             List<Tuple<string, string>> listing = new List<Tuple<string, string>>();
             SftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
             IEnumerable<SftpFile> items = _sftpClient.ListDirectory(currentDirectory.FullName);
@@ -572,6 +572,31 @@ namespace UiPath.FTP
             }
 
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
+        }
+
+        void IFtpSession.Move(string remotePath, string newPath)
+        {
+            if (string.IsNullOrWhiteSpace(remotePath))
+            {
+                throw new ArgumentNullException(nameof(remotePath));
+            }
+            if (string.IsNullOrWhiteSpace(newPath))
+            {
+                throw new ArgumentNullException(nameof(newPath));
+            }
+
+            if (!_sftpClient.Exists(remotePath))
+            {
+                throw new IOException(string.Format(Resources.PathNotFoundException, remotePath));
+            }
+
+            if (_sftpClient.Exists(newPath))
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+
+            var file = _sftpClient.Get(remotePath);
+            file.MoveTo(newPath);
         }
 
         void IFtpSession.Upload(string localPath, string remotePath, bool overwrite, bool recursive)
