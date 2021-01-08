@@ -68,9 +68,11 @@
     <Compile Include="JavaInvokeCoreLibraries.cs" />
     <Compile Include="Fixtures\JavaTestBaseFixture.cs" />
     <Compile Include="JavaTestImportCoordinate.cs" />
+    <Compile Include="JavaTestInvokerParams.cs" />
     <Compile Include="JavaTestNewFeatures.cs" />
     <Compile Include="JavaTestProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="JavaTestsGenericMethods.cs" />
     <Compile Include="Utils\PriorityOrderer.cs" />
     <Compile Include="Utils\TestPriorityAttribute.cs" />
   </ItemGroup>

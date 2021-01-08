@@ -19,16 +19,25 @@ public class ArrayTypeSerializer implements TypeSerializerInterface {
 
     public JavaObject DeserializeToJavaObject(JSONObject obj) {
         JSONArray array = null;
+        String runtimeArrayType = null;
         try {
             array = obj.getJSONArray("value");
+            runtimeArrayType = obj.getString("runtime_arrayType");
         }
         catch (JSONException e) {  }
-
+        
         if (array == null) {
-            return new JavaObject(new EmptyClass(), boolean.class);
+            try {
+                runtimeArrayType = obj.getString("runtime_arrayType");
+            }
+            catch (JSONException e) {  }
+            return EmptyTypeSerializer.DeserializeToNullJavaObject(runtimeArrayType);
         }
         Class<?> arrayType = getArrayType(context, array);
         int length = array.length();
+        if (length == 0){
+            return EmptyTypeSerializer.DeserializeToJavaObject(runtimeArrayType);
+        }
         Object result = Array.newInstance(arrayType, length);
 
         for (int i = 0; i < length; ++i) {

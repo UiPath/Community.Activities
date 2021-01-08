@@ -13,7 +13,7 @@ public class StringTypeSerializer implements TypeSerializerInterface {
                 return new JavaObject(value, String.class);
             } catch (JSONException e) {   }
         }
-        return new JavaObject(new EmptyClass(), EmptyClass.class);
+        return new JavaObject(null, String.class);
     }
 
     public JSONObject SerializeToDotNet(ObjectInstance obj) throws JSONException{

@@ -1,0 +1,40 @@
+trigger:
+  branches:
+    include:
+      - masters/Twilio/*
+      - develop
+      - release/Twilio/*
+      - support/Twilio/*
+  paths:
+    include:
+      - Activities/Twilio/*
+      - Activities/Activities.Twilio.sln
+
+variables:
+  - template: vars.yml
+  - template: "../.pipelines/variables/vars.yml"
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - support/*
+      - feature/*
+  paths:
+    include:
+      - Activities/Twilio/*
+      - Activities/Activities.Twilio.sln
+      
+jobs:
+  - template: "../.pipelines/jobs/ci.yml"
+    parameters:
+      BuildProject: "../Activities.Twilio.sln"
+      BuildConfiguration: "Release"
+      BuildPlatform: "AnyCPU"
+      rootPath: $(Build.SourcesDirectory)\Activities\Twilio\
+      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+      versionReference: "UiPath.Twilio.Activitie/Properties/AssemblyInfo.cs"
+      versionNumber: ${{ variables.versionNumber }}
+      versionSuffix: ${{ variables.versionSuffix }}
