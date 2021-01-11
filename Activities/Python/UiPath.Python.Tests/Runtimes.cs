@@ -45,6 +45,11 @@ namespace UiPath.Python.Tests
             "    print(obj)",
             "    return obj"
         );
+        private readonly string _unicodeTestScript = string.Join(
+            Environment.NewLine,
+            "def test():",
+            "    return '´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû'"
+        );
 
         private readonly string _basicTestScript = string.Join(
             Environment.NewLine,
@@ -201,6 +206,7 @@ namespace UiPath.Python.Tests
             Skip.IfNot(ValidateRuntime(path));
 
             await RunTypesTest(path, version, true, TargetPlatform.x86);
+            await RunUnicodeTests(path, version, true, TargetPlatform.x86);
         }
 
         [SkippableTheory]
@@ -214,6 +220,7 @@ namespace UiPath.Python.Tests
                 ? TargetPlatform.x64
                 : TargetPlatform.x86;
             await RunTypesTest(path, version, false, target);
+            await RunUnicodeTests(path, version, false, target);
         }
 
         #endregion
@@ -243,6 +250,18 @@ namespace UiPath.Python.Tests
                 Assert.True(array.GetType() == arrayType.GetType());
             }
             await engine.Release();
+        }
+
+        private async Task RunUnicodeTests(string path, Version version, bool inProcess, TargetPlatform target)
+        {
+            // init engine
+            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            await engine.Initialize(null, _ct);
+            // load test script
+            var pyScript = await engine.LoadScript(_unicodeTestScript, _ct);
+            var resNoParam = await engine.InvokeMethod(pyScript, "test", null, _ct);
+            Assert.Equal("´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû", engine.Convert(resNoParam, typeof(string)));
+
         }
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
