@@ -13,6 +13,9 @@ parameters:
   packagesDirectory: $(Build.SourcesDirectory)/packages/
   testList: []
   versionReference: ""
+  versionNumber: "1.0.0"
+  versionSuffix: "-alpha1"
+
 
 jobs:
 - job: CI_Community_Activities_${{ replace(replace(parameters.BuildProject, '/', '_'), '.', '_') }}
@@ -25,8 +28,12 @@ jobs:
   steps:
   - template: "../steps/pre_build.yml"
     parameters:
-      rootPath:         ${{ parameters.rootPath }}
-      versionReference: ${{ parameters.versionReference }}
+      BuildConfiguration:   ${{ parameters.BuildConfiguration }}
+      BuildPlatform:        ${{ parameters.BuildPlatform }}
+      rootPath:             ${{ parameters.rootPath }}
+      versionReference:     ${{ parameters.versionReference }}
+      versionNumber:        ${{ parameters.versionNumber }}
+      versionSuffix:        ${{ parameters.versionSuffix }}
 
   - template: "../steps/build.yml"
     parameters:
@@ -37,6 +44,8 @@ jobs:
       restoreDependencies:  ${{ parameters.restoreDependencies }}
       rootPath:             ${{ parameters.rootPath }}
       packagesDirectory:    ${{ parameters.packagesDirectory }}
+      versionNumber:        ${{ parameters.versionNumber }}
+      versionSuffix:        ${{ parameters.versionSuffix }}
 
   - template: "../steps/test.yml"
     parameters:
@@ -51,5 +60,5 @@ jobs:
       BuildProject:       ${{ parameters.BuildProject }}
       BuildConfiguration: ${{ parameters.BuildConfiguration }}
       rootPath:           ${{ parameters.rootPath }}
-
-
+      versionNumber:        ${{ parameters.versionNumber }}
+      versionSuffix:        ${{ parameters.versionSuffix }}

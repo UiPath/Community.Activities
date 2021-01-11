@@ -23,7 +23,7 @@ namespace UiPath.Java.Test.Fixtures
         public JavaTestBaseFixture()
         {
             Invoker = new JavaInvoker(javaInvokerPath: InvokeJarPath);
-            Invoker.StartJavaService().Wait();
+            Invoker.StartJavaService(15000).Wait();
             Cts = new CancellationTokenSource();
             Ct = Cts.Token;
         }

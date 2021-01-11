@@ -35,6 +35,9 @@ namespace UiPath.Java.Service
         [DataMember(Name = "runtime_type", EmitDefaultValue = false)]
         public string RunTimeType { get; set; }
 
+        [DataMember(Name = "runtime_arrayType", EmitDefaultValue = false)]
+        public string RunTimeArrayType { get; set; }
+
         [DataMember(Name = "reference_id", EmitDefaultValue = false)]
         public string ReferenceId { get; set; }
 
@@ -68,6 +71,7 @@ namespace UiPath.Java.Service
                     }
                 }).ToList();
                 RunTimeType = "Array";
+                RunTimeArrayType = value?.GetType()?.ToString();
             }
             else
             {
