@@ -21,7 +21,7 @@ namespace UiPath.Shared.Service.Client
 
         internal Proxy(string endpoint, Binding binding = null)
         {
-            Initialize(endpoint, binding ?? new NetNamedPipeBinding(NetNamedPipeSecurityMode.None));
+            Initialize(endpoint, binding ?? new NetNamedPipeBinding(NetNamedPipeSecurityMode.None) { MaxReceivedMessageSize = 2147483647 });
         }
 
         protected virtual void Initialize(string endpoint, Binding binding)
