@@ -63,7 +63,7 @@ namespace UiPath.Python.Impl
 
         #region IEngine
         public Version Version { get { return _version; } }
-        public async Task Initialize(string workingFolder, CancellationToken ct)
+        public async Task Initialize(string workingFolder, CancellationToken ct, double timeout)
         {
             if (!_initialized) 
             {
