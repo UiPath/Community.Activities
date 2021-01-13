@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - masters/Java/*
+      - masters/Java
       - develop
       - release/Java/*
       - support/Java/*

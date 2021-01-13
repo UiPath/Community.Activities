@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - masters/Python/*
+      - masters/Python
       - develop
       - release/Python/*
       - support/Python/*

@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - masters/Database/*
+      - masters/Database
       - develop
       - release/Database/*
       - support/Database/*
