@@ -174,7 +174,7 @@ namespace UiPath.Database
             var columns = new StringBuilder();
             foreach (DataColumn column in table.Columns)
             {
-                columns.Append(column.ColumnName + ",");
+                columns.Append("[" + column.ColumnName + "],");
             }
             columns = columns.Remove(columns.Length - 1, 1);
 
