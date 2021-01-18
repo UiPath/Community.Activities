@@ -16,11 +16,15 @@ namespace UiPath.Shared.Service.Client
         protected T _channel = default(T);
         protected ChannelFactory<T> _factory = null;
 
-        protected TimeSpan OperationTimeout { get; set; } = Config.DefaultOperationTimeout;
+        public TimeSpan OperationTimeout { get; set; } = Config.DefaultOperationTimeout;
         #endregion
 
-        internal Proxy(string endpoint, Binding binding = null)
+        internal Proxy(string endpoint, double timeout, Binding binding = null)
         {
+            if (timeout > 0)
+            {
+                OperationTimeout = TimeSpan.FromSeconds(timeout);
+            }
             Initialize(endpoint, binding ?? new NetNamedPipeBinding(NetNamedPipeSecurityMode.None) { MaxReceivedMessageSize = 2147483647 });
         }
 

@@ -41,6 +41,11 @@ namespace UiPath.Python.Activities
         [DefaultValue(null)]
         public InArgument<string> WorkingFolder { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.OperationTimeout))]
+        [LocalizedDescription(nameof(Resources.OperationTimeoutDescription))]
+        [DefaultValue(3600)]
+        public InArgument<double> OperationTimeout { get; set; }
 
         [Browsable(false)]
         public ActivityAction<object> Body { get; set; }
@@ -107,9 +112,11 @@ namespace UiPath.Python.Activities
                 workingFolder = dir.FullName; //we need to pass an absolute path to the python host
             }
 
+            var operationTimeout = OperationTimeout.Get(context);
+            
             try
             {
-                await _pythonEngine.Initialize(workingFolder, cancellationToken);
+                await _pythonEngine.Initialize(workingFolder, cancellationToken, operationTimeout);
             }
             catch (Exception e)
             {

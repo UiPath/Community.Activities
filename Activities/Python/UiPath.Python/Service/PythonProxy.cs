@@ -8,7 +8,8 @@ namespace UiPath.Python.Service
     [ServiceContract(Namespace = "http://UiPath.Python.Host")]
     internal class PythonProxy : Proxy<IPythonService>, IPythonService
     {
-        internal PythonProxy(string endpoint) : base(endpoint)
+        internal PythonProxy(string endpoint, double timeout) : base(endpoint,
+                                                                     timeout)
         {
         }
 
