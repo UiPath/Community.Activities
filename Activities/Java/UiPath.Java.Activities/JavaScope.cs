@@ -31,7 +31,7 @@ namespace UiPath.Java.Activities
 
         private IInvoker _invoker;
 
-        internal static IInvoker GetJavaInvoker(ActivityContext context)
+        internal static IInvoker GetJavaInvoker(System.Activities.ActivityContext context)
         {
             IInvoker invoker = context.DataContext.GetProperties()[JavaInvokerProperty]?.GetValue(context.DataContext) as IInvoker;
             if (invoker == null)
