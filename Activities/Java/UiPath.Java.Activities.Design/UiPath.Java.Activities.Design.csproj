@@ -35,8 +35,8 @@
   <Import Project="..\..\Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems" Label="Shared" />
   <!--<PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug "$(ProjectDir)..\..\.nuget\NuGet.exe" pack "$(ProjectPath)"  -IncludeReferencedProjects -Prop Configuration=$(ConfigurationName)</PostBuildEvent>
-  </PropertyGroup>-->
-  <!--<PropertyGroup>
+  </PropertyGroup>
+  <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
   </PropertyGroup>-->
 </Project>
