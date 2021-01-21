@@ -2,7 +2,7 @@ parameters:
   BuildProject: ""
   BuildConfiguration: "Release"
   BuildPlatform: "AnyCPU"
-  NuGetVersionSpec: "5.8.0"
+  NuGetVersionSpec: "4.3.0"
   NuGetConfigPath: "$(Build.SourcesDirectory)/Activities/.nuget/NuGet.Config"
   Dependencies: []
   restoreDependencies: []
@@ -12,27 +12,30 @@ parameters:
   versionSuffix: ""
 
 steps:
-- ${{ each depend in parameters.restoreDependencies }}:
-  - task: NuGetCommand@2
-    displayName: "Restore Nuget packages ${{ depend }}"
-    inputs:
-      restoreSolution:    ${{ format('{0}{1}', parameters.rootPath, depend) }}
-      feedsToUse:         "config"
-      nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
-      packagesdirectory:  ${{ parameters.packagesDirectory }}
+#- ${{ each depend in parameters.restoreDependencies }}:
+ - task: DotNetCoreCLI@2@2
+   displayName: "dotnet Restore Nuget packages ${{ depend }}"
+   inputs:
+     command:            "restore"
+     feedsToUse:         "config"
+     projects:           "**/*.csproj"
+     includeNuGetOrg: true
+     nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
+     packDirectory:  ${{ parameters.packagesDirectory }}
 
-- task: NuGetCommand@2
-  displayName: "Restore Nuget packages ${{ parameters.BuildProject }}"
-  inputs:
-    restoreSolution:    ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
-    feedsToUse:         "config"
-    nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
-    packagesdirectory:  ${{ parameters.packagesDirectory }}
+# - task: DotNetCoreCLI@2@2
+#   displayName: "dotnet Restore Nuget packages ${{ parameters.BuildProject }}"
+#   inputs:
+#     restoreSolution:    ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
+#     feedsToUse:         "config"
+#     nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
+#     packagesdirectory:  ${{ parameters.packagesDirectory }}
 
-- task: VSBuild@1
-  displayName: "Build Solution ${{ parameters.BuildProject }}"
-  inputs:
-    solution:       ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
-    platform:       ${{ parameters.BuildPlatform }}
-    configuration:  ${{ parameters.BuildConfiguration }}
-    msbuildArgs:    '/p:Version=$(versionNumber)$(versionSuffix)'
+ - task: VSBuild@1
+   displayName: "Build Solution ${{ parameters.BuildProject }}"
+   inputs:
+     solution:       ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
+     platform:       ${{ parameters.BuildPlatform }}
+     configuration:  ${{ parameters.BuildConfiguration }}
+     msbuildArgs:    '/p:Version=$(versionNumber)$(versionSuffix)'
+ 
