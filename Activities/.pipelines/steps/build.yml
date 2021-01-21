@@ -14,14 +14,14 @@ parameters:
 steps:
 #- ${{ each depend in parameters.restoreDependencies }}:
  - task: DotNetCoreCLI@2@2
-   displayName: "dotnet Restore Nuget packages ${{ depend }}"
+   displayName: "dotnet Restore Nuget packages"
    inputs:
      command:            "restore"
      feedsToUse:         "config"
      projects:           "**/*.csproj"
-     includeNuGetOrg: true
+     includeNuGetOrg:    true
      nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
-     packDirectory:  ${{ parameters.packagesDirectory }}
+     packDirectory:      ${{ parameters.packagesDirectory }}
 
 # - task: DotNetCoreCLI@2@2
 #   displayName: "dotnet Restore Nuget packages ${{ parameters.BuildProject }}"
