@@ -55,10 +55,10 @@ jobs:
       packagesDirectory:  ${{ parameters.packagesDirectory }}
       testList:           ${{ parameters.testList }}
 
- # - template: "../steps/package.yml"
- #   parameters:
- #     BuildProject:       ${{ parameters.BuildProject }}
- #     BuildConfiguration: ${{ parameters.BuildConfiguration }}
- #     rootPath:           ${{ parameters.rootPath }}
- #     versionNumber:        ${{ parameters.versionNumber }}
- #     versionSuffix:        ${{ parameters.versionSuffix }}
+  - template: "../steps/package.yml"
+    parameters:
+      BuildProject:       ${{ parameters.BuildProject }}
+      BuildConfiguration: ${{ parameters.BuildConfiguration }}
+      rootPath:           ${{ parameters.rootPath }}
+      versionNumber:        ${{ parameters.versionNumber }}
+      versionSuffix:        ${{ parameters.versionSuffix }}
