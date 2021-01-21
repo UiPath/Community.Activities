@@ -17,17 +17,30 @@ steps:
       ForEach($file in $files) { $pattern+="**\$file;" } 
       Write-Host "##vso[task.setvariable variable=PackagesToPack;]$pattern" 
 
-- task: NuGetCommand@2
+
+
+- task: DotNetCoreCLI@2
   displayName: "Create Nuget packages ${{ parameters.BuildProject }}"
-  inputs:
-    command: "pack"
+  inputs: 
+    command: 'pack'
+    outputDir: '$(Build.ArtifactStagingDirectory)'
     packagesToPack: "$(PackagesToPack)"
     versioningScheme: "byEnvVar"
     includeSymbols: "true"
-    outputDir: "$(Build.ArtifactStagingDirectory)"
     configurationToPack: ${{ parameters.BuildConfiguration }}
-    includeReferencedProjects: "true"
     versionEnvVar: "BUILD_BUILDNUMBER"
+
+#- task: NuGetCommand@2
+#  displayName: "Create Nuget packages ${{ parameters.BuildProject }}"
+#  inputs:
+#    command: "pack"
+#    packagesToPack: "$(PackagesToPack)"
+#    versioningScheme: "byEnvVar"
+#    includeSymbols: "true"
+#    outputDir: "$(Build.ArtifactStagingDirectory)"
+#    configurationToPack: ${{ parameters.BuildConfiguration }}
+#    includeReferencedProjects: "true"
+#    versionEnvVar: "BUILD_BUILDNUMBER"
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish symbols"
