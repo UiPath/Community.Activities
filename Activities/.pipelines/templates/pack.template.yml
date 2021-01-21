@@ -2,7 +2,7 @@ steps:
 - powershell: |
     .\Tools\Set-PackagesToPack.ps1 `
       -Verbose `
-      -dir $ENV:BUILD_SOURCESDIRECTORY -affectedActivities $ENV:AFFECTEDACTIVITIES
+      -dir $ENV:BUILD_SOURCESDIRECTORY\\Activities -affectedActivities $ENV:AFFECTEDACTIVITIES
   displayName: "Set 'PackagesToPack' variable"
 
 - task: NuGetCommand@2
