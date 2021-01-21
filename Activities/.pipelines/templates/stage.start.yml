@@ -1,0 +1,160 @@
+parameters:
+  buildPoolName: ''
+  projectName: ''
+  tagName: ''
+  solutionPath: ''
+  testPoolName: ''
+  preBuild: []
+  postBuild: []
+  additionalBuildJobs: []
+  preTestRun: []
+  postTestRun: []
+  additionalTestJobs: []
+  additionalSonarJobs: []
+  runSettingsFilePath: '$(Build.SourcesDirectory)\\CodeCoverage.runsettings'
+  packMethod:
+  - template: pack.template.yml
+  enableCDStages: true
+  sdkBuild: false
+
+stages:
+- stage: Build
+  displayName: ${{ format('Build {0} activities', parameters.projectName) }}
+  variables:
+    Solution: '${{ parameters.solutionPath }}'
+  jobs:
+  - template: stage.shouldrun.yml
+    parameters:
+      projectName: ${{ parameters.projectName }}
+      tagName: ${{ parameters.tagName }}
+
+  - template: stage.build.yml
+    parameters:
+      projectName: ${{ parameters.projectName }}
+      solutionPath: ${{ parameters.solutionPath }}
+      poolName: ${{ parameters.buildPoolName }}
+      tagName: ${{ parameters.tagName }}
+      sdkBuild: ${{ parameters.sdkBuild }}
+      packMethod:
+      - ${{ parameters.packMethod }}
+      preBuild:
+      - ${{ parameters.preBuild }}
+      postBuild:
+      - ${{ parameters.postBuild }}
+  - ${{ parameters.additionalBuildJobs }}
+    
+- stage: Test
+  displayName: ${{ format('Run {0} tests', parameters.projectName) }}
+  dependsOn: Build
+  condition: and(succeeded(), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  jobs:
+  - template: stage.test.yml
+    parameters:
+      poolName: ${{ parameters.testPoolName }}
+      runSettingsFilePath: ${{ parameters.runSettingsFilePath }}
+      preTestRun:
+      - ${{ parameters.preTestRun }}
+      postTestRun:
+      - ${{ parameters.postTestRun }}
+  - ${{ parameters.additionalTestJobs }}
+      
+- stage: PublishSonar
+  displayName: "Perform SonarQube analysis"
+  dependsOn:
+  - Build
+  - Test
+  condition: and(not(canceled()), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  jobs:
+  - template: stage.sonar.yml
+  - ${{ parameters.additionalSonarJobs }}
+
+- ${{ if eq(parameters.enableCDStages, 'true') }}:
+  - stage: DeployAlphaBeta
+    displayName: 'Deploy Alpha/Beta'
+    dependsOn: PublishSonar
+    condition: |
+      and
+      (
+        succeeded(),
+        eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'),
+        or
+        (
+          eq(variables['Build.SourceBranch'], 'refs/heads/develop'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/release')
+        )
+      )
+    jobs:
+    - template: stage.deploy.yml
+      parameters:
+        projectName: ${{ parameters.projectName }}
+        tagName: ${{ parameters.tagName }}
+        deploymentName: 'DeployAlphaBeta'
+        deploymentDisplayName: 'MyGet Alpha/Beta'
+        environmentName: 'NuGet-Activities-Alpha'
+        nuGetPushes:
+        - template: nuget.push.internal.yml
+          parameters:
+            feedDisplayName: 'UiPath-Internal'
+            publishVstsFeed: '$(UiPathInternalFeed)'
+
+  - stage: DeployStaging
+    displayName: 'Deploy Staging'
+    dependsOn: PublishSonar
+    condition: |
+      and
+      (
+        succeeded(),
+        eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'),
+        or
+        (
+          eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/support'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/masters')
+        )
+      )
+    jobs:
+    - template: stage.deploy.yml
+      parameters:
+        projectName: ${{ parameters.projectName }}
+        tagName: ${{ parameters.tagName }}
+        deploymentName: 'DeployStaging'
+        deploymentDisplayName: 'MyGet Beta (smoke)'
+        environmentName: 'NuGet-Activities-Staging'
+        nuGetPushes:
+        - template: nuget.push.internal.yml
+          parameters:
+            feedDisplayName: 'UiPath-Internal'
+            publishVstsFeed: '$(UiPathInternalFeed)'
+
+  - stage: DeployStable
+    displayName: 'Deploy Stable'
+    dependsOn: DeployStaging
+    condition: |
+      and
+      (
+        succeeded(),
+        eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'),
+        or
+        (
+          eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/support'),
+          startsWith(variables['Build.SourceBranch'], 'refs/heads/masters')
+        )
+      )
+    jobs:
+    - template: stage.deploy.yml
+      parameters:
+        projectName: ${{ parameters.projectName }}
+        tagName: ${{ parameters.tagName }}
+        deploymentName: 'DeployProduction'
+        deploymentDisplayName: 'MyGet Stable'
+        environmentName: 'NuGet-Activities-Production'
+        nuGetPushes:
+        - template: nuget.push.external.yml
+          parameters:
+            feedDisplayName: 'Live Stable'
+            publishFeedCredentials: 'MyGet Activities Live Stable Feed'
+        - template: nuget.push.internal.yml
+          parameters:
+            feedDisplayName: 'VSTS backup feed'
+            publishVstsFeed: '$(UiPathBackUpFeed)'

@@ -1,0 +1,64 @@
+parameters:
+  projectName: ''
+  tagName: ''
+  deploymentName: ''
+  deploymentDisplayName: ''
+  environmentName: ''
+  nuGetPushes: []
+
+jobs:
+  - deployment: ${{ parameters.deploymentName }}
+    displayName: ${{ format('Deploy to {0}', parameters.deploymentDisplayName) }}
+    variables:
+      PackageToDeploy: '$(ArtifactsDirectory)/*.nupkg;!$(ArtifactsDirectory)/*.symbols.nupkg'
+    pool:
+      vmImage: vs2017-win2016
+    environment: ${{ parameters.environmentName }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            displayName: 'Download Packages'
+            artifact: Packages
+
+          - powershell: |
+              $projectName = "$ENV:PROJECTNAME"
+              $artifactsDirectory = "$ENV:ARTIFACTSDIRECTORY"
+              
+              $packageFilePattern = "UiPath.$($projectName).*.nupkg"
+              $symbolsFilePattern = "UiPath.$($projectName).*.symbols.nupkg"
+
+              $matchingPackage = Get-ChildItem $artifactsDirectory | `
+                Where-Object { $_.Name -like $packageFilePattern } | `
+                Select-Object -First 1
+
+              $packageToDeploy = @()
+              $packageToDeploySpec = ""
+
+              if ($matchingPackage) {
+                Write-Verbose "Found package matching '$packageFilePattern' at path '$matchingPackage'"
+
+                $packageToDeploy += $projectName
+                $packageToDeploySpec += (Join-Path $artifactsDirectory $packageFilePattern) + ";"
+                $packageToDeploySpec += "!" + (Join-Path $artifactsDirectory $symbolsFilePattern) + ";"
+              } else {
+                Write-Verbose "No package matching '$packageFilePattern' was found in the artifacts directory '$artifactsDirectory'"
+              }
+
+              Write-Host "##vso[task.setvariable variable=PackageToDeploy;]$packageToDeploySpec"
+              
+              Write-Output (@{
+                PackageToDeploySpec = $packageToDeploySpec;
+                PackageToDeploy = $packageToDeploy;
+              })
+            displayName: Set PackageToDeploy variable
+            env:
+              ProjectName: ${{ coalesce(parameters.tagName, parameters.projectName) }}
+              ArtifactsDirectory: '$(Agent.BuildDirectory)\Packages'
+
+          - ${{ if parameters.nuGetPushes }}:
+            - task: NuGetToolInstaller@1
+              displayName: 'Use NuGet'
+
+            - ${{ parameters.nuGetPushes }}

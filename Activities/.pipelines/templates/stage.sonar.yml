@@ -1,0 +1,54 @@
+jobs:
+- job: RunSonar
+  displayName: "Analyze & publish results"
+  pool:
+    vmImage: vs2017-win2016
+  variables:
+    SourceBranchCommitId: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setBranchCommitVariables.SourceBranchCommitId'] ]
+    TargetBranchCommitId: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setBranchCommitVariables.TargetBranchCommitId'] ]
+    OriginalSourcesPath: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setOriginalSrcPath.OriginalSourcesPath'] ]
+    SONARQUBE_SCANNER_MODE: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_SCANNER_MODE'] ]
+    SONARQUBE_SCANNER_PARAMS: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_SCANNER_PARAMS'] ]
+    SONARQUBE_ENDPOINT: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_ENDPOINT'] ]
+  steps:
+    - task: PowerShell@1
+      displayName: "Checkout build branch for PR merge builds"
+      condition: and(ne(variables['SourceBranchCommitId'], ''), ne(variables['TargetBranchCommitId'], ''))
+      inputs:
+        scriptName: "Tools/Checkout-BuildBranch.ps1"
+        arguments: |
+          -githubAuthToken $(GithubAuthToken)
+
+    - powershell: |
+        Write-Host "Variables for current build:"
+        Get-ChildItem ENV:* | ForEach-Object { Write-Host "$($_.Name)=$($_.Value)" }
+      displayName: "Print variables"
+      continueOnError: true
+
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Coverage Artifacts'
+      inputs:
+        downloadPath: '$(Build.SourcesDirectory)'
+        artifactName: 'CodeCoverage'
+      continueOnError: true
+
+    - template: Sonar/download-sonar-build-output.yml@common
+      parameters:
+        condition: eq(variables['RunAnalysis'], 'true')
+
+    - task: PatchSonarQubeTask@0
+      displayName: "Patch SonarQube files for the local folder"
+      inputs:
+        originalRepoPath: $(OriginalSourcesPath)
+        pipelinePath: $(Pipeline.Workspace)
+        repoPath: $(Build.SourcesDirectory)
+        scannerPath: "$(Build.SourcesDirectory)\\SonarTemp\\scanner"
+
+    - template: Sonar/analyze-sonar-coverage.yml@common
+      parameters:
+        condition: eq(variables['RunAnalysis'], 'true')
+
+    - template: Sonar/publish-sonar-coverage.yml@common
+      parameters:
+        condition: eq(variables['RunAnalysis'], 'true')
+  

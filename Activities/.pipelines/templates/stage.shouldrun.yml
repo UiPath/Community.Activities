@@ -1,0 +1,102 @@
+parameters:
+  projectName: ''
+  tagName: ''
+
+jobs:
+- job: DetermineShouldRun
+  displayName: 'Determine should run'
+  pool:
+    vmImage: windows-latest
+  steps:
+  - checkout: none
+  
+  - powershell: |
+      $projectName = $ENV:PROJECTNAME
+      $branchRef = $ENV:BUILD_SOURCEBRANCH
+      $commitSha = $ENV:BUILD_SOURCEVERSION
+      $sourceVersionMessage = $ENV:BUILD_SOURCEVERSIONMESSAGE
+      $githubAuthToken = $ENV:GITHUBAUTHTOKEN
+      $pullRequestNumber = $ENV:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+
+      function Main {
+        Set-ScriptConstants
+
+        Write-Host "Provided branch is: $($script:branchName)"
+        Write-Host "Provided commit is: $commitSha"
+        Write-Host "Provided PR is: $pullRequestNumber"
+
+        # default value
+        $shouldRun = $true
+        if ($pullRequestNumber) {
+          Write-Host "Determining affected Activity from PR label"
+          
+          $shouldRun = Determine-BuildShouldRun $pullRequestNumber
+        } elseif ($branchRef -match "develop") {
+          Write-Host "Determining affected Activity from the provided commit's message ($commitSha)"
+
+          $mergePrMessagePattern = "pull request \#(\d+) from UiPath/.+"
+
+          if ($sourceVersionMessage -match $mergePrMessagePattern) {
+            $prNumber = $Matches[1]
+
+            Write-Host "Commit $commitSha is a PR merge commit, which references PR #$prNumber"
+
+            $shouldRun = Determine-BuildShouldRun $prNumber
+          }
+        }
+        
+        Write-Host "Set BuildShouldRun variable to $shouldRun"
+        Write-Host "##vso[task.setvariable variable=BuildShouldRun;isOutput=true]$shouldRun"
+      }
+
+      function Set-ScriptConstants {
+        $githubAuthorizationHeaderBase64 = [System.Convert]::ToBase64String([char[]]$githubAuthToken)
+
+        $script:githubHeaders = @{
+            Authorization = "Basic $githubAuthorizationHeaderBase64"
+        }
+
+        $script:branchName = $branchRef -replace "^refs/heads/", ""
+
+        $script:commitMessagePatterns = @(
+            "Merge branch '(.+)' into $($script:branchName)",
+            "Merge remote-tracking branch 'origin/(.+)'"
+            "Merge remote-tracking branch 'origin/(.+)' into $($script:branchName)",
+            "Merge pull request \#\d+ from UiPath/(.+)",
+            "Merge branch '(.+)'"
+        )
+      }
+
+      function Determine-BuildShouldRun([string] $prNumber) {
+        $shouldRun = $true
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+        $getLabelsUrl = "https://api.github.com/repos/UiPath/Activities/issues/$prNumber/labels"
+        $githubAuthorizationHeaderBase64 = [System.Convert]::ToBase64String([char[]]$githubAuthToken)
+        $githubHeaders = @{
+            Authorization = "Basic $githubAuthorizationHeaderBase64"
+        }
+
+        try {
+          $labels = Invoke-RestMethod -Method Get -Uri $getLabelsUrl -Headers $githubHeaders
+          
+          $shouldRun = ($labels.Count -eq 0)
+          foreach ($label in $labels) {
+            if ($label.name -eq "C:$projectName") {
+              $shouldRun = $true
+            }
+          }
+        }
+        catch {
+          Write-Error $_
+        }
+
+        return $shouldRun
+      }
+
+      Main
+    displayName: "Check PR labels and set variable"
+    name: SetRunVariable
+    env:
+      GithubAuthToken: $(GithubAuthToken)
+      ProjectName: ${{ coalesce(parameters.tagName, parameters.projectName) }}

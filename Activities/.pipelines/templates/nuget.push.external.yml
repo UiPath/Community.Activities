@@ -1,0 +1,13 @@
+parameters:
+  feedDisplayName: ''
+  publishFeedCredentials: ''
+
+steps:
+- task: NuGetCommand@2
+  displayName: 'NuGet Push Activities to ${{ parameters.feedDisplayName }} '
+  inputs:
+    command: push
+    packagesToPush: '$(PackageToDeploy)'
+    nuGetFeedType: external
+    publishFeedCredentials: '${{ parameters.publishFeedCredentials }}'
+  continueOnError: true

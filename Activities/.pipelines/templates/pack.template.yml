@@ -1,0 +1,30 @@
+steps:
+- powershell: |
+    .\Tools\Set-PackagesToPack.ps1 `
+      -Verbose `
+      -dir $ENV:BUILD_SOURCESDIRECTORY -affectedActivities $ENV:AFFECTEDACTIVITIES
+  displayName: "Set 'PackagesToPack' variable"
+
+- task: NuGetCommand@2
+  displayName: "Create NuGet Packages"
+  continueOnError: true
+  inputs:
+    command: "pack"
+    packagesToPack: "$(PackagesToPack)"
+    includeSymbols: "false"
+    outputDir: "$(ArtifactsOutputPath)"
+    configurationToPack: "$(BuildConfiguration)"
+    includeReferencedProjects: "true"
+    noPackageAnalysis: "true"
+  condition: eq(variables['HasNuspecPackages'], 'true')
+
+- task: DotNetCoreCLI@2
+  displayName: "Create NET .SDK Packages"
+  continueOnError: true
+  inputs:
+    command: "pack"
+    packagesToPack: "$(SdkPackagesToPack)"
+    configurationToPack: "$(BuildConfiguration)"
+    outputDir: "$(ArtifactsOutputPath)"
+    nobuild: true
+  condition: eq(variables['HasSdkPackages'], 'true')

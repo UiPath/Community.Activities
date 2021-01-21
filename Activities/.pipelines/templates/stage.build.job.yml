@@ -1,0 +1,179 @@
+parameters:
+  projectName: ''
+  tagName: ''
+  packMethod: []
+  preBuild: []
+  postBuild: []
+  sdkBuild: false
+
+steps:
+- task: PowerShell@1
+  displayName: "Set PrereleaseTag=alpha"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"##vso[task.setvariable variable=PrereleaseTag;]alpha\""
+
+- task: PowerShell@1
+  displayName: "Set PrereleaseTag=beta"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"##vso[task.setvariable variable=PrereleaseTag;]beta\""
+  condition: or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), startsWith(variables['System.PullRequest.TargetBranch'], 'release/'))
+
+- task: PowerShell@1
+  displayName: "Set PrereleaseTag=final"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"##vso[task.setvariable variable=PrereleaseTag;]final\""
+  condition: or(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/support/'))
+
+- powershell: |
+    $outPath = $env:ArtifactsOutputPath
+    if ((Test-Path $outPath)) {
+      Remove-Item $outPath -Force -Recurse
+    }
+    New-Item $outPath -ItemType Directory
+    $uiexOutPath = $env:ExplorerStandaloneOutputPath
+    if ((Test-Path $uiexOutPath)) {
+      Remove-Item $uiexOutPath -Force -Recurse
+    }
+    New-Item $uiexOutPath -ItemType Directory
+    $qaOutPath = $env:QAArtifactsOutputPath
+    if ((Test-Path $qaOutPath)) {
+      Remove-Item $qaOutPath -Force -Recurse
+    }
+    New-Item $qaOutPath -ItemType Directory
+  env:
+    ArtifactsOutputPath: $(ArtifactsOutputPath)
+    QAArtifactsOutputPath: $(QAArtifactsOutputPath)
+  displayName: "Clean artifacts path"
+
+- task: PowerShell@1
+  displayName: "Tag build with PR target branch"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"##vso[build.addbuildtag]TargetBranch=$(System.PullRequest.TargetBranch)\""
+  condition: ne(variables['System.PullRequest.TargetBranch'], '')
+
+- task: PowerShell@1
+  displayName: "Tag build with prerelease tag"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"##vso[build.addbuildtag]PrereleaseTag=$(PrereleaseTag)\""
+  condition: ne(variables['PrereleaseTag'], 'final')
+
+- powershell: |
+    Write-Host "##vso[build.addbuildtag]ActivityPackage=${{ coalesce(parameters.tagName, parameters.projectName) }}"
+    Write-Host "##vso[task.setvariable variable=AffectedActivities;]${{ coalesce(parameters.tagName, parameters.projectName) }}"
+  displayName: "Tag build with activity package tag"
+
+- task: PowerShell@1
+  displayName: "Patch .nuspec files with prerelease tag"
+  inputs:
+    scriptName: "Tools/Patch-Nuspecs.ps1"
+    arguments: "-rootDirectory \"$(Build.SourcesDirectory)\" -prereleaseTag \"$(PrereleaseTag)\" -commitSha \"$(Build.SourceVersion)\" -buildId \"$(Build.BuildId)\""
+
+- task: NuGetToolInstaller@1
+  displayName: "Use NuGet >=5.3.0"
+  
+- task: NuGetAuthenticate@0
+
+- ${{ if eq(parameters.sdkBuild, 'true') }}:
+  - task: UseDotNet@2
+    displayName: 'Use .NET SDK 5.0.100'
+    inputs:
+      packageType: 'sdk'
+      version: '5.0.100'
+
+- ${{ if eq(parameters.sdkBuild, 'true') }}:
+  - task: DotNetCoreCLI@2
+    displayName: "Restore Nuget Packages"
+    inputs:
+      command: "restore"
+      projects: "$(Solution)"
+      feedsToUse: "config"
+      nugetConfigPath: ".nuget/NuGet.Config"
+      
+- ${{ if eq(parameters.sdkBuild, 'false') }}:
+  - task: NuGetCommand@2
+    displayName: "Restore Nuget Packages"
+    inputs:
+      restoreSolution: "$(Solution)"
+      feedsToUse: "config"
+      nugetConfigPath: ".nuget/NuGet.Config"
+
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: "uipath.pfx"
+
+- task: PowerShell@1
+  displayName: "Set certificate file path"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"##vso[task.setvariable variable=CertificatePath;]$(DownloadSecureFile.SecureFilePath)\""
+
+- task: PowerShell@1
+  displayName: "Print variables"
+  condition: always()
+  continueOnError: true
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "Write-Host \"Variables for current build:\" \n
+      Get-ChildItem ENV:*"
+
+- ${{ parameters.preBuild }}
+
+- ${{ if eq(parameters.sdkBuild, 'true') }}:
+  - task: DotNetCoreCLI@2
+    displayName: 'Build ${{ parameters.projectName }} solution'
+    inputs:
+      command: build
+      arguments: '$(Solution) --configuration Release --no-restore'
+
+- ${{ if eq(parameters.sdkBuild, 'false') }}:
+  - task: VSBuild@1
+    displayName: "Build ${{ parameters.projectName }} solution"
+    inputs:
+      solution: "$(Solution)"
+      vsVersion: "$(VSVersion)"
+      msbuildArgs: ""
+      platform: "$(BuildPlatform)"
+      configuration: "$(BuildConfiguration)"
+      clean: "true"
+      maximumCpuCount: "true"
+
+- task: PowerShell@1
+  displayName: "Sign output assemblies"
+  inputs:
+    scriptName: "Tools/SignScript.ps1"
+    arguments: "-Dir $(OutputDirectory) -SignToolPath \"$(SignToolPath)\" -Recurse"
+  env:
+    CertificatePass: $(CertificatePassSecret)
+
+- task: PowerShell@1
+  displayName: "Code Coverage - Instrument Dlls"
+  inputs:
+    scriptName: "Tools/CodeCoverage-InstrumentDlls.ps1"
+    arguments: "-Action instrument -RootFolder $(Build.SourcesDirectory) -OutputFolder $(OutputDirectory)"
+    errorActionPreference: "silentlyContinue"
+  condition: and(succeeded(), eq(variables['CoverageBuild'], 'true'))
+
+- ${{ parameters.packMethod }}
+
+- task: PowerShell@1
+  displayName: "Sign Packages"
+  inputs:
+    scriptName: "Tools/SignPackages.ps1"
+    arguments: "-Dir \"$(ArtifactsOutputPath)\" -NugetPath \"$(NugetPath)\""
+  condition: succeeded()
+  env:
+    CertificatePass: $(CertificatePassSecret)
+
+- powershell: |
+    .\Tools\Set-BuildNumber.ps1 `
+      -Verbose `
+      -affectedActivities $ENV:AFFECTEDACTIVITIES `
+      -packagesOutputDirectory $ENV:ARTIFACTSOUTPUTPATH
+  displayName: "Set build number"
+
+- ${{ parameters.postBuild }}

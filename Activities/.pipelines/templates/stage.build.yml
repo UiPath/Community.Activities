@@ -1,0 +1,59 @@
+parameters:
+  poolName: ''
+  tagName: ''
+  projectName: ''
+  solutionPath: ''
+  packMethod: []
+  preBuild: []
+  postBuild: []
+  sdkBuild: false
+
+jobs:
+- job: BuildAndPublishArtifacts
+  displayName: 'Build & Publish Artifacts'
+  timeoutInMinutes: 90
+  pool:
+    ${{ if eq(parameters.poolName, '') }}:
+      vmImage: $(vmImage)
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+    demands:
+      - npm
+      - msbuild
+      - visualstudio
+  dependsOn: DetermineShouldRun
+  condition: eq(dependencies.DetermineShouldRun.outputs['SetRunVariable.BuildShouldRun'], 'true')
+
+  variables:
+  - template: stage.variables.yml
+
+  steps:
+  - template: stage.build.job.yml
+    parameters:
+      projectName: "${{ parameters.projectName }}"
+      tagName: "${{ parameters.tagName }}"
+      sdkBuild: ${{ parameters.sdkBuild }}
+      packMethod:
+        - ${{ parameters.packMethod }}
+      preBuild:
+        - ${{ parameters.preBuild }}
+
+        - template: Sonar/prepare-sonar-coverage.yml@common
+          parameters:
+            projectKey: 'Activities-${{ parameters.projectName }}'
+            serviceConnectionName: SonarCloudActivities
+            condition: eq(variables['RunAnalysis'], 'true')
+      postBuild:
+        - ${{ parameters.postBuild }}
+
+        - template: stage.build.job.publish.yml
+
+        - template: Sonar/upload-sonar-build-output.yml@common
+
+        - template: Sonar/uninstall-sonar-targets.yml@common
+
+  - powershell: |
+      Write-Output "##vso[task.setvariable variable=SourceBranchCommitId;isOutput=true]$env:SourceBranchCommitId"
+      Write-Output "##vso[task.setvariable variable=TargetBranchCommitId;isOutput=true]$env:TargetBranchCommitId"
+    name: setBranchCommitVariables
+    displayName: "Set branch commit variables on the build"

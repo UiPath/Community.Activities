@@ -1,0 +1,123 @@
+steps:
+- task: AddPackageReferences@0
+  displayName: 'Update Activities.Tests project.json dependencies versions with current artifacts'
+  inputs:
+    packagesFolderPath: '$(ArtifactsOutputPath)'
+    projectJsonPath: '$(TestProjectPath)'
+
+- task: AddPackageReferences@0
+  displayName: 'Update Compatibility.Tests 18.4 project.json dependencies versions with current artifacts'
+  inputs:
+    packagesFolderPath: '$(ArtifactsOutputPath)'
+    projectJsonPath: '$(TestCompatibility184ProjectPath)'
+
+- task: AddPackageReferences@0
+  displayName: 'Update Compatibility.Tests 19.4 project.json dependencies versions with current artifacts'
+  inputs:
+    packagesFolderPath: '$(ArtifactsOutputPath)'
+    projectJsonPath: '$(TestCompatibility194ProjectPath)'
+
+- task: AddPackageReferences@0
+  displayName: 'Update Compatibility.Tests 19.10 project.json dependencies versions with current artifacts'
+  inputs:
+    packagesFolderPath: '$(ArtifactsOutputPath)'
+    projectJsonPath: '$(TestCompatibility1910ProjectPath)'
+
+- task: AddPackageReferences@0
+  displayName: 'Update Compatibility.Tests 20.4 project.json dependencies versions with current artifacts'
+  inputs:
+    packagesFolderPath: '$(ArtifactsOutputPath)'
+    projectJsonPath: '$(TestCompatibility204ProjectPath)'  
+
+- task: AddPackageReferences@0
+  displayName: 'Update project.json dependencies versions with included nupkgs'
+  inputs:
+    packagesFolderPath: '$(ReferencedNugetPackageFolder)'
+    projectJsonPath: '$(TestProjectPath)'
+    artifactsFolderPath: '$(QAArtifactsOutputPath)'
+    forceInclude: true
+
+- task: UiPathPack@2
+  displayName: 'UiPath Package QAAutomation project'
+  inputs:
+    versionType: CurrentVersion
+    projectJsonPath: '$(TestProjectPath)'
+    outputPath: '$(QAArtifactsOutputPath)'
+
+- task: UiPathPack@2
+  displayName: 'Package QAAutomation Compatibility 18.4 project'
+  inputs:
+    versionType: CurrentVersion
+    projectJsonPath: '$(TestCompatibility184ProjectPath)'
+    outputPath: '$(QAArtifactsOutputPath)'
+
+- task: UiPathPack@2
+  displayName: 'Package QAAutomation Compatibility 19.4 project'
+  inputs:
+    versionType: CurrentVersion
+    projectJsonPath: '$(TestCompatibility194ProjectPath)'
+    outputPath: '$(QAArtifactsOutputPath)'
+
+- task: UiPathPack@2
+  displayName: 'Package QAAutomation Compatibility 19.10 project'
+  inputs:
+    versionType: CurrentVersion
+    projectJsonPath: '$(TestCompatibility1910ProjectPath)'
+    outputPath: '$(QAArtifactsOutputPath)'
+
+- task: UiPathPack@2
+  displayName: 'Package QAAutomation Compatibility 20.4 project'
+  inputs:
+    versionType: CurrentVersion
+    projectJsonPath: '$(TestCompatibility204ProjectPath)'
+    outputPath: '$(QAArtifactsOutputPath)'
+
+- task: PowerShell@1
+  displayName: "Determine if OutputTests exists"
+  inputs:
+    scriptType: "inlineScript"
+    inlineScript: "if (Test-Path $(Build.SourcesDirectory)\\OutputTests) { Write-Host \"##vso[task.setvariable variable=ExistsOutputTests;]true\" }"
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish build output"
+  inputs:
+    PathtoPublish: "$(Build.SourcesDirectory)\\OutputTests"
+    ArtifactName: "OutputTests"
+    ArtifactType: "Container"
+  condition: and(succeeded(), eq(variables['ExistsOutputTests'], 'true'))
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish artifacts"
+  inputs:
+    PathtoPublish: "$(ArtifactsOutputPath)"
+    ArtifactName: "$(ArtifactName)"
+    ArtifactType: "Container"
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish activities test project artifact"
+  inputs:
+    PathtoPublish: "$(QAArtifactsOutputPath)"
+    ArtifactName: "$(QAArtifactName)"
+    ArtifactType: "Container"
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish tools artifacts (determining packages to deploy)"
+  inputs:
+    PathtoPublish: "$(Build.SourcesDirectory)\\Tools\\Determine-PackagesToDeploy.ps1"
+    ArtifactName: "Tools"
+    ArtifactType: "Container"
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish tools artifacts (upload files to blob)"
+  inputs:
+    PathtoPublish: "$(Build.SourcesDirectory)\\Tools\\Upload-FileToBlob.ps1"
+    ArtifactName: "Tools"
+    ArtifactType: "Container"
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish instrumented activities dlls artifact"
+  inputs:
+    PathtoPublish: "$(InstrumentedDllsPath)"
+    ArtifactName: "$(InstrumentedDllsArtifact)"
+    ArtifactType: "Container"
+  condition: and(succeeded(), eq(variables['CoverageBuild'], 'true'))
