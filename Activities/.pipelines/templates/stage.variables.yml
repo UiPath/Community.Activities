@@ -16,8 +16,8 @@ variables:
   ArtifactName: "Packages"
   QAArtifactName: "TestPackages"
   InstrumentedDllsArtifactName: "InstrumentedDlls"
-  NugetPath: "$(Build.SourcesDirectory)\\.nuget\\NuGet.exe"
-  NugetConfigFile: "$(Build.SourcesDirectory)\\.nuget\\NuGet.Config"
+  NugetPath: "$(Build.SourcesDirectory)\\Activities\\.nuget\\NuGet.exe"
+  NugetConfigFile: "$(Build.SourcesDirectory)\\Activities\\.nuget\\NuGet.Config"
   PrereleaseTag: ""
   ReferencedNugetPackageFolder: "$(Build.SourcesDirectory)\\QA\\ReferencedNugetPackages"
   Build.Repository.Clean: true

@@ -92,7 +92,7 @@ steps:
       command: "restore"
       projects: "$(Solution)"
       feedsToUse: "config"
-      nugetConfigPath: ".nuget/NuGet.Config"
+      nugetConfigPath: "$(NugetConfigFile)"
       
 - ${{ if eq(parameters.sdkBuild, 'false') }}:
   - task: NuGetCommand@2
@@ -100,7 +100,7 @@ steps:
     inputs:
       restoreSolution: "$(Solution)"
       feedsToUse: "config"
-      nugetConfigPath: ".nuget/NuGet.Config"
+      nugetConfigPath: "$(NugetConfigFile)"
 
 - task: DownloadSecureFile@1
   inputs:
