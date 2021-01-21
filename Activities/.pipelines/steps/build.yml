@@ -23,6 +23,12 @@ steps:
      nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
      packDirectory:      ${{ parameters.packagesDirectory }}
 
+ - task: DotNetCoreCLI@2
+   displayName: "dotnet Build Solution"
+   inputs:
+     command:            "build"
+     projects:           "**/*.csproj"
+
 # - task: DotNetCoreCLI@2
 #   displayName: "dotnet Restore Nuget packages ${{ parameters.BuildProject }}"
 #   inputs:
@@ -31,11 +37,11 @@ steps:
 #     nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
 #     packagesdirectory:  ${{ parameters.packagesDirectory }}
 
- - task: VSBuild@1
-   displayName: "Build Solution ${{ parameters.BuildProject }}"
-   inputs:
-     solution:       ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
-     platform:       ${{ parameters.BuildPlatform }}
-     configuration:  ${{ parameters.BuildConfiguration }}
-     msbuildArgs:    '/p:Version=$(versionNumber)$(versionSuffix)'
- 
+# - task: VSBuild@1
+#   displayName: "Build Solution ${{ parameters.BuildProject }}"
+#   inputs:
+#     solution:       ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
+#     platform:       ${{ parameters.BuildPlatform }}
+#     configuration:  ${{ parameters.BuildConfiguration }}
+#     msbuildArgs:    '/p:Version=$(versionNumber)$(versionSuffix)'
+# 
