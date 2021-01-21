@@ -13,7 +13,7 @@ parameters:
 
 steps:
 #- ${{ each depend in parameters.restoreDependencies }}:
- - task: DotNetCoreCLI@2@2
+ - task: DotNetCoreCLI@2
    displayName: "dotnet Restore Nuget packages"
    inputs:
      command:            "restore"
@@ -23,7 +23,7 @@ steps:
      nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
      packDirectory:      ${{ parameters.packagesDirectory }}
 
-# - task: DotNetCoreCLI@2@2
+# - task: DotNetCoreCLI@2
 #   displayName: "dotnet Restore Nuget packages ${{ parameters.BuildProject }}"
 #   inputs:
 #     restoreSolution:    ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
