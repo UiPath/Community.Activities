@@ -27,7 +27,7 @@ steps:
    displayName: "dotnet Build Solution"
    inputs:
      command:            "build"
-     projects:           "*Java*/*.csproj"
+     projects:           "**Java*/*.csproj"
 
 # - task: DotNetCoreCLI@2
 #   displayName: "dotnet Restore Nuget packages ${{ parameters.BuildProject }}"
