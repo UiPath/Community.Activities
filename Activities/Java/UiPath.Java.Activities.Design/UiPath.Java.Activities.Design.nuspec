@@ -14,6 +14,6 @@
   </metadata>
   <files>
     <file src="..\Invoke\artifacts\InvokeJava.jar" target="lib\java_files\InvokeJava.jar"/>
-    <file src="$OutputPath$**\UiPath.Java*resources.dll" target="lib\net452" />
+    <file src="$OutputPath$**\net461\UiPath.Java*resources.dll" target="lib\net461" />
   </files>
 </package>

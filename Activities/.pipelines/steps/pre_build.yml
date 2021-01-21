@@ -1,7 +1,7 @@
 parameters:
   BuildConfiguration: "Release"
   BuildPlatform: "AnyCPU"
-  NuGetVersionSpec: "4.3.0"
+  NuGetVersionSpec: "5.8.0"
   rootPath: ""
   versionReference: ""
   versionNumber: ""
