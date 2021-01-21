@@ -2,7 +2,7 @@ parameters:
   BuildProject: ""
   BuildConfiguration: "Release"
   BuildPlatform: "AnyCPU"
-  NuGetVersionSpec: "5.8.0"
+  NuGetVersionSpec: "4.3.0"
   NuGetConfigPath: "$(Build.SourcesDirectory)/Activities/.nuget/NuGet.Config"
   Dependencies: []
   restoreDependencies: []
