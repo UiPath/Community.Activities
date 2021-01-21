@@ -18,15 +18,20 @@ steps:
    inputs:
      command:            "restore"
      feedsToUse:         "config"
-     projects:           "**/*.csproj"
      includeNuGetOrg:    true
      nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
      packDirectory:      ${{ parameters.packagesDirectory }}
+     projects:           |
+        Activities/Java/UiPath.Java/UiPath.Java.csproj
+        Activities/Java/UiPath.Java.Activities/UiPath.Java.Activities.csproj
+        Activities/Java/UiPath.Java.Activities.Design/UiPath.Java.Activities.Design.csproj
+        Activities/Java/UiPath.Java.Test/UiPath.Java.Test.csproj
 
  - task: DotNetCoreCLI@2
    displayName: "dotnet Build Solution"
    inputs:
      command:            "build"
+     arguments:          "--no-restore"
      projects:           |
         Activities/Java/UiPath.Java/UiPath.Java.csproj
         Activities/Java/UiPath.Java.Activities/UiPath.Java.Activities.csproj
