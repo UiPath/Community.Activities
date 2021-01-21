@@ -16,7 +16,6 @@ variables:
   ArtifactName: "Packages"
   QAArtifactName: "TestPackages"
   InstrumentedDllsArtifactName: "InstrumentedDlls"
-  SignToolPath: "$(Build.SourcesDirectory)\\Tools\\signtool.exe"
   NugetPath: "$(Build.SourcesDirectory)\\.nuget\\NuGet.exe"
   NugetConfigFile: "$(Build.SourcesDirectory)\\.nuget\\NuGet.Config"
   PrereleaseTag: ""

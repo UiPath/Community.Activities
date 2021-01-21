@@ -143,14 +143,6 @@ steps:
       maximumCpuCount: "true"
 
 - task: PowerShell@1
-  displayName: "Sign output assemblies"
-  inputs:
-    scriptName: "Tools/SignScript.ps1"
-    arguments: "-Dir $(OutputDirectory) -SignToolPath \"$(SignToolPath)\" -Recurse"
-  env:
-    CertificatePass: $(CertificatePassSecret)
-
-- task: PowerShell@1
   displayName: "Code Coverage - Instrument Dlls"
   inputs:
     scriptName: "Tools/CodeCoverage-InstrumentDlls.ps1"
@@ -159,15 +151,6 @@ steps:
   condition: and(succeeded(), eq(variables['CoverageBuild'], 'true'))
 
 - ${{ parameters.packMethod }}
-
-- task: PowerShell@1
-  displayName: "Sign Packages"
-  inputs:
-    scriptName: "Tools/SignPackages.ps1"
-    arguments: "-Dir \"$(ArtifactsOutputPath)\" -NugetPath \"$(NugetPath)\""
-  condition: succeeded()
-  env:
-    CertificatePass: $(CertificatePassSecret)
 
 - powershell: |
     .\Tools\Set-BuildNumber.ps1 `
