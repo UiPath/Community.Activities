@@ -40,7 +40,7 @@ jobs:
 
         - template: Sonar/prepare-sonar-coverage.yml@common
           parameters:
-            projectKey: 'Activities-${{ parameters.projectName }}'
+            projectKey: 'CommunityActivities-${{ parameters.projectName }}'
             serviceConnectionName: SonarCloudActivities
             condition: eq(variables['RunAnalysis'], 'true')
       postBuild:
