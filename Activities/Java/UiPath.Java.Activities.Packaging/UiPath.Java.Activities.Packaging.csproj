@@ -52,12 +52,12 @@
     <PackageReference Include="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
-    <ProjectReference Include="$(ProjectDir)..\..\Java\UiPath.Java.Activities.Design\UiPath.Java.Activities.Design.csproj">
+    <ProjectReference Include="..\..\Java\UiPath.Java.Activities.Design\UiPath.Java.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <ProjectReference Include="$(ProjectDir)..\..\Java\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
+    <ProjectReference Include="..\..\Java\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>

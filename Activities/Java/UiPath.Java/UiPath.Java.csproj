@@ -2,7 +2,7 @@
   <Import Project="..\..\Shared\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
-    <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
+    <OutputPath>..\..\Output\Activities\Java\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Configuration" />
