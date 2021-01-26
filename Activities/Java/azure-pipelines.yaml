@@ -1,47 +1,65 @@
+resources:
+  repositories:
+  - repository: common
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: master
+    endpoint: "GitHub connection"
+
 trigger:
+  batch: true
   branches:
     include:
+<<<<<<< HEAD
       - masters/Java
       - develop
       - release/Java/*
       - support/Java/*
+=======
+    - develop
+    - masters/Java
+    - release/Java/*
+    - support/Java/*
+>>>>>>> 8de22d8 (test: new Java pipeline)
   paths:
     include:
-      - Activities/Java/*
-      - Activities/Activities.Java.sln
+    - '/Activities/Java/*'
+    - '/Activities/Activities.Java.sln'
 
-variables:
-  - template: vars.yml
-  - template: "../.pipelines/variables/vars.yml"
-
+# variables:
+#   - template: vars.yml
+#   - template: "../.pipelines/variables/vars.yml"
 
 pr:
   branches:
     include:
-      - master
-      - develop
-      - release/*
-      - support/*
-      - feature/*
+    - develop
+    - masters/Java
+    - release/Java/*
+    - support/Java/*
   paths:
     include:
-      - Activities/Java/*
-      - Activities/Activities.Java.sln
+    - '/Activities/Java/*'
+    - '/Activities/Activities.Java.sln'
 
-jobs:
-  - template: "../.pipelines/jobs/ci.yml"
+# jobs:
+#   - template: "../.pipelines/jobs/ci.yml"
+#     parameters:
+#       BuildProject: "../Activities.Java.sln"
+#       BuildConfiguration: "Release"
+#       BuildPlatform: "AnyCPU"
+#       rootPath: $(Build.SourcesDirectory)\Activities\Java\
+#       packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
+#       versionReference: "UiPath.Java.Activities/Properties/AssemblyInfo.cs"
+#       versionNumber: ${{ variables.versionNumber }}
+#       versionSuffix: ${{ variables.versionSuffix }}
+
+stages:
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
-      BuildProject: "../Activities.Java.sln"
-      BuildConfiguration: "Release"
-      BuildPlatform: "AnyCPU"
-      rootPath: $(Build.SourcesDirectory)\Activities\Java\
-      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
-      restoreDependencies: 
-        - "UiPath.Java/UiPath.Java.csproj"
-        - "UiPath.Java.Activities/UiPath.Java.Activities.csproj"
-      testList: 
-        - "UiPath.Java.Test/UiPath.Java.Test.csproj"
-      versionReference: "JavaPackageVersion.cs"
-      versionNumber: ${{ variables.versionNumber }}
-      versionSuffix: ${{ variables.versionSuffix }}
-
+      projectName: 'Java'
+      solutionPath: '$(Build.SourcesDirectory)/Activities/Activities.Java.sln'
+      buildPoolName: 'activities-build'
+      testPoolName: 'activities-build'
+      sdkBuild: false
+      enableCDStages: false
