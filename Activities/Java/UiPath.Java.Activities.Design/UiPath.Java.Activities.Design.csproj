@@ -21,9 +21,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
+      <Project>{7747a478-8986-4a56-8342-093752fc07c3}</Project>
       <Name>UiPath.Java.Activities</Name>
     </ProjectReference>
     <ProjectReference Include="..\UiPath.Java\UiPath.Java.csproj">
+      <Project>{89957abf-8a15-484a-94ba-6565969046ad}</Project>
       <Name>UiPath.Java</Name>
     </ProjectReference>
   </ItemGroup>

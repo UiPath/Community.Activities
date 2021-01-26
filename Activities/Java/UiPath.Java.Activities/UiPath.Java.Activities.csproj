@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="..\..\Shared\Java.build.props" />
   <PropertyGroup>
+    <PackageId>.noconflict</PackageId>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Java\</OutputPath>
   </PropertyGroup>
