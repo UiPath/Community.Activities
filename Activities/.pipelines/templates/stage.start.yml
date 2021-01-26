@@ -11,7 +11,7 @@ parameters:
   postTestRun: []
   additionalTestJobs: []
   additionalSonarJobs: []
-  runSettingsFilePath: '$(Build.SourcesDirectory)\\CodeCoverage.runsettings'
+  runSettingsFilePath: '$(Build.SourcesDirectory)\\Activities\\CodeCoverage.runsettings'
   packMethod:
   - template: pack.template.yml
   enableCDStages: true
