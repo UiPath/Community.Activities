@@ -28,7 +28,7 @@ steps:
    displayName: "dotnet Build Solution"
    inputs:
      command:            "build"
-     arguments:          ""
+     arguments:          "--configuration ${{ parameters.BuildConfiguration }} -p:version=$(versionNumber)$(versionSuffix)"
      projects:           |
         Activities/Java/**/*.csproj
 
