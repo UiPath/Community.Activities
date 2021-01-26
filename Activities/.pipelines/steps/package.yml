@@ -11,7 +11,7 @@ steps:
     inlineScript: |
       Write-Output $ENV:BUILD_SOURCESDIRECTORY
       Write-Output $files
-      $files = Get-ChildItem "${{ parameters.rootPath }}*Package" -Recurse | foreach {$_.Name -replace 'Package','Package.csproj'} 
+      $files = Get-ChildItem "${{ parameters.rootPath }}*Packaging.csproj" -Recurse 
       Write-Output $files
       $pattern = '' 
       ForEach($file in $files) { $pattern+="**\$file;" } 
