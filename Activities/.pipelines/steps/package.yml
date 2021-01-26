@@ -11,11 +11,13 @@ steps:
     inlineScript: |
       Write-Output $ENV:BUILD_SOURCESDIRECTORY
       Write-Output $files
-      $files = Get-ChildItem "${{ parameters.rootPath }}"Package.csproj" -Recurse 
+      $files = Get-ChildItem "${{ parameters.rootPath }}"Package" -Recurse | foreach {$_.Name -replace 'Package','Package.csproj'} 
       Write-Output $files
       $pattern = '' 
       ForEach($file in $files) { $pattern+="**\$file;" } 
       Write-Host "##vso[task.setvariable variable=PackagesToPack;]$pattern" 
+
+
 
 - task: DotNetCoreCLI@2
   displayName: "Create Nuget packages ${{ parameters.BuildProject }}"
