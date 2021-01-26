@@ -2,7 +2,7 @@
   <Import Project="..\..\Shared\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
-    <OutputPath>..\..\Output\bin\Release\</OutputPath>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Configuration" />
@@ -13,7 +13,4 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
     <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
   </ItemGroup>
-  <!--<PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
-  </PropertyGroup>-->
 </Project>

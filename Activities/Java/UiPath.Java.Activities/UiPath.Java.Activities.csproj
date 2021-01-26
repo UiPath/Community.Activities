@@ -2,7 +2,7 @@
   <Import Project="..\..\Shared\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
-    <OutputPath>..\..\Output\bin\Release\</OutputPath>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Configuration" />
@@ -16,13 +16,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Java\UiPath.Java.csproj">
-      <Project>{89957abf-8a15-484a-94ba-6565969046ad}</Project>
       <Name>UiPath.Java</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
   <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-  <!--<PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
-  </PropertyGroup>-->
 </Project>

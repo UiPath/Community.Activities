@@ -2,7 +2,7 @@
   <Import Project="..\..\Shared\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
-    <OutputPath>..\..\Output\bin\Release\</OutputPath>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
     <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
@@ -21,11 +21,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
-      <Project>{7747a478-8986-4a56-8342-093752fc07c3}</Project>
       <Name>UiPath.Java.Activities</Name>
     </ProjectReference>
     <ProjectReference Include="..\UiPath.Java\UiPath.Java.csproj">
-      <Project>{89957abf-8a15-484a-94ba-6565969046ad}</Project>
       <Name>UiPath.Java</Name>
     </ProjectReference>
   </ItemGroup>
@@ -33,10 +31,4 @@
     <None Include="UiPath.Java.Activities.Design.nuspec" />
   </ItemGroup>
   <Import Project="..\..\Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems" Label="Shared" />
-  <!--<PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug "$(ProjectDir)..\..\.nuget\NuGet.exe" pack "$(ProjectPath)"  -IncludeReferencedProjects -Prop Configuration=$(ConfigurationName)</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
-  </PropertyGroup>-->
 </Project>
