@@ -10,11 +10,12 @@ steps:
     scriptType: "inlineScript"
     inlineScript: |
       Write-Output $ENV:BUILD_SOURCESDIRECTORY
-      Write-Output $files
+      Write-Output "Initial " + $files
       $files = Get-ChildItem "${{ parameters.rootPath }}*Packaging.csproj" -Recurse 
-      Write-Output $files
+      Write-Output "After " + $files
       $pattern = '' 
       ForEach($file in $files) { $pattern+="**\$file;" } 
+      Write-Output "Pattern " + $pattern
       Write-Host "##vso[task.setvariable variable=PackagesToPack;]$pattern" 
 
 
