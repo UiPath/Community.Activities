@@ -28,7 +28,7 @@ steps:
    displayName: "dotnet Build Solution"
    inputs:
      command:            "build"
-     arguments:          "--no-restore"
+     arguments:          ""
      projects:           |
         Activities/Java/**/*.csproj
 
