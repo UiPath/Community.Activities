@@ -86,7 +86,7 @@ jobs:
     displayName: "Download code coverage from TestRuns"
     inputs:
       scriptName: "Tools/Download-TestRunAttachments.ps1"
-      arguments: "-project Activities -buildId $(Build.BuildId) -accessToken $(System.AccessToken) -outputPath \"$(Build.ArtifactStagingDirectory)\\CodeCoverage\""
+      arguments: "-project Community -buildId $(Build.BuildId) -accessToken $(System.AccessToken) -outputPath \"$(Build.ArtifactStagingDirectory)\\CodeCoverage\""
     condition: always()
 
   - task: PublishCodeCoverageResults@1
