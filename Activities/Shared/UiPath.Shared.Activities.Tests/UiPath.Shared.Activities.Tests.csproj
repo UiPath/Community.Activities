@@ -5,14 +5,8 @@
     <AssemblyTitle>UiPath.Shared.Activities.Tests</AssemblyTitle>
     <Product>UiPath.Shared.Activities.Tests</Product>
     <Copyright>Copyright ©  2018</Copyright>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputPath>..\..\Output\Activities\Test</OutputPath>
     <UserSecretsId>72eca798-d8ce-4f11-96c8-c8bbd98a6de8</UserSecretsId>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <Import Project="..\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
   <ItemGroup>

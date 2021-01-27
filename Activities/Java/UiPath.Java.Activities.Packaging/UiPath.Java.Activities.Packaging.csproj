@@ -26,6 +26,10 @@
     </ItemGroup>
   </Target>
 
+  <ItemGroup>
+    <None Include="..\Invoke\artifacts\InvokeJava.jar" Pack="true" PackagePath="lib\java_files\InvokeJava.jar" />
+  </ItemGroup>
+  
   <Target Name="AddDlls">
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Java.dll" />

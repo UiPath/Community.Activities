@@ -6,7 +6,7 @@
     <Product>UiPath.TestUtils</Product>
     <Copyright>Copyright ©  2018</Copyright>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputPath>..\..\Output\Activities\Test</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
