@@ -23,32 +23,32 @@ steps:
        Write-Host "$version" 
        Write-Host "##vso[build.updatebuildnumber]$version"
 
-- task: NuGetToolInstaller@1
-  displayName: "Use NuGet ${{ parameters.NuGetVersionSpec }}"
-  inputs:
-    versionSpec: ${{ parameters.NuGetVersionSpec }}
+#- task: NuGetToolInstaller@1
+#  displayName: "Use NuGet ${{ parameters.NuGetVersionSpec }}"
+#  inputs:
+#    versionSpec: ${{ parameters.NuGetVersionSpec }}
 
-- task: Assembly-Info-NetFramework@2
-  ${{ if eq(parameters.versionSuffix, '') }}:
-   displayName: "Set Assembly version to ${{ parameters.versionNumber }}"
-  ${{ if ne(parameters.versionSuffix, '') }}:
-   displayName: "Set Assembly version to ${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
-  inputs:
-    Path: "${{ parameters.rootPath }}" 
-    FileNames: |
-      **\AssemblyInfo.cs
-      **\*AssemblyInfo.cs
-      **\${{ parameters.versionReference }}
-    InsertAttributes: false
-    FileEncoding: 'auto'
-    WriteBOM: false
-    Configuration: ${{ parameters.BuildConfiguration }}
-    LogLevel: 'verbose'
-    FailOnWarning: false
-    DisableTelemetry: false
-    InformationalVersion: "${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
-    FileVersionNumber: "${{ parameters.versionNumber }}" 
-    VersionNumber:  "${{ parameters.versionNumber }}"
+#- task: Assembly-Info-NetFramework@2
+#  ${{ if eq(parameters.versionSuffix, '') }}:
+#   displayName: "Set Assembly version to ${{ parameters.versionNumber }}"
+#  ${{ if ne(parameters.versionSuffix, '') }}:
+#   displayName: "Set Assembly version to ${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
+#  inputs:
+#    Path: "${{ parameters.rootPath }}" 
+#    FileNames: |
+#      **\AssemblyInfo.cs
+#      **\*AssemblyInfo.cs
+#      **\${{ parameters.versionReference }}
+#    InsertAttributes: false
+#    FileEncoding: 'auto'
+#    WriteBOM: false
+#    Configuration: ${{ parameters.BuildConfiguration }}
+#    LogLevel: 'verbose'
+#    FailOnWarning: false
+#    DisableTelemetry: false
+#    InformationalVersion: "${{ parameters.versionNumber }}-${{ parameters.versionSuffix }}"
+#    FileVersionNumber: "${{ parameters.versionNumber }}" 
+#    VersionNumber:  "${{ parameters.versionNumber }}"
 
 - task: PowerShell@1
   displayName: "Print variables"
