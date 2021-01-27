@@ -23,6 +23,7 @@ steps:
      packDirectory:      ${{ parameters.packagesDirectory }}
      projects:           |
         Activities/Java/**/*.csproj
+        Activities/FTP/**/*.csproj
 
  - task: DotNetCoreCLI@2
    displayName: "dotnet Build Solution"
@@ -30,7 +31,7 @@ steps:
      command:            "build"
      arguments:          "--configuration ${{ parameters.BuildConfiguration }} -p:version=$(versionNumber)-$(versionSuffix)"
      projects:           |
-        Activities/Java/**/*.csproj
+        Activities/FTP/**/*.csproj
 
 
 # - task: DotNetCoreCLI@2
