@@ -121,7 +121,7 @@
     <value>The destination file already exists.</value>
   </data>
   <data name="PathNotFoundException" xml:space="preserve">
-    <value>Path "{0}" not found.</value>
+    <value>Path "{0}" not found. </value>
   </data>
   <data name="UnknownFTPSModeException" xml:space="preserve">
     <value>Unexpected FTPS mode encountered.</value>
