@@ -29,6 +29,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="..\..\Shared\UiPath.Activities.Presentation\Themes\Generic.xaml">
+      <Link>Themes\Generic.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj">
       <Project>{fdfc92ee-090c-4e23-9422-f90eb94c43dd}</Project>
       <Name>UiPath.FTP.Activities</Name>
