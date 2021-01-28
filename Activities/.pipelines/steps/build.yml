@@ -12,9 +12,8 @@ parameters:
   versionSuffix: ""
 
 steps:
-#- ${{ each depend in parameters.restoreDependencies }}:
  - task: DotNetCoreCLI@2
-   displayName: "dotnet Restore Nuget packages"
+   displayName: "dotnet restore Nuget packages"
    inputs:
      command:            "restore"
      feedsToUse:         "config"
@@ -32,21 +31,3 @@ steps:
      arguments:          "--configuration ${{ parameters.BuildConfiguration }} -p:version=$(versionNumber)-$(versionSuffix)"
      projects:           |
         Activities/FTP/**/*.csproj
-
-
-# - task: DotNetCoreCLI@2
-#   displayName: "dotnet Restore Nuget packages ${{ parameters.BuildProject }}"
-#   inputs:
-#     restoreSolution:    ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
-#     feedsToUse:         "config"
-#     nugetConfigPath:    ${{ parameters.NuGetConfigPath }}
-#     packagesdirectory:  ${{ parameters.packagesDirectory }}
-
-# - task: VSBuild@1
-#   displayName: "Build Solution ${{ parameters.BuildProject }}"
-#   inputs:
-#     solution:       ${{ format('{0}{1}', parameters.rootPath, parameters.BuildProject) }}
-#     platform:       ${{ parameters.BuildPlatform }}
-#     configuration:  ${{ parameters.BuildConfiguration }}
-#     msbuildArgs:    '/p:Version=$(versionNumber)$(versionSuffix)'
-# 
