@@ -26,6 +26,11 @@
     </ItemGroup>
   </Target>
 
+  <ItemGroup>
+    <PackageReference Include="FluentFTP" Version="19.1.2" />
+    <PackageReference Include="SSH.NET" Version="2016.1.0" />
+  </ItemGroup>
+  
   <Target Name="AddDlls">
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.dll" />
