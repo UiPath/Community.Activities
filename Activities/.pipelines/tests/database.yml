@@ -135,6 +135,6 @@ jobs:
      displayName: "Publish test results as Test Runs output"
      inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '**/TEST-*.xml'
+        testResultsFiles: 'junit*.xml'
         searchFolder: '$(Build.ArtifactStagingDirectory)'
         testRunTitle: 'Database Integration Tests for $(Build.BuildNumber)'
