@@ -1,0 +1,146 @@
+name: Python tests $(Date:yyyyMMdd)$(Rev:.r)
+variables:
+- group: Secrets
+
+jobs:
+- job: Run_Python_Integration_Tests
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+
+   - task: UiPathRobot@0
+     displayName: Install UiPath Studio and Robot on agent
+     inputs:
+      platformVersion: '20.10.4'
+      packageAction: 'install'
+      uninstallOption: 'ifany'
+      licenseCode: $(LicenseCode)
+      connectToOrchestrator: false
+      studioInstallPath: 'd:\robot'
+      orchestratorPSModuleSourceUrl: 'https://www.myget.org/F/uipath-dev/api/v2'
+  
+   - task: PowerShell@2
+     displayName: Copy test files on agent
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       mkdir d:\teste
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\ d:\teste /COPYALL /E /R:0
+   
+   - task: PowerShell@2
+     displayName: Add Nuget Packages source for UiPath Dev
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ d:\robot *.config
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ C:\Users\VssAdministrator\AppData\Roaming\NuGet *.config
+
+   - task: DownloadPipelineArtifact@2
+     displayName: Download artifact from build pipeline
+     inputs:
+      source: 'specific'
+      project: 'Community'
+      pipeline: 1099
+      runVersion: 'latest'
+      path: d:\teste\Packages
+ 
+   - task: PowerShell@2
+     displayName: Update Nuget Packages from UiPath Dev
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+        cd d:\teste\Packages\Setup
+        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $dot = $file.LastIndexof('.')
+        $file = $file.Replace(".nupkg","")
+        $act = $file.LastIndexof('Activities.')
+        $version = $file.Substring($act+11)
+        Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
+        cd d:\robot
+        .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\Python\project.json" --add-ref "UiPath.Python.Activities|$version|strict"
+
+   - task: PowerShell@2
+     displayName: Run Python 2.7.18 Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\2.7.18\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_2.7.18_x86.xml"
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\2.7.18\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_2.7.18_x64.xml"
+        Remove-Item "d:\teste\Python\junit*.xml"
+ 
+   - task: PowerShell@2
+     displayName: Run Python 3.5.4 Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.5.4\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.5.4_x86.xml"
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.5.4\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.5.4_x64.xml"
+        Remove-Item "d:\teste\Python\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Python 3.6.8 Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.6.8\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.6.8_x86.xml"
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.6.8\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.6.8_x64.xml"
+        Remove-Item "d:\teste\Python\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Python 3.7.9 Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.7.9\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.7.9_x86.xml"
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.7.9\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.7.9_x64.xml"
+        Remove-Item "d:\teste\Python\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Python 3.8.6 Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.8.6\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.8.6_x86.xml"
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.8.6\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.8.6_x64.xml"
+        Remove-Item "d:\teste\Python\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Python 3.9.1 Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.9.1\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.9.1_x86.xml"
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.9.1\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.9.1_x64.xml"
+        Remove-Item "d:\teste\Python\junit*.xml"
+
+
+   - task: PublishBuildArtifacts@1
+     displayName: "Publish test files as Artifacts"
+     inputs:
+       PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
+       ArtifactName:   'UiPath'
+       ArtifactType:   'Container'
+
+   - task: PublishTestResults@2
+     displayName: "Publish test results as Test Runs output"
+     inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'junit*.xml'
+        searchFolder: '$(Build.ArtifactStagingDirectory)'
+        testRunTitle: 'Python Integration Tests for $(Build.BuildNumber)'
