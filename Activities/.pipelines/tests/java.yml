@@ -54,6 +54,7 @@ jobs:
       script: |
         cd d:\teste\Packages
         $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        Write-Host "##vso[build.updatebuildnumber]$file"
         $dot = $file.LastIndexof('.')
         $file = $file.Replace(".nupkg","")
         $act = $file.LastIndexof('Activities.')
