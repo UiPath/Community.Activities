@@ -54,12 +54,12 @@ jobs:
       script: |
         cd d:\teste\Packages
         $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
-        Write-Host "##vso[build.updatebuildnumber]$file"
         $dot = $file.LastIndexof('.')
         $file = $file.Replace(".nupkg","")
         $act = $file.LastIndexof('Activities.')
         $version = $file.Substring($act+11)
         Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
         cd d:\robot
         .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\JavaConsAndMethods\project.json" --add-ref "UiPath.Java.Activities|$version|strict"
 
