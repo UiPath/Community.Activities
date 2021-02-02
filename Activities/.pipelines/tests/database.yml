@@ -62,6 +62,7 @@ jobs:
         $act = $file.LastIndexof('Activities.')
         $version = $file.Substring($act+11)
         Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
         cd d:\robot
         .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\DatabaseTests\project.json" --add-ref "UiPath.Database.Activities|$version|strict"
 
