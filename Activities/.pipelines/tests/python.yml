@@ -107,6 +107,16 @@ jobs:
         Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.7.9_x64.xml"
         Remove-Item "d:\teste\Python\junit*.xml"
 
+   - task: PowerShell@2
+     displayName: Run Python 3.8.6 Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.8.6\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.8.6_x86.xml"
+        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.8.6\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.8.6_x64.xml"
+        Remove-Item "d:\teste\Python\junit*.xml"
 
    - task: PowerShell@2
      displayName: Run Python 3.9.1 Tests VB
