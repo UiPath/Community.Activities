@@ -142,6 +142,21 @@
         "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.vision/2.2.0\\lib/net461/UiPath.Vision.dll"
       ],
       "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.uiautomation.activities\\20.10.6"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.WebAPI.Activities",
+        "Version": "1.6.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\avalonedit/5.0.3\\lib/Net40/ICSharpCode.AvalonEdit.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\restsharp/106.3.1\\lib/net452/RestSharp.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities/1.6.0\\lib/net452/UiPath.Web.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities/1.6.0\\lib/net452/UiPath.Web.Activities.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities/1.6.0\\lib/net452/UiPath.Web.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0"
     }
   ],
   "Conflicts": [],
@@ -477,6 +492,11 @@
     "NLog": {
       "Id": "NLog",
       "Version": "4.5.11",
+      "Dependencies": []
+    },
+    "RestSharp": {
+      "Id": "RestSharp",
+      "Version": "106.3.1",
       "Dependencies": []
     },
     "SharpZipLib": {
@@ -822,6 +842,24 @@
           "Item2": "[2.7.1, )"
         }
       ]
+    },
+    "UiPath.WebAPI.Activities": {
+      "Id": "UiPath.WebAPI.Activities",
+      "Version": "1.6.0",
+      "Dependencies": [
+        {
+          "Item1": "AvalonEdit",
+          "Item2": "[5.0.3, )"
+        },
+        {
+          "Item1": "Newtonsoft.Json",
+          "Item2": "[11.0.2, )"
+        },
+        {
+          "Item1": "RestSharp",
+          "Item2": "[106.3.1, )"
+        }
+      ]
     }
   },
   "AllPackages": [
@@ -1121,6 +1159,16 @@
     },
     {
       "Package": {
+        "Id": "RestSharp",
+        "Version": "106.3.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\restsharp\\106.3.1\\lib\\net452\\RestSharp.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\restsharp\\106.3.1"
+    },
+    {
+      "Package": {
         "Id": "SharpZipLib",
         "Version": "1.2.0"
       },
@@ -1319,9 +1367,9 @@
       "Assemblies": [
         "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0\\lib\\net452\\UiPath.Python.Activities.Design.dll",
         "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0\\lib\\net452\\UiPath.Python.Activities.dll",
-        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0\\lib\\net452\\UiPath.Python.dll",
         "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0\\lib\\net452\\UiPath.Python.Host.exe",
-        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0\\lib\\net452\\UiPath.Python.Host32.exe"
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0\\lib\\net452\\UiPath.Python.Host32.exe",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0\\lib\\net452\\UiPath.Python.dll"
       ],
       "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.python.activities\\1.3.0"
     },
@@ -1397,6 +1445,18 @@
         "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.vision\\2.2.0\\lib\\net461\\UiPath.Vision.dll"
       ],
       "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.vision\\2.2.0"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.WebAPI.Activities",
+        "Version": "1.6.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0\\lib\\net452\\UiPath.Web.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0\\lib\\net452\\UiPath.Web.Activities.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0\\lib\\net452\\UiPath.Web.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0"
     }
   ]
 }
