@@ -11,7 +11,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>685,3353</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>685,1758</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="78">
@@ -92,7 +92,7 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="556,3148" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap:VirtualizedContainerService.HintSize="510,1553" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd1:DataTable" Name="DataTable" />
       <Variable x:TypeArguments="x:String" Default="UiPath.Python.Activities" Name="PackageName" />
@@ -107,8 +107,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="514,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Duration&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap:VirtualizedContainerService.HintSize="514,60" sap2010:WorkflowViewState.IdRef="Assign_26">
+    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="468,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;time&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap:VirtualizedContainerService.HintSize="468,60" sap2010:WorkflowViewState.IdRef="Assign_26">
       <Assign.To>
         <OutArgument x:TypeArguments="sd:Stopwatch">[stw]</OutArgument>
       </Assign.To>
@@ -116,7 +116,7 @@
         <InArgument x:TypeArguments="sd:Stopwatch">[new Stopwatch()]</InArgument>
       </Assign.Value>
     </Assign>
-    <p:PythonScope DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="514,1646" sap2010:WorkflowViewState.IdRef="PythonScope_1" Path="[PythonPath]" WorkingFolder="[WorkingFolder]">
+    <p:PythonScope DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="468,51" sap2010:WorkflowViewState.IdRef="PythonScope_1" Path="[PythonPath]" WorkingFolder="[WorkingFolder]">
       <p:PythonScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -658,12 +658,12 @@
       </p:PythonScope.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </p:PythonScope>
-    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="514,66" sap2010:WorkflowViewState.IdRef="Sequence_40">
+    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="468,66" sap2010:WorkflowViewState.IdRef="Sequence_40">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Name="Text_ProjectConfig" />
         <Variable x:TypeArguments="njl:JObject" Name="JsonObject_Output" />
@@ -708,7 +708,7 @@
         </Assign.Value>
       </Assign>
     </Sequence>
-    <Sequence DisplayName="Get Python Version from PythonPath" sap:VirtualizedContainerService.HintSize="514,66" sap2010:WorkflowViewState.IdRef="Sequence_41">
+    <Sequence DisplayName="Get Python Version from PythonPath" sap:VirtualizedContainerService.HintSize="468,66" sap2010:WorkflowViewState.IdRef="Sequence_41">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -733,7 +733,7 @@
       </Assign>
       <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_21" Text="[str_output]" />
     </Sequence>
-    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="514,959" sap2010:WorkflowViewState.IdRef="Sequence_35">
+    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="468,959" sap2010:WorkflowViewState.IdRef="Sequence_35">
       <Sequence.Variables>
         <Variable x:TypeArguments="sxl:XElement" Name="xmlRows" />
         <Variable x:TypeArguments="sxl:XElement" Name="xmlDocument" />
@@ -749,7 +749,7 @@
           <OutArgument x:TypeArguments="sxl:XElement">[xmlDocument]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="sxl:XElement">[New XElement("testsuites", New XAttribute("duration","10sec"))]</InArgument>
+          <InArgument x:TypeArguments="sxl:XElement">[New XElement("testsuites", New XAttribute("time",DateTime.Now.ToString))]</InArgument>
         </Assign.Value>
       </Assign>
       <Assign sap:VirtualizedContainerService.HintSize="426,60" sap2010:WorkflowViewState.IdRef="Assign_17">
@@ -772,23 +772,13 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:InvokeCode ContinueOnError="{x:Null}" Code="If( CBool(rowEl.Item(&quot;Result&quot;)) = True)&#xD;&#xA;&#x9;xmlRow.Add (New XElement(&quot;testcase&quot;,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;,Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+rowEl.Item(&quot;Test&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;duration&quot;, rowEl.Item(&quot;Duration&quot;).ToString())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; )&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  )&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Else &#xD;&#xA;&#x9;&#x9;xmlRow.Add (New XElement(&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;testcase&quot;,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package + &quot; &quot; + PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+ rowEl.Item(&quot;Test&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;duration&quot;, rowEl.Item(&quot;Duration&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XElement(&quot;failure&quot;,rowEl.Item(&quot;ErrorMessage&quot;).ToString(),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;type&quot;, rowEl.Item(&quot;ExceptionType&quot;).ToString())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;)))&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;End If" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="If( CBool(rowEl.Item(&quot;Result&quot;)) = True)&#xD;&#xA;&#x9;xmlRow.Add (New XElement(&quot;testcase&quot;,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;,Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+rowEl.Item(&quot;Test&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;).ToString())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; )&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  )&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Else &#xD;&#xA;&#x9;&#x9;xmlRow.Add (New XElement(&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;testcase&quot;,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package + &quot; &quot; + PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+ rowEl.Item(&quot;Test&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XElement(&quot;failure&quot;,rowEl.Item(&quot;ErrorMessage&quot;).ToString(),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;type&quot;, rowEl.Item(&quot;ExceptionType&quot;).ToString())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;)))&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;End If" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
                 <ui:InvokeCode.Arguments>
-                  <InOutArgument x:TypeArguments="sxl:XElement" x:Key="xmlRow">
-                    <mva:VisualBasicReference x:TypeArguments="sxl:XElement" ExpressionText="xmlRows" />
-                  </InOutArgument>
-                  <InArgument x:TypeArguments="sd1:DataRow" x:Key="rowEl">
-                    <mva:VisualBasicValue x:TypeArguments="sd1:DataRow" ExpressionText="row" />
-                  </InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="Package">
-                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="PackageName" />
-                  </InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="PackageVersion">
-                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="PackageVersion" />
-                  </InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="PythonVersion">
-                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="str_output" />
-                  </InArgument>
+                  <InOutArgument x:TypeArguments="sxl:XElement" x:Key="xmlRow">[xmlRows]</InOutArgument>
+                  <InArgument x:TypeArguments="sd1:DataRow" x:Key="rowEl">[row]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Package">[PackageName]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="PackageVersion">[PackageVersion]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="PythonVersion">[str_output]</InArgument>
                 </ui:InvokeCode.Arguments>
               </ui:InvokeCode>
             </Sequence>
