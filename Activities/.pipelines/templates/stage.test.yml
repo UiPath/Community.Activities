@@ -21,6 +21,7 @@ jobs:
     inputs:
       artifactName: "OutputTests"
       downloadPath: "$(Build.SourcesDirectory)"
+    condition: and(succeeded(), eq(variables['RunTests'], 'true'))
 
   - task: DownloadBuildArtifacts@0
     displayName: "Download tools artifact"
