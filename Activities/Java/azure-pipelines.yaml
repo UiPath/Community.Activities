@@ -61,5 +61,5 @@ stages:
       solutionPath: '$(Build.SourcesDirectory)/Activities/Activities.Java.sln'
       buildPoolName: 'activities-build'
       testPoolName: 'activities-build'
-      sdkBuild: false
+      sdkBuild: true
       enableCDStages: false
