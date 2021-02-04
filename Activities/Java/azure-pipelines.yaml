@@ -19,10 +19,6 @@ trigger:
     - '/Activities/Java/*'
     - '/Activities/Activities.Java.sln'
 
-# variables:
-#   - template: vars.yml
-#   - template: "../.pipelines/variables/vars.yml"
-
 pr:
   branches:
     include:
@@ -34,18 +30,6 @@ pr:
     include:
     - '/Activities/Java/*'
     - '/Activities/Activities.Java.sln'
-
-# jobs:
-#   - template: "../.pipelines/jobs/ci.yml"
-#     parameters:
-#       BuildProject: "../Activities.Java.sln"
-#       BuildConfiguration: "Release"
-#       BuildPlatform: "AnyCPU"
-#       rootPath: $(Build.SourcesDirectory)\Activities\Java\
-#       packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
-#       versionReference: "UiPath.Java.Activities/Properties/AssemblyInfo.cs"
-#       versionNumber: ${{ variables.versionNumber }}
-#       versionSuffix: ${{ variables.versionSuffix }}
 
 stages:
   - template: ..\.pipelines\templates\stage.start.yml

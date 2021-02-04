@@ -1,43 +1,42 @@
+resources:
+  repositories:
+  - repository: common
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: master
+    endpoint: "GitHub connection"
+
 trigger:
+  batch: true
   branches:
     include:
-      - masters/FTP/*
-      - develop
-      - release/FTP/*
-      - support/FTP/*
+    - develop
+    - masters/FTP
+    - release/FTP/*
+    - support/FTP/*
   paths:
     include:
-      - Activities/FTP/*
-      - Activities/Activities.FTP.sln
-
-variables:
-  - template: vars.yml
-  - template: "../.pipelines/variables/vars.yml"
+    - '/Activities/FTP/*'
+    - '/Activities/Activities.FTP.sln'
 
 pr:
   branches:
     include:
-      - master
-      - develop
-      - release/*
-      - support/*
-      - feature/*
+    - develop
+    - masters/FTP
+    - release/FTP/*
+    - support/FTP/*
   paths:
     include:
-      - Activities/FTP/*
-      - Activities/Activities.FTP.sln
+    - '/Activities/FTP/*'
+    - '/Activities/Activities.FTP.sln'
 
-jobs:
-  - template: "../.pipelines/jobs/ci.yml"
+stages:
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
-      BuildProject: "../Activities.FTP.sln"
-      BuildConfiguration: "Release"
-      BuildPlatform: "AnyCPU"
-      rootPath: $(Build.SourcesDirectory)\Activities\FTP\
-      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
-      restoreDependencies: 
-        - "UiPath.FTP.Activities/UiPath.FTP.Activities.csproj"
-        - "UiPath.FTP/UiPath.FTP.csproj"      
-      versionReference: "FTPAssemblyInfo.cs"
-      versionNumber: ${{ variables.versionNumber }}
-      versionSuffix: ${{ variables.versionSuffix }}
+      projectName: 'FTP'
+      solutionPath: '$(Build.SourcesDirectory)/Activities/Activities.FTP.sln'
+      buildPoolName: 'activities-build'
+      testPoolName: 'activities-build'
+      sdkBuild: true
+      enableCDStages: false
