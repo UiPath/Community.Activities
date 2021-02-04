@@ -129,7 +129,7 @@ jobs:
      displayName: "Publish test files as Artifacts"
      inputs:
        PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
-       ArtifactName:   'UiPath'
+       ArtifactName:   'Database Integration Tests for $(Build.BuildNumber)'
        ArtifactType:   'Container'
 
    - task: PublishTestResults@2
