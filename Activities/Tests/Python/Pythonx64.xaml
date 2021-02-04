@@ -11,7 +11,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>685,1718</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>685,3313</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="78">
@@ -93,7 +93,7 @@
       <AssemblyReference>System.Configuration.Install</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="510,1553" sap2010:WorkflowViewState.IdRef="Sequence_63">
+  <Sequence sap:VirtualizedContainerService.HintSize="556,3148" sap2010:WorkflowViewState.IdRef="Sequence_63">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd1:DataTable" Name="DataTable" />
       <Variable x:TypeArguments="x:String" Default="UiPath.Python.Activities" Name="PackageName" />
@@ -109,8 +109,8 @@
         <x:Boolean x:Key="IsPinned">False</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="468,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Duration&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap:VirtualizedContainerService.HintSize="468,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="514,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;time&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap:VirtualizedContainerService.HintSize="514,60" sap2010:WorkflowViewState.IdRef="Assign_27">
       <Assign.To>
         <OutArgument x:TypeArguments="sd:Stopwatch">[stw]</OutArgument>
       </Assign.To>
@@ -118,7 +118,7 @@
         <InArgument x:TypeArguments="sd:Stopwatch">[new Stopwatch()]</InArgument>
       </Assign.Value>
     </Assign>
-    <p:PythonScope DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="468,51" sap2010:WorkflowViewState.IdRef="PythonScope_2" Path="[PythonPath]" TargetPlatform="x64" WorkingFolder="[WorkingFolder]">
+    <p:PythonScope DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="514,1646" sap2010:WorkflowViewState.IdRef="PythonScope_2" Path="[PythonPath]" TargetPlatform="x64" WorkingFolder="[WorkingFolder]">
       <p:PythonScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -151,7 +151,7 @@
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="334,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_18" MethodName="Start">
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="334,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_18" MethodName="Restart">
                     <InvokeMethod.TargetObject>
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
@@ -162,7 +162,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Python basic test script loaded&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Load Python Script - BasicTestScript" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddDataRow_31" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Python basic test script loaded&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Load Python Script - BasicTestScript" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddDataRow_31" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -177,7 +177,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed load script&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed script load Basic Test" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_32" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed load script&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed script load Basic Test" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_32" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -207,7 +207,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Python Types script loaded&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Load Python Script - TypesTestScript" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddDataRow_33" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Python Types script loaded&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Load Python Script - TypesTestScript" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddDataRow_33" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -222,7 +222,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed load script types test&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed script load TypesTestscript" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_34" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed load script types test&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed script load TypesTestscript" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_34" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -255,7 +255,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Hello method no param - stranger&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Hello method no param - stranger" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_35" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Hello method no param - stranger&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Hello method no param - stranger" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_35" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -270,7 +270,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Hello method no param - stranger&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Hello method no param - stranger" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_36" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Hello method no param - stranger&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Hello method no param - stranger" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_36" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -307,7 +307,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Hello method string param&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Hello method string param" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_37" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Hello method string param&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Hello method string param" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_37" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -322,7 +322,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Hello method string param&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Hello method string param" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_38" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Hello method string param&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Hello method string param" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_38" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -359,7 +359,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Fibonacci Method&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Fibonacci Method" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_39" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Fibonacci Method&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Fibonacci Method" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_39" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -374,7 +374,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Fibonacci Method&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Fibonacci Method" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_40" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Fibonacci Method&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Fibonacci Method" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_40" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -433,7 +433,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Array method&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Array method" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_41" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Array method&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Array method" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_41" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -448,7 +448,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Array method&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Array method" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_42" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Array method&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Array method" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_42" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -485,7 +485,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;no_param Method&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="no_param Method" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_43" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;no_param Method&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="no_param Method" sap:VirtualizedContainerService.HintSize="238,22" sap2010:WorkflowViewState.IdRef="AddDataRow_43" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -500,7 +500,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed no_param Method&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed no_param Method" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_44" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed no_param Method&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed no_param Method" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_44" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -561,7 +561,7 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Get types element method&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Get Types element Test" sap:VirtualizedContainerService.HintSize="308,22" sap2010:WorkflowViewState.IdRef="AddDataRow_45" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Get types element method&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Get Types element Test" sap:VirtualizedContainerService.HintSize="308,22" sap2010:WorkflowViewState.IdRef="AddDataRow_45" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
@@ -576,7 +576,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Element Types Test&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Element Types Test" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_46" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Element Types Test&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Element Types Test" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_46" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -635,14 +635,14 @@
                       <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
                     </InvokeMethod.TargetObject>
                   </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Get types array method&quot;,stw.Elapsed.ToString,True}]" DataTable="[DataTable]" DisplayName="Get Types array Test" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="AddDataRow_47" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Get types array method&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Get Types array Test" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="AddDataRow_47" />
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
-                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,104" sap2010:WorkflowViewState.IdRef="Catch`1_19">
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_19">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
@@ -650,7 +650,7 @@
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Array Types Tests&quot;,stw.Elapsed.ToString,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Array Types Tests" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_48" />
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Array Types Tests&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed Array Types Tests" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_48" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -660,12 +660,12 @@
       </p:PythonScope.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </p:PythonScope>
-    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="468,66" sap2010:WorkflowViewState.IdRef="Sequence_59">
+    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="514,66" sap2010:WorkflowViewState.IdRef="Sequence_59">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Name="Text_ProjectConfig" />
         <Variable x:TypeArguments="njl:JObject" Name="JsonObject_Output" />
@@ -710,7 +710,7 @@
         </Assign.Value>
       </Assign>
     </Sequence>
-    <Sequence DisplayName="Get Python Version from PythonPath" sap:VirtualizedContainerService.HintSize="468,66" sap2010:WorkflowViewState.IdRef="Sequence_60">
+    <Sequence DisplayName="Get Python Version from PythonPath" sap:VirtualizedContainerService.HintSize="514,66" sap2010:WorkflowViewState.IdRef="Sequence_60">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -735,7 +735,7 @@
       </Assign>
       <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_31" Text="[str_output]" />
     </Sequence>
-    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="468,959" sap2010:WorkflowViewState.IdRef="Sequence_62">
+    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="514,959" sap2010:WorkflowViewState.IdRef="Sequence_62">
       <Sequence.Variables>
         <Variable x:TypeArguments="sxl:XElement" Name="xmlRows" />
         <Variable x:TypeArguments="sxl:XElement" Name="xmlDocument" />
@@ -751,7 +751,7 @@
           <OutArgument x:TypeArguments="sxl:XElement">[xmlDocument]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="sxl:XElement">[New XElement("testsuites", New XAttribute("duration","10sec"))]</InArgument>
+          <InArgument x:TypeArguments="sxl:XElement">[New XElement("testsuites", New XAttribute("time",DateTime.Now.ToString))]</InArgument>
         </Assign.Value>
       </Assign>
       <Assign sap:VirtualizedContainerService.HintSize="426,60" sap2010:WorkflowViewState.IdRef="Assign_36">
@@ -774,7 +774,7 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:InvokeCode ContinueOnError="{x:Null}" Code="If( CBool(rowEl.Item(&quot;Result&quot;)) = True)&#xA;&#x9;xmlRow.Add (New XElement(&quot;testcase&quot;,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;,Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+rowEl.Item(&quot;Test&quot;).ToString()),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;duration&quot;, rowEl.Item(&quot;Duration&quot;).ToString())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Else &#xA;&#x9;&#x9;xmlRow.Add (New XElement(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;testcase&quot;,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package + &quot; &quot; + PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+ rowEl.Item(&quot;Test&quot;).ToString()),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;duration&quot;, rowEl.Item(&quot;Duration&quot;).ToString()),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XElement(&quot;failure&quot;,rowEl.Item(&quot;ErrorMessage&quot;).ToString(),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;type&quot;, rowEl.Item(&quot;ExceptionType&quot;).ToString())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;)))&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;End If" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_3">
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="If( CBool(rowEl.Item(&quot;Result&quot;)) = True)&#xD;&#xA;&#x9;xmlRow.Add (New XElement(&quot;testcase&quot;,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;,Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+rowEl.Item(&quot;Test&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;))&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; )&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  )&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Else &#xD;&#xA;&#x9;&#x9;xmlRow.Add (New XElement(&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;testcase&quot;,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package + &quot; &quot; + PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+&quot;PythonVersion &quot;+PythonVersion+&quot; &quot;+ rowEl.Item(&quot;Test&quot;).ToString()),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;)),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XElement(&quot;failure&quot;,rowEl.Item(&quot;ErrorMessage&quot;).ToString(),&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;type&quot;, rowEl.Item(&quot;ExceptionType&quot;).ToString())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;)))&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;End If" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_3">
                 <ui:InvokeCode.Arguments>
                   <InOutArgument x:TypeArguments="sxl:XElement" x:Key="xmlRow">[xmlRows]</InOutArgument>
                   <InArgument x:TypeArguments="sd1:DataRow" x:Key="rowEl">[row]</InArgument>
