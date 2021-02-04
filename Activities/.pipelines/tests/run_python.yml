@@ -3,6 +3,7 @@ parameters:
     type: object
     default: {}
 
+steps:
   - ${{ each version in parameters.versions }}:
     - task: PowerShell@2
       displayName: Run Python ${{ version }} Tests VB
