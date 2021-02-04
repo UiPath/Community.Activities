@@ -97,3 +97,11 @@ jobs:
        PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
        ArtifactName:   'FTP Integration Tests for $(Build.BuildNumber)'
        ArtifactType:   'Container'
+
+   - task: PublishTestResults@2
+     displayName: "Publish test results as Test Runs output"
+     inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'junit*.xml'
+        searchFolder: '$(Build.ArtifactStagingDirectory)'
+        testRunTitle: 'FTP Integration Tests for $(Build.BuildNumber)'
