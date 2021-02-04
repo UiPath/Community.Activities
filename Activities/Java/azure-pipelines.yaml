@@ -10,17 +10,10 @@ trigger:
   batch: true
   branches:
     include:
-<<<<<<< HEAD
-      - masters/Java
-      - develop
-      - release/Java/*
-      - support/Java/*
-=======
     - develop
     - masters/Java
     - release/Java/*
     - support/Java/*
->>>>>>> 8de22d8 (test: new Java pipeline)
   paths:
     include:
     - '/Activities/Java/*'
