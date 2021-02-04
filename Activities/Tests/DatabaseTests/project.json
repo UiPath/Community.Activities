@@ -5,7 +5,7 @@
   "dependencies": {
     "UiPath.Database.Activities": "[1.4.0]",
     "UiPath.System.Activities": "[20.10.3]",
-    "UiPath.UIAutomation.Activities": "[20.10.8]",
+    "UiPath.UIAutomation.Activities": "[20.10.6]",
     "UiPath.WebAPI.Activities": "[1.6.0]"
   },
   "webServices": [],
