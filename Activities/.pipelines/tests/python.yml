@@ -63,78 +63,21 @@ jobs:
         cd d:\robot
         .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\Python\project.json" --add-ref "UiPath.Python.Activities|$version|strict"
 
-   - task: PowerShell@2
-     displayName: Run Python 2.7.18 Tests VB
-     inputs:
-      targetType: 'inline'
-      script: |
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\2.7.18\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_2.7.18_x86.xml"
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\2.7.18\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_2.7.18_x64.xml"
-        Remove-Item "d:\teste\Python\junit*.xml"
- 
-   - task: PowerShell@2
-     displayName: Run Python 3.5.4 Tests VB
-     inputs:
-      targetType: 'inline'
-      script: |
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.5.4\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.5.4_x86.xml"
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.5.4\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.5.4_x64.xml"
-        Remove-Item "d:\teste\Python\junit*.xml"
-
-   - task: PowerShell@2
-     displayName: Run Python 3.6.8 Tests VB
-     inputs:
-      targetType: 'inline'
-      script: |
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.6.8\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.6.8_x86.xml"
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.6.8\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.6.8_x64.xml"
-        Remove-Item "d:\teste\Python\junit*.xml"
-
-   - task: PowerShell@2
-     displayName: Run Python 3.7.9 Tests VB
-     inputs:
-      targetType: 'inline'
-      script: |
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.7.9\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.7.9_x86.xml"
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.7.9\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.7.9_x64.xml"
-        Remove-Item "d:\teste\Python\junit*.xml"
-
-#   - task: PowerShell@2
-#     displayName: Run Python 3.8.6 Tests VB
-#     inputs:
-#      targetType: 'inline'
-#      script: |
-#        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.8.6\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-#        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.8.6_x86.xml"
-#        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.8.6\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-#        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.8.6_x64.xml"
-#        Remove-Item "d:\teste\Python\junit*.xml"
-
-   - task: PowerShell@2
-     displayName: Run Python 3.9.1 Tests VB
-     inputs:
-      targetType: 'inline'
-      script: |
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.9.1\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.9.1_x86.xml"
-        d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\3.9.1\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
-        Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_3.9.1_x64.xml"
-        Remove-Item "d:\teste\Python\junit*.xml"
-
+   - template: run_python.yml
+     parameters:
+       versions:
+         - "2.7.18"
+         - "3.5.4"
+         - "3.6.8"
+         - "3.7.9"
+         - "3.8.7"
+         - "3.9.1"
 
    - task: PublishBuildArtifacts@1
      displayName: "Publish test files as Artifacts"
      inputs:
        PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
-       ArtifactName:   'UiPath'
+       ArtifactName:   'Python Integration Tests for $(Build.BuildNumber)'
        ArtifactType:   'Container'
 
    - task: PublishTestResults@2
