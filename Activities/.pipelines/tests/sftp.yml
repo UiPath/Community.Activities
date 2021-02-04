@@ -75,7 +75,7 @@ jobs:
 
    - task: DownloadSecureFile@1
      name: loginCertificate
-     displayName: 'Download CA certificate'
+     displayName: 'Download Login Certificate'
      inputs:
        secureFile: 'id_rsa'
 
@@ -84,7 +84,7 @@ jobs:
      inputs:
       targetType: 'inline'
       script: |
-       d:\robot\uirobot.exe execute --file "d:\teste\FTPandSFTP\FTPtestsUserRSA.xaml" --input "{ 'LocalPath' : $(LocalPathC), 'Remotepath' : $(RemotePathC), 'DownloadRSA' : $(DownloadC), 'User' : $(UserC), 'CertificatePathPPK':'$(loginCertificate.secureFilePath)', 'Host' : $(HostC), 'PortRSA' : $(PortC) }"
+       d:\robot\uirobot.exe execute --file "d:\teste\FTPandSFTP\FTPtestsUserRSA.xaml" --input "{ 'LocalPath' : $(LocalPathC), 'Remotepath' : $(RemotePathC), 'DownloadRSA' : $(DownloadC), 'User' : $(UserC), 'CertificatePathPPK': $(loginCertificate.secureFilePath), 'Host' : $(HostC), 'PortRSA' : $(PortC) }"
        Copy-Item "d:\teste\FTPandSFTP\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_SFTP_Certificate.xml"
        Remove-Item "d:\teste\FTPandSFTP\junit*.xml"
 
