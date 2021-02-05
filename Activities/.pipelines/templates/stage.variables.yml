@@ -1,0 +1,25 @@
+variables:
+  VSVersion: "16.0"
+  BuildPlatform: "Any CPU"
+  BuildConfiguration: "Release"
+  vmImage: vs2017-win2016
+  TestProjectPath: "$(Build.SourcesDirectory)\\Qa\\UiPath.Activities.Tests\\project.json"
+  OutputDirectory: "$(Build.SourcesDirectory)\\Output\\"
+  ArtifactsOutputPath: "$(Build.SourcesDirectory)\\Output\\Packages"
+  ExplorerStandaloneOutputPath: "$(Build.SourcesDirectory)\\Output\\ExplorerStandalone"
+  QAArtifactsOutputPath: "$(Build.SourcesDirectory)\\Output\\TestPackages"
+  InstrumentedDllsPath: "$(Build.SourcesDirectory)\\Output\\InstrumentedDlls"
+  TestCompatibility184ProjectPath: "$(Build.SourcesDirectory)\\Qa\\UiPath.Compatibility.Tests.Release18.4\\project.json"	
+  TestCompatibility194ProjectPath: "$(Build.SourcesDirectory)\\Qa\\UiPath.Compatibility.Tests.Release19.4\\project.json"	
+  TestCompatibility1910ProjectPath: "$(Build.SourcesDirectory)\\Qa\\UiPath.Compatibility.Tests.Release19.10\\project.json"
+  TestCompatibility204ProjectPath: "$(Build.SourcesDirectory)\\Qa\\UiPath.Compatibility.Tests.Release20.4\\project.json"
+  ArtifactName: "Packages"
+  QAArtifactName: "TestPackages"
+  InstrumentedDllsArtifactName: "InstrumentedDlls"
+  NugetPath: "$(Build.SourcesDirectory)\\Activities\\.nuget\\NuGet.exe"
+  NugetConfigFile: "$(Build.SourcesDirectory)\\Activities\\.nuget\\NuGet.Config"
+  PrereleaseTag: ""
+  ReferencedNugetPackageFolder: "$(Build.SourcesDirectory)\\QA\\ReferencedNugetPackages"
+  Build.Repository.Clean: true
+  SystemAccessToken: $(System.AccessToken)
+  PlatformVersion: "19.10.2"

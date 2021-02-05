@@ -1,46 +1,42 @@
+resources:
+  repositories:
+  - repository: common
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: master
+    endpoint: "GitHub connection"
+
 trigger:
+  batch: true
   branches:
     include:
-      - masters/Python
-      - develop
-      - release/Python/*
-      - support/Python/*
+    - develop
+    - masters/Python
+    - release/Python/*
+    - support/Python/*
   paths:
     include:
-      - Activities/Python/*
-      - Activities/Activities.Python.sln
-
-variables:
-  - template: vars.yml
-  - template: "../.pipelines/variables/vars.yml"
-
+    - '/Activities/Python/*'
+    - '/Activities/Activities.Python.sln'
 
 pr:
   branches:
     include:
-      - master
-      - develop
-      - release/*
-      - support/*
-      - feature/*
+    - develop
+    - masters/Python
+    - release/Python/*
+    - support/Python/*
   paths:
     include:
-      - Activities/Python/*
-      - Activities/Activities.Python.sln
+    - '/Activities/Python/*'
+    - '/Activities/Activities.Python.sln'
 
-jobs:
-  - template: "../.pipelines/jobs/ci.yml"
+stages:
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
-      BuildProject: "../Activities.Python.sln"
-      BuildConfiguration: "Release"
-      BuildPlatform: "AnyCPU"
-      rootPath: $(Build.SourcesDirectory)\Activities\Python\
-      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
-      restoreDependencies: 
-        - "UiPath.Python/UiPath.Python.csproj"
-        - "UiPath.Python.Activitiess/UiPath.Python.Activities.csproj"
-      testList: 
-        - "UiPath.Python.Tests/UiPath.Python.Tests.csproj"
-      versionReference: "PythonPackageVersion.cs"
-      versionNumber: ${{ variables.versionNumber }}
-      versionSuffix: ${{ variables.versionSuffix }}
+      projectName: 'Python'
+      solutionPath: '$(Build.SourcesDirectory)/Activities/Activities.Python.sln'
+      buildPoolName: 'activities-build'
+      testPoolName: 'activities-build'
+      sdkBuild: false
+      enableCDStages: false

@@ -1,0 +1,69 @@
+parameters:
+  buildPoolName: ''
+  projectName: ''
+  tagName: ''
+  solutionPath: ''
+  testPoolName: ''
+  preBuild: []
+  postBuild: []
+  additionalBuildJobs: []
+  preTestRun: []
+  postTestRun: []
+  additionalTestJobs: []
+  additionalSonarJobs: []
+  runSettingsFilePath: '$(Build.SourcesDirectory)\\Activities\\CodeCoverage.runsettings'
+  packMethod:
+  - template: pack.template.yml
+  enableCDStages: true
+  sdkBuild: false
+
+stages:
+- stage: Build
+  displayName: ${{ format('Build {0} activities', parameters.projectName) }}
+  variables:
+    Solution: '${{ parameters.solutionPath }}'
+  jobs:
+  - template: stage.shouldrun.yml
+    parameters:
+      projectName: ${{ parameters.projectName }}
+      tagName: ${{ parameters.tagName }}
+
+  - template: stage.build.yml
+    parameters:
+      projectName: ${{ parameters.projectName }}
+      solutionPath: ${{ parameters.solutionPath }}
+      poolName: ${{ parameters.buildPoolName }}
+      tagName: ${{ parameters.tagName }}
+      sdkBuild: ${{ parameters.sdkBuild }}
+      packMethod:
+      - ${{ parameters.packMethod }}
+      preBuild:
+      - ${{ parameters.preBuild }}
+      postBuild:
+      - ${{ parameters.postBuild }}
+  - ${{ parameters.additionalBuildJobs }}
+    
+- stage: Test
+  displayName: ${{ format('Run {0} tests', parameters.projectName) }}
+  dependsOn: Build
+  condition: and(succeeded(), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  jobs:
+  - template: stage.test.yml
+    parameters:
+      poolName: ${{ parameters.testPoolName }}
+      runSettingsFilePath: ${{ parameters.runSettingsFilePath }}
+      preTestRun:
+      - ${{ parameters.preTestRun }}
+      postTestRun:
+      - ${{ parameters.postTestRun }}
+  - ${{ parameters.additionalTestJobs }}
+      
+- stage: PublishSonar
+  displayName: "Perform SonarQube analysis"
+  dependsOn:
+  - Build
+  - Test
+  condition: and(not(canceled()), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  jobs:
+  - template: stage.sonar.yml
+  - ${{ parameters.additionalSonarJobs }}

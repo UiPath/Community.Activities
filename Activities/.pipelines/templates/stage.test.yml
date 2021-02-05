@@ -1,0 +1,114 @@
+parameters:
+  poolName: ''
+  runSettingsFilePath: ''
+  preTestRun: []
+  postTestRun: []
+
+jobs:
+- job: RunTests
+  displayName: "Run tests"
+  timeoutInMinutes: 90
+  pool:
+    name: ${{ parameters.poolName }}
+    demands:
+      - npm
+      - msbuild
+      - visualstudio
+
+  steps:
+  - task: DownloadBuildArtifacts@0
+    displayName: "Download test artifact"
+    inputs:
+      artifactName: "OutputTests"
+      downloadPath: "$(Build.SourcesDirectory)"
+    condition: and(succeeded(), eq(variables['RunTests'], 'true'))
+
+  - task: DownloadBuildArtifacts@0
+    displayName: "Download tools artifact"
+    inputs:
+      artifactName: "Tools"
+      downloadPath: "$(Build.SourcesDirectory)"
+  
+  - task: BuildProcessCleaner@0
+
+  - task: VisualStudioTestPlatformInstaller@1
+    displayName: "VSTest Platform Installer"
+
+  - powershell: |
+      $content = ""
+      if ('$(IncludeLongRunning)' -ne 'true') {
+        $content = "Category!=LongRunning"
+      }
+      
+      Write-Host "testFilterCriteria = $content"
+      Write-Output "##vso[task.setvariable variable=testFilterCriteria;]$content"
+    displayName: 'Set testFilterCriteria variable'
+
+  - ${{ parameters.preTestRun }}
+
+  - task: VSTest@2
+    displayName: "Run Smoke Tests"
+    inputs:
+      testAssemblyVer2: "**\\*tests.dll\n**\\*Test.dll\n**\\*UnitTest.dll\n!**\\*TestAdapter.dll\n!**\\obj\\**"
+      testRunTitle: "Unit Tests"
+      platform: "$(BuildPlatform)"
+      codeCoverageEnabled: "true"
+      publishRunAttachments: False
+      configuration: "$(BuildConfiguration)"
+      testFiltercriteria: $(testFilterCriteria)
+      runSettingsFile: ${{ parameters.runSettingsFilePath }}
+      vsTestVersion: toolsInstaller
+    condition: and(and(succeeded(), eq(variables['RunTests'], 'true')), ne(variables['TestRun'], 'AllTests'))
+
+  - task: VSTest@2
+    displayName: "Run All Tests"
+    inputs:
+      testAssemblyVer2: "**\\*tests.dll\n**\\*UnitTest.dll\n!**\\*TestAdapter.dll\n!**\\obj\\**"
+      testRunTitle: "Unit Tests"
+      platform: "$(BuildPlatform)"
+      codeCoverageEnabled: "true"
+      publishRunAttachments: False
+      configuration: "$(BuildConfiguration)"
+      runSettingsFile: ${{ parameters.runSettingsFilePath }}
+      vsTestVersion: toolsInstaller
+    condition: and(and(succeeded(), eq(variables['RunTests'], 'true')), eq(variables['TestRun'], 'AllTests'))
+    timeoutInMinutes: 120
+
+  - task: PowerShell@1
+    displayName: "Stop all processes used in tests"
+    inputs:
+      scriptType: "inlineScript"
+      inlineScript: "
+      Get-Process -Name 'excel', 'winword', 'powerpnt'  -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+      "
+    condition: succeededOrFailed()
+
+  - task: PowerShell@1
+    displayName: "Download code coverage from TestRuns"
+    inputs:
+      scriptName: "Tools/Download-TestRunAttachments.ps1"
+      arguments: "-project Community -buildId $(Build.BuildId) -accessToken $(System.AccessToken) -outputPath \"$(Build.ArtifactStagingDirectory)\\CodeCoverage\""
+    condition: always()
+
+  - task: PublishCodeCoverageResults@1
+    displayName: "Publish backend unit tests code coverage"
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "$(Build.ArtifactStagingDirectory)\\CodeCoverage\\*.coverage"
+    condition: succeededOrFailed()
+
+  - task: PowerShell@1
+    displayName: "Convert coverage to coveragexml"
+    inputs:
+      scriptName: "Tools/Convert-CoverageToCoverageXml.ps1"
+      arguments: "-inputPath \"$(Build.ArtifactStagingDirectory)\\CodeCoverage\" -outputPath \"$(Build.SourcesDirectory)\\TestResults\\UnitTests.coveragexml\""
+    condition: always()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifact - CodeCoverage'
+    inputs:
+      pathtoPublish: "$(Build.SourcesDirectory)\\TestResults\\UnitTests.coveragexml"
+      artifactName: CodeCoverage
+    condition: succeededOrFailed()
+
+  - ${{ parameters.postTestRun }}
