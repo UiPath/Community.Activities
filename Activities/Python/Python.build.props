@@ -1,0 +1,25 @@
+<Project>
+  <PropertyGroup>
+    <Product>UiPath.Python</Product>
+    <Company>UiPath</Company>
+    <Copyright>© UiPath</Copyright>
+    <VersionMajor>1</VersionMajor>
+    <VersionMinor>4</VersionMinor>
+    <VersionBuild>0</VersionBuild>
+    <VersionPrefix Condition="'$(Configuration)' == 'Release'">$(VersionMajor).$(VersionMinor).$(VersionBuild)</VersionPrefix>
+    <AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionBuild)</AssemblyVersion>
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsTestProject)' != 'true'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);NU5125;NU5048;NU5104</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Debug|net461'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net461'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+</Project>
