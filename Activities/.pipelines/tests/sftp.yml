@@ -104,4 +104,4 @@ jobs:
         testResultsFormat: 'JUnit'
         testResultsFiles: 'junit*.xml'
         searchFolder: '$(Build.ArtifactStagingDirectory)'
-        testRunTitle: 'FTP Integration Tests for $(Build.BuildNumber)'
+        testRunTitle: 'FTP_Integration_Tests_for_$(Build.BuildNumber)'
