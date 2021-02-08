@@ -1,3 +1,8 @@
+
+trigger: none
+
+pr: none
+
 name: Database tests $(Date:yyyyMMdd)$(Rev:.r)
 variables:
   - group: Secrets
