@@ -4,152 +4,152 @@ variables:
   - group: SQLServer-tests
   - group: Oracle-tests
 
-# resources:
-#   containers:
-#     - container: db1
-#       image: vladnicula24s/sftpgo:alpine
-#     - container: db2
-#       image: mcr.microsoft.com/mssql/server:latest
-#     - container: db3
-#       image: container-registry.oracle.com/database/enterprise:19.3.0.0
+resources:
+  containers:
+    - container: db1
+      image: vladnicula24s/sftpgo:alpine
+    - container: db2
+      image: mcr.microsoft.com/mssql/server:latest
+    - container: db3
+      image: container-registry.oracle.com/database/enterprise:19.3.0.0
 
-# services:
-#   db1: db1
+services:
+  db1: db1
 
-jobs:
-  - job: Run_Database_Integration_Tests
-    pool:
-      vmImage: "windows-latest"
-    steps:
-      - script: |
-          docker ps
-        displayName: docker ps
+# jobs:
+#   - job: Run_Database_Integration_Tests
+pool:
+  vmImage: "windows-latest"
+steps:
+  - script: |
+      docker ps
+    displayName: docker ps
 
-      - task: UiPathRobot@0
-        displayName: Install UiPath Studio and Robot on agent
-        inputs:
-          platformVersion: "20.10.4"
-          packageAction: "install"
-          uninstallOption: "ifany"
-          licenseCode: $(LicenseCode)
-          connectToOrchestrator: false
-          studioInstallPath: 'd:\robot'
-          orchestratorPSModuleSourceUrl: "https://www.myget.org/F/uipath-dev/api/v2"
+  - task: UiPathRobot@0
+    displayName: Install UiPath Studio and Robot on agent
+    inputs:
+      platformVersion: "20.10.4"
+      packageAction: "install"
+      uninstallOption: "ifany"
+      licenseCode: $(LicenseCode)
+      connectToOrchestrator: false
+      studioInstallPath: 'd:\robot'
+      orchestratorPSModuleSourceUrl: "https://www.myget.org/F/uipath-dev/api/v2"
 
-      - task: PowerShell@2
-        displayName: Copy test files on agent
-        inputs:
-          targetType: "inline"
-          ignoreLASTEXITCODE: true
-          script: |
-            mkdir d:\teste
-            robocopy $(Build.SourcesDirectory)\Activities\Tests\ d:\teste /COPYALL /E /R:0
+  - task: PowerShell@2
+    displayName: Copy test files on agent
+    inputs:
+      targetType: "inline"
+      ignoreLASTEXITCODE: true
+      script: |
+        mkdir d:\teste
+        robocopy $(Build.SourcesDirectory)\Activities\Tests\ d:\teste /COPYALL /E /R:0
 
-      - task: PowerShell@2
-        displayName: Add Nuget Packages source for UiPath Dev
-        inputs:
-          targetType: "inline"
-          ignoreLASTEXITCODE: true
-          script: |
-            robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ d:\robot *.config
-            robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ C:\Users\VssAdministrator\AppData\Roaming\NuGet *.config
+  - task: PowerShell@2
+    displayName: Add Nuget Packages source for UiPath Dev
+    inputs:
+      targetType: "inline"
+      ignoreLASTEXITCODE: true
+      script: |
+        robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ d:\robot *.config
+        robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ C:\Users\VssAdministrator\AppData\Roaming\NuGet *.config
 
-      - task: DownloadPipelineArtifact@2
-        displayName: Download artifact from build pipeline
-        inputs:
-          source: "specific"
-          project: "Community"
-          pipeline: 1094
-          runVersion: "latest"
-          path: d:\teste\Packages
+  - task: DownloadPipelineArtifact@2
+    displayName: Download artifact from build pipeline
+    inputs:
+      source: "specific"
+      project: "Community"
+      pipeline: 1094
+      runVersion: "latest"
+      path: d:\teste\Packages
 
-      - task: PowerShell@2
-        displayName: Update Nuget Packages from UiPath Dev
-        inputs:
-          targetType: "inline"
-          ignoreLASTEXITCODE: true
-          script: |
-            cd d:\teste\Packages\Setup
-            $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
-            $dot = $file.LastIndexof('.')
-            $file = $file.Replace(".nupkg","")
-            $act = $file.LastIndexof('Activities.')
-            $version = $file.Substring($act+11)
-            Write-Host Update to version $version
-            Write-Host "##vso[build.updatebuildnumber]$version"
-            cd d:\robot
-            .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\DatabaseTests\project.json" --add-ref "UiPath.Database.Activities|$version|strict"
+  - task: PowerShell@2
+    displayName: Update Nuget Packages from UiPath Dev
+    inputs:
+      targetType: "inline"
+      ignoreLASTEXITCODE: true
+      script: |
+        cd d:\teste\Packages\Setup
+        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $dot = $file.LastIndexof('.')
+        $file = $file.Replace(".nupkg","")
+        $act = $file.LastIndexof('Activities.')
+        $version = $file.Substring($act+11)
+        Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
+        cd d:\robot
+        .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\DatabaseTests\project.json" --add-ref "UiPath.Database.Activities|$version|strict"
 
-      - task: PowerShell@2
-        displayName: Run SQL Server Tests VB
-        inputs:
-          targetType: "inline"
-          script: |
-            d:\robot\uirobot.exe execute --file "d:\teste\DatabaseTests\DatabaseTestsSQLS.xaml" --input "{ 'SQLServer_Connection' : $(SQLServer_Connection), 'SQLServer_TESTDATABASE' : $(SQLServer_TESTDATABASE), 'SQLServer_db_provider' : $(SQLServer_db_provider) }"
-            Copy-Item "d:\teste\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_SQLSrv.xml"
-            Remove-Item "d:\teste\DatabaseTests\junit*.xml"
+  - task: PowerShell@2
+    displayName: Run SQL Server Tests VB
+    inputs:
+      targetType: "inline"
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\DatabaseTests\DatabaseTestsSQLS.xaml" --input "{ 'SQLServer_Connection' : $(SQLServer_Connection), 'SQLServer_TESTDATABASE' : $(SQLServer_TESTDATABASE), 'SQLServer_db_provider' : $(SQLServer_db_provider) }"
+        Copy-Item "d:\teste\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_SQLSrv.xml"
+        Remove-Item "d:\teste\DatabaseTests\junit*.xml"
 
-      - task: PowerShell@2
-        displayName: Copy Oracle Client on agent
-        inputs:
-          targetType: "inline"
-          ignoreLASTEXITCODE: true
-          script: |
-            mkdir d:\oracle
-            mkdir d:\ora_temp
-            Copy-Item "$(Build.SourcesDirectory)\Activities\Tests\Setup\instantclient_19_8.zip" -Destination "d:\ora_temp"
-            Expand-Archive -LiteralPath 'd:\ora_temp\instantclient_19_8.zip' -DestinationPath 'd:\oracle'
-            Copy-Item "$(Build.SourcesDirectory)\Activities\Tests\Setup\tnsnames.ora" -Destination "d:\oracle\network\admin\tnsnames.ora" -Force
+  - task: PowerShell@2
+    displayName: Copy Oracle Client on agent
+    inputs:
+      targetType: "inline"
+      ignoreLASTEXITCODE: true
+      script: |
+        mkdir d:\oracle
+        mkdir d:\ora_temp
+        Copy-Item "$(Build.SourcesDirectory)\Activities\Tests\Setup\instantclient_19_8.zip" -Destination "d:\ora_temp"
+        Expand-Archive -LiteralPath 'd:\ora_temp\instantclient_19_8.zip' -DestinationPath 'd:\oracle'
+        Copy-Item "$(Build.SourcesDirectory)\Activities\Tests\Setup\tnsnames.ora" -Destination "d:\oracle\network\admin\tnsnames.ora" -Force
 
-      - task: PowerShell@2
-        displayName: Install Oracle Client on agent
-        inputs:
-          targetType: "inline"
-          ignoreLASTEXITCODE: true
-          script: |
-            cd d:\oracle
-            .\odbc_install.exe
-            cd d:\oracle\odp.net\managed\x86
-            .\configure.bat true true
+  - task: PowerShell@2
+    displayName: Install Oracle Client on agent
+    inputs:
+      targetType: "inline"
+      ignoreLASTEXITCODE: true
+      script: |
+        cd d:\oracle
+        .\odbc_install.exe
+        cd d:\oracle\odp.net\managed\x86
+        .\configure.bat true true
 
-      - task: PowerShell@2
-        displayName: Add custom Oracle DSN
-        inputs:
-          targetType: "inline"
-          ignoreLASTEXITCODE: true
-          script: |
-            Get-OdbcDriver
-             Add-OdbcDsn -Name "TestDB" -DriverName "Oracle in oracle" -Platform "32-bit" -DsnType "User" -SetPropertyValue @("SERVER=TestDB")
+  - task: PowerShell@2
+    displayName: Add custom Oracle DSN
+    inputs:
+      targetType: "inline"
+      ignoreLASTEXITCODE: true
+      script: |
+        Get-OdbcDriver
+          Add-OdbcDsn -Name "TestDB" -DriverName "Oracle in oracle" -Platform "32-bit" -DsnType "User" -SetPropertyValue @("SERVER=TestDB")
 
-      - task: PowerShell@2
-        displayName: Run ODBC with Oracle Tests VB
-        inputs:
-          targetType: "inline"
-          script: |
-            d:\robot\uirobot.exe execute --file "d:\teste\DatabaseTests\DatabaseTestsODBC.xaml" --input "{ 'ODBC_db_connStr' : $(ODBC_db_connStr), 'ODBC_db_provider' : $(ODBC_db_provider) }"
-            Copy-Item "d:\teste\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_ODBC_ORACLE.xml"
-            Remove-Item "d:\teste\DatabaseTests\junit*.xml"
+  - task: PowerShell@2
+    displayName: Run ODBC with Oracle Tests VB
+    inputs:
+      targetType: "inline"
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\DatabaseTests\DatabaseTestsODBC.xaml" --input "{ 'ODBC_db_connStr' : $(ODBC_db_connStr), 'ODBC_db_provider' : $(ODBC_db_provider) }"
+        Copy-Item "d:\teste\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_ODBC_ORACLE.xml"
+        Remove-Item "d:\teste\DatabaseTests\junit*.xml"
 
-      - task: PowerShell@2
-        displayName: Run Oracle Managed Client Tests VB
-        inputs:
-          targetType: "inline"
-          script: |
-            d:\robot\uirobot.exe execute --file "d:\teste\DatabaseTests\DatabaseTestsOracleManaged.xaml" --input "{ 'ODBC_managed_connStr' : $(ODBC_managed_connStr), 'ODBC_managed_provider' : $(ODBC_managed_provider) }"
-            Copy-Item "d:\teste\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_ORACLE_MANAGED.xml"
-            Remove-Item "d:\teste\DatabaseTests\junit*.xml"
+  - task: PowerShell@2
+    displayName: Run Oracle Managed Client Tests VB
+    inputs:
+      targetType: "inline"
+      script: |
+        d:\robot\uirobot.exe execute --file "d:\teste\DatabaseTests\DatabaseTestsOracleManaged.xaml" --input "{ 'ODBC_managed_connStr' : $(ODBC_managed_connStr), 'ODBC_managed_provider' : $(ODBC_managed_provider) }"
+        Copy-Item "d:\teste\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_ORACLE_MANAGED.xml"
+        Remove-Item "d:\teste\DatabaseTests\junit*.xml"
 
-      - task: PublishBuildArtifacts@1
-        displayName: "Publish test files as Artifacts"
-        inputs:
-          PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-          ArtifactName: "Database Integration Tests for $(Build.BuildNumber)"
-          ArtifactType: "Container"
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish test files as Artifacts"
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+      ArtifactName: "Database Integration Tests for $(Build.BuildNumber)"
+      ArtifactType: "Container"
 
-      - task: PublishTestResults@2
-        displayName: "Publish test results as Test Runs output"
-        inputs:
-          testResultsFormat: "JUnit"
-          testResultsFiles: "junit*.xml"
-          searchFolder: "$(Build.ArtifactStagingDirectory)"
-          testRunTitle: "Database Integration Tests for $(Build.BuildNumber)"
+  - task: PublishTestResults@2
+    displayName: "Publish test results as Test Runs output"
+    inputs:
+      testResultsFormat: "JUnit"
+      testResultsFiles: "junit*.xml"
+      searchFolder: "$(Build.ArtifactStagingDirectory)"
+      testRunTitle: "Database Integration Tests for $(Build.BuildNumber)"
