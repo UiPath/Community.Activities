@@ -77,8 +77,9 @@ jobs:
      displayName: "Publish test files as Artifacts"
      inputs:
        PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
-       ArtifactName:   'Python Integration Tests for $(Build.BuildNumber)'
+       ArtifactName:   'Python_Integration_Tests_for_$(Build.BuildNumber)'
        ArtifactType:   'Container'
+
 
    - task: PublishTestResults@2
      displayName: "Publish test results as Test Runs output"
@@ -86,4 +87,4 @@ jobs:
         testResultsFormat: 'JUnit'
         testResultsFiles: 'junit*.xml'
         searchFolder: '$(Build.ArtifactStagingDirectory)'
-        testRunTitle: 'Python_Integration_Tests_for_$(Build.BuildNumber)'
+        testRunTitle: 'Python Integration Tests for $(Build.BuildNumber)'
