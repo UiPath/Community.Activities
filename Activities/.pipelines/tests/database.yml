@@ -15,8 +15,6 @@ resources:
 
 services:
   db1: db1
-  db2: db2
-  db3: db3
 
 jobs:
   - job: Run_Database_Integration_Tests
