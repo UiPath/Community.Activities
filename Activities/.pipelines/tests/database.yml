@@ -4,17 +4,17 @@ variables:
   - group: SQLServer-tests
   - group: Oracle-tests
 
-resources:
-  containers:
-    - container: db1
-      image: vladnicula24s/sftpgo:alpine
-    - container: db2
-      image: mcr.microsoft.com/mssql/server:latest
-    - container: db3
-      image: container-registry.oracle.com/database/enterprise:19.3.0.0
+# resources:
+#   containers:
+#     - container: db1
+#       image: vladnicula24s/sftpgo:alpine
+#     - container: db2
+#       image: mcr.microsoft.com/mssql/server:latest
+#     - container: db3
+#       image: container-registry.oracle.com/database/enterprise:19.3.0.0
 
-services:
-  db1: db1
+# services:
+#   db1: db1
 
 jobs:
   - job: Run_Database_Integration_Tests
