@@ -98,6 +98,7 @@ jobs:
        ArtifactName:   'FTP_Integration_Tests_for_$(Build.BuildNumber)'
        ArtifactType:   'Container'
 
+
    - task: PublishTestResults@2
      displayName: "Publish test results as Test Runs output"
      inputs:
