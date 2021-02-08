@@ -6,4 +6,9 @@ using System.Windows.Markup;
 [assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.1.2.*")]
+
+#if DEBUG
+[assembly: AssemblyVersion("1.2.*")]
+#else
+[assembly: AssemblyVersion("1.2.0")]
+#endif
