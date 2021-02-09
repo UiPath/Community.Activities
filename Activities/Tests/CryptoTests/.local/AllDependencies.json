@@ -4235,9 +4235,9 @@
     "restore": {
       "projectUniqueName": "CryptoTests",
       "projectName": "CryptoTests",
-      "projectPath": "C:\\Users\\vladn\\Documents\\UiPath\\CryptoTests\\.local",
+      "projectPath": "C:\\Github\\24soft\\Activities\\Tests\\CryptoTests\\.local",
       "packagesPath": "C:\\Users\\vladn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vladn\\Documents\\UiPath\\CryptoTests\\.local"
+      "outputPath": "C:\\Github\\24soft\\Activities\\Tests\\CryptoTests\\.local"
     },
     "frameworks": {
       "net461": {

@@ -69,7 +69,7 @@ jobs:
      inputs:
       targetType: 'inline'
       script: |
-       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\EncryptDecryptFile.xaml" --input "{ 'inputFile' : $(InputFile_EncryptDecriptFile), 'key_encryption' : $(Key_Encryption) }"
+       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\EncryptDecryptFile.xaml" --input "{ 'inputFile' : $(InputFile_EncryptDecriptFile), 'key_encryption' : $(Key_Encryption) , 'AES_Decrypted_file' : $(AES_Decrypted_file), 'AES_Encrypted_file' : $(AES_Encrypted_file), 'DES_Decrypted_file' : $(DES_Decrypted_file), 'DES_Encrypted_file' : $(DES_Encrypted_file), 'RC_Decrypted_file' : $(RC_Decrypted_file), 'RC_Encrypted_file' : $(RC_Encrypted_file), 'Rijndael_Decrypted_File' : $(Rijndael_Decrypted_File),  'Rijndael_Encrypted_File' : $(Rijndael_Encrypted_File),  'TripleDES_Decrypted_File' : $(TripleDES_Decrypted_File), 'TripleDES_Encrypted_File' : $(TripleDES_Encrypted_File) }"
        Copy-Item "d:\teste\CryptoTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_EncryptDecryptFile.xml"
        Remove-Item "d:\teste\CryptoTests\junit*.xml"
 

@@ -1,7 +1,17 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" this:Main.inputFile="EncryptDecryptFile.xaml" this:Main.key_encryption="0591d56f0f600c7f" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:this="clr-namespace:" xmlns:uca="clr-namespace:UiPath.Cryptography.Activities;assembly=UiPath.Cryptography.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" this:Main.inputFile="EncryptDecryptFile.xaml" this:Main.key_encryption="0591d56f0f600c7f" this:Main.AES_Decrypted_file="Files/AES_Decrypted_file.xaml" this:Main.AES_Encrypted_file="Files/AES_Encrypted_file.xaml" this:Main.DES_Decrypted_file="Files/DES_Decrypted_file.xaml" this:Main.DES_Encrypted_file="Files/DES_Encrypted_file.xaml" this:Main.RC_Decrypted_file="Files/RC_Decrypted_file.xaml" this:Main.RC_Encrypted_file="Files/RC_Encrypted_file.xaml" this:Main.Rijndael_Decrypted_File="Files/Rijndael_Decrypted_File.xaml" this:Main.Rijndael_Encrypted_File="Files/Rijndael_Encrypted_File.xaml" this:Main.TripleDES_Decrypted_File="Files/TripleDES_Decrypted_File.xaml" this:Main.TripleDES_Encrypted_File="Files/TripleDES_Encrypted_File.xaml" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:this="clr-namespace:" xmlns:uca="clr-namespace:UiPath.Cryptography.Activities;assembly=UiPath.Cryptography.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="inputFile" Type="InArgument(x:String)" />
     <x:Property Name="key_encryption" Type="InArgument(x:String)" />
+    <x:Property Name="AES_Decrypted_file" Type="InArgument(x:String)" />
+    <x:Property Name="AES_Encrypted_file" Type="InArgument(x:String)" />
+    <x:Property Name="DES_Decrypted_file" Type="InArgument(x:String)" />
+    <x:Property Name="DES_Encrypted_file" Type="InArgument(x:String)" />
+    <x:Property Name="RC_Decrypted_file" Type="InArgument(x:String)" />
+    <x:Property Name="RC_Encrypted_file" Type="InArgument(x:String)" />
+    <x:Property Name="Rijndael_Decrypted_File" Type="InArgument(x:String)" />
+    <x:Property Name="Rijndael_Encrypted_File" Type="InArgument(x:String)" />
+    <x:Property Name="TripleDES_Decrypted_File" Type="InArgument(x:String)" />
+    <x:Property Name="TripleDES_Encrypted_File" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -89,16 +99,6 @@
       <Variable x:TypeArguments="x:String" Default="UiPath.Cryptography.Activities" Name="PackageName" />
       <Variable x:TypeArguments="x:String" Name="PackageVersion" />
       <Variable x:TypeArguments="x:String" Name="Project_Dependencies" />
-      <Variable x:TypeArguments="x:String" Default="Files/RC_Encrypted_file.xaml" Name="RC_Encrypted_file" />
-      <Variable x:TypeArguments="x:String" Default="Files/RC_Decrypted_file.xaml" Name="RC_Decrypted_file" />
-      <Variable x:TypeArguments="x:String" Default="Files/AES_Encrypted_file.xaml" Name="AES_Encrypted_file" />
-      <Variable x:TypeArguments="x:String" Default="Files/TripleDES_Decrypted_File.xaml" Name="TripleDES_Decrypted_File" />
-      <Variable x:TypeArguments="x:String" Default="Files/TripleDES_Encrypted_File.xaml" Name="TripleDES_Encrypted_File" />
-      <Variable x:TypeArguments="x:String" Default="Files/Rijndael_Decrypted_File.xaml" Name="Rijndael_Decrypted_File" />
-      <Variable x:TypeArguments="x:String" Default="Files/Rijndael_Encrypted_File.xaml" Name="Rijndael_Encrypted_File" />
-      <Variable x:TypeArguments="x:String" Default="Files/DES_Decrypted_file.xaml" Name="DES_Decrypted_file" />
-      <Variable x:TypeArguments="x:String" Default="Files/AES_Decrypted_file.xaml" Name="AES_Decrypted_file" />
-      <Variable x:TypeArguments="x:String" Default="Files/DES_Encrypted_file.xaml" Name="DES_Encrypted_file" />
       <Variable x:TypeArguments="sd:Stopwatch" Name="stw" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
