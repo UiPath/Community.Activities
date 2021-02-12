@@ -34,12 +34,12 @@ pr:
 variables:
   - template: ..\.pipelines\variables\variables.yml
 
-extends:
-  template: Activities/stage.start.yml@common
-  parameters:
-    projectName: 'Python'
-    solutionPath: '$(SolutionsPath)/Activities.Python.sln'
-    buildPoolName: 'activities-build'
-    testPoolName: 'activities-build'
-    sdkBuild: false
-    enableCDStages: false
+stages:
+  - template: Activities/stage.start.yml@common
+    parameters:
+      projectName: 'Python'
+      solutionPath: '$(SolutionsPath)/Activities.Python.sln'
+      buildPoolName: 'activities-build'
+      testPoolName: 'activities-build'
+      sdkBuild: false
+      enableCDStages: false
