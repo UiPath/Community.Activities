@@ -1,0 +1,7 @@
+variables:
+  NugetPath: "$(Build.SourcesDirectory)\\Activities\\.nuget\\NuGet.exe"
+  NugetConfigFile: "$(Build.SourcesDirectory)\\Activities\\.nuget\\NuGet.Config"
+  OutputTestsPath: "$(Build.SourcesDirectory)\\Activities\\OutputTests"
+  RunSettingsFilePath: "$(Build.SourcesDirectory)\\Activities\\CodeCoverage.runsettings"
+  SolutionsPath: "$(Build.SourcesDirectory)\\Activities"
+  ToolsPath: "$(Build.SourcesDirectory)\\Activities\\Tools"
