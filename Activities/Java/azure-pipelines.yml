@@ -11,25 +11,25 @@ trigger:
   branches:
     include:
     - develop
-    - masters/Python
-    - release/Python/*
-    - support/Python/*
+    - masters/Java
+    - release/Java/*
+    - support/Java/*
   paths:
     include:
-    - Activities/Python/*
-    - Activities/Activities.Python.sln
+    - Activities/Java/*
+    - Activities/Activities.Java.sln
 
 pr:
   branches:
     include:
     - develop
-    - masters/Python
-    - release/Python/*
-    - support/Python/*
+    - masters/Java
+    - release/Java/*
+    - support/Java/*
   paths:
     include:
-    - Activities/Python/*
-    - Activities/Activities.Python.sln
+    - Activities/Java/*
+    - Activities/Activities.Java.sln
 
 variables:
   - template: ..\.pipelines\variables\variables.yml
@@ -37,8 +37,8 @@ variables:
 stages:
   - template: Activities/stage.start.yml@common
     parameters:
-      projectName: 'Python'
-      solutionPath: '$(SolutionsPath)/Activities.Python.sln'
+      projectName: 'Java'
+      solutionPath: '$(SolutionsPath)/Activities.Java.sln'
       buildPoolName: 'activities-build'
       testPoolName: 'activities-build'
       sdkBuild: false
