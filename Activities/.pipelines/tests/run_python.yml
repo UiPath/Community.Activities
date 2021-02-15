@@ -1,0 +1,17 @@
+parameters:
+  - name: "versions"
+    type: object
+    default: {}
+
+steps:
+  - ${{ each version in parameters.versions }}:
+    - task: PowerShell@2
+      displayName: Run Python ${{ version }} Tests VB
+      inputs:
+       targetType: 'inline'
+       script: |
+         d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\${{ version }}\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+         Copy-Item "d:\teste\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_${{ version }}_x86.xml"
+         d:\robot\uirobot.exe execute --file "d:\teste\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\${{ version }}\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+         Copy-Item "d:\teste\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_${{ version }}_x64.xml"
+         Remove-Item "d:\teste\Python\junit*.xml"
