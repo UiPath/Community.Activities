@@ -52,7 +52,7 @@ jobs:
       targetType: 'inline'
       ignoreLASTEXITCODE: true
       script: |
-        cd d:\teste\Packages\Setup
+        cd d:\teste\Packages\Packages
         $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
         $dot = $file.LastIndexof('.')
         $file = $file.Replace(".nupkg","")
