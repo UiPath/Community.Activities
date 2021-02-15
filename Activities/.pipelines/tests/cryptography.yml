@@ -1,0 +1,134 @@
+name: Cryptography tests $(Date:yyyyMMdd)$(Rev:.r)
+variables:
+- group: Secrets
+- group: Cryptography-tests
+
+jobs:
+- job: Run_Cryptography_Integration_Tests
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+
+   - task: UiPathRobot@0
+     displayName: Install UiPath Studio and Robot on agent
+     inputs:
+      platformVersion: '20.10.4'
+      packageAction: 'install'
+      uninstallOption: 'ifany'
+      licenseCode: $(LicenseCode)
+      connectToOrchestrator: false
+      studioInstallPath: 'd:\robot'
+      orchestratorPSModuleSourceUrl: 'https://www.myget.org/F/uipath-dev/api/v2'
+  
+   - task: PowerShell@2
+     displayName: Copy test files on agent
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       mkdir d:\teste
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\ d:\teste /COPYALL /E /R:0
+   
+   - task: PowerShell@2
+     displayName: Add Nuget Packages source for UiPath Dev
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ d:\robot *.config
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ C:\Users\VssAdministrator\AppData\Roaming\NuGet *.config
+
+   - task: DownloadPipelineArtifact@2
+     displayName: Download artifact from build pipeline
+     inputs:
+      source: 'specific'
+      project: 'Community'
+      pipeline: 1092
+      runVersion: 'latest'
+      path: d:\teste\Packages
+
+   - task: PowerShell@2
+     displayName: Update Nuget Packages from UiPath Dev
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+        cd d:\teste\Packages
+        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $dot = $file.LastIndexof('.')
+        $file = $file.Replace(".nupkg","")
+        $act = $file.LastIndexof('Activities.')
+        $version = $file.Substring($act+11)
+        Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
+        cd d:\robot
+        .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\CryptoTests\project.json" --add-ref "UiPath.Cryptography.Activities|$version|strict"
+
+   - task: PowerShell@2
+     displayName: Run Encryption Decryption File Test
+     inputs:
+      targetType: 'inline'
+      script: |
+       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\EncryptDecryptFile.xaml" --input "{ 'inputFile' : $(InputFile_EncryptDecriptFile), 'key_encryption' : $(Key_Encryption) , 'AES_Decrypted_file' : $(AES_Decrypted_file), 'AES_Encrypted_file' : $(AES_Encrypted_file), 'DES_Decrypted_file' : $(DES_Decrypted_file), 'DES_Encrypted_file' : $(DES_Encrypted_file), 'RC_Decrypted_file' : $(RC_Decrypted_file), 'RC_Encrypted_file' : $(RC_Encrypted_file), 'Rijndael_Decrypted_File' : $(Rijndael_Decrypted_File),  'Rijndael_Encrypted_File' : $(Rijndael_Encrypted_File),  'TripleDES_Decrypted_File' : $(TripleDES_Decrypted_File), 'TripleDES_Encrypted_File' : $(TripleDES_Encrypted_File) }"
+       Copy-Item "d:\teste\CryptoTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_EncryptDecryptFile.xml"
+       Remove-Item "d:\teste\CryptoTests\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Encryption Decryption Text Test
+     inputs:
+      targetType: 'inline'
+      script: |
+       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\EncryptDecryptText.xaml" --input "{ 'text_to_encrypt' : $(Text_to_encrypt), 'key_encryption' : $(Key_Encryption) }"
+       Copy-Item "d:\teste\CryptoTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_EncryptDecryptText.xml"
+       Remove-Item "d:\teste\CryptoTests\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Hash File Test
+     inputs:
+      targetType: 'inline'
+      script: |
+       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\HashFile.xaml" --input "{ 'inputFile' : $(InputFile_HashFile) }"
+       Copy-Item "d:\teste\CryptoTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_HashFile.xml"
+       Remove-Item "d:\teste\CryptoTests\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Hash File with key Test
+     inputs:
+      targetType: 'inline'
+      script: |
+       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\HashFilesWithKey.xaml" --input "{ 'inputFile' : $(InputFile_HashFileWithKey), 'key_encryption' : $(Key_Encryption) }"
+       Copy-Item "d:\teste\CryptoTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_HashFilesWithKey.xml"
+       Remove-Item "d:\teste\CryptoTests\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Hash Text Test
+     inputs:
+      targetType: 'inline'
+      script: |
+       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\HashText.xaml" --input "{ 'text_to_encrypt' : $(Text_to_encrypt) }"
+       Copy-Item "d:\teste\CryptoTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_HashText.xml"
+       Remove-Item "d:\teste\CryptoTests\junit*.xml"
+
+   - task: PowerShell@2
+     displayName: Run Hash Text with key Test
+     inputs:
+      targetType: 'inline'
+      script: |
+       d:\robot\uirobot.exe execute --file "d:\teste\CryptoTests\HashTextWithKey.xaml" --input "{ 'text_to_encrypt' : $(Text_to_encrypt), 'key_encryption' : $(Key_Encryption) }"
+       Copy-Item "d:\teste\CryptoTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_HashTextWithKey.xml"
+       Remove-Item "d:\teste\CryptoTests\junit*.xml"
+
+   - task: PublishBuildArtifacts@1
+     displayName: "Publish test files as Artifacts"
+     inputs:
+       PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
+       ArtifactName:   'Cryptography_Integration_Tests_for_$(Build.BuildNumber)'
+       ArtifactType:   'Container'
+
+   - task: PublishTestResults@2
+     displayName: "Publish test results as Test Runs output"
+     inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'junit*.xml'
+        searchFolder: '$(Build.ArtifactStagingDirectory)'
+        testRunTitle: 'Cryptography Integration Tests for $(Build.BuildNumber)'
