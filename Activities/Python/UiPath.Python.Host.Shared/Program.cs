@@ -3,26 +3,28 @@ using System.Windows.Forms;
 
 namespace UiPath.Python.Host
 {
-    static class Program
+    internal static class Program
     {
-        static PythonService _service = null;
+        private static PythonService _service = null;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.ApplicationExit += Application_ApplicationExit;
 
             _service = new PythonService();
-            _service.Start();
+            _service.RunServer();
             Application.Run();
+            Console.ReadLine();
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
             Application.ApplicationExit -= Application_ApplicationExit;
-            _service?.Stop();
+            _service?.Shutdown();
         }
     }
 }
