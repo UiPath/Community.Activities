@@ -1,13 +1,12 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" this:Main.NumberofZeros="[{2,3,4,5}]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:p="http://schemas.uipath.com/workflow/activities/python" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:p="http://schemas.uipath.com/workflow/activities/python" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="PythonPath" Type="InArgument(x:String)" />
     <x:Property Name="WorkingFolder" Type="InArgument(x:String)" />
-    <x:Property Name="NumberofZeros" Type="InArgument(s:Int32[])" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>761,1988</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>791,5004</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="36">
@@ -82,7 +81,7 @@
       <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="418,1783" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap:VirtualizedContainerService.HintSize="801,4839" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="s:DateTime" Name="end_time" />
       <Variable x:TypeArguments="x:Int32" Name="block_number" />
@@ -104,8 +103,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="376,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;time&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <Assign sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="759,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;time&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap:VirtualizedContainerService.HintSize="759,60" sap2010:WorkflowViewState.IdRef="Assign_4">
       <Assign.To>
         <OutArgument x:TypeArguments="sd:Stopwatch">[stw]</OutArgument>
       </Assign.To>
@@ -113,18 +112,44 @@
         <InArgument x:TypeArguments="sd:Stopwatch">[new Stopwatch()]</InArgument>
       </Assign.Value>
     </Assign>
-    <p:PythonScope OperationTimeout="{x:Null}" DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="376,634" sap2010:WorkflowViewState.IdRef="PythonScope_1" Path="[PythonPath]" WorkingFolder="[WorkingFolder]">
+    <Sequence DisplayName="Get Python Version from PythonPath" sap:VirtualizedContainerService.HintSize="759,353" sap2010:WorkflowViewState.IdRef="Sequence_19">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[str_input]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[PythonPath]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[str_output]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Match(str_input,"(\d.*[0-9])").Value.Trim]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[str_output]" />
+    </Sequence>
+    <p:PythonScope OperationTimeout="{x:Null}" DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="759,3403" sap2010:WorkflowViewState.IdRef="PythonScope_1" Path="[PythonPath]" WorkingFolder="[WorkingFolder]">
       <p:PythonScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="PythonEngineSessionProperty" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="242,598" sap2010:WorkflowViewState.IdRef="Sequence_1">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="725,3367" sap2010:WorkflowViewState.IdRef="Sequence_1">
             <Sequence.Variables>
               <Variable x:TypeArguments="p:PythonObject" Name="Python_result" />
               <Variable x:TypeArguments="p:PythonObject" Name="MineResult" />
               <Variable x:TypeArguments="p:PythonObject" Name="SHA256Res" />
               <Variable x:TypeArguments="x:String" Name="FinalResult" />
+              <Variable x:TypeArguments="x:Boolean" Name="python27" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -132,7 +157,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <TryCatch DisplayName="Car Test" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="TryCatch_9">
+            <TryCatch DisplayName="Car Test" sap:VirtualizedContainerService.HintSize="683,51" sap2010:WorkflowViewState.IdRef="TryCatch_9">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -177,7 +202,7 @@
                 </Catch>
               </TryCatch.Catches>
             </TryCatch>
-            <TryCatch DisplayName="DateTimeScript" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+            <TryCatch DisplayName="DateTimeScript" sap:VirtualizedContainerService.HintSize="683,51" sap2010:WorkflowViewState.IdRef="TryCatch_1">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -222,7 +247,7 @@
                 </Catch>
               </TryCatch.Catches>
             </TryCatch>
-            <TryCatch DisplayName="FindAll .txt files in current dir" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="TryCatch_7">
+            <TryCatch DisplayName="FindAll .txt files in current dir" sap:VirtualizedContainerService.HintSize="683,51" sap2010:WorkflowViewState.IdRef="TryCatch_7">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -267,7 +292,7 @@
                 </Catch>
               </TryCatch.Catches>
             </TryCatch>
-            <TryCatch DisplayName="Serialize data" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="TryCatch_8">
+            <TryCatch DisplayName="Serialize data" sap:VirtualizedContainerService.HintSize="683,51" sap2010:WorkflowViewState.IdRef="TryCatch_8">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -312,10 +337,10 @@
                 </Catch>
               </TryCatch.Catches>
             </TryCatch>
-            <TryCatch DisplayName="TestStringMethods" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="TryCatch_10">
+            <TryCatch DisplayName="TestStringMethods" sap:VirtualizedContainerService.HintSize="683,790" sap2010:WorkflowViewState.IdRef="TryCatch_10">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
@@ -357,138 +382,170 @@
                 </Catch>
               </TryCatch.Catches>
             </TryCatch>
-            <TryCatch DisplayName="SHA Encryption" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="TryCatch_6">
+            <Assign sap:VirtualizedContainerService.HintSize="683,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[python27]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">[str_output.Contains("27")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[python27=True]" DisplayName="If Python version is 27" sap:VirtualizedContainerService.HintSize="683,1981" sap2010:WorkflowViewState.IdRef="If_2">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <TryCatch.Try>
-                <Sequence sap:VirtualizedContainerService.HintSize="382,1607" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <If.Then>
+                <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Python SHA avoided&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Python Script SHA avoided" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_15" />
+              </If.Then>
+              <If.Else>
+                <TryCatch DisplayName="SHA Encryption" sap:VirtualizedContainerService.HintSize="438,1834" sap2010:WorkflowViewState.IdRef="TryCatch_6">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="340,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="Restart">
-                    <InvokeMethod.TargetObject>
-                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
-                    </InvokeMethod.TargetObject>
-                  </InvokeMethod>
-                  <p:LoadScript Code="{x:Null}" DisplayName="Load Python Script" sap:VirtualizedContainerService.HintSize="340,59" sap2010:WorkflowViewState.IdRef="LoadScript_3" Result="[Python_result]" ScriptFile="mineBTC.py" />
-                  <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="340,191" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
-                    <ui:MultipleAssign.AssignOperations>
-                      <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
-                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
-                          <ui:AssignOperation.To>
-                            <OutArgument x:TypeArguments="s:Int32[]">[numberOfZeros]</OutArgument>
-                          </ui:AssignOperation.To>
-                          <ui:AssignOperation.Value>
-                            <InArgument x:TypeArguments="s:Int32[]">[NumberofZeros]</InArgument>
-                          </ui:AssignOperation.Value>
-                        </ui:AssignOperation>
-                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
-                          <ui:AssignOperation.To>
-                            <OutArgument x:TypeArguments="x:String">[transactions]</OutArgument>
-                          </ui:AssignOperation.To>
-                          <ui:AssignOperation.Value>
-                            <InArgument x:TypeArguments="x:String">Dan-&gt;Vlad-&gt;20, Vlad-&gt;Dan-&gt;45</InArgument>
-                          </ui:AssignOperation.Value>
-                        </ui:AssignOperation>
-                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
-                          <ui:AssignOperation.To>
-                            <OutArgument x:TypeArguments="x:String">[previous_hash]</OutArgument>
-                          </ui:AssignOperation.To>
-                          <ui:AssignOperation.Value>
-                            <InArgument x:TypeArguments="x:String">0000000xa036944e29568d0cff17edbe038f81208fecf9a66be9a2b8321c6ec7</InArgument>
-                          </ui:AssignOperation.Value>
-                        </ui:AssignOperation>
-                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
-                          <ui:AssignOperation.To>
-                            <OutArgument x:TypeArguments="x:Int32">[block_number]</OutArgument>
-                          </ui:AssignOperation.To>
-                          <ui:AssignOperation.Value>
-                            <InArgument x:TypeArguments="x:Int32">5</InArgument>
-                          </ui:AssignOperation.Value>
-                        </ui:AssignOperation>
-                      </scg:List>
-                    </ui:MultipleAssign.AssignOperations>
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                  </ui:MultipleAssign>
-                  <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="340,773" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[numberOfZeros]">
-                    <ui:ForEach.Body>
-                      <ActivityAction x:TypeArguments="x:Int32">
+                  <TryCatch.Try>
+                    <Sequence sap:VirtualizedContainerService.HintSize="382,1607" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="s:Int32[]" Name="numberOfZeros" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="340,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="Restart">
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                        </InvokeMethod.TargetObject>
+                      </InvokeMethod>
+                      <p:LoadScript Code="{x:Null}" DisplayName="Load Python Script" sap:VirtualizedContainerService.HintSize="340,59" sap2010:WorkflowViewState.IdRef="LoadScript_3" Result="[Python_result]" ScriptFile="mineBTC.py" />
+                      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="340,191" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                        <ui:MultipleAssign.AssignOperations>
+                          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="s:Int32[]">[numberOfZeros]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="s:Int32[]">[{2,3,4,5}]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[transactions]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">Dan-&gt;Vlad-&gt;20, Vlad-&gt;Dan-&gt;45</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[previous_hash]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">0000000xa036944e29568d0cff17edbe038f81208fecf9a66be9a2b8321c6ec7</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:Int32">[block_number]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:Int32">5</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                          </scg:List>
+                        </ui:MultipleAssign.AssignOperations>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:MultipleAssign>
+                      <ui:ForEach x:TypeArguments="x:Int32" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="340,773" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[numberOfZeros]">
+                        <ui:ForEach.Body>
+                          <ActivityAction x:TypeArguments="x:Int32">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="x:Int32" Name="item" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,640" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Int32">[prefix_zeros]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Int32">[item]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <p:InvokeMethod DisplayName="Invoke Python Method" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" Instance="[Python_result]" Name="SHA256" Parameters="[{&quot;ascii&quot;}]" Result="[SHA256Res]" />
+                              <p:InvokeMethod DisplayName="Invoke Python Method" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" Instance="[Python_result]" Name="mine" Parameters="[{block_number,transactions,previous_hash,prefix_zeros}]" Result="[MineResult]" />
+                              <p:GetObject x:TypeArguments="x:String" DisplayName="Get Python Object" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="GetObject`1_2" PythonObject="[MineResult]" Result="[FinalResult]" />
+                              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[FinalResult]" />
+                              <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="s:DateTime">[end_time]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="s:DateTime">[DateTime.Now()]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[end_time.ToString]" />
+                            </Sequence>
+                          </ActivityAction>
+                        </ui:ForEach.Body>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:ForEach>
+                      <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="340,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_6" MethodName="Stop">
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                        </InvokeMethod.TargetObject>
+                      </InvokeMethod>
+                      <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Python SHA Encryption script loaded&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Load Python Script - SHA Encryption" sap:VirtualizedContainerService.HintSize="340,22" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
+                    </Sequence>
+                  </TryCatch.Try>
+                  <TryCatch.Catches>
+                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ActivityAction x:TypeArguments="s:Exception">
                         <ActivityAction.Argument>
-                          <DelegateInArgument x:TypeArguments="x:Int32" Name="item" />
+                          <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                         </ActivityAction.Argument>
-                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,640" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                        <Sequence sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_20">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
-                            <Assign.To>
-                              <OutArgument x:TypeArguments="x:Int32">[prefix_zeros]</OutArgument>
-                            </Assign.To>
-                            <Assign.Value>
-                              <InArgument x:TypeArguments="x:Int32">[item]</InArgument>
-                            </Assign.Value>
-                          </Assign>
-                          <p:InvokeMethod DisplayName="Invoke Python Method" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" Instance="[Python_result]" Name="SHA256" Parameters="[{&quot;ascii&quot;}]" Result="[SHA256Res]" />
-                          <p:InvokeMethod DisplayName="Invoke Python Method" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" Instance="[Python_result]" Name="mine" Parameters="[{block_number,transactions,previous_hash,prefix_zeros}]" Result="[MineResult]" />
-                          <p:GetObject x:TypeArguments="x:String" DisplayName="Get Python Object" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="GetObject`1_2" PythonObject="[MineResult]" Result="[FinalResult]" />
-                          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[FinalResult]" />
-                          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
-                            <Assign.To>
-                              <OutArgument x:TypeArguments="s:DateTime">[end_time]</OutArgument>
-                            </Assign.To>
-                            <Assign.Value>
-                              <InArgument x:TypeArguments="s:DateTime">[DateTime.Now()]</InArgument>
-                            </Assign.Value>
-                          </Assign>
-                          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[end_time.ToString]" />
+                          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed load script SHA Encryption&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed script load SHA Encryption" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_4" />
                         </Sequence>
                       </ActivityAction>
-                    </ui:ForEach.Body>
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                  </ui:ForEach>
-                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="340,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_6" MethodName="Stop">
-                    <InvokeMethod.TargetObject>
-                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
-                    </InvokeMethod.TargetObject>
-                  </InvokeMethod>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Python SHA Encryption script loaded&quot;,stw.Elapsed.TotalSeconds,True}]" DataTable="[DataTable]" DisplayName="Load Python Script - SHA Encryption" sap:VirtualizedContainerService.HintSize="340,22" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
-                </Sequence>
-              </TryCatch.Try>
-              <TryCatch.Catches>
-                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                  <ActivityAction x:TypeArguments="s:Exception">
-                    <ActivityAction.Argument>
-                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
-                    </ActivityAction.Argument>
-                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed load script SHA Encryption&quot;,stw.Elapsed.TotalSeconds,False,exception,exception.GetType}]" DataTable="[DataTable]" DisplayName="Failed script load SHA Encryption" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_4" />
-                  </ActivityAction>
-                </Catch>
-              </TryCatch.Catches>
-            </TryCatch>
+                    </Catch>
+                  </TryCatch.Catches>
+                </TryCatch>
+              </If.Else>
+            </If>
           </Sequence>
         </ActivityAction>
       </p:PythonScope.Body>
@@ -499,7 +556,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </p:PythonScope>
-    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="376,66" sap2010:WorkflowViewState.IdRef="Sequence_11">
+    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="759,66" sap2010:WorkflowViewState.IdRef="Sequence_11">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -539,32 +596,7 @@
         </Assign.Value>
       </Assign>
     </Sequence>
-    <Sequence DisplayName="Get Python Version from PythonPath" sap:VirtualizedContainerService.HintSize="376,66" sap2010:WorkflowViewState.IdRef="Sequence_12">
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-          <x:Boolean x:Key="IsPinned">False</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_7">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:String">[str_input]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:String">[PythonPath]</InArgument>
-        </Assign.Value>
-      </Assign>
-      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_8">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:String">[str_output]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Match(str_input,"(\d.*[0-9])").Value.Trim]</InArgument>
-        </Assign.Value>
-      </Assign>
-      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="262,61" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[str_output]" />
-    </Sequence>
-    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="376,606" sap2010:WorkflowViewState.IdRef="Sequence_14">
+    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="759,606" sap2010:WorkflowViewState.IdRef="Sequence_14">
       <Sequence.Variables>
         <Variable x:TypeArguments="sxl:XElement" Name="xmlRows" />
         <Variable x:TypeArguments="sxl:XElement" Name="xmlDocument" />
