@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="../Java.build.props" />
+  <Import Project="..\..\Shared\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Java\</OutputPath>
@@ -12,5 +13,6 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
     <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
   </ItemGroup>
 </Project>

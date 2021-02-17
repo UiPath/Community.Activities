@@ -35,6 +35,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  <Import Project="..\..\Shared\Java.build.props" />
+  <PropertyGroup>
     <TargetFrameworks>net461</TargetFrameworks>
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
