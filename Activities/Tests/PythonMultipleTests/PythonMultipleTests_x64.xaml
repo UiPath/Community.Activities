@@ -387,7 +387,7 @@
                 <OutArgument x:TypeArguments="x:Boolean">[python27]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:Boolean">[str_output.Contains("27")]</InArgument>
+                <InArgument x:TypeArguments="x:Boolean">[str_output.Contains("27") or str_output.Contains("2.7")]</InArgument>
               </Assign.Value>
             </Assign>
             <If Condition="[python27=True]" DisplayName="If Python version is 27" sap:VirtualizedContainerService.HintSize="683,1988" sap2010:WorkflowViewState.IdRef="If_1">
