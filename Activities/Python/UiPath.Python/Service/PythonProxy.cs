@@ -1,48 +1,192 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ServiceModel;
-using UiPath.Shared.Service.Client;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Pipes;
+using System.Text;
+using System.Threading;
+using UiPath.Shared.Service;
 
 namespace UiPath.Python.Service
 {
-    [ServiceContract(Namespace = "http://UiPath.Python.Host")]
-    internal class PythonProxy : Proxy<IPythonService>, IPythonService
+    internal class PythonProxy : IPythonService
     {
-        internal PythonProxy(string endpoint, double timeout) : base(endpoint,
-                                                                     timeout)
+        #region Constants
+
+        private static readonly Encoding _utf8Encoding = new UTF8Encoding(false);
+
+        private const int _defaultBufferSize = 1 << 15;
+
+        #endregion Constants
+
+        private NamedPipeClientStream ClientStream { get; set; }
+        private double Timeout { get; set; }
+        private CancellationToken Token { get; set; }
+
+        internal PythonProxy(NamedPipeClientStream endpoint, double timeout, CancellationToken cancellationToken)
         {
+            ClientStream = endpoint;
+            Timeout = timeout;
+            Token = cancellationToken;
         }
 
         #region Service methods
+
         public Argument Convert(Guid obj, string t)
         {
-            return _channel.Convert(obj, t);
+            var request = new PythonRequest()
+            {
+                RequestType = RequestType.Convert,
+                Instance = obj,
+                Type = t
+            };
+
+            PythonResponse response = RequestAsync(request, Token);
+            Token.ThrowIfCancellationRequested();
+            response.ThrowExceptionIfNeeded();
+            return response.Argument;
         }
 
         public void Execute(string code)
         {
-            _channel.Execute(code);
+            var request = new PythonRequest()
+            {
+                RequestType = RequestType.Execute,
+                Code = code
+            };
+
+            PythonResponse response = RequestAsync(request, Token);
+            Token.ThrowIfCancellationRequested();
+            response.ThrowExceptionIfNeeded();
         }
 
         public void Initialize(string path, Version version, string workingFolder)
         {
-            _channel.Initialize(path, version, workingFolder);
+            var request = new PythonRequest()
+            {
+                RequestType = RequestType.Initialize,
+                ScriptPath = path,
+                PythonVersion = version.ToString(),
+                WorkingFolder = workingFolder
+            };
+
+            PythonResponse response = RequestAsync(request, Token);
+            Token.ThrowIfCancellationRequested();
+            response.ThrowExceptionIfNeeded();
         }
 
         public Guid InvokeMethod(Guid instance, string method, IEnumerable<Argument> args)
         {
-            return _channel.InvokeMethod(instance, method, args);
+            var request = new PythonRequest()
+            {
+                RequestType = RequestType.InvokeMethod,
+                Instance = instance,
+                Method = method,
+                Arguments = args
+            };
+
+            PythonResponse response = RequestAsync(request, Token);
+            Token.ThrowIfCancellationRequested();
+            response.ThrowExceptionIfNeeded();
+            return response.Guid;
         }
 
         public Guid LoadScript(string code)
         {
-            return _channel.LoadScript(code);
+            var request = new PythonRequest()
+            {
+                RequestType = RequestType.LoadScript,
+                Code = code
+            };
+
+            PythonResponse response = RequestAsync(request, Token);
+
+            Token.ThrowIfCancellationRequested();
+
+            Trace.TraceInformation("LoadScript Guid:: " + response.Guid);
+
+            return response.Guid;
         }
 
         public void Shutdown()
         {
-            _channel.Shutdown();
+            var request = new PythonRequest()
+            {
+                RequestType = RequestType.Shutdown
+            };
+
+            PythonResponse response = RequestAsync(request, Token);
+
+            Token.ThrowIfCancellationRequested();
         }
-        #endregion
+
+        #endregion Service methods
+
+        /// <summary>
+        /// Writes the serialized Python request to the named pipe. Waits from the request to be read on Python side.
+        /// Then reads the response from python(json) an deserializes it to PythonRespnse
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public PythonResponse RequestAsync(PythonRequest request, CancellationToken ct)
+        {
+            using (CancellationTokenRegistration ctr = ct.Register(() => OnCancellationRequested()))
+            {
+                using (var streamWriter = new StreamWriter(ClientStream, _utf8Encoding, _defaultBufferSize,
+                                                           leaveOpen: true)
+                { AutoFlush = true })
+                {
+                    Trace.TraceInformation("Sending information to Python.");
+                    streamWriter.WriteLine(request.Serialize());
+                }
+
+                ct.ThrowIfCancellationRequested();
+                ClientStream.WaitForPipeDrain();
+
+                using (var streamReader = new StreamReader(ClientStream, _utf8Encoding, false, _defaultBufferSize,
+                                                           leaveOpen: true))
+                {
+                    return PythonResponse.Deserialize(streamReader.ReadLine());
+                }
+            }
+        }
+
+        #region Dispose Methods
+
+        private void OnCancellationRequested()
+        {
+            OnPipeDisposed();
+            OnProcessDisposed();
+        }
+
+        public void Dispose()
+        {
+            OnPipeDisposed();
+            OnProcessDisposed();
+            GC.SuppressFinalize(this);
+        }
+
+        public void OnPipeDisposed()
+        {
+            if (ClientStream != null && ClientStream.IsConnected)
+            {
+                ClientStream?.Close();
+            }
+            ClientStream?.Close();
+            ClientStream?.Dispose();
+            ClientStream = null;
+        }
+
+        public void OnProcessDisposed()
+        {
+        }
+
+        ~PythonProxy()
+        {
+            Dispose();
+        }
+
+        #endregion Dispose Methods
     }
 }
