@@ -24,7 +24,6 @@ namespace UiPath.Python.Activities
         public LocalizedDisplayNameAttribute(string displayName)
             : base(displayName)
         {
-
         }
 
         public override string DisplayName
@@ -42,7 +41,6 @@ namespace UiPath.Python.Activities
         public LocalizedDescriptionAttribute(string displayName)
             : base(displayName)
         {
-
         }
 
         public override string Description
