@@ -75,6 +75,10 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
+    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+    <PackageReference Include="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Python\UiPath.Python.Activities.Design\UiPath.Python.Activities.Design.csproj">
