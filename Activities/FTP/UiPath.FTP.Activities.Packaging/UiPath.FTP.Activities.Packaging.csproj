@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Shared\FTP.build.props" />
+  <PropertyGroup>
+    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\FTP\</OutputPath>
+    <VersionSuffix></VersionSuffix>
+    <!--leave empty for ci to replace with prelease tag-->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>UiPath.FTP.Activities</PackageId>
+    <PackageTitle>UiPath.FTP.Activities</PackageTitle>
+    <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
+    <PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-ftp-activities-pack</PackageLicenseUrl>
+    <Description>UiPath FTP Activities Pack</Description>
+    <Authors>UiPath</Authors>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
+    <ItemGroup>
+      <BuiltProjectOutputGroupOutput Remove="@(BuiltProjectOutputGroupOutput)" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="FluentFTP" Version="19.1.2" />
+    <PackageReference Include="SSH.NET" Version="2016.1.0" />
+  </ItemGroup>
+  
+  <Target Name="AddDlls">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.dll" />
+
+    </ItemGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
+
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+    <PackageReference Include="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+    <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.FTP.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.FTP.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
+  </Target>
+</Project>
