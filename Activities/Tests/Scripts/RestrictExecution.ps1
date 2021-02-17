@@ -1,0 +1,1 @@
+﻿Set-ExecutionPolicy Restricted Currentuser

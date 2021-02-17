@@ -1,0 +1,1 @@
+﻿Write-Output "Congratulations! Your first script executed successfully" > abc.txt
