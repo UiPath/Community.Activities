@@ -27,7 +27,7 @@ namespace UiPath.Java.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Jar could not be loaded{e.ToString()}");
+                Trace.TraceError($"Jar could not be loaded{e}");
                 throw new InvalidOperationException(Resources.LoadJarException, e);
             }
 
