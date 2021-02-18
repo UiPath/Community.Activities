@@ -12,6 +12,7 @@
     <PackageTitle>UiPath.Java.Activities</PackageTitle>
     <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
     <PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-java-activities-pack</PackageLicenseUrl>
+    <PackageTags>UiPathActivities</PackageTags>
     <Description>UiPath Java Activities Pack</Description>
     <Authors>UiPath</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
