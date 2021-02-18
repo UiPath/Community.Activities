@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>GoogleSpreadsheet.Activities</id>
     <version>$version$</version>
     <title>GoogleSpreadsheet.Activities</title>
     <authors>bogdan.popescu</authors>
     <owners>bogdan.popescu</owners>
+    <tags>UiPathActivities</tags>
     <projectUrl>https://github.com/UiPath/Community.Activities</projectUrl>
     <iconUrl>https://download.uipath.com/UI_icon.png?google-spreadsheet</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
