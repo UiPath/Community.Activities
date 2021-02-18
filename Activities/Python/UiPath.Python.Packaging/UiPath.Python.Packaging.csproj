@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\Shared\Python.build.props" />
+  <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
@@ -65,10 +65,10 @@
   </Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
+    <PackageReference Include="UiPath.Workflow"/>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
+    <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Python\UiPath.Python.Activities.Design\UiPath.Python.Activities.Design.csproj">
