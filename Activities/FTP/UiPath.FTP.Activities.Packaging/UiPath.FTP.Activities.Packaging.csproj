@@ -12,6 +12,7 @@
     <PackageTitle>UiPath.FTP.Activities</PackageTitle>
     <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
     <PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-ftp-activities-pack</PackageLicenseUrl>
+    <PackageTags>UiPathActivities</PackageTags>
     <Description>UiPath FTP Activities Pack</Description>
     <Authors>UiPath</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
