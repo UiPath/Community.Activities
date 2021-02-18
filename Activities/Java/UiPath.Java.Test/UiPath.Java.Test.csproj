@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\..\Shared\Java.build.props" />
+  <Import Project="..\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461</TargetFrameworks>
     <OutputPath>bin\Release\</OutputPath>

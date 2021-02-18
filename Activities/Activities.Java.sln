@@ -13,6 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Java.Test", "Java\Ui
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Java.Activities.Packaging", "Java\UiPath.Java.Activities.Packaging\UiPath.Java.Activities.Packaging.csproj", "{BC8E6BDF-B0F8-4E23-8982-0F3852573AEC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{871CD9F5-AE6C-4C8B-9BE8-B1F1BBC0C8F0}"
+	ProjectSection(SolutionItems) = preProject
+		..\Directory.build.targets = ..\Directory.build.targets
+		Java\Java.build.props = Java\Java.build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.TestUtils", "Shared\UiPath.TestUtils\UiPath.TestUtils.csproj", "{D2C94889-1E86-4ABD-9D5E-631B3463DA86}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems*{5e102b9e-dcef-4d8b-8a02-3fdf0fcc0d59}*SharedItemsImports = 5
@@ -44,6 +52,10 @@ Global
 		{BC8E6BDF-B0F8-4E23-8982-0F3852573AEC}.Debug|AnyCPU.Build.0 = Debug|Any CPU
 		{BC8E6BDF-B0F8-4E23-8982-0F3852573AEC}.Release|AnyCPU.ActiveCfg = Release|Any CPU
 		{BC8E6BDF-B0F8-4E23-8982-0F3852573AEC}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|AnyCPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
