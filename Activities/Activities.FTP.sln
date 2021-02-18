@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.FTP.Activities", "FT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.FTP.Activities.Design", "FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj", "{7D1DC1A6-AA81-4E6A-9081-97BF21662F4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.FTP.Tests", "FTP\UiPath.FTP.Tests\UiPath.FTP.Tests.csproj", "{D35ADF63-DD01-476A-8D15-CD3FB412AE5D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{fdfc92ee-090c-4e23-9422-f90eb94c43dd}*SharedItemsImports = 4
@@ -30,6 +32,10 @@ Global
 		{7D1DC1A6-AA81-4E6A-9081-97BF21662F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D1DC1A6-AA81-4E6A-9081-97BF21662F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D1DC1A6-AA81-4E6A-9081-97BF21662F4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35ADF63-DD01-476A-8D15-CD3FB412AE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35ADF63-DD01-476A-8D15-CD3FB412AE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35ADF63-DD01-476A-8D15-CD3FB412AE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35ADF63-DD01-476A-8D15-CD3FB412AE5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
