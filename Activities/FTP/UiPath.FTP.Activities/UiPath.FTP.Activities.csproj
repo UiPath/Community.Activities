@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\..\Shared\FTP.build.props" />
+  <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
@@ -14,7 +14,7 @@
    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
+    <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   
 
