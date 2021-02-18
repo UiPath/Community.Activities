@@ -1,44 +1,47 @@
+resources:
+  repositories:
+  - repository: common
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: feature/activities_templates
+    endpoint: "GitHub connection"
+
 trigger:
+  batch: true
   branches:
     include:
-      - masters/Cryptography/*
-      - develop
-      - release/Cryptography/*
-      - support/Cryptography/*
+    - develop
+    - masters/Cryptography
+    - release/Cryptography/*
+    - support/Cryptography/*
   paths:
     include:
-      - Activities/Cryptography/*
-      - Activities/Activities.Cryptography.sln
-variables:
-  - template: vars.yml
-  - template: "../.pipelines/variables/vars.yml"
+    - Activities/Cryptography/*
+    - Activities/Activities.Cryptography.sln
 
 pr:
   branches:
     include:
-      - master
-      - develop
-      - release/*
-      - support/*
-      - feature/*
+    - develop
+    - masters/Cryptography
+    - release/Cryptography/*
+    - support/Cryptography/*
   paths:
     include:
-      - Activities/Cryptography/*
-      - Activities/Activities.Cryptography.sln
+    - Activities/Cryptography/*
+    - Activities/Activities.Cryptography.sln
 
-jobs:
-  - template: "../.pipelines/jobs/ci.yml"
+variables:
+  - template: ..\.pipelines\variables\variables.yml
+
+stages:
+  - template: Activities/stage.start.yml@common
     parameters:
-      BuildProject: "../Activities.Cryptography.sln"
-      BuildConfiguration: "Release"
-      BuildPlatform: "AnyCPU"
-      rootPath: $(Build.SourcesDirectory)\Activities\Cryptography\
-      packagesDirectory: $(Build.SourcesDirectory)\Activities\packages\
-      restoreDependencies: 
-        - "UiPath.Cryptography/UiPath.Cryptography.csproj"
-        - "UiPath.Cryptography.Activities/UiPath.Cryptography.Activities.csproj"
-      testList: 
-        - "UiPath.Cryptography.Activities.Tests/UiPath.Cryptography.Activities.Tests.csproj"        
-      versionReference: "CryptographyAssemblyInfo.cs"
-      versionNumber: ${{ variables.versionNumber }}
-      versionSuffix: ${{ variables.versionSuffix }}
+      projectName: 'Cryptography'
+      solutionPath: '$(SolutionsPath)/Activities.Cryptography.sln'
+      buildPoolName: 'activities-build'
+      testPoolName: 'activities-build'
+      sonarKeyPrefix: 'CommunityActivities'
+      sdkBuild: false
+      enableCDStages: false
+      hasQaPackages: false
