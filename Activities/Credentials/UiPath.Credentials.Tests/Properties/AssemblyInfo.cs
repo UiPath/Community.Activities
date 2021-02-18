@@ -2,18 +2,18 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("UiPath.Credential.Tests")]
+[assembly: AssemblyTitle("UiPath.Credentials.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UiPath.Credential.Tests")]
+[assembly: AssemblyProduct("UiPath.Credentials.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("d75bda83-bc47-44c4-8e57-2f9e19a2c592")]
+[assembly: Guid("d8b0d0d4-494a-4f82-9c73-d2e99f4228ab")]
 
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
