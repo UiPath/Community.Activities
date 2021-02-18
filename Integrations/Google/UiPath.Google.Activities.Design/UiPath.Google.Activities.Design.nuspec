@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>$title$</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <iconUrl>https://download.uipath.com/UI_icon.png?google</iconUrl>
+    <tags>UiPathActivities</tags>
+    <projectUrl>https://activities.uipath.com/docs/ftp</projectUrl>
+    <iconUrl>https://download.uipath.com/UI_icon.png?ftp</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
   </metadata>
