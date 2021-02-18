@@ -62,6 +62,7 @@ jobs:
         Write-Host "##vso[build.updatebuildnumber]$version"
         cd d:\robot
         .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\Python\project.json" --add-ref "UiPath.Python.Activities|$version|strict"
+        .\UiPath.Studio.CommandLine.exe manage --project-path "d:\teste\PythonMultipleTests\project.json" --add-ref "UiPath.Python.Activities|$version|strict"
 
    - template: run_python.yml
      parameters:
