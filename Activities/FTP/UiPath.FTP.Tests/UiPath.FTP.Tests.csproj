@@ -38,7 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Any CPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <OutputPath>..\..\OutputTests\FTP\</OutputPath>
   </PropertyGroup>
