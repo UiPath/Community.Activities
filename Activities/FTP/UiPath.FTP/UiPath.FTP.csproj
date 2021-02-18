@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\..\Shared\FTP.build.props" />
+  <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
@@ -14,7 +14,7 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
+    <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP" Version="19.1.2" />
