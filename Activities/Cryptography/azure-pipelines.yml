@@ -18,6 +18,8 @@ trigger:
     include:
     - Activities/Cryptography/*
     - Activities/Activities.Cryptography.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
 
 pr:
   branches:
@@ -30,6 +32,8 @@ pr:
     include:
     - Activities/Cryptography/*
     - Activities/Activities.Cryptography.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
 
 variables:
   - template: ..\.pipelines\variables\variables.yml
