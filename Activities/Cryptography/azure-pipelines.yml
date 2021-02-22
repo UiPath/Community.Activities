@@ -11,13 +11,13 @@ trigger:
   branches:
     include:
     - develop
-    - masters/Python
-    - release/Python/*
-    - support/Python/*
+    - masters/Cryptography
+    - release/Cryptography/*
+    - support/Cryptography/*
   paths:
     include:
-    - Activities/Python/*
-    - Activities/Activities.Python.sln
+    - Activities/Cryptography/*
+    - Activities/Activities.Cryptography.sln
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -25,13 +25,13 @@ pr:
   branches:
     include:
     - develop
-    - masters/Python
-    - release/Python/*
-    - support/Python/*
+    - masters/Cryptography
+    - release/Cryptography/*
+    - support/Cryptography/*
   paths:
     include:
-    - Activities/Python/*
-    - Activities/Activities.Python.sln
+    - Activities/Cryptography/*
+    - Activities/Activities.Cryptography.sln
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -41,8 +41,8 @@ variables:
 stages:
   - template: Activities/stage.start.yml@common
     parameters:
-      projectName: 'Python'
-      solutionPath: '$(SolutionsPath)/Activities.Python.sln'
+      projectName: 'Cryptography'
+      solutionPath: '$(SolutionsPath)/Activities.Cryptography.sln'
       buildPoolName: 'activities-build'
       testPoolName: 'activities-build'
       sonarKeyPrefix: 'CommunityActivities'
