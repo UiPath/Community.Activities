@@ -46,6 +46,6 @@ stages:
       buildPoolName: 'activities-build'
       testPoolName: 'activities-build'
       sonarKeyPrefix: 'CommunityActivities'
-      sdkBuild: false
+      sdkBuild: true
       enableCDStages: false
       hasQaPackages: false
