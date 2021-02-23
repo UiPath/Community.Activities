@@ -8,6 +8,18 @@
     <OutputPath>..\..\OutputTests\Python\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' ">
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UiPath.Python.Tests</RootNamespace>
+    <AssemblyName>UiPath.Python.Tests</AssemblyName>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <OutputPath>..\..\OutputTests\Python\</OutputPath>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' ">
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Any CPU' ">
