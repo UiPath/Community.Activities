@@ -1,7 +1,5 @@
-﻿using System.Reflection;
-
-#if DEBUG
-[assembly: AssemblyVersion("1.5.*")]
+﻿#if DEBUG
+//[assembly: AssemblyVersion("1.5.*")]
 #else
 [assembly: AssemblyVersion("1.5.0")]
 #endif

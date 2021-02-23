@@ -3,13 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database", "Database\UiPath.Database\UiPath.Database.csproj", "{BD4850CC-23BF-4BEA-933E-F1FD7C692451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database", "Database\UiPath.Database\UiPath.Database.csproj", "{BD4850CC-23BF-4BEA-933E-F1FD7C692451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Activities", "Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj", "{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Activities", "Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj", "{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Activities.Design", "Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj", "{AE083078-F322-408C-ABFC-F2C89BA8DE63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Activities.Design", "Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj", "{AE083078-F322-408C-ABFC-F2C89BA8DE63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Tests", "Database\UiPath.Database.Tests\UiPath.Database.Tests.csproj", "{4F6DE5DC-1E17-4713-AF82-BE99643D5326}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Tests", "Database\UiPath.Database.Tests\UiPath.Database.Tests.csproj", "{4F6DE5DC-1E17-4713-AF82-BE99643D5326}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{73A1A2F6-3B6D-4CAA-A6E2-1FBD34FD0312}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.build.targets = Directory.build.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Activities.Packaging", "Database\UiPath.Database.Activities.Packaging\UiPath.Database.Activities.Packaging.csproj", "{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +40,10 @@ Global
 		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
