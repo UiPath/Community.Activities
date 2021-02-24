@@ -1,7 +1,7 @@
 name: Java tests $(Date:yyyyMMdd)$(Rev:.r)
 variables:
 - group: Secrets
-
+ 
 jobs:
 - job: Run_Java_Integration_Tests
   pool:
