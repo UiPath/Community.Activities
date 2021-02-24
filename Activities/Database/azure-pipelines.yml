@@ -43,8 +43,6 @@ stages:
     parameters:
       projectName: 'Database'
       solutionPath: '$(SolutionsPath)/Activities.Database.sln'
-      buildPoolName: 'activities-build'
-      testPoolName: 'activities-build'
       sonarKeyPrefix: 'CommunityActivities'
       sdkBuild: true
       enableCDStages: false
