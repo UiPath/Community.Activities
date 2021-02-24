@@ -43,8 +43,6 @@ stages:
     parameters:
       projectName: 'Java'
       solutionPath: '$(SolutionsPath)/Activities.Java.sln'
-      buildPoolName: 'activities-build'
-      testPoolName: 'activities-build'
       sonarKeyPrefix: 'CommunityActivities'
       sdkBuild: true
       enableCDStages: false
