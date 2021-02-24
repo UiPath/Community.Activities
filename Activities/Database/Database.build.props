@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <Company>UiPath</Company>
-    <Copyright>© UiPath</Copyright>
+    <Copyright>Â© UiPath</Copyright>
     <VersionPrefix>1.5.0</VersionPrefix>
   </PropertyGroup>
 </Project>
