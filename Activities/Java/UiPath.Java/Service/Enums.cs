@@ -1,6 +1,6 @@
 ﻿
 namespace UiPath.Java.Service
-{
+{ 
     #region Request Type
 
     internal enum RequestType
