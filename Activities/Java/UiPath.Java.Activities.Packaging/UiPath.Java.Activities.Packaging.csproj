@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Java.build.props" />
-  <Import Project="..\..\Shared\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
