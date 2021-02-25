@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\FTP.build.props" />
-  <Import Project="..\..\Shared\FTP.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\FTP\</OutputPath>
@@ -50,7 +49,7 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities.Core.Presentation"  />
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
+    <PackageReference Include="UiPath.Workflow"/>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities.Core.Presentation"  />
