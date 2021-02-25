@@ -2,12 +2,13 @@
   <Import Project="..\Java.build.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <ProjectGuid>{49C33D77-EADB-4F07-A1A2-91B88F531E8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>UiPath.Java.Test</RootNamespace>
     <AssemblyName>UiPath.Java.Test</AssemblyName>
     <TargetFrameworks>net461</TargetFrameworks>
+    <OutputPath>..\..\OutputTests\Java\</OutputPath>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
