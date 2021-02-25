@@ -41,7 +41,7 @@ namespace UiPath.Database.Activities
         public OutArgument<DatabaseConnection> DatabaseConnection { get; set; }
 
         [Browsable(false)]
-        public Activity Body { get; set; }
+        public System.Activities.Activity Body { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.UseTransactionDisplayName))]
         public bool UseTransaction { get; set; }
