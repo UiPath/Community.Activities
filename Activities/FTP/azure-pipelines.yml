@@ -43,9 +43,7 @@ stages:
     parameters:
       projectName: 'FTP'
       solutionPath: '$(SolutionsPath)/Activities.FTP.sln'
-      buildPoolName: 'activities-build'
-      testPoolName: 'activities-build'
       sonarKeyPrefix: 'CommunityActivities'
-      sdkBuild: false
+      sdkBuild: true
       enableCDStages: false
       hasQaPackages: false
