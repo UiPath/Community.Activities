@@ -6,6 +6,7 @@
     <Product>UiPath.Python.Tests</Product>
     <Copyright>Copyright ©  2018</Copyright>
     <OutputPath>..\..\OutputTests\Python\</OutputPath>
+   
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' ">
     <OutputType>Library</OutputType>
@@ -38,6 +39,9 @@ xcopy "$(ProjectDir)..\..\Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y</PostBuil
     <PostBuildEvent>xcopy "$(ProjectDir)..\..\Python\3rdparty\*" "$(TargetDir)x86\" /Y
 xcopy "$(ProjectDir)..\..\Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y</PostBuildEvent>-->
   </PropertyGroup>
+</PropertyGroup>
+   
+  
   <ItemGroup>
     <PackageReference Include="EmguCV-UiPath" Version="3.2.0.2721" />
     <PackageReference Include="Validation" Version="2.4.18" />
@@ -111,4 +115,9 @@ xcopy "$(ProjectDir)..\..\Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y</PostBuil
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+ <PropertyGroup>
+    <PostBuildEvent>xcopy "$(SolutionDir)Python\3rdparty\*" "$(TargetDir)x86\" /Y
+xcopy "$(SolutionDir)Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y</PostBuildEvent>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
 </Project>

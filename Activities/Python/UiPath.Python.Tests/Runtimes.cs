@@ -45,6 +45,7 @@ namespace UiPath.Python.Tests
             "    print(obj)",
             "    return obj"
         );
+
         private readonly string _unicodeTestScript = string.Join(
             Environment.NewLine,
             "def test():",
@@ -72,7 +73,7 @@ namespace UiPath.Python.Tests
             "    return 'no_param'"
         );
 
-        #endregion
+        #endregion Test scripts
 
         #region Runtimes
 
@@ -158,7 +159,7 @@ namespace UiPath.Python.Tests
 
         public static IEnumerable<object[]> AllEngines = X86Engines.Union(X64Engines);
 
-        #endregion
+        #endregion Runtimes
 
         #region Test cases
 
@@ -223,9 +224,10 @@ namespace UiPath.Python.Tests
             await RunUnicodeTests(path, version, false, target);
         }
 
-        #endregion
+        #endregion Test cases
 
         #region Actual tests to run
+
         private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
@@ -261,7 +263,6 @@ namespace UiPath.Python.Tests
             var pyScript = await engine.LoadScript(_unicodeTestScript, _ct);
             var resNoParam = await engine.InvokeMethod(pyScript, "test", null, _ct);
             Assert.Equal("´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû", engine.Convert(resNoParam, typeof(string)));
-
         }
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
@@ -294,6 +295,6 @@ namespace UiPath.Python.Tests
             return Directory.Exists(path);
         }
 
-        #endregion
+        #endregion Actual tests to run
     }
 }

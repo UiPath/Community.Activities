@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="..\Python.build.props" />
-  <Import Project="..\..\Shared\Python.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Python\</OutputPath>
@@ -20,7 +19,6 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
     <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\UiPath.Python.fr.resx">
