@@ -104,6 +104,43 @@ xcopy "$(ProjectDir)..\..\Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y</PostBuil
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EmguCV-UiPath" Version="3.2.0.2721" />
+    <PackageReference Include="Validation" Version="2.4.18" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
+    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="xunit.assert" Version="2.4.0" />
+    <PackageReference Include="xunit.core" Version="2.4.0" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.0" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Xunit.SkippableFact" Version="1.3.12" />
+    <PackageReference Include="ZedGraph" Version="5.1.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EmguCV-UiPath" Version="3.2.0.2721" />
+    <PackageReference Include="Validation" Version="2.4.18" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
+    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="xunit.assert" Version="2.4.0" />
+    <PackageReference Include="xunit.core" Version="2.4.0" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.0" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Xunit.SkippableFact" Version="1.3.12" />
+    <PackageReference Include="ZedGraph" Version="5.1.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Shared\UiPath.TestUtils\UiPath.TestUtils.csproj" />
     <ProjectReference Include="..\UiPath.Python.Host32\UiPath.Python.Host32.csproj" />
     <ProjectReference Include="..\UiPath.Python.Host\UiPath.Python.Host.csproj" />
