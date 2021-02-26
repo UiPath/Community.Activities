@@ -4,6 +4,18 @@
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
+    <ProjectGuid>{BD4850CC-23BF-4BEA-933E-F1FD7C692451}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UiPath.Database</RootNamespace>
+    <AssemblyName>UiPath.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />

@@ -65,7 +65,7 @@ namespace UiPath.Java.Service
 
             catch (Exception e)
             {
-                Trace.TraceError($"Java process has stopped: {e.ToString()}");
+                Trace.TraceError($"Java process has stopped: {e}");
                 throw;
             }
         }
