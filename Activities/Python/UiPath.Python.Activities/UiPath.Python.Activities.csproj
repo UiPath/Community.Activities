@@ -1,92 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <Import Project="..\Python.build.props" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E270608B-BA9E-4972-A18E-34B93E6552B4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UiPath.Python.Activities</RootNamespace>
-    <AssemblyName>UiPath.Python.Activities</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <PackageId>.noconflict</PackageId>
+    <TargetFrameworks>net461;net5.0</TargetFrameworks>
+    <OutputPath>..\..\Output\Activities\Python\</OutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\Output\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\Output\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet />
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Core" />
+  <!--<PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
+  </PropertyGroup>-->
+  <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Activities" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\PythonPackageVersion.cs">
-      <Link>Properties\PythonPackageVersion.cs</Link>
-    </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="InvokeMethod.cs" />
-    <Compile Include="GetObject.cs" />
-    <Compile Include="LoadScript.cs" />
-    <Compile Include="RunScript.cs" />
-    <Compile Include="Localization.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.cs" />
-    <Compile Include="Properties\UiPath.Python.Activities.Designer.cs">
+    <Compile Update="Properties\UiPath.Python.Activities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </Compile>
-    <Compile Include="PythonActivity.cs" />
-    <Compile Include="PythonScope.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj">
-      <Project>{a1783eab-5baf-49f1-8372-b467b57063cc}</Project>
-      <Name>UiPath.Python</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\UiPath.Python.Activities.fr.resx">
+    <EmbeddedResource Update="Properties\UiPath.Python.Activities.fr.resx">
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\UiPath.Python.Activities.ja.resx">
+    <EmbeddedResource Update="Properties\UiPath.Python.Activities.ja.resx">
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\UiPath.Python.Activities.ru.resx">
+    <EmbeddedResource Update="Properties\UiPath.Python.Activities.ru.resx">
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\UiPath.Python.Activities.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UiPath.Python.Activities.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +48,4 @@
       <Link>RecognizedWordsDictionary.xml</Link>
     </CodeAnalysisDictionary>
   </ItemGroup>
-  <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
-  </PropertyGroup>
 </Project>

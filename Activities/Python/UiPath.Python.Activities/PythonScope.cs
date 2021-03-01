@@ -15,7 +15,6 @@ namespace UiPath.Python.Activities
     [LocalizedDescription(nameof(Resources.PythonScopeDescription))]
     public class PythonScope : AsyncTaskNativeActivity
     {
-
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.VersionNameDisplayName))]
@@ -51,6 +50,7 @@ namespace UiPath.Python.Activities
         public ActivityAction<object> Body { get; set; }
 
         #region TODO: decide if these will be exposed
+
         [Browsable(false)]
         [LocalizedCategory(nameof(Resources.Input))]
         [DefaultValue(false)]
@@ -60,12 +60,13 @@ namespace UiPath.Python.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [DefaultValue(true)]
         public bool Isolated { get; set; } = true;
-        #endregion
+
+        #endregion TODO: decide if these will be exposed
 
         private const string PythonEngineSessionProperty = "PythonEngineSessionProperty";
         private IEngine _pythonEngine = null;
 
-        internal static IEngine GetPythonEngine(ActivityContext context)
+        internal static IEngine GetPythonEngine(System.Activities.ActivityContext context)
         {
             IEngine engine = context.DataContext.GetProperties()[PythonEngineSessionProperty]?.GetValue(context.DataContext) as IEngine;
             if (engine == null)
@@ -73,7 +74,6 @@ namespace UiPath.Python.Activities
                 throw new InvalidOperationException(Resources.PythonEngineNotFoundException);
             }
             return engine;
-
         }
 
         public PythonScope()
@@ -113,7 +113,7 @@ namespace UiPath.Python.Activities
             }
 
             var operationTimeout = OperationTimeout.Get(context);
-            
+
             try
             {
                 await _pythonEngine.Initialize(workingFolder, cancellationToken, operationTimeout);

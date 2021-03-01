@@ -43,9 +43,7 @@ stages:
     parameters:
       projectName: 'Python'
       solutionPath: '$(SolutionsPath)/Activities.Python.sln'
-      buildPoolName: 'activities-build'
-      testPoolName: 'activities-build'
       sonarKeyPrefix: 'CommunityActivities'
-      sdkBuild: false
+      sdkBuild: true
       enableCDStages: false
       hasQaPackages: false
