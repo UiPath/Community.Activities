@@ -29,6 +29,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoHotkey.Interop", "Script\AutoHotkey.Interop\AutoHotkey.Interop.csproj", "{2869DBFE-7762-4930-95EA-2B0C111CF353}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Credentials", "Credentials", "{D5226852-11EA-497E-9C0E-DFFCB97E9BB6}"
+	ProjectSection(SolutionItems) = preProject
+		Credentials\Credentials.build.props = Credentials\Credentials.build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Credentials.Activities", "Credentials\UiPath.Credentials.Activities\UiPath.Credentials.Activities.csproj", "{ACB02213-A7C2-4BCA-ACE2-2BFAD6E0E54C}"
 EndProject
@@ -117,6 +120,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Directory.build.targets = Directory.build.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Credentials.Packages", "Credentials\UiPath.Credentials.Packages\UiPath.Credentials.Packages.csproj", "{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -435,6 +440,14 @@ Global
 		{295E416D-1205-4E63-8CF7-9F208F69998B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{295E416D-1205-4E63-8CF7-9F208F69998B}.Release|x64.ActiveCfg = Release|Any CPU
 		{295E416D-1205-4E63-8CF7-9F208F69998B}.Release|x64.Build.0 = Release|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Debug|x64.Build.0 = Debug|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Release|x64.ActiveCfg = Release|Any CPU
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -481,6 +494,7 @@ Global
 		{7523A53E-53E2-49BE-9949-6046A924133C} = {C94C49B6-DB81-47C2-BD39-72376423F2F0}
 		{A7A55BF0-E178-4BF0-9C4C-DFA7F8B6DDC4} = {099CA148-FA0A-44E4-8C8A-CAF7B106897E}
 		{295E416D-1205-4E63-8CF7-9F208F69998B} = {913E6ED1-5915-4C4C-85BE-94E8CEE315FF}
+		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F} = {D5226852-11EA-497E-9C0E-DFFCB97E9BB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80E44DEF-976F-46BF-9DD8-F07334768E20}
