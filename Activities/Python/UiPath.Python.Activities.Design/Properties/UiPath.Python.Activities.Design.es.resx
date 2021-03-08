@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CategoryAppInvoker" xml:space="preserve">
-    <value>Invocateur d’appli</value>
+    <value>Solicitante de aplicaciones</value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>Python</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NombreParaMostrar</value>
     <comment>property name</comment>
   </data>
   <data name="DropActivityHere" xml:space="preserve">
-    <value>Déposer l&apos;activité ici</value>
+    <value>Colocar la actividad aquí</value>
   </data>
   <data name="PythonFileSelectTitle" xml:space="preserve">
-    <value>Sélectionnez un fichier de script Python</value>
+    <value>Seleccione un archivo de script de Python</value>
   </data>
   <data name="PythonScriptFilter" xml:space="preserve">
-    <value>Scripts Python</value>
+    <value>Scripts de Python</value>
   </data>
   <data name="PythonScriptHint" xml:space="preserve">
-    <value>Chemin d’accès du script Python. Le texte doit être entre guillemets</value>
+    <value>Ruta del script de Python. El texto se debe entrecomillar</value>
   </data>
 </root>

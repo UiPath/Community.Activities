@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CategoryAppInvoker" xml:space="preserve">
-    <value>Invocateur d’appli</value>
+    <value>应用程序调用程序</value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>Python</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>显示名称</value>
     <comment>property name</comment>
   </data>
   <data name="DropActivityHere" xml:space="preserve">
-    <value>Déposer l&apos;activité ici</value>
+    <value>将活动放置在此处</value>
   </data>
   <data name="PythonFileSelectTitle" xml:space="preserve">
-    <value>Sélectionnez un fichier de script Python</value>
+    <value>选择 Python 脚本文件</value>
   </data>
   <data name="PythonScriptFilter" xml:space="preserve">
-    <value>Scripts Python</value>
+    <value>Python 脚本</value>
   </data>
   <data name="PythonScriptHint" xml:space="preserve">
-    <value>Chemin d’accès du script Python. Le texte doit être entre guillemets</value>
+    <value>Python 脚本路径。必须将文本放入引号中</value>
   </data>
 </root>

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CategoryAppInvoker" xml:space="preserve">
-    <value>Invocateur d’appli</value>
+    <value>App Invoker</value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>Python</value>
@@ -128,15 +128,15 @@
     <comment>property name</comment>
   </data>
   <data name="DropActivityHere" xml:space="preserve">
-    <value>Déposer l&apos;activité ici</value>
+    <value>Aktivität hier ablegen</value>
   </data>
   <data name="PythonFileSelectTitle" xml:space="preserve">
-    <value>Sélectionnez un fichier de script Python</value>
+    <value>Python-Skriptdatei auswählen</value>
   </data>
   <data name="PythonScriptFilter" xml:space="preserve">
-    <value>Scripts Python</value>
+    <value>Python-Skripte</value>
   </data>
   <data name="PythonScriptHint" xml:space="preserve">
-    <value>Chemin d’accès du script Python. Le texte doit être entre guillemets</value>
+    <value>Python-Skriptpfad. Text muss in Anführungszeichen stehen.</value>
   </data>
 </root>
