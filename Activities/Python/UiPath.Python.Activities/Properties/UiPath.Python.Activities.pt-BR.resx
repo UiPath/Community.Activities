@@ -118,176 +118,176 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CodeDescription" xml:space="preserve">
-    <value>Python スクリプトの内容です。</value>
+    <value>Conteúdo do script em Python</value>
   </data>
   <data name="CodeNameDisplayName" xml:space="preserve">
-    <value>コード</value>
+    <value>Code</value>
     <comment>property name</comment>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>Python オブジェクトの変換中にエラーが発生しました。</value>
+    <value>Erro ao converter o objeto Python</value>
   </data>
   <data name="Do" xml:space="preserve">
-    <value>実行</value>
+    <value>Fazer</value>
   </data>
   <data name="GetObjectDescription" xml:space="preserve">
-    <value>Python オブジェクトから .NET 型を取得します。(Get Python Object)</value>
+    <value>Obtenha o tipo .NET de um PythonObject</value>
   </data>
   <data name="GetObjectNameDisplayName" xml:space="preserve">
-    <value>Python のオブジェクトを取得</value>
+    <value>Get Python Object</value>
     <comment>activity name</comment>
   </data>
   <data name="GetObjectResultDescription" xml:space="preserve">
-    <value>Python オブジェクトに対応する .NET 型です。</value>
+    <value>O tipo .NET correspondente ao objeto Python</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>入力</value>
+    <value>Entrada</value>
   </data>
   <data name="InstanceDescription" xml:space="preserve">
-    <value>Python オブジェクトのインスタンスです。</value>
+    <value>Instância do objeto Python</value>
   </data>
   <data name="InstanceNameDisplayName" xml:space="preserve">
-    <value>インスタンス</value>
+    <value>Instance</value>
     <comment>property name</comment>
   </data>
   <data name="InvalidMethodNameException" xml:space="preserve">
-    <value>メソッド名が無効です。</value>
+    <value>Nome de método inválido</value>
   </data>
   <data name="InvalidPathException" xml:space="preserve">
-    <value>指定した Python のパスは無効です: {0}</value>
+    <value>O caminho Python especificado não é válido: {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
-    <value>Python メソッドの呼びし中にエラーが発生しました。</value>
+    <value>Erro ao invocar método Python</value>
   </data>
   <data name="InvokeMethodDescription" xml:space="preserve">
-    <value>Python メソッドを呼び出します。(Invoke Python Method)</value>
+    <value>Invocar método Python</value>
   </data>
   <data name="InvokeMethodNameDisplayName" xml:space="preserve">
-    <value>Python メソッドを呼び出し</value>
+    <value>Invoke Python Method</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadScriptDescription" xml:space="preserve">
-    <value>Python スクリプトを読み込み実行します。(Load Python Script)</value>
+    <value>Carrega e executa um script Python</value>
   </data>
   <data name="LoadScriptException" xml:space="preserve">
-    <value>Python スクリプトの読み込み中にエラーが発生しました。</value>
+    <value>Erro ao carregar o script em Python</value>
   </data>
   <data name="LoadScriptNameDisplayName" xml:space="preserve">
-    <value>Python スクリプトを読み込み</value>
+    <value>Load Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>呼び出すメソッドの名前です。</value>
+    <value>Nome do método a ser invocado</value>
   </data>
   <data name="NameDisplayName" xml:space="preserve">
-    <value>名前</value>
+    <value>Name</value>
     <comment>property name</comment>
   </data>
   <data name="NoScriptSpecifiedException" xml:space="preserve">
-    <value>コード/スクリプトが指定されていません。</value>
+    <value>Nenhum código/script especificado</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>出力</value>
+    <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Python スクリプトの入力パラメーターです。</value>
+    <value>Parâmetros de entrada para script em Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>入力パラメーター</value>
+    <value>InputParameters</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
-    <value>Python のホーム パスです。</value>
+    <value>Caminho inicial Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>パス</value>
+    <value>Path</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
-    <value>Python エンジンのセッションが見つかりませんでした。</value>
+    <value>A sessão do mecanismo Python não foi encontrada</value>
   </data>
   <data name="PythonInitializeException" xml:space="preserve">
-    <value>Python エンジンの初期化時にエラーが発生しました。</value>
+    <value>Erro ao inicializar mecanismo Python</value>
   </data>
   <data name="PythonObjectDescription" xml:space="preserve">
-    <value>値を抽出する Python オブジェクトです。</value>
+    <value>Objeto Python do qual extrair valor</value>
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
-    <value>Python オブジェクト</value>
+    <value>PythonObject</value>
     <comment>property name</comment>
   </data>
   <data name="PythonScopeDescription" xml:space="preserve">
-    <value>Python アクティビティのコンテナーです。(Python Scope)</value>
+    <value>Container de atividades Python</value>
   </data>
   <data name="PythonScopeNameDisplayName" xml:space="preserve">
-    <value>Python スコープ</value>
+    <value>Python Scope</value>
     <comment>activity name</comment>
   </data>
   <data name="ResultDescription" xml:space="preserve">
-    <value>スクリプト呼び出しの結果です。</value>
+    <value>O resultado da invocação do script</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>結果</value>
+    <value>Result</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
-    <value>Python スクリプトを呼び出すアクティビティです。(Run Python Script)</value>
+    <value>Invoca atividade de script em Python</value>
   </data>
   <data name="RunScriptException" xml:space="preserve">
-    <value>Python スクリプトの実行時にエラーが発生しました。</value>
+    <value>Erro ao executar script em Python</value>
   </data>
   <data name="RunScriptNameDisplayName" xml:space="preserve">
-    <value>Python スクリプトを実行</value>
+    <value>Run Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="ScriptFileDescription" xml:space="preserve">
-    <value>Python スクリプト ファイルへのフル パスです。</value>
+    <value>Caminho completo do arquivo de script em Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>ファイル</value>
+    <value>File</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
-    <value>指定したスクリプト ファイルが見つかりませんでした。</value>
+    <value>O arquivo de script especificado não foi encontrado</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>ターゲット</value>
+    <value>Target</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
-    <value>Python のランタイム プラットフォームを指定します。</value>
+    <value>Especifica a plataforma de tempo de execução Python</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
-    <value>アクティビティは {0} の内部でのみ有効です。</value>
+    <value>A atividade só é válida em {0}</value>
   </data>
   <data name="VersionDescription" xml:space="preserve">
-    <value>Python のバージョンです。</value>
+    <value>Versão do Python</value>
   </data>
   <data name="VersionNameDisplayName" xml:space="preserve">
-    <value>バージョン</value>
+    <value>Version</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>出力</value>
+    <value>Saída</value>
   </data>
   <data name="WorkingFolder" xml:space="preserve">
-    <value>作業フォルダー</value>
+    <value>WorkingFolder</value>
     <comment>property name</comment>
   </data>
   <data name="WorkingFolderDescription" xml:space="preserve">
-    <value>現在のスコープ下で実行するスクリプトの作業フォルダーの指定に使用します。</value>
+    <value>Usado para especificar a pasta de trabalho dos scripts em execução sob o escopo atual</value>
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
-    <value>作業フォルダーのパスが無効です。</value>
+    <value>Caminho do WorkingFolder inválido</value>
   </data>
   <data name="InvalidVersionException" xml:space="preserve">
-    <value>選択したバージョン {0} は、見つかったバージョン {1} と異なります。</value>
+    <value>A versão selecionada {0} é diferente da versão encontrada {1}</value>
   </data>
   <data name="OperationTimeout" xml:space="preserve">
-    <value>タイムアウト</value>
+    <value>Tempo limite</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Python スクリプトを実行して終了するまでの時間です。設定した時間内に実行が終わらない場合は例外がスローされます。</value>
+    <value>A quantidade de tempo para permitir que um script em Python seja executado até que seja encerrado e uma exceção seja gerada.</value>
   </data>
 </root>
