@@ -124,13 +124,13 @@
     <value>CommandType</value>
   <comment>property name</comment></data>
   <data name="Common" xml:space="preserve">
-    <value>Общие</value>
+    <value>Comum</value>
   </data>
   <data name="Connection" xml:space="preserve">
-    <value>Подключение</value>
+    <value>Ligação</value>
   </data>
   <data name="ConnectionConfiguration" xml:space="preserve">
-    <value>Конфигурация подключения</value>
+    <value>Configuração de Ligação</value>
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
     <value>ConnectionString</value>
@@ -148,7 +148,7 @@
     <value>Existing Connection</value>
   <comment>property name</comment></data>
   <data name="Input" xml:space="preserve">
-    <value>Ввод</value>
+    <value>Entrada</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
@@ -166,12 +166,12 @@
     <value>Timeout (milliseconds)</value>
   <comment>property name</comment></data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>Значение, указанное для TimeoutMS должно быть больше или равно 0</value>
+    <value>O valor fornecido para TimeoutMS tem de ser &gt;= 0</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
     <value>UseTransaction</value>
   <comment>property name</comment></data>
   <data name="Output" xml:space="preserve">
-    <value>Вывод</value>
+    <value>Saída</value>
   </data>
 </root>
