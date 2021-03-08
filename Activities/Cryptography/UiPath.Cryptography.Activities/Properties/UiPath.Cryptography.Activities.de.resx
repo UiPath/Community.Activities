@@ -118,230 +118,230 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlgorithmDisplayName" xml:space="preserve">
-    <value>アルゴリズム</value>
+    <value>Algorithm</value>
     <comment>property name</comment>
   </data>
   <data name="EncodingDisplayName" xml:space="preserve">
-    <value>エンコード</value>
+    <value>Encoding</value>
     <comment>property name</comment>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
-    <value>入力文字列の解釈に使用するエンコードです。</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する暗号化アルゴリズムです。</value>
+    <value>Der Verschlüsselungsalgorithmus, der von dieser Aktivität verwendet wird.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge und des Schlüssels verwendet wird.</value>
   </data>
   <data name="EncryptTextDisplayName" xml:space="preserve">
-    <value>テキストを暗号化</value>
+    <value>Encrypt Text</value>
     <comment>activity name</comment>
   </data>
   <data name="EncryptTextDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を暗号化し、復号結果の base64 文字列表現を返します。(Encrypt Text)</value>
+    <value>Verschlüsselt die Eingabezeichenfolge mit dem ausgewählten Algorithmus und dem bereitgestellten Schlüssel und gibt die Base64-Zeichenfolgendarstellung des verschlüsselten Ergebnisses zurück.</value>
   </data>
   <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで暗号化する文字列です。</value>
+    <value>Der String, der durch diese Aktivität verschlüsselt wird.</value>
   </data>
   <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>入力文字列の暗号化に使用するキーです。</value>
+    <value>Der Schlüssel, der zum Verschlüsseln der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>暗号化された入力文字列の base64 文字列表現です。</value>
+    <value>Die Base64-Zeichenfolgendarstellung der verschlüsselten Eingabezeichenfolge.</value>
   </data>
   <data name="FipsComplianceWarning" xml:space="preserve">
-    <value>選択したアルゴリズムは FIPS に準拠していません。これは、一部のマシン上では動作しない可能性があります。</value>
+    <value>Der ausgewählte Algorithmus verfügt nicht über eine FIPS-konforme Implementierung. Auf einigen Maschinen funktioniert dies möglicherweise nicht.</value>
   </data>
   <data name="HashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するハッシュ アルゴリズムです。</value>
+    <value>Der Hash-Algorithmus, der von dieser Aktivität verwendet wird.</value>
   </data>
   <data name="HashTextDisplayName" xml:space="preserve">
-    <value>テキストをハッシュ</value>
+    <value>Hash Text</value>
     <comment>activity name</comment>
   </data>
   <data name="HashTextDescription" xml:space="preserve">
-    <value>選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text)</value>
+    <value>Wendet den ausgewählten Hash-Algorithmus auf die Eingabezeichenfolge an und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュする文字列です。</value>
+    <value>Der String, der durch diese Aktivität zerhackt wird.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>ハッシュされた入力文字列の 16 進数文字列表現です。</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Eingabezeichenfolge.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>入力</value>
+    <value>Eingabe</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
-    <value>テキスト</value>
+    <value>Text</value>
     <comment>property name</comment>
   </data>
   <data name="KeyDisplayName" xml:space="preserve">
-    <value>キー</value>
+    <value>Key</value>
     <comment>property name</comment>
   </data>
   <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するキー付きハッシュ アルゴリズムです。</value>
+    <value>Der verschlüsselte Hash-Algorithmus, der von dieser Aktivität verwendet wird.</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge und des Schlüssels verwendet wird.</value>
   </data>
   <data name="KeyedHashTextKeyDescription" xml:space="preserve">
-    <value>入力文字列のハッシュに使用するキーです。</value>
+    <value>Der Schlüssel, der zum Zerhacken der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>テキストをキーでハッシュ</value>
+    <value>Hash Text With Key</value>
     <comment>activity name</comment>
   </data>
   <data name="KeyedHashTextDescription" xml:space="preserve">
-    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text With Key)</value>
+    <value>Wendet den ausgewählten Hash-Algorithmus auf die Eingabezeichenfolge an, indem der bereitgestellte Schlüssel für den Hashvorgang verwendet wird, und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>出力</value>
+    <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>結果</value>
+    <value>Result</value>
     <comment>property name</comment>
   </data>
   <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する復号アルゴリズムです。</value>
+    <value>Der Entschlüsselungsalgorithmus, der bei dieser Aktivität verwendet wird.</value>
   </data>
   <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>テキストを復号</value>
+    <value>Decrypt Text</value>
     <comment>activity name</comment>
   </data>
   <data name="DecryptTextDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を復号し、元の暗号化されていない文字列を返します。（Decrypt Text)</value>
+    <value>Entschlüsselt die Eingabezeichenfolge mit dem ausgewählten Algorithmus und dem bereitgestellten Schlüssel und gibt den ursprünglichen, unverschlüsselten String zurück.</value>
   </data>
   <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge und des Schlüssels verwendet wird.</value>
   </data>
   <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで復号する文字列です。</value>
+    <value>Der String, der durch diese Aktivität entschlüsselt wird.</value>
   </data>
   <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>入力文字列の復号に使用するキーです。</value>
+    <value>Der Schlüssel, der zum Entschlüsseln der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>復号された文字列です。</value>
+    <value>Der entschlüsselte String.</value>
   </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
-    <value>ファイルが存在しません。</value>
+    <value>Die Datei ist nicht vorhanden.</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>ファイル パス</value>
+    <value>FilePath</value>
     <comment>property name</comment>
   </data>
   <data name="HashFileDisplayName" xml:space="preserve">
-    <value>ファイルをハッシュ</value>
+    <value>Hash File</value>
     <comment>activity name</comment>
   </data>
   <data name="HashFileDescription" xml:space="preserve">
-    <value>選択したハッシュ アルゴリズムを指定したファイルのコンテンツに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File)</value>
+    <value>Wendet den ausgewählten Hash-Algorithmus auf den Inhalt der bereitgestellten Datei an und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュするファイルのパスです。</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität zerhackt wird.</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
   </data>
   <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>ファイルをキーでハッシュ</value>
+    <value>Hash File With Key</value>
     <comment>activity name</comment>
   </data>
   <data name="KeyedHashFileDescription" xml:space="preserve">
-    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力ファイルに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File With Key)</value>
+    <value>Wendet den ausgewählten Hash-Algorithmus auf die Eingabedatei an, indem der bereitgestellte Schlüssel für den Hashvorgang verwendet wird, und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
   </data>
   <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>指定したファイルのハッシュに使用するキーです。</value>
+    <value>Der Schlüssel, der zum Zerhacken der bereitgestellten Datei verwendet wird.</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
+    <value>Die Codierung, die zum Interpretieren des Schlüssels verwendet wird.</value>
   </data>
   <data name="EncryptFileDisplayName" xml:space="preserve">
-    <value>ファイルを暗号化</value>
+    <value>Encrypt File</value>
     <comment>activity name</comment>
   </data>
   <data name="EncryptFileDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを暗号化し、結果を出力ファイルに保存します。(Encrypt File)</value>
+    <value>Verschlüsselt die Eingabedatei mit dem ausgewählten Algorithmus und dem bereitgestellten Schlüssel und speichert das Ergebnis in der Ausgabedatei.</value>
   </data>
   <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
+    <value>Die Codierung, die zum Interpretieren des Schlüssels verwendet wird.</value>
   </data>
   <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>このアクティビティで暗号化するファイルのパスです。</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität verschlüsselt wird.</value>
   </data>
   <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>入力ファイルの暗号化に使用するキーです。</value>
+    <value>Der Schlüssel, der zum Verschlüsseln der Eingabedatei verwendet wird.</value>
   </data>
   <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>暗号化されたファイルの保存先のパスです。</value>
+    <value>Der Pfad, in dem die verschlüsselte Datei gespeichert wird.</value>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>入力パス</value>
+    <value>InputPath</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>出力パス</value>
+    <value>OutputPath</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>上書き</value>
+    <value>Overwrite</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDescription" xml:space="preserve">
-    <value>出力ファイルが既に存在する場合は、ファイルを上書きします。</value>
+    <value>Überschreiben Sie die Ausgabedatei, wenn sie bereits vorhanden ist.</value>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
-    <value>ファイルが既に存在します。</value>
+    <value>Datei ist bereits vorhanden.</value>
   </data>
   <data name="DecryptFileDisplayName" xml:space="preserve">
-    <value>ファイルを復号</value>
+    <value>Decrypt File</value>
     <comment>activity name</comment>
   </data>
   <data name="DecryptFileDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを復号し、元の暗号化されていないファイルを保存します。（Decrypt File)</value>
+    <value>Entschlüsselt die Eingabedatei mit dem ausgewählten Algorithmus und dem bereitgestellten Schlüssel und speichert die ursprüngliche, unverschlüsselte Datei.</value>
   </data>
   <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
+    <value>Die Codierung, die zum Interpretieren des Schlüssels verwendet wird.</value>
   </data>
   <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>このアクティビティで復号するファイルのパスです。</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität entschlüsselt wird.</value>
   </data>
   <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>入力ファイルの復号に使用するキーです。</value>
+    <value>Der Schlüssel, der zum Entschlüsseln der Eingabedatei verwendet wird.</value>
   </data>
   <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>復号されたファイルの保存先のパスです。</value>
+    <value>Der Pfad, in dem die entschlüsselte Datei gespeichert wird.</value>
   </data>
   <data name="GenericCryptographicException" xml:space="preserve">
-    <value>暗号化操作に失敗しました。暗号化と復号の両方の操作に同じアルゴリズムとキーを使用してください。</value>
+    <value>Ein kryptografischer Vorgang ist fehlgeschlagen. Stellen Sie sicher, dass Sie denselben Algorithmus und Schlüssel für Verschlüsselungs- und Entschlüsselungsvorgänge verwenden.</value>
   </data>
   <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>キー エンコード</value>
+    <value>KeyEncoding</value>
     <comment>property name</comment>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>エンコード</value>
+    <value>Encoding</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>キー</value>
+    <value>Schlüssel</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>出力</value>
+    <value>Ausgabe</value>
   </data>
   <data name="Common" xml:space="preserve">
-    <value>共通</value>
+    <value>Allgemein</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>エラー発生時に実行を継続</value>
+    <value>ContinueOnError</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
-    <value>MACTripleDES は長さが 16 または 24 バイトのキーを使用します。キーの長さは、エンコードによって異なります。</value>
+    <value>MACTripleDES verwendet einen Schlüssel, der 16 oder 24 Byte lang ist. Die Länge Ihres Schlüssels hängt von der Codierung ab.</value>
   </data>
 </root>

@@ -118,230 +118,230 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlgorithmDisplayName" xml:space="preserve">
-    <value>アルゴリズム</value>
+    <value>算法</value>
     <comment>property name</comment>
   </data>
   <data name="EncodingDisplayName" xml:space="preserve">
-    <value>エンコード</value>
+    <value>编码</value>
     <comment>property name</comment>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
-    <value>入力文字列の解釈に使用するエンコードです。</value>
+    <value>用于解释输入字符串的编码。</value>
   </data>
   <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する暗号化アルゴリズムです。</value>
+    <value>此活动将使用的加密算法。</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
+    <value>用于解释输入字符串和密钥的编码。</value>
   </data>
   <data name="EncryptTextDisplayName" xml:space="preserve">
-    <value>テキストを暗号化</value>
+    <value>加密文本</value>
     <comment>activity name</comment>
   </data>
   <data name="EncryptTextDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を暗号化し、復号結果の base64 文字列表現を返します。(Encrypt Text)</value>
+    <value>使用选定算法和给定密钥加密输入字符串，并返回加密结果的 Base64 字符串表示。</value>
   </data>
   <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで暗号化する文字列です。</value>
+    <value>此活动将加密的字符串。</value>
   </data>
   <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>入力文字列の暗号化に使用するキーです。</value>
+    <value>用于加密输入字符串的密钥。</value>
   </data>
   <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>暗号化された入力文字列の base64 文字列表現です。</value>
+    <value>经加密的输入字符串的 Base64 字符串表示。</value>
   </data>
   <data name="FipsComplianceWarning" xml:space="preserve">
-    <value>選択したアルゴリズムは FIPS に準拠していません。これは、一部のマシン上では動作しない可能性があります。</value>
+    <value>所选算法不具有符合 FIPS 的实现。可能无法在某些计算机上工作。</value>
   </data>
   <data name="HashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するハッシュ アルゴリズムです。</value>
+    <value>此活动将使用的散列算法。</value>
   </data>
   <data name="HashTextDisplayName" xml:space="preserve">
-    <value>テキストをハッシュ</value>
+    <value>散列文本</value>
     <comment>activity name</comment>
   </data>
   <data name="HashTextDescription" xml:space="preserve">
-    <value>選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text)</value>
+    <value>对输入字符串应用选定的散列算法，并返回所生成散列结果的十六进制字符串表示。</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュする文字列です。</value>
+    <value>此活动将散列的字符串。</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>ハッシュされた入力文字列の 16 進数文字列表現です。</value>
+    <value>经散列的输入字符串的十六进制字符串表示。</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>入力</value>
+    <value>输入</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
-    <value>テキスト</value>
+    <value>文本</value>
     <comment>property name</comment>
   </data>
   <data name="KeyDisplayName" xml:space="preserve">
-    <value>キー</value>
+    <value>键值</value>
     <comment>property name</comment>
   </data>
   <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するキー付きハッシュ アルゴリズムです。</value>
+    <value>此活动将使用的键控散列算法。</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
+    <value>用于解释输入字符串和密钥的编码。</value>
   </data>
   <data name="KeyedHashTextKeyDescription" xml:space="preserve">
-    <value>入力文字列のハッシュに使用するキーです。</value>
+    <value>用于散列输入字符串的密钥。</value>
   </data>
   <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>テキストをキーでハッシュ</value>
+    <value>使用密钥散列文本</value>
     <comment>activity name</comment>
   </data>
   <data name="KeyedHashTextDescription" xml:space="preserve">
-    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text With Key)</value>
+    <value>对输入字符串应用选定的散列算法，并使用给定密钥进行散列，然后返回所生成散列结果的十六进制字符串表示。</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>出力</value>
+    <value>输出</value>
     <comment>property name</comment>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>結果</value>
+    <value>结果</value>
     <comment>property name</comment>
   </data>
   <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する復号アルゴリズムです。</value>
+    <value>此活动将使用的解密算法。</value>
   </data>
   <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>テキストを復号</value>
+    <value>解密文本</value>
     <comment>activity name</comment>
   </data>
   <data name="DecryptTextDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を復号し、元の暗号化されていない文字列を返します。（Decrypt Text)</value>
+    <value>使用选定算法和给定密钥解密输入字符串，并返回未加密的原始字符串。</value>
   </data>
   <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
+    <value>用于解释输入字符串和密钥的编码。</value>
   </data>
   <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで復号する文字列です。</value>
+    <value>此活动将解密的字符串。</value>
   </data>
   <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>入力文字列の復号に使用するキーです。</value>
+    <value>用于解密输入字符串的密钥。</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>復号された文字列です。</value>
+    <value>解密后的字符串。</value>
   </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
-    <value>ファイルが存在しません。</value>
+    <value>文件不存在。</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>ファイル パス</value>
+    <value>文件路径</value>
     <comment>property name</comment>
   </data>
   <data name="HashFileDisplayName" xml:space="preserve">
-    <value>ファイルをハッシュ</value>
+    <value>散列文件</value>
     <comment>activity name</comment>
   </data>
   <data name="HashFileDescription" xml:space="preserve">
-    <value>選択したハッシュ アルゴリズムを指定したファイルのコンテンツに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File)</value>
+    <value>对给定文件中的内容应用选定的散列算法，并返回所生成散列结果的十六进制字符串表示。</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュするファイルのパスです。</value>
+    <value>此活动将散列的文件路径。</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
+    <value>散列文件的十六进制字符串表示。</value>
   </data>
   <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>ファイルをキーでハッシュ</value>
+    <value>使用密钥散列文件</value>
     <comment>activity name</comment>
   </data>
   <data name="KeyedHashFileDescription" xml:space="preserve">
-    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力ファイルに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File With Key)</value>
+    <value>对输入文件应用选定的散列算法，并使用给定密钥进行散列，然后返回所生成散列结果的十六进制字符串表示。</value>
   </data>
   <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>指定したファイルのハッシュに使用するキーです。</value>
+    <value>用于散列给定文件的密钥。</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
+    <value>散列文件的十六进制字符串表示。</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
+    <value>用于解释密钥的编码。</value>
   </data>
   <data name="EncryptFileDisplayName" xml:space="preserve">
-    <value>ファイルを暗号化</value>
+    <value>加密文件</value>
     <comment>activity name</comment>
   </data>
   <data name="EncryptFileDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを暗号化し、結果を出力ファイルに保存します。(Encrypt File)</value>
+    <value>使用选定算法和给定密钥加密输入文件，并将结果保存在输出文件中。</value>
   </data>
   <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
+    <value>用于解释密钥的编码。</value>
   </data>
   <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>このアクティビティで暗号化するファイルのパスです。</value>
+    <value>此活动将加密的文件路径。</value>
   </data>
   <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>入力ファイルの暗号化に使用するキーです。</value>
+    <value>用于加密输入文件的密钥。</value>
   </data>
   <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>暗号化されたファイルの保存先のパスです。</value>
+    <value>用于保存加密文件的路径。</value>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>入力パス</value>
+    <value>输入路径</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>出力パス</value>
+    <value>输出路径</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>上書き</value>
+    <value>覆盖</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDescription" xml:space="preserve">
-    <value>出力ファイルが既に存在する場合は、ファイルを上書きします。</value>
+    <value>如果输出文件已存在，则覆盖该文件。</value>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
-    <value>ファイルが既に存在します。</value>
+    <value>文件已存在。</value>
   </data>
   <data name="DecryptFileDisplayName" xml:space="preserve">
-    <value>ファイルを復号</value>
+    <value>解密文件</value>
     <comment>activity name</comment>
   </data>
   <data name="DecryptFileDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを復号し、元の暗号化されていないファイルを保存します。（Decrypt File)</value>
+    <value>使用选定算法和给定密钥解密输入文件，同时保存未加密的原始文件。</value>
   </data>
   <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
+    <value>用于解释密钥的编码。</value>
   </data>
   <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>このアクティビティで復号するファイルのパスです。</value>
+    <value>此活动将解密的文件路径。</value>
   </data>
   <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>入力ファイルの復号に使用するキーです。</value>
+    <value>用于解密输入文件的密钥。</value>
   </data>
   <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>復号されたファイルの保存先のパスです。</value>
+    <value>用于保存解密文件的路径。</value>
   </data>
   <data name="GenericCryptographicException" xml:space="preserve">
-    <value>暗号化操作に失敗しました。暗号化と復号の両方の操作に同じアルゴリズムとキーを使用してください。</value>
+    <value>加密操作失败。请确保您在加密和解密操作中使用的算法和密钥相同。</value>
   </data>
   <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>キー エンコード</value>
+    <value>密钥编码</value>
     <comment>property name</comment>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>エンコード</value>
+    <value>编码</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>キー</value>
+    <value>键值</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>出力</value>
+    <value>输出</value>
   </data>
   <data name="Common" xml:space="preserve">
-    <value>共通</value>
+    <value>常见</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>エラー発生時に実行を継続</value>
+    <value>出错时继续</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
-    <value>MACTripleDES は長さが 16 または 24 バイトのキーを使用します。キーの長さは、エンコードによって異なります。</value>
+    <value>MACTripleDES 使用的密钥长度为 16 或 24 字节。密钥长度取决于编码。</value>
   </data>
 </root>
