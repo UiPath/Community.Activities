@@ -74,7 +74,7 @@ namespace UiPath.Cryptography
                 result = new byte[salt.Length + algorithm.IV.Length + encrypted.Length];
                 Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
                 Buffer.BlockCopy(algorithm.IV, 0, result, salt.Length, algorithm.IV.Length);
-                Buffer.BlockCopy(encrypted, 0, result, salt.Length + algorithm.IV.Length, encrypted.Length); 
+                Buffer.BlockCopy(encrypted, 0, result, salt.Length + algorithm.IV.Length, encrypted.Length);
             }
 
             return result;
@@ -115,14 +115,17 @@ namespace UiPath.Cryptography
 
             return decrypted;
         }
-        
+
         public static bool IsFipsCompliant(HashAlgorithms hashAlgorithm)
         {
             switch (hashAlgorithm)
             {
+#if NET461
                 case HashAlgorithms.MD5:
                 case HashAlgorithms.RIPEMD160:
                     return false;
+#endif
+
                 default:
                     return true;
             }
@@ -132,9 +135,12 @@ namespace UiPath.Cryptography
         {
             switch (keyedHashAlgorithm)
             {
+#if NET461
                 case KeyedHashAlgorithms.HMACMD5:
                 case KeyedHashAlgorithms.HMACRIPEMD160:
                     return false;
+#endif
+
                 default:
                     return true;
             }
@@ -147,28 +153,35 @@ namespace UiPath.Cryptography
                 case SymmetricAlgorithms.RC2:
                 case SymmetricAlgorithms.Rijndael:
                     return false;
+
                 default:
                     return true;
             }
         }
 
-
         private static HashAlgorithm GetHashAlgorithm(HashAlgorithms hashAlgorithm)
         {
             switch (hashAlgorithm)
             {
+#if NET461
                 case HashAlgorithms.MD5:
                     return new MD5Cng();
+
                 case HashAlgorithms.RIPEMD160:
                     return new RIPEMD160Managed();
+
                 case HashAlgorithms.SHA1:
                     return new SHA1Cng();
+
                 case HashAlgorithms.SHA256:
                     return new SHA256Cng();
+
                 case HashAlgorithms.SHA384:
                     return new SHA384Cng();
+
                 case HashAlgorithms.SHA512:
                     return new SHA512Cng();
+#endif
                 default:
                     throw new InvalidOperationException(Resources.UnsupportedHashAlgorithmException);
             }
@@ -180,18 +193,25 @@ namespace UiPath.Cryptography
             {
                 case KeyedHashAlgorithms.HMACMD5:
                     return new HMACMD5();
+#if NET461
                 case KeyedHashAlgorithms.HMACRIPEMD160:
                     return new HMACRIPEMD160();
+#endif
                 case KeyedHashAlgorithms.HMACSHA1:
                     return new HMACSHA1();
+
                 case KeyedHashAlgorithms.HMACSHA256:
                     return new HMACSHA256();
+
                 case KeyedHashAlgorithms.HMACSHA384:
                     return new HMACSHA384();
+
                 case KeyedHashAlgorithms.HMACSHA512:
                     return new HMACSHA512();
+#if NET461
                 case KeyedHashAlgorithms.MACTripleDES: // TODO: What about padding mode?
                     return new MACTripleDES(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
+#endif
                 default:
                     throw new InvalidOperationException(Resources.UnsupportedKeyedHashAlgorithmException);
             }
@@ -205,10 +225,13 @@ namespace UiPath.Cryptography
                     return new AesCryptoServiceProvider(); // TODO: Use AesCng after upgrading to .NET Framework 4.6.2
                 case SymmetricAlgorithms.DES:
                     return new DESCryptoServiceProvider();
+
                 case SymmetricAlgorithms.RC2:
                     return new RC2CryptoServiceProvider();
+
                 case SymmetricAlgorithms.Rijndael:
                     return new RijndaelManaged();
+
                 case SymmetricAlgorithms.TripleDES:
                     return new TripleDESCryptoServiceProvider(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
                 default:
