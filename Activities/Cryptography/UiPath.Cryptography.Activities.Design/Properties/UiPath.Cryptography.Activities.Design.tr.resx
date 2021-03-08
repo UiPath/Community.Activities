@@ -118,83 +118,83 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Algorithm" xml:space="preserve">
-    <value>Algorithme</value>
+    <value>Algoritma</value>
   </data>
   <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
   </data>
   <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>Bu etkinlik tarafından şifresi çözülecek dosyanın yolu.</value>
   </data>
   <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement du fichier d’entrée.</value>
+    <value>Giriş dosyasının şifresini çözmek için kullanılan anahtar.</value>
   </data>
   <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier.</value>
+    <value>Şifresi çözülen dosyanın kaydedileceği yol.</value>
   </data>
   <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
   </data>
   <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera déchiffrée par cette activité.</value>
+    <value>Bu etkinlik tarafından şifresi çözülecek dize.</value>
   </data>
   <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement de la chaîne d’entrée.</value>
+    <value>Giriş dizesinin şifresini çözmek için kullanılan anahtar.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Chaîne déchiffrée.</value>
+    <value>Şifresi çözülmüş dize.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la chaîne d’entrée.</value>
+    <value>Giriş dizesini yorumlamak için kullanılan kodlama.</value>
   </data>
   <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
   </data>
   <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera chiffré par cette activité.</value>
+    <value>Bu etkinlik tarafından şifrelenecek dosyanın yolu.</value>
   </data>
   <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement du fichier d’entrée.</value>
+    <value>Giriş dosyasını şifrelemek için kullanılan anahtar.</value>
   </data>
   <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier chiffré.</value>
+    <value>Şifrelenmiş dosyanın kaydedileceği yol.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
   </data>
   <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera chiffrée par cette activité.</value>
+    <value>Bu etkinlik tarafından şifrelenecek dize.</value>
   </data>
   <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement de la chaîne d’entrée.</value>
+    <value>Giriş dizesini şifrelemek için kullanılan anahtar.</value>
   </data>
   <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne Base64 de la chaîne d’entrée chiffrée.</value>
+    <value>Şifrelenmiş giriş dizesinin base64 dize gösterimi.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
     <value>File Path</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Chemin d’accès au fichier</value>
+    <value>Dosya Yolu</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>Bu etkinlik tarafından karma hale getirilecek dosyanın yolu.</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>Karma dosyanın on altılık dize gösterimi.</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera hachée par cette activité.</value>
+    <value>Bu etkinlik tarafından karma hale getirilecek dize.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale de la chaîne d’entrée hachée.</value>
+    <value>Karma giriş dizesinin on altılık dize gösterimi.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Chemin d’accès d’entrée</value>
+    <value>Input Path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
@@ -202,41 +202,41 @@
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Touche</value>
+    <value>Anahtar</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
   </data>
   <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher le fichier fourni.</value>
+    <value>Sağlanan dosyayı karma haline getirmek için kullanılan anahtar.</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>Karma dosyanın on altılık dize gösterimi.</value>
   </data>
   <data name="KeyedHashKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher la chaîne d’entrée.</value>
+    <value>Giriş dizesini karma hale getirmek için kullanılan anahtar.</value>
   </data>
   <data name="KeyEncoding" xml:space="preserve">
-    <value>Encodage de la clé</value>
+    <value>Anahtar kodlama</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Chemin de sortie</value>
+    <value>Output Path</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
     <value>Overwrite</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Result</value>
+    <value>Sonuç</value>
   </data>
   <data name="CategoryCryptography" xml:space="preserve">
-    <value>Cryptographie</value>
+    <value>Şifreleme</value>
   </data>
   <data name="CategorySystem" xml:space="preserve">
-    <value>Système</value>
+    <value>Sistem</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>DisplayName</value>

@@ -118,83 +118,83 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Algorithm" xml:space="preserve">
-    <value>Algorithme</value>
+    <value>Algoritmo</value>
   </data>
   <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>A codificação utilizada para interpretar a chave.</value>
   </data>
   <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>Caminho para o ficheiro que será desencriptado por esta atividade.</value>
   </data>
   <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement du fichier d’entrée.</value>
+    <value>A chave utilizada para desencriptar o ficheiro de entrada.</value>
   </data>
   <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier.</value>
+    <value>O caminho onde o ficheiro desencriptado será guardado.</value>
   </data>
   <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>A codificação utilizada para interpretar a cadeia de entrada e a chave.</value>
   </data>
   <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera déchiffrée par cette activité.</value>
+    <value>A cadeia que será desencriptada por esta atividade.</value>
   </data>
   <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement de la chaîne d’entrée.</value>
+    <value>A chave utilizada para desencriptar a cadeia de entrada.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Chaîne déchiffrée.</value>
+    <value>A cadeia desencriptada.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la chaîne d’entrée.</value>
+    <value>A codificação utilizada para interpretar a cadeia de entrada.</value>
   </data>
   <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>A codificação utilizada para interpretar a chave.</value>
   </data>
   <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera chiffré par cette activité.</value>
+    <value>Caminho para o ficheiro que será encriptado por esta atividade.</value>
   </data>
   <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement du fichier d’entrée.</value>
+    <value>A chave utilizada para encriptar o ficheiro de entrada.</value>
   </data>
   <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier chiffré.</value>
+    <value>O caminho onde o ficheiro encriptado será guardado.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>A codificação utilizada para interpretar a cadeia de entrada e a chave.</value>
   </data>
   <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera chiffrée par cette activité.</value>
+    <value>A cadeia que será encriptada por esta atividade.</value>
   </data>
   <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement de la chaîne d’entrée.</value>
+    <value>A chave utilizada para encriptar a cadeia de entrada.</value>
   </data>
   <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne Base64 de la chaîne d’entrée chiffrée.</value>
+    <value>A representação da cadeia base64 da cadeia de entrada encriptada.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
     <value>File Path</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Chemin d’accès au fichier</value>
+    <value>Caminho de ficheiro</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>Caminho para o ficheiro ao qual será aplicado hash através desta atividade.</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>A representação da cadeia hexadecimal do ficheiro com hash.</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera hachée par cette activité.</value>
+    <value>A cadeia à qual será aplicado hash através desta atividade.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale de la chaîne d’entrée hachée.</value>
+    <value>A representação da cadeia hexadecimal da cadeia de entrada com hash.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Chemin d’accès d’entrée</value>
+    <value>Input Path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
@@ -202,41 +202,41 @@
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Touche</value>
+    <value>Chave</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>A codificação utilizada para interpretar a cadeia de entrada e a chave.</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>A codificação utilizada para interpretar a chave.</value>
   </data>
   <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher le fichier fourni.</value>
+    <value>A chave utilizada para aplicar hash ao ficheiro fornecido.</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>A representação da cadeia hexadecimal do ficheiro com hash.</value>
   </data>
   <data name="KeyedHashKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher la chaîne d’entrée.</value>
+    <value>A chave utilizada para aplicar hash à cadeia de entrada.</value>
   </data>
   <data name="KeyEncoding" xml:space="preserve">
-    <value>Encodage de la clé</value>
+    <value>Codificação de chave</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Chemin de sortie</value>
+    <value>Output Path</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
     <value>Overwrite</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Result</value>
+    <value>Resultado</value>
   </data>
   <data name="CategoryCryptography" xml:space="preserve">
-    <value>Cryptographie</value>
+    <value>Criptografia</value>
   </data>
   <data name="CategorySystem" xml:space="preserve">
-    <value>Système</value>
+    <value>Sistema</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>DisplayName</value>

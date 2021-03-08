@@ -118,83 +118,83 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Algorithm" xml:space="preserve">
-    <value>Algorithme</value>
+    <value>알고리즘</value>
   </data>
   <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
   <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>이 액티비티에 의해 암호가 해독될 파일의 경로입니다.</value>
   </data>
   <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement du fichier d’entrée.</value>
+    <value>입력 파일의 암호를 해독하기 위해 사용되는 키입니다.</value>
   </data>
   <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier.</value>
+    <value>암호가 해독된 파일이 저장되는 경로입니다.</value>
   </data>
   <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>입력 문자열 및 키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
   <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera déchiffrée par cette activité.</value>
+    <value>이 액티비티에 의해 암호가 해독될 문자열입니다.</value>
   </data>
   <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement de la chaîne d’entrée.</value>
+    <value>입력 문자열의 암호를 해독하기 위해 사용되는 키입니다.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Chaîne déchiffrée.</value>
+    <value>암호가 해독된 문자열입니다.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la chaîne d’entrée.</value>
+    <value>입력 문자열을 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
   <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
   <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera chiffré par cette activité.</value>
+    <value>이 액티비티에 의해 암호화될 파일의 경로입니다.</value>
   </data>
   <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement du fichier d’entrée.</value>
+    <value>입력 파일을 암호화하기 위해 사용되는 키입니다.</value>
   </data>
   <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier chiffré.</value>
+    <value>암호화된 파일이 저장되는 경로입니다.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>입력 문자열 및 키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
   <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera chiffrée par cette activité.</value>
+    <value>이 액티비티에 의해 암호화될 문자열입니다.</value>
   </data>
   <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement de la chaîne d’entrée.</value>
+    <value>입력 문자열을 암호화하기 위해 사용되는 키입니다.</value>
   </data>
   <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne Base64 de la chaîne d’entrée chiffrée.</value>
+    <value>암호화된 입력 문자열의 base64 문자열 표현입니다.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
     <value>File Path</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Chemin d’accès au fichier</value>
+    <value>파일 경로</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>이 액티비티에 의해 해시될 파일의 경로입니다.</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>해시된 파일의 16진수 문자열 표현입니다.</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera hachée par cette activité.</value>
+    <value>이 액티비티에 의해 해시 문자열입니다.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale de la chaîne d’entrée hachée.</value>
+    <value>해시된 입력 문자열의 16진수 문자열 표현입니다.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Chemin d’accès d’entrée</value>
+    <value>Input Path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
@@ -202,41 +202,41 @@
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Touche</value>
+    <value>키</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>입력 문자열 및 키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
   <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher le fichier fourni.</value>
+    <value>제공된 파일을 해시하기 위해 사용되는 키입니다.</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>해시된 파일의 16진수 문자열 표현입니다.</value>
   </data>
   <data name="KeyedHashKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher la chaîne d’entrée.</value>
+    <value>입력 문자열을 해시하기 위해 사용되는 키입니다.</value>
   </data>
   <data name="KeyEncoding" xml:space="preserve">
-    <value>Encodage de la clé</value>
+    <value>키 인코딩</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Chemin de sortie</value>
+    <value>출력 경로</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
     <value>Overwrite</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Result</value>
+    <value>결과</value>
   </data>
   <data name="CategoryCryptography" xml:space="preserve">
-    <value>Cryptographie</value>
+    <value>암호화</value>
   </data>
   <data name="CategorySystem" xml:space="preserve">
-    <value>Système</value>
+    <value>시스템</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>DisplayName</value>

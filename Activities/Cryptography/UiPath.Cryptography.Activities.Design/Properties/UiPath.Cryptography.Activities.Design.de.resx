@@ -118,83 +118,83 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Algorithm" xml:space="preserve">
-    <value>Algorithme</value>
+    <value>Algorithmus</value>
   </data>
   <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>Die Codierung, die zum Interpretieren des Schlüssels verwendet wird.</value>
   </data>
   <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität entschlüsselt wird.</value>
   </data>
   <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement du fichier d’entrée.</value>
+    <value>Der Schlüssel, der zum Entschlüsseln der Eingabedatei verwendet wird.</value>
   </data>
   <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier.</value>
+    <value>Der Pfad, in dem die entschlüsselte Datei gespeichert wird.</value>
   </data>
   <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge und des Schlüssels verwendet wird.</value>
   </data>
   <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera déchiffrée par cette activité.</value>
+    <value>Der String, der durch diese Aktivität entschlüsselt wird.</value>
   </data>
   <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le déchiffrement de la chaîne d’entrée.</value>
+    <value>Der Schlüssel, der zum Entschlüsseln der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Chaîne déchiffrée.</value>
+    <value>Der entschlüsselte String.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la chaîne d’entrée.</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>Die Codierung, die zum Interpretieren des Schlüssels verwendet wird.</value>
   </data>
   <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera chiffré par cette activité.</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität verschlüsselt wird.</value>
   </data>
   <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement du fichier d’entrée.</value>
+    <value>Der Schlüssel, der zum Verschlüsseln der Eingabedatei verwendet wird.</value>
   </data>
   <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>Chemin d’accès d’enregistrement du fichier chiffré.</value>
+    <value>Der Pfad, in dem die verschlüsselte Datei gespeichert wird.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge und des Schlüssels verwendet wird.</value>
   </data>
   <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera chiffrée par cette activité.</value>
+    <value>Der String, der durch diese Aktivität verschlüsselt wird.</value>
   </data>
   <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour le chiffrement de la chaîne d’entrée.</value>
+    <value>Der Schlüssel, der zum Verschlüsseln der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne Base64 de la chaîne d’entrée chiffrée.</value>
+    <value>Die Base64-Zeichenfolgendarstellung der verschlüsselten Eingabezeichenfolge.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
     <value>File Path</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Chemin d’accès au fichier</value>
+    <value>Dateipfad</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität zerhackt wird.</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Chaîne qui sera hachée par cette activité.</value>
+    <value>Der String, der durch diese Aktivität zerhackt wird.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale de la chaîne d’entrée hachée.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Eingabezeichenfolge.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Chemin d’accès d’entrée</value>
+    <value>Input Path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
@@ -202,41 +202,41 @@
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Touche</value>
+    <value>Schlüssel</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
+    <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge und des Schlüssels verwendet wird.</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>Encodage utilisé pour l’interprétation de la clé.</value>
+    <value>Die Codierung, die zum Interpretieren des Schlüssels verwendet wird.</value>
   </data>
   <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher le fichier fourni.</value>
+    <value>Der Schlüssel, der zum Zerhacken der bereitgestellten Datei verwendet wird.</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Représentation de la chaîne hexadécimale du fichier haché.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
   </data>
   <data name="KeyedHashKeyDescription" xml:space="preserve">
-    <value>Clé utilisée pour hacher la chaîne d’entrée.</value>
+    <value>Der Schlüssel, der zum Zerhacken der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="KeyEncoding" xml:space="preserve">
-    <value>Encodage de la clé</value>
+    <value>Schlüsselcodierung</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Chemin de sortie</value>
+    <value>Output Path</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
     <value>Overwrite</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Result</value>
+    <value>Ergebnis</value>
   </data>
   <data name="CategoryCryptography" xml:space="preserve">
-    <value>Cryptographie</value>
+    <value>Kryptografie</value>
   </data>
   <data name="CategorySystem" xml:space="preserve">
-    <value>Système</value>
+    <value>System</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>DisplayName</value>
