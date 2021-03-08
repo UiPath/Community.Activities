@@ -118,149 +118,149 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AffectedRecordsDescription" xml:space="preserve">
-    <value>Результат выполнения команды sql. Для операторов UPDATE, INSERT и DELETE возвращаемым значением является число строк, на которые влияет данная команда. Для всех других типов операторов возвращаемое значение равно -1.</value>
+    <value>Das Ergebnis der Ausführung des SQL-Befehls. Bei den Anweisungen UPDATE, INSERT und DELETE ist der Rückgabewert die Anzahl der Zeilen, die vom Befehl betroffen sind. Für alle anderen Typen von Anweisungen ist der Rückgabewert -1.</value>
   </data>
   <data name="CategoryDatabase" xml:space="preserve">
-    <value>База данных</value>
+    <value>Datenbank</value>
   </data>
   <data name="CommandTypeDescription" xml:space="preserve">
-    <value>Указывает способ интерпретации командной строки</value>
+    <value>Gibt an, wie eine Befehlszeichenfolge interpretiert wird</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Подключить</value>
+    <value>Verbinden</value>
     <comment>activity name</comment>
   </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных</value>
+    <value>Die Verbindungszeichenfolge zum Aufbau einer Datenbankverbindung</value>
   </data>
   <data name="DatabaseConnectDescription" xml:space="preserve">
-    <value>Выполняет подключение к базе данных.</value>
+    <value>Stellt eine Verbindung mit einer Datenbank her.</value>
   </data>
   <data name="DatabaseConnectionDescription" xml:space="preserve">
-    <value>Соединение с базой данных, используемое для операций в рамках этого действия</value>
+    <value>Die Datenbankverbindung, die für die Vorgänge innerhalb dieser Aktivität verwendet wird</value>
   </data>
   <data name="DatabaseDisconnectDescription" xml:space="preserve">
-    <value>Закрывает подключение к базе данных,</value>
+    <value>Schließt die Verbindung zu einer Datenbank.</value>
   </data>
   <data name="DataTableDescription" xml:space="preserve">
-    <value>Результаты команды sql, &quot;упакованной&quot; в объект DataTable</value>
+    <value>Die Ausgabe des SQL-Befehls, der in ein DataTable-Objekt eingeschlossen ist</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>Выполняет подключение к базе данных и возвращает параметр DatabaseConnection, предоставляя область для действий Database. Если параметр UseTransaction имеет значение true (&quot;истинно&quot;), то связанные операции выполняются в виде одной транзакции и применяются в конце, если ни одна из них не завершилась ошибкой. Если параметр UseTransaction имеет значение false (&quot;ложно&quot;), все операции выполняются индивидуально. По завершении этого действия соединение с базой данных закрывается.</value>
+    <value>Stellt eine Verbindung mit einer Datenbank her und gibt eine DatenbankVerbindung (DatabaseConnection) zurück, die einen Scope für Datenbankaktivitäten bereitstellt. Wenn VerwendenTransaktion (UseTransaction) auf wahr gesetzt ist, werden die enthaltenen Vorgänge in einer einzelnen Transaktion ausgeführt und am Ende angewendet, wenn keine von ihnen fehlgeschlagen ist. Wenn VerwendenTransaktion (UseTransaction) auf falsch gesetzt ist, werden alle Operationen einzeln ausgeführt. Wenn diese Aktivität beendet wird, wird die Verbindung zur Datenbank geschlossen.</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
   <data name="Disconnect" xml:space="preserve">
-    <value>Отключить</value>
+    <value>Trennen</value>
     <comment>activity name</comment>
   </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
-    <value>Выполняет оператор SQL в базе данных. Для операторов UPDATE, INSERT и DELETE возвращаемым значением является число строк, на которые влияет данная команда. Для всех других типов операторов возвращаемое значение равно -1.</value>
+    <value>Führt eine SQL-Anweisung für eine Datenbank aus. Bei den Anweisungen UPDATE, INSERT und DELETE ist der Rückgabewert die Anzahl der Zeilen, die vom Befehl betroffen sind. Für alle anderen Typen von Anweisungen ist der Rückgabewert -1.</value>
   </data>
   <data name="ExecuteQueryDescription" xml:space="preserve">
-    <value>Выполняет запрос к базе данных и возвращает результат запроса в таблицу данных.</value>
+    <value>Führt eine Abfrage in einer Datenbank aus und gibt das Abfrageergebnis in einer Datentabelle zurück.</value>
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
-    <value>Уже открытое подключение к базе данных. Если задано это свойство, свойства Строка подключения и Имя провайдера игнорируются</value>
+    <value>Eine bereits geöffnete Datenbankverbindung. Wenn diese Eigenschaft festgelegt ist, werden die Eigenschaften „Verbindungszeichenfolge“ und „Name des Anbieters“ ignoriert.</value>
   </data>
   <data name="Insert" xml:space="preserve">
-    <value>.Insert</value>
+    <value>Insert</value>
     <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>Вставляет совместимый объект DataTable в существующую таблицу Table. Возвращает число затронутых строк.</value>
+    <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Справочник именованных параметров, связанных с командой sql. Привязка выполняется путем указания оператора &quot;@parameterName&quot; в команде sql. Во время выполнения параметр parameterName будет заменен его значением из справочника.</value>
+    <value>Ein Wörterbuch benannter Parameter, die an den SQL-Befehl gebunden sind. Die Bindung erfolgt durch Angabe der Anweisung „@parameterName“ im SQL-Befehl. Zur Laufzeit wird „parameterName“ durch seinen Wert aus dem Wörterbuch ersetzt.</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
-    <value>Имя провайдера базы данных, используемое для доступа к базе данных. Список провайдеров данных можно найти на странице http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
+    <value>Der Name des Datenbankanbieters, der für den Zugriff auf die Datenbank verwendet wird. Eine Liste der Datenanbieter finden Sie unter http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx.</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>Команда sql для выполнения.</value>
+    <value>Ein SQL-Befehl, der ausgeführt werden soll.</value>
   </data>
   <data name="StartTransaction" xml:space="preserve">
     <value>Start Transaction</value>
     <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
-    <value>Таблица целевой базы данных</value>
+    <value>Die Zieldatenbanktabelle</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Указывает в миллисекундах время ожидания выполнения команды sql до возникновения ошибки. Значение по умолчанию равняется 30 000 миллисекунд (30 секундам) и должно быть больше или равно 0.</value>
+    <value>Gibt die Zeitspanne (in Millisekunden) an, in der auf die Ausführung des SQL-Befehls gewartet wird, bevor ein Fehler ausgelöst wird. Der Standardwert ist 30000 Millisekunden (30 Sekunden) und muss größer oder gleich 0 sein.</value>
   </data>
   <data name="UseTransactionDescription" xml:space="preserve">
-    <value>Показывает, должны ли операции в базе данных в рамках этого действия быть &quot;упакованы&quot; в транзакцию базы данных.</value>
+    <value>Gibt an, ob die Datenbankvorgänge innerhalb dieser Aktivität in eine Datenbanktransaktion eingebettet werden sollen.</value>
   </data>
   <data name="AffectedRecordsInsertDescription" xml:space="preserve">
-    <value>Количество вставленных строк</value>
+    <value>Die Anzahl der eingefügten Zeilen</value>
   </data>
   <data name="ConfigureConnection" xml:space="preserve">
-    <value>Настроить подключение...</value>
+    <value>Verbindung konfigurieren...</value>
   </data>
   <data name="InserDataTableInputDescription" xml:space="preserve">
-    <value>Объект DataTable, который будет вставлен в таблицу Table. Описание столбцов DataTable должно совпадать с описанием в таблице в базе данных</value>
+    <value>Das DataTable-Objekt, das in die Tabelle eingefügt wird. Die Beschreibung der DataTable-Spalten muss mit den Spalten aus der Datenbanktabelle übereinstimmen.</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
-    <value>Мастер подключения</value>
+    <value>Verbindungs-Assistent</value>
   </data>
   <data name="DoubleClickToView" xml:space="preserve">
-    <value>Дважды щелкните для просмотра</value>
+    <value>Zum Anzeigen doppelklicken</value>
   </data>
   <data name="EditConnectionSettings" xml:space="preserve">
-    <value>Изменить параметры подключения</value>
+    <value>Verbindungseinstellungen bearbeiten</value>
   </data>
   <data name="EditQuery" xml:space="preserve">
-    <value>Изменить запрос...</value>
+    <value>Abfrage bearbeiten ...</value>
   </data>
   <data name="NewDatabaseConnection" xml:space="preserve">
-    <value>Новое подключение к базе данных</value>
+    <value>Neue Datenbankverbindung</value>
   </data>
   <data name="Parameters" xml:space="preserve">
-    <value>Параметры</value>
+    <value>Parameter</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>DisplayName</value>
     <comment>property name</comment>
   </data>
   <data name="ConnectionString" xml:space="preserve">
-    <value>Строка подключения</value>
+    <value>Verbindungszeichenfolge</value>
   </data>
   <data name="DatabaseConnection" xml:space="preserve">
-    <value>Подключение к базе данных</value>
+    <value>Datenbankverbindung</value>
   </data>
   <data name="DataTable" xml:space="preserve">
-    <value>Таблица данных</value>
+    <value>Datentabelle</value>
   </data>
   <data name="DropActivityHere" xml:space="preserve">
-    <value>Перетащите действие сюда</value>
+    <value>Aktivität hier ablegen</value>
   </data>
   <data name="EditSql" xml:space="preserve">
-    <value>Изменить Sql</value>
+    <value>SQL bearbeiten</value>
   </data>
   <data name="ExistingDatabaseConnection" xml:space="preserve">
-    <value>Существующее подключение к базе данных</value>
+    <value>Vorhandene Datenbankverbindung</value>
   </data>
   <data name="SqlQueryHint" xml:space="preserve">
-    <value>Запрос Sql. Текст должен быть заключен в кавычки</value>
+    <value>SQL-Abfrage. Text muss in Anführungszeichen stehen.</value>
   </data>
   <data name="TableNameHint" xml:space="preserve">
-    <value>Имя таблицы. Текст должен быть заключен в кавычки</value>
+    <value>Tabellenname. Text muss in Anführungszeichen stehen.</value>
   </data>
   <data name="QueryTimeoutMSDescription" xml:space="preserve">
-    <value>Указывает в миллисекундах время ожидания выполнения запроса sql до возникновения ошибки (сюда не входит время ответа для получения результата запроса). Значение по умолчанию равняется 30 000 миллисекунд (30 секундам) и должно быть больше или равно 0.</value>
+    <value>Gibt die Zeitspanne (in Millisekunden) an, in der auf die Ausführung der SQL-Abfrage gewartet wird, bevor ein Fehler ausgelöst wird (die Antwortzeit für das Abrufen des Abfrageergebnisses wird nicht eingeschlossen). Der Standardwert ist 30000 Millisekunden (30 Sekunden) und muss größer oder gleich 0 sein.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Интеграция приложений</value>
+    <value>App-Integration</value>
   </data>
   <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>.Execute Non Query</value>
+    <value>Nichtabfrage ausführen (Execute Non Query)</value>
   </data>
   <data name="ExecuteQuery" xml:space="preserve">
-    <value>.Execute Query</value>
+    <value>Abfrage ausführen</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
-    <value>(Коллекция)</value>
+    <value>(Aufzählung)</value>
   </data>
 </root>
