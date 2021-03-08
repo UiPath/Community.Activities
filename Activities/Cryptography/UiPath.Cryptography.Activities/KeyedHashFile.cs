@@ -64,11 +64,13 @@ namespace UiPath.Cryptography.Activities
                 ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                 metadata.AddValidationError(error);
             }
+#if NET461
             if (Algorithm == KeyedHashAlgorithms.MACTripleDES)
             {
                 ValidationError keySizeWarning = new ValidationError(Resources.MacTripleDesKeySizeWarning, true, nameof(Algorithm));
                 metadata.AddValidationError(keySizeWarning);
             }
+#endif
         }
 
         protected override string Execute(CodeActivityContext context)
