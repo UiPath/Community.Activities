@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConnectionNotInitialized" xml:space="preserve">
-    <value>La connexion n’est pas initialisée</value>
+    <value>La conexión no se ha inicializado</value>
   </data>
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
-    <value>L’argument ParameterDirection ne dispose pas d’une valeur ArgumentDirection correspondante</value>
+    <value>El argumento DirecciónDelParámetro proporcionado no tiene el valor DirecciónDeArgumento correspondiente</value>
   </data>
 </root>
