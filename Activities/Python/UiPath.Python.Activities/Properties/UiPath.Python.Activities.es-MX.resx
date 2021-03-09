@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CodeDescription" xml:space="preserve">
+    <value>Contenido de secuencia de comandos de Python</value>
+  </data>
+  <data name="CodeNameDisplayName" xml:space="preserve">
+    <value>Code</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConvertException" xml:space="preserve">
+    <value>Error al convertir el objeto Python</value>
+  </data>
+  <data name="Do" xml:space="preserve">
+    <value>Hacer</value>
+  </data>
+  <data name="GetObjectDescription" xml:space="preserve">
+    <value>Obtenga el tipo .NET de un objetoPython</value>
+  </data>
+  <data name="GetObjectNameDisplayName" xml:space="preserve">
+    <value>Obtener objeto Python</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetObjectResultDescription" xml:space="preserve">
+    <value>El tipo .NET correspondiente al objeto Python</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="InstanceDescription" xml:space="preserve">
+    <value>Instancia del objeto Python</value>
+  </data>
+  <data name="InstanceNameDisplayName" xml:space="preserve">
+    <value>Instance</value>
+    <comment>property name</comment>
+  </data>
+  <data name="InvalidMethodNameException" xml:space="preserve">
+    <value>Nombre del método no válido</value>
+  </data>
+  <data name="InvalidPathException" xml:space="preserve">
+    <value>La ruta de Python especificada no es válida: {0}</value>
+  </data>
+  <data name="InvokeException" xml:space="preserve">
+    <value>Error al invocar el método Python</value>
+  </data>
+  <data name="InvokeMethodDescription" xml:space="preserve">
+    <value>Invocar el método Python</value>
+  </data>
+  <data name="InvokeMethodNameDisplayName" xml:space="preserve">
+    <value>Invocar el método Python</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="LoadScriptDescription" xml:space="preserve">
+    <value>Carga y ejecuta una secuencia de comandos de Python</value>
+  </data>
+  <data name="LoadScriptException" xml:space="preserve">
+    <value>Error al cargar la secuencia de comandos de Python</value>
+  </data>
+  <data name="LoadScriptNameDisplayName" xml:space="preserve">
+    <value>Cargar secuencia de comandos de Python</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="MethodNameDescription" xml:space="preserve">
+    <value>Nombre del método que se invocará</value>
+  </data>
+  <data name="NameDisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="NoScriptSpecifiedException" xml:space="preserve">
+    <value>Sin código/script especificado</value>
+  </data>
+  <data name="OutputDisplayName" xml:space="preserve">
+    <value>Output</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>Parámetros de entrada para la secuencia de comandos de Python</value>
+  </data>
+  <data name="ParametersNameDisplayName" xml:space="preserve">
+    <value>Parámetros de entrada</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PathDescription" xml:space="preserve">
+    <value>Ruta de inicio de Python</value>
+  </data>
+  <data name="PathNameDisplayName" xml:space="preserve">
+    <value>Ruta</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PythonEngineNotFoundException" xml:space="preserve">
+    <value>No se encontró la sesión del motor Python</value>
+  </data>
+  <data name="PythonInitializeException" xml:space="preserve">
+    <value>Error al inicializar el motor Python</value>
+  </data>
+  <data name="PythonObjectDescription" xml:space="preserve">
+    <value>Objeto de Python del que extraer valor</value>
+  </data>
+  <data name="PythonObjectNameDisplayName" xml:space="preserve">
+    <value>PythonObject</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PythonScopeDescription" xml:space="preserve">
+    <value>Contenedor de actividades de Python</value>
+  </data>
+  <data name="PythonScopeNameDisplayName" xml:space="preserve">
+    <value>Alcance de Python</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ResultDescription" xml:space="preserve">
+    <value>El resultado de la invocación del script</value>
+  </data>
+  <data name="ResultNameDisplayName" xml:space="preserve">
+    <value>Result</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RunScriptDescription" xml:space="preserve">
+    <value>Invocar la actividad de secuencias de comandos de Python</value>
+  </data>
+  <data name="RunScriptException" xml:space="preserve">
+    <value>Error al ejecutar el script de Python</value>
+  </data>
+  <data name="RunScriptNameDisplayName" xml:space="preserve">
+    <value>Ejecutar el script de Python</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ScriptFileDescription" xml:space="preserve">
+    <value>Ruta completa al archivo de script de Python</value>
+  </data>
+  <data name="ScriptFileNameDisplayName" xml:space="preserve">
+    <value>Archivo</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ScriptFileNotFoundException" xml:space="preserve">
+    <value>No se encontró el archivo de script especificado</value>
+  </data>
+  <data name="TargetPlatformDisplayName" xml:space="preserve">
+    <value>Target</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetPlatformDescription" xml:space="preserve">
+    <value>Especifica la plataforma en tiempo de ejecución de Python</value>
+  </data>
+  <data name="ValidateParentError" xml:space="preserve">
+    <value>La actividad es válida solo dentro de {0}</value>
+  </data>
+  <data name="VersionDescription" xml:space="preserve">
+    <value>Versión de Python</value>
+  </data>
+  <data name="VersionNameDisplayName" xml:space="preserve">
+    <value>Versión</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="WorkingFolder" xml:space="preserve">
+    <value>WorkingFolder</value>
+    <comment>property name</comment>
+  </data>
+  <data name="WorkingFolderDescription" xml:space="preserve">
+    <value>Se utiliza para especificar la carpeta de trabajo de los scripts que se ejecutan en el ámbito actual</value>
+  </data>
+  <data name="WorkingFolderPathInvalid" xml:space="preserve">
+    <value>La ruta Workingfolder no es válida</value>
+  </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value>La versión seleccionada {0} es diferente de la versión que se encuentra {1}</value>
+  </data>
+  <data name="OperationTimeout" xml:space="preserve">
+    <value>Tiempo de espera</value>
+  </data>
+  <data name="OperationTimeoutDescription" xml:space="preserve">
+    <value>La cantidad de tiempo para permitir que una secuencia de comandos de Python se ejecute hasta que se termine y se produzca una excepción.</value>
+  </data>
+</root>

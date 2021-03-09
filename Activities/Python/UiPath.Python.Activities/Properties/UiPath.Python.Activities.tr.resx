@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CodeDescription" xml:space="preserve">
+    <value>Python komut dosyası içeriği</value>
+  </data>
+  <data name="CodeNameDisplayName" xml:space="preserve">
+    <value>Code</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConvertException" xml:space="preserve">
+    <value>Python nesnesi dönüştürülürken hata oluştu</value>
+  </data>
+  <data name="Do" xml:space="preserve">
+    <value>Yap</value>
+  </data>
+  <data name="GetObjectDescription" xml:space="preserve">
+    <value>Bir PythonObject&apos;ten .NET türünü al</value>
+  </data>
+  <data name="GetObjectNameDisplayName" xml:space="preserve">
+    <value>Get Python Object</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetObjectResultDescription" xml:space="preserve">
+    <value>Python nesnesine karşılık gelen .NET türü</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="InstanceDescription" xml:space="preserve">
+    <value>Python nesnesi örneği</value>
+  </data>
+  <data name="InstanceNameDisplayName" xml:space="preserve">
+    <value>Instance</value>
+    <comment>property name</comment>
+  </data>
+  <data name="InvalidMethodNameException" xml:space="preserve">
+    <value>Geçersiz yöntem adı</value>
+  </data>
+  <data name="InvalidPathException" xml:space="preserve">
+    <value>Belirtilen Python yolu geçerli değil: {0}</value>
+  </data>
+  <data name="InvokeException" xml:space="preserve">
+    <value>Python yöntemi çağrılırken hata oluştu</value>
+  </data>
+  <data name="InvokeMethodDescription" xml:space="preserve">
+    <value>Invoke Python yöntemi</value>
+  </data>
+  <data name="InvokeMethodNameDisplayName" xml:space="preserve">
+    <value>Invoke Python Method</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="LoadScriptDescription" xml:space="preserve">
+    <value>Bir Python komut dosyasını yükler ve yürütür</value>
+  </data>
+  <data name="LoadScriptException" xml:space="preserve">
+    <value>Python komut dosyası yüklenirken hata oluştu</value>
+  </data>
+  <data name="LoadScriptNameDisplayName" xml:space="preserve">
+    <value>Load Python Script</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="MethodNameDescription" xml:space="preserve">
+    <value>Çağrılacak yöntemin adı</value>
+  </data>
+  <data name="NameDisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="NoScriptSpecifiedException" xml:space="preserve">
+    <value>Kod/komut dosyası belirtilmedi</value>
+  </data>
+  <data name="OutputDisplayName" xml:space="preserve">
+    <value>Output</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>Python komut dosyası için giriş parametreleri</value>
+  </data>
+  <data name="ParametersNameDisplayName" xml:space="preserve">
+    <value>Giriş Parametreleri</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PathDescription" xml:space="preserve">
+    <value>Python giriş yolu</value>
+  </data>
+  <data name="PathNameDisplayName" xml:space="preserve">
+    <value>Yol</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PythonEngineNotFoundException" xml:space="preserve">
+    <value>Python altyapısı oturumu bulunamadı</value>
+  </data>
+  <data name="PythonInitializeException" xml:space="preserve">
+    <value>Python altyapısı başlatılırken hata oluştu</value>
+  </data>
+  <data name="PythonObjectDescription" xml:space="preserve">
+    <value>Şu kaynaktan değer ayıklamak için Python nesnesi:</value>
+  </data>
+  <data name="PythonObjectNameDisplayName" xml:space="preserve">
+    <value>PythonObject</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PythonScopeDescription" xml:space="preserve">
+    <value>Python etkinlikleri kapsayıcısı</value>
+  </data>
+  <data name="PythonScopeNameDisplayName" xml:space="preserve">
+    <value>Python Scope</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ResultDescription" xml:space="preserve">
+    <value>Komut dosyası çağırma işleminin sonucu</value>
+  </data>
+  <data name="ResultNameDisplayName" xml:space="preserve">
+    <value>Result</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RunScriptDescription" xml:space="preserve">
+    <value>Invoke Python script etkinliği</value>
+  </data>
+  <data name="RunScriptException" xml:space="preserve">
+    <value>Python komut dosyası çalıştırılırken hata oluştu</value>
+  </data>
+  <data name="RunScriptNameDisplayName" xml:space="preserve">
+    <value>Run Python Script</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ScriptFileDescription" xml:space="preserve">
+    <value>Python komut dosyasının tam yolu</value>
+  </data>
+  <data name="ScriptFileNameDisplayName" xml:space="preserve">
+    <value>Dosya</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ScriptFileNotFoundException" xml:space="preserve">
+    <value>Belirtilen komut dosyası bulunamadı</value>
+  </data>
+  <data name="TargetPlatformDisplayName" xml:space="preserve">
+    <value>Target</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetPlatformDescription" xml:space="preserve">
+    <value>Python çalışma zamanı platformunu belirtir</value>
+  </data>
+  <data name="ValidateParentError" xml:space="preserve">
+    <value>Etkinlik sadece {0} içinde geçerlidir</value>
+  </data>
+  <data name="VersionDescription" xml:space="preserve">
+    <value>Python sürümü</value>
+  </data>
+  <data name="VersionNameDisplayName" xml:space="preserve">
+    <value>Sürüm</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Çıkış</value>
+  </data>
+  <data name="WorkingFolder" xml:space="preserve">
+    <value>WorkingFolder</value>
+    <comment>property name</comment>
+  </data>
+  <data name="WorkingFolderDescription" xml:space="preserve">
+    <value>Geçerli kapsam altında yürütülen komut dosyalarının çalışma klasörünü belirtmek için kullanılır</value>
+  </data>
+  <data name="WorkingFolderPathInvalid" xml:space="preserve">
+    <value>WorkingFolder yolu geçerli değil</value>
+  </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value>Seçili sürüm ({0}) bulunan sürümden ({1}) farklı</value>
+  </data>
+  <data name="OperationTimeout" xml:space="preserve">
+    <value>Zaman aşımı</value>
+  </data>
+  <data name="OperationTimeoutDescription" xml:space="preserve">
+    <value>Sonlandırılana ve bir özel durum oluşturulana kadar Python komut dosyasının çalışmasına izin verilecek süre.</value>
+  </data>
+</root>
