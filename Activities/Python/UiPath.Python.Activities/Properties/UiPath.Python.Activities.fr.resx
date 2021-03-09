@@ -201,7 +201,7 @@
     <value>Chemin d’accès d’accueil Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Chemin d’accès</value>
+    <value>Path</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">

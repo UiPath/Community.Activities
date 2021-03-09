@@ -201,7 +201,7 @@
     <value>Python giriş yolu</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Yol</value>
+    <value>Path</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
