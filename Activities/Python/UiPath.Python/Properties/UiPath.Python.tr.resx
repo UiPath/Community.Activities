@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Exception de désérialisation Python</value>
+    <value>Python seri durumdan çıkarma özel durumu</value>
   </data>
   <data name="DetectVersionException" xml:space="preserve">
-    <value>Impossible de détecter la version de Python</value>
+    <value>Python sürümü algılanamadı</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Exception d&apos;instanciation Python</value>
+    <value>Python örnekleme özel durumu</value>
   </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
-    <value>Fichier exécutable Python introuvable</value>
+    <value>Python exe bulunamadı</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
-    <value>Propriété/méthode/type de runtime Python introuvable : {0}</value>
+    <value>Python çalışma zamanı türü/yöntemi/özelliği bulunamadı: {0}</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
-    <value>Exception de sérialisation Python</value>
+    <value>Python seri hale getirme özel durumu</value>
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
-    <value>La version {0} de Python n’est pas prise en charge. Les versions prises en charge sont les suivantes : {1}</value>
+    <value>Python sürümü {0} desteklenmiyor. Desteklenen sürümler şunlardır: {1}</value>
   </data>
 </root>

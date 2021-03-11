@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Exception de désérialisation Python</value>
+    <value>Python 역직렬화 예외</value>
   </data>
   <data name="DetectVersionException" xml:space="preserve">
-    <value>Impossible de détecter la version de Python</value>
+    <value>Python 버전을 감지할 수 없음</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Exception d&apos;instanciation Python</value>
+    <value>Python 인스턴스화 예외</value>
   </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
-    <value>Fichier exécutable Python introuvable</value>
+    <value>Python exe를 찾을 수 없음</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
-    <value>Propriété/méthode/type de runtime Python introuvable : {0}</value>
+    <value>Python 런타임 형식/메서드/속성을 찾을 수 없음: {0}</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
-    <value>Exception de sérialisation Python</value>
+    <value>Python 직렬화 예외</value>
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
-    <value>La version {0} de Python n’est pas prise en charge. Les versions prises en charge sont les suivantes : {1}</value>
+    <value>Python 버전 {0}은(는) 지원되지 않습니다. 지원되는 버전: {1}</value>
   </data>
 </root>
