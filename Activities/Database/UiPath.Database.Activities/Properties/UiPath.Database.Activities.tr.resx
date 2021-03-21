@@ -145,7 +145,7 @@
     <value>DataTable</value>
   <comment>property name</comment></data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Var Olan Bağlantı</value>
+    <value>Existing Connection</value>
   <comment>property name</comment></data>
   <data name="Input" xml:space="preserve">
     <value>Giriş</value>
