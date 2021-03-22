@@ -1,22 +1,6 @@
-ORCLCDB=
-    (DESCRIPTION=
-    (ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.150)(PORT=49154))
-    (CONNECT_DATA=
-        (SERVER=DEDICATED)
-        (SERVICE_NAME=ORCLCDB.localdomain)
-    )
-)
-XE=
-    (DESCRIPTION=
-    (ADDRESS=(PROTOCOL=TCP)(HOST=oracle.westeurope.azurecontainer.io)(PORT=1521))
-    (CONNECT_DATA=
-        (SERVER=DEDICATED)
-        (SERVICE_NAME=XE)
-    )
-)
 TESTDB=
     (DESCRIPTION=
-    (ADDRESS=(PROTOCOL=TCP)(HOST=oracle3.westeurope.azurecontainer.io)(PORT=1521))
+    (ADDRESS=(PROTOCOL=TCP)(HOST=##IP##)(PORT=1521))
     (CONNECT_DATA=
         (SERVER=DEDICATED)
         (SERVICE_NAME=TESTDB)

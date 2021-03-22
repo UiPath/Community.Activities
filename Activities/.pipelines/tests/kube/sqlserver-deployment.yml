@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: sqlserver
-        image: microsoft/mssql-server-linux:latest
+        image: mcr.microsoft.com/mssql/server:latest
         imagePullPolicy: Always
         resources:
             requests:
@@ -28,7 +28,7 @@ spec:
           - containerPort: 1433
         env:
           - name: MSSQL_SA_PASSWORD
-            value: "somePASSWORD"
+            value: "b2298905Acfa%"
           - name: ACCEPT_EULA
             value: "Y"
 ---

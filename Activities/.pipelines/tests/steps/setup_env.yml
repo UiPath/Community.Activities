@@ -1,0 +1,41 @@
+parameters:
+  - name: uipathLicenseCode
+    type: string
+  - name: uipathVersion
+    type: string
+  - name: studioInstallPath
+    type: string
+  - name: orchestratorPSModuleSourceUrl
+    type: string
+  - name: uipathTestDirectory
+    type: string
+
+steps:
+   - task: UiPathRobot@0
+     displayName: Install UiPath Studio and Robot on agent
+     inputs:
+      platformVersion: $(uipathVersion)
+      packageAction: 'install'
+      uninstallOption: 'ifany'
+      licenseCode: $(uipathLicenseCode)
+      connectToOrchestrator: false
+      studioInstallPath: $(studioInstallPath)
+      orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+  
+   - task: PowerShell@2
+     displayName: Copy test files on agent
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       mkdir $(uipathTestDirectory)
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\ $(uipathTestDirectory) /COPYALL /E /R:0
+   
+   - task: PowerShell@2
+     displayName: Add Nuget Packages Source
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ $(studioInstallPath) *.config
+       robocopy $(Build.SourcesDirectory)\Activities\Tests\Setup\ C:\Users\VssAdministrator\AppData\Roaming\NuGet *.config
