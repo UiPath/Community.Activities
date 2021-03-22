@@ -113,6 +113,10 @@ namespace UiPath.Python.Activities
             }
 
             var operationTimeout = OperationTimeout.Get(context);
+            if (operationTimeout == 0)
+            {
+                operationTimeout = 3600; //default to 1h for no values provided.
+            }
 
             try
             {
@@ -137,6 +141,7 @@ namespace UiPath.Python.Activities
             }
 
             cancellationToken.ThrowIfCancellationRequested();
+
             return ctx =>
             {
                 ctx.ScheduleAction(Body, _pythonEngine, OnCompleted, OnFaulted);

@@ -115,6 +115,15 @@ namespace UiPath.Python.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python timeout elapsed.
+        /// </summary>
+        public static string TimeoutException {
+            get {
+                return ResourceManager.GetString("TimeoutException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Python version {0} is not supported. Supported versions are: {1}.
         /// </summary>
         public static string UnsupportedVersionException {

@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Text;
 using System.Threading;
+using UiPath.Python.Properties;
 using UiPath.Shared.Service;
 
 namespace UiPath.Python.Service
@@ -34,90 +35,168 @@ namespace UiPath.Python.Service
 
         public Argument Convert(Guid obj, string t)
         {
-            var request = new PythonRequest()
+            using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
-                RequestType = RequestType.Convert,
-                Instance = obj,
-                Type = t
-            };
+                try
+                {
+                    var request = new PythonRequest()
+                    {
+                        RequestType = RequestType.Convert,
+                        Instance = obj,
+                        Type = t
+                    };
 
-            PythonResponse response = RequestAsync(request, Token);
-            Token.ThrowIfCancellationRequested();
-            response.ThrowExceptionIfNeeded();
-            return response.Argument;
+                    PythonResponse response = RequestAsync(request, cts.Token);
+                    cts.Token.ThrowIfCancellationRequested();
+                    response.ThrowExceptionIfNeeded();
+                    return response.Argument;
+                }
+                catch (Exception e)
+                {
+                    if (cts.IsCancellationRequested)
+                    {
+                        throw new TimeoutException(UiPath_Python.TimeoutException);
+                    }
+                    Trace.TraceError($"Python exception: {e}");
+                    throw;
+                }
+            }
         }
 
         public void Execute(string code)
         {
-            var request = new PythonRequest()
+            using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
-                RequestType = RequestType.Execute,
-                Code = code
-            };
+                try
+                {
+                    var request = new PythonRequest()
+                    {
+                        RequestType = RequestType.Execute,
+                        Code = code
+                    };
 
-            PythonResponse response = RequestAsync(request, Token);
-            Token.ThrowIfCancellationRequested();
-            response.ThrowExceptionIfNeeded();
+                    PythonResponse response = RequestAsync(request, cts.Token);
+                    cts.Token.ThrowIfCancellationRequested();
+                    response.ThrowExceptionIfNeeded();
+                }
+                catch (Exception e)
+                {
+                    if (cts.IsCancellationRequested)
+                    {
+                        throw new TimeoutException(UiPath_Python.TimeoutException);
+                    }
+                    Trace.TraceError($"Python exception: {e}");
+                    throw;
+                }
+            }
         }
 
         public void Initialize(string path, Version version, string workingFolder)
         {
-            var request = new PythonRequest()
+            using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
-                RequestType = RequestType.Initialize,
-                ScriptPath = path,
-                PythonVersion = version.ToString(),
-                WorkingFolder = workingFolder
-            };
+                try
+                {
+                    var request = new PythonRequest()
+                    {
+                        RequestType = RequestType.Initialize,
+                        ScriptPath = path,
+                        PythonVersion = version.ToString(),
+                        WorkingFolder = workingFolder
+                    };
 
-            PythonResponse response = RequestAsync(request, Token);
-            Token.ThrowIfCancellationRequested();
-            response.ThrowExceptionIfNeeded();
+                    PythonResponse response = RequestAsync(request, Token);
+                    Token.ThrowIfCancellationRequested();
+                    response.ThrowExceptionIfNeeded();
+                }
+                catch (Exception e)
+                {
+                    if (cts.IsCancellationRequested)
+                    {
+                        throw new TimeoutException(UiPath_Python.TimeoutException);
+                    }
+                    Trace.TraceError($"Python exception: {e}");
+                    throw;
+                }
+            }
         }
 
         public Guid InvokeMethod(Guid instance, string method, IEnumerable<Argument> args)
         {
-            var request = new PythonRequest()
+            using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
-                RequestType = RequestType.InvokeMethod,
-                Instance = instance,
-                Method = method,
-                Arguments = args
-            };
+                try
+                {
+                    var request = new PythonRequest()
+                    {
+                        RequestType = RequestType.InvokeMethod,
+                        Instance = instance,
+                        Method = method,
+                        Arguments = args
+                    };
 
-            PythonResponse response = RequestAsync(request, Token);
-            Token.ThrowIfCancellationRequested();
-            response.ThrowExceptionIfNeeded();
-            return response.Guid;
+                    PythonResponse response = RequestAsync(request, cts.Token);
+                    cts.Token.ThrowIfCancellationRequested();
+                    response.ThrowExceptionIfNeeded();
+                    return response.Guid;
+                }
+                catch (Exception e)
+                {
+                    if (cts.IsCancellationRequested)
+                    {
+                        throw new TimeoutException(UiPath_Python.TimeoutException);
+                    }
+                    Trace.TraceError($"Python exception: {e}");
+                    throw;
+                }
+            }
         }
 
         public Guid LoadScript(string code)
         {
-            var request = new PythonRequest()
+            using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
-                RequestType = RequestType.LoadScript,
-                Code = code
-            };
+                try
+                {
+                    var request = new PythonRequest()
+                    {
+                        RequestType = RequestType.LoadScript,
+                        Code = code
+                    };
 
-            PythonResponse response = RequestAsync(request, Token);
+                    PythonResponse response = RequestAsync(request, cts.Token);
 
-            Token.ThrowIfCancellationRequested();
+                    cts.Token.ThrowIfCancellationRequested();
 
-            Trace.TraceInformation("LoadScript Guid:: " + response.Guid);
+                    Trace.TraceInformation("LoadScript Guid:: " + response.Guid);
 
-            return response.Guid;
+                    return response.Guid;
+                }
+                catch (Exception e)
+                {
+                    if (cts.IsCancellationRequested)
+                    {
+                        throw new TimeoutException(UiPath_Python.TimeoutException);
+                    }
+                    Trace.TraceError($"Python exception: {e}");
+                    throw;
+                }
+            }
         }
 
         public void Shutdown()
         {
-            var request = new PythonRequest()
+            using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
-                RequestType = RequestType.Shutdown
-            };
+                var request = new PythonRequest()
+                {
+                    RequestType = RequestType.Shutdown
+                };
 
-            PythonResponse response = RequestAsync(request, Token);
+                PythonResponse response = RequestAsync(request, cts.Token);
 
-            Token.ThrowIfCancellationRequested();
+                cts.Token.ThrowIfCancellationRequested();
+            }
         }
 
         #endregion Service methods
