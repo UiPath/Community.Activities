@@ -286,11 +286,11 @@
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>출력 경로</value>
+    <value>OutputPath</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>덮어쓰기</value>
+    <value>Overwrite</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDescription" xml:space="preserve">

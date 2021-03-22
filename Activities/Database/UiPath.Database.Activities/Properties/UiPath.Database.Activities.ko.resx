@@ -145,7 +145,7 @@
     <value>데이터 테이블</value>
   <comment>property name</comment></data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>기존 연결</value>
+    <value>Existing Connection</value>
   <comment>property name</comment></data>
   <data name="Input" xml:space="preserve">
     <value>입력</value>

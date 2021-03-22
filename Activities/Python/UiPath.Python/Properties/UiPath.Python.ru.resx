@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeserializationException" xml:space="preserve">
+    <value>Исключение для десериализации Python</value>
+  </data>
   <data name="DetectVersionException" xml:space="preserve">
     <value>Не удалось обнаружить версию Python</value>
   </data>
+  <data name="InstantiationException" xml:space="preserve">
+    <value>Исключение для установки Python</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
-    <value>EXE-файл Python не найден</value>
+    <value>Исполняемый файл Python не найден</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
-    <value>Не найдено свойство/метод/тип среды выполнения Python: {0}</value>
+    <value>Не найдено тип/метод/свойство среды выполнения Python: {0}</value>
+  </data>
+  <data name="SerializationException" xml:space="preserve">
+    <value>Исключение для сериализации Python</value>
+  </data>
+  <data name="UnsupportedVersionException" xml:space="preserve">
+    <value>Версия Python {0} не поддерживается. Поддерживаемые версии: {1}</value>
   </data>
 </root>

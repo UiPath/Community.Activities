@@ -194,14 +194,14 @@
     <value>Python komut dosyası için giriş parametreleri</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>Giriş Parametreleri</value>
+    <value>InputParameters</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Python giriş yolu</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Yol</value>
+    <value>Path</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -245,7 +245,7 @@
     <value>Python komut dosyasının tam yolu</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>Dosya</value>
+    <value>File</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">

@@ -201,7 +201,7 @@
     <value>Ruta de inicio de Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Ruta</value>
+    <value>Path</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">

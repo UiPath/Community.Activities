@@ -194,7 +194,7 @@
     <value>Python 스크립트의 입력 파라미터</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>입력 파라미터</value>
+    <value>InputParameters</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">

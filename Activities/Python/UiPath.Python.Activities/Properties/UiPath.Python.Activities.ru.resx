@@ -163,7 +163,7 @@
     <value>Invoke Python Method (Вызвать метод Python)</value>
   </data>
   <data name="InvokeMethodNameDisplayName" xml:space="preserve">
-    <value>Invoke Python Method (Вызвать метод Python)</value>
+    <value>Invoke Python Method</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadScriptDescription" xml:space="preserve">
@@ -173,7 +173,7 @@
     <value>Ошибка загрузки сценария Python</value>
   </data>
   <data name="LoadScriptNameDisplayName" xml:space="preserve">
-    <value>Load Python Script (Загрузить сценарий Python)</value>
+    <value>Load Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">

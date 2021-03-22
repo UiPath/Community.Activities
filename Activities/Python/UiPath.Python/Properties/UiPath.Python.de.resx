@@ -117,61 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AffectedRecordsDisplayName" xml:space="preserve">
-    <value>AffectedRecords</value>
-  <comment>property name</comment></data>
-  <data name="CommandTypeDisplayName" xml:space="preserve">
-    <value>CommandType</value>
-  <comment>property name</comment></data>
-  <data name="Common" xml:space="preserve">
-    <value>Ortak</value>
+  <data name="DeserializationException" xml:space="preserve">
+    <value>Python-Deserialisierungsausnahme</value>
   </data>
-  <data name="Connection" xml:space="preserve">
-    <value>Bağlantı</value>
+  <data name="DetectVersionException" xml:space="preserve">
+    <value>Python-Version konnte nicht erkannt werden.</value>
   </data>
-  <data name="ConnectionConfiguration" xml:space="preserve">
-    <value>Bağlantı Yapılandırması</value>
+  <data name="InstantiationException" xml:space="preserve">
+    <value>Python-Instanziierungsausnahme</value>
   </data>
-  <data name="ConnectionStringDisplayName" xml:space="preserve">
-    <value>ConnectionString</value>
-  <comment>property name</comment></data>
-  <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
-  <comment>property name</comment></data>
-  <data name="DatabaseConnectionDisplayName" xml:space="preserve">
-    <value>DatabaseConnection</value>
-  <comment>property name</comment></data>
-  <data name="DataTableDisplayName" xml:space="preserve">
-    <value>DataTable</value>
-  <comment>property name</comment></data>
-  <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Existing Connection</value>
-  <comment>property name</comment></data>
-  <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+  <data name="PythonExeNotFoundException" xml:space="preserve">
+    <value>Die ausführbare Python-Datei wurde nicht gefunden.</value>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
-  <comment>property name</comment></data>
-  <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
-  <comment>property name</comment></data>
-  <data name="ProviderNameDisplayName" xml:space="preserve">
-    <value>ProviderName</value>
-  <comment>property name</comment></data>
-  <data name="TableNameDisplayName" xml:space="preserve">
-    <value>TableName</value>
-  <comment>property name</comment></data>
-  <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout (milliseconds)</value>
-  <comment>property name</comment></data>
-  <data name="TimeoutMSException" xml:space="preserve">
-    <value>TimeoutMS için sağlanan değer &gt;= 0 olmalıdır</value>
+  <data name="PythonRuntimeTypeException" xml:space="preserve">
+    <value>Python-Laufzeittyp/-Methode/-Eigenschaft nicht gefunden: {0}</value>
   </data>
-  <data name="UseTransactionDisplayName" xml:space="preserve">
-    <value>UseTransaction</value>
-  <comment>property name</comment></data>
-  <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
+  <data name="SerializationException" xml:space="preserve">
+    <value>Python-Serialisierungsausnahme</value>
+  </data>
+  <data name="UnsupportedVersionException" xml:space="preserve">
+    <value>Die Python-Version {0} wird nicht unterstützt. Folgende Versionen werden unterstützt: {1}</value>
   </data>
 </root>
