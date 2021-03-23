@@ -70,7 +70,7 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CredentialType Description.
+        ///   Looks up a localized string similar to Credential Type.
         /// </summary>
         public static string CredentialTypeDescription {
             get {
@@ -97,7 +97,7 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Message Description.
+        ///   Looks up a localized string similar to Message.
         /// </summary>
         public static string MessageDescription {
             get {
@@ -124,7 +124,16 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password Description.
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string OutputDisplayName {
+            get {
+                return ResourceManager.GetString("OutputDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordDescription {
             get {
@@ -142,7 +151,7 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PersistanceType Description.
+        ///   Looks up a localized string similar to Persistance Type .
         /// </summary>
         public static string PersistanceTypeDescription {
             get {
@@ -169,7 +178,7 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Target Description.
+        ///   Looks up a localized string similar to Target.
         /// </summary>
         public static string TargetDescription {
             get {
@@ -187,7 +196,7 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Title Description.
+        ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string TitleDescription {
             get {
@@ -205,7 +214,7 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username Description.
+        ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string UsernameDescription {
             get {
