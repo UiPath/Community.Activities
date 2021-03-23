@@ -1,23 +1,32 @@
 ﻿using CredentialManagement;
 using System.Activities;
 using System.ComponentModel;
+using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [Category("System.Credentials")]
+    [LocalizedDescription(nameof(Resources.Category))]
     public class RequestCredential : CodeActivity<bool>
     {
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.MessageDisplayName))]
+        [LocalizedDescription(nameof(Resources.MessageDescription))]
         public InArgument<string> Message { get; set; }
 
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.TitleDisplayName))]
+        [LocalizedDescription(nameof(Resources.TitleDescription))]
         public InArgument<string> Title { get; set; }
 
 
-        [Category("Output")]
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.UsernameDisplayName))]
+        [LocalizedDescription(nameof(Resources.UsernameDescription))]
         public OutArgument<string> Username { get; set; }
 
-        [Category("Output")]
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.PasswordDisplayName))]
+        [LocalizedDescription(nameof(Resources.PasswordDescription))]
         public OutArgument<string> Password { get; set; }
 
         protected override bool Execute(CodeActivityContext context)

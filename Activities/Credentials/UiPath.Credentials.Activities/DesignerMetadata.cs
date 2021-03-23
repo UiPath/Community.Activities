@@ -1,5 +1,6 @@
 ﻿using System.Activities.Presentation.Metadata;
 using System.ComponentModel;
+using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
@@ -9,10 +10,10 @@ namespace UiPath.Credentials.Activities
         {
             var builder = new AttributeTableBuilder();
 
-            builder.AddCustomAttributes(typeof(AddCredential), "Result", new CategoryAttribute("Output"));
-            builder.AddCustomAttributes(typeof(DeleteCredential), "Result", new CategoryAttribute("Output"));
-            builder.AddCustomAttributes(typeof(GetCredential), "Result", new CategoryAttribute("Output"));
-            builder.AddCustomAttributes(typeof(RequestCredential), "Result", new CategoryAttribute("Output"));
+            builder.AddCustomAttributes(typeof(AddCredential), Resources.Result, new CategoryAttribute(Resources.Output));
+            builder.AddCustomAttributes(typeof(DeleteCredential), Resources.Result, new CategoryAttribute(Resources.Output));
+            builder.AddCustomAttributes(typeof(GetCredential), Resources.Result, new CategoryAttribute(Resources.Output));
+            builder.AddCustomAttributes(typeof(RequestCredential), Resources.Result, new CategoryAttribute(Resources.Output));
 
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }
