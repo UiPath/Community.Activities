@@ -194,11 +194,11 @@
     <value>La representación de cadena hexadecimal de la cadena de entrada donde se utilizó un hash.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Ruta de entrada</value>
+    <value>Input Path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Texto</value>
+    <value>Text</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
@@ -223,7 +223,7 @@
     <value>Codificación clave</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Ruta de salida</value>
+    <value>Output Path</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
