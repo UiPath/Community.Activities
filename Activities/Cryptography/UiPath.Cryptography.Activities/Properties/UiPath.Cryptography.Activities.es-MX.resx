@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlgorithmDisplayName" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>Algorithm</value>
     <comment>property name</comment>
   </data>
   <data name="EncodingDisplayName" xml:space="preserve">
@@ -135,7 +135,7 @@
     <value>La codificación utilizada para interpretar la cadena de entrada y la clave.</value>
   </data>
   <data name="EncryptTextDisplayName" xml:space="preserve">
-    <value>Cifrar texto</value>
+    <value>Encrypt Text</value>
     <comment>activity name</comment>
   </data>
   <data name="EncryptTextDescription" xml:space="preserve">
@@ -157,7 +157,7 @@
     <value>El algoritmo hash que utilizará esta actividad.</value>
   </data>
   <data name="HashTextDisplayName" xml:space="preserve">
-    <value>Texto hash</value>
+    <value>Hash Text</value>
     <comment>activity name</comment>
   </data>
   <data name="HashTextDescription" xml:space="preserve">
@@ -173,7 +173,7 @@
     <value>Entrada</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
-    <value>Texto</value>
+    <value>Text</value>
     <comment>property name</comment>
   </data>
   <data name="KeyDisplayName" xml:space="preserve">
@@ -190,7 +190,7 @@
     <value>La clave utilizada para aplicar un hash a la cadena de entrada.</value>
   </data>
   <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>Texto hash con clave</value>
+    <value>Hash Text With Key</value>
     <comment>activity name</comment>
   </data>
   <data name="KeyedHashTextDescription" xml:space="preserve">
@@ -208,7 +208,7 @@
     <value>El algoritmo de descifrado que utilizará esta actividad.</value>
   </data>
   <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>Descifrar texto</value>
+    <value>Decrypt Text</value>
     <comment>activity name</comment>
   </data>
   <data name="DecryptTextDescription" xml:space="preserve">
@@ -234,7 +234,7 @@
     <comment>property name</comment>
   </data>
   <data name="HashFileDisplayName" xml:space="preserve">
-    <value>Archivo hash</value>
+    <value>Hash File</value>
     <comment>activity name</comment>
   </data>
   <data name="HashFileDescription" xml:space="preserve">
@@ -247,7 +247,7 @@
     <value>La representación de cadena hexadecimal del archivo en el que se utilizó un hash.</value>
   </data>
   <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>Archivo hash con clave</value>
+    <value>Hash File With Key</value>
     <comment>activity name</comment>
   </data>
   <data name="KeyedHashFileDescription" xml:space="preserve">
@@ -263,7 +263,7 @@
     <value>La codificación utilizada para interpretar la clave.</value>
   </data>
   <data name="EncryptFileDisplayName" xml:space="preserve">
-    <value>Cifrar archivo</value>
+    <value>Encrypt File</value>
     <comment>activity name</comment>
   </data>
   <data name="EncryptFileDescription" xml:space="preserve">
@@ -286,11 +286,11 @@
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>Ruta de salida</value>
+    <value>OutputPath</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>Sobrescribir</value>
+    <value>Overwrite</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDescription" xml:space="preserve">
