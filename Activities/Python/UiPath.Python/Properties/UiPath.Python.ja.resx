@@ -135,6 +135,9 @@
   <data name="SerializationException" xml:space="preserve">
     <value>Python シリアル化例外</value>
   </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>Python のタイムアウト期間が経過しました。</value>
+  </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>バージョン {0} の Python はサポートされていません。サポートされているバージョンは次のとおりです: {1}</value>
   </data>
