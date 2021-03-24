@@ -135,6 +135,9 @@
   <data name="SerializationException" xml:space="preserve">
     <value>Exceção de serialização do Python</value>
   </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>Tempo limite do Python decorrido</value>
+  </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>A versão do Python {0} não é compatível. As versões compatíveis são: {1}</value>
   </data>
