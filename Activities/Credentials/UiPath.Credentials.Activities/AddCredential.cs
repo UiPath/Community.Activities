@@ -9,7 +9,6 @@ using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [LocalizedDescription(nameof(Resources.Category))]
     public class AddCredential : CodeActivity<bool>
     {
         [RequiredArgument]

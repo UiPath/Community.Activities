@@ -5,7 +5,6 @@ using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [LocalizedDescription(nameof(Resources.Category))]
     [Browsable(false)]
     public class GetCredential : CodeActivity<bool>
     {
