@@ -135,6 +135,9 @@
   <data name="SerializationException" xml:space="preserve">
     <value>Python seri hale getirme özel durumu</value>
   </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>Python zaman aşımı geçti</value>
+  </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Python sürümü {0} desteklenmiyor. Desteklenen sürümler şunlardır: {1}</value>
   </data>
