@@ -61,11 +61,20 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to System.Credentials.
+        ///   Looks up a localized string similar to Credentials.
         /// </summary>
-        public static string Category {
+        public static string CategoryCredentials {
             get {
-                return ResourceManager.GetString("Category", resourceCulture);
+                return ResourceManager.GetString("CategoryCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        public static string CategorySystem {
+            get {
+                return ResourceManager.GetString("CategorySystem", resourceCulture);
             }
         }
         
