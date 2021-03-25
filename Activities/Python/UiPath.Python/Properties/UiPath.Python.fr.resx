@@ -135,6 +135,9 @@
   <data name="SerializationException" xml:space="preserve">
     <value>Exception de sérialisation Python</value>
   </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>Délai d’attente de Python écoulé</value>
+  </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>La version {0} de Python n’est pas prise en charge. Les versions prises en charge sont les suivantes : {1}</value>
   </data>
