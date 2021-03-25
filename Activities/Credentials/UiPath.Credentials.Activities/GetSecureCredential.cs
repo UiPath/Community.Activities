@@ -6,7 +6,6 @@ using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [LocalizedDescription(nameof(Resources.Category))]
     public class GetSecureCredential : CodeActivity<bool>
     {
         [RequiredArgument]

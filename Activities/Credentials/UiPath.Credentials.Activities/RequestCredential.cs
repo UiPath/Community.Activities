@@ -5,7 +5,6 @@ using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [LocalizedDescription(nameof(Resources.Category))]
     public class RequestCredential : CodeActivity<bool>
     {
         [LocalizedCategory(nameof(Resources.Input))]
