@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CastArrayException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в массив.</value>
+    <value>无法将 Java 对象转换为数组。</value>
   </data>
   <data name="CastException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в тип .net.</value>
+    <value>无法将 Java 对象转换为 .net 类型。</value>
   </data>
   <data name="ClassNotFoundException" xml:space="preserve">
-    <value>Тип целевого объекта не найден.</value>
+    <value>未找到目标类型。</value>
   </data>
   <data name="ConstructorNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать конструктор.</value>
+    <value>无法调用构造函数。</value>
   </data>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Не удалось десериализировать результат из Java.</value>
+    <value>来自 Java 的结果无法反序列化。</value>
   </data>
   <data name="FieldNotFoundException" xml:space="preserve">
-    <value>В целевом объекте не найдено поле с указанным именем.</value>
+    <value>未在目标中找到具有指定名称的字段。</value>
   </data>
   <data name="IllegalAccessException" xml:space="preserve">
-    <value>Можно перейти только к общедоступному элементу.</value>
+    <value>只能访问公开成员。</value>
   </data>
   <data name="IllegalArgumentsException" xml:space="preserve">
-    <value>Передан недопустимый или несоответствующий параметр.</value>
+    <value>已传递非法或不适当的参数。</value>
   </data>
   <data name="InstanceNotFoundException" xml:space="preserve">
-    <value>Указанный экземпляр не создан.</value>
+    <value>未创建指定实例。</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Не удалось инициализировать класс целевого объекта.</value>
+    <value>无法实例化目标类。</value>
   </data>
   <data name="InvocationTargetException" xml:space="preserve">
-    <value>При выполнении целевого объекта возникло исключение вызова.</value>
+    <value>执行目标期间发生调用异常。</value>
   </data>
   <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>JAR-файл из указанного расположения уже загружен.</value>
+    <value>已加载具有指定路径的 Jar。</value>
   </data>
   <data name="JarNotFoundException" xml:space="preserve">
-    <value>Путь к указанному JAR-файлу не найден или не существует.</value>
+    <value>指定 Jar 的路径找不到或不存在。</value>
   </data>
   <data name="JarNotLoadedException" xml:space="preserve">
-    <value>Не удалось загрузить JAR-файл.</value>
+    <value>无法加载此 Jar。</value>
   </data>
   <data name="JavaTimeoutException" xml:space="preserve">
-    <value>Истекло время ожидания инициализации Java.</value>
+    <value>Java 初始化超时过期。</value>
   </data>
   <data name="MethodNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать метод.</value>
+    <value>无法调用方法。</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
-    <value>Не удалось сериализовать объект .NET</value>
+    <value>无法序列化 .net 对象</value>
   </data>
   <data name="UnknowException" xml:space="preserve">
-    <value>Во время вызова возникло неожиданное исключение.</value>
+    <value>调用过程中发生意外异常。</value>
   </data>
 </root>
