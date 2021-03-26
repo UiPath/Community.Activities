@@ -118,127 +118,127 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConstructorException" xml:space="preserve">
-    <value>Le constructeur n’a pas pu être appelé.</value>
+    <value>Der Konstruktor konnte nicht aufgerufen werden.</value>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>Conversion impossible </value>
+    <value>Konnte nicht konvertiert werden </value>
   </data>
   <data name="ConvertJavaObjectDescription" xml:space="preserve">
-    <value>Convertissez un objet java en type .net spécifié. En cas de conversion impossible, une exception est générée.</value>
+    <value>Konvertiert ein Java-Objekts in den angegebenen .NET- Typ. Wenn die Umwandlung nicht möglich war, wird eine Ausnahme ausgelöst.</value>
   </data>
   <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
     <value>Convert Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
-    <value>L’objet java converti en .net.</value>
+    <value>Das in .NET konvertierte Java-Objekt.</value>
   </data>
   <data name="CreateJavaObjectDescription" xml:space="preserve">
-    <value>Invoque le constructeur au niveau de la classe spécifiée.</value>
+    <value>Ruft den Konstruktor für die angegebene Klasse auf.</value>
   </data>
   <data name="CreateJavaObjectDisplayName" xml:space="preserve">
     <value>Create Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="Do" xml:space="preserve">
-    <value>Faire</value>
+    <value>Ausführen</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>Nom du champ</value>
+    <value>FieldName</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
-    <value>Le nom du champ renvoyé par l’activité en tant qu’objet java.</value>
+    <value>Der Name des Felds, das die Aktivität als Java-Objekt zurückgibt.</value>
   </data>
   <data name="GetFieldDescritption" xml:space="preserve">
-    <value>Renvoie un champ public à partir d’un objet java.</value>
+    <value>Gibt ein öffentliches Feld aus einem Java-Objekt zurück.</value>
   </data>
   <data name="GetFieldDisplayName" xml:space="preserve">
     <value>Get Field</value>
     <comment>activity name</comment>
   </data>
   <data name="GetFieldException" xml:space="preserve">
-    <value>Champ introuvable.</value>
+    <value>Feld nicht gefunden.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Entrée</value>
+    <value>Eingabe</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>Target</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
-    <value>Les champs Objet cible (Target Object) et Type cible (Target Type) sont vides. Au moins l’un d’entre eux doit être défini.</value>
+    <value>Sowohl Zielobjekt als auch Zieltyp ist leer. Mindestens eines davon muss festgelegt sein.</value>
   </data>
   <data name="InvokeJavaMethodDescription" xml:space="preserve">
-    <value>Invoquer la méthode Java</value>
+    <value>Java-Methode aufrufen</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Invoquer la méthode Java</value>
+    <value>Invoke Java Method</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
-    <value>Une référence à un objet chargé dans Java.</value>
+    <value>Ein Verweis auf ein in Java geladenes Objekt.</value>
   </data>
   <data name="InvokeMethodException" xml:space="preserve">
-    <value>La méthode n’a pas pu être invoquée.</value>
+    <value>Die Methode konnte nicht aufgerufen werden.</value>
   </data>
   <data name="JarPathDescription" xml:space="preserve">
-    <value>Le chemin d’accès au fichier jar va être chargé.</value>
+    <value>Pfad zur JAR-Datei, die geladen wird.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
     <value>JarPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
-    <value>Erreur lors de l’initialisation de Java : {0}</value>
+    <value>Fehler beim Intialisieren von Java: {0}</value>
   </data>
   <data name="JavaInvokerNotLoadedException" xml:space="preserve">
-    <value>L’invocateur Java ne s’est pas chargé.</value>
+    <value>Java-Aufrufer wurde nicht geladen.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
     <value>JavaObject</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
-    <value>Une référence à un objet chargé dans Java.</value>
+    <value>Ein Verweis auf ein in Java geladenes Objekt.</value>
   </data>
   <data name="JavaPathDescription" xml:space="preserve">
-    <value>Chemin d’accès à java.exe</value>
+    <value>Pfad zu „java.exe“</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
     <value>JavaLibraryPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
-    <value>Conteneur des activités Java</value>
+    <value>Java-Aktivitätencontainer</value>
   </data>
   <data name="JavaScopeNameDisplayName" xml:space="preserve">
     <value>Java Scope</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarDescription" xml:space="preserve">
-    <value>Charge un fichier jar dans l’activité Java Scope en cours.</value>
+    <value>Lädt eine JAR-Datei in der aktuellen Aktivität „Java Scope“.</value>
   </data>
   <data name="LoadJarDisplayName" xml:space="preserve">
     <value>Load Jar</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarException" xml:space="preserve">
-    <value>Le fichier jar n’a pas pu être chargé.</value>
+    <value>JAR-Datei konnte nicht geladen werden.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
     <value>MethodName</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>Le nom de la méthode qui sera exécutée en Java.</value>
+    <value>Der Name der Methode, die in Java ausgeführt wird.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>La liste des arguments spécifiés dans le même ordre que la méthode java. Un argument ne peut pas avoir la valeur Null.</value>
+    <value>Die Liste der Argumente in der gleichen Reihenfolge wie die Java-Methode. Ein Argument kann nicht NULL sein.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
     <value>Parameters</value>
@@ -249,7 +249,7 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
-    <value>Impossible de définir {0} et {1}.</value>
+    <value>{0} und {1} können nicht gleichzeitig festgelegt sein.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
     <value>Result</value>
@@ -260,20 +260,20 @@
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>L’instance d’objet java invoquée par la méthode. TargetObject et TargetType ne peuvent pas être définis en même temps.</value>
+    <value>Die Java-Objektinstanz, mit der die Methode aufgerufen wird. TargetObject und TargetType können nicht gleichzeitig festgelegt werden.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
     <value>TargetType</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
-    <value>Le nom de la classe java.</value>
+    <value>Der Name der Java-Klasse.</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
-    <value>L&apos;activité est uniquement valide à l&apos;intérieur de {0}</value>
+    <value>Aktivität ist nur innerhalb von {0} gültig.</value>
   </data>
   <data name="FieldName" xml:space="preserve">
-    <value>Nom du champ</value>
+    <value>Name des Felds</value>
   </data>
   <data name="JavaObject" xml:space="preserve">
     <value>JavaObject</value>
@@ -282,19 +282,19 @@
     <value>MethodName</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Sortie</value>
+    <value>Ausgabe</value>
   </data>
   <data name="InvalidJavaPath" xml:space="preserve">
-    <value>Le chemin d’accès à la bibliothèque java n’est pas valide.</value>
+    <value>Der Pfad zur Java-Bibliothek ist ungültig.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Délai d’initialisation (millisecondes)</value>
+    <value>Init timeout (milliseconds)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>La valeur fournie pour TimeoutMS doit être &gt;= 0</value>
+    <value>Der für TimeoutMS angegebene Wert muss &gt;= 0 sein.</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Le temps d’attente (en millisecondes) pour que la connexion au runtime Java s’établisse (15 000 ms par défaut).</value>
+    <value>Die Zeit (in Millisekunden), die auf die Java-Laufzeitverbindung gewartet werden muss (Standard: 15.000 ms).</value>
   </data>
 </root>

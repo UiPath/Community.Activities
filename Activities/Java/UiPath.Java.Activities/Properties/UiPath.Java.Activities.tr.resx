@@ -118,127 +118,127 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConstructorException" xml:space="preserve">
-    <value>Le constructeur n’a pas pu être appelé.</value>
+    <value>Oluşturucu çağrılamadı.</value>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>Conversion impossible </value>
+    <value>Dönüştürülemedi </value>
   </data>
   <data name="ConvertJavaObjectDescription" xml:space="preserve">
-    <value>Convertissez un objet java en type .net spécifié. En cas de conversion impossible, une exception est générée.</value>
+    <value>Bir java nesnesini belirtilen .net türüne dönüştürün. Aktarım mümkün değilse özel durum oluşturur.</value>
   </data>
   <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
     <value>Convert Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
-    <value>L’objet java converti en .net.</value>
+    <value>Java nesnesi .net&apos;e dönüştürüldü.</value>
   </data>
   <data name="CreateJavaObjectDescription" xml:space="preserve">
-    <value>Invoque le constructeur au niveau de la classe spécifiée.</value>
+    <value>Belirtilen sınıftaki oluşturucuyu çağırır.</value>
   </data>
   <data name="CreateJavaObjectDisplayName" xml:space="preserve">
     <value>Create Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="Do" xml:space="preserve">
-    <value>Faire</value>
+    <value>Yap</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>Nom du champ</value>
+    <value>FieldName</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
-    <value>Le nom du champ renvoyé par l’activité en tant qu’objet java.</value>
+    <value>Etkinliğin java nesnesi olarak döndüreceği alanın adı.</value>
   </data>
   <data name="GetFieldDescritption" xml:space="preserve">
-    <value>Renvoie un champ public à partir d’un objet java.</value>
+    <value>Java nesnesinden bir genel alan döndürür.</value>
   </data>
   <data name="GetFieldDisplayName" xml:space="preserve">
     <value>Get Field</value>
     <comment>activity name</comment>
   </data>
   <data name="GetFieldException" xml:space="preserve">
-    <value>Champ introuvable.</value>
+    <value>Alan bulunamadı.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Entrée</value>
+    <value>Giriş</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>Target</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
-    <value>Les champs Objet cible (Target Object) et Type cible (Target Type) sont vides. Au moins l’un d’entre eux doit être défini.</value>
+    <value>Hedef Nesne ve Hedef Türü&apos;nün ikisi de boş. En azından biri ayarlanmalıdır.</value>
   </data>
   <data name="InvokeJavaMethodDescription" xml:space="preserve">
-    <value>Invoquer la méthode Java</value>
+    <value>Java Yöntemini Çağır</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Invoquer la méthode Java</value>
+    <value>Invoke Java Method</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
-    <value>Une référence à un objet chargé dans Java.</value>
+    <value>Java&apos;da yüklenen bir nesnenin başvurusu.</value>
   </data>
   <data name="InvokeMethodException" xml:space="preserve">
-    <value>La méthode n’a pas pu être invoquée.</value>
+    <value>Yöntem çağrılamadı.</value>
   </data>
   <data name="JarPathDescription" xml:space="preserve">
-    <value>Le chemin d’accès au fichier jar va être chargé.</value>
+    <value>Yüklenecek jar dosyasının yolu.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
     <value>JarPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
-    <value>Erreur lors de l’initialisation de Java : {0}</value>
+    <value>Java&apos;yı başlatma hatası : {0}</value>
   </data>
   <data name="JavaInvokerNotLoadedException" xml:space="preserve">
-    <value>L’invocateur Java ne s’est pas chargé.</value>
+    <value>Java çağırıcısı yüklenmedi.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
     <value>JavaObject</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
-    <value>Une référence à un objet chargé dans Java.</value>
+    <value>Java&apos;da yüklenen bir nesnenin başvurusu.</value>
   </data>
   <data name="JavaPathDescription" xml:space="preserve">
-    <value>Chemin d’accès à java.exe</value>
+    <value>java.exe&apos;nin yolu</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
     <value>JavaLibraryPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
-    <value>Conteneur des activités Java</value>
+    <value>Java Etkinlikleri Kapsayıcısı</value>
   </data>
   <data name="JavaScopeNameDisplayName" xml:space="preserve">
     <value>Java Scope</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarDescription" xml:space="preserve">
-    <value>Charge un fichier jar dans l’activité Java Scope en cours.</value>
+    <value>Geçerli java kapsamına bir jar yükler.</value>
   </data>
   <data name="LoadJarDisplayName" xml:space="preserve">
     <value>Load Jar</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarException" xml:space="preserve">
-    <value>Le fichier jar n’a pas pu être chargé.</value>
+    <value>Jar yüklenemedi.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
     <value>MethodName</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>Le nom de la méthode qui sera exécutée en Java.</value>
+    <value>Java&apos;da yürütülecek yöntemin adı.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>La liste des arguments spécifiés dans le même ordre que la méthode java. Un argument ne peut pas avoir la valeur Null.</value>
+    <value>Java yöntemiyle aynı sırada belirtilen bağımsız değişkenlerin listesi. Bağımsız değişken null olamaz.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
     <value>Parameters</value>
@@ -249,7 +249,7 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
-    <value>Impossible de définir {0} et {1}.</value>
+    <value>Hem {0} hem de {1} ayarlanamaz.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
     <value>Result</value>
@@ -260,20 +260,20 @@
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>L’instance d’objet java invoquée par la méthode. TargetObject et TargetType ne peuvent pas être définis en même temps.</value>
+    <value>Yöntemi çağırmak için kullanılacak java nesnesi. Aynı anda hem TargetObject hem de TargetType ayarlanamaz.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
     <value>TargetType</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
-    <value>Le nom de la classe java.</value>
+    <value>Java sınıfının adı.</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
-    <value>L&apos;activité est uniquement valide à l&apos;intérieur de {0}</value>
+    <value>Etkinlik sadece {0} içinde geçerlidir</value>
   </data>
   <data name="FieldName" xml:space="preserve">
-    <value>Nom du champ</value>
+    <value>Alan Adı</value>
   </data>
   <data name="JavaObject" xml:space="preserve">
     <value>JavaObject</value>
@@ -282,19 +282,19 @@
     <value>MethodName</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Sortie</value>
+    <value>Çıkış</value>
   </data>
   <data name="InvalidJavaPath" xml:space="preserve">
-    <value>Le chemin d’accès à la bibliothèque java n’est pas valide.</value>
+    <value>Java kitaplığının yolu geçersiz.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Délai d’initialisation (millisecondes)</value>
+    <value>Init timeout (milliseconds)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>La valeur fournie pour TimeoutMS doit être &gt;= 0</value>
+    <value>TimeoutMS için sağlanan değer &gt;= 0 olmalıdır</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Le temps d’attente (en millisecondes) pour que la connexion au runtime Java s’établisse (15 000 ms par défaut).</value>
+    <value>Java çalışma zamanı bağlantısı için beklenecek süre (milisaniye olarak) (varsayılan 15.000 ms).</value>
   </data>
 </root>
