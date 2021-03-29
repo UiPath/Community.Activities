@@ -1,51 +1,58 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
-  <PropertyGroup>
-      <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
-      <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
-      <UseWPF>true</UseWPF>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities" />
-    <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.Core.Presentation" />
+	<PropertyGroup>
+		<TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+		<OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+		<PackageReference Include="System.Activities" />
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="System.Activities.Core.Presentation" />
 
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Activities.Presentation" />
-    <Reference Include="System.Activities.Core.Presentation" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="System.Activities" />
+		<Reference Include="System.Activities.Presentation" />
+		<Reference Include="System.Activities.Core.Presentation" />
+		<Reference Include="System.ServiceModel" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.fr.resx">
-      <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.ja.resx">
-      <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.ru.resx">
-      <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UiPath.Database.Activities.Design.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UiPath.Database.Activities\UiPath.Database.Activities.csproj" />
-    <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.Data.ConnectionUI.Dialog">
-      <HintPath>Dialogs\Microsoft.Data.ConnectionUI.Dialog.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.fr.resx">
+			<DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.ja.resx">
+			<DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.ru.resx">
+			<DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>UiPath.Database.Activities.Design.Designer.cs</LastGenOutput>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UiPath.Database.Activities\UiPath.Database.Activities.csproj" />
+		<ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="Microsoft.Data.ConnectionUI.Dialog">
+			<HintPath>Dialogs\Microsoft.Data.ConnectionUI.Dialog.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\UiPath.Database.Activities.Design.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 </Project>

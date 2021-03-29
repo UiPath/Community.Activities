@@ -158,7 +158,18 @@ namespace UiPath.Database.Activities.Design.Properties {
                 return ResourceManager.GetString("ConnectionWizard", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to ContinueOnError Boolean.
+        /// </summary>
+        public static string ContinueOnError
+        {
+            get
+            {
+                return ResourceManager.GetString("ContinueOnError", resourceCulture);
+            }
+        }
+    
         /// <summary>
         ///   Looks up a localized string similar to Connects to a database..
         /// </summary>
