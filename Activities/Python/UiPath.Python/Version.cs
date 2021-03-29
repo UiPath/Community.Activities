@@ -69,7 +69,7 @@ namespace UiPath.Python
     /// <summary>
     /// Helper class for Python version operations
     /// </summary>
-    internal static class VersionExtensions
+    public static class VersionExtensions
     {
         internal static string GetAssemblyName(this Version version)
         {
@@ -117,6 +117,14 @@ namespace UiPath.Python
                     return version;
             }
             return Version.Auto;
+        }
+
+        public static string ToFriendlyString(this Version version)
+        {
+            FieldInfo fi = version.GetType().GetField(version.ToString());
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            return (attributes.Length > 0) ? attributes[0].Description : version.ToString();
         }
     }
 
