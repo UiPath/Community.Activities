@@ -1,28 +1,42 @@
 ﻿using CredentialManagement;
 using System.Activities;
 using System.ComponentModel;
+using System;
+using System.Activities.Validation;
+using System.Diagnostics;
+using System.IO;
+using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [Category("System.Credentials")]
     public class AddCredential : CodeActivity<bool>
     {
         [RequiredArgument]
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.UsernameDisplayName))]
+        [LocalizedDescription(nameof(Resources.UsernameDescription))]
         public InArgument<string> Username { get; set; }
 
         [RequiredArgument]
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.PasswordDisplayName))]
+        [LocalizedDescription(nameof(Resources.PasswordDescription))]
         public InArgument<string> Password { get; set; }
 
         [RequiredArgument]
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.TargetDisplayName))]
+        [LocalizedDescription(nameof(Resources.TargetDescription))]
         public InArgument<string> Target { get; set; }
 
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.CredentialTypeDisplayName))]
+        [LocalizedDescription(nameof(Resources.CredentialTypeDescription))]
         public CredentialType CredentialType { get; set; }
 
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.PersistanceTypeDisplayName))]
+        [LocalizedDescription(nameof(Resources.PersistanceTypeDescription))]
         public PersistanceType PersistanceType { get; set; }
 
         public AddCredential()
