@@ -19,6 +19,7 @@ namespace UiPath.Python.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.VersionNameDisplayName))]
         [LocalizedDescription(nameof(Resources.VersionDescription))]
+        [TypeConverter(typeof(EnumTypeConverter))]
         [DefaultValue(Version.Auto)]
         public Version Version { get; set; }
 
