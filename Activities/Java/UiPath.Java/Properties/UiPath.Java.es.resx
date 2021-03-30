@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CastArrayException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в массив.</value>
+    <value>No se ha podido convertir el objeto de Java en una matriz.</value>
   </data>
   <data name="CastException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в тип .net.</value>
+    <value>No se ha podido convertir el objeto de Java en un tipo punto net.</value>
   </data>
   <data name="ClassNotFoundException" xml:space="preserve">
-    <value>Тип целевого объекта не найден.</value>
+    <value>No se ha encontrado el tipo de destino.</value>
   </data>
   <data name="ConstructorNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать конструктор.</value>
+    <value>No se ha podido invocar al constructor.</value>
   </data>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Не удалось десериализировать результат из Java.</value>
+    <value>No se ha podido deserializar el resultado de Java.</value>
   </data>
   <data name="FieldNotFoundException" xml:space="preserve">
-    <value>В целевом объекте не найдено поле с указанным именем.</value>
+    <value>No se ha encontrado el campo con el nombre especificado en el destino.</value>
   </data>
   <data name="IllegalAccessException" xml:space="preserve">
-    <value>Можно перейти только к общедоступному элементу.</value>
+    <value>Solo se puede acceder a un miembro público.</value>
   </data>
   <data name="IllegalArgumentsException" xml:space="preserve">
-    <value>Передан недопустимый или несоответствующий параметр.</value>
+    <value>Se ha enviado un parámetro ilegal o inapropiado.</value>
   </data>
   <data name="InstanceNotFoundException" xml:space="preserve">
-    <value>Указанный экземпляр не создан.</value>
+    <value>No se ha creado la instancia especificada.</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Не удалось инициализировать класс целевого объекта.</value>
+    <value>No se ha podido crear instancia para la clase de destino.</value>
   </data>
   <data name="InvocationTargetException" xml:space="preserve">
-    <value>При выполнении целевого объекта возникло исключение вызова.</value>
+    <value>Se ha producido una excepción de invocación durante la ejecución del destino.</value>
   </data>
   <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>JAR-файл из указанного расположения уже загружен.</value>
+    <value>El JAR con la ruta especificada ya estaba cargado.</value>
   </data>
   <data name="JarNotFoundException" xml:space="preserve">
-    <value>Путь к указанному JAR-файлу не найден или не существует.</value>
+    <value>No se ha encontrado la ruta al JAR especificado o esta no existe.</value>
   </data>
   <data name="JarNotLoadedException" xml:space="preserve">
-    <value>Не удалось загрузить JAR-файл.</value>
+    <value>No se ha podido cargar el JAR.</value>
   </data>
   <data name="JavaTimeoutException" xml:space="preserve">
-    <value>Истекло время ожидания инициализации Java.</value>
+    <value>El tiempo de espera de la inicialización de Java ha caducado.</value>
   </data>
   <data name="MethodNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать метод.</value>
+    <value>No se ha podido invocar el método.</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
-    <value>Не удалось сериализовать объект .NET</value>
+    <value>No se pudo serializar el objeto .net</value>
   </data>
   <data name="UnknowException" xml:space="preserve">
-    <value>Во время вызова возникло неожиданное исключение.</value>
+    <value>Se ha producido una excepción durante la solicitud.</value>
   </data>
 </root>

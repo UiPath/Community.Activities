@@ -135,6 +135,9 @@
   <data name="SerializationException" xml:space="preserve">
     <value>Python 序列化异常</value>
   </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>Python 超时已过</value>
+  </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>不支持 Python 版本 {0}。支持的版本包括: {1}</value>
   </data>

@@ -134,7 +134,7 @@
     <value>Obtenga el tipo .NET de un objetoPython</value>
   </data>
   <data name="GetObjectNameDisplayName" xml:space="preserve">
-    <value>Obtener objeto Python</value>
+    <value>Get Python Object</value>
     <comment>activity name</comment>
   </data>
   <data name="GetObjectResultDescription" xml:space="preserve">
@@ -163,7 +163,7 @@
     <value>Invocar el método Python</value>
   </data>
   <data name="InvokeMethodNameDisplayName" xml:space="preserve">
-    <value>Invocar el método Python</value>
+    <value>Invoke Python Method</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadScriptDescription" xml:space="preserve">
@@ -173,7 +173,7 @@
     <value>Error al cargar la secuencia de comandos de Python</value>
   </data>
   <data name="LoadScriptNameDisplayName" xml:space="preserve">
-    <value>Cargar secuencia de comandos de Python</value>
+    <value>Load Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
@@ -194,7 +194,7 @@
     <value>Parámetros de entrada para la secuencia de comandos de Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>Parámetros de entrada</value>
+    <value>InputParameters</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
@@ -221,7 +221,7 @@
     <value>Contenedor de actividades de Python</value>
   </data>
   <data name="PythonScopeNameDisplayName" xml:space="preserve">
-    <value>Alcance de Python</value>
+    <value>Python Scope</value>
     <comment>activity name</comment>
   </data>
   <data name="ResultDescription" xml:space="preserve">
@@ -238,14 +238,14 @@
     <value>Error al ejecutar el script de Python</value>
   </data>
   <data name="RunScriptNameDisplayName" xml:space="preserve">
-    <value>Ejecutar el script de Python</value>
+    <value>Run Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="ScriptFileDescription" xml:space="preserve">
     <value>Ruta completa al archivo de script de Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>Archivo</value>
+    <value>File</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
@@ -265,7 +265,7 @@
     <value>Versión de Python</value>
   </data>
   <data name="VersionNameDisplayName" xml:space="preserve">
-    <value>Versión</value>
+    <value>Version</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">

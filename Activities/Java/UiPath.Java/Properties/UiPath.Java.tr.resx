@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CastArrayException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в массив.</value>
+    <value>Java nesnesi diziye aktarılamıyor.</value>
   </data>
   <data name="CastException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в тип .net.</value>
+    <value>Java nesnesi nokta net türüne aktarılamıyor.</value>
   </data>
   <data name="ClassNotFoundException" xml:space="preserve">
-    <value>Тип целевого объекта не найден.</value>
+    <value>Hedef türü bulunamadı.</value>
   </data>
   <data name="ConstructorNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать конструктор.</value>
+    <value>Oluşturucu çağrılamadı.</value>
   </data>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Не удалось десериализировать результат из Java.</value>
+    <value>Java&apos;dan gelen sonuç seri durumdan çıkarılamadı.</value>
   </data>
   <data name="FieldNotFoundException" xml:space="preserve">
-    <value>В целевом объекте не найдено поле с указанным именем.</value>
+    <value>Belirtilen addaki alan hedefte bulunamadı.</value>
   </data>
   <data name="IllegalAccessException" xml:space="preserve">
-    <value>Можно перейти только к общедоступному элементу.</value>
+    <value>Yalnızca genel üyeye erişilebilir.</value>
   </data>
   <data name="IllegalArgumentsException" xml:space="preserve">
-    <value>Передан недопустимый или несоответствующий параметр.</value>
+    <value>Geçersiz veya uygun olmayan bir parametre aktarıldı.</value>
   </data>
   <data name="InstanceNotFoundException" xml:space="preserve">
-    <value>Указанный экземпляр не создан.</value>
+    <value>Belirtilen örnek oluşturulmadı.</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Не удалось инициализировать класс целевого объекта.</value>
+    <value>Hedef sınıf örneklendirilemedi.</value>
   </data>
   <data name="InvocationTargetException" xml:space="preserve">
-    <value>При выполнении целевого объекта возникло исключение вызова.</value>
+    <value>Hedefin yürütülmesi sırasında bir çağırma özel durumu oluştu.</value>
   </data>
   <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>JAR-файл из указанного расположения уже загружен.</value>
+    <value>Belirtilen yola sahip jar zaten yüklüydü.</value>
   </data>
   <data name="JarNotFoundException" xml:space="preserve">
-    <value>Путь к указанному JAR-файлу не найден или не существует.</value>
+    <value>Belirtilen jar&apos;ın yolu bulunamadı veya yok.</value>
   </data>
   <data name="JarNotLoadedException" xml:space="preserve">
-    <value>Не удалось загрузить JAR-файл.</value>
+    <value>Jar yüklenemedi.</value>
   </data>
   <data name="JavaTimeoutException" xml:space="preserve">
-    <value>Истекло время ожидания инициализации Java.</value>
+    <value>Java başlatma zaman aşımı süresi doldu.</value>
   </data>
   <data name="MethodNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать метод.</value>
+    <value>Yöntem çağrılamadı.</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
-    <value>Не удалось сериализовать объект .NET</value>
+    <value>.net nesnesi seri hale getirilemedi</value>
   </data>
   <data name="UnknowException" xml:space="preserve">
-    <value>Во время вызова возникло неожиданное исключение.</value>
+    <value>Çağırma sırasında beklenmeyen bir özel durum oluştu.</value>
   </data>
 </root>

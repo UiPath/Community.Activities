@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CastArrayException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в массив.</value>
+    <value>java 객체를 배열로 캐스팅할 수 없습니다.</value>
   </data>
   <data name="CastException" xml:space="preserve">
-    <value>Не удается преобразовать объект Java в тип .net.</value>
+    <value>java를 .net 형식으로 캐스팅할 수 없습니다.</value>
   </data>
   <data name="ClassNotFoundException" xml:space="preserve">
-    <value>Тип целевого объекта не найден.</value>
+    <value>대상 형식을 찾지 못했습니다.</value>
   </data>
   <data name="ConstructorNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать конструктор.</value>
+    <value>생성자를 호출하지 못했습니다.</value>
   </data>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Не удалось десериализировать результат из Java.</value>
+    <value>java에서 제공된 결과를 역직렬화하지 못했습니다.</value>
   </data>
   <data name="FieldNotFoundException" xml:space="preserve">
-    <value>В целевом объекте не найдено поле с указанным именем.</value>
+    <value>지정된 이름을 갖는 필드를 대상에서 찾지 못했습니다.</value>
   </data>
   <data name="IllegalAccessException" xml:space="preserve">
-    <value>Можно перейти только к общедоступному элементу.</value>
+    <value>공용 멤버에만 액세스할 수 있습니다.</value>
   </data>
   <data name="IllegalArgumentsException" xml:space="preserve">
-    <value>Передан недопустимый или несоответствующий параметр.</value>
+    <value>잘못된 또는 부적절한 파라미터가 전달되었습니다.</value>
   </data>
   <data name="InstanceNotFoundException" xml:space="preserve">
-    <value>Указанный экземпляр не создан.</value>
+    <value>지정된 인스턴스가 생성되지 않았습니다.</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Не удалось инициализировать класс целевого объекта.</value>
+    <value>대상 클래스를 인스턴스화하지 못했습니다.</value>
   </data>
   <data name="InvocationTargetException" xml:space="preserve">
-    <value>При выполнении целевого объекта возникло исключение вызова.</value>
+    <value>대상을 실행하는 중 호출 예외가 발생했습니다.</value>
   </data>
   <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>JAR-файл из указанного расположения уже загружен.</value>
+    <value>지정된 경로를 갖는 jar이 이미 로드되었습니다.</value>
   </data>
   <data name="JarNotFoundException" xml:space="preserve">
-    <value>Путь к указанному JAR-файлу не найден или не существует.</value>
+    <value>지정된 jar로의 경로를 찾지 못하거나 존재하지 않습니다.</value>
   </data>
   <data name="JarNotLoadedException" xml:space="preserve">
-    <value>Не удалось загрузить JAR-файл.</value>
+    <value>Jar을 로드하지 못했습니다.</value>
   </data>
   <data name="JavaTimeoutException" xml:space="preserve">
-    <value>Истекло время ожидания инициализации Java.</value>
+    <value>Java 초기화 시간 제한이 만료되었습니다.</value>
   </data>
   <data name="MethodNotFoundException" xml:space="preserve">
-    <value>Не удалось вызвать метод.</value>
+    <value>메서드를 호출하지 못했습니다.</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
-    <value>Не удалось сериализовать объект .NET</value>
+    <value>.net 개체를 시리얼화할 수 없습니다.</value>
   </data>
   <data name="UnknowException" xml:space="preserve">
-    <value>Во время вызова возникло неожиданное исключение.</value>
+    <value>호출하는 동안 예기치 않은 예외가 발생했습니다.</value>
   </data>
 </root>

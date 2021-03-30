@@ -152,7 +152,7 @@
     <value>300</value>
   </data>
   <data name="Disconnect" xml:space="preserve">
-    <value>Desconectar</value>
+    <value>Disconnect</value>
     <comment>activity name</comment>
   </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
@@ -165,7 +165,7 @@
     <value>Una conexión de base de datos ya abierta. Si esta propiedad se establece, se omiten las propiedades Cadena de conexión y Nombre de proveedor</value>
   </data>
   <data name="Insert" xml:space="preserve">
-    <value>Insertar</value>
+    <value>Insert</value>
     <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
@@ -181,7 +181,7 @@
     <value>Un comando sql que se ejecutará.</value>
   </data>
   <data name="StartTransaction" xml:space="preserve">
-    <value>Iniciar transacción</value>
+    <value>Start Transaction</value>
     <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">

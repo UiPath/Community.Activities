@@ -118,183 +118,183 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConstructorException" xml:space="preserve">
-    <value>コンストラクターを呼び出せませんでした。</value>
+    <value>Oluşturucu çağrılamadı.</value>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>変換できませんでした。 </value>
+    <value>Dönüştürülemedi </value>
   </data>
   <data name="ConvertJavaObjectDescription" xml:space="preserve">
-    <value>Java オブジェクトを、指定した .NET 型に変換します。キャストできない場合は例外がスローされます。(Convert Java Object)</value>
+    <value>Bir java nesnesini belirtilen .net türüne dönüştürün. Aktarım mümkün değilse özel durum oluşturur.</value>
   </data>
   <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
-    <value>Java オブジェクトを変換</value>
+    <value>Convert Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
-    <value>.NET に変換された Java オブジェクトです。</value>
+    <value>Java nesnesi .net&apos;e dönüştürüldü.</value>
   </data>
   <data name="CreateJavaObjectDescription" xml:space="preserve">
-    <value>指定したクラスのコンストラクターを呼び出します。(Create Java Object)</value>
+    <value>Belirtilen sınıftaki oluşturucuyu çağırır.</value>
   </data>
   <data name="CreateJavaObjectDisplayName" xml:space="preserve">
-    <value>Java オブジェクトを作成</value>
+    <value>Create Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="Do" xml:space="preserve">
-    <value>実行</value>
+    <value>Yap</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>フィールド名</value>
+    <value>FieldName</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
-    <value>アクティビティが Java オブジェクトとして返すフィールドの名前です。</value>
+    <value>Etkinliğin java nesnesi olarak döndüreceği alanın adı.</value>
   </data>
   <data name="GetFieldDescritption" xml:space="preserve">
-    <value>Java オブジェクトからパブリック フィールドを返します。</value>
+    <value>Java nesnesinden bir genel alan döndürür.</value>
   </data>
   <data name="GetFieldDisplayName" xml:space="preserve">
-    <value>フィールドを取得</value>
+    <value>Get Field</value>
     <comment>activity name</comment>
   </data>
   <data name="GetFieldException" xml:space="preserve">
-    <value>フィールドが見つかりません。</value>
+    <value>Alan bulunamadı.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>入力</value>
+    <value>Giriş</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>ターゲット</value>
+    <value>Target</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
-    <value>[ターゲット オブジェクト] と [ターゲット型] の両方が空です。少なくとも 1 つを設定する必要があります。</value>
+    <value>Hedef Nesne ve Hedef Türü&apos;nün ikisi de boş. En azından biri ayarlanmalıdır.</value>
   </data>
   <data name="InvokeJavaMethodDescription" xml:space="preserve">
-    <value>Java メソッドを呼び出します。 (Invoke Java Method)</value>
+    <value>Java Yöntemini Çağır</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Java メソッドを呼び出し</value>
+    <value>Invoke Java Method</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
-    <value>Java に読み込まれたオブジェクトへの参照です。</value>
+    <value>Java&apos;da yüklenen bir nesnenin başvurusu.</value>
   </data>
   <data name="InvokeMethodException" xml:space="preserve">
-    <value>メソッドを呼び出せませんでした。</value>
+    <value>Yöntem çağrılamadı.</value>
   </data>
   <data name="JarPathDescription" xml:space="preserve">
-    <value>読み込まれる Jar ファイルのパスです。</value>
+    <value>Yüklenecek jar dosyasının yolu.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>Jar パス</value>
+    <value>JarPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
-    <value>次の Java の Jar ファイルの初期化中にエラーが発生しました: {0}</value>
+    <value>Java&apos;yı başlatma hatası : {0}</value>
   </data>
   <data name="JavaInvokerNotLoadedException" xml:space="preserve">
-    <value>Java Invoker が読み込まれませんでした。</value>
+    <value>Java çağırıcısı yüklenmedi.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>Java オブジェクト</value>
+    <value>JavaObject</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
-    <value>Java に読み込まれたオブジェクトへの参照です。</value>
+    <value>Java&apos;da yüklenen bir nesnenin başvurusu.</value>
   </data>
   <data name="JavaPathDescription" xml:space="preserve">
-    <value>java.exe のパスです。</value>
+    <value>java.exe&apos;nin yolu</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>Java ライブラリ パス</value>
+    <value>JavaLibraryPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
-    <value>Java 系アクティビティのコンテナーです。(Java Scope)</value>
+    <value>Java Etkinlikleri Kapsayıcısı</value>
   </data>
   <data name="JavaScopeNameDisplayName" xml:space="preserve">
-    <value>Java スコープ</value>
+    <value>Java Scope</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarDescription" xml:space="preserve">
-    <value>Jar を現在の [Java スコープ] アクティビティに読み込みます。(Load Jar)</value>
+    <value>Geçerli java kapsamına bir jar yükler.</value>
   </data>
   <data name="LoadJarDisplayName" xml:space="preserve">
-    <value>Jar を読み込み</value>
+    <value>Load Jar</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarException" xml:space="preserve">
-    <value>Jar ファイルを読み込めませんでした。</value>
+    <value>Jar yüklenemedi.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>メソッド名</value>
+    <value>MethodName</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>Java で実行するメソッドの名前です。</value>
+    <value>Java&apos;da yürütülecek yöntemin adı.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>出力</value>
+    <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Java メソッドでの順序と同じ順序で指定する引数の一覧です。引数を null にすることはできません。</value>
+    <value>Java yöntemiyle aynı sırada belirtilen bağımsız değişkenlerin listesi. Bağımsız değişken null olamaz.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>パラメーター</value>
+    <value>Parameters</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>パラメーター一覧</value>
+    <value>ParametersList</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
-    <value>{0} と {1} は同時に設定できません。</value>
+    <value>Hem {0} hem de {1} ayarlanamaz.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>結果</value>
+    <value>Result</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>ターゲット オブジェクト</value>
+    <value>TargetObject</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>メソッドを呼び出す Java オブジェクトのインスタンスです。[ターゲット オブジェクト] と [ターゲット型] は、同時に設定することはできません。</value>
+    <value>Yöntemi çağırmak için kullanılacak java nesnesi. Aynı anda hem TargetObject hem de TargetType ayarlanamaz.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>ターゲット型</value>
+    <value>TargetType</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
-    <value>Java クラスの名前です。</value>
+    <value>Java sınıfının adı.</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
-    <value>アクティビティは {0} の内部でのみ有効です。</value>
+    <value>Etkinlik sadece {0} içinde geçerlidir</value>
   </data>
   <data name="FieldName" xml:space="preserve">
-    <value>フィールド名</value>
+    <value>Alan Adı</value>
   </data>
   <data name="JavaObject" xml:space="preserve">
-    <value>Java オブジェクト</value>
+    <value>JavaObject</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>メソッド名</value>
+    <value>MethodName</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>出力</value>
+    <value>Çıkış</value>
   </data>
   <data name="InvalidJavaPath" xml:space="preserve">
-    <value>Java ライブラリのパスが無効です。</value>
+    <value>Java kitaplığının yolu geçersiz.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>初期タイムアウト (ミリ秒)</value>
+    <value>Init timeout (milliseconds)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>[タイムアウト (ミリ秒)] に入力する値は 0 以上である必要があります。</value>
+    <value>TimeoutMS için sağlanan değer &gt;= 0 olmalıdır</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Java ランタイムに接続するまでに待機する時間 (ミリ秒) です (既定では 15000 ミリ秒)。</value>
+    <value>Java çalışma zamanı bağlantısı için beklenecek süre (milisaniye olarak) (varsayılan 15.000 ms).</value>
   </data>
 </root>

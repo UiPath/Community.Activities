@@ -135,6 +135,9 @@
   <data name="SerializationException" xml:space="preserve">
     <value>Python 직렬화 예외</value>
   </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>경과한 Python 시간 제한</value>
+  </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Python 버전 {0}은(는) 지원되지 않습니다. 지원되는 버전: {1}</value>
   </data>

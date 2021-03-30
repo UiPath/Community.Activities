@@ -142,7 +142,7 @@
     <value>Der Schlüssel, der zum Entschlüsseln der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Der entschlüsselte String.</value>
+    <value>Die entschlüsselte Zeichenfolge.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
@@ -182,19 +182,19 @@
     <value>Dateipfad</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Der Pfad zu der Datei, die durch diese Aktivität zerhackt wird.</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität gehasht wird.</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der gehashten Datei.</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Der String, der durch diese Aktivität zerhackt wird.</value>
+    <value>Der String, der durch diese Aktivität gehasht wird.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Eingabezeichenfolge.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der gehashten Eingabezeichenfolge.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Eingabepfad</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
@@ -214,7 +214,7 @@
     <value>Der Schlüssel, der zum Zerhacken der bereitgestellten Datei verwendet wird.</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der gehashten Datei.</value>
   </data>
   <data name="KeyedHashKeyDescription" xml:space="preserve">
     <value>Der Schlüssel, der zum Zerhacken der Eingabezeichenfolge verwendet wird.</value>

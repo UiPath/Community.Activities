@@ -282,15 +282,15 @@
     <value>Chemin d’accès d’enregistrement du fichier chiffré.</value>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>Chemin d’entrée</value>
+    <value>InputPath</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>Chemin de sortie</value>
+    <value>OutputPath</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>Remplacer</value>
+    <value>Overwrite</value>
     <comment>property name</comment>
   </data>
   <data name="OverwriteDescription" xml:space="preserve">
@@ -322,7 +322,7 @@
     <value>Une opération cryptographique a échoué. Veuillez vérifier que vous utilisez un algorithme et une clé similaires pour le chiffrement et le déchiffrement.</value>
   </data>
   <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>Encodage de clé</value>
+    <value>KeyEncoding</value>
     <comment>property name</comment>
   </data>
   <data name="Encoding" xml:space="preserve">

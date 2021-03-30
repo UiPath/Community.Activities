@@ -164,10 +164,10 @@
     <value>Wendet den ausgewählten Hash-Algorithmus auf die Eingabezeichenfolge an und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
   </data>
   <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Der String, der durch diese Aktivität zerhackt wird.</value>
+    <value>Der String, der durch diese Aktivität gehasht wird.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Eingabezeichenfolge.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der gehashten Eingabezeichenfolge.</value>
   </data>
   <data name="Input" xml:space="preserve">
     <value>Eingabe</value>
@@ -224,7 +224,7 @@
     <value>Der Schlüssel, der zum Entschlüsseln der Eingabezeichenfolge verwendet wird.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Der entschlüsselte String.</value>
+    <value>Die entschlüsselte Zeichenfolge.</value>
   </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
     <value>Die Datei ist nicht vorhanden.</value>
@@ -241,10 +241,10 @@
     <value>Wendet den ausgewählten Hash-Algorithmus auf den Inhalt der bereitgestellten Datei an und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Der Pfad zu der Datei, die durch diese Aktivität zerhackt wird.</value>
+    <value>Der Pfad zu der Datei, die durch diese Aktivität gehasht wird.</value>
   </data>
   <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der gehashten Datei.</value>
   </data>
   <data name="KeyedHashFileDisplayName" xml:space="preserve">
     <value>Hash File With Key</value>
@@ -257,7 +257,7 @@
     <value>Der Schlüssel, der zum Zerhacken der bereitgestellten Datei verwendet wird.</value>
   </data>
   <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Die hexadezimale Zeichenfolgendarstellung der zerhackten Datei.</value>
+    <value>Die hexadezimale Zeichenfolgendarstellung der gehashten Datei.</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
     <value>Die Codierung, die zum Interpretieren des Schlüssels verwendet wird.</value>

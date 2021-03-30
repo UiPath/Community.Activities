@@ -134,7 +134,7 @@
     <value>Obtenir le type .NET à partir d’un objet Python (PythonObject)</value>
   </data>
   <data name="GetObjectNameDisplayName" xml:space="preserve">
-    <value>Obtenir l’objet Python (Get Python Object)</value>
+    <value>Get Python Object</value>
     <comment>activity name</comment>
   </data>
   <data name="GetObjectResultDescription" xml:space="preserve">
@@ -163,7 +163,7 @@
     <value>Appeler la méthode Python (Invoke Python Method)</value>
   </data>
   <data name="InvokeMethodNameDisplayName" xml:space="preserve">
-    <value>Appeler la méthode Python (Invoke Python Method)</value>
+    <value>Invoke Python Method</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadScriptDescription" xml:space="preserve">
@@ -173,7 +173,7 @@
     <value>Erreur lors du chargement du script Python</value>
   </data>
   <data name="LoadScriptNameDisplayName" xml:space="preserve">
-    <value>Charger le script Python (Load Python Script)</value>
+    <value>Load Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
@@ -194,7 +194,7 @@
     <value>Paramètres d’entrée pour le script Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>Paramètres d’entrée</value>
+    <value>InputParameters</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
@@ -214,14 +214,14 @@
     <value>Objet Python d’origine pour l’extraction</value>
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
-    <value>Objet Python (PythonObject)</value>
+    <value>PythonObject</value>
     <comment>property name</comment>
   </data>
   <data name="PythonScopeDescription" xml:space="preserve">
     <value>Conteneur des activités Python</value>
   </data>
   <data name="PythonScopeNameDisplayName" xml:space="preserve">
-    <value>Étendue Python (Python Scope)</value>
+    <value>Python Scope</value>
     <comment>activity name</comment>
   </data>
   <data name="ResultDescription" xml:space="preserve">
@@ -238,14 +238,14 @@
     <value>Erreur lors de l’exécution du script Python</value>
   </data>
   <data name="RunScriptNameDisplayName" xml:space="preserve">
-    <value>Exécuter le script Python (Run Python Script)</value>
+    <value>Run Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="ScriptFileDescription" xml:space="preserve">
     <value>Chemin d’accès complet vers le fichier de script Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>Fichier</value>
+    <value>File</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">

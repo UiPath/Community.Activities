@@ -118,183 +118,183 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConstructorException" xml:space="preserve">
-    <value>コンストラクターを呼び出せませんでした。</value>
+    <value>Der Konstruktor konnte nicht aufgerufen werden.</value>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>変換できませんでした。 </value>
+    <value>Konnte nicht konvertiert werden </value>
   </data>
   <data name="ConvertJavaObjectDescription" xml:space="preserve">
-    <value>Java オブジェクトを、指定した .NET 型に変換します。キャストできない場合は例外がスローされます。(Convert Java Object)</value>
+    <value>Konvertiert ein Java-Objekts in den angegebenen .NET- Typ. Wenn die Umwandlung nicht möglich war, wird eine Ausnahme ausgelöst.</value>
   </data>
   <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
-    <value>Java オブジェクトを変換</value>
+    <value>Convert Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
-    <value>.NET に変換された Java オブジェクトです。</value>
+    <value>Das in .NET konvertierte Java-Objekt.</value>
   </data>
   <data name="CreateJavaObjectDescription" xml:space="preserve">
-    <value>指定したクラスのコンストラクターを呼び出します。(Create Java Object)</value>
+    <value>Ruft den Konstruktor für die angegebene Klasse auf.</value>
   </data>
   <data name="CreateJavaObjectDisplayName" xml:space="preserve">
-    <value>Java オブジェクトを作成</value>
+    <value>Create Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="Do" xml:space="preserve">
-    <value>実行</value>
+    <value>Ausführen</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>フィールド名</value>
+    <value>FieldName</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
-    <value>アクティビティが Java オブジェクトとして返すフィールドの名前です。</value>
+    <value>Der Name des Felds, das die Aktivität als Java-Objekt zurückgibt.</value>
   </data>
   <data name="GetFieldDescritption" xml:space="preserve">
-    <value>Java オブジェクトからパブリック フィールドを返します。</value>
+    <value>Gibt ein öffentliches Feld aus einem Java-Objekt zurück.</value>
   </data>
   <data name="GetFieldDisplayName" xml:space="preserve">
-    <value>フィールドを取得</value>
+    <value>Get Field</value>
     <comment>activity name</comment>
   </data>
   <data name="GetFieldException" xml:space="preserve">
-    <value>フィールドが見つかりません。</value>
+    <value>Feld nicht gefunden.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>入力</value>
+    <value>Eingabe</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>ターゲット</value>
+    <value>Target</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
-    <value>[ターゲット オブジェクト] と [ターゲット型] の両方が空です。少なくとも 1 つを設定する必要があります。</value>
+    <value>Sowohl Zielobjekt als auch Zieltyp ist leer. Mindestens eines davon muss festgelegt sein.</value>
   </data>
   <data name="InvokeJavaMethodDescription" xml:space="preserve">
-    <value>Java メソッドを呼び出します。 (Invoke Java Method)</value>
+    <value>Java-Methode aufrufen</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Java メソッドを呼び出し</value>
+    <value>Invoke Java Method</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
-    <value>Java に読み込まれたオブジェクトへの参照です。</value>
+    <value>Ein Verweis auf ein in Java geladenes Objekt.</value>
   </data>
   <data name="InvokeMethodException" xml:space="preserve">
-    <value>メソッドを呼び出せませんでした。</value>
+    <value>Die Methode konnte nicht aufgerufen werden.</value>
   </data>
   <data name="JarPathDescription" xml:space="preserve">
-    <value>読み込まれる Jar ファイルのパスです。</value>
+    <value>Pfad zur JAR-Datei, die geladen wird.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>Jar パス</value>
+    <value>JarPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
-    <value>次の Java の Jar ファイルの初期化中にエラーが発生しました: {0}</value>
+    <value>Fehler beim Intialisieren von Java: {0}</value>
   </data>
   <data name="JavaInvokerNotLoadedException" xml:space="preserve">
-    <value>Java Invoker が読み込まれませんでした。</value>
+    <value>Java-Aufrufer wurde nicht geladen.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>Java オブジェクト</value>
+    <value>JavaObject</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
-    <value>Java に読み込まれたオブジェクトへの参照です。</value>
+    <value>Ein Verweis auf ein in Java geladenes Objekt.</value>
   </data>
   <data name="JavaPathDescription" xml:space="preserve">
-    <value>java.exe のパスです。</value>
+    <value>Pfad zu „java.exe“</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>Java ライブラリ パス</value>
+    <value>JavaLibraryPath</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
-    <value>Java 系アクティビティのコンテナーです。(Java Scope)</value>
+    <value>Java-Aktivitätencontainer</value>
   </data>
   <data name="JavaScopeNameDisplayName" xml:space="preserve">
-    <value>Java スコープ</value>
+    <value>Java Scope</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarDescription" xml:space="preserve">
-    <value>Jar を現在の [Java スコープ] アクティビティに読み込みます。(Load Jar)</value>
+    <value>Lädt eine JAR-Datei in der aktuellen Aktivität „Java Scope“.</value>
   </data>
   <data name="LoadJarDisplayName" xml:space="preserve">
-    <value>Jar を読み込み</value>
+    <value>Load Jar</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarException" xml:space="preserve">
-    <value>Jar ファイルを読み込めませんでした。</value>
+    <value>JAR-Datei konnte nicht geladen werden.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>メソッド名</value>
+    <value>MethodName</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>Java で実行するメソッドの名前です。</value>
+    <value>Der Name der Methode, die in Java ausgeführt wird.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>出力</value>
+    <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Java メソッドでの順序と同じ順序で指定する引数の一覧です。引数を null にすることはできません。</value>
+    <value>Die Liste der Argumente in der gleichen Reihenfolge wie die Java-Methode. Ein Argument kann nicht NULL sein.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>パラメーター</value>
+    <value>Parameters</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>パラメーター一覧</value>
+    <value>ParametersList</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
-    <value>{0} と {1} は同時に設定できません。</value>
+    <value>{0} und {1} können nicht gleichzeitig festgelegt sein.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>結果</value>
+    <value>Result</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>ターゲット オブジェクト</value>
+    <value>TargetObject</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>メソッドを呼び出す Java オブジェクトのインスタンスです。[ターゲット オブジェクト] と [ターゲット型] は、同時に設定することはできません。</value>
+    <value>Die Java-Objektinstanz, mit der die Methode aufgerufen wird. TargetObject und TargetType können nicht gleichzeitig festgelegt werden.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>ターゲット型</value>
+    <value>TargetType</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
-    <value>Java クラスの名前です。</value>
+    <value>Der Name der Java-Klasse.</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
-    <value>アクティビティは {0} の内部でのみ有効です。</value>
+    <value>Aktivität ist nur innerhalb von {0} gültig.</value>
   </data>
   <data name="FieldName" xml:space="preserve">
-    <value>フィールド名</value>
+    <value>Name des Felds</value>
   </data>
   <data name="JavaObject" xml:space="preserve">
-    <value>Java オブジェクト</value>
+    <value>JavaObject</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>メソッド名</value>
+    <value>MethodName</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>出力</value>
+    <value>Ausgabe</value>
   </data>
   <data name="InvalidJavaPath" xml:space="preserve">
-    <value>Java ライブラリのパスが無効です。</value>
+    <value>Der Pfad zur Java-Bibliothek ist ungültig.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>初期タイムアウト (ミリ秒)</value>
+    <value>Init timeout (milliseconds)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>[タイムアウト (ミリ秒)] に入力する値は 0 以上である必要があります。</value>
+    <value>Der für TimeoutMS angegebene Wert muss &gt;= 0 sein.</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Java ランタイムに接続するまでに待機する時間 (ミリ秒) です (既定では 15000 ミリ秒)。</value>
+    <value>Die Zeit (in Millisekunden), die auf die Java-Laufzeitverbindung gewartet werden muss (Standard: 15.000 ms).</value>
   </data>
 </root>
