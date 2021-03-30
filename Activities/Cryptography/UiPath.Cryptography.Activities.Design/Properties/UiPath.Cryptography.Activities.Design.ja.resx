@@ -242,4 +242,7 @@
     <value>表示名</value>
     <comment>property name</comment>
   </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+  </data>
 </root>

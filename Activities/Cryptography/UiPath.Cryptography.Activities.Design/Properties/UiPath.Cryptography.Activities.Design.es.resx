@@ -242,4 +242,7 @@
     <value>NombreParaMostrar</value>
     <comment>property name</comment>
   </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinuarEnCasoDeError</value>
+  </data>
 </root>
