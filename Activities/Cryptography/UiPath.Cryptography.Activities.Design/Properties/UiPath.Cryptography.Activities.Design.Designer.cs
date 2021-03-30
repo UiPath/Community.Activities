@@ -89,6 +89,15 @@ namespace UiPath.Cryptography.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ContinueOnError.
+        /// </summary>
+        public static string ContinueOnError {
+            get {
+                return ResourceManager.GetString("ContinueOnError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the key..
         /// </summary>
         public static string DecryptFileEncodingDescription {

@@ -48,4 +48,17 @@
   <ItemGroup>
     <None Include="UiPath.FTP.Activities.Design.nuspec" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\UiPath.FTP.Activities.Design.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UiPath.FTP.Activities.Design.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.FTP.Activities.Design.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.FTP.Activities.Design.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

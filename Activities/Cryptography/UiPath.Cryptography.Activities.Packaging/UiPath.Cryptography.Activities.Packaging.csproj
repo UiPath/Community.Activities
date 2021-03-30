@@ -27,24 +27,52 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="AddDlls">
-    <ItemGroup>
-      <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.dll" />
+	<Target Name="AddDlls">
+		<ItemGroup>
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.dll" />
 
-      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Cryptography.Activities.resources.dll" TargetPath="fr\UiPath.Cryptography.Activities.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Cryptography.Activities.resources.dll" TargetPath="ja\UiPath.Cryptography.Activities.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Cryptography.Activities.resources.dll" TargetPath="ru\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Cryptography.resources.dll" TargetPath="fr\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Cryptography.resources.dll" TargetPath="ja\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Cryptography.resources.dll" TargetPath="ru\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Cryptography.resources.dll" TargetPath="de\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Cryptography.resources.dll" TargetPath="es\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Cryptography.resources.dll" TargetPath="es-MX\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Cryptography.resources.dll" TargetPath="ko\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Cryptography.resources.dll" TargetPath="pt\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Cryptography.resources.dll" TargetPath="pt-BR\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Cryptography.resources.dll" TargetPath="tr\UiPath.Cryptography.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Cryptography.resources.dll" TargetPath="zh-CN\UiPath.Cryptography.resources.dll" />
 
-    </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
-      <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.Design.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Cryptography.Activities.resources.dll" TargetPath="fr\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Cryptography.Activities.resources.dll" TargetPath="ja\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Cryptography.Activities.resources.dll" TargetPath="ru\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Cryptography.Activities.resources.dll" TargetPath="de\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Cryptography.Activities.resources.dll" TargetPath="es\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Cryptography.Activities.resources.dll" TargetPath="es-MX\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Cryptography.Activities.resources.dll" TargetPath="ko\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Cryptography.Activities.resources.dll" TargetPath="pt\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Cryptography.Activities.resources.dll" TargetPath="pt-BR\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Cryptography.Activities.resources.dll" TargetPath="tr\UiPath.Cryptography.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Cryptography.Activities.resources.dll" TargetPath="zh-CN\UiPath.Cryptography.Activities.resources.dll" />
 
-      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="fr\UiPath.Cryptography.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="ja\UiPath.Cryptography.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="ru\UiPath.Cryptography.Activities.Design.resources.dll" />
-    </ItemGroup>
-  </Target>
+		</ItemGroup>
+		<ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.Design.dll" />
+
+			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="fr\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="ja\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="ru\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="de\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="es\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="ko\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="pt\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="tr\UiPath.Cryptography.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Cryptography.Activities.Design.resources.dll" />
+		</ItemGroup>
+	</Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
     <PackageReference Include="UiPath.Workflow" />
