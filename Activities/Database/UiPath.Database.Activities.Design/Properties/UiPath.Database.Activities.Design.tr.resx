@@ -264,6 +264,6 @@
     <value>(Koleksiyon)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError Boolean</value>
+    <value>ContinueOnError Boole</value>
   </data>
 </root>
