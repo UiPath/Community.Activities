@@ -264,6 +264,6 @@
     <value>(集合)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError Boolean</value>
+    <value>出错时继续布尔值</value>
   </data>
 </root>

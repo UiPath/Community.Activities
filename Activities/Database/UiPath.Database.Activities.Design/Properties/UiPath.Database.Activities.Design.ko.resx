@@ -264,6 +264,6 @@
     <value>(컬렉션)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError Boolean</value>
+    <value>ContinueOnError 부울</value>
   </data>
 </root>
