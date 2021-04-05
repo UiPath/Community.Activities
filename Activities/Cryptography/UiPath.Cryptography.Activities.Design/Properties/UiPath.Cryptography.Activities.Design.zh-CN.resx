@@ -242,4 +242,7 @@
     <value>显示名称</value>
     <comment>property name</comment>
   </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>出错时继续</value>
+  </data>
 </root>

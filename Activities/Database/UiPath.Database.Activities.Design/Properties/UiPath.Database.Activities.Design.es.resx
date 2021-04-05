@@ -263,4 +263,7 @@
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Colección)</value>
   </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError Boolean</value>
+  </data>
 </root>
