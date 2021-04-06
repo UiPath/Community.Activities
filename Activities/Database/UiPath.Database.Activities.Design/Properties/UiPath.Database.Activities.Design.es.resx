@@ -264,6 +264,6 @@
     <value>(Colección)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError Boolean</value>
+    <value>Boolean ContinuarEnCasoDeError</value>
   </data>
 </root>
