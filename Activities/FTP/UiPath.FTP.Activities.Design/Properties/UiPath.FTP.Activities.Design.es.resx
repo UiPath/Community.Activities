@@ -138,7 +138,7 @@
     <value>El directorio existe</value>
   </data>
 	<data name="DirectoryExistsDisplayName" xml:space="preserve">
-    <value>Directory Exists</value>
+    <value>El directorio existe</value>
     <comment>Activity name</comment>
   </data>
 	<data name="DownloadFilesDisplayName" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Activity name</comment>
   </data>
 	<data name="MoveItemNewPathDescription" xml:space="preserve">
-    <value>Newpath</value>
+    <value>NuevaRuta</value>
   </data>
 	<data name="PasswordDescription" xml:space="preserve">
     <value>Contraseña</value>
@@ -179,7 +179,7 @@
     <value>Puerto</value>
   </data>
 	<data name="RemotePathDescription" xml:space="preserve">
-    <value>Ruta remota</value>
+    <value>RutaRemota</value>
   </data>
 	<data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Cargar archivos</value>
