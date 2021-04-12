@@ -79,6 +79,69 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulk Insert.
+        /// </summary>
+        public static string BulkInsert {
+            get {
+                return ResourceManager.GetString("BulkInsert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable.
+        /// </summary>
+        public static string BulkInsert_DataTable {
+            get {
+                return ResourceManager.GetString("BulkInsert_DataTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The source DataTable for the items to be inserted..
+        /// </summary>
+        public static string BulkInsert_DataTable_Description {
+            get {
+                return ResourceManager.GetString("BulkInsert_DataTable_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source DataTable.
+        /// </summary>
+        public static string BulkInsert_DataTable_Placeholder {
+            get {
+                return ResourceManager.GetString("BulkInsert_DataTable_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table name.
+        /// </summary>
+        public static string BulkInsert_TableName {
+            get {
+                return ResourceManager.GetString("BulkInsert_TableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the database table where you want to insert the items..
+        /// </summary>
+        public static string BulkInsert_TableName_Description {
+            get {
+                return ResourceManager.GetString("BulkInsert_TableName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination database table name.
+        /// </summary>
+        public static string BulkInsert_TableName_Placeholder {
+            get {
+                return ResourceManager.GetString("BulkInsert_TableName_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App Integration.
         /// </summary>
         public static string CategoryAppIntegration {
@@ -158,18 +221,16 @@ namespace UiPath.Database.Activities.Design.Properties {
                 return ResourceManager.GetString("ConnectionWizard", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to ContinueOnError Boolean.
         /// </summary>
-        public static string ContinueOnError
-        {
-            get
-            {
+        public static string ContinueOnError {
+            get {
                 return ResourceManager.GetString("ContinueOnError", resourceCulture);
             }
         }
-    
+        
         /// <summary>
         ///   Looks up a localized string similar to Connects to a database..
         /// </summary>

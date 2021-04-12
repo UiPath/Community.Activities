@@ -3,6 +3,7 @@
 		<TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
 		<OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
 		<UseWPF>true</UseWPF>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	</PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
 		<PackageReference Include="System.Activities" />
@@ -20,8 +21,8 @@
 		<Reference Include="PresentationCore" />
 		<Reference Include="PresentationFramework" />
 		<Reference Include="System.Windows.Forms" />
+   
 	</ItemGroup>
-
 	<ItemGroup>
 		<EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.fr.resx">
 			<DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>

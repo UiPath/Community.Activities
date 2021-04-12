@@ -4,6 +4,7 @@
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
     <VersionSuffix></VersionSuffix>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <!--leave empty for ci to replace with prelease tag-->
   </PropertyGroup>
 
@@ -31,9 +32,9 @@
 		<ItemGroup>
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)Microsoft.Data.ConnectionUI.Dialog.dll" />
-
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.resources.dll" TargetPath="fr\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)Microsoft.Data.ConnectionUI.Dialog.dll" />
+      
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.resources.dll" TargetPath="fr\UiPath.Database.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.resources.dll" TargetPath="ja\UiPath.Database.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.resources.dll" TargetPath="ru\UiPath.Database.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.resources.dll" TargetPath="de\UiPath.Database.resources.dll" />
@@ -85,7 +86,8 @@
 			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
 		</ItemGroup>
-	</Target>
+    
+  </Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
@@ -101,6 +103,7 @@
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
+
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
     <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />

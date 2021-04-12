@@ -266,4 +266,25 @@
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
   </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Bulk Insert</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>DataTable</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>The source DataTable for the items to be inserted.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>Source DataTable</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Table name</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>The name of the database table where you want to insert the items.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Destination database table name</value>
+  </data>
 </root>

@@ -4,6 +4,7 @@
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
@@ -23,6 +24,10 @@
     <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+ 
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -35,6 +40,10 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.ja.resx">
       <DependentUpon>UiPath.Database.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\UiPath.Database.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.Database.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.ru.resx">
       <DependentUpon>UiPath.Database.resx</DependentUpon>
