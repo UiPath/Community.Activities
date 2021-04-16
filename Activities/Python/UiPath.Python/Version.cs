@@ -32,7 +32,7 @@ namespace UiPath.Python
         //Unknown = -1,
 
         Auto,
-
+#if NET461
         [Version(2, 7, "Python.Runtime.27.dll")]
         [Description("Python 2.7")]
         Python_27,
@@ -40,7 +40,7 @@ namespace UiPath.Python
         [Version(3, 3, "Python.Runtime.33.dll")]
         [Description("Python 3.3")]
         Python_33,
-
+#endif
         [Version(3, 4, "Python.Runtime.34.dll")]
         [Description("Python 3.4")]
         Python_34,

@@ -100,11 +100,12 @@ namespace UiPath.Python.Impl
                         ct.ThrowIfCancellationRequested();
 
                         _pyEngine.PythonHome = _path;
-
+#if NET461
                         //Pythonnet removed support for version 3.3 and 3.4 so we have the old dlls. Initialize method was updated in current package.
                         if (_version == Version.Python_33)
                             _pyEngine.Initialize(null, null);
                         else
+#endif
                             if (_version == Version.Python_39)
                             _pyEngine.Initialize(null, null, null, null);
                         else
