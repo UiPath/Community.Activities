@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Cryptography.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;</TargetFrameworks>
+    <!--<TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>-->
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Cryptography\</OutputPath>
     <VersionSuffix></VersionSuffix>
     <!--leave empty for ci to replace with prelease tag-->
