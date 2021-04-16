@@ -264,6 +264,6 @@
     <value>(Aufzählung)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError Boolean</value>
+    <value>ContinueOnError – boolescher Wert</value>
   </data>
 </root>
