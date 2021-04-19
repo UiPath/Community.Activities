@@ -106,7 +106,7 @@ namespace UiPath.Python.Impl
                             _pyEngine.Initialize(null, null);
                         else
 #endif
-                            if (_version == Version.Python_39)
+                            if (_version >= Version.Python_36)
                             _pyEngine.Initialize(null, null, null, null);
                         else
                             _pyEngine.Initialize(null, null, null);

@@ -40,7 +40,7 @@ namespace UiPath.Python
         [Version(3, 3, "Python.Runtime.33.dll")]
         [Description("Python 3.3")]
         Python_33,
-#endif
+
         [Version(3, 4, "Python.Runtime.34.dll")]
         [Description("Python 3.4")]
         Python_34,
@@ -48,7 +48,7 @@ namespace UiPath.Python
         [Version(3, 5, "Python.Runtime.35.dll")]
         [Description("Python 3.5")]
         Python_35,
-
+#endif
         [Version(3, 6, "Python.Runtime.36.dll")]
         [Description("Python 3.6")]
         Python_36,
