@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Packaging", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Service", "Shared\UiPath.Shared.Service\UiPath.Shared.Service.shproj", "{A6A27646-4889-4F95-A0DF-DD78D287388F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.TestUtils", "Shared\UiPath.TestUtils\UiPath.TestUtils.csproj", "{D2C94889-1E86-4ABD-9D5E-631B3463DA86}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{0fbf5f7e-2ae4-4f4a-84cb-26b3a9e3119c}*SharedItemsImports = 5
@@ -67,6 +69,10 @@ Global
 		{949AC18E-A23D-4E0A-8217-E771F4AAE867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{949AC18E-A23D-4E0A-8217-E771F4AAE867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{949AC18E-A23D-4E0A-8217-E771F4AAE867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
