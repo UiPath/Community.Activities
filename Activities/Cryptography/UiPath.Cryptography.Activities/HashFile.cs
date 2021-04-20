@@ -8,6 +8,7 @@ using UiPath.Cryptography.Activities.Properties;
 
 namespace UiPath.Cryptography.Activities
 {
+#if NET461
     [LocalizedDisplayName(nameof(Resources.HashFileDisplayName))]
     [LocalizedDescription(nameof(Resources.HashFileDescription))]
     public class HashFile : CodeActivity<string>
@@ -37,9 +38,9 @@ namespace UiPath.Cryptography.Activities
 
         public HashFile()
         {
-#if NET461
+
             Algorithm = HashAlgorithms.SHA256;
-#endif
+
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -87,4 +88,5 @@ namespace UiPath.Cryptography.Activities
             return result;
         }
     }
+#endif
 }
