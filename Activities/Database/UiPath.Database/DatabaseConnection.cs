@@ -6,11 +6,14 @@ using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
+using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Database
 {
@@ -100,155 +103,191 @@ namespace UiPath.Database
         }
 
         
-        public long BulkInsertDataTable(string tableName, DataTable dataTable, string connection)
+        public long BulkInsertDataTable(string tableName, DataTable dataTable, string connection, IExecutorRuntime executorRuntime = null)
         {
             DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
             DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_providerName).CreateCommandBuilder();
             cmdb.DataAdapter = dbDA;
             dbDA.ContinueUpdateOnError = false;
-
-            long affectedRecords = 0;
-
-           
-
+            IBulkOperations bulkOps;
+            long affectedRecords;
             if (_providerName == "System.Data.SqlClient")
             {
-                //if SQL Server
-
-                dbDA.SelectCommand = _connection.CreateCommand();
-                dbDA.SelectCommand.Transaction = _transaction;
-                dbDA.SelectCommand.CommandType = CommandType.Text;
-                dbDA.SelectCommand.CommandText = string.Format("select TOP(1) * from {0}", tableName);
-
-                var ds = new DataSet();
-                dbDA.Fill(ds);
-                ValidateTableStructure(tableName, dataTable, ds);
-
-                // Perform an initial count on the destination table.
-                SqlCommand commandRowCount = new SqlCommand(string.Format("SELECT COUNT(*) FROM {0}", tableName), (SqlConnection)_connection);
-                long countStart = Convert.ToInt32(
-                    commandRowCount.ExecuteScalar());
-                // Set up the bulk copy object
-                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(_connection.ConnectionString, SqlBulkCopyOptions.UseInternalTransaction))
+                bulkOps = new SQLBulkOperations
                 {
-                    bulkCopy.DestinationTableName = tableName;
-                    bulkCopy.WriteToServer(dataTable);
-                }
-
-                // Perform a final count on the destination
-                // table to see how many rows were added.
-                long countEnd = Convert.ToInt32(
-              commandRowCount.ExecuteScalar());
-
-                affectedRecords = countEnd - countStart;
+                    Connection = _connection.ConnectionString,
+                    TableName = tableName
+                };
+                affectedRecords = BulkInsertSqlServer(bulkOps, tableName, dataTable, dbDA, executorRuntime);
             }
             else if (_providerName == "Oracle.ManagedDataAccess.Client")
             {
-                //if Oracle
+                bulkOps = new OracleBulkOperations
+                {
+                    Connection = _connection.ConnectionString,
+                    TableName = tableName
+                };
+                affectedRecords = BulkInsertOracleManaged(bulkOps, tableName, dataTable, connection, dbDA, executorRuntime);
+            }
+            else
+            {
+                //if no bulk insert possible, fallback to insert data table with warning message
+               
+                if (executorRuntime!=null)
+                {
+                    var message = new LogMessage
+                    {
+                        Message = Resources.BulkInsert_DriverDoesNotSupportBulkInsert,
+                        EventType = TraceEventType.Warning
+                    };
+                    executorRuntime.LogMessage(message);
+                }
+                affectedRecords = InsertDataTable(tableName, dataTable);
+            }
 
-                dbDA.SelectCommand = _connection.CreateCommand();
-                dbDA.SelectCommand.Transaction = _transaction;
-                dbDA.SelectCommand.CommandType = CommandType.Text;
-                dbDA.SelectCommand.CommandText = string.Format("select * from {0} where rownum = 1", tableName);
+            return affectedRecords;
+        }
 
-                var ds = new DataSet();
-                dbDA.Fill(ds);
-                ValidateTableStructure(tableName, dataTable, ds);
+        private long BulkInsertSqlServer(IBulkOperations bulkOps, string tableName, DataTable dataTable, DbDataAdapter dbDA, IExecutorRuntime executorRuntime)
+        {
+            long affectedRecords;
+            //if SQL Server
 
-                // Perform an initial count on the destination table.
-                DbCommand commandRowCount = _connection.CreateCommand();
-                commandRowCount.Connection = _connection;
-                commandRowCount.CommandText = string.Format("SELECT COUNT(*) FROM {0}", tableName);
+            dbDA.SelectCommand = _connection.CreateCommand();
+            dbDA.SelectCommand.Transaction = _transaction;
+            dbDA.SelectCommand.CommandType = CommandType.Text;
+            dbDA.SelectCommand.CommandText = string.Format("select TOP(1) * from {0}", tableName);
 
-                long countStart = Convert.ToInt32(
-                    commandRowCount.ExecuteScalar());
+            var ds = new DataSet();
+            dbDA.Fill(ds);
+            ValidateTableStructure(tableName, dataTable, ds);
 
-                List<string> gacFolders = new List<string>() {
+            // Perform an initial count on the destination table.
+            SqlCommand commandRowCount = new SqlCommand(string.Format("SELECT COUNT(*) FROM {0}", tableName), (SqlConnection)_connection);
+            long countStart = Convert.ToInt32(commandRowCount.ExecuteScalar());
+
+            bulkOps.WriteToServer(dataTable);
+
+            // Perform a final count on the destination
+            // table to see how many rows were added.
+            long countEnd = Convert.ToInt32(commandRowCount.ExecuteScalar());
+
+            affectedRecords = countEnd - countStart;
+            return affectedRecords;
+        }
+
+        private long BulkInsertOracleManaged(IBulkOperations bulkOps, string tableName, DataTable dataTable, string connection, DbDataAdapter dbDA, IExecutorRuntime executorRuntime)
+        {
+            long affectedRecords;
+            //if Oracle
+
+            dbDA.SelectCommand = _connection.CreateCommand();
+            dbDA.SelectCommand.Transaction = _transaction;
+            dbDA.SelectCommand.CommandType = CommandType.Text;
+            dbDA.SelectCommand.CommandText = string.Format("select * from {0} where rownum = 1", tableName);
+
+            var ds = new DataSet();
+            dbDA.Fill(ds);
+            ValidateTableStructure(tableName, dataTable, ds);
+
+            // Perform an initial count on the destination table.
+            DbCommand commandRowCount = _connection.CreateCommand();
+            commandRowCount.Connection = _connection;
+            commandRowCount.CommandText = string.Format("SELECT COUNT(*) FROM {0}", tableName);
+
+            long countStart = Convert.ToInt32(commandRowCount.ExecuteScalar());
+
+            List<string> oracleList = FindAssembliesInGAC("oracle.manageddataaccess*");
+
+            if (oracleList.Count > 0)
+            {
+                bool bulkCopyIsPresent = false;
+                //try all drivers with latest version first
+                foreach (var item in oracleList.OrderByDescending(x => x))
+                {
+
+                    var oracle = Assembly.LoadFile(item);
+                    var bulkCopyType = oracle.GetType("Oracle.ManagedDataAccess.Client.OracleBulkCopy");
+
+                    if (bulkCopyType != null)
+                    {
+                        dynamic bulkCopy = Activator.CreateInstance(bulkCopyType, new object[] { connection });
+
+                        bulkCopy.DestinationTableName = tableName;
+                        bulkCopy.WriteToServer(dataTable);
+                        bulkCopyIsPresent = true;
+                    }
+                    else continue;
+                }
+
+                if (!bulkCopyIsPresent)
+                {
+                    //if no bulk insert possible, fallback to insert data table
+                    if (executorRuntime != null)
+                    {
+                        var message = new LogMessage
+                        {
+                            Message = Resources.BulkInsert_DriverDoesNotSupportBulkInsert,
+                            EventType = TraceEventType.Warning
+                        };
+                        executorRuntime.LogMessage(message);
+                    }
+                    InsertDataTable(tableName, dataTable);
+                }
+            }
+
+            // Perform a final count on the destination
+            // table to see how many rows were added.
+            long countEnd = Convert.ToInt32(commandRowCount.ExecuteScalar());
+
+            affectedRecords = countEnd - countStart;
+            return affectedRecords;
+        }
+
+        private static List<string> FindAssembliesInGAC(string name)
+        {
+            List<string> gacFolders = new List<string>() {
                     "GAC", "GAC_32", "GAC_64", "GAC_MSIL",
                     "NativeImages_v2.0.50727_32",
                     "NativeImages_v2.0.50727_64",
                     "NativeImages_v4.0.30319_32",
                     "NativeImages_v4.0.30319_64"
                 };
-                List<string> oracleList = new List<string>();
-                foreach (string folder in gacFolders)
-                {
-                    string path = Path.Combine(
-                       Environment.ExpandEnvironmentVariables(@"%systemroot%\assembly"),
-                       folder);
-
-                    if (Directory.Exists(path))
-                    {
-
-                        string[] assemblyFolders = Directory.GetDirectories(path);
-                        foreach (string assemblyFolder in assemblyFolders)
-                        {
-                            string[] files = Directory.GetFiles(assemblyFolder, "oracle.manageddataaccess*", SearchOption.AllDirectories);
-                            oracleList.AddRange(files);
-                        }
-                    }
-
-                    path = Path.Combine(
-                       Environment.ExpandEnvironmentVariables(@"%systemroot%\Microsoft.NET\assembly"),
-                       folder);
-
-                    if (Directory.Exists(path))
-                    {
-
-                        string[] assemblyFolders = Directory.GetDirectories(path);
-                        foreach (string assemblyFolder in assemblyFolders)
-                        {
-                            string[] files = Directory.GetFiles(assemblyFolder, "oracle.manageddataaccess*", SearchOption.AllDirectories);
-                            oracleList.AddRange(files);
-                        }
-                    }
-                }
-
-                if (oracleList.Count > 0)
-                {
-                    bool bulkCopyIsPresent = false;
-                    //try all drivers with latest version first
-                    foreach (var item in oracleList.OrderByDescending(x => x))
-                    {
-
-                        var oracle = Assembly.LoadFile(item);
-                        var bulkCopyType = oracle.GetType("Oracle.ManagedDataAccess.Client.OracleBulkCopy");
-
-                        if (bulkCopyType != null)
-                        {
-                            dynamic bulkCopy = Activator.CreateInstance(bulkCopyType, new object[] { connection });
-
-                            bulkCopy.DestinationTableName = tableName;
-                            bulkCopy.WriteToServer(dataTable);
-                            bulkCopyIsPresent = true;
-                        }
-                        else continue;
-                    }
-
-                    if (!bulkCopyIsPresent)
-                    {
-                        //if no bulk insert possible, fallback to insert data table
-                        InsertDataTable(tableName, dataTable);
-                        //TO DO: display an warning message here that fallback occured (so user is aware).
-                    }
-                }
-
-                // Perform a final count on the destination
-                // table to see how many rows were added.
-                long countEnd = Convert.ToInt32(commandRowCount.ExecuteScalar());
-
-                affectedRecords = countEnd - countStart;
-            }
-            else
+            List<string> oracleList = new List<string>();
+            foreach (string folder in gacFolders)
             {
-                //if no bulk insert possible, fallback to insert data table
-                InsertDataTable(tableName, dataTable);
+                string path = Path.Combine(
+                   Environment.ExpandEnvironmentVariables(@"%systemroot%\assembly"),
+                   folder);
+
+                if (Directory.Exists(path))
+                {
+
+                    string[] assemblyFolders = Directory.GetDirectories(path);
+                    foreach (string assemblyFolder in assemblyFolders)
+                    {
+                        string[] files = Directory.GetFiles(assemblyFolder, name, SearchOption.AllDirectories);
+                        oracleList.AddRange(files);
+                    }
+                }
+
+                path = Path.Combine(
+                   Environment.ExpandEnvironmentVariables(@"%systemroot%\Microsoft.NET\assembly"),
+                   folder);
+
+                if (Directory.Exists(path))
+                {
+                    string[] assemblyFolders = Directory.GetDirectories(path);
+                    foreach (string assemblyFolder in assemblyFolders)
+                    {
+                        string[] files = Directory.GetFiles(assemblyFolder, "oracle.manageddataaccess*", SearchOption.AllDirectories);
+                        oracleList.AddRange(files);
+                    }
+                }
             }
 
-            return affectedRecords;
+            return oracleList;
         }
-        
-
         private static void ValidateTableStructure(string tableName, DataTable dataTable, DataSet ds)
         {
             if (ds != null && ds.Tables != null)

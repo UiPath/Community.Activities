@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
+using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Database.Activities
 {
@@ -58,6 +59,7 @@ namespace UiPath.Database.Activities
             string connString = null;
             string provName = null;
             string tableName = null;
+            IExecutorRuntime executorRuntime = null;
             try
             {
                 DbConnection = ExistingDbConnection.Get(context);
@@ -65,6 +67,7 @@ namespace UiPath.Database.Activities
                 provName = ProviderName.Get(context);
                 tableName = TableName.Get(context);
                 dataTable = DataTable.Get(context);
+                executorRuntime = context.GetExtension<IExecutorRuntime>(); 
             }
             catch (Exception ex)
             {
@@ -78,7 +81,10 @@ namespace UiPath.Database.Activities
                 {
                     return 0;
                 }
-                return DbConnection.BulkInsertDataTable(tableName, dataTable, connString);
+            if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
+                    return DbConnection.BulkInsertDataTable(tableName, dataTable, connString, executorRuntime);
+                else
+                    return DbConnection.BulkInsertDataTable(tableName, dataTable, connString);
             };
             context.UserState = action;
             return action.BeginInvoke(callback, state);

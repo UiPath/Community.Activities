@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
- 
+    <PackageReference Include="UiPath.Activities.Api" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Designer.cs">
