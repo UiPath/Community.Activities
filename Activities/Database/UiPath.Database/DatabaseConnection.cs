@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Activities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -77,7 +76,7 @@ namespace UiPath.Database
             return result;
         }
 
-        public virtual int InsertDataTable(string tableName, DataTable dataTable)
+        public virtual int InsertDataTable(string tableName, DataTable dataTable, bool removeBrackets = false)
         {
             DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
             DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_providerName).CreateCommandBuilder();
@@ -87,7 +86,7 @@ namespace UiPath.Database
             dbDA.SelectCommand = _connection.CreateCommand();
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
-            dbDA.SelectCommand.CommandText = string.Format("select {0} from {1}", GetColumnNames(dataTable), tableName);
+            dbDA.SelectCommand.CommandText = string.Format("select {0} from {1}", GetColumnNames(dataTable, removeBrackets), tableName);
 
             dbDA.InsertCommand = cmdb.GetInsertCommand();
             dbDA.InsertCommand.Connection = _connection;
@@ -102,7 +101,6 @@ namespace UiPath.Database
             return dbDA.Update(dataTable);
         }
 
-        
         public long BulkInsertDataTable(string tableName, DataTable dataTable, string connection, IExecutorRuntime executorRuntime = null)
         {
             DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
@@ -132,8 +130,8 @@ namespace UiPath.Database
             else
             {
                 //if no bulk insert possible, fallback to insert data table with warning message
-               
-                if (executorRuntime!=null)
+
+                if (executorRuntime != null)
                 {
                     var message = new LogMessage
                     {
@@ -205,16 +203,13 @@ namespace UiPath.Database
                 //try all drivers with latest version first
                 foreach (var item in oracleList.OrderByDescending(x => x))
                 {
-
                     var oracle = Assembly.LoadFile(item);
                     var bulkCopyType = oracle.GetType("Oracle.ManagedDataAccess.Client.OracleBulkCopy");
 
                     if (bulkCopyType != null)
                     {
-                        dynamic bulkCopy = Activator.CreateInstance(bulkCopyType, new object[] { connection });
-
-                        bulkCopy.DestinationTableName = tableName;
-                        bulkCopy.WriteToServer(dataTable);
+                        bulkOps.BulkCopyType = bulkCopyType;
+                        bulkOps.WriteToServer(dataTable);
                         bulkCopyIsPresent = true;
                     }
                     else continue;
@@ -232,7 +227,7 @@ namespace UiPath.Database
                         };
                         executorRuntime.LogMessage(message);
                     }
-                    InsertDataTable(tableName, dataTable);
+                    InsertDataTable(tableName, dataTable, true);
                 }
             }
 
@@ -262,7 +257,6 @@ namespace UiPath.Database
 
                 if (Directory.Exists(path))
                 {
-
                     string[] assemblyFolders = Directory.GetDirectories(path);
                     foreach (string assemblyFolder in assemblyFolders)
                     {
@@ -288,6 +282,7 @@ namespace UiPath.Database
 
             return oracleList;
         }
+
         private static void ValidateTableStructure(string tableName, DataTable dataTable, DataSet ds)
         {
             if (ds != null && ds.Tables != null)
@@ -387,7 +382,7 @@ namespace UiPath.Database
             return -1;
         }
 
-        private string GetColumnNames(DataTable table)
+        private string GetColumnNames(DataTable table, bool removeBrackets = false)
         {
             if (table.Columns.Count < 1 || table.Rows.Count < 1)
             {
@@ -397,7 +392,14 @@ namespace UiPath.Database
             var columns = new StringBuilder();
             foreach (DataColumn column in table.Columns)
             {
-                columns.Append("[" + column.ColumnName + "],");
+                if (removeBrackets)
+                {
+                    columns.Append(column.ColumnName + ",");
+                }
+                else
+                {
+                    columns.Append("[" + column.ColumnName + "],");
+                }
             }
             columns = columns.Remove(columns.Length - 1, 1);
 

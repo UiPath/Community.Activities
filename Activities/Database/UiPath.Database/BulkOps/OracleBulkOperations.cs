@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UiPath.Database.BulkOps
 {
@@ -11,9 +7,14 @@ namespace UiPath.Database.BulkOps
     {
         public string Connection { get; set; }
         public string TableName { get; set; }
+        public Type BulkCopyType { get; set; }
+
         public void WriteToServer(DataTable dataTable)
         {
-            throw new NotImplementedException();
+            dynamic bulkCopy = Activator.CreateInstance(BulkCopyType, new object[] { Connection });
+
+            bulkCopy.DestinationTableName = TableName;
+            bulkCopy.WriteToServer(dataTable);
         }
     }
 }

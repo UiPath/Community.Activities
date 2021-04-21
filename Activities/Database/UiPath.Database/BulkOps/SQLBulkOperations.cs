@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UiPath.Database.BulkOps
 {
@@ -12,7 +8,7 @@ namespace UiPath.Database.BulkOps
     {
         public string Connection { get; set; }
         public string TableName { get; set; }
-
+        public Type BulkCopyType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void WriteToServer(DataTable dataTable)
         {
