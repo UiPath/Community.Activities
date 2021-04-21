@@ -122,7 +122,7 @@ namespace UiPath.Database
             {
                 bulkOps = new OracleBulkOperations
                 {
-                    Connection = _connection.ConnectionString,
+                    Connection = connection,
                     TableName = tableName
                 };
                 affectedRecords = BulkInsertOracleManaged(bulkOps, tableName, dataTable, connection, dbDA, executorRuntime);
