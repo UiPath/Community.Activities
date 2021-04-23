@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Activities.UnitTesting;
+﻿using Microsoft.Activities.UnitTesting;
 using Moq;
 using System;
 using System.Activities;
@@ -8,6 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Dynamic;
 using UiPath.Database.Activities;
+using UiPath.Database.BulkOps;
 using Xunit;
 
 namespace UiPath.Database.Tests
@@ -19,12 +19,12 @@ namespace UiPath.Database.Tests
         {
             var factory = new Mock<IDBConnectionFactory>();
             factory.Setup(f => f.Create(It.IsAny<string>(), It.IsAny<string>()))
-                                .Returns(() =>  new DatabaseConnection());
+                                .Returns(() => new DatabaseConnection());
             var connectActivity = new DatabaseConnect(factory.Object)
-                                      {
-                                        ConnectionString = new InArgument<string>("alpha"),
-                                        ProviderName = new InArgument<string>("beta")
-                                      };
+            {
+                ConnectionString = new InArgument<string>("alpha"),
+                ProviderName = new InArgument<string>("beta")
+            };
             var host = new WorkflowInvokerTest(connectActivity);
             var ex = Record.Exception(() => host.TestActivity());
             Assert.Null(ex);
@@ -59,8 +59,8 @@ namespace UiPath.Database.Tests
             var ex = Record.Exception(() => host.TestActivity());
             Assert.Null(ex);
             Assert.True(executed == useTransaction);
-
         }
+
         [Theory]
         [InlineData("System.Data.Odbc")]
         [InlineData("System.Data.Oledb")]
@@ -91,10 +91,42 @@ namespace UiPath.Database.Tests
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);
             var parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>() { { "param1", new Tuple<object, ArgumentDirection>("", ArgumentDirection.Out) } };
             databaseConnection.ExecuteQuery("TestProcedure", parameters, 0);
-            if(provider.ToLower().Contains("oracle"))
+            if (provider.ToLower().Contains("oracle"))
                 Assert.True(param.Object.Size == 1000000);
             if (!provider.ToLower().Contains("oracle"))
                 Assert.True(param.Object.Size == -1);
+        }
+
+        [Theory]
+        [InlineData("System.Data.Odbc")]
+        [InlineData("System.Data.Oledb")]
+        [InlineData("System.Data.OracleClient")]
+        [InlineData("System.Data.SqlClient")]
+        [InlineData("Oracle.DataAccess.Client")]
+        [InlineData("Oracle.ManagedDataAccess.Client")]
+        [InlineData("Mysql.Data.MysqlClient")]
+        public void BulkInsertTest(string provider)
+        {
+            var dbConnection = new Mock<DatabaseConnection>();
+            var dbDataTable = new Mock<DataTable>();
+            var dbDataAdapter = new Mock<DbDataAdapter>();
+            var bulkOps = new Mock<IBulkOperations>();
+            var connection = new Mock<DbConnection>();
+            var command = new Mock<DbCommand>();
+            var executed = false;
+
+            bulkOps.Setup(x => x.WriteToServer(dbDataTable.Object)).Callback(() => executed = true);
+
+            dbConnection.Object.DoBulkInsert(provider, "test", dbDataTable.Object, ".", null, dbDataAdapter.Object, bulkOps.Object, command.Object, command.Object, out long affectedRecords);
+
+            if (provider == "System.Data.SqlClient" || provider == "Oracle.ManagedDataAccess.Client")
+            {
+                Assert.True(executed);
+            }
+            else
+            {
+                Assert.False(executed);
+            }
         }
     }
 }

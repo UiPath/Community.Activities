@@ -28,7 +28,7 @@
   <ItemGroup>
     <PackageReference Include="UiPath.Activities.Api" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Activities.Designer.cs">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>

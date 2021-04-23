@@ -24,8 +24,8 @@
     <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-    <PackageReference Include="UiPath.Activities.Api" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" PrivateAssets="All" />
+    <PackageReference Include="UiPath.Activities.Api"  PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Designer.cs">
