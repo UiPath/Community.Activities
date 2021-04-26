@@ -1,5 +1,4 @@
-﻿using System;
-using System.Activities;
+﻿using System.Activities;
 using System.Activities.Presentation.Metadata;
 using System.Activities.Presentation.PropertyEditing;
 using System.ComponentModel;
@@ -23,6 +22,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DesignerAttribute(typeof(GenericDatabaseDesigner)));
             builder.AddCustomAttributes(typeof(ExecuteQuery), new DesignerAttribute(typeof(GenericDatabaseDesigner)));
             builder.AddCustomAttributes(typeof(InsertDataTable), new DesignerAttribute(typeof(InsertDataTableDesigner)));
+            builder.AddCustomAttributes(typeof(BulkInsert), new DesignerAttribute(typeof(BulkInsertDesigner)));
 
             // Editors
             var EditorAttributeType = new EditorAttribute(typeof(ArgumentDictionaryEditor), typeof(DialogPropertyValueEditor));
@@ -34,6 +34,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), contentAttr);
             builder.AddCustomAttributes(typeof(ExecuteQuery), contentAttr);
             builder.AddCustomAttributes(typeof(InsertDataTable), contentAttr);
+            builder.AddCustomAttributes(typeof(BulkInsert), contentAttr);
 
             // DisplayName attribute
             builder.AddCustomAttributes(typeof(DatabaseConnect), new DisplayNameAttribute(Resources.Connect));
@@ -42,7 +43,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DisplayNameAttribute(Resources.ExecuteNonQuery));
             builder.AddCustomAttributes(typeof(ExecuteQuery), new DisplayNameAttribute(Resources.ExecuteQuery));
             builder.AddCustomAttributes(typeof(InsertDataTable), new DisplayNameAttribute(Resources.Insert));
-
+            builder.AddCustomAttributes(typeof(BulkInsert), new DisplayNameAttribute(Resources.BulkInsert));
 
             // Categories
             CategoryAttribute appIntegrationDatabaseCategoryAttribute =
@@ -53,6 +54,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), appIntegrationDatabaseCategoryAttribute);
             builder.AddCustomAttributes(typeof(ExecuteQuery), appIntegrationDatabaseCategoryAttribute);
             builder.AddCustomAttributes(typeof(InsertDataTable), appIntegrationDatabaseCategoryAttribute);
+            builder.AddCustomAttributes(typeof(BulkInsert), appIntegrationDatabaseCategoryAttribute);
 
             AddDescription(builder);
 
@@ -86,7 +88,6 @@ namespace UiPath.Database.Activities.Design
             var TableNameDescription = new DescriptionAttribute(Resources.TableNameDescription);
             var TimeoutMSDescription = new DescriptionAttribute(Resources.TimeoutMSDescription);
             var UseTransactionDescription = new DescriptionAttribute(Resources.UseTransactionDescription);
-
 
             builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.ConnectionString), connectionString);
             builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.ContinueOnError), ContinueOnError);
