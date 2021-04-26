@@ -114,14 +114,16 @@ namespace UiPath.Database.Tests
             var connection = new Mock<DbConnection>();
             var command = new Mock<DbCommand>();
             var executed = false;
+            var fallback = false;
 
             bulkOps.Setup(x => x.WriteToServer(dbDataTable.Object)).Callback(() => executed = true);
+            dbConnection.Setup(x => x.InsertDataTable("test", dbDataTable.Object, true)).Callback(() => fallback = true);
 
             dbConnection.Object.DoBulkInsert(provider, "test", dbDataTable.Object, ".", null, dbDataAdapter.Object, bulkOps.Object, command.Object, command.Object, out long affectedRecords);
 
             if (provider == "System.Data.SqlClient" || provider == "Oracle.ManagedDataAccess.Client")
             {
-                Assert.True(executed);
+                Assert.True(executed || fallback);
             }
             else
             {

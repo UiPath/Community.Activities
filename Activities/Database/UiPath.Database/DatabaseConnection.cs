@@ -166,9 +166,9 @@ namespace UiPath.Database
 
         private void BulkInsertOracleManaged(IBulkOperations bulkOps, string tableName, List<string> oracleList, DataTable dataTable, string connection, DbDataAdapter dbDA, IExecutorRuntime executorRuntime)
         {
+            bool bulkCopyIsPresent = false;
             if (oracleList.Count > 0)
             {
-                bool bulkCopyIsPresent = false;
                 //try all drivers with latest version first
                 foreach (var item in oracleList.OrderByDescending(x => x))
                 {
@@ -183,16 +183,15 @@ namespace UiPath.Database
                     }
                     else continue;
                 }
-
-                if (!bulkCopyIsPresent)
+            }
+            if (!bulkCopyIsPresent)
+            {
+                //if no bulk insert possible, fallback to insert data table
+                if (executorRuntime != null)
                 {
-                    //if no bulk insert possible, fallback to insert data table
-                    if (executorRuntime != null)
-                    {
-                        LogWarningMessage(executorRuntime);
-                    }
-                    InsertDataTable(tableName, dataTable, true);
+                    LogWarningMessage(executorRuntime);
                 }
+                InsertDataTable(tableName, dataTable, true);
             }
         }
 
