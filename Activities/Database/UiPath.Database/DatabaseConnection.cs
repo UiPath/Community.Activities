@@ -173,13 +173,14 @@ namespace UiPath.Database
             updateCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
 
             dbDA.UpdateCommand = updateCommand;
-            
+            int rows = 0;
             foreach (DataRow row in dataTable.Rows)
             {
-                if (row.RowState == DataRowState.Unchanged)
-                    row.SetModified();
+                foreach(DbParameter param in updateCommand.Parameters)
+                    param.Value=row[param.SourceColumn];
+                rows+=updateCommand.ExecuteNonQuery();
             }
-            return dbDA.Update(dataTable);
+            return rows;
         }
 
 
