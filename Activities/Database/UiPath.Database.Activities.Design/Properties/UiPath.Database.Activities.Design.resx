@@ -299,4 +299,7 @@
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
   </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+  </data>
 </root>
