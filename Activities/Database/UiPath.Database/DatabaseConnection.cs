@@ -132,7 +132,9 @@ namespace UiPath.Database
             
             var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
             string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
-
+            string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
+            if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
+                markerFormat = "@" + markerFormat;
             var updateCommand = _connection.CreateCommand();            
             updateCommand.Connection = _connection;
             updateCommand.Transaction = _transaction;
