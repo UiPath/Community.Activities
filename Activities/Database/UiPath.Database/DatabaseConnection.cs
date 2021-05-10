@@ -132,6 +132,12 @@ namespace UiPath.Database
 
             var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
             string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
+            string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
+            if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
+                markerFormat = "@" + markerFormat;
+            var updateCommand = _connection.CreateCommand();            
+            updateCommand.Connection = _connection;
+            updateCommand.Transaction = _transaction;
 
             var updateCommand = _connection.CreateCommand();
             List<DbParameter> updatePar = new List<DbParameter>();
@@ -183,6 +189,16 @@ namespace UiPath.Database
             updateCommand.Parameters.AddRange(wherePar.ToArray());
 
             updateCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
+
+            dbDA.UpdateCommand = updateCommand;
+            int rows = 0;
+            foreach (DataRow row in dataTable.Rows)
+            {
+                foreach(DbParameter param in updateCommand.Parameters)
+                    param.Value=row[param.SourceColumn];
+                rows+=updateCommand.ExecuteNonQuery();
+            }
+            return rows;
             
         }
 
