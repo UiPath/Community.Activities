@@ -129,26 +129,40 @@ namespace UiPath.Database
             DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
             dbDA.ContinueUpdateOnError = false;
 
-            
+
             var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
             string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
 
-            var updateCommand = _connection.CreateCommand();            
-            updateCommand.Connection = _connection;
-            updateCommand.Transaction = _transaction;
+            var updateCommand = _connection.CreateCommand();
+            List<DbParameter> updatePar = new List<DbParameter>();
+            List<DbParameter> wherePar = new List<DbParameter>();
+
+            SetupBulkUpdateCommand(tableName, dataTable, columnNames,  markerFormat, _connection, _transaction, updateCommand, updatePar, wherePar);
+
+            dbDA.UpdateCommand = updateCommand;
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.RowState == DataRowState.Unchanged)
+                    row.SetModified();
+            }
+            return dbDA.Update(dataTable);
+        }
+
+        public void SetupBulkUpdateCommand(string tableName, DataTable dataTable, string[] columnNames, string markerFormat, DbConnection dbConnection, DbTransaction dbTransaction, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
+        {
+            updateCommand.Connection = dbConnection;
+            updateCommand.Transaction = dbTransaction;
             updateCommand.CommandType = CommandType.Text;
 
             var whereClause = string.Empty;
             var updateClause = string.Empty;
-            
+
             int i = 1;
-            List<DbParameter> updatePar = new List<DbParameter>();
-            List<DbParameter> wherePar = new List<DbParameter>();
+       
             foreach (DataColumn column in dataTable.Columns)
             {
-                var p = updateCommand.CreateParameter();
-                p.ParameterName = string.Format("p{0}",i++);
-                p.SourceColumn = column.ColumnName;
+                DbParameter p = BuildParameter(updateCommand, string.Format("p{0}", i++), column);
                 string paramName = string.Format(markerFormat, p.ParameterName);
                 if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
                 {
@@ -169,15 +183,15 @@ namespace UiPath.Database
             updateCommand.Parameters.AddRange(wherePar.ToArray());
 
             updateCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
-
-            dbDA.UpdateCommand = updateCommand;
             
-            foreach (DataRow row in dataTable.Rows)
-            {
-                if (row.RowState == DataRowState.Unchanged)
-                    row.SetModified();
-            }
-            return dbDA.Update(dataTable);
+        }
+
+        public virtual DbParameter BuildParameter(DbCommand updateCommand, string name, DataColumn column)
+        {
+            var p = updateCommand.CreateParameter();
+            p.ParameterName = name;
+            p.SourceColumn = column.ColumnName;
+            return p;
         }
 
 
