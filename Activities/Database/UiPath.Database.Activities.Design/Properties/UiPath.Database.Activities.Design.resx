@@ -287,4 +287,16 @@
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
     <value>Destination database table name</value>
   </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Columns used for matching rows</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>The collection of column names used for row matching</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Bulk Update</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+  </data>
 </root>

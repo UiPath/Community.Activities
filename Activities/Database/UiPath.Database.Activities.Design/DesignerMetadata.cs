@@ -23,6 +23,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteQuery), new DesignerAttribute(typeof(GenericDatabaseDesigner)));
             builder.AddCustomAttributes(typeof(InsertDataTable), new DesignerAttribute(typeof(InsertDataTableDesigner)));
             builder.AddCustomAttributes(typeof(BulkInsert), new DesignerAttribute(typeof(BulkInsertDesigner)));
+            builder.AddCustomAttributes(typeof(BulkUpdate), new DesignerAttribute(typeof(BulkUpdateDesigner)));
 
             // Editors
             var EditorAttributeType = new EditorAttribute(typeof(ArgumentDictionaryEditor), typeof(DialogPropertyValueEditor));
@@ -35,6 +36,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteQuery), contentAttr);
             builder.AddCustomAttributes(typeof(InsertDataTable), contentAttr);
             builder.AddCustomAttributes(typeof(BulkInsert), contentAttr);
+            builder.AddCustomAttributes(typeof(BulkUpdate), contentAttr);
 
             // DisplayName attribute
             builder.AddCustomAttributes(typeof(DatabaseConnect), new DisplayNameAttribute(Resources.Connect));
@@ -44,6 +46,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteQuery), new DisplayNameAttribute(Resources.ExecuteQuery));
             builder.AddCustomAttributes(typeof(InsertDataTable), new DisplayNameAttribute(Resources.Insert));
             builder.AddCustomAttributes(typeof(BulkInsert), new DisplayNameAttribute(Resources.BulkInsert));
+            builder.AddCustomAttributes(typeof(BulkUpdate), new DisplayNameAttribute(Resources.BulkUpdate));
 
             // Categories
             CategoryAttribute appIntegrationDatabaseCategoryAttribute =
@@ -55,6 +58,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteQuery), appIntegrationDatabaseCategoryAttribute);
             builder.AddCustomAttributes(typeof(InsertDataTable), appIntegrationDatabaseCategoryAttribute);
             builder.AddCustomAttributes(typeof(BulkInsert), appIntegrationDatabaseCategoryAttribute);
+            builder.AddCustomAttributes(typeof(BulkUpdate), appIntegrationDatabaseCategoryAttribute);
 
             AddDescription(builder);
 
@@ -70,6 +74,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DescriptionAttribute(Resources.ExecuteNonQueryDescription));
             builder.AddCustomAttributes(typeof(ExecuteQuery), new DescriptionAttribute(Resources.ExecuteQueryDescription));
             builder.AddCustomAttributes(typeof(InsertDataTable), new DescriptionAttribute(Resources.InsertDataTableDescription));
+            builder.AddCustomAttributes(typeof(BulkUpdate), new DescriptionAttribute(Resources.BulkUpdateDescription));
 
             // Properties and Descriptions
             var AffectedRecordsDescription = new DescriptionAttribute(Resources.AffectedRecordsDescription);

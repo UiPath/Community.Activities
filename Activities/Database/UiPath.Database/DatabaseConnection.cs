@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -123,6 +124,62 @@ namespace UiPath.Database
 
             return affectedRecords;
         }
+        public long BulkUpdateDataTable(string tableName, DataTable dataTable, string[] columnNames, string connection,  IExecutorRuntime executorRuntime = null)
+        {
+            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
+            dbDA.ContinueUpdateOnError = false;
+
+            
+            var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
+            string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
+
+            var updateCommand = _connection.CreateCommand();            
+            updateCommand.Connection = _connection;
+            updateCommand.Transaction = _transaction;
+            updateCommand.CommandType = CommandType.Text;
+
+            var whereClause = string.Empty;
+            var updateClause = string.Empty;
+            
+            int i = 1;
+            List<DbParameter> updatePar = new List<DbParameter>();
+            List<DbParameter> wherePar = new List<DbParameter>();
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                var p = updateCommand.CreateParameter();
+                p.ParameterName = string.Format("p{0}",i++);
+                p.SourceColumn = column.ColumnName;
+                string paramName = string.Format(markerFormat, p.ParameterName);
+                if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
+                {
+                    whereClause = string.Format("{0} {1}={2} AND ", whereClause, EscapeDbObject(column.ColumnName), paramName);
+                    wherePar.Add(p);
+                }
+                else
+                {
+                    updateClause = string.Format("{0} {1}={2},", updateClause, EscapeDbObject(column.ColumnName), paramName);
+                    updatePar.Add(p);
+                }
+            }
+
+            updateClause = updateClause.Remove(updateClause.Length - 1, 1);
+            whereClause = whereClause.Remove(whereClause.Length - 5, 5);
+
+            updateCommand.Parameters.AddRange(updatePar.ToArray());
+            updateCommand.Parameters.AddRange(wherePar.ToArray());
+
+            updateCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
+
+            dbDA.UpdateCommand = updateCommand;
+            
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.RowState == DataRowState.Unchanged)
+                    row.SetModified();
+            }
+            return dbDA.Update(dataTable);
+        }
+
 
         public void DoBulkInsert(string providerName, string tableName, DataTable dataTable, string connection, IExecutorRuntime executorRuntime, DbDataAdapter dbDA, IBulkOperations bulkOps, DbCommand commandRowCount, DbCommand commandTableStructure, out long affectedRecords)
         {
@@ -386,12 +443,16 @@ namespace UiPath.Database
                 }
                 else
                 {
-                    columns.Append("[" + column.ColumnName + "],");
+                    columns.Append(string.Format("{0}{1}",EscapeDbObject(column.ColumnName),","));
                 }
             }
             columns = columns.Remove(columns.Length - 1, 1);
 
             return columns.ToString();
+        }
+        private string EscapeDbObject(string dbObject)
+        {
+            return "\"" + dbObject + "\"";
         }
 
         private static ParameterDirection WokflowDbParameterToParameterDirection(ArgumentDirection argumentDirection)

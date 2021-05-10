@@ -142,6 +142,42 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulk Update.
+        /// </summary>
+        public static string BulkUpdate {
+            get {
+                return ResourceManager.GetString("BulkUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Columns used for matching rows.
+        /// </summary>
+        public static string BulkUpdate_ColumnNames {
+            get {
+                return ResourceManager.GetString("BulkUpdate_ColumnNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The collection of column names used for row matching.
+        /// </summary>
+        public static string BulkUpdate_ColumnNames_Placeholder {
+            get {
+                return ResourceManager.GetString("BulkUpdate_ColumnNames_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected..
+        /// </summary>
+        public static string BulkUpdateDescription {
+            get {
+                return ResourceManager.GetString("BulkUpdateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App Integration.
         /// </summary>
         public static string CategoryAppIntegration {
