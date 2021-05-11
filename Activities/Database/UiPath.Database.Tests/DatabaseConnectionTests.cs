@@ -132,15 +132,8 @@ namespace UiPath.Database.Tests
             }
         }
 
-        [Theory]
-        [InlineData("System.Data.Odbc")]
-        [InlineData("System.Data.Oledb")]
-        [InlineData("System.Data.OracleClient")]
-        [InlineData("System.Data.SqlClient")]
-        [InlineData("Oracle.DataAccess.Client")]
-        [InlineData("Oracle.ManagedDataAccess.Client")]
-        [InlineData("Mysql.Data.MysqlClient")]
-        public void BulkUpdateTest(string provider)
+        [Fact]
+        public void BulkUpdateTest()
         {
             var dbConnection = new Mock<DatabaseConnection>();
             var dbDataTable = new DataTable();
@@ -150,11 +143,11 @@ namespace UiPath.Database.Tests
             var command = new Mock<DbCommand>();
             var updateParam = new Mock<List<DbParameter>>();
             var whereParam = new Mock<List<DbParameter>>();
-            var executed = false;
-            var fallback = false;
             var columns = new string[] {"C1"};
 
             dbDataTable.Columns.Add("C1");
+            dbDataTable.Columns.Add("C2");
+            dbDataTable.Rows.Add("1", "2");
 
             dbConnection
                 .Setup(u => u.BuildParameter(It.IsAny<DbCommand>(), It.IsAny<string>(), It.IsAny<DataColumn>()))
@@ -162,7 +155,11 @@ namespace UiPath.Database.Tests
                     Mock.Of<DbParameter>(x => x.ParameterName == name && x.Value == column)
                 );
 
-            dbConnection.Object.SetupBulkUpdateCommand("test", dbDataTable, columns, "", connection.Object, transaction.Object, command.Object, updateParam.Object, whereParam.Object);
+            var result = dbConnection.Object.SetupBulkUpdateCommand("test", dbDataTable, columns, "{0}", connection.Object, transaction.Object, command.Object, updateParam.Object, whereParam.Object);
+
+            var commandText = string.Format("UPDATE {0} SET {1} WHERE {2}", "test", result.Item1,result.Item2);
+
+            Assert.Equal("UPDATE test SET  \"C2\"=p2 WHERE  \"C1\"=p1", commandText);
         }
     }
 }

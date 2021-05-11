@@ -135,27 +135,35 @@ namespace UiPath.Database
             string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
             if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
                 markerFormat = "@" + markerFormat;
-            var updateCommand = _connection.CreateCommand();            
-            updateCommand.Connection = _connection;
-            updateCommand.Transaction = _transaction;
 
             var updateCommand = _connection.CreateCommand();
+
             List<DbParameter> updatePar = new List<DbParameter>();
             List<DbParameter> wherePar = new List<DbParameter>();
 
-            SetupBulkUpdateCommand(tableName, dataTable, columnNames,  markerFormat, _connection, _transaction, updateCommand, updatePar, wherePar);
+            var result = SetupBulkUpdateCommand(tableName, dataTable, columnNames,  markerFormat, _connection, _transaction, updateCommand, updatePar, wherePar);
+
+            updateCommand.Parameters.AddRange(updatePar.ToArray());
+            updateCommand.Parameters.AddRange(wherePar.ToArray());
+
+            var updateClause = result.Item1;
+            var whereClause = result.Item2;
+
+            updateCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
 
             dbDA.UpdateCommand = updateCommand;
 
+            int rows = 0;
             foreach (DataRow row in dataTable.Rows)
             {
-                if (row.RowState == DataRowState.Unchanged)
-                    row.SetModified();
+                foreach (DbParameter param in updateCommand.Parameters)
+                    param.Value = row[param.SourceColumn];
+                rows += updateCommand.ExecuteNonQuery();
             }
-            return dbDA.Update(dataTable);
+            return rows;
         }
 
-        public void SetupBulkUpdateCommand(string tableName, DataTable dataTable, string[] columnNames, string markerFormat, DbConnection dbConnection, DbTransaction dbTransaction, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
+        public Tuple<string, string> SetupBulkUpdateCommand(string tableName, DataTable dataTable, string[] columnNames, string markerFormat, DbConnection dbConnection, DbTransaction dbTransaction, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
         {
             updateCommand.Connection = dbConnection;
             updateCommand.Transaction = dbTransaction;
@@ -185,21 +193,7 @@ namespace UiPath.Database
             updateClause = updateClause.Remove(updateClause.Length - 1, 1);
             whereClause = whereClause.Remove(whereClause.Length - 5, 5);
 
-            updateCommand.Parameters.AddRange(updatePar.ToArray());
-            updateCommand.Parameters.AddRange(wherePar.ToArray());
-
-            updateCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
-
-            dbDA.UpdateCommand = updateCommand;
-            int rows = 0;
-            foreach (DataRow row in dataTable.Rows)
-            {
-                foreach(DbParameter param in updateCommand.Parameters)
-                    param.Value=row[param.SourceColumn];
-                rows+=updateCommand.ExecuteNonQuery();
-            }
-            return rows;
-            
+            return new Tuple<string, string>(updateClause, whereClause);
         }
 
         public virtual DbParameter BuildParameter(DbCommand updateCommand, string name, DataColumn column)
