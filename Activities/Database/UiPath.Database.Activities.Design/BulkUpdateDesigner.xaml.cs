@@ -3,11 +3,11 @@
 namespace UiPath.Database.Activities.Design
 {
     /// <summary>
-    /// Interaction logic for BulkInsertDesigner.xaml
+    /// Interaction logic for BulkUpdateDesigner.xaml
     /// </summary>
-    public partial class BulkInsertDesigner
+    public partial class BulkUpdateDesigner
     {
-        public BulkInsertDesigner()
+        public BulkUpdateDesigner()
         {
             InitializeComponent();
         }

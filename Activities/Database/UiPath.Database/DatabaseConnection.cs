@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -123,6 +124,86 @@ namespace UiPath.Database
 
             return affectedRecords;
         }
+        public long BulkUpdateDataTable(string tableName, DataTable dataTable, string[] columnNames, string connection,  IExecutorRuntime executorRuntime = null)
+        {
+            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
+            dbDA.ContinueUpdateOnError = false;
+
+
+            var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
+            string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
+            string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
+            if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
+                markerFormat = "@" + markerFormat;
+
+            var updateCommand = _connection.CreateCommand();
+
+            List<DbParameter> updatePar = new List<DbParameter>();
+            List<DbParameter> wherePar = new List<DbParameter>();
+
+            var result = SetupBulkUpdateCommand(tableName, dataTable, columnNames,  markerFormat, _connection, _transaction, updateCommand, updatePar, wherePar);
+
+            updateCommand.Parameters.AddRange(updatePar.ToArray());
+            updateCommand.Parameters.AddRange(wherePar.ToArray());
+
+            var updateClause = result.Item1;
+            var whereClause = result.Item2;
+
+            updateCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
+
+            dbDA.UpdateCommand = updateCommand;
+
+            int rows = 0;
+            foreach (DataRow row in dataTable.Rows)
+            {
+                foreach (DbParameter param in updateCommand.Parameters)
+                    param.Value = row[param.SourceColumn];
+                rows += updateCommand.ExecuteNonQuery();
+            }
+            return rows;
+        }
+
+        public Tuple<string, string> SetupBulkUpdateCommand(string tableName, DataTable dataTable, string[] columnNames, string markerFormat, DbConnection dbConnection, DbTransaction dbTransaction, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
+        {
+            updateCommand.Connection = dbConnection;
+            updateCommand.Transaction = dbTransaction;
+            updateCommand.CommandType = CommandType.Text;
+
+            var whereClause = string.Empty;
+            var updateClause = string.Empty;
+
+            int i = 1;
+       
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                DbParameter p = BuildParameter(updateCommand, string.Format("p{0}", i++), column);
+                string paramName = string.Format(markerFormat, p.ParameterName);
+                if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
+                {
+                    whereClause = string.Format("{0} {1}={2} AND ", whereClause, EscapeDbObject(column.ColumnName), paramName);
+                    wherePar.Add(p);
+                }
+                else
+                {
+                    updateClause = string.Format("{0} {1}={2},", updateClause, EscapeDbObject(column.ColumnName), paramName);
+                    updatePar.Add(p);
+                }
+            }
+
+            updateClause = updateClause.Remove(updateClause.Length - 1, 1);
+            whereClause = whereClause.Remove(whereClause.Length - 5, 5);
+
+            return new Tuple<string, string>(updateClause, whereClause);
+        }
+
+        public virtual DbParameter BuildParameter(DbCommand updateCommand, string name, DataColumn column)
+        {
+            var p = updateCommand.CreateParameter();
+            p.ParameterName = name;
+            p.SourceColumn = column.ColumnName;
+            return p;
+        }
+
 
         public void DoBulkInsert(string providerName, string tableName, DataTable dataTable, string connection, IExecutorRuntime executorRuntime, DbDataAdapter dbDA, IBulkOperations bulkOps, DbCommand commandRowCount, DbCommand commandTableStructure, out long affectedRecords)
         {
@@ -386,12 +467,16 @@ namespace UiPath.Database
                 }
                 else
                 {
-                    columns.Append("[" + column.ColumnName + "],");
+                    columns.Append(string.Format("{0}{1}",EscapeDbObject(column.ColumnName),","));
                 }
             }
             columns = columns.Remove(columns.Length - 1, 1);
 
             return columns.ToString();
+        }
+        private string EscapeDbObject(string dbObject)
+        {
+            return "\"" + dbObject + "\"";
         }
 
         private static ParameterDirection WokflowDbParameterToParameterDirection(ArgumentDirection argumentDirection)

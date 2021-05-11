@@ -46,6 +46,10 @@
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.ja.resx">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="Properties\UiPath.Database.Activities.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.Database.Activities.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.ru.resx">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
     </EmbeddedResource>
