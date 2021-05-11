@@ -119,10 +119,12 @@
   </resheader>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
     <value>影響を受けたレコード</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
     <value>コマンドの種類</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Common" xml:space="preserve">
     <value>共通</value>
   </data>
@@ -134,44 +136,59 @@
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
     <value>接続文字列</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
     <value>データベース接続</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DataTableDisplayName" xml:space="preserve">
     <value>データ テーブル</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
     <value>既存の接続</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>入力</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>出力</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ParametersDisplayName" xml:space="preserve">
     <value>パラメーター</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
     <value>プロバイダー名</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TableNameDisplayName" xml:space="preserve">
     <value>表の名</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
     <value>タイムアウト (ミリ秒)</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>[タイムアウト (ミリ秒)] に入力する値は 0 以上である必要があります。</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
     <value>トランザクションを使用</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Output" xml:space="preserve">
     <value>出力</value>
+  </data>
+  <data name="ColumnNamesDisplayName" xml:space="preserve">
+    <value>ColumnNames</value>
+    <comment>property name</comment>
   </data>
 </root>
