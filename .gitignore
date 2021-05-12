@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Activities/Java/Invoke/out
+/Activities/Java/Invoke/.idea
+/Activities/Java/Invoke/.idea/artifacts
+/Activities/Java/TestProgram/.idea
+/Activities/Java/TestProgram/out
+/Activities/Output/
+/Activities/OutputTests/
+/Activities/Output/Activities

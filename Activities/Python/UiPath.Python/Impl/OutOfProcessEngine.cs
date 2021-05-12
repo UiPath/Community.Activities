@@ -11,19 +11,23 @@ namespace UiPath.Python.Impl
 {
     internal class OutOfProcessEngine : IEngine
     {
-        const string ServiceExe_x64 = "UiPath.Python.Host.exe";
-        const string ServiceExe_x86 = "UiPath.Python.Host32.exe";
+        private const string ServiceExe_x64 = "UiPath.Python.Host.exe";
+        private const string ServiceExe_x86 = "UiPath.Python.Host32.exe";
+
         private PythonProxy _proxy;
         private Controller<IPythonService> _provider;
         private TargetPlatform _target;
+
         private bool _visible;
 
         #region Runtime info
+
         private Version _version;
         private string _path;
-        #endregion
 
-        internal OutOfProcessEngine(Version version, string path, TargetPlatform target, bool visible )
+        #endregion Runtime info
+
+        internal OutOfProcessEngine(Version version, string path, TargetPlatform target, bool visible)
         {
             _version = version;
             _path = path;
@@ -32,7 +36,10 @@ namespace UiPath.Python.Impl
         }
 
         #region IEngine
-        public Task Initialize(string workingFolder, CancellationToken ct)
+
+        public Version Version { get { return _version; } }
+
+        public Task Initialize(string workingFolder, CancellationToken ct, double timeout)
         {
             ct.ThrowIfCancellationRequested();
 
@@ -43,11 +50,11 @@ namespace UiPath.Python.Impl
             // TODO: expose visible as a property?
             _provider = new Controller<IPythonService>()
             {
-                ExeFile = TargetPlatform.x64 == _target ? ServiceExe_x64: ServiceExe_x86,
+                ExeFile = TargetPlatform.x64 == _target ? ServiceExe_x64 : ServiceExe_x86,
                 Visible = _visible
             };
             _provider.Create();
-            _proxy = new PythonProxy(_provider.Endpoint);
+            _proxy = new PythonProxy(_provider.Client, timeout, ct);
             _proxy.Initialize(_path, _version, workingFolder);
 
             sw.Stop();
@@ -96,9 +103,10 @@ namespace UiPath.Python.Impl
 
         public object Convert(PythonObject obj, Type t)
         {
-            return _proxy.Convert(obj.Id, t.FullName)?.Unwrap();
+            return (_proxy.Convert(obj.Id, t.FullName))?.Unwrap();
         }
-        #endregion
+
+        #endregion IEngine
 
         public void Dispose()
         {

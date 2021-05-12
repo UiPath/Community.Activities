@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlgorithmDisplayName" xml:space="preserve">
+    <value>算法</value>
+    <comment>property name</comment>
+  </data>
+  <data name="EncodingDisplayName" xml:space="preserve">
+    <value>编码</value>
+    <comment>property name</comment>
+  </data>
+  <data name="EncodingDescription" xml:space="preserve">
+    <value>用于解释输入字符串的编码。</value>
+  </data>
+  <data name="EncryptAlgorithmDescription" xml:space="preserve">
+    <value>此活动将使用的加密算法。</value>
+  </data>
+  <data name="EncryptTextEncodingDescription" xml:space="preserve">
+    <value>用于解释输入字符串和密钥的编码。</value>
+  </data>
+  <data name="EncryptTextDisplayName" xml:space="preserve">
+    <value>加密文本</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="EncryptTextDescription" xml:space="preserve">
+    <value>使用选定算法和给定密钥加密输入字符串，并返回加密结果的 Base64 字符串表示。</value>
+  </data>
+  <data name="EncryptTextInputDescription" xml:space="preserve">
+    <value>此活动将加密的字符串。</value>
+  </data>
+  <data name="EncryptTextKeyDescription" xml:space="preserve">
+    <value>用于加密输入字符串的密钥。</value>
+  </data>
+  <data name="EncryptTextResultDescription" xml:space="preserve">
+    <value>经加密的输入字符串的 Base64 字符串表示。</value>
+  </data>
+  <data name="FipsComplianceWarning" xml:space="preserve">
+    <value>所选算法不具有符合 FIPS 的实现。可能无法在某些计算机上工作。</value>
+  </data>
+  <data name="HashAlgorithmDescription" xml:space="preserve">
+    <value>此活动将使用的散列算法。</value>
+  </data>
+  <data name="HashTextDisplayName" xml:space="preserve">
+    <value>散列文本</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="HashTextDescription" xml:space="preserve">
+    <value>对输入字符串应用选定的散列算法，并返回所生成散列结果的十六进制字符串表示。</value>
+  </data>
+  <data name="HashTextInputDescription" xml:space="preserve">
+    <value>此活动将散列的字符串。</value>
+  </data>
+  <data name="HashTextResultDescription" xml:space="preserve">
+    <value>经散列的输入字符串的十六进制字符串表示。</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>输入</value>
+  </data>
+  <data name="InputStringDisplayName" xml:space="preserve">
+    <value>文本</value>
+    <comment>property name</comment>
+  </data>
+  <data name="KeyDisplayName" xml:space="preserve">
+    <value>键值</value>
+    <comment>property name</comment>
+  </data>
+  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
+    <value>此活动将使用的键控散列算法。</value>
+  </data>
+  <data name="KeyedHashEncodingDescription" xml:space="preserve">
+    <value>用于解释输入字符串和密钥的编码。</value>
+  </data>
+  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
+    <value>用于散列输入字符串的密钥。</value>
+  </data>
+  <data name="KeyedHashTextDisplayName" xml:space="preserve">
+    <value>使用密钥散列文本</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="KeyedHashTextDescription" xml:space="preserve">
+    <value>对输入字符串应用选定的散列算法，并使用给定密钥进行散列，然后返回所生成散列结果的十六进制字符串表示。</value>
+  </data>
+  <data name="OutputDisplayName" xml:space="preserve">
+    <value>输出</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ResultDisplayName" xml:space="preserve">
+    <value>结果</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DecryptAlgorithmDescription" xml:space="preserve">
+    <value>此活动将使用的解密算法。</value>
+  </data>
+  <data name="DecryptTextDisplayName" xml:space="preserve">
+    <value>解密文本</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="DecryptTextDescription" xml:space="preserve">
+    <value>使用选定算法和给定密钥解密输入字符串，并返回未加密的原始字符串。</value>
+  </data>
+  <data name="DecryptTextEncodingDescription" xml:space="preserve">
+    <value>用于解释输入字符串和密钥的编码。</value>
+  </data>
+  <data name="DecryptTextInputDescription" xml:space="preserve">
+    <value>此活动将解密的字符串。</value>
+  </data>
+  <data name="DecryptTextKeyDescription" xml:space="preserve">
+    <value>用于解密输入字符串的密钥。</value>
+  </data>
+  <data name="DecryptTextResultDescription" xml:space="preserve">
+    <value>解密后的字符串。</value>
+  </data>
+  <data name="FileDoesNotExistsException" xml:space="preserve">
+    <value>文件不存在。</value>
+  </data>
+  <data name="FilePathDisplayName" xml:space="preserve">
+    <value>文件路径</value>
+    <comment>property name</comment>
+  </data>
+  <data name="HashFileDisplayName" xml:space="preserve">
+    <value>散列文件</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="HashFileDescription" xml:space="preserve">
+    <value>对给定文件中的内容应用选定的散列算法，并返回所生成散列结果的十六进制字符串表示。</value>
+  </data>
+  <data name="HashFilePathDescription" xml:space="preserve">
+    <value>此活动将散列的文件路径。</value>
+  </data>
+  <data name="HashFileResultDescription" xml:space="preserve">
+    <value>散列文件的十六进制字符串表示。</value>
+  </data>
+  <data name="KeyedHashFileDisplayName" xml:space="preserve">
+    <value>使用密钥散列文件</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="KeyedHashFileDescription" xml:space="preserve">
+    <value>对输入文件应用选定的散列算法，并使用给定密钥进行散列，然后返回所生成散列结果的十六进制字符串表示。</value>
+  </data>
+  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
+    <value>用于散列给定文件的密钥。</value>
+  </data>
+  <data name="KeyedHashFileResultDescription" xml:space="preserve">
+    <value>散列文件的十六进制字符串表示。</value>
+  </data>
+  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+    <value>用于解释密钥的编码。</value>
+  </data>
+  <data name="EncryptFileDisplayName" xml:space="preserve">
+    <value>加密文件</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="EncryptFileDescription" xml:space="preserve">
+    <value>使用选定算法和给定密钥加密输入文件，并将结果保存在输出文件中。</value>
+  </data>
+  <data name="EncryptFileEncodingDescription" xml:space="preserve">
+    <value>用于解释密钥的编码。</value>
+  </data>
+  <data name="EncryptFileInputPathDescription" xml:space="preserve">
+    <value>此活动将加密的文件路径。</value>
+  </data>
+  <data name="EncryptFileKeyDescription" xml:space="preserve">
+    <value>用于加密输入文件的密钥。</value>
+  </data>
+  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
+    <value>用于保存加密文件的路径。</value>
+  </data>
+  <data name="InputFilePathDisplayName" xml:space="preserve">
+    <value>输入路径</value>
+    <comment>property name</comment>
+  </data>
+  <data name="OutputFilePathDisplayName" xml:space="preserve">
+    <value>输出路径</value>
+    <comment>property name</comment>
+  </data>
+  <data name="OverwriteDisplayName" xml:space="preserve">
+    <value>覆盖</value>
+    <comment>property name</comment>
+  </data>
+  <data name="OverwriteDescription" xml:space="preserve">
+    <value>如果输出文件已存在，则覆盖该文件。</value>
+  </data>
+  <data name="FileAlreadyExistsException" xml:space="preserve">
+    <value>文件已存在。</value>
+  </data>
+  <data name="DecryptFileDisplayName" xml:space="preserve">
+    <value>解密文件</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="DecryptFileDescription" xml:space="preserve">
+    <value>使用选定算法和给定密钥解密输入文件，同时保存未加密的原始文件。</value>
+  </data>
+  <data name="DecryptFileEncodingDescription" xml:space="preserve">
+    <value>用于解释密钥的编码。</value>
+  </data>
+  <data name="DecryptFileInputPathDescription" xml:space="preserve">
+    <value>此活动将解密的文件路径。</value>
+  </data>
+  <data name="DecryptFileKeyDescription" xml:space="preserve">
+    <value>用于解密输入文件的密钥。</value>
+  </data>
+  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
+    <value>用于保存解密文件的路径。</value>
+  </data>
+  <data name="GenericCryptographicException" xml:space="preserve">
+    <value>加密操作失败。请确保您在加密和解密操作中使用的算法和密钥相同。</value>
+  </data>
+  <data name="KeyEncodingDisplayName" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>编码</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>键值</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>常见</value>
+  </data>
+  <data name="ContinueOnErrorDisplayName" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
+    <value>MACTripleDES 使用的密钥长度为 16 或 24 字节。密钥长度取决于编码。</value>
+  </data>
+</root>

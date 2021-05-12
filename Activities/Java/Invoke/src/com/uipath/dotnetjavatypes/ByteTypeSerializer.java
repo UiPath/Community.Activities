@@ -13,7 +13,7 @@ public class ByteTypeSerializer implements TypeSerializerInterface {
                 return new JavaObject(value, byte.class);
             } catch (JSONException e) {  }
         }
-        return new JavaObject(new EmptyClass(), EmptyClass.class);
+        return new JavaObject(null, byte.class);
     }
 
     public JSONObject SerializeToDotNet(ObjectInstance obj) throws JSONException{

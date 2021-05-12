@@ -1,0 +1,49 @@
+resources:
+  repositories:
+  - repository: common
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: feature/activities_templates
+    endpoint: "GitHub connection"
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - develop
+    - masters/Python
+    - release/Python/*
+    - support/Python/*
+  paths:
+    include:
+    - Activities/Python/*
+    - Activities/Activities.Python.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
+
+pr:
+  branches:
+    include:
+    - develop
+    - masters/Python
+    - release/Python/*
+    - support/Python/*
+  paths:
+    include:
+    - Activities/Python/*
+    - Activities/Activities.Python.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
+
+variables:
+  - template: ..\.pipelines\variables\variables.yml
+
+stages:
+  - template: Activities/stage.start.yml@common
+    parameters:
+      projectName: 'Python'
+      solutionPath: '$(SolutionsPath)/Activities.Python.sln'
+      sonarKeyPrefix: 'CommunityActivities'
+      sdkBuild: true
+      enableCDStages: false
+      hasQaPackages: false

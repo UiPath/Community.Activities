@@ -37,7 +37,9 @@ namespace UiPath.Cryptography.Activities
 
         public HashFile()
         {
+#if NET461
             Algorithm = HashAlgorithms.SHA256;
+#endif
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)

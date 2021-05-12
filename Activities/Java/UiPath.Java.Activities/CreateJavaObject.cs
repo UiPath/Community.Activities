@@ -33,15 +33,15 @@ namespace UiPath.Java.Activities
                 throw new ArgumentNullException(nameof(TargetType));
             }
             List<object> parameters = GetParameters(context);
-
+            var types = GetParameterTypes(context, parameters);
             JavaObject instance = null;
             try
             {
-                instance = await invoker.InvokeConstructor(className, parameters, parameters.Select(param => param?.GetType()).ToList(), cancellationToken);
+                instance = await invoker.InvokeConstructor(className, parameters, types, cancellationToken);
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Constrcutor could not be invoker: {e.ToString()}");
+                Trace.TraceError($"Constrcutor could not be invoker: {e}");
                 throw new InvalidOperationException(Resources.ConstructorException, e);
             }
 

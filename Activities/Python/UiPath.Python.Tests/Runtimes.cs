@@ -46,6 +46,12 @@ namespace UiPath.Python.Tests
             "    return obj"
         );
 
+        private readonly string _unicodeTestScript = string.Join(
+            Environment.NewLine,
+            "def test():",
+            "    return '´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû'"
+        );
+
         private readonly string _basicTestScript = string.Join(
             Environment.NewLine,
             "def hello(name=None):",
@@ -67,7 +73,7 @@ namespace UiPath.Python.Tests
             "    return 'no_param'"
         );
 
-        #endregion
+        #endregion Test scripts
 
         #region Runtimes
 
@@ -76,18 +82,43 @@ namespace UiPath.Python.Tests
             {
                 new object[]
                 {
-                    @"C:\Python\python-2.7.0-x86",
+                    @"C:\Python\python27-x86",
                     Version.Python_27
                 },
                 new object[]
                 {
-                    @"C:\Python\python-3.5.4-x86",
+                    @"C:\Python\python33-x86",
+                    Version.Python_33
+                },
+                new object[]
+                {
+                    @"C:\Python\python34-x86",
+                    Version.Python_34
+                },
+                new object[]
+                {
+                    @"C:\Python\python35-x86",
                     Version.Python_35
                 },
                 new object[]
                 {
-                    @"C:\Python\python-3.6.4-x86",
+                    @"C:\Python\python36-x86",
                     Version.Python_36
+                },
+                new object[]
+                {
+                     @"C:\Python\python37-x86",
+                    Version.Python_37
+                },
+                new object[]
+                {
+                    @"C:\Python\python38-x86",
+                    Version.Python_38
+                },
+                new object[]
+                {
+                    @"C:\Python\Python39-x86",
+                    Version.Python_39
                 }
             };
 
@@ -96,21 +127,54 @@ namespace UiPath.Python.Tests
             {
                 new object[]
                 {
-                    @"C:\Python\python-3.5.4-x64",
+                    @"C:\Python\python27-x64",
+                    Version.Python_27
+                },
+                new object[]
+                {
+                    @"C:\Python\python35-x64",
                     Version.Python_35
                 },
                 new object[]
                 {
-                    @"C:\Python\python-3.6.4-x64",
+                    @"C:\Python\python36-x64",
                     Version.Python_36
+                },
+                new object[]
+                {
+                    @"C:\Python\python37-x64",
+                    Version.Python_37
+                },
+                new object[]
+                {
+                    @"C:\Python\python38-x64",
+                    Version.Python_38
+                },
+                new object[]
+                {
+                    @"C:\Python\python39-x64",
+                    Version.Python_39
                 }
             };
 
         public static IEnumerable<object[]> AllEngines = X86Engines.Union(X64Engines);
 
-        #endregion
+        #endregion Runtimes
 
         #region Test cases
+
+        [SkippableTheory]
+        [Trait(TestCategories.Category, Category)]
+        [MemberData(nameof(AllEngines))]
+        public void AutomaticVersionDetection(string path, Version version)
+        {
+            Skip.IfNot(ValidateRuntime(path));
+            var target = X64Engines.Any(x => x[0].Equals(path) && x[1].Equals(version))
+                ? TargetPlatform.x64
+                : TargetPlatform.x86;
+            var engine = EngineProvider.Get(Version.Auto, path, true, target, true);
+            Assert.Equal(engine.Version, version);
+        }
 
         [SkippableTheory]
         [Trait(TestCategories.Category, Category)]
@@ -143,6 +207,7 @@ namespace UiPath.Python.Tests
             Skip.IfNot(ValidateRuntime(path));
 
             await RunTypesTest(path, version, true, TargetPlatform.x86);
+            await RunUnicodeTests(path, version, true, TargetPlatform.x86);
         }
 
         [SkippableTheory]
@@ -156,11 +221,13 @@ namespace UiPath.Python.Tests
                 ? TargetPlatform.x64
                 : TargetPlatform.x86;
             await RunTypesTest(path, version, false, target);
+            await RunUnicodeTests(path, version, false, target);
         }
 
-        #endregion
+        #endregion Test cases
 
         #region Actual tests to run
+
         private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
@@ -185,6 +252,17 @@ namespace UiPath.Python.Tests
                 Assert.True(array.GetType() == arrayType.GetType());
             }
             await engine.Release();
+        }
+
+        private async Task RunUnicodeTests(string path, Version version, bool inProcess, TargetPlatform target)
+        {
+            // init engine
+            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            await engine.Initialize(null, _ct);
+            // load test script
+            var pyScript = await engine.LoadScript(_unicodeTestScript, _ct);
+            var resNoParam = await engine.InvokeMethod(pyScript, "test", null, _ct);
+            Assert.Equal("´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû", engine.Convert(resNoParam, typeof(string)));
         }
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
@@ -217,6 +295,6 @@ namespace UiPath.Python.Tests
             return Directory.Exists(path);
         }
 
-        #endregion
+        #endregion Actual tests to run
     }
 }

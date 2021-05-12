@@ -19,10 +19,10 @@ namespace UiPath.FTP.Activities.Design.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UiPath_FTP_Activities_Design {
+    public class UiPath_FTP_Activities_Design {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace UiPath.FTP.Activities.Design.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UiPath.FTP.Activities.Design.Properties.UiPath.FTP.Activities.Design", typeof(UiPath_FTP_Activities_Design).Assembly);
@@ -51,7 +51,7 @@ namespace UiPath.FTP.Activities.Design.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,20 +61,209 @@ namespace UiPath.FTP.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App Integration.FTP.
+        ///   Looks up a localized string similar to App Integration.
         /// </summary>
-        internal static string FTPActivitiesCategory {
+        public static string CategoryAppIntegration {
             get {
-                return ResourceManager.GetString("FTPActivitiesCategory", resourceCulture);
+                return ResourceManager.GetString("CategoryAppIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FTP.
+        /// </summary>
+        public static string CategoryFTP {
+            get {
+                return ResourceManager.GetString("CategoryFTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClientCertificatePassword.
+        /// </summary>
+        public static string ClientCertificatePasswordDescription {
+            get {
+                return ResourceManager.GetString("ClientCertificatePasswordDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ContinueOnError.
+        /// </summary>
+        public static string ContinueOnError {
+            get {
+                return ResourceManager.GetString("ContinueOnError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DeleteDisplayName {
+            get {
+                return ResourceManager.GetString("DeleteDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Exists.
+        /// </summary>
+        public static string DirectoryExistsDescription {
+            get {
+                return ResourceManager.GetString("DirectoryExistsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Exists.
+        /// </summary>
+        public static string DirectoryExistsDisplayName {
+            get {
+                return ResourceManager.GetString("DirectoryExistsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Files.
+        /// </summary>
+        public static string DownloadFilesDisplayName {
+            get {
+                return ResourceManager.GetString("DownloadFilesDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enumerate Objects.
+        /// </summary>
+        public static string EnumerateObjectsDisplayName {
+            get {
+                return ResourceManager.GetString("EnumerateObjectsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Exists.
+        /// </summary>
+        public static string FileExistsDescription {
+            get {
+                return ResourceManager.GetString("FileExistsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Exists.
+        /// </summary>
+        public static string FileExistsDisplayName {
+            get {
+                return ResourceManager.GetString("FileExistsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string FilesDescription {
+            get {
+                return ResourceManager.GetString("FilesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string HostDescription {
+            get {
+                return ResourceManager.GetString("HostDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LocalPath.
+        /// </summary>
+        public static string LocalPathDescription {
+            get {
+                return ResourceManager.GetString("LocalPathDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Item.
+        /// </summary>
+        public static string MoveItemDisplayName {
+            get {
+                return ResourceManager.GetString("MoveItemDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NewPath.
+        /// </summary>
+        public static string MoveItemNewPathDescription {
+            get {
+                return ResourceManager.GetString("MoveItemNewPathDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string PasswordDescription {
+            get {
+                return ResourceManager.GetString("PasswordDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        public static string PortDescription {
+            get {
+                return ResourceManager.GetString("PortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RemotePath.
+        /// </summary>
+        public static string RemotePathDescription {
+            get {
+                return ResourceManager.GetString("RemotePathDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Files.
+        /// </summary>
+        public static string UploadFilesDisplayName {
+            get {
+                return ResourceManager.GetString("UploadFilesDisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
         /// </summary>
-        internal static string UseAnonymousLoginDescription {
+        public static string UseAnonymousLoginDescription {
             get {
                 return ResourceManager.GetString("UseAnonymousLoginDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string UsernameDescription {
+            get {
+                return ResourceManager.GetString("UsernameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Ftp Session.
+        /// </summary>
+        public static string WithFtpSessionDisplayName {
+            get {
+                return ResourceManager.GetString("WithFtpSessionDisplayName", resourceCulture);
             }
         }
     }

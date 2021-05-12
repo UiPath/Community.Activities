@@ -18,15 +18,17 @@ namespace UiPath.Python.Impl
     {
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool SetDllDirectory(string lpPathName);
+        private static extern bool SetDllDirectory(string lpPathName);
 
         #region Python Runtime
+
         /// <summary>
         /// see:
         /// https://github.com/pythonnet/pythonnet/blob/master/src/runtime/pythonengine.cs
         /// https://github.com/pythonnet/pythonnet/blob/master/src/runtime/pyobject.cs
         /// </summary>
         private const string PythonEngineTypeName = "Python.Runtime.PythonEngine";
+
         private const string PythonObjectTypeName = "Python.Runtime.PyObject";
         private const string PyTypeName = "Python.Runtime.Py";
         private const string ConverterExtensionTypeName = "Python.Runtime.ConverterExtension";
@@ -38,22 +40,28 @@ namespace UiPath.Python.Impl
         private object _pythreads;
 
         // TODO: find a nicer way for method invocation
-        const string PythonObjectInvokeMethodName = "InvokeMethod";
-        const string ToPythonMethodName = "ToPython";
+        private const string PythonObjectInvokeMethodName = "InvokeMethod";
+
+        private const string ToPythonMethodName = "ToPython";
 
         private Type _pyObjType = null;
         private MethodInfo _toPythonMethod = null;
         private MethodInfo _pyObjInvokeMethod = null;
-        #endregion
+
+        #endregion Python Runtime
 
         #region Caching
+
         private bool _initialized = false;
-        #endregion
+
+        #endregion Caching
 
         #region Runtime info
+
         private Version _version;
         private string _path;
-        #endregion
+
+        #endregion Runtime info
 
         internal Engine(Version version, string path)
         {
@@ -62,7 +70,10 @@ namespace UiPath.Python.Impl
         }
 
         #region IEngine
-        public async Task Initialize(string workingFolder, CancellationToken ct)
+
+        public Version Version { get { return _version; } }
+
+        public async Task Initialize(string workingFolder, CancellationToken ct, double timeout)
         {
             if (!_initialized)
             {
@@ -89,7 +100,15 @@ namespace UiPath.Python.Impl
                         ct.ThrowIfCancellationRequested();
 
                         _pyEngine.PythonHome = _path;
-                        _pyEngine.Initialize(null, null);
+
+                        //Pythonnet removed support for version 3.3 and 3.4 so we have the old dlls. Initialize method was updated in current package.
+                        if (_version == Version.Python_33)
+                            _pyEngine.Initialize(null, null);
+                        else
+                            if (_version == Version.Python_39)
+                            _pyEngine.Initialize(null, null, null, null);
+                        else
+                            _pyEngine.Initialize(null, null, null);
                         ct.ThrowIfCancellationRequested();
 
                         _pythreads = _pyEngine.BeginAllowThreads();
@@ -140,7 +159,7 @@ namespace UiPath.Python.Impl
                     }
                     catch (TargetInvocationException e)
                     {
-                        Trace.TraceError($"Python LoadScript exception: {e.ToString()}");
+                        Trace.TraceError($"Python LoadScript exception: {e}");
                         ExceptionDispatchInfo.Capture(e.InnerException ?? e).Throw();
                         return null;
                     }
@@ -173,7 +192,7 @@ namespace UiPath.Python.Impl
                     }
                     catch (TargetInvocationException e)
                     {
-                        Trace.TraceError($"Python InvokeMethod exception: {e.ToString()}");
+                        Trace.TraceError($"Python InvokeMethod exception: {e}");
                         ExceptionDispatchInfo.Capture(e.InnerException ?? e).Throw();
                     }
                     finally
@@ -201,7 +220,7 @@ namespace UiPath.Python.Impl
                     }
                     catch (TargetInvocationException e)
                     {
-                        Trace.TraceError($"Python Execute exception: {e.ToString()}");
+                        Trace.TraceError($"Python Execute exception: {e}");
                         ExceptionDispatchInfo.Capture(e.InnerException ?? e).Throw();
                     }
                     finally
@@ -224,7 +243,8 @@ namespace UiPath.Python.Impl
                 return obj.AsManagedType(t);
             }
         }
-        #endregion
+
+        #endregion IEngine
 
         private void InitializeRuntime(Assembly assembly)
         {
@@ -245,6 +265,7 @@ namespace UiPath.Python.Impl
         }
 
         #region script name caching
+
         private Dictionary<string, string> _cachedModules = new Dictionary<string, string>();
 
         /// <summary>
@@ -270,7 +291,6 @@ namespace UiPath.Python.Impl
                 _cachedModules.Add(hash, moduleName);
             }
             return moduleName;
-
         }
 
         private static string Hash(string input)
@@ -291,9 +311,11 @@ namespace UiPath.Python.Impl
                 return reader.ReadToEnd();
             }
         }
-        #endregion
+
+        #endregion script name caching
 
         #region STA
+
         private Task<T> RunSTA<T>(Func<T> func)
         {
             var tcs = new TaskCompletionSource<T>();
@@ -311,9 +333,10 @@ namespace UiPath.Python.Impl
 
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            
+
             return tcs.Task;
         }
-        #endregion
+
+        #endregion STA
     }
 }

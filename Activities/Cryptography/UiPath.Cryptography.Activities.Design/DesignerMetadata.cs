@@ -34,6 +34,17 @@ namespace UiPath.Cryptography.Activities.Design
             builder.AddCustomAttributes(typeof(DecryptFile), cryptographyCategoryAttribute);
             builder.AddCustomAttributes(typeof(DecryptText), cryptographyCategoryAttribute);
 
+            var ContinueOnError = new DescriptionAttribute(Resources.ContinueOnError);
+
+            builder.AddCustomAttributes(typeof(HashFile), nameof(HashFile.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(HashText), nameof(HashText.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(KeyedHashFile), nameof(KeyedHashFile.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(KeyedHashText), nameof(KeyedHashText.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(EncryptFile), nameof(EncryptFile.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(EncryptText), nameof(EncryptText.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(DecryptFile), nameof(DecryptFile.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(DecryptText), nameof(DecryptText.ContinueOnError), ContinueOnError);
+
             //DisplayName
             AddToAll(builder, typeof(HashFile).Assembly, nameof(Activity.DisplayName), new DisplayNameAttribute(Resources.DisplayName));
 

@@ -1,0 +1,49 @@
+resources:
+  repositories:
+  - repository: common
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: feature/activities_templates
+    endpoint: "GitHub connection"
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - develop
+    - masters/Database
+    - release/Database/*
+    - support/Database/*
+  paths:
+    include:
+    - Activities/Database/*
+    - Activities/Activities.Database.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
+
+pr:
+  branches:
+    include:
+    - develop
+    - masters/Database
+    - release/Database/*
+    - support/Database/*
+  paths:
+    include:
+    - Activities/Database/*
+    - Activities/Activities.Database.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
+
+variables:
+  - template: ..\.pipelines\variables\variables.yml
+
+stages:
+  - template: Activities/stage.start.yml@common
+    parameters:
+      projectName: 'Database'
+      solutionPath: '$(SolutionsPath)/Activities.Database.sln'
+      sonarKeyPrefix: 'CommunityActivities'
+      sdkBuild: true
+      enableCDStages: false
+      hasQaPackages: false

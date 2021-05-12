@@ -1,0 +1,46 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      containers:
+      - name: sqlserver
+        image: mcr.microsoft.com/mssql/server:latest
+        imagePullPolicy: Always
+        resources:
+            requests:
+              cpu: 500m
+              memory: 2Gi
+            limits:
+              cpu: 1000m
+              memory: 4Gi
+        ports:
+          - containerPort: 1433
+        env:
+          - name: MSSQL_SA_PASSWORD
+            value: "b2298905Acfa%"
+          - name: ACCEPT_EULA
+            value: "Y"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlserver-deployment
+spec:
+  selector:
+    app: sqlserver
+  ports:
+  - protocol: TCP
+    port: 1433
+    targetPort: 1433
+  type: LoadBalancer

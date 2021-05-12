@@ -20,12 +20,18 @@ namespace UiPath.Java.Activities
         [LocalizedDescription(nameof(Resources.JavaPathDescription))]
         public InArgument<string> JavaPath { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.TimeoutMSDisplayName))]
+        [LocalizedDescription(nameof(Resources.TimeoutMSDescription))]
+        [DefaultValue(15000)]
+        public InArgument<int> TimeoutMS { get; set; }
+
         [Browsable(false)]
         public ActivityAction<object> Body { get; set; }
 
         private IInvoker _invoker;
 
-        internal static IInvoker GetJavaInvoker(ActivityContext context)
+        internal static IInvoker GetJavaInvoker(System.Activities.ActivityContext context)
         {
             IInvoker invoker = context.DataContext.GetProperties()[JavaInvokerProperty]?.GetValue(context.DataContext) as IInvoker;
             if (invoker == null)
@@ -62,13 +68,19 @@ namespace UiPath.Java.Activities
             }
             _invoker = new JavaInvoker(javaPath);
 
+            int initTimeout = TimeoutMS.Get(context);
+            if (initTimeout < 0)
+            {
+                throw new ArgumentException(UiPath.Java.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
+            }
+
             try
             {
-                await _invoker.StartJavaService();
+                await _invoker.StartJavaService(initTimeout);
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error initializing Java Invoker: {e.ToString()}");
+                Trace.TraceError($"Error initializing Java Invoker: {e}");
                 throw new InvalidOperationException(string.Format(Resources.JavaInitiazeException, e.ToString()));
             }
             ct.ThrowIfCancellationRequested();

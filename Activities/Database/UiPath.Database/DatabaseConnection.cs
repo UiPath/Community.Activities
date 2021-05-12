@@ -3,6 +3,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.Odbc;
 using System.Text;
 using UiPath.Database.Properties;
 
@@ -14,8 +15,18 @@ namespace UiPath.Database
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
+        private const string SqlOdbcDriverPattern = "SQLSRV";
+        private const string OracleOdbcDriverPattern = "SQORA";
+        private const string OraclePattern = "oracle";
 
-        internal DatabaseConnection Initialize(string connectionString, string providerName)
+        public DatabaseConnection Initialize(DbConnection connection)
+        {
+            _connection = connection;
+            OpenConnection();
+            return this;
+        }
+
+        public DatabaseConnection Initialize(string connectionString, string providerName)
         {
             _providerName = providerName;
             _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
@@ -24,21 +35,27 @@ namespace UiPath.Database
             return this;
         }
 
-        internal virtual void BeginTransaction()
+        public virtual void BeginTransaction()
         {
             _transaction = _connection.BeginTransaction();
         }
-        internal virtual DataTable ExecuteQuery(string sql, Dictionary<string, Tuple<object, ArgumentDirection>> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
+
+        public virtual DataTable ExecuteQuery(string sql, Dictionary<string, Tuple<object, ArgumentDirection>> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
         {
             OpenConnection();
             SetupCommand(sql, parameters, commandTimeout, commandType);
             _command.Transaction = _transaction;
             DataTable dt = new DataTable();
             dt.Load(_command.ExecuteReader());
+            foreach (var param in _command.Parameters)
+            {
+                var dbParam = param as DbParameter;
+                parameters[dbParam.ParameterName] = new Tuple<object, ArgumentDirection>(dbParam.Value, WokflowParameterDirectionToDbParameter(dbParam.Direction));
+            }
             return dt;
         }
 
-        internal virtual int Execute(string sql, Dictionary<string, Tuple<object, ArgumentDirection>> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
+        public virtual int Execute(string sql, Dictionary<string, Tuple<object, ArgumentDirection>> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
         {
             OpenConnection();
             SetupCommand(sql, parameters, commandTimeout, commandType);
@@ -52,7 +69,7 @@ namespace UiPath.Database
             return result;
         }
 
-        internal virtual int InsertDataTable(string tableName, DataTable dataTable)
+        public virtual int InsertDataTable(string tableName, DataTable dataTable)
         {
             DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
             DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_providerName).CreateCommandBuilder();
@@ -77,12 +94,12 @@ namespace UiPath.Database
             return dbDA.Update(dataTable);
         }
 
-        internal virtual void Commit()
+        public virtual void Commit()
         {
             _transaction?.Commit();
         }
 
-        internal virtual void Rollback()
+        public virtual void Rollback()
         {
             _transaction?.Rollback();
         }
@@ -111,13 +128,13 @@ namespace UiPath.Database
 
             _command = _command ?? _connection.CreateCommand();
 
-            var ceilVal = (int) Math.Ceiling((double) commandTimeout / 1000);
+            var ceilVal = (int)Math.Ceiling((double)commandTimeout / 1000);
 
             if (ceilVal != 0)
             {
                 _command.CommandTimeout = ceilVal;
-            } 
-            
+            }
+
             _command.CommandType = commandType;
             _command.CommandText = sql;
             _command.Parameters.Clear();
@@ -132,12 +149,22 @@ namespace UiPath.Database
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Item2);
                 if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
                 {
-                    dbParameter.Size = -1;
+                    dbParameter.Size = GetParameterSize(dbParameter);
                 }
 
                 dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
                 _command.Parameters.Add(dbParameter);
             }
+        }
+
+        private int GetParameterSize(DbParameter dbParameter)
+        {
+            if ((_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern))
+               || _connection.ToString().ToLower().Contains(OraclePattern))
+                return 1000000;
+            if (_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(SqlOdbcDriverPattern))
+                return 4000;
+            return -1;
         }
 
         private string GetColumnNames(DataTable table)
@@ -150,7 +177,7 @@ namespace UiPath.Database
             var columns = new StringBuilder();
             foreach (DataColumn column in table.Columns)
             {
-                columns.Append(column.ColumnName + ",");
+                columns.Append("[" + column.ColumnName + "],");
             }
             columns = columns.Remove(columns.Length - 1, 1);
 
@@ -163,8 +190,10 @@ namespace UiPath.Database
             {
                 case ArgumentDirection.In:
                     return ParameterDirection.Input;
+
                 case ArgumentDirection.Out:
                     return ParameterDirection.Output;
+
                 default:
                     return ParameterDirection.InputOutput;
             }
@@ -176,10 +205,13 @@ namespace UiPath.Database
             {
                 case ParameterDirection.Input:
                     return ArgumentDirection.In;
+
                 case ParameterDirection.Output:
                     return ArgumentDirection.Out;
+
                 case ParameterDirection.InputOutput:
                     return ArgumentDirection.InOut;
+
                 default:
                     throw new ArgumentException(Resources.ParameterDirectionArgumentException);
             }

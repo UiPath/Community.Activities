@@ -44,7 +44,9 @@ namespace UiPath.Cryptography.Activities
 
         public HashText()
         {
+#if NET461
             Algorithm = HashAlgorithms.SHA256;
+#endif
             Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(System.Text.Encoding.UTF8)); // Kinda ugly.
         }
 
@@ -54,11 +56,13 @@ namespace UiPath.Cryptography.Activities
 
             switch (Algorithm)
             {
+#if NET461
                 case HashAlgorithms.MD5:
                 case HashAlgorithms.RIPEMD160:
                     ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                     metadata.AddValidationError(error);
                     break;
+#endif
                 default:
                     break;
             }

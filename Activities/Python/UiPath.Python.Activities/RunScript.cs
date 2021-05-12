@@ -60,11 +60,11 @@ namespace UiPath.Python.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error running Python script: {e.ToString()}");
+                Trace.TraceError($"Error running Python script: {e}");
                 throw new InvalidOperationException(Resources.RunScriptException, e);
             }
 
-            return (asyncCodeActivityContext) => 
+            return (asyncCodeActivityContext) =>
             {
             };
         }
