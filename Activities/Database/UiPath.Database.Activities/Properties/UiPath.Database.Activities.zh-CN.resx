@@ -119,10 +119,12 @@
   </resheader>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
     <value>受影响的记录</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
     <value>命令类型</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Common" xml:space="preserve">
     <value>常见</value>
   </data>
@@ -134,44 +136,59 @@
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
     <value>连接字符串</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>出错时继续</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
     <value>数据库连接</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DataTableDisplayName" xml:space="preserve">
     <value>数据表</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
     <value>现有连接</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>输入</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>输出</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ParametersDisplayName" xml:space="preserve">
     <value>参数</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
     <value>提供程序名称</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TableNameDisplayName" xml:space="preserve">
     <value>表格名称</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
     <value>超时(毫秒)</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>超时 (毫秒) 的给定值必须大于或等于 0</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
     <value>使用事务</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Output" xml:space="preserve">
     <value>输出</value>
+  </data>
+  <data name="ColumnNamesDisplayName" xml:space="preserve">
+    <value>ColumnNames</value>
+    <comment>property name</comment>
   </data>
 </root>
