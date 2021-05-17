@@ -113,7 +113,7 @@ namespace UiPath.Database.Activities
             {
                 if (existingConnection == null)
                 {
-                    DbConnection.Dispose();
+                    DbConnection?.Dispose();
                 }
             }
         }

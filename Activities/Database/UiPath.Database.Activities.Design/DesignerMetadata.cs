@@ -79,6 +79,7 @@ namespace UiPath.Database.Activities.Design
             // Properties and Descriptions
             var AffectedRecordsDescription = new DescriptionAttribute(Resources.AffectedRecordsDescription);
             var AffectedRecordsInsertDescription = new DescriptionAttribute(Resources.AffectedRecordsInsertDescription);
+            var AffectedRecordsUpdateDescription = new DescriptionAttribute(Resources.AffectedRecordsUpdateDescription);
             var CommandTypeDescription = new DescriptionAttribute(Resources.CommandTypeDescription);
             var connectionString = new DescriptionAttribute(Resources.ConnectionStringDescription);
             var ContinueOnError = new DescriptionAttribute(Resources.ContinueOnError);
@@ -86,11 +87,13 @@ namespace UiPath.Database.Activities.Design
             var DataTableDescription = new DescriptionAttribute(Resources.DataTableDescription);
             var ExistingDbConnectionDescription = new DescriptionAttribute(Resources.ExistingDbConnectionDescription);
             var InserDataTableInputDescription = new DescriptionAttribute(Resources.InserDataTableInputDescription);
+            var UpdateDataTableInputDescription = new DescriptionAttribute(Resources.UpdateDataTableInputDescription);
             var parameters = new DescriptionAttribute(Resources.ParametersDescription);
             var providerName = new DescriptionAttribute(Resources.ProviderNameDescription);
             var QueryTimeoutMSDescription = new DescriptionAttribute(Resources.QueryTimeoutMSDescription);
             var SqlDescription = new DescriptionAttribute(Resources.SqlDescription);
-            var TableNameDescription = new DescriptionAttribute(Resources.TableNameDescription);
+            var TableNameDescription = new DescriptionAttribute(Resources.TableNameDescription); 
+            var BulkFlagDescription = new DescriptionAttribute(Resources.BulkFlagDescription);
             var TimeoutMSDescription = new DescriptionAttribute(Resources.TimeoutMSDescription);
             var UseTransactionDescription = new DescriptionAttribute(Resources.UseTransactionDescription);
 
@@ -128,6 +131,15 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.ExistingDbConnection), ExistingDbConnectionDescription);
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.ProviderName), providerName);
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.TableName), TableNameDescription);
+
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.AffectedRecords), AffectedRecordsUpdateDescription);
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.ConnectionString), connectionString);
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.ContinueOnError), ContinueOnError);
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.DataTable), UpdateDataTableInputDescription);
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.ExistingDbConnection), ExistingDbConnectionDescription);
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.ProviderName), providerName);
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.TableName), TableNameDescription);
+            builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.BulkUpdateFlag), BulkFlagDescription);
 
             builder.AddCustomAttributes(typeof(DatabaseConnect), nameof(DatabaseConnect.ConnectionString), connectionString);
             builder.AddCustomAttributes(typeof(DatabaseConnect), nameof(DatabaseConnect.DatabaseConnection), DatabaseConnectionDescription);

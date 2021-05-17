@@ -70,6 +70,15 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulk/Batch Update.
+        /// </summary>
+        public static string BulkUpdateFlag {
+            get {
+                return ResourceManager.GetString("BulkUpdateFlag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ColumnNames.
         /// </summary>
         public static string ColumnNamesDisplayName {
