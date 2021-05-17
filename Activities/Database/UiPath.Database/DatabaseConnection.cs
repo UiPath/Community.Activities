@@ -193,36 +193,16 @@ namespace UiPath.Database
                 if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
                     markerFormat = "@" + markerFormat;
 
-                var whereClause = string.Empty;
-                var updateClause = string.Empty;
-
-                int index = 1;
                 List<DbParameter> updatePar = new List<DbParameter>();
                 List<DbParameter> wherePar = new List<DbParameter>();
-                foreach (DataColumn column in dataTable.Columns)
-                {
-                    var p = sqlCommand.CreateParameter();
-                    p.ParameterName = string.Format("p{0}", index++);
-                    p.SourceColumn = column.ColumnName;
-
-                    string paramName = string.Format(markerFormat, p.ParameterName);
-                    if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
-                    {
-                        whereClause = string.Format("{0} {1}={2} AND ", whereClause, EscapeDbObject(column.ColumnName), paramName);
-                        wherePar.Add(p);
-                    }
-                    else
-                    {
-                        updateClause = string.Format("{0} {1}={2},", updateClause, EscapeDbObject(column.ColumnName), paramName);
-                        updatePar.Add(p);
-                    }
-                }
-
-                updateClause = updateClause.Remove(updateClause.Length - 1, 1);
-                whereClause = whereClause.Remove(whereClause.Length - 5, 5);
+                var result = SetupBulkUpdateCommand(tableName, dataTable, columnNames, markerFormat, _connection, _transaction, sqlCommand, updatePar, wherePar);
+                
 
                 sqlCommand.Parameters.AddRange(updatePar.ToArray());
                 sqlCommand.Parameters.AddRange(wherePar.ToArray());
+
+                var updateClause = result.Item1;
+                var whereClause = result.Item2;
 
                 sqlCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
 
@@ -235,6 +215,45 @@ namespace UiPath.Database
                 }
                 return rows;
             }
+        }
+        public Tuple<string, string> SetupBulkUpdateCommand(string tableName, DataTable dataTable, string[] columnNames, string markerFormat, DbConnection dbConnection, DbTransaction dbTransaction, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
+        {
+            var whereClause = string.Empty;
+            var updateClause = string.Empty;
+
+            int index = 1;
+
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                DbParameter p = updateCommand.CreateParameter();
+                p.ParameterName = string.Format("p{0}", index++);
+                p.SourceColumn = column.ColumnName;
+
+                string paramName = string.Format(markerFormat, p.ParameterName);
+                if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
+                {
+                    whereClause = string.Format("{0} {1}={2} AND ", whereClause, EscapeDbObject(column.ColumnName), paramName);
+                    wherePar.Add(p);
+                }
+                else
+                {
+                    updateClause = string.Format("{0} {1}={2},", updateClause, EscapeDbObject(column.ColumnName), paramName);
+                    updatePar.Add(p);
+                }
+            }
+
+            updateClause = updateClause.Remove(updateClause.Length - 1, 1);
+            whereClause = whereClause.Remove(whereClause.Length - 5, 5);
+
+            return new Tuple<string, string>(updateClause, whereClause);
+        }
+
+        public virtual DbParameter BuildParameter(DbCommand updateCommand, string name, DataColumn column)
+        {
+            var p = updateCommand.CreateParameter();
+            p.ParameterName = name;
+            p.SourceColumn = column.ColumnName;
+            return p;
         }
 
 
