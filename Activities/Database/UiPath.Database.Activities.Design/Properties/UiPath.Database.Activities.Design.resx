@@ -308,4 +308,7 @@
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
     <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
   </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+  </data>
 </root>

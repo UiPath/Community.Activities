@@ -74,6 +74,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DescriptionAttribute(Resources.ExecuteNonQueryDescription));
             builder.AddCustomAttributes(typeof(ExecuteQuery), new DescriptionAttribute(Resources.ExecuteQueryDescription));
             builder.AddCustomAttributes(typeof(InsertDataTable), new DescriptionAttribute(Resources.InsertDataTableDescription));
+            builder.AddCustomAttributes(typeof(BulkInsert), new DescriptionAttribute(Resources.BulkInsertDescription));
             builder.AddCustomAttributes(typeof(BulkUpdate), new DescriptionAttribute(Resources.BulkUpdateDescription));
 
             // Properties and Descriptions

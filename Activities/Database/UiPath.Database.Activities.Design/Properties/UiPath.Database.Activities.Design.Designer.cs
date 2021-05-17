@@ -160,6 +160,15 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations..
+        /// </summary>
+        public static string BulkInsertDescription {
+            get {
+                return ResourceManager.GetString("BulkInsertDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bulk Update.
         /// </summary>
         public static string BulkUpdate {
