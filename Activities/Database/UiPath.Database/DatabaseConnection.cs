@@ -195,7 +195,7 @@ namespace UiPath.Database
 
                 List<DbParameter> updatePar = new List<DbParameter>();
                 List<DbParameter> wherePar = new List<DbParameter>();
-                var result = SetupBulkUpdateCommand(tableName, dataTable, columnNames, markerFormat, _connection, _transaction, sqlCommand, updatePar, wherePar);
+                var result = SetupBulkUpdateCommand(dataTable, columnNames, markerFormat, sqlCommand, updatePar, wherePar);
                 
 
                 sqlCommand.Parameters.AddRange(updatePar.ToArray());
@@ -216,7 +216,7 @@ namespace UiPath.Database
                 return rows;
             }
         }
-        public Tuple<string, string> SetupBulkUpdateCommand(string tableName, DataTable dataTable, string[] columnNames, string markerFormat, DbConnection dbConnection, DbTransaction dbTransaction, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
+        public Tuple<string, string> SetupBulkUpdateCommand(DataTable dataTable, string[] columnNames, string markerFormat, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
         {
             var whereClause = string.Empty;
             var updateClause = string.Empty;
