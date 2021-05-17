@@ -28,8 +28,8 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="FluentFTP" Version="19.1.2" />
-    <PackageReference Include="SSH.NET" Version="2016.1.0" />
+    <PackageReference Include="FluentFTP" Version="34.0.0" />
+    <PackageReference Include="SSH.NET" Version="2020.0.1" />
   </ItemGroup>
 
 	<Target Name="AddDlls">
@@ -85,19 +85,19 @@
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
-    <PackageReference Include="UiPath.Workflow"/>
+    <PackageReference Include="System.Activities.Core.Presentation" />
+    <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
+    <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
+    <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
+    <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj">
