@@ -5,6 +5,7 @@ using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Dynamic;
 using UiPath.Database.Activities;
@@ -98,68 +99,31 @@ namespace UiPath.Database.Tests
                 Assert.True(param.Object.Size == -1);
         }
 
-        [Theory]
-        [InlineData("System.Data.Odbc")]
-        [InlineData("System.Data.Oledb")]
-        [InlineData("System.Data.OracleClient")]
-        [InlineData("System.Data.SqlClient")]
-        [InlineData("Oracle.DataAccess.Client")]
-        [InlineData("Oracle.ManagedDataAccess.Client")]
-        [InlineData("Mysql.Data.MysqlClient")]
-        public void BulkInsertTest(string provider)
+        [Fact]
+        public void BulkInsertTest()
         {
+            var dbDataTable = new DataTable();
             var dbConnection = new Mock<DatabaseConnection>();
-            var dbDataTable = new Mock<DataTable>();
-            var dbDataAdapter = new Mock<DbDataAdapter>();
-            var bulkOps = new Mock<IBulkOperations>();
-            var connection = new Mock<DbConnection>();
-            var command = new Mock<DbCommand>();
             var executed = false;
-            var fallback = false;
+            dbConnection.Setup(con => con.SupportsBulk()).Callback(() => executed = true);
+            dbConnection.Object.BulkInsertDataTable("test", dbDataTable);
 
-            bulkOps.Setup(x => x.WriteToServer(dbDataTable.Object)).Callback(() => executed = true);
-            dbConnection.Setup(x => x.InsertDataTable("test", dbDataTable.Object, true)).Callback(() => fallback = true);
-
-            dbConnection.Object.DoBulkInsert(provider, "test", dbDataTable.Object, null, bulkOps.Object, command.Object, command.Object, out long affectedRecords);
-
-            if (provider == "System.Data.SqlClient" || provider == "Oracle.ManagedDataAccess.Client")
-            {
-                Assert.True(executed || fallback);
-            }
-            else
-            {
-                Assert.False(executed);
-            }
+            Assert.True(executed == true);
         }
 
-        [Fact]
-        public void BulkUpdateTest()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void BulkUpdateTest(bool supportBulk)
         {
-            var dbConnection = new Mock<DatabaseConnection>();
             var dbDataTable = new DataTable();
-            var dbDataAdapter = new Mock<DbDataAdapter>();
-            var connection = new Mock<DbConnection>();
-            var transaction = new Mock<DbTransaction>();
-            var command = new Mock<DbCommand>();
-            var updateParam = new Mock<List<DbParameter>>();
-            var whereParam = new Mock<List<DbParameter>>();
-            var columns = new string[] {"C1"};
+            var dbConnection = new Mock<DatabaseConnection>();
+            var executed = !supportBulk;
+            string[] pars = { "Id1", "Id2" };
+            dbConnection.Setup(con => con.SupportsBulk()).Callback(() => executed = true);
+            dbConnection.Object.BulkUpdateDataTable(supportBulk, "test", dbDataTable,pars);
 
-            dbDataTable.Columns.Add("C1");
-            dbDataTable.Columns.Add("C2");
-            dbDataTable.Rows.Add("1", "2");
-
-            dbConnection
-                .Setup(u => u.BuildParameter(It.IsAny<DbCommand>(), It.IsAny<string>(), It.IsAny<DataColumn>()))
-                .Returns((DbCommand comm, string name, DataColumn column) =>
-                    Mock.Of<DbParameter>(x => x.ParameterName == name && x.Value == column)
-                );
-
-            var result = dbConnection.Object.SetupBulkUpdateCommand(dbDataTable, columns, "{0}", command.Object, updateParam.Object, whereParam.Object);
-
-            var commandText = string.Format("UPDATE {0} SET {1} WHERE {2}", "test", result.Item1,result.Item2);
-
-            Assert.Equal("UPDATE test SET  \"C2\"=p2 WHERE  \"C1\"=p1", commandText);
+            Assert.True(executed == true);
         }
     }
 }

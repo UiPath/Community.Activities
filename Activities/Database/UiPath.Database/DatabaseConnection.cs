@@ -14,6 +14,7 @@ using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
 using UiPath.Robot.Activities.Api;
 using Oracle.ManagedDataAccess.Client;
+using System.Data.SqlClient;
 
 namespace UiPath.Database
 {
@@ -26,7 +27,6 @@ namespace UiPath.Database
         private const string SqlOdbcDriverPattern = "SQLSRV";
         private const string OracleOdbcDriverPattern = "SQORA";
         private const string OraclePattern = "oracle";
-        private const string SQLProvider = "system.data.sqlclient";
         private const string OracleProvider = "oracle.manageddataaccess.client";
 
         public DatabaseConnection Initialize(DbConnection connection)
@@ -84,8 +84,8 @@ namespace UiPath.Database
 
         public virtual int InsertDataTable(string tableName, DataTable dataTable, bool removeBrackets = false)
         {
-            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection).CreateDataAdapter();
-            DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_connection).CreateCommandBuilder();
+            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection)?.CreateDataAdapter();
+            DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_connection)?.CreateCommandBuilder();
             cmdb.DataAdapter = dbDA;
             dbDA.ContinueUpdateOnError = false;
 
@@ -116,160 +116,17 @@ namespace UiPath.Database
             return dbDA.Update(dataTable);
         }
 
+        public virtual bool SupportsBulk()
+        {
+            if (_connection is OracleConnection || _connection is SqlConnection)
+                return true;
+            return false;
+        }
+
         public long BulkInsertDataTable(string tableName, DataTable dataTable, IExecutorRuntime executorRuntime = null)
         {
-            IBulkOperations bulkOps = BulkOperationsFactory.Create(_providerName);
-            DbCommand commandRowCount = _connection.CreateCommand();
-            DbCommand commandTableStructure = _connection.CreateCommand();
-            DoBulkInsert(_providerName, tableName, dataTable, executorRuntime, bulkOps, commandRowCount, commandTableStructure, out long affectedRecords);
-
-            return affectedRecords;
-        }
-
-        private string CreateTempTableForUpdate(DataTable dataTable, string tableName, DbCommand cmd)
-        {
-            var tempTableName = string.Format("a{0}",DateTime.Now.Ticks);
-            if (_providerName.ToLower() == SQLProvider)
-            {
-                tempTableName = string.Format("##{0}", tempTableName);
-                cmd.CommandText = string.Format("SELECT TOP 1 {0} INTO {1} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
-            }
-            if (_providerName.ToLower() == OracleProvider)
-                cmd.CommandText = string.Format("CREATE GLOBAL TEMPORARY TABLE {1}  ON COMMIT PRESERVE ROWS AS SELECT {0} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
-            cmd.ExecuteNonQuery();
-            cmd.CommandText = string.Format("TRUNCATE TABLE {0}", tempTableName);
-            cmd.ExecuteNonQuery();
-            return tempTableName;
-
-        }
-
-        public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime = null)
-        {
-            long nrRows = 0;
-            var sqlCommand = _connection.CreateCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.Transaction = _transaction;
-            sqlCommand.CommandType = CommandType.Text;
-            var tblName = string.Empty;
-            var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
-
-            if (bulkBatch && (_providerName.ToLower() == OracleProvider || _providerName.ToLower() == SQLProvider))
-            {
-                try
-                {
-                    tblName = CreateTempTableForUpdate(dataTable, tableName, sqlCommand);
-                    BulkInsertDataTable(tblName, dataTable, executorRuntime);
-
-                    sqlCommand.CommandText = string.Format("MERGE INTO {0} t USING (SELECT * FROM {1})s on ({3}) WHEN MATCHED THEN UPDATE SET {2}", tableName, tblName,
-                        string.Join(",", dataTable.Columns.Cast<DataColumn>()
-                            .Where(x => !columnNames.Contains(x.ColumnName, StringComparer.InvariantCultureIgnoreCase))
-                            .Select(x => string.Format("t.{0}=s.{0}", EscapeDbObject(x.ColumnName))).ToArray()),
-                        string.Join(" and ", dataTable.Columns.Cast<DataColumn>()
-                            .Where(x => columnNames.Contains(x.ColumnName, StringComparer.InvariantCultureIgnoreCase))
-                            .Select(x => string.Format("t.{0}=s.{0}", EscapeDbObject(x.ColumnName))).ToArray())
-                        );
-                    if (_providerName.ToLower() == SQLProvider)
-                        sqlCommand.CommandText += ";";
-                    nrRows = sqlCommand.ExecuteNonQuery();
-                }catch(Exception)
-                {
-                    throw;
-                }finally
-                {
-                    if (!string.IsNullOrEmpty(tblName))
-                    {
-                        sqlCommand.CommandText = string.Format("TRUNCATE TABLE {0}", tblName);
-                        sqlCommand.ExecuteNonQuery();
-                        sqlCommand.CommandText = string.Format("DROP TABLE {0}", tblName);
-                        sqlCommand.ExecuteNonQuery();
-                    }
-                    
-                }
-                return nrRows;
-            }
-            else
-            {
-                string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
-                string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
-                if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
-                    markerFormat = "@" + markerFormat;
-
-                List<DbParameter> updatePar = new List<DbParameter>();
-                List<DbParameter> wherePar = new List<DbParameter>();
-                var result = SetupBulkUpdateCommand(dataTable, columnNames, markerFormat, sqlCommand, updatePar, wherePar);
-                
-
-                sqlCommand.Parameters.AddRange(updatePar.ToArray());
-                sqlCommand.Parameters.AddRange(wherePar.ToArray());
-
-                var updateClause = result.Item1;
-                var whereClause = result.Item2;
-
-                sqlCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
-
-                int rows = 0;
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    foreach (DbParameter param in sqlCommand.Parameters)
-                        param.Value = row[param.SourceColumn];
-                    rows += sqlCommand.ExecuteNonQuery();
-                }
-                return rows;
-            }
-        }
-
-        public Tuple<string, string> SetupBulkUpdateCommand(DataTable dataTable, string[] columnNames, string markerFormat, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
-        {
-            var whereClause = string.Empty;
-            var updateClause = string.Empty;
-
-            int index = 1;
-
-            foreach (DataColumn column in dataTable.Columns)
-            {
-                DbParameter p = BuildParameter(updateCommand, string.Format("p{0}", index++), column);
-
-                string paramName = string.Format(markerFormat, p.ParameterName);
-                if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
-                {
-                    whereClause = string.Format("{0} {1}={2} AND ", whereClause, EscapeDbObject(column.ColumnName), paramName);
-                    wherePar.Add(p);
-                }
-                else
-                {
-                    updateClause = string.Format("{0} {1}={2},", updateClause, EscapeDbObject(column.ColumnName), paramName);
-                    updatePar.Add(p);
-                }
-            }
-
-            updateClause = updateClause.Remove(updateClause.Length - 1, 1);
-            whereClause = whereClause.Remove(whereClause.Length - 5, 5);
-
-            return new Tuple<string, string>(updateClause, whereClause);
-        }
-
-        public virtual DbParameter BuildParameter(DbCommand updateCommand, string name, DataColumn column)
-        {
-            var p = updateCommand.CreateParameter();
-            p.ParameterName = name;
-            p.SourceColumn = column.ColumnName;
-            return p;
-        }
-
-        public void DoBulkInsert(string providerName, string tableName, DataTable dataTable, IExecutorRuntime executorRuntime, IBulkOperations bulkOps, DbCommand commandRowCount, DbCommand commandTableStructure, out long affectedRecords)
-        {
-            if (providerName.ToLower() == SQLProvider || providerName.ToLower() == OracleProvider)
-            {
-                bulkOps.Connection = _connection;
-                bulkOps.TableName = tableName;
-                var structureQuery = string.Format("select * from {0}", tableName);
-
-                ValidateDatabaseTableStructure(tableName, commandTableStructure, dataTable, structureQuery);
-                var countStart = CountRowsInTable(commandRowCount, tableName);
-                bulkOps.WriteToServer(dataTable);
-                var countEnd = CountRowsInTable(commandRowCount, tableName);
-                affectedRecords = countEnd - countStart;
-            }
+            if (SupportsBulk())
+                return DoBulkInsert(tableName, dataTable);
             else
             {
                 //if no bulk insert possible, fallback to insert data table with warning message
@@ -278,25 +135,29 @@ namespace UiPath.Database
                 {
                     LogWarningMessage(executorRuntime);
                 }
-                affectedRecords = InsertDataTable(tableName, dataTable);
+                return InsertDataTable(tableName, dataTable);
             }
         }
 
-        private static void LogWarningMessage(IExecutorRuntime executorRuntime)
+        private long DoBulkInsert(string tableName, DataTable dataTable)
         {
-            var message = new LogMessage
-            {
-                Message = Resources.BulkInsert_DriverDoesNotSupportBulkInsert,
-                EventType = TraceEventType.Warning
-            };
-            executorRuntime.LogMessage(message);
+            IBulkOperations bulkOps = BulkOperationsFactory.Create(_connection);
+            bulkOps.Connection = _connection;
+            bulkOps.TableName = tableName;
+            ValidateDatabaseTableStructure(tableName, dataTable);
+            var countStart = CountRowsInTable(tableName);
+            bulkOps.WriteToServer(dataTable);
+            var countEnd = CountRowsInTable(tableName);
+            return countEnd - countStart;
         }
 
-        private long CountRowsInTable(DbCommand commandRowCount, string tableName)
+        private long CountRowsInTable(string tableName)
         {
+            var commandRowCount = _connection.CreateCommand();
             // Perform an initial count on the destination table.
             var countQuery = string.Format("SELECT COUNT(*) FROM {0}", tableName);
-            commandRowCount.Connection = _connection;
+            commandRowCount.Transaction = _transaction;
+            commandRowCount.CommandType = CommandType.Text;
             commandRowCount.CommandText = countQuery;
 
             return Convert.ToInt32(commandRowCount.ExecuteScalar());
@@ -328,19 +189,176 @@ namespace UiPath.Database
             }
         }
 
-        private void ValidateDatabaseTableStructure(string tableName, DbCommand dbCommand, DataTable dataTable, string command)
+        private void ValidateDatabaseTableStructure(string tableName, DataTable dataTable)
         {
             if (_connection == null)
                 return;
             DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection).CreateDataAdapter();
-            dbDA.SelectCommand = dbCommand;
+            dbDA.SelectCommand = _connection.CreateCommand();
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
-            dbDA.SelectCommand.CommandText = command;
+            dbDA.SelectCommand.CommandText = string.Format("select * from {0}", tableName);
 
             var ds = new DataSet();
             dbDA.FillSchema(ds, SchemaType.Source);
             ValidateTableStructure(tableName, dataTable, ds);
+        }
+
+        private string CreateTempTableForUpdate(DataTable dataTable, string tableName, DbCommand cmd)
+        {
+            var tempTableName = string.Format("a{0}",DateTime.Now.Ticks);
+            if (_connection is SqlConnection)
+            {
+                tempTableName = string.Format("##{0}", tempTableName);
+                cmd.CommandText = string.Format("SELECT TOP 1 {0} INTO {1} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
+            }
+            if (_connection is OracleConnection)
+                cmd.CommandText = string.Format("CREATE GLOBAL TEMPORARY TABLE {1}  ON COMMIT PRESERVE ROWS AS SELECT {0} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = string.Format("TRUNCATE TABLE {0}", tempTableName);
+            cmd.ExecuteNonQuery();
+            return tempTableName;
+
+        }
+
+        public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime = null)
+        {
+            if (bulkBatch && SupportsBulk())
+                return DoBulkUpdate(tableName, dataTable, columnNames, executorRuntime);
+            else
+                return DoBatchUpdate(tableName,dataTable,columnNames);
+        }
+        private int DoBatchUpdate(string tableName, DataTable dataTable, string[] columnNames)
+        {
+            if (_connection == null)
+                return -1;
+            var sqlCommand = _connection?.CreateCommand();
+            if (sqlCommand != null)
+            {
+                sqlCommand.Connection = _connection;
+                sqlCommand.Transaction = _transaction;
+                sqlCommand.CommandType = CommandType.Text;
+            }
+            var dbSchema = _connection?.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
+            string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
+            string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
+            if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
+                markerFormat = "@" + markerFormat;
+
+            List<DbParameter> updatePar = new List<DbParameter>();
+            List<DbParameter> wherePar = new List<DbParameter>();
+            var result = SetupBulkUpdateCommand(dataTable, columnNames, markerFormat, sqlCommand, updatePar, wherePar);
+
+
+            sqlCommand.Parameters.AddRange(updatePar.ToArray());
+            sqlCommand.Parameters.AddRange(wherePar.ToArray());
+
+            var updateClause = result.Item1;
+            var whereClause = result.Item2;
+
+            sqlCommand.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}", tableName, updateClause, whereClause);
+
+            int rows = 0;
+            foreach (DataRow row in dataTable.Rows)
+            {
+                foreach (DbParameter param in sqlCommand.Parameters)
+                    param.Value = row[param.SourceColumn];
+                rows += sqlCommand.ExecuteNonQuery();
+            }
+            return rows;
+        }
+        private int DoBulkUpdate(string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime)
+        {
+            if (_connection == null)
+                return -1;
+            var tblName = string.Empty;
+            var sqlCommand = _connection?.CreateCommand();
+            if (sqlCommand != null)
+            {
+                sqlCommand.Connection = _connection;
+                sqlCommand.Transaction = _transaction;
+                sqlCommand.CommandType = CommandType.Text;
+            }
+            try
+            {
+                tblName = CreateTempTableForUpdate(dataTable, tableName, sqlCommand);
+                BulkInsertDataTable(tblName, dataTable, executorRuntime);
+
+                sqlCommand.CommandText = string.Format("MERGE INTO {0} t USING (SELECT * FROM {1})s on ({3}) WHEN MATCHED THEN UPDATE SET {2}", tableName, tblName,
+                    string.Join(",", dataTable.Columns.Cast<DataColumn>()
+                        .Where(x => !columnNames.Contains(x.ColumnName, StringComparer.InvariantCultureIgnoreCase))
+                        .Select(x => string.Format("t.{0}=s.{0}", EscapeDbObject(x.ColumnName))).ToArray()),
+                    string.Join(" and ", dataTable.Columns.Cast<DataColumn>()
+                        .Where(x => columnNames.Contains(x.ColumnName, StringComparer.InvariantCultureIgnoreCase))
+                        .Select(x => string.Format("t.{0}=s.{0}", EscapeDbObject(x.ColumnName))).ToArray())
+                    );
+                if (_connection is SqlConnection)
+                    sqlCommand.CommandText += ";";
+                return sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(tblName))
+                {
+                    sqlCommand.CommandText = string.Format("TRUNCATE TABLE {0}", tblName);
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.CommandText = string.Format("DROP TABLE {0}", tblName);
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+            }
+        }
+
+        private Tuple<string, string> SetupBulkUpdateCommand(DataTable dataTable, string[] columnNames, string markerFormat, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
+        {
+            var whereClause = string.Empty;
+            var updateClause = string.Empty;
+
+            int index = 1;
+
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                DbParameter p = BuildParameter(updateCommand, string.Format("p{0}", index++), column);
+
+                string paramName = string.Format(markerFormat, p.ParameterName);
+                if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
+                {
+                    whereClause = string.Format("{0} {1}={2} AND ", whereClause, EscapeDbObject(column.ColumnName), paramName);
+                    wherePar.Add(p);
+                }
+                else
+                {
+                    updateClause = string.Format("{0} {1}={2},", updateClause, EscapeDbObject(column.ColumnName), paramName);
+                    updatePar.Add(p);
+                }
+            }
+
+            updateClause = updateClause.Remove(updateClause.Length - 1, 1);
+            whereClause = whereClause.Remove(whereClause.Length - 5, 5);
+
+            return new Tuple<string, string>(updateClause, whereClause);
+        }
+
+        private DbParameter BuildParameter(DbCommand updateCommand, string name, DataColumn column)
+        {
+            var p = updateCommand.CreateParameter();
+            p.ParameterName = name;
+            p.SourceColumn = column.ColumnName;
+            return p;
+        }
+
+        private static void LogWarningMessage(IExecutorRuntime executorRuntime)
+        {
+            var message = new LogMessage
+            {
+                Message = Resources.BulkInsert_DriverDoesNotSupportBulkInsert,
+                EventType = TraceEventType.Warning
+            };
+            executorRuntime.LogMessage(message);
         }
          
         public virtual void Commit()

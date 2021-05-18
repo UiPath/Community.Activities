@@ -15,13 +15,13 @@ namespace UiPath.Database.BulkOps
 
     public class BulkOperationsFactory
     {
-        public static IBulkOperations Create(string providerName)
+        public static IBulkOperations Create(DbConnection connection)
         {
-            if (providerName == "System.Data.SqlClient")
+            if (connection is System.Data.SqlClient.SqlConnection)
             {
                 return new SQLBulkOperations();
             }
-            if (providerName == "Oracle.ManagedDataAccess.Client")
+            if (connection is Oracle.ManagedDataAccess.Client.OracleConnection)
             {
                 return new OracleBulkOperations();
             }
