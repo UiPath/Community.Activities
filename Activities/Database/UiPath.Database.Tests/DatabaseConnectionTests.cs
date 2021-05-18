@@ -120,7 +120,7 @@ namespace UiPath.Database.Tests
             bulkOps.Setup(x => x.WriteToServer(dbDataTable.Object)).Callback(() => executed = true);
             dbConnection.Setup(x => x.InsertDataTable("test", dbDataTable.Object, true)).Callback(() => fallback = true);
 
-            dbConnection.Object.DoBulkInsert(provider, "test", dbDataTable.Object, ".", null, dbDataAdapter.Object, bulkOps.Object, command.Object, command.Object, out long affectedRecords);
+            dbConnection.Object.DoBulkInsert(provider, "test", dbDataTable.Object, null, bulkOps.Object, command.Object, command.Object, out long affectedRecords);
 
             if (provider == "System.Data.SqlClient" || provider == "Oracle.ManagedDataAccess.Client")
             {
@@ -155,7 +155,7 @@ namespace UiPath.Database.Tests
                     Mock.Of<DbParameter>(x => x.ParameterName == name && x.Value == column)
                 );
 
-            var result = dbConnection.Object.SetupBulkUpdateCommand("test", dbDataTable, columns, "{0}", connection.Object, transaction.Object, command.Object, updateParam.Object, whereParam.Object);
+            var result = dbConnection.Object.SetupBulkUpdateCommand(dbDataTable, columns, "{0}", command.Object, updateParam.Object, whereParam.Object);
 
             var commandText = string.Format("UPDATE {0} SET {1} WHERE {2}", "test", result.Item1,result.Item2);
 

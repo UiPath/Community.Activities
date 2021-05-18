@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Data;
+using System.Data.Common;
 
 namespace UiPath.Database.BulkOps
 {
     public interface IBulkOperations
     {
-        string Connection { get; set; }
+        DbConnection Connection { get; set; }
         string TableName { get; set; }
         Type BulkCopyType { get; set; }
 

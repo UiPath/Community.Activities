@@ -82,9 +82,9 @@ namespace UiPath.Database.Activities
                     return 0;
                 }
             if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                    return DbConnection.BulkInsertDataTable(tableName, dataTable, connString, executorRuntime);
+                    return DbConnection.BulkInsertDataTable(tableName, dataTable, executorRuntime);
                 else
-                    return DbConnection.BulkInsertDataTable(tableName, dataTable, connString);
+                    return DbConnection.BulkInsertDataTable(tableName, dataTable);
             };
             context.UserState = action;
             return action.BeginInvoke(callback, state);

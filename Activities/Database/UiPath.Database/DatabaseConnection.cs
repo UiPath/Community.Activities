@@ -13,6 +13,7 @@ using System.Text;
 using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
 using UiPath.Robot.Activities.Api;
+using Oracle.ManagedDataAccess.Client;
 
 namespace UiPath.Database
 {
@@ -38,7 +39,10 @@ namespace UiPath.Database
         public DatabaseConnection Initialize(string connectionString, string providerName)
         {
             _providerName = providerName;
-            _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
+            if (providerName.ToLower() == OracleProvider)
+                _connection = new OracleConnection();
+            else
+                _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
             _connection.ConnectionString = connectionString;
             OpenConnection();
             return this;
@@ -80,8 +84,8 @@ namespace UiPath.Database
 
         public virtual int InsertDataTable(string tableName, DataTable dataTable, bool removeBrackets = false)
         {
-            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
-            DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_providerName).CreateCommandBuilder();
+            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection).CreateDataAdapter();
+            DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_connection).CreateCommandBuilder();
             cmdb.DataAdapter = dbDA;
             dbDA.ContinueUpdateOnError = false;
 
@@ -112,16 +116,12 @@ namespace UiPath.Database
             return dbDA.Update(dataTable);
         }
 
-        public long BulkInsertDataTable(string tableName, DataTable dataTable, string connection, IExecutorRuntime executorRuntime = null)
+        public long BulkInsertDataTable(string tableName, DataTable dataTable, IExecutorRuntime executorRuntime = null)
         {
-            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_providerName).CreateDataAdapter();
-            DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_providerName).CreateCommandBuilder();
-            cmdb.DataAdapter = dbDA;
-            dbDA.ContinueUpdateOnError = false;
             IBulkOperations bulkOps = BulkOperationsFactory.Create(_providerName);
             DbCommand commandRowCount = _connection.CreateCommand();
             DbCommand commandTableStructure = _connection.CreateCommand();
-            DoBulkInsert(_providerName, tableName, dataTable, connection, executorRuntime, dbDA, bulkOps, commandRowCount, commandTableStructure, out long affectedRecords);
+            DoBulkInsert(_providerName, tableName, dataTable, executorRuntime, bulkOps, commandRowCount, commandTableStructure, out long affectedRecords);
 
             return affectedRecords;
         }
@@ -142,7 +142,8 @@ namespace UiPath.Database
             return tempTableName;
 
         }
-        public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, string connection, IExecutorRuntime executorRuntime = null)
+
+        public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime = null)
         {
             long nrRows = 0;
             var sqlCommand = _connection.CreateCommand();
@@ -157,7 +158,7 @@ namespace UiPath.Database
                 try
                 {
                     tblName = CreateTempTableForUpdate(dataTable, tableName, sqlCommand);
-                    BulkInsertDataTable(tblName, dataTable, connection, executorRuntime);
+                    BulkInsertDataTable(tblName, dataTable, executorRuntime);
 
                     sqlCommand.CommandText = string.Format("MERGE INTO {0} t USING (SELECT * FROM {1})s on ({3}) WHEN MATCHED THEN UPDATE SET {2}", tableName, tblName,
                         string.Join(",", dataTable.Columns.Cast<DataColumn>()
@@ -216,6 +217,7 @@ namespace UiPath.Database
                 return rows;
             }
         }
+
         public Tuple<string, string> SetupBulkUpdateCommand(DataTable dataTable, string[] columnNames, string markerFormat, DbCommand updateCommand, List<DbParameter> updatePar, List<DbParameter> wherePar)
         {
             var whereClause = string.Empty;
@@ -225,9 +227,7 @@ namespace UiPath.Database
 
             foreach (DataColumn column in dataTable.Columns)
             {
-                DbParameter p = updateCommand.CreateParameter();
-                p.ParameterName = string.Format("p{0}", index++);
-                p.SourceColumn = column.ColumnName;
+                DbParameter p = BuildParameter(updateCommand, string.Format("p{0}", index++), column);
 
                 string paramName = string.Format(markerFormat, p.ParameterName);
                 if (columnNames.Contains(column.ColumnName, StringComparer.InvariantCultureIgnoreCase))
@@ -256,33 +256,18 @@ namespace UiPath.Database
             return p;
         }
 
-
-        public void DoBulkInsert(string providerName, string tableName, DataTable dataTable, string connection, IExecutorRuntime executorRuntime, DbDataAdapter dbDA, IBulkOperations bulkOps, DbCommand commandRowCount, DbCommand commandTableStructure, out long affectedRecords)
+        public void DoBulkInsert(string providerName, string tableName, DataTable dataTable, IExecutorRuntime executorRuntime, IBulkOperations bulkOps, DbCommand commandRowCount, DbCommand commandTableStructure, out long affectedRecords)
         {
-            if (providerName.ToLower() == SQLProvider)
+            if (providerName.ToLower() == SQLProvider || providerName.ToLower() == OracleProvider)
             {
-                bulkOps.Connection = connection;
+                bulkOps.Connection = _connection;
                 bulkOps.TableName = tableName;
-                var structureQuery = string.Format("select TOP(1) * from {0}", tableName);
+                var structureQuery = string.Format("select * from {0}", tableName);
 
-                ValidateDatabaseTableStructure(tableName, commandTableStructure, dataTable, dbDA, structureQuery);
-                var countQuery = string.Format("SELECT COUNT(*) FROM {0}", tableName);
-                var countStart = CountRowsInTable(commandRowCount, countQuery);
+                ValidateDatabaseTableStructure(tableName, commandTableStructure, dataTable, structureQuery);
+                var countStart = CountRowsInTable(commandRowCount, tableName);
                 bulkOps.WriteToServer(dataTable);
-                var countEnd = CountRowsInTable(commandRowCount, countQuery);
-                affectedRecords = countEnd - countStart;
-            }
-            else if (providerName.ToLower() == OracleProvider)
-            {
-                bulkOps.Connection = connection;
-                bulkOps.TableName = tableName;
-                var structureQuery = string.Format("select * from {0} where rownum = 1", tableName);
-                ValidateDatabaseTableStructure(tableName, commandTableStructure, dataTable, dbDA, structureQuery);
-                var countQuery = string.Format("SELECT COUNT(*) FROM {0}", tableName);
-                var countStart = CountRowsInTable(commandRowCount, countQuery);
-                List<string> oracleList = FindAssembliesInGAC("oracle.manageddataaccess*");
-                BulkInsertOracleManaged(bulkOps, tableName, oracleList, dataTable, executorRuntime);
-                var countEnd = CountRowsInTable(commandRowCount, countQuery);
+                var countEnd = CountRowsInTable(commandRowCount, tableName);
                 affectedRecords = countEnd - countStart;
             }
             else
@@ -297,37 +282,6 @@ namespace UiPath.Database
             }
         }
 
-        private void BulkInsertOracleManaged(IBulkOperations bulkOps, string tableName, List<string> oracleList, DataTable dataTable, IExecutorRuntime executorRuntime)
-        {
-            bool bulkCopyIsPresent = false;
-            if (oracleList.Count > 0)
-            {
-                //try all drivers with latest version first
-                foreach (var item in oracleList.OrderByDescending(x => x))
-                {
-                    var oracle = Assembly.LoadFile(item);
-                    var bulkCopyType = oracle.GetType("Oracle.ManagedDataAccess.Client.OracleBulkCopy");
-
-                    if (bulkCopyType != null)
-                    {
-                        bulkOps.BulkCopyType = bulkCopyType;
-                        bulkOps.WriteToServer(dataTable);
-                        bulkCopyIsPresent = true;
-                    }
-                    else continue;
-                }
-            }
-            if (!bulkCopyIsPresent)
-            {
-                //if no bulk insert possible, fallback to insert data table
-                if (executorRuntime != null)
-                {
-                    LogWarningMessage(executorRuntime);
-                }
-                InsertDataTable(tableName, dataTable);
-            }
-        }
-
         private static void LogWarningMessage(IExecutorRuntime executorRuntime)
         {
             var message = new LogMessage
@@ -338,54 +292,10 @@ namespace UiPath.Database
             executorRuntime.LogMessage(message);
         }
 
-        private static List<string> FindAssembliesInGAC(string name)
-        {
-            List<string> gacFolders = new List<string>() {
-                    "GAC", "GAC_32", "GAC_64", "GAC_MSIL",
-                    "NativeImages_v2.0.50727_32",
-                    "NativeImages_v2.0.50727_64",
-                    "NativeImages_v4.0.30319_32",
-                    "NativeImages_v4.0.30319_64"
-                };
-            List<string> oracleList = new List<string>();
-            foreach (string folder in gacFolders)
-            {
-                string path = Path.Combine(
-                   Environment.ExpandEnvironmentVariables(@"%systemroot%\assembly"),
-                   folder);
-
-                if (Directory.Exists(path))
-                {
-                    string[] assemblyFolders = Directory.GetDirectories(path);
-                    foreach (string assemblyFolder in assemblyFolders)
-                    {
-                        string[] files = Directory.GetFiles(assemblyFolder, name, SearchOption.AllDirectories);
-                        oracleList.AddRange(files);
-                    }
-                }
-
-                path = Path.Combine(
-                   Environment.ExpandEnvironmentVariables(@"%systemroot%\Microsoft.NET\assembly"),
-                   folder);
-
-                if (Directory.Exists(path))
-                {
-                    string[] assemblyFolders = Directory.GetDirectories(path);
-                    foreach (string assemblyFolder in assemblyFolders)
-                    {
-                        string[] files = Directory.GetFiles(assemblyFolder, "oracle.manageddataaccess*", SearchOption.AllDirectories);
-                        oracleList.AddRange(files);
-                    }
-                }
-            }
-
-            return oracleList;
-        }
-
-        private long CountRowsInTable(DbCommand commandRowCount, string countQuery)
+        private long CountRowsInTable(DbCommand commandRowCount, string tableName)
         {
             // Perform an initial count on the destination table.
-
+            var countQuery = string.Format("SELECT COUNT(*) FROM {0}", tableName);
             commandRowCount.Connection = _connection;
             commandRowCount.CommandText = countQuery;
 
@@ -418,18 +328,21 @@ namespace UiPath.Database
             }
         }
 
-        private void ValidateDatabaseTableStructure(string tableName, DbCommand dbCommand, DataTable dataTable, DbDataAdapter dbDA, string command)
+        private void ValidateDatabaseTableStructure(string tableName, DbCommand dbCommand, DataTable dataTable, string command)
         {
+            if (_connection == null)
+                return;
+            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection).CreateDataAdapter();
             dbDA.SelectCommand = dbCommand;
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
             dbDA.SelectCommand.CommandText = command;
 
             var ds = new DataSet();
-            dbDA.Fill(ds);
+            dbDA.FillSchema(ds, SchemaType.Source);
             ValidateTableStructure(tableName, dataTable, ds);
         }
-
+         
         public virtual void Commit()
         {
             _transaction?.Commit();

@@ -98,9 +98,9 @@ namespace UiPath.Database.Activities
                     return 0;
                 }
                 if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag ,tableName, dataTable, columnNames, connString, executorRuntime);
+                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag ,tableName, dataTable, columnNames, executorRuntime);
                 else
-                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames, connString);
+                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames);
             };
             context.UserState = action;
             return action.BeginInvoke(callback, state);
