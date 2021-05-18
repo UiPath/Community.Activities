@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0;net5.0-windows</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -14,6 +14,10 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <PackageReference Include="UiPath.Workflow" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+    <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>
