@@ -267,39 +267,39 @@
     <value>ContinueOnError – boolescher Wert</value>
   </data>
   <data name="BulkInsert" xml:space="preserve">
-    <value>Bulk Insert</value>
+    <value>Masseneinfügung</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>The source DataTable for the items to be inserted.</value>
+    <value>Die Quell-DataTable für die einzufügenden Elemente.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Source DataTable</value>
+    <value>Quell-DataTable</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Table name</value>
+    <value>Tabellenname</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
-    <value>The name of the database table where you want to insert the items.</value>
+    <value>Der Name der Datenbanktabelle, in die Sie die Elemente einfügen möchten.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Destination database table name</value>
+    <value>Name der Zieldatenbanktabelle</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>Spalten, die für übereinstimmende Zeilen verwendet werden</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>The collection of column names used for row matching</value>
+    <value>Die Sammlung von Spaltennamen, die für den Zeilenabgleich verwendet werden</value>
   </data>
   <data name="BulkUpdate" xml:space="preserve">
-    <value>Bulk Update</value>
+    <value>Massenaktualisierung</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+    <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Aktualisiert alle Spalten, die sich nicht in der Sammlung der Spaltennamen befinden, die als Primärschlüssel verwendet werden. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
-    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+    <value>Aktualisiert eine Tabelle mithilfe von Massenvorgängen mit der spezifischen Datenbank-Treiberimplementierung. Greift auf „Datentabelle einfügen“ zurück, wenn der Datenbanktreiber keine Massenvorgänge unterstützt.</value>
   </data>
 </root>

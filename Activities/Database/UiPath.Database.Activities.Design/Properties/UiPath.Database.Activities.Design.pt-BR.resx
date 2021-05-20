@@ -267,39 +267,39 @@
     <value>ContinueOnError Boolean</value>
   </data>
   <data name="BulkInsert" xml:space="preserve">
-    <value>Bulk Insert</value>
+    <value>Inserção em Massa</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>The source DataTable for the items to be inserted.</value>
+    <value>A DataTable de origem dos itens a serem inseridos.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Source DataTable</value>
+    <value>DataTable de Origem</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nome da tabela</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
-    <value>The name of the database table where you want to insert the items.</value>
+    <value>O nome da tabela do banco de dados na qual você deseja inserir os itens.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Destination database table name</value>
+    <value>Nome da tabela de destino no banco de dados</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>Colunas usadas para linhas correspondentes</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>The collection of column names used for row matching</value>
+    <value>O conjunto de nomes de colunas usados na correspondência de linhas</value>
   </data>
   <data name="BulkUpdate" xml:space="preserve">
-    <value>Bulk Update</value>
+    <value>Atualização em Massa</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+    <value>Atualiza uma DataTable compatível em uma Tabela existente. Atualizará todas as colunas que não fazem parte do conjunto de nomes de coluna usado como chave primária. Retorna o número de linhas afetadas.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
-    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+    <value>Atualizará uma tabela usando operações em massa com a implementação específica de driver do banco de dados. Realizará o fallback para Insert Data Table se o driver do banco de dados não for compatível com operações em massa.</value>
   </data>
 </root>

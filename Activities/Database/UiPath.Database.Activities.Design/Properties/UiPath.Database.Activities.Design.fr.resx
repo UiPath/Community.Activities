@@ -267,39 +267,39 @@
     <value>ContinueOnError Boolean</value>
   </data>
   <data name="BulkInsert" xml:space="preserve">
-    <value>Bulk Insert</value>
+    <value>Insertion en masse</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>The source DataTable for the items to be inserted.</value>
+    <value>L’objet DataTable source pour les éléments à insérer.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Source DataTable</value>
+    <value>Objet DataTable source</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nom du tableau</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
-    <value>The name of the database table where you want to insert the items.</value>
+    <value>Le nom de la table de base de données dans laquelle vous souhaitez insérer les éléments.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Destination database table name</value>
+    <value>Nom de la table de base de données de destination</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>Colonnes utilisées pour la correspondance de lignes</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>The collection of column names used for row matching</value>
+    <value>La collection de noms de colonnes utilisée pour la correspondance de lignes</value>
   </data>
   <data name="BulkUpdate" xml:space="preserve">
-    <value>Bulk Update</value>
+    <value>Mise à jour en masse</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+    <value>Met à jour un objet DataTable compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
-    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+    <value>Mettra à jour une table à l’aide d’opérations en masse via la mise en œuvre spécifique de pilote de base de données. Cette activité sera remplacée par Insérer une table de données (Insert Data Table) si le pilote de base de données ne prend pas en charge les opérations en masse.</value>
   </data>
 </root>
