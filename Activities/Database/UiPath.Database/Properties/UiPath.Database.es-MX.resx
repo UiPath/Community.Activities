@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BulkInsert_ColumnsDataTypesMustMatch" xml:space="preserve">
-    <value>The provided columns in the DataTable do not match the column data types in the database.</value>
+    <value>Las columnas proporcionadas en el DataTable no coinciden con los tipos de datos de columna en la base de datos.</value>
   </data>
   <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
-    <value>Unmapped column {0} was not found in destination database table {1}</value>
+    <value>No se encontró {0} de columna sin asignar en la tabla de base de datos de destino {1}</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>The provided driver version does not support Bulk Insert operations. Please check the driver.</value>
+    <value>La versión del controlador proporcionada no admite operaciones de inserción en masa. Revise el controlador.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
-    <value>The provided number of columns in the DataTable must match the number of columns in the DB table.</value>
+    <value>El número proporcionado de columnas en la DataTable debe coincidir con el número de columnas de la tabla de base de datos.</value>
   </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>No se inicializa la conexión</value>
