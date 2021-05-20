@@ -188,7 +188,7 @@
     <value>Salida</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>NombresDeColumna</value>
     <comment>property name</comment>
   </data>
 </root>

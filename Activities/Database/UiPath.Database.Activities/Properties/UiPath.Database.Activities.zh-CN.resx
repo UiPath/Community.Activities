@@ -188,7 +188,7 @@
     <value>输出</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>列名称</value>
     <comment>property name</comment>
   </data>
 </root>
