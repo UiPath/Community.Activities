@@ -115,7 +115,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Either ConnectionString or ConnectionSecureString must be set!.
+        ///   Looks up a localized string similar to Only one of the connection string fields can be used..
         /// </summary>
         public static string ConnectionMustBeSet {
             get {
