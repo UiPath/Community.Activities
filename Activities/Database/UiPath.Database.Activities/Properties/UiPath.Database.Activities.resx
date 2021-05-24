@@ -191,6 +191,12 @@
     <value>ColumnNames</value>
     <comment>property name</comment>
   </data>
+  <data name="ConnectionMustBeSet" xml:space="preserve">
+    <value>Either ConnectionString or ConnectionSecureString must be set!</value>
+  </data>
+  <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
+    <value>SecureConnectionString</value>
+  </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>Bulk/Batch Update</value>
   </data>

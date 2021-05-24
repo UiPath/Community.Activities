@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Text;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
@@ -26,6 +28,13 @@ namespace UiPath.Database.Activities
         [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
+
+        [DefaultValue(null)]
+        [DependsOn(nameof(ProviderName))]
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        [OverloadGroup("New Database Connection")]
+        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [RequiredArgument]
@@ -59,6 +68,7 @@ namespace UiPath.Database.Activities
         {
             DataTable dataTable = null;
             string connString = null;
+            SecureString connSecureString = null;
             string provName = null;
             string tableName = null;
             try
@@ -68,15 +78,21 @@ namespace UiPath.Database.Activities
                 provName = ProviderName.Get(context);
                 tableName = TableName.Get(context); 
                 dataTable = DataTable.Get(context);
+
+                connSecureString = ConnectionSecureString.Get(context);
             }
             catch (Exception ex)
             {
                 HandleException(ex, ContinueOnError.Get(context));
             }
+            if (DbConnection == null && connString == null && connSecureString == null)
+            {
+                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
+            }
             // create the action for doing the actual work
             Func<int> action = () =>
             {
-                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString, provName);
+                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
                 if (DbConnection == null)
                 {
                     return 0;
