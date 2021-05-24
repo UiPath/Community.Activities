@@ -79,6 +79,24 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The number of updatedrows.
+        /// </summary>
+        public static string AffectedRecordsUpdateDescription {
+            get {
+                return ResourceManager.GetString("AffectedRecordsUpdateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch..
+        /// </summary>
+        public static string BulkFlagDescription {
+            get {
+                return ResourceManager.GetString("BulkFlagDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bulk Insert.
         /// </summary>
         public static string BulkInsert {
@@ -588,6 +606,15 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string TimeoutMSDescription {
             get {
                 return ResourceManager.GetString("TimeoutMSDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them.
+        /// </summary>
+        public static string UpdateDataTableInputDescription {
+            get {
+                return ResourceManager.GetString("UpdateDataTableInputDescription", resourceCulture);
             }
         }
         

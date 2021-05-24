@@ -35,6 +35,12 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        [OverloadGroup("Existing Database Connection")]
+        [LocalizedDisplayName(nameof(Resources.BulkUpdateFlag))]
+        [DefaultValue(true)]
+        public bool BulkUpdateFlag { get; set; } = true;
+
         [LocalizedCategory(nameof(Resources.Input))]
         [RequiredArgument]
         [DefaultValue(null)]
@@ -92,9 +98,9 @@ namespace UiPath.Database.Activities
                     return 0;
                 }
                 if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                    return DbConnection.BulkUpdateDataTable(tableName, dataTable, columnNames, connString, executorRuntime);
+                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag ,tableName, dataTable, columnNames, executorRuntime);
                 else
-                    return DbConnection.BulkUpdateDataTable(tableName, dataTable, columnNames, connString);
+                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames);
             };
             context.UserState = action;
             return action.BeginInvoke(callback, state);
@@ -117,7 +123,7 @@ namespace UiPath.Database.Activities
             {
                 if (existingConnection == null)
                 {
-                    DbConnection.Dispose();
+                    DbConnection?.Dispose();
                 }
             }
         }

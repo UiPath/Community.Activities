@@ -191,4 +191,7 @@
     <value>ColumnNames</value>
     <comment>property name</comment>
   </data>
+  <data name="BulkUpdateFlag" xml:space="preserve">
+    <value>Bulk/Batch Update</value>
+  </data>
 </root>
