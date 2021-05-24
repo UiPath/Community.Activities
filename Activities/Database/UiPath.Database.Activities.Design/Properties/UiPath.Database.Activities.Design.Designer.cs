@@ -241,6 +241,15 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection as Secure String.
+        /// </summary>
+        public static string ConnectionSecureStringDescription {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection String.
         /// </summary>
         public static string ConnectionString {

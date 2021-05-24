@@ -115,6 +115,24 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Either ConnectionString or ConnectionSecureString must be set!.
+        /// </summary>
+        public static string ConnectionMustBeSet {
+            get {
+                return ResourceManager.GetString("ConnectionMustBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SecureConnectionString.
+        /// </summary>
+        public static string ConnectionSecureStringDisplayName {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConnectionString.
         /// </summary>
         public static string ConnectionStringDisplayName {
