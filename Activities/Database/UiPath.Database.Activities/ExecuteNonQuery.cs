@@ -25,7 +25,6 @@ namespace UiPath.Database.Activities
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
-        [RequiredArgument]
         [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
