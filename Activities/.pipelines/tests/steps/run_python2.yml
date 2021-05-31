@@ -12,9 +12,11 @@ steps:
       inputs:
        targetType: 'inline'
        script: |
-         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\Python\Pythonx86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\${{ version }}\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+         $directory = Get-ChildItem -Path 'C:\\hostedtoolcache\\windows\\Python\\' -Filter "*${{ version }}*" -Directory | Sort-Object -Property FullName -Descending | Select -First 1
+         $local =  $directory.FullName.Replace('\','\\')
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\Python\Pythonx86.xaml" --input "{ 'PythonPath' : '$local\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
          Copy-Item "$(uipathTestDirectory)\Python\junit_pythonx86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_${{ version }}_x86.xml"
-         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\Python\Pythonx64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\${{ version }}\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\Python\Pythonx64.xaml" --input "{ 'PythonPath' :  '$local\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
          Copy-Item "$(uipathTestDirectory)\Python\junit_pythonx64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_${{ version }}_x64.xml"
          Remove-Item "$(uipathTestDirectory)\Python\junit*.xml"
 
@@ -24,8 +26,10 @@ steps:
       inputs:
        targetType: 'inline'
        script: |
-         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\PythonMultipleTests\PythonMultipleTests_x86.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\${{ version }}\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+         $directory = Get-ChildItem -Path 'C:\\hostedtoolcache\\windows\\Python\\' -Filter "*${{ version }}*" -Directory | Sort-Object -Property FullName -Descending | Select -First 1
+         $local =  $directory.FullName.Replace('\','\\')
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\PythonMultipleTests\PythonMultipleTests_x86.xaml" --input "{ 'PythonPath' : '$local\\x86' , 'WorkingFolder' : 'd:\\teste\\Python'}"
          Copy-Item "$(uipathTestDirectory)\PythonMultipleTests\junit_Python_multipleTests_x86.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Python_multipleTests_${{ version }}_x86.xml"
-         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\PythonMultipleTests\PythonMultipleTests_x64.xaml" --input "{ 'PythonPath' : 'C:\\hostedtoolcache\\windows\\Python\\${{ version }}\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\PythonMultipleTests\PythonMultipleTests_x64.xaml" --input "{ 'PythonPath' : '$local\\x64' , 'WorkingFolder' : 'd:\\teste\\Python'}"
          Copy-Item "$(uipathTestDirectory)\PythonMultipleTests\junit_Python_multipleTests_x64.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Python_multipleTests_${{ version }}_x64.xml"
          Remove-Item "$(uipathTestDirectory)\PythonMultipleTests\junit*.xml"
