@@ -83,6 +83,7 @@ namespace UiPath.Database.Activities.Design
             var AffectedRecordsUpdateDescription = new DescriptionAttribute(Resources.AffectedRecordsUpdateDescription);
             var CommandTypeDescription = new DescriptionAttribute(Resources.CommandTypeDescription);
             var connectionString = new DescriptionAttribute(Resources.ConnectionStringDescription);
+            var connectionSecureString = new DescriptionAttribute(Resources.ConnectionSecureStringDescription);
             var ContinueOnError = new DescriptionAttribute(Resources.ContinueOnError);
             var DatabaseConnectionDescription = new DescriptionAttribute(Resources.DatabaseConnectionDescription);
             var DataTableDescription = new DescriptionAttribute(Resources.DataTableDescription);
@@ -99,6 +100,7 @@ namespace UiPath.Database.Activities.Design
             var UseTransactionDescription = new DescriptionAttribute(Resources.UseTransactionDescription);
 
             builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.ConnectionString), connectionString);
+            builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.ConnectionSecureString), connectionSecureString);
             builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.ContinueOnError), ContinueOnError);
             builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.DatabaseConnection), DatabaseConnectionDescription);
             builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.ExistingDbConnection), ExistingDbConnectionDescription);
@@ -106,6 +108,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(DatabaseTransaction), nameof(DatabaseTransaction.UseTransaction), UseTransactionDescription);
 
             builder.AddCustomAttributes(typeof(ExecuteQuery), nameof(ExecuteNonQuery.ConnectionString), connectionString);
+            builder.AddCustomAttributes(typeof(ExecuteQuery), nameof(ExecuteNonQuery.ConnectionSecureString), connectionSecureString);
             builder.AddCustomAttributes(typeof(ExecuteQuery), nameof(ExecuteNonQuery.ProviderName), providerName);
             builder.AddCustomAttributes(typeof(ExecuteQuery), nameof(ExecuteQuery.CommandType), CommandTypeDescription);
             builder.AddCustomAttributes(typeof(ExecuteQuery), nameof(ExecuteQuery.ContinueOnError), ContinueOnError);
@@ -118,6 +121,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), nameof(ExecuteNonQuery.AffectedRecords), AffectedRecordsDescription);
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), nameof(ExecuteNonQuery.CommandType), CommandTypeDescription);
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), nameof(ExecuteNonQuery.ConnectionString), connectionString);
+            builder.AddCustomAttributes(typeof(ExecuteNonQuery), nameof(ExecuteNonQuery.ConnectionSecureString), connectionSecureString);
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), nameof(ExecuteNonQuery.ContinueOnError), ContinueOnError);
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), nameof(ExecuteNonQuery.ExistingDbConnection), ExistingDbConnectionDescription);
             builder.AddCustomAttributes(typeof(ExecuteNonQuery), nameof(ExecuteNonQuery.Parameters), parameters);
@@ -127,6 +131,7 @@ namespace UiPath.Database.Activities.Design
 
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.AffectedRecords), AffectedRecordsInsertDescription);
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.ConnectionString), connectionString);
+            builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.ConnectionSecureString), connectionSecureString);
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.ContinueOnError), ContinueOnError);
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.DataTable), InserDataTableInputDescription);
             builder.AddCustomAttributes(typeof(InsertDataTable), nameof(InsertDataTable.ExistingDbConnection), ExistingDbConnectionDescription);
@@ -143,6 +148,7 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(BulkUpdate), nameof(BulkUpdate.BulkUpdateFlag), BulkFlagDescription);
 
             builder.AddCustomAttributes(typeof(DatabaseConnect), nameof(DatabaseConnect.ConnectionString), connectionString);
+            builder.AddCustomAttributes(typeof(DatabaseConnect), nameof(DatabaseConnect.ConnectionSecureString), connectionSecureString);
             builder.AddCustomAttributes(typeof(DatabaseConnect), nameof(DatabaseConnect.DatabaseConnection), DatabaseConnectionDescription);
             builder.AddCustomAttributes(typeof(DatabaseConnect), nameof(DatabaseConnect.ProviderName), providerName);
 

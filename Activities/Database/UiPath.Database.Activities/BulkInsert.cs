@@ -2,6 +2,8 @@
 using System.Activities;
 using System.ComponentModel;
 using System.Data;
+using System.Net;
+using System.Security;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 using UiPath.Robot.Activities.Api;
@@ -17,13 +19,20 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
-        [RequiredArgument]
         [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
+
+
+        [DefaultValue(null)]
+        [DependsOn(nameof(ProviderName))]
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        [OverloadGroup("New Database Connection")]
+        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -56,6 +65,7 @@ namespace UiPath.Database.Activities
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
             DataTable dataTable = null;
+            SecureString connSecureString = null;
             string connString = null;
             string provName = null;
             string tableName = null;
@@ -67,16 +77,21 @@ namespace UiPath.Database.Activities
                 provName = ProviderName.Get(context);
                 tableName = TableName.Get(context);
                 dataTable = DataTable.Get(context);
-                executorRuntime = context.GetExtension<IExecutorRuntime>(); 
+                executorRuntime = context.GetExtension<IExecutorRuntime>();
+                connSecureString = ConnectionSecureString.Get(context);
             }
             catch (Exception ex)
             {
                 HandleException(ex, ContinueOnError.Get(context));
             }
+            if (DbConnection == null && connString == null && connSecureString == null)
+            {
+                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
+            }
             // create the action for doing the actual work
             Func<long> action = () =>
             {
-                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString, provName);
+                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
                 if (DbConnection == null)
                 {
                     return 0;

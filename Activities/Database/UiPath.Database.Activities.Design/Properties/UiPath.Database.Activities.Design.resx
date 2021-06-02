@@ -311,4 +311,7 @@
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
   </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
 </root>
