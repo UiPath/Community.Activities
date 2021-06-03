@@ -88,7 +88,6 @@
   </Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="System.Data.Odbc" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">

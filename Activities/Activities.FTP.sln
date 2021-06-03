@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.FTP.Activities.Desig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.FTP.Activities.Packaging", "FTP\UiPath.FTP.Activities.Packaging\UiPath.FTP.Activities.Packaging.csproj", "{6AC9D371-2E80-4933-87ED-E15EE8FE35C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.FTP.Tests", "FTP\UiPath.FTP.Tests\UiPath.FTP.Tests.csproj", "{D35ADF63-DD01-476A-8D15-CD3FB412AE5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.FTP.Tests", "FTP\UiPath.FTP.Tests\UiPath.FTP.Tests.csproj", "{D35ADF63-DD01-476A-8D15-CD3FB412AE5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3CA460CE-5F36-43C5-AFA0-7B6CCCB94AF6}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.build.targets = Directory.build.targets
+		FTP\FTP.build.props = FTP\FTP.build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

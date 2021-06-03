@@ -23,6 +23,12 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Service", "Sh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.TestUtils", "Shared\UiPath.TestUtils\UiPath.TestUtils.csproj", "{D2C94889-1E86-4ABD-9D5E-631B3463DA86}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29811D5E-843A-4697-8C4F-660A29A97F7F}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.build.targets = Directory.build.targets
+		Python\Python.build.props = Python\Python.build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{0fbf5f7e-2ae4-4f4a-84cb-26b3a9e3119c}*SharedItemsImports = 5

@@ -74,16 +74,6 @@
 		</ItemGroup>
 	</Target>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
