@@ -299,7 +299,19 @@
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>既存のテーブルにある、対応するデータテーブルを更新します。主キーとして使用される列名のコレクションに入っていない、すべての列を更新します。また、影響を受けた行の数を返します。(Bulk Update)</value>
   </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>特定のデータベース ドライバー実装を使用した一括操作でテーブルを更新します。データベース ドライバーが一括操作をサポートしていない場合は、[挿入] アクティビティにフォールバックします。(Bulk Insert)</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
   </data>
 </root>
