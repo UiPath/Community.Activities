@@ -188,7 +188,7 @@
     <value>出力</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>列名</value>
     <comment>property name</comment>
   </data>
 </root>

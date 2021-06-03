@@ -267,39 +267,39 @@
     <value>ContinueOnError 부울</value>
   </data>
   <data name="BulkInsert" xml:space="preserve">
-    <value>Bulk Insert</value>
+    <value>일괄 삽입</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>The source DataTable for the items to be inserted.</value>
+    <value>삽입할 항목에 대한 소스 DataTable입니다.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Source DataTable</value>
+    <value>소스 DataTable</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Table name</value>
+    <value>테이블 이름</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
-    <value>The name of the database table where you want to insert the items.</value>
+    <value>항목을 삽입할 데이터베이스 테이블의 이름입니다.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Destination database table name</value>
+    <value>대상 데이터베이스 테이블 이름</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>일치하는 행에 사용되는 열</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>The collection of column names used for row matching</value>
+    <value>행 일치에 사용되는 열 이름의 컬렉션</value>
   </data>
   <data name="BulkUpdate" xml:space="preserve">
-    <value>Bulk Update</value>
+    <value>일괄 업데이트</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+    <value>기존 테이블에서 호환되는 DataTable을 업데이트합니다. 기본 키로 사용되는 열 이름의 컬렉션에 없는 모든 열을 업데이트합니다. 영향을 받는 행의 수를 반환합니다.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
-    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+    <value>특정 데이터베이스 드라이버 구현을 사용하여 일괄 작업을 사용하는 테이블을 업데이트합니다. 데이터베이스 드라이버가 일괄 작업을 지원하지 않는 경우 데이터 테이블 삽입으로 대체됩니다.</value>
   </data>
 </root>

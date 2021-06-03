@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BulkInsert_ColumnsDataTypesMustMatch" xml:space="preserve">
-    <value>The provided columns in the DataTable do not match the column data types in the database.</value>
+    <value>DataTable이 입력된 열이 데이터베이스의 열 데이터 형식과 일치하지 않습니다.</value>
   </data>
   <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
-    <value>Unmapped column {0} was not found in destination database table {1}</value>
+    <value>매핑되지 않은 열 {0}을(를) 대상 데이터베이스 테이블 {1}에서 찾지 못했습니다.</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>The provided driver version does not support Bulk Insert operations. Please check the driver.</value>
+    <value>제공된 드라이버 버전은 일괄 삽입 작업을 지원하지 않습니다. 드라이버를 확인하십시오.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
-    <value>The provided number of columns in the DataTable must match the number of columns in the DB table.</value>
+    <value>입력된 DataTable의 열 수는 DB 테이블의 열 수와 일치해야 합니다.</value>
   </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>연결이 초기화되지 않음</value>

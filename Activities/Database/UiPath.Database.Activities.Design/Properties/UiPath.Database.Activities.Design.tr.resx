@@ -267,39 +267,39 @@
     <value>ContinueOnError Boole</value>
   </data>
   <data name="BulkInsert" xml:space="preserve">
-    <value>Bulk Insert</value>
+    <value>Toplu Ekle</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>The source DataTable for the items to be inserted.</value>
+    <value>Öğeler için eklenecek kaynak DataTable.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Source DataTable</value>
+    <value>Kaynak DataTable</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Table name</value>
+    <value>Tablo adı</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
-    <value>The name of the database table where you want to insert the items.</value>
+    <value>Öğeleri eklemek istediğiniz veritabanı tablosunun adı.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Destination database table name</value>
+    <value>Hedef veritabanı tablosunun adı</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>Eşleşen satırlar için kullanılan sütunlar</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>The collection of column names used for row matching</value>
+    <value>Satır eşleştirmek için kullanılan sütun adları koleksiyonu</value>
   </data>
   <data name="BulkUpdate" xml:space="preserve">
-    <value>Bulk Update</value>
+    <value>Toplu Güncelleştir</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+    <value>Mevcut bir Tablo&apos;daki uyumlu DataTable&apos;i güncelleştirir. Ana anahtar olarak kullanılan sütun adları koleksiyonunda yer almayan sütunları güncelleştirir. Etkilenen satır sayısını döndürür.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
-    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+    <value>Belirli veritabanı sürücü uygulamasını kullanarak Toplu işlemlerin kullanıldığı bir tabloyu güncelleştirir. Veritabanı sürücüsü Toplu işlemleri desteklemiyorsa Insert Data Table&apos;a geri döner.</value>
   </data>
 </root>

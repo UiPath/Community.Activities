@@ -169,7 +169,7 @@
     <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>既存の表に互換性のあるデータテーブルを挿入します。また、影響を受けた行の数を返します。(Insert)</value>
+    <value>既存のテーブルに対応するデータテーブルを挿入します。また、影響を受けた行の数を返します。(Insert)</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>SQL コマンドにバインドされた名前付きパラメーターのディクショナリです。バインドするには、SQL コマンドで &apos;@parameterName&apos; ステートメントを指定します。実行時に、parameterName がディクショナリからの値に置き換えられます。</value>
@@ -267,39 +267,39 @@
     <value>エラー発生時に実行を継続 (Boolean)</value>
   </data>
   <data name="BulkInsert" xml:space="preserve">
-    <value>Bulk Insert</value>
+    <value>一括挿入</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>DataTable</value>
+    <value>データテーブル</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>The source DataTable for the items to be inserted.</value>
+    <value>挿入する項目のソース データテーブルです。</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Source DataTable</value>
+    <value>ソース データテーブル</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Table name</value>
+    <value>データ テーブル名</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
-    <value>The name of the database table where you want to insert the items.</value>
+    <value>項目を挿入するデータベース テーブルの名前です。</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Destination database table name</value>
+    <value>挿入先のデータベース テーブル名</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>行の照合に使用する列</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>The collection of column names used for row matching</value>
+    <value>行の照合に使用する列名のコレクション</value>
   </data>
   <data name="BulkUpdate" xml:space="preserve">
-    <value>Bulk Update</value>
+    <value>一括更新</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+    <value>既存のテーブルにある、対応するデータテーブルを更新します。主キーとして使用される列名のコレクションに入っていない、すべての列を更新します。また、影響を受けた行の数を返します。(Bulk Update)</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
-    <value>Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations.</value>
+    <value>特定のデータベース ドライバー実装を使用した一括操作でテーブルを更新します。データベース ドライバーが一括操作をサポートしていない場合は、[挿入] アクティビティにフォールバックします。(Bulk Insert)</value>
   </data>
 </root>
