@@ -192,12 +192,12 @@
     <comment>property name</comment>
   </data>
   <data name="ConnectionMustBeSet" xml:space="preserve">
-    <value>Only one of the connection string fields can be used.</value>
+    <value>使用できる接続文字列のフィールドは 1 つだけです。</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
-    <value>SecureConnectionString</value>
+    <value>安全な接続文字列</value>
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
-    <value>Bulk/Batch Update</value>
+    <value>更新方法 (BULK/バッチ処理)</value>
   </data>
 </root>
