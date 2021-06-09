@@ -299,7 +299,19 @@
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Atualiza uma DataTable compatível em uma Tabela existente. Atualizará todas as colunas que não fazem parte do conjunto de nomes de coluna usado como chave primária. Retorna o número de linhas afetadas.</value>
   </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Atualizará uma tabela usando operações em massa com a implementação específica de driver do banco de dados. Realizará o fallback para Insert Data Table se o driver do banco de dados não for compatível com operações em massa.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
   </data>
 </root>

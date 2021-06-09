@@ -299,7 +299,19 @@
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>既存のテーブルにある、対応するデータテーブルを更新します。主キーとして使用される列名のコレクションに入っていない、すべての列を更新します。また、影響を受けた行の数を返します。(Bulk Update)</value>
   </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>更新された行の数です。</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>オンの場合、BULK INSERT を使用して一時テーブルを作成し、テーブルを結合して更新を行います。オフの場合は一括更新をバッチ処理として行います。</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>テーブルの更新に使用する DataTable オブジェクトです。DataTable の列の記述は、データベースのテーブルの列と一致しており、それらの列のサブセットである必要があります。</value>
+  </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>特定のデータベース ドライバー実装を使用した一括操作でテーブルを更新します。データベース ドライバーが一括操作をサポートしていない場合は、[挿入] アクティビティにフォールバックします。(Bulk Insert)</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>データベース接続の確立に使用する、SecureString 型の接続文字列です。</value>
   </data>
 </root>

@@ -299,7 +299,19 @@
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>기존 테이블에서 호환되는 DataTable을 업데이트합니다. 기본 키로 사용되는 열 이름의 컬렉션에 없는 모든 열을 업데이트합니다. 영향을 받는 행의 수를 반환합니다.</value>
   </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>특정 데이터베이스 드라이버 구현을 사용하여 일괄 작업을 사용하는 테이블을 업데이트합니다. 데이터베이스 드라이버가 일괄 작업을 지원하지 않는 경우 데이터 테이블 삽입으로 대체됩니다.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
   </data>
 </root>

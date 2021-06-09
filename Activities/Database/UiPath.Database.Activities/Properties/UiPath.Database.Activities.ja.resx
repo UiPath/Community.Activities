@@ -191,4 +191,13 @@
     <value>列名</value>
     <comment>property name</comment>
   </data>
+  <data name="ConnectionMustBeSet" xml:space="preserve">
+    <value>使用できる接続文字列のフィールドは 1 つだけです。</value>
+  </data>
+  <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
+    <value>安全な接続文字列</value>
+  </data>
+  <data name="BulkUpdateFlag" xml:space="preserve">
+    <value>更新方法 (BULK/バッチ処理)</value>
+  </data>
 </root>
