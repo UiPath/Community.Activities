@@ -192,12 +192,12 @@
     <comment>property name</comment>
   </data>
   <data name="ConnectionMustBeSet" xml:space="preserve">
-    <value>Only one of the connection string fields can be used.</value>
+    <value>Só pode ser utilizado um dos campos de cadeia de ligação.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
     <value>SecureConnectionString</value>
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
-    <value>Bulk/Batch Update</value>
+    <value>Atualização em massa/lote</value>
   </data>
 </root>

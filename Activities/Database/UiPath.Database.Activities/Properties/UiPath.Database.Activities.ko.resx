@@ -192,12 +192,12 @@
     <comment>property name</comment>
   </data>
   <data name="ConnectionMustBeSet" xml:space="preserve">
-    <value>Only one of the connection string fields can be used.</value>
+    <value>연결 문자열 필드 중 하나만 사용할 수 있습니다.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
     <value>SecureConnectionString</value>
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
-    <value>Bulk/Batch Update</value>
+    <value>대량/일괄 업데이트</value>
   </data>
 </root>
