@@ -300,18 +300,18 @@
     <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Aktualisiert alle Spalten, die sich nicht in der Sammlung der Spaltennamen befinden, die als Primärschlüssel verwendet werden. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>Die Anzahl der aktualisierten Zeilen</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Bei „true“ wird durch Masseneinfügung eine temporäre Tabelle erstellt und mithilfe der Verknüpfung zwischen Tabellen aktualisiert. Andernfalls werden Massenaktualisierungen im Batch ausgegeben.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>Das DataTable-Objekt, das in die Tabelle eingefügt wird. Die Beschreibung der DataTable-Spalten muss mit den Spalten aus der Datenbanktabelle übereinstimmen und eine Teilmenge dieser sein.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Aktualisiert eine Tabelle mithilfe von Massenvorgängen mit der spezifischen Datenbank-Treiberimplementierung. Greift auf „Datentabelle einfügen“ zurück, wenn der Datenbanktreiber keine Massenvorgänge unterstützt.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>Die Verbindungszeichenfolge zum Aufbau einer Datenbankverbindung als sichere Zeichenfolge.</value>
   </data>
 </root>

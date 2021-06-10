@@ -300,18 +300,18 @@
     <value>Atualiza uma DataTable compatível numa Tabela existente. Irá atualizar todas as colunas que não fazem parte da coleção de nomes de colunas utilizados como chave principal. Devolve o número de linhas afetadas.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>O número de linhas atualizadas</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Caso seja verdadeiro, criará uma tabela temporária através da inserção em massa e atualizará através da junção entre tabelas. Caso contrário, emitirá atualizações em massa no lote.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>O objeto DataTable que será utilizado na atualização da Tabela. A descrição das colunas da DataTable tem de corresponder às colunas da tabela de base de dados e ser um subconjunto das mesmas</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Irá atualizar uma tabela com operações Em Massa através da implementação do controlador da base de dados específico. Irá reverter para Insert Data Table se o controlador da base de dados não suportar operações Em Massa.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>A cadeia de ligação utilizada para estabelecer uma ligação de base de dados como Cadeia Segura</value>
   </data>
 </root>

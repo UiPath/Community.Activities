@@ -300,18 +300,18 @@
     <value>Обновляет совместимый объект DataTable в существующей таблице. Обновляет все столбцы, которых нет в коллекции имен столбцов, используемых как основной ключ. Возвращает число затронутых строк.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>Количество обновленных строк</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Если задано значение true, временная таблица будет создана с использованием массовой вставки, а обновление будет выполняться с использованием объединения между таблицами. В противном случае будут выполняться массовые обновления в пакетном режиме.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>Объект DataTable, который будет использоваться при обновлении таблицы. Описание столбцов DataTable должно совпадать со столбцами из таблицы базы данных и быть их подмножеством</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Обновит таблицу с помощью массовых операций с использованием определенного внедрения драйвера базы данных. Вернется к вставке таблицы данных, если драйвер базы данных не поддерживает массовые операции.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>Строка подключения, используемая для установления соединения с базой данных как Secure String</value>
   </data>
 </root>
