@@ -120,6 +120,9 @@
   <data name="AES" xml:space="preserve">
     <value>AES</value>
   </data>
+  <data name="AESGCM" xml:space="preserve">
+    <value>AES GCM</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES</value>
   </data>
