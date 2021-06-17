@@ -129,7 +129,7 @@
     <value>The encoding used to interpret the input string.</value>
   </data>
   <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>The encryption algorithm that will be used by this activity.</value>
+    <value>The encryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
     <value>The encoding used to interpret the input string and key.</value>
@@ -205,7 +205,7 @@
     <comment>property name</comment>
   </data>
   <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>The decryption algorithm that will be used by this activity.</value>
+    <value>The decryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
   </data>
   <data name="DecryptTextDisplayName" xml:space="preserve">
     <value>Decrypt Text</value>

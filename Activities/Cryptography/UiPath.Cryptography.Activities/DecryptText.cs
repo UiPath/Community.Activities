@@ -51,7 +51,7 @@ namespace UiPath.Cryptography.Activities
 
         public DecryptText()
         {
-            Algorithm = SymmetricAlgorithms.AES;
+            Algorithm = SymmetricAlgorithms.AESGCM;
             Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(System.Text.Encoding.UTF8)); // Kinda ugly.
         }
 
@@ -66,6 +66,7 @@ namespace UiPath.Cryptography.Activities
                     ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                     metadata.AddValidationError(error);
                     break;
+
                 default:
                     break;
             }
