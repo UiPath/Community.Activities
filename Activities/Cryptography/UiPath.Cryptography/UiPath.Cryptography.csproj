@@ -12,9 +12,13 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
     <PackageReference Include="UiPath.Workflow" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.Cryptography.Designer.cs">
@@ -22,5 +26,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UiPath.Cryptography.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.Cryptography.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.Cryptography.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

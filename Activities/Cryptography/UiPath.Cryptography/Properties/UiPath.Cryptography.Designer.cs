@@ -70,6 +70,15 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AES GCM.
+        /// </summary>
+        internal static string AESGCM {
+            get {
+                return ResourceManager.GetString("AESGCM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DES.
         /// </summary>
         internal static string DES {
