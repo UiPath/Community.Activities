@@ -61,7 +61,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AES.
+        ///   Looks up a localized string similar to AES (Deprecated).
         /// </summary>
         internal static string AES {
             get {
@@ -79,7 +79,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DES.
+        ///   Looks up a localized string similar to DES  (Deprecated).
         /// </summary>
         internal static string DES {
             get {
@@ -160,7 +160,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RC2 (Non-FIPS).
+        ///   Looks up a localized string similar to RC2 (Non-FIPS)  (Deprecated).
         /// </summary>
         internal static string RC2 {
             get {
@@ -169,7 +169,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rijndael (Non-FIPS).
+        ///   Looks up a localized string similar to Rijndael (Non-FIPS)  (Deprecated).
         /// </summary>
         internal static string Rijndael {
             get {
