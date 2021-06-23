@@ -3,16 +3,16 @@ using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class ExecuteQuery : AsyncCodeActivity
+    public class ExecuteQuery : AsyncTaskCodeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -21,7 +21,7 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
-    
+
         [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -29,7 +29,7 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
-        
+
 
         [DefaultValue(null)]
         [DependsOn(nameof(ProviderName))]
@@ -94,22 +94,31 @@ namespace UiPath.Database.Activities
             CommandType = CommandType.Text;
         }
 
-        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
+
+        private void HandleException(Exception ex, bool continueOnError)
+        {
+            if (continueOnError) return;
+            throw ex;
+        }
+
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             var dataTable = DataTable.Get(context);
             string connString = null;
             SecureString connSecureString = null;
             string provName = null;
             string sql = string.Empty;
+            DatabaseConnection existingConnection = null;
+            DBExecuteQueryResult affectedRecords = null;
             int commandTimeout = TimeoutMS.Get(context);
             if (commandTimeout < 0)
             {
-                throw new ArgumentException(UiPath.Database.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
+                throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
             }
             Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
             try
             {
-                DbConnection = ExistingDbConnection.Get(context);
+                existingConnection = DbConnection = ExistingDbConnection.Get(context);
                 connString = ConnectionString.Get(context);
                 provName = ProviderName.Get(context);
                 sql = Sql.Get(context);
@@ -126,14 +135,9 @@ namespace UiPath.Database.Activities
                         parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
 
-            // create the action for doing the actual work
-            Func<DBExecuteQueryResult> action = () =>
+                // create the action for doing the actual work
+                affectedRecords = await Task.Run(() =>
                 {
                     if (DbConnection == null)
                     {
@@ -144,38 +148,8 @@ namespace UiPath.Database.Activities
                         return null;
                     }
                     return new DBExecuteQueryResult(DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType), parameters);
-                };
+                });
 
-            context.UserState = action;
-
-            return action.BeginInvoke(callback, state);
-        }
-
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
-        }
-
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
-        {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
-            try
-            {
-                Func<DBExecuteQueryResult> action = (Func<DBExecuteQueryResult>)context.UserState;
-                DBExecuteQueryResult commandResult = action.EndInvoke(result);
-                DataTable dt = commandResult.Result;
-                if (dt == null) return;
-
-                DataTable.Set(context, dt);
-                foreach (var param in commandResult.ParametersBind)
-                {
-                    var currentParam = Parameters[param.Key];
-                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
-                    {
-                        currentParam.Set(context, param.Value.Item1);
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -188,7 +162,24 @@ namespace UiPath.Database.Activities
                     DbConnection?.Dispose();
                 }
             }
+
+            return asyncCodeActivityContext =>
+            {
+                DataTable dt = affectedRecords.Result;
+                if (dt == null) return;
+
+                DataTable.Set(asyncCodeActivityContext, dt);
+                foreach (var param in affectedRecords.ParametersBind)
+                {
+                    var currentParam = Parameters[param.Key];
+                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                    {
+                        currentParam.Set(asyncCodeActivityContext, param.Value.Item1);
+                    }
+                }
+            };
         }
+
         private class DBExecuteQueryResult
         {
             public DataTable Result { get; }
