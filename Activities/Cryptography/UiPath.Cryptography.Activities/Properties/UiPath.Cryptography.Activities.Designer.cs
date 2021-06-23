@@ -88,7 +88,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The decryption algorithm that will be used by this activity..
+        ///   Looks up a localized string similar to The decryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended..
         /// </summary>
         public static string DecryptAlgorithmDescription {
             get {
@@ -232,7 +232,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The encryption algorithm that will be used by this activity..
+        ///   Looks up a localized string similar to The encryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended..
         /// </summary>
         public static string EncryptAlgorithmDescription {
             get {

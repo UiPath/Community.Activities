@@ -1,8 +1,8 @@
 <Project>
   <ItemGroup Condition="$(TargetFramework.StartsWith('net5'))"> 
-    <PackageReference Update="System.Activities" Version="1.0.0-20201117-04" />
-    <PackageReference Update="UiPath.Workflow" Version="1.0.0-20201117-04" />
-    <PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha004" />
+    <PackageReference Update="System.Activities" Version="1.0.0-20201117-04" PrivateAssets="All" />
+    <PackageReference Update="UiPath.Workflow" Version="1.0.0-20201117-04" PrivateAssets="All" />
+    <PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha004" PrivateAssets="All" />
     <PackageReference Update="System.Data.Odbc" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'"> 

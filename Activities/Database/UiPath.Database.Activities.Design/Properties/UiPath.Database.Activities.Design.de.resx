@@ -266,4 +266,52 @@
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError – boolescher Wert</value>
   </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Masseneinfügung</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>DataTable</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>Die Quell-DataTable für die einzufügenden Elemente.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>Quell-DataTable</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Tabellenname</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>Der Name der Datenbanktabelle, in die Sie die Elemente einfügen möchten.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Name der Zieldatenbanktabelle</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Spalten, die für übereinstimmende Zeilen verwendet werden</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Die Sammlung von Spaltennamen, die für den Zeilenabgleich verwendet werden</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Massenaktualisierung</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Aktualisiert alle Spalten, die sich nicht in der Sammlung der Spaltennamen befinden, die als Primärschlüssel verwendet werden. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Aktualisiert eine Tabelle mithilfe von Massenvorgängen mit der spezifischen Datenbank-Treiberimplementierung. Greift auf „Datentabelle einfügen“ zurück, wenn der Datenbanktreiber keine Massenvorgänge unterstützt.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
 </root>

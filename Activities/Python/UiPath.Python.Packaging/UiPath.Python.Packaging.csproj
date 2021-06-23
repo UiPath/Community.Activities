@@ -21,94 +21,120 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
 
+
   <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
     <ItemGroup>
       <BuiltProjectOutputGroupOutput Remove="@(BuiltProjectOutputGroupOutput)" />
     </ItemGroup>
   </Target>
-  
+
   <ItemGroup>
-      <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="lib\net461\x86"  />
-      <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="lib\net5.0-windows7.0\x86"  />
-      <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="lib\net5.0\x86"  />
+    <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="bin\net461\x86" />
+    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\x86" />
+    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0\x86" />
 
-      <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="lib\net461\x64"  />
-      <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="lib\net5.0-windows7.0\x64"  />
-      <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="lib\net5.0\x64"  />
-    
-      <None Include="$(OutputPath)\net461\UiPath.Python.Host*.exe" Pack="true" PackagePath="lib\net461" />
-      <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.exe" Pack="true" PackagePath="lib\net5.0" />
-      <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.exe" Pack="true" PackagePath="lib\net5.0-windows7.0"/>
+    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="bin\net461\x64" />
+    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\x64" />
+    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0\x64" />
+
+    <None Include="$(OutputPath)\net461\UiPath.Python.Host*.exe" Pack="true" PackagePath="bin\net461" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*exe" Pack="true" PackagePath="bin\net5.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*exe" Pack="true" PackagePath="bin\net5.0-windows7.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*dll" Pack="true" PackagePath="bin\net5.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*dll" Pack="true" PackagePath="bin\net5.0-windows7.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*config" Pack="true" PackagePath="bin\net5.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*config" Pack="true" PackagePath="bin\net5.0-windows7.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*json" Pack="true" PackagePath="bin\net5.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*json" Pack="true" PackagePath="bin\net5.0-windows7.0" />
+
+    <None Include="$(OutputPath)\net461\UiPath.Python.dll" Pack="true" PackagePath="bin\net461" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.dll" Pack="true" PackagePath="bin\net5.0" />
+    <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.dll" Pack="true" PackagePath="bin\net5.0-windows7.0" />
+
+    <None Include="$(OutputPath)\net461\ja\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\ja\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\ru\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\ru\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\de\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\de\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\es\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\es\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\es-MX\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\es-MX\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\ko\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\ko\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\pt\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\pt\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\pt-BR\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\pt-BR\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\tr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\tr\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net461\zh-CN\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\zh-CN\UiPath.Python.resources.dll" />
+
+    <None Include="$(OutputPath)\net5.0-windows\fr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\fr\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\ja\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\ja\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\ru\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\ru\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\de\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\de\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\es\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\es\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\es-MX\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\es-MX\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\ko\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\ko\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\pt\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\pt\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\pt-BR\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\pt-BR\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\tr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\tr\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\zh-CN\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\zh-CN\UiPath.Python.resources.dll" />
+
+    <None Include="$(OutputPath)\net5.0-windows\fr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\fr\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\ja\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\ja\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\ru\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\ru\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\de\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\de\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\es\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\es\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\es-MX\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\es-MX\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\ko\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\ko\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\pt\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\pt\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\pt-BR\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\pt-BR\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\tr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\tr\UiPath.Python.resources.dll" />
+    <None Include="$(OutputPath)\net5.0-windows\zh-CN\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\zh-CN\UiPath.Python.resources.dll" />
   </ItemGroup>
 
 
-	<Target Name="AddDlls">
-		<ItemGroup>
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Python.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.dll" />
+  <Target Name="AddDlls">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.dll" />
 
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Python.resources.dll" TargetPath="fr\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Python.resources.dll" TargetPath="ja\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Python.resources.dll" TargetPath="ru\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Python.resources.dll" TargetPath="de\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Python.resources.dll" TargetPath="es\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Python.resources.dll" TargetPath="es-MX\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Python.resources.dll" TargetPath="ko\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Python.resources.dll" TargetPath="pt\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.resources.dll" TargetPath="pt-BR\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.resources.dll" TargetPath="tr\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.resources.dll" TargetPath="zh-CN\UiPath.Python.resources.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Python.resources.dll" TargetPath="fr\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Python.resources.dll" TargetPath="ja\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Python.resources.dll" TargetPath="ru\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Python.resources.dll" TargetPath="de\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Python.resources.dll" TargetPath="es\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Python.resources.dll" TargetPath="es-MX\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Python.resources.dll" TargetPath="ko\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Python.resources.dll" TargetPath="pt\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.resources.dll" TargetPath="pt-BR\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.resources.dll" TargetPath="tr\UiPath.Python.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.resources.dll" TargetPath="zh-CN\UiPath.Python.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Python.Activities.resources.dll" TargetPath="fr\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Python.Activities.resources.dll" TargetPath="ja\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Python.Activities.resources.dll" TargetPath="ru\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Python.Activities.resources.dll" TargetPath="de\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Python.Activities.resources.dll" TargetPath="es\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Python.Activities.resources.dll" TargetPath="es-MX\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Python.Activities.resources.dll" TargetPath="ko\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Python.Activities.resources.dll" TargetPath="pt\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.Activities.resources.dll" TargetPath="pt-BR\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.Activities.resources.dll" TargetPath="tr\UiPath.Python.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.Activities.resources.dll" TargetPath="zh-CN\UiPath.Python.Activities.resources.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Python.Activities.resources.dll" TargetPath="fr\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Python.Activities.resources.dll" TargetPath="ja\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Python.Activities.resources.dll" TargetPath="ru\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Python.Activities.resources.dll" TargetPath="de\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Python.Activities.resources.dll" TargetPath="es\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Python.Activities.resources.dll" TargetPath="es-MX\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Python.Activities.resources.dll" TargetPath="ko\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Python.Activities.resources.dll" TargetPath="pt\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.Activities.resources.dll" TargetPath="pt-BR\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.Activities.resources.dll" TargetPath="tr\UiPath.Python.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.Activities.resources.dll" TargetPath="zh-CN\UiPath.Python.Activities.resources.dll" />
+    </ItemGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.Design.dll" />
 
-		</ItemGroup>
-		<ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.Design.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Python.Activities.Design.resources.dll" TargetPath="fr\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Python.Activities.Design.resources.dll" TargetPath="ja\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Python.Activities.Design.resources.dll" TargetPath="ru\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Python.Activities.Design.resources.dll" TargetPath="de\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Python.Activities.Design.resources.dll" TargetPath="es\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Python.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Python.Activities.Design.resources.dll" TargetPath="ko\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Python.Activities.Design.resources.dll" TargetPath="pt\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.Activities.Design.resources.dll" TargetPath="tr\UiPath.Python.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Python.Activities.Design.resources.dll" />
+    </ItemGroup>
+  </Target>
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Python.Activities.Design.resources.dll" TargetPath="fr\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Python.Activities.Design.resources.dll" TargetPath="ja\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Python.Activities.Design.resources.dll" TargetPath="ru\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Python.Activities.Design.resources.dll" TargetPath="de\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Python.Activities.Design.resources.dll" TargetPath="es\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Python.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Python.Activities.Design.resources.dll" TargetPath="ko\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Python.Activities.Design.resources.dll" TargetPath="pt\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.Activities.Design.resources.dll" TargetPath="tr\UiPath.Python.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Python.Activities.Design.resources.dll" />
-		</ItemGroup>
-	</Target>
-
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow"/>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Python\UiPath.Python.Activities.Design\UiPath.Python.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>

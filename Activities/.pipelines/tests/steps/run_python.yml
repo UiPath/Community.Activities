@@ -39,12 +39,12 @@ steps:
    - template: run_python2.yml
      parameters:
        versions:
-         - "2.7.18"
-         - "3.5.4"
-         - "3.6.8"
-         - "3.7.9"
-         - "3.8.8"
-         - "3.9.2"
+         - "2.7"
+         - "3.5"
+         - "3.6"
+         - "3.7"
+         - "3.8"
+         - "3.9"
        uipathTestDirectory: $(uipathTestDirectory)
 
    - task: PublishBuildArtifacts@1

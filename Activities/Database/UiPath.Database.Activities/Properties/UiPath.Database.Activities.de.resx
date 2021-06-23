@@ -119,10 +119,12 @@
   </resheader>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
     <value>AffectedRecords</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
     <value>CommandType</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Common" xml:space="preserve">
     <value>Allgemein</value>
   </data>
@@ -134,44 +136,68 @@
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
     <value>ConnectionString</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinueOnError</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
     <value>DatabaseConnection</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DataTableDisplayName" xml:space="preserve">
     <value>DataTable</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
     <value>Existing Connection</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Eingabe</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ParametersDisplayName" xml:space="preserve">
     <value>Parameters</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
     <value>ProviderName</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TableNameDisplayName" xml:space="preserve">
     <value>TableName</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
     <value>Timeout (milliseconds)</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>Der für TimeoutMS angegebene Wert muss &gt;= 0 sein.</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
     <value>UseTransaction</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Output" xml:space="preserve">
     <value>Ausgabe</value>
+  </data>
+  <data name="ColumnNamesDisplayName" xml:space="preserve">
+    <value>ColumnNames</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConnectionMustBeSet" xml:space="preserve">
+    <value>Only one of the connection string fields can be used.</value>
+  </data>
+  <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
+    <value>SecureConnectionString</value>
+  </data>
+  <data name="BulkUpdateFlag" xml:space="preserve">
+    <value>Bulk/Batch Update</value>
   </data>
 </root>

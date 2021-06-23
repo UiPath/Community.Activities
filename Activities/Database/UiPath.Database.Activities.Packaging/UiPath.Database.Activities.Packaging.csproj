@@ -4,6 +4,7 @@
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
     <VersionSuffix></VersionSuffix>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <!--leave empty for ci to replace with prelease tag-->
   </PropertyGroup>
 
@@ -27,68 +28,66 @@
     </ItemGroup>
   </Target>
 
-	<Target Name="AddDlls">
-		<ItemGroup>
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)Microsoft.Data.ConnectionUI.Dialog.dll" />
+  <Target Name="AddDlls">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)Microsoft.Data.ConnectionUI.Dialog.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.resources.dll" TargetPath="fr\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.resources.dll" TargetPath="ja\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.resources.dll" TargetPath="ru\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.resources.dll" TargetPath="de\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.resources.dll" TargetPath="es\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.resources.dll" TargetPath="es-MX\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.resources.dll" TargetPath="ko\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.resources.dll" TargetPath="pt\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.resources.dll" TargetPath="pt-BR\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.resources.dll" TargetPath="tr\UiPath.Database.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.resources.dll" TargetPath="zh-CN\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.resources.dll" TargetPath="fr\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.resources.dll" TargetPath="ja\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.resources.dll" TargetPath="ru\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.resources.dll" TargetPath="de\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.resources.dll" TargetPath="es\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.resources.dll" TargetPath="es-MX\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.resources.dll" TargetPath="ko\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.resources.dll" TargetPath="pt\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.resources.dll" TargetPath="pt-BR\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.resources.dll" TargetPath="tr\UiPath.Database.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.resources.dll" TargetPath="zh-CN\UiPath.Database.resources.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.resources.dll" TargetPath="fr\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.resources.dll" TargetPath="ja\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.resources.dll" TargetPath="ru\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.Activities.resources.dll" TargetPath="de\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.Activities.resources.dll" TargetPath="es\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.Activities.resources.dll" TargetPath="es-MX\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.Activities.resources.dll" TargetPath="ko\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.resources.dll" TargetPath="pt\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.resources.dll" TargetPath="tr\UiPath.Database.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.resources.dll" TargetPath="fr\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.resources.dll" TargetPath="ja\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.resources.dll" TargetPath="ru\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.Activities.resources.dll" TargetPath="de\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.Activities.resources.dll" TargetPath="es\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.Activities.resources.dll" TargetPath="es-MX\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.Activities.resources.dll" TargetPath="ko\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.resources.dll" TargetPath="pt\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.resources.dll" TargetPath="tr\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.resources.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.Design.resources.dll" TargetPath="ja\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.Design.resources.dll" TargetPath="ru\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.Activities.Design.resources.dll" TargetPath="de\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.Activities.Design.resources.dll" TargetPath="es\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.Activities.Design.resources.dll" TargetPath="ko\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.Design.resources.dll" TargetPath="ja\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.Design.resources.dll" TargetPath="ru\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.Activities.Design.resources.dll" TargetPath="de\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.Activities.Design.resources.dll" TargetPath="es\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.Activities.Design.resources.dll" TargetPath="ko\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
+    </ItemGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
 
-		</ItemGroup>
-		<ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
-
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.Design.resources.dll" TargetPath="ja\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.Design.resources.dll" TargetPath="ru\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.Activities.Design.resources.dll" TargetPath="de\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.Activities.Design.resources.dll" TargetPath="es\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.Activities.Design.resources.dll" TargetPath="ko\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
-		</ItemGroup>
-	</Target>
+      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.Design.resources.dll" TargetPath="ja\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.Design.resources.dll" TargetPath="ru\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.Activities.Design.resources.dll" TargetPath="de\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.Activities.Design.resources.dll" TargetPath="es\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.Activities.Design.resources.dll" TargetPath="ko\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
+    </ItemGroup>
+  </Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="System.Data.Odbc" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">

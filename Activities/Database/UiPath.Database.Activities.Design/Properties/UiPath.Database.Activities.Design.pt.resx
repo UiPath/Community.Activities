@@ -266,4 +266,52 @@
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
   </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Inserir em Massa</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>DataTable</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>A DataTable de origem para os itens a inserir.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>DataTable de Origem</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Nome da tabela</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>O nome da tabela de base de dados na qual pretende inserir os itens.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Nome da tabela de base de dados de destino</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Colunas utilizadas para corresponder linhas</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>A coleção de nomes de colunas utilizados para a correspondência de linhas</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Atualizar em Massa</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Atualiza uma DataTable compatível numa Tabela existente. Irá atualizar todas as colunas que não fazem parte da coleção de nomes de colunas utilizados como chave principal. Devolve o número de linhas afetadas.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Irá atualizar uma tabela com operações Em Massa através da implementação do controlador da base de dados específico. Irá reverter para Insert Data Table se o controlador da base de dados não suportar operações Em Massa.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
 </root>

@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BulkInsert_ColumnsDataTypesMustMatch" xml:space="preserve">
+    <value>Les colonnes fournies dans la DataTable ne correspondent pas aux types de données de colonne de la base de données.</value>
+  </data>
+  <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
+    <value>Colonne démappée {0} introuvable dans la table de base de données de destination {1}</value>
+  </data>
+  <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
+    <value>La version de pilote fournie ne prend pas en charge les opérations d’insertion en masse. Veuillez vérifier le pilote.</value>
+  </data>
+  <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
+    <value>Le nombre de colonnes fourni dans la DataTable doit correspondre au nombre de colonnes de la table de base de données.</value>
+  </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>La connexion n’est pas initialisée</value>
   </data>

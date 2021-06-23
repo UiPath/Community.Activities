@@ -57,7 +57,7 @@ namespace UiPath.Cryptography.Activities
 
         public EncryptFile()
         {
-            Algorithm = SymmetricAlgorithms.AES;
+            Algorithm = SymmetricAlgorithms.AESGCM;
             KeyEncoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.UTF8)); // Kinda ugly.
         }
 

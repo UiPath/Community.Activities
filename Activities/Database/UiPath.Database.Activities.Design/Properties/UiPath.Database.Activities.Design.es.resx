@@ -266,4 +266,52 @@
   <data name="ContinueOnError" xml:space="preserve">
     <value>Boolean ContinuarEnCasoDeError</value>
   </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Inserción por lotes</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>TablaDeDatos</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>La TablaDeDatos de origen para los elementos que va a insertarse.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>TablaDeDatos de origen</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Nombre de la tabla</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>El nombre de la tabla de la base de datos en la que desea insertar los elementos.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Nombre de la tabla de la base de datos de destino</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Columnas utilizadas para filas coincidentes</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>La colección de nombres de columna para las filas coincidentes</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Actualización por lotes</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Actualiza una TablaDeDatos compatible en una tabla existente. Actualizará todas las columnas que no estén en la colección de nombres de columna utilizados como clave primaria. Devuelve el número de filas afectadas.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Actualizará una tabla mediante operaciones por lotes usando la implementación específica del controlador de base de datos. Retrocederá a Insertar tabla de datos si el controlador de la base de datos no admite las operaciones por lotes.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
 </root>

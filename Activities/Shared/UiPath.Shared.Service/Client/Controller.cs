@@ -45,7 +45,7 @@ namespace UiPath.Shared.Service.Client
             string exeFullPath = ExeFile;
             if (folder.IsNullOrEmpty())
             {
-                folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location);
+                folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\","\\bin\\");
                 exeFullPath = Path.Combine(folder, ExeFile);
             }
 

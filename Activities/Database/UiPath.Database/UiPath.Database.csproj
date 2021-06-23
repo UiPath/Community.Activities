@@ -4,6 +4,7 @@
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
@@ -15,12 +16,18 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All"/>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities" />
     <PackageReference Include="System.Data.Odbc" />
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.Core.Presentation" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" PrivateAssets="All" />
+    <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Designer.cs">
@@ -35,6 +42,10 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.ja.resx">
       <DependentUpon>UiPath.Database.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\UiPath.Database.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.Database.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.ru.resx">
       <DependentUpon>UiPath.Database.resx</DependentUpon>

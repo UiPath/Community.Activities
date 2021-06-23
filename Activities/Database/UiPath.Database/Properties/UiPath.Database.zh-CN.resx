@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BulkInsert_ColumnsDataTypesMustMatch" xml:space="preserve">
+    <value>数据表中提供的列与数据库中的列数据类型不匹配。</value>
+  </data>
+  <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
+    <value>目标数据库表“{1}”中未找到未映射的列“{0}”</value>
+  </data>
+  <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
+    <value>提供的驱动程序版本不支持批量插入操作。请检查该驱动程序。</value>
+  </data>
+  <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
+    <value>数据表中提供的列数必须与 DB 表中的列数匹配。</value>
+  </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>连接未初始化</value>
   </data>

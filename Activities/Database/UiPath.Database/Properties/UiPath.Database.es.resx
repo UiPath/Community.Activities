@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BulkInsert_ColumnsDataTypesMustMatch" xml:space="preserve">
+    <value>Las columnas proporcionadas en la TablaDeDatos no coinciden con los tipos de datos de la columna de la base de datos.</value>
+  </data>
+  <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
+    <value>No se ha encontrado la columna sin asignar {0} en la tabla de la base de datos de destino {1}</value>
+  </data>
+  <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
+    <value>La versión del controlador proporcionada no admite operaciones de inserción por lotes. Compruebe el controlador.</value>
+  </data>
+  <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
+    <value>El número de columnas proporcionado en la TablaDeDatos debe coincidir con el número de columnas en la tabla de la base de datos.</value>
+  </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>La conexión no se ha inicializado</value>
   </data>

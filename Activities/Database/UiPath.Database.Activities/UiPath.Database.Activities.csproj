@@ -5,6 +5,7 @@
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -25,6 +26,10 @@
     <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Activities.Designer.cs">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -40,6 +45,10 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.ja.resx">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\UiPath.Database.Activities.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.Database.Activities.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.ru.resx">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>

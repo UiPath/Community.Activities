@@ -266,4 +266,52 @@
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
   </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Insertion en masse</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>DataTable</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>L’objet DataTable source pour les éléments à insérer.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>Objet DataTable source</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Nom du tableau</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>Le nom de la table de base de données dans laquelle vous souhaitez insérer les éléments.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Nom de la table de base de données de destination</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Colonnes utilisées pour la correspondance de lignes</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>La collection de noms de colonnes utilisée pour la correspondance de lignes</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Mise à jour en masse</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Met à jour un objet DataTable compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Mettra à jour une table à l’aide d’opérations en masse via la mise en œuvre spécifique de pilote de base de données. Cette activité sera remplacée par Insérer une table de données (Insert Data Table) si le pilote de base de données ne prend pas en charge les opérations en masse.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
 </root>

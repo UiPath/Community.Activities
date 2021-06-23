@@ -13,10 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Tests", "Da
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{73A1A2F6-3B6D-4CAA-A6E2-1FBD34FD0312}"
 	ProjectSection(SolutionItems) = preProject
+		Database\Database.build.props = Database\Database.build.props
 		Directory.build.targets = Directory.build.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Activities.Packaging", "Database\UiPath.Database.Activities.Packaging\UiPath.Database.Activities.Packaging.csproj", "{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Activities.Packaging", "Database\UiPath.Database.Activities.Packaging\UiPath.Database.Activities.Packaging.csproj", "{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

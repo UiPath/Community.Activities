@@ -28,8 +28,8 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="FluentFTP" Version="19.1.2" />
-    <PackageReference Include="SSH.NET" Version="2016.1.0" />
+    <PackageReference Include="FluentFTP" Version="34.0.0" />
+    <PackageReference Include="SSH.NET" Version="2020.0.1" />
   </ItemGroup>
 
 	<Target Name="AddDlls">
@@ -61,44 +61,12 @@
 			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.Activities.resources.dll" TargetPath="tr\UiPath.FTP.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.Activities.resources.dll" TargetPath="zh-CN\UiPath.FTP.Activities.resources.dll" />
 
-
 		</ItemGroup>
 		<ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
-
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.FTP.Activities.Design.resources.dll" TargetPath="fr\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.FTP.Activities.Design.resources.dll" TargetPath="ja\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.FTP.Activities.Design.resources.dll" TargetPath="ru\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.FTP.Activities.Design.resources.dll" TargetPath="de\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.FTP.Activities.Design.resources.dll" TargetPath="es\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.FTP.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.FTP.Activities.Design.resources.dll" TargetPath="ko\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.FTP.Activities.Design.resources.dll" TargetPath="pt\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.FTP.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.Activities.Design.resources.dll" TargetPath="tr\UiPath.FTP.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.FTP.Activities.Design.resources.dll" />
-
 		</ItemGroup>
 	</Target>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
-    <PackageReference Include="UiPath.Workflow"/>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
-    <PackageReference Include="UiPath.Workflow" Version="1.0.0-20210111-01" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation"  />
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>

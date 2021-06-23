@@ -266,4 +266,52 @@
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
   </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Массовая вставка</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>DataTable</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>Исходный параметр DataTable для элементов, которые необходимо вставить.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>Source DataTable</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Имя таблицы</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>Имя таблицы базы данных, в которую нужно вставить элементы.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Имя целевой таблицы базы данных</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Столбцы, используемые для сопоставления строк</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Коллекция имен столбцов, используемых для сопоставления строк</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Массовое обновление</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Обновляет совместимый объект DataTable в существующей таблице. Обновляет все столбцы, которых нет в коллекции имен столбцов, используемых как основной ключ. Возвращает число затронутых строк.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Обновит таблицу с помощью массовых операций с использованием определенного внедрения драйвера базы данных. Вернется к вставке таблицы данных, если драйвер базы данных не поддерживает массовые операции.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
 </root>

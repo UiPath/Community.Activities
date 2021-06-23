@@ -16,7 +16,7 @@ namespace UiPath.Database.Activities
         {
             var dbConnection = DatabaseConnection.Get(context);
             // create the action for doing the actual work
-            Action action = () => dbConnection.Dispose();
+            Action action = () => dbConnection?.Dispose();
             context.UserState = action;
 
             return action.BeginInvoke(callback, state);

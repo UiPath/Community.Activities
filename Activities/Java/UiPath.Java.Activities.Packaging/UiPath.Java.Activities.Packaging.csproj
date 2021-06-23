@@ -50,16 +50,6 @@
     </ItemGroup>
   </Target>
   
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities.Core.Presentation" />
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Java\UiPath.Java.Activities.Design\UiPath.Java.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
