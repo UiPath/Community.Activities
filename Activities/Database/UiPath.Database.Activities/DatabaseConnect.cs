@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Activities;
 using System.ComponentModel;
-using System.Data.Common;
+using System.Diagnostics;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class DatabaseConnect : AsyncCodeActivity
+    public class DatabaseConnect : AsyncTaskCodeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -35,7 +36,7 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.DatabaseConnectionDisplayName))]
         public OutArgument<DatabaseConnection> DatabaseConnection { get; set; }
 
-        private readonly IDBConnectionFactory  _connectionFactory;
+        private readonly IDBConnectionFactory _connectionFactory;
 
         public DatabaseConnect()
         {
@@ -47,26 +48,31 @@ namespace UiPath.Database.Activities
             _connectionFactory = factory;
         }
 
-        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             var connString = ConnectionString.Get(context);
             var connSecureString = ConnectionSecureString.Get(context);
-            if (connString==null && connSecureString==null)
+            if (connString == null && connSecureString == null)
             {
                 throw new ArgumentNullException(Resources.ConnectionMustBeSet);
             }
             var provName = ProviderName.Get(context);
-            Func<DatabaseConnection> action = () => _connectionFactory.Create(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-            context.UserState = action;
+            DatabaseConnection dbConnection = null;
+            try
+            {
+                dbConnection = await Task.Run(() => _connectionFactory.Create(connString ?? new NetworkCredential("", connSecureString).Password, provName));
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"{e}");
+            }
 
-            return action.BeginInvoke(callback, state);
+            return asyncCodeActivityContext =>
+            {
+                DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
+            };
+
         }
 
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
-        {
-            Func<DatabaseConnection> action = (Func<DatabaseConnection>)context.UserState;
-            var dbConn = action.EndInvoke(result);
-            DatabaseConnection.Set(context, dbConn);
-        }
     }
 }

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Activities;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
@@ -14,7 +12,7 @@ using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Database.Activities
 {
-    public class BulkUpdate : AsyncCodeActivity
+    public class BulkUpdate : AsyncTaskCodeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -76,7 +74,14 @@ namespace UiPath.Database.Activities
         public OutArgument<long> AffectedRecords { get; set; }
 
         private DatabaseConnection DbConnection = null;
-        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
+
+        private void HandleException(Exception ex, bool continueOnError)
+        {
+            if (continueOnError) return;
+            throw ex;
+        }
+
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             DataTable dataTable = null;
             string connString = null;
@@ -84,10 +89,12 @@ namespace UiPath.Database.Activities
             string provName = null;
             string tableName = null;
             string[] columnNames = null;
+            DatabaseConnection existingConnection = null;
+            long affectedRecords = 0;
             IExecutorRuntime executorRuntime = null;
             try
             {
-                DbConnection = ExistingDbConnection.Get(context);
+                existingConnection = DbConnection = ExistingDbConnection.Get(context);
                 connString = ConnectionString.Get(context);
                 provName = ProviderName.Get(context);
                 tableName = TableName.Get(context);
@@ -95,41 +102,26 @@ namespace UiPath.Database.Activities
                 columnNames = ColumnNames.Get(context);
                 executorRuntime = context.GetExtension<IExecutorRuntime>();
                 connSecureString = ConnectionSecureString.Get(context);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
 
-            if (DbConnection == null && connString == null && connSecureString == null)
-            {
-                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-            }
 
-            Func<long> action = () =>
-            {
-                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-                if (DbConnection == null)
+                if (DbConnection == null && connString == null && connSecureString == null)
                 {
-                    return 0;
+                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
                 }
-                if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag ,tableName, dataTable, columnNames, executorRuntime);
-                else
-                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames);
-            };
-            context.UserState = action;
-            return action.BeginInvoke(callback, state);
-        }
 
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
-        {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
-            try
-            {
-                Func<long> action = (Func<long>)context.UserState;
-                long affectedRecords = action.EndInvoke(result);
-                this.AffectedRecords.Set(context, affectedRecords);
+                affectedRecords = await Task.Run(() =>
+                {
+                    DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+                    if (DbConnection == null)
+                    {
+                        return 0;
+                    }
+                    if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
+                        return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames, executorRuntime);
+                    else
+                        return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames);
+                });
+
             }
             catch (Exception ex)
             {
@@ -142,11 +134,11 @@ namespace UiPath.Database.Activities
                     DbConnection?.Dispose();
                 }
             }
-        }
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
+
+            return asyncCodeActivityContext =>
+            {
+                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
+            };
         }
     }
 }
