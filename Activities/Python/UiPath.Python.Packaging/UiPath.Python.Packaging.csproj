@@ -46,6 +46,8 @@
     <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*config" Pack="true" PackagePath="bin\net5.0-windows7.0" />
     <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*json" Pack="true" PackagePath="bin\net5.0" />
     <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*json" Pack="true" PackagePath="bin\net5.0-windows7.0" />
+    <None Include="$(OutputPath)\net5.0-windows\*.*dll" Pack="true" PackagePath="bin\net5.0" />
+    <None Include="$(OutputPath)\net5.0-windows\*.*dll" Pack="true" PackagePath="bin\net5.0-windows7.0" />
 
     <None Include="$(OutputPath)\net461\UiPath.Python.dll" Pack="true" PackagePath="bin\net461" />
     <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.dll" Pack="true" PackagePath="bin\net5.0" />
