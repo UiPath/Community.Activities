@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Cryptography.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Cryptography\</OutputPath>
     <VersionSuffix></VersionSuffix>
     <!--leave empty for ci to replace with prelease tag-->
@@ -88,6 +88,6 @@
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Cryptography.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Cryptography.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
+    <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Cryptography.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Cryptography.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -executionpolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
   </Target>
 </Project>
