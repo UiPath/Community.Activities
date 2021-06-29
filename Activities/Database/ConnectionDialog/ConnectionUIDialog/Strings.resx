@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessConnectionUIControl_BrowseFileDefaultExt" xml:space="preserve">
+    <value>mdb</value>
+  </data>
+  <data name="AccessConnectionUIControl_BrowseFileFilter" xml:space="preserve">
+    <value>Microsoft Access Databases (*.mdb;*.accdb)|*.mdb;*.accdb|All Files (*.*)|*.*</value>
+  </data>
+  <data name="AccessConnectionUIControl_BrowseFileTitle" xml:space="preserve">
+    <value>Select Microsoft Access Database File</value>
+  </data>
+  <data name="AccessConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>The connection properties object must be of type OleDBAccessConnectionProperties.</value>
+  </data>
+  <data name="AdoDotNetConnectionProperties_NoProperties" xml:space="preserve">
+    <value>No connection properties have been set.</value>
+  </data>
+  <data name="DataConnectionAdvancedDialog_Add" xml:space="preserve">
+    <value>&amp;Add...</value>
+  </data>
+  <data name="DataConnectionAdvancedDialog_Description" xml:space="preserve">
+    <value>&amp;Description</value>
+  </data>
+  <data name="DataConnectionAdvancedDialog_Remove" xml:space="preserve">
+    <value>Remo&amp;ve</value>
+  </data>
+  <data name="DataConnectionAdvancedDialog_Reset" xml:space="preserve">
+    <value>&amp;Reset</value>
+  </data>
+  <data name="DataConnectionDialog_CannotChangeSingleDataProvider" xml:space="preserve">
+    <value>The selected data provider cannot be changed when there is only one data provider available.</value>
+  </data>
+  <data name="DataConnectionDialog_CannotChangeSingleDataSource" xml:space="preserve">
+    <value>The selected data source cannot be changed when there is only one data source available.</value>
+  </data>
+  <data name="DataConnectionDialog_ChangeDataSourceTitle" xml:space="preserve">
+    <value>Change Data Source</value>
+  </data>
+  <data name="DataConnectionDialog_ShowDialogNotSupported" xml:space="preserve">
+    <value>You cannot use the Form.ShowDialog() method to show the data connection dialog.  Use DataConnectionDialog.Show() instead.</value>
+  </data>
+  <data name="DataConnectionDialog_CannotModifyState" xml:space="preserve">
+    <value>The data connection dialog state cannot be programmatically modified when the dialog is visible.</value>
+  </data>
+  <data name="DataConnectionDialog_DataSourceNoAssociation" xml:space="preserve">
+    <value>The selected data source has no association with this data provider.</value>
+  </data>
+  <data name="DataConnectionDialog_DataSourceNotFound" xml:space="preserve">
+    <value>The data source was not found.</value>
+  </data>
+  <data name="DataConnectionDialog_DataSourceWithShortProvider" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="DataConnectionDialog_NoDataProviderSelected" xml:space="preserve">
+    <value>No data provider is currently selected.</value>
+  </data>
+  <data name="DataConnectionDialog_NoDataProvidersForDataSource" xml:space="preserve">
+    <value>The '{0}' data source has no association with any data providers.</value>
+  </data>
+  <data name="DataConnectionDialog_NoDataSourceSelected" xml:space="preserve">
+    <value>No data source is currently selected.</value>
+  </data>
+  <data name="DataConnectionDialog_NoDataSourcesAvailable" xml:space="preserve">
+    <value>No data sources are available.</value>
+  </data>
+  <data name="DataConnectionDialog_NoHelpAvailable" xml:space="preserve">
+    <value>No help is available in this context.</value>
+  </data>
+  <data name="DataConnectionDialog_TestConnectionSucceeded" xml:space="preserve">
+    <value>Test connection succeeded.</value>
+  </data>
+  <data name="DataConnectionDialog_TestResults" xml:space="preserve">
+    <value>Test results</value>
+  </data>
+  <data name="DataProvider_Odbc" xml:space="preserve">
+    <value>.NET Framework Data Provider for ODBC</value>
+  </data>
+  <data name="DataProvider_Odbc_DataSource_Description" xml:space="preserve">
+    <value>Use this selection to specify an ODBC user or system data source name to connect to an ODBC driver through the .NET Framework Data Provider for ODBC.</value>
+  </data>
+  <data name="DataProvider_Odbc_Description" xml:space="preserve">
+    <value>Use this data provider to connect to ODBC data sources.</value>
+  </data>
+  <data name="DataProvider_Odbc_Short" xml:space="preserve">
+    <value>ODBC</value>
+  </data>
+  <data name="DataProvider_OleDB" xml:space="preserve">
+    <value>.NET Framework Data Provider for OLE DB</value>
+  </data>
+  <data name="DataProvider_OleDB_AccessDataSource_Description" xml:space="preserve">
+    <value>Use this selection to connect to a Microsoft Access database file through the .NET Framework Data Provider for OLE DB.</value>
+  </data>
+  <data name="DataProvider_OleDB_Description" xml:space="preserve">
+    <value>Use this data provider to connect to OLE DB data sources.</value>
+  </data>
+  <data name="DataProvider_OleDB_OracleDataSource_Description" xml:space="preserve">
+    <value>Use this selection to connect to Oracle 7.3, 8i, 9i or 10g using the native MSDAORA provider through the .NET Framework Data Provider for OLE DB.</value>
+  </data>
+  <data name="DataProvider_OleDB_Short" xml:space="preserve">
+    <value>OLE DB</value>
+  </data>
+  <data name="DataProvider_OleDB_SqlDataSource_Description" xml:space="preserve">
+    <value>Use this selection to connect to Microsoft SQL Server 2000 or above using the .NET framework data provider for OLEDB.</value>
+  </data>
+  <data name="DataProvider_Oracle" xml:space="preserve">
+    <value>.NET Framework Data Provider for Oracle</value>
+  </data>
+  <data name="DataProvider_Oracle_DataSource_Description" xml:space="preserve">
+    <value>Use this selection to connect to Oracle 7.3, 8i, 9i or 10g using the .NET Framework Data Provider for Oracle.
+
+Using the .NET Framework Data Provider for Oracle is not recommended because it is being deprecated.</value>
+  </data>
+  <data name="DataProvider_Oracle_Description" xml:space="preserve">
+    <value>Use this data provider to connect to Oracle 7.3, 8i, 9i or 10g.
+
+Using the .NET Framework Data Provider for Oracle is not recommended because it is being deprecated.</value>
+  </data>
+  <data name="DataProvider_Oracle_Short" xml:space="preserve">
+    <value>OracleClient</value>
+  </data>
+  <data name="DataProvider_Sql" xml:space="preserve">
+    <value>.NET Framework Data Provider for SQL Server</value>
+  </data>
+  <data name="DataProvider_Sql_DataSource_Description" xml:space="preserve">
+    <value>Use this selection to connect to Microsoft SQL Server 2005 or above using the .NET Framework Data Provider for SQL Server.</value>
+  </data>
+  <data name="DataProvider_Sql_Description" xml:space="preserve">
+    <value>Use this data provider to connect to Microsoft SQL Server 2005 or above.</value>
+  </data>
+  <data name="DataProvider_Sql_FileDataSource_Description" xml:space="preserve">
+    <value>Use this selection to attach a database file to a local Microsoft SQL Server instance (including Microsoft SQL Express) using the .NET Framework Data Provider for SQL Server.</value>
+  </data>
+  <data name="DataProvider_Sql_Short" xml:space="preserve">
+    <value>SqlClient</value>
+  </data>
+  <data name="DataSource_CannotChangeSingleDataProvider" xml:space="preserve">
+    <value>The default data provider cannot be changed when there is only one data provider available.</value>
+  </data>
+  <data name="DataSource_DataProviderNotFound" xml:space="preserve">
+    <value>The data provider was not found.</value>
+  </data>
+  <data name="DataSource_MicrosoftAccess" xml:space="preserve">
+    <value>Microsoft Access Database File</value>
+  </data>
+  <data name="DataSource_MicrosoftOdbcDsn" xml:space="preserve">
+    <value>Microsoft ODBC Data Source</value>
+  </data>
+  <data name="DataSource_MicrosoftSqlServer" xml:space="preserve">
+    <value>Microsoft SQL Server</value>
+  </data>
+  <data name="DataSource_MicrosoftSqlServerFile" xml:space="preserve">
+    <value>Microsoft SQL Server Database File</value>
+  </data>
+  <data name="DataSource_Oracle" xml:space="preserve">
+    <value>Oracle Database</value>
+  </data>
+  <data name="DataSource_UnspecifiedDisplayName" xml:space="preserve">
+    <value>&lt;other&gt;</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLAllocEnvFailed" xml:space="preserve">
+    <value>Failed to allocate ODBC environment handle.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLAllocConnectFailed" xml:space="preserve">
+    <value>Failed to allocate ODBC connection handle.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLDriverConnectFailed" xml:space="preserve">
+    <value>Failed to call the ODBC driver connection utility.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>The connection properties object must be of type OdbcConnectionProperties.</value>
+  </data>
+  <data name="OleDBAccessConnectionProperties_MustSpecifyDataSource" xml:space="preserve">
+    <value>This connection cannot be tested because no database file has been specified.</value>
+  </data>
+  <data name="OleDBConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>The connection properties object must be of type OleDBConnectionProperties.</value>
+  </data>
+  <data name="OracleConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>The connection properties object must be of type OracleConnectionProperties or OleDBOracleConnectionProperties.</value>
+  </data>
+  <data name="SqlConnectionProperties_MustSpecifyDataSource" xml:space="preserve">
+    <value>This connection cannot be tested because no server name has been specified.</value>
+  </data>
+  <data name="SqlConnectionProperties_UnsupportedSqlVersion" xml:space="preserve">
+    <value>This server version is not supported.  You must have Microsoft SQL Server 2005 or later.</value>
+  </data>
+  <data name="SqlConnectionUIControl_BrowseFileDefaultExt" xml:space="preserve">
+    <value>mdf</value>
+  </data>
+  <data name="SqlConnectionUIControl_BrowseFileFilter" xml:space="preserve">
+    <value>Microsoft SQL Server Databases (*.mdf)|*.mdf|All Files (*.*)|*.*</value>
+  </data>
+  <data name="SqlConnectionUIControl_BrowseFileTitle" xml:space="preserve">
+    <value>Select SQL Server Database File</value>
+  </data>
+  <data name="SqlConnectionProperties_CannotTestNonExistentDatabase" xml:space="preserve">
+    <value>This connection cannot be tested because the specified database does not exist or is not visible to the specified user.</value>
+  </data>
+  <data name="SqlConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>The connection properties object must be of type SqlConnectionProperties or OleDBSqlConnectionProperties.</value>
+  </data>
+  <data name="SqlFileConnectionProperties_CannotTestNonExistentMdf" xml:space="preserve">
+    <value>This connection cannot be tested because the specified database file does not exist.</value>
+  </data>
+  <data name="SqlFileConnectionProperties_NoFileSpecified" xml:space="preserve">
+    <value>No database file was specified.</value>
+  </data>
+  <data name="SqlFileConnectionProperties_TimeoutReasons" xml:space="preserve">
+    <value>Common reasons for this problem include that the server is not installed, the service is not started or the server is upgrading your database.  If an upgrade is in process, you will be able to connect to the database when the upgrade is complete.</value>
+  </data>
+  <data name="SqlFileConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>The connection properties object must be of type SqlFileConnectionProperties.</value>
+  </data>
+</root>

@@ -83,7 +83,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
+      <!--<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />-->
     </ItemGroup>
   </Target>
 
@@ -91,8 +91,12 @@
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Data.Odbc" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0"  />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0"/>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2"/>
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj">

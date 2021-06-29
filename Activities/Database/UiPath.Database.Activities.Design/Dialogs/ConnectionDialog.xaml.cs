@@ -19,14 +19,22 @@ namespace UiPath.Database.Activities.Design
         public ConnectionDialog(ModelItem modelItem)
         {
             ProviderNames = new List<string>();
+
+#if NETCOREAPP
+            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+            DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
+            DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
+#endif
+
             var installedProviders = DbProviderFactories.GetFactoryClasses();
             foreach (DataRow installedProvider in installedProviders.Rows)
             {
                 ProviderNames.Add(installedProvider["InvariantName"] as string);
             }
             InitializeComponent();
-            this.ModelItem = modelItem;
-            this.Context = modelItem.GetEditingContext();
+            ModelItem = modelItem;
+            Context = modelItem.GetEditingContext();
         }
 
         private void NewConnectionButton_Click(object sender, RoutedEventArgs e)
