@@ -134,7 +134,7 @@
     <value>La cadena de conexión utilizada para establecer una conexión con la base de datos</value>
   </data>
   <data name="DatabaseConnectDescription" xml:space="preserve">
-    <value>Se conecta a una base de datos.</value>
+    <value>Se conecta a una base de datos</value>
   </data>
   <data name="DatabaseConnectionDescription" xml:space="preserve">
     <value>La conexión a la base de datos utilizada para las operaciones dentro de esta actividad</value>
