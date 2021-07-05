@@ -5,6 +5,8 @@ using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
 
@@ -26,11 +28,15 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.HashFilePathDescription))]
         public InArgument<string> FilePath { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
         [LocalizedDescription(nameof(Resources.KeyedHashFileKeyDescription))]
         public InArgument<string> Key { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.KeyedHashFileKeySecureStringDescription))]
+        public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -81,15 +87,20 @@ namespace UiPath.Cryptography.Activities
             {
                 string filePath = FilePath.Get(context);
                 string key = Key.Get(context);
+                SecureString keySecureString = KeySecureString.Get(context);
                 Encoding encoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(filePath))
                 {
                     throw new ArgumentNullException(Resources.FilePathDisplayName);
                 }
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.Key);
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+                }
+                if (key != null && keySecureString != null)
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
                 }
                 if (encoding == null)
                 {
@@ -100,7 +111,8 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
                 }
 
-                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, File.ReadAllBytes(filePath), encoding.GetBytes(key));
+
+                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, File.ReadAllBytes(filePath), key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password));
 
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }
