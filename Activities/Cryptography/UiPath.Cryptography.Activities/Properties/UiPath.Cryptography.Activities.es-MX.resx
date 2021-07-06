@@ -129,7 +129,7 @@
     <value>La codificación utilizada para interpretar la cadena de entrada.</value>
   </data>
   <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>El algoritmo de cifrado que utilizará esta actividad.</value>
+    <value>The encryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
     <value>La codificación utilizada para interpretar la cadena de entrada y la clave.</value>
@@ -205,7 +205,7 @@
     <comment>property name</comment>
   </data>
   <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>El algoritmo de descifrado que utilizará esta actividad.</value>
+    <value>The decryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
   </data>
   <data name="DecryptTextDisplayName" xml:space="preserve">
     <value>Decrypt Text</value>

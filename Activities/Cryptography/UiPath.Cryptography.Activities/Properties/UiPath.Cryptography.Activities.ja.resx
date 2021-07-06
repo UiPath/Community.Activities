@@ -129,7 +129,7 @@
     <value>入力文字列の解釈に使用するエンコードです。</value>
   </data>
   <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する暗号化アルゴリズムです。</value>
+    <value>The encryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
     <value>入力文字列とキーの解釈に使用するエンコードです。</value>
@@ -205,7 +205,7 @@
     <comment>property name</comment>
   </data>
   <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する復号アルゴリズムです。</value>
+    <value>The decryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
   </data>
   <data name="DecryptTextDisplayName" xml:space="preserve">
     <value>テキストを復号</value>
