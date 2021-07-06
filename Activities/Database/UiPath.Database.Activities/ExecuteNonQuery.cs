@@ -3,16 +3,16 @@ using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class ExecuteNonQuery : AsyncCodeActivity
+    public class ExecuteNonQuery : AsyncTaskCodeActivity
     {
         // public arguments
         [DefaultValue(null)]
@@ -92,22 +92,31 @@ namespace UiPath.Database.Activities
             CommandType = CommandType.Text;
         }
 
-        protected override System.IAsyncResult BeginExecute(AsyncCodeActivityContext context, System.AsyncCallback callback, object state)
+
+        private void HandleException(Exception ex, bool continueOnError)
+        {
+            if (continueOnError) return;
+            throw ex;
+        }
+
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             string connString = null;
             SecureString connSecureString = null;
             string provName = null;
             string sql = string.Empty;
             int commandTimeout = TimeoutMS.Get(context);
+            DatabaseConnection existingConnection = null;
+            DBExecuteCommandResult affectedRecords = null;
             if (commandTimeout < 0)
             {
-                throw new ArgumentException(UiPath.Database.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
+                throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
             }
             Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
             try
             {
                 sql = Sql.Get(context);
-                DbConnection = ExistingDbConnection.Get(context);
+                existingConnection = DbConnection = ExistingDbConnection.Get(context);
                 connString = ConnectionString.Get(context);
                 connSecureString = ConnectionSecureString.Get(context);
                 provName = ProviderName.Get(context);
@@ -120,58 +129,28 @@ namespace UiPath.Database.Activities
                         parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-            if (DbConnection == null && connString == null && connSecureString == null)
-            {
-                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-            }
-            // create the action for doing the actual work
-            Func<DBExecuteCommandResult> action = () =>
-            {
-                DBExecuteCommandResult executeResult = new DBExecuteCommandResult();
-                if (DbConnection == null)
+
+                if (DbConnection == null && connString == null && connSecureString == null)
                 {
-                    DbConnection = new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
                 }
-                if (DbConnection == null)
+
+                // create the action for doing the actual work
+                affectedRecords = await Task.Run(() =>
                 {
-                    return executeResult;
-                }
-                executeResult = new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
-                return executeResult;
-            };
-
-            context.UserState = action;
-
-            return action.BeginInvoke(callback, state);
-        }
-
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
-        }
-
-        protected override void EndExecute(AsyncCodeActivityContext context, System.IAsyncResult result)
-        {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
-            try
-            {
-                Func<DBExecuteCommandResult> action = (Func<DBExecuteCommandResult>)context.UserState;
-                DBExecuteCommandResult commandResult = action.EndInvoke(result);
-                this.AffectedRecords.Set(context, commandResult.Result);
-                foreach (var param in commandResult.ParametersBind)
-                {
-                    var currentParam = Parameters[param.Key];
-                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                    DBExecuteCommandResult executeResult = new DBExecuteCommandResult();
+                    if (DbConnection == null)
                     {
-                        currentParam.Set(context, param.Value.Item1);
+                        DbConnection = new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName);
                     }
-                }
+                    if (DbConnection == null)
+                    {
+                        return executeResult;
+                    }
+                    executeResult = new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
+                    return executeResult;
+                });
+
             }
             catch (Exception ex)
             {
@@ -184,6 +163,20 @@ namespace UiPath.Database.Activities
                     DbConnection?.Dispose();
                 }
             }
+
+            return asyncCodeActivityContext =>
+            {
+                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords.Result);
+                foreach (var param in affectedRecords.ParametersBind)
+                {
+                    var currentParam = Parameters[param.Key];
+                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                    {
+                        currentParam.Set(asyncCodeActivityContext, param.Value.Item1);
+                    }
+                }
+            };
+
         }
 
         private class DBExecuteCommandResult

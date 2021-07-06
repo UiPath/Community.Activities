@@ -5,12 +5,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
 using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class DatabaseTransaction : AsyncNativeActivity
+    public class DatabaseTransaction : AsyncTaskCodeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -55,7 +57,7 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.UseTransactionDisplayName))]
         public bool UseTransaction { get; set; }
 
-        private Func<DatabaseConnection> ConnectionInitFunc;
+
 
         public DatabaseTransaction()
         {
@@ -66,101 +68,42 @@ namespace UiPath.Database.Activities
             };
         }
 
-        protected override void CacheMetadata(NativeActivityMetadata metadata)
+        private void HandleException(Exception ex, bool continueOnError)
         {
-            metadata.AddChild(Body);
-            base.CacheMetadata(metadata);
+            if (continueOnError) return;
+            throw ex;
         }
 
-        protected override IAsyncResult BeginExecute(NativeActivityContext context, AsyncCallback callback, object state)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             var connString = ConnectionString.Get(context);
             SecureString connSecureString = null;
             var provName = ProviderName.Get(context);
             connSecureString = ConnectionSecureString.Get(context);
-
-            var dbConnection = ExistingDbConnection.Get(context) ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-            if (dbConnection == null && connString == null && connSecureString == null)
-            {
-                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-            }
-            ConnectionInitFunc = () => dbConnection;
-            return ConnectionInitFunc.BeginInvoke(callback, state);
-        }
-
-        protected override void EndExecute(NativeActivityContext context, IAsyncResult result)
-        {
-            var databaseConn = ConnectionInitFunc.EndInvoke(result);
-            if (databaseConn == null) return;
-
-            if (UseTransaction)
-            {
-                databaseConn.BeginTransaction();
-            }
-
-            DatabaseConnection.Set(context, databaseConn);
-
-            if (Body != null)
-            {
-                context.ScheduleActivity(Body, OnCompletedCallback, OnFaultedCallback);
-            }
-        }
-
-        private void OnCompletedCallback(NativeActivityContext context, ActivityInstance activityInstance)
-        {
-            DatabaseConnection conn = null;
+            DatabaseConnection existingConnection = null;
+            existingConnection = ExistingDbConnection.Get(context);
+            DatabaseConnection dbConnection = null;
             try
             {
-                conn = DatabaseConnection.Get(context);
+                dbConnection = await Task.Run(() => existingConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName));
+                if (dbConnection == null && connString == null && connSecureString == null)
+                {
+                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
+                }
+
                 if (UseTransaction)
                 {
-                    conn.Commit();
+                    dbConnection.BeginTransaction();
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                HandleException(ex, ContinueOnError.Get(context));
+                Trace.TraceError($"{e}");
             }
-            finally
+            return asyncCodeActivityContext =>
             {
-                if (conn != null)
-                {
-                    conn.Dispose();
-                }
-            }
-        }
-
-        private void OnFaultedCallback(NativeActivityFaultContext faultContext, Exception exception, ActivityInstance source)
-        {
-            faultContext.CancelChildren();
-            DatabaseConnection conn = DatabaseConnection.Get(faultContext);
-            if (conn != null)
-            {
-                try
-                {
-                    if (UseTransaction)
-                    {
-                        conn.Rollback();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Trace.TraceError(ex.Message);
-                }
-                finally
-                {
-                    conn.Dispose();
-                }
-            }
-
-            HandleException(exception, ContinueOnError.Get(faultContext));
-            faultContext.HandleFault();
-        }
-
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
+                DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
+            };
         }
     }
 }
