@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AES" xml:space="preserve">
-    <value>AES</value>
+    <value>AES (Deprecated)</value>
+  </data>
+  <data name="AESGCM" xml:space="preserve">
+    <value>AES GCM</value>
   </data>
   <data name="DES" xml:space="preserve">
-    <value>DES</value>
+    <value>DES  (Deprecated)</value>
   </data>
   <data name="HMACMD5" xml:space="preserve">
     <value>HMACMD5 (sem FIPS)</value>
@@ -148,10 +151,10 @@
     <value>MD5 (sem FIPS)</value>
   </data>
   <data name="RC2" xml:space="preserve">
-    <value>RC2 (sem FIPS)</value>
+    <value>RC2 (Non-FIPS)  (Deprecated)</value>
   </data>
   <data name="Rijndael" xml:space="preserve">
-    <value>Rijndael (sem FIPS)</value>
+    <value>Rijndael (Non-FIPS)  (Deprecated)</value>
   </data>
   <data name="RIPEMD160" xml:space="preserve">
     <value>RIPEMD160 (sem FIPS)</value>
