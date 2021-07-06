@@ -134,7 +134,7 @@
     <value>La cadena de conexión utilizada para establecer una conexión con la base de datos</value>
   </data>
   <data name="DatabaseConnectDescription" xml:space="preserve">
-    <value>Se conecta a una base de datos.</value>
+    <value>Se conecta a una base de datos</value>
   </data>
   <data name="DatabaseConnectionDescription" xml:space="preserve">
     <value>La conexión a la base de datos utilizada para las operaciones dentro de esta actividad</value>
@@ -300,18 +300,18 @@
     <value>Actualiza una TablaDeDatos compatible en una tabla existente. Actualizará todas las columnas que no estén en la colección de nombres de columna utilizados como clave primaria. Devuelve el número de filas afectadas.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>El número de filas actualizadas</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Si es verdadero, se creará una tabla temporal mediante inserción masiva y se actualizará usando la combinación de tablas; de lo contrario, se emitirán actualizaciones masivas por lotes.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>El objeto TablaDeDatos que se usará para actualizar la tabla. La descripción de las columnas TablaDeDatos debe coincidir con las columnas de la tabla de la base de datos y ser un subconjunto de las mismas</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Actualizará una tabla mediante operaciones por lotes usando la implementación específica del controlador de base de datos. Retrocederá a Insertar tabla de datos si el controlador de la base de datos no admite las operaciones por lotes.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>La cadena de conexión utilizada para establecer una conexión con la base de datos como cadena segura</value>
   </data>
 </root>

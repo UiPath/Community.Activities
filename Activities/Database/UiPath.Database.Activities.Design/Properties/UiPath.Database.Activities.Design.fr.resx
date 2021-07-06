@@ -300,18 +300,18 @@
     <value>Met à jour un objet DataTable compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>Le nombre de lignes mises à jour</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Si la valeur est définie sur Vrai, créera une table temporaire à l’aide d’une insertion en masse et réalisera une mise à jour en utilisant une jointure entre les tables. Sinon, des mises à jour en bloc seront émises par lots.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>L’objet DataTable qui sera utilisé pour mettre à jour la table. La description des colonnes DataTable doit correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Mettra à jour une table à l’aide d’opérations en masse via la mise en œuvre spécifique de pilote de base de données. Cette activité sera remplacée par Insérer une table de données (Insert Data Table) si le pilote de base de données ne prend pas en charge les opérations en masse.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>La chaîne de connexion utilisée pour établir une connexion à la base de données en tant que chaîne sécurisée</value>
   </data>
 </root>

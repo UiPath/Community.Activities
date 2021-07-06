@@ -300,18 +300,18 @@
     <value>在现有表格中更新兼容的数据表。将更新所有未在列名称集合中用作主键的列。返回受影响的行数。</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>已更新的行数</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>如果为 true，系统将使用批量插入功能创建临时表格，并使用表格之间的联接进行更新；否则，系统将批量发布 Bulk 更新。</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>在更新表格时将使用的数据表格对象。数据表格列的说明必须与数据库表格中的列一致，并且属于这些列的子集</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>将使通过特定数据库驱动程序实现的批量操作更新表。如果数据库驱动程序不支持批量操作，将返回到“插入数据表”。</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>用于以安全字符串形式建立数据库连接的连接字符串</value>
   </data>
 </root>

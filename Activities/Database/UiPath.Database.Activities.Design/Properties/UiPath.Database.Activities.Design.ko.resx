@@ -300,18 +300,18 @@
     <value>기존 테이블에서 호환되는 DataTable을 업데이트합니다. 기본 키로 사용되는 열 이름의 컬렉션에 없는 모든 열을 업데이트합니다. 영향을 받는 행의 수를 반환합니다.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>업데이트된 행 수</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>true인 경우 대량 삽입을 사용하여 임시 테이블을 생성하고 테이블 간 조인을 사용하여 업데이트하십시오. 그렇지 않으면, 대량 업데이트가 일괄적으로 실행됩니다.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>테이블을 업데이트할 때 사용할 DataTable 개체입니다. DataTable 열 설명은 데이터베이스 테이블의 열과 일치하며 해당 테이블의 하위 집합이어야 합니다.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>특정 데이터베이스 드라이버 구현을 사용하여 일괄 작업을 사용하는 테이블을 업데이트합니다. 데이터베이스 드라이버가 일괄 작업을 지원하지 않는 경우 데이터 테이블 삽입으로 대체됩니다.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>데이터베이스 연결을 보안 문자열로 설정하기 위해 사용되는 연결 문자열</value>
   </data>
 </root>
