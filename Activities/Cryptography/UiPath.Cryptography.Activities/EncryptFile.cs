@@ -118,7 +118,7 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentException(Resources.FileAlreadyExistsException, Resources.OutputFilePathDisplayName);
                 }
 
-                byte[] encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(inputFilePath), key != null ? keyEncoding.GetBytes(key) : keyEncoding.GetBytes(new NetworkCredential("", keySecureString).Password));
+                byte[] encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(inputFilePath), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
 
                 // This overwrites the file if it already exists.

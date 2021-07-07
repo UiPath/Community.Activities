@@ -87,7 +87,7 @@ namespace UiPath.Cryptography.Activities
                 string input = Input.Get(context);
                 string key = Key.Get(context);
                 SecureString keySecureString = KeySecureString.Get(context);
-                Encoding encoding = Encoding.Get(context);
+                Encoding keyEncoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
@@ -101,12 +101,12 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
                 }
-                if (encoding == null)
+                if (keyEncoding == null)
                 {
                     throw new ArgumentNullException(Resources.Encoding);
                 }
 
-                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, encoding.GetBytes(input), key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password));
+                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }

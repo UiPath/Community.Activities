@@ -124,7 +124,7 @@ namespace UiPath.Cryptography.Activities
                 byte[] decrypted = null;
                 try
                 {
-                    decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, key != null ? keyEncoding.GetBytes(key) : keyEncoding.GetBytes(new NetworkCredential("", keySecureString).Password));
+                    decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
                 }
                 catch (CryptographicException ex)
                 {

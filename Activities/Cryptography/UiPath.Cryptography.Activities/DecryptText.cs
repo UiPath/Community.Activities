@@ -87,7 +87,7 @@ namespace UiPath.Cryptography.Activities
                 string input = Input.Get(context);
                 string key = Key.Get(context);
                 SecureString keySecureString = KeySecureString.Get(context);
-                Encoding encoding = Encoding.Get(context);
+                Encoding keyEncoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
@@ -101,7 +101,7 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
                 }
-                if (encoding == null)
+                if (keyEncoding == null)
                 {
                     throw new ArgumentNullException(Resources.Encoding);
                 }
@@ -109,14 +109,14 @@ namespace UiPath.Cryptography.Activities
                 byte[] decrypted = null;
                 try
                 {
-                    decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password));
+                    decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
                 }
                 catch (CryptographicException ex)
                 {
                     throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
                 }
 
-                result = encoding.GetString(decrypted);
+                result = keyEncoding.GetString(decrypted);
             }
             catch (Exception ex)
             {
