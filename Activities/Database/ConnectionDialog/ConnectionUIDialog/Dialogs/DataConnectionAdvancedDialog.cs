@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using UiPath.Database.Workaround;
 
 namespace Microsoft.Data.ConnectionUI
 {
@@ -16,6 +17,8 @@ namespace Microsoft.Data.ConnectionUI
     {
         public DataConnectionAdvancedDialog()
         {
+            DbWorkarounds.SNILoadWorkaround();
+
             InitializeComponent();
 
             // Make sure we handle a user preference change
