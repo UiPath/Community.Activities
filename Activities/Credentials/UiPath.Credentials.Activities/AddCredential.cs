@@ -6,6 +6,8 @@ using System.Activities.Validation;
 using System.Diagnostics;
 using System.IO;
 using UiPath.Credentials.Activities.Properties;
+using System.Security;
+using System.Net;
 
 namespace UiPath.Credentials.Activities
 {
@@ -17,11 +19,15 @@ namespace UiPath.Credentials.Activities
         [LocalizedDescription(nameof(Resources.UsernameDescription))]
         public InArgument<string> Username { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.PasswordDisplayName))]
         [LocalizedDescription(nameof(Resources.PasswordDescription))]
         public InArgument<string> Password { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.PasswordSecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.PasswordSecureStringDescription))]
+        public InArgument<SecureString> PasswordSecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -47,7 +53,19 @@ namespace UiPath.Credentials.Activities
 
         protected override bool Execute(CodeActivityContext context)
         {
-            Credential credential = new Credential { Target = Target.Get(context), Username = Username.Get(context), Password = Password.Get(context), Type = CredentialType, PersistanceType = PersistanceType };
+            SecureString passwordSecureString = PasswordSecureString.Get(context);
+            string password = Password.Get(context);
+
+            if (string.IsNullOrWhiteSpace(password) && passwordSecureString == null)
+            {
+                throw new ArgumentNullException(Resources.PasswordAndSecureStringNull);
+            }
+            if (password != null && passwordSecureString != null)
+            {
+                throw new ArgumentNullException(Resources.PasswordAndSecureStringNotNull);
+            }
+
+            Credential credential = new Credential { Target = Target.Get(context), Username = Username.Get(context), Password = password != null ? password : new NetworkCredential("", passwordSecureString).Password, Type = CredentialType, PersistanceType = PersistanceType };
             return credential.Save();
         }
     }
