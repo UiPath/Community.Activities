@@ -5,6 +5,8 @@ using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
@@ -27,11 +29,15 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.DecryptFileInputPathDescription))]
         public InArgument<string> InputFilePath { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
         [LocalizedDescription(nameof(Resources.DecryptFileKeyDescription))]
         public InArgument<string> Key { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.DecryptFileKeySecureStringDescription))]
+        public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -80,6 +86,7 @@ namespace UiPath.Cryptography.Activities
                 string inputFilePath = InputFilePath.Get(context);
                 string outputFilePath = OutputFilePath.Get(context);
                 string key = Key.Get(context);
+                SecureString keySecureString = KeySecureString.Get(context);
                 Encoding keyEncoding = KeyEncoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(inputFilePath))
@@ -90,9 +97,13 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.OutputFilePathDisplayName);
                 }
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.Key);
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+                }
+                if (key != null && keySecureString != null)
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
                 }
                 if (keyEncoding == null)
                 {
@@ -113,7 +124,7 @@ namespace UiPath.Cryptography.Activities
                 byte[] decrypted = null;
                 try
                 {
-                    decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, keyEncoding.GetBytes(key));
+                    decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
                 }
                 catch (CryptographicException ex)
                 {

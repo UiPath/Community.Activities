@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using UiPath.Cryptography.Properties;
@@ -375,6 +377,11 @@ namespace UiPath.Cryptography
             Buffer.BlockCopy(inputBytes, salt.Length, iv, 0, iv.Length);
             Buffer.BlockCopy(inputBytes, salt.Length + iv.Length, encryptedData, 0, encryptedData.Length);
             Buffer.BlockCopy(inputBytes, salt.Length + iv.Length + encryptedData.Length, tag, 0, tag.Length);
+        }
+
+        public static byte[] KeyEncoding(Encoding encoding, string key, SecureString keySecureString)
+        {
+            return key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password);
         }
 
 #if NETFRAMEWORK

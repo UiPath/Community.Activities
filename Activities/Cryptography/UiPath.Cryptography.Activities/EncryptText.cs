@@ -4,6 +4,8 @@ using System.Activities;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
+using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
 
@@ -25,11 +27,15 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.EncryptTextInputDescription))]
         public InArgument<string> Input { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
         [LocalizedDescription(nameof(Resources.EncryptTextKeyDescription))]
         public InArgument<string> Key { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.EncryptTextKeySecureStringDescription))]
+        public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -79,22 +85,27 @@ namespace UiPath.Cryptography.Activities
             {
                 string input = Input.Get(context);
                 string key = Key.Get(context);
-                Encoding encoding = Encoding.Get(context);
+                SecureString keySecureString = KeySecureString.Get(context);
+                Encoding keyEncoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
                 }
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.Key);
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
                 }
-                if (encoding == null)
+                if (key != null && keySecureString != null)
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
+                }
+                if (keyEncoding == null)
                 {
                     throw new ArgumentNullException(Resources.Encoding);
                 }
 
-                byte[] encrypted = CryptographyHelper.EncryptData(Algorithm, encoding.GetBytes(input), encoding.GetBytes(key));
+                byte[] encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                 result = Convert.ToBase64String(encrypted);
             }
