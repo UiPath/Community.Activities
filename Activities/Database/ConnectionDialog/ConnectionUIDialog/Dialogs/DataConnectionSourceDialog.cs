@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using UiPath.Database.Workaround;
 
 namespace Microsoft.Data.ConnectionUI
 {
@@ -18,6 +19,7 @@ namespace Microsoft.Data.ConnectionUI
         {
             InitializeComponent();
 
+            DbWorkarounds.SNILoadWorkaround(); 
             // Make sure we handle a user preference change
             if (components == null)
             {
