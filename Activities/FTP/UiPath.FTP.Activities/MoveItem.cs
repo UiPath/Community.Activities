@@ -14,10 +14,12 @@ namespace UiPath.FTP.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.RemotePath))]
         public InArgument<string> RemotePath { get; set; }
+
         [RequiredArgument]
-        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.NewPath))]
         public InArgument<string> NewPath { get; set; }
+
         [LocalizedCategory(nameof(Resources.Options))]
         [LocalizedDisplayName(nameof(Resources.Overwrite))]
         public bool Overwrite { get; set; }

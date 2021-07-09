@@ -29,7 +29,7 @@ namespace UiPath.FTP.Activities.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UiPath_FTP_Activities() {
+        public UiPath_FTP_Activities() {
         }
         
         /// <summary>
