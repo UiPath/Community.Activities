@@ -121,14 +121,14 @@
     <value>App Invoker</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
-    <value>(コレクション)</value>
+    <value>(集合)</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>表示名</value>
+    <value>显示名称</value>
     <comment>property name</comment>
   </data>
   <data name="DropActivityHere" xml:space="preserve">
-    <value>ここにアクティビティをドロップ</value>
+    <value>将活动放置在此处</value>
   </data>
   <data name="EditingText" xml:space="preserve">
     <value>Editing</value>
@@ -164,7 +164,7 @@
     <value>Java Object</value>
   </data>
   <data name="MethodNameHintText" xml:space="preserve">
-    <value>メソッド名です。</value>
+    <value>方法名称</value>
   </data>
   <data name="MethodNameLabel" xml:space="preserve">
     <value>Method Name</value>
