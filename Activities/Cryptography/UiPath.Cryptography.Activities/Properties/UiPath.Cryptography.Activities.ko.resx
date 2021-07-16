@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,289 +59,319 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AlgorithmDisplayName" xml:space="preserve">
     <value>Algorithm</value>
     <comment>property name</comment>
   </data>
-  <data name="EncodingDisplayName" xml:space="preserve">
+	<data name="EncodingDisplayName" xml:space="preserve">
     <value>Encoding</value>
     <comment>property name</comment>
   </data>
-  <data name="EncodingDescription" xml:space="preserve">
+	<data name="EncodingDescription" xml:space="preserve">
     <value>입력 문자열을 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>이 액티비티에서 사용될 암호화 알고리즘입니다.</value>
+	<data name="EncryptAlgorithmDescription" xml:space="preserve">
+    <value>이 액티비티에서 사용될 암호화 알고리즘입니다. 더 이상 사용되지 않는 알고리즘을 사용하는 것은 권장되지 않습니다.</value>
   </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
+	<data name="EncryptTextEncodingDescription" xml:space="preserve">
     <value>입력 문자열 및 키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
+	<data name="EncryptTextDisplayName" xml:space="preserve">
     <value>Encrypt Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="EncryptTextDescription" xml:space="preserve">
+	<data name="EncryptTextDescription" xml:space="preserve">
     <value>선택한 알고리즘 및 제공되는 키를 사용하여 입력 문자열을 암호화한 후 암호화 결과를 base64 문자열 표현으로 반환합니다.</value>
   </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
+	<data name="EncryptTextInputDescription" xml:space="preserve">
     <value>이 액티비티에 의해 암호화될 문자열입니다.</value>
   </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
+	<data name="EncryptTextKeyDescription" xml:space="preserve">
     <value>입력 문자열을 암호화하기 위해 사용되는 키입니다.</value>
   </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
+	<data name="EncryptTextResultDescription" xml:space="preserve">
     <value>암호화된 입력 문자열의 base64 문자열 표현입니다.</value>
   </data>
-  <data name="FipsComplianceWarning" xml:space="preserve">
+	<data name="FipsComplianceWarning" xml:space="preserve">
     <value>선택한 알고리즘이 FIPS를 준수하여 구현되지 않았습니다. 이로 인해 일부 머신에서 작동하지 않을 수 있습니다.</value>
   </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
+	<data name="HashAlgorithmDescription" xml:space="preserve">
     <value>이 액티비티에서 사용될 해싱 알고리즘입니다.</value>
   </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
+	<data name="HashTextDisplayName" xml:space="preserve">
     <value>Hash Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="HashTextDescription" xml:space="preserve">
+	<data name="HashTextDescription" xml:space="preserve">
     <value>선택한 해싱 알고리즘을 입력 문자열에 적용한 후 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
   </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
+	<data name="HashTextInputDescription" xml:space="preserve">
     <value>이 액티비티에 의해 해시 문자열입니다.</value>
   </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
+	<data name="HashTextResultDescription" xml:space="preserve">
     <value>해시된 입력 문자열의 16진수 문자열 표현입니다.</value>
   </data>
-  <data name="Input" xml:space="preserve">
+	<data name="Input" xml:space="preserve">
     <value>입력</value>
   </data>
-  <data name="InputStringDisplayName" xml:space="preserve">
+	<data name="InputStringDisplayName" xml:space="preserve">
     <value>Text</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyDisplayName" xml:space="preserve">
+	<data name="KeyDisplayName" xml:space="preserve">
     <value>Key</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
+	<data name="KeyedHashAlgorithmDescription" xml:space="preserve">
     <value>이 액티비티에서 사용될 키 입력 해싱 알고리즘입니다.</value>
   </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
+	<data name="KeyedHashEncodingDescription" xml:space="preserve">
     <value>입력 문자열 및 키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
+	<data name="KeyedHashTextKeyDescription" xml:space="preserve">
     <value>입력 문자열을 해시하기 위해 사용되는 키입니다.</value>
   </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
+	<data name="KeyedHashTextDisplayName" xml:space="preserve">
     <value>Hash Text With Key</value>
     <comment>activity name</comment>
   </data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
+	<data name="KeyedHashTextDescription" xml:space="preserve">
     <value>제공되는 키를 해싱에서 사용하여 선택한 해싱 알고리즘을 입력 문자열에 적용한 후 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
+	<data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
     <comment>property name</comment>
   </data>
-  <data name="ResultDisplayName" xml:space="preserve">
+	<data name="ResultDisplayName" xml:space="preserve">
     <value>Result</value>
     <comment>property name</comment>
   </data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>이 액티비티에서 사용될 암호 해독 알고리즘입니다.</value>
+	<data name="DecryptAlgorithmDescription" xml:space="preserve">
+    <value>이 액티비티에서 사용될 암호 해독 알고리즘입니다. 더 이상 사용되지 않는 알고리즘을 사용하는 것은 권장되지 않습니다.</value>
   </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
+	<data name="DecryptTextDisplayName" xml:space="preserve">
     <value>Decrypt Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="DecryptTextDescription" xml:space="preserve">
+	<data name="DecryptTextDescription" xml:space="preserve">
     <value>선택한 알고리즘과 제공되는 키를 사용하여 입력 문자열의 암호를 해독한 후 암호화되지 않은 원본 문자열을 반환합니다.</value>
   </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
+	<data name="DecryptTextEncodingDescription" xml:space="preserve">
     <value>입력 문자열 및 키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
+	<data name="DecryptTextInputDescription" xml:space="preserve">
     <value>이 액티비티에 의해 암호가 해독될 문자열입니다.</value>
   </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
+	<data name="DecryptTextKeyDescription" xml:space="preserve">
     <value>입력 문자열의 암호를 해독하기 위해 사용되는 키입니다.</value>
   </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
+	<data name="DecryptTextResultDescription" xml:space="preserve">
     <value>암호가 해독된 문자열입니다.</value>
   </data>
-  <data name="FileDoesNotExistsException" xml:space="preserve">
+	<data name="FileDoesNotExistsException" xml:space="preserve">
     <value>파일이 없습니다.</value>
   </data>
-  <data name="FilePathDisplayName" xml:space="preserve">
+	<data name="FilePathDisplayName" xml:space="preserve">
     <value>FilePath</value>
     <comment>property name</comment>
   </data>
-  <data name="HashFileDisplayName" xml:space="preserve">
+	<data name="HashFileDisplayName" xml:space="preserve">
     <value>Hash File</value>
     <comment>activity name</comment>
   </data>
-  <data name="HashFileDescription" xml:space="preserve">
+	<data name="HashFileDescription" xml:space="preserve">
     <value>선택한 해싱 알고리즘을 제공되는 파일의 콘텐츠에 적용한 후 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
   </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
+	<data name="HashFilePathDescription" xml:space="preserve">
     <value>이 액티비티에 의해 해시될 파일의 경로입니다.</value>
   </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
+	<data name="HashFileResultDescription" xml:space="preserve">
     <value>해시된 파일의 16진수 문자열 표현입니다.</value>
   </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
+	<data name="KeyedHashFileDisplayName" xml:space="preserve">
     <value>Hash File With Key</value>
     <comment>activity name</comment>
   </data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
+	<data name="KeyedHashFileDescription" xml:space="preserve">
     <value>선택한 해싱 알고리즘을 입력 파일에 적용하고 입력된 키를 해싱에서 사용한 후 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
   </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
+	<data name="KeyedHashFileKeyDescription" xml:space="preserve">
     <value>제공된 파일을 해시하기 위해 사용되는 키입니다.</value>
   </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
+	<data name="KeyedHashFileResultDescription" xml:space="preserve">
     <value>해시된 파일의 16진수 문자열 표현입니다.</value>
   </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+	<data name="KeyedHashFileEncodingDescription" xml:space="preserve">
     <value>키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
+	<data name="EncryptFileDisplayName" xml:space="preserve">
     <value>Encrypt File</value>
     <comment>activity name</comment>
   </data>
-  <data name="EncryptFileDescription" xml:space="preserve">
+	<data name="EncryptFileDescription" xml:space="preserve">
     <value>선택한 알고리즘과 제공되는 키를 사용하여 입력 파일을 암호화하고 결과를 출력 파일에 저장합니다.</value>
   </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
+	<data name="EncryptFileEncodingDescription" xml:space="preserve">
     <value>키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
+	<data name="EncryptFileInputPathDescription" xml:space="preserve">
     <value>이 액티비티에 의해 암호화될 파일의 경로입니다.</value>
   </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
+	<data name="EncryptFileKeyDescription" xml:space="preserve">
     <value>입력 파일을 암호화하기 위해 사용되는 키입니다.</value>
   </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
+	<data name="EncryptFileOutputPathDescription" xml:space="preserve">
     <value>암호화된 파일이 저장되는 경로입니다.</value>
   </data>
-  <data name="InputFilePathDisplayName" xml:space="preserve">
+	<data name="InputFilePathDisplayName" xml:space="preserve">
     <value>InputPath</value>
     <comment>property name</comment>
   </data>
-  <data name="OutputFilePathDisplayName" xml:space="preserve">
+	<data name="OutputFilePathDisplayName" xml:space="preserve">
     <value>OutputPath</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
+	<data name="OverwriteDisplayName" xml:space="preserve">
     <value>Overwrite</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDescription" xml:space="preserve">
+	<data name="OverwriteDescription" xml:space="preserve">
     <value>이미 있는 경우 출력 파일을 덮어씁니다.</value>
   </data>
-  <data name="FileAlreadyExistsException" xml:space="preserve">
+	<data name="FileAlreadyExistsException" xml:space="preserve">
     <value>파일이 이미 있습니다.</value>
   </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
+	<data name="DecryptFileDisplayName" xml:space="preserve">
     <value>Decrypt File</value>
     <comment>activity name</comment>
   </data>
-  <data name="DecryptFileDescription" xml:space="preserve">
+	<data name="DecryptFileDescription" xml:space="preserve">
     <value>선택한 알고리즘과 제공되는 키를 사용하여 입력 파일의 암호를 해독한 후 암호화되지 않은 원본 문자열을 저장합니다.</value>
   </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
+	<data name="DecryptFileEncodingDescription" xml:space="preserve">
     <value>키를 해석하기 위해 사용되는 인코딩입니다.</value>
   </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
+	<data name="DecryptFileInputPathDescription" xml:space="preserve">
     <value>이 액티비티에 의해 암호가 해독될 파일의 경로입니다.</value>
   </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
+	<data name="DecryptFileKeyDescription" xml:space="preserve">
     <value>입력 파일의 암호를 해독하기 위해 사용되는 키입니다.</value>
   </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
+	<data name="DecryptFileOutputPathDescription" xml:space="preserve">
     <value>암호가 해독된 파일이 저장되는 경로입니다.</value>
   </data>
-  <data name="GenericCryptographicException" xml:space="preserve">
+	<data name="GenericCryptographicException" xml:space="preserve">
     <value>암호화 작업이 실패했습니다. 암호화와 암호 해독 작업에서 동일한 알고리즘과 키가 사용되었는지 확인하십시오.</value>
   </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
+	<data name="KeyEncodingDisplayName" xml:space="preserve">
     <value>KeyEncoding</value>
     <comment>property name</comment>
   </data>
-  <data name="Encoding" xml:space="preserve">
+	<data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
   </data>
-  <data name="Key" xml:space="preserve">
+	<data name="Key" xml:space="preserve">
     <value>키</value>
   </data>
-  <data name="Output" xml:space="preserve">
+	<data name="Output" xml:space="preserve">
     <value>출력</value>
   </data>
-  <data name="Common" xml:space="preserve">
+	<data name="Common" xml:space="preserve">
     <value>공통</value>
   </data>
-  <data name="ContinueOnErrorDisplayName" xml:space="preserve">
+	<data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinueOnError</value>
     <comment>property name</comment>
   </data>
-  <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
+	<data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES에서는 16 또는 24바이트 길이의 키가 사용됩니다. 키의 길이는 인코딩에 따라 다를 수 있습니다.</value>
+  </data>
+	<data name="EncryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>입력 문자열을 암호화하기 위해 사용되는 보안 문자열입니다.</value>
+  </data>
+	<data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>키 및 보안 문자열 모두 null이어야 합니다.</value>
+  </data>
+	<data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
+  </data>
+	<data name="KeySecureString" xml:space="preserve">
+    <value>SecureString 키</value>
+  </data>
+	<data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>SecureString 키</value>
+  </data>
+	<data name="DecryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>입력 문자열의 암호를 해독하기 위해 사용되는 보안 문자열입니다.</value>
+  </data>
+	<data name="DecryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>입력 문자열의 암호를 해독하기 위해 사용되는 보안 문자열입니다.</value>
+  </data>
+	<data name="EncryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>입력 파일을 암호화하기 위해 사용되는 보안 문자열입니다.</value>
+  </data>
+	<data name="KeyedHashFileKeySecureStringDescription" xml:space="preserve">
+    <value>제공된 파일을 해싱하기 위해 사용되는 보안 문자열입니다.</value>
+  </data>
+	<data name="KeyedHashTextKeySecureStringDescription" xml:space="preserve">
+    <value>입력 문자열을 해싱하기 위해 사용되는 보안 문자열입니다.</value>
   </data>
 </root>

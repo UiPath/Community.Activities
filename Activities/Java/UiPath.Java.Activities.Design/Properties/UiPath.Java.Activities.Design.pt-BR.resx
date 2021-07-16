@@ -117,70 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AES" xml:space="preserve">
-    <value>AES (Kullanımdan Kaldırıldı)</value>
+  <data name="AppInvokerCategory" xml:space="preserve">
+    <value>Invocador de Aplicativos</value>
   </data>
-  <data name="AESGCM" xml:space="preserve">
-    <value>AES GCM</value>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(Coleção)</value>
   </data>
-  <data name="DES" xml:space="preserve">
-    <value>DES (Kullanımdan Kaldırıldı)</value>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+    <comment>property name</comment>
   </data>
-  <data name="HMACMD5" xml:space="preserve">
-    <value>HMACMD5 (FIPS Olmayan)</value>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>Soltar Atividade Aqui</value>
   </data>
-  <data name="HMACRIPEMD160" xml:space="preserve">
-    <value>HMACRIPEMD160 (FIPS Olmayan)</value>
+  <data name="EditingText" xml:space="preserve">
+    <value>Editando</value>
   </data>
-  <data name="HMACSHA1" xml:space="preserve">
-    <value>HMACSHA1</value>
+  <data name="FieldNameHintText" xml:space="preserve">
+    <value>Nome do Campo</value>
   </data>
-  <data name="HMACSHA256" xml:space="preserve">
-    <value>HMACSHA256</value>
+  <data name="FieldNameLabel" xml:space="preserve">
+    <value>Nome do Campo</value>
   </data>
-  <data name="HMACSHA384" xml:space="preserve">
-    <value>HMACSHA384</value>
+  <data name="InvokeMethodJavaObjectHintText" xml:space="preserve">
+    <value>Objeto de Destino</value>
   </data>
-  <data name="HMACSHA512" xml:space="preserve">
-    <value>HMACSHA512</value>
+  <data name="InvokeMethodResultHintText" xml:space="preserve">
+    <value>O resultado do objeto java do método de invocação.</value>
   </data>
-  <data name="MACTripleDES" xml:space="preserve">
-    <value>MACTripleDES</value>
+  <data name="JarFilePathDialogTitle" xml:space="preserve">
+    <value>Selecione um arquivo jar.</value>
   </data>
-  <data name="MD5" xml:space="preserve">
-    <value>MD5 (FIPS Olmayan)</value>
+  <data name="JarPathHint" xml:space="preserve">
+    <value>Caminho jar. O texto deve estar entre aspas.</value>
   </data>
-  <data name="RC2" xml:space="preserve">
-    <value>RC2 (FIPS Olmayan) (Kullanımdan Kaldırıldı)</value>
+  <data name="JavaCategory" xml:space="preserve">
+    <value>Java</value>
   </data>
-  <data name="Rijndael" xml:space="preserve">
-    <value>Rijndael (FIPS Olmayan) (Kullanımdan Kaldırıldı)</value>
+  <data name="JavaExcecutableFile" xml:space="preserve">
+    <value>O arquivo Java Executável.</value>
   </data>
-  <data name="RIPEMD160" xml:space="preserve">
-    <value>RIPEMD160 (FIPS Olmayan)</value>
+  <data name="JavaObjectHint" xml:space="preserve">
+    <value>Objeto Java</value>
   </data>
-  <data name="SHA1" xml:space="preserve">
-    <value>SHA1</value>
+  <data name="JavaObjectLabel" xml:space="preserve">
+    <value>Objeto Java</value>
   </data>
-  <data name="SHA256" xml:space="preserve">
-    <value>SHA256</value>
+  <data name="MethodNameHintText" xml:space="preserve">
+    <value>MethodName</value>
   </data>
-  <data name="SHA384" xml:space="preserve">
-    <value>SHA384</value>
+  <data name="MethodNameLabel" xml:space="preserve">
+    <value>Nome do Método</value>
   </data>
-  <data name="SHA512" xml:space="preserve">
-    <value>SHA512</value>
+  <data name="ResultLabel" xml:space="preserve">
+    <value>Resultado</value>
   </data>
-  <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+  <data name="SetParametersLabel" xml:space="preserve">
+    <value>Definir Parâmetros</value>
   </data>
-  <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
-    <value>Sağlanan karma algoritması desteklenmiyor.</value>
+  <data name="TargetObjectHintText" xml:space="preserve">
+    <value>O objeto java invocado pelo método</value>
   </data>
-  <data name="UnsupportedKeyedHashAlgorithmException" xml:space="preserve">
-    <value>Sağlanan anahtarlı karma algoritması desteklenmiyor.</value>
+  <data name="TargetObjectLabel" xml:space="preserve">
+    <value>Objeto de Destino</value>
   </data>
-  <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
-    <value>Sağlanan simetrik algoritma desteklenmiyor.</value>
+  <data name="TargetTypeHintText" xml:space="preserve">
+    <value>Tipo de Destino</value>
+  </data>
+  <data name="TargetTypeLabel" xml:space="preserve">
+    <value>Tipo de Destino</value>
   </data>
 </root>
