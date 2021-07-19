@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,289 +59,319 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AlgorithmDisplayName" xml:space="preserve">
     <value>Algorithm</value>
     <comment>property name</comment>
   </data>
-  <data name="EncodingDisplayName" xml:space="preserve">
+	<data name="EncodingDisplayName" xml:space="preserve">
     <value>Encoding</value>
     <comment>property name</comment>
   </data>
-  <data name="EncodingDescription" xml:space="preserve">
+	<data name="EncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации строки ввода.</value>
   </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>Алгоритм шифрования, который будет использоваться этим действием.</value>
+	<data name="EncryptAlgorithmDescription" xml:space="preserve">
+    <value>Алгоритм шифрования, который будет использоваться этим действием. Не рекомендуется использовать устаревшие алгоритмы.</value>
   </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
+	<data name="EncryptTextEncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации строки ввода и ключа.</value>
   </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
+	<data name="EncryptTextDisplayName" xml:space="preserve">
     <value>Encrypt Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="EncryptTextDescription" xml:space="preserve">
+	<data name="EncryptTextDescription" xml:space="preserve">
     <value>Шифрует строку ввода с помощью выбранного алгоритма и предоставленного ключа и возвращает представление строки base64 зашифрованного результата.</value>
   </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
+	<data name="EncryptTextInputDescription" xml:space="preserve">
     <value>Строка, которая будет зашифрована этим действием.</value>
   </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
+	<data name="EncryptTextKeyDescription" xml:space="preserve">
     <value>Ключ, используемый для шифрования строки ввода.</value>
   </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
+	<data name="EncryptTextResultDescription" xml:space="preserve">
     <value>Представление строки base64 зашифрованной строки ввода.</value>
   </data>
-  <data name="FipsComplianceWarning" xml:space="preserve">
+	<data name="FipsComplianceWarning" xml:space="preserve">
     <value>Выбранный алгоритм не имеет реализации соответствия требованиям FIPS. На некоторых компьютерах это может не работать.</value>
   </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
+	<data name="HashAlgorithmDescription" xml:space="preserve">
     <value>Алгоритм хэширования, который будет использоваться этим действием.</value>
   </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
+	<data name="HashTextDisplayName" xml:space="preserve">
     <value>Hash Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="HashTextDescription" xml:space="preserve">
+	<data name="HashTextDescription" xml:space="preserve">
     <value>Применяет выбранный алгоритм хэширования к строке ввода и возвращает представление шестнадцатеричной строки полученного хэша.</value>
   </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
+	<data name="HashTextInputDescription" xml:space="preserve">
     <value>Строка, которая будет хэширована этим действием.</value>
   </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
+	<data name="HashTextResultDescription" xml:space="preserve">
     <value>Представление шестнадцатеричной строки хэшированной строки ввода.</value>
   </data>
-  <data name="Input" xml:space="preserve">
+	<data name="Input" xml:space="preserve">
     <value>Ввод</value>
   </data>
-  <data name="InputStringDisplayName" xml:space="preserve">
+	<data name="InputStringDisplayName" xml:space="preserve">
     <value>Text</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyDisplayName" xml:space="preserve">
+	<data name="KeyDisplayName" xml:space="preserve">
     <value>Key</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
+	<data name="KeyedHashAlgorithmDescription" xml:space="preserve">
     <value>Алгоритм хэширования с ключом, который будет использоваться этим действием.</value>
   </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
+	<data name="KeyedHashEncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации строки ввода и ключа.</value>
   </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
+	<data name="KeyedHashTextKeyDescription" xml:space="preserve">
     <value>Ключ, используемый для хэширования строки ввода.</value>
   </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
+	<data name="KeyedHashTextDisplayName" xml:space="preserve">
     <value>Hash Text With Key</value>
     <comment>activity name</comment>
   </data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
+	<data name="KeyedHashTextDescription" xml:space="preserve">
     <value>Применяет выбранный алгоритм хэширования к строке ввода с помощью предоставленного ключа для хэширования и возвращает представление шестнадцатеричной строки полученного хэша.</value>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
+	<data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
     <comment>property name</comment>
   </data>
-  <data name="ResultDisplayName" xml:space="preserve">
+	<data name="ResultDisplayName" xml:space="preserve">
     <value>Result</value>
     <comment>property name</comment>
   </data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>Алгоритм расшифровки, который будет использоваться этим действием.</value>
+	<data name="DecryptAlgorithmDescription" xml:space="preserve">
+    <value>Алгоритм расшифровки, который будет использоваться этим действием. Не рекомендуется использовать устаревшие алгоритмы.</value>
   </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
+	<data name="DecryptTextDisplayName" xml:space="preserve">
     <value>Decrypt Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="DecryptTextDescription" xml:space="preserve">
+	<data name="DecryptTextDescription" xml:space="preserve">
     <value>Расшифровывает строку ввода с помощью выбранного алгоритма и предоставленного ключа и возвращает исходную незашифрованную строку.</value>
   </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
+	<data name="DecryptTextEncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации строки ввода и ключа.</value>
   </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
+	<data name="DecryptTextInputDescription" xml:space="preserve">
     <value>Строка, которая будет расшифрована этим действием.</value>
   </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
+	<data name="DecryptTextKeyDescription" xml:space="preserve">
     <value>Ключ, используемый для расшифровки строки ввода.</value>
   </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
+	<data name="DecryptTextResultDescription" xml:space="preserve">
     <value>Расшифрованная строка.</value>
   </data>
-  <data name="FileDoesNotExistsException" xml:space="preserve">
+	<data name="FileDoesNotExistsException" xml:space="preserve">
     <value>Файл не существует.</value>
   </data>
-  <data name="FilePathDisplayName" xml:space="preserve">
+	<data name="FilePathDisplayName" xml:space="preserve">
     <value>FilePath</value>
     <comment>property name</comment>
   </data>
-  <data name="HashFileDisplayName" xml:space="preserve">
+	<data name="HashFileDisplayName" xml:space="preserve">
     <value>Hash File</value>
     <comment>activity name</comment>
   </data>
-  <data name="HashFileDescription" xml:space="preserve">
+	<data name="HashFileDescription" xml:space="preserve">
     <value>Применяет выбранный алгоритм хэширования к содержимому предоставленного файла и возвращает представление шестнадцатеричной строки полученного хэша.</value>
   </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
+	<data name="HashFilePathDescription" xml:space="preserve">
     <value>Путь к файлу, который будет хэширован этим действием.</value>
   </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
+	<data name="HashFileResultDescription" xml:space="preserve">
     <value>Представление шестнадцатеричной строки хэшированного файла.</value>
   </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
+	<data name="KeyedHashFileDisplayName" xml:space="preserve">
     <value>Hash File With Key</value>
     <comment>activity name</comment>
   </data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
+	<data name="KeyedHashFileDescription" xml:space="preserve">
     <value>Применяет выбранный алгоритм хэширования к входному файлу с помощью предоставленного ключа для хэширования и возвращает представление шестнадцатеричной строки полученного хэша.</value>
   </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
+	<data name="KeyedHashFileKeyDescription" xml:space="preserve">
     <value>Ключ, используемый для хэширования предоставленного файла.</value>
   </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
+	<data name="KeyedHashFileResultDescription" xml:space="preserve">
     <value>Представление шестнадцатеричной строки хэшированного файла.</value>
   </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+	<data name="KeyedHashFileEncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации ключа.</value>
   </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
+	<data name="EncryptFileDisplayName" xml:space="preserve">
     <value>Encrypt File</value>
     <comment>activity name</comment>
   </data>
-  <data name="EncryptFileDescription" xml:space="preserve">
+	<data name="EncryptFileDescription" xml:space="preserve">
     <value>Шифрует входной файл с помощью выбранного алгоритма и предоставленного ключа и сохраняет результат в выходном файле.</value>
   </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
+	<data name="EncryptFileEncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации ключа.</value>
   </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
+	<data name="EncryptFileInputPathDescription" xml:space="preserve">
     <value>Путь к файлу, который будет зашифрован этим действием.</value>
   </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
+	<data name="EncryptFileKeyDescription" xml:space="preserve">
     <value>Ключ, используемый для шифрования входного файла.</value>
   </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
+	<data name="EncryptFileOutputPathDescription" xml:space="preserve">
     <value>Путь, по которому сохранится зашифрованный файл.</value>
   </data>
-  <data name="InputFilePathDisplayName" xml:space="preserve">
+	<data name="InputFilePathDisplayName" xml:space="preserve">
     <value>InputPath</value>
     <comment>property name</comment>
   </data>
-  <data name="OutputFilePathDisplayName" xml:space="preserve">
+	<data name="OutputFilePathDisplayName" xml:space="preserve">
     <value>OutputPath</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
+	<data name="OverwriteDisplayName" xml:space="preserve">
     <value>Overwrite</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDescription" xml:space="preserve">
+	<data name="OverwriteDescription" xml:space="preserve">
     <value>Перезаписать выходной файл, если он уже существует.</value>
   </data>
-  <data name="FileAlreadyExistsException" xml:space="preserve">
+	<data name="FileAlreadyExistsException" xml:space="preserve">
     <value>Файл уже существует.</value>
   </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
+	<data name="DecryptFileDisplayName" xml:space="preserve">
     <value>Decrypt File</value>
     <comment>activity name</comment>
   </data>
-  <data name="DecryptFileDescription" xml:space="preserve">
+	<data name="DecryptFileDescription" xml:space="preserve">
     <value>Расшифровывает входной файл с помощью выбранного алгоритма и предоставленного ключа и сохраняет исходный незашифрованный файл.</value>
   </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
+	<data name="DecryptFileEncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации ключа.</value>
   </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
+	<data name="DecryptFileInputPathDescription" xml:space="preserve">
     <value>Путь к файлу, который будет расшифрован этим действием.</value>
   </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
+	<data name="DecryptFileKeyDescription" xml:space="preserve">
     <value>Ключ, используемый для расшифровки входного файла.</value>
   </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
+	<data name="DecryptFileOutputPathDescription" xml:space="preserve">
     <value>Путь, по которому сохранится расшифрованный файл.</value>
   </data>
-  <data name="GenericCryptographicException" xml:space="preserve">
+	<data name="GenericCryptographicException" xml:space="preserve">
     <value>Не удалось выполнить криптографическую операцию. Обязательно используйте тот же алгоритм и ключ для операций шифрования и расшифровки.</value>
   </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
+	<data name="KeyEncodingDisplayName" xml:space="preserve">
     <value>KeyEncoding</value>
     <comment>property name</comment>
   </data>
-  <data name="Encoding" xml:space="preserve">
+	<data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
   </data>
-  <data name="Key" xml:space="preserve">
+	<data name="Key" xml:space="preserve">
     <value>Ключ</value>
   </data>
-  <data name="Output" xml:space="preserve">
+	<data name="Output" xml:space="preserve">
     <value>Вывод</value>
   </data>
-  <data name="Common" xml:space="preserve">
+	<data name="Common" xml:space="preserve">
     <value>Общие</value>
   </data>
-  <data name="ContinueOnErrorDisplayName" xml:space="preserve">
+	<data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinueOnError</value>
     <comment>property name</comment>
   </data>
-  <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
+	<data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES использует ключ длиной 16 байт или 24 байта. Длина вашего ключа зависит от кодировки.</value>
+  </data>
+	<data name="EncryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>Защищенная строка, используемая для шифрования строки ввода.</value>
+  </data>
+	<data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>Ключ и защищенная строка не должны одновременно иметь не нулевое значение.</value>
+  </data>
+	<data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>Ключ и защищенная строка не должны одновременно иметь нулевое значение.</value>
+  </data>
+	<data name="KeySecureString" xml:space="preserve">
+    <value>Ключ SecureString</value>
+  </data>
+	<data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>Ключ SecureString</value>
+  </data>
+	<data name="DecryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>Защищенная строка, используемая для дешифрования строки ввода.</value>
+  </data>
+	<data name="DecryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>Защищенная строка, используемая для дешифрования строки ввода.</value>
+  </data>
+	<data name="EncryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>Защищенная строка, используемая для шифрования входного файла.</value>
+  </data>
+	<data name="KeyedHashFileKeySecureStringDescription" xml:space="preserve">
+    <value>Защищенная строка, используемая для хэширования указанного файла.</value>
+  </data>
+	<data name="KeyedHashTextKeySecureStringDescription" xml:space="preserve">
+    <value>Защищенная строка, используемая для хэширования строки ввода.</value>
   </data>
 </root>

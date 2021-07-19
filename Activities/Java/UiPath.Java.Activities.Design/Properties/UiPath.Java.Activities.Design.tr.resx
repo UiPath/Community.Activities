@@ -117,70 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AES" xml:space="preserve">
-    <value>AES (Kullanımdan Kaldırıldı)</value>
+  <data name="AppInvokerCategory" xml:space="preserve">
+    <value>Uygulama Çağırıcı</value>
   </data>
-  <data name="AESGCM" xml:space="preserve">
-    <value>AES GCM</value>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(Koleksiyon)</value>
   </data>
-  <data name="DES" xml:space="preserve">
-    <value>DES (Kullanımdan Kaldırıldı)</value>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+    <comment>property name</comment>
   </data>
-  <data name="HMACMD5" xml:space="preserve">
-    <value>HMACMD5 (FIPS Olmayan)</value>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>Etkinliği Buraya Bırak</value>
   </data>
-  <data name="HMACRIPEMD160" xml:space="preserve">
-    <value>HMACRIPEMD160 (FIPS Olmayan)</value>
+  <data name="EditingText" xml:space="preserve">
+    <value>Düzenleme</value>
   </data>
-  <data name="HMACSHA1" xml:space="preserve">
-    <value>HMACSHA1</value>
+  <data name="FieldNameHintText" xml:space="preserve">
+    <value>Alan Adı</value>
   </data>
-  <data name="HMACSHA256" xml:space="preserve">
-    <value>HMACSHA256</value>
+  <data name="FieldNameLabel" xml:space="preserve">
+    <value>Alan Adı</value>
   </data>
-  <data name="HMACSHA384" xml:space="preserve">
-    <value>HMACSHA384</value>
+  <data name="InvokeMethodJavaObjectHintText" xml:space="preserve">
+    <value>Hedef Nesne</value>
   </data>
-  <data name="HMACSHA512" xml:space="preserve">
-    <value>HMACSHA512</value>
+  <data name="InvokeMethodResultHintText" xml:space="preserve">
+    <value>Invoke yönteminden java nesnesi sonucu.</value>
   </data>
-  <data name="MACTripleDES" xml:space="preserve">
-    <value>MACTripleDES</value>
+  <data name="JarFilePathDialogTitle" xml:space="preserve">
+    <value>Bir jar dosyası seçin.</value>
   </data>
-  <data name="MD5" xml:space="preserve">
-    <value>MD5 (FIPS Olmayan)</value>
+  <data name="JarPathHint" xml:space="preserve">
+    <value>Jar yolu. Metin tırnak işareti içine alınmalıdır.</value>
   </data>
-  <data name="RC2" xml:space="preserve">
-    <value>RC2 (FIPS Olmayan) (Kullanımdan Kaldırıldı)</value>
+  <data name="JavaCategory" xml:space="preserve">
+    <value>Java</value>
   </data>
-  <data name="Rijndael" xml:space="preserve">
-    <value>Rijndael (FIPS Olmayan) (Kullanımdan Kaldırıldı)</value>
+  <data name="JavaExcecutableFile" xml:space="preserve">
+    <value>Java Yürütülebilir dosyası.</value>
   </data>
-  <data name="RIPEMD160" xml:space="preserve">
-    <value>RIPEMD160 (FIPS Olmayan)</value>
+  <data name="JavaObjectHint" xml:space="preserve">
+    <value>Java Nesnesi</value>
   </data>
-  <data name="SHA1" xml:space="preserve">
-    <value>SHA1</value>
+  <data name="JavaObjectLabel" xml:space="preserve">
+    <value>Java Nesnesi</value>
   </data>
-  <data name="SHA256" xml:space="preserve">
-    <value>SHA256</value>
+  <data name="MethodNameHintText" xml:space="preserve">
+    <value>MethodName</value>
   </data>
-  <data name="SHA384" xml:space="preserve">
-    <value>SHA384</value>
+  <data name="MethodNameLabel" xml:space="preserve">
+    <value>Yöntem Adı</value>
   </data>
-  <data name="SHA512" xml:space="preserve">
-    <value>SHA512</value>
+  <data name="ResultLabel" xml:space="preserve">
+    <value>Sonuç</value>
   </data>
-  <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+  <data name="SetParametersLabel" xml:space="preserve">
+    <value>Parametreleri Ayarla</value>
   </data>
-  <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
-    <value>Sağlanan karma algoritması desteklenmiyor.</value>
+  <data name="TargetObjectHintText" xml:space="preserve">
+    <value>Yöntemin çağrılacağı java nesnesi</value>
   </data>
-  <data name="UnsupportedKeyedHashAlgorithmException" xml:space="preserve">
-    <value>Sağlanan anahtarlı karma algoritması desteklenmiyor.</value>
+  <data name="TargetObjectLabel" xml:space="preserve">
+    <value>Hedef Nesne</value>
   </data>
-  <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
-    <value>Sağlanan simetrik algoritma desteklenmiyor.</value>
+  <data name="TargetTypeHintText" xml:space="preserve">
+    <value>Hedef Türü</value>
+  </data>
+  <data name="TargetTypeLabel" xml:space="preserve">
+    <value>Hedef Türü</value>
   </data>
 </root>

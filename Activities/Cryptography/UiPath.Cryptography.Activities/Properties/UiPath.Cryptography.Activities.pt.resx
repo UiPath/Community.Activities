@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,289 +59,319 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AlgorithmDisplayName" xml:space="preserve">
     <value>Algorithm</value>
     <comment>property name</comment>
   </data>
-  <data name="EncodingDisplayName" xml:space="preserve">
+	<data name="EncodingDisplayName" xml:space="preserve">
     <value>Encoding</value>
     <comment>property name</comment>
   </data>
-  <data name="EncodingDescription" xml:space="preserve">
+	<data name="EncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a cadeia de entrada.</value>
   </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>O algoritmo de encriptação que será utilizado por esta atividade.</value>
+	<data name="EncryptAlgorithmDescription" xml:space="preserve">
+    <value>O algoritmo de encriptação que será utilizado por esta atividade. A utilização de algoritmos preteridos não é recomendada.</value>
   </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
+	<data name="EncryptTextEncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a cadeia de entrada e a chave.</value>
   </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
+	<data name="EncryptTextDisplayName" xml:space="preserve">
     <value>Encrypt Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="EncryptTextDescription" xml:space="preserve">
+	<data name="EncryptTextDescription" xml:space="preserve">
     <value>Encripta a cadeia de entrada com o algoritmo selecionado e a chave fornecida e devolve a representação da cadeia base64 do resultado encriptado.</value>
   </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
+	<data name="EncryptTextInputDescription" xml:space="preserve">
     <value>A cadeia que será encriptada por esta atividade.</value>
   </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
+	<data name="EncryptTextKeyDescription" xml:space="preserve">
     <value>A chave utilizada para encriptar a cadeia de entrada.</value>
   </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
+	<data name="EncryptTextResultDescription" xml:space="preserve">
     <value>A representação da cadeia base64 da cadeia de entrada encriptada.</value>
   </data>
-  <data name="FipsComplianceWarning" xml:space="preserve">
+	<data name="FipsComplianceWarning" xml:space="preserve">
     <value>O algoritmo selecionado não tem uma implementação compatível com FIPS. Isto pode não funcionar em alguns computadores.</value>
   </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
+	<data name="HashAlgorithmDescription" xml:space="preserve">
     <value>O algoritmo de aplicação de hash que será utilizado por esta atividade.</value>
   </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
+	<data name="HashTextDisplayName" xml:space="preserve">
     <value>Hash Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="HashTextDescription" xml:space="preserve">
+	<data name="HashTextDescription" xml:space="preserve">
     <value>Aplica o algoritmo de aplicação de hash selecionado na cadeia de entrada e devolve a representação da cadeia hexadecimal do hash resultante.</value>
   </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
+	<data name="HashTextInputDescription" xml:space="preserve">
     <value>A cadeia à qual será aplicado hash através desta atividade.</value>
   </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
+	<data name="HashTextResultDescription" xml:space="preserve">
     <value>A representação da cadeia hexadecimal da cadeia de entrada com hash.</value>
   </data>
-  <data name="Input" xml:space="preserve">
+	<data name="Input" xml:space="preserve">
     <value>Entrada</value>
   </data>
-  <data name="InputStringDisplayName" xml:space="preserve">
+	<data name="InputStringDisplayName" xml:space="preserve">
     <value>Text</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyDisplayName" xml:space="preserve">
+	<data name="KeyDisplayName" xml:space="preserve">
     <value>Key</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
+	<data name="KeyedHashAlgorithmDescription" xml:space="preserve">
     <value>O algoritmo de aplicação de hash com chave que será utilizado por esta atividade.</value>
   </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
+	<data name="KeyedHashEncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a cadeia de entrada e a chave.</value>
   </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
+	<data name="KeyedHashTextKeyDescription" xml:space="preserve">
     <value>A chave utilizada para aplicar hash à cadeia de entrada.</value>
   </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
+	<data name="KeyedHashTextDisplayName" xml:space="preserve">
     <value>Hash Text With Key</value>
     <comment>activity name</comment>
   </data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
+	<data name="KeyedHashTextDescription" xml:space="preserve">
     <value>Aplica o algoritmo de aplicação de hash selecionado na cadeia de entrada com a chave fornecida para a aplicação de hash e devolve a representação da cadeia hexadecimal do hash resultante.</value>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
+	<data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
     <comment>property name</comment>
   </data>
-  <data name="ResultDisplayName" xml:space="preserve">
+	<data name="ResultDisplayName" xml:space="preserve">
     <value>Result</value>
     <comment>property name</comment>
   </data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>O algoritmo de desencriptação que será utilizado por esta atividade.</value>
+	<data name="DecryptAlgorithmDescription" xml:space="preserve">
+    <value>O algoritmo de desencriptação que será utilizado por esta atividade. A utilização de algoritmos preteridos não é recomendada.</value>
   </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
+	<data name="DecryptTextDisplayName" xml:space="preserve">
     <value>Decrypt Text</value>
     <comment>activity name</comment>
   </data>
-  <data name="DecryptTextDescription" xml:space="preserve">
+	<data name="DecryptTextDescription" xml:space="preserve">
     <value>Desencripta a cadeia de entrada com o algoritmo selecionado e a chave fornecida e devolve a cadeia original sem encriptação.</value>
   </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
+	<data name="DecryptTextEncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a cadeia de entrada e a chave.</value>
   </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
+	<data name="DecryptTextInputDescription" xml:space="preserve">
     <value>A cadeia que será desencriptada por esta atividade.</value>
   </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
+	<data name="DecryptTextKeyDescription" xml:space="preserve">
     <value>A chave utilizada para desencriptar a cadeia de entrada.</value>
   </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
+	<data name="DecryptTextResultDescription" xml:space="preserve">
     <value>A cadeia desencriptada.</value>
   </data>
-  <data name="FileDoesNotExistsException" xml:space="preserve">
+	<data name="FileDoesNotExistsException" xml:space="preserve">
     <value>O ficheiro não existe.</value>
   </data>
-  <data name="FilePathDisplayName" xml:space="preserve">
+	<data name="FilePathDisplayName" xml:space="preserve">
     <value>FilePath</value>
     <comment>property name</comment>
   </data>
-  <data name="HashFileDisplayName" xml:space="preserve">
+	<data name="HashFileDisplayName" xml:space="preserve">
     <value>Hash File</value>
     <comment>activity name</comment>
   </data>
-  <data name="HashFileDescription" xml:space="preserve">
+	<data name="HashFileDescription" xml:space="preserve">
     <value>Aplica o algoritmo de aplicação de hash selecionado nos conteúdos do ficheiro fornecido e devolve a representação da cadeia hexadecimal do hash resultante.</value>
   </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
+	<data name="HashFilePathDescription" xml:space="preserve">
     <value>Caminho para o ficheiro ao qual será aplicado hash através desta atividade.</value>
   </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
+	<data name="HashFileResultDescription" xml:space="preserve">
     <value>A representação da cadeia hexadecimal do ficheiro com hash.</value>
   </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
+	<data name="KeyedHashFileDisplayName" xml:space="preserve">
     <value>Hash File With Key</value>
     <comment>activity name</comment>
   </data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
+	<data name="KeyedHashFileDescription" xml:space="preserve">
     <value>Aplica o algoritmo de aplicação de hash selecionado no ficheiro de entrada com a chave fornecida para a aplicação de hash e devolve a representação da cadeia hexadecimal do hash resultante.</value>
   </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
+	<data name="KeyedHashFileKeyDescription" xml:space="preserve">
     <value>A chave utilizada para aplicar hash ao ficheiro fornecido.</value>
   </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
+	<data name="KeyedHashFileResultDescription" xml:space="preserve">
     <value>A representação da cadeia hexadecimal do ficheiro com hash.</value>
   </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+	<data name="KeyedHashFileEncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a chave.</value>
   </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
+	<data name="EncryptFileDisplayName" xml:space="preserve">
     <value>Encrypt File</value>
     <comment>activity name</comment>
   </data>
-  <data name="EncryptFileDescription" xml:space="preserve">
+	<data name="EncryptFileDescription" xml:space="preserve">
     <value>Encripta o ficheiro de entrada com o algoritmo selecionado e a chave fornecida e guarda o resultado no ficheiro de saída.</value>
   </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
+	<data name="EncryptFileEncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a chave.</value>
   </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
+	<data name="EncryptFileInputPathDescription" xml:space="preserve">
     <value>Caminho para o ficheiro que será encriptado por esta atividade.</value>
   </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
+	<data name="EncryptFileKeyDescription" xml:space="preserve">
     <value>A chave utilizada para encriptar o ficheiro de entrada.</value>
   </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
+	<data name="EncryptFileOutputPathDescription" xml:space="preserve">
     <value>O caminho onde o ficheiro encriptado será guardado.</value>
   </data>
-  <data name="InputFilePathDisplayName" xml:space="preserve">
+	<data name="InputFilePathDisplayName" xml:space="preserve">
     <value>InputPath</value>
     <comment>property name</comment>
   </data>
-  <data name="OutputFilePathDisplayName" xml:space="preserve">
+	<data name="OutputFilePathDisplayName" xml:space="preserve">
     <value>OutputPath</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
+	<data name="OverwriteDisplayName" xml:space="preserve">
     <value>Overwrite</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDescription" xml:space="preserve">
+	<data name="OverwriteDescription" xml:space="preserve">
     <value>Substitui o ficheiro de saída se já existir.</value>
   </data>
-  <data name="FileAlreadyExistsException" xml:space="preserve">
+	<data name="FileAlreadyExistsException" xml:space="preserve">
     <value>O ficheiro já existe.</value>
   </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
+	<data name="DecryptFileDisplayName" xml:space="preserve">
     <value>Decrypt File</value>
     <comment>activity name</comment>
   </data>
-  <data name="DecryptFileDescription" xml:space="preserve">
+	<data name="DecryptFileDescription" xml:space="preserve">
     <value>Desencripta o ficheiro de entrada com o algoritmo selecionado e a chave fornecida e guarda o ficheiro original sem encriptação.</value>
   </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
+	<data name="DecryptFileEncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a chave.</value>
   </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
+	<data name="DecryptFileInputPathDescription" xml:space="preserve">
     <value>Caminho para o ficheiro que será desencriptado por esta atividade.</value>
   </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
+	<data name="DecryptFileKeyDescription" xml:space="preserve">
     <value>A chave utilizada para desencriptar o ficheiro de entrada.</value>
   </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
+	<data name="DecryptFileOutputPathDescription" xml:space="preserve">
     <value>O caminho onde o ficheiro desencriptado será guardado.</value>
   </data>
-  <data name="GenericCryptographicException" xml:space="preserve">
+	<data name="GenericCryptographicException" xml:space="preserve">
     <value>Falha numa operação criptográfica. Certifique-se de que utiliza o mesmo algoritmo e a mesma chave para as operações de encriptação e desencriptação.</value>
   </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
+	<data name="KeyEncodingDisplayName" xml:space="preserve">
     <value>KeyEncoding</value>
     <comment>property name</comment>
   </data>
-  <data name="Encoding" xml:space="preserve">
+	<data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
   </data>
-  <data name="Key" xml:space="preserve">
+	<data name="Key" xml:space="preserve">
     <value>Chave</value>
   </data>
-  <data name="Output" xml:space="preserve">
+	<data name="Output" xml:space="preserve">
     <value>Saída</value>
   </data>
-  <data name="Common" xml:space="preserve">
+	<data name="Common" xml:space="preserve">
     <value>Comum</value>
   </data>
-  <data name="ContinueOnErrorDisplayName" xml:space="preserve">
+	<data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinueOnError</value>
     <comment>property name</comment>
   </data>
-  <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
+	<data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>O MACTripleDES utiliza uma chave de 16 ou 24 bytes. O comprimento da sua chave depende da Codificação.</value>
+  </data>
+	<data name="EncryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>A cadeia segura utilizada para encriptar a cadeia de entrada.</value>
+  </data>
+	<data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>A chave e a cadeia segura não devem ser ambas não nulas.</value>
+  </data>
+	<data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>A chave e a cadeia segura não devem ser ambas nulas.</value>
+  </data>
+	<data name="KeySecureString" xml:space="preserve">
+    <value>Chave SecureString</value>
+  </data>
+	<data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>Chave SecureString</value>
+  </data>
+	<data name="DecryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>A cadeia segura utilizada para desencriptar a cadeia de entrada.</value>
+  </data>
+	<data name="DecryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>A cadeia segura utilizada para desencriptar a cadeia de entrada.</value>
+  </data>
+	<data name="EncryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>A cadeia segura utilizada para encriptar o ficheiro de entrada.</value>
+  </data>
+	<data name="KeyedHashFileKeySecureStringDescription" xml:space="preserve">
+    <value>A cadeia segura utilizada para aplicar hash ao ficheiro fornecido.</value>
+  </data>
+	<data name="KeyedHashTextKeySecureStringDescription" xml:space="preserve">
+    <value>A cadeia segura utilizada para aplicar hash a cadeia de entrada.</value>
   </data>
 </root>
