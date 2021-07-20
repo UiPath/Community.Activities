@@ -14,6 +14,7 @@ using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using UiPath.Database.Workaround;
 
 namespace Microsoft.Data.ConnectionUI
 {
@@ -21,6 +22,8 @@ namespace Microsoft.Data.ConnectionUI
     {
         public DataConnectionDialog()
         {
+            DbWorkarounds.SNILoadWorkaround();
+
             InitializeComponent();
             dataSourceTextBox.Width = 0;
 
