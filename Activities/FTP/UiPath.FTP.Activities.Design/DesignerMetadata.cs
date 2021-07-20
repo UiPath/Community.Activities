@@ -15,6 +15,7 @@ namespace UiPath.FTP.Activities.Design
 
 
             builder.AddCustomAttributes(typeof(WithFtpSession), new DesignerAttribute(typeof(WithFtpSessionDesigner)));
+            builder.AddCustomAttributes(typeof(MoveItem), new DesignerAttribute(typeof(MoveItemsDesigner)));
 
             builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.Body), hideFromOutlineAttribute);
 
