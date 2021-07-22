@@ -129,7 +129,7 @@
     <value>Encodage utilisé pour l’interprétation de la chaîne d’entrée.</value>
   </data>
 	<data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>The encryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
+    <value>Algorithme de chiffrement qui sera utilisé par cette activité. L’utilisation d’algorithmes obsolètes n’est pas recommandée.</value>
   </data>
 	<data name="EncryptTextEncodingDescription" xml:space="preserve">
     <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
@@ -205,7 +205,7 @@
     <comment>property name</comment>
   </data>
 	<data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>The decryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended.</value>
+    <value>Algorithme de déchiffrement qui sera utilisé par cette activité. L’utilisation d’algorithmes obsolètes n’est pas recommandée.</value>
   </data>
 	<data name="DecryptTextDisplayName" xml:space="preserve">
     <value>Decrypt Text</value>
@@ -345,33 +345,33 @@
     <value>MACTripleDES utilise une clé d’une longueur de 16 ou 24 octets. La longueur de votre clé dépend de l’encodage.</value>
   </data>
 	<data name="EncryptTextKeySecureStringDescription" xml:space="preserve">
-    <value>The secure string used to encrypt the input string.</value>
+    <value>La chaîne sécurisée utilisée pour le chiffrement de la chaîne d’entrée.</value>
   </data>
 	<data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>The key and the secure string must not be both not null.</value>
+    <value>La clé et la chaîne sécurisée ne doivent pas être toutes les deux la valeur pas nulle.</value>
   </data>
 	<data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>The key and the secure string must not be both null.</value>
+    <value>La clé et la chaîne sécurisée ne doivent pas être toutes les deux la valeur nulle.</value>
   </data>
 	<data name="KeySecureString" xml:space="preserve">
-    <value>Key SecureString</value>
+    <value>Clé SecureString</value>
   </data>
 	<data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>Key SecureString</value>
+    <value>Clé SecureString</value>
   </data>
 	<data name="DecryptTextKeySecureStringDescription" xml:space="preserve">
-    <value>The secure string used to decrypt the input string.</value>
+    <value>Chaîne sécurisée utilisée pour le déchiffrement de la chaîne d’entrée.</value>
   </data>
 	<data name="DecryptFileKeySecureStringDescription" xml:space="preserve">
-    <value>The secure string used to decrypt the input string.</value>
+    <value>Chaîne sécurisée utilisée pour le déchiffrement de la chaîne d’entrée.</value>
   </data>
 	<data name="EncryptFileKeySecureStringDescription" xml:space="preserve">
-    <value>The secure string used to encrypt the input file.</value>
+    <value>Chaîne sécurisée utilisée pour le chiffrement du fichier d’entrée.</value>
   </data>
 	<data name="KeyedHashFileKeySecureStringDescription" xml:space="preserve">
-    <value>The secure string used to hash the provided file.</value>
+    <value>Chaîne sécurisée utilisée pour hacher le fichier fourni.</value>
   </data>
 	<data name="KeyedHashTextKeySecureStringDescription" xml:space="preserve">
-    <value>The secure string used to hash the input string.</value>
+    <value>Chaîne sécurisée utilisée pour hacher la chaîne d’entrée.</value>
   </data>
 </root>
