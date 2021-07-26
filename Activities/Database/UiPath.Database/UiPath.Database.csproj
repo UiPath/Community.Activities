@@ -16,17 +16,18 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All"/>
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities" />
     <PackageReference Include="System.Data.Odbc" />
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All"/>
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" PrivateAssets="All" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>

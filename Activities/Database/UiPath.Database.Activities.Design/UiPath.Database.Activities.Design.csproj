@@ -9,7 +9,7 @@
     <PackageReference Include="System.Activities" />
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All"/>
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Activities" />
@@ -21,7 +21,10 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows.Forms" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All"/>
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.fr.resx">
