@@ -9,7 +9,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class DownloadFiles : ContinuableAsyncCodeActivity
+    public class DownloadFiles : FtpAsyncActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]

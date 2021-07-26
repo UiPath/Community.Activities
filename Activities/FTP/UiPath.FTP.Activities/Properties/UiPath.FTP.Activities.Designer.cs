@@ -70,6 +70,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FTP Session Scope.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_DisplayName_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_DisplayName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client certificate password.
         /// </summary>
         public static string ClientCertificatePassword {
@@ -93,6 +102,24 @@ namespace UiPath.FTP.Activities.Properties {
         public static string ClientCertificatePathDesc {
             get {
                 return ResourceManager.GetString("ClientCertificatePathDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common.
+        /// </summary>
+        public static string Common {
+            get {
+                return ResourceManager.GetString("Common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ContinueOnError.
+        /// </summary>
+        public static string ContinueOnError {
+            get {
+                return ResourceManager.GetString("ContinueOnError", resourceCulture);
             }
         }
         
@@ -372,6 +399,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string UseSftp {
             get {
                 return ResourceManager.GetString("UseSftp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity is valid only inside {0}.
+        /// </summary>
+        public static string ValidationError_ValidateParentError {
+            get {
+                return ResourceManager.GetString("ValidationError_ValidateParentError", resourceCulture);
             }
         }
     }
