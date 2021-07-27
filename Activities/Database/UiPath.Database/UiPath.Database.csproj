@@ -5,7 +5,9 @@
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
     <Reference Include="System.Activities" />
@@ -17,19 +19,35 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities" />
     <PackageReference Include="System.Data.Odbc" />
+    <PackageReference Include="System.Data.OleDb" />
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" PrivateAssets="All" />
-    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="runtimes\win-x64\native\sni.dll" />
+    <None Remove="runtimes\win-x86\native\sni.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ConnectionDialog\ConnectionUIDialog\Workaround\DbWorkarounds.cs" Link="Workaround\DbWorkarounds.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="runtimes\win-x64\native\sni.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\sni.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -51,5 +69,8 @@
     <EmbeddedResource Update="Properties\UiPath.Database.ru.resx">
       <DependentUpon>UiPath.Database.resx</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Workaround\" />
   </ItemGroup>
 </Project>

@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Activities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
+using UiPath.Database.Workaround;
 using UiPath.Robot.Activities.Api;
-using Oracle.ManagedDataAccess.Client;
-using System.Data.SqlClient;
 
 namespace UiPath.Database
 {
@@ -29,8 +29,12 @@ namespace UiPath.Database
         private const string OraclePattern = "oracle";
         private const string OracleProvider = "oracle.manageddataaccess.client";
 
+
+
         public DatabaseConnection Initialize(DbConnection connection)
         {
+            DbWorkarounds.SNILoadWorkaround();
+
             _connection = connection;
             OpenConnection();
             return this;
@@ -38,7 +42,17 @@ namespace UiPath.Database
 
         public DatabaseConnection Initialize(string connectionString, string providerName)
         {
+            DbWorkarounds.SNILoadWorkaround();
+
             _providerName = providerName;
+
+#if NETCOREAPP
+            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+            DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
+            DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
+#endif
+
             if (providerName.ToLower() == OracleProvider)
                 _connection = new OracleConnection();
             else
@@ -206,7 +220,7 @@ namespace UiPath.Database
 
         private string CreateTempTableForUpdate(DataTable dataTable, string tableName, DbCommand cmd)
         {
-            var tempTableName = string.Format("a{0}",DateTime.Now.Ticks);
+            var tempTableName = string.Format("a{0}", DateTime.Now.Ticks);
             if (_connection is SqlConnection)
             {
                 tempTableName = string.Format("##{0}", tempTableName);
@@ -218,7 +232,6 @@ namespace UiPath.Database
             cmd.CommandText = string.Format("TRUNCATE TABLE {0}", tempTableName);
             cmd.ExecuteNonQuery();
             return tempTableName;
-
         }
 
         public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime = null)
@@ -226,8 +239,9 @@ namespace UiPath.Database
             if (bulkBatch && SupportsBulk())
                 return DoBulkUpdate(tableName, dataTable, columnNames, executorRuntime);
             else
-                return DoBatchUpdate(tableName,dataTable,columnNames);
+                return DoBatchUpdate(tableName, dataTable, columnNames);
         }
+
         private int DoBatchUpdate(string tableName, DataTable dataTable, string[] columnNames)
         {
             if (_connection == null)
@@ -249,7 +263,6 @@ namespace UiPath.Database
             List<DbParameter> wherePar = new List<DbParameter>();
             var result = SetupBulkUpdateCommand(dataTable, columnNames, markerFormat, sqlCommand, updatePar, wherePar);
 
-
             sqlCommand.Parameters.AddRange(updatePar.ToArray());
             sqlCommand.Parameters.AddRange(wherePar.ToArray());
 
@@ -267,6 +280,7 @@ namespace UiPath.Database
             }
             return rows;
         }
+
         private int DoBulkUpdate(string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime)
         {
             if (_connection == null)
@@ -309,7 +323,6 @@ namespace UiPath.Database
                     sqlCommand.CommandText = string.Format("DROP TABLE {0}", tblName);
                     sqlCommand.ExecuteNonQuery();
                 }
-
             }
         }
 
@@ -360,7 +373,7 @@ namespace UiPath.Database
             };
             executorRuntime.LogMessage(message);
         }
-         
+
         public virtual void Commit()
         {
             _transaction?.Commit();
@@ -450,13 +463,14 @@ namespace UiPath.Database
                 }
                 else
                 {
-                    columns.Append(string.Format("{0}{1}",EscapeDbObject(column.ColumnName),","));
+                    columns.Append(string.Format("{0}{1}", EscapeDbObject(column.ColumnName), ","));
                 }
             }
             columns = columns.Remove(columns.Length - 1, 1);
 
             return columns.ToString();
         }
+
         private string EscapeDbObject(string dbObject)
         {
             return "\"" + dbObject + "\"";
