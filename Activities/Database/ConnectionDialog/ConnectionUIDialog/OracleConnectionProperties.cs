@@ -4,16 +4,19 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using Oracle.ManagedDataAccess.Client;
 using System;
 
 namespace Microsoft.Data.ConnectionUI
 {
 	public class OracleConnectionProperties : AdoDotNetConnectionProperties
 	{
+		private OracleConnectionStringBuilder _connStringBuilder;
 		public OracleConnectionProperties()
-			: base("System.Data.OracleClient")
+			: base("Oracle.ManagedDataAccess.Client")
 		{
 			LocalReset();
+			_connStringBuilder = ConnectionStringBuilder as OracleConnectionStringBuilder;
 		}
 
 		public override void Reset()
@@ -26,14 +29,14 @@ namespace Microsoft.Data.ConnectionUI
 		{
 			get
 			{
-				if (!(ConnectionStringBuilder["Data Source"] is string) ||
-					(ConnectionStringBuilder["Data Source"] as string).Length == 0)
+				if (!(_connStringBuilder["Data Source"] is string) ||
+					(_connStringBuilder["Data Source"] as string).Length == 0)
 				{
 					return false;
 				}
-				if (!(bool)ConnectionStringBuilder["Integrated Security"] &&
-					(!(ConnectionStringBuilder["User ID"] is string) ||
-					(ConnectionStringBuilder["User ID"] as string).Length == 0))
+				if (!(bool)_connStringBuilder["Integrated Security"] &&
+					(!(_connStringBuilder["User ID"] is string) ||
+					(_connStringBuilder["User ID"] as string).Length == 0))
 				{
 					return false;
 				}
@@ -43,14 +46,17 @@ namespace Microsoft.Data.ConnectionUI
 
 		protected override string ToTestString()
 		{
-			bool savedPooling = (bool)ConnectionStringBuilder["Pooling"];
-			bool wasDefault = !ConnectionStringBuilder.ShouldSerialize("Pooling");
-			ConnectionStringBuilder["Pooling"] = false;
-			string testString = ConnectionStringBuilder.ConnectionString;
-			ConnectionStringBuilder["Pooling"] = savedPooling;
+			bool savedPooling = (bool)_connStringBuilder["Pooling"];
+			bool wasDefault = !_connStringBuilder.ShouldSerialize("Pooling");
+			_connStringBuilder["Pooling"] = false;
+			string dataSource = _connStringBuilder["Data Source"] as string;
+			string password = _connStringBuilder["Password"] as string;
+			string userId = _connStringBuilder["User Id"] as string;
+			string testString =  $"User Id={userId};Password={password};Data Source={dataSource};POOLING={savedPooling}";
+			_connStringBuilder["Pooling"] = savedPooling;
 			if (wasDefault)
 			{
-				ConnectionStringBuilder.Remove("Pooling");
+				_connStringBuilder.Remove("Pooling");
 			}
 			return testString;
 		}
@@ -58,7 +64,7 @@ namespace Microsoft.Data.ConnectionUI
 		private void LocalReset()
 		{
 			// We always start with unicode turned on
-			this["Unicode"] = true;
+			//this["Unicode"] = true;
 		}
 
 	}

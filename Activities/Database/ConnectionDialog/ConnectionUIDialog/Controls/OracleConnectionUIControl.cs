@@ -34,26 +34,28 @@ namespace Microsoft.Data.ConnectionUI
 				throw new ArgumentNullException("connectionProperties");
 			}
 
-            //if (!(connectionProperties is OracleConnectionProperties) &&
-            //    !(connectionProperties is OleDBOracleConnectionProperties))
-            //{
-            //    throw new ArgumentException(Strings.OracleConnectionUIControl_InvalidConnectionProperties);
-            //}
+            if (!(connectionProperties is OracleConnectionProperties) &&
+                !(connectionProperties is OleDBOracleConnectionProperties))
+            {
+                throw new ArgumentException(Strings.OracleConnectionUIControl_InvalidConnectionProperties);
+            }
 
-			if (connectionProperties is OdbcConnectionProperties)
+            if (connectionProperties is OdbcConnectionProperties)
 			{
 				// ODBC does not support saving the password
 				savePasswordCheckBox.Enabled = false;
 			}
 
-			_connectionProperties = connectionProperties;
+			_connectionProperties = connectionProperties as OracleConnectionProperties;
 		}
 
 		public void LoadProperties()
 		{
 			_loading = true;
 
-			serverTextBox.Text = Properties[ServerProperty] as string;
+			hostnameTextBox.Text = _host;
+			portTextBox.Text = _port;
+			serviceNameTextBox.Text = _serviceName;
 			userNameTextBox.Text = Properties[UserNameProperty] as string;
 			passwordTextBox.Text = Properties[PasswordProperty] as string;
 			if (!(Properties is OdbcConnectionProperties))
@@ -76,11 +78,15 @@ namespace Microsoft.Data.ConnectionUI
 				ParentForm.RightToLeftLayout == true &&
 				RightToLeft == RightToLeft.Yes)
 			{
-				LayoutUtils.MirrorControl(serverLabel, serverTextBox);
+				LayoutUtils.MirrorControl(hostnameLabel, hostnameTextBox);
+				LayoutUtils.MirrorControl(portLabel, portTextBox);
+				LayoutUtils.MirrorControl(serviceNameLabel, serviceNameTextBox);
 			}
 			else
 			{
-				LayoutUtils.UnmirrorControl(serverLabel, serverTextBox);
+				LayoutUtils.UnmirrorControl(hostnameLabel, hostnameTextBox);
+				LayoutUtils.UnmirrorControl(portLabel, portTextBox);
+				LayoutUtils.UnmirrorControl(serviceNameLabel, serviceNameTextBox);
 			}
 		}
 
@@ -100,14 +106,6 @@ namespace Microsoft.Data.ConnectionUI
 			if (Parent == null)
 			{
 				OnFontChanged(e);
-			}
-		}
-
-		private void SetServer(object sender, EventArgs e)
-		{
-			if (!_loading)
-			{
-				Properties[ServerProperty] = (serverTextBox.Text.Trim().Length > 0) ? serverTextBox.Text.Trim() : null;
 			}
 		}
 
@@ -142,7 +140,7 @@ namespace Microsoft.Data.ConnectionUI
 			c.Text = c.Text.Trim();
 		}
 
-		private string ServerProperty
+		private string DataSourceProperty
 		{
 			get
 			{
@@ -152,12 +150,18 @@ namespace Microsoft.Data.ConnectionUI
 				}
 				else
 				{
-					return "SERVER";
+					return "DATA_SOURCE";
 				}
 			}
 		}
 
-		private string UserNameProperty
+		private string _host;
+
+		private string _port;
+
+		private string _serviceName;
+
+        private string UserNameProperty
 		{
 			get
 			{
@@ -196,6 +200,27 @@ namespace Microsoft.Data.ConnectionUI
 		}
 
 		private bool _loading;
-		private IDataConnectionProperties _connectionProperties;
+		private OracleConnectionProperties _connectionProperties;
+
+        private void SetAtribute(object sender, EventArgs e)
+        {
+			if (!_loading)
+			{
+				var textBox = (TextBox)sender;
+				var val = textBox.Text.Trim();
+				switch (textBox.Name)
+                {
+					case "hostnameTextBox" : _host = val; break;
+					case "portTextBox": _port = val; break;
+					default: _serviceName = val; break;
+				}
+				Properties[DataSourceProperty] = GetDataSource(_host, _port, _serviceName);
+			}
+		}
+
+        private string GetDataSource(string host, string port, string serviceName)
+        {
+			return $"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {host})(PORT = {port})))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {serviceName})))";
+		}
 	}
 }

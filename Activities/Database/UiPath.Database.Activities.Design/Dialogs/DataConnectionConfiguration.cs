@@ -68,10 +68,12 @@ namespace Microsoft.Data.ConnectionUI
             dialog.DataSources.Add(DataSource.SqlFileDataSource);
             dialog.DataSources.Add(DataSource.AccessDataSource);
             dialog.DataSources.Add(DataSource.OdbcDataSource);
+            dialog.DataSources.Add(DataSource.OracleManagedDataAccessSource);
 
             dialog.UnspecifiedDataSource.Providers.Add(DataProvider.SqlDataProvider);
             dialog.UnspecifiedDataSource.Providers.Add(DataProvider.OleDBDataProvider);
             dialog.UnspecifiedDataSource.Providers.Add(DataProvider.OdbcDataProvider);
+            dialog.UnspecifiedDataSource.Providers.Add(DataProvider.OracleManagedDataAccessProvider);
             dialog.DataSources.Add(dialog.UnspecifiedDataSource);
 
             dataSources = new Dictionary<string, DataSource>
@@ -80,6 +82,7 @@ namespace Microsoft.Data.ConnectionUI
                 { DataSource.SqlFileDataSource.Name, DataSource.SqlFileDataSource },
                 { DataSource.AccessDataSource.Name, DataSource.AccessDataSource },
                 { DataSource.OdbcDataSource.Name, DataSource.OdbcDataSource },
+                { DataSource.OracleManagedDataAccessSource.Name, DataSource.OracleManagedDataAccessSource },
                 { dialog.UnspecifiedDataSource.DisplayName, dialog.UnspecifiedDataSource }
             };
 
@@ -87,7 +90,8 @@ namespace Microsoft.Data.ConnectionUI
             {
                 { DataProvider.SqlDataProvider.Name, DataProvider.SqlDataProvider },
                 { DataProvider.OleDBDataProvider.Name, DataProvider.OleDBDataProvider },
-                { DataProvider.OdbcDataProvider.Name, DataProvider.OdbcDataProvider }
+                { DataProvider.OdbcDataProvider.Name, DataProvider.OdbcDataProvider },
+                { DataProvider.OracleManagedDataAccessProvider.Name, DataProvider.OracleManagedDataAccessProvider }
             };
             string dsName = GetSelectedSource();
 

@@ -70,28 +70,6 @@ namespace UiPath.Database.Activities
             throw ex;
         }
 
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
-        {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
-            try
-            {
-                Func<int> action = (Func<int>)context.UserState;
-                int affectedRecords = action.EndInvoke(result);
-                this.AffectedRecords.Set(context, affectedRecords);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-            finally
-            {
-                if (existingConnection == null)
-                {
-                    DbConnection?.Dispose();
-                }
-            }
-        }
-
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             DataTable dataTable = null;
