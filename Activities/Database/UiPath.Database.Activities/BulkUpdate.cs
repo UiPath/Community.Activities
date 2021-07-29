@@ -16,33 +16,24 @@ namespace UiPath.Database.Activities
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
         [DefaultValue(null)]
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("Existing Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("Existing Database Connection")]
         [LocalizedDisplayName(nameof(Resources.BulkUpdateFlag))]
         [DefaultValue(true)]
         public bool BulkUpdateFlag { get; set; } = true;
@@ -102,13 +93,7 @@ namespace UiPath.Database.Activities
                 columnNames = ColumnNames.Get(context);
                 executorRuntime = context.GetExtension<IExecutorRuntime>();
                 connSecureString = ConnectionSecureString.Get(context);
-
-
-                if (DbConnection == null && connString == null && connSecureString == null)
-                {
-                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-                }
-
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                 affectedRecords = await Task.Run(() =>
                 {
                     DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);

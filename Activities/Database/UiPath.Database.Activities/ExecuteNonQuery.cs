@@ -17,29 +17,21 @@ namespace UiPath.Database.Activities
         // public arguments
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
 
         [DefaultValue(null)]
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("Existing Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
@@ -129,12 +121,7 @@ namespace UiPath.Database.Activities
                         parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
                     }
                 }
-
-                if (DbConnection == null && connString == null && connSecureString == null)
-                {
-                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-                }
-
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                 // create the action for doing the actual work
                 affectedRecords = await Task.Run(() =>
                 {
