@@ -97,6 +97,7 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
+	<PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />

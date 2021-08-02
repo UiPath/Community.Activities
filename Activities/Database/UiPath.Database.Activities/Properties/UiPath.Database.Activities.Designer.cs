@@ -124,15 +124,6 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only one of the connection string fields can be used..
-        /// </summary>
-        public static string ConnectionMustBeSet {
-            get {
-                return ResourceManager.GetString("ConnectionMustBeSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SecureConnectionString.
         /// </summary>
         public static string ConnectionSecureStringDisplayName {
@@ -264,6 +255,51 @@ namespace UiPath.Database.Activities.Properties {
         public static string UseTransactionDisplayName {
             get {
                 return ResourceManager.GetString("UseTransactionDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only one of the connections can be used..
+        /// </summary>
+        public static string ValidationError_ConnectionMustBeSet {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionMustBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one of the connections must be used..
+        /// </summary>
+        public static string ValidationError_ConnectionMustNotBeNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionMustNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only one of the connection string fields can be used..
+        /// </summary>
+        public static string ValidationError_ConnectionStringMustBeSet {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionStringMustBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one of the connection string fields must be used..
+        /// </summary>
+        public static string ValidationError_ConnectionStringMustNotBeNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionStringMustNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value for required activity argument &apos;ProviderName&apos; was not supplied.
+        /// </summary>
+        public static string ValidationError_ProviderNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ProviderNull", resourceCulture);
             }
         }
     }

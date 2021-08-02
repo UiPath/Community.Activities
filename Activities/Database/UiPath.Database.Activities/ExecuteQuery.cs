@@ -16,32 +16,24 @@ namespace UiPath.Database.Activities
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
 
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
 
 
         [DefaultValue(null)]
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("Existing Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
@@ -123,10 +115,7 @@ namespace UiPath.Database.Activities
                 provName = ProviderName.Get(context);
                 sql = Sql.Get(context);
                 connSecureString = ConnectionSecureString.Get(context);
-                if (DbConnection == null && connString == null && connSecureString == null)
-                {
-                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-                }
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                 if (Parameters != null)
                 {
                     parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();

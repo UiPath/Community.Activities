@@ -4,6 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -174,14 +175,20 @@ namespace Microsoft.Data.ConnectionUI
             {
                 throw new InvalidOperationException(Strings.AdoDotNetConnectionProperties_NoProperties);
             }
-
             // Create a connection object
             DbConnection connection = null;
-            DbProviderFactory factory = DbProviderFactories.GetFactory(_providerName);
-            Debug.Assert(factory != null);
-            connection = factory.CreateConnection();
+            DbProviderFactory factory = null;
+            if (_providerName.Equals("Oracle.ManagedDataAccess.Client"))
+            {
+                connection = new OracleConnection(testString);
+            }
+            else
+            {
+                factory = DbProviderFactories.GetFactory(_providerName);
+                Debug.Assert(factory != null);
+                connection = factory.CreateConnection();
+            }
             Debug.Assert(connection != null);
-
             // Try to open it
             try
             {
@@ -194,7 +201,7 @@ namespace Microsoft.Data.ConnectionUI
                 connection.Dispose();
             }
         }
-
+        
         public override string ToString()
         {
             return ToFullString();
@@ -246,7 +253,7 @@ namespace Microsoft.Data.ConnectionUI
         {
             get
             {
-                return TypeDescriptor.GetDefaultProperty(_connectionStringBuilder, true);
+                return TypeDescriptor.GetDefaultProperty(_connectionStringBuilder, true);               
             }
         }
 

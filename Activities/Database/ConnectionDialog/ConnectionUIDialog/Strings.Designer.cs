@@ -367,7 +367,7 @@ namespace Microsoft.Data.ConnectionUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .NET Framework Data Provider for Oracle.
+        ///   Looks up a localized string similar to Oracle.ManagedDataAccess.
         /// </summary>
         internal static string DataProvider_Oracle {
             get {
@@ -376,9 +376,7 @@ namespace Microsoft.Data.ConnectionUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use this selection to connect to Oracle 7.3, 8i, 9i or 10g using the .NET Framework Data Provider for Oracle.
-        ///
-        ///Using the .NET Framework Data Provider for Oracle is not recommended because it is being deprecated..
+        ///   Looks up a localized string similar to ODP.NET, Managed Driver is a 100% native code .NET Framework driver for Oracle Database. No additional Oracle Client software is required to be installed to connect to Oracle Database..
         /// </summary>
         internal static string DataProvider_Oracle_DataSource_Description {
             get {
@@ -387,9 +385,7 @@ namespace Microsoft.Data.ConnectionUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use this data provider to connect to Oracle 7.3, 8i, 9i or 10g.
-        ///
-        ///Using the .NET Framework Data Provider for Oracle is not recommended because it is being deprecated..
+        ///   Looks up a localized string similar to Oracle Data Provider for .NET provides fast data access from .NET clients to Oracle databases. ODP.NET enables .NET applications to take advantage of Oracle advanced features, such as Oracle Real Application Clusters (Oracle RAC) and XML DB. It is accessible through any .NET language, including C#, Visual Basic .NET, and C++ .NET..
         /// </summary>
         internal static string DataProvider_Oracle_Description {
             get {

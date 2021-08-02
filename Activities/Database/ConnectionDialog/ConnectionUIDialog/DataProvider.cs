@@ -4,6 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 
@@ -197,6 +198,40 @@ namespace Microsoft.Data.ConnectionUI
         }
 
         private static DataProvider _odbcDataProvider;
+
+
+        public static DataProvider OracleManagedDataAccessProvider
+        {
+            get
+            {
+                if (_oracleManagedDataAcessProvider == null)
+                {
+                    Dictionary<string, string> descriptions = new Dictionary<string, string>
+                    {
+                        { DataSource.OracleManagedDataAccessSource.Name, Strings.DataProvider_Oracle_DataSource_Description }
+                    };
+
+                    Dictionary<string, Type> uiControls = new Dictionary<string, Type>
+                    {
+                        { string.Empty, typeof(OracleConnectionUIControl) }
+                    };
+
+                    _oracleManagedDataAcessProvider = new DataProvider(
+                        "Oracle.ManagedDataAccess.Client",
+                        Strings.DataProvider_Oracle,
+                        Strings.DataProvider_Oracle_Short,
+                        Strings.DataProvider_Oracle_Description,
+                        typeof(OracleConnection),
+                        descriptions,
+                        uiControls, 
+                        typeof(OracleConnectionProperties)
+                        );
+                }
+                return _oracleManagedDataAcessProvider;
+            }
+        }
+
+        private static DataProvider _oracleManagedDataAcessProvider;
 
         public string Name
         {
