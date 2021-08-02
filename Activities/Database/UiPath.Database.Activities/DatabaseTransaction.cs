@@ -16,30 +16,22 @@ namespace UiPath.Database.Activities
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [DefaultValue(null)]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
 
         [DefaultValue(null)]
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("Existing Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
@@ -85,12 +77,8 @@ namespace UiPath.Database.Activities
             DatabaseConnection dbConnection = null;
             try
             {
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                 dbConnection = await Task.Run(() => existingConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName));
-                if (dbConnection == null && connString == null && connSecureString == null)
-                {
-                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-                }
-
                 if (UseTransaction)
                 {
                     dbConnection.BeginTransaction();
@@ -99,6 +87,7 @@ namespace UiPath.Database.Activities
             catch (Exception e)
             {
                 Trace.TraceError($"{e}");
+                HandleException(e, ContinueOnError.Get(context));
             }
             return asyncCodeActivityContext =>
             {

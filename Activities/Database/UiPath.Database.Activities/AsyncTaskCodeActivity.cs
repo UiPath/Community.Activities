@@ -69,7 +69,7 @@ namespace UiPath.Database.Activities
 
             if (task.IsFaulted)
             {
-                ExceptionDispatchInfo.Capture(task.Exception).Throw();
+                ExceptionDispatchInfo.Capture(task.Exception?.InnerException).Throw();
             }
             if (task.IsCanceled)
             {

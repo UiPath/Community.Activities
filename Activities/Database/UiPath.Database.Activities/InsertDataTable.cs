@@ -15,28 +15,20 @@ namespace UiPath.Database.Activities
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
         [DefaultValue(null)]
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("Existing Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
@@ -88,11 +80,7 @@ namespace UiPath.Database.Activities
                 dataTable = DataTable.Get(context);
 
                 connSecureString = ConnectionSecureString.Get(context);
-
-                if (DbConnection == null && connString == null && connSecureString == null)
-                {
-                    throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-                }
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                 // create the action for doing the actual work
                 affectedRecords = await Task.Run(() =>
                 {

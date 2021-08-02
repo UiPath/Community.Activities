@@ -54,7 +54,11 @@ namespace UiPath.Database.Activities
             var connSecureString = ConnectionSecureString.Get(context);
             if (connString == null && connSecureString == null)
             {
-                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
+                throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+            }
+            if (connString != null && connSecureString != null)
+            {
+                throw new ArgumentException(Resources.ValidationError_ConnectionStringMustBeSet);
             }
             var provName = ProviderName.Get(context);
             DatabaseConnection dbConnection = null;
