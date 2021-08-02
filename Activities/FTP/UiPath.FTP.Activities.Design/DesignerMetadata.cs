@@ -16,6 +16,12 @@ namespace UiPath.FTP.Activities.Design
 
             builder.AddCustomAttributes(typeof(WithFtpSession), new DesignerAttribute(typeof(WithFtpSessionDesigner)));
             builder.AddCustomAttributes(typeof(MoveItem), new DesignerAttribute(typeof(MoveItemsDesigner)));
+            builder.AddCustomAttributes(typeof(DownloadFiles), new DesignerAttribute(typeof(DownloadFilesDesigner)));
+            builder.AddCustomAttributes(typeof(UploadFiles), new DesignerAttribute(typeof(UploadFilesDesigner)));
+            builder.AddCustomAttributes(typeof(Delete), new DesignerAttribute(typeof(DeleteDesigner)));
+            builder.AddCustomAttributes(typeof(DirectoryExists), new DesignerAttribute(typeof(DirectoryExistsDesigner)));
+            builder.AddCustomAttributes(typeof(EnumerateObjects), new DesignerAttribute(typeof(EnumerateObjectsDesigner)));
+            builder.AddCustomAttributes(typeof(FileExists), new DesignerAttribute(typeof(FileExistsDesigner)));
 
             builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.Body), hideFromOutlineAttribute);
 
@@ -39,7 +45,7 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(FileExists), new DisplayNameAttribute(Resources.FileExistsDisplayName));
             builder.AddCustomAttributes(typeof(MoveItem), new DisplayNameAttribute(Resources.MoveItemDisplayName));
             builder.AddCustomAttributes(typeof(UploadFiles), new DisplayNameAttribute(Resources.UploadFilesDisplayName));
-            builder.AddCustomAttributes(typeof(WithFtpSession), new DisplayNameAttribute(Resources.WithFtpSessionDisplayName));
+            builder.AddCustomAttributes(typeof(WithFtpSession), new DisplayNameAttribute(Resources.Activity_WithFtpSession_Property_DisplayName_Name));
 
             // Properties and Descriptions
             var ContinueOnError = new DescriptionAttribute(Resources.ContinueOnError);
@@ -70,6 +76,7 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(FileExists), nameof(FileExists.Exists), FileExistsDescription);
 
             //MoveItem properties
+            builder.AddCustomAttributes(typeof(MoveItem), nameof(MoveItem.ContinueOnError), ContinueOnError);
             builder.AddCustomAttributes(typeof(MoveItem), nameof(MoveItem.RemotePath), RemotePathDescription);
             builder.AddCustomAttributes(typeof(MoveItem), nameof(MoveItem.NewPath), MoveItemNewPathDescription);
 

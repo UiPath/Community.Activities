@@ -222,4 +222,16 @@
   <data name="NewPath" xml:space="preserve">
     <value>New remote path</value>
   </data>
+  <data name="ValidationError_ValidateParentError" xml:space="preserve">
+    <value>Activity is valid only inside {0}</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
+    <value>FTP Session Scope</value>
+  </data>
 </root>

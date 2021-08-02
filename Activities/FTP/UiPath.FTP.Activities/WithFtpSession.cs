@@ -69,6 +69,10 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.AcceptAllCertificates))]
         public bool AcceptAllCertificates { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedDisplayName(nameof(Resources.ContinueOnError))]
+        public InArgument<bool> ContinueOnError { get; set; } = false;
+
         public WithFtpSession()
         {
             FtpsMode = FtpsMode.None;

@@ -9,7 +9,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class EnumerateObjects : ContinuableAsyncCodeActivity
+    public class EnumerateObjects : FtpAsyncActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]

@@ -29,7 +29,7 @@ namespace UiPath.FTP.Activities.Design.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UiPath_FTP_Activities_Design() {
+        public UiPath_FTP_Activities_Design() {
         }
         
         /// <summary>
@@ -57,6 +57,15 @@ namespace UiPath.FTP.Activities.Design.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FTP Session Scope.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_DisplayName_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_DisplayName_Name", resourceCulture);
             }
         }
         
@@ -255,15 +264,6 @@ namespace UiPath.FTP.Activities.Design.Properties {
         public static string UsernameDescription {
             get {
                 return ResourceManager.GetString("UsernameDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to With Ftp Session.
-        /// </summary>
-        public static string WithFtpSessionDisplayName {
-            get {
-                return ResourceManager.GetString("WithFtpSessionDisplayName", resourceCulture);
             }
         }
     }
