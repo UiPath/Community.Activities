@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessConnectionUIControl_BrowseFileDefaultExt" xml:space="preserve">
     <value>mdb</value>
@@ -220,17 +220,13 @@
     <value>Use this selection to connect to Microsoft SQL Server 2000 or above using the .NET framework data provider for OLEDB.</value>
   </data>
   <data name="DataProvider_Oracle" xml:space="preserve">
-    <value>.NET Framework Data Provider for Oracle</value>
+    <value>Oracle.ManagedDataAccess</value>
   </data>
   <data name="DataProvider_Oracle_DataSource_Description" xml:space="preserve">
-    <value>Use this selection to connect to Oracle 7.3, 8i, 9i or 10g using the .NET Framework Data Provider for Oracle.
-
-Using the .NET Framework Data Provider for Oracle is not recommended because it is being deprecated.</value>
+    <value>ODP.NET, Managed Driver is a 100% native code .NET Framework driver for Oracle Database. No additional Oracle Client software is required to be installed to connect to Oracle Database.</value>
   </data>
   <data name="DataProvider_Oracle_Description" xml:space="preserve">
-    <value>Use this data provider to connect to Oracle 7.3, 8i, 9i or 10g.
-
-Using the .NET Framework Data Provider for Oracle is not recommended because it is being deprecated.</value>
+    <value>Oracle Data Provider for .NET provides fast data access from .NET clients to Oracle databases. ODP.NET enables .NET applications to take advantage of Oracle advanced features, such as Oracle Real Application Clusters (Oracle RAC) and XML DB. It is accessible through any .NET language, including C#, Visual Basic .NET, and C++ .NET.</value>
   </data>
   <data name="DataProvider_Oracle_Short" xml:space="preserve">
     <value>OracleClient</value>

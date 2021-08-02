@@ -38,9 +38,11 @@ namespace Microsoft.Data.ConnectionUI
             dialog.DataSources.Add(SqlFileDataSource);
             dialog.DataSources.Add(AccessDataSource);
             dialog.DataSources.Add(OdbcDataSource);
+            dialog.DataSources.Add(OracleManagedDataAccessSource);
             dialog.UnspecifiedDataSource.Providers.Add(DataProvider.SqlDataProvider);
             dialog.UnspecifiedDataSource.Providers.Add(DataProvider.OleDBDataProvider);
             dialog.UnspecifiedDataSource.Providers.Add(DataProvider.OdbcDataProvider);
+            dialog.UnspecifiedDataSource.Providers.Add(DataProvider.OracleManagedDataAccessProvider);
             dialog.DataSources.Add(dialog.UnspecifiedDataSource);
         }
 
@@ -101,6 +103,20 @@ namespace Microsoft.Data.ConnectionUI
             }
         }
         private static DataSource _odbcDataSource;
+
+        public static DataSource OracleManagedDataAccessSource
+        {
+            get
+            {
+                if (_oracleManagedDataAccessaSource == null)
+                {
+                    _oracleManagedDataAccessaSource = new DataSource("OracleManagedDataAccess", Strings.DataProvider_Oracle);
+                    _oracleManagedDataAccessaSource.Providers.Add(DataProvider.OracleManagedDataAccessProvider);
+                }
+                return _oracleManagedDataAccessaSource;
+            }
+        }
+        private static DataSource _oracleManagedDataAccessaSource;
 
         public string Name
         {
