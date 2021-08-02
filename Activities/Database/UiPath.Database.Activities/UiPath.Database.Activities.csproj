@@ -27,6 +27,7 @@
     <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <PackageReference Include="UiPath.Activities.Api" />
   </ItemGroup>
 
