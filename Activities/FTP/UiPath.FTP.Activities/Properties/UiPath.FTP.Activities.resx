@@ -222,6 +222,95 @@
   <data name="NewPath" xml:space="preserve">
     <value>New remote path</value>
   </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteDisplayName" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DirectoryExistsDescription" xml:space="preserve">
+    <value>Directory Exists</value>
+  </data>
+  <data name="DirectoryExistsDisplayName" xml:space="preserve">
+    <value>Directory Exists</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DownloadFilesDescription" xml:space="preserve">
+    <value>Download Files</value>
+  </data>
+  <data name="DownloadFilesDisplayName" xml:space="preserve">
+    <value>Download Files</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="EnumerateObjectsDescription" xml:space="preserve">
+    <value>Enumerate Objects</value>
+  </data>
+  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
+    <value>Enumerate Objects</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="FileExistsDescription" xml:space="preserve">
+    <value>File Exists</value>
+  </data>
+  <data name="FileExistsDisplayName" xml:space="preserve">
+    <value>File Exists</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="MoveItemDescription" xml:space="preserve">
+    <value>Move Item</value>
+  </data>
+  <data name="MoveItemDisplayName" xml:space="preserve">
+    <value>Move Item</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="UploadFilesDescription" xml:space="preserve">
+    <value>Upload Files</value>
+  </data>
+  <data name="UploadFilesDisplayName" xml:space="preserve">
+    <value>Upload Files</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="WithFtpSessionDescription" xml:space="preserve">
+    <value>With Ftp Session</value>
+  </data>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>With Ftp Session</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
+    <value>ClientCertificatePassword</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError</value>
+  </data>
+  <data name="FilesDescription" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="HostDescription" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="LocalPathDescription" xml:space="preserve">
+    <value>LocalPath</value>
+  </data>
+  <data name="NewPathDescription" xml:space="preserve">
+    <value>NewPath</value>
+  </data>
+  <data name="PasswordDescription" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PortDescription" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="RemotePathDescription" xml:space="preserve">
+    <value>Remote Path</value>
+  </data>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.</value>
+  </data>
+  <data name="UsernameDescription" xml:space="preserve">
+    <value>Username</value>
+  </data>
   <data name="ValidationError_ValidateParentError" xml:space="preserve">
     <value>Activity is valid only inside {0}</value>
   </data>

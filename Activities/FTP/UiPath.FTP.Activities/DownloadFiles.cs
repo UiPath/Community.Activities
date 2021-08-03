@@ -9,6 +9,8 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
+    [LocalizedDisplayName(nameof(Resources.DownloadFilesDisplayName))]
+    [LocalizedDescription(nameof(Resources.DownloadFilesDescription))]
     public class DownloadFiles : FtpAsyncActivity
     {
         [RequiredArgument]

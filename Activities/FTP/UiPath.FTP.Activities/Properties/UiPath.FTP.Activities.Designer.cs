@@ -88,6 +88,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ClientCertificatePassword.
+        /// </summary>
+        public static string ClientCertificatePasswordDescription {
+            get {
+                return ResourceManager.GetString("ClientCertificatePasswordDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client certificate path.
         /// </summary>
         public static string ClientCertificatePath {
@@ -123,6 +132,7 @@ namespace UiPath.FTP.Activities.Properties {
             }
         }
         
+        
         /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
@@ -151,11 +161,83 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DeleteDescription {
+            get {
+                return ResourceManager.GetString("DeleteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DeleteDisplayName {
+            get {
+                return ResourceManager.GetString("DeleteDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Exists.
+        /// </summary>
+        public static string DirectoryExistsDescription {
+            get {
+                return ResourceManager.GetString("DirectoryExistsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Exists.
+        /// </summary>
+        public static string DirectoryExistsDisplayName {
+            get {
+                return ResourceManager.GetString("DirectoryExistsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Files.
+        /// </summary>
+        public static string DownloadFilesDescription {
+            get {
+                return ResourceManager.GetString("DownloadFilesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Files.
+        /// </summary>
+        public static string DownloadFilesDisplayName {
+            get {
+                return ResourceManager.GetString("DownloadFilesDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username cannot be empty..
         /// </summary>
         public static string EmptyUsernameException {
             get {
                 return ResourceManager.GetString("EmptyUsernameException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enumerate Objects.
+        /// </summary>
+        public static string EnumerateObjectsDescription {
+            get {
+                return ResourceManager.GetString("EnumerateObjectsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enumerate Objects.
+        /// </summary>
+        public static string EnumerateObjectsDisplayName {
+            get {
+                return ResourceManager.GetString("EnumerateObjectsDisplayName", resourceCulture);
             }
         }
         
@@ -178,11 +260,38 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Exists.
+        /// </summary>
+        public static string FileExistsDescription {
+            get {
+                return ResourceManager.GetString("FileExistsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Exists.
+        /// </summary>
+        public static string FileExistsDisplayName {
+            get {
+                return ResourceManager.GetString("FileExistsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Files.
         /// </summary>
         public static string Files {
             get {
                 return ResourceManager.GetString("Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string FilesDescription {
+            get {
+                return ResourceManager.GetString("FilesDescription", resourceCulture);
             }
         }
         
@@ -214,6 +323,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string HostDescription {
+            get {
+                return ResourceManager.GetString("HostDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The source path points to a directory but the destination path points to a file..
         /// </summary>
         public static string IncompatiblePathsException {
@@ -241,11 +359,47 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LocalPath.
+        /// </summary>
+        public static string LocalPathDescription {
+            get {
+                return ResourceManager.GetString("LocalPathDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Item.
+        /// </summary>
+        public static string MoveItemDescription {
+            get {
+                return ResourceManager.GetString("MoveItemDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Item.
+        /// </summary>
+        public static string MoveItemDisplayName {
+            get {
+                return ResourceManager.GetString("MoveItemDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New remote path.
         /// </summary>
         public static string NewPath {
             get {
                 return ResourceManager.GetString("NewPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NewPath.
+        /// </summary>
+        public static string NewPathDescription {
+            get {
+                return ResourceManager.GetString("NewPathDescription", resourceCulture);
             }
         }
         
@@ -304,6 +458,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string PasswordDescription {
+            get {
+                return ResourceManager.GetString("PasswordDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Path &quot;{0}&quot; not found..
         /// </summary>
         public static string PathNotFoundException {
@@ -322,6 +485,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        public static string PortDescription {
+            get {
+                return ResourceManager.GetString("PortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include subfolders.
         /// </summary>
         public static string Recursive {
@@ -336,6 +508,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string RemotePath {
             get {
                 return ResourceManager.GetString("RemotePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string RemotePathDescription {
+            get {
+                return ResourceManager.GetString("RemotePathDescription", resourceCulture);
             }
         }
         
@@ -376,6 +557,24 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload Files.
+        /// </summary>
+        public static string UploadFilesDescription {
+            get {
+                return ResourceManager.GetString("UploadFilesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Files.
+        /// </summary>
+        public static string UploadFilesDisplayName {
+            get {
+                return ResourceManager.GetString("UploadFilesDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use anonymous login.
         /// </summary>
         public static string UseAnonymousLogin {
@@ -385,11 +584,29 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
+        /// </summary>
+        public static string UseAnonymousLoginDescription {
+            get {
+                return ResourceManager.GetString("UseAnonymousLoginDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string UsernameDescription {
+            get {
+                return ResourceManager.GetString("UsernameDescription", resourceCulture);
             }
         }
         
@@ -408,6 +625,24 @@ namespace UiPath.FTP.Activities.Properties {
         public static string ValidationError_ValidateParentError {
             get {
                 return ResourceManager.GetString("ValidationError_ValidateParentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Ftp Session.
+        /// </summary>
+        public static string WithFtpSessionDescription {
+            get {
+                return ResourceManager.GetString("WithFtpSessionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Ftp Session.
+        /// </summary>
+        public static string WithFtpSessionDisplayName {
+            get {
+                return ResourceManager.GetString("WithFtpSessionDisplayName", resourceCulture);
             }
         }
     }

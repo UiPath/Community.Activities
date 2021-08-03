@@ -9,6 +9,8 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
+    [LocalizedDisplayName(nameof(Resources.MoveItemDisplayName))]
+    [LocalizedDescription(nameof(Resources.MoveItemDescription))]
     public class MoveItem : FtpCodeActivity
     {
         [RequiredArgument]

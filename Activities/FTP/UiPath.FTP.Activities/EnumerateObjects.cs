@@ -9,6 +9,8 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
+    [LocalizedDisplayName(nameof(Resources.EnumerateObjectsDisplayName))]
+    [LocalizedDescription(nameof(Resources.EnumerateObjectsDescription))]
     public class EnumerateObjects : FtpAsyncActivity
     {
         [RequiredArgument]
