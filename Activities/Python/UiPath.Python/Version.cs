@@ -26,11 +26,28 @@ namespace UiPath.Python
         }
     }
 
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class LocalizedDescriptionAttribute : DescriptionAttribute
+    {
+        public LocalizedDescriptionAttribute(string displayName)
+            : base(displayName)
+        {
+        }
+
+        public override string Description
+        {
+            get
+            {
+                return Resources.ResourceManager.GetString(DescriptionValue) ?? base.Description;
+            }
+        }
+    }
+
     [TypeConverter(typeof(EnumTypeConverter))]
     public enum Version
     {
         //Unknown = -1,
-
+        [LocalizedDescription(nameof(Resources.Activity_PythonScope_Property_Auto_Description))]
         Auto,
 #if NET461
         [Version(2, 7, "Python.Runtime.27.dll")]
