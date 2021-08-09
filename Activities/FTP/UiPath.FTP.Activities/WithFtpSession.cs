@@ -9,6 +9,8 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
+    [LocalizedDisplayName(nameof(Resources.WithFtpSessionDisplayName))]
+    [LocalizedDescription(nameof(Resources.WithFtpSessionDescription))]
     public class WithFtpSession : ContinuableAsyncNativeActivity
     {
         private IFtpSession _ftpSession;

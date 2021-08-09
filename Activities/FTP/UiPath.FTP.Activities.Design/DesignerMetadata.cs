@@ -38,28 +38,28 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(WithFtpSession), FTPCategoryAttribute);
 
             // Activities DisplayName
-            builder.AddCustomAttributes(typeof(Delete), new DisplayNameAttribute(Resources.DeleteDisplayName));
-            builder.AddCustomAttributes(typeof(DirectoryExists), new DisplayNameAttribute(Resources.DirectoryExistsDisplayName));
-            builder.AddCustomAttributes(typeof(DownloadFiles), new DisplayNameAttribute(Resources.DownloadFilesDisplayName));
-            builder.AddCustomAttributes(typeof(EnumerateObjects), new DisplayNameAttribute(Resources.EnumerateObjectsDisplayName));
-            builder.AddCustomAttributes(typeof(FileExists), new DisplayNameAttribute(Resources.FileExistsDisplayName));
-            builder.AddCustomAttributes(typeof(MoveItem), new DisplayNameAttribute(Resources.MoveItemDisplayName));
-            builder.AddCustomAttributes(typeof(UploadFiles), new DisplayNameAttribute(Resources.UploadFilesDisplayName));
-            builder.AddCustomAttributes(typeof(WithFtpSession), new DisplayNameAttribute(Resources.Activity_WithFtpSession_Property_DisplayName_Name));
+            builder.AddCustomAttributes(typeof(Delete), new DisplayNameAttribute(SharedResources.DeleteDisplayName));
+            builder.AddCustomAttributes(typeof(DirectoryExists), new DisplayNameAttribute(SharedResources.DirectoryExistsDisplayName));
+            builder.AddCustomAttributes(typeof(DownloadFiles), new DisplayNameAttribute(SharedResources.DownloadFilesDisplayName));
+            builder.AddCustomAttributes(typeof(EnumerateObjects), new DisplayNameAttribute(SharedResources.EnumerateObjectsDisplayName));
+            builder.AddCustomAttributes(typeof(FileExists), new DisplayNameAttribute(SharedResources.FileExistsDisplayName));
+            builder.AddCustomAttributes(typeof(MoveItem), new DisplayNameAttribute(SharedResources.MoveItemDisplayName));
+            builder.AddCustomAttributes(typeof(UploadFiles), new DisplayNameAttribute(SharedResources.UploadFilesDisplayName));
+            builder.AddCustomAttributes(typeof(WithFtpSession), new DisplayNameAttribute(SharedResources.WithFtpSessionDisplayName));
 
             // Properties and Descriptions
-            var ContinueOnError = new DescriptionAttribute(Resources.ContinueOnError);
-            var UsernameDescription = new DescriptionAttribute(Resources.UsernameDescription);
-            var PasswordDescription = new DescriptionAttribute(Resources.PasswordDescription);
-            var ClientCertificatePasswordDescription = new DescriptionAttribute(Resources.ClientCertificatePasswordDescription);
-            var HostDescription = new DescriptionAttribute(Resources.HostDescription);
-            var PortDescription = new DescriptionAttribute(Resources.PortDescription);
-            var RemotePathDescription = new DescriptionAttribute(Resources.RemotePathDescription);
-            var DirectoryExistsDescription = new DescriptionAttribute(Resources.DirectoryExistsDescription);
-            var FileExistsDescription = new DescriptionAttribute(Resources.FileExistsDescription);
-            var FilesDescription = new DescriptionAttribute(Resources.FilesDescription);
-            var MoveItemNewPathDescription = new DescriptionAttribute(Resources.MoveItemNewPathDescription);
-            var LocalPathDescription = new DescriptionAttribute(Resources.LocalPathDescription);
+            var ContinueOnError = new DisplayNameAttribute(SharedResources.ContinueOnError);
+            var UsernameDescription = new DescriptionAttribute(SharedResources.UsernameDescription);
+            var PasswordDescription = new DescriptionAttribute(SharedResources.PasswordDescription);
+            var ClientCertificatePasswordDescription = new DescriptionAttribute(SharedResources.ClientCertificatePasswordDescription);
+            var HostDescription = new DescriptionAttribute(SharedResources.HostDescription);
+            var PortDescription = new DescriptionAttribute(SharedResources.PortDescription);
+            var RemotePathDescription = new DescriptionAttribute(SharedResources.RemotePathDescription);
+            var DirectoryExistsDescription = new DescriptionAttribute(SharedResources.DirectoryExistsDescription);
+            var FileExistsDescription = new DescriptionAttribute(SharedResources.FileExistsDescription);
+            var FilesDescription = new DescriptionAttribute(SharedResources.FilesDescription);
+            var MoveItemNewPathDescription = new DescriptionAttribute(SharedResources.NewPathDescription);
+            var LocalPathDescription = new DescriptionAttribute(SharedResources.LocalPathDescription);
 
             //Delete properties
             builder.AddCustomAttributes(typeof(Delete), nameof(Delete.ContinueOnError), ContinueOnError);
@@ -104,7 +104,7 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.Port), PortDescription);
 
 
-            builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.UseAnonymousLogin), new DescriptionAttribute(Resources.UseAnonymousLoginDescription));
+            builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.UseAnonymousLogin), new DescriptionAttribute(SharedResources.UseAnonymousLoginDescription));
 
 
             MetadataStore.AddAttributeTable(builder.CreateTable());

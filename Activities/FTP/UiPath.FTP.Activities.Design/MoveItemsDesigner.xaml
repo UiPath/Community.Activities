@@ -24,12 +24,12 @@
                    Margin="0, 5, 0, 0" Content="{x:Static p:SharedResources.RemotePath}"
                    ToolTip="{x:Static p:SharedResources.RemotePath}" />
             <sapv:ExpressionTextBox Margin="0, 5, 0, 0" DockPanel.Dock="Top" Expression="{Binding Path=ModelItem.RemotePath, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In}"
-                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.RemotePath}"/>
+                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.RemotePathDescription}"/>
             <Label Padding="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="0, 5, 0, 0" Content="{x:Static p:SharedResources.NewPath}"
                    ToolTip="{x:Static p:SharedResources.NewPath}" />
             <sapv:ExpressionTextBox Margin="0, 5, 0, 0" DockPanel.Dock="Bottom" Expression="{Binding Path=ModelItem.NewPath, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In}"
-                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.NewPath}"/>
+                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.NewPathDescription}"/>
         </StackPanel>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

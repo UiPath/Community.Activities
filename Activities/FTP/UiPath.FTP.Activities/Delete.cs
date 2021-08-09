@@ -8,6 +8,8 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
+    [LocalizedDisplayName(nameof(Resources.DeleteDisplayName))]
+    [LocalizedDescription(nameof(Resources.DeleteDescription))]
     public class Delete : FtpAsyncActivity
     {
         [RequiredArgument]
