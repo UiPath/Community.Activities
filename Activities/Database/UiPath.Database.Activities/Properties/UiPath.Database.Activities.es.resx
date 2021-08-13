@@ -191,7 +191,7 @@
     <value>NombresDeColumna</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
     <value>Solo se puede utilizar uno de los campos de la cadena de conexión.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
@@ -199,5 +199,17 @@
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>Actualización masiva/por lotes</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>Solo se puede utilizar una de las conexiones.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>Se debe utilizar al menos una de las conexiones.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>Se debe utilizar al menos uno de los campos de la cadena de conexión.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>No se proporcionó el valor para el argumento de actividad requerido &apos;NombreDelProveedor&apos;</value>
   </data>
 </root>

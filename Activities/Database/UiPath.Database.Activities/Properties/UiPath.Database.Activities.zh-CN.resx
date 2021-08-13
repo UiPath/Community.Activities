@@ -191,7 +191,7 @@
     <value>列名称</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
     <value>仅可使用其中一个连接字符串字段。</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
@@ -199,5 +199,17 @@
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>Bulk/批量更新</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>只能使用其中一个连接。</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>必须至少使用其中一个连接。</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>必须至少使用其中一个连接字符串字段。</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>未提供所需活动参数“提供程序名称”的值</value>
   </data>
 </root>

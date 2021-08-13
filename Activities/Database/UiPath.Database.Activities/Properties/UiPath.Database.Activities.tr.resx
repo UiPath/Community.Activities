@@ -191,7 +191,7 @@
     <value>ColumnNames</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
     <value>Bağlantı dizesi alanlarından yalnızca biri kullanılabilir.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
@@ -199,5 +199,17 @@
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>Bulk/Toplu Güncelleştirme</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>Bağlantılardan sadece biri kullanılabilir.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>Bağlantılardan en az biri kullanılmalıdır.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>Bağlantı dizesi alanlarından en az biri kullanılmalıdır.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>Gerekli etkinlik bağımsız değişkeni &apos;ProviderName&apos; için değer sağlanmamış</value>
   </data>
 </root>
