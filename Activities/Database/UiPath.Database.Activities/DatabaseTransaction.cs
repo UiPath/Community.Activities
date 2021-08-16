@@ -75,6 +75,7 @@ namespace UiPath.Database.Activities
             DatabaseConnection existingConnection = null;
             existingConnection = ExistingDbConnection.Get(context);
             DatabaseConnection dbConnection = null;
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
                 ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
@@ -87,7 +88,7 @@ namespace UiPath.Database.Activities
             catch (Exception e)
             {
                 Trace.TraceError($"{e}");
-                HandleException(e, ContinueOnError.Get(context));
+                HandleException(e, continueOnError);
             }
             return asyncCodeActivityContext =>
             {

@@ -108,6 +108,7 @@ namespace UiPath.Database.Activities
                 throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
             }
             Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
                 existingConnection = DbConnection = ExistingDbConnection.Get(context);
@@ -142,7 +143,7 @@ namespace UiPath.Database.Activities
             }
             catch (Exception ex)
             {
-                HandleException(ex, ContinueOnError.Get(context));
+                HandleException(ex, continueOnError);
             }
             finally
             {

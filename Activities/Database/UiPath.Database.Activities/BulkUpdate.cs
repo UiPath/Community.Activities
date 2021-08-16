@@ -83,6 +83,7 @@ namespace UiPath.Database.Activities
             DatabaseConnection existingConnection = null;
             long affectedRecords = 0;
             IExecutorRuntime executorRuntime = null;
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
                 existingConnection = DbConnection = ExistingDbConnection.Get(context);
@@ -110,7 +111,7 @@ namespace UiPath.Database.Activities
             }
             catch (Exception ex)
             {
-                HandleException(ex, ContinueOnError.Get(context));
+                HandleException(ex, continueOnError);
             }
             finally
             {

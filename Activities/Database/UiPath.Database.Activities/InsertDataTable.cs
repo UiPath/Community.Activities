@@ -71,6 +71,7 @@ namespace UiPath.Database.Activities
             string tableName = null;
             DatabaseConnection existingConnection = null;
             int affectedRecords = 0;
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
                 existingConnection = DbConnection = ExistingDbConnection.Get(context);
@@ -95,7 +96,7 @@ namespace UiPath.Database.Activities
             }
             catch (Exception ex)
             {
-                HandleException(ex, ContinueOnError.Get(context));
+                HandleException(ex, continueOnError);
             }
             finally
             {

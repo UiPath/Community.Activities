@@ -98,8 +98,8 @@ namespace UiPath.Database
 
         public virtual int InsertDataTable(string tableName, DataTable dataTable, bool removeBrackets = false)
         {
-            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection)?.CreateDataAdapter();
-            DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_connection)?.CreateCommandBuilder();
+            DbDataAdapter dbDA = GetCurrentFactory().CreateDataAdapter();
+            DbCommandBuilder cmdb = GetCurrentFactory().CreateCommandBuilder();
             cmdb.DataAdapter = dbDA;
             dbDA.ContinueUpdateOnError = false;
 
@@ -202,12 +202,18 @@ namespace UiPath.Database
                 }
             }
         }
+        private DbProviderFactory GetCurrentFactory()
+        {
+            if (DbProviderFactories.GetFactory(_connection) == null)
+                return DbProviderFactories.GetFactory(_providerName);
+            return DbProviderFactories.GetFactory(_connection);
+        }
 
         private void ValidateDatabaseTableStructure(string tableName, DataTable dataTable)
         {
             if (_connection == null)
                 return;
-            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection).CreateDataAdapter();
+            DbDataAdapter dbDA = GetCurrentFactory().CreateDataAdapter();
             dbDA.SelectCommand = _connection.CreateCommand();
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
