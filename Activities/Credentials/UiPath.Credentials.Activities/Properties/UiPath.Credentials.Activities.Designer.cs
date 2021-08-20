@@ -31,7 +31,7 @@ namespace UiPath.Credentials.Activities.Properties
         private static global::System.Globalization.CultureInfo resourceCulture;
 
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UiPath_Credentials_Activities()
+        public UiPath_Credentials_Activities()
         {
         }
 
@@ -66,6 +66,94 @@ namespace UiPath.Credentials.Activities.Properties
             set
             {
                 resourceCulture = value;
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Add Credentials.
+        /// </summary>
+        public static string Activity_AddCredential_Property_AddCredentialDescription_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_AddCredential_Property_AddCredentialDescription_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Add Credentials.
+        /// </summary>
+        public static string Activity_AddCredential_Property_AddCredentialDisplayName_Name
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_AddCredential_Property_AddCredentialDisplayName_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Credentials.
+        /// </summary>
+        public static string Activity_DeleteCredential_Property_DeleteCredentialDescription_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_DeleteCredential_Property_DeleteCredentialDescription_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Credentials.
+        /// </summary>
+        public static string Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Get Secure Credentials.
+        /// </summary>
+        public static string Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Get Secure Credentials.
+        /// </summary>
+        public static string Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Request Credentials.
+        /// </summary>
+        public static string Activity_RequestCredential_Property_RequestCredentialDescription_Description
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_RequestCredential_Property_RequestCredentialDescription_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Request Credentials.
+        /// </summary>
+        public static string Activity_RequestCredential_Property_RequestCredentialDisplayName_Name
+        {
+            get
+            {
+                return ResourceManager.GetString("Activity_RequestCredential_Property_RequestCredentialDisplayName_Name", resourceCulture);
             }
         }
 

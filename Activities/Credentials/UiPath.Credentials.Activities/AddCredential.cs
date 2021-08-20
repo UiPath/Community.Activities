@@ -62,7 +62,7 @@ namespace UiPath.Credentials.Activities
             }
             if (password != null && passwordSecureString != null)
             {
-                throw new ArgumentNullException(Resources.PasswordAndSecureStringNotNull);
+                throw new ArgumentException(Resources.PasswordAndSecureStringNotNull);
             }
 
             Credential credential = new Credential { Target = Target.Get(context), Username = Username.Get(context), Password = password != null ? password : new NetworkCredential("", passwordSecureString).Password, Type = CredentialType, PersistanceType = PersistanceType };
