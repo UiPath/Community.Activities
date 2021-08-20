@@ -191,7 +191,7 @@
     <value>ColumnNames</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
     <value>연결 문자열 필드 중 하나만 사용할 수 있습니다.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
@@ -199,5 +199,17 @@
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>대량/일괄 업데이트</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>연결 중 1개만 사용할 수 있습니다.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>연결 중 1개 이상을 사용해야 합니다.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>연결 문자열 필드 중 1개 이상을 사용해야 합니다.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>필수 액티비티 인수 &apos;ProviderName&apos;의 값이 입력되지 않았습니다.</value>
   </data>
 </root>

@@ -191,7 +191,7 @@
     <value>列名</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
     <value>使用できる接続文字列のフィールドは 1 つだけです。</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
@@ -199,5 +199,17 @@
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>更新方法 (BULK/バッチ処理)</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>使用できる接続は 1 つだけです。</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>少なくとも 1 つの接続を使用する必要があります。</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>少なくとも 1 つの接続文字列のフィールドを使用する必要があります。</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>必須のアクティビティ引数 [プロバイダー名] の値が入力されていません。</value>
   </data>
 </root>
