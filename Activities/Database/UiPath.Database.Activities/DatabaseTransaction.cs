@@ -3,6 +3,8 @@ using System.Activities;
 using System.Activities.Statements;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
+using System.Security;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
@@ -20,10 +22,17 @@ namespace UiPath.Database.Activities
         [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [DefaultValue(null)]
-        [RequiredArgument]
         [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
+
+
+        [DefaultValue(null)]
+        [DependsOn(nameof(ProviderName))]
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        [OverloadGroup("New Database Connection")]
+        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -41,7 +50,7 @@ namespace UiPath.Database.Activities
         public OutArgument<DatabaseConnection> DatabaseConnection { get; set; }
 
         [Browsable(false)]
-        public Activity Body { get; set; }
+        public System.Activities.Activity Body { get; set; }
 
         [LocalizedDisplayName(nameof(Resources.UseTransactionDisplayName))]
         public bool UseTransaction { get; set; }
@@ -66,9 +75,15 @@ namespace UiPath.Database.Activities
         protected override IAsyncResult BeginExecute(NativeActivityContext context, AsyncCallback callback, object state)
         {
             var connString = ConnectionString.Get(context);
+            SecureString connSecureString = null;
             var provName = ProviderName.Get(context);
-            var dbConnection = ExistingDbConnection.Get(context) ?? new DatabaseConnection().Initialize(connString, provName);
+            connSecureString = ConnectionSecureString.Get(context);
 
+            var dbConnection = ExistingDbConnection.Get(context) ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+            if (dbConnection == null && connString == null && connSecureString == null)
+            {
+                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
+            }
             ConnectionInitFunc = () => dbConnection;
             return ConnectionInitFunc.BeginInvoke(callback, state);
         }

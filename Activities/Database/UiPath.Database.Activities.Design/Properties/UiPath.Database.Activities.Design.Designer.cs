@@ -19,7 +19,7 @@ namespace UiPath.Database.Activities.Design.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_Database_Activities_Design {
@@ -79,6 +79,132 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The number of updatedrows.
+        /// </summary>
+        public static string AffectedRecordsUpdateDescription {
+            get {
+                return ResourceManager.GetString("AffectedRecordsUpdateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch..
+        /// </summary>
+        public static string BulkFlagDescription {
+            get {
+                return ResourceManager.GetString("BulkFlagDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulk Insert.
+        /// </summary>
+        public static string BulkInsert {
+            get {
+                return ResourceManager.GetString("BulkInsert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataTable.
+        /// </summary>
+        public static string BulkInsert_DataTable {
+            get {
+                return ResourceManager.GetString("BulkInsert_DataTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The source DataTable for the items to be inserted..
+        /// </summary>
+        public static string BulkInsert_DataTable_Description {
+            get {
+                return ResourceManager.GetString("BulkInsert_DataTable_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source DataTable.
+        /// </summary>
+        public static string BulkInsert_DataTable_Placeholder {
+            get {
+                return ResourceManager.GetString("BulkInsert_DataTable_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table name.
+        /// </summary>
+        public static string BulkInsert_TableName {
+            get {
+                return ResourceManager.GetString("BulkInsert_TableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the database table where you want to insert the items..
+        /// </summary>
+        public static string BulkInsert_TableName_Description {
+            get {
+                return ResourceManager.GetString("BulkInsert_TableName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination database table name.
+        /// </summary>
+        public static string BulkInsert_TableName_Placeholder {
+            get {
+                return ResourceManager.GetString("BulkInsert_TableName_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will update a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations..
+        /// </summary>
+        public static string BulkInsertDescription {
+            get {
+                return ResourceManager.GetString("BulkInsertDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bulk Update.
+        /// </summary>
+        public static string BulkUpdate {
+            get {
+                return ResourceManager.GetString("BulkUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Columns used for matching rows.
+        /// </summary>
+        public static string BulkUpdate_ColumnNames {
+            get {
+                return ResourceManager.GetString("BulkUpdate_ColumnNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The collection of column names used for row matching.
+        /// </summary>
+        public static string BulkUpdate_ColumnNames_Placeholder {
+            get {
+                return ResourceManager.GetString("BulkUpdate_ColumnNames_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected..
+        /// </summary>
+        public static string BulkUpdateDescription {
+            get {
+                return ResourceManager.GetString("BulkUpdateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App Integration.
         /// </summary>
         public static string CategoryAppIntegration {
@@ -133,6 +259,15 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection as Secure String.
+        /// </summary>
+        public static string ConnectionSecureStringDescription {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection String.
         /// </summary>
         public static string ConnectionString {
@@ -156,6 +291,15 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string ConnectionWizard {
             get {
                 return ResourceManager.GetString("ConnectionWizard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ContinueOnError Boolean.
+        /// </summary>
+        public static string ContinueOnError {
+            get {
+                return ResourceManager.GetString("ContinueOnError", resourceCulture);
             }
         }
         
@@ -471,6 +615,15 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string TimeoutMSDescription {
             get {
                 return ResourceManager.GetString("TimeoutMSDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them.
+        /// </summary>
+        public static string UpdateDataTableInputDescription {
+            get {
+                return ResourceManager.GetString("UpdateDataTableInputDescription", resourceCulture);
             }
         }
         

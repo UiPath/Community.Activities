@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace UiPath.Database
+﻿namespace UiPath.Database
 {
-    internal class DBConnectionFactory : IDBConnectionFactory
+    public class DBConnectionFactory : IDBConnectionFactory
     {
         public DatabaseConnection Create(string connectionString, string providerName)
         {
@@ -14,7 +9,7 @@ namespace UiPath.Database
         }
     }
 
-    internal interface IDBConnectionFactory
+    public interface IDBConnectionFactory
     {
         DatabaseConnection Create(string connectionString, string providerName);
     }

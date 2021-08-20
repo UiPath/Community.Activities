@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConstructorException" xml:space="preserve">
+    <value>No se ha podido llamar al constructor.</value>
+  </data>
+  <data name="ConvertException" xml:space="preserve">
+    <value>No se ha podido convertir </value>
+  </data>
+  <data name="ConvertJavaObjectDescription" xml:space="preserve">
+    <value>Convertir un objeto de java al tipo .net especificado. Si no ha sido posible la conversión, lanza una excepción.</value>
+  </data>
+  <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
+    <value>Convertir objeto de java</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
+    <value>El objeto de java convertido a .net.</value>
+  </data>
+  <data name="CreateJavaObjectDescription" xml:space="preserve">
+    <value>Solicita el constructor en la clase especificada.</value>
+  </data>
+  <data name="CreateJavaObjectDisplayName" xml:space="preserve">
+    <value>Crear objeto de java</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Do" xml:space="preserve">
+    <value>Hacer</value>
+  </data>
+  <data name="FieldNameDisplayName" xml:space="preserve">
+    <value>Nombre del campo</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FieldNameDescription" xml:space="preserve">
+    <value>El nombre del campo que la actividad devolverá como objeto de java.</value>
+  </data>
+  <data name="GetFieldDescritption" xml:space="preserve">
+    <value>Devuelve un campo público desde un objeto de java.</value>
+  </data>
+  <data name="GetFieldDisplayName" xml:space="preserve">
+    <value>Obtener campo</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetFieldException" xml:space="preserve">
+    <value>Campo no encontrado.</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Destino</value>
+  </data>
+  <data name="InvokationObjectException" xml:space="preserve">
+    <value>El objeto de destino y el tipo de destino están vacíos. Al menos uno de estos debe estar configurado.</value>
+  </data>
+  <data name="InvokeJavaMethodDescription" xml:space="preserve">
+    <value>Solicitar método de Java</value>
+  </data>
+  <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
+    <value>Solicitar método de Java</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="InvokeJavaResultDescription" xml:space="preserve">
+    <value>Una referencia a un objeto cargado en Java.</value>
+  </data>
+  <data name="InvokeMethodException" xml:space="preserve">
+    <value>No se ha podido invocar el método.</value>
+  </data>
+  <data name="JarPathDescription" xml:space="preserve">
+    <value>Se cargará la ruta de JAR.</value>
+  </data>
+  <data name="JarPathDisplayName" xml:space="preserve">
+    <value>RutaDeJAR</value>
+    <comment>property name</comment>
+  </data>
+  <data name="JavaInitiazeException" xml:space="preserve">
+    <value>Error al iniciar Java: {0}</value>
+  </data>
+  <data name="JavaInvokerNotLoadedException" xml:space="preserve">
+    <value>No se ha cargado el solicitante de Java.</value>
+  </data>
+  <data name="JavaObjectDisplayName" xml:space="preserve">
+    <value>ObjetoDeJava</value>
+    <comment>property name</comment>
+  </data>
+  <data name="JavaObjectDescription" xml:space="preserve">
+    <value>Una referencia a un objeto cargado en Java.</value>
+  </data>
+  <data name="JavaPathDescription" xml:space="preserve">
+    <value>Ruta a java.exe</value>
+  </data>
+  <data name="JavaPathDisplayName" xml:space="preserve">
+    <value>RutaDeLaBibliotecaDeJava</value>
+    <comment>property name</comment>
+  </data>
+  <data name="JavaScopeDescription" xml:space="preserve">
+    <value>Contenedor de actividades de Java</value>
+  </data>
+  <data name="JavaScopeNameDisplayName" xml:space="preserve">
+    <value>Ámbito de Java</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="LoadJarDescription" xml:space="preserve">
+    <value>Carga un JAR dentro del ámbito de Java actual.</value>
+  </data>
+  <data name="LoadJarDisplayName" xml:space="preserve">
+    <value>Cargar JAR</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="LoadJarException" xml:space="preserve">
+    <value>No se ha podido cargar el JAR.</value>
+  </data>
+  <data name="MethodNameDisplayName" xml:space="preserve">
+    <value>NombreDeMétodo</value>
+    <comment>property name</comment>
+  </data>
+  <data name="MethodNameDescription" xml:space="preserve">
+    <value>Nombre del método que se ejecutará en Java.</value>
+  </data>
+  <data name="OutputDisplayName" xml:space="preserve">
+    <value>Salida</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>Lista de argumentos especificados en el mismo orden que el método de Java. Un argumento no puede ser nulo.</value>
+  </data>
+  <data name="ParametersDisplayName" xml:space="preserve">
+    <value>Parámetros</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersListDisplayName" xml:space="preserve">
+    <value>ListaDeParámetros</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersSetException" xml:space="preserve">
+    <value>No puede configurar {0} y {1} a la vez.</value>
+  </data>
+  <data name="ResultDisplayName" xml:space="preserve">
+    <value>Resultado</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetObjectDisplayName" xml:space="preserve">
+    <value>ObjetoDeDestino</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetObjectDescription" xml:space="preserve">
+    <value>La instancia del objeto de Java que el método va a invocar. No se puede configurar el ObjetoDeDestino y el TipoDeDestino a la vez.</value>
+  </data>
+  <data name="TargetTypeDisplayName" xml:space="preserve">
+    <value>TipoDeDestino</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetTypeDescription" xml:space="preserve">
+    <value>Nombre de la clase de Java.</value>
+  </data>
+  <data name="ValidateParentError" xml:space="preserve">
+    <value>La actividad es válida solo dentro de {0}</value>
+  </data>
+  <data name="FieldName" xml:space="preserve">
+    <value>Nombre del campo</value>
+  </data>
+  <data name="JavaObject" xml:space="preserve">
+    <value>ObjetoDeJava</value>
+  </data>
+  <data name="MethodName" xml:space="preserve">
+    <value>NombreDeMétodo</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="InvalidJavaPath" xml:space="preserve">
+    <value>La ruta de la biblioteca de Java no es válida.</value>
+  </data>
+  <data name="TimeoutMSDisplayName" xml:space="preserve">
+    <value>Inicio del tiempo de espera (milisegundos)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TimeoutMSException" xml:space="preserve">
+    <value>El valor proporcionado para TiempoDeEsperaMS debe ser &gt;= 0</value>
+  </data>
+  <data name="TimeoutMSDescription" xml:space="preserve">
+    <value>La cantidad de tiempo (en milisegundos) que se debe esperar la conexión de tiempo de ejecución de Java (por defecto, 15 000 ms).</value>
+  </data>
+</root>

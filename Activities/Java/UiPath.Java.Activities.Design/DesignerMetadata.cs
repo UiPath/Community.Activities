@@ -45,6 +45,7 @@ namespace UiPath.Java.Activities.Design
             Type attrType = Type.GetType("System.Activities.Presentation.FeatureAttribute, System.Activities.Presentation");
             Type argType = Type.GetType("System.Activities.Presentation.UpdatableGenericArgumentsFeature, System.Activities.Presentation");
             var genericTypeArgument = Activator.CreateInstance(attrType, new object[] { argType }) as Attribute;
+            builder.AddCustomAttributes(typeof(Type), new DisplayNameAttribute(Resources.Activity_ConvertJavaObject_Property_TypeArgument_Name));
             builder.AddCustomAttributes(typeof(ConvertJavaObject<>), genericTypeArgument);
             builder.AddCustomAttributes(typeof(ConvertJavaObject<>), new DefaultTypeArgumentAttribute(typeof(object)));
 

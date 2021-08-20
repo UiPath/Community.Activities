@@ -1,0 +1,1051 @@
+{
+  "Packages": [
+    {
+      "Package": {
+        "Id": "UiPath.Java.Activities",
+        "Version": "1.2.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities/1.2.0\\lib/net452/UiPath.Java.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities/1.2.0\\lib/net452/UiPath.Java.Activities.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities/1.2.0\\lib/net452/UiPath.Java.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities\\1.2.0"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.System.Activities",
+        "Version": "20.10.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\csvhelper/2.13.5\\lib/net40-client/CsvHelper.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnet.signalr.client/2.4.0\\lib/net45/Microsoft.AspNet.SignalR.Client.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Connections.Abstractions.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Client.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.features/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.client/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.Core.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.common/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json/3.1.6\\lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.bcl.asyncinterfaces/1.1.1\\lib/net461/Microsoft.Bcl.AsyncInterfaces.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration.binder/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.dependencyinjection/3.1.6\\lib/net461/Microsoft.Extensions.DependencyInjection.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.logging/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.logging.abstractions/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.options/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Options.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.primitives/3.1.6\\lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.rest.clientruntime/2.3.21\\lib/net461/Microsoft.Rest.ClientRuntime.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\sharpziplib/1.2.0\\lib/net45/ICSharpCode.SharpZipLib.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.buffers/4.5.1\\lib/net461/System.Buffers.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.componentmodel.annotations/4.7.0\\lib/net461/System.ComponentModel.Annotations.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.io.abstractions/3.0.10\\lib/net40/System.IO.Abstractions.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.io.pipelines/4.7.1\\lib/netstandard2.0/System.IO.Pipelines.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.memory/4.5.4\\lib/net461/System.Memory.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.numerics.vectors/4.5.0\\lib/net46/System.Numerics.Vectors.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.runtime.compilerservices.unsafe/4.7.1\\lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.text.encodings.web/4.7.1\\lib/net461/System.Text.Encodings.Web.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.text.json/4.7.2\\lib/net461/System.Text.Json.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.threading.channels/4.7.1\\lib/net461/System.Threading.Channels.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.threading.tasks.extensions/4.5.4\\lib/net461/System.Threading.Tasks.Extensions.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.valuetuple/4.5.0\\lib/net461/System.ValueTuple.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.platform/20.10.4\\lib/net461/UiPath.Platform.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.Docking.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.Ribbon.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.Shared.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.SyntaxEditor.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.Text.LLParser.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.Text.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/ActiproSoftware.Wizard.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/UiPath.OrchestratorClient.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/UiPath.System.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities/20.10.1\\lib/net461/UiPath.System.Activities.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.WebAPI.Activities",
+        "Version": "1.6.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\avalonedit/5.0.3\\lib/Net40/ICSharpCode.AvalonEdit.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\newtonsoft.json/11.0.2\\lib/net45/Newtonsoft.Json.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\restsharp/106.3.1\\lib/net452/RestSharp.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities/1.6.0\\lib/net452/UiPath.Web.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities/1.6.0\\lib/net452/UiPath.Web.Activities.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities/1.6.0\\lib/net452/UiPath.Web.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0"
+    }
+  ],
+  "Conflicts": [],
+  "ResolvedDependencies": {
+    "AvalonEdit": {
+      "Id": "AvalonEdit",
+      "Version": "5.0.3",
+      "Dependencies": []
+    },
+    "CsvHelper": {
+      "Id": "CsvHelper",
+      "Version": "2.13.5",
+      "Dependencies": []
+    },
+    "Microsoft.AspNet.SignalR.Client": {
+      "Id": "Microsoft.AspNet.SignalR.Client",
+      "Version": "2.4.0",
+      "Dependencies": [
+        {
+          "Item1": "Newtonsoft.Json",
+          "Item2": "[6.0.4, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.Connections.Abstractions": {
+      "Id": "Microsoft.AspNetCore.Connections.Abstractions",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.AspNetCore.Http.Features",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Bcl.AsyncInterfaces",
+          "Item2": "[1.1.1, )"
+        },
+        {
+          "Item1": "System.IO.Pipelines",
+          "Item2": "[4.7.1, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Connections.Client": {
+      "Id": "Microsoft.AspNetCore.Http.Connections.Client",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.AspNetCore.Http.Connections.Common",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.Logging.Abstractions",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.Options",
+          "Item2": "[3.1.6, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Connections.Common": {
+      "Id": "Microsoft.AspNetCore.Http.Connections.Common",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.AspNetCore.Connections.Abstractions",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "System.Text.Json",
+          "Item2": "[4.7.2, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Features": {
+      "Id": "Microsoft.AspNetCore.Http.Features",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Extensions.Primitives",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "System.IO.Pipelines",
+          "Item2": "[4.7.1, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.SignalR.Client": {
+      "Id": "Microsoft.AspNetCore.SignalR.Client",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.AspNetCore.SignalR.Client.Core",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.AspNetCore.Http.Connections.Client",
+          "Item2": "[3.1.6, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.SignalR.Client.Core": {
+      "Id": "Microsoft.AspNetCore.SignalR.Client.Core",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.AspNetCore.SignalR.Protocols.Json",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.AspNetCore.SignalR.Common",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Bcl.AsyncInterfaces",
+          "Item2": "[1.1.1, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.DependencyInjection",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.Logging",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "System.Threading.Channels",
+          "Item2": "[4.7.1, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.SignalR.Common": {
+      "Id": "Microsoft.AspNetCore.SignalR.Common",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.AspNetCore.Connections.Abstractions",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.Options",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "System.Text.Json",
+          "Item2": "[4.7.2, )"
+        }
+      ]
+    },
+    "Microsoft.AspNetCore.SignalR.Protocols.Json": {
+      "Id": "Microsoft.AspNetCore.SignalR.Protocols.Json",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.AspNetCore.SignalR.Common",
+          "Item2": "[3.1.6, )"
+        }
+      ]
+    },
+    "Microsoft.Bcl.AsyncInterfaces": {
+      "Id": "Microsoft.Bcl.AsyncInterfaces",
+      "Version": "1.1.1",
+      "Dependencies": [
+        {
+          "Item1": "System.Threading.Tasks.Extensions",
+          "Item2": "[4.5.4, )"
+        }
+      ]
+    },
+    "Microsoft.Extensions.Configuration": {
+      "Id": "Microsoft.Extensions.Configuration",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Extensions.Configuration.Abstractions",
+          "Item2": "[3.1.6, )"
+        }
+      ]
+    },
+    "Microsoft.Extensions.Configuration.Abstractions": {
+      "Id": "Microsoft.Extensions.Configuration.Abstractions",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Extensions.Primitives",
+          "Item2": "[3.1.6, )"
+        }
+      ]
+    },
+    "Microsoft.Extensions.Configuration.Binder": {
+      "Id": "Microsoft.Extensions.Configuration.Binder",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Extensions.Configuration",
+          "Item2": "[3.1.6, )"
+        }
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection": {
+      "Id": "Microsoft.Extensions.DependencyInjection",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Extensions.DependencyInjection.Abstractions",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Bcl.AsyncInterfaces",
+          "Item2": "[1.1.1, )"
+        }
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions": {
+      "Id": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "Version": "3.1.6",
+      "Dependencies": []
+    },
+    "Microsoft.Extensions.Logging": {
+      "Id": "Microsoft.Extensions.Logging",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Extensions.Configuration.Binder",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.DependencyInjection",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.Logging.Abstractions",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.Options",
+          "Item2": "[3.1.6, )"
+        }
+      ]
+    },
+    "Microsoft.Extensions.Logging.Abstractions": {
+      "Id": "Microsoft.Extensions.Logging.Abstractions",
+      "Version": "3.1.6",
+      "Dependencies": []
+    },
+    "Microsoft.Extensions.Options": {
+      "Id": "Microsoft.Extensions.Options",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Extensions.DependencyInjection.Abstractions",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Extensions.Primitives",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "System.ComponentModel.Annotations",
+          "Item2": "[4.7.0, )"
+        }
+      ]
+    },
+    "Microsoft.Extensions.Primitives": {
+      "Id": "Microsoft.Extensions.Primitives",
+      "Version": "3.1.6",
+      "Dependencies": [
+        {
+          "Item1": "System.Memory",
+          "Item2": "[4.5.2, )"
+        },
+        {
+          "Item1": "System.Runtime.CompilerServices.Unsafe",
+          "Item2": "[4.7.1, )"
+        }
+      ]
+    },
+    "Microsoft.Rest.ClientRuntime": {
+      "Id": "Microsoft.Rest.ClientRuntime",
+      "Version": "2.3.21",
+      "Dependencies": [
+        {
+          "Item1": "Newtonsoft.Json",
+          "Item2": "[10.0.3, )"
+        }
+      ]
+    },
+    "Newtonsoft.Json": {
+      "Id": "Newtonsoft.Json",
+      "Version": "11.0.2",
+      "Dependencies": []
+    },
+    "RestSharp": {
+      "Id": "RestSharp",
+      "Version": "106.3.1",
+      "Dependencies": []
+    },
+    "SharpZipLib": {
+      "Id": "SharpZipLib",
+      "Version": "1.2.0",
+      "Dependencies": []
+    },
+    "System.Buffers": {
+      "Id": "System.Buffers",
+      "Version": "4.5.1",
+      "Dependencies": []
+    },
+    "System.ComponentModel.Annotations": {
+      "Id": "System.ComponentModel.Annotations",
+      "Version": "4.7.0",
+      "Dependencies": []
+    },
+    "System.IO.Abstractions": {
+      "Id": "System.IO.Abstractions",
+      "Version": "3.0.10",
+      "Dependencies": []
+    },
+    "System.IO.Pipelines": {
+      "Id": "System.IO.Pipelines",
+      "Version": "4.7.1",
+      "Dependencies": [
+        {
+          "Item1": "System.Buffers",
+          "Item2": "[4.5.0, )"
+        },
+        {
+          "Item1": "System.Memory",
+          "Item2": "[4.5.3, )"
+        },
+        {
+          "Item1": "System.Threading.Tasks.Extensions",
+          "Item2": "[4.5.2, )"
+        }
+      ]
+    },
+    "System.Memory": {
+      "Id": "System.Memory",
+      "Version": "4.5.4",
+      "Dependencies": [
+        {
+          "Item1": "System.Buffers",
+          "Item2": "[4.5.1, )"
+        },
+        {
+          "Item1": "System.Numerics.Vectors",
+          "Item2": "[4.5.0, )"
+        },
+        {
+          "Item1": "System.Runtime.CompilerServices.Unsafe",
+          "Item2": "[4.5.3, )"
+        }
+      ]
+    },
+    "System.Numerics.Vectors": {
+      "Id": "System.Numerics.Vectors",
+      "Version": "4.5.0",
+      "Dependencies": []
+    },
+    "System.Runtime.CompilerServices.Unsafe": {
+      "Id": "System.Runtime.CompilerServices.Unsafe",
+      "Version": "4.7.1",
+      "Dependencies": []
+    },
+    "System.Text.Encodings.Web": {
+      "Id": "System.Text.Encodings.Web",
+      "Version": "4.7.1",
+      "Dependencies": [
+        {
+          "Item1": "System.Memory",
+          "Item2": "[4.5.4, )"
+        }
+      ]
+    },
+    "System.Text.Json": {
+      "Id": "System.Text.Json",
+      "Version": "4.7.2",
+      "Dependencies": [
+        {
+          "Item1": "Microsoft.Bcl.AsyncInterfaces",
+          "Item2": "[1.1.0, )"
+        },
+        {
+          "Item1": "System.Buffers",
+          "Item2": "[4.5.1, )"
+        },
+        {
+          "Item1": "System.Memory",
+          "Item2": "[4.5.4, )"
+        },
+        {
+          "Item1": "System.Numerics.Vectors",
+          "Item2": "[4.5.0, )"
+        },
+        {
+          "Item1": "System.Runtime.CompilerServices.Unsafe",
+          "Item2": "[4.7.1, )"
+        },
+        {
+          "Item1": "System.Text.Encodings.Web",
+          "Item2": "[4.7.1, )"
+        },
+        {
+          "Item1": "System.Threading.Tasks.Extensions",
+          "Item2": "[4.5.4, )"
+        },
+        {
+          "Item1": "System.ValueTuple",
+          "Item2": "[4.5.0, )"
+        }
+      ]
+    },
+    "System.Threading.Channels": {
+      "Id": "System.Threading.Channels",
+      "Version": "4.7.1",
+      "Dependencies": [
+        {
+          "Item1": "System.Threading.Tasks.Extensions",
+          "Item2": "[4.5.4, )"
+        }
+      ]
+    },
+    "System.Threading.Tasks.Extensions": {
+      "Id": "System.Threading.Tasks.Extensions",
+      "Version": "4.5.4",
+      "Dependencies": [
+        {
+          "Item1": "System.Runtime.CompilerServices.Unsafe",
+          "Item2": "[4.5.3, )"
+        }
+      ]
+    },
+    "System.ValueTuple": {
+      "Id": "System.ValueTuple",
+      "Version": "4.5.0",
+      "Dependencies": []
+    },
+    "UiPath.Java.Activities": {
+      "Id": "UiPath.Java.Activities",
+      "Version": "1.2.0",
+      "Dependencies": []
+    },
+    "UiPath.Platform": {
+      "Id": "UiPath.Platform",
+      "Version": "20.10.4",
+      "Dependencies": [
+        {
+          "Item1": "Newtonsoft.Json",
+          "Item2": "[11.0.2, )"
+        },
+        {
+          "Item1": "System.IO.Abstractions",
+          "Item2": "[3.0.10, )"
+        },
+        {
+          "Item1": "System.ValueTuple",
+          "Item2": "[4.5.0, )"
+        }
+      ]
+    },
+    "UiPath.System.Activities": {
+      "Id": "UiPath.System.Activities",
+      "Version": "20.10.1",
+      "Dependencies": [
+        {
+          "Item1": "UiPath.Platform",
+          "Item2": "[20.10.4, )"
+        },
+        {
+          "Item1": "CsvHelper",
+          "Item2": "[2.13.5, )"
+        },
+        {
+          "Item1": "Microsoft.AspNet.SignalR.Client",
+          "Item2": "[2.4.0, )"
+        },
+        {
+          "Item1": "Microsoft.AspNetCore.SignalR.Client",
+          "Item2": "[3.1.6, )"
+        },
+        {
+          "Item1": "Microsoft.Bcl.AsyncInterfaces",
+          "Item2": "[1.1.1, )"
+        },
+        {
+          "Item1": "Microsoft.Rest.ClientRuntime",
+          "Item2": "[2.3.21, )"
+        },
+        {
+          "Item1": "Newtonsoft.Json",
+          "Item2": "[11.0.2, )"
+        },
+        {
+          "Item1": "SharpZipLib",
+          "Item2": "[1.2.0, )"
+        },
+        {
+          "Item1": "System.Buffers",
+          "Item2": "[4.5.1, )"
+        },
+        {
+          "Item1": "System.Memory",
+          "Item2": "[4.5.4, )"
+        },
+        {
+          "Item1": "System.Numerics.Vectors",
+          "Item2": "[4.5.0, )"
+        },
+        {
+          "Item1": "System.Runtime.CompilerServices.Unsafe",
+          "Item2": "[4.7.1, )"
+        },
+        {
+          "Item1": "System.Threading.Tasks.Extensions",
+          "Item2": "[4.5.4, )"
+        }
+      ]
+    },
+    "UiPath.WebAPI.Activities": {
+      "Id": "UiPath.WebAPI.Activities",
+      "Version": "1.6.0",
+      "Dependencies": [
+        {
+          "Item1": "AvalonEdit",
+          "Item2": "[5.0.3, )"
+        },
+        {
+          "Item1": "Newtonsoft.Json",
+          "Item2": "[11.0.2, )"
+        },
+        {
+          "Item1": "RestSharp",
+          "Item2": "[106.3.1, )"
+        }
+      ]
+    }
+  },
+  "AllPackages": [
+    {
+      "Package": {
+        "Id": "AvalonEdit",
+        "Version": "5.0.3"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\avalonedit\\5.0.3\\lib\\Net40\\ICSharpCode.AvalonEdit.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\avalonedit\\5.0.3"
+    },
+    {
+      "Package": {
+        "Id": "CsvHelper",
+        "Version": "2.13.5"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\csvhelper\\2.13.5\\lib\\net40-client\\CsvHelper.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\csvhelper\\2.13.5"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNet.SignalR.Client",
+        "Version": "2.4.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0\\lib\\net45\\Microsoft.AspNet.SignalR.Client.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnet.signalr.client\\2.4.0"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.Connections.Abstractions",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Connections.Abstractions.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.Http.Connections.Client",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Client.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.connections.client\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.Http.Connections.Common",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Connections.Common.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.connections.common\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.Http.Features",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.Http.Features.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.SignalR.Client",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.client\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.SignalR.Client.Core",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Client.Core.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.SignalR.Common",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Common.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.AspNetCore.SignalR.Protocols.Json",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6\\lib\\netstandard2.0\\Microsoft.AspNetCore.SignalR.Protocols.Json.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Bcl.AsyncInterfaces",
+        "Version": "1.1.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\lib\\net461\\Microsoft.Bcl.AsyncInterfaces.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.Configuration",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.Configuration.Abstractions",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Abstractions.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.Configuration.Binder",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Configuration.Binder.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.DependencyInjection",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6\\lib\\net461\\Microsoft.Extensions.DependencyInjection.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.DependencyInjection.Abstractions",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.Logging",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.Logging.Abstractions",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Logging.Abstractions.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.Options",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.options\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Options.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.options\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Extensions.Primitives",
+        "Version": "3.1.6"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\lib\\netstandard2.0\\Microsoft.Extensions.Primitives.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6"
+    },
+    {
+      "Package": {
+        "Id": "Microsoft.Rest.ClientRuntime",
+        "Version": "2.3.21"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21\\lib\\net461\\Microsoft.Rest.ClientRuntime.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.21"
+    },
+    {
+      "Package": {
+        "Id": "Newtonsoft.Json",
+        "Version": "11.0.2"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\newtonsoft.json\\11.0.2\\lib\\net45\\Newtonsoft.Json.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\newtonsoft.json\\11.0.2"
+    },
+    {
+      "Package": {
+        "Id": "RestSharp",
+        "Version": "106.3.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\restsharp\\106.3.1\\lib\\net452\\RestSharp.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\restsharp\\106.3.1"
+    },
+    {
+      "Package": {
+        "Id": "SharpZipLib",
+        "Version": "1.2.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\sharpziplib\\1.2.0\\lib\\net45\\ICSharpCode.SharpZipLib.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\sharpziplib\\1.2.0"
+    },
+    {
+      "Package": {
+        "Id": "System.Buffers",
+        "Version": "4.5.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.buffers\\4.5.1\\lib\\net461\\System.Buffers.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.buffers\\4.5.1"
+    },
+    {
+      "Package": {
+        "Id": "System.ComponentModel.Annotations",
+        "Version": "4.7.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\lib\\net461\\System.ComponentModel.Annotations.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0"
+    },
+    {
+      "Package": {
+        "Id": "System.IO.Abstractions",
+        "Version": "3.0.10"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.io.abstractions\\3.0.10\\lib\\net40\\System.IO.Abstractions.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.io.abstractions\\3.0.10"
+    },
+    {
+      "Package": {
+        "Id": "System.IO.Pipelines",
+        "Version": "4.7.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.io.pipelines\\4.7.1\\lib\\netstandard2.0\\System.IO.Pipelines.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.io.pipelines\\4.7.1"
+    },
+    {
+      "Package": {
+        "Id": "System.Memory",
+        "Version": "4.5.4"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.memory\\4.5.4\\lib\\net461\\System.Memory.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.memory\\4.5.4"
+    },
+    {
+      "Package": {
+        "Id": "System.Numerics.Vectors",
+        "Version": "4.5.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\lib\\net46\\System.Numerics.Vectors.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.numerics.vectors\\4.5.0"
+    },
+    {
+      "Package": {
+        "Id": "System.Runtime.CompilerServices.Unsafe",
+        "Version": "4.7.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\lib\\net461\\System.Runtime.CompilerServices.Unsafe.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1"
+    },
+    {
+      "Package": {
+        "Id": "System.Text.Encodings.Web",
+        "Version": "4.7.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.text.encodings.web\\4.7.1\\lib\\net461\\System.Text.Encodings.Web.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.text.encodings.web\\4.7.1"
+    },
+    {
+      "Package": {
+        "Id": "System.Text.Json",
+        "Version": "4.7.2"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.text.json\\4.7.2\\lib\\net461\\System.Text.Json.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.text.json\\4.7.2"
+    },
+    {
+      "Package": {
+        "Id": "System.Threading.Channels",
+        "Version": "4.7.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.threading.channels\\4.7.1\\lib\\net461\\System.Threading.Channels.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.threading.channels\\4.7.1"
+    },
+    {
+      "Package": {
+        "Id": "System.Threading.Tasks.Extensions",
+        "Version": "4.5.4"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\lib\\net461\\System.Threading.Tasks.Extensions.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4"
+    },
+    {
+      "Package": {
+        "Id": "System.ValueTuple",
+        "Version": "4.5.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\system.valuetuple\\4.5.0\\lib\\net461\\System.ValueTuple.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\system.valuetuple\\4.5.0"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.Java.Activities",
+        "Version": "1.2.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities\\1.2.0\\lib\\net452\\UiPath.Java.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities\\1.2.0\\lib\\net452\\UiPath.Java.Activities.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities\\1.2.0\\lib\\net452\\UiPath.Java.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.java.activities\\1.2.0"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.Platform",
+        "Version": "20.10.4"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.platform\\20.10.4\\lib\\net461\\UiPath.Platform.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.platform\\20.10.4"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.System.Activities",
+        "Version": "20.10.1"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.Docking.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.Ribbon.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.Shared.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.SyntaxEditor.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.SyntaxEditor.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.Text.Addons.DotNet.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.Text.LLParser.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.Text.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\ActiproSoftware.Wizard.Wpf.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\CustomInputForm.exe",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\UiPath.OrchestratorClient.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\UiPath.System.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1\\lib\\net461\\UiPath.System.Activities.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.system.activities\\20.10.1"
+    },
+    {
+      "Package": {
+        "Id": "UiPath.WebAPI.Activities",
+        "Version": "1.6.0"
+      },
+      "Assemblies": [
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0\\lib\\net452\\UiPath.Web.Activities.Design.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0\\lib\\net452\\UiPath.Web.Activities.dll",
+        "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0\\lib\\net452\\UiPath.Web.dll"
+      ],
+      "Path": "C:\\Users\\alexandrus\\.nuget\\packages\\uipath.webapi.activities\\1.6.0"
+    }
+  ]
+}

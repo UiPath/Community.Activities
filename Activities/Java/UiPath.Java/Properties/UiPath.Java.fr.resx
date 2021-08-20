@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -118,54 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CastArrayException" xml:space="preserve">
-    <value>Impossible de convertir l'objet java en matrice.</value>
+    <value>Impossible de convertir l’objet java en tableau.</value>
   </data>
   <data name="CastException" xml:space="preserve">
-    <value>Impossible de convertir l'objet java en type .NET.</value>
+    <value>Impossible de convertir l’objet java en type dot net.</value>
   </data>
   <data name="ClassNotFoundException" xml:space="preserve">
     <value>Le type cible est introuvable.</value>
   </data>
   <data name="ConstructorNotFoundException" xml:space="preserve">
-    <value>Impossible d'invoquer le constructeur.</value>
+    <value>Le constructeur n’a pas pu être invoqué.</value>
   </data>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Impossible de désérialiser le résulta de java.</value>
+    <value>Le résultat de java n’a pas pu être désérialisé.</value>
   </data>
   <data name="FieldNotFoundException" xml:space="preserve">
-    <value>Le champ du nom spécifié est introuvable sur la cible.</value>
+    <value>Aucun champ avec le nom spécifié n’a été trouvé au niveau de la cible.</value>
   </data>
   <data name="IllegalAccessException" xml:space="preserve">
-    <value>Seul le membre public est accessible.</value>
+    <value>Seul un membre public est accessible.</value>
   </data>
   <data name="IllegalArgumentsException" xml:space="preserve">
-    <value>Un paramètre interdit ou inapproprié a été transmis.</value>
+    <value>Un paramètre interdit ou inapproprié a été défini.</value>
   </data>
   <data name="InstanceNotFoundException" xml:space="preserve">
-    <value>L'instance spécifiée n'a pas été créée.</value>
+    <value>L’instance spécifiée n’a pas été créée.</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Impossible d'instancier la classe cible.</value>
+    <value>La classe cible n’a pas pu être instanciée.</value>
   </data>
   <data name="InvocationTargetException" xml:space="preserve">
-    <value>Une exception d'invocation s'est produite lors de l'exécution de la cible.</value>
+    <value>Une exception d’invocation s’est produite lors de l’exécution de la cible.</value>
   </data>
   <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>Le fichier jar avec le chemin d'accès spécifié a déjà été chargé.</value>
+    <value>Le fichier jar associé au chemin d’accès spécifié a déjà été chargé.</value>
   </data>
   <data name="JarNotFoundException" xml:space="preserve">
-    <value>Le chemin d'accès au fichier jar spécifié est introuvable ou n'existe pas.</value>
+    <value>Le chemin d’accès au fichier jar spécifié est introuvable ou n’existe pas.</value>
   </data>
   <data name="JarNotLoadedException" xml:space="preserve">
-    <value>Impossible de charger le fichier jar.</value>
+    <value>Le fichier jar n’a pas pu être chargé.</value>
+  </data>
+  <data name="JavaTimeoutException" xml:space="preserve">
+    <value>Le délai d’initialisation Java a expiré.</value>
   </data>
   <data name="MethodNotFoundException" xml:space="preserve">
-    <value>Impossible d'invoquer la méthode.</value>
+    <value>La méthode n’a pas pu être invoquée.</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
-    <value>Impossible de sérialiser l'objet .net</value>
+    <value>Impossible de sérialiser l&apos;objet .net</value>
   </data>
   <data name="UnknowException" xml:space="preserve">
-    <value>Une exception inattendue s'est produite lors de l'invocation.</value>
+    <value>Une exception inattendue s’est produite lors de l’invocation.</value>
   </data>
 </root>

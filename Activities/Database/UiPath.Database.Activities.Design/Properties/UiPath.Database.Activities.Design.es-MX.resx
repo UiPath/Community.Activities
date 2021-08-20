@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AffectedRecordsDescription" xml:space="preserve">
+    <value>El resultado de la ejecución del comando sql. Para las instrucciones ACTUALIZAR, INSERTAR y ELIMINAR, el valor devuelto es el número de filas afectadas por el comando. Para todos los demás tipos de instrucciones, el valor devuelto es -1.</value>
+  </data>
+  <data name="CategoryDatabase" xml:space="preserve">
+    <value>Base de datos</value>
+  </data>
+  <data name="CommandTypeDescription" xml:space="preserve">
+    <value>Especifica cómo se interpreta una cadena de comandos</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Conectar</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ConnectionStringDescription" xml:space="preserve">
+    <value>La cadena de conexión utilizada para establecer una conexión a base de datos</value>
+  </data>
+  <data name="DatabaseConnectDescription" xml:space="preserve">
+    <value>Se conecta a una base de datos.</value>
+  </data>
+  <data name="DatabaseConnectionDescription" xml:space="preserve">
+    <value>La conexión de base de datos utilizada para las operaciones dentro de esta actividad</value>
+  </data>
+  <data name="DatabaseDisconnectDescription" xml:space="preserve">
+    <value>Cierra una conexión a una base de datos.</value>
+  </data>
+  <data name="DataTableDescription" xml:space="preserve">
+    <value>La salida del comando sql envuelto en un objeto DataTable</value>
+  </data>
+  <data name="DbTransactionDescription" xml:space="preserve">
+    <value>Se conecta a una base de datos y devuelve un DatabaseConnection, lo que proporciona un ámbito para las actividades de base de datos. Si UseTransaction se establece como verdadero, las operaciones contenidas se ejecutan en una sola transacción y se aplican al final si no se ha producido un error en ninguna de ellas. Si UseTransaction se establece como falso, todas las operaciones se confirman individualmente. Cuando finaliza esta actividad, se cierra la conexión a la base de datos.</value>
+  </data>
+  <data name="DefaultWidth" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>Disconnect</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ExecuteNonQueryDescription" xml:space="preserve">
+    <value>Ejecuta una instrucción SQL en una base de datos. Para las instrucciones ACTUALIZAR, INSERTAR y ELIMINAR, el valor devuelto es el número de filas afectadas por el comando. Para todos los demás tipos de instrucciones, el valor devuelto es -1.</value>
+  </data>
+  <data name="ExecuteQueryDescription" xml:space="preserve">
+    <value>Ejecuta una consulta en una base de datos y devuelve la consulta resuelta en una tabla de datos.</value>
+  </data>
+  <data name="ExistingDbConnectionDescription" xml:space="preserve">
+    <value>Una conexión de base de datos ya abierta. Si esta propiedad se establece, se omiten las propiedades Cadena de conexión y Nombre de proveedor</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="InsertDataTableDescription" xml:space="preserve">
+    <value>Inserta una tabla de datos compatible en una tabla existente. Devuelve el número de filas afectadas.</value>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>Diccionario de parámetros con nombre enlazados al comando sql. El enlace se realiza especificando la instrucción &quot;@parameterName&quot; en el comando sql. En tiempo de ejecución, parameterName se reemplazará por su valor del diccionario</value>
+  </data>
+  <data name="ProviderNameDescription" xml:space="preserve">
+    <value>El nombre del proveedor de base de datos utilizado para tener acceso a la base de datos. Puede encontrar una lista de proveedores de datos en http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
+  </data>
+  <data name="SqlDescription" xml:space="preserve">
+    <value>Un comando sql que se ejecutará.</value>
+  </data>
+  <data name="StartTransaction" xml:space="preserve">
+    <value>Start Transaction</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="TableNameDescription" xml:space="preserve">
+    <value>La tabla de base de datos de destino</value>
+  </data>
+  <data name="TimeoutMSDescription" xml:space="preserve">
+    <value>Especifica la cantidad de tiempo (en milisegundos) que se debe esperar para que se ejecute el comando sql antes de que se produzca un error. El valor predeterminado es 30,000 milisegundos (30 segundos) y debe ser mayor que 0 o igual a ese valor.</value>
+  </data>
+  <data name="UseTransactionDescription" xml:space="preserve">
+    <value>Especifica si las operaciones de base de datos dentro de esta actividad se deben ajustar en una transacción de base de datos</value>
+  </data>
+  <data name="AffectedRecordsInsertDescription" xml:space="preserve">
+    <value>El número de filas insertadas</value>
+  </data>
+  <data name="ConfigureConnection" xml:space="preserve">
+    <value>Configurar conexión...</value>
+  </data>
+  <data name="InserDataTableInputDescription" xml:space="preserve">
+    <value>El objeto DataTable que se insertará en la tabla. La descripción de las columnas de DataTable debe coincidir con las columnas de la tabla de base de datos</value>
+  </data>
+  <data name="ConnectionWizard" xml:space="preserve">
+    <value>Asistente de conexión</value>
+  </data>
+  <data name="DoubleClickToView" xml:space="preserve">
+    <value>Haga doble clic para ver.</value>
+  </data>
+  <data name="EditConnectionSettings" xml:space="preserve">
+    <value>Editar configuración de conexión</value>
+  </data>
+  <data name="EditQuery" xml:space="preserve">
+    <value>Editar consulta...</value>
+  </data>
+  <data name="NewDatabaseConnection" xml:space="preserve">
+    <value>Nueva conexión de base de datos</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parámetros</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConnectionString" xml:space="preserve">
+    <value>Cadena de conexión</value>
+  </data>
+  <data name="DatabaseConnection" xml:space="preserve">
+    <value>Conexión a la base de datos</value>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value>Tabla de datos</value>
+  </data>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>Coloque la actividad aquí.</value>
+  </data>
+  <data name="EditSql" xml:space="preserve">
+    <value>Editar Sql</value>
+  </data>
+  <data name="ExistingDatabaseConnection" xml:space="preserve">
+    <value>Conexión a base de datos existente</value>
+  </data>
+  <data name="SqlQueryHint" xml:space="preserve">
+    <value>Consulta sql. Se debe entrecomillar el texto</value>
+  </data>
+  <data name="TableNameHint" xml:space="preserve">
+    <value>Nombre de la tabla Se debe entrecomillar el texto</value>
+  </data>
+  <data name="QueryTimeoutMSDescription" xml:space="preserve">
+    <value>Especifica la cantidad de tiempo (en milisegundos) que se debe esperar para que se ejecute la consulta sql antes de que se produzca un error (no incluye el tiempo de respuesta para la recuperación de resultados de la consulta). El valor predeterminado es 30,000 milisegundos (30 segundos) y debe ser mayor que 0 o igual a ese valor.</value>
+  </data>
+  <data name="CategoryAppIntegration" xml:space="preserve">
+    <value>Integración de aplicaciones</value>
+  </data>
+  <data name="ExecuteNonQuery" xml:space="preserve">
+    <value>No ejecutar consulta</value>
+  </data>
+  <data name="ExecuteQuery" xml:space="preserve">
+    <value>Ejecutar consulta</value>
+  </data>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(Colección)</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError Boolean</value>
+  </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Inserción en masa</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>DataTable</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>El DataTable de origen para los elementos que se insertarán.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>DataTable de origen</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Nombre de la tabla</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>El nombre de la tabla de base de datos donde se desea insertar los elementos.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Nombre de la tabla de base de datos de destino</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Columnas utilizadas para hacer coincidir filas</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>La colección de nombres de columna utilizados para la coincidencia de filas</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Actualización en masa</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Actualiza una DataTable compatible en una tabla existente. Actualizará todas las columnas que no están en la colección de nombres de columna utilizados como clave principal. Devuelve el número de filas afectadas.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Actualizará una tabla usando operaciones en masa mediante la implementación específica del controlador de base de datos. Volverá a insertar la tabla de datos si el controlador de base de datos no admite operaciones en masa.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
+</root>

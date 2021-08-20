@@ -397,7 +397,7 @@ namespace UiPath.FTP
 
                 foreach (Tuple<string, string> pair in listing)
                 {
-                    _ftpClient.DownloadFile(pair.Item1, pair.Item2, overwrite);
+                    _ftpClient.DownloadFile(pair.Item1, pair.Item2, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip);
                 }
             }
             else
@@ -409,7 +409,7 @@ namespace UiPath.FTP
                         throw new IOException(Resources.FileExistsException);
                     }
 
-                    _ftpClient.DownloadFileAsync(localPath, remotePath, overwrite); 
+                    _ftpClient.DownloadFileAsync(localPath, remotePath, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip); 
                 }
                 else
                 {
@@ -438,7 +438,7 @@ namespace UiPath.FTP
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    await _ftpClient.DownloadFileAsync(pair.Item1, pair.Item2, overwrite, FtpVerify.None, cancellationToken, null);
+                    await _ftpClient.DownloadFileAsync(pair.Item1, pair.Item2, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip, FtpVerify.None, null, cancellationToken);
                 }
             }
             else
@@ -450,7 +450,7 @@ namespace UiPath.FTP
                         throw new IOException(Resources.FileExistsException);
                     }
 
-                    await _ftpClient.DownloadFileAsync(localPath, remotePath, overwrite, FtpVerify.None, cancellationToken, null);
+                    await _ftpClient.DownloadFileAsync(localPath, remotePath, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip, FtpVerify.None, null, cancellationToken);
                 }
                 else
                 {
@@ -570,7 +570,7 @@ namespace UiPath.FTP
             return GetRemoteListingAsync(remotePath, recursive, cancellationToken);
         }
 
-        void IFtpSession.Move(string RemotePath, string newPath)
+        void IFtpSession.Move(string RemotePath, string newPath, bool overwrite)
         {
             if (string.IsNullOrWhiteSpace(RemotePath))
             {
@@ -588,19 +588,19 @@ namespace UiPath.FTP
             }
             if (ftpItem.Type == FtpFileSystemObjectType.Directory)
             {
-                if (_ftpClient.DirectoryExists(newPath))
+                if (_ftpClient.DirectoryExists(newPath) && !overwrite)
                 {
                     throw new IOException(Resources.DirectoryExistsException);
                 }
-                _ftpClient.MoveDirectory(RemotePath, newPath);
+                _ftpClient.MoveDirectory(RemotePath, newPath, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip);
             }
             else if (ftpItem.Type == FtpFileSystemObjectType.File)
             {
-                if (_ftpClient.FileExists(newPath))
+                if (_ftpClient.FileExists(newPath) && !overwrite)
                 {
                     throw new IOException(Resources.FileExistsException);
                 }
-                _ftpClient.MoveFile(RemotePath, newPath);
+                _ftpClient.MoveFile(RemotePath, newPath, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip);
             }
             else
             {
@@ -625,7 +625,7 @@ namespace UiPath.FTP
 
                 foreach (Tuple<string, string> pair in listing)
                 {
-                    _ftpClient.UploadFile(pair.Item1, pair.Item2, overwrite ? FtpExists.Overwrite : FtpExists.Skip, true);
+                    _ftpClient.UploadFile(pair.Item1, pair.Item2, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true);
                 }
             }
             else
@@ -637,7 +637,7 @@ namespace UiPath.FTP
                         throw new IOException(Resources.FileExistsException);
                     }
 
-                    _ftpClient.UploadFile(localPath, remotePath, overwrite ? FtpExists.Overwrite : FtpExists.Skip, true); 
+                    _ftpClient.UploadFile(localPath, remotePath, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true); 
                 }
                 else
                 {
@@ -665,7 +665,7 @@ namespace UiPath.FTP
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    await _ftpClient.UploadFileAsync(pair.Item1, pair.Item2, overwrite ? FtpExists.Overwrite : FtpExists.Skip, true, FtpVerify.None, cancellationToken, null);
+                    await _ftpClient.UploadFileAsync(pair.Item1, pair.Item2, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true, FtpVerify.None, null, cancellationToken);
                 }
             }
             else
@@ -677,7 +677,7 @@ namespace UiPath.FTP
                         throw new IOException(Resources.FileExistsException);
                     }
 
-                    await _ftpClient.UploadFileAsync(localPath, remotePath, overwrite ? FtpExists.Overwrite : FtpExists.Skip, true, FtpVerify.None, cancellationToken, null); 
+                    await _ftpClient.UploadFileAsync(localPath, remotePath, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true, FtpVerify.None, null, cancellationToken); 
                 }
                 else
                 {

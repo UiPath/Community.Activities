@@ -1,0 +1,50 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftpserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sftpserver
+  template:
+    metadata:
+      labels:
+        app: sftpserver
+    spec:
+      containers:
+      - name: sftpserver
+        image: communityactivitiesacr.azurecr.io/sftpgo:latest
+        imagePullPolicy: Always
+        resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+        ports:
+          - containerPort: 2022
+          - containerPort: 8080
+        env:
+          - name: SFTPGO_HTTPD__BIND_PORT
+            value: "8080"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sftpserver-deployment
+spec:
+  selector:
+    app: sftpserver
+  ports:
+  - protocol: TCP
+    port: 2022
+    targetPort: 2022
+    name: "external-connect"
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: "web-admin"
+  type: LoadBalancer

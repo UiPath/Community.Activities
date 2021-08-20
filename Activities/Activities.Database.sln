@@ -3,36 +3,48 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database", "Database\UiPath.Database\UiPath.Database.csproj", "{BD4850CC-23BF-4BEA-933E-F1FD7C692451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database", "Database\UiPath.Database\UiPath.Database.csproj", "{BD4850CC-23BF-4BEA-933E-F1FD7C692451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Activities", "Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj", "{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Activities", "Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj", "{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Activities.Design", "Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj", "{AE083078-F322-408C-ABFC-F2C89BA8DE63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Activities.Design", "Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj", "{AE083078-F322-408C-ABFC-F2C89BA8DE63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Database.Tests", "Database\UiPath.Database.Tests\UiPath.Database.Tests.csproj", "{4F6DE5DC-1E17-4713-AF82-BE99643D5326}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Tests", "Database\UiPath.Database.Tests\UiPath.Database.Tests.csproj", "{4F6DE5DC-1E17-4713-AF82-BE99643D5326}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{73A1A2F6-3B6D-4CAA-A6E2-1FBD34FD0312}"
+	ProjectSection(SolutionItems) = preProject
+		Database\Database.build.props = Database\Database.build.props
+		Directory.build.targets = Directory.build.targets
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Activities.Packaging", "Database\UiPath.Database.Activities.Packaging\UiPath.Database.Activities.Packaging.csproj", "{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|AnyCPU = Debug|AnyCPU
-		Release|AnyCPU = Release|AnyCPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD4850CC-23BF-4BEA-933E-F1FD7C692451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6D45FA7-57A7-4136-99C6-6EE89851F4CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE083078-F322-408C-ABFC-F2C89BA8DE63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F6DE5DC-1E17-4713-AF82-BE99643D5326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9417D940-CA01-4044-AEAA-C9EAFC2FA3E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

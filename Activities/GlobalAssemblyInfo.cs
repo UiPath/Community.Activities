@@ -7,8 +7,7 @@ using System.Windows.Markup;
 
 [assembly: AssemblyCompany("UiPath")]
 [assembly: AssemblyProduct("UiPath")]
-[assembly: AssemblyCopyright("Copyright © UiPath")]
+[assembly: AssemblyCopyright("Copyright Â© UiPath")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: XmlnsPrefix("http://schemas.uipath.com/workflow/activities", "ui")]
-

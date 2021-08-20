@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,92 +117,90 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Parameters" xml:space="preserve">
-    <value>パラメーター</value>
+  <data name="AffectedRecordsDescription" xml:space="preserve">
+    <value>SQL コマンドの実行の結果です。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受けた行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。</value>
   </data>
-  <data name="ConnectionString" xml:space="preserve">
-    <value>接続文字列</value>
+  <data name="CategoryDatabase" xml:space="preserve">
+    <value>データベース</value>
   </data>
-  <data name="DataTable" xml:space="preserve">
-    <value>データテーブル</value>
+  <data name="CommandTypeDescription" xml:space="preserve">
+    <value>コマンド文字列の解釈方法を指定します。</value>
   </data>
   <data name="Connect" xml:space="preserve">
     <value>接続</value>
-  <comment>activity name</comment></data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>切断</value>
-  <comment>activity name</comment></data>
-  <data name="Insert" xml:space="preserve">
-    <value>挿入</value>
-  <comment>activity name</comment></data>
-  <data name="AffectedRecordsDescription" xml:space="preserve">
-    <value>Sql コマンドの実行結果です。UPDATE、INSERT、DELETE 文の場合、戻り値はコマンドが処理した行数です。 他のすべての種類の文の場合、戻り値は -1 です。</value>
-  </data>
-  <data name="CommandTypeDescription" xml:space="preserve">
-    <value>Sql コマンドの解釈方法を指定します。</value>
+    <comment>activity name</comment>
   </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>データベース接続の確立に使用する接続文字列です。</value>
   </data>
   <data name="DatabaseConnectDescription" xml:space="preserve">
-    <value>データベースに接続します。(Connect)</value>
+    <value>データベースに接続します。</value>
   </data>
   <data name="DatabaseConnectionDescription" xml:space="preserve">
-    <value>このアクティビティ内の操作に使用するデータベース接続です。</value>
+    <value>このアクティビティ内での操作に使用するデータベース接続です。</value>
   </data>
   <data name="DatabaseDisconnectDescription" xml:space="preserve">
     <value>データベースへの接続を閉じます。(Disconnect)</value>
   </data>
   <data name="DataTableDescription" xml:space="preserve">
-    <value>Sql コマンドの出力を格納する DataTable オブジェクトです。</value>
+    <value>DataTable オブジェクトにラップした SQL コマンドの出力です。</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>データベースに接続して DatabaseConnection を返し、データベースアクティビティのスコープを提供します。トランザクションを使用に true を指定した場合、含まれる操作は単一のトランザクションで実行され、失敗した操作がなければ最後にコミットします。トランザクションを使用に false を指定した場合、すべての操作は個別にコミットされます。 このアクティビティが終了すると、データベースの接続は閉じられます。(Start Transaction)</value>
+    <value>データベースに接続してデータベース接続を返し、データベース系アクティビティのスコープを提供します。[トランザクションを使用] をオンに設定している場合、含まれる操作は単一のトランザクションで実行され、どの操作も失敗しなければ最後に適用されます。[トランザクションを使用] をオフに設定している場合、すべての操作が個別にコミットされます。このアクティビティが終了すると、データベースへの接続が終了します。(Start Transaction)</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>切断</value>
+    <comment>activity name</comment>
+  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
-    <value>データベース上で Sql 文を実行します。UPDATE、INSERT、DELETE 文の場合、戻り値はコマンドが処理した行数です。他のすべての種類の文の場合、戻り値は -1 です。(Execute Non Query)</value>
+    <value>データベースに対して SQL ステートメントを実行します。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受けた行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。(Execute Non Query)</value>
   </data>
   <data name="ExecuteQueryDescription" xml:space="preserve">
-    <value>データベースに対してクエリを実行し、その結果を DataTable で返します。(Execute Query)</value>
+    <value>データベースに対してクエリを実行し、クエリの結果をデータテーブルとして返します。(Execute Query)</value>
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
-    <value>すでに開いているデータベース接続です。 このプロパティを設定した場合、接続文字列とプロバイダー名のプロパティは無視されます。</value>
+    <value>既に開かれているデータベース接続です。このプロパティを設定した場合は、[接続文字列] と [プロバイダー名] プロパティは無視されます。</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>挿入</value>
+    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>互換性のある DataTable を既存のテーブルに挿入します。処理した行数を返します。(Insert)</value>
+    <value>既存のテーブルに対応するデータテーブルを挿入します。また、影響を受けた行の数を返します。(Insert)</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Sql コマンドにバインドする名前付きパラメーターのディクショナリです。Sql コマンドに含まれる '@パラメーター名' にバインドされます。これらのパラメーター名は、実行時にディクショナリからの値に置き換わります。</value>
+    <value>SQL コマンドにバインドされた名前付きパラメーターのディクショナリです。バインドするには、SQL コマンドで &apos;@parameterName&apos; ステートメントを指定します。実行時に、parameterName がディクショナリからの値に置き換えられます。</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
-    <value>データベースへのアクセスに使用するデータベースプロバイダーの名前です。 データプロバイダーの一覧は次のサイトにあります: http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
+    <value>データベースへのアクセスに使用するデータベース プロバイダーの名前です。データ プロバイダーの一覧は次のページから確認できます: http://msdn.microsoft.com/ja-jp/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>実行する Sql コマンドです。</value>
+    <value>実行する SQL コマンドです。</value>
   </data>
   <data name="StartTransaction" xml:space="preserve">
     <value>トランザクションを開始</value>
-  <comment>activity name</comment></data>
+    <comment>activity name</comment>
+  </data>
   <data name="TableNameDescription" xml:space="preserve">
-    <value>ターゲットのデータベーステーブルです。</value>
+    <value>対象のデータベース テーブルです。</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Sql コマンドの実行が完了するまで待機する時間をミリ秒で指定します。この時間が経過すると例外をスローします。既定値は 30000 ミリ秒 (30 秒) です。0 以上でなければなりません。</value>
+    <value>SQL コマンドの実行まで待機する時間をミリ秒で指定します。指定した時間が経過しても実行が完了しない場合には例外をスローします。既定値は 30000 ミリ秒 (30 秒) で、0 以上の値を設定する必要があります。</value>
   </data>
   <data name="UseTransactionDescription" xml:space="preserve">
-    <value>このアクティビティに含まれるデータベース操作を単一のデータベーストランザクションに含めるかを指定します。</value>
+    <value>このアクティビティ内のデータベース操作を 1 つのデータベース トランザクションにまとめるかどうかを指定します。</value>
   </data>
   <data name="AffectedRecordsInsertDescription" xml:space="preserve">
-    <value>挿入された行数です。</value>
+    <value>挿入した列の数です。</value>
   </data>
   <data name="ConfigureConnection" xml:space="preserve">
     <value>接続を構成...</value>
   </data>
   <data name="InserDataTableInputDescription" xml:space="preserve">
-    <value>テーブルに挿入する DataTable オブジェクトです。この DataTable の列は、データベーステーブルの列と一致している必要があります。</value>
+    <value>表に挿入される DataTable オブジェクトです。データテーブル列の説明は、データベース テーブルの列と一致する必要があります。</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
     <value>接続ウィザード</value>
@@ -217,38 +215,44 @@
     <value>クエリを編集...</value>
   </data>
   <data name="NewDatabaseConnection" xml:space="preserve">
-    <value>データベース接続を作成</value>
+    <value>新しいデータベース接続</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>パラメーター</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>表示名</value>
-  <comment>property name</comment>
+    <comment>property name</comment>
+  </data>
+  <data name="ConnectionString" xml:space="preserve">
+    <value>接続文字列</value>
   </data>
   <data name="DatabaseConnection" xml:space="preserve">
     <value>データベース接続</value>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value>データ テーブル</value>
   </data>
   <data name="DropActivityHere" xml:space="preserve">
     <value>ここにアクティビティをドロップ</value>
   </data>
   <data name="EditSql" xml:space="preserve">
-    <value>Sql を編集</value>
+    <value>SQL を編集</value>
   </data>
   <data name="ExistingDatabaseConnection" xml:space="preserve">
     <value>既存のデータベース接続</value>
   </data>
   <data name="SqlQueryHint" xml:space="preserve">
-    <value>Sql クエリです。テキストは引用符で囲む必要があります。</value>
+    <value>SQL クエリです。テキストは引用符で囲む必要があります。</value>
   </data>
   <data name="TableNameHint" xml:space="preserve">
-    <value>テーブル名です。テキストは引用符で囲む必要があります。</value>
+    <value>表の名前です。テキストは引用符で囲む必要があります。</value>
   </data>
   <data name="QueryTimeoutMSDescription" xml:space="preserve">
-    <value>Sql クエリの実行が完了するまで待機する時間をミリ秒で指定します。クエリ結果を取得する応答時間は含まれません。この時間が経過すると例外をスローします。既定値は 30000 ミリ秒 (30 秒) です。0 以上でなければなりません。</value>
-  </data>
-  <data name="CategoryDatabase" xml:space="preserve">
-    <value>データベース</value>
+    <value>SQL クエリの実行まで待機する時間をミリ秒で指定します。指定した時間が経過しても実行が完了しない場合には例外をスローします (クエリ結果の取得の応答時間は含みません)。既定値は 30000 ミリ秒 (30 秒) で、0 以上の値を設定する必要があります。</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>アプリの統合</value>
+    <value>アプリの連携</value>
   </data>
   <data name="ExecuteNonQuery" xml:space="preserve">
     <value>非クエリを実行</value>
@@ -258,5 +262,56 @@
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(コレクション)</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>エラー発生時に実行を継続 (Boolean)</value>
+  </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>一括挿入</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>データテーブル</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>挿入する項目のソース データテーブルです。</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>ソース データテーブル</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>データ テーブル名</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>項目を挿入するデータベース テーブルの名前です。</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>挿入先のデータベース テーブル名</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>行の照合に使用する列</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>行の照合に使用する列名のコレクション</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>一括更新</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>既存のテーブルにある、対応するデータテーブルを更新します。主キーとして使用される列名のコレクションに入っていない、すべての列を更新します。また、影響を受けた行の数を返します。(Bulk Update)</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>更新された行の数です。</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>オンの場合、BULK INSERT を使用して一時テーブルを作成し、テーブルを結合して更新を行います。オフの場合は一括更新をバッチ処理として行います。</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>テーブルの更新に使用する DataTable オブジェクトです。DataTable の列の記述は、データベースのテーブルの列と一致しており、それらの列のサブセットである必要があります。</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>特定のデータベース ドライバー実装を使用した一括操作でテーブルを更新します。データベース ドライバーが一括操作をサポートしていない場合は、[挿入] アクティビティにフォールバックします。(Bulk Insert)</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>データベース接続の確立に使用する、SecureString 型の接続文字列です。</value>
   </data>
 </root>

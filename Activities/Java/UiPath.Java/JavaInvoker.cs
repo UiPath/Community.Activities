@@ -65,7 +65,7 @@ namespace UiPath.Java
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Java listner could not be started: {e.ToString()}");
+                Trace.TraceError($"Java listner could not be started: {e}");
                 throw;
             }
         }
@@ -87,7 +87,7 @@ namespace UiPath.Java
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error stopping Java process: {e.ToString()}");
+                Trace.TraceError($"Error stopping Java process: {e}");
             }
             _javaService?.Dispose();
             GC.SuppressFinalize(this);

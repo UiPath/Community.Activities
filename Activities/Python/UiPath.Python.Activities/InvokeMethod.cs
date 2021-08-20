@@ -63,11 +63,11 @@ namespace UiPath.Python.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error invoking Python function: {e.ToString()}");
+                Trace.TraceError($"Error invoking Python function: {e}");
                 throw new InvalidOperationException(Resources.InvokeException, e);
             }
 
-            return asyncCodeActivityContext => 
+            return asyncCodeActivityContext =>
             {
                 Result.Set(asyncCodeActivityContext, result);
             };
