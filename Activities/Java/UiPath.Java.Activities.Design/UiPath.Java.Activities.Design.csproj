@@ -33,5 +33,18 @@
   <ItemGroup>
     <None Include="UiPath.Java.Activities.Design.nuspec" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\UiPath.Java.Activities.Design.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UiPath.Java.Activities.Design.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.Java.Activities.Design.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.Java.Activities.Design.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="..\..\Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems" Label="Shared" />
 </Project>
