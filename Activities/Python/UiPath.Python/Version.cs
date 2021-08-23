@@ -54,10 +54,6 @@ namespace UiPath.Python
         [Description("Python 2.7")]
         Python_27,
 
-        [Version(3, 3, "Python.Runtime.33.dll")]
-        [Description("Python 3.3")]
-        Python_33,
-
         [Version(3, 4, "Python.Runtime.34.dll")]
         [Description("Python 3.4")]
         Python_34,

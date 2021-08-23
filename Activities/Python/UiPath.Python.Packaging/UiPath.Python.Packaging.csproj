@@ -30,12 +30,12 @@
 
   <ItemGroup>
     <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="bin\net461\x86" />
-    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\x86" />
-    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0\x86" />
+    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\x86" />
+    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0\x86" />
 
     <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="bin\net461\x64" />
-    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\x64" />
-    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.33.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0\x64" />
+    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\x64" />
+    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net5.0\x64" />
 
     <None Include="$(OutputPath)\net461\UiPath.Python.Host*.exe" Pack="true" PackagePath="bin\net461" />
     <None Include="$(OutputPath)\net5.0-windows\UiPath.Python.Host*.*exe" Pack="true" PackagePath="bin\net5.0" />
