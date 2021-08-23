@@ -87,11 +87,6 @@ namespace UiPath.Python.Tests
                 },
                 new object[]
                 {
-                    @"C:\Python\python33-x86",
-                    Version.Python_33
-                },
-                new object[]
-                {
                     @"C:\Python\python34-x86",
                     Version.Python_34
                 },
