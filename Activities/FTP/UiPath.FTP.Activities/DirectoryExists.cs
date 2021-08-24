@@ -8,7 +8,9 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class DirectoryExists : ContinuableAsyncCodeActivity
+    [LocalizedDisplayName(nameof(Resources.DirectoryExistsDisplayName))]
+    [LocalizedDescription(nameof(Resources.DirectoryExistsDescription))]
+    public class DirectoryExists : FtpAsyncActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]

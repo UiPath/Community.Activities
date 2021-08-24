@@ -2,11 +2,15 @@
 using System.Activities;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using UiPath.FTP.Activities;
+using UiPath.FTP.Activities.Properties;
 
 namespace UiPath.Shared.Activities
 {
     public abstract class ContinuableAsyncCodeActivity : AsyncTaskCodeActivity
     {
+        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedDisplayName(nameof(Resources.ContinueOnError))]
         public InArgument<bool> ContinueOnError { get; set; } = false;
 
         protected sealed override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)

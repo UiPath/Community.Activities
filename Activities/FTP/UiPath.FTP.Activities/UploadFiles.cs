@@ -9,7 +9,9 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class UploadFiles : ContinuableAsyncCodeActivity
+    [LocalizedDisplayName(nameof(Resources.UploadFilesDisplayName))]
+    [LocalizedDescription(nameof(Resources.UploadFilesDescription))]
+    public class UploadFiles : FtpAsyncActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -17,7 +19,7 @@ namespace UiPath.FTP.Activities
         public InArgument<string> LocalPath { get; set; }
 
         [RequiredArgument]
-        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.RemotePath))]
         public InArgument<string> RemotePath { get; set; }
 
