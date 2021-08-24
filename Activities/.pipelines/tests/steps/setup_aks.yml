@@ -1,0 +1,91 @@
+parameters:
+  - name: azureServiceConnectionName
+    type: string
+  - name: aksResourcePrefix
+    type: string
+  - name: sftpContainer
+    type: string
+  - name: sqlserverContainer
+    type: string
+  - name: oracleContainer
+    type: string
+  - name: deploySftpContainer
+    type: boolean
+    default: false
+  - name: deploySqlserverContainer
+    type: boolean
+    default: false
+  - name: deployOracleContainer
+    type: boolean
+    default: false
+
+
+steps:
+
+  - task: AzureCLI@2
+    displayName: Setup the K8S credentials
+    name: k8s_credentials
+    inputs:
+      azureSubscription: $(azureServiceConnectionName)
+      scriptType: pscore
+      scriptLocation: inlineScript
+      addSpnToEnvironment: true
+      inlineScript: |
+        az aks get-credentials -g $(aksResourcePrefix)-rg -n $(aksResourcePrefix)-aks
+
+  - task: PowerShell@2
+    displayName: generate uniq namespace
+    inputs:
+      targetType: 'inline'
+      script: |
+        $namespace = -join ((48..57) + (97..122) | Get-Random -Count 25 | % {[char]$_})        
+        kubectl create namespace $namespace
+        Write-Host "##vso[task.setvariable variable=namespace;]$namespace" 
+
+  - ${{ if eq(parameters.deploySqlserverContainer, true) }}:
+    - script: |
+        kubectl apply -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(sqlserverContainer).yml --namespace=$(namespace)
+      displayName: kube deploy $(sqlserverContainer)
+
+  - ${{ if eq(parameters.deploySftpContainer, true) }}:
+    - script: |
+        kubectl apply -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(sftpContainer).yml --namespace=$(namespace)
+      displayName: kube deploy $(sftpContainer)
+
+  - ${{ if eq(parameters.deployOracleContainer, true) }}:
+    - script: |
+        kubectl apply -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(oracleContainer).yml --namespace=$(namespace)
+      displayName: kube deploy $(oracleContainer)
+
+  - ${{ if eq(parameters.deploySqlserverContainer, true) }}:
+    - task: PowerShell@2
+      displayName: get ip $(sqlserverContainer)
+      inputs:
+       targetType: 'inline'
+       script: |
+         Start-Sleep -s 30
+         $ip=((kubectl describe service $(sqlserverContainer) --namespace=$(namespace)|Select-string "LoadBalancer Ingress").ToString()|Select-String -Pattern "\d{1,3}(\.\d{1,3}){3}" -AllMatches).Matches.Value
+         Write-Host "##vso[task.setvariable variable=sqlPublicIP;]$ip" 
+         Write-Host "SQL IP $ip"
+
+  - ${{ if eq(parameters.deploySftpContainer, true) }}:
+    - task: PowerShell@2
+      displayName: get ip $(sftpContainer)
+      inputs:
+        targetType: 'inline'
+        script: |
+          Start-Sleep -s 30
+          $ip=((kubectl describe service $(sftpContainer) --namespace=$(namespace)|Select-string "LoadBalancer Ingress").ToString()|Select-String -Pattern "\d{1,3}(\.\d{1,3}){3}" -AllMatches).Matches.Value
+          Write-Host "##vso[task.setvariable variable=sftpPublicIP;]$ip" 
+          Write-Host "SFTP IP $ip"
+
+  - ${{ if eq(parameters.deployOracleContainer, true) }}:
+    - task: PowerShell@2
+      displayName: get ip $(oracleContainer)
+      inputs:
+        targetType: 'inline'
+        script: |
+          Start-Sleep -s 30
+          $ip=((kubectl describe service $(oracleContainer) --namespace=$(namespace)|Select-string "LoadBalancer Ingress").ToString()|Select-String -Pattern "\d{1,3}(\.\d{1,3}){3}" -AllMatches).Matches.Value
+          Write-Host "##vso[task.setvariable variable=oraclePublicIP;]$ip" 
+          Write-Host "Oracle IP $ip"

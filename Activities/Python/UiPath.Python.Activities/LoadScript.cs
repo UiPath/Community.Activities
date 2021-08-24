@@ -63,13 +63,13 @@ namespace UiPath.Python.Activities
             {
                 result = await pythonEngine.LoadScript(scriptCode, cancellationToken);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Trace.TraceError($"Error loading Python script: {e.ToString()}");
+                Trace.TraceError($"Error loading Python script: {e}");
                 throw new InvalidOperationException(Resources.LoadScriptException, e);
             }
 
-            return (asyncCodeActivityContext) => 
+            return (asyncCodeActivityContext) =>
             {
                 Result.Set(asyncCodeActivityContext, result);
             };

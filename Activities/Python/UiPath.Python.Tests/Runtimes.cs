@@ -46,6 +46,12 @@ namespace UiPath.Python.Tests
             "    return obj"
         );
 
+        private readonly string _unicodeTestScript = string.Join(
+            Environment.NewLine,
+            "def test():",
+            "    return '´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû'"
+        );
+
         private readonly string _basicTestScript = string.Join(
             Environment.NewLine,
             "def hello(name=None):",
@@ -67,7 +73,7 @@ namespace UiPath.Python.Tests
             "    return 'no_param'"
         );
 
-        #endregion
+        #endregion Test scripts
 
         #region Runtimes
 
@@ -78,11 +84,6 @@ namespace UiPath.Python.Tests
                 {
                     @"C:\Python\python27-x86",
                     Version.Python_27
-                },
-                new object[]
-                {
-                    @"C:\Python\python33-x86",
-                    Version.Python_33
                 },
                 new object[]
                 {
@@ -153,7 +154,7 @@ namespace UiPath.Python.Tests
 
         public static IEnumerable<object[]> AllEngines = X86Engines.Union(X64Engines);
 
-        #endregion
+        #endregion Runtimes
 
         #region Test cases
 
@@ -201,6 +202,7 @@ namespace UiPath.Python.Tests
             Skip.IfNot(ValidateRuntime(path));
 
             await RunTypesTest(path, version, true, TargetPlatform.x86);
+            await RunUnicodeTests(path, version, true, TargetPlatform.x86);
         }
 
         [SkippableTheory]
@@ -214,11 +216,13 @@ namespace UiPath.Python.Tests
                 ? TargetPlatform.x64
                 : TargetPlatform.x86;
             await RunTypesTest(path, version, false, target);
+            await RunUnicodeTests(path, version, false, target);
         }
 
-        #endregion
+        #endregion Test cases
 
         #region Actual tests to run
+
         private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
@@ -243,6 +247,17 @@ namespace UiPath.Python.Tests
                 Assert.True(array.GetType() == arrayType.GetType());
             }
             await engine.Release();
+        }
+
+        private async Task RunUnicodeTests(string path, Version version, bool inProcess, TargetPlatform target)
+        {
+            // init engine
+            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            await engine.Initialize(null, _ct);
+            // load test script
+            var pyScript = await engine.LoadScript(_unicodeTestScript, _ct);
+            var resNoParam = await engine.InvokeMethod(pyScript, "test", null, _ct);
+            Assert.Equal("´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû", engine.Convert(resNoParam, typeof(string)));
         }
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
@@ -275,6 +290,6 @@ namespace UiPath.Python.Tests
             return Directory.Exists(path);
         }
 
-        #endregion
+        #endregion Actual tests to run
     }
 }

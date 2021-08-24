@@ -1,0 +1,40 @@
+<Project>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net5'))"> 
+    <PackageReference Update="System.Activities" Version="1.0.0-20201117-04" PrivateAssets="All" />
+    <PackageReference Update="UiPath.Workflow" Version="1.0.0-20201117-04" PrivateAssets="All" />
+    <PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha004" PrivateAssets="All" />
+    <PackageReference Update="System.Data.Odbc" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'"> 
+    <PackageReference Update="System.Activities" Version="1.0.0-20201105-02" />
+    <PackageReference Update="UiPath.Workflow" Version="1.0.0-20201105-02" />
+    <PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="UiPath.Activities.Api" Version="20.11.0-alpha.577" PrivateAssets="All" />
+    <PackageReference Update="UiPath.Activities.Contracts" Version="20.11.0-alpha.577" PrivateAssets="All" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition="$(TargetFramework.StartsWith('net4'))">
+      <ItemGroup>
+        <Compile Remove="NetCore\**\*.cs" />
+      </ItemGroup>
+      <ItemGroup>
+        <Page Remove="NetCore\**\*.xaml" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Compile Remove="NetFramework\**\*.cs" />
+      </ItemGroup>
+      <ItemGroup>
+        <Page Remove="NetFramework\**\*.xaml" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFramework)' == 'net5.0'">$(DefineConstants);NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+</Project>

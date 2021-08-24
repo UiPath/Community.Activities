@@ -60,7 +60,7 @@ namespace UiPath.Java.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"The method could not be invoked: {e.ToString()}");
+                Trace.TraceError($"The method could not be invoked: {e}");
                 throw new InvalidOperationException(Resources.InvokeMethodException, e);
             }
 

@@ -10,8 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Client\Controller.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Client\Proxy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Config.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Host\Service.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Host\PyService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PythonRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PythonResponse.cs" />
   </ItemGroup>
 </Project>

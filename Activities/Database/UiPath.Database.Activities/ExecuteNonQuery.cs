@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Text;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
@@ -23,10 +25,17 @@ namespace UiPath.Database.Activities
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
-        [RequiredArgument]
         [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
+
+
+        [DefaultValue(null)]
+        [DependsOn(nameof(ProviderName))]
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        [OverloadGroup("New Database Connection")]
+        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [RequiredArgument]
@@ -86,6 +95,7 @@ namespace UiPath.Database.Activities
         protected override System.IAsyncResult BeginExecute(AsyncCodeActivityContext context, System.AsyncCallback callback, object state)
         {
             string connString = null;
+            SecureString connSecureString = null;
             string provName = null;
             string sql = string.Empty;
             int commandTimeout = TimeoutMS.Get(context);
@@ -99,7 +109,9 @@ namespace UiPath.Database.Activities
                 sql = Sql.Get(context);
                 DbConnection = ExistingDbConnection.Get(context);
                 connString = ConnectionString.Get(context);
+                connSecureString = ConnectionSecureString.Get(context);
                 provName = ProviderName.Get(context);
+
                 if (Parameters != null)
                 {
                     parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();
@@ -113,14 +125,17 @@ namespace UiPath.Database.Activities
             {
                 HandleException(ex, ContinueOnError.Get(context));
             }
-
+            if (DbConnection == null && connString == null && connSecureString == null)
+            {
+                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
+            }
             // create the action for doing the actual work
             Func<DBExecuteCommandResult> action = () =>
             {
                 DBExecuteCommandResult executeResult = new DBExecuteCommandResult();
                 if (DbConnection == null)
                 {
-                    DbConnection = new DatabaseConnection().Initialize(connString, provName);
+                    DbConnection = new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
                 }
                 if (DbConnection == null)
                 {
@@ -166,7 +181,7 @@ namespace UiPath.Database.Activities
             {
                 if (existingConnection == null)
                 {
-                    DbConnection.Dispose();
+                    DbConnection?.Dispose();
                 }
             }
         }

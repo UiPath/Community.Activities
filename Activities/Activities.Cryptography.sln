@@ -3,39 +3,51 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography", "Cryptography\UiPath.Cryptography\UiPath.Cryptography.csproj", "{92E8345E-2CA1-439D-926D-D979893840F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography", "Cryptography\UiPath.Cryptography\UiPath.Cryptography.csproj", "{92E8345E-2CA1-439D-926D-D979893840F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities", "Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj", "{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities", "Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj", "{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities.Design", "Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj", "{2629567D-4737-4A1B-9876-F00C948270E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Design", "Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj", "{2629567D-4737-4A1B-9876-F00C948270E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities.Tests", "Cryptography\UiPath.Cryptography.Activities.Tests\UiPath.Cryptography.Activities.Tests.csproj", "{32563B0E-C9B0-468F-85CC-04BB4802FE37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Tests", "Cryptography\UiPath.Cryptography.Activities.Tests\UiPath.Cryptography.Activities.Tests.csproj", "{32563B0E-C9B0-468F-85CC-04BB4802FE37}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Packaging", "Cryptography\UiPath.Cryptography.Activities.Packaging\UiPath.Cryptography.Activities.Packaging.csproj", "{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8DF338E4-6EDA-4B06-A2F1-91428261F2FC}"
+	ProjectSection(SolutionItems) = preProject
+		Cryptography\Cryptography.build.props = Cryptography\Cryptography.build.props
+		Directory.build.targets = Directory.build.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Shared\UiPath.Shared\UiPath.Shared.projitems*{92e8345e-2ca1-439d-926d-d979893840f5}*SharedItemsImports = 4
+		Shared\UiPath.Shared\UiPath.Shared.projitems*{92e8345e-2ca1-439d-926d-d979893840f5}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|AnyCPU = Debug|AnyCPU
-		Release|AnyCPU = Release|AnyCPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{92E8345E-2CA1-439D-926D-D979893840F5}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{92E8345E-2CA1-439D-926D-D979893840F5}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{92E8345E-2CA1-439D-926D-D979893840F5}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{92E8345E-2CA1-439D-926D-D979893840F5}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{2629567D-4737-4A1B-9876-F00C948270E3}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{2629567D-4737-4A1B-9876-F00C948270E3}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{2629567D-4737-4A1B-9876-F00C948270E3}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{2629567D-4737-4A1B-9876-F00C948270E3}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{92E8345E-2CA1-439D-926D-D979893840F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E8345E-2CA1-439D-926D-D979893840F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E8345E-2CA1-439D-926D-D979893840F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E8345E-2CA1-439D-926D-D979893840F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A198C8-1940-4CAE-A0D3-D4E707F3B0A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2629567D-4737-4A1B-9876-F00C948270E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2629567D-4737-4A1B-9876-F00C948270E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2629567D-4737-4A1B-9876-F00C948270E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2629567D-4737-4A1B-9876-F00C948270E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32563B0E-C9B0-468F-85CC-04BB4802FE37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

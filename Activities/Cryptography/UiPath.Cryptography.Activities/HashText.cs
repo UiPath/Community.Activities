@@ -9,6 +9,7 @@ using UiPath.Cryptography.Activities.Properties;
 
 namespace UiPath.Cryptography.Activities
 {
+#if NET461
     [LocalizedDisplayName(nameof(Resources.HashTextDisplayName))]
     [LocalizedDescription(nameof(Resources.HashTextDescription))]
     public class HashText : CodeActivity<string>
@@ -44,6 +45,7 @@ namespace UiPath.Cryptography.Activities
 
         public HashText()
         {
+
             Algorithm = HashAlgorithms.SHA256;
             Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(System.Text.Encoding.UTF8)); // Kinda ugly.
         }
@@ -99,4 +101,5 @@ namespace UiPath.Cryptography.Activities
             return result;
         }
     }
+#endif
 }

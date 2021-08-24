@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -118,67 +118,67 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AffectedRecordsDescription" xml:space="preserve">
-    <value>Результат выполнения команды SQL. Для инструкций UPDATE, INSERT и DELETE возвращаемое значение — это количество строк, затронутых командой. Для всех других типов инструкций возвращаемое значение равно -1.</value>
+    <value>Результат выполнения команды sql. Для операторов UPDATE, INSERT и DELETE возвращаемым значением является число строк, на которые влияет данная команда. Для всех других типов операторов возвращаемое значение равно -1.</value>
   </data>
   <data name="CategoryDatabase" xml:space="preserve">
     <value>База данных</value>
   </data>
   <data name="CommandTypeDescription" xml:space="preserve">
-    <value>Указывает, как интерпретируется строка команды</value>
+    <value>Указывает способ интерпретации командной строки</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Connect</value>
+    <value>Подключить</value>
     <comment>activity name</comment>
   </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
-    <value>Строка подключения, используемая для соединения с базой данных</value>
+    <value>Строка подключения, используемая для установления соединения с базой данных</value>
   </data>
   <data name="DatabaseConnectDescription" xml:space="preserve">
-    <value>Подключает к базе данных.</value>
+    <value>Выполняет подключение к базе данных.</value>
   </data>
   <data name="DatabaseConnectionDescription" xml:space="preserve">
-    <value>Подключение к базе данных, используемое для операций в этом действии</value>
+    <value>Соединение с базой данных, используемое для операций в рамках этого действия</value>
   </data>
   <data name="DatabaseDisconnectDescription" xml:space="preserve">
-    <value>Закрывает соединение с базой данных.</value>
+    <value>Закрывает подключение к базе данных,</value>
   </data>
   <data name="DataTableDescription" xml:space="preserve">
-    <value>Вывод команды SQL в оболочке объекта DataTable</value>
+    <value>Результаты команды sql, &quot;упакованной&quot; в объект DataTable</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>Подключается к базе данных и возвращает свойство DatabaseConnection, обеспечивая область для действий базы данных. Если свойство UseTransaction имеет значение true, то содержащиеся операции выполняются за одну транзакцию и применяются в конце, при условии что ни в одной из них не было сбоя. Если свойство UseTransaction имеет значение false, то все операции фиксируются индивидуально. После завершения этого действия подключение к базе данных закрывается.</value>
+    <value>Выполняет подключение к базе данных и возвращает параметр DatabaseConnection, предоставляя область для действий Database. Если параметр UseTransaction имеет значение true (&quot;истинно&quot;), то связанные операции выполняются в виде одной транзакции и применяются в конце, если ни одна из них не завершилась ошибкой. Если параметр UseTransaction имеет значение false (&quot;ложно&quot;), все операции выполняются индивидуально. По завершении этого действия соединение с базой данных закрывается.</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
   <data name="Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
+    <value>Отключить</value>
     <comment>activity name</comment>
   </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
-    <value>Выполняет инструкцию SQL в базе данных. Для инструкций UPDATE, INSERT и DELETE возвращаемое значение — это количество строк, затронутых командой. Для всех других типов инструкций возвращаемое значение равно -1.</value>
+    <value>Выполняет оператор SQL в базе данных. Для операторов UPDATE, INSERT и DELETE возвращаемым значением является число строк, на которые влияет данная команда. Для всех других типов операторов возвращаемое значение равно -1.</value>
   </data>
   <data name="ExecuteQueryDescription" xml:space="preserve">
-    <value>Выполняет запрос в базе данных и возвращает результат запроса в таблицу данных.</value>
+    <value>Выполняет запрос к базе данных и возвращает результат запроса в таблицу данных.</value>
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
-    <value>Уже открытое подключение к базе данных. Если это свойство задано, то свойства Connection String и Provider Name игнорируются</value>
+    <value>Уже открытое подключение к базе данных. Если задано это свойство, свойства Строка подключения и Имя провайдера игнорируются</value>
   </data>
   <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
+    <value>.Insert</value>
     <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>Вставляет совместимую таблицу данных в существующую таблицу. Возвращает количество затронутых строк.</value>
+    <value>Вставляет совместимый объект DataTable в существующую таблицу Table. Возвращает число затронутых строк.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Словарь именованных параметров, привязанных к команде SQL. Привязка выполняется путем указания оператора "@parameterName" в команде SQL. В среде выполнения свойство parameterName будет заменено своим значением из словаря</value>
+    <value>Справочник именованных параметров, связанных с командой sql. Привязка выполняется путем указания оператора &quot;@parameterName&quot; в команде sql. Во время выполнения параметр parameterName будет заменен его значением из справочника.</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
-    <value>Имя поставщика базы данных, используемое для получения доступа к ней. Список поставщиков данных приведен по адресу: http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
+    <value>Имя провайдера базы данных, используемое для доступа к базе данных. Список провайдеров данных можно найти на странице http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>Выполняемая команда SQL.</value>
+    <value>Команда sql для выполнения.</value>
   </data>
   <data name="StartTransaction" xml:space="preserve">
     <value>Start Transaction</value>
@@ -188,10 +188,10 @@
     <value>Таблица целевой базы данных</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Указывает в миллисекундах время ожидания выполнения команды SQL до возникновения ошибки. Значение по умолчанию равняется 30 000 миллисекунд (30 секундам) и должно быть равно или больше 0.</value>
+    <value>Указывает в миллисекундах время ожидания выполнения команды sql до возникновения ошибки. Значение по умолчанию равняется 30 000 миллисекунд (30 секундам) и должно быть больше или равно 0.</value>
   </data>
   <data name="UseTransactionDescription" xml:space="preserve">
-    <value>Указывает, должны ли операции базы данных в этом действии быть упакованы в транзакцию базы данных</value>
+    <value>Показывает, должны ли операции в базе данных в рамках этого действия быть &quot;упакованы&quot; в транзакцию базы данных.</value>
   </data>
   <data name="AffectedRecordsInsertDescription" xml:space="preserve">
     <value>Количество вставленных строк</value>
@@ -200,7 +200,7 @@
     <value>Настроить подключение...</value>
   </data>
   <data name="InserDataTableInputDescription" xml:space="preserve">
-    <value>Объект DataTable, вставляемый в таблицу. Описание столбцов таблицы данных должно соответствовать столбцам из таблицы базы данных</value>
+    <value>Объект DataTable, который будет вставлен в таблицу Table. Описание столбцов DataTable должно совпадать с описанием в таблице в базе данных</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
     <value>Мастер подключения</value>
@@ -237,30 +237,81 @@
     <value>Перетащите действие сюда</value>
   </data>
   <data name="EditSql" xml:space="preserve">
-    <value>Изменить SQL</value>
+    <value>Изменить Sql</value>
   </data>
   <data name="ExistingDatabaseConnection" xml:space="preserve">
     <value>Существующее подключение к базе данных</value>
   </data>
   <data name="SqlQueryHint" xml:space="preserve">
-    <value>SQL-запрос. Текст должен быть заключен в кавычки</value>
+    <value>Запрос Sql. Текст должен быть заключен в кавычки</value>
   </data>
   <data name="TableNameHint" xml:space="preserve">
     <value>Имя таблицы. Текст должен быть заключен в кавычки</value>
   </data>
   <data name="QueryTimeoutMSDescription" xml:space="preserve">
-    <value>Указывает в миллисекундах время ожидания выполнения SQL-запроса до возникновения ошибки (не включает время ответа для извлечения результата запроса). Значение по умолчанию равняется 30 000 миллисекунд (30 секундам) и должно быть равно или больше 0.</value>
+    <value>Указывает в миллисекундах время ожидания выполнения запроса sql до возникновения ошибки (сюда не входит время ответа для получения результата запроса). Значение по умолчанию равняется 30 000 миллисекунд (30 секундам) и должно быть больше или равно 0.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Интеграция приложений</value>
   </data>
   <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Выполнить без запроса</value>
+    <value>.Execute Non Query</value>
   </data>
   <data name="ExecuteQuery" xml:space="preserve">
-    <value>Выполнить запрос</value>
+    <value>.Execute Query</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Коллекция)</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError Boolean</value>
+  </data>
+  <data name="BulkInsert" xml:space="preserve">
+    <value>Массовая вставка</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>DataTable</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>Исходный параметр DataTable для элементов, которые необходимо вставить.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>Source DataTable</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Имя таблицы</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>Имя таблицы базы данных, в которую нужно вставить элементы.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Имя целевой таблицы базы данных</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Столбцы, используемые для сопоставления строк</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Коллекция имен столбцов, используемых для сопоставления строк</value>
+  </data>
+  <data name="BulkUpdate" xml:space="preserve">
+    <value>Массовое обновление</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Обновляет совместимый объект DataTable в существующей таблице. Обновляет все столбцы, которых нет в коллекции имен столбцов, используемых как основной ключ. Возвращает число затронутых строк.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>The number of updatedrows</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Обновит таблицу с помощью массовых операций с использованием определенного внедрения драйвера базы данных. Вернется к вставке таблицы данных, если драйвер базы данных не поддерживает массовые операции.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String</value>
   </data>
 </root>

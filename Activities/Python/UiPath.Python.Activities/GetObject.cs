@@ -6,7 +6,7 @@ using UiPath.Python.Activities.Properties;
 namespace UiPath.Python.Activities
 {
     /// <summary>
-    /// Activity for extracting the .NET object from the Python type 
+    /// Activity for extracting the .NET object from the Python type
     /// </summary>
     [LocalizedDisplayName(nameof(Resources.GetObjectNameDisplayName))]
     [LocalizedDescription(nameof(Resources.GetObjectDescription))]
@@ -17,7 +17,6 @@ namespace UiPath.Python.Activities
         [LocalizedDisplayName(nameof(Resources.PythonObjectNameDisplayName))]
         [LocalizedDescription(nameof(Resources.PythonObjectDescription))]
         public InArgument<PythonObject> PythonObject { get; set; }
-
 
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.ResultNameDisplayName))]
@@ -40,7 +39,7 @@ namespace UiPath.Python.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error casting Python object: {e.ToString()}");
+                Trace.TraceError($"Error casting Python object: {e}");
                 throw new InvalidOperationException(Resources.ConvertException, e);
             }
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,13 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeserializationException" xml:space="preserve">
+    <value>Python 逆シリアル化例外</value>
+  </data>
   <data name="DetectVersionException" xml:space="preserve">
     <value>Python のバージョンを検出できませんでした。</value>
   </data>
+  <data name="InstantiationException" xml:space="preserve">
+    <value>Python インスタンス化例外</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
-    <value>Python exe が見つかりませんでした。</value>
+    <value>Python の .exe ファイルが見つかりませんでした。</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
-    <value>Python ランタイムの型／メソッド／プロパティが見つかりません: {0}</value>
+    <value>Python のランタイムの種類/メソッド/プロパティが見つかりません: {0}</value>
+  </data>
+  <data name="SerializationException" xml:space="preserve">
+    <value>Python シリアル化例外</value>
+  </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>Python のタイムアウト期間が経過しました。</value>
+  </data>
+  <data name="UnsupportedVersionException" xml:space="preserve">
+    <value>バージョン {0} の Python はサポートされていません。サポートされているバージョンは次のとおりです: {1}</value>
   </data>
 </root>

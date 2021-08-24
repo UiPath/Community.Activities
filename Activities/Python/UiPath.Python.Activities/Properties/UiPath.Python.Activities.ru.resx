@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -125,13 +125,13 @@
     <comment>property name</comment>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>Ошибка при преобразовании объекта Python</value>
+    <value>Ошибка преобразования объекта Python</value>
   </data>
   <data name="Do" xml:space="preserve">
     <value>Сделать</value>
   </data>
   <data name="GetObjectDescription" xml:space="preserve">
-    <value>Получить тип .NET из PythonObject</value>
+    <value>Получить тип .NET от объекта PythonObject</value>
   </data>
   <data name="GetObjectNameDisplayName" xml:space="preserve">
     <value>Get Python Object</value>
@@ -154,13 +154,13 @@
     <value>Недопустимое имя метода</value>
   </data>
   <data name="InvalidPathException" xml:space="preserve">
-    <value>Указанный путь Python является недопустимым: {0}</value>
+    <value>Указанный путь Python недействителен: {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
-    <value>Ошибка при вызове метода Python</value>
+    <value>Ошибка вызова метода Python</value>
   </data>
   <data name="InvokeMethodDescription" xml:space="preserve">
-    <value>Вызов метода Python</value>
+    <value>Invoke Python Method (Вызвать метод Python)</value>
   </data>
   <data name="InvokeMethodNameDisplayName" xml:space="preserve">
     <value>Invoke Python Method</value>
@@ -170,51 +170,51 @@
     <value>Загружает и выполняет сценарий Python</value>
   </data>
   <data name="LoadScriptException" xml:space="preserve">
-    <value>Ошибка при загрузке сценария Python</value>
+    <value>Ошибка загрузки сценария Python</value>
   </data>
   <data name="LoadScriptNameDisplayName" xml:space="preserve">
     <value>Load Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>Имя вызываемого метода</value>
+    <value>Имя метода, который нужно вызвать</value>
   </data>
   <data name="NameDisplayName" xml:space="preserve">
     <value>Name</value>
     <comment>property name</comment>
   </data>
   <data name="NoScriptSpecifiedException" xml:space="preserve">
-    <value>Не указан код/сценарий</value>
+    <value>Код/сценарий не указан</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Входные параметры для сценария Python</value>
+    <value>Параметры ввода для сценария Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>Input parameters</value>
+    <value>InputParameters</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
-    <value>Основная папка Python</value>
+    <value>Путь к личному каталогу Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
     <value>Path</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
-    <value>Сеанс ядра Python не найден</value>
+    <value>Сеанс модуля Python не найден</value>
   </data>
   <data name="PythonInitializeException" xml:space="preserve">
-    <value>Ошибка при инициализации ядра Python</value>
+    <value>Ошибка инициализации модуля Python</value>
   </data>
   <data name="PythonObjectDescription" xml:space="preserve">
-    <value>Объект Python, из которого извлекается значение</value>
+    <value>Объект Python для извлечения значения</value>
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
-    <value>Python Object</value>
+    <value>PythonObject</value>
     <comment>property name</comment>
   </data>
   <data name="PythonScopeDescription" xml:space="preserve">
@@ -235,14 +235,14 @@
     <value>Вызвать действие сценария Python</value>
   </data>
   <data name="RunScriptException" xml:space="preserve">
-    <value>Ошибка при запуске сценария Python</value>
+    <value>Ошибка выполнения сценария Python</value>
   </data>
   <data name="RunScriptNameDisplayName" xml:space="preserve">
     <value>Run Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="ScriptFileDescription" xml:space="preserve">
-    <value>Файл сценария Python</value>
+    <value>Полный путь к файлу сценария Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
     <value>File</value>
@@ -269,6 +269,25 @@
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Output</value>
+    <value>Вывод</value>
+  </data>
+  <data name="WorkingFolder" xml:space="preserve">
+    <value>WorkingFolder</value>
+    <comment>property name</comment>
+  </data>
+  <data name="WorkingFolderDescription" xml:space="preserve">
+    <value>Используется для определения рабочей папки сценариев, выполняемых в текущей области</value>
+  </data>
+  <data name="WorkingFolderPathInvalid" xml:space="preserve">
+    <value>Путь к WorkingFolder недействителен</value>
+  </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value>Выбранная версия {0} отличается от обнаруженной версии {1}</value>
+  </data>
+  <data name="OperationTimeout" xml:space="preserve">
+    <value>Таймаут</value>
+  </data>
+  <data name="OperationTimeoutDescription" xml:space="preserve">
+    <value>Время на выполнение сценария Python, прежде чем он завершится и возникнет исключение.</value>
   </data>
 </root>

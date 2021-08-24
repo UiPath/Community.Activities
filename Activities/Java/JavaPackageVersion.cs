@@ -4,5 +4,9 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyVersion("1.2.*")]
+#if DEBUG
+[assembly: AssemblyVersion("1.3.*")]
+#else
+[assembly: AssemblyVersion("1.3.0")]
+#endif
 
