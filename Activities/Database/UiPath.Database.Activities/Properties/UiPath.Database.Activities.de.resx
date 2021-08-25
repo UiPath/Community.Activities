@@ -191,7 +191,7 @@
     <value>ColumnNames</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
     <value>Nur eines der Verbindungszeichenfolgefelder kann verwendet werden.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
@@ -199,5 +199,17 @@
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>Massen-/Batch-Aktualisierung</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>Nur eine der Verbindungen kann verwendet werden.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>Mindestens eine der Verbindungen muss verwendet werden.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>Mindestens eines der Verbindungszeichenfolgefelder muss verwendet werden.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>Wert für das erforderliche Aktivitätsargument „ProviderName“ wurde nicht angegeben.</value>
   </data>
 </root>
