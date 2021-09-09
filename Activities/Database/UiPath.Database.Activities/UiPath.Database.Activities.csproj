@@ -8,6 +8,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseWPF>true</UseWPF>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />

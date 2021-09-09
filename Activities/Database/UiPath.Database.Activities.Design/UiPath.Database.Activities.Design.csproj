@@ -5,6 +5,7 @@
     <UseWPF>true</UseWPF>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities" />
@@ -23,6 +24,9 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows.Forms" />
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Dialogs\DataConnectionConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
@@ -44,15 +48,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConnectionDialog\ConnectionUIDialog\Microsoft.Data.ConnectionUI.Dialog.csproj" />
+    <ProjectReference Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj" />
     <ProjectReference Include="..\UiPath.Database.Activities\UiPath.Database.Activities.csproj" />
     <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.Data.ConnectionUI.Dialog">
-      <HintPath>Dialogs\Microsoft.Data.ConnectionUI.Dialog.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Activities.Design.Designer.cs">

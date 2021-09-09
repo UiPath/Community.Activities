@@ -5,6 +5,7 @@
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
     <VersionSuffix></VersionSuffix>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Platforms>AnyCPU;x86;x64</Platforms>
     <!--leave empty for ci to replace with prelease tag-->
   </PropertyGroup>
 
@@ -32,7 +33,7 @@
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)Microsoft.Data.ConnectionUI.Dialog.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.resources.dll" TargetPath="fr\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.resources.dll" TargetPath="ja\UiPath.Database.resources.dll" />
@@ -102,9 +103,9 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0"  />
-    <PackageReference Include="System.Data.OleDb" Version="5.0.0"/>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2"/>
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">

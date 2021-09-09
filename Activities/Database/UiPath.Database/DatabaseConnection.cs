@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
-using UiPath.Database.Workaround;
+using UiPath.Data.ConnectionUI.Dialog.Workaround;
 using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Database

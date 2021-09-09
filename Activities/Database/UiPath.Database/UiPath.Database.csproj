@@ -6,6 +6,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -38,7 +39,7 @@
     <None Remove="runtimes\win-x86\native\sni.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\ConnectionDialog\ConnectionUIDialog\Workaround\DbWorkarounds.cs" Link="Workaround\DbWorkarounds.cs" />
+    <Compile Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\Workaround\DbWorkarounds.cs" Link="Workaround\DbWorkarounds.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="runtimes\win-x64\native\sni.dll">
