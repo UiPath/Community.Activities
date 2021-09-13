@@ -151,7 +151,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             {
                 Visibility = Visibility.Visible,
                 BorderBrush = SystemColors.ActiveBorderBrush,
-                Background = SystemColors.ControlBrush,
+                //Background = SystemColors.ControlBrush,
                 BorderThickness = new Thickness(1),
                 Child = error
             };
@@ -159,7 +159,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             {
                 Visibility = Visibility.Visible,
                 BorderBrush = SystemColors.ActiveBorderBrush,
-                Background = SystemColors.ControlBrush,
+                //Background = SystemColors.ControlBrush,
                 BorderThickness = new Thickness(1),
                 Child = dock
             };
@@ -358,12 +358,13 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         //Hide default controls used for Workflow Designer that we don't need
         protected override void OnRender(DrawingContext dc)
         {
-            var searchButton = this.PropertyToolBar.GetType().GetProperty("SearchClearButton", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).GetValue(this.PropertyToolBar) as Control;
-            var searchBox = this.PropertyToolBar.GetType().GetProperty("SearchTextBox", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).GetValue(this.PropertyToolBar) as Control;
-            var searchLabel = this.PropertyToolBar.GetType().GetProperty("SearchLabel", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).GetValue(this.PropertyToolBar) as TextBlock;
-            searchButton.Visibility = Visibility.Hidden;
-            searchBox.Visibility = Visibility.Hidden;
-            searchLabel.Visibility = Visibility.Hidden;
+            this.PropertyToolBar.Visibility = Visibility.Collapsed; 
+            //var searchButton = this.PropertyToolBar.GetType().GetProperty("SearchClearButton", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).GetValue(this.PropertyToolBar) as Control;
+            //var searchBox = this.PropertyToolBar.GetType().GetProperty("SearchTextBox", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).GetValue(this.PropertyToolBar) as Control;
+            //var searchLabel = this.PropertyToolBar.GetType().GetProperty("SearchLabel", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).GetValue(this.PropertyToolBar) as TextBlock;
+            //searchButton.Visibility = Visibility.Hidden;
+            //searchBox.Visibility = Visibility.Hidden;
+            //searchLabel.Visibility = Visibility.Hidden;
         }
 
         /// <summary>Changes the text help area contents</summary>
