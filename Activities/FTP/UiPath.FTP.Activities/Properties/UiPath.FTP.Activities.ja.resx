@@ -222,4 +222,105 @@
   <data name="NewPath" xml:space="preserve">
     <value>新しいリモート パス</value>
   </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>削除を行います。(Delete)</value>
+  </data>
+  <data name="DeleteDisplayName" xml:space="preserve">
+    <value>削除</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DirectoryExistsDescription" xml:space="preserve">
+    <value>ディレクトリの存在を確認します。(Directory Exists)</value>
+  </data>
+  <data name="DirectoryExistsDisplayName" xml:space="preserve">
+    <value>ディレクトリの存在を確認</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DownloadFilesDescription" xml:space="preserve">
+    <value>ファイルをダウンロードします。(Download Files)</value>
+  </data>
+  <data name="DownloadFilesDisplayName" xml:space="preserve">
+    <value>ファイルをダウンロード</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="EnumerateObjectsDescription" xml:space="preserve">
+    <value>オブジェクトを列挙します。(Enumerate Objects)</value>
+  </data>
+  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
+    <value>オブジェクトを列挙</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="FileExistsDescription" xml:space="preserve">
+    <value>ファイルの存在の有無を確認します。(File Exists)</value>
+  </data>
+  <data name="FileExistsDisplayName" xml:space="preserve">
+    <value>ファイルの存在を確認</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="MoveItemDescription" xml:space="preserve">
+    <value>アイテムを移動します。(Move Item)</value>
+  </data>
+  <data name="MoveItemDisplayName" xml:space="preserve">
+    <value>アイテムを移動</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="UploadFilesDescription" xml:space="preserve">
+    <value>ファイルをアップロードします。(Upload Files)</value>
+  </data>
+  <data name="UploadFilesDisplayName" xml:space="preserve">
+    <value>ファイルをアップロード</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="WithFtpSessionDescription" xml:space="preserve">
+    <value>FTP セッションを使用します。(With FTP Session)</value>
+  </data>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP セッションを使用</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
+    <value>クライアント証明書パスワードです。</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+  </data>
+  <data name="FilesDescription" xml:space="preserve">
+    <value>ファイルです。</value>
+  </data>
+  <data name="HostDescription" xml:space="preserve">
+    <value>ホストです。</value>
+  </data>
+  <data name="LocalPathDescription" xml:space="preserve">
+    <value>ローカル パスです。</value>
+  </data>
+  <data name="NewPathDescription" xml:space="preserve">
+    <value>新しいパスです。</value>
+  </data>
+  <data name="PasswordDescription" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PortDescription" xml:space="preserve">
+    <value>ポート</value>
+  </data>
+  <data name="RemotePathDescription" xml:space="preserve">
+    <value>リモート パスです。</value>
+  </data>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>このチェックボックスをオンにすると、ユーザー名とパスワード フィールドが無視され、代わりに標準の匿名ユーザーが使用されます。</value>
+  </data>
+  <data name="UsernameDescription" xml:space="preserve">
+    <value>ユーザー名です</value>
+  </data>
+  <data name="ValidationError_ValidateParentError" xml:space="preserve">
+    <value>アクティビティは、[{0}] の内部でのみ有効です。</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>共通</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
+    <value>FTP セッション スコープ</value>
+  </data>
 </root>
