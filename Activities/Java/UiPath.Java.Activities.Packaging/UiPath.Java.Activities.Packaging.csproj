@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <None Include="..\Invoke\artifacts\InvokeJava.jar" Pack="true" PackagePath="lib\java_files\InvokeJava.jar" />
+    <None Include="..\Invoke\artifacts\InvokeJavaLinux.jar" Pack="true" PackagePath="lib\java_files\InvokeJavaLinux.jar" />
   </ItemGroup>
   
   <Target Name="AddDlls">
