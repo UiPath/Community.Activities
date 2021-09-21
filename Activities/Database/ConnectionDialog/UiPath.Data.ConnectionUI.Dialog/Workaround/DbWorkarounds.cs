@@ -23,8 +23,12 @@ namespace UiPath.Data.ConnectionUI.Dialog.Workaround
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         private static extern bool FreeLibrary(IntPtr hModule);
 
-        public static void SNILoadWorkaround()
+        public static void SNILoadWorkaround(bool isWindows = true)
         {
+            //SNI workaround is necessary only for windows
+            if(!isWindows)
+                return;
+
             IntPtr Handle = LoadLibrary(Path.GetFullPath((typeof(DbWorkarounds).Assembly.CodeBase.Replace("file:///", "")) + RelativePath));
 
             if (Handle == IntPtr.Zero)

@@ -28,13 +28,18 @@ namespace UiPath.Database
         private const string OracleOdbcDriverPattern = "SQORA";
         private const string OraclePattern = "oracle";
         private const string OracleProvider = "oracle.manageddataaccess.client";
+        private bool _isWindows = true;
 
-
+        public DatabaseConnection()
+        {
+#if NETCOREAPP
+            _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#endif
+            DbWorkarounds.SNILoadWorkaround(_isWindows);
+        }
 
         public DatabaseConnection Initialize(DbConnection connection)
         {
-            DbWorkarounds.SNILoadWorkaround();
-
             _connection = connection;
             OpenConnection();
             return this;
@@ -42,13 +47,15 @@ namespace UiPath.Database
 
         public DatabaseConnection Initialize(string connectionString, string providerName)
         {
-            DbWorkarounds.SNILoadWorkaround();
-
             _providerName = providerName;
 
 #if NETCOREAPP
             DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
-            DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+
+            //OLEDB driver is Windows propietary - there is no support for other OS
+            if(_isWindows)
+                DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+
             DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
             DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
 #endif

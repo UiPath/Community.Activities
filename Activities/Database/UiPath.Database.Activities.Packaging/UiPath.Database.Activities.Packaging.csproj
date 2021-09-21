@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Database.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
     <VersionSuffix></VersionSuffix>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,7 +33,6 @@
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.resources.dll" TargetPath="fr\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.resources.dll" TargetPath="ja\UiPath.Database.resources.dll" />
@@ -59,21 +58,10 @@
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.resources.dll" TargetPath="tr\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.resources.dll" />
 
-      <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.Design.resources.dll" TargetPath="ja\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.Design.resources.dll" TargetPath="ru\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)de\UiPath.Database.Activities.Design.resources.dll" TargetPath="de\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)es\UiPath.Database.Activities.Design.resources.dll" TargetPath="es\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Database.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Database.Activities.Design.resources.dll" TargetPath="ko\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
-
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.Design.resources.dll" TargetPath="ja\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Database.Activities.Design.resources.dll" TargetPath="ru\UiPath.Database.Activities.Design.resources.dll" />
@@ -95,18 +83,17 @@
       <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\sni.dll" TargetPath="runtimes\win-x64\native\sni.dll" />
     </ItemGroup>
   </Target>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
-	<PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+  <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' or '$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj">
