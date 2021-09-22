@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -115,7 +116,13 @@ namespace UiPath.Java.Service
                 }
 
                 ct.ThrowIfCancellationRequested();
-                _serverPipe.WaitForPipeDrain();
+                bool isWindows = true;
+#if NETCOREAPP
+                if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    isWindows = false;
+#endif
+                if(isWindows)
+                    _serverPipe.WaitForPipeDrain();
 
                 using (var streamReader = new StreamReader(_serverPipe, _utf8Encoding, false, _defaultBufferSize,
                                                            leaveOpen: true))
