@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using UiPath.Python.Properties;
 using UiPath.Shared.Service;
+using System.Runtime.InteropServices;
 
 namespace UiPath.Python.Service
 {
@@ -91,7 +92,7 @@ namespace UiPath.Python.Service
             }
         }
 
-        public void Initialize(string path, Version version, string workingFolder)
+        public void Initialize(string path, string libraryPath, Version version, string workingFolder)
         {
             using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
@@ -101,6 +102,7 @@ namespace UiPath.Python.Service
                     {
                         RequestType = RequestType.Initialize,
                         ScriptPath = path,
+                        LibraryPath = libraryPath,
                         PythonVersion = version.ToString(),
                         WorkingFolder = workingFolder
                     };
@@ -221,7 +223,13 @@ namespace UiPath.Python.Service
                 }
 
                 ct.ThrowIfCancellationRequested();
-                ClientStream.WaitForPipeDrain();
+                bool isWindows = true;
+#if NETCOREAPP
+                if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    isWindows = false;
+#endif
+                if(isWindows)
+                    ClientStream.WaitForPipeDrain();
 
                 using (var streamReader = new StreamReader(ClientStream, _utf8Encoding, false, _defaultBufferSize,
                                                            leaveOpen: true))
