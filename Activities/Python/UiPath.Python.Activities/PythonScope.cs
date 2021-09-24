@@ -30,6 +30,12 @@ namespace UiPath.Python.Activities
         public InArgument<string> Path { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.LibraryPathNameDisplayName))]
+        [LocalizedDescription(nameof(Resources.LibraryPathDescription))]
+        [DefaultValue(null)]
+        public InArgument<string> LibraryPath { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.TargetPlatformDisplayName))]
         [LocalizedDescription(nameof(Resources.TargetPlatformDescription))]
         [DefaultValue(TargetPlatform.x86)]
@@ -93,6 +99,7 @@ namespace UiPath.Python.Activities
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
             string path = Path.Get(context);
+            string libraryPath = LibraryPath.Get(context);
             if (!path.IsNullOrEmpty() && !Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
@@ -100,7 +107,7 @@ namespace UiPath.Python.Activities
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            _pythonEngine = EngineProvider.Get(Version, path, !Isolated, TargetPlatform, ShowConsole);
+            _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
 
             var workingFolder = WorkingFolder.Get(context);
             if (!workingFolder.IsNullOrEmpty())

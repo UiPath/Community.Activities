@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace UiPath.Python.Host
 {
@@ -13,17 +13,16 @@ namespace UiPath.Python.Host
         [STAThread]
         private static void Main()
         {
-            Application.ApplicationExit += Application_ApplicationExit;
+            AppDomain.CurrentDomain.ProcessExit += Application_ApplicationExit;
 
             _service = new PythonService();
             _service.RunServer();
-            Application.Run();
             Console.ReadLine();
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            Application.ApplicationExit -= Application_ApplicationExit;
+            AppDomain.CurrentDomain.ProcessExit -= Application_ApplicationExit;
             _service?.Shutdown();
         }
     }

@@ -147,7 +147,7 @@ namespace UiPath.Python.Tests
                 },
                 new object[]
                 {
-                    @"C:\Python\python39-x64",
+                   @"C:\Python\python39-x64",
                     Version.Python_39
                 }
             };
@@ -167,7 +167,7 @@ namespace UiPath.Python.Tests
             var target = X64Engines.Any(x => x[0].Equals(path) && x[1].Equals(version))
                 ? TargetPlatform.x64
                 : TargetPlatform.x86;
-            var engine = EngineProvider.Get(Version.Auto, path, true, target, true);
+            var engine = EngineProvider.Get(Version.Auto, path, null, true, target, true);
             Assert.Equal(engine.Version, version);
         }
 
@@ -226,7 +226,7 @@ namespace UiPath.Python.Tests
         private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
-            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            var engine = EngineProvider.Get(version, path, null, inProcess, target, true);
             await engine.Initialize(null, _ct);
             // load test script
             var pyScript = await engine.LoadScript(_typeTestScript, _ct);
@@ -252,17 +252,18 @@ namespace UiPath.Python.Tests
         private async Task RunUnicodeTests(string path, Version version, bool inProcess, TargetPlatform target)
         {
             // init engine
-            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            var engine = EngineProvider.Get(version, path, null, inProcess, target, true);
             await engine.Initialize(null, _ct);
             // load test script
             var pyScript = await engine.LoadScript(_unicodeTestScript, _ct);
             var resNoParam = await engine.InvokeMethod(pyScript, "test", null, _ct);
             Assert.Equal("´©Ãˆ§‰©ù¨ëéüÇïçâèàêÉîôû", engine.Convert(resNoParam, typeof(string)));
+            await engine.Release();
         }
 
         private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
         {
-            var engine = EngineProvider.Get(version, path, inProcess, target, true);
+            var engine = EngineProvider.Get(version, path, null, inProcess, target, true);
             await engine.Initialize(null, _ct);
 
             await engine.Execute(_basicTestScript, _ct);
