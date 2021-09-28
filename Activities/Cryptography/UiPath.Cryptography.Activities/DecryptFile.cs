@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualBasic.Activities;
-using System;
+﻿using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -65,7 +64,7 @@ namespace UiPath.Cryptography.Activities
         public DecryptFile()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
-            KeyEncoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.UTF8)); // Kinda ugly.
+            KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)

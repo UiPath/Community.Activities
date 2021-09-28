@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualBasic.Activities;
-using System;
+﻿using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -47,7 +47,7 @@ namespace UiPath.Cryptography.Activities
         {
 
             Algorithm = HashAlgorithms.SHA256;
-            Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(System.Text.Encoding.UTF8)); // Kinda ugly.
+            Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
