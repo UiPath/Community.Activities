@@ -73,7 +73,7 @@ namespace UiPath.FTP.Activities
 
         [LocalizedCategory(nameof(Resources.Common))]
         [LocalizedDisplayName(nameof(Resources.ContinueOnError))]
-        public InArgument<bool> ContinueOnError { get; set; } = false;
+        public override InArgument<bool> ContinueOnError { get; set; } = false;
 
         public WithFtpSession()
         {
