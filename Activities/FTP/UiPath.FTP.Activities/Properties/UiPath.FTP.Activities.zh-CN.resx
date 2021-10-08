@@ -222,4 +222,105 @@
   <data name="NewPath" xml:space="preserve">
     <value>新建远程路径</value>
   </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteDisplayName" xml:space="preserve">
+    <value>删除</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DirectoryExistsDescription" xml:space="preserve">
+    <value>目录存在</value>
+  </data>
+  <data name="DirectoryExistsDisplayName" xml:space="preserve">
+    <value>目录存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DownloadFilesDescription" xml:space="preserve">
+    <value>下载文件</value>
+  </data>
+  <data name="DownloadFilesDisplayName" xml:space="preserve">
+    <value>下载文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="EnumerateObjectsDescription" xml:space="preserve">
+    <value>枚举对象</value>
+  </data>
+  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
+    <value>枚举对象</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="FileExistsDescription" xml:space="preserve">
+    <value>文件存在</value>
+  </data>
+  <data name="FileExistsDisplayName" xml:space="preserve">
+    <value>文件存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="MoveItemDescription" xml:space="preserve">
+    <value>移动项目</value>
+  </data>
+  <data name="MoveItemDisplayName" xml:space="preserve">
+    <value>移动项目</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="UploadFilesDescription" xml:space="preserve">
+    <value>上传文件</value>
+  </data>
+  <data name="UploadFilesDisplayName" xml:space="preserve">
+    <value>上传文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="WithFtpSessionDescription" xml:space="preserve">
+    <value>启用 FTP 会话</value>
+  </data>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>启用 FTP 会话</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
+    <value>客户端证书密码</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>出错时继续</value>
+  </data>
+  <data name="FilesDescription" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="HostDescription" xml:space="preserve">
+    <value>主机</value>
+  </data>
+  <data name="LocalPathDescription" xml:space="preserve">
+    <value>本地路径</value>
+  </data>
+  <data name="NewPathDescription" xml:space="preserve">
+    <value>新路径</value>
+  </data>
+  <data name="PasswordDescription" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="PortDescription" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="RemotePathDescription" xml:space="preserve">
+    <value>远程路径</value>
+  </data>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>选中此复选框时，将忽略用户名和密码字段，并改用标准匿名用户。</value>
+  </data>
+  <data name="UsernameDescription" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="ValidationError_ValidateParentError" xml:space="preserve">
+    <value>活动仅在“{0}”内有效</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>常见</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>出错时继续</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
+    <value>FTP 会话作用域</value>
+  </data>
 </root>
