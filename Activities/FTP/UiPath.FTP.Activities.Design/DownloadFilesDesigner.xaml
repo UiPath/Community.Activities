@@ -28,7 +28,7 @@
             <Label Padding="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="0, 5, 0, 0" Content="{x:Static p:SharedResources.LocalPath}"
                    ToolTip="{x:Static p:SharedResources.LocalPath}" />
-            <sapv:ExpressionTextBox Margin="0, 5, 0, 0" DockPanel.Dock="Bottom" Expression="{Binding Path=ModelItem.LocalPath, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=Out}"
+            <sapv:ExpressionTextBox Margin="0, 5, 0, 0" DockPanel.Dock="Bottom" Expression="{Binding Path=ModelItem.LocalPath, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In}"
                                     MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.LocalPath}"/>
         </StackPanel>
     </uip:ActivityDecoratorControl>
