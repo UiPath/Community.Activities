@@ -290,4 +290,10 @@
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>在遭到终止及引发异常前，允许 Python 脚本运行的时长。</value>
   </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Python libpython*.so 的路径包括库名称在内的库</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>库路径 (仅适用于 Linux)</value>
+  </data>
 </root>

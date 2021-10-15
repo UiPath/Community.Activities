@@ -290,4 +290,10 @@
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Die Zeit, die ein Python-Skript ausgeführt werden kann, bis es beendet und eine Ausnahme ausgelöst wird.</value>
   </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Pfad zur Python-Bibliothek „libpython*.so“ einschließlich Bibliotheksname</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>Bibliothekspfad (nur Linux)</value>
+  </data>
 </root>

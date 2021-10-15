@@ -290,4 +290,10 @@
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Temps nécessaire pour permettre l’exécution d’un script Python jusqu’à la fin et le lancement d’une exception.</value>
   </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Chemin vers Python libpython*.so bibliothèque incluant le nom de la bibliothèque</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>Chemin de la bibliothèque (Linux uniquement)</value>
+  </data>
 </root>
