@@ -7,14 +7,14 @@ using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class DatabaseDisconnect : AsyncTaskCodeActivity
+    [LocalizedDescription(nameof(Resources.Activity_DatabaseDisconnect_Description))]
+    public partial class DatabaseDisconnect : AsyncTaskCodeActivity
     {
         [LocalizedCategory(nameof(Resources.Connection))]
         [RequiredArgument]
-        [LocalizedDisplayName(nameof(Resources.DatabaseConnectionDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseDisconnect_Property_DatabaseConnection_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseDisconnect_Property_DatabaseConnection_Description))]
         public InArgument<DatabaseConnection> DatabaseConnection { get; set; }
-
-
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
