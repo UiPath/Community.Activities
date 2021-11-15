@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_PythonScope_Property_Auto_Description" xml:space="preserve">
+    <value>Auto</value>
+  </data>
   <data name="DeserializationException" xml:space="preserve">
     <value>Exceção de desserialização do Python</value>
   </data>

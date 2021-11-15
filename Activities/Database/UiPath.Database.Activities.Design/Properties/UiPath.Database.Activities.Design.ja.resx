@@ -175,7 +175,7 @@
     <value>SQL コマンドにバインドされた名前付きパラメーターのディクショナリです。バインドするには、SQL コマンドで &apos;@parameterName&apos; ステートメントを指定します。実行時に、parameterName がディクショナリからの値に置き換えられます。</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
-    <value>データベースへのアクセスに使用するデータベース プロバイダーの名前です。データ プロバイダーの一覧は次のページから確認できます: http://msdn.microsoft.com/ja-jp/library/a6cd7c08(v=vs.100).aspx</value>
+    <value>データベースへのアクセスに使用するデータベース プロバイダーの名前です。データ プロバイダーのリストは次のページから確認できます: http://msdn.microsoft.com/ja-jp/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>実行する SQL コマンドです。</value>

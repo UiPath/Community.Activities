@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_ConvertJavaObject_Property_TypeArgument_Name" xml:space="preserve">
+    <value>类型参数</value>
+  </data>
   <data name="AppInvokerCategory" xml:space="preserve">
     <value>应用程序调用程序</value>
   </data>

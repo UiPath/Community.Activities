@@ -222,4 +222,105 @@
   <data name="NewPath" xml:space="preserve">
     <value>새 원격 경로</value>
   </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeleteDisplayName" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DirectoryExistsDescription" xml:space="preserve">
+    <value>디렉터리 있음</value>
+  </data>
+  <data name="DirectoryExistsDisplayName" xml:space="preserve">
+    <value>Directory Exists</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DownloadFilesDescription" xml:space="preserve">
+    <value>파일 다운로드</value>
+  </data>
+  <data name="DownloadFilesDisplayName" xml:space="preserve">
+    <value>Download Files</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="EnumerateObjectsDescription" xml:space="preserve">
+    <value>개체 열거</value>
+  </data>
+  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
+    <value>Enumerate Objects</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="FileExistsDescription" xml:space="preserve">
+    <value>파일 있음</value>
+  </data>
+  <data name="FileExistsDisplayName" xml:space="preserve">
+    <value>File Exists</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="MoveItemDescription" xml:space="preserve">
+    <value>항목 이동</value>
+  </data>
+  <data name="MoveItemDisplayName" xml:space="preserve">
+    <value>Move Item</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="UploadFilesDescription" xml:space="preserve">
+    <value>파일 업로드</value>
+  </data>
+  <data name="UploadFilesDisplayName" xml:space="preserve">
+    <value>Upload Files</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="WithFtpSessionDescription" xml:space="preserve">
+    <value>FTP 세션 포함</value>
+  </data>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP 세션 포함</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
+    <value>ClientCertificatePassword</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError</value>
+  </data>
+  <data name="FilesDescription" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="HostDescription" xml:space="preserve">
+    <value>호스트</value>
+  </data>
+  <data name="LocalPathDescription" xml:space="preserve">
+    <value>LocalPath</value>
+  </data>
+  <data name="NewPathDescription" xml:space="preserve">
+    <value>NewPath</value>
+  </data>
+  <data name="PasswordDescription" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="PortDescription" xml:space="preserve">
+    <value>포트</value>
+  </data>
+  <data name="RemotePathDescription" xml:space="preserve">
+    <value>원격 경로</value>
+  </data>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>이 상자를 선택하면, 사용자 이름 및 암호 필드가 무시되고 표준 익명 사용자가 대신 사용됩니다.</value>
+  </data>
+  <data name="UsernameDescription" xml:space="preserve">
+    <value>사용자 이름</value>
+  </data>
+  <data name="ValidationError_ValidateParentError" xml:space="preserve">
+    <value>액티비티는 {0} 내에서만 유효합니다.</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>공통</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
+    <value>FTP 세션 범위</value>
+  </data>
 </root>
