@@ -9,26 +9,30 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.MoveItemDisplayName))]
-    [LocalizedDescription(nameof(Resources.MoveItemDescription))]
-    public class MoveItem : FtpCodeActivity
+    [LocalizedDisplayName(nameof(Resources.Activity_MoveItem_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_MoveItem_Description))]
+    public partial class MoveItem : FtpCodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.RemotePath))]
+        [LocalizedDisplayName(nameof(Resources.Activity_MoveItem_Property_RemotePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_MoveItem_Property_RemotePath_Description))]
         public InArgument<string> RemotePath { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.NewPath))]
+        [LocalizedDisplayName(nameof(Resources.Activity_MoveItem_Property_NewPath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_MoveItem_Property_NewPath_Description))]
         public InArgument<string> NewPath { get; set; }
 
         [LocalizedCategory(nameof(Resources.Options))]
-        [LocalizedDisplayName(nameof(Resources.Overwrite))]
+        [LocalizedDisplayName(nameof(Resources.Activity_MoveItem_Property_Overwrite_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_MoveItem_Property_Overwrite_Description))]
         public bool Overwrite { get; set; }
 
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnError))]
+        [LocalizedDisplayName(nameof(Resources.Activity_MoveItem_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_MoveItem_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; } = false;
 
         protected override void Execute(CodeActivityContext context)
