@@ -2,11 +2,14 @@
   <Import Project="..\Database.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
-    <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
-    <VersionSuffix></VersionSuffix>
+    <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Platforms>AnyCPU;x86;x64</Platforms>
     <!--leave empty for ci to replace with prelease tag-->
+	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
+	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
+	<PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
+	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -18,7 +21,6 @@
     <Description>UiPath Database Activities Pack</Description>
     <Authors>UiPath</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
@@ -30,6 +32,11 @@
   </Target>
 
   <Target Name="AddDlls">
+	<!-- PDBs for debug-->
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+	  <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.pdb" />
+	  <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.pdb" />
+	</ItemGroup>
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
@@ -75,13 +82,19 @@
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
     </ItemGroup>
 
-
     <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
       <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x86\native\sni.dll" TargetPath="runtimes\win-x86\native\sni.dll" />
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
       <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\sni.dll" TargetPath="runtimes\win-x64\native\sni.dll" />
     </ItemGroup>
+  </Target>
+  <Target Name="CleanPackageFiles" BeforeTargets="Build">
+	<Message Text="Deleting packages ..." />
+	<ItemGroup>
+	  <PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+	</ItemGroup>
+	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
   </Target>
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
@@ -105,8 +118,4 @@
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
-  </Target>
 </Project>
