@@ -38,14 +38,14 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(WithFtpSession), FTPCategoryAttribute);
 
             // Activities DisplayName
-            builder.AddCustomAttributes(typeof(Delete), new DisplayNameAttribute(SharedResources.DeleteDisplayName));
-            builder.AddCustomAttributes(typeof(DirectoryExists), new DisplayNameAttribute(SharedResources.DirectoryExistsDisplayName));
-            builder.AddCustomAttributes(typeof(DownloadFiles), new DisplayNameAttribute(SharedResources.DownloadFilesDisplayName));
-            builder.AddCustomAttributes(typeof(EnumerateObjects), new DisplayNameAttribute(SharedResources.EnumerateObjectsDisplayName));
-            builder.AddCustomAttributes(typeof(FileExists), new DisplayNameAttribute(SharedResources.FileExistsDisplayName));
-            builder.AddCustomAttributes(typeof(MoveItem), new DisplayNameAttribute(SharedResources.MoveItemDisplayName));
-            builder.AddCustomAttributes(typeof(UploadFiles), new DisplayNameAttribute(SharedResources.UploadFilesDisplayName));
-            builder.AddCustomAttributes(typeof(WithFtpSession), new DisplayNameAttribute(SharedResources.WithFtpSessionDisplayName));
+            builder.AddCustomAttributes(typeof(Delete), new DisplayNameAttribute(SharedResources.Activity_Delete_Name));
+            builder.AddCustomAttributes(typeof(DirectoryExists), new DisplayNameAttribute(SharedResources.Activity_DirectoryExists_Name));
+            builder.AddCustomAttributes(typeof(DownloadFiles), new DisplayNameAttribute(SharedResources.Activity_DownloadFiles_Name));
+            builder.AddCustomAttributes(typeof(EnumerateObjects), new DisplayNameAttribute(SharedResources.Activity_EnumerateObjects_Name));
+            builder.AddCustomAttributes(typeof(FileExists), new DisplayNameAttribute(SharedResources.Activity_FileExists_Name));
+            builder.AddCustomAttributes(typeof(MoveItem), new DisplayNameAttribute(SharedResources.Activity_MoveItem_Name));
+            builder.AddCustomAttributes(typeof(UploadFiles), new DisplayNameAttribute(SharedResources.Activity_UploadFiles_Name));
+            builder.AddCustomAttributes(typeof(WithFtpSession), new DisplayNameAttribute(SharedResources.Activity_WithFtpSession_Name));
 
             // Properties and Descriptions
             var ContinueOnError = new DisplayNameAttribute(SharedResources.ContinueOnError);
