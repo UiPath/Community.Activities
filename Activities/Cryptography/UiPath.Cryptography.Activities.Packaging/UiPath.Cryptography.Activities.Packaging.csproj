@@ -2,9 +2,12 @@
   <Import Project="..\Cryptography.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
-    <OutputPath>$(ProjectDir)..\..\Output\Activities\Cryptography\</OutputPath>
-    <VersionSuffix></VersionSuffix>
+    <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
+    <VersionSuffix></VersionSuffix>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
+    <PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,7 +19,6 @@
     <Description>UiPath Cryptography Activities Pack</Description>
     <Authors>UiPath</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
@@ -28,6 +30,11 @@
   </Target>
 
   <Target Name="AddDlls">
+    <!-- PDBs for debug-->
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.pdb" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.pdb" />
+    </ItemGroup>
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.dll" />
@@ -72,6 +79,13 @@
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Cryptography.Activities.Design.resources.dll" />
     </ItemGroup>
   </Target>
+  <Target Name="CleanPackageFiles" BeforeTargets="Build">
+	<Message Text="Deleting packages ..." />
+	  <ItemGroup>
+		<PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+	  </ItemGroup>
+	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
+  </Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj">
@@ -87,7 +101,4 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Cryptography.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Cryptography.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -executionpolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
-  </Target>
 </Project>

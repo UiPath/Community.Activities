@@ -10,37 +10,38 @@ using UiPath.Cryptography.Activities.Properties;
 namespace UiPath.Cryptography.Activities
 {
 #if NET461
-    [LocalizedDisplayName(nameof(Resources.HashTextDisplayName))]
-    [LocalizedDescription(nameof(Resources.HashTextDescription))]
+    [LocalizedDisplayName(nameof(Resources.Activity_HashText_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_HashText_Description))]
     public class HashText : CodeActivity<string>
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.AlgorithmDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashAlgorithmDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashText_Property_Algorithm_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashText_Property_Algorithm_Description))]
         public HashAlgorithms Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.InputStringDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashTextInputDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashText_Property_Input_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashText_Property_Input_Description))]
         public InArgument<string> Input { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.EncodingDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncodingDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashText_Property_Encoding_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.ResultDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashTextResultDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashText_Property_Result_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashText_Property_Result_Description))]
         public new OutArgument<string> Result { get => base.Result; set => base.Result = value; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashText_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashText_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         public HashText()
