@@ -1,35 +1,34 @@
 ﻿using System;
 using System.Activities;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Text;
+using System.Net;
+using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class InsertDataTable : AsyncCodeActivity
+    public class InsertDataTable : AsyncTaskCodeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
         public InArgument<string> ProviderName { get; set; }
 
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
+        [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("Existing Database Connection")]
+        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        public InArgument<SecureString> ConnectionSecureString { get; set; }
+
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
@@ -55,37 +54,7 @@ namespace UiPath.Database.Activities
 
         private DatabaseConnection DbConnection = null;
 
-        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
-        {
-            DataTable dataTable = null;
-            string connString = null;
-            string provName = null;
-            string tableName = null;
-            try
-            {
-                DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                tableName = TableName.Get(context); 
-                dataTable = DataTable.Get(context);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-            // create the action for doing the actual work
-            Func<int> action = () =>
-            {
-                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString, provName);
-                if (DbConnection == null)
-                {
-                    return 0;
-                }
-                return DbConnection.InsertDataTable(tableName, dataTable);
-            };
-            context.UserState = action;
-            return action.BeginInvoke(callback, state);
-        }
+
 
         private void HandleException(Exception ex, bool continueOnError)
         {
@@ -93,26 +62,54 @@ namespace UiPath.Database.Activities
             throw ex;
         }
 
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
+            DataTable dataTable = null;
+            string connString = null;
+            SecureString connSecureString = null;
+            string provName = null;
+            string tableName = null;
+            DatabaseConnection existingConnection = null;
+            int affectedRecords = 0;
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
-                Func<int> action = (Func<int>)context.UserState;
-                int affectedRecords = action.EndInvoke(result);
-                this.AffectedRecords.Set(context, affectedRecords);
+                existingConnection = DbConnection = ExistingDbConnection.Get(context);
+                connString = ConnectionString.Get(context);
+                provName = ProviderName.Get(context);
+                tableName = TableName.Get(context);
+                dataTable = DataTable.Get(context);
+
+                connSecureString = ConnectionSecureString.Get(context);
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                // create the action for doing the actual work
+                affectedRecords = await Task.Run(() =>
+                {
+                    DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+                    if (DbConnection == null)
+                    {
+                        return 0;
+                    }
+                    return DbConnection.InsertDataTable(tableName, dataTable);
+                });
+
             }
             catch (Exception ex)
             {
-                HandleException(ex, ContinueOnError.Get(context));
+                HandleException(ex, continueOnError);
             }
             finally
             {
                 if (existingConnection == null)
                 {
-                    DbConnection.Dispose();
+                    DbConnection?.Dispose();
                 }
             }
+
+            return asyncCodeActivityContext =>
+            {
+                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
+            };
         }
     }
 }

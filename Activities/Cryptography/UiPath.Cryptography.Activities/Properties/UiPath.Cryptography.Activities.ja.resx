@@ -1,6 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,270 +59,319 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AlgorithmDisplayName" xml:space="preserve">
     <value>アルゴリズム</value>
-  <comment>property name</comment></data>
-  <data name="EncodingDisplayName" xml:space="preserve">
-    <value>エンコーディング</value>
-  <comment>property name</comment></data>
-  <data name="EncodingDescription" xml:space="preserve">
-    <value>入力するテキストのエンコーディングです。</value>
+    <comment>property name</comment>
   </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する暗号化アルゴリズムです。</value>
+	<data name="EncodingDisplayName" xml:space="preserve">
+    <value>エンコード</value>
+    <comment>property name</comment>
   </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>入力するテキストとキーのエンコーディングです。</value>
+	<data name="EncodingDescription" xml:space="preserve">
+    <value>入力文字列の解釈に使用するエンコードです。</value>
   </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
+	<data name="EncryptAlgorithmDescription" xml:space="preserve">
+    <value>このアクティビティで使用する暗号化アルゴリズムです。非推奨のアルゴリズムの使用はお勧めしません。</value>
+  </data>
+	<data name="EncryptTextEncodingDescription" xml:space="preserve">
+    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
+  </data>
+	<data name="EncryptTextDisplayName" xml:space="preserve">
     <value>テキストを暗号化</value>
-  <comment>activity name</comment></data>
-  <data name="EncryptTextDescription" xml:space="preserve">
-    <value>テキストを与えられたアルゴリズムとキーで暗号化し、結果を base64 表記で返します。(Encrypt text)</value>
+    <comment>activity name</comment>
   </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで暗号化するテキストです。</value>
+	<data name="EncryptTextDescription" xml:space="preserve">
+    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を暗号化し、復号結果の base64 文字列表現を返します。(Encrypt Text)</value>
   </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>入力するテキストの暗号化に使用するキーです。</value>
+	<data name="EncryptTextInputDescription" xml:space="preserve">
+    <value>このアクティビティで暗号化する文字列です。</value>
   </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>暗号化したテキストの base64 表記です。</value>
+	<data name="EncryptTextKeyDescription" xml:space="preserve">
+    <value>入力文字列の暗号化に使用するキーです。</value>
   </data>
-  <data name="FipsComplianceWarning" xml:space="preserve">
-    <value>選択したアルゴリズムは FIPS に準拠した実装がありません。これは一部のマシン上で動作しない可能性があります。</value>
+	<data name="EncryptTextResultDescription" xml:space="preserve">
+    <value>暗号化された入力文字列の base64 文字列表現です。</value>
   </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するハッシュアルゴリズムです。</value>
+	<data name="FipsComplianceWarning" xml:space="preserve">
+    <value>選択したアルゴリズムは FIPS に準拠していません。これは、一部のマシン上では動作しない可能性があります。</value>
   </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
-    <value>テキストをハッシュ化</value>
-  <comment>activity name</comment></data>
-  <data name="HashTextDescription" xml:space="preserve">
-    <value>テキストを与えられたアルゴリズムでハッシュ化し、結果を16 進数文字列で返します。(Hash text)</value>
+	<data name="HashAlgorithmDescription" xml:space="preserve">
+    <value>このアクティビティで使用するハッシュ アルゴリズムです。</value>
   </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュ化する文字列です。</value>
+	<data name="HashTextDisplayName" xml:space="preserve">
+    <value>テキストをハッシュ</value>
+    <comment>activity name</comment>
   </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
-    <value>テキストをハッシュ化して得られた 16 進数文字列です。</value>
+	<data name="HashTextDescription" xml:space="preserve">
+    <value>選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text)</value>
   </data>
-  <data name="Input" xml:space="preserve">
+	<data name="HashTextInputDescription" xml:space="preserve">
+    <value>このアクティビティでハッシュする文字列です。</value>
+  </data>
+	<data name="HashTextResultDescription" xml:space="preserve">
+    <value>ハッシュされた入力文字列の 16 進数文字列表現です。</value>
+  </data>
+	<data name="Input" xml:space="preserve">
     <value>入力</value>
   </data>
-  <data name="InputStringDisplayName" xml:space="preserve">
+	<data name="InputStringDisplayName" xml:space="preserve">
     <value>テキスト</value>
-  <comment>property name</comment></data>
-  <data name="KeyDisplayName" xml:space="preserve">
+    <comment>property name</comment>
+  </data>
+	<data name="KeyDisplayName" xml:space="preserve">
     <value>キー</value>
-  <comment>property name</comment></data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するキー付きハッシュアルゴリズムです。</value>
+    <comment>property name</comment>
   </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>入力するテキストとキーのエンコーディングです。</value>
+	<data name="KeyedHashAlgorithmDescription" xml:space="preserve">
+    <value>このアクティビティで使用するキー付きハッシュ アルゴリズムです。</value>
   </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
-    <value>テキストのハッシュ化に使用するキーです。</value>
+	<data name="KeyedHashEncodingDescription" xml:space="preserve">
+    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
   </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>テキストをキーでハッシュ化</value>
-  <comment>activity name</comment></data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
-    <value>テキストを与えられたアルゴリズムとキーでハッシュ化し、結果を 16 進数文字列で返します。(Hash text with key)</value>
+	<data name="KeyedHashTextKeyDescription" xml:space="preserve">
+    <value>入力文字列のハッシュに使用するキーです。</value>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
+	<data name="KeyedHashTextDisplayName" xml:space="preserve">
+    <value>テキストをキーでハッシュ</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="KeyedHashTextDescription" xml:space="preserve">
+    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text With Key)</value>
+  </data>
+	<data name="OutputDisplayName" xml:space="preserve">
     <value>出力</value>
-  <comment>property name</comment></data>
-  <data name="ResultDisplayName" xml:space="preserve">
+    <comment>property name</comment>
+  </data>
+	<data name="ResultDisplayName" xml:space="preserve">
     <value>結果</value>
-  <comment>property name</comment></data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する復号化アルゴリズムです。</value>
+    <comment>property name</comment>
   </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>テキストを復号化</value>
-  <comment>activity name</comment></data>
-  <data name="DecryptTextDescription" xml:space="preserve">
-    <value>暗号化されたテキストを与えられたアルゴリズムと指定したキーで復号化し、元の文字列を返します。(Decrypt text)</value>
+	<data name="DecryptAlgorithmDescription" xml:space="preserve">
+    <value>このアクティビティで使用する復号アルゴリズムです。非推奨のアルゴリズムの使用はお勧めしません。</value>
   </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>入力するテキストとキーのエンコーディングです。</value>
+	<data name="DecryptTextDisplayName" xml:space="preserve">
+    <value>テキストを復号</value>
+    <comment>activity name</comment>
   </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで復号化する文字列です。</value>
+	<data name="DecryptTextDescription" xml:space="preserve">
+    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を復号し、元の暗号化されていない文字列を返します。（Decrypt Text)</value>
   </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>テキストの復号化に使用するキーです。</value>
+	<data name="DecryptTextEncodingDescription" xml:space="preserve">
+    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
   </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>復号化した文字列です。</value>
+	<data name="DecryptTextInputDescription" xml:space="preserve">
+    <value>このアクティビティで復号する文字列です。</value>
   </data>
-  <data name="FileDoesNotExistsException" xml:space="preserve">
-    <value>ファイルは存在しません。</value>
+	<data name="DecryptTextKeyDescription" xml:space="preserve">
+    <value>入力文字列の復号に使用するキーです。</value>
   </data>
-  <data name="FilePathDisplayName" xml:space="preserve">
-    <value>ファイルのパス</value>
-  <comment>property name</comment></data>
-  <data name="HashFileDisplayName" xml:space="preserve">
-    <value>ファイルをハッシュ化</value>
-  <comment>activity name</comment></data>
-  <data name="HashFileDescription" xml:space="preserve">
-    <value>ファイルを与えられたアルゴリズムでハッシュ化し、結果を 16 進数文字列で返します。(Hash file)</value>
+	<data name="DecryptTextResultDescription" xml:space="preserve">
+    <value>復号された文字列です。</value>
   </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュ化するファイルのパスです。</value>
+	<data name="FileDoesNotExistsException" xml:space="preserve">
+    <value>ファイルが存在しません。</value>
   </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
-    <value>ファイルをハッシュ化して得られた 16 進数文字列です。</value>
+	<data name="FilePathDisplayName" xml:space="preserve">
+    <value>ファイル パス</value>
+    <comment>property name</comment>
   </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>ファイルをキーでハッシュ化</value>
-  <comment>activity name</comment></data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
-    <value>ファイルを与えられたアルゴリズムとキーでハッシュ化し、結果を16 進数文字列で返します。(Hash file with key)</value>
+	<data name="HashFileDisplayName" xml:space="preserve">
+    <value>ファイルをハッシュ</value>
+    <comment>activity name</comment>
   </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>指定したファイルのハッシュ化に使用するキーです。</value>
+	<data name="HashFileDescription" xml:space="preserve">
+    <value>選択したハッシュ アルゴリズムを指定したファイルのコンテンツに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File)</value>
   </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>ファイルをハッシュ化して得られた 16 進数文字列です。</value>
+	<data name="HashFilePathDescription" xml:space="preserve">
+    <value>このアクティビティでハッシュするファイルのパスです。</value>
   </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>キーのエンコーディングです。</value>
+	<data name="HashFileResultDescription" xml:space="preserve">
+    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
   </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
+	<data name="KeyedHashFileDisplayName" xml:space="preserve">
+    <value>ファイルをキーでハッシュ</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="KeyedHashFileDescription" xml:space="preserve">
+    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力ファイルに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File With Key)</value>
+  </data>
+	<data name="KeyedHashFileKeyDescription" xml:space="preserve">
+    <value>指定したファイルのハッシュに使用するキーです。</value>
+  </data>
+	<data name="KeyedHashFileResultDescription" xml:space="preserve">
+    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
+  </data>
+	<data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+    <value>キーの解釈に使用するエンコードです。</value>
+  </data>
+	<data name="EncryptFileDisplayName" xml:space="preserve">
     <value>ファイルを暗号化</value>
-  <comment>activity name</comment></data>
-  <data name="EncryptFileDescription" xml:space="preserve">
-    <value>ファイルを与えられたアルゴリズムとキーで暗号化し、結果を出力ファイルに保存します。(Encrypt file)</value>
+    <comment>activity name</comment>
   </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>キーのエンコーディングです。</value>
+	<data name="EncryptFileDescription" xml:space="preserve">
+    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを暗号化し、結果を出力ファイルに保存します。(Encrypt File)</value>
   </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
+	<data name="EncryptFileEncodingDescription" xml:space="preserve">
+    <value>キーの解釈に使用するエンコードです。</value>
+  </data>
+	<data name="EncryptFileInputPathDescription" xml:space="preserve">
     <value>このアクティビティで暗号化するファイルのパスです。</value>
   </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
+	<data name="EncryptFileKeyDescription" xml:space="preserve">
     <value>入力ファイルの暗号化に使用するキーです。</value>
   </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>暗号化したファイルを保存するパスです。</value>
+	<data name="EncryptFileOutputPathDescription" xml:space="preserve">
+    <value>暗号化されたファイルの保存先のパスです。</value>
   </data>
-  <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>入力ファイルのパス</value>
-  <comment>property name</comment></data>
-  <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>出力ファイルのパス</value>
-  <comment>property name</comment></data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
+	<data name="InputFilePathDisplayName" xml:space="preserve">
+    <value>入力パス</value>
+    <comment>property name</comment>
+  </data>
+	<data name="OutputFilePathDisplayName" xml:space="preserve">
+    <value>出力パス</value>
+    <comment>property name</comment>
+  </data>
+	<data name="OverwriteDisplayName" xml:space="preserve">
     <value>上書き</value>
-  <comment>property name</comment></data>
-  <data name="OverwriteDescription" xml:space="preserve">
-    <value>出力ファイルと同名のファイルがあれば上書きします。</value>
+    <comment>property name</comment>
   </data>
-  <data name="FileAlreadyExistsException" xml:space="preserve">
-    <value>このファイルはすでに存在します。</value>
+	<data name="OverwriteDescription" xml:space="preserve">
+    <value>出力ファイルが既に存在する場合は、ファイルを上書きします。</value>
   </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
-    <value>ファイルを復号化</value>
-  <comment>activity name</comment></data>
-  <data name="DecryptFileDescription" xml:space="preserve">
-    <value>暗号化された入力ファイルを与えられたアルゴリズムとキーで復号化し、元のファイルを保存します。(Decrypt file)</value>
+	<data name="FileAlreadyExistsException" xml:space="preserve">
+    <value>ファイルが既に存在します。</value>
   </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>キーのエンコーディングです。</value>
+	<data name="DecryptFileDisplayName" xml:space="preserve">
+    <value>ファイルを復号</value>
+    <comment>activity name</comment>
   </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>このアクティビティで復号化するファイルのパスです。</value>
+	<data name="DecryptFileDescription" xml:space="preserve">
+    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを復号し、元の暗号化されていないファイルを保存します。（Decrypt File)</value>
   </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>入力ファイルの復号化に使用するキーです。</value>
+	<data name="DecryptFileEncodingDescription" xml:space="preserve">
+    <value>キーの解釈に使用するエンコードです。</value>
   </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>復号化したファイルを保存するパスです。</value>
+	<data name="DecryptFileInputPathDescription" xml:space="preserve">
+    <value>このアクティビティで復号するファイルのパスです。</value>
   </data>
-  <data name="GenericCryptographicException" xml:space="preserve">
-    <value>復号化に失敗しました。この操作には暗号化で使用した同一のアルゴリズムとキーを使用してください。</value>
+	<data name="DecryptFileKeyDescription" xml:space="preserve">
+    <value>入力ファイルの復号に使用するキーです。</value>
   </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>キーのエンコーディング</value>
-  <comment>property name</comment></data>
-  <data name="Encoding" xml:space="preserve">
-    <value>エンコーディング</value>
+	<data name="DecryptFileOutputPathDescription" xml:space="preserve">
+    <value>復号されたファイルの保存先のパスです。</value>
   </data>
-  <data name="Key" xml:space="preserve">
+	<data name="GenericCryptographicException" xml:space="preserve">
+    <value>暗号化操作に失敗しました。暗号化と復号の両方の操作に同じアルゴリズムとキーを使用してください。</value>
+  </data>
+	<data name="KeyEncodingDisplayName" xml:space="preserve">
+    <value>キー エンコード</value>
+    <comment>property name</comment>
+  </data>
+	<data name="Encoding" xml:space="preserve">
+    <value>エンコード</value>
+  </data>
+	<data name="Key" xml:space="preserve">
     <value>キー</value>
   </data>
-  <data name="Output" xml:space="preserve">
+	<data name="Output" xml:space="preserve">
     <value>出力</value>
   </data>
-  <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>エラー発生時に実行を継続</value>
-  <comment>property name</comment>
-  </data>
-  <data name="Common" xml:space="preserve">
+	<data name="Common" xml:space="preserve">
     <value>共通</value>
   </data>
-  <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
-    <value>MACTripleDES は 16 または 24 バイト長のキーを使用します。キーの長さはエンコーディングに依存します。</value>
+	<data name="ContinueOnErrorDisplayName" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>property name</comment>
+  </data>
+	<data name="MacTripleDesKeySizeWarning" xml:space="preserve">
+    <value>MACTripleDES は長さが 16 または 24 バイトのキーを使用します。キーの長さは、エンコードによって異なります。</value>
+  </data>
+	<data name="EncryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>入力文字列の暗号化に使用する、セキュリティで保護された文字列です。</value>
+  </data>
+	<data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>キーとセキュリティで保護された文字列は、両方とも null 以外にしてはなりません。</value>
+  </data>
+	<data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>キーとセキュリティで保護された文字列は、両方とも null にしてはなりません。</value>
+  </data>
+	<data name="KeySecureString" xml:space="preserve">
+    <value>キー (SecureString)</value>
+  </data>
+	<data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>キー (SecureString)</value>
+  </data>
+	<data name="DecryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>入力文字列の復号に使用する、セキュリティで保護された文字列です。</value>
+  </data>
+	<data name="DecryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>入力文字列の復号に使用する、セキュリティで保護された文字列です。</value>
+  </data>
+	<data name="EncryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>入力ファイルの暗号化に使用する、セキュリティで保護された文字列です。</value>
+  </data>
+	<data name="KeyedHashFileKeySecureStringDescription" xml:space="preserve">
+    <value>指定したファイルのハッシュに使用する、セキュリティで保護された文字列です。</value>
+  </data>
+	<data name="KeyedHashTextKeySecureStringDescription" xml:space="preserve">
+    <value>入力文字列のハッシュに使用する、セキュリティで保護された文字列です。</value>
   </data>
 </root>

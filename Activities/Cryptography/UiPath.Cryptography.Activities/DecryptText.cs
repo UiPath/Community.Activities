@@ -4,6 +4,8 @@ using System.Activities;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
@@ -26,11 +28,15 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.DecryptTextInputDescription))]
         public InArgument<string> Input { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
         [LocalizedDescription(nameof(Resources.DecryptTextKeyDescription))]
         public InArgument<string> Key { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.DecryptTextKeySecureStringDescription))]
+        public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -51,7 +57,7 @@ namespace UiPath.Cryptography.Activities
 
         public DecryptText()
         {
-            Algorithm = SymmetricAlgorithms.AES;
+            Algorithm = SymmetricAlgorithms.AESGCM;
             Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(System.Text.Encoding.UTF8)); // Kinda ugly.
         }
 
@@ -66,6 +72,7 @@ namespace UiPath.Cryptography.Activities
                     ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                     metadata.AddValidationError(error);
                     break;
+
                 default:
                     break;
             }
@@ -79,17 +86,22 @@ namespace UiPath.Cryptography.Activities
             {
                 string input = Input.Get(context);
                 string key = Key.Get(context);
-                Encoding encoding = Encoding.Get(context);
+                SecureString keySecureString = KeySecureString.Get(context);
+                Encoding keyEncoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
                 }
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.Key);
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
                 }
-                if (encoding == null)
+                if (key != null && keySecureString != null)
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
+                }
+                if (keyEncoding == null)
                 {
                     throw new ArgumentNullException(Resources.Encoding);
                 }
@@ -97,14 +109,14 @@ namespace UiPath.Cryptography.Activities
                 byte[] decrypted = null;
                 try
                 {
-                    decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), encoding.GetBytes(key));
+                    decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
                 }
                 catch (CryptographicException ex)
                 {
                     throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
                 }
 
-                result = encoding.GetString(decrypted);
+                result = keyEncoding.GetString(decrypted);
             }
             catch (Exception ex)
             {

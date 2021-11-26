@@ -41,7 +41,7 @@ namespace UiPath.Java.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Constrcutor could not be invoker: {e.ToString()}");
+                Trace.TraceError($"Constrcutor could not be invoker: {e}");
                 throw new InvalidOperationException(Resources.ConstructorException, e);
             }
 

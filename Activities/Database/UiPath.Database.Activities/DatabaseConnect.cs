@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Activities;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
+using System.Net;
+using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class DatabaseConnect : AsyncCodeActivity
+    public class DatabaseConnect : AsyncTaskCodeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
@@ -18,15 +22,21 @@ namespace UiPath.Database.Activities
         [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
         [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
         public InArgument<string> ConnectionString { get; set; }
 
+        [DefaultValue(null)]
+        [DependsOn(nameof(ProviderName))]
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        public InArgument<SecureString> ConnectionSecureString { get; set; }
+
         [LocalizedCategory(nameof(Resources.Output))]
+        [DependsOn(nameof(ProviderName))]
         [LocalizedDisplayName(nameof(Resources.DatabaseConnectionDisplayName))]
         public OutArgument<DatabaseConnection> DatabaseConnection { get; set; }
 
-        private readonly IDBConnectionFactory  _connectionFactory;
+        private readonly IDBConnectionFactory _connectionFactory;
 
         public DatabaseConnect()
         {
@@ -38,21 +48,35 @@ namespace UiPath.Database.Activities
             _connectionFactory = factory;
         }
 
-        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             var connString = ConnectionString.Get(context);
+            var connSecureString = ConnectionSecureString.Get(context);
+            if (connString == null && connSecureString == null)
+            {
+                throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+            }
+            if (connString != null && connSecureString != null)
+            {
+                throw new ArgumentException(Resources.ValidationError_ConnectionStringMustBeSet);
+            }
             var provName = ProviderName.Get(context);
-            Func<DatabaseConnection> action = () => _connectionFactory.Create(connString, provName);
-            context.UserState = action;
+            DatabaseConnection dbConnection = null;
+            try
+            {
+                dbConnection = await Task.Run(() => _connectionFactory.Create(connString ?? new NetworkCredential("", connSecureString).Password, provName));
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"{e}");
+            }
 
-            return action.BeginInvoke(callback, state);
+            return asyncCodeActivityContext =>
+            {
+                DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
+            };
+
         }
 
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
-        {
-            Func<DatabaseConnection> action = (Func<DatabaseConnection>)context.UserState;
-            var dbConn = action.EndInvoke(result);
-            DatabaseConnection.Set(context, dbConn);
-        }
     }
 }

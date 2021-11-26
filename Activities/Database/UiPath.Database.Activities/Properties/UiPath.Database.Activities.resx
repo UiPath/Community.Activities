@@ -119,10 +119,12 @@
   </resheader>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
     <value>AffectedRecords</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
     <value>CommandType</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Common" xml:space="preserve">
     <value>Common</value>
   </data>
@@ -134,44 +136,80 @@
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
     <value>ConnectionString</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinueOnError</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
     <value>DatabaseConnection</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="DataTableDisplayName" xml:space="preserve">
     <value>DataTable</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
     <value>Existing Connection</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ParametersDisplayName" xml:space="preserve">
     <value>Parameters</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
     <value>ProviderName</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TableNameDisplayName" xml:space="preserve">
     <value>TableName</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
     <value>Timeout (milliseconds)</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>The value provided for TimeoutMS must be &gt;= 0</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
     <value>UseTransaction</value>
-  <comment>property name</comment></data>
+    <comment>property name</comment>
+  </data>
   <data name="Output" xml:space="preserve">
     <value>Output</value>
+  </data>
+  <data name="ColumnNamesDisplayName" xml:space="preserve">
+    <value>ColumnNames</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
+    <value>Only one of the connection string fields can be used.</value>
+  </data>
+  <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
+    <value>SecureConnectionString</value>
+  </data>
+  <data name="BulkUpdateFlag" xml:space="preserve">
+    <value>Bulk/Batch Update</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>Only one of the connections can be used.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>At least one of the connections must be used.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>At least one of the connection string fields must be used.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>Value for required activity argument 'ProviderName' was not supplied</value>
   </data>
 </root>

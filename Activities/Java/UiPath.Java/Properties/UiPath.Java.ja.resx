@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -118,54 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CastArrayException" xml:space="preserve">
-    <value>配列の Java オブジェクトをキャストできません。</value>
+    <value>Java オブジェクトを配列にキャストできません。</value>
   </data>
   <data name="CastException" xml:space="preserve">
-    <value>.Net 型に Java オブジェクトをキャストできません。</value>
+    <value>Java オブジェクトを .NET 型にキャストできません。</value>
   </data>
   <data name="ClassNotFoundException" xml:space="preserve">
-    <value>ターゲットの種類が見つかりませんでした。ターゲットの種類の名前を確認してください。</value>
+    <value>ターゲット型が見つかりませんでした。</value>
   </data>
   <data name="ConstructorNotFoundException" xml:space="preserve">
-    <value>コンストラクターを呼び出すことができませんでした。クラスの名前とパラメーターの型を確認してください。</value>
+    <value>コンストラクターを呼び出せませんでした。</value>
   </data>
   <data name="DeserializationException" xml:space="preserve">
-    <value>Java からの結果をデシリアライズすることができませんでした。</value>
-  </data>
-  <data name="IllegalAccessException" xml:space="preserve">
-    <value>非公開メンバーにアクセスできません。</value>
-  </data>
-  <data name="JarNotFoundException" xml:space="preserve">
-    <value>JAR をロードできませんでした。JAR がすでにロードされている場合は、JAR へのパスが有効であるか確認してください。</value>
-  </data>
-  <data name="MethodNotFoundException" xml:space="preserve">
-    <value>メソッドを呼び出せませんでした。メソッドの名前とパラメーターの型を確認してください。</value>
-  </data>
-  <data name="SerializationException" xml:space="preserve">
-    <value>.NET オブジェクトをシリアライズできませんでした</value>
-  </data>
-  <data name="UnknowException" xml:space="preserve">
-    <value>jar からのメソッドの実行中にエラーが発生しました。</value>
-  </data>
-  <data name="JarNotLoadedException" xml:space="preserve">
-    <value>JAR をロードできませんでした。</value>
+    <value>Java からの結果を逆シリアル化できませんでした。</value>
   </data>
   <data name="FieldNotFoundException" xml:space="preserve">
-    <value>指定の名前のフィールドはターゲット上で見つかりませんでした。</value>
+    <value>指定した名前のフィールドが、ターゲット上で見つかりませんでした。</value>
   </data>
-  <data name="InvocationTargetException" xml:space="preserve">
-    <value>ターゲットの実行中に呼び出し例外が発生しました。</value>
-  </data>
-  <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>指定のパスを有する JAR はすでにロード済みです。</value>
+  <data name="IllegalAccessException" xml:space="preserve">
+    <value>アクセスできるのはパブリック メンバーのみです。</value>
   </data>
   <data name="IllegalArgumentsException" xml:space="preserve">
     <value>無効または不適切なパラメーターが渡されました。</value>
   </data>
-  <data name="InstantiationException" xml:space="preserve">
-    <value>ターゲットクラスのインスタンスを生成できませんでした。</value>
-  </data>
   <data name="InstanceNotFoundException" xml:space="preserve">
-    <value>指定のインスタンスは作成されませんでした。</value>
+    <value>指定したインスタンスは作成されませんでした。</value>
+  </data>
+  <data name="InstantiationException" xml:space="preserve">
+    <value>ターゲット クラスをインスタンス化できませんでした。</value>
+  </data>
+  <data name="InvocationTargetException" xml:space="preserve">
+    <value>ターゲットの実行中に起動例外が発生しました。</value>
+  </data>
+  <data name="JarAlreadyLoadedException" xml:space="preserve">
+    <value>指定したパスの Jar ファイルは既に読み込まれています。</value>
+  </data>
+  <data name="JarNotFoundException" xml:space="preserve">
+    <value>指定した Jar ファイルのパスが見つからないか、存在しません。</value>
+  </data>
+  <data name="JarNotLoadedException" xml:space="preserve">
+    <value>Jar ファイルを読み込めませんでした。</value>
+  </data>
+  <data name="JavaTimeoutException" xml:space="preserve">
+    <value>Java の初期化タイムアウトの期限が切れました。</value>
+  </data>
+  <data name="MethodNotFoundException" xml:space="preserve">
+    <value>メソッドを呼び出せませんでした。</value>
+  </data>
+  <data name="SerializationException" xml:space="preserve">
+    <value>.NET オブジェクトをシリアル化できませんでした</value>
+  </data>
+  <data name="UnknowException" xml:space="preserve">
+    <value>呼び出し中に予期しない例外が発生しました。</value>
   </data>
 </root>

@@ -5,6 +5,8 @@ using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
 
@@ -26,11 +28,15 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.EncryptFileInputPathDescription))]
         public InArgument<string> InputFilePath { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
         [LocalizedDescription(nameof(Resources.EncryptFileKeyDescription))]
         public InArgument<string> Key { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.EncryptFileKeySecureStringDescription))]
+        public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -57,7 +63,7 @@ namespace UiPath.Cryptography.Activities
 
         public EncryptFile()
         {
-            Algorithm = SymmetricAlgorithms.AES;
+            Algorithm = SymmetricAlgorithms.AESGCM;
             KeyEncoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.UTF8)); // Kinda ugly.
         }
 
@@ -79,6 +85,7 @@ namespace UiPath.Cryptography.Activities
                 string inputFilePath = InputFilePath.Get(context);
                 string outputFilePath = OutputFilePath.Get(context);
                 string key = Key.Get(context);
+                SecureString keySecureString = KeySecureString.Get(context);
                 Encoding keyEncoding = KeyEncoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(inputFilePath))
@@ -89,9 +96,13 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.OutputFilePathDisplayName);
                 }
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.Key);
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+                }
+                if (key != null && keySecureString != null)
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
                 }
                 if (keyEncoding == null)
                 {
@@ -107,7 +118,8 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentException(Resources.FileAlreadyExistsException, Resources.OutputFilePathDisplayName);
                 }
 
-                byte[] encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(inputFilePath), keyEncoding.GetBytes(key));
+                byte[] encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(inputFilePath), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+
 
                 // This overwrites the file if it already exists.
                 File.WriteAllBytes(outputFilePath, encrypted);

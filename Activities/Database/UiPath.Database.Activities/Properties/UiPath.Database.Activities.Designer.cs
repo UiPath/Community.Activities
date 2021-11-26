@@ -19,10 +19,10 @@ namespace UiPath.Database.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UiPath_Database_Activities {
+    public class UiPath_Database_Activities {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace UiPath.Database.Activities.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UiPath.Database.Activities.Properties.UiPath.Database.Activities", typeof(UiPath_Database_Activities).Assembly);
@@ -51,7 +51,7 @@ namespace UiPath.Database.Activities.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,16 +63,34 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to AffectedRecords.
         /// </summary>
-        internal static string AffectedRecordsDisplayName {
+        public static string AffectedRecordsDisplayName {
             get {
                 return ResourceManager.GetString("AffectedRecordsDisplayName", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulk/Batch Update.
+        /// </summary>
+        public static string BulkUpdateFlag {
+            get {
+                return ResourceManager.GetString("BulkUpdateFlag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ColumnNames.
+        /// </summary>
+        public static string ColumnNamesDisplayName {
+            get {
+                return ResourceManager.GetString("ColumnNamesDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CommandType.
         /// </summary>
-        internal static string CommandTypeDisplayName {
+        public static string CommandTypeDisplayName {
             get {
                 return ResourceManager.GetString("CommandTypeDisplayName", resourceCulture);
             }
@@ -81,7 +99,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Common.
         /// </summary>
-        internal static string Common {
+        public static string Common {
             get {
                 return ResourceManager.GetString("Common", resourceCulture);
             }
@@ -90,7 +108,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Connection.
         /// </summary>
-        internal static string Connection {
+        public static string Connection {
             get {
                 return ResourceManager.GetString("Connection", resourceCulture);
             }
@@ -99,16 +117,25 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Connection Configuration.
         /// </summary>
-        internal static string ConnectionConfiguration {
+        public static string ConnectionConfiguration {
             get {
                 return ResourceManager.GetString("ConnectionConfiguration", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SecureConnectionString.
+        /// </summary>
+        public static string ConnectionSecureStringDisplayName {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConnectionString.
         /// </summary>
-        internal static string ConnectionStringDisplayName {
+        public static string ConnectionStringDisplayName {
             get {
                 return ResourceManager.GetString("ConnectionStringDisplayName", resourceCulture);
             }
@@ -117,7 +144,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ContinueOnError.
         /// </summary>
-        internal static string ContinueOnErrorDisplayName {
+        public static string ContinueOnErrorDisplayName {
             get {
                 return ResourceManager.GetString("ContinueOnErrorDisplayName", resourceCulture);
             }
@@ -126,7 +153,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to DatabaseConnection.
         /// </summary>
-        internal static string DatabaseConnectionDisplayName {
+        public static string DatabaseConnectionDisplayName {
             get {
                 return ResourceManager.GetString("DatabaseConnectionDisplayName", resourceCulture);
             }
@@ -135,7 +162,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to DataTable.
         /// </summary>
-        internal static string DataTableDisplayName {
+        public static string DataTableDisplayName {
             get {
                 return ResourceManager.GetString("DataTableDisplayName", resourceCulture);
             }
@@ -144,7 +171,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Existing Connection.
         /// </summary>
-        internal static string ExistingDbConnectionDisplayName {
+        public static string ExistingDbConnectionDisplayName {
             get {
                 return ResourceManager.GetString("ExistingDbConnectionDisplayName", resourceCulture);
             }
@@ -153,7 +180,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Input.
         /// </summary>
-        internal static string Input {
+        public static string Input {
             get {
                 return ResourceManager.GetString("Input", resourceCulture);
             }
@@ -162,7 +189,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        internal static string Output {
+        public static string Output {
             get {
                 return ResourceManager.GetString("Output", resourceCulture);
             }
@@ -171,7 +198,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        internal static string OutputDisplayName {
+        public static string OutputDisplayName {
             get {
                 return ResourceManager.GetString("OutputDisplayName", resourceCulture);
             }
@@ -180,7 +207,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Parameters.
         /// </summary>
-        internal static string ParametersDisplayName {
+        public static string ParametersDisplayName {
             get {
                 return ResourceManager.GetString("ParametersDisplayName", resourceCulture);
             }
@@ -189,7 +216,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ProviderName.
         /// </summary>
-        internal static string ProviderNameDisplayName {
+        public static string ProviderNameDisplayName {
             get {
                 return ResourceManager.GetString("ProviderNameDisplayName", resourceCulture);
             }
@@ -198,7 +225,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableName.
         /// </summary>
-        internal static string TableNameDisplayName {
+        public static string TableNameDisplayName {
             get {
                 return ResourceManager.GetString("TableNameDisplayName", resourceCulture);
             }
@@ -207,7 +234,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Timeout (milliseconds).
         /// </summary>
-        internal static string TimeoutMSDisplayName {
+        public static string TimeoutMSDisplayName {
             get {
                 return ResourceManager.GetString("TimeoutMSDisplayName", resourceCulture);
             }
@@ -216,7 +243,7 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The value provided for TimeoutMS must be &gt;= 0.
         /// </summary>
-        internal static string TimeoutMSException {
+        public static string TimeoutMSException {
             get {
                 return ResourceManager.GetString("TimeoutMSException", resourceCulture);
             }
@@ -225,9 +252,54 @@ namespace UiPath.Database.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to UseTransaction.
         /// </summary>
-        internal static string UseTransactionDisplayName {
+        public static string UseTransactionDisplayName {
             get {
                 return ResourceManager.GetString("UseTransactionDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only one of the connections can be used..
+        /// </summary>
+        public static string ValidationError_ConnectionMustBeSet {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionMustBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one of the connections must be used..
+        /// </summary>
+        public static string ValidationError_ConnectionMustNotBeNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionMustNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only one of the connection string fields can be used..
+        /// </summary>
+        public static string ValidationError_ConnectionStringMustBeSet {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionStringMustBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one of the connection string fields must be used..
+        /// </summary>
+        public static string ValidationError_ConnectionStringMustNotBeNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionStringMustNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value for required activity argument &apos;ProviderName&apos; was not supplied.
+        /// </summary>
+        public static string ValidationError_ProviderNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ProviderNull", resourceCulture);
             }
         }
     }

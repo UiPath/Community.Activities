@@ -1,0 +1,49 @@
+resources:
+  repositories:
+  - repository: common
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: feature/activities_templates
+    endpoint: "GitHub connection"
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - develop
+    - masters/Java
+    - release/Java/*
+    - support/Java/*
+  paths:
+    include:
+    - Activities/Java/*
+    - Activities/Activities.Java.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
+
+pr:
+  branches:
+    include:
+    - develop
+    - masters/Java
+    - release/Java/*
+    - support/Java/*
+  paths:
+    include:
+    - Activities/Java/*
+    - Activities/Activities.Java.sln
+    - Activities/Shared/*
+    - Activities/Tools/*
+
+variables:
+  - template: ..\.pipelines\variables\variables.yml
+
+stages:
+  - template: Activities/stage.start.yml@common
+    parameters:
+      projectName: 'Java'
+      solutionPath: '$(SolutionsPath)/Activities.Java.sln'
+      sonarKeyPrefix: 'CommunityActivities'
+      sdkBuild: true
+      enableCDStages: false
+      hasQaPackages: false

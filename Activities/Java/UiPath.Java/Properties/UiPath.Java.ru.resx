@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CastArrayException" xml:space="preserve">
-    <value>Не удается привести объект Java в массив.</value>
+    <value>Не удается преобразовать объект Java в массив.</value>
   </data>
   <data name="CastException" xml:space="preserve">
-    <value>Не удается привести объект Java в тип .NET.</value>
+    <value>Не удается преобразовать объект Java в тип .net.</value>
   </data>
   <data name="ClassNotFoundException" xml:space="preserve">
     <value>Тип целевого объекта не найден.</value>
@@ -136,28 +136,31 @@
     <value>В целевом объекте не найдено поле с указанным именем.</value>
   </data>
   <data name="IllegalAccessException" xml:space="preserve">
-    <value>Возможен доступ только к общему члену.</value>
+    <value>Можно перейти только к общедоступному элементу.</value>
   </data>
   <data name="IllegalArgumentsException" xml:space="preserve">
-    <value>Передан некорректный или неприемлемый параметр.</value>
+    <value>Передан недопустимый или несоответствующий параметр.</value>
   </data>
   <data name="InstanceNotFoundException" xml:space="preserve">
     <value>Указанный экземпляр не создан.</value>
   </data>
   <data name="InstantiationException" xml:space="preserve">
-    <value>Экземпляр целевого класса не создан.</value>
+    <value>Не удалось инициализировать класс целевого объекта.</value>
   </data>
   <data name="InvocationTargetException" xml:space="preserve">
-    <value>Во время выполнения целевого объекта имело место исключение вызова.</value>
+    <value>При выполнении целевого объекта возникло исключение вызова.</value>
   </data>
   <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>JAR с указанным путем уже загружен.</value>
+    <value>JAR-файл из указанного расположения уже загружен.</value>
   </data>
   <data name="JarNotFoundException" xml:space="preserve">
-    <value>Путь к указанному JAR не найден или не существует.</value>
+    <value>Путь к указанному JAR-файлу не найден или не существует.</value>
   </data>
   <data name="JarNotLoadedException" xml:space="preserve">
-    <value>Не удалось загрузить JAR.</value>
+    <value>Не удалось загрузить JAR-файл.</value>
+  </data>
+  <data name="JavaTimeoutException" xml:space="preserve">
+    <value>Истекло время ожидания инициализации Java.</value>
   </data>
   <data name="MethodNotFoundException" xml:space="preserve">
     <value>Не удалось вызвать метод.</value>
@@ -166,6 +169,6 @@
     <value>Не удалось сериализовать объект .NET</value>
   </data>
   <data name="UnknowException" xml:space="preserve">
-    <value>Во время вызова имело место непредвиденное исключение.</value>
+    <value>Во время вызова возникло неожиданное исключение.</value>
   </data>
 </root>

@@ -1,0 +1,48 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracleserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oracleserver
+  template:
+    metadata:
+      labels:
+        app: oracleserver
+    spec:
+      containers:
+      - name: oracleserver
+        image: communityactivitiesacr.azurecr.io/oracle:latest
+        imagePullPolicy: Always
+        resources:
+            requests:
+              cpu: 1000m
+              memory: 2.5Gi
+            limits:
+              cpu: 2500m
+              memory: 5Gi
+        ports:
+          - containerPort: 1433
+        env:
+          - name: ORACLE_PWD
+            value: "b2298905Acfa%"
+          - name: ORACLE_SID
+            value: "TESTDB"
+          - name: ORACLE_PDB
+            value: "TESTPDB"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oracleserver-deployment
+spec:
+  selector:
+    app: oracleserver
+  ports:
+  - protocol: TCP
+    port: 1521
+    targetPort: 1521
+  type: LoadBalancer

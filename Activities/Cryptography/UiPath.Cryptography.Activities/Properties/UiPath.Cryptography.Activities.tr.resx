@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AlgorithmDisplayName" xml:space="preserve">
+    <value>Algorithm</value>
+    <comment>property name</comment>
+  </data>
+	<data name="EncodingDisplayName" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>property name</comment>
+  </data>
+	<data name="EncodingDescription" xml:space="preserve">
+    <value>Giriş dizesini yorumlamak için kullanılan kodlama.</value>
+  </data>
+	<data name="EncryptAlgorithmDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından kullanılacak şifreleme algoritması. Kullanımdan kaldırılmış algoritmaların kullanılması önerilmez.</value>
+  </data>
+	<data name="EncryptTextEncodingDescription" xml:space="preserve">
+    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
+  </data>
+	<data name="EncryptTextDisplayName" xml:space="preserve">
+    <value>Encrypt Text</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="EncryptTextDescription" xml:space="preserve">
+    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dizesini şifreler ve şifrelenmiş sonucun base64 dize gösterimini döndürür.</value>
+  </data>
+	<data name="EncryptTextInputDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından şifrelenecek dize.</value>
+  </data>
+	<data name="EncryptTextKeyDescription" xml:space="preserve">
+    <value>Giriş dizesini şifrelemek için kullanılan anahtar.</value>
+  </data>
+	<data name="EncryptTextResultDescription" xml:space="preserve">
+    <value>Şifrelenmiş giriş dizesinin base64 dize gösterimi.</value>
+  </data>
+	<data name="FipsComplianceWarning" xml:space="preserve">
+    <value>Seçili algoritmanın FIPS uyumlu bir uygulaması yok. Bu, bazı makinelerde çalışmayabilir.</value>
+  </data>
+	<data name="HashAlgorithmDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından kullanılacak karma algoritması.</value>
+  </data>
+	<data name="HashTextDisplayName" xml:space="preserve">
+    <value>Hash Text</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="HashTextDescription" xml:space="preserve">
+    <value>Giriş dizesinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+  </data>
+	<data name="HashTextInputDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından karma hale getirilecek dize.</value>
+  </data>
+	<data name="HashTextResultDescription" xml:space="preserve">
+    <value>Karma giriş dizesinin on altılık dize gösterimi.</value>
+  </data>
+	<data name="Input" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+	<data name="InputStringDisplayName" xml:space="preserve">
+    <value>Text</value>
+    <comment>property name</comment>
+  </data>
+	<data name="KeyDisplayName" xml:space="preserve">
+    <value>Key</value>
+    <comment>property name</comment>
+  </data>
+	<data name="KeyedHashAlgorithmDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından kullanılacak anahtarlı karma algoritması.</value>
+  </data>
+	<data name="KeyedHashEncodingDescription" xml:space="preserve">
+    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
+  </data>
+	<data name="KeyedHashTextKeyDescription" xml:space="preserve">
+    <value>Giriş dizesini karma hale getirmek için kullanılan anahtar.</value>
+  </data>
+	<data name="KeyedHashTextDisplayName" xml:space="preserve">
+    <value>Hash Text With Key</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="KeyedHashTextDescription" xml:space="preserve">
+    <value>Karma işlemi için sağlanan anahtarı kullanarak giriş dizesinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+  </data>
+	<data name="OutputDisplayName" xml:space="preserve">
+    <value>Output</value>
+    <comment>property name</comment>
+  </data>
+	<data name="ResultDisplayName" xml:space="preserve">
+    <value>Result</value>
+    <comment>property name</comment>
+  </data>
+	<data name="DecryptAlgorithmDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından kullanılacak şifre çözme algoritması. Kullanımdan kaldırılmış algoritmaların kullanılması önerilmez.</value>
+  </data>
+	<data name="DecryptTextDisplayName" xml:space="preserve">
+    <value>Decrypt Text</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="DecryptTextDescription" xml:space="preserve">
+    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dizesinin şifresini çözer ve özgün, şifrelenmemiş dizeyi döndürür.</value>
+  </data>
+	<data name="DecryptTextEncodingDescription" xml:space="preserve">
+    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
+  </data>
+	<data name="DecryptTextInputDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından şifresi çözülecek dize.</value>
+  </data>
+	<data name="DecryptTextKeyDescription" xml:space="preserve">
+    <value>Giriş dizesinin şifresini çözmek için kullanılan anahtar.</value>
+  </data>
+	<data name="DecryptTextResultDescription" xml:space="preserve">
+    <value>Şifresi çözülmüş dize.</value>
+  </data>
+	<data name="FileDoesNotExistsException" xml:space="preserve">
+    <value>Dosya yok.</value>
+  </data>
+	<data name="FilePathDisplayName" xml:space="preserve">
+    <value>FilePath</value>
+    <comment>property name</comment>
+  </data>
+	<data name="HashFileDisplayName" xml:space="preserve">
+    <value>Hash File</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="HashFileDescription" xml:space="preserve">
+    <value>Sağlanan dosyanın içeriğinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+  </data>
+	<data name="HashFilePathDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından karma hale getirilecek dosyanın yolu.</value>
+  </data>
+	<data name="HashFileResultDescription" xml:space="preserve">
+    <value>Karma dosyanın on altılık dize gösterimi.</value>
+  </data>
+	<data name="KeyedHashFileDisplayName" xml:space="preserve">
+    <value>Hash File With Key</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="KeyedHashFileDescription" xml:space="preserve">
+    <value>Karma işlemi için sağlanan anahtarı kullanarak giriş dosyasında seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+  </data>
+	<data name="KeyedHashFileKeyDescription" xml:space="preserve">
+    <value>Sağlanan dosyayı karma haline getirmek için kullanılan anahtar.</value>
+  </data>
+	<data name="KeyedHashFileResultDescription" xml:space="preserve">
+    <value>Karma dosyanın on altılık dize gösterimi.</value>
+  </data>
+	<data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
+  </data>
+	<data name="EncryptFileDisplayName" xml:space="preserve">
+    <value>Encrypt File</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="EncryptFileDescription" xml:space="preserve">
+    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dosyasını şifreler ve sonucu çıkış dosyasına kaydeder.</value>
+  </data>
+	<data name="EncryptFileEncodingDescription" xml:space="preserve">
+    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
+  </data>
+	<data name="EncryptFileInputPathDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından şifrelenecek dosyanın yolu.</value>
+  </data>
+	<data name="EncryptFileKeyDescription" xml:space="preserve">
+    <value>Giriş dosyasını şifrelemek için kullanılan anahtar.</value>
+  </data>
+	<data name="EncryptFileOutputPathDescription" xml:space="preserve">
+    <value>Şifrelenmiş dosyanın kaydedileceği yol.</value>
+  </data>
+	<data name="InputFilePathDisplayName" xml:space="preserve">
+    <value>InputPath</value>
+    <comment>property name</comment>
+  </data>
+	<data name="OutputFilePathDisplayName" xml:space="preserve">
+    <value>OutputPath</value>
+    <comment>property name</comment>
+  </data>
+	<data name="OverwriteDisplayName" xml:space="preserve">
+    <value>Overwrite</value>
+    <comment>property name</comment>
+  </data>
+	<data name="OverwriteDescription" xml:space="preserve">
+    <value>Varsa çıkış dosyasının üzerine yazılır.</value>
+  </data>
+	<data name="FileAlreadyExistsException" xml:space="preserve">
+    <value>Dosya zaten var.</value>
+  </data>
+	<data name="DecryptFileDisplayName" xml:space="preserve">
+    <value>Decrypt File</value>
+    <comment>activity name</comment>
+  </data>
+	<data name="DecryptFileDescription" xml:space="preserve">
+    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dosyasının şifresini çözer ve özgün, şifrelenmemiş dosyayı kaydeder.</value>
+  </data>
+	<data name="DecryptFileEncodingDescription" xml:space="preserve">
+    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
+  </data>
+	<data name="DecryptFileInputPathDescription" xml:space="preserve">
+    <value>Bu etkinlik tarafından şifresi çözülecek dosyanın yolu.</value>
+  </data>
+	<data name="DecryptFileKeyDescription" xml:space="preserve">
+    <value>Giriş dosyasının şifresini çözmek için kullanılan anahtar.</value>
+  </data>
+	<data name="DecryptFileOutputPathDescription" xml:space="preserve">
+    <value>Şifresi çözülen dosyanın kaydedileceği yol.</value>
+  </data>
+	<data name="GenericCryptographicException" xml:space="preserve">
+    <value>Şifreleme işlemi başarısız oldu. Lütfen hem şifreleme hem de şifre çözme işlemleri için aynı algoritmayı ve anahtarı kullandığınızdan emin olun.</value>
+  </data>
+	<data name="KeyEncodingDisplayName" xml:space="preserve">
+    <value>KeyEncoding</value>
+    <comment>property name</comment>
+  </data>
+	<data name="Encoding" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+	<data name="Key" xml:space="preserve">
+    <value>Anahtar</value>
+  </data>
+	<data name="Output" xml:space="preserve">
+    <value>Çıkış</value>
+  </data>
+	<data name="Common" xml:space="preserve">
+    <value>Ortak</value>
+  </data>
+	<data name="ContinueOnErrorDisplayName" xml:space="preserve">
+    <value>ContinueOnError</value>
+    <comment>property name</comment>
+  </data>
+	<data name="MacTripleDesKeySizeWarning" xml:space="preserve">
+    <value>MACTripleDES, 16 veya 24 bayt uzunluğunda bir anahtar kullanır. Anahtarınızın uzunluğu Kodlama&apos;ya bağlıdır.</value>
+  </data>
+	<data name="EncryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>Giriş dizesini şifrelemek için kullanılan güvenli dize.</value>
+  </data>
+	<data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>Anahtar ve güvenli dizenin her ikisi de null olmamalıdır.</value>
+  </data>
+	<data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>Anahtar ve güvenli dizenin her ikisi de null olmamalıdır.</value>
+  </data>
+	<data name="KeySecureString" xml:space="preserve">
+    <value>Anahtar SecureString</value>
+  </data>
+	<data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>Anahtar SecureString</value>
+  </data>
+	<data name="DecryptTextKeySecureStringDescription" xml:space="preserve">
+    <value>Giriş dizesinin şifresini çözmek için kullanılan güvenli dize.</value>
+  </data>
+	<data name="DecryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>Giriş dizesinin şifresini çözmek için kullanılan güvenli dize.</value>
+  </data>
+	<data name="EncryptFileKeySecureStringDescription" xml:space="preserve">
+    <value>Giriş dizesini şifrelemek için kullanılan güvenli dize.</value>
+  </data>
+	<data name="KeyedHashFileKeySecureStringDescription" xml:space="preserve">
+    <value>Sağlanan dosyayı karma haline getirmek için kullanılan güvenli dize.</value>
+  </data>
+	<data name="KeyedHashTextKeySecureStringDescription" xml:space="preserve">
+    <value>Giriş dizesini karma haline getirmek için kullanılan güvenli dize.</value>
+  </data>
+</root>

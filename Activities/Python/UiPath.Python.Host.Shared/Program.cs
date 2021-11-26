@@ -1,28 +1,29 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace UiPath.Python.Host
 {
-    static class Program
+    internal static class Program
     {
-        static PythonService _service = null;
+        private static PythonService _service = null;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
-            Application.ApplicationExit += Application_ApplicationExit;
+            AppDomain.CurrentDomain.ProcessExit += Application_ApplicationExit;
 
             _service = new PythonService();
-            _service.Start();
-            Application.Run();
+            _service.RunServer();
+            Console.ReadLine();
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            Application.ApplicationExit -= Application_ApplicationExit;
-            _service?.Stop();
+            AppDomain.CurrentDomain.ProcessExit -= Application_ApplicationExit;
+            _service?.Shutdown();
         }
     }
 }

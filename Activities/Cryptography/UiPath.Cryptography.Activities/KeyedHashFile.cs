@@ -5,6 +5,8 @@ using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
 
@@ -26,11 +28,15 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.HashFilePathDescription))]
         public InArgument<string> FilePath { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
         [LocalizedDescription(nameof(Resources.KeyedHashFileKeyDescription))]
         public InArgument<string> Key { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.KeyedHashFileKeySecureStringDescription))]
+        public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -64,11 +70,13 @@ namespace UiPath.Cryptography.Activities
                 ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                 metadata.AddValidationError(error);
             }
+#if NET461
             if (Algorithm == KeyedHashAlgorithms.MACTripleDES)
             {
                 ValidationError keySizeWarning = new ValidationError(Resources.MacTripleDesKeySizeWarning, true, nameof(Algorithm));
                 metadata.AddValidationError(keySizeWarning);
             }
+#endif
         }
 
         protected override string Execute(CodeActivityContext context)
@@ -79,17 +87,22 @@ namespace UiPath.Cryptography.Activities
             {
                 string filePath = FilePath.Get(context);
                 string key = Key.Get(context);
-                Encoding encoding = Encoding.Get(context);
+                SecureString keySecureString = KeySecureString.Get(context);
+                Encoding keyEncoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(filePath))
                 {
                     throw new ArgumentNullException(Resources.FilePathDisplayName);
                 }
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.Key);
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
                 }
-                if (encoding == null)
+                if (key != null && keySecureString != null)
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
+                }
+                if (keyEncoding == null)
                 {
                     throw new ArgumentNullException(Resources.Encoding);
                 }
@@ -98,7 +111,8 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
                 }
 
-                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, File.ReadAllBytes(filePath), encoding.GetBytes(key));
+
+                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, File.ReadAllBytes(filePath), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }

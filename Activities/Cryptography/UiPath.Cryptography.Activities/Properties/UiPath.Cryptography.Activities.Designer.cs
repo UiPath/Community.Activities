@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UiPath.Cryptography.Activities.Properties {
+namespace UiPath.Cryptography.Activities.Properties
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,664 +20,920 @@ namespace UiPath.Cryptography.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class UiPath_Cryptography_Activities {
-        
+    public class UiPath_Cryptography_Activities
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UiPath_Cryptography_Activities() {
+        internal UiPath_Cryptography_Activities()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UiPath.Cryptography.Activities.Properties.UiPath.Cryptography.Activities", typeof(UiPath_Cryptography_Activities).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Algorithm.
         /// </summary>
-        public static string AlgorithmDisplayName {
-            get {
+        public static string AlgorithmDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("AlgorithmDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Common.
         /// </summary>
-        public static string Common {
-            get {
+        public static string Common
+        {
+            get
+            {
                 return ResourceManager.GetString("Common", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to ContinueOnError.
         /// </summary>
-        public static string ContinueOnErrorDisplayName {
-            get {
+        public static string ContinueOnErrorDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("ContinueOnErrorDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to The decryption algorithm that will be used by this activity..
+        ///   Looks up a localized string similar to The decryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended..
         /// </summary>
-        public static string DecryptAlgorithmDescription {
-            get {
+        public static string DecryptAlgorithmDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptAlgorithmDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Decrypts the input file using the selected algorithm and the provided key and saves the original, unecrypted file..
         /// </summary>
-        public static string DecryptFileDescription {
-            get {
+        public static string DecryptFileDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptFileDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Decrypt File.
         /// </summary>
-        public static string DecryptFileDisplayName {
-            get {
+        public static string DecryptFileDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptFileDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the key..
         /// </summary>
-        public static string DecryptFileEncodingDescription {
-            get {
+        public static string DecryptFileEncodingDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptFileEncodingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Path to the file that will be decrypted by this activity..
         /// </summary>
-        public static string DecryptFileInputPathDescription {
-            get {
+        public static string DecryptFileInputPathDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptFileInputPathDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The key used to decrypt the input file..
         /// </summary>
-        public static string DecryptFileKeyDescription {
-            get {
+        public static string DecryptFileKeyDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptFileKeyDescription", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The secure string used to decrypt the input string..
+        /// </summary>
+        public static string DecryptFileKeySecureStringDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("DecryptFileKeySecureStringDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The path where the decrypted file will be saved..
         /// </summary>
-        public static string DecryptFileOutputPathDescription {
-            get {
+        public static string DecryptFileOutputPathDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptFileOutputPathDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Decrypts the input string using the selected algorithm and the provided key and returns the original, unecrypted string..
         /// </summary>
-        public static string DecryptTextDescription {
-            get {
+        public static string DecryptTextDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptTextDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Decrypt Text.
         /// </summary>
-        public static string DecryptTextDisplayName {
-            get {
+        public static string DecryptTextDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptTextDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the input string and key..
         /// </summary>
-        public static string DecryptTextEncodingDescription {
-            get {
+        public static string DecryptTextEncodingDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptTextEncodingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The string that will be decrypted by this activity..
         /// </summary>
-        public static string DecryptTextInputDescription {
-            get {
+        public static string DecryptTextInputDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptTextInputDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The key used to decrypt the input string..
         /// </summary>
-        public static string DecryptTextKeyDescription {
-            get {
+        public static string DecryptTextKeyDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptTextKeyDescription", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The secure string used to decrypt the input string..
+        /// </summary>
+        public static string DecryptTextKeySecureStringDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("DecryptTextKeySecureStringDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The decrypted string..
         /// </summary>
-        public static string DecryptTextResultDescription {
-            get {
+        public static string DecryptTextResultDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("DecryptTextResultDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Encoding.
         /// </summary>
-        public static string Encoding {
-            get {
+        public static string Encoding
+        {
+            get
+            {
                 return ResourceManager.GetString("Encoding", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the input string..
         /// </summary>
-        public static string EncodingDescription {
-            get {
+        public static string EncodingDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncodingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Encoding.
         /// </summary>
-        public static string EncodingDisplayName {
-            get {
+        public static string EncodingDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("EncodingDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to The encryption algorithm that will be used by this activity..
+        ///   Looks up a localized string similar to The encryption algorithm that will be used by this activity. Usage of deprecated algorithms is not recommended..
         /// </summary>
-        public static string EncryptAlgorithmDescription {
-            get {
+        public static string EncryptAlgorithmDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptAlgorithmDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Encrypts the input file using the selected algorithm and the provided key and saves the result in the output file..
         /// </summary>
-        public static string EncryptFileDescription {
-            get {
+        public static string EncryptFileDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptFileDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Encrypt File.
         /// </summary>
-        public static string EncryptFileDisplayName {
-            get {
+        public static string EncryptFileDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptFileDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the key..
         /// </summary>
-        public static string EncryptFileEncodingDescription {
-            get {
+        public static string EncryptFileEncodingDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptFileEncodingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Path to the file that will be encrypted by this activity..
         /// </summary>
-        public static string EncryptFileInputPathDescription {
-            get {
+        public static string EncryptFileInputPathDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptFileInputPathDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The key used to encrypt the input file..
         /// </summary>
-        public static string EncryptFileKeyDescription {
-            get {
+        public static string EncryptFileKeyDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptFileKeyDescription", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The secure string used to encrypt the input file..
+        /// </summary>
+        public static string EncryptFileKeySecureStringDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("EncryptFileKeySecureStringDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The path where the encrypted file will be saved..
         /// </summary>
-        public static string EncryptFileOutputPathDescription {
-            get {
+        public static string EncryptFileOutputPathDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptFileOutputPathDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Encrypts the input string using the selected algorithm and the provided key and returns the base64 string representation of the encrypted result..
         /// </summary>
-        public static string EncryptTextDescription {
-            get {
+        public static string EncryptTextDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptTextDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Encrypt Text.
         /// </summary>
-        public static string EncryptTextDisplayName {
-            get {
+        public static string EncryptTextDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptTextDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the input string and key..
         /// </summary>
-        public static string EncryptTextEncodingDescription {
-            get {
+        public static string EncryptTextEncodingDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptTextEncodingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The string that will be encrypted by this activity..
         /// </summary>
-        public static string EncryptTextInputDescription {
-            get {
+        public static string EncryptTextInputDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptTextInputDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The key used to encrypt the input string..
         /// </summary>
-        public static string EncryptTextKeyDescription {
-            get {
+        public static string EncryptTextKeyDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptTextKeyDescription", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The secure string used to encrypt the input string..
+        /// </summary>
+        public static string EncryptTextKeySecureStringDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("EncryptTextKeySecureStringDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The base64 string representation of the encrypted input string..
         /// </summary>
-        public static string EncryptTextResultDescription {
-            get {
+        public static string EncryptTextResultDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("EncryptTextResultDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The file already exists..
         /// </summary>
-        public static string FileAlreadyExistsException {
-            get {
+        public static string FileAlreadyExistsException
+        {
+            get
+            {
                 return ResourceManager.GetString("FileAlreadyExistsException", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The file does not exist..
         /// </summary>
-        public static string FileDoesNotExistsException {
-            get {
+        public static string FileDoesNotExistsException
+        {
+            get
+            {
                 return ResourceManager.GetString("FileDoesNotExistsException", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to FilePath.
         /// </summary>
-        public static string FilePathDisplayName {
-            get {
+        public static string FilePathDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("FilePathDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The selected algorithm does not have a FIPS compliant implementation. This might not work on some machines..
         /// </summary>
-        public static string FipsComplianceWarning {
-            get {
+        public static string FipsComplianceWarning
+        {
+            get
+            {
                 return ResourceManager.GetString("FipsComplianceWarning", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to A cryptographic operation has failed. Please make sure you use the same algorithm and key for both encryption and decryption operations..
         /// </summary>
-        public static string GenericCryptographicException {
-            get {
+        public static string GenericCryptographicException
+        {
+            get
+            {
                 return ResourceManager.GetString("GenericCryptographicException", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The hashing algorithm that will be used by this activity..
         /// </summary>
-        public static string HashAlgorithmDescription {
-            get {
+        public static string HashAlgorithmDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("HashAlgorithmDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Applies the selected hashing algorithm on the contents of the provided file and returns the hexadecimal string representation of the resulting hash..
         /// </summary>
-        public static string HashFileDescription {
-            get {
+        public static string HashFileDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("HashFileDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hash File.
         /// </summary>
-        public static string HashFileDisplayName {
-            get {
+        public static string HashFileDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("HashFileDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Path to the file that will be hashed by this activity..
         /// </summary>
-        public static string HashFilePathDescription {
-            get {
+        public static string HashFilePathDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("HashFilePathDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The hexadecimal string representation of the hashed file..
         /// </summary>
-        public static string HashFileResultDescription {
-            get {
+        public static string HashFileResultDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("HashFileResultDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Applies the selected hashing algorithm on the input string and returns the hexadecimal string representation of the resulting hash..
         /// </summary>
-        public static string HashTextDescription {
-            get {
+        public static string HashTextDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("HashTextDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hash Text.
         /// </summary>
-        public static string HashTextDisplayName {
-            get {
+        public static string HashTextDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("HashTextDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The string that will be hashed by this activity..
         /// </summary>
-        public static string HashTextInputDescription {
-            get {
+        public static string HashTextInputDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("HashTextInputDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The hexadecimal string representation of the hashed input string..
         /// </summary>
-        public static string HashTextResultDescription {
-            get {
+        public static string HashTextResultDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("HashTextResultDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Input.
         /// </summary>
-        public static string Input {
-            get {
+        public static string Input
+        {
+            get
+            {
                 return ResourceManager.GetString("Input", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to InputPath.
         /// </summary>
-        public static string InputFilePathDisplayName {
-            get {
+        public static string InputFilePathDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("InputFilePathDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Text.
         /// </summary>
-        public static string InputStringDisplayName {
-            get {
+        public static string InputStringDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("InputStringDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Key.
         /// </summary>
-        public static string Key {
-            get {
+        public static string Key
+        {
+            get
+            {
                 return ResourceManager.GetString("Key", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The key and the secure string must not be both not null..
+        /// </summary>
+        public static string KeyAndSecureStringNotNull
+        {
+            get
+            {
+                return ResourceManager.GetString("KeyAndSecureStringNotNull", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The key and the secure string must not be both null..
+        /// </summary>
+        public static string KeyAndSecureStringNull
+        {
+            get
+            {
+                return ResourceManager.GetString("KeyAndSecureStringNull", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Key.
         /// </summary>
-        public static string KeyDisplayName {
-            get {
+        public static string KeyDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The keyed hashing algorithm that will be used by this activity..
         /// </summary>
-        public static string KeyedHashAlgorithmDescription {
-            get {
+        public static string KeyedHashAlgorithmDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashAlgorithmDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the input string and key..
         /// </summary>
-        public static string KeyedHashEncodingDescription {
-            get {
+        public static string KeyedHashEncodingDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashEncodingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Applies the selected hashing algorithm on the input file, using the provided key for hashing and returns the hexadecimal string representation of the resulting hash..
         /// </summary>
-        public static string KeyedHashFileDescription {
-            get {
+        public static string KeyedHashFileDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashFileDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hash File With Key.
         /// </summary>
-        public static string KeyedHashFileDisplayName {
-            get {
+        public static string KeyedHashFileDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashFileDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The encoding used to interpret the key..
         /// </summary>
-        public static string KeyedHashFileEncodingDescription {
-            get {
+        public static string KeyedHashFileEncodingDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashFileEncodingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The key used to hash the provided file..
         /// </summary>
-        public static string KeyedHashFileKeyDescription {
-            get {
+        public static string KeyedHashFileKeyDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashFileKeyDescription", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The secure string used to hash the provided file..
+        /// </summary>
+        public static string KeyedHashFileKeySecureStringDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("KeyedHashFileKeySecureStringDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The hexadecimal string representation of the hashed file..
         /// </summary>
-        public static string KeyedHashFileResultDescription {
-            get {
+        public static string KeyedHashFileResultDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashFileResultDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Applies the selected hashing algorithm on the input string, using the provided key for hashing and returns the hexadecimal string representation of the resulting hash..
         /// </summary>
-        public static string KeyedHashTextDescription {
-            get {
+        public static string KeyedHashTextDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashTextDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Hash Text With Key.
         /// </summary>
-        public static string KeyedHashTextDisplayName {
-            get {
+        public static string KeyedHashTextDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashTextDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The key used to hash the input string..
         /// </summary>
-        public static string KeyedHashTextKeyDescription {
-            get {
+        public static string KeyedHashTextKeyDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyedHashTextKeyDescription", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The secure string used to hash the input string..
+        /// </summary>
+        public static string KeyedHashTextKeySecureStringDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("KeyedHashTextKeySecureStringDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to KeyEncoding.
         /// </summary>
-        public static string KeyEncodingDisplayName {
-            get {
+        public static string KeyEncodingDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("KeyEncodingDisplayName", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Key SecureString.
+        /// </summary>
+        public static string KeySecureString
+        {
+            get
+            {
+                return ResourceManager.GetString("KeySecureString", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Key SecureString.
+        /// </summary>
+        public static string KeySecureStringDisplayName
+        {
+            get
+            {
+                return ResourceManager.GetString("KeySecureStringDisplayName", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to MACTripleDES uses a key that is 16 or 24 bytes long. The length of your key depends on the Encoding..
         /// </summary>
-        public static string MacTripleDesKeySizeWarning {
-            get {
+        public static string MacTripleDesKeySizeWarning
+        {
+            get
+            {
                 return ResourceManager.GetString("MacTripleDesKeySizeWarning", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        public static string Output {
-            get {
+        public static string Output
+        {
+            get
+            {
                 return ResourceManager.GetString("Output", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        public static string OutputDisplayName {
-            get {
+        public static string OutputDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("OutputDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to OutputPath.
         /// </summary>
-        public static string OutputFilePathDisplayName {
-            get {
+        public static string OutputFilePathDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("OutputFilePathDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Overwrite the output file if it already exists..
         /// </summary>
-        public static string OverwriteDescription {
-            get {
+        public static string OverwriteDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("OverwriteDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Overwrite.
         /// </summary>
-        public static string OverwriteDisplayName {
-            get {
+        public static string OverwriteDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("OverwriteDisplayName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Result.
         /// </summary>
-        public static string ResultDisplayName {
-            get {
+        public static string ResultDisplayName
+        {
+            get
+            {
                 return ResourceManager.GetString("ResultDisplayName", resourceCulture);
             }
         }

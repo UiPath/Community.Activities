@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Service;
@@ -16,6 +17,8 @@ namespace UiPath.Java
         private const string _javaFolder = "java_files";
 
         private const string _javaProgram = "InvokeJava.jar";
+
+        private const string _javaProgramLinux = "InvokeJavaLinux.jar";
 
         private const string _defaultJava = "java";
 
@@ -65,7 +68,7 @@ namespace UiPath.Java
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Java listner could not be started: {e.ToString()}");
+                Trace.TraceError($"Java listner could not be started: {e}");
                 throw;
             }
         }
@@ -87,7 +90,7 @@ namespace UiPath.Java
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error stopping Java process: {e.ToString()}");
+                Trace.TraceError($"Error stopping Java process: {e}");
             }
             _javaService?.Dispose();
             GC.SuppressFinalize(this);
@@ -172,10 +175,15 @@ namespace UiPath.Java
         {
             var assemblyPath = Assembly.GetAssembly(typeof(JavaInvoker)).Location;
             var parentDir = Directory.GetParent(assemblyPath).Parent.FullName;
-            return Path.Combine(parentDir, _javaFolder, _javaProgram);
+            var jarFile = _javaProgram;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                jarFile = _javaProgramLinux;
+#endif
+            return Path.Combine(parentDir, _javaFolder, jarFile);
         }
 
-        #endregion
+#endregion
 
     }
 }

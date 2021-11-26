@@ -21,7 +21,7 @@ namespace UiPath.Python
     {
         Version  Version { get; }
         #region Lifecycle
-        Task Initialize(string workingFolder, CancellationToken ct);
+        Task Initialize(string workingFolder, CancellationToken ct, double timeout = 3600);
 
         Task Release();
         #endregion

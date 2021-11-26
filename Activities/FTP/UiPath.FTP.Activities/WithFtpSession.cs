@@ -9,6 +9,8 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
+    [LocalizedDisplayName(nameof(Resources.WithFtpSessionDisplayName))]
+    [LocalizedDescription(nameof(Resources.WithFtpSessionDescription))]
     public class WithFtpSession : ContinuableAsyncNativeActivity
     {
         private IFtpSession _ftpSession;
@@ -68,6 +70,10 @@ namespace UiPath.FTP.Activities
         [LocalizedCategory(nameof(Resources.Security))]
         [LocalizedDisplayName(nameof(Resources.AcceptAllCertificates))]
         public bool AcceptAllCertificates { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedDisplayName(nameof(Resources.ContinueOnError))]
+        public InArgument<bool> ContinueOnError { get; set; } = false;
 
         public WithFtpSession()
         {

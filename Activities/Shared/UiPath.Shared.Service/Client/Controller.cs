@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace UiPath.Shared.Service.Client
@@ -17,18 +19,20 @@ namespace UiPath.Shared.Service.Client
 
         internal string Arguments { get; set; } = null;
 
-        internal bool Visible { get; set; } = false;
+        internal bool Visible { get; set; } = true;
 
         internal string ExeFile { get; set; }
 
-        internal string Endpoint { get; private set; }
+        internal NamedPipeClientStream Client { get; private set; }
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
 
-        internal bool Create()
+        internal NamedPipeClientStream pipeClient { get; set; }
+
+        internal NamedPipeClientStream Create()
         {
-            Endpoint = StartHostService();
-            return !Endpoint.IsNullOrEmpty();
+            Client = StartHostService();
+            return Client;
         }
 
         internal void ForceStop()
@@ -36,22 +40,40 @@ namespace UiPath.Shared.Service.Client
             Process.GetProcessById(ProcessId)?.Kill();
         }
 
-        private string StartHostService()
+        private NamedPipeClientStream StartHostService()
         {
+            var isWindows = true;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                isWindows = false;
+#endif
             string folder = Path.GetDirectoryName(ExeFile);
             string exeFullPath = ExeFile;
             if (folder.IsNullOrEmpty())
             {
-                folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location);
-                exeFullPath = Path.Combine(folder, ExeFile);
+                if (isWindows)
+                {
+                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\", "\\bin\\");
+                    exeFullPath = Path.Combine(folder, ExeFile);
+                }
+                else
+                {
+                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
+                    Arguments = string.Concat(Path.Combine(folder, ExeFile.Replace(".exe",".dll")), " ", Arguments);
+                    exeFullPath = "dotnet";
+                }
+
+                
             }
 
-            if (!File.Exists(exeFullPath))
+            if (!File.Exists(exeFullPath) && isWindows
+                || !isWindows && string.IsNullOrEmpty(Arguments))
                 throw new Exception($"Process path not found: {exeFullPath}");
 
-            // start the host process 
+            // start the host process
             ProcessStartInfo psi = new ProcessStartInfo()
             {
+                UseShellExecute = true,
                 FileName = exeFullPath,
                 WorkingDirectory = folder,
                 Arguments = Arguments,
@@ -59,30 +81,31 @@ namespace UiPath.Shared.Service.Client
             };
             Process process = Process.Start(psi);
 
-            // endpoint name
-            string endpoint = Config.MakeServiceAddress(typeof(T), process.Id);
-
-            // wait for service to become available; using the endpoint name for mutex
+            // wait for service to become available
             bool ServiceReady()
             {
-                if (Mutex.TryOpenExisting(endpoint, out Mutex mutex))
+                pipeClient =
+                    new NamedPipeClientStream(".", process.Id.ToString(), PipeDirection.InOut,
+                            PipeOptions.Asynchronous);
+
+                pipeClient.Connect();
+                if (pipeClient.IsConnected)
                 {
-                    mutex.Close();
                     return true;
                 }
                 return false;
             }
             Retry(ServiceReady, StartTimeout, RetryInterval);
-            return endpoint;
+            return pipeClient;
         }
 
         private static void Retry(Func<bool> checkFunction, TimeSpan timeout, TimeSpan retryInterval)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            while(!checkFunction())
+            while (!checkFunction())
             {
                 Thread.Sleep(retryInterval);
-                if(sw.Elapsed > timeout)
+                if (sw.Elapsed > timeout)
                 {
                     Trace.TraceError($"Waiting for service start reached timeout ({timeout})");
                     throw new TimeoutException($"Error waiting for host service. Timeout: {timeout}");

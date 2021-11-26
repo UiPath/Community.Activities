@@ -1,24 +1,39 @@
 ﻿using CredentialManagement;
 using System.Activities;
 using System.ComponentModel;
+using System.Net;
+using System.Security;
+using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [Category("System.Credentials")]
     public class RequestCredential : CodeActivity<bool>
     {
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.MessageDisplayName))]
+        [LocalizedDescription(nameof(Resources.MessageDescription))]
         public InArgument<string> Message { get; set; }
 
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.TitleDisplayName))]
+        [LocalizedDescription(nameof(Resources.TitleDescription))]
         public InArgument<string> Title { get; set; }
 
 
-        [Category("Output")]
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.UsernameDisplayName))]
+        [LocalizedDescription(nameof(Resources.UsernameDescription))]
         public OutArgument<string> Username { get; set; }
 
-        [Category("Output")]
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.PasswordDisplayName))]
+        [LocalizedDescription(nameof(Resources.PasswordDescription))]
         public OutArgument<string> Password { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.PasswordSecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.PasswordSecureStringDescription))]
+        public OutArgument<SecureString> PasswordSecureString { get; set; }
 
         protected override bool Execute(CodeActivityContext context)
         {
@@ -43,6 +58,7 @@ namespace UiPath.Credentials.Activities
 
             Username.Set(context, credPrompt.Username);
             Password.Set(context, credPrompt.Password);
+            PasswordSecureString.Set(context, (new NetworkCredential("", credPrompt.Password).SecurePassword));
             return true;
         }
     }
