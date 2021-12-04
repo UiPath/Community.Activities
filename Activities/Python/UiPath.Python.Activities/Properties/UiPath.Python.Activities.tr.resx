@@ -290,4 +290,10 @@
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Sonlandırılana ve bir özel durum oluşturulana kadar Python komut dosyasının çalışmasına izin verilecek süre.</value>
   </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Kitaplık adını da içeren Python libpython *.so kitaplığının yolu</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>Kitaplık yolu (yalnızca Linux)</value>
+  </data>
 </root>

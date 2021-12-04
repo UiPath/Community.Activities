@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Especifica como é interpretada uma cadeia de comando</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Ligar</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>A cadeia de ligação utilizada para estabelecer uma ligação de base de dados</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Desassociar</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Executa uma instrução SQL numa base de dados. Para as instruções UPDATE, INSERT e DELETE, o valor devolvido é o número de linhas afetadas pelo comando. Para todos os outros tipos de instruções, o valor devolvido é -1.</value>
   </data>
@@ -164,25 +156,17 @@
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Uma ligação de base de dados já aberta. Se esta propriedade estiver definida, as propriedades Cadeia de Ligação e Nome do Fornecedor são ignoradas</value>
   </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
-    <comment>activity name</comment>
-  </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Insere uma DataTable compatível numa Tabela existente. Devolve o número de linhas afetadas.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Um dicionário de parâmetros nomeados que estão vinculados ao comando sql. A vinculação é feita ao especificar a instrução &quot;@parameterName&quot; no comando sql. No tempo de execução, parameterName será substituído pelo respetivo valor do dicionário.</value>
+    <value>Um dicionário de parâmetros nomeados que estão vinculados ao comando sql. A vinculação é feita ao especificar a instrução &quot;@parameterName&quot; no comando sql. No runtime, parameterName será substituído pelo respetivo valor do dicionário.</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
     <value>O nome do fornecedor de base de dados utilizado para aceder à base de dados. Pode encontrar uma lista de Fornecedores de Dados em http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>Um comando sql a ser executado.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Start Transaction</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>A tabela de base de dados de destino</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Integração de Aplicações</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Executar Não Consulta</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Executar Consulta</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Coleção)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Inserir em Massa</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -292,9 +267,6 @@
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>A coleção de nomes de colunas utilizados para a correspondência de linhas</value>
-  </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Atualizar em Massa</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Atualiza uma DataTable compatível numa Tabela existente. Irá atualizar todas as colunas que não fazem parte da coleção de nomes de colunas utilizados como chave principal. Devolve o número de linhas afetadas.</value>

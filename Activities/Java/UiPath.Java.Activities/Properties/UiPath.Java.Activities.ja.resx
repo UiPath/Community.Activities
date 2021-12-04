@@ -238,14 +238,14 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Java メソッドでの順序と同じ順序で指定する引数の一覧です。引数を null にすることはできません。</value>
+    <value>Java メソッドでの順序と同じ順序で指定する引数のリストです。引数を null にすることはできません。</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
     <value>パラメーター</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>パラメーター一覧</value>
+    <value>パラメーター リスト</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">

@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Gibt an, wie eine Befehlszeichenfolge interpretiert wird</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Verbinden</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>Die Verbindungszeichenfolge zum Aufbau einer Datenbankverbindung</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Trennen</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Führt eine SQL-Anweisung für eine Datenbank aus. Bei den Anweisungen UPDATE, INSERT und DELETE ist der Rückgabewert die Anzahl der Zeilen, die vom Befehl betroffen sind. Für alle anderen Typen von Anweisungen ist der Rückgabewert -1.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Eine bereits geöffnete Datenbankverbindung. Wenn diese Eigenschaft festgelegt ist, werden die Eigenschaften „Verbindungszeichenfolge“ und „Name des Anbieters“ ignoriert.</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>Ein SQL-Befehl, der ausgeführt werden soll.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Start Transaction</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>Die Zieldatenbanktabelle</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>App-Integration</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Nichtabfrage ausführen (Execute Non Query)</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Abfrage ausführen</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Aufzählung)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError – boolescher Wert</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Masseneinfügung</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -292,9 +267,6 @@
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>Die Sammlung von Spaltennamen, die für den Zeilenabgleich verwendet werden</value>
-  </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Massenaktualisierung</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Aktualisiert alle Spalten, die sich nicht in der Sammlung der Spaltennamen befinden, die als Primärschlüssel verwendet werden. Gibt die Anzahl der betroffenen Zeilen zurück.</value>

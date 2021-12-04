@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Especifica cómo se interpreta una cadena de comandos</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Conectar</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>La cadena de conexión utilizada para establecer una conexión a base de datos</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Ejecuta una instrucción SQL en una base de datos. Para las instrucciones ACTUALIZAR, INSERTAR y ELIMINAR, el valor devuelto es el número de filas afectadas por el comando. Para todos los demás tipos de instrucciones, el valor devuelto es -1.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Una conexión de base de datos ya abierta. Si esta propiedad se establece, se omiten las propiedades Cadena de conexión y Nombre de proveedor</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Inserta una tabla de datos compatible en una tabla existente. Devuelve el número de filas afectadas.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>Un comando sql que se ejecutará.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Start Transaction</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>La tabla de base de datos de destino</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Integración de aplicaciones</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>No ejecutar consulta</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Ejecutar consulta</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Colección)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Inserción en masa</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -292,9 +267,6 @@
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>La colección de nombres de columna utilizados para la coincidencia de filas</value>
-  </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Actualización en masa</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Actualiza una DataTable compatible en una tabla existente. Actualizará todas las columnas que no están en la colección de nombres de columna utilizados como clave principal. Devuelve el número de filas afectadas.</value>

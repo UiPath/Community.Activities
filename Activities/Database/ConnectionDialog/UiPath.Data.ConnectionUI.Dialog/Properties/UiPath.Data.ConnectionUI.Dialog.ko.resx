@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessConnectionUIControl_BrowseFileDefaultExt" xml:space="preserve">
+    <value>mdb</value>
+  </data>
+  <data name="AccessConnectionUIControl_BrowseFileFilter" xml:space="preserve">
+    <value>Microsoft Access 데이터베이스(*.mdb;*.accdb)|*.mdb;*.accdb|모든 파일(*.*)|*.*</value>
+  </data>
+  <data name="AccessConnectionUIControl_BrowseFileTitle" xml:space="preserve">
+    <value>Microsoft Access 데이터베이스 파일 선택</value>
+  </data>
+  <data name="AccessConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>연결 속성 개체는 OleDBAccessConnectionProperties 유형이어야 합니다.</value>
+  </data>
+  <data name="AdoDotNetConnectionProperties_NoProperties" xml:space="preserve">
+    <value>연결 속성이 설정되지 않았습니다.</value>
+  </data>
+  <data name="AdvancedProperties" xml:space="preserve">
+    <value>고급 속성</value>
+  </data>
+  <data name="Advanced_Label" xml:space="preserve">
+    <value>고급...</value>
+  </data>
+  <data name="AttachRadio_Label" xml:space="preserve">
+    <value>데이터베이스 파일 첨부:</value>
+  </data>
+  <data name="BrowseButton_Label" xml:space="preserve">
+    <value>찾아보기...</value>
+  </data>
+  <data name="BuildButton_Label" xml:space="preserve">
+    <value>빌드...</value>
+  </data>
+  <data name="ChooseDataSource" xml:space="preserve">
+    <value>데이터 소스 선택</value>
+  </data>
+  <data name="ConnectionProperties" xml:space="preserve">
+    <value>연결 속성</value>
+  </data>
+  <data name="ConnectToDb_Label" xml:space="preserve">
+    <value>데이터베이스에 연결</value>
+  </data>
+  <data name="ConnStringSpec_Label" xml:space="preserve">
+    <value>연결 문자열 사용:</value>
+  </data>
+  <data name="DatabaseFileBrowseFilter" xml:space="preserve">
+    <value>Microsoft SQL Server 데이터베이스(*.mdf)|*.mdf|모든 파일(*.*)|*.*</value>
+  </data>
+  <data name="DatabaseRadio_Label" xml:space="preserve">
+    <value>데이터베이스 이름 선택 또는 입력:</value>
+  </data>
+  <data name="DataConnectionDialog_TestConnectionSucceeded" xml:space="preserve">
+    <value>연결 테스트에 성공했습니다.</value>
+  </data>
+  <data name="DataLinks_Label" xml:space="preserve">
+    <value>데이터 링크...</value>
+  </data>
+  <data name="DataProvider_Label" xml:space="preserve">
+    <value>데이터 공급자:</value>
+  </data>
+  <data name="DataProvider_Odbc" xml:space="preserve">
+    <value>.NET Framework Data Provider for ODBC</value>
+  </data>
+  <data name="DataProvider_Odbc_DataSource_Description" xml:space="preserve">
+    <value>.NET Framework Data Provider for ODBC를 통해 ODBC 드라이버에 연결할 ODBC 사용자나 시스템 데이터 소스 이름을 지정하려면 선택합니다.</value>
+  </data>
+  <data name="DataProvider_Odbc_Description" xml:space="preserve">
+    <value>이 데이터 공급자를 사용하여 ODBC 데이터 소스에 연결합니다.</value>
+  </data>
+  <data name="DataProvider_Odbc_Short" xml:space="preserve">
+    <value>ODBC</value>
+  </data>
+  <data name="DataProvider_OleDB" xml:space="preserve">
+    <value>.NET Framework Data Provider for OLE DB</value>
+  </data>
+  <data name="DataProvider_OleDB_AccessDataSource_Description" xml:space="preserve">
+    <value>.NET Framework Data Provider for OLE DB를 통해 Microsoft Access 데이터베이스 파일에 연결하려면 선택합니다.</value>
+  </data>
+  <data name="DataProvider_OleDB_Description" xml:space="preserve">
+    <value>이 데이터 공급자를 사용하여 OLE DB 데이터 소스에 연결합니다.</value>
+  </data>
+  <data name="DataProvider_OleDB_OracleDataSource_Description" xml:space="preserve">
+    <value>.NET Framework Data Provider for OLE DB를 통해 네이티브 MSDAORA 제공자를 사용하여 Oracle 7.3, 8i, 9i 또는 10g에 연결하려면 선택합니다.</value>
+  </data>
+  <data name="DataProvider_OleDB_Short" xml:space="preserve">
+    <value>OLE DB</value>
+  </data>
+  <data name="DataProvider_OleDB_SqlDataSource_Description" xml:space="preserve">
+    <value>.NET framework data provider for OLEDB를 사용하여 Microsoft SQL Server 2000 이상에 연결하려면 선택합니다.</value>
+  </data>
+  <data name="DataProvider_Oracle" xml:space="preserve">
+    <value>Oracle.ManagedDataAccess</value>
+  </data>
+  <data name="DataProvider_Oracle_DataSource_Description" xml:space="preserve">
+    <value>ODP.NET, Managed Driver는 Oracle 데이터베이스를 위한 100% 네이티브 코드 .NET Framework 드라이버입니다. Oracle 데이터베이스에 연결하기 위해 추가 Oracle Client 소프트웨어를 설치할 필요가 없습니다.</value>
+  </data>
+  <data name="DataProvider_Oracle_Description" xml:space="preserve">
+    <value>Oracle Data Provider for .NET은 .NET 클라이언트에서 Oracle 데이터베이스로의 빠른 데이터 액세스 기능을 제공합니다. ODP.NET을 사용하면 .NET 애플리케이션에서 Oracle RAC(Oracle Real Application Clusters) 및 XML DB와 같은 Oracle 고급 기능을 활용할 수 있습니다. .NET 언어(C#, Visual Basic .NET 및 C++ .NET)를 통해 액세스할 수 있습니다.</value>
+  </data>
+  <data name="DataProvider_Oracle_Short" xml:space="preserve">
+    <value>OracleClient</value>
+  </data>
+  <data name="DataProvider_Sql" xml:space="preserve">
+    <value>.NET Framework Data Provider for SQL Server</value>
+  </data>
+  <data name="DataProvider_Sql_DataSource_Description" xml:space="preserve">
+    <value>NET Framework Data Provider for SQL Server를 사용하여 Microsoft SQL Server 2005 이상의 버전에 연결하려면 선택하십시오.</value>
+  </data>
+  <data name="DataProvider_Sql_Description" xml:space="preserve">
+    <value>이 데이터 공급자를 사용하여 Microsoft SQL Server 2005 이상의 버전에 연결합니다.</value>
+  </data>
+  <data name="DataProvider_Sql_FileDataSource_Description" xml:space="preserve">
+    <value>NET Framework Data Provider for SQL Server를 사용하여 로컬 Microsoft SQL Server 인스턴스(Microsoft SQL Express 포함)에 데이터베이스 파일을 첨부하려면 선택하십시오.</value>
+  </data>
+  <data name="DataProvider_Sql_Short" xml:space="preserve">
+    <value>SqlClient</value>
+  </data>
+  <data name="DataSourceContent_Label" xml:space="preserve">
+    <value>세부 정보</value>
+  </data>
+  <data name="DataSourceDescription_Label" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="DataSourceGroupBox_Label" xml:space="preserve">
+    <value>데이터 소스 사양</value>
+  </data>
+  <data name="DataSourceSpec_Label" xml:space="preserve">
+    <value>사용자 또는 시스템 데이터 소스 사용({0}만 해당):</value>
+  </data>
+  <data name="DataSource_CannotChangeSingleDataProvider" xml:space="preserve">
+    <value>사용 가능한 데이터 공급자가 하나만 있는 경우, 기본 데이터 공급자를 변경할 수 없습니다.</value>
+  </data>
+  <data name="DataSource_DataProviderNotFound" xml:space="preserve">
+    <value>데이터 공급자를 찾을 수 없습니다.</value>
+  </data>
+  <data name="DataSource_Label" xml:space="preserve">
+    <value>데이터 소스:</value>
+  </data>
+  <data name="DataSource_MicrosoftAccess" xml:space="preserve">
+    <value>Microsoft Access 데이터베이스 파일</value>
+  </data>
+  <data name="DataSource_MicrosoftOdbcDsn" xml:space="preserve">
+    <value>Microsoft ODBC 데이터 소스</value>
+  </data>
+  <data name="DataSource_MicrosoftSqlServer" xml:space="preserve">
+    <value>Microsoft SQL Server</value>
+  </data>
+  <data name="DataSource_MicrosoftSqlServerFile" xml:space="preserve">
+    <value>Microsoft SQL Server 데이터베이스 파일</value>
+  </data>
+  <data name="DataSource_UnspecifiedDisplayName" xml:space="preserve">
+    <value>&lt;other&gt;</value>
+  </data>
+  <data name="Error_Label" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="FileName_Label" xml:space="preserve">
+    <value>데이터베이스 파일 이름:</value>
+  </data>
+  <data name="LogicalName_Label" xml:space="preserve">
+    <value>논리 이름:</value>
+  </data>
+  <data name="LogonDBGroupBox_Label" xml:space="preserve">
+    <value>데이터베이스에 로그온</value>
+  </data>
+  <data name="LogonGroupBox_Label" xml:space="preserve">
+    <value>서버에 로그온</value>
+  </data>
+  <data name="OdbcConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>연결 속성 개체는 OdbcConnectionProperties 유형이어야 합니다.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLAllocConnectFailed" xml:space="preserve">
+    <value>ODBC 연결 핸들을 할당하지 못했습니다.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLAllocEnvFailed" xml:space="preserve">
+    <value>ODBC 환경 핸들을 할당하지 못했습니다.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLDriverConnectFailed" xml:space="preserve">
+    <value>ODBC 드라이버 연결 유틸리티를 호출하지 못했습니다.</value>
+  </data>
+  <data name="OleDBConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>연결 속성 개체는 OleDBConnectionProperties 유형이어야 합니다.</value>
+  </data>
+  <data name="OleDBConnectionUIInitialCatalog_Label" xml:space="preserve">
+    <value>초기 카탈로그:</value>
+  </data>
+  <data name="OleDBConnectionUILocationGroup_Label" xml:space="preserve">
+    <value>서버 또는 파일 이름 입력</value>
+  </data>
+  <data name="OleDBConnectionUILocation_Label" xml:space="preserve">
+    <value>위치:</value>
+  </data>
+  <data name="OleDBConnectionUISavePassword_Label" xml:space="preserve">
+    <value>암호 저장</value>
+  </data>
+  <data name="OleDBConnectionUIServer_Label" xml:space="preserve">
+    <value>서버 또는 파일 이름:</value>
+  </data>
+  <data name="OleDBConnectionUISSPI_Label" xml:space="preserve">
+    <value>통합 보안 사용</value>
+  </data>
+  <data name="OleDBConnectionUIUserBlankPassword_Label" xml:space="preserve">
+    <value>빈 암호</value>
+  </data>
+  <data name="OleDBConnectionUIUserPassword_Label" xml:space="preserve">
+    <value>특정 사용자 이름 및 암호 사용</value>
+  </data>
+  <data name="OLEDBProvider_Label" xml:space="preserve">
+    <value>OLE DB 공급자:</value>
+  </data>
+  <data name="OracleConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>연결 속성 개체는 OracleConnectionProperties 또는 OleDBOracleConnectionProperties 유형이어야 합니다.</value>
+  </data>
+  <data name="OracleConnectionUIHostname_Label" xml:space="preserve">
+    <value>호스트 이름:</value>
+  </data>
+  <data name="OracleConnectionUIPort_Label" xml:space="preserve">
+    <value>포트:</value>
+  </data>
+  <data name="OracleConnectionUIService_Label" xml:space="preserve">
+    <value>서비스 이름:</value>
+  </data>
+  <data name="Password_Label" xml:space="preserve">
+    <value>암호:</value>
+  </data>
+  <data name="Refresh_Label" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="SavePassword_Label" xml:space="preserve">
+    <value>내 암호 저장</value>
+  </data>
+  <data name="Server_Label" xml:space="preserve">
+    <value>서버 이름:</value>
+  </data>
+  <data name="SQLAuthentication_Label" xml:space="preserve">
+    <value>SQL Server 인증 사용</value>
+  </data>
+  <data name="SqlConnectionProperties_CannotTestNonExistentDatabase" xml:space="preserve">
+    <value>지정된 데이터베이스가 없거나 지정된 사용자에게 표시되지 않으므로 이 연결을 테스트할 수 없습니다.</value>
+  </data>
+  <data name="SqlConnectionProperties_MustSpecifyDataSource" xml:space="preserve">
+    <value>서버 이름이 지정되지 않았으므로 이 연결을 테스트할 수 없습니다.</value>
+  </data>
+  <data name="SqlFileConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>연결 속성 개체는 SqlFileConnectionProperties 유형이어야 합니다.</value>
+  </data>
+  <data name="TestConnection_Label" xml:space="preserve">
+    <value>연결 테스트</value>
+  </data>
+  <data name="Username_Label" xml:space="preserve">
+    <value>사용자 이름:</value>
+  </data>
+  <data name="WindowsAuthentication_Label" xml:space="preserve">
+    <value>Windows 인증 사용</value>
+  </data>
+</root>
