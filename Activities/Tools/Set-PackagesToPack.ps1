@@ -111,7 +111,7 @@ function Is-SdkPackage($solutions, $projFile)
     }
     Write-Host "found sdk projFile:" $projFile.FullName;
     $content = Get-Content $projFile.FullName;
-    return (($content | Select-String "<PackageId>") -and ($content | Select-String "<VersionSuffix>"))
+    return ($content | Select-String "<PackageId>")
 }
 
 function Validate-Long-Paths($err)
