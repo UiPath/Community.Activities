@@ -5,6 +5,7 @@
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Platforms>AnyCPU;x86;x64</Platforms>
+	<VersionSuffix></VersionSuffix>
     <!--leave empty for ci to replace with prelease tag-->
 	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
 	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
