@@ -14,6 +14,18 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
     <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="System.Activities.ViewModels" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
+    <EmbeddedResource Include="Resources\Icons\Decrypt_file.svg" />
+    <EmbeddedResource Include="Resources\Icons\Decrypt_text.svg" />
+    <EmbeddedResource Include="Resources\Icons\Encrypt_text.svg" />
+    <EmbeddedResource Include="Resources\Icons\Encrypt_file.svg" />
+    <EmbeddedResource Include="Resources\Icons\Hash_file.svg" />
+    <EmbeddedResource Include="Resources\Icons\Hash_file_with_key.svg" />
+    <EmbeddedResource Include="Resources\Icons\Hash_text.svg" />
+    <EmbeddedResource Include="Resources\Icons\Hash_text_with_key.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.fr.resx">
@@ -39,5 +51,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition="'$(TargetFramework)' != 'net5.0'" Remove="NetCore/**" />
   </ItemGroup>
 </Project>
