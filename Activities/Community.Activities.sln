@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92E6CB4E-6542-419B-B674-7D8B9FB02BD2}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,6 +34,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{ED3DF9E3-2366-483E-9124-3FA8766EEF77}"
 	ProjectSection(SolutionItems) = preProject
 		Database\Database.build.props = Database\Database.build.props
+		Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj = Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database", "Database\UiPath.Database\UiPath.Database.csproj", "{BD4850CC-23BF-4BEA-933E-F1FD7C692451}"
@@ -106,10 +107,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Credentials.Tests", "Credentials\UiPath.Credentials.Tests\UiPath.Credentials.Tests.csproj", "{D8B0D0D4-494A-4F82-9C73-D2E99F4228AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Packaging", "Cryptography\UiPath.Cryptography.Activities.Packaging\UiPath.Cryptography.Activities.Packaging.csproj", "{8DBC2D68-9E11-415E-81A5-0FE91370E8E3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Data.ConnectionUI", "Database\ConnectionDialog\ConnectionUI\Microsoft.Data.ConnectionUI.csproj", "{139729CD-0F06-48E8-9F4A-08E78BB6575F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Data.ConnectionUI.Dialog", "Database\ConnectionDialog\ConnectionUIDialog\Microsoft.Data.ConnectionUI.Dialog.csproj", "{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -388,22 +385,6 @@ Global
 		{8DBC2D68-9E11-415E-81A5-0FE91370E8E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DBC2D68-9E11-415E-81A5-0FE91370E8E3}.Release|x64.ActiveCfg = Release|Any CPU
 		{8DBC2D68-9E11-415E-81A5-0FE91370E8E3}.Release|x64.Build.0 = Release|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Debug|x64.Build.0 = Debug|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Release|x64.ActiveCfg = Release|Any CPU
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F}.Release|x64.Build.0 = Release|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Debug|x64.Build.0 = Debug|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Release|x64.ActiveCfg = Release|Any CPU
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -445,8 +426,6 @@ Global
 		{BFDE75F3-CFE4-4932-A1D1-834F5281C72F} = {D5226852-11EA-497E-9C0E-DFFCB97E9BB6}
 		{D8B0D0D4-494A-4F82-9C73-D2E99F4228AB} = {D5226852-11EA-497E-9C0E-DFFCB97E9BB6}
 		{8DBC2D68-9E11-415E-81A5-0FE91370E8E3} = {FBD4F6B1-98F2-4985-9111-C65C5A1C8D75}
-		{139729CD-0F06-48E8-9F4A-08E78BB6575F} = {ED3DF9E3-2366-483E-9124-3FA8766EEF77}
-		{05C97F8D-B7CF-4CAB-B81C-0994A70D90CA} = {ED3DF9E3-2366-483E-9124-3FA8766EEF77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80E44DEF-976F-46BF-9DD8-F07334768E20}
