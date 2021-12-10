@@ -78,7 +78,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         /// <summary>
         /// The result of the execution of the sql command.
         /// </summary>
-        public DesignOutArgument<int> DataTable { get; set; } = new DesignOutArgument<int>();
+        public DesignOutArgument<DataTable> DataTable { get; set; } = new DesignOutArgument<DataTable>();
 
         protected override void InitializeModel()
         {
