@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.ZenDesk", "Zendesk\UiPath.ZenDesk\UiPath.ZenDesk.csproj", "{B548CEB2-EE19-4881-BDD8-38FA6FD6349B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.ZenDesk.Activities", "Zendesk\UiPath.ZenDesk.Activities\UiPath.ZenDesk.Activities.csproj", "{9F11D483-CBE3-49B4-B128-3A478925E3D0}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{9f11d483-cbe3-49b4-b128-3a478925e3d0}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B548CEB2-EE19-4881-BDD8-38FA6FD6349B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B548CEB2-EE19-4881-BDD8-38FA6FD6349B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B548CEB2-EE19-4881-BDD8-38FA6FD6349B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B548CEB2-EE19-4881-BDD8-38FA6FD6349B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F11D483-CBE3-49B4-B128-3A478925E3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F11D483-CBE3-49B4-B128-3A478925E3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F11D483-CBE3-49B4-B128-3A478925E3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F11D483-CBE3-49B4-B128-3A478925E3D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF971344-1D47-47BE-84B5-4A881AD304F0}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+
+ticket_custom_field_ids = { 360029300371L, 360029227452L, 360029300391L }
+user_custom_field_keys = { "agent_company", "agent_hire_date", "agent_team_name" }
+Ticket을 가져오고 
+  ticket.status != closed  &&  ticket.CustomFields[id=360029300391].value (Agent Team Name) == null 
+     UserFields를 가져오고 as user_fields
+     cur_user = User.GetUser(ticket.Assignee)
+     update_ticket_custom_fields = cur_ticket.CustomFields.Where( p => ticket_custom_field_ids.Contains(p.Id)) 
+     map_key_id = Dictionary( string, long) { "agent_company": 360029300371L, "agent_hire_date": 360029227452L, "agent_team_name":360029300391L }
+     user_custom_fields = cur_user.CustomFields.Where( p => user_custom_field_keys.Contains( p.Key))
+
+     foreach ( key in map_key_id) 
+         val = user_custom_fields.Where( p => p.Key == key).First().Value 
+         real_name = UserFields.CustomFiels.Where( p => p.Key == key).First().CustomFields.Where( q => q.Value == val).First().name 
+         update_ticket_custom_field = update_ticket_custom_fields.Where( p => p.Id == map_key_id[key]).First()
+         update_ticket_custom_field.Value = real_name
+
+     UpdatTicket( cur_ticket)
+         
+
