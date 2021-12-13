@@ -75,7 +75,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             Input.IsPrincipal = true;
             Input.OrderIndex = propertyOrderIndex++;
-            Input.Widget = new DefaultWidget { Type = ViewModelWidgetType.Browser };
 
             Key.IsPrincipal = true;
             Key.OrderIndex = propertyOrderIndex++;
