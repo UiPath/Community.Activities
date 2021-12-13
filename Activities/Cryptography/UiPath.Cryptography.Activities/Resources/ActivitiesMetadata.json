@@ -213,7 +213,7 @@
           "Name": "Result",
           "DisplayNameKey": "Activity_DecryptText_Property_Result_Name",
           "TooltipKey": "Activity_DecryptText_Property_Result_Description",
-          "IsRequired": true,
+          "IsRequired": false,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
@@ -453,7 +453,7 @@
           "Name": "Result",
           "DisplayNameKey": "Activity_EncryptText_Property_Result_Name",
           "TooltipKey": "Activity_EncryptText_Property_Result_Description",
-          "IsRequired": true,
+          "IsRequired": false,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
@@ -566,7 +566,7 @@
           "Name": "Result",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_Result_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_Result_Description",
-          "IsRequired": true,
+          "IsRequired": false,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
@@ -679,7 +679,7 @@
           "Name": "Result",
           "DisplayNameKey": "Activity_KeyedHashText_Property_Result_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_Result_Description",
-          "IsRequired": true,
+          "IsRequired": false,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
