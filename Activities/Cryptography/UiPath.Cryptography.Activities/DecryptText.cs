@@ -44,7 +44,6 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Result_Description))]

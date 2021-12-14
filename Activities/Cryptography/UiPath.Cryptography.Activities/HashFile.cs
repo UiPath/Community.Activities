@@ -25,7 +25,6 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_FilePath_Description))]
         public InArgument<string> FilePath { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_Result_Description))]
