@@ -12,8 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="UiPath.Robot.Api" Version="21.6.0-beta.4360" PrivateAssets="All" />
-	  <PackageReference Update="UiPath.Activities.Api" Version="21.6.0-beta.4360" PrivateAssets="All" />
-    <PackageReference Update="UiPath.Activities.Contracts" Version="21.6.0-beta.4360" PrivateAssets="All" />
+	<PackageReference Update="UiPath.Activities.Api" Version="21.12.0-alpha.6604" PrivateAssets="All" />
+    <PackageReference Update="UiPath.Activities.Contracts" Version="21.12.0-alpha.6604" PrivateAssets="All" />
     <PackageReference Update="UiPath.Telemetry.Client" Version="1.3.18" PrivateAssets="All" />
   </ItemGroup>
   <PropertyGroup>

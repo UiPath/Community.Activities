@@ -70,7 +70,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bulk Insert.
+        ///   Looks up a localized string similar to Bulk insert.
         /// </summary>
         public static string Activity_BulkInsert_Name {
             get {
@@ -88,7 +88,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected Rows.
+        ///   Looks up a localized string similar to Affected records.
         /// </summary>
         public static string Activity_BulkInsert_Property_AffectedRecords_Name {
             get {
@@ -106,7 +106,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Connection String.
+        ///   Looks up a localized string similar to Secure connection string.
         /// </summary>
         public static string Activity_BulkInsert_Property_ConnectionSecureString_Name {
             get {
@@ -124,7 +124,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection String.
+        ///   Looks up a localized string similar to Connection string.
         /// </summary>
         public static string Activity_BulkInsert_Property_ConnectionString_Name {
             get {
@@ -142,7 +142,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_BulkInsert_Property_ContinueOnError_Name {
             get {
@@ -160,7 +160,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Table.
+        ///   Looks up a localized string similar to Data table.
         /// </summary>
         public static string Activity_BulkInsert_Property_DataTable_Name {
             get {
@@ -178,7 +178,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Existing Connection.
+        ///   Looks up a localized string similar to Existing connection.
         /// </summary>
         public static string Activity_BulkInsert_Property_ExistingDbConnection_Name {
             get {
@@ -196,7 +196,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provider Name.
+        ///   Looks up a localized string similar to Provider name.
         /// </summary>
         public static string Activity_BulkInsert_Property_ProviderName_Name {
             get {
@@ -214,7 +214,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table Name.
+        ///   Looks up a localized string similar to Table name.
         /// </summary>
         public static string Activity_BulkInsert_Property_TableName_Name {
             get {
@@ -232,7 +232,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bulk Update.
+        ///   Looks up a localized string similar to Bulk update.
         /// </summary>
         public static string Activity_BulkUpdate_Name {
             get {
@@ -250,7 +250,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected Rows.
+        ///   Looks up a localized string similar to Affected rows.
         /// </summary>
         public static string Activity_BulkUpdate_Property_AffectedRecords_Name {
             get {
@@ -268,7 +268,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bulk/Batch Update.
+        ///   Looks up a localized string similar to Bulk/batch update.
         /// </summary>
         public static string Activity_BulkUpdate_Property_BulkUpdateFlag_Name {
             get {
@@ -286,7 +286,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Column Names.
+        ///   Looks up a localized string similar to Columns used for matching rows.
         /// </summary>
         public static string Activity_BulkUpdate_Property_ColumnNames_Name {
             get {
@@ -304,7 +304,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Connection String.
+        ///   Looks up a localized string similar to Secure connection string.
         /// </summary>
         public static string Activity_BulkUpdate_Property_ConnectionSecureString_Name {
             get {
@@ -322,7 +322,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection String.
+        ///   Looks up a localized string similar to Connection string.
         /// </summary>
         public static string Activity_BulkUpdate_Property_ConnectionString_Name {
             get {
@@ -340,7 +340,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_BulkUpdate_Property_ContinueOnError_Name {
             get {
@@ -358,7 +358,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Table.
+        ///   Looks up a localized string similar to Data table.
         /// </summary>
         public static string Activity_BulkUpdate_Property_DataTable_Name {
             get {
@@ -376,7 +376,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Existing Connection.
+        ///   Looks up a localized string similar to Existing connection.
         /// </summary>
         public static string Activity_BulkUpdate_Property_ExistingDbConnection_Name {
             get {
@@ -394,7 +394,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provider Name.
+        ///   Looks up a localized string similar to Provider name.
         /// </summary>
         public static string Activity_BulkUpdate_Property_ProviderName_Name {
             get {
@@ -412,7 +412,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table Name.
+        ///   Looks up a localized string similar to Table name.
         /// </summary>
         public static string Activity_BulkUpdate_Property_TableName_Name {
             get {
@@ -430,7 +430,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect.
+        ///   Looks up a localized string similar to Connect to database.
         /// </summary>
         public static string Activity_DatabaseConnect_Name {
             get {
@@ -448,7 +448,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Connection String.
+        ///   Looks up a localized string similar to Secure connection string.
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ConnectionSecureString_Name {
             get {
@@ -466,7 +466,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection String.
+        ///   Looks up a localized string similar to Connection string.
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ConnectionString_Name {
             get {
@@ -484,7 +484,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database Connection.
+        ///   Looks up a localized string similar to Database connection.
         /// </summary>
         public static string Activity_DatabaseConnect_Property_DatabaseConnection_Name {
             get {
@@ -502,7 +502,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provider Name.
+        ///   Looks up a localized string similar to Provider name.
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ProviderName_Name {
             get {
@@ -520,7 +520,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disconnect.
+        ///   Looks up a localized string similar to Disconnect from database.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Name {
             get {
@@ -538,7 +538,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database Connection.
+        ///   Looks up a localized string similar to Database connection.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Name {
             get {
@@ -575,7 +575,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Connection String.
+        ///   Looks up a localized string similar to Secure connection string.
         /// </summary>
         public static string Activity_DatabaseTransaction_Property_ConnectionSecureString_Name {
             get {
@@ -593,7 +593,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection String.
+        ///   Looks up a localized string similar to Connection string.
         /// </summary>
         public static string Activity_DatabaseTransaction_Property_ConnectionString_Name {
             get {
@@ -611,7 +611,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_DatabaseTransaction_Property_ContinueOnError_Name {
             get {
@@ -629,7 +629,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database Connection.
+        ///   Looks up a localized string similar to Database connection.
         /// </summary>
         public static string Activity_DatabaseTransaction_Property_DatabaseConnection_Name {
             get {
@@ -647,7 +647,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exiting Connection.
+        ///   Looks up a localized string similar to Exiting connection.
         /// </summary>
         public static string Activity_DatabaseTransaction_Property_ExistingDbConnection_Name {
             get {
@@ -665,7 +665,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provider Name.
+        ///   Looks up a localized string similar to Provider name.
         /// </summary>
         public static string Activity_DatabaseTransaction_Property_ProviderName_Name {
             get {
@@ -683,7 +683,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Transaction.
+        ///   Looks up a localized string similar to Use transaction.
         /// </summary>
         public static string Activity_DatabaseTransaction_Property_UseTransaction_Name {
             get {
@@ -701,7 +701,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute Non Query.
+        ///   Looks up a localized string similar to Run command.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Name {
             get {
@@ -719,7 +719,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected Records.
+        ///   Looks up a localized string similar to Affected records.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_AffectedRecords_Name {
             get {
@@ -740,7 +740,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Command Type.
+        ///   Looks up a localized string similar to Command type.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_CommandType_Name {
             get {
@@ -758,7 +758,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Connection String.
+        ///   Looks up a localized string similar to Secure connection string.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name {
             get {
@@ -776,7 +776,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection String.
+        ///   Looks up a localized string similar to Connection string.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_ConnectionString_Name {
             get {
@@ -794,7 +794,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_ContinueOnError_Name {
             get {
@@ -812,7 +812,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Existing Connection.
+        ///   Looks up a localized string similar to Existing connection.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name {
             get {
@@ -848,7 +848,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provider Name.
+        ///   Looks up a localized string similar to Provider name.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_ProviderName_Name {
             get {
@@ -866,7 +866,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sql.
+        ///   Looks up a localized string similar to SQL command.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_Sql_Name {
             get {
@@ -902,7 +902,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute Query.
+        ///   Looks up a localized string similar to Run query.
         /// </summary>
         public static string Activity_ExecuteQuery_Name {
             get {
@@ -923,7 +923,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Command Type.
+        ///   Looks up a localized string similar to Command type.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_CommandType_Name {
             get {
@@ -941,7 +941,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Connection String.
+        ///   Looks up a localized string similar to Secure connection string.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_ConnectionSecureString_Name {
             get {
@@ -959,7 +959,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection String.
+        ///   Looks up a localized string similar to Connection string.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_ConnectionString_Name {
             get {
@@ -977,7 +977,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_ContinueOnError_Name {
             get {
@@ -995,7 +995,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Table.
+        ///   Looks up a localized string similar to Data table.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_DataTable_Name {
             get {
@@ -1013,7 +1013,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Existing Connection.
+        ///   Looks up a localized string similar to Existing connection.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_ExistingDbConnection_Name {
             get {
@@ -1067,7 +1067,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sql.
+        ///   Looks up a localized string similar to SQL query.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_Sql_Name {
             get {
@@ -1121,7 +1121,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected Records.
+        ///   Looks up a localized string similar to Affected records.
         /// </summary>
         public static string Activity_InsertDataTable_Property_AffectedRecords_Name {
             get {
@@ -1139,7 +1139,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Connection String.
+        ///   Looks up a localized string similar to Secure connection string.
         /// </summary>
         public static string Activity_InsertDataTable_Property_ConnectionSecureString_Name {
             get {
@@ -1157,7 +1157,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection String.
+        ///   Looks up a localized string similar to Connection string.
         /// </summary>
         public static string Activity_InsertDataTable_Property_ConnectionString_Name {
             get {
@@ -1175,7 +1175,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_InsertDataTable_Property_ContinueOnError_Name {
             get {
@@ -1193,7 +1193,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Table.
+        ///   Looks up a localized string similar to Data table.
         /// </summary>
         public static string Activity_InsertDataTable_Property_DataTable_Name {
             get {
@@ -1211,7 +1211,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Existing Connection.
+        ///   Looks up a localized string similar to Existing connection.
         /// </summary>
         public static string Activity_InsertDataTable_Property_ExistingDbConnection_Name {
             get {
@@ -1229,7 +1229,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provider Name.
+        ///   Looks up a localized string similar to Provider name.
         /// </summary>
         public static string Activity_InsertDataTable_Property_ProviderName_Name {
             get {
@@ -1247,7 +1247,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table Name.
+        ///   Looks up a localized string similar to Table name.
         /// </summary>
         public static string Activity_InsertDataTable_Property_TableName_Name {
             get {

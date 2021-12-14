@@ -286,4 +286,16 @@
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
     <value>The connection string used to establish a database connection as Secure String</value>
   </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Execute Non Query</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Execute Query</value>
+  </data>
 </root>

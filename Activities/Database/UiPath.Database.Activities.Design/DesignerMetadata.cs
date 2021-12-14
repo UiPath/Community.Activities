@@ -7,11 +7,33 @@ using System.Reflection;
 using System.Windows.Markup;
 using UiPath.Activities.Presentation.Editors;
 using UiPath.Database.Activities.Design.Properties;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Database.Activities.Design
 {
     public class DesignerMetadata : IRegisterMetadata
     {
+        private IWorkflowDesignApi _wfDesignApi;
+
+        private void InitializeInternal(object api)
+        {
+            if (api is IWorkflowDesignApi wfDesignApi)
+            {
+                _wfDesignApi = wfDesignApi;
+
+                new ActivitySynonymApiRegistration().Initialize(wfDesignApi);
+            }
+        }
+
+        public void Initialize(object api)
+        {
+            if (api == null)
+            {
+                return;
+            }
+            InitializeInternal(api);
+        }
+
         public void Register()
         {
             var builder = new AttributeTableBuilder();
