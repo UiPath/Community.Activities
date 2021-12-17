@@ -61,6 +61,42 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        public static string ActivitySynonymDatabaseConnect {
+            get {
+                return ResourceManager.GetString("ActivitySynonymDatabaseConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnect.
+        /// </summary>
+        public static string ActivitySynonymDatabaseDisconnect {
+            get {
+                return ResourceManager.GetString("ActivitySynonymDatabaseDisconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Non Query.
+        /// </summary>
+        public static string ActivitySynonymExecuteNonQuery {
+            get {
+                return ResourceManager.GetString("ActivitySynonymExecuteNonQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Query.
+        /// </summary>
+        public static string ActivitySynonymExecuteQuery {
+            get {
+                return ResourceManager.GetString("ActivitySynonymExecuteQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The result of the execution of the sql command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1..
         /// </summary>
         public static string AffectedRecordsDescription {
