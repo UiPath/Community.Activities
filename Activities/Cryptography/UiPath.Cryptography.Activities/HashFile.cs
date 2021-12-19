@@ -8,36 +8,40 @@ using UiPath.Cryptography.Activities.Properties;
 
 namespace UiPath.Cryptography.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.HashFileDisplayName))]
-    [LocalizedDescription(nameof(Resources.HashFileDescription))]
+#if NET461
+    [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_HashFile_Description))]
     public class HashFile : CodeActivity<string>
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.AlgorithmDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashAlgorithmDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_Algorithm_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_Algorithm_Description))]
         public HashAlgorithms Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.FilePathDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashFilePathDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_FilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_FilePath_Description))]
         public InArgument<string> FilePath { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.ResultDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashFileResultDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_Result_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_Result_Description))]
         public new OutArgument<string> Result { get => base.Result; set => base.Result = value; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_ContinueOnError_Description))] 
         public InArgument<bool> ContinueOnError { get; set; }
 
         public HashFile()
         {
+
             Algorithm = HashAlgorithms.SHA256;
+
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -85,4 +89,5 @@ namespace UiPath.Cryptography.Activities
             return result;
         }
     }
+#endif
 }

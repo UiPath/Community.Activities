@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace UiPath.Java.Service
 
             catch (Exception e)
             {
-                Trace.TraceError($"Java process has stopped: {e.ToString()}");
+                Trace.TraceError($"Java process has stopped: {e}");
                 throw;
             }
         }
@@ -82,9 +83,17 @@ namespace UiPath.Java.Service
             {
                 _serverPipe = new NamedPipeServerStream(_pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte,
                                                         PipeOptions.Asynchronous);
-
-                await Task.Factory.FromAsync((cb, state) => _serverPipe.BeginWaitForConnection(cb, state),
-                                   ar => _serverPipe.EndWaitForConnection(ar), TaskCreationOptions.DenyChildAttach);
+                try
+                {
+                    await Task.Factory.FromAsync((cb, state) => _serverPipe.BeginWaitForConnection(cb, state),
+                                       ar => _serverPipe.EndWaitForConnection(ar), TaskCreationOptions.DenyChildAttach);
+                }
+                catch (Exception)
+                {
+                    if (ct.IsCancellationRequested)
+                        throw new NullReferenceException(UiPath.Java.Properties.Resources.JavaTimeoutException);
+                    throw;
+                }
             }
         }
 
@@ -107,7 +116,13 @@ namespace UiPath.Java.Service
                 }
 
                 ct.ThrowIfCancellationRequested();
-                _serverPipe.WaitForPipeDrain();
+                bool isWindows = true;
+#if NETCOREAPP
+                if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    isWindows = false;
+#endif
+                if(isWindows)
+                    _serverPipe.WaitForPipeDrain();
 
                 using (var streamReader = new StreamReader(_serverPipe, _utf8Encoding, false, _defaultBufferSize,
                                                            leaveOpen: true))
@@ -124,7 +139,7 @@ namespace UiPath.Java.Service
         private void OnCancellationRequested()
         {
             OnPipeDisposed();
-            OnProcessDisposed();
+            OnProcessDisposed();         
         }
 
         public void Dispose()

@@ -57,7 +57,7 @@ namespace UiPath.Java.Service
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Deserialization error: {e.ToString()}");
+                Trace.TraceError($"Deserialization error: {e}");
                 throw new InvalidOperationException(Resources.DeserializationException, e);
             }
         }

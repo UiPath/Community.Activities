@@ -117,13 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_PythonScope_Property_Auto_Description" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="DeserializationException" xml:space="preserve">
+    <value>Python deserialization exception</value>
+  </data>
   <data name="DetectVersionException" xml:space="preserve">
     <value>Could not detect Python version</value>
+  </data>
+  <data name="InstantiationException" xml:space="preserve">
+    <value>Python instantiation exception</value>
   </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Python exe was not found</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
     <value>Python runtime type/method/property not found: {0}</value>
+  </data>
+  <data name="SerializationException" xml:space="preserve">
+    <value>Python serialization exception</value>
+  </data>
+  <data name="TimeoutException" xml:space="preserve">
+    <value>Python timeout elapsed</value>
+  </data>
+  <data name="UnsupportedVersionException" xml:space="preserve">
+    <value>Python version {0} is not supported. Supported versions are: {1}</value>
   </data>
 </root>

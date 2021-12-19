@@ -19,24 +19,24 @@ namespace UiPath.Python.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UiPath_Python {
+    public class UiPath_Python {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UiPath_Python() {
+        public UiPath_Python() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UiPath.Python.Properties.UiPath.Python", typeof(UiPath_Python).Assembly);
@@ -51,7 +51,7 @@ namespace UiPath.Python.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,18 +61,45 @@ namespace UiPath.Python.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto.
+        /// </summary>
+        public static string Activity_PythonScope_Property_Auto_Description {
+            get {
+                return ResourceManager.GetString("Activity_PythonScope_Property_Auto_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python deserialization exception.
+        /// </summary>
+        public static string DeserializationException {
+            get {
+                return ResourceManager.GetString("DeserializationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not detect Python version.
         /// </summary>
-        internal static string DetectVersionException {
+        public static string DetectVersionException {
             get {
                 return ResourceManager.GetString("DetectVersionException", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python instantiation exception.
+        /// </summary>
+        public static string InstantiationException {
+            get {
+                return ResourceManager.GetString("InstantiationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Python exe was not found.
         /// </summary>
-        internal static string PythonExeNotFoundException {
+        public static string PythonExeNotFoundException {
             get {
                 return ResourceManager.GetString("PythonExeNotFoundException", resourceCulture);
             }
@@ -81,9 +108,36 @@ namespace UiPath.Python.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Python runtime type/method/property not found: {0}.
         /// </summary>
-        internal static string PythonRuntimeTypeException {
+        public static string PythonRuntimeTypeException {
             get {
                 return ResourceManager.GetString("PythonRuntimeTypeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python serialization exception.
+        /// </summary>
+        public static string SerializationException {
+            get {
+                return ResourceManager.GetString("SerializationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python timeout elapsed.
+        /// </summary>
+        public static string TimeoutException {
+            get {
+                return ResourceManager.GetString("TimeoutException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python version {0} is not supported. Supported versions are: {1}.
+        /// </summary>
+        public static string UnsupportedVersionException {
+            get {
+                return ResourceManager.GetString("UnsupportedVersionException", resourceCulture);
             }
         }
     }

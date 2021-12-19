@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Service;
@@ -17,13 +18,15 @@ namespace UiPath.Java
 
         private const string _javaProgram = "InvokeJava.jar";
 
+        private const string _javaProgramLinux = "InvokeJavaLinux.jar";
+
         private const string _defaultJava = "java";
 
         private const string _pipePrefix = "dotnet_java_pipe_";
 
         private static readonly string _defaultJavaInvokerPath = GetPathToJavaProgram();
 
-        private const int _timeout = 15000;
+        private int _timeout = 15000;
 
         #endregion
 
@@ -50,10 +53,12 @@ namespace UiPath.Java
 
         #region Start/Stop Java Service
 
-        public async Task StartJavaService()
+        public async Task StartJavaService(int timeout)
         {
             try
             {
+                if(timeout>0)
+                    _timeout = timeout;
                 using (var cts = new CancellationTokenSource(_timeout))
                 {
                     var startServiceTask = _javaService.StartServiceAsync(cts.Token);
@@ -63,7 +68,7 @@ namespace UiPath.Java
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Java listner could not be started: {e.ToString()}");
+                Trace.TraceError($"Java listner could not be started: {e}");
                 throw;
             }
         }
@@ -85,7 +90,7 @@ namespace UiPath.Java
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error stopping Java process: {e.ToString()}");
+                Trace.TraceError($"Error stopping Java process: {e}");
             }
             _javaService?.Dispose();
             GC.SuppressFinalize(this);
@@ -151,7 +156,7 @@ namespace UiPath.Java
                 FieldName = fieldName,
                 Instance = javaObject?.Instance,
             };
-            request.AddParametersToRequest(parameters);
+            request.AddParametersToRequest(parameters, parametersTypes);
 
             JavaResponse response = await _javaService.RequestAsync(request, ct);
 
@@ -170,10 +175,15 @@ namespace UiPath.Java
         {
             var assemblyPath = Assembly.GetAssembly(typeof(JavaInvoker)).Location;
             var parentDir = Directory.GetParent(assemblyPath).Parent.FullName;
-            return Path.Combine(parentDir, _javaFolder, _javaProgram);
+            var jarFile = _javaProgram;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                jarFile = _javaProgramLinux;
+#endif
+            return Path.Combine(parentDir, _javaFolder, jarFile);
         }
 
-        #endregion
+#endregion
 
     }
 }

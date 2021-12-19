@@ -1,27 +1,37 @@
 ﻿using CredentialManagement;
 using System.Activities;
 using System.ComponentModel;
+using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
 {
-    [Category("System.Credentials")]
     [Browsable(false)]
     public class GetCredential : CodeActivity<bool>
     {
         [RequiredArgument]
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.TargetDisplayName))]
+        [LocalizedDescription(nameof(Resources.TargetDescription))]
         public InArgument<string> Target { get; set; }
 
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_GetCredential_Property_CredentialType_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_GetCredential_Property_CredentialType_Description))]
         public CredentialType CredentialType { get; set; }
 
-        [Category("Input")]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.PersistanceTypeDisplayName))]
+        [LocalizedDescription(nameof(Resources.PersistanceTypeDescription))]
         public PersistanceType PersistanceType { get; set; }
 
-        [Category("Output")]
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.UsernameDisplayName))]
+        [LocalizedDescription(nameof(Resources.UsernameDescription))]
         public OutArgument<string> Username { get; set; }
 
-        [Category("Output")]
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.PasswordDisplayName))]
+        [LocalizedDescription(nameof(Resources.PasswordDescription))]
         public OutArgument<string> Password { get; set; }
 
         public GetCredential()

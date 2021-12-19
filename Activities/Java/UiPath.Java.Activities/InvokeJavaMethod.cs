@@ -51,16 +51,16 @@ namespace UiPath.Java.Activities
             }
 
             List<object> parameters = GetParameters(context);
+            var types = GetParameterTypes(context, parameters);
             JavaObject instance = null;
 
             try
             {
-                instance = await invoker.InvokeMethod(methodName, className, javaObject, parameters,
-                                                      parameters.Select(param => param?.GetType()).ToList(), cancellationToken);
+                instance = await invoker.InvokeMethod(methodName, className, javaObject, parameters, types, cancellationToken);
             }
             catch (Exception e)
             {
-                Trace.TraceError($"The method could not be invoked: {e.ToString()}");
+                Trace.TraceError($"The method could not be invoked: {e}");
                 throw new InvalidOperationException(Resources.InvokeMethodException, e);
             }
 

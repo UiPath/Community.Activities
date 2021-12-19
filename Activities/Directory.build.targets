@@ -1,0 +1,22 @@
+<Project>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net5'))"> 
+    <PackageReference Update="System.Activities" Version="1.0.0-20201117-04" />
+    <PackageReference Update="UiPath.Workflow" Version="1.0.0-20201117-04" />
+    <PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha004" />
+    <PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20211101.1"/>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'"> 
+    <PackageReference Update="System.Activities" Version="1.0.0-20201105-02" />
+    <PackageReference Update="UiPath.Workflow" Version="1.0.0-20201105-02" />
+    <PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="UiPath.Robot.Api" Version="21.6.0-beta.4360" PrivateAssets="All" />
+	  <PackageReference Update="UiPath.Activities.Api" Version="21.6.0-beta.4360" PrivateAssets="All" />
+    <PackageReference Update="UiPath.Activities.Contracts" Version="21.6.0-beta.4360" PrivateAssets="All" />
+    <PackageReference Update="UiPath.Telemetry.Client" Version="1.3.18" PrivateAssets="All" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFramework)' == 'net5.0'">$(DefineConstants);NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+</Project>

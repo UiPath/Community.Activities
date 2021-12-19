@@ -14,5 +14,8 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.uipath.com/workflow/activities/ftp", "UiPath.FTP.Activities")]
 [assembly: XmlnsDefinition("http://schemas.uipath.com/workflow/activities/ftp", "UiPath.FTP.Activities.Design")]
 
-[assembly: AssemblyVersion("2.1.1")]
-
+#if DEBUG
+[assembly: AssemblyVersion("2.2.*")]
+#else
+[assembly: AssemblyVersion("2.2.0")]
+#endif

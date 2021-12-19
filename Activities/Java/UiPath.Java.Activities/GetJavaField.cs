@@ -54,7 +54,7 @@ namespace UiPath.Java.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Could not get java field: {e.ToString()}");
+                Trace.TraceError($"Could not get java field: {e}");
                 throw new InvalidOperationException(Resources.GetFieldException, e);
             }
 

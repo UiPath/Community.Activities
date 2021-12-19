@@ -15,11 +15,11 @@ namespace UiPath.Python.Activities
     [LocalizedDescription(nameof(Resources.PythonScopeDescription))]
     public class PythonScope : AsyncTaskNativeActivity
     {
-
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.VersionNameDisplayName))]
         [LocalizedDescription(nameof(Resources.VersionDescription))]
+        [TypeConverter(typeof(EnumTypeConverter))]
         [DefaultValue(Version.Auto)]
         public Version Version { get; set; }
 
@@ -28,6 +28,12 @@ namespace UiPath.Python.Activities
         [LocalizedDescription(nameof(Resources.PathDescription))]
         [DefaultValue(null)]
         public InArgument<string> Path { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.LibraryPathNameDisplayName))]
+        [LocalizedDescription(nameof(Resources.LibraryPathDescription))]
+        [DefaultValue(null)]
+        public InArgument<string> LibraryPath { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.TargetPlatformDisplayName))]
@@ -41,11 +47,17 @@ namespace UiPath.Python.Activities
         [DefaultValue(null)]
         public InArgument<string> WorkingFolder { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.OperationTimeout))]
+        [LocalizedDescription(nameof(Resources.OperationTimeoutDescription))]
+        [DefaultValue(3600)]
+        public InArgument<double> OperationTimeout { get; set; }
 
         [Browsable(false)]
         public ActivityAction<object> Body { get; set; }
 
         #region TODO: decide if these will be exposed
+
         [Browsable(false)]
         [LocalizedCategory(nameof(Resources.Input))]
         [DefaultValue(false)]
@@ -55,12 +67,13 @@ namespace UiPath.Python.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [DefaultValue(true)]
         public bool Isolated { get; set; } = true;
-        #endregion
+
+        #endregion TODO: decide if these will be exposed
 
         private const string PythonEngineSessionProperty = "PythonEngineSessionProperty";
         private IEngine _pythonEngine = null;
 
-        internal static IEngine GetPythonEngine(ActivityContext context)
+        internal static IEngine GetPythonEngine(System.Activities.ActivityContext context)
         {
             IEngine engine = context.DataContext.GetProperties()[PythonEngineSessionProperty]?.GetValue(context.DataContext) as IEngine;
             if (engine == null)
@@ -68,7 +81,6 @@ namespace UiPath.Python.Activities
                 throw new InvalidOperationException(Resources.PythonEngineNotFoundException);
             }
             return engine;
-
         }
 
         public PythonScope()
@@ -87,6 +99,7 @@ namespace UiPath.Python.Activities
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
             string path = Path.Get(context);
+            string libraryPath = LibraryPath.Get(context);
             if (!path.IsNullOrEmpty() && !Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
@@ -94,7 +107,7 @@ namespace UiPath.Python.Activities
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            _pythonEngine = EngineProvider.Get(Version, path, !Isolated, TargetPlatform, ShowConsole);
+            _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
 
             var workingFolder = WorkingFolder.Get(context);
             if (!workingFolder.IsNullOrEmpty())
@@ -107,18 +120,36 @@ namespace UiPath.Python.Activities
                 workingFolder = dir.FullName; //we need to pass an absolute path to the python host
             }
 
+            var operationTimeout = OperationTimeout.Get(context);
+            if (operationTimeout == 0)
+            {
+                operationTimeout = 3600; //default to 1h for no values provided.
+            }
+
             try
             {
-                await _pythonEngine.Initialize(workingFolder, cancellationToken);
+                await _pythonEngine.Initialize(workingFolder, cancellationToken, operationTimeout);
             }
             catch (Exception e)
             {
                 Trace.TraceError($"Error initializing Python engine: {e.ToString()}");
-                Cleanup();
+                try
+                {
+                    Cleanup();
+                }
+                catch (Exception) { }
+                if (Version != Version.Auto)
+                {
+                    Version autodetected = Version.Auto;
+                    EngineProvider.Autodetect(path, out autodetected);
+                    if (autodetected != Version.Auto && autodetected != Version)
+                        throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
+                }
                 throw new InvalidOperationException(Resources.PythonInitializeException, e);
             }
 
             cancellationToken.ThrowIfCancellationRequested();
+
             return ctx =>
             {
                 ctx.ScheduleAction(Body, _pythonEngine, OnCompleted, OnFaulted);

@@ -1,0 +1,38 @@
+<sap:ActivityDesigner x:Class="UiPath.ZenDesk.Activities.Design.Designers.ZendeskScopeDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sa="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+    xmlns:p="clr-namespace:UiPath.ZenDesk.Activities.Design.Properties"
+    xmlns:sharedres="clr-namespace:UiPath.Shared.Localization"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:converters="clr-namespace:UiPath.Shared.Activities.Design.Converters"
+    xmlns:uip="clr-namespace:UiPath.Shared.Activities.Design.Controls" >
+
+ 
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Themes\Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ActivityIconConverter x:Key="ActivityIconConverter" />
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+ 
+    <sap:ActivityDesigner.Icon>
+        <DrawingBrush Stretch="Uniform" Drawing="{Binding Path=ModelItem, Converter={StaticResource ActivityIconConverter}, ConverterParameter=pack://application:\,\,\,/UiPath.ZenDesk.Activities.Design;component/themes/icons.xaml}" />
+    </sap:ActivityDesigner.Icon>
+ 
+    <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
+        <DockPanel LastChildFill="True">
+            <sap:WorkflowItemPresenter x:Uid="sad:WorkflowItemPresenter_1"
+                                       AutomationProperties.AutomationId="Activity"
+                                       DockPanel.Dock="Bottom"
+                                       MinWidth="400"
+                                       Margin="0,10,0,0"
+                                       Item="{Binding Path=ModelItem.Body.Handler, Mode=TwoWay}"
+                                       AllowedItemType="{x:Type sa:Activity}"
+                                       HintText="{x:Static p:Resources.DropActivityHere}" />
+
+        </DockPanel>
+    </uip:ActivityDecoratorControl>
+</sap:ActivityDesigner>

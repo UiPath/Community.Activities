@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using UiPath.Python.Impl;
 using UiPath.Python.Properties;
+using System.Runtime.InteropServices;
 
 namespace UiPath.Python
 {
@@ -14,12 +15,14 @@ namespace UiPath.Python
     {
         private const string PythonHomeEnv = "PYTHONHOME";
         private const string PythonExe = "python.exe";
+        private const string PythonLinux = "python";
+        private const string PythonVersionArgument = "--version";
 
         // engines cache
         private static object _lock = new object();
         private static Dictionary<Version, IEngine> _cache = new Dictionary<Version, IEngine>();
 
-        public static IEngine Get(Version version, string path, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
+        public static IEngine Get(Version version, string path, string libraryPath, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
         {
             IEngine engine = null;
             lock (_lock)
@@ -30,7 +33,6 @@ namespace UiPath.Python
                     path = Environment.GetEnvironmentVariable(PythonHomeEnv);
                     Trace.TraceInformation($"Found Pyhton path {path}");
                 }
-
                 if (!version.IsValid())
                 {
                     Autodetect(path, out version);
@@ -45,30 +47,52 @@ namespace UiPath.Python
                 {
                     if (!_cache.TryGetValue(version, out engine))
                     {
-                        engine = new Engine(version, path);
+                        engine = new Engine(version, path, libraryPath);
                     }
                     _cache[version] = engine;
                 }
                 else
                 {
                     // TODO: do we need caching when running as service (out of process)?
-                    engine = new OutOfProcessEngine(version, path, target, visible);
+                    engine = new OutOfProcessEngine(version, path, libraryPath, target, visible);
                 }
             }
             return engine;
         }
 
-        private static void Autodetect(string path, out Version version)
+        public static void Autodetect(string path, out Version version)
         {
             Trace.TraceInformation($"Trying to autodetect Python version from path {path}");
-            string pyExe = Path.GetFullPath(Path.Combine(path, PythonExe));
+            var pythonExec = PythonExe;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                pythonExec = PythonLinux;
+#endif
+            string pyExe = Path.GetFullPath(Path.Combine(path, pythonExec));
             if (!File.Exists(pyExe))
             {
                 throw new FileNotFoundException(Resources.PythonExeNotFoundException, pyExe);
             }
-
-            version = FileVersionInfo.GetVersionInfo(pyExe).Get();
+            Process process = new Process();
+            process.StartInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                FileName = pyExe,
+                Arguments = PythonVersionArgument,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
+            };
+            process.Start();
+            // Now read the value, parse to int and add 1 (from the original script)
+            string ver = process.StandardError.ReadToEnd();
+            if(string.IsNullOrEmpty(ver))
+                ver = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            version = ver.GetVersionFromStr();
             Trace.TraceInformation($"Autodetected Python version {version}");
         }
+        
     }
 }

@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContinueOnError_Description" xml:space="preserve">
+    <value>If set, continue executing the remaining activities even if the current activity has failed.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ContinueOnError_DisplayName" xml:space="preserve">
+    <value>ContinueOnError</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Timeout_Description" xml:space="preserve">
+    <value>Specifies the amount of time (in milliseconds) to wait for the activity to run before an error is thrown. The default value is 60000 (1 minute).</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Timeout_DisplayName" xml:space="preserve">
+    <value>Timeout (milliseconds)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Timeout_Error" xml:space="preserve">
+    <value>The activity timed out and was canceled.</value>
+    <comment>error message</comment>
+  </data>
+  <data name="Do" xml:space="preserve">
+    <value>Do</value>
+    <comment>generic</comment>
+  </data>
+  <data name="Common_Category" xml:space="preserve">
+    <value>Common</value>
+    <comment>category</comment>
+  </data>
+  <data name="Authentication_Category" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>category</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ValidationScope_Error" xml:space="preserve">
+    <value>Cannot be used outside of a {0}.</value>
+    <comment>error message; {0} is a container activity (e.g. a scope)</comment>
+  </data>
+  <data name="ValidationValue_Error" xml:space="preserve">
+    <value>Please provide a value for {0}.</value>
+    <comment>error message; {0} is the name of a missing property</comment>
+  </data>
+  <data name="ValidationExclusiveProperties_Error" xml:space="preserve">
+    <value>Please provide a value either for {0} or {1}, but not both.</value>
+    <comment>error message; {0} &amp; {1} are mutually exclusive activities</comment>
+  </data>
+  <data name="ValidationOverloadGroup_Error" xml:space="preserve">
+    <value>Please provide values for both {0} and {1}.</value>
+    <comment>error message; {0} &amp; {1} are complementary properties</comment>
+  </data>
+  <data name="ZendeskScope_DisplayName" xml:space="preserve">
+    <value>ZendeskScope</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ZendeskScope_Description" xml:space="preserve">
+    <value>Zendesk scope container </value>
+    <comment>activity description</comment>
+  </data>
+  <data name="ZendeskScope_Subdomain_DisplayName" xml:space="preserve">
+    <value>Subdomain</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ZendeskScope_Subdomain_Description" xml:space="preserve">
+    <value>Subdomain for zendesk</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ZendeskScope_Email_DisplayName" xml:space="preserve">
+    <value>Email</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ZendeskScope_Email_Description" xml:space="preserve">
+    <value>Email addresss for authentication</value>
+    <comment>property description</comment>
+  </data>
+  <data name="ZendeskScope_APIToken_DisplayName" xml:space="preserve">
+    <value>APIToken</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ZendeskScope_APIToken_Description" xml:space="preserve">
+    <value>API Token for authentication</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GetTicket_DisplayName" xml:space="preserve">
+    <value>GetTicket</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetTicket_Description" xml:space="preserve">
+    <value>Get ticket detail</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="GetTicket_Id_DisplayName" xml:space="preserve">
+    <value>Id</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetTicket_Id_Description" xml:space="preserve">
+    <value>Tecket Id</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GetTicket_Data_DisplayName" xml:space="preserve">
+    <value>Ticket</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetTicket_Data_Description" xml:space="preserve">
+    <value>Single Ticket object </value>
+    <comment>property description</comment>
+  </data>
+  <data name="GetTicket_Status_DisplayName" xml:space="preserve">
+    <value>Status</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetTicket_Status_Description" xml:space="preserve">
+    <value>Status code for request</value>
+    <comment>property description</comment>
+  </data>
+  <data name="UpdateTicket_DisplayName" xml:space="preserve">
+    <value>UpdateTicket</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="UpdateTicket_Description" xml:space="preserve">
+    <value>Update ticket detail</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="UpdateTicket_Id_DisplayName" xml:space="preserve">
+    <value>Id</value>
+    <comment>property name</comment>
+  </data>
+  <data name="UpdateTicket_Id_Description" xml:space="preserve">
+    <value>Ticket id</value>
+    <comment>property description</comment>
+  </data>
+  <data name="UpdateTicket_Body_DisplayName" xml:space="preserve">
+    <value>Ticket </value>
+    <comment>property name</comment>
+  </data>
+  <data name="UpdateTicket_Body_Description" xml:space="preserve">
+    <value>Ticket will be update </value>
+    <comment>property description</comment>
+  </data>
+  <data name="UpdateTicket_Status_DisplayName" xml:space="preserve">
+    <value>Status</value>
+    <comment>property name</comment>
+  </data>
+  <data name="UpdateTicket_Status_Description" xml:space="preserve">
+    <value>Status code for request</value>
+    <comment>property description</comment>
+  </data>
+  <data name="UpdateTicket_Message_DisplayName" xml:space="preserve">
+    <value>Message</value>
+    <comment>property name</comment>
+  </data>
+  <data name="UpdateTicket_Message_Description" xml:space="preserve">
+    <value>Update result message</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GetUser_DisplayName" xml:space="preserve">
+    <value>GetUser</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetUser_Description" xml:space="preserve">
+    <value>Get user detail</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="GetUser_Id_DisplayName" xml:space="preserve">
+    <value>Id</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetUser_Id_Description" xml:space="preserve">
+    <value>User id</value>
+    <comment>property description</comment>
+  </data>
+  <data name="GetUser_User_DisplayName" xml:space="preserve">
+    <value>User</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetUser_User_Description" xml:space="preserve">
+    <value>User detail info </value>
+    <comment>property description</comment>
+  </data>
+  <data name="GetUserFields_DisplayName" xml:space="preserve">
+    <value>GetUserFields</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetUserFields_Description" xml:space="preserve">
+    <value>Get user fields data</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="GetUserFields_UserFields_DisplayName" xml:space="preserve">
+    <value>UserFields</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetUserFields_UserFields_Description" xml:space="preserve">
+    <value>All User Fields </value>
+    <comment>property description</comment>
+  </data>
+  <data name="Authentication_Category" xml:space="preserve">
+    <value>Authentication</value>
+    <comment>category</comment>
+  </data>
+  <data name="Common_Category" xml:space="preserve">
+    <value>Common</value>
+    <comment>category</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+  <data name="Options_Category" xml:space="preserve">
+    <value>Options</value>
+    <comment>category</comment>
+  </data>
+  <data name="ValidationScope_Error" xml:space="preserve">
+    <value>Cannot be used outside of a {0}.</value>
+    <comment>error message; {0} is a container activity (e.g. a scope)</comment>
+  </data>
+  <data name="ValidationValue_Error" xml:space="preserve">
+    <value>Please provide a value for {0}.</value>
+    <comment>error message; {0} is the name of a missing property</comment>
+  </data>
+  <data name="ValidationExclusiveProperties_Error" xml:space="preserve">
+    <value>Please provide a value either for {0} or {1}, but not both.</value>
+    <comment>error message; {0} &amp; {1} are mutually exclusive activities</comment>
+  </data>
+  <data name="ValidationOverloadGroup_Error" xml:space="preserve">
+    <value>Please provide values for both {0} and {1}.</value>
+    <comment>error message; {0} &amp; {1} are complementary properties</comment>
+  </data>
+  <data name="GetTicketFieldOption_DisplayName" xml:space="preserve">
+    <value>GetTicketFieldOption</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetTicketFieldOption_Description" xml:space="preserve">
+    <value>Get ticket field option with given name</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="GetTicketFieldOption_Id_DisplayName" xml:space="preserve">
+    <value>Id</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetTicketFieldOption_Id_Description" xml:space="preserve">
+    <value>custom field id from ticket</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="GetTicketFieldOption_Name_DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetTicketFieldOption_Name_Description" xml:space="preserve">
+    <value>matched name value</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Input_Category" xml:space="preserve">
+    <value>Input</value>
+    <comment>category</comment>
+  </data>
+  <data name="GetTicketFieldOption_TicketFieldOption_DisplayName" xml:space="preserve">
+    <value>TicketFieldOption</value>
+    <comment>property name</comment>
+  </data>
+  <data name="GetTicketFieldOption_TicketFieldOption_Description" xml:space="preserve">
+    <value>matched ticket filed option</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Output_Category" xml:space="preserve">
+    <value>Output</value>
+    <comment>category</comment>
+  </data>
+</root>

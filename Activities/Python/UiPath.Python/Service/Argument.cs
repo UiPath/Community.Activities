@@ -21,7 +21,7 @@ namespace UiPath.Python.Service
             _typeName = type.AssemblyQualifiedName;
 
             // wrap arrays into object[]
-            if(type.IsArray && !type.Equals(typeof(object[])))
+            if (type.IsArray && !type.Equals(typeof(object[])))
             {
                 Debug.Assert(obj is Array);
                 Debug.Assert(null != type.GetElementType());
@@ -48,9 +48,22 @@ namespace UiPath.Python.Service
 
                 Array array = _wrappedValue as Array;
                 var typedArray = Array.CreateInstance(type.GetElementType(), array.Length);
-                Array.Copy(array, typedArray, array.Length);
+
+                //fix for Json serialize issue (ex: byte[] -> int[])
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    typedArray.SetValue(Convert.ChangeType(array.GetValue(i), type.GetElementType()), i);
+                }
                 return typedArray;
             }
+
+            //fix for Json serialize issue (ex: byte -> int)
+            if (!type.IsArray && type != _wrappedValue.GetType())
+            {
+                _wrappedValue = Convert.ChangeType(_wrappedValue, type);
+            }
+
             return _wrappedValue;
         }
     }

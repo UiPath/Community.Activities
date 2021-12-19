@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net461;net5.0;net5.0-windows</TargetFrameworks>
+		<RootNamespace>UiPath.ZenDesk.Activities</RootNamespace>
+		<AssemblyName>UiPath.ZenDesk.Activities</AssemblyName>
+    <PackageId>UiPath.ZenDesk.Activities</PackageId>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DocumentationFile>bin\$(Configuration)\UiPath.ZenDesk.Activities.xml</DocumentationFile>
+    <Version>1.0.13</Version>
+    <Authors>Charles Kim</Authors>
+    <Company>UiPath Inc</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>zendesk.jpg</PackageIcon>
+    <PackageIconUrl />
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="System" />
+		<Reference Include="System.Core" />
+		<Reference Include="System.Xml.Linq" />
+		<Reference Include="System.Data.DataSetExtensions" />
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="System.Data" />
+		<Reference Include="System.Xml" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="System.Activities.ViewModels" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+    <PackageReference Include="System.Activities.Core.Presentation" />
+    <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="System.Activities.ViewModels" />
+    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.ZenDesk\UiPath.ZenDesk.csproj" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.*.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ZendeskApi_v2" Version="3.11.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="zendesk.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
+</Project>

@@ -19,10 +19,10 @@ namespace UiPath.Database.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UiPath_Database {
+    public class UiPath_Database {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace UiPath.Database.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UiPath.Database.Properties.UiPath.Database", typeof(UiPath_Database).Assembly);
@@ -51,7 +51,7 @@ namespace UiPath.Database.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,45 @@ namespace UiPath.Database.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided columns in the DataTable do not match the column data types in the database..
+        /// </summary>
+        public static string BulkInsert_ColumnsDataTypesMustMatch {
+            get {
+                return ResourceManager.GetString("BulkInsert_ColumnsDataTypesMustMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unmapped column {0} was not found in destination database table {1}.
+        /// </summary>
+        public static string BulkInsert_ColumnsNamesMustMatch {
+            get {
+                return ResourceManager.GetString("BulkInsert_ColumnsNamesMustMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The provided driver version does not support Bulk Insert operations. Please check the driver..
+        /// </summary>
+        public static string BulkInsert_DriverDoesNotSupportBulkInsert {
+            get {
+                return ResourceManager.GetString("BulkInsert_DriverDoesNotSupportBulkInsert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The provided number of columns in the DataTable must match the number of columns in the DB table..
+        /// </summary>
+        public static string BulkInsert_NumberOfColumnsMustMatch {
+            get {
+                return ResourceManager.GetString("BulkInsert_NumberOfColumnsMustMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection is not initialized.
         /// </summary>
-        internal static string ConnectionNotInitialized {
+        public static string ConnectionNotInitialized {
             get {
                 return ResourceManager.GetString("ConnectionNotInitialized", resourceCulture);
             }
@@ -72,7 +108,7 @@ namespace UiPath.Database.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The provided ParameterDirection argument does not have a coresponding ArgumentDirection value.
         /// </summary>
-        internal static string ParameterDirectionArgumentException {
+        public static string ParameterDirectionArgumentException {
             get {
                 return ResourceManager.GetString("ParameterDirectionArgumentException", resourceCulture);
             }
