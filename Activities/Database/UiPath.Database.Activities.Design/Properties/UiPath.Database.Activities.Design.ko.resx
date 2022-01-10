@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>명령 문자열이 해석되는 방법을 지정합니다.</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>연결</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>데이터베이스를 연결하기 위해 사용되는 연결 문자열</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>연결 끊기</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>데이터베이스에서 SQL 문을 실행합니다. UPDATE, INSERT 및 DELETE 문의 경우, 반환 값은 명령에 의해 영향을 받는 행의 수입니다. 기타 모든 문에서는 -1이 반환됩니다.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>이미 열린 데이터베이스 연결입니다. 이 속성이 연결 문자열로 설정되면 제공자 이름 속성이 무시됩니다.</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>기존 테이블에서 호환되는 DataTable을 삽입합니다. 영향을 받는 행의 수를 반환합니다.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>실행될 SQL 명령입니다.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Start Transaction</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>대상 데이터베이스 테이블</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>앱 통합</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>쿼리가 아닌 항목 실행</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>쿼리 실행</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(컬렉션)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError 부울</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>일괄 삽입</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -293,9 +268,6 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>행 일치에 사용되는 열 이름의 컬렉션</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>일괄 업데이트</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>기존 테이블에서 호환되는 DataTable을 업데이트합니다. 기본 키로 사용되는 열 이름의 컬렉션에 없는 모든 열을 업데이트합니다. 영향을 받는 행의 수를 반환합니다.</value>
   </data>
@@ -313,5 +285,17 @@
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
     <value>데이터베이스 연결을 보안 문자열로 설정하기 위해 사용되는 연결 문자열</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>연결</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>연결 끊기</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>쿼리가 아닌 항목 실행</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>쿼리 실행</value>
   </data>
 </root>

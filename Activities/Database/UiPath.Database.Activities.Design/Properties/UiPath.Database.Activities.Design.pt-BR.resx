@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Especifica como uma string de comando é interpretada</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Conectar</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>A string de conexão usada para estabelecer uma conexão de banco de dados</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Desconectar</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Executa uma instrução SQL em um banco de dados. Para instruções ATUALIZAR, INSERIR e EXCLUIR, o valor de retorno é o número de linhas afetadas pelo comando. Para todos os outros tipos de instruções, o valor de retorno é -1.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Uma conexão de banco de dados já aberta. Se esta propriedade estiver configurada, as propriedades Connection String e Provider Name serão ignoradas</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Insere uma DataTable compatível em uma Tabela existente. Retorna o número de linhas afetadas.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>Um comando sql a ser executado.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Start Transaction</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>A tabela de banco de dados de destino</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Integração do Aplicativo</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Executar não consulta</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Executar consulta</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Coleção)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Inserção em Massa</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -293,9 +268,6 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>O conjunto de nomes de colunas usados na correspondência de linhas</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Atualização em Massa</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Atualiza uma DataTable compatível em uma Tabela existente. Atualizará todas as colunas que não fazem parte do conjunto de nomes de coluna usado como chave primária. Retorna o número de linhas afetadas.</value>
   </data>
@@ -313,5 +285,17 @@
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
     <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Conectar</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Desconectar</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Executar não consulta</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Executar consulta</value>
   </data>
 </root>
