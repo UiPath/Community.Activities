@@ -290,4 +290,10 @@
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Время на выполнение сценария Python, прежде чем он завершится и возникнет исключение.</value>
   </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Путь к библиотеке Python libpython*.so, включая имя библиотеки</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>Путь к библиотеке (только Linux)</value>
+  </data>
 </root>

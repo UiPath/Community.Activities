@@ -222,4 +222,462 @@
   <data name="NewPath" xml:space="preserve">
     <value>新建远程路径</value>
   </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteDisplayName" xml:space="preserve">
+    <value>删除</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DirectoryExistsDescription" xml:space="preserve">
+    <value>目录存在</value>
+  </data>
+  <data name="DirectoryExistsDisplayName" xml:space="preserve">
+    <value>目录存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DownloadFilesDescription" xml:space="preserve">
+    <value>下载文件</value>
+  </data>
+  <data name="DownloadFilesDisplayName" xml:space="preserve">
+    <value>下载文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="EnumerateObjectsDescription" xml:space="preserve">
+    <value>枚举对象</value>
+  </data>
+  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
+    <value>枚举对象</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="FileExistsDescription" xml:space="preserve">
+    <value>文件存在</value>
+  </data>
+  <data name="FileExistsDisplayName" xml:space="preserve">
+    <value>文件存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="MoveItemDescription" xml:space="preserve">
+    <value>移动项目</value>
+  </data>
+  <data name="MoveItemDisplayName" xml:space="preserve">
+    <value>移动项目</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="UploadFilesDescription" xml:space="preserve">
+    <value>上传文件</value>
+  </data>
+  <data name="UploadFilesDisplayName" xml:space="preserve">
+    <value>上传文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="WithFtpSessionDescription" xml:space="preserve">
+    <value>启用 FTP 会话</value>
+  </data>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>启用 FTP 会话</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
+    <value>客户端证书密码</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>出错时继续</value>
+  </data>
+  <data name="FilesDescription" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="HostDescription" xml:space="preserve">
+    <value>主机</value>
+  </data>
+  <data name="LocalPathDescription" xml:space="preserve">
+    <value>本地路径</value>
+  </data>
+  <data name="NewPathDescription" xml:space="preserve">
+    <value>新路径</value>
+  </data>
+  <data name="PasswordDescription" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="PortDescription" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="RemotePathDescription" xml:space="preserve">
+    <value>远程路径</value>
+  </data>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>选中此复选框时，将忽略用户名和密码字段，并改用标准匿名用户。</value>
+  </data>
+  <data name="UsernameDescription" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="ValidationError_ValidateParentError" xml:space="preserve">
+    <value>活动仅在“{0}”内有效</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>常见</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
+    <value>FTP 会话作用域</value>
+  </data>
+  <data name="Activity_Delete_Description" xml:space="preserve">
+    <value>从 FTP 服务器中删除指定文件。仅当此活动置于“使用 FTP 会话”作用域活动中时才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_Delete_Name" xml:space="preserve">
+    <value>删除</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
+    <value>要从 FTP 服务器中删除的文件的路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
+    <value>远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Description" xml:space="preserve">
+    <value>检查 FTP 服务器上是否存在某个目录。仅当此活动置于“使用 FTP 会话”作用域活动中时才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Name" xml:space="preserve">
+    <value>目录存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
+    <value>此为“布尔值”变量，用于表明是否已找到指定目录。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_Exists_Name" xml:space="preserve">
+    <value>存在</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
+    <value>要在其中查看是否存在指定目录的 FTP 目录路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
+    <value>远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
+    <value>生成一个“数据表”变量，其中包含在指定 FTP 服务器路径查找到的文件列表。选中“包括子文件夹”复选框后，搜索结果中也会包含子文件夹。仅当此活动置于“使用 FTP 会话”作用域活动中时才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
+    <value>枚举对象</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
+    <value>已在 FTP 服务器上找到文件的集合。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
+    <value>文件</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
+    <value>如果选中此复选框，FTP 服务器上的文件枚举也将包含子文件夹。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
+    <value>包括子文件夹</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
+    <value>FTP 服务器上要对其文件进行枚举的目录的路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
+    <value>远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_FileExists_Description" xml:space="preserve">
+    <value>检查指定 FTP 目录中是否存在特定文件。仅当此活动置于“使用 FTP 会话”作用域活动中时才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_FileExists_Name" xml:space="preserve">
+    <value>文件存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
+    <value>此为“布尔值”变量，用于表明是否已找到指定文件。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_FileExists_Property_Exists_Name" xml:space="preserve">
+    <value>存在</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
+    <value>此为要在其中查看是否存在指定文件的 FTP 目录路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
+    <value>远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Description" xml:space="preserve">
+    <value>上传文件至 FTP 服务器。仅当此活动置于“使用 FTP 会话”作用域活动中时才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Name" xml:space="preserve">
+    <value>上传文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
+    <value>如果选中此复选框，则会在文件夹路径尚不存在的情况下在 FTP 服务器上加以创建。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
+    <value>创建</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
+    <value>要上传的文件的本地路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
+    <value>本地路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果选中此复选框，则 FTP 服务器上已存储的文件将被覆盖。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆盖</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
+    <value>如果选中此复选框，则系统将上传文件夹及其各自的子文件夹。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
+    <value>包括子文件夹</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
+    <value>此为要上传的文件在 FTP 服务器上的路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
+    <value>远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Description" xml:space="preserve">
+    <value>处理与 FTP 服务器的连接并为所有 FTP 活动提供作用域的容器。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Name" xml:space="preserve">
+    <value>启用 FTP 会话</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
+    <value>如果选中此复选框，则系统将接受所有证书，包括过期或未经验证的证书。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
+    <value>接受所有证书</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
+    <value>客户端证书的密码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
+    <value>客户端证书密码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
+    <value>用于对客户端进行身份验证的证书的路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
+    <value>客户端证书路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
+    <value>切换至 FTPS 协议。从两个可用的选项中选择一个: 显式或隐式。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
+    <value>FTPS 模式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
+    <value>要连接的 FTP 服务器的 URL。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Host_Name" xml:space="preserve">
+    <value>主机</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Password_Description" xml:space="preserve">
+    <value>用于连接 FTP 服务器的密码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Password_Name" xml:space="preserve">
+    <value>密码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Port_Description" xml:space="preserve">
+    <value>要连接的 FTP 服务器的端口。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Port_Name" xml:space="preserve">
+    <value>端口</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
+    <value>选择用于 FTPS 连接的 SSL 协议</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
+    <value>SSL 协议</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
+    <value>选中此复选框时，将忽略用户名和密码字段，并改用标准匿名用户。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
+    <value>使用匿名登录</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
+    <value>用于连接 FTP 服务器的用户名。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Username_Name" xml:space="preserve">
+    <value>用户名</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
+    <value>如果要使用 SFTP 传输协议，请选中此复选框。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
+    <value>使用 SFTP</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Description" xml:space="preserve">
+    <value>将来自 FTP 服务器的指定文件下载至指定的本地文件夹。仅当此活动置于“使用 FTP 会话”作用域活动中时才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Name" xml:space="preserve">
+    <value>下载文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
+    <value>如果选中此复选框，则系统会在文件夹路径尚不存在的情况下在本地加以创建。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
+    <value>创建</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
+    <value>要下载的文件的本地路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
+    <value>本地路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果选中此复选框，则系统会覆盖已存储在本地的文件。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆盖</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
+    <value>如果选中此复选框，则系统将下载文件夹及其各自的子文件夹。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
+    <value>包括子文件夹</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_RemotePath_Description" xml:space="preserve">
+    <value>FTP 服务器上待下载的文件的路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
+    <value>远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Description" xml:space="preserve">
+    <value>将 FTP 服务器上的项目移动到其他远程路径。This activity only works if it is placed inside a With FTP</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_MoveItem_Name" xml:space="preserve">
+    <value>移动项目</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
+    <value>此为要移动的文件在 FTP 服务器上的远程路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
+    <value>新建远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果选中此复选框，则新远程目录上已存储的文件将被覆盖。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆盖</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
+    <value>此为文件当前所在的 FTP 服务器上的远程路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
+    <value>远程路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Category_Credentials_Name" xml:space="preserve">
+    <value>凭据</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Misc_Name" xml:space="preserve">
+    <value>其他</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Others_Name" xml:space="preserve">
+    <value>其他</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Principal_Name" xml:space="preserve">
+    <value>主体</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Security_Name" xml:space="preserve">
+    <value>安全性</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Server_Name" xml:space="preserve">
+    <value>服务器</value>
+    <comment>Category name</comment>
+  </data>
 </root>
