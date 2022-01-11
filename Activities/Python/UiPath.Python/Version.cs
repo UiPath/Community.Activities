@@ -77,6 +77,10 @@ namespace UiPath.Python
         [Version(3, 9, "Python.Runtime.39.dll")]
         [Description("Python 3.9")]
         Python_39,
+
+        [Version(3, 10, "Python.Runtime.dll")]
+        [Description("Python >=3.10")]
+        Python_310,
     }
 
     /// <summary>
@@ -122,6 +126,8 @@ namespace UiPath.Python
         private static Version GetPythonVersion(int major, int minor)
         {
             Type t = typeof(Version);
+            if ((major == 3 && minor >= 10) || (major > 4))
+                return Version.Python_310;
             foreach (Version version in Enum.GetValues(t))
             {
                 FieldInfo fi = t.GetField(version.ToString());
