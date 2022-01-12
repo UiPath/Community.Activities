@@ -194,10 +194,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>Username</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>With Ftp Session</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>With Ftp Session</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP Scope</value>
   </data>
 </root>
