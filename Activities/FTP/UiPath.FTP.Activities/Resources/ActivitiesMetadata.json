@@ -446,10 +446,7 @@
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Server_Name"
-          },
+          "Category": null,
           "Widget": null,
           "IconKey": null
         },
@@ -460,10 +457,7 @@
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Server_Name"
-          },
+          "Category": null,
           "Widget": null,
           "IconKey": null
         },
@@ -472,12 +466,9 @@
           "DisplayNameKey": "Activity_WithFtpSession_Property_Username_Name",
           "TooltipKey": "Activity_WithFtpSession_Property_Username_Description",
           "IsRequired": false,
-          "IsPrincipal": false,
+          "IsPrincipal": true,
           "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Credentials_Name"
-          },
+          "Category": null,
           "Widget": null,
           "IconKey": null
         },
@@ -486,12 +477,9 @@
           "DisplayNameKey": "Activity_WithFtpSession_Property_Password_Name",
           "TooltipKey": "Activity_WithFtpSession_Property_Password_Description",
           "IsRequired": false,
-          "IsPrincipal": false,
+          "IsPrincipal": true,
           "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Credentials_Name"
-          },
+          "Category": null,
           "Widget": null,
           "IconKey": null
         },
@@ -502,10 +490,7 @@
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Credentials_Name"
-          },
+          "Category": null,
           "Widget": null,
           "IconKey": null
         },
@@ -600,10 +585,7 @@
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Misc_Name"
-          },
+          "Category": null,
           "Widget": null,
           "IconKey": null
         }

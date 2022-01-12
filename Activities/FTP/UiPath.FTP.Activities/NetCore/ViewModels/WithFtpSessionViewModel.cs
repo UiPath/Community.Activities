@@ -91,23 +91,35 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             base.InitializeModel();
             int propertyOrderIndex = 1;
 
+            Host.OrderIndex = propertyOrderIndex++;
+            Host.IsPrincipal = true;
+            Host.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+
             Username.OrderIndex = propertyOrderIndex++;
+            Username.IsPrincipal = true;
             Username.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             Password.OrderIndex = propertyOrderIndex++;
+            Password.IsPrincipal = true;
             Password.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+
+            Port.OrderIndex = propertyOrderIndex++;
+            Port.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             UseAnonymousLogin.OrderIndex = propertyOrderIndex++;
             UseAnonymousLogin.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
+            ContinueOnError.OrderIndex = propertyOrderIndex++;
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+
             AcceptAllCertificates.OrderIndex = propertyOrderIndex++;
             AcceptAllCertificates.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
-            ClientCertificatePassword.OrderIndex = propertyOrderIndex++;
-            ClientCertificatePassword.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
             ClientCertificatePath.OrderIndex = propertyOrderIndex++;
             ClientCertificatePath.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+
+            ClientCertificatePassword.OrderIndex = propertyOrderIndex++;
+            ClientCertificatePassword.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             FtpsMode.OrderIndex = propertyOrderIndex++;
             FtpsMode.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
@@ -118,15 +130,6 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             UseSftp.OrderIndex = propertyOrderIndex++;
             UseSftp.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
-            Host.IsPrincipal = false;
-            Host.OrderIndex = propertyOrderIndex++;
-            Host.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            Port.OrderIndex = propertyOrderIndex++;
-            Port.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
         }
 
         protected override async ValueTask InitializeModelAsync()

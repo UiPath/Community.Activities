@@ -19,7 +19,7 @@ namespace UiPath.FTP.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_FTP_Activities {
@@ -655,7 +655,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Client Certificate Path.
+        ///   Looks up a localized string similar to Client Certificate File.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ClientCertificatePath_Name {
             get {
@@ -700,7 +700,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ftps Mode.
+        ///   Looks up a localized string similar to FTPS Mode.
         /// </summary>
         public static string Activity_WithFtpSession_Property_FtpsMode_Name {
             get {
@@ -772,7 +772,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ssl Protocols.
+        ///   Looks up a localized string similar to SSL Protocols.
         /// </summary>
         public static string Activity_WithFtpSession_Property_SslProtocols_Name {
             get {
