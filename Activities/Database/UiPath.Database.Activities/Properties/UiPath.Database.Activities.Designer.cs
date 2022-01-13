@@ -19,7 +19,7 @@ namespace UiPath.Database.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_Database_Activities {
@@ -1486,6 +1486,15 @@ namespace UiPath.Database.Activities.Properties {
         public static string ValidationError_ConnectionMustNotBeNull {
             get {
                 return ResourceManager.GetString("ValidationError_ConnectionMustNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing connection is invalid. Please ensure the connection can be established..
+        /// </summary>
+        public static string ValidationError_ConnectionNotValid {
+            get {
+                return ResourceManager.GetString("ValidationError_ConnectionNotValid", resourceCulture);
             }
         }
         
