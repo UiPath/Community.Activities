@@ -61,11 +61,13 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             ProviderName.OrderIndex = propertyOrderIndex++;
             ProviderName.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
+            ConnectionSecureString.IsPrincipal = true;
+            ConnectionSecureString.OrderIndex = propertyOrderIndex++;
+            ConnectionSecureString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+
             DatabaseConnection.OrderIndex = propertyOrderIndex++;
             DatabaseConnection.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
-            ConnectionSecureString.OrderIndex = propertyOrderIndex++;
-            ConnectionSecureString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
         }
 
         protected override async ValueTask InitializeModelAsync()
