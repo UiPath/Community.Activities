@@ -655,7 +655,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Client Certificate Path.
+        ///   Looks up a localized string similar to Client Certificate File.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ClientCertificatePath_Name {
             get {
@@ -700,7 +700,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ftps Mode.
+        ///   Looks up a localized string similar to FTPS Mode.
         /// </summary>
         public static string Activity_WithFtpSession_Property_FtpsMode_Name {
             get {
@@ -772,7 +772,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ssl Protocols.
+        ///   Looks up a localized string similar to SSL Protocols.
         /// </summary>
         public static string Activity_WithFtpSession_Property_SslProtocols_Name {
             get {
