@@ -14,7 +14,7 @@ namespace UiPath.Database.Activities
         {
             if (existingConnection == null && connString == null && connSecureString == null && provName == null)
             {
-                throw new ArgumentNullException(Resources.ValidationError_ConnectionMustNotBeNull);
+                throw new ArgumentNullException(Resources.ValidationError_ConnectionNotValid);
             }
             if (existingConnection != null && (provName != null || connString != null || connSecureString != null))
             {
@@ -30,7 +30,7 @@ namespace UiPath.Database.Activities
                 {
                     throw new ArgumentException(Resources.ValidationError_ConnectionStringMustBeSet);
                 }
-                if (connString == null && existingConnection == null)
+                if (connString == null && connSecureString == null)
                 {
                     throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
                 }
