@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>UiPath.Cryptography.Activities</PackageId>
+    <PackageId>AdiV.Cryptography.Activities</PackageId>
     <PackageTitle>UiPath.Cryptography.Activities</PackageTitle>
     <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
     <PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-cryptography-activities-pack</PackageLicenseUrl>

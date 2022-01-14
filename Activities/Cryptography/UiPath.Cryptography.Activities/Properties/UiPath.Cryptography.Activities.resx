@@ -174,10 +174,10 @@
     <value>The key and the secure string must not be both null.</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
-    <value>Key SecureString</value>
+    <value>KeySecureString</value>
   </data>
   <data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>Key SecureString</value>
+    <value>Key Secure String</value>
   </data>
   <data name="Activity_DecryptFile_Description" xml:space="preserve">
     <value>Decrypts a file based on a specified key encoding and algorithm.</value>
