@@ -53,6 +53,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NetCore\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
