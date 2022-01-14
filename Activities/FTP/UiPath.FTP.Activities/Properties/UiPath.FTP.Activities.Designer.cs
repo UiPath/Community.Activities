@@ -19,7 +19,7 @@ namespace UiPath.FTP.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_FTP_Activities {
@@ -592,7 +592,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A container which handles the connection to the FTP server and provides a scope for all the FTP activities..
+        ///   Looks up a localized string similar to Connects to FTP server and provides a scope for other FTP activities..
         /// </summary>
         public static string Activity_WithFtpSession_Description {
             get {
@@ -601,7 +601,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to With Ftp Session.
+        ///   Looks up a localized string similar to FTP Scope.
         /// </summary>
         public static string Activity_WithFtpSession_Name {
             get {
