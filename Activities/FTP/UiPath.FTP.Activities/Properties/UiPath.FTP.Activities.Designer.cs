@@ -862,6 +862,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string Category_Output_Name {
+            get {
+                return ResourceManager.GetString("Category_Output_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Principal.
         /// </summary>
         public static string Category_Principal_Name {
