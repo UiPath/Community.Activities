@@ -93,15 +93,12 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
 
             Host.OrderIndex = propertyOrderIndex++;
             Host.IsPrincipal = true;
-            Host.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             Username.OrderIndex = propertyOrderIndex++;
             Username.IsPrincipal = true;
-            Username.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             Password.OrderIndex = propertyOrderIndex++;
             Password.IsPrincipal = true;
-            Password.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             Port.OrderIndex = propertyOrderIndex++;
             Port.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
@@ -116,10 +113,8 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             AcceptAllCertificates.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
             ClientCertificatePath.OrderIndex = propertyOrderIndex++;
-            ClientCertificatePath.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             ClientCertificatePassword.OrderIndex = propertyOrderIndex++;
-            ClientCertificatePassword.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             FtpsMode.OrderIndex = propertyOrderIndex++;
             FtpsMode.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
