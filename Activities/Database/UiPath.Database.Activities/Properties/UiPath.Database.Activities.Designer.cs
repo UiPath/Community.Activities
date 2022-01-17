@@ -1283,6 +1283,15 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string Category_Output {
+            get {
+                return ResourceManager.GetString("Category_Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Principal.
         /// </summary>
         public static string Category_Principal {

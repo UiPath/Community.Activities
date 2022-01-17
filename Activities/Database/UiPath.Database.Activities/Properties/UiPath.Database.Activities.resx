@@ -755,6 +755,10 @@ TableDirect - Invokes all records from a table.</value>
     <value>Principal</value>
     <comment>category name</comment>
   </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Output</value>
+    <comment>category name</comment>
+  </data>
   <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
     <value>Existing connection is invalid. Please ensure the connection can be established.</value>
   </data>
