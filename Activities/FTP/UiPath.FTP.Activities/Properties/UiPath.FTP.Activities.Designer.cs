@@ -268,7 +268,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generates a DataTable variable that contains a list comprising the files found at the specified FTP server path. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity..
+        ///   Looks up a localized string similar to Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity..
         /// </summary>
         public static string Activity_EnumerateObjects_Description {
             get {
