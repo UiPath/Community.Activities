@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Generates a DataTable variable that contains a list comprising the files found at the specified FTP server path. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity.</value>
+    <value>Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
