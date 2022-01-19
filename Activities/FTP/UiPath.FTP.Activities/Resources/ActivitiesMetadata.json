@@ -64,7 +64,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Category_Output_Name"
           },
           "Widget": null,
           "IconKey": null
@@ -206,7 +206,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Category_Output_Name"
           },
           "Widget": null,
           "IconKey": null
@@ -249,7 +249,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Category_Output_Name"
           },
           "Widget": null,
           "IconKey": null
