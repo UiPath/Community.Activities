@@ -755,4 +755,7 @@ TableDirect – ruft alle Datensätze aus einer Tabelle auf.</value>
     <value>Prinzipal</value>
     <comment>category name</comment>
   </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>Die vorhandene Verbindung ist ungültig. Stellen Sie sicher, dass die Verbindung hergestellt werden kann.</value>
+  </data>
 </root>

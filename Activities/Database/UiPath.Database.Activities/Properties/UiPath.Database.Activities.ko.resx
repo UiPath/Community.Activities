@@ -755,4 +755,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <value>사용자</value>
     <comment>category name</comment>
   </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>기존 연결이 유효하지 않습니다. 연결을 설정할 수 있는지 확인하십시오.</value>
+  </data>
 </root>

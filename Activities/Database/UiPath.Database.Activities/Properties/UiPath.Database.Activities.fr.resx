@@ -748,4 +748,7 @@
     <value>Principal</value>
     <comment>category name</comment>
   </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>La connexion existante n&apos;est pas valide. Veuillez vous assurer que la connexion peut être établie.</value>
+  </data>
 </root>

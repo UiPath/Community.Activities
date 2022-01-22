@@ -755,4 +755,7 @@ TableDirect - Invoca todos os registos de uma tabela.</value>
     <value>Principal</value>
     <comment>category name</comment>
   </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>A ligação existente é inválida. Certifique-se de que é possível estabelecer a ligação.</value>
+  </data>
 </root>

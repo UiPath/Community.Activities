@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>FTP サーバーへの接続を処理するコンテナーで、すべての FTP アクティビティのスコープを提供します。(With Ftp Session)</value>
+    <value>FTP サーバーに接続し、他の FTP アクティビティのためのスコープを設定します。(FTP Scope)</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>FTP セッションを使用</value>
+    <value>FTP スコープ</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>クライアント証明書のパス</value>
+    <value>クライアント証明書ファイル</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">

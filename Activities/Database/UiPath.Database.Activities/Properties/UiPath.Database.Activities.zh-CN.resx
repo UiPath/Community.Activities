@@ -755,4 +755,7 @@
     <value>主体</value>
     <comment>category name</comment>
   </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>现有连接无效。请确保可建立连接。</value>
+  </data>
 </root>
