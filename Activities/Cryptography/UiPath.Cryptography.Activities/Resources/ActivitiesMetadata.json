@@ -535,6 +535,20 @@
           "IconKey": null
         },
         {
+          "Name": "KeyInputModeSwitch",
+          "DisplayNameKey": "Activity_KeyedHashFile_Property_Algorithm_Name",
+          "TooltipKey": "Activity_KeyedHashFile_Property_Algorithm_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_KeySecureString_Description",
