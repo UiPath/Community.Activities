@@ -8,6 +8,7 @@ using System.Net;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
+using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -31,6 +32,12 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Key_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Key_Description))]
         public InArgument<string> Key { get; set; }
+
+        [Browsable(false)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_KeyInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_KeyInputModeSwitch_Description))]
+        public KeyInputMode KeyInputModeSwitch { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_KeySecureString_Name))]
