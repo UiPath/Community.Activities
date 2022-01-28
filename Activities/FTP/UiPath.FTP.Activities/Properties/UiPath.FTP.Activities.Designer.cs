@@ -628,6 +628,24 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The switch for certificate password input mode.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to CertificatePasswordInputModeSwitch.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password for the client certificate..
         /// </summary>
         public static string Activity_WithFtpSession_Property_ClientCertificatePassword_Description {
@@ -660,6 +678,24 @@ namespace UiPath.FTP.Activities.Properties {
         public static string Activity_WithFtpSession_Property_ClientCertificatePath_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificatePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password for client certificate in secure string format.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client Certificate Secure Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name", resourceCulture);
             }
         }
         
@@ -745,6 +781,24 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The switch for password input mode.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PasswordInputModeSwitch.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The port of the FTP server that you want to connect to..
         /// </summary>
         public static string Activity_WithFtpSession_Property_Port_Description {
@@ -759,6 +813,24 @@ namespace UiPath.FTP.Activities.Properties {
         public static string Activity_WithFtpSession_Property_Port_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_Port_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password in secure string format.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SecurePassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SecurePassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SecurePassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SecurePassword_Name", resourceCulture);
             }
         }
         
@@ -1434,6 +1506,24 @@ namespace UiPath.FTP.Activities.Properties {
         public static string UseSftp {
             get {
                 return ResourceManager.GetString("UseSftp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClientCertificatePassword and ClientCertificateSecurePassword must not be both null.
+        /// </summary>
+        public static string ValidationError_ClientCertificatePasswordFieldsNotNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ClientCertificatePasswordFieldsNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password and SecurePassword must not be both null.
+        /// </summary>
+        public static string ValidationError_PasswordFieldsNotNull {
+            get {
+                return ResourceManager.GetString("ValidationError_PasswordFieldsNotNull", resourceCulture);
             }
         }
         
