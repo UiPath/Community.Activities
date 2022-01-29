@@ -194,10 +194,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>Nom d&apos;utilisateur</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Avec session FTP</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Avec session FTP</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>Étendue FTP</value>
   </data>
 </root>

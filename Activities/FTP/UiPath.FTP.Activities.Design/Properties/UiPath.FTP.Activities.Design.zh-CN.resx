@@ -194,10 +194,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>用户名</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>启用 FTP 会话</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>启用 FTP 会话</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP 作用域</value>
   </data>
 </root>

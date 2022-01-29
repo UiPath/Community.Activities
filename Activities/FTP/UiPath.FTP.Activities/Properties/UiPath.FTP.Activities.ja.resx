@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>指定した FTP サーバーのパスで見つかったファイルのリストを含む DataTable 型変数を生成します。[サブフォルダーを含む] チェックボックスをオンにして、検索対象にサブフォルダーを含めることもできます。このアクティビティは、[FTP セッションを使用] スコープ アクティビティ内に配置した場合にのみ動作します。(Enumerate Objects)</value>
+    <value>FTP サーバー上で見つかったファイルのコレクションを生成します。[サブフォルダーを含む] チェックボックスをオンにして、検索対象にサブフォルダーを含めることもできます。このアクティビティは、[FTP セッションを使用] スコープ アクティビティ内に配置した場合にのみ動作します。(Enumerate Objects)</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>FTP サーバーへの接続を処理するコンテナーで、すべての FTP アクティビティのスコープを提供します。(With Ftp Session)</value>
+    <value>FTP サーバーに接続し、他の FTP アクティビティのためのスコープを設定します。(FTP Scope)</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>FTP セッションを使用</value>
+    <value>FTP スコープ</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>クライアント証明書のパス</value>
+    <value>クライアント証明書ファイル</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -678,6 +678,10 @@
   </data>
   <data name="Category_Server_Name" xml:space="preserve">
     <value>サーバー</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>出力</value>
     <comment>Category name</comment>
   </data>
 </root>

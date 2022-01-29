@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>生成一个“数据表”变量，其中包含在指定 FTP 服务器路径查找到的文件列表。选中“包括子文件夹”复选框后，搜索结果中也会包含子文件夹。仅当此活动置于“使用 FTP 会话”作用域活动中时才能正常工作。</value>
+    <value>Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>处理与 FTP 服务器的连接并为所有 FTP 活动提供作用域的容器。</value>
+    <value>连接到 FTP 服务器，并为其他 FTP 活动提供作用域。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>启用 FTP 会话</value>
+    <value>FTP 作用域</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>客户端证书路径</value>
+    <value>客户端证书文件</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -678,6 +678,10 @@
   </data>
   <data name="Category_Server_Name" xml:space="preserve">
     <value>服务器</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Output</value>
     <comment>Category name</comment>
   </data>
 </root>

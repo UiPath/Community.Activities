@@ -755,4 +755,11 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <value>Birincil</value>
     <comment>category name</comment>
   </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Çıkış</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>Mevcut bağlantı geçersiz. Lütfen bağlantının kurulabildiğinden emin olun.</value>
+  </data>
 </root>

@@ -291,9 +291,9 @@
     <value>A quantidade de tempo para permitir que um script Python seja executado até que seja terminado e seja gerada uma exceção.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Caminho para a biblioteca Python libpython*.so incluindo o nome da biblioteca</value>
+    <value>No Linux, é o caminho para a biblioteca Python libpython*.so, incluindo o nome da biblioteca. No Windows (Versão &gt;3.9), é o caminho para python**.dll, incluindo o nome da biblioteca (normalmente, está no caminho inicial Python. No Windows (Versão &lt;=3.9), deixe vazio.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Caminho para a biblioteca (apenas Linux)</value>
+    <value>Caminho para a biblioteca (Linux ou versão &gt;3.9)</value>
   </data>
 </root>
