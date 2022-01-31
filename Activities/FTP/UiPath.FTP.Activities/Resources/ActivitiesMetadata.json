@@ -484,6 +484,28 @@
           "IconKey": null
         },
         {
+          "Name": "SecurePassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_SecurePassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_SecurePassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": false,
+          "Category": null,
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "PasswordInputModeSwitch",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description",
+          "IsRequired": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "UseAnonymousLogin",
           "DisplayNameKey": "Activity_WithFtpSession_Property_UseAnonymousLogin_Name",
           "TooltipKey": "Activity_WithFtpSession_Property_UseAnonymousLogin_Description",
@@ -563,6 +585,31 @@
           },
           "Widget": null,
           "IconKey": null
+        },
+        {
+          "Name": "ClientCertificateSecurePassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Security_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "CertificatePasswordInputModeSwitch",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description",
+          "IsRequired": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "AcceptAllCertificates",

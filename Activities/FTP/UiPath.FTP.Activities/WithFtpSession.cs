@@ -6,6 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
 using UiPath.Shared.Activities;
+using UiPath.FTP.Enums;
+using System.Security;
+using System.Net;
 
 namespace UiPath.FTP.Activities
 {
@@ -41,6 +44,17 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Password_Description))]
         public InArgument<string> Password { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Credentials))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Description))]
+        public InArgument<SecureString> SecurePassword { get; set; }
+
+        [Browsable(false)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description))]
+        public PasswordInputMode PasswordInputModeSwitch { get; set; }
+  
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Credentials))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_UseAnonymousLogin_Name))]
@@ -75,6 +89,17 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ClientCertificatePassword_Description))]
         public InArgument<string> ClientCertificatePassword { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Security))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description))]
+        public InArgument<SecureString> ClientCertificateSecurePassword { get; set; }
+
+        [Browsable(false)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description))]
+        public PasswordInputMode CertificatePasswordInputModeSwitch { get; set; }
+ 
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Security))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_AcceptAllCertificates_Name))]
@@ -105,24 +130,38 @@ namespace UiPath.FTP.Activities
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
             IFtpSession ftpSession = null;
+
+            string passwordValue = Password.Get(context);
+            SecureString securePasswordValue = SecurePassword.Get(context);
+            string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
+            SecureString clientCertificateSecurePasswordValue = ClientCertificateSecurePassword.Get(context);
+            
             FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
             ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
             ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
-            ftpConfiguration.SslProtocols = SslProtocols;
+            ftpConfiguration.SslProtocols = SslProtocols;   
+            ftpConfiguration.Password = passwordValue;
+            if (ftpConfiguration.Password == null)
+            {
+                ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
+            }
             ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
-            ftpConfiguration.ClientCertificatePassword = ClientCertificatePassword.Get(context);
+            ftpConfiguration.ClientCertificatePassword = clientCertificatePasswordValue;
+            if (ftpConfiguration.ClientCertificatePassword == null)
+            {
+                ftpConfiguration.ClientCertificatePassword = new NetworkCredential("", clientCertificateSecurePasswordValue).Password;
+            }
+
             ftpConfiguration.AcceptAllCertificates = AcceptAllCertificates;
 
             if (ftpConfiguration.UseAnonymousLogin == false)
             {
                 ftpConfiguration.Username = Username.Get(context);
-                ftpConfiguration.Password = Password.Get(context);
-
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
                 {
                     throw new ArgumentNullException(Resources.EmptyUsernameException);
                 }
-
+                
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
                 {
                     throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
