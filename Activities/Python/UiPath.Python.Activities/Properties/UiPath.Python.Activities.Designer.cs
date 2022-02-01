@@ -502,6 +502,15 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python version &gt;= 3.10 is not supported on 32 bit. .
+        /// </summary>
+        public static string ValidationErrorPlatformUnsupported {
+            get {
+                return ResourceManager.GetString("ValidationErrorPlatformUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Python version.
         /// </summary>
         public static string VersionDescription {

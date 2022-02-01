@@ -296,4 +296,7 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>Library path (Linux or version&gt;3.9)</value>
   </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>Python version &gt;= 3.10 is not supported on 32 bit. </value>
+  </data>
 </root>
