@@ -16,6 +16,7 @@ namespace UiPath.FTP
         public string ClientCertificatePath { get; set; }
         public string ClientCertificatePassword { get; set; }
         public bool AcceptAllCertificates { get; set; }
+        public bool UseFIPS { get; set; }
 
         public FtpConfiguration(string host)
         {

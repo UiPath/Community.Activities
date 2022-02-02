@@ -19,7 +19,7 @@ namespace UiPath.FTP.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_FTP_Activities {
@@ -635,9 +635,9 @@ namespace UiPath.FTP.Activities.Properties {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to CertificatePasswordInputModeSwitch.
+        ///   Looks up a localized string similar to SecurePasswordInputModeSwitch.
         /// </summary>
         public static string Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name {
             get {
@@ -867,6 +867,24 @@ namespace UiPath.FTP.Activities.Properties {
         public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_UseAnonymousLogin_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use FIPS.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseFIPS_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseFIPS_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use FIPS.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseFIPS_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseFIPS_Name", resourceCulture);
             }
         }
         

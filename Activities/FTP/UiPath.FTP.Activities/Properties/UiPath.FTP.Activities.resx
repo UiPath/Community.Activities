@@ -716,4 +716,10 @@
   <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
     <value>Password and SecurePassword must not be both null</value>
   </data>
+  <data name="Activity_WithFtpSession_Property_UseFIPS_Description" xml:space="preserve">
+    <value>Use FIPS</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseFIPS_Name" xml:space="preserve">
+    <value>Use FIPS</value>
+  </data>
 </root>

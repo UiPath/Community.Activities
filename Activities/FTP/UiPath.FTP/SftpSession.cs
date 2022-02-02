@@ -17,6 +17,10 @@ namespace UiPath.FTP
 
         public SftpSession(FtpConfiguration ftpConfiguration)
         {
+            if (ftpConfiguration.UseFIPS)
+            {
+                SftpClient.UseFIPS = ftpConfiguration.UseFIPS;
+            }
             if (ftpConfiguration == null)
             {
                 throw new ArgumentNullException(nameof(ftpConfiguration));
@@ -101,6 +105,7 @@ namespace UiPath.FTP
             }
 
             string initialWorkingDirectory = _sftpClient.WorkingDirectory;
+            
             _sftpClient.ChangeDirectory(remotePath);
             
             List<Tuple<string, string>> listing = new List<Tuple<string, string>>();
