@@ -15,14 +15,30 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
     <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="SshNet.Security.Cryptography" Version="[1.3.0]" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="SshNet.Security.Cryptography" Version="[1.3.0]" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP" Version="34.0.0" />
-    <PackageReference Include="SSH.NET" Version="2020.0.1" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+    <Reference Include="Renci.SshNet">
+      <HintPath>..\3rdParty\Renci.SshNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="Renci.SshNet">
+      <HintPath>..\3rdParty\net4.0\Renci.SshNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Renci.SshNet.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

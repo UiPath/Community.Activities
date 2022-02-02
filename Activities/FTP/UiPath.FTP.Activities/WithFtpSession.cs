@@ -57,6 +57,12 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.UseSftp))]
         public bool UseSftp { get; set; }
 
+        [DefaultValue(false)]
+        [LocalizedCategory(nameof(Resources.Security))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_UseFIPS_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_UseFIPS_Description))]
+        public bool UseFIPS { get; set; }
+
         [LocalizedCategory(nameof(Resources.Security))]
         [LocalizedDisplayName(nameof(Resources.ClientCertificatePath))]
         [LocalizedDescription(nameof(Resources.ClientCertificatePathDesc))]
@@ -73,7 +79,7 @@ namespace UiPath.FTP.Activities
 
         [LocalizedCategory(nameof(Resources.Common))]
         [LocalizedDisplayName(nameof(Resources.ContinueOnError))]
-        public InArgument<bool> ContinueOnError { get; set; } = false;
+        public override InArgument<bool> ContinueOnError { get; set; } = false;
 
         public WithFtpSession()
         {
@@ -120,6 +126,7 @@ namespace UiPath.FTP.Activities
 
             if (UseSftp)
             {
+                ftpConfiguration.UseFIPS = UseFIPS;
                 ftpSession = new SftpSession(ftpConfiguration);
             }
             else

@@ -19,7 +19,7 @@ namespace UiPath.FTP.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_FTP_Activities {
@@ -70,11 +70,920 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removes a specified file from an FTP server. This activity only works if it is placed inside a With FTP Session scope activity..
+        /// </summary>
+        public static string Activity_Delete_Description {
+            get {
+                return ResourceManager.GetString("Activity_Delete_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Activity_Delete_Name {
+            get {
+                return ResourceManager.GetString("Activity_Delete_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path of the file that is to be removed from the FTP server..
+        /// </summary>
+        public static string Activity_Delete_Property_RemotePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_Delete_Property_RemotePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string Activity_Delete_Property_RemotePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_Delete_Property_RemotePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checks whether a certain directory exists on an FTP server. This activity only works if it is placed inside a With FTP Session scope activity..
+        /// </summary>
+        public static string Activity_DirectoryExists_Description {
+            get {
+                return ResourceManager.GetString("Activity_DirectoryExists_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Exists.
+        /// </summary>
+        public static string Activity_DirectoryExists_Name {
+            get {
+                return ResourceManager.GetString("Activity_DirectoryExists_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A boolean variable that states whether the indicated directory was found or not..
+        /// </summary>
+        public static string Activity_DirectoryExists_Property_Exists_Description {
+            get {
+                return ResourceManager.GetString("Activity_DirectoryExists_Property_Exists_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exists.
+        /// </summary>
+        public static string Activity_DirectoryExists_Property_Exists_Name {
+            get {
+                return ResourceManager.GetString("Activity_DirectoryExists_Property_Exists_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path of the FTP directory in which to check whether the indicated directory exists..
+        /// </summary>
+        public static string Activity_DirectoryExists_Property_RemotePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_DirectoryExists_Property_RemotePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string Activity_DirectoryExists_Property_RemotePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_DirectoryExists_Property_RemotePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a With FTP Session scope activity..
+        /// </summary>
+        public static string Activity_DownloadFiles_Description {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download files.
+        /// </summary>
+        public static string Activity_DownloadFiles_Name {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, the folder path will be created locally in case it does not already exist..
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_Create_Description {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_Create_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_Create_Name {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_Create_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The local path for the files that are to be downloaded..
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_LocalPath_Description {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_LocalPath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Path.
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_LocalPath_Name {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_LocalPath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, the files will be overwritten locally if they&apos;re already stored there..
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_Overwrite_Description {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_Overwrite_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite.
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_Overwrite_Name {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_Overwrite_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, the folders will be downloaded with their respective subfolders..
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_Recursive_Description {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_Recursive_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include subfolders.
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_Recursive_Name {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_Recursive_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path of the files on the FTP server that are to be downloaded..
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_RemotePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_RemotePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_RemotePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_RemotePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity..
+        /// </summary>
+        public static string Activity_EnumerateObjects_Description {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enumerate Objects.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Name {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A collection of files that have been found on the FTP server..
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Files_Description {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Files_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Files_Name {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Files_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this check box is selected, the subfolders are also included in the enumeration of the files on the FTP server..
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Recursive_Description {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Recursive_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include subfolders.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Recursive_Name {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Recursive_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path of the directory on the FTP server whose files are to be enumerated..
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_RemotePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_RemotePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_RemotePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_RemotePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checks whether a certain file exists in the specified FTP directory. This activity only works if it is placed inside a With FTP Session scope activity..
+        /// </summary>
+        public static string Activity_FileExists_Description {
+            get {
+                return ResourceManager.GetString("Activity_FileExists_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Exists.
+        /// </summary>
+        public static string Activity_FileExists_Name {
+            get {
+                return ResourceManager.GetString("Activity_FileExists_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A boolean variable that states whether the indicated file was found or not..
+        /// </summary>
+        public static string Activity_FileExists_Property_Exists_Description {
+            get {
+                return ResourceManager.GetString("Activity_FileExists_Property_Exists_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exists.
+        /// </summary>
+        public static string Activity_FileExists_Property_Exists_Name {
+            get {
+                return ResourceManager.GetString("Activity_FileExists_Property_Exists_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path of the FTP directory in which to check whether the indicated file exists..
+        /// </summary>
+        public static string Activity_FileExists_Property_RemotePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_FileExists_Property_RemotePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string Activity_FileExists_Property_RemotePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_FileExists_Property_RemotePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moves an item on an FTP server to a different remote path. This activity only works if it is placed inside a With FTP.
+        /// </summary>
+        public static string Activity_MoveItem_Description {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Item.
+        /// </summary>
+        public static string Activity_MoveItem_Name {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
+        /// </summary>
+        public static string Activity_MoveItem_Property_ContinueOnError_Description {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_ContinueOnError_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue On Error.
+        /// </summary>
+        public static string Activity_MoveItem_Property_ContinueOnError_Name {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_ContinueOnError_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The remote path on the FTP server where the file will be moved..
+        /// </summary>
+        public static string Activity_MoveItem_Property_NewPath_Description {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_NewPath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Remote Path.
+        /// </summary>
+        public static string Activity_MoveItem_Property_NewPath_Name {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_NewPath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, the files will be overwritten in the new remote directory if they&apos;re already stored there..
+        /// </summary>
+        public static string Activity_MoveItem_Property_Overwrite_Description {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_Overwrite_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite.
+        /// </summary>
+        public static string Activity_MoveItem_Property_Overwrite_Name {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_Overwrite_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The remote path on the FTP server where the file is currently located..
+        /// </summary>
+        public static string Activity_MoveItem_Property_RemotePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_RemotePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string Activity_MoveItem_Property_RemotePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_RemotePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploads a file to an FTP server. This activity only works if it is placed inside a With FTP Session scope activity..
+        /// </summary>
+        public static string Activity_UploadFiles_Description {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Files.
+        /// </summary>
+        public static string Activity_UploadFiles_Name {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, the folder path will be created on the FTP server in case it does not already exist..
+        /// </summary>
+        public static string Activity_UploadFiles_Property_Create_Description {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_Create_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string Activity_UploadFiles_Property_Create_Name {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_Create_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The local path of the files that are to be uploaded..
+        /// </summary>
+        public static string Activity_UploadFiles_Property_LocalPath_Description {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_LocalPath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Path.
+        /// </summary>
+        public static string Activity_UploadFiles_Property_LocalPath_Name {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_LocalPath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, the files will be overwritten on the FTP server if they&apos;re already stored there..
+        /// </summary>
+        public static string Activity_UploadFiles_Property_Overwrite_Description {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_Overwrite_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite.
+        /// </summary>
+        public static string Activity_UploadFiles_Property_Overwrite_Name {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_Overwrite_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, the folders will be uploaded with their respective subfolders..
+        /// </summary>
+        public static string Activity_UploadFiles_Property_Recursive_Description {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_Recursive_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include subfolders.
+        /// </summary>
+        public static string Activity_UploadFiles_Property_Recursive_Name {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_Recursive_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path on the FTP server where the file is to be uploaded..
+        /// </summary>
+        public static string Activity_UploadFiles_Property_RemotePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_RemotePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Path.
+        /// </summary>
+        public static string Activity_UploadFiles_Property_RemotePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_RemotePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connects to FTP server and provides a scope for other FTP activities..
+        /// </summary>
+        public static string Activity_WithFtpSession_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FTP Scope.
+        /// </summary>
+        public static string Activity_WithFtpSession_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this box is checked, all certificates will be accepted, including the ones that are expired or not verified..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_AcceptAllCertificates_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_AcceptAllCertificates_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accept All Certificates.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_AcceptAllCertificates_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_AcceptAllCertificates_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The switch for certificate password input mode.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SecurePasswordInputModeSwitch.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password for the client certificate..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificatePassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificatePassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client Certificate Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificatePassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificatePassword_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the certificate used to verify the identity of the client..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificatePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificatePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client Certificate File.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificatePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificatePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password for client certificate in secure string format.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client Certificate Secure Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ContinueOnError_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ContinueOnError_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue On Error.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ContinueOnError_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ContinueOnError_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FTP Session Scope.
         /// </summary>
         public static string Activity_WithFtpSession_Property_DisplayName_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_DisplayName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switches to the FTPS protocol. Choose one of the two available options: Explicit or Implicit..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_FtpsMode_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_FtpsMode_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FTPS Mode.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_FtpsMode_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_FtpsMode_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The URL of the FTP server that you want to connect to..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Host_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Host_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Host_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Host_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password that will be used to connect to the FTP server..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Password_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Password_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Password_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Password_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The switch for password input mode.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PasswordInputModeSwitch.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The port of the FTP server that you want to connect to..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Port_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Port_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Port_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Port_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password in secure string format.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SecurePassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SecurePassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SecurePassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SecurePassword_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the SSL protocol to be used for the FTPS connection.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SslProtocols_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SslProtocols_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSL Protocols.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SslProtocols_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SslProtocols_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseAnonymousLogin_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Anonymous Login.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseAnonymousLogin_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use FIPS.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseFIPS_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseFIPS_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use FIPS.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseFIPS_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseFIPS_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The username that will be used to connect to the FTP server..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Username_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Username_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Username_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Username_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check this box if you want to use the SFTP transfer protocol..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseSftp_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseSftp_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use SFTP.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_UseSftp_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_UseSftp_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credentials.
+        /// </summary>
+        public static string Category_Credentials_Name {
+            get {
+                return ResourceManager.GetString("Category_Credentials_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Misc.
+        /// </summary>
+        public static string Category_Misc_Name {
+            get {
+                return ResourceManager.GetString("Category_Misc_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        public static string Category_Others_Name {
+            get {
+                return ResourceManager.GetString("Category_Others_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string Category_Output_Name {
+            get {
+                return ResourceManager.GetString("Category_Output_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Principal.
+        /// </summary>
+        public static string Category_Principal_Name {
+            get {
+                return ResourceManager.GetString("Category_Principal_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Security.
+        /// </summary>
+        public static string Category_Security_Name {
+            get {
+                return ResourceManager.GetString("Category_Security_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server.
+        /// </summary>
+        public static string Category_Server_Name {
+            get {
+                return ResourceManager.GetString("Category_Server_Name", resourceCulture);
             }
         }
         
@@ -131,7 +1040,6 @@ namespace UiPath.FTP.Activities.Properties {
                 return ResourceManager.GetString("ContinueOnError", resourceCulture);
             }
         }
-        
         
         /// <summary>
         ///   Looks up a localized string similar to Create.
@@ -616,6 +1524,24 @@ namespace UiPath.FTP.Activities.Properties {
         public static string UseSftp {
             get {
                 return ResourceManager.GetString("UseSftp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClientCertificatePassword and ClientCertificateSecurePassword must not be both null.
+        /// </summary>
+        public static string ValidationError_ClientCertificatePasswordFieldsNotNull {
+            get {
+                return ResourceManager.GetString("ValidationError_ClientCertificatePasswordFieldsNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password and SecurePassword must not be both null.
+        /// </summary>
+        public static string ValidationError_PasswordFieldsNotNull {
+            get {
+                return ResourceManager.GetString("ValidationError_PasswordFieldsNotNull", resourceCulture);
             }
         }
         
