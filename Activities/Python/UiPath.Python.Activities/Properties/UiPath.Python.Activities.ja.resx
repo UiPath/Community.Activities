@@ -291,9 +291,9 @@
     <value>Python スクリプトを実行して終了するまでの時間です。設定した時間内に実行が終わらない場合は例外がスローされます。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Python の libpython*.so ライブラリ (ライブラリ名を含む) のパスです。</value>
+    <value>Linux の場合は、Python ライブラリ libpython*.so (ライブラリ名を含む) のパスを入力します。Windows (3.9 より後のバージョン) の場合は、python**.dll (ライブラリ名を含む) のパスを入力します (通常 Python のホーム パスに含まれます)。Windows (3.9 以前のバージョン) の場合は、空のままにします。</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>ライブラリ パス (Linux のみ)</value>
+    <value>ライブラリ パス (Linux または 3.9 より後のバージョン)</value>
   </data>
 </root>

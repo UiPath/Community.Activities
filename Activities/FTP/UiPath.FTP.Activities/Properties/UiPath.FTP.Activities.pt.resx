@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Gera uma variável DataTable que contém uma lista constituída pelos ficheiros encontrados no caminho do servidor FTP especificado. As subpastas podem ser também incluídas na pesquisa, marcando a caixa Inclui subpastas. Esta atividade só funciona se for colocada dentro de uma atividade de âmbito With FTP Session.</value>
+    <value>Gera uma coleção dos ficheiros que foram encontrados no servidor FTP. As subpastas podem ser também incluídas na pesquisa, marcando a caixa Incluir subpastas. Esta atividade só funciona se for colocada dentro de uma atividade de âmbito With FTP Session.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>Um contentor que processa a ligação ao servidor FTP e fornece um âmbito para todas as atividades de FTP.</value>
+    <value>Estabelece a ligação ao servidor FTP e fornece um âmbito para outras atividades no FTP.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>With Ftp Session</value>
+    <value>FTP Scope</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Client Certificate Path</value>
+    <value>Client Certificate File</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Ftps Mode</value>
+    <value>FTPS Mode</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>Ssl Protocols</value>
+    <value>SSL Protocols</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
@@ -678,6 +678,10 @@
   </data>
   <data name="Category_Server_Name" xml:space="preserve">
     <value>Servidor</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Saída</value>
     <comment>Category name</comment>
   </data>
 </root>

@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>지정된 FTP 서버 경로에서 발견된 파일로 구성된 목록을 포함하는 DataTable 변수를 생성합니다. 하위 폴더 포함 확인란을 선택하여 하위 폴더를 검색에 포함할 수도 있습니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
+    <value>FTP 서버에서 찾은 파일 컬렉션을 생성합니다. 하위 폴더 포함 확인란을 선택하여 하위 폴더를 검색에 포함할 수도 있습니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>FTP 서버로의 연결을 처리하고 모든 FTP 액티비티에 대한 범위를 제공하는 컨테이너입니다.</value>
+    <value>FTP 서버에 연결하고 다른 FTP 액티비티의 범위를 제공합니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>With Ftp Session</value>
+    <value>FTP Scope</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Client Certificate Path</value>
+    <value>Client Certificate File</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Ftps Mode</value>
+    <value>FTPS Mode</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>Ssl Protocols</value>
+    <value>SSL Protocols</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
@@ -678,6 +678,10 @@
   </data>
   <data name="Category_Server_Name" xml:space="preserve">
     <value>서버</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Output</value>
     <comment>Category name</comment>
   </data>
 </root>

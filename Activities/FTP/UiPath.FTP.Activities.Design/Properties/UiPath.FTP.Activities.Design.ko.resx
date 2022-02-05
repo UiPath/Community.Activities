@@ -194,10 +194,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>사용자 이름</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>FTP 세션 포함</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>FTP 세션 포함</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP 범위</value>
   </data>
 </root>
