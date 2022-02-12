@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Каталог назначения уже существует</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Переключатель на текстовый ввод</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>Переключатель на защищенный ввод</value>
+  </data>
 </root>
