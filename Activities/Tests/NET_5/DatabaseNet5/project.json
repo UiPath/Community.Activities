@@ -1,0 +1,58 @@
+{
+  "name": "DatabaseNet5",
+  "description": "DatabaseNet5",
+  "main": "DatabaseODBC.xaml",
+  "dependencies": {
+    "UiPath.Database.Activities": "[1.6.1-alpha.2232108]",
+    "UiPath.System.Activities": "[21.12.0-alpha.1987801]",
+    "UiPath.WebAPI.Activities": "[1.9.1]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "21.4.3.0",
+  "projectVersion": "1.0.0",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "DatabaseODBC.xaml",
+      "uniqueId": "8644c160-faad-4d1a-bddb-946910506baa",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Windows",
+  "coverageMergeWorkflowPath": ""
+}

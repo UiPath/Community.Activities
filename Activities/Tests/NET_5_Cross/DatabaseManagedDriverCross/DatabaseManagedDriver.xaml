@@ -1,0 +1,406 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System.Private.CoreLib" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Private.Xml.Linq" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="stw" Type="InArgument(sd:Stopwatch)" />
+    <x:Property Name="managed_provider" Type="InArgument(x:String)" />
+    <x:Property Name="managed_connStr" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:Main.stw>
+    <InArgument x:TypeArguments="sd:Stopwatch" />
+  </this:Main.stw>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>506.4,5108</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="33">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>UiPath.Database.Activities</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>netstandard</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="516.8,5043.2" sap2010:WorkflowViewState.IdRef="Sequence_24">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd1:DataTable" Name="Help_out" />
+      <Variable x:TypeArguments="x:String" Name="help_dtRes" />
+      <Variable x:TypeArguments="x:String" Name="StringParamOut" />
+      <Variable x:TypeArguments="x:Int32" Name="IntParamOut" />
+      <Variable x:TypeArguments="ui:DatabaseConnection" Name="Managed_ODBC" />
+      <Variable x:TypeArguments="sd1:DataTable" Name="DataTable" />
+      <Variable x:TypeArguments="x:String" Default="UiPath.Database.Activities" Name="PackageName" />
+      <Variable x:TypeArguments="x:String" Name="PackageVersion" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="475.2,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;time&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap:VirtualizedContainerService.HintSize="475.2,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:Stopwatch">[stw]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:Stopwatch">[new Stopwatch()]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:DatabaseConnect DisplayName="ODBC_managed" sap:VirtualizedContainerService.HintSize="475.2,60" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="[managed_provider]" ConnectionString="[managed_connStr]" DatabaseConnection="[Managed_ODBC]" />
+    <Sequence DisplayName="ODBC querries" sap:VirtualizedContainerService.HintSize="475.2,3184" sap2010:WorkflowViewState.IdRef="Sequence_15">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="sd1:DataTable" Name="SelectQuerry" />
+        <Variable x:TypeArguments="x:String" Name="ODBC_DTres" />
+        <Variable x:TypeArguments="ui:DatabaseConnection" Name="StartTransConn" />
+        <Variable x:TypeArguments="sd1:DataTable" Name="insertSuppliers" />
+        <Variable x:TypeArguments="x:Int32" Name="Out_InsertSupp" />
+        <Variable x:TypeArguments="sd1:DataTable" Name="insertCust" />
+        <Variable x:TypeArguments="x:Int32" Name="Out_insertCust" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Query drop table TESTTABLE" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="BEGIN&#xA;   EXECUTE IMMEDIATE 'DROP TABLE TESTTABLE';&#xA;EXCEPTION&#xA;   WHEN OTHERS THEN&#xA;      IF SQLCODE != -942 THEN&#xA;         RAISE;&#xA;      END IF;&#xA;END;">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Create table Testtable" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" Sql="CREATE TABLE TESTTABLE (&#xA;  namecol VARCHAR2(200) ,&#xA;  city VARCHAR2(200) ,&#xA;  desccol VARCHAR2(200) ,&#xA;  testcol VARCHAR2(200))">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="insert into TestTable" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_3" Sql="insert into TESTTABLE (namecol,city,desccol,testcol) VALUES ('name','bucuresti','something','something else')">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Query Managed_ODBC" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_4" Sql="select * from TestTable">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Create Table Suppliers" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_5" Sql="CREATE TABLE suppliers&#xA;( supplier_id number(10) not null,&#xA;  supplier_name varchar2(50) not null,&#xA;  city varchar2(50)&#xA;)">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Create Table Customers" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_6" Sql="CREATE TABLE customers&#xA;( customer_id number(10) not null,&#xA;  customer_name varchar2(50) not null,&#xA;  city varchar2(50)&#xA;)">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Insert Supplier" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_7" Sql="INSERT ALL&#xA;INTO suppliers (supplier_id, supplier_name, city)&#xA;VALUES (5001, 'Microsoft', 'New York')&#xA;INTO suppliers (supplier_id, supplier_name, city)&#xA;VALUES (5002, 'IBM', 'Chicago')&#xA;INTO suppliers (supplier_id, supplier_name, city)&#xA;VALUES (5003, 'Red Hat', 'Detroit')&#xA;INTO suppliers (supplier_id, supplier_name, city)&#xA;VALUES (5005, 'NVIDIA', 'LA')&#xA;select * from dual">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Insert Customers" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_8" Sql="INSERT All&#xA;INTO customers (customer_id, customer_name, city)&#xA;VALUES (5001, 'Microsoft', 'Brasov')&#xA; INTO customers (customer_id, customer_name, city)&#xA;VALUES (5002, 'IBM', 'Bucuresti')&#xA; INTO customers (customer_id, customer_name, city)&#xA;VALUES (5003, 'Red Hat', 'Constanta')&#xA;Select * from DUAL">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Update suppliers and customers" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_9" Sql="UPDATE suppliers&#xA;SET city = (SELECT customers.city&#xA;            FROM customers&#xA;            WHERE customers.customer_name = suppliers.supplier_name)&#xA;WHERE EXISTS (SELECT customers.city&#xA;              FROM customers&#xA;              WHERE customers.customer_name = suppliers.supplier_name)">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Delete suppliers where customers condition" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_10" Sql="DELETE FROM suppliers&#xA;WHERE EXISTS&#xA;  ( SELECT customers.customer_name&#xA;    FROM customers&#xA;    WHERE customers.customer_id = suppliers.supplier_id&#xA;    AND customer_id = 5003)">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[SelectQuerry]" DisplayName="Select from suppliers result" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_11" Sql="select * from suppliers">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:OutputDataTable DataTable="[SelectQuerry]" DisplayName="Output Data Table ODBC" sap:VirtualizedContainerService.HintSize="433.6,80.8" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[ODBC_DTres]" />
+      <ui:AppendLine DisplayName="Append Line" FileName="Output_Querry_OracleManaged.txt" sap:VirtualizedContainerService.HintSize="433.6,134.4" sap2010:WorkflowViewState.IdRef="AppendLine_1" Text="[ODBC_DTres.ToString]" UseDefaultEncoding="False" />
+      <ui:BuildDataTable DataTable="[insertSuppliers]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="433.6,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;supplier_id&quot; msdata:Caption=&quot;&quot; type=&quot;xs:int&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;supplier_name&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;city&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;supplier_id&gt;5001&lt;/supplier_id&gt;&#xA;    &lt;supplier_name&gt;Microsoft&lt;/supplier_name&gt;&#xA;    &lt;city&gt;New York&lt;/city&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;supplier_id&gt;5002&lt;/supplier_id&gt;&#xA;    &lt;supplier_name&gt;IBM&lt;/supplier_name&gt;&#xA;    &lt;city&gt;Chicago&lt;/city&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;supplier_id&gt;5003&lt;/supplier_id&gt;&#xA;    &lt;supplier_name&gt;Red Hat&lt;/supplier_name&gt;&#xA;    &lt;city&gt;Detroit&lt;/city&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;supplier_id&gt;5005&lt;/supplier_id&gt;&#xA;    &lt;supplier_name&gt;NVIDIA&lt;/supplier_name&gt;&#xA;    &lt;city&gt;LA&lt;/city&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:InsertDataTable ContinueOnError="{x:Null}" AffectedRecords="[Out_InsertSupp]" DataTable="[insertSuppliers]" DisplayName="Insert" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,116" sap2010:WorkflowViewState.IdRef="InsertDataTable_1" TableName="suppliers" />
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="433.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[&quot;Insert Suppliers: &quot; + Out_InsertSupp.ToString]" />
+      <ui:BuildDataTable DataTable="[insertCust]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="433.6,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_3" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;customer_id&quot; msdata:Caption=&quot;&quot; type=&quot;xs:int&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;customer_name&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;city&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;customer_id&gt;5001&lt;/customer_id&gt;&#xA;    &lt;customer_name&gt;Microsoft&lt;/customer_name&gt;&#xA;    &lt;city&gt;Brasov&lt;/city&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;customer_id&gt;5002&lt;/customer_id&gt;&#xA;    &lt;customer_name&gt;IBM&lt;/customer_name&gt;&#xA;    &lt;city&gt;Bucuresti&lt;/city&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;customer_id&gt;5003&lt;/customer_id&gt;&#xA;    &lt;customer_name&gt;Red Hat&lt;/customer_name&gt;&#xA;    &lt;city&gt;Constanta&lt;/city&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:InsertDataTable ContinueOnError="{x:Null}" AffectedRecords="[Out_insertCust]" DataTable="[insertCust]" DisplayName="Insert" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,116" sap2010:WorkflowViewState.IdRef="InsertDataTable_2" TableName="customers" />
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="433.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[&quot;Insert Customers: &quot; + Out_insertCust.ToString]" />
+      <ui:DatabaseTransaction ContinueOnError="{x:Null}" ConnectionString="[managed_connStr]" DatabaseConnection="[StartTransConn]" DisplayName="Start Transaction" sap:VirtualizedContainerService.HintSize="433.6,394.4" sap2010:WorkflowViewState.IdRef="DatabaseTransaction_2" ProviderName="[managed_provider]" UseTransaction="False">
+        <ui:DatabaseTransaction.Body>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="375.2,284.8" sap2010:WorkflowViewState.IdRef="Sequence_26">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd1:DataTable" Name="StartTransactionSupp" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[StartTransactionSupp]" DisplayName="Execute Query" ExistingDbConnection="[StartTransConn]" sap:VirtualizedContainerService.HintSize="333.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_16" Sql="select * from suppliers">
+              <ui:ExecuteQuery.Parameters>
+                <scg:Dictionary x:TypeArguments="x:String, Argument" />
+              </ui:ExecuteQuery.Parameters>
+            </ui:ExecuteQuery>
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="333.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[StartTransactionSupp.ToString]" />
+          </Sequence>
+        </ui:DatabaseTransaction.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:DatabaseTransaction>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Query drop table suppliers" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_12" Sql="drop table suppliers">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ExecuteQuery>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Query drop table customers" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="433.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_13" Sql="drop table customers">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+    </Sequence>
+    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[Help_out]" DisplayName="Execute Query" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="475.2,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_14" Sql="select * from HELP">
+      <ui:ExecuteQuery.Parameters>
+        <scg:Dictionary x:TypeArguments="x:String, Argument" />
+      </ui:ExecuteQuery.Parameters>
+    </ui:ExecuteQuery>
+    <ui:OutputDataTable DataTable="[Help_out]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="475.2,80.8" sap2010:WorkflowViewState.IdRef="OutputDataTable_2" Text="[help_dtRes]" />
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[Help_out]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="475.2,401.6" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd1:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd1:DataRow" Name="row" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="375.2,227.2" sap2010:WorkflowViewState.IdRef="Sequence_16">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:AppendLine DisplayName="Append Line" FileName="Output_HelpResults_Managed.txt" sap:VirtualizedContainerService.HintSize="333.6,134.4" sap2010:WorkflowViewState.IdRef="AppendLine_2" Text="[&quot;Info From help is: &quot; + help_dtRes.ToString]" UseDefaultEncoding="False" />
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ForEachRow>
+    <Sequence DisplayName="ODBC StoredProcedure with output parameters" sap:VirtualizedContainerService.HintSize="475.2,516.8" sap2010:WorkflowViewState.IdRef="Sequence_20">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Query" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="333.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_15" Sql="create or replace PROCEDURE TESTOUTPARAMS ( STRINGPARAM OUT VARCHAR2 ,INTPARAM OUT NUMBER ) AS &#xA;BEGIN&#xA;  STRINGPARAM := 'Test String Out ODBC';&#xA;  INTPARAM := 12;&#xA;  DBMS_OUTPUT.PUT_LINE (STRINGPARAM); &#xA;  DBMS_OUTPUT.PUT_LINE (INTPARAM);&#xA;  END;">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+      </ui:ExecuteQuery>
+      <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="StoredProcedure" DisplayName="Stored procedure managed ODBC" ExistingDbConnection="[Managed_ODBC]" sap:VirtualizedContainerService.HintSize="333.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_1" Sql="TESTOUTPARAMS">
+        <ui:ExecuteNonQuery.Parameters>
+          <OutArgument x:TypeArguments="x:String" x:Key="STRINGPARAM">[StringParamOut]</OutArgument>
+          <OutArgument x:TypeArguments="x:Int32" x:Key="INTPARAM">[IntParamOut]</OutArgument>
+        </ui:ExecuteNonQuery.Parameters>
+      </ui:ExecuteNonQuery>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="333.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;STRINGOUTPARAM: &quot; + StringParamOut]" />
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="333.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;INTOUTPARAM: &quot; + IntParamOut.ToString]" />
+    </Sequence>
+    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="475.2,68.8" sap2010:WorkflowViewState.IdRef="Sequence_21">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="Text_ProjectConfig" />
+        <Variable x:TypeArguments="njl:JObject" Name="JsonObject_Output" />
+        <Variable x:TypeArguments="njl:JObject" Name="Project_depDes" />
+        <Variable x:TypeArguments="x:String" Name="Project_Dependencies" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ReadTextFile sap2010:Annotation.AnnotationText="Reads the project.json file to a variable that we can parse though line by line.  Note it has to be Deserialized first as it is a JSON formatted file.  If you do not already have it click manage packages and add the UiPath.Web.Activities to your project." Content="[Text_ProjectConfig]" DisplayName="Read Text File" FileName="project.json" sap:VirtualizedContainerService.HintSize="384,151" sap2010:WorkflowViewState.IdRef="ReadTextFile_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ReadTextFile>
+      <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[JsonObject_Output]" JsonString="[Text_ProjectConfig]" />
+      <Assign sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[Project_Dependencies]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[JsonObject_Output.SelectToken("dependencies").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_2" JsonObject="[Project_depDes]" JsonString="[Project_Dependencies]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:DeserializeJson>
+      <Assign sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[PackageVersion]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Project_depDes("UiPath.Database.Activities").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="475.2,68.8" sap2010:WorkflowViewState.IdRef="Sequence_23">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="sxl:XElement" Name="xmlRows" />
+        <Variable x:TypeArguments="sxl:XElement" Name="xmlDocument" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="408.8,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sxl:XElement">[xmlDocument]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sxl:XElement">[New XElement("testsuites", New XAttribute("time",DateTime.Now.ToString))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="408.8,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sxl:XElement">[xmlRows]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sxl:XElement">[new XElement("testsuite")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[DataTable]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="408.8,432" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+        <ui:ForEachRow.Body>
+          <ActivityAction x:TypeArguments="sd1:DataRow">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd1:DataRow" Name="row" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="375.2,257.6" sap2010:WorkflowViewState.IdRef="Sequence_22">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="If( CBool(rowEl.Item(&quot;Result&quot;)) = True)&#xA;&#x9;xmlRow.Add (New XElement(&quot;testcase&quot;,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package + &quot; &quot; + PackageVersion),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;, Package + PackageVersion +&quot; &quot;+ rowEl.Item(&quot;Test&quot;).ToString()),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Else &#xA;&#x9;&#x9;xmlRow.Add (New XElement(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;testcase&quot;,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package + &quot; &quot; + PackageVersion),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;, Package + PackageVersion+ &quot; &quot; + rowEl.Item(&quot;Test&quot;).ToString()),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;)),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XElement(&quot;failure&quot;,rowEl.Item(&quot;ErrorMessage&quot;).ToString(),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;type&quot;, rowEl.Item(&quot;ExceptionType&quot;).ToString())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;)))&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;End If" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                <ui:InvokeCode.Arguments>
+                  <InOutArgument x:TypeArguments="sxl:XElement" x:Key="xmlRow">[xmlRows]</InOutArgument>
+                  <InArgument x:TypeArguments="sd1:DataRow" x:Key="rowEl">[row]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Package">[PackageName]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="PackageVersion">[PackageVersion]</InArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEachRow.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEachRow>
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="doc.Add(row)" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="408.8,52.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+        <ui:InvokeCode.Arguments>
+          <InArgument x:TypeArguments="sxl:XElement" x:Key="row">[xmlRows]</InArgument>
+          <InOutArgument x:TypeArguments="sxl:XElement" x:Key="doc">[xmlDocument]</InOutArgument>
+        </ui:InvokeCode.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeCode>
+      <ui:WriteTextFile DisplayName="Write Text File" FileName="junit_Database_OracleManaged.xml" sap:VirtualizedContainerService.HintSize="408.8,134.4" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="[&quot;&lt;?xml version=&quot;&quot;1.0&quot;&quot; encoding=&quot;&quot;UTF-8&quot;&quot;?&gt;&quot; + Environment.NewLine +&#xA;xmldocument.ToString()]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:WriteTextFile>
+    </Sequence>
+  </Sequence>
+</Activity>

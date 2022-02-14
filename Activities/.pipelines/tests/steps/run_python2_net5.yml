@@ -1,0 +1,38 @@
+parameters:
+  - name: "versions"
+    type: object
+    default: {}
+  - name: uipathTestDirectory
+    type: string
+
+steps:
+  - ${{ each version in parameters.versions }}:
+    - task: PowerShell@2
+      displayName: Run Python ${{ version }} Tests VB
+      inputs:
+       targetType: 'inline'
+       script: |
+        $directory = Get-ChildItem -Path 'C:\\hostedtoolcache\\windows\\Python\\' -Filter "*${{ version }}*" -Directory | Sort-Object -Property FullName -Descending | Select -First 1
+        $local =  $directory.FullName.Replace('\','\\')
+        Write-Host Found Python folder: $local
+        dir $local
+
+        $projectPath = "$(uipathTestDirectory)\NET_5\PythonNet5\"
+
+        cd $projectPath\
+        dir "$projectPath\"
+        dir "$projectPath\XmlFiles\"
+
+        $file = Get-ChildItem -Path $projectPath -Filter *.nupkg -File | Select-Object -First 1
+        Write-Host Found Nuget file: $file.FullName 
+
+        Write-Host "{ 'PythonPath_x86' : '$local\\x86\\', 'PythonPath_x64' : '$local\\x64\\' , 'WorkingFolder' : 'd:\\teste\\NET_5\\PythonNet5\\', 'XmlPath':'d:\\teste\\NET_5\\PythonNet5\\XmlFiles\\'}"
+
+        Write-Host Run nupkg file for x86
+        d:\robot\uirobot.exe execute --file $file.FullName --input "{ 'PythonPath_x86' : '$local\\x86\\', 'PythonPath_x64' : '$local\\x64\\' , 'WorkingFolder' : 'd:\\teste\\NET_5\\PythonNet5\\', 'XmlPath':'d:\\teste\\NET_5\\PythonNet5\\XmlFiles\\'}"
+        
+        Write-Host Copy item "$projectPath\XmlFiles\"
+        Copy-Item "$projectPath\XmlFiles\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\"
+
+        Write-Host Remove item "$projectPath\XmlFiles\"
+        Remove-Item "$projectPath\XmlFiles\junit*.xml"

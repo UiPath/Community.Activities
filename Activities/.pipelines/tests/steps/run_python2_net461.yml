@@ -1,0 +1,35 @@
+parameters:
+  - name: "versions"
+    type: object
+    default: {}
+  - name: uipathTestDirectory
+    type: string
+
+steps:
+  - ${{ each version in parameters.versions }}:
+    - task: PowerShell@2
+      displayName: Run Python ${{ version }} Tests VB
+      inputs:
+       targetType: 'inline'
+       script: |
+         $directory = Get-ChildItem -Path 'C:\\hostedtoolcache\\windows\\Python\\' -Filter "*${{ version }}*" -Directory | Sort-Object -Property FullName -Descending | Select -First 1
+         $local =  $directory.FullName.Replace('\','\\')
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\NET_461\Python\Pythonx86.xaml" --input "{ 'PythonPath' : '$local\\x86' , 'WorkingFolder' : 'd:\\teste\\NET_461\\Python'}"
+         Copy-Item "$(uipathTestDirectory)\NET_461\Python\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_${{ version }}_x86_NET_461.xml"
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\NET_461\Python\Pythonx64.xaml" --input "{ 'PythonPath' :  '$local\\x64' , 'WorkingFolder' : 'd:\\teste\\NET_461\\Python'}"
+         Copy-Item "$(uipathTestDirectory)\NET_461\Python\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_python_${{ version }}_x64_NET_461.xml"
+         Remove-Item "$(uipathTestDirectory)\NET_461\Python\junit*.xml"
+
+  - ${{ each version in parameters.versions }}:
+    - task: PowerShell@2
+      displayName: Run Python ${{ version }} Additional Tests VB
+      inputs:
+       targetType: 'inline'
+       script: |
+         $directory = Get-ChildItem -Path 'C:\\hostedtoolcache\\windows\\Python\\' -Filter "*${{ version }}*" -Directory | Sort-Object -Property FullName -Descending | Select -First 1
+         $local =  $directory.FullName.Replace('\','\\')
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\NET_461\PythonMultipleTests\PythonMultipleTests_x86.xaml" --input "{ 'PythonPath' : '$local\\x86' , 'WorkingFolder' : 'd:\\teste\\NET_461\\Python'}"
+         Copy-Item "$(uipathTestDirectory)\NET_461\PythonMultipleTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Python_multipleTests_${{ version }}_x86_NET_461.xml"
+         d:\robot\uirobot.exe execute --file "$(uipathTestDirectory)\NET_461\PythonMultipleTests\PythonMultipleTests_x64.xaml" --input "{ 'PythonPath' : '$local\\x64' , 'WorkingFolder' : 'd:\\teste\\NET_461\\Python'}"
+         Copy-Item "$(uipathTestDirectory)\NET_461\PythonMultipleTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Python_multipleTests_${{ version }}_x64_NET_461.xml"
+         Remove-Item "$(uipathTestDirectory)\NET_461\PythonMultipleTests\junit*.xml"

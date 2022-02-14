@@ -18,7 +18,7 @@ variables:
   - name: uipathLicenseCode
     value: $(LicenseCode)
   - name: uipathVersion
-    value: '20.10.4'
+    value: '21.10.4'
   - name: studioInstallPath
     value: 'd:\robot'
   - name: orchestratorPSModuleSourceUrl
@@ -62,51 +62,387 @@ schedules:
 pr: none
 
 stages:
- - stage: Run_Java
+ - stage: Run_Java_Net_461
    dependsOn: [] 
    jobs:
-   - job: Run_Java_Integration_Tests
+   - job: Run_Java_Net_461_Integration_Tests
      pool:
        vmImage: 'windows-latest'
      steps:
-     - template: steps/setup_env.yml
-       parameters:
-         uipathLicenseCode: $(uipathLicenseCode)
-         uipathVersion: $(uipathVersion)
-         studioInstallPath: $(studioInstallPath)
-         orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
-         uipathTestDirectory: $(uipathTestDirectory)
- 
-     - template: steps/run_java.yml
-       parameters:
-         buildPipeline: ${{ variables.javaBuildPipeline }}
-         packagesFolder: $(packagesFolder)
-         studioInstallPath: $(studioInstallPath)
-         uipathTestDirectory: $(uipathTestDirectory)
- 
- - stage: Run_Python
+      - template: steps/setup_env.yml
+        parameters:
+          uipathLicenseCode: $(uipathLicenseCode)
+          uipathVersion: $(uipathVersion)
+          studioInstallPath: $(studioInstallPath)
+          orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+          uipathTestDirectory: $(uipathTestDirectory)
+      - template: steps/run_java_net461.yml
+        parameters:
+          buildPipeline: ${{ variables.javaBuildPipeline }}
+          packagesFolder: $(packagesFolder)
+          studioInstallPath: $(studioInstallPath)
+          uipathTestDirectory: $(uipathTestDirectory)
+
+ - stage: Run_Java_Net_5_Win
    dependsOn: [] 
    jobs:
-   - job: Run_Python_Integration_Tests
+   - job: Run_Java_Net_5_Win_Integration_Tests
      pool:
        vmImage: 'windows-latest'
      steps:
-     - template: steps/setup_env.yml
-       parameters:
-         uipathLicenseCode: $(uipathLicenseCode)
-         uipathVersion: $(uipathVersion)
-         studioInstallPath: $(studioInstallPath)
-         orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
-         uipathTestDirectory: $(uipathTestDirectory)
- 
-     - template: steps/run_python.yml
-       parameters:
-         buildPipeline: ${{ variables.pythonBuildPipeline }}
-         packagesFolder: $(packagesFolder)
-         studioInstallPath: $(studioInstallPath)
-         uipathTestDirectory: $(uipathTestDirectory)
- 
- 
+      - template: steps/setup_env.yml
+        parameters:
+          uipathLicenseCode: $(uipathLicenseCode)
+          uipathVersion: $(uipathVersion)
+          studioInstallPath: $(studioInstallPath)
+          orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+          uipathTestDirectory: $(uipathTestDirectory)
+      - template: steps/run_java_net5.yml
+        parameters:
+          buildPipeline: ${{ variables.javaBuildPipeline }}
+          packagesFolder: $(packagesFolder)
+          studioInstallPath: $(studioInstallPath)
+          uipathTestDirectory: $(uipathTestDirectory)
+
+ - stage: Run_Java_Net_5_Cross
+   dependsOn: [] 
+   jobs:
+   - job: Run_Java_Net_5_Cross_Integration_Tests
+     pool:
+       vmImage: 'windows-latest'
+     steps:
+      - template: steps/setup_env.yml
+        parameters:
+          uipathLicenseCode: $(uipathLicenseCode)
+          uipathVersion: $(uipathVersion)
+          studioInstallPath: $(studioInstallPath)
+          orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+          uipathTestDirectory: $(uipathTestDirectory)
+      - template: steps/run_java_net5_cross.yml
+        parameters:
+          buildPipeline: ${{ variables.javaBuildPipeline }}
+          packagesFolder: $(packagesFolder)
+          studioInstallPath: $(studioInstallPath)
+          uipathTestDirectory: $(uipathTestDirectory)
+
+ - stage: Run_Python_Net_461
+   dependsOn: [] 
+   jobs:
+    - job: Run_Python_Net_461_Integration_Tests
+      pool:
+        vmImage: 'windows-latest'
+      steps:
+       - template: steps/setup_env.yml
+         parameters:
+           uipathLicenseCode: $(uipathLicenseCode)
+           uipathVersion: $(uipathVersion)
+           studioInstallPath: $(studioInstallPath)
+           orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+           uipathTestDirectory: $(uipathTestDirectory)
+       - template: steps/run_python_net461.yml
+         parameters:
+           buildPipeline: ${{ variables.pythonBuildPipeline }}
+           packagesFolder: $(packagesFolder)
+           studioInstallPath: $(studioInstallPath)
+           uipathTestDirectory: $(uipathTestDirectory)
+
+ - stage: Run_Python_Net_5_Win
+   dependsOn: [] 
+   jobs:
+    - job: Run_Python_Net_5_Win_Integration_Tests
+      pool:
+        vmImage: 'windows-latest'
+      steps:
+       - template: steps/setup_env.yml
+         parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+       - template: steps/run_python_net5.yml
+         parameters:
+             buildPipeline: ${{ variables.pythonBuildPipeline }}
+             packagesFolder: $(packagesFolder)
+             studioInstallPath: $(studioInstallPath)
+             uipathTestDirectory: $(uipathTestDirectory)
+   
+ - stage: Run_Python_Net_5_Cross
+   dependsOn: [] 
+   jobs:
+    - job: Run_Python_Net_5_Cross_Integration_Tests
+      pool:
+        vmImage: 'windows-latest'
+      steps:
+       - template: steps/setup_env.yml
+         parameters:
+           uipathLicenseCode: $(uipathLicenseCode)
+           uipathVersion: $(uipathVersion)
+           studioInstallPath: $(studioInstallPath)
+           orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+           uipathTestDirectory: $(uipathTestDirectory)
+       - template: steps/run_python_net5_cross.yml
+         parameters:
+           buildPipeline: ${{ variables.pythonBuildPipeline }}
+           packagesFolder: $(packagesFolder)
+           studioInstallPath: $(studioInstallPath)
+           uipathTestDirectory: $(uipathTestDirectory)
+
+ - stage: Run_SFTP_Server_NET_461
+   dependsOn: [] 
+   jobs:
+     - job: Run_SFTP_Server_NET_461_Integration_Tests
+       pool:
+         vmImage: 'windows-latest'
+       steps:
+        - template: steps/setup_env.yml
+          parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/setup_aks.yml
+          parameters:
+            azureServiceConnectionName: $(azureServiceConnectionName)
+            aksResourcePrefix: $(aksResourcePrefix)
+            sftpContainer: $(sftpContainer)
+            sqlserverContainer: $(sqlserverContainer)
+            oracleContainer: $(oracleContainer)
+            deploySftpContainer: true  
+        - template: steps/run_sftp_net461.yml
+          parameters:
+            buildPipeline: ${{ variables.sftpBuildPipeline }}
+            packagesFolder: $(packagesFolder)
+            studioInstallPath: $(studioInstallPath)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/clean_aks.yml
+          parameters:
+            sftpContainer: $(sftpContainer)
+            sqlserverContainer: $(sqlserverContainer)
+            oracleContainer: $(oracleContainer)
+            deploySftpContainer: true
+
+#  - stage: Run_SFTP_Server_NET_5_Win
+#    dependsOn: [] 
+#    jobs:
+#       - job: Run_SFTP_Server_NET_5_Win_Integration_Tests
+#         pool:
+#           vmImage: 'windows-latest'
+#         steps:
+#          - template: steps/setup_env.yml
+#            parameters:
+#              uipathLicenseCode: $(uipathLicenseCode)
+#              uipathVersion: $(uipathVersion)
+#              studioInstallPath: $(studioInstallPath)
+#              orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+#              uipathTestDirectory: $(uipathTestDirectory)
+#          - template: steps/setup_aks.yml
+#            parameters:
+#              azureServiceConnectionName: $(azureServiceConnectionName)
+#              aksResourcePrefix: $(aksResourcePrefix)
+#              sftpContainer: $(sftpContainer)
+#              sqlserverContainer: $(sqlserverContainer)
+#              oracleContainer: $(oracleContainer)
+#              deploySftpContainer: true  
+#          - template: steps/run_sftp_net5.yml
+#            parameters:
+#              buildPipeline: ${{ variables.sftpBuildPipeline }}
+#              packagesFolder: $(packagesFolder)
+#              studioInstallPath: $(studioInstallPath)
+#              uipathTestDirectory: $(uipathTestDirectory)
+#          - template: steps/clean_aks.yml
+#            parameters:
+#              sftpContainer: $(sftpContainer)
+#              sqlserverContainer: $(sqlserverContainer)
+#              oracleContainer: $(oracleContainer)
+#              deploySftpContainer: true
+
+ - stage: Run_SFTP_Server_NET_5_Cross
+   dependsOn: [] 
+   jobs:
+     - job: Run_SFTP_Server_NET_5_Cross_Integration_Tests
+       pool:
+         vmImage: 'windows-latest'
+       steps:
+        - template: steps/setup_env.yml
+          parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/setup_aks.yml
+          parameters:
+            azureServiceConnectionName: $(azureServiceConnectionName)
+            aksResourcePrefix: $(aksResourcePrefix)
+            sftpContainer: $(sftpContainer)
+            sqlserverContainer: $(sqlserverContainer)
+            oracleContainer: $(oracleContainer)
+            deploySftpContainer: true  
+        - template: steps/run_sftp_net5_cross.yml
+          parameters:
+            buildPipeline: ${{ variables.sftpBuildPipeline }}
+            packagesFolder: $(packagesFolder)
+            studioInstallPath: $(studioInstallPath)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/clean_aks.yml
+          parameters:
+            sftpContainer: $(sftpContainer)
+            sqlserverContainer: $(sqlserverContainer)
+            oracleContainer: $(oracleContainer)
+            deploySftpContainer: true
+
+ - stage: Run_Credentials_NET_461
+   dependsOn: [] 
+   jobs:
+     - job: Run_Credentials_NET_461_Integration_Tests
+       pool:
+         vmImage: 'windows-latest'
+       steps:
+        - template: steps/setup_env.yml
+          parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/run_credentials_net461.yml
+          parameters:
+            buildPipeline: ${{ variables.credentialsBuildPipeline }}
+            packagesFolder: $(packagesFolder)
+            studioInstallPath: $(studioInstallPath)
+            uipathTestDirectory: $(uipathTestDirectory
+
+ - stage: Run_Credentials_NET_5_Win
+   dependsOn: [] 
+   jobs:
+     - job: Run_Credentials_NET_5_Win_Integration_Tests
+       pool:
+         vmImage: 'windows-latest'
+       steps:
+        - template: steps/setup_env.yml
+          parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/run_credentials_net5.yml
+          parameters:
+           buildPipeline: ${{ variables.credentialsBuildPipeline }}
+           packagesFolder: $(packagesFolder)
+           studioInstallPath: $(studioInstallPath)
+           uipathTestDirectory: $(uipathTestDirectory)
+
+ - stage: Run_Cryptography_Net_461
+   dependsOn: [] 
+   jobs:
+     - job: Run_Cryptography_Net461_Integration_Tests
+       pool:
+         vmImage: 'windows-latest'
+       steps:
+        - template: steps/setup_env.yml
+          parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/run_crypto_net461.yml
+          parameters:
+            buildPipeline: ${{ variables.cryptographyBuildPipeline }}
+            packagesFolder: $(packagesFolder)
+            studioInstallPath: $(studioInstallPath)
+            uipathTestDirectory: $(uipathTestDirectory)
+            AES_Decrypted_file: $(AES_Decrypted_file)
+            AES_Encrypted_file: $(AES_Encrypted_file)
+            DES_Decrypted_file: $(DES_Decrypted_file)
+            DES_Encrypted_file: $(DES_Encrypted_file)
+            InputFile_EncryptDecriptFile: $(InputFile_EncryptDecriptFile)
+            InputFile_HashFile: $(InputFile_HashFile)
+            InputFile_HashFileWithKey: $(InputFile_HashFileWithKey)
+            Key_Encryption: $(Key_Encryption)
+            RC_Decrypted_file: $(RC_Decrypted_file)
+            RC_Encrypted_file: $(RC_Encrypted_file)
+            Rijndael_Decrypted_File: $(Rijndael_Decrypted_File)
+            Rijndael_Encrypted_File: $(Rijndael_Encrypted_File)
+            Text_to_Encrypt: $(Text_to_Encrypt)
+            TripleDES_Decrypted_File: $(TripleDES_Decrypted_File)
+            TripleDES_Encrypted_File: $(TripleDES_Encrypted_File)
+
+ - stage: Run_Cryptography_Net_5_Win
+   dependsOn: [] 
+   jobs:
+     - job: Run_Cryptography_Net_5_Win_Integration_Tests
+       pool:
+         vmImage: 'windows-latest'
+       steps:
+        - template: steps/setup_env.yml
+          parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/run_crypto_net5.yml
+          parameters:
+            buildPipeline: ${{ variables.cryptographyBuildPipeline }}
+            packagesFolder: $(packagesFolder)
+            studioInstallPath: $(studioInstallPath)
+            uipathTestDirectory: $(uipathTestDirectory)
+            AES_Decrypted_file: $(AES_Decrypted_file)
+            AES_Encrypted_file: $(AES_Encrypted_file)
+            DES_Decrypted_file: $(DES_Decrypted_file)
+            DES_Encrypted_file: $(DES_Encrypted_file)
+            InputFile_EncryptDecriptFile: $(InputFile_EncryptDecriptFile)
+            InputFile_HashFile: $(InputFile_HashFile)
+            InputFile_HashFileWithKey: $(InputFile_HashFileWithKey)
+            Key_Encryption: $(Key_Encryption)
+            RC_Decrypted_file: $(RC_Decrypted_file)
+            RC_Encrypted_file: $(RC_Encrypted_file)
+            Rijndael_Decrypted_File: $(Rijndael_Decrypted_File)
+            Rijndael_Encrypted_File: $(Rijndael_Encrypted_File)
+            Text_to_Encrypt: $(Text_to_Encrypt)
+            TripleDES_Decrypted_File: $(TripleDES_Decrypted_File)
+            TripleDES_Encrypted_File: $(TripleDES_Encrypted_File)
+
+ - stage: Run_Cryptography_Net_5_Cross
+   dependsOn: [] 
+   jobs:
+     - job: Run_Cryptography_Net_5_Cross_Integration_Tests
+       pool:
+         vmImage: 'windows-latest'
+       steps:
+        - template: steps/setup_env.yml
+          parameters:
+            uipathLicenseCode: $(uipathLicenseCode)
+            uipathVersion: $(uipathVersion)
+            studioInstallPath: $(studioInstallPath)
+            orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+            uipathTestDirectory: $(uipathTestDirectory)
+        - template: steps/run_crypto_net5_cross.yml
+          parameters:
+            buildPipeline: ${{ variables.cryptographyBuildPipeline }}
+            packagesFolder: $(packagesFolder)
+            studioInstallPath: $(studioInstallPath)
+            uipathTestDirectory: $(uipathTestDirectory)
+            AES_Decrypted_file: $(AES_Decrypted_file)
+            AES_Encrypted_file: $(AES_Encrypted_file)
+            DES_Decrypted_file: $(DES_Decrypted_file)
+            DES_Encrypted_file: $(DES_Encrypted_file)
+            InputFile_EncryptDecriptFile: $(InputFile_EncryptDecriptFile)
+            InputFile_HashFile: $(InputFile_HashFile)
+            InputFile_HashFileWithKey: $(InputFile_HashFileWithKey)
+            Key_Encryption: $(Key_Encryption)
+            RC_Decrypted_file: $(RC_Decrypted_file)
+            RC_Encrypted_file: $(RC_Encrypted_file)
+            Rijndael_Decrypted_File: $(Rijndael_Decrypted_File)
+            Rijndael_Encrypted_File: $(Rijndael_Encrypted_File)
+            Text_to_Encrypt: $(Text_to_Encrypt)
+            TripleDES_Decrypted_File: $(TripleDES_Decrypted_File)
+            TripleDES_Encrypted_File: $(TripleDES_Encrypted_File)
+
  - stage: Run_SQL_Server
    dependsOn: [] 
    jobs:
@@ -131,7 +467,23 @@ stages:
          oracleContainer: $(oracleContainer)
          deploySqlserverContainer: true
  
-     - template: steps/run_sql.yml
+     - template: steps/run_sql_net461.yml
+       parameters:
+         buildPipeline: ${{ variables.databaseBuildPipeline }}
+         packagesFolder: $(packagesFolder)
+         studioInstallPath: $(studioInstallPath)
+         uipathTestDirectory: $(uipathTestDirectory)
+         SQLServer_db_provider: $(SQLServer_db_provider)
+
+     - template: steps/run_sql_net5.yml
+       parameters:
+         buildPipeline: ${{ variables.databaseBuildPipeline }}
+         packagesFolder: $(packagesFolder)
+         studioInstallPath: $(studioInstallPath)
+         uipathTestDirectory: $(uipathTestDirectory)
+         SQLServer_db_provider: $(SQLServer_db_provider)
+
+     - template: steps/run_sql_net5_cross.yml
        parameters:
          buildPipeline: ${{ variables.databaseBuildPipeline }}
          packagesFolder: $(packagesFolder)
@@ -170,7 +522,7 @@ stages:
          oracleContainer: $(oracleContainer)
          deployOracleContainer: true
  
-     - template: steps/run_oracle.yml
+     - template: steps/run_oracle_net461.yml
        parameters:
          buildPipeline: ${{ variables.databaseBuildPipeline }}
          packagesFolder: $(packagesFolder)
@@ -181,6 +533,28 @@ stages:
          ODBC_managed_connStr: $(ODBC_managed_connStr)
          ODBC_managed_provider: $(ODBC_managed_provider)
   
+     - template: steps/run_oracle_net5.yml
+       parameters:
+         buildPipeline: ${{ variables.databaseBuildPipeline }}
+         packagesFolder: $(packagesFolder)
+         studioInstallPath: $(studioInstallPath)
+         uipathTestDirectory: $(uipathTestDirectory)
+         ODBC_db_connStr: $(ODBC_db_connStr)
+         ODBC_db_provider: $(ODBC_db_provider)
+         ODBC_managed_connStr: $(ODBC_managed_connStr)
+         ODBC_managed_provider: $(ODBC_managed_provider)
+
+     - template: steps/run_oracle_net5_cross.yml
+       parameters:
+         buildPipeline: ${{ variables.databaseBuildPipeline }}
+         packagesFolder: $(packagesFolder)
+         studioInstallPath: $(studioInstallPath)
+         uipathTestDirectory: $(uipathTestDirectory)
+         ODBC_db_connStr: $(ODBC_db_connStr)
+         ODBC_db_provider: $(ODBC_db_provider)
+         ODBC_managed_connStr: $(ODBC_managed_connStr)
+         ODBC_managed_provider: $(ODBC_managed_provider)
+
      - template: steps/clean_aks.yml
        parameters:
          sftpContainer: $(sftpContainer)
@@ -188,100 +562,243 @@ stages:
          oracleContainer: $(oracleContainer)
          deployOracleContainer: true
 
- - stage: Run_SFTP_Server
-   dependsOn: [] 
-   jobs:
-   - job: Run_SFTP_Server_Integration_Tests
-     pool:
-       vmImage: 'windows-latest'
-     steps:
-     - template: steps/setup_env.yml
-       parameters:
-         uipathLicenseCode: $(uipathLicenseCode)
-         uipathVersion: $(uipathVersion)
-         studioInstallPath: $(studioInstallPath)
-         orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
-         uipathTestDirectory: $(uipathTestDirectory)
- 
-     - template: steps/setup_aks.yml
-       parameters:
-         azureServiceConnectionName: $(azureServiceConnectionName)
-         aksResourcePrefix: $(aksResourcePrefix)
-         sftpContainer: $(sftpContainer)
-         sqlserverContainer: $(sqlserverContainer)
-         oracleContainer: $(oracleContainer)
-         deploySftpContainer: true
- 
-     - template: steps/run_sftp.yml
-       parameters:
-         buildPipeline: ${{ variables.sftpBuildPipeline }}
-         packagesFolder: $(packagesFolder)
-         studioInstallPath: $(studioInstallPath)
-         uipathTestDirectory: $(uipathTestDirectory)
-  
-     - template: steps/clean_aks.yml
-       parameters:
-         sftpContainer: $(sftpContainer)
-         sqlserverContainer: $(sqlserverContainer)
-         oracleContainer: $(oracleContainer)
-         deploySftpContainer: true
+#  - stage: Run_SQL_Server_NET_5
+  #  dependsOn: [] 
+  #  jobs:
+  #  - job: Run_SQL_Server_NET_5_Integration_Tests
+    #  pool:
+      #  vmImage: 'windows-latest'
+    #  steps:
+    #  - template: steps/setup_env.yml
+      #  parameters:
+        # uipathLicenseCode: $(uipathLicenseCode)
+        # uipathVersion: $(uipathVersion)
+        # studioInstallPath: $(studioInstallPath)
+        # orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+        # uipathTestDirectory: $(uipathTestDirectory)
 
- - stage: Run_Credentials
-   dependsOn: [] 
-   jobs:
-   - job: Run_Credentials_Integration_Tests
-     pool:
-       vmImage: 'windows-latest'
-     steps:
-     - template: steps/setup_env.yml
-       parameters:
-         uipathLicenseCode: $(uipathLicenseCode)
-         uipathVersion: $(uipathVersion)
-         studioInstallPath: $(studioInstallPath)
-         orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
-         uipathTestDirectory: $(uipathTestDirectory)
- 
-     - template: steps/run_credentials.yml
-       parameters:
-         buildPipeline: ${{ variables.credentialsBuildPipeline }}
-         packagesFolder: $(packagesFolder)
-         studioInstallPath: $(studioInstallPath)
-         uipathTestDirectory: $(uipathTestDirectory)
+    #  - template: steps/setup_aks.yml
+      #  parameters:
+        #  azureServiceConnectionName: $(azureServiceConnectionName)
+        #  aksResourcePrefix: $(aksResourcePrefix)
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deploySqlserverContainer: true
+
+    #  - template: steps/run_sql_net5.yml
+      #  parameters:
+        #  buildPipeline: ${{ variables.databaseBuildPipeline }}
+        #  packagesFolder: $(packagesFolder)
+        #  studioInstallPath: $(studioInstallPath)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+        #  SQLServer_db_provider: $(SQLServer_db_provider)
+
+    #  - template: steps/clean_aks.yml
+      #  parameters:
+        #  sftpContainer: $(sftpContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  deploySqlserverContainer: true
+
+#  - stage: Run_SQL_Server_NET_5_Cross
+  #  dependsOn: [] 
+  #  jobs:
+  #  - job: Run_SQL_Server_NET_5_Cross_Integration_Tests
+    #  pool:
+      # vmImage: 'windows-latest'
+    #  steps:
+    #  - template: steps/setup_env.yml
+      #  parameters:
+        #  uipathLicenseCode: $(uipathLicenseCode)
+        #  uipathVersion: $(uipathVersion)
+        #  studioInstallPath: $(studioInstallPath)
+        #  orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+#  
+    #  - template: steps/setup_aks.yml
+      #  parameters:
+        #  azureServiceConnectionName: $(azureServiceConnectionName)
+        #  aksResourcePrefix: $(aksResourcePrefix)
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deploySqlserverContainer: true
+#  
+    #  - template: steps/run_sql_net5_cross.yml
+      #  parameters:
+        #  buildPipeline: ${{ variables.databaseBuildPipeline }}
+        #  packagesFolder: $(packagesFolder)
+        #  studioInstallPath: $(studioInstallPath)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+        #  SQLServer_db_provider: $(SQLServer_db_provider)
+  # 
+    #  - template: steps/clean_aks.yml
+      #  parameters:
+        #  sftpContainer: $(sftpContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  deploySqlserverContainer: true
 
 
- - stage: Run_Cryptography
-   dependsOn: [] 
-   jobs:
-   - job: Run_Cryptography_Integration_Tests
-     pool:
-       vmImage: 'windows-latest'
-     steps:
-     - template: steps/setup_env.yml
-       parameters:
-         uipathLicenseCode: $(uipathLicenseCode)
-         uipathVersion: $(uipathVersion)
-         studioInstallPath: $(studioInstallPath)
-         orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
-         uipathTestDirectory: $(uipathTestDirectory)
- 
-     - template: steps/run_crypto.yml
-       parameters:
-         buildPipeline: ${{ variables.cryptographyBuildPipeline }}
-         packagesFolder: $(packagesFolder)
-         studioInstallPath: $(studioInstallPath)
-         uipathTestDirectory: $(uipathTestDirectory)
-         AES_Decrypted_file: $(AES_Decrypted_file)
-         AES_Encrypted_file: $(AES_Encrypted_file)
-         DES_Decrypted_file: $(DES_Decrypted_file)
-         DES_Encrypted_file: $(DES_Encrypted_file)
-         InputFile_EncryptDecriptFile: $(InputFile_EncryptDecriptFile)
-         InputFile_HashFile: $(InputFile_HashFile)
-         InputFile_HashFileWithKey: $(InputFile_HashFileWithKey)
-         Key_Encryption: $(Key_Encryption)
-         RC_Decrypted_file: $(RC_Decrypted_file)
-         RC_Encrypted_file: $(RC_Encrypted_file)
-         Rijndael_Decrypted_File: $(Rijndael_Decrypted_File)
-         Rijndael_Encrypted_File: $(Rijndael_Encrypted_File)
-         Text_to_Encrypt: $(Text_to_Encrypt)
-         TripleDES_Decrypted_File: $(TripleDES_Decrypted_File)
-         TripleDES_Encrypted_File: $(TripleDES_Encrypted_File)
+
+#  - stage: Run_Oracle_Server_NET5
+  #  dependsOn: [] 
+  #  jobs:
+  #  - job: Run_Oracle_Server_NET5_Integration_Tests
+    #  pool:
+      #  vmImage: 'windows-latest'
+    #  steps:
+    #  - template: steps/setup_env.yml
+      #  parameters:
+        #  uipathLicenseCode: $(uipathLicenseCode)
+        #  uipathVersion: $(uipathVersion)
+        #  studioInstallPath: $(studioInstallPath)
+        #  orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+#  
+    #  - template: steps/setup_aks.yml
+      #  parameters:
+        #  azureServiceConnectionName: $(azureServiceConnectionName)
+        #  aksResourcePrefix: $(aksResourcePrefix)
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deployOracleContainer: true
+#  
+    #  - template: steps/run_oracle_net5.yml
+      #  parameters:
+        #  buildPipeline: ${{ variables.databaseBuildPipeline }}
+        #  packagesFolder: $(packagesFolder)
+        #  studioInstallPath: $(studioInstallPath)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+        #  ODBC_db_connStr: $(ODBC_db_connStr)
+        #  ODBC_db_provider: $(ODBC_db_provider)
+        #  ODBC_managed_connStr: $(ODBC_managed_connStr)
+        #  ODBC_managed_provider: $(ODBC_managed_provider)
+  # 
+    #  - template: steps/clean_aks.yml
+      #  parameters:
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deployOracleContainer: true
+
+#  - stage: Run_Oracle_Server_NET5_Cross
+  #  dependsOn: [] 
+  #  jobs:
+  #  - job: Run_Oracle_Server_NET5_Cross_Integration_Tests
+    #  pool:
+      #  vmImage: 'windows-latest'
+    #  steps:
+    #  - template: steps/setup_env.yml
+      #  parameters:
+        #  uipathLicenseCode: $(uipathLicenseCode)
+        #  uipathVersion: $(uipathVersion)
+        #  studioInstallPath: $(studioInstallPath)
+        #  orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+#  
+    #  - template: steps/setup_aks.yml
+      #  parameters:
+        #  azureServiceConnectionName: $(azureServiceConnectionName)
+        #  aksResourcePrefix: $(aksResourcePrefix)
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deployOracleContainer: true
+#  
+    #  - template: steps/run_oracle_net5_cross.yml
+      #  parameters:
+        #  buildPipeline: ${{ variables.databaseBuildPipeline }}
+        #  packagesFolder: $(packagesFolder)
+        #  studioInstallPath: $(studioInstallPath)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+        #  ODBC_db_connStr: $(ODBC_db_connStr)
+        #  ODBC_db_provider: $(ODBC_db_provider)
+        #  ODBC_managed_connStr: $(ODBC_managed_connStr)
+        #  ODBC_managed_provider: $(ODBC_managed_provider)
+  # 
+    #  - template: steps/clean_aks.yml
+      #  parameters:
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deployOracleContainer: true
+
+
+#  - stage: Run_SFTP_Server_NET5
+  #  dependsOn: [] 
+  #  jobs:
+  #  - job: Run_SFTP_Server_NET5_Integration_Tests
+    #  pool:
+      #  vmImage: 'windows-latest'
+    #  steps:
+    #  - template: steps/setup_env.yml
+      #  parameters:
+        #  uipathLicenseCode: $(uipathLicenseCode)
+        #  uipathVersion: $(uipathVersion)
+        #  studioInstallPath: $(studioInstallPath)
+        #  orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+#  
+    #  - template: steps/setup_aks.yml
+      #  parameters:
+        #  azureServiceConnectionName: $(azureServiceConnectionName)
+        #  aksResourcePrefix: $(aksResourcePrefix)
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deploySftpContainer: true
+#  
+    #  - template: steps/run_sftp_net5.yml
+      #  parameters:
+        #  buildPipeline: ${{ variables.sftpBuildPipeline }}
+        #  packagesFolder: $(packagesFolder)
+        #  studioInstallPath: $(studioInstallPath)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+  # 
+    #  - template: steps/clean_aks.yml
+      #  parameters:
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deploySftpContainer: true
+
+#  - stage: Run_SFTP_Server_NET5_Cross
+  #  dependsOn: [] 
+  #  jobs:
+  #  - job: Run_SFTP_Server_NET5_Cross_Integration_Tests
+    #  pool:
+      #  vmImage: 'windows-latest'
+    #  steps:
+    #  - template: steps/setup_env.yml
+      #  parameters:
+        #  uipathLicenseCode: $(uipathLicenseCode)
+        #  uipathVersion: $(uipathVersion)
+        #  studioInstallPath: $(studioInstallPath)
+        #  orchestratorPSModuleSourceUrl: $(orchestratorPSModuleSourceUrl)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+#  
+    #  - template: steps/setup_aks.yml
+      #  parameters:
+        #  azureServiceConnectionName: $(azureServiceConnectionName)
+        #  aksResourcePrefix: $(aksResourcePrefix)
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deploySftpContainer: true
+#  
+    #  - template: steps/run_sftp_net5_cross.yml
+      #  parameters:
+        #  buildPipeline: ${{ variables.sftpBuildPipeline }}
+        #  packagesFolder: $(packagesFolder)
+        #  studioInstallPath: $(studioInstallPath)
+        #  uipathTestDirectory: $(uipathTestDirectory)
+  # 
+    #  - template: steps/clean_aks.yml
+      #  parameters:
+        #  sftpContainer: $(sftpContainer)
+        #  sqlserverContainer: $(sqlserverContainer)
+        #  oracleContainer: $(oracleContainer)
+        #  deploySftpContainer: true

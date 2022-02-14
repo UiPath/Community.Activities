@@ -1,0 +1,4 @@
+﻿supplier_id,supplier_name,city
+5001,Microsoft,Brasov
+5002,IBM,Bucuresti
+5005,NVIDIA,LA

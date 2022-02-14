@@ -1,0 +1,59 @@
+{
+  "name": "PythonNet5",
+  "description": "PythonNet5",
+  "main": "MainPython.xaml",
+  "dependencies": {
+    "UiPath.Python.Activities": "[1.4.1]",
+    "UiPath.System.Activities": "[21.10.3]",
+    "UiPath.UIAutomation.Activities": "[21.10.5]",
+    "UiPath.WebAPI.Activities": "[1.9.2]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "21.4.3.0",
+  "projectVersion": "1.0.0",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "MainPython.xaml",
+      "uniqueId": "378f5061-376b-4f89-8cad-d9775343f4a0",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Windows",
+  "coverageMergeWorkflowPath": ""
+}

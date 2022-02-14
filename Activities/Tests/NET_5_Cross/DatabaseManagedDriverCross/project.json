@@ -1,0 +1,56 @@
+{
+  "name": "DatabaseCross",
+  "description": "DatabaseCross",
+  "main": "DatabaseManagedDriver.xaml",
+  "dependencies": {
+    "UiPath.Database.Activities": "[1.5.0-beta.2142030]",
+    "UiPath.System.Activities": "[21.10.0]",
+    "UiPath.WebAPI.Activities": "[1.9.1]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "21.10.0.0",
+  "projectVersion": "1.0.3",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": false,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": true
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": true
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "DatabaseManagedDriver.xaml",
+      "uniqueId": "2a42bcc8-9a67-48ca-98dd-77e8bd27c59d",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Portable"
+}

@@ -1,0 +1,64 @@
+{
+  "name": "FTPandSFTP",
+  "description": "FTP and SFTP activities",
+  "main": "FTPtestsUserPass.xaml",
+  "dependencies": {
+    "UiPath.FTP.Activities": "[2.2.0]",
+    "UiPath.System.Activities": "[21.10.3]",
+    "UiPath.UIAutomation.Activities": "[21.10.3]",
+    "UiPath.WebAPI.Activities": "[1.9.2]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "20.10.2.0",
+  "projectVersion": "1.0.0",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "FTPtests.xaml",
+      "uniqueId": "0a4388ba-d043-44f3-b6c4-135346290678",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "FTPtestsUserPass.xaml",
+      "uniqueId": "45b0fb4e-8962-4c5d-8a4f-102228c030cf",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Legacy"
+}

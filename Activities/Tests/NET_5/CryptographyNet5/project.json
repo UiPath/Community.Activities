@@ -1,0 +1,65 @@
+{
+  "name": "CryptographyNet5",
+  "description": "CryptographyNet5",
+  "main": "Main.xaml",
+  "dependencies": {
+    "UiPath.Cryptography.Activities": "[1.3.0-alpha.2328349]",
+    "UiPath.System.Activities": "[21.10.3]",
+    "UiPath.UIAutomation.Activities": "[21.10.5]",
+    "UiPath.WebAPI.Activities": "[1.9.2]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "21.4.3.0",
+  "projectVersion": "1.0.4",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "EncryptDecryptFile.xaml",
+      "uniqueId": "417ab82c-fe4b-488e-88f0-a74fcf5338f2",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "c68999fc-a034-44fd-a1df-a5c28f7b7a19",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Windows",
+  "coverageMergeWorkflowPath": ""
+}

@@ -1,0 +1,635 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" this:Main.Host="192.168.1.140" this:Main.PortPass="2022" this:Main.Remotepath="/" this:Main.LocalPath="C:\Users\Vlad\OneDrive - Implement 24Software SRL\NET5_TESTS\SFTPNet5\FTPFolder" this:Main.User="userpass" this:Main.Pass="password" this:Main.DownloadUserPass="C:\Users\Vlad\OneDrive - Implement 24Software SRL\NET5_TESTS\SFTPNet5\FTPFolder\DownloadUserPass" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:p="http://schemas.uipath.com/workflow/activities/ftp" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=System.Private.CoreLib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System.Private.CoreLib" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Private.Xml.Linq" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Host" Type="InArgument(x:String)" />
+    <x:Property Name="PortPass" Type="InArgument(x:Int32)" />
+    <x:Property Name="Remotepath" Type="InArgument(x:String)" />
+    <x:Property Name="LocalPath" Type="InArgument(x:String)" />
+    <x:Property Name="User" Type="InArgument(x:String)" />
+    <x:Property Name="Pass" Type="InArgument(x:String)" />
+    <x:Property Name="DownloadUserPass" Type="InArgument(x:String)" />
+    <x:Property Name="stw" Type="InArgument(sd:Stopwatch)" />
+    <x:Property Name="XmlPath" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:Main.stw>
+    <InArgument x:TypeArguments="sd:Stopwatch" />
+  </this:Main.stw>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1020,8549.6</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="33">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>System.Collections.Specialized</x:String>
+      <x:String>UiPath.FTP</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>UiPath.FTP.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>netstandard</AssemblyReference>
+      <AssemblyReference>UiPath.FTP</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="802.4,8484.8" sap2010:WorkflowViewState.IdRef="Sequence_13">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd1:DataTable" Name="DataTable" />
+      <Variable x:TypeArguments="x:String" Name="Project_Dependencies" />
+      <Variable x:TypeArguments="x:String" Name="PackageVersion" />
+      <Variable x:TypeArguments="x:String" Default="UiPath.FTP.Activities" Name="PackageName" />
+      <Variable x:TypeArguments="x:String" Name="XmlPathVar">
+        <Variable.Default>
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="XmlPath" />
+        </Variable.Default>
+      </Variable>
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:BuildDataTable DataTable="[DataTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="760.8,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Test&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;time&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Result&quot; msdata:Caption=&quot;&quot; type=&quot;xs:boolean&quot; default=&quot;true&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;ErrorMessage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;50000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ExceptionType&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;5000&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign sap:VirtualizedContainerService.HintSize="760.8,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:Stopwatch">[stw]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:Stopwatch">[new Stopwatch()]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <p:WithFtpSession ClientCertificatePassword="{x:Null}" ClientCertificatePath="{x:Null}" ContinueOnError="{x:Null}" AcceptAllCertificates="True" DisplayName="With ftp session User/Pass Auth" sap:VirtualizedContainerService.HintSize="760.8,7974.4" Host="[Host]" sap2010:WorkflowViewState.IdRef="WithFtpSession_1" Password="[Pass]" Port="[PortPass]" UseSftp="True" Username="[User]">
+      <p:WithFtpSession.Body>
+        <ActivityAction x:TypeArguments="p:IFtpSession">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="p:IFtpSession" Name="FtpSession" />
+          </ActivityAction.Argument>
+          <Sequence sap:VirtualizedContainerService.HintSize="727.2,7888" sap2010:WorkflowViewState.IdRef="Sequence_9">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="Dir_exist" />
+              <Variable x:TypeArguments="x:Boolean" Name="File_Exist" />
+              <Variable x:TypeArguments="scg:IEnumerable(p:FtpObjectInfo)" Name="files_listUserPass" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <TryCatch DisplayName="Try Catch Upload files User/Pass" sap:VirtualizedContainerService.HintSize="685.6,1041.6" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch.Try>
+                <Sequence sap:VirtualizedContainerService.HintSize="375.2,810.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Start">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <p:UploadFiles ContinueOnError="False" Create="False" DisplayName="Upload files User/Pass" sap:VirtualizedContainerService.HintSize="333.6,139.2" sap2010:WorkflowViewState.IdRef="UploadFiles_1" LocalPath="[LocalPath]" Overwrite="True" Recursive="False" RemotePath="[Remotepath]" />
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Stop">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Upload files User/Pass &quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;True&quot;}]" DataTable="[DataTable]" DisplayName="Upload files User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Upload files User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;False&quot;,&quot;exception,exception.GetType&quot;}]" DataTable="[DataTable]" DisplayName="Failed Upload files User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+            <TryCatch DisplayName="Try Catch Directory exists User/Pass" sap:VirtualizedContainerService.HintSize="685.6,992.8" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch.Try>
+                <Sequence sap:VirtualizedContainerService.HintSize="375.2,761.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="Restart">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <p:DirectoryExists ContinueOnError="True" DisplayName="Directory exists" Exists="[Dir_exist]" sap:VirtualizedContainerService.HintSize="333.6,90.4" sap2010:WorkflowViewState.IdRef="DirectoryExists_1" RemotePath="[Remotepath + &quot;FTPFolder&quot;]" />
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="Stop">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Directory exists User/Pass &quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;True&quot;}]" DataTable="[DataTable]" DisplayName="Directory exists User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_3" />
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Directory exists User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;False&quot;,&quot;exception,exception.GetType&quot;}]" DataTable="[DataTable]" DisplayName="Failed Directory exists User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_4" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+            <TryCatch DisplayName="Try Catch File exists User/Pass" sap:VirtualizedContainerService.HintSize="685.6,1152" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch.Try>
+                <Sequence sap:VirtualizedContainerService.HintSize="648.8,920.8" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="607.2,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="Restart">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <If Condition="[Dir_exist]" DisplayName="If Directory Exists" sap:VirtualizedContainerService.HintSize="607.2,249.6" sap2010:WorkflowViewState.IdRef="If_1">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <p:FileExists ContinueOnError="True" DisplayName="File exists" Exists="[File_Exist]" sap:VirtualizedContainerService.HintSize="333.6,90.4" sap2010:WorkflowViewState.IdRef="FileExists_1" RemotePath="[Remotepath +&quot;FTPFolder/testfile5.txt&quot;]" />
+                    </If.Then>
+                    <If.Else>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="229.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[Dir_exist.ToString + &quot; Directory does not exist User/Pass&quot;]" />
+                    </If.Else>
+                  </If>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="607.2,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_6" MethodName="Stop">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;File exists User/Pass &quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;True&quot;}]" DataTable="[DataTable]" DisplayName="File exists User/Pass" sap:VirtualizedContainerService.HintSize="607.2,188" sap2010:WorkflowViewState.IdRef="AddDataRow_5" />
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="652,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed File exists User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;False&quot;,&quot;exception,exception.GetType&quot;}]" DataTable="[DataTable]" DisplayName="Failed File exists User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_6" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+            <TryCatch DisplayName="Try Catch Enumerate objects User/Pass" sap:VirtualizedContainerService.HintSize="685.6,1152" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch.Try>
+                <Sequence sap:VirtualizedContainerService.HintSize="648.8,920.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="607.2,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_7" MethodName="Restart">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <If Condition="[File_Exist]" DisplayName="If File Exists" sap:VirtualizedContainerService.HintSize="607.2,249.6" sap2010:WorkflowViewState.IdRef="If_2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <p:EnumerateObjects ContinueOnError="False" DisplayName="Enumerate objects" Files="[files_listUserPass]" sap:VirtualizedContainerService.HintSize="333.6,90.4" sap2010:WorkflowViewState.IdRef="EnumerateObjects_1" Recursive="True" RemotePath="[Remotepath]" />
+                    </If.Then>
+                    <If.Else>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="229.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[File_Exist.ToString + &quot; File does not exist User/Pass&quot;]" />
+                    </If.Else>
+                  </If>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="607.2,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_8" MethodName="Stop">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Enumerate objects User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;True&quot;}]" DataTable="[DataTable]" DisplayName="Enumerate objects User/Pass" sap:VirtualizedContainerService.HintSize="607.2,188" sap2010:WorkflowViewState.IdRef="AddDataRow_7" />
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="652,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Enumerate objects User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;False&quot;,&quot;exception,exception.GetType&quot;}]" DataTable="[DataTable]" DisplayName="Failed Enumerate objects User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_8" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+            <TryCatch DisplayName="Try Catch List Enumerate objects User/Pass" sap:VirtualizedContainerService.HintSize="685.6,1182.4" sap2010:WorkflowViewState.IdRef="TryCatch_5">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch.Try>
+                <Sequence sap:VirtualizedContainerService.HintSize="475.2,951.2" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="sc:IEnumerable" Name="lista" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="433.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_9" MethodName="Restart">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:ForEach x:TypeArguments="p:FtpObjectInfo" CurrentIndex="{x:Null}" DisplayName="For Each Enumerable object" sap:VirtualizedContainerService.HintSize="433.6,280" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[files_listUserPass]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="p:FtpObjectInfo">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="p:FtpObjectInfo" Name="item" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="271.2,155.2" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="229.6,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[item.FullName]" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ForEach>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="433.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_10" MethodName="Stop">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;List Enumerate objects User/Pass &quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;True&quot;}]" DataTable="[DataTable]" DisplayName="List Enumerate objects User/Pass" sap:VirtualizedContainerService.HintSize="433.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_9" />
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="478.4,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_5">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed List Enumerate objects User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;False&quot;,&quot;exception,exception.GetType&quot;}]" DataTable="[DataTable]" DisplayName="Failed Enumerate objects User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_10" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+            <TryCatch DisplayName="Try Catch Download files User/Pass" sap:VirtualizedContainerService.HintSize="685.6,1041.6" sap2010:WorkflowViewState.IdRef="TryCatch_6">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch.Try>
+                <Sequence sap:VirtualizedContainerService.HintSize="375.2,810.4" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_11" MethodName="Restart">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <p:DownloadFiles ContinueOnError="False" Create="False" DisplayName="Download files" sap:VirtualizedContainerService.HintSize="333.6,139.2" sap2010:WorkflowViewState.IdRef="DownloadFiles_1" LocalPath="[DownloadUserPass]" Overwrite="True" Recursive="True" RemotePath="[Remotepath +&quot;FTPFolder/&quot;]" />
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_12" MethodName="Stop">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Download files User/Pass &quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;True&quot;}]" DataTable="[DataTable]" DisplayName="Download files User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_11" />
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_6">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Download files User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;False&quot;,&quot;exception,exception.GetType&quot;}]" DataTable="[DataTable]" DisplayName="Failed Download files User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_12" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+            <TryCatch DisplayName="Try Catch Delete User/Pass" sap:VirtualizedContainerService.HintSize="685.6,992.8" sap2010:WorkflowViewState.IdRef="TryCatch_7">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch.Try>
+                <Sequence sap:VirtualizedContainerService.HintSize="375.2,761.6" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_13" MethodName="Restart">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <p:Delete ContinueOnError="False" sap:VirtualizedContainerService.HintSize="333.6,90.4" sap2010:WorkflowViewState.IdRef="Delete_1" RemotePath="[Remotepath + &quot;FTPFolder/testfile7.txt&quot;]" />
+                  <InvokeMethod DisplayName="Invoke method" sap:VirtualizedContainerService.HintSize="333.6,135.2" sap2010:WorkflowViewState.IdRef="InvokeMethod_14" MethodName="Stop">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="sd:Stopwatch">[stw]</InArgument>
+                    </InvokeMethod.TargetObject>
+                  </InvokeMethod>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Delete file User/Pass &quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;True&quot;}]" DataTable="[DataTable]" DisplayName="Delete User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_13" />
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_7">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{&quot;Failed Delete User/Pass&quot;,&quot;stw.Elapsed.TotalSeconds&quot;,&quot;False&quot;,&quot;exception,exception.GetType&quot;}]" DataTable="[DataTable]" DisplayName="Failed Delete User/Pass" sap:VirtualizedContainerService.HintSize="333.6,188" sap2010:WorkflowViewState.IdRef="AddDataRow_14" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+          </Sequence>
+        </ActivityAction>
+      </p:WithFtpSession.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </p:WithFtpSession>
+    <Sequence DisplayName="Deserialize JSON and get Activity version" sap:VirtualizedContainerService.HintSize="760.8,68.8" sap2010:WorkflowViewState.IdRef="Sequence_10">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="Text_ProjectConfig" />
+        <Variable x:TypeArguments="njl:JObject" Name="JsonObject_Output" />
+        <Variable x:TypeArguments="njl:JObject" Name="Project_depDes" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ReadTextFile sap2010:Annotation.AnnotationText="Reads the project.json file to a variable that we can parse though line by line.  Note it has to be Deserialized first as it is a JSON formatted file.  If you do not already have it click manage packages and add the UiPath.Web.Activities to your project." Content="[Text_ProjectConfig]" DisplayName="Read Text File" FileName="project.json" sap:VirtualizedContainerService.HintSize="384,156.8" sap2010:WorkflowViewState.IdRef="ReadTextFile_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ReadTextFile>
+      <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[JsonObject_Output]" JsonString="[Text_ProjectConfig]" />
+      <Assign sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[Project_Dependencies]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[JsonObject_Output.SelectToken("dependencies").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_2" JsonObject="[Project_depDes]" JsonString="[Project_Dependencies]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:DeserializeJson>
+      <Assign sap:VirtualizedContainerService.HintSize="384,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[PackageVersion]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Project_depDes("UiPath.FTP.Activities").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <Sequence DisplayName="XML Conversion" sap:VirtualizedContainerService.HintSize="450.4,1050.4" sap2010:WorkflowViewState.IdRef="Sequence_12">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="sxl:XElement" Name="xmlRows" />
+        <Variable x:TypeArguments="sxl:XElement" Name="xmlDocument" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="408.8,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sxl:XElement">[xmlDocument]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sxl:XElement">[New XElement("testsuites", New XAttribute("time",DateTime.Now.ToString))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="408.8,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sxl:XElement">[xmlRows]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sxl:XElement">[new XElement("testsuite")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[DataTable]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="408.8,378.4" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+        <ui:ForEachRow.Body>
+          <ActivityAction x:TypeArguments="sd1:DataRow">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd1:DataRow" Name="row" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="375.2,257.6" sap2010:WorkflowViewState.IdRef="Sequence_11">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="If( CBool(rowEl.Item(&quot;Result&quot;)) = True)&#xA;&#x9;xmlRow.Add (New XElement(&quot;testcase&quot;,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package +&quot; &quot;+PackageVersion),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;,Package +&quot; &quot;+PackageVersion+&quot; &quot;+rowEl.Item(&quot;Test&quot;).ToString()),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;  )&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Else &#xA;&#x9;&#x9;xmlRow.Add (New XElement(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;testcase&quot;,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;classname&quot;, Package + &quot; &quot; + PackageVersion),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;name&quot;, Package +&quot; &quot;+PackageVersion+&quot; &quot;+ rowEl.Item(&quot;Test&quot;).ToString()),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;time&quot;, rowEl.Item(&quot;time&quot;)),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XElement(&quot;failure&quot;,rowEl.Item(&quot;ErrorMessage&quot;).ToString(),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;New XAttribute(&quot;type&quot;, rowEl.Item(&quot;ExceptionType&quot;).ToString())&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;)))&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;End If" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                <ui:InvokeCode.Arguments>
+                  <InOutArgument x:TypeArguments="sxl:XElement" x:Key="xmlRow">[xmlRows]</InOutArgument>
+                  <InArgument x:TypeArguments="sd1:DataRow" x:Key="rowEl">[row]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Package">[PackageName]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="PackageVersion">[PackageVersion]</InArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEachRow.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEachRow>
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="doc.Add(row)" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="408.8,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+        <ui:InvokeCode.Arguments>
+          <InArgument x:TypeArguments="sxl:XElement" x:Key="row">[xmlRows]</InArgument>
+          <InOutArgument x:TypeArguments="sxl:XElement" x:Key="doc">[xmlDocument]</InOutArgument>
+        </ui:InvokeCode.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeCode>
+      <ui:WriteTextFile DisplayName="Write Text File" FileName="[XmlPathVar + &quot;junit_FTP_UserPass.xml&quot;]" sap:VirtualizedContainerService.HintSize="408.8,134.4" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="[&quot;&lt;?xml version=&quot;&quot;1.0&quot;&quot; encoding=&quot;&quot;UTF-8&quot;&quot;?&gt;&quot; + Environment.NewLine +&#xA;xmldocument.ToString()]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:WriteTextFile>
+    </Sequence>
+  </Sequence>
+</Activity>

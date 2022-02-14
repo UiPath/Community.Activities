@@ -1,0 +1,118 @@
+parameters:
+  - name: buildPipeline
+    type: string
+  - name: packagesFolder
+    type: string
+  - name: studioInstallPath
+    type: string
+  - name: uipathTestDirectory
+    type: string
+  - name: ODBC_db_connStr
+    type: string
+  - name: ODBC_db_provider
+    type: string
+    default: "'System.Data.Odbc'"
+  - name: ODBC_managed_connStr
+    type: string
+  - name: ODBC_managed_provider
+    type: string
+    default: "'Oracle.ManagedDataAccess.Client'"
+
+
+steps:
+   - task: DownloadPipelineArtifact@2
+     displayName: Download artifact from build pipeline
+     inputs:
+      source: 'specific'
+      project: 'Community'
+      pipeline: ${{ parameters.buildPipeline }}
+      runVersion: 'latest'
+      path: ${{ parameters.packagesFolder }}
+
+   - task: PowerShell@2
+     displayName: Update Nuget Packages from UiPath Dev
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+        cd ${{ parameters.packagesFolder }}
+        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $dot = $file.LastIndexof('.')
+        $file = $file.Replace(".nupkg","")
+        $act = $file.LastIndexof('Activities.')
+        $version = $file.Substring($act+11)
+        Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
+        cd ${{ parameters.studioInstallPath }}
+        .\UiPath.Studio.CommandLine.exe manage --project-path "$(uipathTestDirectory)\NET_461\DatabaseTests\project.json" --add-ref "UiPath.Database.Activities|$version|strict"
+
+   - task: PowerShell@2
+     displayName: Copy Oracle Client on agent
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       mkdir d:\oracle
+       mkdir d:\ora_temp
+       Copy-Item "$(Build.SourcesDirectory)\Activities\Tests\Setup\instantclient_19_8.zip" -Destination "d:\ora_temp"
+       Expand-Archive -LiteralPath 'd:\ora_temp\instantclient_19_8.zip' -DestinationPath 'd:\oracle'
+       ((Get-Content -path $(Build.SourcesDirectory)\Activities\Tests\Setup\tnsnames.ora -Raw) -replace '##IP##', $env:oraclePublicIP) | Set-Content -Path $(Build.SourcesDirectory)\Activities\Tests\Setup\tnsnames.ora
+       Copy-Item "$(Build.SourcesDirectory)\Activities\Tests\Setup\tnsnames.ora" -Destination "d:\oracle\network\admin\tnsnames.ora" -Force
+
+   - task: PowerShell@2
+     displayName: Install Oracle Client on agent
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+       cd d:\oracle
+       .\odbc_install.exe
+       cd d:\oracle\odp.net\managed\x86
+       .\configure.bat true true
+   
+   - task: PowerShell@2
+     displayName: Add custom Oracle DSN
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+        Get-OdbcDriver
+        Add-OdbcDsn -Name "TestDB" -DriverName "Oracle in oracle" -Platform "32-bit" -DsnType "User" -SetPropertyValue @("SERVER=TestDB")
+
+   - task: PowerShell@2
+     displayName: Run ODBC with Oracle Tests VB (with wait time)
+     inputs:
+      targetType: 'inline'
+      script: |
+       Start-Sleep -s 1800
+       $(studioInstallPath)\uirobot.exe execute --file "$(uipathTestDirectory)\NET_461\DatabaseTests\DatabaseTestsODBC.xaml" --input "{ 'ODBC_db_connStr' : ${{ parameters.ODBC_db_connStr}}, 'ODBC_db_provider' : ${{ parameters.ODBC_db_provider}} }"
+       Copy-Item "$(uipathTestDirectory)\NET_461\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_ODBC_ORACLE_NET_461.xml"
+       Remove-Item "$(uipathTestDirectory)\NET_461\DatabaseTests\junit*.xml"
+ 
+   - task: PowerShell@2
+     displayName: Run Oracle Managed Client Tests VB
+     inputs:
+      targetType: 'inline'
+      script: |
+       $datas = $(ODBC_managed_connStr)
+       $datas = $datas.Replace('##IP##', $env:oraclePublicIP)
+       $datas = "'" + $datas + "'"
+       Write-Host $datas
+       $(studioInstallPath)\uirobot.exe execute --file "$(uipathTestDirectory)\NET_461\DatabaseTests\DatabaseTestsOracleManaged.xaml" --input "{ 'ODBC_managed_connStr' : $datas, 'ODBC_managed_provider' : ${{ parameters.ODBC_managed_provider}} }"
+       Copy-Item "$(uipathTestDirectory)\NET_461\DatabaseTests\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_ORACLE_MANAGED_NET_461.xml"
+       Remove-Item "$(uipathTestDirectory)\NET_461\DatabaseTests\junit*.xml"
+
+   - task: PublishBuildArtifacts@1
+     displayName: "Publish test files as Artifacts"
+     inputs:
+       PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
+       ArtifactName:   'Oracle Integration Tests for $(Build.BuildNumber)'
+       ArtifactType:   'Container'
+
+   - task: PublishTestResults@2
+     displayName: "Publish test results as Test Runs output"
+     inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'junit*.xml'
+        searchFolder: '$(Build.ArtifactStagingDirectory)'
+        testRunTitle: 'Oracle Integration Tests for $(Build.BuildNumber)'

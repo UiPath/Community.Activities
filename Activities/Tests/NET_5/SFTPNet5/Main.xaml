@@ -1,0 +1,165 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" this:Main.stw="[new Stopwatch]" this:Main.Host="192.168.1.140" this:Main.PortPass="2022" this:Main.Remotepath="/" this:Main.LocalPath="C:\Users\Vlad\OneDrive - Implement 24Software SRL\NET5_TESTS\SFTPNet5\FTPFolder" this:Main.User="userpass" this:Main.Pass="password" this:Main.DownloadUserPass="C:\Users\Vlad\OneDrive - Implement 24Software SRL\NET5_TESTS\SFTPNet5\FTPFolder\DownloadUserPass" this:Main.CertificatePathPPK="C:\Users\Vlad\OneDrive - Implement 24Software SRL\NET5_TESTS\SFTPNet5\id_rsa" this:Main.DownloadRSA="C:\Users\Vlad\OneDrive - Implement 24Software SRL\NET5_TESTS\SFTPNet5\FTPFolder\DownloadRSA" this:Main.PortRSA="2022" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="stw" Type="InArgument(sd:Stopwatch)" />
+    <x:Property Name="Host" Type="InArgument(x:String)" />
+    <x:Property Name="PortPass" Type="InArgument(x:Int32)" />
+    <x:Property Name="Remotepath" Type="InArgument(x:String)" />
+    <x:Property Name="LocalPath" Type="InArgument(x:String)" />
+    <x:Property Name="User" Type="InArgument(x:String)" />
+    <x:Property Name="Pass" Type="InArgument(x:String)" />
+    <x:Property Name="DownloadUserPass" Type="InArgument(x:String)" />
+    <x:Property Name="CertificatePathPPK" Type="InArgument(x:String)" />
+    <x:Property Name="DownloadRSA" Type="InArgument(x:String)" />
+    <x:Property Name="PortRSA" Type="InArgument(x:Int32)" />
+    <x:Property Name="XmlPath" Type="InArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1020,472</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Main_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Reflection</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.TraceSource</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.FileVersionInfo</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.EventLog</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.Process</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.DiagnosticSource</AssemblyReference>
+      <AssemblyReference>System.Diagnostics.StackTrace</AssemblyReference>
+      <AssemblyReference>Microsoft.PowerShell.Commands.Diagnostics</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Main" sap:VirtualizedContainerService.HintSize="375.2,360" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="XmlPathVar">
+        <Variable.Default>
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="XmlPath" />
+        </Variable.Default>
+      </Variable>
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="FTPUserPass.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="Host">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="host" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="PortPass">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="PortPass" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Remotepath">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Remotepath" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="LocalPath">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="LocalPath" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="User">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="User" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Pass">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Pass" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="DownloadUserPass">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="DownloadUserPass" />
+        </InArgument>
+        <InArgument x:TypeArguments="sd:Stopwatch" x:Key="stw">
+          <VisualBasicValue x:TypeArguments="sd:Stopwatch" ExpressionText="new Stopwatch" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="XmlPath">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="XmlPathVar" />
+        </InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="FTPUserRSA.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="Host">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Host" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="PortRSA">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="PortRSA" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Remotepath">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Remotepath" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="LocalPath">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="LocalPath" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="CertificatePathPPK">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="CertificatePathPPK" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="User">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="User" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="DownloadRSA">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="DownloadRSA" />
+        </InArgument>
+        <InArgument x:TypeArguments="sd:Stopwatch" x:Key="stw">
+          <VisualBasicValue x:TypeArguments="sd:Stopwatch" ExpressionText="new Stopwatch" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="XmlPath">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="XmlPathVar" />
+        </InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+  </Sequence>
+</Activity>

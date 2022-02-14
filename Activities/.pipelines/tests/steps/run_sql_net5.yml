@@ -1,0 +1,79 @@
+parameters:
+  - name: buildPipeline
+    type: string
+  - name: packagesFolder
+    type: string
+  - name: studioInstallPath
+    type: string
+  - name: uipathTestDirectory
+    type: string
+  - name: SQLServer_db_provider
+    type: string
+    default: "'System.Data.SqlClient'"
+
+steps:
+   - task: DownloadPipelineArtifact@2
+     displayName: Download artifact from build pipeline
+     inputs:
+      source: 'specific'
+      project: 'Community'
+      pipeline: ${{ parameters.buildPipeline }}
+      runVersion: 'latest'
+      path: ${{ parameters.packagesFolder }}
+
+   - task: PowerShell@2
+     displayName: Update Nuget Packages from UiPath Dev
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+        cd ${{ parameters.packagesFolder }}
+        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $dot = $file.LastIndexof('.')
+        $file = $file.Replace(".nupkg","")
+        $act = $file.LastIndexof('Activities.')
+        $version = $file.Substring($act+11)
+        Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
+
+        $projectPath = "$(uipathTestDirectory)\NET_5\DatabaseNet5"
+        mkdir -p $projectPath\XmlFiles
+
+        cd ${{ parameters.studioInstallPath }}
+        .\UiPath.Studio.CommandLine.exe manage --project-path "$projectPath\project.json" --add-ref "UiPath.Database.Activities|$version|strict" 
+        dir "$projectPath\"
+
+        Write-Host Publish project to folder $projectPath
+        .\UiPath.Studio.CommandLine.exe publish --project-path "$projectPath\project.json" --target Custom --feed "$projectPath\" -v "$version"
+        dir "$projectPath\"
+
+        $datas = "'Data Source=" + $env:sqlPublicIP + ";User ID=sa;Password=b2298905Acfa%'"
+        Write-Host $datas
+
+        Write-Host Run nupkg file 
+        .\uirobot.exe execute --file "$projectPath\DatabaseNet5.$version.nupkg" --input "{'XmlPath':'d:\\teste\\NET_5\\DatabaseNet5\\XmlFiles\\', 'SQLServer_Connection' : $datas, 'SQLServer_db_provider' : $(SQLServer_db_provider)}"
+
+        cd $projectPath\
+        dir "$projectPath\"
+        dir "$projectPath\XmlFiles\"
+
+        Write-Host Copy item "$projectPath\XmlFiles\"
+        Copy-Item "$projectPath\XmlFiles\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_Database_SQLSrv_NET_5.xml"
+
+        Write-Host Remove item "$projectPath\XmlFiles\"
+        Remove-Item "$projectPath\XmlFiles\junit*.xml"
+
+   - task: PublishBuildArtifacts@1
+     displayName: "Publish test files as Artifacts"
+     inputs:
+       PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
+       ArtifactName:   'SQL Server Integration Tests for $(Build.BuildNumber)'
+       ArtifactType:   'Container'
+
+   - task: PublishTestResults@2
+     displayName: "Publish test results as Test Runs output"
+     inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'junit*.xml'
+        searchFolder: '$(Build.ArtifactStagingDirectory)'
+        testRunTitle: 'SQL Server Integration Tests for $(Build.BuildNumber)'

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Activities.DesignViewModels;
+﻿using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
-using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -51,11 +49,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
-        /// Switches Key as string or secure string 
-        /// </summary>
-        public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
-
-        /// <summary>
         /// The encoding used to interpret the key specified in the Key property.
         /// </summary>
         public DesignInArgument<Encoding> KeyEncoding { get; set; } = new DesignInArgument<Encoding>();
@@ -89,17 +82,13 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             InputFilePath.OrderIndex = propertyOrderIndex++;
 
             Key.IsPrincipal = true;
-            Key.IsVisible = true;
             Key.OrderIndex = propertyOrderIndex++;
-
-            KeySecureString.IsPrincipal = true;
-            KeySecureString.IsVisible = false;
-            KeySecureString.OrderIndex = propertyOrderIndex++;
-
-            KeyInputModeSwitch.IsVisible = false;
 
             OutputFilePath.IsPrincipal = true;
             OutputFilePath.OrderIndex = propertyOrderIndex++;
+
+            KeySecureString.IsPrincipal = false;
+            KeySecureString.OrderIndex = propertyOrderIndex++;
 
             KeyEncoding.IsPrincipal = false;
             KeyEncoding.OrderIndex = propertyOrderIndex++;
@@ -114,45 +103,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.OrderIndex = propertyOrderIndex++;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
             ContinueOnError.Value = false;
-
-            MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
-                .AddMenuProperty(Key, KeyInputMode.Key)
-                .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
-                .BuildAndInsertMenuActions();
-        }
-
-        /// <inheritdoc/>
-        protected override void InitializeRules()
-        {
-            base.InitializeRules();
-            Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
-        }
-
-        /// <inheritdoc/>
-        protected override void ManualRegisterDependencies()
-        {
-            base.ManualRegisterDependencies();
-            RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
-        }
-
-        /// <summary>
-        /// Key input Mode has changed. Set controls visibility based on selection
-        /// </summary>
-        private void KeyInputModeChanged_Action()
-        {
-            switch (KeyInputModeSwitch.Value)
-            {
-                case KeyInputMode.Key:
-                    Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
-                    break;
-                case KeyInputMode.SecureKey:                   
-                    Key.IsVisible = false;
-                    KeySecureString.IsVisible = true;
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
         }
     }
 }

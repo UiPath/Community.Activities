@@ -12,3 +12,8 @@
 /Activities/OutputTests/
 /Activities/Output/Activities
 /Activities/Tests/DatabaseTests/.local
+/Activities/Tests/**/.local
+/Activities/Tests/**/.settings
+/Activities/Tests/**/.tmh
+/Activities/Tests/**/junit*
+/Activities/Tests/**/*.nupkg

@@ -1,0 +1,113 @@
+parameters:
+  - name: buildPipeline
+    type: string
+  - name: packagesFolder
+    type: string
+  - name: studioInstallPath
+    type: string
+  - name: uipathTestDirectory
+    type: string
+  - name: DownloadC
+    type: string
+    default: "'d:/teste/NET_5_Cross/FTPandSFTP/FTPFolder/DownloadRSA'"
+  - name: DownloadP
+    type: string
+    default: "'d:/teste/NET_5_Cross/FTPandSFTP/FTPFolder/DownloadUserPass'"
+  - name: LocalPathC
+    type: string
+    default: "'d:/teste/NET_5_Cross/FTPandSFTP/FTPFolder'"
+  - name: LocalPathP
+    type: string
+    default: "'d:/teste/NET_5_Cross/FTPandSFTP/FTPFolder'"
+  - name: PassP
+    type: string
+    default: "'password'"
+  - name: Port
+    type: string
+    default: "2022"
+  - name: RemotePathC
+    type: string
+    default: "'/'"
+  - name: RemotePathP
+    type: string
+    default: "'/'"
+  - name: UserC
+    type: string
+    default: "'usercert'"
+  - name: UserP
+    type: string
+    default: "'userpass'"
+
+
+steps:
+   - task: DownloadPipelineArtifact@2
+     displayName: Download artifact from build pipeline
+     inputs:
+      source: 'specific'
+      project: 'Community'
+      pipeline: ${{ parameters.buildPipeline }}
+      runVersion: 'latest'
+      path: ${{ parameters.packagesFolder }}
+
+   - task: DownloadSecureFile@1
+     name: loginCertificate
+     displayName: 'Download Login Certificate'
+     inputs:
+       secureFile: 'id_rsa'
+   - script: |
+      cp $(loginCertificate.secureFilePath) "$(uipathTestDirectory)\NET_5_Cross\SFTP_Cross\id_rsa"
+
+   - task: PowerShell@2
+     displayName: Update Nuget Packages from UiPath Dev
+     inputs:
+      targetType: 'inline'
+      ignoreLASTEXITCODE: true
+      script: |
+        cd ${{ parameters.packagesFolder }}
+        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $dot = $file.LastIndexof('.')
+        $file = $file.Replace(".nupkg","")
+        $act = $file.LastIndexof('Activities.')
+        $version = $file.Substring($act+11)
+        Write-Host Update to version $version
+        Write-Host "##vso[build.updatebuildnumber]$version"
+
+        $projectPath = "$(uipathTestDirectory)\NET_5_Cross\SFTP_Cross"
+        mkdir -p $projectPath\XmlFiles
+
+        cd ${{ parameters.studioInstallPath }}
+        .\UiPath.Studio.CommandLine.exe manage --project-path "$projectPath\project.json" --add-ref "UiPath.FTP.Activities|$version|strict" 
+        dir "$projectPath\"
+
+        Write-Host Publish project to folder $projectPath
+        .\UiPath.Studio.CommandLine.exe publish --project-path "$projectPath\project.json" --target Custom --feed "$projectPath\" -v "$version"
+        dir "$projectPath\"
+
+        Start-Sleep -s 300
+        Write-Host Run nupkg file 
+        .\uirobot.exe execute --file "$projectPath\SFTP_Cross.$version.nupkg" --input "{ 'XmlPath':'d:\\teste\\NET_5_Cross\\SFTP_Cross\\XmlFiles\\', 'LocalPath' : ${{ parameters.LocalPathP }}, 'Remotepath' : ${{ parameters.RemotePathP}}, 'DownloadUserPass' : ${{ parameters.DownloadP}}, 'User' : ${{ parameters.UserP}}, 'Pass' : ${{ parameters.PassP}}, 'Host' : '$env:sftpPublicIP', 'PortPass' : ${{ parameters.Port}}, 'LocalPath' : ${{ parameters.LocalPathC }}, 'Remotepath' : ${{ parameters.RemotePathC}}, 'DownloadRSA' : ${{ parameters.DownloadC}}, 'User' : ${{ parameters.UserC}}, 'CertificatePathPPK': '$path', 'Host' : '$env:sftpPublicIP', 'PortRSA' : ${{ parameters.Port }} } "
+
+        cd $projectPath\
+        dir "$projectPath\"
+        dir "$projectPath\XmlFiles\"
+
+        Write-Host Copy item "$projectPath\XmlFiles\"
+        Copy-Item "$projectPath\XmlFiles\junit*.xml" -Destination "$(Build.ArtifactStagingDirectory)\junit_SFTP_Cross.xml"
+
+        Write-Host Remove item "$projectPath\XmlFiles\"
+        Remove-Item "$projectPath\XmlFiles\junit*.xml"
+
+   - task: PublishBuildArtifacts@1
+     displayName: "Publish test files as Artifacts"
+     inputs:
+       PathtoPublish:  '$(Build.ArtifactStagingDirectory)'
+       ArtifactName:   'SFTP Integration Tests for $(Build.BuildNumber)'
+       ArtifactType:   'Container'
+
+   - task: PublishTestResults@2
+     displayName: "Publish test results as Test Runs output"
+     inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'junit*.xml'
+        searchFolder: '$(Build.ArtifactStagingDirectory)'
+        testRunTitle: 'SFTP Integration Tests for $(Build.BuildNumber)'

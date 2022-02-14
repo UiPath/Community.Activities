@@ -19,7 +19,7 @@ namespace UiPath.Cryptography.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_Cryptography_Activities {
@@ -165,24 +165,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_DecryptFile_Property_KeyEncoding_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptFile_Property_KeyEncoding_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The switch between Key and Secure String Key.
-        /// </summary>
-        public static string Activity_DecryptFile_Property_KeyInputModeSwitch_Description {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_KeyInputModeSwitch_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to KeyInputModeSwitch.
-        /// </summary>
-        public static string Activity_DecryptFile_Property_KeyInputModeSwitch_Name {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_KeyInputModeSwitch_Name", resourceCulture);
             }
         }
         
@@ -349,24 +331,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The switch between Key and Secure String Key.
-        /// </summary>
-        public static string Activity_DecryptText_Property_KeyInputModeSwitch_Description {
-            get {
-                return ResourceManager.GetString("Activity_DecryptText_Property_KeyInputModeSwitch_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to KeyInputModeSwitch.
-        /// </summary>
-        public static string Activity_DecryptText_Property_KeyInputModeSwitch_Name {
-            get {
-                return ResourceManager.GetString("Activity_DecryptText_Property_KeyInputModeSwitch_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The secure string used to decrypt the input string..
         /// </summary>
         public static string Activity_DecryptText_Property_KeySecureString_Description {
@@ -507,24 +471,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptFile_Property_KeyEncoding_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptFile_Property_KeyEncoding_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The switch between Key and Secure String Key.
-        /// </summary>
-        public static string Activity_EncryptFile_Property_KeyInputModeSwitch_Description {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_KeyInputModeSwitch_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to KeyInputModeSwitch.
-        /// </summary>
-        public static string Activity_EncryptFile_Property_KeyInputModeSwitch_Name {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_KeyInputModeSwitch_Name", resourceCulture);
             }
         }
         
@@ -687,24 +633,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptText_Property_Key_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_Key_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The switch between Key and Secure String Key.
-        /// </summary>
-        public static string Activity_EncryptText_Property_KeyInputModeSwitch_Description {
-            get {
-                return ResourceManager.GetString("Activity_EncryptText_Property_KeyInputModeSwitch_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to KeyInputModeSwitch.
-        /// </summary>
-        public static string Activity_EncryptText_Property_KeyInputModeSwitch_Name {
-            get {
-                return ResourceManager.GetString("Activity_EncryptText_Property_KeyInputModeSwitch_Name", resourceCulture);
             }
         }
         
@@ -1051,24 +979,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The switch between Key and Secure String Key.
-        /// </summary>
-        public static string Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description {
-            get {
-                return ResourceManager.GetString("Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to KeyInputModeSwitch.
-        /// </summary>
-        public static string Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name {
-            get {
-                return ResourceManager.GetString("Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The secure string used to hash the provided file..
         /// </summary>
         public static string Activity_KeyedHashFile_Property_KeySecureString_Description {
@@ -1209,24 +1119,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_KeyedHashText_Property_Key_Name {
             get {
                 return ResourceManager.GetString("Activity_KeyedHashText_Property_Key_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The switch between Key and Secure String Key.
-        /// </summary>
-        public static string Activity_KeyedHashText_Property_KeyInputModeSwitch_Description {
-            get {
-                return ResourceManager.GetString("Activity_KeyedHashText_Property_KeyInputModeSwitch_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to KeyInputModeSwitch.
-        /// </summary>
-        public static string Activity_KeyedHashText_Property_KeyInputModeSwitch_Name {
-            get {
-                return ResourceManager.GetString("Activity_KeyedHashText_Property_KeyInputModeSwitch_Name", resourceCulture);
             }
         }
         
@@ -1411,7 +1303,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to KeySecureString.
+        ///   Looks up a localized string similar to Key SecureString.
         /// </summary>
         public static string KeySecureString {
             get {
@@ -1420,7 +1312,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key SecureString.
         /// </summary>
         public static string KeySecureStringDisplayName {
             get {

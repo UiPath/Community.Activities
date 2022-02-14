@@ -1,0 +1,64 @@
+{
+  "name": "SFTPNet5",
+  "description": "SFTPNet5",
+  "main": "Main.xaml",
+  "dependencies": {
+    "UiPath.FTP.Activities": "[2.2.0]",
+    "UiPath.System.Activities": "[21.10.3]",
+    "UiPath.WebAPI.Activities": "[1.9.2]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "21.4.3.0",
+  "projectVersion": "1.0.1",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": false
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "FTPUserPass.xaml",
+      "uniqueId": "0e059858-6859-41b4-8284-322b8ca48642",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "a3f26877-59a2-49db-bb3c-7d7a0d723b33",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Windows",
+  "coverageMergeWorkflowPath": ""
+}

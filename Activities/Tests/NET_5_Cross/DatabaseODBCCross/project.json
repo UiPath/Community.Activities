@@ -1,0 +1,62 @@
+{
+  "name": "DatabaseODBCCross",
+  "description": "DatabaseODBCCross",
+  "main": "DatabaseODBC-NoTryCtach.xaml",
+  "dependencies": {
+    "UiPath.Database.Activities": "[1.5.0-beta.2142030]",
+    "UiPath.System.Activities": "[21.10.0]",
+    "UiPath.WebAPI.Activities": "[1.9.1]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "21.10.0.0",
+  "projectVersion": "1.0.4",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": false,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": true
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": true
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "DatabaseODBC.xaml",
+      "uniqueId": "9fbde501-8e4a-4778-be70-94c50b45666f",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "DatabaseODBC-NoTryCtach.xaml",
+      "uniqueId": "29691b87-c554-4d92-8ba2-95302b1acba2",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Portable"
+}

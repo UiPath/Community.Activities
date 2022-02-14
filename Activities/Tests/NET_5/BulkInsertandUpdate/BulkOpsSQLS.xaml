@@ -1,0 +1,232 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System.Private.CoreLib" xmlns:sd1="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="SQLConnectionString" Type="InArgument(x:String)" />
+    <x:Property Name="SQLProvider" Type="InArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>889.6,3162.4</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="60">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Database.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Reflection</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="seq" sap:VirtualizedContainerService.HintSize="517.6,3097.6" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd1:DataTable" Name="DataTableGenerated" />
+      <Variable x:TypeArguments="x:Int64" Name="AffectedRecords_SQLS" />
+      <Variable x:TypeArguments="sd:Stopwatch" Name="stw" />
+      <Variable x:TypeArguments="x:Double" Name="ElapsedSec" />
+      <Variable x:TypeArguments="sd1:DataTable" Name="DataTableFromCSV" />
+      <Variable x:TypeArguments="x:Int64" Name="AffectedRecords" />
+      <Variable x:TypeArguments="x:Int64" Name="AffectedRecordsBulkUpdate" />
+      <Variable x:TypeArguments="sd1:DataTable" Name="DataTableUpdated" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:BuildDataTable DataTable="[DataTableGenerated]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;COLUMN1&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;COLUMN2&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;COLUMN3&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[DataTableGenerated]" Delimitator="Comma" DisplayName="Read CSV" FilePath="convertcsv1k.csv" sap:VirtualizedContainerService.HintSize="476,155.2" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1" IgnoreQuotes="True">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ReadCsvFile>
+    <TryCatch DisplayName="Try Catch Drop and Create Table" sap:VirtualizedContainerService.HintSize="476,540" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,310.4" sap2010:WorkflowViewState.IdRef="Sequence_9">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" ConnectionString="[SQLConnectionString]" DisplayName="Drop Table Bulkinsert if exists" sap:VirtualizedContainerService.HintSize="334.4,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_3" ProviderName="[SQLProvider]" Sql="USE [DockerVM_DB];&#xA;IF OBJECT_ID(N'dbo.bulkinsert', N'U') IS NOT NULL  &#xA;   DROP TABLE [dbo].[bulkinsert];">
+            <ui:ExecuteQuery.Parameters>
+              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+            </ui:ExecuteQuery.Parameters>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ExecuteQuery>
+          <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" ConnectionString="[SQLConnectionString]" DisplayName="Create Table Bulkinsert" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" ProviderName="[SQLProvider]" Sql="CREATE TABLE [DockerVM_DB].[dbo].[bulkinsert]&#xA;( COLUMN1 varchar(50) not null,&#xA;  COLUMN2 varchar(50) not null,&#xA;  COLUMN3 varchar(50) not null&#xA;);">
+            <ui:ExecuteQuery.Parameters>
+              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+            </ui:ExecuteQuery.Parameters>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ExecuteQuery>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <Sequence DisplayName="Bulk Insert" sap:VirtualizedContainerService.HintSize="476,861" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd:Stopwatch">[stw]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd:Stopwatch">[new Stopwatch()]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="stw.Start" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+        <ui:InvokeCode.Arguments>
+          <InArgument x:TypeArguments="sd:Stopwatch" x:Key="stw">[stw]</InArgument>
+        </ui:InvokeCode.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeCode>
+      <ui:BulkInsert ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" AffectedRecords="[AffectedRecords_SQLS]" ConnectionString="[SQLConnectionString]" DataTable="[DataTableGenerated]" DisplayName="Bulk Insert SQLS" sap:VirtualizedContainerService.HintSize="334,160" sap2010:WorkflowViewState.IdRef="BulkInsert_1" ProviderName="[SQLProvider]" TableName="%[DockerVM_DB].[dbo].[bulkinsert]" />
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="stw.Stop&#xA;Elapsed=stw.Elapsed.TotalSeconds" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+        <ui:InvokeCode.Arguments>
+          <InArgument x:TypeArguments="sd:Stopwatch" x:Key="stw">[stw]</InArgument>
+          <InOutArgument x:TypeArguments="x:Double" x:Key="Elapsed">[ElapsedSec]</InOutArgument>
+        </ui:InvokeCode.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeCode>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;Seconds Passed: &quot; + ElapsedSec.ToString + &quot; | Affected Records Bulk Insert SQLS:  &quot; + AffectedRecords_SQLS.ToString]" />
+    </Sequence>
+    <Sequence DisplayName="Bulk Update" sap:VirtualizedContainerService.HintSize="476,1101" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BuildDataTable DataTable="[DataTableUpdated]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="434,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_3" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;COLUMN1&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;COLUMN2&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;COLUMN3&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;COLUMN1&gt;text&lt;/COLUMN1&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[DataTableUpdated]" Delimitator="Comma" DisplayName="Read CSV" FilePath="convertcsv1kupdate.csv" sap:VirtualizedContainerService.HintSize="434,153" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" IgnoreQuotes="True" />
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="stw.Restart" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="434,164" sap2010:WorkflowViewState.IdRef="InvokeCode_3">
+        <ui:InvokeCode.Arguments>
+          <InArgument x:TypeArguments="sd:Stopwatch" x:Key="stw">[stw]</InArgument>
+        </ui:InvokeCode.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeCode>
+      <ui:BulkUpdate ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" AffectedRecords="[AffectedRecordsBulkUpdate]" BulkUpdateFlag="False" ColumnNames="[{&quot;COLUMN1&quot;}]" ConnectionString="[SQLConnectionString]" DataTable="[DataTableUpdated]" DisplayName="Bulk Update" sap:VirtualizedContainerService.HintSize="434,208" sap2010:WorkflowViewState.IdRef="BulkUpdate_1" ProviderName="[SQLProvider]" TableName="%[DockerVM_DB].[dbo].[bulkinsert]" />
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="stw.Stop&#xA;Elapsed=stw.Elapsed.TotalSeconds" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="434,164" sap2010:WorkflowViewState.IdRef="InvokeCode_4">
+        <ui:InvokeCode.Arguments>
+          <InArgument x:TypeArguments="sd:Stopwatch" x:Key="stw">[stw]</InArgument>
+          <InOutArgument x:TypeArguments="x:Double" x:Key="Elapsed">[ElapsedSec]</InOutArgument>
+        </ui:InvokeCode.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeCode>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,61" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Seconds Passed: &quot; + ElapsedSec.ToString + &quot; | Affected Records Bulk Update SQLS:  &quot; + AffectedRecordsBulkUpdate.ToString]" />
+    </Sequence>
+    <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" ConnectionString="Data Source=192.168.1.140;Initial Catalog=DockerVM_DB;User ID=sa;Password=@mParola123" DisplayName="Execute Query Truncate Table" sap:VirtualizedContainerService.HintSize="476,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" ProviderName="System.Data.SqlClient" Sql="truncate table [DockerVM_DB].[dbo].[bulkinsert];">
+      <ui:ExecuteQuery.Parameters>
+        <scg:Dictionary x:TypeArguments="x:String, Argument" />
+      </ui:ExecuteQuery.Parameters>
+    </ui:ExecuteQuery>
+  </Sequence>
+</Activity>
