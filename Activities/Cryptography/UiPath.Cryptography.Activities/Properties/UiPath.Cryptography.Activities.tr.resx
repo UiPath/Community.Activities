@@ -117,57 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
-    <value>Algorithm</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDisplayName" xml:space="preserve">
-    <value>Encoding</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDescription" xml:space="preserve">
-    <value>Giriş dizesini yorumlamak için kullanılan kodlama.</value>
-  </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından kullanılacak şifreleme algoritması.</value>
-  </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
-  </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
-    <value>Encrypt Text</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptTextDescription" xml:space="preserve">
-    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dizesini şifreler ve şifrelenmiş sonucun base64 dize gösterimini döndürür.</value>
-  </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından şifrelenecek dize.</value>
-  </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>Giriş dizesini şifrelemek için kullanılan anahtar.</value>
-  </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>Şifrelenmiş giriş dizesinin base64 dize gösterimi.</value>
-  </data>
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>Seçili algoritmanın FIPS uyumlu bir uygulaması yok. Bu, bazı makinelerde çalışmayabilir.</value>
-  </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından kullanılacak karma algoritması.</value>
-  </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
-    <value>Hash Text</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashTextDescription" xml:space="preserve">
-    <value>Giriş dizesinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
-  </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından karma hale getirilecek dize.</value>
-  </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Karma giriş dizesinin on altılık dize gösterimi.</value>
   </data>
   <data name="Input" xml:space="preserve">
     <value>Giriş</value>
@@ -176,110 +127,12 @@
     <value>Text</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyDisplayName" xml:space="preserve">
-    <value>Key</value>
-    <comment>property name</comment>
-  </data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından kullanılacak anahtarlı karma algoritması.</value>
-  </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
-  </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
-    <value>Giriş dizesini karma hale getirmek için kullanılan anahtar.</value>
-  </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>Hash Text With Key</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
-    <value>Karma işlemi için sağlanan anahtarı kullanarak giriş dizesinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
-  </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
-    <comment>property name</comment>
-  </data>
-  <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
-    <comment>property name</comment>
-  </data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından kullanılacak şifre çözme algoritması.</value>
-  </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>Decrypt Text</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptTextDescription" xml:space="preserve">
-    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dizesinin şifresini çözer ve özgün, şifrelenmemiş dizeyi döndürür.</value>
-  </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>Giriş dizesini ve anahtarı yorumlamak için kullanılan kodlama.</value>
-  </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından şifresi çözülecek dize.</value>
-  </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>Giriş dizesinin şifresini çözmek için kullanılan anahtar.</value>
-  </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Şifresi çözülmüş dize.</value>
-  </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
     <value>Dosya yok.</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
     <value>FilePath</value>
     <comment>property name</comment>
-  </data>
-  <data name="HashFileDisplayName" xml:space="preserve">
-    <value>Hash File</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashFileDescription" xml:space="preserve">
-    <value>Sağlanan dosyanın içeriğinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
-  </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından karma hale getirilecek dosyanın yolu.</value>
-  </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Karma dosyanın on altılık dize gösterimi.</value>
-  </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>Hash File With Key</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
-    <value>Karma işlemi için sağlanan anahtarı kullanarak giriş dosyasında seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
-  </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>Sağlanan dosyayı karma haline getirmek için kullanılan anahtar.</value>
-  </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Karma dosyanın on altılık dize gösterimi.</value>
-  </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
-  </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
-    <value>Encrypt File</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptFileDescription" xml:space="preserve">
-    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dosyasını şifreler ve sonucu çıkış dosyasına kaydeder.</value>
-  </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
-  </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından şifrelenecek dosyanın yolu.</value>
-  </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>Giriş dosyasını şifrelemek için kullanılan anahtar.</value>
-  </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>Şifrelenmiş dosyanın kaydedileceği yol.</value>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
     <value>InputPath</value>
@@ -289,41 +142,11 @@
     <value>OutputPath</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>Overwrite</value>
-    <comment>property name</comment>
-  </data>
-  <data name="OverwriteDescription" xml:space="preserve">
-    <value>Varsa çıkış dosyasının üzerine yazılır.</value>
-  </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
     <value>Dosya zaten var.</value>
   </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
-    <value>Decrypt File</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptFileDescription" xml:space="preserve">
-    <value>Seçili algoritmayı ve sağlanan anahtarı kullanarak giriş dosyasının şifresini çözer ve özgün, şifrelenmemiş dosyayı kaydeder.</value>
-  </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>Anahtarı yorumlamak için kullanılan kodlama.</value>
-  </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>Bu etkinlik tarafından şifresi çözülecek dosyanın yolu.</value>
-  </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>Giriş dosyasının şifresini çözmek için kullanılan anahtar.</value>
-  </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>Şifresi çözülen dosyanın kaydedileceği yol.</value>
-  </data>
   <data name="GenericCryptographicException" xml:space="preserve">
     <value>Şifreleme işlemi başarısız oldu. Lütfen hem şifreleme hem de şifre çözme işlemleri için aynı algoritmayı ve anahtarı kullandığınızdan emin olun.</value>
-  </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>KeyEncoding</value>
-    <comment>property name</comment>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>Encoding</value>
@@ -343,5 +166,513 @@
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES, 16 veya 24 bayt uzunluğunda bir anahtar kullanır. Anahtarınızın uzunluğu Kodlama&apos;ya bağlıdır.</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>Anahtar ve güvenli dizenin her ikisi de null olmamalıdır.</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>Anahtar ve güvenli dizenin her ikisi de null olmamalıdır.</value>
+  </data>
+  <data name="KeySecureString" xml:space="preserve">
+    <value>Anahtar SecureString</value>
+  </data>
+  <data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>Anahtar SecureString</value>
+  </data>
+  <data name="Activity_DecryptFile_Description" xml:space="preserve">
+    <value>Belirtilen bir anahtar kodlamasına ve algoritmaya göre bir dosyanın şifresini çözer.</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Name" xml:space="preserve">
+    <value>Decrypt File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algoritma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>Şifresini çözmek istediğiniz dosyanın yolu.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>Input Path</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
+    <value>Belirtilen dosyanın şifresini çözmek için kullanmak istediğiniz anahtar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
+    <value>Key</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>Şifresi çözülen dosyayı kaydetmek istediğiniz yol.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>Output Path</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>Çıkış yolu alanında belirtilen yolda bir dosya zaten varsa bu onay kutusu seçildiğinde dosyanın üzerine yazılır. İşaretlenmezse yeni bir dosya oluşturulur.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>Overwrite</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Name" xml:space="preserve">
+    <value>Decrypt Text</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptText_Description" xml:space="preserve">
+    <value>Belirtilen bir anahtar kodlamasına ve algoritmaya göre metnin şifresini çözer.</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algoritma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>Giriş metnini ve Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
+    <value>Şifresini çözmek istediğiniz metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Name" xml:space="preserve">
+    <value>Metin</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
+    <value>Belirtilen dosyanın şifresini çözmek için kullanmak istediğiniz anahtar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
+    <value>Key</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
+    <value>Bir Dize değişkeninde depolanan, şifresi çözülmüş metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
+    <value>Result</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Description" xml:space="preserve">
+    <value>Belirtilen anahtar kodlamasına ve algoritmaya göre bir dosyayı bir anahtarla şifreler.</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Name" xml:space="preserve">
+    <value>Encrypt File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algortitm</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>Şifresini çözmek istediğiniz dosyanın yolu.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>Input Path</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
+    <value>Belirtilen dosyanın şifresini çözmek için kullanmak istediğiniz anahtar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
+    <value>Key</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Giriş dizesini şifrelemek için kullanılan güvenli dize.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Anahtar SecureString</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Giriş dizesinin şifresini çözmek için kullanılan güvenli dize.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Key Secure String</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Giriş dizesini şifrelemek için kullanılan güvenli dize.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Key Secure String</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>Şifresi çözülen dosyayı kaydetmek istediğiniz yol.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>Output Path</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>Çıkış yolu alanında belirtilen yolda bir dosya zaten varsa bu onay kutusu seçildiğinde dosyanın üzerine yazılır. İşaretlenmezse yeni bir dosya oluşturulur.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>Overwrite</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Description" xml:space="preserve">
+    <value>Belirtilen anahtar kodlamasına ve algoritmaya göre bir dizeyi bir anahtarla şifreler.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_EncryptText_Name" xml:space="preserve">
+    <value>Encrypt Text</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz şifreleme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algoritma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>Giriş metnini ve Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
+    <value>Şifresini çözmek istediğiniz metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Name" xml:space="preserve">
+    <value>Metin</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Giriş dizesini şifrelemek için kullanılan güvenli dize.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Key Secure String</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
+    <value>Belirtilen dosyanın şifresini çözmek için kullanmak istediğiniz anahtar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
+    <value>Key</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
+    <value>Bir dize değişkeninde depolanan, şifresi çözülmüş metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
+    <value>Result</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
+    <value>Belirtilen bir algoritma ve kodlama biçimini kullanarak anahtarla bir dosyayı karma hale getirir ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
+    <value>Hash File With Key</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz anahtarlı karma algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algoritma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
+    <value>Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>Karma hale getirmek istediğiniz dosyanın yolu.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>File path</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Sağlanan dosyayı karma haline getirmek için kullanılan güvenli dize.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Key Secure String</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
+    <value>Belirtilen dosyayı karma hale getirmek için kullanmak istediğiniz anahtar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
+    <value>Key</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
+    <value>Bir Dize değişkeninde depolanan karma dosya.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
+    <value>Result</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Description" xml:space="preserve">
+    <value>Belirtilen algoritmayı kullanarak bir anahtarla bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Name" xml:space="preserve">
+    <value>Hash Text With Key</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz anahtarlı karma algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algoritma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
+    <value>Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
+    <value>Karma oluşturmak istediğiniz metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Name" xml:space="preserve">
+    <value>Metin</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Giriş dizesini karma haline getirmek için kullanılan güvenli dize.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Key Secure String</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
+    <value>Belirtilen dosyayı karma hale getirmek için kullanmak istediğiniz anahtar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
+    <value>Key</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
+    <value>Bir Dize değişkeninde depolanan karma metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
+    <value>Result</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Description" xml:space="preserve">
+    <value>Sağlanan dosyanın içeriğinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashFile_Name" xml:space="preserve">
+    <value>Hash File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz karma algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algortithm</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>Karma hale getirmek istediğiniz dosyanın yolu.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>Dosya Yolu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
+    <value>Bir Dize değişkeninde depolanan karma dosya.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
+    <value>Result</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Description" xml:space="preserve">
+    <value>Belirtilen algoritmayı kullanarak bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashText_Name" xml:space="preserve">
+    <value>Hash Text</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Kullanmak istediğiniz karma algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Algoritma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue On Error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
+    <value>Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
+    <value>Karma oluşturmak istediğiniz metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Name" xml:space="preserve">
+    <value>Metin</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Description" xml:space="preserve">
+    <value>Bir Dize değişkeninde depolanan karma metin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
+    <value>Result</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Category_Others_Name" xml:space="preserve">
+    <value>Diğerleri</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Principal_Name" xml:space="preserve">
+    <value>Birincil</value>
+    <comment>Category name</comment>
   </data>
 </root>

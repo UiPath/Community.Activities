@@ -1,0 +1,602 @@
+{
+  "AssemblyRelativePath": "UiPath.FTP.Activities.dll",
+  "Activities": [
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.Delete",
+      "ShortName": "Delete",
+      "DisplayNameKey": "Activity_Delete_Name",
+      "DescriptionKey": "Activity_Delete_Description",
+      "IconKey": "Delete_file_or_folder.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "RemotePath",
+          "DisplayNameKey": "Activity_Delete_Property_RemotePath_Name",
+          "TooltipKey": "Activity_Delete_Property_RemotePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    },
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.DirectoryExists",
+      "ShortName": "DirectoryExists",
+      "DisplayNameKey": "Activity_DirectoryExists_Name",
+      "DescriptionKey": "Activity_DirectoryExists_Description",
+      "IconKey": "Folder_exists.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "RemotePath",
+          "DisplayNameKey": "Activity_DirectoryExists_Property_RemotePath_Name",
+          "TooltipKey": "Activity_DirectoryExists_Property_RemotePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Exists",
+          "DisplayNameKey": "Activity_DirectoryExists_Property_Exists_Name",
+          "TooltipKey": "Activity_DirectoryExists_Property_Exists_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Output_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    },
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.DownloadFiles",
+      "ShortName": "DownloadFiles",
+      "DisplayNameKey": "Activity_DownloadFiles_Name",
+      "DescriptionKey": "Activity_DownloadFiles_Description",
+      "IconKey": "Download_files.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "RemotePath",
+          "DisplayNameKey": "Activity_DownloadFiles_Property_RemotePath_Name",
+          "TooltipKey": "Activity_DownloadFiles_Property_RemotePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "LocalPath",
+          "DisplayNameKey": "Activity_DownloadFiles_Property_LocalPath_Name",
+          "TooltipKey": "Activity_DownloadFiles_Property_LocalPath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Recursive",
+          "DisplayNameKey": "Activity_DownloadFiles_Property_Recursive_Name",
+          "TooltipKey": "Activity_DownloadFiles_Property_Recursive_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Create",
+          "DisplayNameKey": "Activity_DownloadFiles_Property_Create_Name",
+          "TooltipKey": "Activity_DownloadFiles_Property_Create_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_DownloadFiles_Property_Overwrite_Name",
+          "TooltipKey": "Activity_DownloadFiles_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    },
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.EnumerateObjects",
+      "ShortName": "EnumerateObjects",
+      "DisplayNameKey": "Activity_EnumerateObjects_Name",
+      "DescriptionKey": "Activity_EnumerateObjects_Description",
+      "IconKey": "Get_files.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "RemotePath",
+          "DisplayNameKey": "Activity_EnumerateObjects_Property_RemotePath_Name",
+          "TooltipKey": "Activity_EnumerateObjects_Property_RemotePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Recursive",
+          "DisplayNameKey": "Activity_EnumerateObjects_Property_Recursive_Name",
+          "TooltipKey": "Activity_EnumerateObjects_Property_Recursive_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Files",
+          "DisplayNameKey": "Activity_EnumerateObjects_Property_Files_Name",
+          "TooltipKey": "Activity_EnumerateObjects_Property_Files_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Output_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    },
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.FileExists",
+      "ShortName": "FileExists",
+      "DisplayNameKey": "Activity_FileExists_Name",
+      "DescriptionKey": "Activity_FileExists_Description",
+      "IconKey": "File_exists.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "RemotePath",
+          "DisplayNameKey": "Activity_FileExists_Property_RemotePath_Name",
+          "TooltipKey": "Activity_FileExists_Property_RemotePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Exists",
+          "DisplayNameKey": "Activity_FileExists_Property_Exists_Name",
+          "TooltipKey": "Activity_FileExists_Property_Exists_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Output_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    },
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.MoveItem",
+      "ShortName": "MoveItem",
+      "DisplayNameKey": "Activity_MoveItem_Name",
+      "DescriptionKey": "Activity_MoveItem_Description",
+      "IconKey": "Move_file_or_folder.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "RemotePath",
+          "DisplayNameKey": "Activity_MoveItem_Property_RemotePath_Name",
+          "TooltipKey": "Activity_MoveItem_Property_RemotePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "NewPath",
+          "DisplayNameKey": "Activity_MoveItem_Property_NewPath_Name",
+          "TooltipKey": "Activity_MoveItem_Property_NewPath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_MoveItem_Property_Overwrite_Name",
+          "TooltipKey": "Activity_MoveItem_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_MoveItem_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_MoveItem_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    },
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.UploadFiles",
+      "ShortName": "UploadFiles",
+      "DisplayNameKey": "Activity_UploadFiles_Name",
+      "DescriptionKey": "Activity_UploadFiles_Description",
+      "IconKey": "Upload_files.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "LocalPath",
+          "DisplayNameKey": "Activity_UploadFiles_Property_LocalPath_Name",
+          "TooltipKey": "Activity_UploadFiles_Property_LocalPath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "RemotePath",
+          "DisplayNameKey": "Activity_UploadFiles_Property_RemotePath_Name",
+          "TooltipKey": "Activity_UploadFiles_Property_RemotePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Recursive",
+          "DisplayNameKey": "Activity_UploadFiles_Property_Recursive_Name",
+          "TooltipKey": "Activity_UploadFiles_Property_Recursive_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Create",
+          "DisplayNameKey": "Activity_UploadFiles_Property_Create_Name",
+          "TooltipKey": "Activity_UploadFiles_Property_Create_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_UploadFiles_Property_Overwrite_Name",
+          "TooltipKey": "Activity_UploadFiles_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    },
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.FTP.Activities.WithFtpSession",
+      "ShortName": "WithFtpSession",
+      "DisplayNameKey": "Activity_WithFtpSession_Name",
+      "DescriptionKey": "Activity_WithFtpSession_Description",
+      "IconKey": "FTP_Connection.svg",
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+          "Name": "Body",
+          "DisplayNameKey": null,
+          "TooltipKey": null,
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": null
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Host",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_Host_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_Host_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": null,
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Port",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_Port_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_Port_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": null,
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Username",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_Username_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_Username_Description",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": null,
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Password",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_Password_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_Password_Description",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": null,
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "UseAnonymousLogin",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_UseAnonymousLogin_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_UseAnonymousLogin_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": null,
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "FtpsMode",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_FtpsMode_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_FtpsMode_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Security_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "SslProtocols",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_SslProtocols_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_SslProtocols_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Security_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "UseSftp",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_UseSftp_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_UseSftp_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Security_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "ClientCertificatePath",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ClientCertificatePath_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ClientCertificatePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Security_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "ClientCertificatePassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ClientCertificatePassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ClientCertificatePassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Security_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "AcceptAllCertificates",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_AcceptAllCertificates_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_AcceptAllCertificates_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Security_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": null,
+          "Widget": null,
+          "IconKey": null
+        }
+      ],
+      "DefaultFactory": null,
+      "ViewModelType": null
+    }
+  ],
+  "DefaultActivityColor": "#526069",
+  "DefaultActivityNameBackgroundColor": "#FFFFFF",
+  "DefaultActivityIconKey": null,
+  "AssemblyIconKey": null,
+  "ResourceManagerName": "UiPath.FTP.Activities.Properties.UiPath.FTP.Activities"
+}

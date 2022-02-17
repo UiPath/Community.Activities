@@ -61,6 +61,42 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        public static string ActivitySynonymDatabaseConnect {
+            get {
+                return ResourceManager.GetString("ActivitySynonymDatabaseConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnect.
+        /// </summary>
+        public static string ActivitySynonymDatabaseDisconnect {
+            get {
+                return ResourceManager.GetString("ActivitySynonymDatabaseDisconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Non Query.
+        /// </summary>
+        public static string ActivitySynonymExecuteNonQuery {
+            get {
+                return ResourceManager.GetString("ActivitySynonymExecuteNonQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Query.
+        /// </summary>
+        public static string ActivitySynonymExecuteQuery {
+            get {
+                return ResourceManager.GetString("ActivitySynonymExecuteQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The result of the execution of the sql command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1..
         /// </summary>
         public static string AffectedRecordsDescription {
@@ -93,15 +129,6 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string BulkFlagDescription {
             get {
                 return ResourceManager.GetString("BulkFlagDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bulk Insert.
-        /// </summary>
-        public static string BulkInsert {
-            get {
-                return ResourceManager.GetString("BulkInsert", resourceCulture);
             }
         }
         
@@ -165,15 +192,6 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string BulkInsertDescription {
             get {
                 return ResourceManager.GetString("BulkInsertDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bulk Update.
-        /// </summary>
-        public static string BulkUpdate {
-            get {
-                return ResourceManager.GetString("BulkUpdate", resourceCulture);
             }
         }
         
@@ -246,15 +264,6 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string ConfigureConnection {
             get {
                 return ResourceManager.GetString("ConfigureConnection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connect.
-        /// </summary>
-        public static string Connect {
-            get {
-                return ResourceManager.GetString("Connect", resourceCulture);
             }
         }
         
@@ -376,15 +385,6 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disconnect.
-        /// </summary>
-        public static string Disconnect {
-            get {
-                return ResourceManager.GetString("Disconnect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to DisplayName.
         /// </summary>
         public static string DisplayName {
@@ -439,29 +439,11 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute Non Query.
-        /// </summary>
-        public static string ExecuteNonQuery {
-            get {
-                return ResourceManager.GetString("ExecuteNonQuery", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Executes a SQL statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1..
         /// </summary>
         public static string ExecuteNonQueryDescription {
             get {
                 return ResourceManager.GetString("ExecuteNonQueryDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Execute Query.
-        /// </summary>
-        public static string ExecuteQuery {
-            get {
-                return ResourceManager.GetString("ExecuteQuery", resourceCulture);
             }
         }
         
@@ -498,15 +480,6 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string InserDataTableInputDescription {
             get {
                 return ResourceManager.GetString("InserDataTableInputDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert.
-        /// </summary>
-        public static string Insert {
-            get {
-                return ResourceManager.GetString("Insert", resourceCulture);
             }
         }
         
@@ -579,15 +552,6 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string SqlQueryHint {
             get {
                 return ResourceManager.GetString("SqlQueryHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start Transaction.
-        /// </summary>
-        public static string StartTransaction {
-            get {
-                return ResourceManager.GetString("StartTransaction", resourceCulture);
             }
         }
         

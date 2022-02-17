@@ -2,11 +2,12 @@
   <Import Project="../Database.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <UseWPF>true</UseWPF>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
@@ -19,16 +20,27 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities" />
-    <PackageReference Include="System.Data.Odbc" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' Or '$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.Core.Presentation" />
+    <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\ActivitiesMetadata.json">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
+    <EmbeddedResource Include="Resources\Icons\Bulk_update.svg" />
+    <EmbeddedResource Include="Resources\Icons\Connect.svg" />
+    <EmbeddedResource Include="Resources\Icons\Disconnect.svg" />
+    <EmbeddedResource Include="Resources\Icons\Insert.svg" />
+    <EmbeddedResource Include="Resources\Icons\Run_command.svg" />
+    <EmbeddedResource Include="Resources\Icons\Run_Query.svg" />
+    <EmbeddedResource Include="Resources\Icons\Start_transaction.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <PackageReference Include="UiPath.Activities.Api" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Activities.Designer.cs">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
@@ -53,5 +65,11 @@
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.ru.resx">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition="'$(TargetFramework)' != 'net5.0'" Remove="NetCore/**" />
   </ItemGroup>
 </Project>

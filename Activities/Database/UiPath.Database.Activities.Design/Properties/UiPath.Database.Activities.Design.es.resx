@@ -126,15 +126,11 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Especifica cómo se interpreta una cadena de comandos</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Conectar</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>La cadena de conexión utilizada para establecer una conexión con la base de datos</value>
   </data>
   <data name="DatabaseConnectDescription" xml:space="preserve">
-    <value>Se conecta a una base de datos.</value>
+    <value>Se conecta a una base de datos</value>
   </data>
   <data name="DatabaseConnectionDescription" xml:space="preserve">
     <value>La conexión a la base de datos utilizada para las operaciones dentro de esta actividad</value>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Desconectar</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Ejecuta una instrucción SQL en una base de datos. Para las instrucciones UPDATE, INSERT y DELETE, el valor devuelto es el número de filas afectadas por el comando. Para todos los demás tipos de instrucciones, el valor devuelto es -1.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Ya hay una conexión de base de datos abierta. Si esta propiedad está activa, se omitirán las propiedades Cadena de conexión y Nombre del proveedor</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insertar</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Inserta una TablaDeDatos compatible en una tabla existente. Devuelve el número de filas afectadas.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>El comando sql a ejecutar.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Iniciar transacción</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>La tabla de la base de datos de destino</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Integración de aplicaciones</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Ejecutar operación que no es una consulta</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Ejecutar Consulta</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Colección)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>Boolean ContinuarEnCasoDeError</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Inserción por lotes</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>TablaDeDatos</value>
@@ -293,25 +268,34 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>La colección de nombres de columna para las filas coincidentes</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Actualización por lotes</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Actualiza una TablaDeDatos compatible en una tabla existente. Actualizará todas las columnas que no estén en la colección de nombres de columna utilizados como clave primaria. Devuelve el número de filas afectadas.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>El número de filas actualizadas</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Si es verdadero, se creará una tabla temporal mediante inserción masiva y se actualizará usando la combinación de tablas; de lo contrario, se emitirán actualizaciones masivas por lotes.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>El objeto TablaDeDatos que se usará para actualizar la tabla. La descripción de las columnas TablaDeDatos debe coincidir con las columnas de la tabla de la base de datos y ser un subconjunto de las mismas</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Actualizará una tabla mediante operaciones por lotes usando la implementación específica del controlador de base de datos. Retrocederá a Insertar tabla de datos si el controlador de la base de datos no admite las operaciones por lotes.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>La cadena de conexión utilizada para establecer una conexión con la base de datos como cadena segura</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Execute Non Query</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Execute Query</value>
   </data>
 </root>

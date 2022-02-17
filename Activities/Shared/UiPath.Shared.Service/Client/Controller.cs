@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace UiPath.Shared.Service.Client
@@ -41,15 +42,32 @@ namespace UiPath.Shared.Service.Client
 
         private NamedPipeClientStream StartHostService()
         {
+            var isWindows = true;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                isWindows = false;
+#endif
             string folder = Path.GetDirectoryName(ExeFile);
             string exeFullPath = ExeFile;
             if (folder.IsNullOrEmpty())
             {
-                folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\","\\bin\\");
-                exeFullPath = Path.Combine(folder, ExeFile);
+                if (isWindows)
+                {
+                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\", "\\bin\\");
+                    exeFullPath = Path.Combine(folder, ExeFile);
+                }
+                else
+                {
+                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
+                    Arguments = string.Concat(Path.Combine(folder, ExeFile.Replace(".exe",".dll")), " ", Arguments);
+                    exeFullPath = "dotnet";
+                }
+
+                
             }
 
-            if (!File.Exists(exeFullPath))
+            if (!File.Exists(exeFullPath) && isWindows
+                || !isWindows && string.IsNullOrEmpty(Arguments))
                 throw new Exception($"Process path not found: {exeFullPath}");
 
             // start the host process

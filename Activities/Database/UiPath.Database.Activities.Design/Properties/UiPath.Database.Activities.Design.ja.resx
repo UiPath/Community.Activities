@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>コマンド文字列の解釈方法を指定します。</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>接続</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>データベース接続の確立に使用する接続文字列です。</value>
   </data>
@@ -146,14 +142,10 @@
     <value>DataTable オブジェクトにラップした SQL コマンドの出力です。</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>データベースに接続してデータベース接続を返し、データベース系アクティビティのスコープを提供します。[トランザクションを使用] をオンに設定している場合、含まれる操作は単一のトランザクションで実行され、どの操作も失敗しなければ最後に適用されます。[トランザクションを使用] をオフに設定している場合、すべての操作が個別にコミットされます。このアクティビティが終了すると、データベースへの接続が終了します。(Start Transaction)</value>
+    <value>データベースに接続してデータベース接続を返し、データベース アクティビティのスコープを提供します。[トランザクションを使用] をオンに設定している場合、含まれる操作は単一のトランザクションで実行され、どの操作も失敗しなければ最後に適用されます。[トランザクションを使用] をオフに設定している場合、すべての操作が個別にコミットされます。このアクティビティが終了すると、データベースへの接続が終了します。(Start Transaction)</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
-  </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>切断</value>
-    <comment>activity name</comment>
   </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>データベースに対して SQL ステートメントを実行します。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受けた行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。(Execute Non Query)</value>
@@ -164,10 +156,6 @@
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>既に開かれているデータベース接続です。このプロパティを設定した場合は、[接続文字列] と [プロバイダー名] プロパティは無視されます。</value>
   </data>
-  <data name="Insert" xml:space="preserve">
-    <value>挿入</value>
-    <comment>activity name</comment>
-  </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>既存のテーブルに対応するデータテーブルを挿入します。また、影響を受けた行の数を返します。(Insert)</value>
   </data>
@@ -175,14 +163,10 @@
     <value>SQL コマンドにバインドされた名前付きパラメーターのディクショナリです。バインドするには、SQL コマンドで &apos;@parameterName&apos; ステートメントを指定します。実行時に、parameterName がディクショナリからの値に置き換えられます。</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
-    <value>データベースへのアクセスに使用するデータベース プロバイダーの名前です。データ プロバイダーの一覧は次のページから確認できます: http://msdn.microsoft.com/ja-jp/library/a6cd7c08(v=vs.100).aspx</value>
+    <value>データベースへのアクセスに使用するデータベース プロバイダーの名前です。データ プロバイダーのリストは次のページから確認できます: http://msdn.microsoft.com/ja-jp/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>実行する SQL コマンドです。</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>トランザクションを開始</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>対象のデータベース テーブルです。</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>アプリの連携</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>非クエリを実行</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>クエリを実行</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(コレクション)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>エラー発生時に実行を継続 (Boolean)</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>一括挿入</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>データテーブル</value>
@@ -293,9 +268,6 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>行の照合に使用する列名のコレクション</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>一括更新</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>既存のテーブルにある、対応するデータテーブルを更新します。主キーとして使用される列名のコレクションに入っていない、すべての列を更新します。また、影響を受けた行の数を返します。(Bulk Update)</value>
   </data>
@@ -313,5 +285,17 @@
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
     <value>データベース接続の確立に使用する、SecureString 型の接続文字列です。</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>接続</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>切断</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>非クエリを実行</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>クエリを実行</value>
   </data>
 </root>

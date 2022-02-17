@@ -191,13 +191,568 @@
     <value>列名称</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
-    <value>Only one of the connection string fields can be used.</value>
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
+    <value>仅可使用其中一个连接字符串字段。</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
-    <value>SecureConnectionString</value>
+    <value>安全连接字符串</value>
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
-    <value>Bulk/Batch Update</value>
+    <value>Bulk/批量更新</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>只能使用其中一个连接。</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>必须至少使用其中一个连接。</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>必须至少使用其中一个连接字符串字段。</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>未提供所需活动参数“提供程序名称”的值</value>
+  </data>
+  <data name="Activity_BulkInsert_Description" xml:space="preserve">
+    <value>将使用通过特定数据库驱动程序实现的批量操作更新表格。如果数据库驱动程序不支持批量操作，将返回至“插入数据表”。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Name" xml:space="preserve">
+    <value>批量插入</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>将受影响的行数存储在 Int64 变量中。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>受影响的记录</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>用于以“安全字符串”形式建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>安全连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用于建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
+    <value>连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>要插入项目的源数据表。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>数据表</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>已打开的数据库连接。如果提供了此连接，则系统将忽略“连接字符串”和“安全连接字符串”属性。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>现有连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
+    <value>用于访问数据库的数据库提供程序的名称。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
+    <value>提供程序名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>目标数据库表名称。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>表格名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Description" xml:space="preserve">
+    <value>在现有表格中更新兼容的数据表。此活动也将更新所有未在列名称集合中用作主键的列。返回受影响的行数。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Name" xml:space="preserve">
+    <value>批量更新</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>已更新的行数。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>受影响的行</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
+    <value>选中此复选框即可使用批量插入功能创建临时表格，也可使用表格之间的联接进行更新。否则，将以批量形式发布批量更新。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
+    <value>批量更新</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
+    <value>用于行匹配的列名称集合。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
+    <value>用于匹配行的列</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>用于以“安全字符串”形式建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>安全连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用于建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
+    <value>连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
+    <value>在更新表格时将使用的“数据表”对象。数据表列的说明必须与数据库表格中的列一致，并且属于这些列的子集。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
+    <value>数据表</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>已打开的数据库连接。如果提供了此连接，则系统将忽略“连接字符串”和“安全连接字符串”属性。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>现有连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
+    <value>用于访问数据库的数据库提供程序的名称。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
+    <value>提供程序名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
+    <value>目标数据库表格。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
+    <value>表格名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
+    <value>使用标准连接字符串连接到数据库。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
+    <value>连接到数据库</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>用于以“安全字符串”形式建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>安全连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用于建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
+    <value>连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>用于此活动所含操作的数据库连接。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>数据库连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
+    <value>用于访问数据库的数据库提供程序的名称。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
+    <value>提供程序名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
+    <value>关闭数据库连接。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
+    <value>断开与数据库的连接</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>用于此活动所含操作的数据库连接。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>数据库连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
+    <value>用于连接到数据库，同时具备可在数据库中执行多个事务的序列。它返回“数据库连接”变量，为数据库活动提供作用域。
+如果将“使用事务”设为 &quot;Ture&quot;，所含操作将在单个事务中执行，并在最后应用 (如果所有操作均未失败)。如果将“使用事务”设为 &quot;False&quot;，则会单独执行所有操作。该活动结束后，系统便会关闭数据库连接。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
+    <value>开始事务</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>用于以“安全字符串”形式建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>安全连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用于建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
+    <value>连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>活动返回的数据库连接变量。该属性随后可用于其他数据库操作。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>数据库连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>要用于连接到数据库的“数据库连接”变量。如果提供了此连接，则系统将忽略“连接字符串”和“安全连接字符串”属性。可从“输出”属性部分有“数据库连接”字段的其他数据库活动中检索该变量。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>退出连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
+    <value>用于访问数据库的数据库提供程序的名称。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
+    <value>提供程序名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
+    <value>指定是否应将此活动内的数据库操作包含在数据库事务中。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
+    <value>使用事务</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
+    <value>对数据库执行非查询语句。对于 UPDATE、INSERT 和 DELETE 语句，返回值为该命令影响的行数。对于所有其他类型的语句，返回值均为 -1。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
+    <value>运行命令</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>SQL 命令的执行结果。对于 UPDATE、INSERT 和 DELETE 语句，返回值为该命令影响的行数。对于所有其他类型的语句，返回值均为 -1。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>受影响的记录</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
+    <value>指定命令字符串的解释方式。可用的选项如下: 
+文本 - 执行 SQL 参数中指定的查询。
+“存储的过程”- 调用 SQL 参数中指定的过程名称。
+&quot;TableDirect&quot; - 调用表格中的所有记录。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
+    <value>命令类型</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>用于以“安全字符串”形式建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>安全连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用于建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
+    <value>连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>已打开的数据库连接。如果提供了此连接，则系统将忽略“连接字符串”和“安全连接字符串”属性。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>现有连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
+    <value>绑定到 SQL 命令的命名参数字典。可通过在 SQL 命令中指定 &quot;@parameterName&quot; 语句以完成绑定。在运行时，“参数名称”将替换为其在字典中的对应值。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
+    <value>参数</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
+    <value>用于访问数据库的数据库提供程序的名称。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
+    <value>提供程序名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>要执行的 SQL 命令。必须根据“命令类型”属性中的选择填写该字段。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL 命令</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>指定等待时间 (以毫秒为单位)，如果超出该时间后 SQL 指令并未运行，就会引发错误。默认值为 30000 毫秒 (30 秒)，且必须大于或等于 0。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>超时</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
+    <value>对数据库执行查询，即可在数据表中返回查询结果。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
+    <value>运行查询</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
+    <value>指定命令字符串的解释方式。可用的选项如下: 
+文本 - 执行 SQL 参数中指定的查询。
+“存储的过程”- 调用 SQL 参数中指定的过程名称。
+&quot;TableDirect&quot; - 调用表格中的所有记录。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
+    <value>命令类型</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>用于以“安全字符串”形式建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>安全连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用于建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
+    <value>连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
+    <value>包含在“数据表”变量中的 SQL 命令输出。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
+    <value>数据表</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>从“连接”或“启动事务”活动获得且已打开的数据库连接。如果提供了此连接，则系统将忽略“连接字符串”和“安全连接字符串”属性。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>现有连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
+    <value>绑定到 SQL 命令的命名参数字典。可通过在 SQL 命令中指定 &quot;@parameterName&quot; 语句以完成绑定。在运行时，“参数名称”将替换为其在字典中的对应值。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
+    <value>参数</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">
+    <value>用于访问数据库的数据库提供程序的名称。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ProviderName_Name" xml:space="preserve">
+    <value>提供程序名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>要执行的 SQL 命令。必须根据“命令类型”属性中的选择填写该字段。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL 查询</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>指定等待时间 (以毫秒为单位)，如果超出该时间后 SQL 指令并未运行，就会引发错误。默认值为 30000 毫秒 (30 秒)，且必须大于或等于 0。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>超时</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Description" xml:space="preserve">
+    <value>在现有表格中插入兼容的“数据表”变量。返回受影响的行数。如果不满足表格中的限制条件，则无法成功完成该活动，并且系统会保存所有写入的行。</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Name" xml:space="preserve">
+    <value>插入</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>将受影响的行数存储在 Int32 变量中。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>受影响的记录</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>用于以“安全字符串”形式建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>安全连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用于建立数据库连接的连接字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
+    <value>连接字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
+    <value>要在表格中插入的“数据表”变量。数据表列的名称和描述必须与数据库表中的列名称和描述保持一致。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
+    <value>数据表</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>从“连接”或“启动事务”活动获得且已打开的数据库连接。如果提供了此连接，则系统将忽略“连接字符串”和“安全连接字符串”属性。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>现有连接</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
+    <value>用于访问数据库的数据库提供程序的名称。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
+    <value>提供程序名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
+    <value>要在其中插入数据的 SQL 表。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
+    <value>表格名称</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>其他</value>
+    <comment>category name</comment>
+  </data>
+  <data name="Category_Principal" xml:space="preserve">
+    <value>主体</value>
+    <comment>category name</comment>
   </data>
 </root>

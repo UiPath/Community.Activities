@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92E6CB4E-6542-419B-B674-7D8B9FB02BD2}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,6 +34,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{ED3DF9E3-2366-483E-9124-3FA8766EEF77}"
 	ProjectSection(SolutionItems) = preProject
 		Database\Database.build.props = Database\Database.build.props
+		Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj = Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database", "Database\UiPath.Database\UiPath.Database.csproj", "{BD4850CC-23BF-4BEA-933E-F1FD7C692451}"
