@@ -291,9 +291,9 @@
     <value>Время на выполнение сценария Python, прежде чем он завершится и возникнет исключение.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Путь к библиотеке Python libpython*.so, включая имя библиотеки</value>
+    <value>Для Linux это путь к библиотеке Python libpython*.so, включая имя библиотеки. Для Windows (версия выше 3.9) путь к python**.dll, включая имя библиотеки (обычно в пути Python Home). Для Windows (версия ниже 3.9) оставьте поле пустым.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Путь к библиотеке (только Linux)</value>
+    <value>Путь библиотеки (Linux или версия ниже 3.9)</value>
   </data>
 </root>

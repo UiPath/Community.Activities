@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>目标目录已存在</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>切换至文本输入</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>切换至安全输入</value>
+  </data>
 </root>

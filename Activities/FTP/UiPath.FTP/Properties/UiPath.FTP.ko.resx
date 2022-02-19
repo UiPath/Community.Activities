@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>대상 디렉터리가 이미 있습니다.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>텍스트 입력으로 전환</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>보안 입력으로 전환</value>
+  </data>
 </root>

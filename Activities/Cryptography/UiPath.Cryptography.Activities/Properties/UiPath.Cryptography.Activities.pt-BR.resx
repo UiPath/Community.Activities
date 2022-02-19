@@ -174,10 +174,10 @@
     <value>A chave e a string segura não podem ser nulas ao mesmo tempo.</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
-    <value>Chave String segura</value>
+    <value>KeySecureString</value>
   </data>
   <data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>Chave String segura</value>
+    <value>String de Chave Segura</value>
   </data>
   <data name="Activity_DecryptFile_Description" xml:space="preserve">
     <value>Descriptografa um arquivo com base em um algoritmo e uma codificação de chave especificada.</value>
@@ -674,5 +674,41 @@
   <data name="Category_Principal_Name" xml:space="preserve">
     <value>Principal</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>A alternância entre Chave e Chave de String Segura</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>A alternância entre Chave e Chave de String Segura</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>A alternância entre Chave e Chave de String Segura</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>A alternância entre Chave e Chave de String Segura</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>A alternância entre Chave e Chave de String Segura</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>A alternância entre Chave e Chave de String Segura</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
   </data>
 </root>

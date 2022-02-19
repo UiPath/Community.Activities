@@ -291,9 +291,9 @@
     <value>在遭到终止及引发异常前，允许 Python 脚本运行的时长。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Python libpython*.so 的路径包括库名称在内的库</value>
+    <value>对于 Linux，是 Python libpython*.so 库的路径，包含库名称。对于 Windows (版本 &gt; 3.9)，是 python**.dll 的路径，包括库名称 (通常位于 Python 主页路径)。对于 Windows (版本 &lt;= 3.9)，留空。</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>库路径 (仅适用于 Linux)</value>
+    <value>库路径 (适用于 Linux 或版本 &gt; 3.9 的 Windows)</value>
   </data>
 </root>

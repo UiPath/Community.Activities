@@ -144,6 +144,9 @@
   <data name="HMACSHA512" xml:space="preserve">
     <value>HMACSHA512</value>
   </data>
+  <data name="Key" xml:space="preserve">
+    <value>テキスト入力に切り替え</value>
+  </data>
   <data name="MACTripleDES" xml:space="preserve">
     <value>MACTripleDES</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="RIPEMD160" xml:space="preserve">
     <value>RIPEMD160 (非 FIPS)</value>
+  </data>
+  <data name="SecureKey" xml:space="preserve">
+    <value>セキュリティで保護された入力に切り替え</value>
   </data>
   <data name="SHA1" xml:space="preserve">
     <value>SHA1</value>
