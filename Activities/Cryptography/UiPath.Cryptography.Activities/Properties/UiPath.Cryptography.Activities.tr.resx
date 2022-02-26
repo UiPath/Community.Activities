@@ -174,10 +174,10 @@
     <value>Anahtar ve güvenli dizenin her ikisi de null olmamalıdır.</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
-    <value>Anahtar SecureString</value>
+    <value>KeySecureString</value>
   </data>
   <data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>Anahtar SecureString</value>
+    <value>Güvenli Dize Anahtarı</value>
   </data>
   <data name="Activity_DecryptFile_Description" xml:space="preserve">
     <value>Belirtilen bir anahtar kodlamasına ve algoritmaya göre bir dosyanın şifresini çözer.</value>
@@ -674,5 +674,41 @@
   <data name="Category_Principal_Name" xml:space="preserve">
     <value>Birincil</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Anahtar ve Güvenli Dize Anahtarı arasında geçiş</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Anahtar ve Güvenli Dize Anahtarı arasında geçiş</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Anahtar ve Güvenli Dize Anahtarı arasında geçiş</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Anahtar ve Güvenli Dize Anahtarı arasında geçiş</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Anahtar ve Güvenli Dize Anahtarı arasında geçiş</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Anahtar ve Güvenli Dize Anahtarı arasında geçiş</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
   </data>
 </root>

@@ -291,9 +291,12 @@
     <value>A quantidade de tempo para permitir que um script em Python seja executado até que seja encerrado e uma exceção seja gerada.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Caminho para biblioteca Python libpython*.so incluindo o nome da biblioteca</value>
+    <value>Para Linux, é o caminho para biblioteca Python libpython*.so incluindo o nome da biblioteca. Para Windows (versão &gt; 3.9), caminho para biblioteca python**.dll incluindo o nome da biblioteca (geralmente está no caminho inicial Python). Para Windows (versão &lt;= 3.9) deixe em branco.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Caminho da biblioteca (somente Linux)</value>
+    <value>Caminho da biblioteca (Linux ou versão &gt; 3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>A versão do Python 3.10 ou posterior não é compatível com 32 bits. </value>
   </data>
 </root>

@@ -291,9 +291,12 @@
     <value>Sonlandırılana ve bir özel durum oluşturulana kadar Python komut dosyasının çalışmasına izin verilecek süre.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Kitaplık adını da içeren Python libpython *.so kitaplığının yolu</value>
+    <value>Linux için, Python libpython*.so yoludur kitaplık adı dahil olmak üzere, kitaplık. Windows (Sürüm&gt;3.9) için python**.dll yolu kitaplık adı da dahil olmak üzere (genellikle Python Ana Sayfası yolundadır). Windows (Sürüm&lt;=3.9) için boş bırakın.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Kitaplık yolu (yalnızca Linux)</value>
+    <value>Kitaplık yolu (Linux veya sürüm&gt;3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>Python&apos;un 3.10 veya daha üst sürümleri 32 bit&apos;te desteklenmez. </value>
   </data>
 </root>

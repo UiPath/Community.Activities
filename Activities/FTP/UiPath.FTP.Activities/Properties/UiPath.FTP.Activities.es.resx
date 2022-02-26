@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Genera una variable TablaDeDatos que contiene una lista que abarca los archivos encontrados en la ruta del servidor FTP especificada. Las subcarpetas también se pueden incluir en la búsqueda marcando la casilla Incluir subcarpetas. Esta actividad solo funciona si se coloca dentro de una actividad en el ámbito de una sesión FTP.</value>
+    <value>Genera una colección de archivos que se han encontrado en el servidor FTP. Las subcarpetas también se pueden incluir en la búsqueda marcando la casilla Incluir subcarpetas. Esta actividad solo funciona si se coloca dentro de una actividad en el ámbito de una sesión FTP.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>Un contenedor que administra la conexión al servidor FTP y proporciona un ámbito para todas las actividades FTP.</value>
+    <value>Se conecta al servidor FTP y ofrece un ámbito para otras actividades de FTP.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Con sesión Ftp</value>
+    <value>Ámbito del FTP</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Ruta del certificado del cliente</value>
+    <value>Archivo de certificado del cliente</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -679,5 +679,41 @@
   <data name="Category_Server_Name" xml:space="preserve">
     <value>Servidor</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Salida</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>El interruptor para pasar al modo de entrada de la contraseña de certificado</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>InterruptorModoEntradaContraseñaCertificado</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
+    <value>La contraseña del certificado del cliente en formato de cadena segura</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
+    <value>Contraseña segura del certificado de cliente</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>El interruptor para pasar al modo de entrada de la contraseña</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>InterruptosModoEntradaContraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
+    <value>La contraseña en formato de cadena segura</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
+    <value>Contraseña segura</value>
+  </data>
+  <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
+    <value>ContraseñaCertificadoCliente y ContraseñaSeguraCertificadoCliente no pueden estar ambos vacíos</value>
+  </data>
+  <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
+    <value>La contraseña y la cadena segura no pueden estar ambas vacías</value>
   </data>
 </root>

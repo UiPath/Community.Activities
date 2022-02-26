@@ -291,9 +291,12 @@
     <value>La cantidad de tiempo para permitir que una secuencia de comandos de Python se ejecute hasta que se termine y se produzca una excepción.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Ruta a Python libpython*.so biblioteca, incluido el nombre de la biblioteca</value>
+    <value>Para Linux es el camino a la biblioteca de Python libpython*.so, incluido el nombre de la biblioteca. Para Windows (Versión&gt;3.9), la ruta a python**.dll, que incluye el nombre de la biblioteca (en general está en la ruta de inicio de Python. Para Windows (Versión &lt;= 3.9), dejar vacío.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Ruta de la biblioteca (solo Linux)</value>
+    <value>Ruta de la biblioteca (Linux o versión &gt; 3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>La versión de Python &gt;= 3.10 no es compatible con 32 bits. </value>
   </data>
 </root>
