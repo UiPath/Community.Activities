@@ -754,4 +754,11 @@ TableDirect: invoca todos los registros de una tabla.</value>
     <value>Principal</value>
     <comment>category name</comment>
   </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Salida</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>La conexión existente no es válida. Asegúrese de que se pueda establecer la conexión.</value>
+  </data>
 </root>

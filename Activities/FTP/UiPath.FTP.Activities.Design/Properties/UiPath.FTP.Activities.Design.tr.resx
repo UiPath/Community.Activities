@@ -194,10 +194,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>Kullanıcı adı</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP Kapsamı</value>
   </data>
 </root>

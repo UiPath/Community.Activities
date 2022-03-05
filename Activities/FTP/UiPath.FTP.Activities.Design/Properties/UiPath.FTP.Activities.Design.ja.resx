@@ -194,10 +194,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>ユーザー名です</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>FTP セッションを使用</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>FTP セッションを使用</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP スコープ</value>
   </data>
 </root>

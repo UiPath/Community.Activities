@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Belirtilen FTP sunucu yolundaki dosyalardan oluşan bir listeyi içeren bir DataTable değişkeni oluşturur. Alt klasörleri dahil et kutusu işaretlenerek alt klasörler de aramaya dahil edilebilir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>FTP sunucusunda bulunan bir dosya koleksiyonu oluşturur. Alt klasörleri dahil et kutusu işaretlenerek alt klasörler de aramaya dahil edilebilir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>FTP sunucusuna yönelik bağlantıyı işleyen ve tüm FTP etkinlikleri için kapsam sağlayan bir kapsayıcı.</value>
+    <value>FTP sunucusuna bağlanır ve diğer FTP etkinlikleri için bir kapsam sağlar.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>With Ftp Session</value>
+    <value>FTP Scope</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Client Certificate Path</value>
+    <value>Client Certificate File</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Ftps Mode</value>
+    <value>FTPS Mode</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>Ssl Protocols</value>
+    <value>SSL Protocols</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
@@ -679,5 +679,41 @@
   <data name="Category_Server_Name" xml:space="preserve">
     <value>Sunucu</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Output</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Sertifika parolası giriş modu anahtarı</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>SecurePasswordInputModeSwitch</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
+    <value>Güvenli dize biçimindeki istemci sertifikası parolası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
+    <value>İstemci Sertifikası Güvenli Parolası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Parola giriş modu anahtarı</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>PasswordInputModeSwitch</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
+    <value>Güvenli dize biçiminde parola</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
+    <value>Güvenli Parola</value>
+  </data>
+  <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
+    <value>ClientCertificatePassword ve ClientCertificateSecurePassword öğelerinin ikisi de null olmamalıdır</value>
+  </data>
+  <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
+    <value>Parola ve SecurePassword&apos;ün ikisi de null olmamalıdır</value>
   </data>
 </root>
