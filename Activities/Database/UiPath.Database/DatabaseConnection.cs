@@ -30,6 +30,8 @@ namespace UiPath.Database
         private const string OracleProvider = "oracle.manageddataaccess.client";
         private bool _isWindows = true;
 
+        public ConnectionState? State => _connection?.State;
+
         public DatabaseConnection()
         {
 #if NETCOREAPP

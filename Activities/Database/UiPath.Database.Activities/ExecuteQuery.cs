@@ -161,7 +161,7 @@ namespace UiPath.Database.Activities
 
             return asyncCodeActivityContext =>
             {
-                DataTable dt = affectedRecords.Result;
+                DataTable dt = affectedRecords?.Result;
                 if (dt == null) return;
 
                 DataTable.Set(asyncCodeActivityContext, dt);
