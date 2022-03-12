@@ -291,9 +291,12 @@
     <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간입니다.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Python libpython*.so 라이브러리(라이브러리 이름 포함)의 경로</value>
+    <value>Linux의 경우 Python libpython*.so 라이브러리(라이브러리 이름 포함). Windows(버전&gt;3.9)의 경우 python**.dll 라이브러리 이름 포함(일반적으로 Python 홈 경로에 있음). Windows(버전&lt;=3.9)의 경우 비워 둡니다.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>라이브러리 경로(Linux만 해당)</value>
+    <value>라이브러리 경로(Linux 또는 버전&gt; 3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>3.10 이상인 Python 버전은 32비트에서 지원되지 않습니다. </value>
   </data>
 </root>

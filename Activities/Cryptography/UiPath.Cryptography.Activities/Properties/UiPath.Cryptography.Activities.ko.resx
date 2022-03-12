@@ -174,10 +174,10 @@
     <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
-    <value>SecureString 키</value>
+    <value>KeySecureString</value>
   </data>
   <data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>SecureString 키</value>
+    <value>키 보안 문자열</value>
   </data>
   <data name="Activity_DecryptFile_Description" xml:space="preserve">
     <value>지정된 키 인코딩 및 알고리즘에 따라 파일의 암호를 해독합니다.</value>
@@ -674,5 +674,41 @@
   <data name="Category_Principal_Name" xml:space="preserve">
     <value>사용자</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>키와 보안 문자열 키 간 전환</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>키와 보안 문자열 키 간 전환</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>키와 보안 문자열 키 간 전환</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>키와 보안 문자열 키 간 전환</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>키와 보안 문자열 키 간 전환</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>키와 보안 문자열 키 간 전환</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
   </data>
 </root>

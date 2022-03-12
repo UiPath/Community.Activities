@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>宛先ディレクトリは既に存在します。</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>テキスト入力に切り替え</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>セキュリティで保護された入力に切り替え</value>
+  </data>
 </root>

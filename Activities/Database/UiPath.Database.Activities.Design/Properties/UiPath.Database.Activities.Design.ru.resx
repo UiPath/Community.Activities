@@ -287,15 +287,15 @@
     <value>Строка подключения, используемая для установления соединения с базой данных как Secure String</value>
   </data>
   <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
-    <value>Connect</value>
+    <value>Подключить</value>
   </data>
   <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
-    <value>Disconnect</value>
+    <value>Отключить</value>
   </data>
   <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
-    <value>Execute Non Query</value>
+    <value>Выполнить не как запрос</value>
   </data>
   <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
-    <value>Execute Query</value>
+    <value>Выполнить запрос</value>
   </data>
 </root>
