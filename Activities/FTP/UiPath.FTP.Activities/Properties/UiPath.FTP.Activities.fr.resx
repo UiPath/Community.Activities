@@ -361,7 +361,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Génère une variable DataTable qui contient une liste comprenant les fichiers trouvés sur le chemin d’accès au serveur FTP spécifié. Les sous-dossiers peuvent également être inclus dans la recherche en cochant la case Includes subfolders (Inclut les sous-dossiers). Cette activité ne fonctionne que si elle est placée à l’intérieur d’une activité d’étendue With FTP Session (Session avec FTP).</value>
+    <value>Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -465,11 +465,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>Un conteneur qui gère la connexion au serveur FTP et fournit une étendue pour toutes les activités FTP.</value>
+    <value>Se connecte au serveur FTP et fournit une étendue pour d’autres activités FTP.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Avec session FTP</value>
+    <value>FTP Scope</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Chemin d’accès du certificat client</value>
+    <value>Client Certificate File</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Mode FTPS</value>
+    <value>FTPS Mode</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>Protocoles SSL</value>
+    <value>SSL Protocols</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
@@ -679,5 +679,41 @@
   <data name="Category_Server_Name" xml:space="preserve">
     <value>Server</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Sortie</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Le commutateur du mode de saisie du mot de passe du certificat</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>SecurePasswordInputModeSwitch</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
+    <value>Le mot de passe pour le certificat client au format de chaîne sécurisé</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
+    <value>Mot de passe sécurisé du certificat client</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Le commutateur du mode de saisie du mot de passe</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>PasswordInputModeSwitch</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
+    <value>Le mot de passe au format de chaîne sécurisé</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
+    <value>Mot de passe sécurisé</value>
+  </data>
+  <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
+    <value>ClientCertificatePassword et ClientCertificateSecurePassword ne doivent pas être tous les deux nuls</value>
+  </data>
+  <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
+    <value>Password et SecurePassword ne doivent pas être tous les deux nuls</value>
   </data>
 </root>

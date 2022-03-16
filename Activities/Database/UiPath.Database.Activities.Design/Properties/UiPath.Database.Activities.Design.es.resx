@@ -287,15 +287,15 @@
     <value>La cadena de conexión utilizada para establecer una conexión con la base de datos como cadena segura</value>
   </data>
   <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
-    <value>Connect</value>
+    <value>Conectar</value>
   </data>
   <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
-    <value>Disconnect</value>
+    <value>Desconectar</value>
   </data>
   <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
-    <value>Execute Non Query</value>
+    <value>Ejecutar operación que no es una consulta</value>
   </data>
   <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
-    <value>Execute Query</value>
+    <value>Ejecutar Consulta</value>
   </data>
 </root>

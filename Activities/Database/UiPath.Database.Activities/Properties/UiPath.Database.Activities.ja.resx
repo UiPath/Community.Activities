@@ -755,4 +755,11 @@ TableDirect - テーブルからすべてのレコードを呼び出します。
     <value>プリンシパル</value>
     <comment>category name</comment>
   </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>出力</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>既存の接続は無効です。接続を確立できることを確認してください。</value>
+  </data>
 </root>
