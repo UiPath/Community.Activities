@@ -26,6 +26,7 @@ namespace UiPath.Database
         private string _providerName;
         private const string SqlOdbcDriverPattern = "SQLSRV";
         private const string OracleOdbcDriverPattern = "SQORA";
+        private const string DB2OdbcDriverPattern = "DB2";
         private const string OraclePattern = "oracle";
         private const string OracleProvider = "oracle.manageddataaccess.client";
         private bool _isWindows = true;
@@ -454,7 +455,7 @@ namespace UiPath.Database
 
         private int GetParameterSize(DbParameter dbParameter)
         {
-            if ((_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern))
+            if ((_connection.GetType() == typeof(OdbcConnection) && (((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern) || ((OdbcConnection)_connection).Driver.StartsWith(DB2OdbcDriverPattern)))
                || _connection.ToString().ToLower().Contains(OraclePattern))
                 return 1000000;
             if (_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(SqlOdbcDriverPattern))
