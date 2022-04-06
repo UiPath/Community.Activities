@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Globalization;
 using UiPath.FTP.Activities.Design.Properties;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.FTP.Activities.Design
 {
@@ -13,6 +14,32 @@ namespace UiPath.FTP.Activities.Design
         /// Help link template
         /// </summary>
         private const string UrlWorkflowActivitiesDocsTemplate = "https://docs.uipath.com/activities/lang-{0}/docs/{1}";
+
+        /// <summary>
+        /// Calls the Initialize method which will handle the registration of synonyms
+        /// </summary>
+        /// <param name="api"></param>
+        private void InitializeInternal(object api)
+        {
+            if (api is IWorkflowDesignApi wfDesignApi)
+            {
+                new ActivitySynonymApiRegistration().Initialize(wfDesignApi);
+            }
+        }
+
+        /// <summary>
+        /// Calls the private method which will handle the registration of synonyms
+        /// </summary>
+        /// <param name="api"></param>
+        public void Initialize(object api)
+        {
+            if (api == null)
+            {
+                return;
+            }
+            InitializeInternal(api);
+        }
+
         public void Register()
         {
             AttributeTableBuilder builder = new AttributeTableBuilder();
@@ -70,7 +97,7 @@ namespace UiPath.FTP.Activities.Design
             //Delete properties
             builder.AddCustomAttributes(typeof(Delete), nameof(Delete.ContinueOnError), ContinueOnError);
             builder.AddCustomAttributes(typeof(Delete), nameof(Delete.RemotePath), RemotePathDescription);
-            builder.AddCustomAttributes(typeof (Delete), new HelpKeywordAttribute(GenerateHelpLinkForActivity("ftp-delete")));
+            builder.AddCustomAttributes(typeof(Delete), new HelpKeywordAttribute(GenerateHelpLinkForActivity("ftp-delete")));
 
             //DirectoryExists properties
             builder.AddCustomAttributes(typeof(DirectoryExists), nameof(DirectoryExists.ContinueOnError), ContinueOnError);
@@ -117,9 +144,7 @@ namespace UiPath.FTP.Activities.Design
             builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.Port), PortDescription);
             builder.AddCustomAttributes(typeof(WithFtpSession), new HelpKeywordAttribute(GenerateHelpLinkForActivity("with-ftp-session")));
 
-
             builder.AddCustomAttributes(typeof(WithFtpSession), nameof(WithFtpSession.UseAnonymousLogin), new DescriptionAttribute(SharedResources.UseAnonymousLoginDescription));
- 
 
             MetadataStore.AddAttributeTable(builder.CreateTable());
         }
