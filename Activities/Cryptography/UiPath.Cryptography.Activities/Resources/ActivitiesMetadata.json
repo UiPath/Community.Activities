@@ -27,6 +27,20 @@
           "IconKey": null
         },
         {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_DecryptFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_InputFile_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
           "Name": "InputFilePath",
           "DisplayNameKey": "Activity_DecryptFile_Property_InputFilePath_Name",
           "TooltipKey": "Activity_DecryptFile_Property_InputFilePath_Description",
@@ -123,6 +137,17 @@
           },
           "Widget": null,
           "IconKey": null
+        },
+        {
+          "Name": "DecryptedFile",
+          "DisplayNameKey": "Activity_DecryptFile_Property_DecryptedFile_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_DecryptedFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          }
         }
       ],
       "DefaultFactory": null,
@@ -281,6 +306,20 @@
           "IconKey": null
         },
         {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_EncryptFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_InputFile_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
           "Name": "Key",
           "DisplayNameKey": "Activity_EncryptFile_Property_Key_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Key_Description",
@@ -363,6 +402,17 @@
           },
           "Widget": null,
           "IconKey": null
+        },
+        {
+          "Name": "EncryptedFile",
+          "DisplayNameKey": "Activity_EncryptFile_Property_EncryptedFile_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_EncryptedFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          }
         }
       ],
       "DefaultFactory": null,
@@ -496,6 +546,20 @@
           "Name": "Algorithm",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_Algorithm_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_Algorithm_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_KeyedHashFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_KeyedHashFile_Property_InputFile_Description",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,

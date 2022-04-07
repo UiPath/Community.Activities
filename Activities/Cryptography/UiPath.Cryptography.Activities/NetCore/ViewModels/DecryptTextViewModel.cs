@@ -3,7 +3,6 @@ using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Security;
 using System.Text;
-using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 
@@ -23,7 +22,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     public partial class DecryptTextViewModel : DesignPropertiesViewModel
     {
         /// <summary>
-        /// Basic consructor
+        /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public DecryptTextViewModel(IDesignServices services) : base(services)
@@ -73,7 +72,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            int propertyOrderIndex = 1;
+            var propertyOrderIndex = 1;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;

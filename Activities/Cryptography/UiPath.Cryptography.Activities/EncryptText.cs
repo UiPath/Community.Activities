@@ -4,7 +4,6 @@ using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Net;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
@@ -75,7 +74,7 @@ namespace UiPath.Cryptography.Activities
             {
                 case SymmetricAlgorithms.RC2:
                 case SymmetricAlgorithms.Rijndael:
-                    ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
+                    var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                     metadata.AddValidationError(error);
                     break;
 
@@ -90,29 +89,24 @@ namespace UiPath.Cryptography.Activities
 
             try
             {
-                string input = Input.Get(context);
-                string key = Key.Get(context);
-                SecureString keySecureString = KeySecureString.Get(context);
-                Encoding keyEncoding = Encoding.Get(context);
+                var input = Input.Get(context);
+                var key = Key.Get(context);
+                var keySecureString = KeySecureString.Get(context);
+                var keyEncoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
-                {
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
-                }
-                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
-                {
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-                }
-                if (key != null && keySecureString != null)
-                {
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
-                }
-                if (keyEncoding == null)
-                {
-                    throw new ArgumentNullException(Resources.Encoding);
-                }
 
-                byte[] encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+
+                if (key != null && keySecureString != null)
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
+
+                if (keyEncoding == null)
+                    throw new ArgumentNullException(Resources.Encoding);
+
+                var encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                 result = Convert.ToBase64String(encrypted);
             }
