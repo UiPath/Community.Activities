@@ -21,15 +21,15 @@
     <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <StackPanel Orientation="Vertical" Width="300" Margin="0 0 0 5">
             <Label Padding="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Margin="0, 5, 0, 0" Content="{x:Static p:SharedResources.RemotePath}"
-                   ToolTip="{x:Static p:SharedResources.RemotePath}" />
+                   Margin="0, 5, 0, 0" Content="{x:Static p:SharedResources.Activity_UploadFiles_Property_RemotePath_Name}"
+                   ToolTip="{x:Static p:SharedResources.Activity_UploadFiles_Property_RemotePath_Description}" />
             <sapv:ExpressionTextBox Margin="0, 5, 0, 0" DockPanel.Dock="Top" Expression="{Binding Path=ModelItem.RemotePath, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In}"
-                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.RemotePath}"/>
+                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.Activity_UploadFiles_Property_RemotePath_Description}"/>
             <Label Padding="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Margin="0, 5, 0, 0" Content="{x:Static p:SharedResources.LocalPath}"
-                   ToolTip="{x:Static p:SharedResources.LocalPath}" />
+                   Margin="0, 5, 0, 0" Content="{x:Static p:SharedResources.Activity_UploadFiles_Property_LocalPath_Name}"
+                   ToolTip="{x:Static p:SharedResources.Activity_UploadFiles_Property_LocalPath_Description}" />
             <sapv:ExpressionTextBox Margin="0, 5, 0, 0" DockPanel.Dock="Bottom" Expression="{Binding Path=ModelItem.LocalPath, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=Out}"
-                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.LocalPath}"/>
+                                    MaxLines="1" OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" HintText="{x:Static p:SharedResources.Activity_UploadFiles_Property_LocalPath_Description}"/>
         </StackPanel>
     </uip:ActivityDecoratorControl>
 </sap:ActivityDesigner>

@@ -79,7 +79,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Delete file or folder.
         /// </summary>
         public static string Activity_Delete_Name {
             get {
@@ -88,7 +88,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path of the file that is to be removed from the FTP server..
+        ///   Looks up a localized string similar to Remote path to the file or folder.
         /// </summary>
         public static string Activity_Delete_Property_RemotePath_Description {
             get {
@@ -97,7 +97,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to File or folder to delete.
         /// </summary>
         public static string Activity_Delete_Property_RemotePath_Name {
             get {
@@ -142,7 +142,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path of the FTP directory in which to check whether the indicated directory exists..
+        ///   Looks up a localized string similar to Remote folder path to check.
         /// </summary>
         public static string Activity_DirectoryExists_Property_RemotePath_Description {
             get {
@@ -151,7 +151,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Folder Path.
         /// </summary>
         public static string Activity_DirectoryExists_Property_RemotePath_Name {
             get {
@@ -205,7 +205,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local Path.
+        ///   Looks up a localized string similar to Where to download.
         /// </summary>
         public static string Activity_DownloadFiles_Property_LocalPath_Name {
             get {
@@ -259,7 +259,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Path to files to download.
         /// </summary>
         public static string Activity_DownloadFiles_Property_RemotePath_Name {
             get {
@@ -376,7 +376,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path of the FTP directory in which to check whether the indicated file exists..
+        ///   Looks up a localized string similar to Remote file path to check.
         /// </summary>
         public static string Activity_FileExists_Property_RemotePath_Description {
             get {
@@ -385,7 +385,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to File Path.
         /// </summary>
         public static string Activity_FileExists_Property_RemotePath_Name {
             get {
@@ -403,7 +403,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move Item.
+        ///   Looks up a localized string similar to Move file or folder.
         /// </summary>
         public static string Activity_MoveItem_Name {
             get {
@@ -430,7 +430,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The remote path on the FTP server where the file will be moved..
+        ///   Looks up a localized string similar to The new path where to move the item.
         /// </summary>
         public static string Activity_MoveItem_Property_NewPath_Description {
             get {
@@ -439,7 +439,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Remote Path.
+        ///   Looks up a localized string similar to Where to move.
         /// </summary>
         public static string Activity_MoveItem_Property_NewPath_Name {
             get {
@@ -466,7 +466,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The remote path on the FTP server where the file is currently located..
+        ///   Looks up a localized string similar to Remote path.
         /// </summary>
         public static string Activity_MoveItem_Property_RemotePath_Description {
             get {
@@ -475,7 +475,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to File or folder to move.
         /// </summary>
         public static string Activity_MoveItem_Property_RemotePath_Name {
             get {
@@ -520,7 +520,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The local path of the files that are to be uploaded..
+        ///   Looks up a localized string similar to Local path.
         /// </summary>
         public static string Activity_UploadFiles_Property_LocalPath_Description {
             get {
@@ -529,7 +529,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local Path.
+        ///   Looks up a localized string similar to Files to upload.
         /// </summary>
         public static string Activity_UploadFiles_Property_LocalPath_Name {
             get {
@@ -574,7 +574,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path on the FTP server where the file is to be uploaded..
+        ///   Looks up a localized string similar to Remote path.
         /// </summary>
         public static string Activity_UploadFiles_Property_RemotePath_Description {
             get {
@@ -583,7 +583,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Where to upload.
         /// </summary>
         public static string Activity_UploadFiles_Property_RemotePath_Name {
             get {
@@ -601,7 +601,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FTP Scope.
+        ///   Looks up a localized string similar to Use FTP connection.
         /// </summary>
         public static string Activity_WithFtpSession_Name {
             get {
