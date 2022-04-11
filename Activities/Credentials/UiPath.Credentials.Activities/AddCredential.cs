@@ -36,8 +36,8 @@ namespace UiPath.Credentials.Activities
         public InArgument<string> Target { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.CredentialTypeDisplayName))]
-        [LocalizedDescription(nameof(Resources.CredentialTypeDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_AddCredential_Property_CredentialType_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_AddCredential_Property_CredentialType_Description))]
         public CredentialType CredentialType { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
@@ -49,6 +49,13 @@ namespace UiPath.Credentials.Activities
         {
             CredentialType = CredentialType.Generic;
             PersistanceType = PersistanceType.Enterprise;
+        }
+        protected override void CacheMetadata(CodeActivityMetadata metadata)
+        {
+            base.CacheMetadata(metadata);
+
+            if (!(CredentialType == CredentialType.Generic || CredentialType == CredentialType.DomainPassword))
+                metadata.AddValidationError(new ValidationError(Resources.ValidationError_InvalidCredentialType,false,nameof(CredentialType)));
         }
 
         protected override bool Execute(CodeActivityContext context)

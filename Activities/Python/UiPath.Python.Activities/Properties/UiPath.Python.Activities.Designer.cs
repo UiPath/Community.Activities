@@ -205,7 +205,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path to Python libpython*.so library including library name.
+        ///   Looks up a localized string similar to For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty..
         /// </summary>
         public static string LibraryPathDescription {
             get {
@@ -214,7 +214,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Library path (Linux only).
+        ///   Looks up a localized string similar to Library path (Linux or version&gt;3.9).
         /// </summary>
         public static string LibraryPathNameDisplayName {
             get {
@@ -498,6 +498,15 @@ namespace UiPath.Python.Activities.Properties {
         public static string ValidateParentError {
             get {
                 return ResourceManager.GetString("ValidateParentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python version &gt;= 3.10 is not supported on 32 bit. .
+        /// </summary>
+        public static string ValidationErrorPlatformUnsupported {
+            get {
+                return ResourceManager.GetString("ValidationErrorPlatformUnsupported", resourceCulture);
             }
         }
         

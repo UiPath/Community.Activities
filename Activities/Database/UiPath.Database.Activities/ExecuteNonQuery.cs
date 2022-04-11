@@ -7,48 +7,56 @@ using System.Net;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class ExecuteNonQuery : AsyncTaskCodeActivity
+    [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Description))]
+    public partial class ExecuteNonQuery : AsyncTaskCodeActivity
     {
         // public arguments
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ProviderName_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ProviderName_Description))]
         public InArgument<string> ProviderName { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionString_Description))]
         public InArgument<string> ConnectionString { get; set; }
-
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
         [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.CommandTypeDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_CommandType_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_CommandType_Description))]
         public CommandType CommandType { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_Sql_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_Sql_Description))]
         public InArgument<string> Sql { get; set; }
 
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.TimeoutMSDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_TimeoutMS_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_TimeoutMS_Description))]
         public InArgument<int> TimeoutMS { get; set; }
 
         private Dictionary<string, Argument> parameters;
@@ -56,7 +64,8 @@ namespace UiPath.Database.Activities
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
         [Browsable(true)]
-        [LocalizedDisplayName(nameof(Resources.ParametersDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_Parameters_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_Parameters_Description))]
         public Dictionary<string, Argument> Parameters
         {
             get
@@ -74,7 +83,8 @@ namespace UiPath.Database.Activities
         }
 
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.AffectedRecordsDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_AffectedRecords_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_AffectedRecords_Description))]
         public OutArgument<int> AffectedRecords { get; set; }
 
         private DatabaseConnection DbConnection = null;
@@ -83,7 +93,6 @@ namespace UiPath.Database.Activities
         {
             CommandType = CommandType.Text;
         }
-
 
         private void HandleException(Exception ex, bool continueOnError)
         {

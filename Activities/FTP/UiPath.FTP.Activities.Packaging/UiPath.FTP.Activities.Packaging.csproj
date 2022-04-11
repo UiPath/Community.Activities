@@ -2,9 +2,13 @@
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
-    <OutputPath>$(ProjectDir)..\..\Output\Activities\FTP\</OutputPath>
-    <VersionSuffix></VersionSuffix>
+    <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
+	<VersionSuffix></VersionSuffix>
+	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
+	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
+	<PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
+	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,7 +20,6 @@
     <Description>UiPath FTP Activities Pack</Description>
     <Authors>UiPath</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
@@ -33,6 +36,11 @@
   </ItemGroup>
 
 	<Target Name="AddDlls">
+		<!-- PDBs for debug-->
+		<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.pdb" />
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.pdb" />
+		</ItemGroup>
 		<ItemGroup>
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.dll" />
@@ -66,6 +74,13 @@
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
 		</ItemGroup>
 	</Target>
+	<Target Name="CleanPackageFiles" BeforeTargets="Build">
+		<Message Text="Deleting packages ..." />
+		<ItemGroup>
+			<PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+		</ItemGroup>
+		<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
+	</Target>
 
   <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj">
@@ -77,8 +92,4 @@
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
-    <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.FTP.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.FTP.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
-  </Target>
 </Project>

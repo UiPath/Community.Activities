@@ -31,6 +31,7 @@ namespace UiPath.Python.Impl
         private const string PythonRuntimeTypeName = "Python.Runtime.Runtime";
 
         private const string PythonObjectTypeName = "Python.Runtime.PyObject";
+        private const string PythonModuleTypeName = "Python.Runtime.PyModule";
         private const string PyTypeName = "Python.Runtime.Py";
         private const string ConverterExtensionTypeName = "Python.Runtime.ConverterExtension";
 
@@ -39,6 +40,7 @@ namespace UiPath.Python.Impl
         private dynamic _pyEngine = null;
         private dynamic _pyRuntime = null;
         private dynamic _pyObject = null;
+        private dynamic _pyModule = null;
         private dynamic _py = null;
         private dynamic _pyConverterExtension = null;
         private object _pythreads;
@@ -113,13 +115,15 @@ namespace UiPath.Python.Impl
                         InitializeRuntime(assembly);
                         ct.ThrowIfCancellationRequested();
 
-                        if (!_isWindows)
-                            if(!string.IsNullOrEmpty(_libraryPath))
+                        if (!_isWindows || _version == Version.Python_310)
+                        {
+                            if (!string.IsNullOrEmpty(_libraryPath))
                                 _pyRuntime.PythonDLL = _libraryPath;
+                        }
                         else
-                            _pyEngine.PythonHome = _path;
-                                                  
-                        if (_version >= Version.Python_36 || !_isWindows)
+                            _pyEngine.PythonHome = _path; 
+                        
+                        if (_version >= Version.Python_36 && _version<=Version.Python_39|| !_isWindows)
                             _pyEngine.Initialize(null, null, null, null);
                         else
                             _pyEngine.Initialize(null, null, null);
@@ -168,7 +172,10 @@ namespace UiPath.Python.Impl
                     try
                     {
                         // using a Guid for "name" import
-                        module = _pyEngine.ModuleFromString(GetModuleName(code), code);
+                        if(Version == Version.Python_310)
+                            module = _pyModule.FromString(GetModuleName(code), code);
+                        else
+                            module = _pyEngine.ModuleFromString(GetModuleName(code), code);
                         var result = new PythonObject(module);
                         return result;
                     }
@@ -267,6 +274,8 @@ namespace UiPath.Python.Impl
             _pyRuntime = DynamicStaticTypeMembers.Create(assembly.GetType(PythonRuntimeTypeName));
             _pyObject = DynamicStaticTypeMembers.Create(assembly.GetType(PythonObjectTypeName));
             _py = DynamicStaticTypeMembers.Create(assembly.GetType(PyTypeName));
+            if(Version == Version.Python_310)
+                _pyModule= DynamicStaticTypeMembers.Create(assembly.GetType(PythonModuleTypeName));
             _pyConverterExtension = DynamicStaticTypeMembers.Create(assembly.GetType(ConverterExtensionTypeName));
 
             // TODO: find a nicer way

@@ -8,17 +8,19 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.DirectoryExistsDisplayName))]
-    [LocalizedDescription(nameof(Resources.DirectoryExistsDescription))]
-    public class DirectoryExists : FtpAsyncActivity
+    [LocalizedDisplayName(nameof(Resources.Activity_DirectoryExists_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_DirectoryExists_Description))]
+    public partial class DirectoryExists : FtpAsyncActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.RemotePath))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DirectoryExists_Property_RemotePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DirectoryExists_Property_RemotePath_Description))]
         public InArgument<string> RemotePath { get; set; }
 
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.Exists))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DirectoryExists_Property_Exists_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DirectoryExists_Property_Exists_Description))]
         public OutArgument<bool> Exists { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)

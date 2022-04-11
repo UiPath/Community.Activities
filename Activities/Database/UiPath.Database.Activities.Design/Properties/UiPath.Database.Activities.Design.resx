@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Specifies how a command string is interpreted</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Connect</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>The connection string used to establish a database connection</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Executes a SQL statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>An already opened database connection. If this property is set Connection String and Provider Name properties are ignored</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Inserts a compatible DataTable in a existing Table. Returns the number of rows affected.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>A sql command to be executed.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Start Transaction</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>The target database table</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>App Integration</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Execute Non Query</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Execute Query</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Collection)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Bulk Insert</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -293,9 +268,6 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>The collection of column names used for row matching</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Bulk Update</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Updates a compatible DataTable in a existing Table. Will update all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
   </data>
@@ -313,5 +285,17 @@
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
     <value>The connection string used to establish a database connection as Secure String</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Execute Non Query</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Execute Query</value>
   </data>
 </root>

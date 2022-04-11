@@ -291,9 +291,12 @@
     <value>The amount of time to allow a Python script to run until it is terminated and an exception is thrown.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Path to Python libpython*.so library including library name</value>
+    <value>For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Library path (Linux only)</value>
+    <value>Library path (Linux or version&gt;3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>Python version &gt;= 3.10 is not supported on 32 bit. </value>
   </data>
 </root>

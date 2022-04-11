@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualBasic.Activities;
-using System;
+﻿using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,56 +8,63 @@ using System.Net;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
+using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.EncryptTextDisplayName))]
-    [LocalizedDescription(nameof(Resources.EncryptTextDescription))]
-    public class EncryptText : CodeActivity<string>
+    [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_EncryptText_Description))]
+    public partial class EncryptText : CodeActivity<string>
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.AlgorithmDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptAlgorithmDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Algorithm_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Algorithm_Description))]
         public SymmetricAlgorithms Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.InputStringDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptTextInputDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Input_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Input_Description))]
         public InArgument<string> Input { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptTextKeyDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Key_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Key_Description))]
         public InArgument<string> Key { get; set; }
 
+        [Browsable(false)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptTextKeySecureStringDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_KeyInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_KeyInputModeSwitch_Description))]
+        public KeyInputMode KeyInputModeSwitch { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_KeySecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.EncodingDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptTextEncodingDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Encoding_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.ResultDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptTextResultDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Result_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Result_Description))]
         public new OutArgument<string> Result { get => base.Result; set => base.Result = value; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         public EncryptText()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
-            Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(System.Text.Encoding.UTF8)); // Kinda ugly.
+            Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)

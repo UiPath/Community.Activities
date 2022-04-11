@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualBasic.Activities;
-using System;
+﻿using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,62 +9,70 @@ using System.Net;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
+using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.EncryptFileDisplayName))]
-    [LocalizedDescription(nameof(Resources.EncryptFileDescription))]
-    public class EncryptFile : CodeActivity
+    [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Description))]
+    public partial class EncryptFile : CodeActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.AlgorithmDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptAlgorithmDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_Algorithm_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Algorithm_Description))]
         public SymmetricAlgorithms Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.InputFilePathDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptFileInputPathDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_InputFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_InputFilePath_Description))]
         public InArgument<string> InputFilePath { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptFileKeyDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_Key_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Key_Description))]
         public InArgument<string> Key { get; set; }
 
+        [Browsable(false)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.KeySecureStringDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptFileKeySecureStringDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_KeyInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_KeyInputModeSwitch_Description))]
+        public KeyInputMode KeyInputModeSwitch { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_KeySecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.KeyEncodingDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptFileEncodingDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_KeyEncoding_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_KeyEncoding_Description))]
         public InArgument<Encoding> KeyEncoding { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.OutputFilePathDisplayName))]
-        [LocalizedDescription(nameof(Resources.EncryptFileOutputPathDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_OutputFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_OutputFilePath_Description))]
         public InArgument<string> OutputFilePath { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.OverwriteDisplayName))]
-        [LocalizedDescription(nameof(Resources.OverwriteDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_Overwrite_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Overwrite_Description))]
         public bool Overwrite { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         public EncryptFile()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
-            KeyEncoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.UTF8)); // Kinda ugly.
+            KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)

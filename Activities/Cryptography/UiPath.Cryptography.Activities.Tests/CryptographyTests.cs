@@ -1,7 +1,7 @@
 ﻿using Microsoft.Activities.UnitTesting;
-using Microsoft.VisualBasic.Activities;
 using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.Security;
 using System.Text;
@@ -27,7 +27,7 @@ namespace UiPath.Cryptography.Activities.Tests
             HashText hash = new HashText
             {
                 Algorithm = enumValue,
-                Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(HashText.Input), toHash);
@@ -60,7 +60,7 @@ namespace UiPath.Cryptography.Activities.Tests
             KeyedHashText keyedHash = new KeyedHashText
             {
                 Algorithm = enumValue,
-                Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(KeyedHashText.Input), toHash);
@@ -89,7 +89,7 @@ namespace UiPath.Cryptography.Activities.Tests
             EncryptText symmetricAlgorithm = new EncryptText
             {
                 Algorithm = enumValue,
-                Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(EncryptText.Input), toProcess);
@@ -120,7 +120,7 @@ namespace UiPath.Cryptography.Activities.Tests
             DecryptText symmetricAlgorithm = new DecryptText
             {
                 Algorithm = enumValue,
-                Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
             };
 
             Dictionary<string, object> arguments = new Dictionary<string, object>();
@@ -162,7 +162,7 @@ namespace UiPath.Cryptography.Activities.Tests
             KeyedHashText keyedHash = new KeyedHashText
             {
                 Algorithm = enumValue,
-                Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(KeyedHashText.Input), toHash);
@@ -192,7 +192,7 @@ namespace UiPath.Cryptography.Activities.Tests
             EncryptText symmetricAlgorithm = new EncryptText
             {
                 Algorithm = enumValue,
-                Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(EncryptText.Input), toProcess);
@@ -223,7 +223,7 @@ namespace UiPath.Cryptography.Activities.Tests
             DecryptText symmetricAlgorithm = new DecryptText
             {
                 Algorithm = enumValue,
-                Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
             };
 
             Dictionary<string, object> arguments = new Dictionary<string, object>();

@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Indique la façon dont une chaîne de commande est interprétée</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Se connecter</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>Chaîne de connexion utilisée pour se connecter à une base de données</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Déconnecter</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Exécute une instruction SQL sur une base de données. Pour les instructions UPDATE, INSERT et DELETE, la valeur renvoyée est le nombre de lignes affectées par la commande. Pour tous les autres types d’instructions, la valeur renvoyée est de -1.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Connexion à une base de données déjà établie. Si cette propriété est définie, les propriétés Chaîne de connexion (Connection String) et Nom du fournisseur (Provider Name) sont ignorées.</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insérer (Insert)</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Insère un objet DataTable compatible dans un objet Table existant. Renvoie le nombre de lignes affectées.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>Commande SQL à exécuter.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Démarrer la transaction (Start Transaction)</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>Table de base de données cible</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Intégration de l&apos;appli</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Exécuter la non-requête (Execute Non Query)</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Exécuter la requête (Execute Query)</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Collection)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boolean</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Insertion en masse</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -293,9 +268,6 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>La collection de noms de colonnes utilisée pour la correspondance de lignes</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Mise à jour en masse</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Met à jour un objet DataTable compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
   </data>
@@ -313,5 +285,17 @@
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
     <value>La chaîne de connexion utilisée pour établir une connexion à la base de données en tant que chaîne sécurisée</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Déconnecter</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Exécuter la non-requête (Execute Non Query)</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Exécuter la requête (Execute Query)</value>
   </data>
 </root>
