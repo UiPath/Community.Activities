@@ -19,7 +19,7 @@ namespace UiPath.Cryptography.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UiPath_Cryptography {
@@ -61,7 +61,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AES.
+        ///   Looks up a localized string similar to AES (Deprecated).
         /// </summary>
         internal static string AES {
             get {
@@ -70,7 +70,16 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DES.
+        ///   Looks up a localized string similar to AES GCM.
+        /// </summary>
+        internal static string AESGCM {
+            get {
+                return ResourceManager.GetString("AESGCM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DES  (Deprecated).
         /// </summary>
         internal static string DES {
             get {
@@ -133,6 +142,15 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle to text input.
+        /// </summary>
+        internal static string Key {
+            get {
+                return ResourceManager.GetString("Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MACTripleDES.
         /// </summary>
         internal static string MACTripleDES {
@@ -151,7 +169,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RC2 (Non-FIPS).
+        ///   Looks up a localized string similar to RC2 (Non-FIPS)  (Deprecated).
         /// </summary>
         internal static string RC2 {
             get {
@@ -160,7 +178,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rijndael (Non-FIPS).
+        ///   Looks up a localized string similar to Rijndael (Non-FIPS)  (Deprecated).
         /// </summary>
         internal static string Rijndael {
             get {
@@ -174,6 +192,15 @@ namespace UiPath.Cryptography.Properties {
         internal static string RIPEMD160 {
             get {
                 return ResourceManager.GetString("RIPEMD160", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle to Secure input.
+        /// </summary>
+        internal static string SecureKey {
+            get {
+                return ResourceManager.GetString("SecureKey", resourceCulture);
             }
         }
         

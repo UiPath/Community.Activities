@@ -290,4 +290,10 @@
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간입니다.</value>
   </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Python libpython*.so 라이브러리(라이브러리 이름 포함)의 경로</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>라이브러리 경로(Linux만 해당)</value>
+  </data>
 </root>

@@ -22,7 +22,7 @@ namespace UiPath.Python.Activities.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UiPath_Python_Activities {
+    public class UiPath_Python_Activities {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace UiPath.Python.Activities.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UiPath.Python.Activities.Properties.UiPath.Python.Activities", typeof(UiPath_Python_Activities).Assembly);
@@ -51,7 +51,7 @@ namespace UiPath.Python.Activities.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Python script content.
         /// </summary>
-        internal static string CodeDescription {
+        public static string CodeDescription {
             get {
                 return ResourceManager.GetString("CodeDescription", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
-        internal static string CodeNameDisplayName {
+        public static string CodeNameDisplayName {
             get {
                 return ResourceManager.GetString("CodeNameDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error converting Python object.
         /// </summary>
-        internal static string ConvertException {
+        public static string ConvertException {
             get {
                 return ResourceManager.GetString("ConvertException", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Do.
         /// </summary>
-        internal static string Do {
+        public static string Do {
             get {
                 return ResourceManager.GetString("Do", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Get the .NET type from a PythonObject.
         /// </summary>
-        internal static string GetObjectDescription {
+        public static string GetObjectDescription {
             get {
                 return ResourceManager.GetString("GetObjectDescription", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Get Python Object.
         /// </summary>
-        internal static string GetObjectNameDisplayName {
+        public static string GetObjectNameDisplayName {
             get {
                 return ResourceManager.GetString("GetObjectNameDisplayName", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The .NET type corresponding to Python object.
         /// </summary>
-        internal static string GetObjectResultDescription {
+        public static string GetObjectResultDescription {
             get {
                 return ResourceManager.GetString("GetObjectResultDescription", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Input.
         /// </summary>
-        internal static string Input {
+        public static string Input {
             get {
                 return ResourceManager.GetString("Input", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Instance of Python object.
         /// </summary>
-        internal static string InstanceDescription {
+        public static string InstanceDescription {
             get {
                 return ResourceManager.GetString("InstanceDescription", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Instance.
         /// </summary>
-        internal static string InstanceNameDisplayName {
+        public static string InstanceNameDisplayName {
             get {
                 return ResourceManager.GetString("InstanceNameDisplayName", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid method name.
         /// </summary>
-        internal static string InvalidMethodNameException {
+        public static string InvalidMethodNameException {
             get {
                 return ResourceManager.GetString("InvalidMethodNameException", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The specified Python path is not valid: {0}.
         /// </summary>
-        internal static string InvalidPathException {
+        public static string InvalidPathException {
             get {
                 return ResourceManager.GetString("InvalidPathException", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Selected version {0} is different from the version found {1}.
         /// </summary>
-        internal static string InvalidVersionException {
+        public static string InvalidVersionException {
             get {
                 return ResourceManager.GetString("InvalidVersionException", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error invoking Python method.
         /// </summary>
-        internal static string InvokeException {
+        public static string InvokeException {
             get {
                 return ResourceManager.GetString("InvokeException", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invoke Python method.
         /// </summary>
-        internal static string InvokeMethodDescription {
+        public static string InvokeMethodDescription {
             get {
                 return ResourceManager.GetString("InvokeMethodDescription", resourceCulture);
             }
@@ -198,16 +198,34 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invoke Python Method.
         /// </summary>
-        internal static string InvokeMethodNameDisplayName {
+        public static string InvokeMethodNameDisplayName {
             get {
                 return ResourceManager.GetString("InvokeMethodNameDisplayName", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty..
+        /// </summary>
+        public static string LibraryPathDescription {
+            get {
+                return ResourceManager.GetString("LibraryPathDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Library path (Linux or version&gt;3.9).
+        /// </summary>
+        public static string LibraryPathNameDisplayName {
+            get {
+                return ResourceManager.GetString("LibraryPathNameDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loads and executes a Python script.
         /// </summary>
-        internal static string LoadScriptDescription {
+        public static string LoadScriptDescription {
             get {
                 return ResourceManager.GetString("LoadScriptDescription", resourceCulture);
             }
@@ -216,7 +234,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error loading Python script.
         /// </summary>
-        internal static string LoadScriptException {
+        public static string LoadScriptException {
             get {
                 return ResourceManager.GetString("LoadScriptException", resourceCulture);
             }
@@ -225,7 +243,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Load Python Script.
         /// </summary>
-        internal static string LoadScriptNameDisplayName {
+        public static string LoadScriptNameDisplayName {
             get {
                 return ResourceManager.GetString("LoadScriptNameDisplayName", resourceCulture);
             }
@@ -234,7 +252,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Name of the method to be invoked.
         /// </summary>
-        internal static string MethodNameDescription {
+        public static string MethodNameDescription {
             get {
                 return ResourceManager.GetString("MethodNameDescription", resourceCulture);
             }
@@ -243,7 +261,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
-        internal static string NameDisplayName {
+        public static string NameDisplayName {
             get {
                 return ResourceManager.GetString("NameDisplayName", resourceCulture);
             }
@@ -252,7 +270,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No code/script specified.
         /// </summary>
-        internal static string NoScriptSpecifiedException {
+        public static string NoScriptSpecifiedException {
             get {
                 return ResourceManager.GetString("NoScriptSpecifiedException", resourceCulture);
             }
@@ -261,7 +279,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Timeout.
         /// </summary>
-        internal static string OperationTimeout {
+        public static string OperationTimeout {
             get {
                 return ResourceManager.GetString("OperationTimeout", resourceCulture);
             }
@@ -270,7 +288,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The amount of time to allow a Python script to run until it is terminated and an exception is thrown..
         /// </summary>
-        internal static string OperationTimeoutDescription {
+        public static string OperationTimeoutDescription {
             get {
                 return ResourceManager.GetString("OperationTimeoutDescription", resourceCulture);
             }
@@ -279,7 +297,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        internal static string Output {
+        public static string Output {
             get {
                 return ResourceManager.GetString("Output", resourceCulture);
             }
@@ -288,7 +306,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        internal static string OutputDisplayName {
+        public static string OutputDisplayName {
             get {
                 return ResourceManager.GetString("OutputDisplayName", resourceCulture);
             }
@@ -297,7 +315,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Input parameters for Python script.
         /// </summary>
-        internal static string ParametersDescription {
+        public static string ParametersDescription {
             get {
                 return ResourceManager.GetString("ParametersDescription", resourceCulture);
             }
@@ -306,7 +324,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to InputParameters.
         /// </summary>
-        internal static string ParametersNameDisplayName {
+        public static string ParametersNameDisplayName {
             get {
                 return ResourceManager.GetString("ParametersNameDisplayName", resourceCulture);
             }
@@ -315,7 +333,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Python home path.
         /// </summary>
-        internal static string PathDescription {
+        public static string PathDescription {
             get {
                 return ResourceManager.GetString("PathDescription", resourceCulture);
             }
@@ -324,7 +342,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Path.
         /// </summary>
-        internal static string PathNameDisplayName {
+        public static string PathNameDisplayName {
             get {
                 return ResourceManager.GetString("PathNameDisplayName", resourceCulture);
             }
@@ -333,7 +351,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Python engine session was not found.
         /// </summary>
-        internal static string PythonEngineNotFoundException {
+        public static string PythonEngineNotFoundException {
             get {
                 return ResourceManager.GetString("PythonEngineNotFoundException", resourceCulture);
             }
@@ -342,7 +360,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error initializing Python engine.
         /// </summary>
-        internal static string PythonInitializeException {
+        public static string PythonInitializeException {
             get {
                 return ResourceManager.GetString("PythonInitializeException", resourceCulture);
             }
@@ -351,7 +369,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Python object to extract value from.
         /// </summary>
-        internal static string PythonObjectDescription {
+        public static string PythonObjectDescription {
             get {
                 return ResourceManager.GetString("PythonObjectDescription", resourceCulture);
             }
@@ -360,7 +378,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to PythonObject.
         /// </summary>
-        internal static string PythonObjectNameDisplayName {
+        public static string PythonObjectNameDisplayName {
             get {
                 return ResourceManager.GetString("PythonObjectNameDisplayName", resourceCulture);
             }
@@ -369,7 +387,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Python activities container.
         /// </summary>
-        internal static string PythonScopeDescription {
+        public static string PythonScopeDescription {
             get {
                 return ResourceManager.GetString("PythonScopeDescription", resourceCulture);
             }
@@ -378,7 +396,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Python Scope.
         /// </summary>
-        internal static string PythonScopeNameDisplayName {
+        public static string PythonScopeNameDisplayName {
             get {
                 return ResourceManager.GetString("PythonScopeNameDisplayName", resourceCulture);
             }
@@ -387,7 +405,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The result of script invocation.
         /// </summary>
-        internal static string ResultDescription {
+        public static string ResultDescription {
             get {
                 return ResourceManager.GetString("ResultDescription", resourceCulture);
             }
@@ -396,7 +414,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Result.
         /// </summary>
-        internal static string ResultNameDisplayName {
+        public static string ResultNameDisplayName {
             get {
                 return ResourceManager.GetString("ResultNameDisplayName", resourceCulture);
             }
@@ -405,7 +423,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invoke Python script activity.
         /// </summary>
-        internal static string RunScriptDescription {
+        public static string RunScriptDescription {
             get {
                 return ResourceManager.GetString("RunScriptDescription", resourceCulture);
             }
@@ -414,7 +432,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error running Python script.
         /// </summary>
-        internal static string RunScriptException {
+        public static string RunScriptException {
             get {
                 return ResourceManager.GetString("RunScriptException", resourceCulture);
             }
@@ -423,7 +441,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Run Python Script.
         /// </summary>
-        internal static string RunScriptNameDisplayName {
+        public static string RunScriptNameDisplayName {
             get {
                 return ResourceManager.GetString("RunScriptNameDisplayName", resourceCulture);
             }
@@ -432,7 +450,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Full path to Python script file.
         /// </summary>
-        internal static string ScriptFileDescription {
+        public static string ScriptFileDescription {
             get {
                 return ResourceManager.GetString("ScriptFileDescription", resourceCulture);
             }
@@ -441,7 +459,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
-        internal static string ScriptFileNameDisplayName {
+        public static string ScriptFileNameDisplayName {
             get {
                 return ResourceManager.GetString("ScriptFileNameDisplayName", resourceCulture);
             }
@@ -450,7 +468,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The specified script file was not found.
         /// </summary>
-        internal static string ScriptFileNotFoundException {
+        public static string ScriptFileNotFoundException {
             get {
                 return ResourceManager.GetString("ScriptFileNotFoundException", resourceCulture);
             }
@@ -459,7 +477,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Specifies the Python runtime platform.
         /// </summary>
-        internal static string TargetPlatformDescription {
+        public static string TargetPlatformDescription {
             get {
                 return ResourceManager.GetString("TargetPlatformDescription", resourceCulture);
             }
@@ -468,7 +486,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Target.
         /// </summary>
-        internal static string TargetPlatformDisplayName {
+        public static string TargetPlatformDisplayName {
             get {
                 return ResourceManager.GetString("TargetPlatformDisplayName", resourceCulture);
             }
@@ -477,16 +495,25 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Activity is valid only inside {0}.
         /// </summary>
-        internal static string ValidateParentError {
+        public static string ValidateParentError {
             get {
                 return ResourceManager.GetString("ValidateParentError", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python version &gt;= 3.10 is not supported on 32 bit. .
+        /// </summary>
+        public static string ValidationErrorPlatformUnsupported {
+            get {
+                return ResourceManager.GetString("ValidationErrorPlatformUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Python version.
         /// </summary>
-        internal static string VersionDescription {
+        public static string VersionDescription {
             get {
                 return ResourceManager.GetString("VersionDescription", resourceCulture);
             }
@@ -495,7 +522,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Version.
         /// </summary>
-        internal static string VersionNameDisplayName {
+        public static string VersionNameDisplayName {
             get {
                 return ResourceManager.GetString("VersionNameDisplayName", resourceCulture);
             }
@@ -504,7 +531,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to WorkingFolder.
         /// </summary>
-        internal static string WorkingFolder {
+        public static string WorkingFolder {
             get {
                 return ResourceManager.GetString("WorkingFolder", resourceCulture);
             }
@@ -513,7 +540,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Used to specify the working folder of the scripts executing under the current scope.
         /// </summary>
-        internal static string WorkingFolderDescription {
+        public static string WorkingFolderDescription {
             get {
                 return ResourceManager.GetString("WorkingFolderDescription", resourceCulture);
             }
@@ -522,7 +549,7 @@ namespace UiPath.Python.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to WorkingFolder path is not valid.
         /// </summary>
-        internal static string WorkingFolderPathInvalid {
+        public static string WorkingFolderPathInvalid {
             get {
                 return ResourceManager.GetString("WorkingFolderPathInvalid", resourceCulture);
             }

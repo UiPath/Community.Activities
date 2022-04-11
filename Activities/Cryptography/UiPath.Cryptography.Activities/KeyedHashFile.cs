@@ -1,58 +1,71 @@
-﻿using Microsoft.VisualBasic.Activities;
-using System;
+﻿using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Properties;
+using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.KeyedHashFileDisplayName))]
-    [LocalizedDescription(nameof(Resources.KeyedHashFileDescription))]
-    public class KeyedHashFile : CodeActivity<string>
+    [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Description))]
+    public partial class KeyedHashFile : CodeActivity<string>
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.AlgorithmDisplayName))]
-        [LocalizedDescription(nameof(Resources.KeyedHashAlgorithmDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Algorithm_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Algorithm_Description))]
         public KeyedHashAlgorithms Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.FilePathDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashFilePathDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_FilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_FilePath_Description))]
         public InArgument<string> FilePath { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.KeyDisplayName))]
-        [LocalizedDescription(nameof(Resources.KeyedHashFileKeyDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Key_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Key_Description))]
         public InArgument<string> Key { get; set; }
 
-        [RequiredArgument]
+        [Browsable(false)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.EncodingDisplayName))]
-        [LocalizedDescription(nameof(Resources.KeyedHashFileEncodingDescription))]
-        public InArgument<Encoding> Encoding { get; set; }
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Key_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Key_Description))]
+        public KeyInputMode KeyInputModeSwitch { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_KeySecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_KeySecureString_Description))]
+        public InArgument<SecureString> KeySecureString { get; set; }
 
         [RequiredArgument]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Encoding_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Encoding_Description))]
+        public InArgument<Encoding> Encoding { get; set; }
+
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.ResultDisplayName))]
-        [LocalizedDescription(nameof(Resources.KeyedHashFileResultDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Result_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Result_Description))]
         public new OutArgument<string> Result { get => base.Result; set => base.Result = value; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         public KeyedHashFile()
         {
             Algorithm = KeyedHashAlgorithms.HMACSHA256;
-            Encoding = new VisualBasicValue<Encoding>(typeof(Encoding).FullName + "." + nameof(System.Text.Encoding.UTF8)); // Kinda ugly.
+            Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -81,17 +94,22 @@ namespace UiPath.Cryptography.Activities
             {
                 string filePath = FilePath.Get(context);
                 string key = Key.Get(context);
-                Encoding encoding = Encoding.Get(context);
+                SecureString keySecureString = KeySecureString.Get(context);
+                Encoding keyEncoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(filePath))
                 {
                     throw new ArgumentNullException(Resources.FilePathDisplayName);
                 }
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.Key);
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
                 }
-                if (encoding == null)
+                if (key != null && keySecureString != null)
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
+                }
+                if (keyEncoding == null)
                 {
                     throw new ArgumentNullException(Resources.Encoding);
                 }
@@ -100,7 +118,8 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
                 }
 
-                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, File.ReadAllBytes(filePath), encoding.GetBytes(key));
+
+                byte[] hashed = CryptographyHelper.HashDataWithKey(Algorithm, File.ReadAllBytes(filePath), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }

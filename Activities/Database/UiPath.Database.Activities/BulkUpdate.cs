@@ -1,82 +1,88 @@
 ﻿using System;
 using System.Activities;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Database.Activities
 {
-    public class BulkUpdate : AsyncCodeActivity
+    [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Description))]
+    public partial class BulkUpdate : AsyncTaskCodeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ProviderName_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ProviderName_Description))]
         public InArgument<string> ProviderName { get; set; }
 
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ConnectionString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ConnectionString_Description))]
         public InArgument<string> ConnectionString { get; set; }
 
         [DefaultValue(null)]
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ConnectionSecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ConnectionSecureString_Description))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("Existing Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ExistingDbConnection_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ExistingDbConnection_Description))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("Existing Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.BulkUpdateFlag))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_BulkUpdateFlag_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_BulkUpdateFlag_Description))]
         [DefaultValue(true)]
         public bool BulkUpdateFlag { get; set; } = true;
 
         [LocalizedCategory(nameof(Resources.Input))]
         [RequiredArgument]
         [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.TableNameDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_TableName_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_TableName_Description))]
         public InArgument<string> TableName { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [RequiredArgument]
         [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.ColumnNamesDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ColumnNames_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ColumnNames_Description))]
         public InArgument<string[]> ColumnNames { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [DefaultValue(null)]
         [RequiredArgument]
-        [LocalizedDisplayName(nameof(Resources.DataTableDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_DataTable_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_DataTable_Description))]
         public InArgument<DataTable> DataTable { get; set; }
 
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.AffectedRecordsDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_AffectedRecords_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_AffectedRecords_Description))]
         public OutArgument<long> AffectedRecords { get; set; }
 
         private DatabaseConnection DbConnection = null;
-        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
+
+        private void HandleException(Exception ex, bool continueOnError)
+        {
+            if (continueOnError) return;
+            throw ex;
+        }
+
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             DataTable dataTable = null;
             string connString = null;
@@ -84,10 +90,13 @@ namespace UiPath.Database.Activities
             string provName = null;
             string tableName = null;
             string[] columnNames = null;
+            DatabaseConnection existingConnection = null;
+            long affectedRecords = 0;
             IExecutorRuntime executorRuntime = null;
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
-                DbConnection = ExistingDbConnection.Get(context);
+                existingConnection = DbConnection = ExistingDbConnection.Get(context);
                 connString = ConnectionString.Get(context);
                 provName = ProviderName.Get(context);
                 tableName = TableName.Get(context);
@@ -95,45 +104,24 @@ namespace UiPath.Database.Activities
                 columnNames = ColumnNames.Get(context);
                 executorRuntime = context.GetExtension<IExecutorRuntime>();
                 connSecureString = ConnectionSecureString.Get(context);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, ContinueOnError.Get(context));
-            }
-
-            if (DbConnection == null && connString == null && connSecureString == null)
-            {
-                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-            }
-
-            Func<long> action = () =>
-            {
-                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-                if (DbConnection == null)
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                affectedRecords = await Task.Run(() =>
                 {
-                    return 0;
-                }
-                if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag ,tableName, dataTable, columnNames, executorRuntime);
-                else
-                    return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames);
-            };
-            context.UserState = action;
-            return action.BeginInvoke(callback, state);
-        }
+                    DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+                    if (DbConnection == null)
+                    {
+                        return 0;
+                    }
+                    if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
+                        return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames, executorRuntime);
+                    else
+                        return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames);
+                });
 
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
-        {
-            DatabaseConnection existingConnection = ExistingDbConnection.Get(context);
-            try
-            {
-                Func<long> action = (Func<long>)context.UserState;
-                long affectedRecords = action.EndInvoke(result);
-                this.AffectedRecords.Set(context, affectedRecords);
             }
             catch (Exception ex)
             {
-                HandleException(ex, ContinueOnError.Get(context));
+                HandleException(ex, continueOnError);
             }
             finally
             {
@@ -142,11 +130,11 @@ namespace UiPath.Database.Activities
                     DbConnection?.Dispose();
                 }
             }
-        }
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
+
+            return asyncCodeActivityContext =>
+            {
+                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
+            };
         }
     }
 }

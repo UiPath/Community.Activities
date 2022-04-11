@@ -1,8 +1,19 @@
-﻿using System;
+﻿#if NETFRAMEWORK
+
+using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.Crypto.Modes;
+using Org.BouncyCastle.Crypto.Parameters;
+
+#endif
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Security.Cryptography;
+using System.Text;
 using UiPath.Cryptography.Properties;
 
 namespace UiPath.Cryptography
@@ -46,68 +57,84 @@ namespace UiPath.Cryptography
         {
             byte[] result;
 
-            using (SymmetricAlgorithm algorithm = GetSymmetricAlgorithm(symmetricAlgorithm))
+            if (symmetricAlgorithm == SymmetricAlgorithms.AESGCM)
             {
-                byte[] encrypted;
-                byte[] salt = new byte[PBKDF2_SaltSizeBytes];
-                int maxKeySize = GetLegalKeySizes(algorithm).Max();
-
-                _rng.GetBytes(salt);
-                using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
-                {
-                    algorithm.Key = pbkdf2.GetBytes(maxKeySize);
-                }
-
-                using (ICryptoTransform cryptoTransform = algorithm.CreateEncryptor())
-                {
-                    using (MemoryStream inputStream = new MemoryStream(inputBytes), transformedStream = new MemoryStream())
-                    {
-                        using (CryptoStream cryptoStream = new CryptoStream(inputStream, cryptoTransform, CryptoStreamMode.Read))
-                        {
-                            cryptoStream.CopyTo(transformedStream);
-                        }
-
-                        encrypted = transformedStream.ToArray();
-                    }
-                }
-
-                result = new byte[salt.Length + algorithm.IV.Length + encrypted.Length];
-                Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
-                Buffer.BlockCopy(algorithm.IV, 0, result, salt.Length, algorithm.IV.Length);
-                Buffer.BlockCopy(encrypted, 0, result, salt.Length + algorithm.IV.Length, encrypted.Length);
+                return EncryptAesGcm(inputBytes, key);
             }
+            else
+            {
+                using (SymmetricAlgorithm algorithm = GetSymmetricAlgorithm(symmetricAlgorithm))
+                {
+                    byte[] encrypted;
+                    byte[] salt = new byte[PBKDF2_SaltSizeBytes];
+                    int maxKeySize = GetLegalKeySizes(algorithm).Max();
 
-            return result;
+                    _rng.GetBytes(salt);
+                    using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
+                    {
+                        algorithm.Key = pbkdf2.GetBytes(maxKeySize);
+                    }
+
+                    using (ICryptoTransform cryptoTransform = algorithm.CreateEncryptor())
+                    {
+                        using (MemoryStream inputStream = new MemoryStream(inputBytes), transformedStream = new MemoryStream())
+                        {
+                            using (CryptoStream cryptoStream = new CryptoStream(inputStream, cryptoTransform, CryptoStreamMode.Read))
+                            {
+                                cryptoStream.CopyTo(transformedStream);
+                            }
+
+                            encrypted = transformedStream.ToArray();
+                        }
+                    }
+
+                    result = new byte[salt.Length + algorithm.IV.Length + encrypted.Length];
+                    Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
+                    Buffer.BlockCopy(algorithm.IV, 0, result, salt.Length, algorithm.IV.Length);
+                    Buffer.BlockCopy(encrypted, 0, result, salt.Length + algorithm.IV.Length, encrypted.Length);
+                }
+
+                return result;
+            }
         }
 
         public static byte[] DecryptData(SymmetricAlgorithms symmetricAlgorithm, byte[] inputBytes, byte[] key)
         {
             byte[] decrypted;
 
-            using (SymmetricAlgorithm algorithm = GetSymmetricAlgorithm(symmetricAlgorithm))
+            if (symmetricAlgorithm == SymmetricAlgorithms.AESGCM)
             {
-                byte[] salt = new byte[PBKDF2_SaltSizeBytes];
-                byte[] iv = new byte[algorithm.IV.Length];
-                byte[] encryptedData = new byte[inputBytes.Length - salt.Length - iv.Length];
-
-                int maxKeySize = GetLegalKeySizes(algorithm).Max();
-                Buffer.BlockCopy(inputBytes, 0, salt, 0, salt.Length);
-                Buffer.BlockCopy(inputBytes, salt.Length, iv, 0, iv.Length);
-                Buffer.BlockCopy(inputBytes, salt.Length + iv.Length, encryptedData, 0, encryptedData.Length);
-
-                algorithm.IV = iv;
-                using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
+                return DecryptAesGcm(inputBytes, key);
+            }
+            else
+            {
+                using (SymmetricAlgorithm algorithm = GetSymmetricAlgorithm(symmetricAlgorithm))
                 {
-                    algorithm.Key = pbkdf2.GetBytes(maxKeySize);
-                }
+                    byte[] salt = new byte[PBKDF2_SaltSizeBytes];
+                    byte[] iv = new byte[algorithm.IV.Length];
 
-                using (ICryptoTransform cryptoTransform = algorithm.CreateDecryptor())
-                {
-                    using (MemoryStream encryptedStream = new MemoryStream(encryptedData))
+                    byte[] encryptedData = new byte[inputBytes.Length - salt.Length - iv.Length];
+
+                    int maxKeySize = GetLegalKeySizes(algorithm).Max();
+
+                    Buffer.BlockCopy(inputBytes, 0, salt, 0, salt.Length);
+                    Buffer.BlockCopy(inputBytes, salt.Length, iv, 0, iv.Length);
+                    Buffer.BlockCopy(inputBytes, salt.Length + iv.Length, encryptedData, 0, encryptedData.Length);
+
+                    algorithm.IV = iv;
+                    using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
                     {
-                        using (CryptoStream cryptoStream = new CryptoStream(encryptedStream, cryptoTransform, CryptoStreamMode.Read))
+                        algorithm.Key = pbkdf2.GetBytes(maxKeySize);
+                    }
+
+                    using (ICryptoTransform cryptoTransform = algorithm.CreateDecryptor())
+                    {
+                        using (MemoryStream encryptedStream = new MemoryStream(encryptedData))
                         {
-                            decrypted = cryptoStream.ReadToEnd();
+                            using (CryptoStream cryptoStream = new CryptoStream(encryptedStream, cryptoTransform, CryptoStreamMode.Read))
+                            {
+                                decrypted = cryptoStream.ReadToEnd();
+                            }
                         }
                     }
                 }
@@ -120,7 +147,8 @@ namespace UiPath.Cryptography
         {
             switch (hashAlgorithm)
             {
-#if NET461
+#if NETFRAMEWORK
+
                 case HashAlgorithms.MD5:
                 case HashAlgorithms.RIPEMD160:
                     return false;
@@ -135,7 +163,8 @@ namespace UiPath.Cryptography
         {
             switch (keyedHashAlgorithm)
             {
-#if NET461
+#if NETFRAMEWORK
+
                 case KeyedHashAlgorithms.HMACMD5:
                 case KeyedHashAlgorithms.HMACRIPEMD160:
                     return false;
@@ -163,7 +192,8 @@ namespace UiPath.Cryptography
         {
             switch (hashAlgorithm)
             {
-#if NET461
+#if NETFRAMEWORK
+
                 case HashAlgorithms.MD5:
                     return new MD5Cng();
 
@@ -182,6 +212,7 @@ namespace UiPath.Cryptography
                 case HashAlgorithms.SHA512:
                     return new SHA512Cng();
 #endif
+
                 default:
                     throw new InvalidOperationException(Resources.UnsupportedHashAlgorithmException);
             }
@@ -193,10 +224,12 @@ namespace UiPath.Cryptography
             {
                 case KeyedHashAlgorithms.HMACMD5:
                     return new HMACMD5();
-#if NET461
+#if NETFRAMEWORK
+
                 case KeyedHashAlgorithms.HMACRIPEMD160:
                     return new HMACRIPEMD160();
 #endif
+
                 case KeyedHashAlgorithms.HMACSHA1:
                     return new HMACSHA1();
 
@@ -208,10 +241,12 @@ namespace UiPath.Cryptography
 
                 case KeyedHashAlgorithms.HMACSHA512:
                     return new HMACSHA512();
-#if NET461
+
+#if NETFRAMEWORK
                 case KeyedHashAlgorithms.MACTripleDES: // TODO: What about padding mode?
                     return new MACTripleDES(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
 #endif
+
                 default:
                     throw new InvalidOperationException(Resources.UnsupportedKeyedHashAlgorithmException);
             }
@@ -222,7 +257,11 @@ namespace UiPath.Cryptography
             switch (symmetricAlgorithm)
             {
                 case SymmetricAlgorithms.AES:
-                    return new AesCryptoServiceProvider(); // TODO: Use AesCng after upgrading to .NET Framework 4.6.2
+                    return new AesCryptoServiceProvider(); // kept for backwords compat
+
+                case SymmetricAlgorithms.AESGCM:
+                    throw new InvalidOperationException(Resources.UnsupportedSymmetricAlgorithmException); //it's implemented separately.
+
                 case SymmetricAlgorithms.DES:
                     return new DESCryptoServiceProvider();
 
@@ -234,6 +273,7 @@ namespace UiPath.Cryptography
 
                 case SymmetricAlgorithms.TripleDES:
                     return new TripleDESCryptoServiceProvider(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
+
                 default:
                     throw new InvalidOperationException(Resources.UnsupportedSymmetricAlgorithmException);
             }
@@ -260,5 +300,131 @@ namespace UiPath.Cryptography
 
             return keySizes.ToArray();
         }
+
+        private static byte[] EncryptAesGcm(byte[] inputBytes, byte[] key)
+        {
+            byte[] result;
+            byte[] encrypted = new byte[inputBytes.Length];
+            InitializeAesGcmEncryption(out byte[] salt, out byte[] tag, out byte[] algorithmIV);
+
+            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
+            {
+                var Key = pbkdf2.GetBytes(32); //256 bit key
+
+#if NETCOREAPP
+
+                var aes = new AesGcm(Key);
+                aes.Encrypt(algorithmIV, inputBytes, encrypted, tag);
+#else
+
+                encrypted = EncryptAesGcmWithBouncyCastle(inputBytes, Key, algorithmIV, out tag);
+#endif
+            }
+
+            result = CreateAesGcmEncryptionResult(encrypted, salt, tag, algorithmIV);
+
+            return result;
+        }
+
+        private static byte[] DecryptAesGcm(byte[] inputBytes, byte[] key)
+        {
+            byte[] decrypted;
+            InitializeDecryptAesGcm(inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData);
+
+            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
+            {
+                var Key = pbkdf2.GetBytes(32); //256 bit key
+#if NETCOREAPP
+
+                var aes = new AesGcm(Key);
+                decrypted = new byte[encryptedData.Length];
+                aes.Decrypt(iv, encryptedData, tag, decrypted);
+#else
+
+                decrypted = DecryptAesGcmWithBouncyCastle(encryptedData, iv, tag, Key);
+#endif
+            }
+
+            return decrypted;
+        }
+
+        private static void InitializeAesGcmEncryption(out byte[] salt, out byte[] tag, out byte[] algorithmIV)
+        {
+            salt = new byte[PBKDF2_SaltSizeBytes];
+            tag = new byte[16];
+            algorithmIV = new byte[12];
+            _rng.GetBytes(salt);
+            _rng.GetBytes(algorithmIV);
+        }
+
+        private static byte[] CreateAesGcmEncryptionResult(byte[] encrypted, byte[] salt, byte[] tag, byte[] algorithmIV)
+        {
+            byte[] result = new byte[salt.Length + algorithmIV.Length + encrypted.Length + tag.Length];
+            Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
+            Buffer.BlockCopy(algorithmIV, 0, result, salt.Length, algorithmIV.Length);
+            Buffer.BlockCopy(encrypted, 0, result, salt.Length + algorithmIV.Length, encrypted.Length);
+            Buffer.BlockCopy(tag, 0, result, salt.Length + algorithmIV.Length + encrypted.Length, tag.Length);
+            return result;
+        }
+
+        private static void InitializeDecryptAesGcm(byte[] inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData)
+        {
+            salt = new byte[PBKDF2_SaltSizeBytes];
+            iv = new byte[12];
+            tag = new byte[16];
+            encryptedData = new byte[inputBytes.Length - salt.Length - iv.Length - tag.Length];
+            Buffer.BlockCopy(inputBytes, 0, salt, 0, salt.Length);
+            Buffer.BlockCopy(inputBytes, salt.Length, iv, 0, iv.Length);
+            Buffer.BlockCopy(inputBytes, salt.Length + iv.Length, encryptedData, 0, encryptedData.Length);
+            Buffer.BlockCopy(inputBytes, salt.Length + iv.Length + encryptedData.Length, tag, 0, tag.Length);
+        }
+
+        public static byte[] KeyEncoding(Encoding encoding, string key, SecureString keySecureString)
+        {
+            return key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password);
+        }
+
+#if NETFRAMEWORK
+
+        private static byte[] EncryptAesGcmWithBouncyCastle(byte[] plaintext, byte[] key, byte[] nonce, out byte[] tag)
+        {
+            const int tagLenth = 16; // in bytes
+
+            var plaintextBytes = plaintext;
+            var bcCiphertext = new byte[plaintextBytes.Length + tagLenth];
+
+            var cipher = new GcmBlockCipher(new AesEngine());
+            var parameters = new AeadParameters(new KeyParameter(key), tagLenth * 8, nonce);
+            cipher.Init(true, parameters);
+
+            var offset = cipher.ProcessBytes(plaintextBytes, 0, plaintextBytes.Length, bcCiphertext, 0);
+            cipher.DoFinal(bcCiphertext, offset);
+
+            // Bouncy Castle includes the authentication tag in the ciphertext
+            var ciphertext = new byte[plaintextBytes.Length];
+            tag = new byte[tagLenth];
+            Buffer.BlockCopy(bcCiphertext, 0, ciphertext, 0, plaintextBytes.Length);
+            Buffer.BlockCopy(bcCiphertext, plaintextBytes.Length, tag, 0, tagLenth);
+
+            return ciphertext;
+        }
+
+        private static byte[] DecryptAesGcmWithBouncyCastle(byte[] ciphertext, byte[] nonce, byte[] tag, byte[] key)
+        {
+            var plaintextBytes = new byte[ciphertext.Length];
+
+            var cipher = new GcmBlockCipher(new AesEngine());
+            var parameters = new AeadParameters(new KeyParameter(key), tag.Length * 8, nonce);
+            cipher.Init(false, parameters);
+
+            var bcCiphertext = ciphertext.Concat(tag).ToArray();
+
+            var offset = cipher.ProcessBytes(bcCiphertext, 0, bcCiphertext.Length, plaintextBytes, 0);
+            cipher.DoFinal(plaintextBytes, offset);
+
+            return plaintextBytes;
+        }
+
+#endif
     }
 }

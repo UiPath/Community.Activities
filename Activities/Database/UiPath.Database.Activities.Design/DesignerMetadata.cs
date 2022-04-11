@@ -7,11 +7,33 @@ using System.Reflection;
 using System.Windows.Markup;
 using UiPath.Activities.Presentation.Editors;
 using UiPath.Database.Activities.Design.Properties;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Database.Activities.Design
 {
     public class DesignerMetadata : IRegisterMetadata
     {
+        private IWorkflowDesignApi _wfDesignApi;
+
+        private void InitializeInternal(object api)
+        {
+            if (api is IWorkflowDesignApi wfDesignApi)
+            {
+                _wfDesignApi = wfDesignApi;
+
+                new ActivitySynonymApiRegistration().Initialize(wfDesignApi);
+            }
+        }
+
+        public void Initialize(object api)
+        {
+            if (api == null)
+            {
+                return;
+            }
+            InitializeInternal(api);
+        }
+
         public void Register()
         {
             var builder = new AttributeTableBuilder();
@@ -39,14 +61,14 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(BulkUpdate), contentAttr);
 
             // DisplayName attribute
-            builder.AddCustomAttributes(typeof(DatabaseConnect), new DisplayNameAttribute(Resources.Connect));
-            builder.AddCustomAttributes(typeof(DatabaseDisconnect), new DisplayNameAttribute(Resources.Disconnect));
-            builder.AddCustomAttributes(typeof(DatabaseTransaction), new DisplayNameAttribute(Resources.StartTransaction));
-            builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DisplayNameAttribute(Resources.ExecuteNonQuery));
-            builder.AddCustomAttributes(typeof(ExecuteQuery), new DisplayNameAttribute(Resources.ExecuteQuery));
-            builder.AddCustomAttributes(typeof(InsertDataTable), new DisplayNameAttribute(Resources.Insert));
-            builder.AddCustomAttributes(typeof(BulkInsert), new DisplayNameAttribute(Resources.BulkInsert));
-            builder.AddCustomAttributes(typeof(BulkUpdate), new DisplayNameAttribute(Resources.BulkUpdate));
+            builder.AddCustomAttributes(typeof(DatabaseConnect), new DisplayNameAttribute(SharedResources.Activity_DatabaseConnect_Name));
+            builder.AddCustomAttributes(typeof(DatabaseDisconnect), new DisplayNameAttribute(SharedResources.Activity_DatabaseDisconnect_Name));
+            builder.AddCustomAttributes(typeof(DatabaseTransaction), new DisplayNameAttribute(SharedResources.Activity_DatabaseTransaction_Name));
+            builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DisplayNameAttribute(SharedResources.Activity_ExecuteNonQuery_Name));
+            builder.AddCustomAttributes(typeof(ExecuteQuery), new DisplayNameAttribute(SharedResources.Activity_ExecuteQuery_Name));
+            builder.AddCustomAttributes(typeof(InsertDataTable), new DisplayNameAttribute(SharedResources.Activity_InsertDataTable_Name));
+            builder.AddCustomAttributes(typeof(BulkInsert), new DisplayNameAttribute(SharedResources.Activity_BulkInsert_Name));
+            builder.AddCustomAttributes(typeof(BulkUpdate), new DisplayNameAttribute(SharedResources.Activity_BulkUpdate_Name));
 
             // Categories
             CategoryAttribute appIntegrationDatabaseCategoryAttribute =
@@ -94,7 +116,7 @@ namespace UiPath.Database.Activities.Design
             var providerName = new DescriptionAttribute(Resources.ProviderNameDescription);
             var QueryTimeoutMSDescription = new DescriptionAttribute(Resources.QueryTimeoutMSDescription);
             var SqlDescription = new DescriptionAttribute(Resources.SqlDescription);
-            var TableNameDescription = new DescriptionAttribute(Resources.TableNameDescription); 
+            var TableNameDescription = new DescriptionAttribute(Resources.TableNameDescription);
             var BulkFlagDescription = new DescriptionAttribute(Resources.BulkFlagDescription);
             var TimeoutMSDescription = new DescriptionAttribute(Resources.TimeoutMSDescription);
             var UseTransactionDescription = new DescriptionAttribute(Resources.UseTransactionDescription);

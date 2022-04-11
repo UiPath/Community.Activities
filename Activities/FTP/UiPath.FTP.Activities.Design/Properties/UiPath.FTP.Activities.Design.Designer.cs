@@ -19,7 +19,7 @@ namespace UiPath.FTP.Activities.Design.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_FTP_Activities_Design {
@@ -29,7 +29,7 @@ namespace UiPath.FTP.Activities.Design.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public UiPath_FTP_Activities_Design() {
+        internal UiPath_FTP_Activities_Design() {
         }
         
         /// <summary>
@@ -264,6 +264,15 @@ namespace UiPath.FTP.Activities.Design.Properties {
         public static string UsernameDescription {
             get {
                 return ResourceManager.GetString("UsernameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FTP Scope.
+        /// </summary>
+        public static string WithFtpSessionDisplayName {
+            get {
+                return ResourceManager.GetString("WithFtpSessionDisplayName", resourceCulture);
             }
         }
     }

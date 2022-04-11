@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Activities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
+using UiPath.Data.ConnectionUI.Dialog.Workaround;
 using UiPath.Robot.Activities.Api;
-using Oracle.ManagedDataAccess.Client;
-using System.Data.SqlClient;
 
 namespace UiPath.Database
 {
@@ -28,6 +28,15 @@ namespace UiPath.Database
         private const string OracleOdbcDriverPattern = "SQORA";
         private const string OraclePattern = "oracle";
         private const string OracleProvider = "oracle.manageddataaccess.client";
+        private bool _isWindows = true;
+
+        public DatabaseConnection()
+        {
+#if NETCOREAPP
+            _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#endif
+            DbWorkarounds.SNILoadWorkaround(_isWindows);
+        }
 
         public DatabaseConnection Initialize(DbConnection connection)
         {
@@ -39,6 +48,18 @@ namespace UiPath.Database
         public DatabaseConnection Initialize(string connectionString, string providerName)
         {
             _providerName = providerName;
+
+#if NETCOREAPP
+            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+
+            //OLEDB driver is Windows propietary - there is no support for other OS
+            if(_isWindows)
+                DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+
+            DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
+            DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
+#endif
+
             if (providerName.ToLower() == OracleProvider)
                 _connection = new OracleConnection();
             else
@@ -84,8 +105,8 @@ namespace UiPath.Database
 
         public virtual int InsertDataTable(string tableName, DataTable dataTable, bool removeBrackets = false)
         {
-            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection)?.CreateDataAdapter();
-            DbCommandBuilder cmdb = DbProviderFactories.GetFactory(_connection)?.CreateCommandBuilder();
+            DbDataAdapter dbDA = GetCurrentFactory().CreateDataAdapter();
+            DbCommandBuilder cmdb = GetCurrentFactory().CreateCommandBuilder();
             cmdb.DataAdapter = dbDA;
             dbDA.ContinueUpdateOnError = false;
 
@@ -188,12 +209,18 @@ namespace UiPath.Database
                 }
             }
         }
+        private DbProviderFactory GetCurrentFactory()
+        {
+            if (DbProviderFactories.GetFactory(_connection) == null)
+                return DbProviderFactories.GetFactory(_providerName);
+            return DbProviderFactories.GetFactory(_connection);
+        }
 
         private void ValidateDatabaseTableStructure(string tableName, DataTable dataTable)
         {
             if (_connection == null)
                 return;
-            DbDataAdapter dbDA = DbProviderFactories.GetFactory(_connection).CreateDataAdapter();
+            DbDataAdapter dbDA = GetCurrentFactory().CreateDataAdapter();
             dbDA.SelectCommand = _connection.CreateCommand();
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
@@ -206,7 +233,7 @@ namespace UiPath.Database
 
         private string CreateTempTableForUpdate(DataTable dataTable, string tableName, DbCommand cmd)
         {
-            var tempTableName = string.Format("a{0}",DateTime.Now.Ticks);
+            var tempTableName = string.Format("a{0}", DateTime.Now.Ticks);
             if (_connection is SqlConnection)
             {
                 tempTableName = string.Format("##{0}", tempTableName);
@@ -218,7 +245,6 @@ namespace UiPath.Database
             cmd.CommandText = string.Format("TRUNCATE TABLE {0}", tempTableName);
             cmd.ExecuteNonQuery();
             return tempTableName;
-
         }
 
         public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime = null)
@@ -226,8 +252,9 @@ namespace UiPath.Database
             if (bulkBatch && SupportsBulk())
                 return DoBulkUpdate(tableName, dataTable, columnNames, executorRuntime);
             else
-                return DoBatchUpdate(tableName,dataTable,columnNames);
+                return DoBatchUpdate(tableName, dataTable, columnNames);
         }
+
         private int DoBatchUpdate(string tableName, DataTable dataTable, string[] columnNames)
         {
             if (_connection == null)
@@ -249,7 +276,6 @@ namespace UiPath.Database
             List<DbParameter> wherePar = new List<DbParameter>();
             var result = SetupBulkUpdateCommand(dataTable, columnNames, markerFormat, sqlCommand, updatePar, wherePar);
 
-
             sqlCommand.Parameters.AddRange(updatePar.ToArray());
             sqlCommand.Parameters.AddRange(wherePar.ToArray());
 
@@ -267,6 +293,7 @@ namespace UiPath.Database
             }
             return rows;
         }
+
         private int DoBulkUpdate(string tableName, DataTable dataTable, string[] columnNames, IExecutorRuntime executorRuntime)
         {
             if (_connection == null)
@@ -309,7 +336,6 @@ namespace UiPath.Database
                     sqlCommand.CommandText = string.Format("DROP TABLE {0}", tblName);
                     sqlCommand.ExecuteNonQuery();
                 }
-
             }
         }
 
@@ -360,7 +386,7 @@ namespace UiPath.Database
             };
             executorRuntime.LogMessage(message);
         }
-         
+
         public virtual void Commit()
         {
             _transaction?.Commit();
@@ -450,13 +476,14 @@ namespace UiPath.Database
                 }
                 else
                 {
-                    columns.Append(string.Format("{0}{1}",EscapeDbObject(column.ColumnName),","));
+                    columns.Append(string.Format("{0}{1}", EscapeDbObject(column.ColumnName), ","));
                 }
             }
             columns = columns.Remove(columns.Length - 1, 1);
 
             return columns.ToString();
         }
+
         private string EscapeDbObject(string dbObject)
         {
             return "\"" + dbObject + "\"";

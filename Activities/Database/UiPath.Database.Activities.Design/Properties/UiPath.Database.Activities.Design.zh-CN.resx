@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>指定命令字符串的解释方式</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>连接</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>用于建立数据库连接的连接字符串</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>断开连接</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>对数据库执行 SQL 语句。对于 UPDATE、INSERT 和 DELETE 语句，返回值为该命令影响的行数。对于所有其他类型的语句，返回值均为 -1。</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>已打开的数据库连接。如果将此属性设置为“连接字符串”，则会忽略“提供程序名称”属性</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>插入</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>在现有表格中插入兼容的数据表。返回受影响的行数。</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>要执行的 SQL 命令。</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>开始事务</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>目标数据库表格</value>
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>应用程序集成</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>执行非查询</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>执行查询</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(集合)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>出错时继续布尔值</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>批量插入</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>数据表</value>
@@ -293,25 +268,34 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>用于行匹配的列名称集合</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>批量更新</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>在现有表格中更新兼容的数据表。将更新所有未在列名称集合中用作主键的列。返回受影响的行数。</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>已更新的行数</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>如果为 true，系统将使用批量插入功能创建临时表格，并使用表格之间的联接进行更新；否则，系统将批量发布 Bulk 更新。</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>在更新表格时将使用的数据表格对象。数据表格列的说明必须与数据库表格中的列一致，并且属于这些列的子集</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>将使通过特定数据库驱动程序实现的批量操作更新表。如果数据库驱动程序不支持批量操作，将返回到“插入数据表”。</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>用于以安全字符串形式建立数据库连接的连接字符串</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>断开连接</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>执行非查询</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>执行查询</value>
   </data>
 </root>

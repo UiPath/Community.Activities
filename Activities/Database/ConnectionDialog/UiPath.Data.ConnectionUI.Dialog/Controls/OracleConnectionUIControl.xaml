@@ -1,0 +1,49 @@
+﻿<sap:WorkflowElementDialog x:Class="UiPath.Data.ConnectionUI.Dialog.Controls.OracleConnectionUIControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+        xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+        xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+        xmlns:p="clr-namespace:UiPath.Data.ConnectionUI.Dialog.Properties"  MinWidth="300">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="{x:Static p:Resources.OracleConnectionUIHostname_Label}"/>
+            <TextBox Grid.Column="0" Grid.Row="1" Name="hostnameTextBox" HorizontalAlignment="Stretch" Margin="5,0,5,0"  Text="{Binding Path=Server, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="1" Grid.Row="0" Content="{x:Static p:Resources.OracleConnectionUIPort_Label}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="portTextBox" HorizontalAlignment="Stretch" Margin="5,0,5,0"  Text="{Binding Path=Port, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Grid.Column="2" Grid.Row="0" Content="{x:Static p:Resources.OracleConnectionUIService_Label}"/>
+            <TextBox Grid.Column="2" Grid.Row="1" Name="serviceTextBox" HorizontalAlignment="Stretch" Margin="5,0,5,0"  Text="{Binding Path=Service, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <GroupBox Header="{x:Static p:Resources.LogonDBGroupBox_Label}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.Username_Label}" Grid.Column="1"/>
+                    <Label Grid.Row="1" Content="{x:Static p:Resources.Password_Label}" Grid.Column="1"/>
+                    <CheckBox Grid.Row="2" Content="{x:Static p:Resources.SavePassword_Label}" Grid.Column="2" Margin="5,0,0,0"  IsChecked="{Binding Path=SavePassword, Mode=TwoWay}"  Name="saveCheckbox"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="usernameTextbox" Text="{Binding Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="passwordTextbox"  PasswordChanged="PasswordTextbox_PasswordChanged" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</sap:WorkflowElementDialog>

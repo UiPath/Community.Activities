@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using UiPath.Python.Service;
 using UiPath.Shared.Service;
 
@@ -39,7 +39,7 @@ namespace UiPath.Python.Host
                 ResultState = ResultState.Successful
             };
             pipeName = Process.GetCurrentProcess().Id.ToString();
-            pipeServer = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Message,
+            pipeServer = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte,
                                                         PipeOptions.Asynchronous);
 
             pipeServer.WaitForConnection();
@@ -59,20 +59,20 @@ namespace UiPath.Python.Host
                         switch (request.RequestType)
                         {
                             case RequestType.Initialize:
-                                Initialize(request.ScriptPath, (Version)Enum.Parse(typeof(Version), request.PythonVersion), request.WorkingFolder);
+                                Initialize(request.ScriptPath, request.LibraryPath, (Version)Enum.Parse(typeof(Version), request.PythonVersion), request.WorkingFolder);
                                 response.ResultState = ResultState.Successful;
                                 streamWriter.WriteLine(response.Serialize());
 
                                 break;
 
                             case RequestType.Shutdown:
-                                Shutdown();
                                 response = new PythonResponse
                                 {
                                     ResultState = ResultState.Successful
                                 };
 
                                 streamWriter.WriteLine(response.Serialize());
+                                Shutdown();
                                 break;
 
                             case RequestType.Execute:
@@ -121,7 +121,7 @@ namespace UiPath.Python.Host
                                 break;
                         }
 
-                        pipeServer.WaitForPipeDrain();
+                        WaitForPipeDrain(pipeServer);
                     }
                     catch (Exception ex)
                     {
@@ -133,10 +133,24 @@ namespace UiPath.Python.Host
                         response.Errors.Add(ex.Message);
 
                         streamWriter.WriteLine(response.Serialize());
-                        pipeServer.WaitForPipeDrain();
+                        WaitForPipeDrain(pipeServer);
                         throw;
                     }
                 }
+        }
+        private bool IsWindows()
+        {
+            bool isWindows = true;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                isWindows = false;
+#endif
+            return isWindows;
+        }
+        private void WaitForPipeDrain(NamedPipeServerStream pipe)
+        {
+            if (IsWindows())
+                pipe.WaitForPipeDrain();
         }
 
         private Argument Convert(Guid obj, string ts)
@@ -170,11 +184,11 @@ namespace UiPath.Python.Host
             }
         }
 
-        private void Initialize(string path, Version version, string workingFolder)
+        private void Initialize(string path, string libraryPath, Version version, string workingFolder)
         {
             try
             {
-                _engine = EngineProvider.Get(version, path);
+                _engine = EngineProvider.Get(version, path, libraryPath);
                 _engine.Initialize(workingFolder, _ct).Wait();
             }
             catch (Exception ex)
@@ -223,7 +237,8 @@ namespace UiPath.Python.Host
         {
             try
             {
-                Application.Exit();
+                Process.GetCurrentProcess().Kill();
+                Environment.Exit(1);
             }
             catch (Exception ex)
             {
