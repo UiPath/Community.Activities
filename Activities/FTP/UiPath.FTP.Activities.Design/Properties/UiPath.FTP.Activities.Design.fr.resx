@@ -138,7 +138,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="DirectoryExistsDescription" xml:space="preserve">
-    <value>Répertoire existant</value>
+    <value>Directory Exists</value>
   </data>
   <data name="DirectoryExistsDisplayName" xml:space="preserve">
     <value>Directory Exists</value>
