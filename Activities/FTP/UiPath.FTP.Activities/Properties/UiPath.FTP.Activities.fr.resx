@@ -230,7 +230,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="DirectoryExistsDescription" xml:space="preserve">
-    <value>Répertoire existant</value>
+    <value>Directory Exists</value>
   </data>
   <data name="DirectoryExistsDisplayName" xml:space="preserve">
     <value>Directory Exists</value>
@@ -325,15 +325,15 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>Supprimer le fichier/dossier</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
-    <value>Le chemin du fichier qui doit être supprimé du serveur FTP.</value>
+    <value>Chemin d&apos;accès distant au fichier ou dossier</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
-    <value>Chemin distant</value>
+    <value>Fichier ou dossier à supprimer</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
@@ -353,11 +353,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Le chemin du répertoire FTP dans lequel il doit être vérifié si le répertoire indiqué existe.</value>
+    <value>Chemin d&apos;accès distant au dossier à vérifier</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Chemin distant</value>
+    <value>Folder Path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
@@ -409,11 +409,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Le chemin du répertoire FTP dans lequel il doit être vérifié si le fichier indiqué existe.</value>
+    <value>Chemin d&apos;accès au fichier à vérifier</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Chemin distant</value>
+    <value>File Path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
@@ -433,11 +433,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>Le chemin local des fichiers qui doivent être chargés.</value>
+    <value>Chemin d’accès local</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Chemin d’accès local</value>
+    <value>Fichiers à télécharger</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -457,20 +457,20 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>Le chemin sur le serveur FTP où le fichier doit être chargé.</value>
+    <value>Chemin d’accès distant</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Chemin distant</value>
+    <value>Chemin de téléchargement</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
     <value>Se connecte au serveur FTP et fournit une étendue pour d’autres activités FTP.</value>
-    <comment>Property description</comment>
+    <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>FTP Scope</value>
-    <comment>Property name</comment>
+    <value>Use FTP connection</value>
+    <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
     <value>Si cette case est cochée, tous les certificats seront acceptés, y compris ceux qui sont expirés ou non vérifiés.</value>
@@ -589,7 +589,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Chemin d’accès local</value>
+    <value>Emplacement où télécharger</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -613,7 +613,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Chemin distant</value>
+    <value>Chemin d&apos;accès aux fichiers à télécharger</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Déplacer le fichier ou le dossier</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -633,11 +633,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
-    <value>Le chemin d’accès distant sur le serveur FTP où le fichier sera déplacé.</value>
+    <value>Le nouveau chemin vers où déplacer l&apos;élément</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
-    <value>Nouveau nom du chemin d’accès distant</value>
+    <value>Where to move</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
@@ -649,11 +649,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
-    <value>Le chemin d’accès distant sur le serveur FTP où le fichier se trouve actuellement.</value>
+    <value>Chemin d’accès distant</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
-    <value>Chemin distant</value>
+    <value>Fichier ou dossier à déplacer</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Credentials_Name" xml:space="preserve">

@@ -202,7 +202,7 @@
     <value>Nouvelle connexion à la base de données</value>
   </data>
   <data name="Parameters" xml:space="preserve">
-    <value>Paramètres</value>
+    <value>Parameters</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>DisplayName</value>
@@ -230,7 +230,7 @@
     <value>Requête SQL. Le texte doit être entre guillemets</value>
   </data>
   <data name="TableNameHint" xml:space="preserve">
-    <value>Nom de la table. Le texte doit être entre guillemets</value>
+    <value>Nom de table. Le texte doit être entre guillemets</value>
   </data>
   <data name="QueryTimeoutMSDescription" xml:space="preserve">
     <value>Indique la durée (en millisecondes) d’attente pour l’exécution de la requête SQL avant qu’une erreur soit générée (n’inclut pas le temps de réponse pour la récupération du résultat de la requête). La valeur par défaut est de 30 000 millisecondes (30 secondes) et doit être supérieure ou égale à 0.</value>
@@ -254,7 +254,7 @@
     <value>Objet DataTable source</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Nom du tableau</value>
+    <value>Nom de table</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
     <value>Le nom de la table de base de données dans laquelle vous souhaitez insérer les éléments.</value>
