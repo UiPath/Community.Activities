@@ -227,7 +227,7 @@
     <value>JAR-Datei konnte nicht geladen werden.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>Methodenname</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
