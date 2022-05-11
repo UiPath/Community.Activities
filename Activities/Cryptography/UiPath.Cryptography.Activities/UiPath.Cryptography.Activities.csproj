@@ -2,7 +2,7 @@
 	<Import Project="..\Cryptography.build.props" />
 	<PropertyGroup>
 		<PackageId>.noconflict</PackageId>
-		<TargetFrameworks>net461;net5.0</TargetFrameworks>
+		<TargetFrameworks>net461;net5.0;net6.0</TargetFrameworks>
 		<OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
 	</PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -13,11 +13,11 @@
 		<Reference Include="System.Net.Http" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Condition="'$(TargetFramework)' == 'net5.0'" Include="System.Activities.ViewModels" />
-		<PackageReference Condition="'$(TargetFramework)' == 'net5.0'" Include="System.Activities.Metadata" />
-		<PackageReference Condition="$(TargetFramework.StartsWith('net5'))" Include="System.Activities" />
-		<PackageReference Condition="'$(TargetFramework)' == 'net5.0-windows'" Include="System.Activities.Core.Presentation" />
-		<PackageReference Condition="'$(TargetFramework)' == 'net5.0'" Include="UiPath.Workflow" />
+		<PackageReference Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'" Include="System.Activities.ViewModels" />
+		<PackageReference Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'" Include="System.Activities.Metadata" />
+		<PackageReference Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'" Include="System.Activities" />
+		<PackageReference Condition="'$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'net5.0-windows'" Include="System.Activities.Core.Presentation" />
+		<PackageReference Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'" Include="UiPath.Workflow" />
 		<Reference Condition="'$(TargetFramework)'=='net461'" Include="System.Activities.Presentation" />
 		<Reference Condition="'$(TargetFramework)'=='net461'" Include="System.Activities" />
 		<PackageReference Include="UiPath.Activities.Api" />
@@ -64,6 +64,6 @@
 		<Folder Include="Resources\" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Condition="'$(TargetFramework)' != 'net5.0'" Remove="NetCore/**" />
+		<Compile Condition="'$(TargetFramework)' != 'net5.0' or '$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
 	</ItemGroup>
 </Project>

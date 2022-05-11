@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Cryptography.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0-windows;net5.0;net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
     <VersionSuffix></VersionSuffix>
@@ -63,7 +63,7 @@
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Cryptography.Activities.resources.dll" TargetPath="tr\UiPath.Cryptography.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Cryptography.Activities.resources.dll" TargetPath="zh-CN\UiPath.Cryptography.Activities.resources.dll" />
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+    <ItemGroup Condition="'$(TargetFramework)' != 'net6.0' AND '$(TargetFramework)' != 'net5.0'">
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.Design.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="fr\UiPath.Cryptography.Activities.Design.resources.dll" />
@@ -87,12 +87,12 @@
 	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
   </Target>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net6.0' AND '$(TargetFramework)' != 'net5.0'">
     <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net5.0'">
     <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>

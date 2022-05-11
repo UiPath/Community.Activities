@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Cryptography.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0;net6.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
   </PropertyGroup>
@@ -14,7 +14,7 @@
     <Reference Include="System.Net.Http" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>
