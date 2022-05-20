@@ -232,7 +232,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>输出路径</value>
+    <value>输出文件的名称和位置</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -376,7 +376,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>输出路径</value>
+    <value>输出文件的名称和位置</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -710,5 +710,53 @@
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
     <value>密钥输入模式开关</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>加密文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>加密文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>要加密的文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>解密文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>解密文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>要解密的文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>要散列处理的文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>应只为 {{0}} 和 {1} 中的各一项配置其参数。</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>活动仅支持文件 (而非文件夹)。</value>
+    <comment>exception</comment>
   </data>
 </root>

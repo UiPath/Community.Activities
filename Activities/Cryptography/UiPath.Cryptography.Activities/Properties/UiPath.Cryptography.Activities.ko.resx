@@ -232,7 +232,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Output file name and location</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -376,7 +376,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Output file name and location</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -710,5 +710,53 @@
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
     <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>The encrypted file</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>The encrypted file</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>암호화할 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>File</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>해독된 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>Decrypted file</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>암호를 해독할 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>File</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>해시할 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>File</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>{{0}} 및 {1} 중 하나에만 인수를 구성해야 합니다.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>액티비티는 폴더가 아닌 파일만 지원합니다.</value>
+    <comment>exception</comment>
   </data>
 </root>
