@@ -124,7 +124,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decrypted file.
+        ///   Looks up a localized string similar to Decrypted File.
         /// </summary>
         public static string Activity_DecryptFile_Property_DecryptedFile_Name {
             get {
@@ -430,7 +430,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Decrypted Text.
         /// </summary>
         public static string Activity_DecryptText_Property_Result_Name {
             get {
@@ -502,7 +502,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encrypted file.
+        ///   Looks up a localized string similar to Encrypted File.
         /// </summary>
         public static string Activity_EncryptFile_Property_EncryptedFile_Name {
             get {
@@ -808,7 +808,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Encrypted Text.
         /// </summary>
         public static string Activity_EncryptText_Property_Result_Name {
             get {
@@ -898,7 +898,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_HashFile_Property_Result_Name {
             get {
@@ -1006,7 +1006,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_HashText_Property_Result_Name {
             get {
@@ -1186,7 +1186,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_KeyedHashFile_Property_Result_Name {
             get {
@@ -1348,7 +1348,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_KeyedHashText_Property_Result_Name {
             get {
