@@ -58,11 +58,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
 
         /// <summary>
-        /// The encoding used to interpret the key specified in the Key property.
-        /// </summary>
-        public DesignInArgument<Encoding> Encoding { get; set; } = new DesignInArgument<Encoding>();
-
-        /// <summary>
         /// The hashed file, stored in a String variable.
         /// </summary>
         public DesignOutArgument<string> Result { get; set; } = new DesignOutArgument<string>();
@@ -95,11 +90,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeySecureString.OrderIndex = propertyOrderIndex++;
 
             KeyInputModeSwitch.IsVisible = false;
-
-            Encoding.IsPrincipal = false;
-            Encoding.OrderIndex = propertyOrderIndex++;
-            Encoding.Value = null;
-            Encoding.IsRequired = true;
 
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;

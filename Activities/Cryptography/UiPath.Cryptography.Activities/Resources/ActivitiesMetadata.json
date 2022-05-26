@@ -58,7 +58,7 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_DecryptFile_Property_Key_Name",
           "TooltipKey": "Activity_DecryptFile_Property_Key_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -74,20 +74,6 @@
           "TooltipKey": "Activity_DecryptFile_Property_KeySecureString_Description",
           "IsRequired": false,
           "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "KeyEncoding",
-          "DisplayNameKey": "Activity_DecryptFile_Property_KeyEncoding_Name",
-          "TooltipKey": "Activity_DecryptFile_Property_KeyEncoding_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -114,7 +100,7 @@
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_DecryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_DecryptFile_Property_Overwrite_Description",
-          "IsRequired": true,
+          "IsRequired": false,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
@@ -146,7 +132,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Output"
           }
         }
       ],
@@ -196,7 +182,7 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_DecryptText_Property_Key_Name",
           "TooltipKey": "Activity_DecryptText_Property_Key_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -221,20 +207,6 @@
           "IconKey": null
         },
         {
-          "Name": "Encoding",
-          "DisplayNameKey": "Activity_DecryptText_Property_Encoding_Name",
-          "TooltipKey": "Activity_DecryptText_Property_Encoding_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "Result",
           "DisplayNameKey": "Activity_DecryptText_Property_Result_Name",
           "TooltipKey": "Activity_DecryptText_Property_Result_Description",
@@ -243,7 +215,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Output"
           },
           "Widget": null,
           "IconKey": null
@@ -323,7 +295,7 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_EncryptFile_Property_Key_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Key_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -339,20 +311,6 @@
           "TooltipKey": "Activity_EncryptFile_Property_KeySecureString_Description",
           "IsRequired": false,
           "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "KeyEncoding",
-          "DisplayNameKey": "Activity_EncryptFile_Property_KeyEncoding_Name",
-          "TooltipKey": "Activity_EncryptFile_Property_KeyEncoding_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -379,7 +337,7 @@
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_EncryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Overwrite_Description",
-          "IsRequired": true,
+          "IsRequired": false,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
@@ -411,7 +369,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Output"
           }
         }
       ],
@@ -461,7 +419,7 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_EncryptText_Property_Key_Name",
           "TooltipKey": "Activity_EncryptText_Property_Key_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -486,20 +444,6 @@
           "IconKey": null
         },
         {
-          "Name": "Encoding",
-          "DisplayNameKey": "Activity_EncryptText_Property_Encoding_Name",
-          "TooltipKey": "Activity_EncryptText_Property_Encoding_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "Result",
           "DisplayNameKey": "Activity_EncryptText_Property_Result_Name",
           "TooltipKey": "Activity_EncryptText_Property_Result_Description",
@@ -508,7 +452,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Output"
           },
           "Widget": null,
           "IconKey": null
@@ -588,7 +532,7 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_Key_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_Key_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -627,20 +571,6 @@
           "IconKey": null
         },
         {
-          "Name": "Encoding",
-          "DisplayNameKey": "Activity_KeyedHashFile_Property_Encoding_Name",
-          "TooltipKey": "Activity_KeyedHashFile_Property_Encoding_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "Result",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_Result_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_Result_Description",
@@ -649,7 +579,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Output"
           },
           "Widget": null,
           "IconKey": null
@@ -715,7 +645,7 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_KeyedHashText_Property_Key_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_Key_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -740,20 +670,6 @@
           "IconKey": null
         },
         {
-          "Name": "Encoding",
-          "DisplayNameKey": "Activity_KeyedHashText_Property_Encoding_Name",
-          "TooltipKey": "Activity_KeyedHashText_Property_Encoding_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "Result",
           "DisplayNameKey": "Activity_KeyedHashText_Property_Result_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_Result_Description",
@@ -762,7 +678,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Others_Name"
+            "DisplayNameKey": "Output"
           },
           "Widget": null,
           "IconKey": null

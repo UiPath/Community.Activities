@@ -51,11 +51,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
 
         /// <summary>
-        /// The encoding used to interpret the key specified in the Key property.
-        /// </summary>
-        public DesignInArgument<Encoding> KeyEncoding { get; set; } = new DesignInArgument<Encoding>();
-
-        /// <summary>
         /// If a file already exists at the path specified in the Output path field, selecting this check box overwrites it. 
         /// </summary>
         public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
@@ -98,11 +93,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeySecureString.OrderIndex = propertyOrderIndex++;
 
             KeyInputModeSwitch.IsVisible = false;
-
-            KeyEncoding.IsPrincipal = false;
-            KeyEncoding.OrderIndex = propertyOrderIndex++;
-            KeyEncoding.Value = null;
-            KeyEncoding.IsRequired = true;
 
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = propertyOrderIndex++;
