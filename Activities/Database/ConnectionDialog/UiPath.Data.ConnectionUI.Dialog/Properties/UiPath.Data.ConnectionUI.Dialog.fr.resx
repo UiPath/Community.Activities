@@ -364,7 +364,7 @@
     <value>Connexion de test</value>
   </data>
   <data name="Username_Label" xml:space="preserve">
-    <value>Username :</value>
+    <value>Username :</value>
   </data>
   <data name="WindowsAuthentication_Label" xml:space="preserve">
     <value>Utiliser l’authentification Windows</value>

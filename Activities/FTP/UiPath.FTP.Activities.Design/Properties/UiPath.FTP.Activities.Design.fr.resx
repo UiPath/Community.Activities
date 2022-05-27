@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>Move Item</value>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>Avec connexion FTP</value>
+  </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
     <value>Portée de la session FTP</value>
   </data>
@@ -138,7 +147,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="DirectoryExistsDescription" xml:space="preserve">
-    <value>Répertoire existant</value>
+    <value>Directory Exists</value>
   </data>
   <data name="DirectoryExistsDisplayName" xml:space="preserve">
     <value>Directory Exists</value>
@@ -182,7 +191,7 @@
     <value>Port</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>Chemin distant</value>
+    <value>Fichier ou dossier à supprimer</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Upload Files</value>
