@@ -97,6 +97,20 @@
           "IconKey": null
         },
         {
+          "Name": "OutputFileName",
+          "DisplayNameKey": "Activity_DecryptFile_Property_OutputFileName_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_OutputFileName_Description",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_DecryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_DecryptFile_Property_Overwrite_Description",
@@ -329,6 +343,20 @@
           "Category": {
             "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "OutputFileName",
+          "DisplayNameKey": "Activity_EncryptFile_Property_OutputFileName_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_OutputFileName_Description",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Others_Name"
           },
           "Widget": null,
           "IconKey": null

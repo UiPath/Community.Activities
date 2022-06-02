@@ -241,6 +241,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file name you want to use to save the decrypted file..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_OutputFileName_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_OutputFileName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrypted Filename.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_OutputFileName_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_OutputFileName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The path where you want to save the decrypted file..
         /// </summary>
         public static string Activity_DecryptFile_Property_OutputFilePath_Description {
@@ -466,7 +484,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algortithm.
+        ///   Looks up a localized string similar to Algorithm.
         /// </summary>
         public static string Activity_EncryptFile_Property_Algorithm_Name {
             get {
@@ -615,6 +633,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptFile_Property_KeySecureString_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptFile_Property_KeySecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file name you want to use to save the encrypted file..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_OutputFileName_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_OutputFileName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted Filename.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_OutputFileName_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_OutputFileName_Name", resourceCulture);
             }
         }
         
