@@ -70,6 +70,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         public DesignOutArgument<ILocalResource> EncryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
 
+        /// <summary>
+        /// The filename you want to use for the encrypted file.
+        /// </summary>
+        public DesignInArgument<string> OutputFileName { get; set; } = new DesignInArgument<string>();
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -97,6 +102,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeySecureString.OrderIndex = propertyOrderIndex++;
 
             KeyInputModeSwitch.IsVisible = false;
+
+            OutputFileName.IsPrincipal = false;
+            OutputFileName.OrderIndex = propertyOrderIndex++;
 
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = propertyOrderIndex++;

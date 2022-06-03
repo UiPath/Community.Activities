@@ -64,6 +64,11 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_OutputFilePath_Description))]
         public InArgument<string> OutputFilePath { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_OutputFileName_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_OutputFileName_Description))]
+        public InArgument<string> OutputFileName { get; set; }
+
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_Overwrite_Name))]
@@ -109,6 +114,7 @@ namespace UiPath.Cryptography.Activities
                 var inputFilePath = InputFilePath.Get(context);
                 var inputFile = InputFile.Get(context);
                 var outputFilePath = OutputFilePath.Get(context);
+                var outputFileName = OutputFileName.Get(context);
                 var key = Key.Get(context);
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = KeyEncoding.Get(context);
@@ -156,6 +162,11 @@ namespace UiPath.Cryptography.Activities
                     //take the path from the resource
                     inputFilePath = localFile.LocalPath;
                     fileName = localFile.FullName;
+                }
+
+                if (outputFileName != null)
+                {
+                    fileName = outputFileName;
                 }
 
                 var encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(inputFilePath),
