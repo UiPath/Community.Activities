@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+	<Import Project="..\Scripting.build.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<OutputPath>..\..\Output\Activities\Scripting\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="System.Configuration" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="System.ServiceModel" />
+		<Reference Include="System.Data.DataSetExtensions" />
+		<Reference Include="System.Net.Http" />
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="System.Web.Services" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.4" />
+		<PackageReference Include="Microsoft.PowerShell.Native" Version="7.2.0" />
+	</ItemGroup>
+</Project>

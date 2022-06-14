@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\Scripting.build.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<OutputPath>..\..\Output\Activities\Scripting\</OutputPath>
+		<!--leave empty for ci to replace with prelease tag-->
+		<VersionSuffix></VersionSuffix>
+		<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
+		<PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>UiPath.Scripting.Activities</PackageId>
+		<PackageTitle>UiPath.Scripting.Activities</PackageTitle>
+		<PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
+		<PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-scripting-activities-pack</PackageLicenseUrl>
+		<PackageTags>UiPathActivities</PackageTags>
+		<Description>UiPath Scripting Activities Pack</Description>
+		<Authors>UiPath</Authors>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
+		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+	</PropertyGroup>
+
+	<Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
+		<ItemGroup>
+			<BuiltProjectOutputGroupOutput Remove="@(BuiltProjectOutputGroupOutput)" />
+		</ItemGroup>
+	</Target>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="System.Activities" PrivateAssets="All"/>
+		<PackageReference Include="UiPath.Workflow" PrivateAssets="All"/>
+		<PackageReference Include="System.Activities.ViewModels" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.4" />
+		<PackageReference Include="Microsoft.PowerShell.Native" Version="7.2.0" />
+	</ItemGroup>
+
+	<Target Name="AddDlls">
+		<!-- PDBs for debug-->
+		<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Scripting.pdb" />
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Scripting.Activities.pdb" />
+		</ItemGroup>
+		<ItemGroup>
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Scripting.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Scripting.Activities.dll" />
+		</ItemGroup>
+		<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.Scripting.Activities.Design.dll" />
+		</ItemGroup>
+	</Target>
+	<Target Name="CleanPackageFiles" BeforeTargets="Build">
+		<Message Text="Deleting packages ..." />
+		<ItemGroup>
+			<PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+		</ItemGroup>
+		<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
+	</Target>
+
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
+		<ProjectReference Include="..\..\Scripting\UiPath.Scripting.Activities.Design\UiPath.Scripting.Activities.Design.csproj">
+			<PrivateAssets>All</PrivateAssets>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<ProjectReference Include="..\..\Scripting\UiPath.Scripting.Activities\UiPath.Scripting.Activities.csproj">
+			<PrivateAssets>All</PrivateAssets>
+		</ProjectReference>
+	</ItemGroup>
+</Project>

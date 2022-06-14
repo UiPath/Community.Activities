@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+	<Import Project="..\Scripting.build.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-windows</TargetFrameworks>
+		<OutputPath>$(ProjectDir)..\..\Output\Activities\Scripting\</OutputPath>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="System.Activities.Core.Presentation" />
+	</ItemGroup>
+	<!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461'">
+		<Reference Include="System.Activities" />
+		<Reference Include="System.Activities.Core.Presentation" />
+		<Reference Include="System.Activities.Presentation" />
+		<Reference Include="System.ServiceModel" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="System.Xml.Linq" />
+		<Reference Include="System.Data" />
+		<Reference Include="System.Net.Http" />
+		<Reference Include="System.Xml" />
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+	</ItemGroup>-->
+	<ItemGroup>
+		<Compile Include="..\..\Shared\UiPath.Activities.Presentation\ActivityDecoratorControl.cs">
+			<Link>Controls\ActivityDecoratorControl.cs</Link>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Include="..\..\Shared\UiPath.Activities.Presentation\Themes\Generic.xaml">
+			<Link>Themes\Generic.xaml</Link>
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UiPath.Scripting.Activities\UiPath.Scripting.Activities.csproj">
+			<Project>{EF2BF6C5-A739-4FF5-A19F-0D2E81D08D64}</Project>
+			<Name>UiPath.Scripting.Activities</Name>
+		</ProjectReference>
+		<ProjectReference Include="..\UiPath.Scripting\UiPath.Scripting.csproj">
+			<Project>{76BB5A59-B73C-4643-9A6F-E8F57DB6CABD}</Project>
+			<Name>UiPath.Scripting</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="UiPath.Scripting.Activities.Design.nuspec" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="UiPath.Activities.Api" Version="21.10.4" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\UiPath.Scripting.Activities.Design.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>UiPath.Scripting.Activities.Design.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\UiPath.Scripting.Activities.Design.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>UiPath.Scripting.Activities.Design.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>
