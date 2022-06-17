@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>Mover elemento</value>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>Con conexión FTP</value>
+  </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
     <value>Alcance de la sesión FTP</value>
   </data>
@@ -182,7 +191,7 @@
     <value>Puerto</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>RutaRemota</value>
+    <value>Archivo o carpeta a eliminar</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Cargar archivos</value>
