@@ -126,7 +126,7 @@
     <comment>property name</comment>
   </data>
   <data name="Common" xml:space="preserve">
-    <value>Commun</value>
+    <value>Common</value>
   </data>
   <data name="Connection" xml:space="preserve">
     <value>Connexion</value>
@@ -277,7 +277,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nom de table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
@@ -365,7 +365,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nom de table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
@@ -733,7 +733,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nom de table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
