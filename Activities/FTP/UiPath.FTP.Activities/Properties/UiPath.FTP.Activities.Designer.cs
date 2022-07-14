@@ -817,6 +817,96 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password used for proxy if authentication is required.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPassword_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy port number.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPort_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPort_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Host Port.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPort_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPort_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy host name.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyServer_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyServer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Host.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyServer_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyServer_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of proxy.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyType_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Proxy Type.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyType_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user used for proxy if authentication is required.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyUser_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyUser_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Username.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyUser_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyUser_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password in secure string format.
         /// </summary>
         public static string Activity_WithFtpSession_Property_SecurePassword_Description {
@@ -1384,6 +1474,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proxy.
+        /// </summary>
+        public static string Proxy {
+            get {
+                return ResourceManager.GetString("Proxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include subfolders.
         /// </summary>
         public static string Recursive {
@@ -1533,6 +1632,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string ValidationError_ValidateParentError {
             get {
                 return ResourceManager.GetString("ValidationError_ValidateParentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must provide a value for {0}..
+        /// </summary>
+        public static string ValidationErrorFormat {
+            get {
+                return ResourceManager.GetString("ValidationErrorFormat", resourceCulture);
             }
         }
         

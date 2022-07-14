@@ -9,6 +9,7 @@ using UiPath.Shared.Activities;
 using UiPath.FTP.Enums;
 using System.Security;
 using System.Net;
+using System.Activities.Validation;
 
 namespace UiPath.FTP.Activities
 {
@@ -111,6 +112,31 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Description))]
         public override InArgument<bool> ContinueOnError { get; set; } = false;
 
+        [LocalizedCategory(nameof(Resources.Proxy))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyServer_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyServer_Description))]
+        public InArgument<string> ProxyServer { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Proxy))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyPort_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyPort_Description))]
+        public InArgument<int> ProxyPort { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Proxy))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyUser_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyUser_Description))]
+        public InArgument<string> ProxyUser { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Proxy))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyPassword_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyPassword_Description))]
+        public InArgument<string> ProxyPassword { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Proxy))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Description))]
+        public FtpProxyType ProxyType { get; set; } = FtpProxyType.None;
+
         public WithFtpSession()
         {
             FtpsMode = FtpsMode.None;
@@ -125,6 +151,10 @@ namespace UiPath.FTP.Activities
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             base.CacheMetadata(metadata);
+            if (ProxyType != FtpProxyType.None && ProxyServer?.Expression == null)
+                metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorFormat, Resources.Activity_WithFtpSession_Property_ProxyServer_Name), false, nameof(ProxyServer)));
+            if (ProxyType != FtpProxyType.None && ProxyPort?.Expression == null)
+                metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorFormat, Resources.Activity_WithFtpSession_Property_ProxyPort_Name), false, nameof(ProxyPort)));
         }
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
@@ -141,10 +171,20 @@ namespace UiPath.FTP.Activities
             ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
             ftpConfiguration.SslProtocols = SslProtocols;   
             ftpConfiguration.Password = passwordValue;
+            ftpConfiguration.ProxyType = ProxyType;
+
             if (ftpConfiguration.Password == null)
             {
                 ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
             }
+            if(ftpConfiguration.ProxyType != FtpProxyType.None)
+            {
+                ftpConfiguration.ProxyServer = ProxyServer.Get(context);
+                ftpConfiguration.ProxyPort = ProxyPort.Expression == null? null: (int?)ProxyPort.Get(context);
+                ftpConfiguration.ProxyUsername = ProxyUser.Get(context);
+                ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
+            }
+
             ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
             ftpConfiguration.ClientCertificatePassword = clientCertificatePasswordValue;
             if (ftpConfiguration.ClientCertificatePassword == null)
