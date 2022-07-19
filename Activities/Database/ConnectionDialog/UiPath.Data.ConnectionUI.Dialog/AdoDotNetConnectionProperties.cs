@@ -13,6 +13,7 @@ using System.Windows;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using Microsoft.Data.SqlClient;
 
 namespace UiPath.Data.ConnectionUI.Dialog
 {
@@ -91,10 +92,16 @@ namespace UiPath.Data.ConnectionUI.Dialog
             dr[1] = ".Net Framework Data Provider for Oracle";
             dr[2] = "Oracle.ManagedDataAccess.Client";
             dr[3] = "Oracle.ManagedDataAccess.Client.OracleClientFactory, Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342";
+
+            dr = dataSet.Tables[0].NewRow();
+            dr[0] = ".Net Framework Data Provider";
+            dr[1] = ".Net Framework Data Provider";
+            dr[2] = "Microsoft.Data.SqlClient";
+            dr[3] = "Microsoft.Data.SqlClient.SqlClientFactory, Microsoft.Data.SqlClient, Version=4.10.22031.3, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5";
 #endif
 
 #if NETCOREAPP
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", Microsoft.Data.SqlClient.SqlClientFactory.Instance);
             DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
             DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
             DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
@@ -175,16 +182,21 @@ namespace UiPath.Data.ConnectionUI.Dialog
             // Create a connection object
             DbConnection connection = null;
             DbProviderFactory factory = null;
-            if (_providerName.Equals("Oracle.ManagedDataAccess.Client"))
+            switch (_providerName)
             {
-                connection = new OracleConnection(testString);
+                case "Oracle.ManagedDataAccess.Client":
+                    connection = new OracleConnection(testString);
+                    break;
+                case "Microsoft.Data.SqlClient":
+                    connection = new SqlConnection(testString);
+                    break;
+                default:
+                    factory = DbProviderFactories.GetFactory(_providerName);
+                    Debug.Assert(factory != null);
+                    connection = factory.CreateConnection();
+                    break;
             }
-            else
-            {
-                factory = DbProviderFactories.GetFactory(_providerName);
-                Debug.Assert(factory != null);
-                connection = factory.CreateConnection();
-            }
+                
             Debug.Assert(connection != null);
             // Try to open it
             try
