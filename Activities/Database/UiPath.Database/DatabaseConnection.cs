@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -29,6 +29,7 @@ namespace UiPath.Database
         private const string DB2OdbcDriverPattern = "DB2";
         private const string OraclePattern = "oracle";
         private const string OracleProvider = "oracle.manageddataaccess.client";
+        private const string SqlProvider = "microsoft.data.sqlclient";
         private bool _isWindows = true;
 
         public ConnectionState? State => _connection?.State;
@@ -53,7 +54,7 @@ namespace UiPath.Database
             _providerName = providerName;
 
 #if NETCOREAPP
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", Microsoft.Data.SqlClient.SqlClientFactory.Instance);
 
             //OLEDB driver is Windows propietary - there is no support for other OS
             if(_isWindows)
@@ -62,11 +63,18 @@ namespace UiPath.Database
             DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
             DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
 #endif
-
-            if (providerName.ToLower() == OracleProvider)
-                _connection = new OracleConnection();
-            else
-                _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
+            switch (providerName.ToLower())
+            {
+                case SqlProvider:
+                    _connection = new SqlConnection();
+                    break;
+                case OracleProvider:
+                    _connection = new OracleConnection();
+                    break;
+                default:
+                    _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
+                    break;
+            }
             _connection.ConnectionString = connectionString;
             OpenConnection();
             return this;

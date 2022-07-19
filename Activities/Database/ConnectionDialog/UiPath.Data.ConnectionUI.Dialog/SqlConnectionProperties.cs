@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +41,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         }
 
         public SqlConnectionProperties()
-            : base("System.Data.SqlClient")
+            : base("Microsoft.Data.SqlClient")
         {
             LocalReset();
         }
@@ -82,9 +82,22 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 }
             }
         }
-        
+
+        public override string ToFullString()
+        {
+            AddEncryptIfNeeded();
+            return base.ToFullString();
+        }
+
+        public override string ToDisplayString()
+        {
+            AddEncryptIfNeeded();
+            return base.ToDisplayString();
+        }
+
         protected override string ToTestString()
         {
+            AddEncryptIfNeeded();
             bool savedPooling = (bool)ConnectionStringBuilder["Pooling"];
             bool wasDefault = !ConnectionStringBuilder.ShouldSerialize("Pooling");
             ConnectionStringBuilder["Pooling"] = false;
@@ -95,6 +108,13 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 ConnectionStringBuilder.Remove("Pooling");
             }
             return testString;
+        }
+
+        private void AddEncryptIfNeeded()
+        {
+            bool wasDefault = !ConnectionStringBuilder.ShouldSerialize("Encrypt");
+            if (wasDefault)
+                ConnectionStringBuilder["Encrypt"] = false;
         }
     }
 
