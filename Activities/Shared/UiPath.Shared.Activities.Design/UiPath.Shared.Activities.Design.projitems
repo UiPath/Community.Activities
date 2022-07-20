@@ -25,5 +25,6 @@
       <DependentUpon>FilePathControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ActivityIconConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Editors\ArgumentDictionaryEditor.cs" />
   </ItemGroup>
 </Project>

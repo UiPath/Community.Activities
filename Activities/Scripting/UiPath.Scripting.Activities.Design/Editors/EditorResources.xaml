@@ -1,0 +1,118 @@
+﻿<ResourceDictionary x:Class="UiPath.Scripting.Activities.Design.EditorResources" 
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:s="clr-namespace:System;assembly=mscorlib"
+      xmlns:src="clr-namespace:UiPath.Scripting.Activities.Design"
+      xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+      xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+      xmlns:PropertyEditing="clr-namespace:System.Activities.Presentation.PropertyEditing;assembly=System.Activities.Presentation"
+      xmlns:p="clr-namespace:UiPath.Scripting.Activities.Design.Properties">
+
+    <DataTemplate x:Key="OCREngineLanguageCombobox">
+        <DataTemplate.Resources>
+            <sapc:ModelPropertyEntryToModelItemConverter x:Key="ModelPropertyEntryToModelItemConverter" />
+            <sapc:ModelToObjectValueConverter  x:Key="ModelToObjectValueConverter" />
+        </DataTemplate.Resources>
+        <ComboBox DataContext="{Binding Converter={StaticResource ModelPropertyEntryToModelItemConverter}}" ItemsSource="{Binding Path=ModelItem.Languages, Mode=OneWay, Converter={StaticResource ModelToObjectValueConverter}}" SelectedItem="{Binding Path=ModelItem.Language, Mode=TwoWay}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SelectorTool">
+        <DataTemplate.Resources>
+            <sapc:ModelPropertyEntryToOwnerActivityConverter x:Key="ModelPropertyEntryToOwnerActivityConverter" />
+            <sapc:ArgumentToExpressionModelItemConverter x:Key="ArgumentToExpressionModelItemConverter" />
+        </DataTemplate.Resources>
+        <DockPanel LastChildFill="True">
+            <PropertyEditing:EditModeSwitchButton TargetEditMode="Dialog" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            <sapv:ExpressionTextBox ExpressionType="s:String" OwnerActivity="{Binding Path=ParentProperty, Mode=OneWay, Converter={StaticResource ModelPropertyEntryToOwnerActivityConverter}}" MaxLines="1">
+                <sapv:ExpressionTextBox.Expression>
+                    <MultiBinding Mode="TwoWay" Converter="{StaticResource ResourceKey= ArgumentToExpressionModelItemConverter}" ConverterParameter="In" >
+                        <Binding Path="Value" Mode="TwoWay"/>
+                        <Binding Path="ParentProperty" Mode="OneWay" />
+                    </MultiBinding>
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ArgumentDictionaryEditor">
+        <DockPanel LastChildFill="True">
+            <PropertyEditing:EditModeSwitchButton TargetEditMode="Dialog" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            <TextBlock Text="{x:Static p:Resources.CollectionText }" TextTrimming="CharacterEllipsis" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="XmlEditorTemplate">
+        <DataTemplate.Resources>
+            <sapc:ModelPropertyEntryToOwnerActivityConverter x:Key="ModelPropertyEntryToOwnerActivityConverter" />
+            <sapc:ArgumentToExpressionModelItemConverter x:Key="ArgumentToExpressionModelItemConverter" />
+        </DataTemplate.Resources>
+        <DockPanel LastChildFill="True">
+            <PropertyEditing:EditModeSwitchButton TargetEditMode="Dialog" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            <sapv:ExpressionTextBox ExpressionType="s:String" OwnerActivity="{Binding Path=ParentProperty, Mode=OneWay, Converter={StaticResource ModelPropertyEntryToOwnerActivityConverter}}" MaxLines="1">
+                <sapv:ExpressionTextBox.Expression>
+                    <MultiBinding Mode="TwoWay" Converter="{StaticResource ResourceKey= ArgumentToExpressionModelItemConverter}" ConverterParameter="In" >
+                        <Binding Path="Value" Mode="TwoWay"/>
+                        <Binding Path="ParentProperty" Mode="OneWay" />
+                    </MultiBinding>
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+        </DockPanel>
+    </DataTemplate>
+            
+    <DataTemplate x:Key="PasswordEditorTemplate">
+        <DockPanel LastChildFill="True">
+            <PasswordBox x:Name="EmailPassword" src:PasswordBoxAssistant.BindPassword="True" src:PasswordBoxAssistant.BoundPassword="{Binding Path=Value, Mode=TwoWay}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DatabaseConnectionEditorTemplate">
+        <DataTemplate.Resources>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <sapc:ModelPropertyEntryToOwnerActivityConverter x:Key="ModelPropertyEntryToOwnerActivityConverter" />
+            <sapc:ArgumentToExpressionModelItemConverter x:Key="ArgumentToExpressionModelItemConverter" />
+        </DataTemplate.Resources>
+        <DockPanel LastChildFill="True">
+            <PropertyEditing:EditModeSwitchButton TargetEditMode="Dialog" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            <sapv:ExpressionTextBox ExpressionType="s:String" OwnerActivity="{Binding Path=ParentProperty, Mode=OneWay, Converter={StaticResource ModelPropertyEntryToOwnerActivityConverter}}" MaxLines="1" HintText="{x:Static p:Resources.SetConnectionInformationHintText}">
+                <sapv:ExpressionTextBox.Expression>
+                    <MultiBinding Mode="TwoWay" Converter="{StaticResource ResourceKey= ArgumentToExpressionModelItemConverter}" ConverterParameter="In" >
+                        <Binding Path="Value" Mode="TwoWay"/>
+                        <Binding Path="ParentProperty" Mode="OneWay" />
+                    </MultiBinding>
+                </sapv:ExpressionTextBox.Expression>
+            </sapv:ExpressionTextBox>
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="TextEditorTemplate">
+        <DockPanel LastChildFill="True">
+            <PropertyEditing:EditModeSwitchButton HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            <TextBox x:Name="Text" Text="{Binding Path=Value, Mode=TwoWay}" MaxLines="1" AcceptsReturn="True" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CodeEditorTemplate">
+        <DockPanel LastChildFill="True">
+            <PropertyEditing:EditModeSwitchButton HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            <TextBox x:Name="Code" Text="{Binding Path=Value, Mode=TwoWay}" MaxLines="1" AcceptsReturn="True" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FormatProviderEditorTemplate">
+        <DockPanel LastChildFill="True">
+            <PropertyEditing:EditModeSwitchButton HorizontalAlignment="Right" DockPanel.Dock="Right" />
+            <TextBox x:Name="Text" Text="{Binding Path=Value.DisplayName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                     IsReadOnly="True" MaxLines="1">
+                <TextBox.Template>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <TextBlock Text="{TemplateBinding Text}" TextTrimming="CharacterEllipsis" Margin="1" />
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+        </DockPanel>
+    </DataTemplate>
+</ResourceDictionary>
