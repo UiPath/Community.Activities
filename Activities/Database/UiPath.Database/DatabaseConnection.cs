@@ -466,7 +466,7 @@ namespace UiPath.Database
             if ((_connection.GetType() == typeof(OdbcConnection) && (((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern) || ((OdbcConnection)_connection).Driver.StartsWith(DB2OdbcDriverPattern)))
                || _connection.ToString().ToLower().Contains(OraclePattern))
                 return 1000000;
-            if (_connection.GetType() == typeof(OdbcConnection) && ((OdbcConnection)_connection).Driver.StartsWith(SqlOdbcDriverPattern))
+            if (_connection.GetType() == typeof(OdbcConnection))
                 return 4000;
             return -1;
         }
