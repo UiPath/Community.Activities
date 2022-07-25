@@ -53,6 +53,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             int propertyOrderIndex = 1;
 
             ConnectionString.IsPrincipal = true;
+            ConnectionString.IsRequired = true;
             ConnectionString.OrderIndex = propertyOrderIndex++;
             ConnectionString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
