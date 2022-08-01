@@ -202,7 +202,7 @@
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Touche</value>
+    <value>Key</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
     <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>

@@ -325,15 +325,15 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete</value>
+    <value>Delete file or folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
-    <value>Der Pfad der Datei, die vom FTP-Server entfernt werden soll.</value>
+    <value>Remotepfad zur Datei oder zum Ordner</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>File or folder to delete</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
@@ -353,11 +353,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Der Pfad des FTP-Verzeichnisses, in dem geprüft werden soll, ob das angegebene Verzeichnis vorhanden ist.</value>
+    <value>Der zu prüfende Remoteordnerpfad.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Folder Path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
@@ -409,11 +409,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Der Pfad des FTP-Verzeichnisses, in dem geprüft werden soll, ob die angegebene Datei vorhanden ist.</value>
+    <value>Der zu prüfende Remotedateipfad.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>File Path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
@@ -433,11 +433,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>Der lokale Pfad der hochzuladenden Dateien.</value>
+    <value>Lokaler Pfad</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>Files to upload</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -457,20 +457,20 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>Der Pfad auf dem FTP-Server, in den die Datei hochgeladen werden soll.</value>
+    <value>Remotepfad</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Where to upload</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
     <value>Stellt eine Verbindung mit dem FTP-Server her und bietet einen Scope für andere FTP-Aktivitäten.</value>
-    <comment>Property description</comment>
+    <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>FTP Scope</value>
-    <comment>Property name</comment>
+    <value>Use FTP connection</value>
+    <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
     <value>Wenn dieses Feld aktiviert ist, werden alle Zertifikate akzeptiert, einschließlich derer, die abgelaufen oder nicht verifiziert sind.</value>
@@ -589,7 +589,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>Where to download</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -613,7 +613,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Path to files to download</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Move file or folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -633,11 +633,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
-    <value>Der Remotepfad auf dem FTP-Server, in den die Datei verschoben wird.</value>
+    <value>Der neue Pfad, zu dem das Element verschoben werden soll</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
-    <value>New Remote Path</value>
+    <value>Where to move</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
@@ -649,11 +649,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
-    <value>Der Remotepfad auf dem FTP-Server, an dem sich die Datei derzeit befindet.</value>
+    <value>Remotepfad</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>File or folder to move</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Credentials_Name" xml:space="preserve">
@@ -715,5 +715,42 @@
   </data>
   <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
     <value>„Password“ und „SecurePassword“ dürfen nicht beide NULL sein.</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
+    <value>Das für den Proxy verwendete Kennwort, wenn Authentifizierung erforderlich ist</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
+    <value>Proxy-Kennwort</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
+    <value>Proxy-Portnummer</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
+    <value>Proxy-Hostport</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
+    <value>Proxy-Hostname</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
+    <value>Proxy-Host</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
+    <value>Der Typ des Proxys</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
+    <value> Proxy-Typ</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
+    <value>Der für den Proxy verwendete Benutzer, wenn Authentifizierung erforderlich ist</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Name" xml:space="preserve">
+    <value>Proxy-Benutzer</value>
+  </data>
+  <data name="Proxy" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="ValidationErrorFormat" xml:space="preserve">
+    <value>Sie müssen einen Wert für {0} angeben.</value>
+    <comment>error message</comment>
   </data>
 </root>
