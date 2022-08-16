@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+	<Import Project="..\Scripting.build.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<OutputPath>..\..\Output\Activities\Scripting\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.4" />
+		<PackageReference Include="Microsoft.PowerShell.Native" Version="7.2.0" />
+		<PackageReference Include="System.Management.Automation" />
+		<PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" />
+		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic"/>
+	</ItemGroup>
+</Project>

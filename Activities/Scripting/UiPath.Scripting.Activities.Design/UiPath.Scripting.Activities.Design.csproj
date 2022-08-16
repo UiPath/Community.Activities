@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+	<Import Project="..\Scripting.build.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-windows</TargetFrameworks>
+		<OutputPath>$(ProjectDir)..\..\Output\Activities\Scripting\</OutputPath>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+		<PackageReference Include="UiPath.Workflow.Runtime" /> 
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="System.Activities.Core.Presentation" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\..\Shared\UiPath.Activities.Presentation\ActivityDecoratorControl.cs" Link="Controls\ActivityDecoratorControl.cs" />
+		<Compile Include="..\..\Shared\UiPath.Activities.Presentation\Controls\FilePathControl.xaml.cs" Link="Controls\FilePathControl.xaml.cs">
+			<DependentUpon>FilePathControl.xaml</DependentUpon>
+		</Compile>
+
+		<Compile Update="Properties\UiPath.Scripting.Activities.Design.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>UiPath.Scripting.Activities.Design.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Include="..\..\Shared\UiPath.Activities.Presentation\Themes\Generic.xaml">
+			<Link>Themes\Generic.xaml</Link>
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="..\..\Shared\UiPath.Activities.Presentation\Controls\FilePathControl.xaml">
+			<Link>Controls\FilePathControl.xaml</Link>
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UiPath.Scripting.Activities\UiPath.Scripting.Activities.csproj">
+			<Project>{EF2BF6C5-A739-4FF5-A19F-0D2E81D08D64}</Project>
+			<Name>UiPath.Scripting.Activities</Name>
+		</ProjectReference>
+		<ProjectReference Include="..\UiPath.Scripting\UiPath.Scripting.csproj">
+			<Project>{76BB5A59-B73C-4643-9A6F-E8F57DB6CABD}</Project>
+			<Name>UiPath.Scripting</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="UiPath.Activities.Api"/>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\UiPath.Scripting.Activities.Design.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>UiPath.Scripting.Activities.Design.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>

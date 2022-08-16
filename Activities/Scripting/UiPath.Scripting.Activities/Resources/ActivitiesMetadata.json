@@ -1,0 +1,26 @@
+{
+  "AssemblyRelativePath": "UiPath.Scripting.Activities.dll",
+  "Activities": [
+    {
+      "AssemblyQualifiedName": null,
+      "FullName": "UiPath.Scripting.Activities.InvokePowerShellCore",
+      "ShortName": "InvokePowerShellCore",
+      "DisplayNameKey": "Activity_InvokePowerShellCore_Name",
+      "DescriptionKey": "Activity_InvokePowerShellCore_Description",
+      "IconKey": null,
+      "CategoryKey": null,
+      "ActivityColor": null,
+      "ActivityNameBackgroundColor": null,
+      "Properties": [
+        {
+
+        }
+      ]
+    }
+  ],
+  "DefaultActivityColor": "#526069",
+  "DefaultActivityNameBackgroundColor": "#FFFFFF",
+  "DefaultActivityIconKey": null,
+  "AssemblyIconKey": null,
+  "ResourceManagerName": "UiPath.Scripting.Activities.Properties.UiPath.Scripting.Activities"
+}
