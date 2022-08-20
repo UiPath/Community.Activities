@@ -131,15 +131,15 @@
     <value>Die Datei ist nicht vorhanden.</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>FilePath</value>
+    <value>Dateipfad</value>
     <comment>property name</comment>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>InputPath</value>
+    <value>Eingabepfad</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>OutputPath</value>
+    <value>Ausgabepfad</value>
     <comment>property name</comment>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
@@ -149,10 +149,10 @@
     <value>Ein kryptografischer Vorgang ist fehlgeschlagen. Stellen Sie sicher, dass Sie denselben Algorithmus und Schlüssel für Verschlüsselungs- und Entschlüsselungsvorgänge verwenden.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codierung</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Schlüssel</value>
+    <value>Taste</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Ausgabe</value>
@@ -192,7 +192,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -200,7 +200,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
@@ -208,7 +208,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Eingabepfad</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -216,7 +216,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Key Encoding</value>
+    <value>Schlüsselcodierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
@@ -224,7 +224,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Schlüssel</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
@@ -232,7 +232,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Name und Speicherort der Ausgabedatei</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -240,7 +240,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Überschreiben</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Name" xml:space="preserve">
@@ -256,7 +256,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -264,7 +264,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
@@ -272,7 +272,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -288,7 +288,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Schlüssel</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
@@ -296,7 +296,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Entschlüsselte Text</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Description" xml:space="preserve">
@@ -312,7 +312,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
@@ -320,7 +320,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Eingabepfad</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -328,7 +328,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Schlüssel</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -336,7 +336,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Sichere Schlüsselzeichenfolge</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
@@ -344,7 +344,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Sichere Schlüsselzeichenfolge</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -352,7 +352,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -360,7 +360,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Key Encoding</value>
+    <value>Schlüsselcodierung</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -368,7 +368,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Sichere Schlüsselzeichenfolge</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
@@ -376,7 +376,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Name und Speicherort der Ausgabedatei</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -384,7 +384,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Überschreiben</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptText_Description" xml:space="preserve">
@@ -400,7 +400,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -408,7 +408,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
@@ -416,7 +416,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -432,7 +432,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Sichere Schlüsselzeichenfolge</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
@@ -440,7 +440,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Schlüssel</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
@@ -448,7 +448,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Verschlüsselter Text</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
@@ -464,7 +464,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -472,7 +472,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
@@ -480,7 +480,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -488,7 +488,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>File path</value>
+    <value>Dateipfad</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -496,7 +496,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Sichere Schlüsselzeichenfolge</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
@@ -504,7 +504,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Schlüssel</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
@@ -512,7 +512,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Hash</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
@@ -528,7 +528,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -536,7 +536,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
@@ -544,7 +544,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
@@ -560,7 +560,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Sichere Schlüsselzeichenfolge</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
@@ -568,7 +568,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Schlüssel</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
@@ -576,7 +576,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Hash</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
@@ -592,7 +592,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -600,7 +600,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
@@ -608,7 +608,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>File Path</value>
+    <value>Dateipfad</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
@@ -616,7 +616,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Hash</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
@@ -632,7 +632,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Algorithmus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -640,7 +640,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
@@ -648,7 +648,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
@@ -664,7 +664,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Hash</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Others_Name" xml:space="preserve">
@@ -710,5 +710,69 @@
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
     <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>Die verschlüsselte Datei</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>Verschlüsselte Datei</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Die zu verschlüsselnde Datei</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Datei</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>Die entschlüsselte Datei</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>Entschlüsselte Datei</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Die zu entschlüsselnde Datei</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Datei</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Die zu hashende Datei</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Datei</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>Argumente dürfen nur entweder für {{0}} oder {1} konfiguriert sein.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>Die Aktivität unterstützt nur Dateien, keine Ordner.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>Der Dateiname, den Sie zum Speichern der verschlüsselten Datei verwenden möchten.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>Verschlüsselter Dateiname</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>Der Dateiname, den Sie zum Speichern der entschlüsselten Datei verwenden möchten.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>Entschlüsselter Dateiname</value>
+    <comment>property name</comment>
   </data>
 </root>

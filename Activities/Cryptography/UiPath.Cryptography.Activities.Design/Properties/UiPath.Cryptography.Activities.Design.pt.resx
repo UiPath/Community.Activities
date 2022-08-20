@@ -145,7 +145,7 @@
     <value>A cadeia desencriptada.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codificação</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>A codificação utilizada para interpretar a cadeia de entrada.</value>
@@ -175,7 +175,7 @@
     <value>A representação da cadeia base64 da cadeia de entrada encriptada.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>Caminho do Ficheiro</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
@@ -194,11 +194,11 @@
     <value>A representação da cadeia hexadecimal da cadeia de entrada com hash.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Caminho de Entrada</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Text</value>
+    <value>Texto</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
@@ -223,11 +223,11 @@
     <value>Codificação de chave</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Caminho de Saída</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Substituir</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Resultado</value>
@@ -239,10 +239,10 @@
     <value>Sistema</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NomeApresentar</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinueNoErro</value>
   </data>
 </root>

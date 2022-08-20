@@ -205,7 +205,7 @@
     <value>Parâmetros</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NomeDeExibição</value>
     <comment>property name</comment>
   </data>
   <data name="ConnectionString" xml:space="preserve">
