@@ -1,4 +1,5 @@
 ﻿using FluentFTP;
+using FluentFTP.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace UiPath.FTP
     public class FtpSession : IFtpSession
     {
         private readonly FtpClient _ftpClient;
+        private const int DefaultProxyPort = 3128;
 
         public FtpSession(FtpConfiguration ftpConfiguration, FtpsMode ftpsMode)
         {
@@ -25,7 +27,36 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(ftpConfiguration));
             }
 
-            _ftpClient = new FtpClient(ftpConfiguration.Host);
+            var proxy = new ProxyInfo();
+            if(ftpConfiguration.ProxyType != FtpProxyType.None)
+            {
+                proxy.Host = ftpConfiguration.ProxyServer;
+                proxy.Port = (ftpConfiguration.ProxyPort == null) ? DefaultProxyPort : ftpConfiguration.ProxyPort.Value;
+                if (!string.IsNullOrEmpty(ftpConfiguration.ProxyUsername))
+                    proxy.Credentials = new NetworkCredential(ftpConfiguration.ProxyUsername, ftpConfiguration.ProxyPassword);
+            }
+
+            switch (ftpConfiguration.ProxyType)
+            {
+                case FtpProxyType.None:
+                    _ftpClient = new FtpClient(ftpConfiguration.Host);
+                    break;
+                case FtpProxyType.Http:
+                    _ftpClient = new FtpClientHttp11Proxy(proxy);
+                    _ftpClient.Host = ftpConfiguration.Host;
+                    break;
+                case FtpProxyType.Socks4:
+                    _ftpClient = new FtpClientSocks4Proxy(proxy);
+                    _ftpClient.Host = ftpConfiguration.Host;
+                    break;
+                case FtpProxyType.Socks5:
+                    _ftpClient = new FtpClientSocks5Proxy(proxy);
+                    _ftpClient.Host = ftpConfiguration.Host;
+                    break;
+                default:
+                    throw new NotImplementedException();
+
+            }
 
             if (ftpConfiguration.Port != null)
             {

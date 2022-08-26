@@ -33,14 +33,12 @@ namespace UiPath.Cryptography.Activities
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
         [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_ContinueOnError_Description))] 
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         public HashFile()
         {
-
             Algorithm = HashAlgorithms.SHA256;
-
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -49,7 +47,7 @@ namespace UiPath.Cryptography.Activities
 
             if (!CryptographyHelper.IsFipsCompliant(Algorithm))
             {
-                ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
+                var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                 metadata.AddValidationError(error);
             }
         }
@@ -60,18 +58,15 @@ namespace UiPath.Cryptography.Activities
 
             try
             {
-                string filePath = FilePath.Get(context);
+                var filePath = FilePath.Get(context);
 
                 if (string.IsNullOrWhiteSpace(filePath))
-                {
                     throw new ArgumentNullException(Resources.FilePathDisplayName);
-                }
-                if (!File.Exists(filePath))
-                {
-                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
-                }
 
-                byte[] hashed = CryptographyHelper.HashData(Algorithm, File.ReadAllBytes(filePath));
+                if (!File.Exists(filePath))
+                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
+
+                var hashed = CryptographyHelper.HashData(Algorithm, File.ReadAllBytes(filePath));
 
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }

@@ -3,9 +3,9 @@ using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Security;
 using System.Text;
-using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
+using UiPath.Platform.ResourceHandling;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -36,11 +36,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<SymmetricAlgorithms> Algorithm { get; set; } = new DesignProperty<SymmetricAlgorithms>();
 
         /// <summary>
-        /// The path to the file that you want to encrypt.
-        /// </summary>
-        public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
         /// The key that you want to use to encrypt the specified file.
         /// </summary>
         public DesignInArgument<string> Key { get; set; } = new DesignInArgument<string>();
@@ -51,19 +46,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
-        /// Switches Key as string or secure string 
+        /// Switches Key as string or secure string
         /// </summary>
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
-
-        /// <summary>
-        /// The encoding used to interpret the key specified in the Key property.
-        /// </summary>
-        public DesignInArgument<Encoding> KeyEncoding { get; set; } = new DesignInArgument<Encoding>();
-
-        /// <summary>
-        /// The path where you want to save the encrypted file.
-        /// </summary>
-        public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// If a file already exists at the path specified in the Output path field, selecting this check box overwrites it.
@@ -75,18 +60,38 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
 
+        /// <summary>
+        /// The file that you want to encrypt.
+        /// </summary>
+        public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
+
+        /// <summary>
+        /// The file that you want to encrypt.
+        /// </summary>
+        public DesignOutArgument<ILocalResource> EncryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
+
+        /// <summary>
+        /// The filename you want to use for the encrypted file.
+        /// </summary>
+        public DesignInArgument<string> OutputFileName { get; set; } = new DesignInArgument<string>();
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            int propertyOrderIndex = 1;
+            var propertyOrderIndex = 1;
+
+            InputFile.IsPrincipal = true;
+            InputFile.IsRequired = true;
+            InputFile.OrderIndex = propertyOrderIndex++;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(SymmetricAlgorithms.AES, SymmetricAlgorithms.AESGCM, SymmetricAlgorithms.DES, SymmetricAlgorithms.RC2, SymmetricAlgorithms.Rijndael, SymmetricAlgorithms.TripleDES);
-            Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
-            InputFilePath.IsPrincipal = true;
-            InputFilePath.OrderIndex = propertyOrderIndex++;
+            Algorithm.DataSource = DataSourceHelper.ForEnum(SymmetricAlgorithms.AES, SymmetricAlgorithms.AESGCM,
+                SymmetricAlgorithms.DES, SymmetricAlgorithms.RC2, SymmetricAlgorithms.Rijndael,
+                SymmetricAlgorithms.TripleDES);
+
+            Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -98,13 +103,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
-            OutputFilePath.IsPrincipal = true;
-            OutputFilePath.OrderIndex = propertyOrderIndex++;
-
-            KeyEncoding.IsPrincipal = false;
-            KeyEncoding.OrderIndex = propertyOrderIndex++;
-            KeyEncoding.Value = null;
-            KeyEncoding.IsRequired = true;
+            OutputFileName.IsPrincipal = false;
+            OutputFileName.OrderIndex = propertyOrderIndex++;
 
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = propertyOrderIndex++;
@@ -119,16 +119,19 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .AddMenuProperty(Key, KeyInputMode.Key)
                 .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
                 .BuildAndInsertMenuActions();
+
+            EncryptedFile.IsPrincipal = false;
+            EncryptedFile.OrderIndex = propertyOrderIndex++;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void InitializeRules()
         {
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void ManualRegisterDependencies()
         {
             base.ManualRegisterDependencies();
@@ -145,11 +148,15 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 case KeyInputMode.Key:
                     Key.IsVisible = true;
                     KeySecureString.IsVisible = false;
+
                     break;
+
                 case KeyInputMode.SecureKey:
                     Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
+
                     break;
+
                 default:
                     throw new NotImplementedException();
             }

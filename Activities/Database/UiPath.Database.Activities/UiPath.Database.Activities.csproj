@@ -26,9 +26,6 @@
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ActivitiesMetadata.json">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
     <EmbeddedResource Include="Resources\Icons\Bulk_update.svg" />
     <EmbeddedResource Include="Resources\Icons\Connect.svg" />

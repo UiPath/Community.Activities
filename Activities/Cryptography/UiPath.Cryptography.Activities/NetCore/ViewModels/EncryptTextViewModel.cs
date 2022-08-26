@@ -3,7 +3,6 @@ using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Security;
 using System.Text;
-using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 
@@ -56,11 +55,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
 
         /// <summary>
-        /// The encoding used to interpret the key specified in the Key property. 
-        /// </summary>
-        public DesignInArgument<Encoding> Encoding { get; set; } = new DesignInArgument<Encoding>();
-
-        /// <summary>
         /// The encrypted text, stored in a String variable.
         /// </summary>
         public DesignOutArgument<string> Result { get; set; } = new DesignOutArgument<string>();
@@ -73,7 +67,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            int propertyOrderIndex = 1;
+            var propertyOrderIndex = 1;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
@@ -92,11 +86,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeySecureString.OrderIndex = propertyOrderIndex++;
 
             KeyInputModeSwitch.IsVisible = false;
-
-            Encoding.IsPrincipal = false;
-            Encoding.OrderIndex = propertyOrderIndex++;
-            Encoding.Value = null;
-            Encoding.IsRequired = true;
 
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;

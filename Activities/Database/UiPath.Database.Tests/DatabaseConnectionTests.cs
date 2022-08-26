@@ -5,8 +5,6 @@ using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.Odbc;
-using System.Data.SqlClient;
 using System.Dynamic;
 using UiPath.Database.Activities;
 using UiPath.Database.BulkOps;
@@ -67,7 +65,7 @@ namespace UiPath.Database.Tests
         [InlineData("System.Data.Odbc")]
         [InlineData("System.Data.Oledb")]
         [InlineData("System.Data.OracleClient")]
-        [InlineData("System.Data.SqlClient")]
+        [InlineData("Microsoft.Data.SqlClient")]
         [InlineData("Oracle.DataAccess.Client")]
         [InlineData("Oracle.ManagedDataAccess.Client")]
         [InlineData("Mysql.Data.MysqlClient")]

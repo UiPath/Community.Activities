@@ -115,6 +115,42 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The decrypted file.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_DecryptedFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_DecryptedFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrypted File.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_DecryptedFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_DecryptedFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file to be decrypted.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_InputFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_InputFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_InputFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_InputFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The path to the file that you want to decrypt..
         /// </summary>
         public static string Activity_DecryptFile_Property_InputFilePath_Description {
@@ -205,6 +241,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file name you want to use to save the decrypted file..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_OutputFileName_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_OutputFileName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrypted Filename.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_OutputFileName_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_OutputFileName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The path where you want to save the decrypted file..
         /// </summary>
         public static string Activity_DecryptFile_Property_OutputFilePath_Description {
@@ -214,7 +268,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output Path.
+        ///   Looks up a localized string similar to Output file name and location.
         /// </summary>
         public static string Activity_DecryptFile_Property_OutputFilePath_Name {
             get {
@@ -394,7 +448,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Decrypted Text.
         /// </summary>
         public static string Activity_DecryptText_Property_Result_Name {
             get {
@@ -430,7 +484,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algortithm.
+        ///   Looks up a localized string similar to Algorithm.
         /// </summary>
         public static string Activity_EncryptFile_Property_Algorithm_Name {
             get {
@@ -453,6 +507,42 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptFile_Property_ContinueOnError_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptFile_Property_ContinueOnError_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encrypted file.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_EncryptedFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_EncryptedFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted File.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_EncryptedFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_EncryptedFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file to be encrypted.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_InputFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_InputFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_InputFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_InputFile_Name", resourceCulture);
             }
         }
         
@@ -547,6 +637,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file name you want to use to save the encrypted file..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_OutputFileName_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_OutputFileName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypted Filename.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_OutputFileName_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_OutputFileName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The path where you want to save the encrypted file..
         /// </summary>
         public static string Activity_EncryptFile_Property_OutputFilePath_Description {
@@ -556,7 +664,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output Path.
+        ///   Looks up a localized string similar to Output file name and location.
         /// </summary>
         public static string Activity_EncryptFile_Property_OutputFilePath_Name {
             get {
@@ -736,7 +844,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Encrypted Text.
         /// </summary>
         public static string Activity_EncryptText_Property_Result_Name {
             get {
@@ -826,7 +934,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_HashFile_Property_Result_Name {
             get {
@@ -934,7 +1042,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_HashText_Property_Result_Name {
             get {
@@ -1033,6 +1141,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file to be hashed.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_InputFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_InputFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_InputFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_InputFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The key that you want to use to hash the specified file..
         /// </summary>
         public static string Activity_KeyedHashFile_Property_Key_Description {
@@ -1096,7 +1222,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_KeyedHashFile_Property_Result_Name {
             get {
@@ -1258,7 +1384,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Hash.
         /// </summary>
         public static string Activity_KeyedHashText_Property_Result_Name {
             get {
@@ -1308,6 +1434,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Encoding {
             get {
                 return ResourceManager.GetString("Encoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only one of {0] and {1} should have it&apos;s arguments configured..
+        /// </summary>
+        public static string Exception_UseOnlyFilePathOrInputResource {
+            get {
+                return ResourceManager.GetString("Exception_UseOnlyFilePathOrInputResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The activity only supports files, not folders..
+        /// </summary>
+        public static string Exception_UseOnlyFilesNotFolders {
+            get {
+                return ResourceManager.GetString("Exception_UseOnlyFilesNotFolders", resourceCulture);
             }
         }
         

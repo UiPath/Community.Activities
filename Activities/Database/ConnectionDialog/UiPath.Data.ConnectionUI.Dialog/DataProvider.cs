@@ -84,11 +84,11 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     };
 
                     _sqlDataProvider = new DataProvider(
-                        "System.Data.SqlClient",
+                        "Microsoft.Data.SqlClient",
                         Resources.DataProvider_Sql,
                         Resources.DataProvider_Sql_Short,
                         Resources.DataProvider_Sql_Description,
-                        typeof(System.Data.SqlClient.SqlConnection),
+                        typeof(Microsoft.Data.SqlClient.SqlConnection),
                         descriptions,
                         uiControls,
                         properties);

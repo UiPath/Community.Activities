@@ -23,28 +23,28 @@
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' or '$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0"/>
-    <PackageReference Include="System.Data.OleDb" Version="5.0.0"/>
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All" />
 
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
     <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="runtimes\win-x64\native\sni.dll" />
-    <None Remove="runtimes\win-x86\native\sni.dll" />
+    <None Remove="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Remove="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\Workaround\DbWorkarounds.cs" Link="Workaround\DbWorkarounds.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="runtimes\win-x64\native\sni.dll">
+    <Content Include="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="runtimes\win-x86\native\sni.dll">
+    <Content Include="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

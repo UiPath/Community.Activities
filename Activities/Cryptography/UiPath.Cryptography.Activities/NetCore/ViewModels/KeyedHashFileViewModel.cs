@@ -5,6 +5,7 @@ using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
+using UiPath.Platform.ResourceHandling;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -31,14 +32,15 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         }
 
         /// <summary>
+        /// The file that you want to encrypt.
+        /// </summary>
+        public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
+
+
+        /// <summary>
         /// A drop-down which enables you to select the keyed hashing algorithm you want to use.
         /// </summary>
         public DesignProperty<KeyedHashAlgorithms> Algorithm { get; set; } = new DesignProperty<KeyedHashAlgorithms>();
-
-        /// <summary>
-        /// The path to the file you want to hash.
-        /// </summary>
-        public DesignInArgument<string> FilePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The key that you want to use to hash the specified file.
@@ -56,11 +58,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
 
         /// <summary>
-        /// The encoding used to interpret the key specified in the Key property.
-        /// </summary>
-        public DesignInArgument<Encoding> Encoding { get; set; } = new DesignInArgument<Encoding>();
-
-        /// <summary>
         /// The hashed file, stored in a String variable.
         /// </summary>
         public DesignOutArgument<string> Result { get; set; } = new DesignOutArgument<string>();
@@ -73,16 +70,16 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            int propertyOrderIndex = 1;
+            var propertyOrderIndex = 1;
+
+            InputFile.IsPrincipal = true;
+            InputFile.IsRequired = true;
+            InputFile.OrderIndex = propertyOrderIndex++;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
-            FilePath.IsPrincipal = true;
-            FilePath.OrderIndex = propertyOrderIndex++;
-            FilePath.Widget = new DefaultWidget { Type = ViewModelWidgetType.Browser };
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -94,12 +91,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
-            Encoding.IsPrincipal = false;
-            Encoding.OrderIndex = propertyOrderIndex++;
-            Encoding.Value = null;
-            Encoding.IsRequired = true;
-
-           
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
 
