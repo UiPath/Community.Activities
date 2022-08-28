@@ -145,7 +145,7 @@
     <value>Chaîne déchiffrée.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Encodage</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>Encodage utilisé pour l’interprétation de la chaîne d’entrée.</value>
@@ -175,7 +175,7 @@
     <value>Représentation de la chaîne Base64 de la chaîne d’entrée chiffrée.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>Chemin du fichier</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
@@ -194,15 +194,15 @@
     <value>Représentation de la chaîne hexadécimale de la chaîne d’entrée hachée.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Chemin d’accès d’entrée</value>
+    <value>Chemin d&apos;entrée</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Text</value>
+    <value>Texte</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Touche</value>
+    <value>Clé</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
     <value>Encodage utilisé pour l’interprétation de la clé et la chaîne d’entrée.</value>
@@ -230,7 +230,7 @@
     <value>Overwrite</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Result</value>
+    <value>Résultat</value>
   </data>
   <data name="CategoryCryptography" xml:space="preserve">
     <value>Cryptographie</value>
@@ -239,10 +239,10 @@
     <value>Système</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NomComplet</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinuerSurErreur</value>
   </data>
 </root>

@@ -145,7 +145,7 @@
     <value>Şifresi çözülmüş dize.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodlama</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>Giriş dizesini yorumlamak için kullanılan kodlama.</value>
@@ -175,7 +175,7 @@
     <value>Şifrelenmiş giriş dizesinin base64 dize gösterimi.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>Dosya Yolu</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
@@ -194,11 +194,11 @@
     <value>Karma giriş dizesinin on altılık dize gösterimi.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Giriş Yolu</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Text</value>
+    <value>Metin</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
@@ -223,11 +223,11 @@
     <value>Anahtar kodlama</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Çıkış Yolu</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Üzerine yaz</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Sonuç</value>
@@ -239,10 +239,10 @@
     <value>Sistem</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>GörünenAd</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>HataOlursaDevamEt</value>
   </data>
 </root>

@@ -164,7 +164,7 @@
     <value>Entrée</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>Target</value>
+    <value>Cible</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
     <value>Les champs Objet cible (Target Object) et Type cible (Target Type) sont vides. Au moins l’un d’entre eux doit être défini.</value>
@@ -186,7 +186,7 @@
     <value>Le chemin d’accès au fichier jar va être chargé.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>JarPath</value>
+    <value>CheminJar</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
@@ -196,7 +196,7 @@
     <value>L’invocateur Java ne s’est pas chargé.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>JavaObject</value>
+    <value>ObjetJava</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
@@ -206,7 +206,7 @@
     <value>Chemin d’accès à java.exe</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>JavaLibraryPath</value>
+    <value>CheminBibliothèqueJava</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
@@ -227,43 +227,43 @@
     <value>Le fichier jar n’a pas pu être chargé.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>NomMéthode</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
     <value>Le nom de la méthode qui sera exécutée en Java.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Sortie</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>La liste des arguments spécifiés dans le même ordre que la méthode java. Un argument ne peut pas avoir la valeur Null.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Paramètres</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ParametersList</value>
+    <value>ListeParamètres</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>Impossible de définir {0} et {1}.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Résultat</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>TargetObject</value>
+    <value>ObjetCible</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
     <value>L’instance d’objet java invoquée par la méthode. TargetObject et TargetType ne peuvent pas être définis en même temps.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TargetType</value>
+    <value>TypeCible</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
@@ -279,7 +279,7 @@
     <value>JavaObject</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>NomMéthode</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Sortie</value>
@@ -288,7 +288,7 @@
     <value>Le chemin d’accès à la bibliothèque java n’est pas valide.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Délai d’initialisation (millisecondes)</value>
+    <value>Délai d&apos;initialisation (millisecondes)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">

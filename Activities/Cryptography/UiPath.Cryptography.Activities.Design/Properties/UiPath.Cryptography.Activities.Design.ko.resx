@@ -145,7 +145,7 @@
     <value>암호가 해독된 문자열입니다.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>인코딩</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>입력 문자열을 해석하기 위해 사용되는 인코딩입니다.</value>
@@ -175,7 +175,7 @@
     <value>암호화된 입력 문자열의 base64 문자열 표현입니다.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>파일 경로</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
@@ -194,11 +194,11 @@
     <value>해시된 입력 문자열의 16진수 문자열 표현입니다.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>입력 경로</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Text</value>
+    <value>텍스트</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>덮어쓰기</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>결과</value>
@@ -239,10 +239,10 @@
     <value>시스템</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>표시 이름</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>오류 발생시 계속 진행</value>
   </data>
 </root>

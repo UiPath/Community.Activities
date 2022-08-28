@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
-    <value>AffectedRecords</value>
+    <value>EnregistrementsAffectés</value>
     <comment>property name</comment>
   </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
-    <value>CommandType</value>
+    <value>TypeCommande</value>
     <comment>property name</comment>
   </data>
   <data name="Common" xml:space="preserve">
-    <value>Commun</value>
+    <value>Courant</value>
   </data>
   <data name="Connection" xml:space="preserve">
     <value>Connexion</value>
@@ -135,15 +135,15 @@
     <value>Configuration des connexions</value>
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
-    <value>ConnectionString</value>
+    <value>ChaîneConnexion</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinuerSurErreur</value>
     <comment>property name</comment>
   </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
-    <value>DatabaseConnection</value>
+    <value>ConnexionBaseDonnées</value>
     <comment>property name</comment>
   </data>
   <data name="DataTableDisplayName" xml:space="preserve">
@@ -151,44 +151,44 @@
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Existing Connection</value>
+    <value>ConnexionExistante</value>
     <comment>property name</comment>
   </data>
   <data name="Input" xml:space="preserve">
     <value>Entrée</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Sortie</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Paramètres</value>
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
-    <value>ProviderName</value>
+    <value>NomFournisseur</value>
     <comment>property name</comment>
   </data>
   <data name="TableNameDisplayName" xml:space="preserve">
-    <value>TableName</value>
+    <value>NomTable</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout (milliseconds)</value>
+    <value>Délai d&apos;attente (millisecondes)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>La valeur fournie pour TimeoutMS doit être &gt;= 0</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
-    <value>UseTransaction</value>
+    <value>UtiliserTransaction</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Sortie</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>NomsColonne</value>
     <comment>property name</comment>
   </data>
   <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
@@ -225,7 +225,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>EnregistrementsAffectés</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -233,7 +233,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Chaîne de connexion sécurisée</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
@@ -241,11 +241,11 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaîne de connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuer sur erreur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
@@ -253,7 +253,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Table de données</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -261,7 +261,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Connexion existante</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
@@ -269,7 +269,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Nom du fournisseur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
@@ -277,7 +277,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nom de la table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
@@ -293,7 +293,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected rows</value>
+    <value>Lignes affectées</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
@@ -301,7 +301,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
-    <value>Bulk/batch update</value>
+    <value>Mise à jour en bloc/par lots</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
@@ -309,7 +309,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>Colonnes utilisées pour faire correspondre les lignes</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -317,7 +317,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Chaîne de connexion sécurisée</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
@@ -325,7 +325,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaîne de connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
@@ -333,7 +333,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuer sur erreur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
@@ -341,7 +341,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Table de données</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -349,7 +349,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Connexion existante</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
@@ -357,7 +357,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Nom du fournisseur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
@@ -365,7 +365,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nom de la table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
@@ -381,7 +381,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Chaîne de connexion sécurisée</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
@@ -389,7 +389,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaîne de connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -397,7 +397,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Connexion à la base de données</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
@@ -405,7 +405,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Nom du fournisseur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
@@ -421,7 +421,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Connexion à la base de données</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
@@ -437,7 +437,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Chaîne de connexion sécurisée</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
@@ -445,7 +445,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaîne de connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
@@ -453,7 +453,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuer sur erreur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -461,7 +461,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Connexion à la base de données</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -469,7 +469,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Exiting connection</value>
+    <value>Quitter la connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
@@ -477,7 +477,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Nom du fournisseur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
@@ -485,7 +485,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
-    <value>Use transaction</value>
+    <value>Utiliser la transaction</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
@@ -501,7 +501,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>EnregistrementsAffectés</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command type</value>
+    <value>Type de commande</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -517,7 +517,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Chaîne de connexion sécurisée</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
@@ -525,7 +525,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaîne de connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
@@ -533,7 +533,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuer sur erreur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Connexion existante</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
@@ -557,7 +557,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Nom du fournisseur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
@@ -565,7 +565,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL command</value>
+    <value>Commande SQL</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Timeout</value>
+    <value>Délai d&apos;attente</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
@@ -589,7 +589,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command type</value>
+    <value>Type de commande</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -597,7 +597,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Chaîne de connexion sécurisée</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
@@ -605,7 +605,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaîne de connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
@@ -613,7 +613,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuer sur erreur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Table de données</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -629,7 +629,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Connexion existante</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
@@ -653,7 +653,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL query</value>
+    <value>Requête SQL</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
@@ -661,7 +661,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Timeout</value>
+    <value>Délai d&apos;attente</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Description" xml:space="preserve">
@@ -677,7 +677,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>EnregistrementsAffectés</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -685,7 +685,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Chaîne de connexion sécurisée</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
@@ -693,7 +693,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Chaîne de connexion</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
@@ -701,7 +701,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuer sur erreur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
@@ -709,7 +709,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Table de données</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -717,7 +717,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Connexion existante</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
@@ -725,7 +725,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Nom du fournisseur</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
@@ -733,7 +733,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nom de la table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">

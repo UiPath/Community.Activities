@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>Move Item</value>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>Com ligação FTP</value>
+  </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
     <value>Âmbito da Sessão de FTP</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integração de Aplicações</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">
@@ -131,7 +140,7 @@
     <value>ClientCertificatePassword</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinueNoErro</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
     <value>Delete</value>
@@ -182,7 +191,7 @@
     <value>Porta</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>RemotePath</value>
+    <value>Ficheiro ou Pasta a Eliminar</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Upload Files</value>

@@ -144,7 +144,7 @@
     <value>Ausführen</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>FieldName</value>
+    <value>Feldname</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
@@ -164,7 +164,7 @@
     <value>Eingabe</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>Target</value>
+    <value>Ziel</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
     <value>Sowohl Zielobjekt als auch Zieltyp ist leer. Mindestens eines davon muss festgelegt sein.</value>
@@ -186,7 +186,7 @@
     <value>Pfad zur JAR-Datei, die geladen wird.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>JarPath</value>
+    <value>JARPfad</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
@@ -196,7 +196,7 @@
     <value>Java-Aufrufer wurde nicht geladen.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>JavaObject</value>
+    <value>JavaObjekt</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
@@ -206,7 +206,7 @@
     <value>Pfad zu „java.exe“</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>JavaLibraryPath</value>
+    <value>JavaBibliothekspfad</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
@@ -227,43 +227,43 @@
     <value>JAR-Datei konnte nicht geladen werden.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>Methodenname</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
     <value>Der Name der Methode, die in Java ausgeführt wird.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Ausgabe</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Die Liste der Argumente in der gleichen Reihenfolge wie die Java-Methode. Ein Argument kann nicht NULL sein.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Parameter</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ParametersList</value>
+    <value>Parameterliste</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>{0} und {1} können nicht gleichzeitig festgelegt sein.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Ergebnis</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>TargetObject</value>
+    <value>Zielobjekt</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
     <value>Die Java-Objektinstanz, mit der die Methode aufgerufen wird. TargetObject und TargetType können nicht gleichzeitig festgelegt werden.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TargetType</value>
+    <value>Zieltyp</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
@@ -279,7 +279,7 @@
     <value>JavaObject</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>Methodenname</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Ausgabe</value>
@@ -288,7 +288,7 @@
     <value>Der Pfad zur Java-Bibliothek ist ungültig.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Init timeout (milliseconds)</value>
+    <value>Init-Timeout (Millisekunden)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
