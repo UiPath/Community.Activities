@@ -72,7 +72,7 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_DecryptFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_DecryptFile_Property_KeySecureString_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -210,7 +210,7 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_DecryptText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_DecryptText_Property_KeySecureString_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -323,7 +323,7 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_EncryptFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_EncryptFile_Property_KeySecureString_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -461,7 +461,7 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_EncryptText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_EncryptText_Property_KeySecureString_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -588,7 +588,7 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_KeySecureString_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
@@ -687,7 +687,7 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_KeyedHashText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_KeySecureString_Description",
-          "IsRequired": false,
+          "IsRequired": true,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
