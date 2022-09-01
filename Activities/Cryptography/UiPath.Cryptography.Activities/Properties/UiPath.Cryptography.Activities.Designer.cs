@@ -1060,7 +1060,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hash File With Key.
+        ///   Looks up a localized string similar to Hash File.
         /// </summary>
         public static string Activity_KeyedHashFile_Name {
             get {
@@ -1240,7 +1240,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hash Text With Key.
+        ///   Looks up a localized string similar to Hash Text.
         /// </summary>
         public static string Activity_KeyedHashText_Name {
             get {
