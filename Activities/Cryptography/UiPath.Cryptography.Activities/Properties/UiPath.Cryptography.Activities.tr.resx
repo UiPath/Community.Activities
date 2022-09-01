@@ -124,22 +124,22 @@
     <value>Giriş</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
-    <value>Text</value>
+    <value>Metin</value>
     <comment>property name</comment>
   </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
     <value>Dosya yok.</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>FilePath</value>
+    <value>DosyaYolu</value>
     <comment>property name</comment>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>InputPath</value>
+    <value>GirişYolu</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>OutputPath</value>
+    <value>ÇıkışYolu</value>
     <comment>property name</comment>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
@@ -149,7 +149,7 @@
     <value>Şifreleme işlemi başarısız oldu. Lütfen hem şifreleme hem de şifre çözme işlemleri için aynı algoritmayı ve anahtarı kullandığınızdan emin olun.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodlama</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Anahtar</value>
@@ -161,7 +161,7 @@
     <value>Ortak</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>HataOlursaDevamEt</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
@@ -200,7 +200,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
@@ -208,7 +208,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Giriş Yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -216,7 +216,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Key Encoding</value>
+    <value>Anahtar Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
@@ -224,7 +224,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Anahtar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
@@ -232,7 +232,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Çıkış dosyası adı ve konumu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -240,7 +240,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Üzerine yaz</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Name" xml:space="preserve">
@@ -264,7 +264,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
@@ -272,7 +272,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -288,7 +288,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Anahtar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
@@ -296,7 +296,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Şifresi Çözülmüş Metin</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Description" xml:space="preserve">
@@ -312,7 +312,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algortitm</value>
+    <value>Algoritma</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
@@ -320,7 +320,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Giriş Yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -328,7 +328,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Anahtar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -336,7 +336,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Anahtar SecureString</value>
+    <value>Anahtar Güvenli Dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
@@ -344,7 +344,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Anahtar Güvenli Dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -352,7 +352,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -360,7 +360,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Key Encoding</value>
+    <value>Anahtar Kodlama</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -368,7 +368,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Anahtar Güvenli Dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
@@ -376,7 +376,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Çıkış dosyası adı ve konumu</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -384,7 +384,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Üzerine yaz</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptText_Description" xml:space="preserve">
@@ -408,7 +408,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
@@ -416,7 +416,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -432,7 +432,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Anahtar Güvenli Dizesi</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
@@ -440,7 +440,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Anahtar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
@@ -448,7 +448,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Şifreli Metin</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
@@ -472,7 +472,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
@@ -480,7 +480,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -488,7 +488,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>File path</value>
+    <value>Dosya yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -496,7 +496,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Anahtar Güvenli Dizesi</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
@@ -504,7 +504,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Anahtar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
@@ -512,7 +512,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Karma</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
@@ -536,7 +536,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
@@ -544,7 +544,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
@@ -560,7 +560,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>Anahtar Güvenli Dizesi</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
@@ -568,7 +568,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>Anahtar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
@@ -576,7 +576,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Karma</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
@@ -592,7 +592,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algortithm</value>
+    <value>Algortitma</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -600,7 +600,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
@@ -616,7 +616,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Karma</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
@@ -640,7 +640,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
@@ -648,7 +648,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
@@ -664,7 +664,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>Karma</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Others_Name" xml:space="preserve">
@@ -710,5 +710,69 @@
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
     <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>Şifrelenmiş dosya</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>Şifrelenmiş Dosya</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Şifrelenecek dosya</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Dosya</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>Şifresi çözülen dosya</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>Şifresi Çözülmüş Dosya</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Şifresi çözülecek dosya</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Dosya</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Karma hale getirilecek dosya</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Dosya</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>{{0}} ve {1} seçeneklerinden sadece birinin bağımsız değişkenleri yapılandırılmalıdır.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>Etkinlik sadece dosyaları destekler, klasörleri desteklemez.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>Şifrelenmiş dosyayı kaydetmek için kullanmak istediğiniz dosya adı.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>Şifrelenmiş Dosya Adı</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>Şifresi çözülen dosyayı kaydetmek için kullanmak istediğiniz dosya adı.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>Şifresi Çözülmüş Dosya Adı</value>
+    <comment>property name</comment>
   </data>
 </root>
