@@ -1,5 +1,4 @@
-﻿using Microsoft.Activities.UnitTesting;
-using System;
+﻿using System;
 using System.Activities;
 using System.Activities.Expressions;
 using System.Collections.Generic;
@@ -32,8 +31,8 @@ namespace UiPath.Cryptography.Activities.Tests
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(HashText.Input), toHash);
 
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(hash);
-            string activityString = (string)invoker.TestActivity(arguments)[nameof(hash.Result)];
+            WorkflowInvoker invoker = new WorkflowInvoker(hash);
+            string activityString = (string)invoker.Invoke(arguments)[nameof(hash.Result)];
 
             byte[] algorithmBytes = CryptographyHelper.HashData(enumValue, Encoding.Unicode.GetBytes(toHash));
 

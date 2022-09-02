@@ -1,65 +1,65 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
-  <Import Project="..\Cryptography.build.props" />
-  <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
-    <OutputPath>$(ProjectDir)..\..\Output\Activities\Cryptography\</OutputPath>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities" />
-    <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.Core.Presentation" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Activities.Presentation" />
-    <Reference Include="System.Activities.Core.Presentation" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\..\Shared\UiPath.Activities.Presentation\ActivityDecoratorControl.cs" Link="Controls\ActivityDecoratorControl.cs" />
-    <Compile Include="..\..\Shared\UiPath.Activities.Presentation\Controls\FilePathControl.xaml.cs" Link="Controls\FilePathControl.xaml.cs">
-      <DependentUpon>FilePathControl.xaml</DependentUpon>
-    </Compile>
-  
-    <Compile Update="Properties\UiPath.Cryptography.Activities.Design.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />
-    <ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="..\..\Shared\UiPath.Activities.Presentation\Controls\FilePathControl.xaml">
-      <Link>Controls\FilePathControl.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\..\Shared\UiPath.Activities.Presentation\Themes\Generic.xaml">
-      <Link>Themes\Generic.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+	<Import Project="..\Cryptography.build.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net461;net6.0-windows</TargetFrameworks>
+		<OutputPath>$(ProjectDir)..\..\Output\Activities\Cryptography\</OutputPath>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<PackageReference Include="UiPath.Workflow.Runtime" />
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="System.Activities.Core.Presentation" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="System.Activities" />
+		<Reference Include="System.Activities.Presentation" />
+		<Reference Include="System.Activities.Core.Presentation" />
+		<Reference Include="System.ServiceModel" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\..\Shared\UiPath.Activities.Presentation\ActivityDecoratorControl.cs" Link="Controls\ActivityDecoratorControl.cs" />
+		<Compile Include="..\..\Shared\UiPath.Activities.Presentation\Controls\FilePathControl.xaml.cs" Link="Controls\FilePathControl.xaml.cs">
+			<DependentUpon>FilePathControl.xaml</DependentUpon>
+		</Compile>
 
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.fr.resx">
-      <DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.ja.resx">
-      <DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.ru.resx">
-      <DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UiPath.Cryptography.Activities.Design.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+		<Compile Update="Properties\UiPath.Cryptography.Activities.Design.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTime>True</DesignTime>
+			<DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />
+		<ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Page Include="..\..\Shared\UiPath.Activities.Presentation\Controls\FilePathControl.xaml">
+			<Link>Controls\FilePathControl.xaml</Link>
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="..\..\Shared\UiPath.Activities.Presentation\Themes\Generic.xaml">
+			<Link>Themes\Generic.xaml</Link>
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.fr.resx">
+			<DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.ja.resx">
+			<DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.ru.resx">
+			<DependentUpon>UiPath.Cryptography.Activities.Design.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.Design.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>UiPath.Cryptography.Activities.Design.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 </Project>
