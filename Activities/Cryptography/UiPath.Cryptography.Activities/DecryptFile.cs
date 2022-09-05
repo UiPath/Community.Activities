@@ -178,12 +178,12 @@ namespace UiPath.Cryptography.Activities
                     throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
                 }
 
-                var item = new CryptographyLocalItem(decrypted, fileName);
-
-                DecryptedFile.Set(context, item);
-
                 if (string.IsNullOrEmpty(outputFilePath))
                 {
+                    var item = new CryptographyLocalItem(decrypted, fileName);
+
+                    DecryptedFile.Set(context, item);
+
                     outputFilePath = item.LocalPath;
                 }
 

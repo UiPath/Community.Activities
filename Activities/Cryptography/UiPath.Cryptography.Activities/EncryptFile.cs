@@ -172,18 +172,18 @@ namespace UiPath.Cryptography.Activities
                 var encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(inputFilePath),
                     CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
-                var item = new CryptographyLocalItem(encrypted, fileName);
-
-                EncryptedFile.Set(context, item);
-
                 if (string.IsNullOrEmpty(outputFilePath))
                 {
+                    var item = new CryptographyLocalItem(encrypted, fileName);
+
+                    EncryptedFile.Set(context, item);
+                    
                     outputFilePath = item.LocalPath;
+
                 }
 
                 // This overwrites the file if it already exists.
                 File.WriteAllBytes(outputFilePath, encrypted);
-
             }
             catch (Exception ex)
             {
