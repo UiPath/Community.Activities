@@ -775,4 +775,8 @@
     <value>Decrypted Filename</value>
     <comment>property name</comment>
   </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>Options</value>
+    <comment>Category name</comment>
+  </data>
 </root>
