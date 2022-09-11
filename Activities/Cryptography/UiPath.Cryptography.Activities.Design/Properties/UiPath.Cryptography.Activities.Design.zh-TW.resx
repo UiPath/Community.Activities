@@ -117,93 +117,132 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
-    <value>Eliminar</value>
+  <data name="Algorithm" xml:space="preserve">
+    <value>Algorithm</value>
   </data>
-  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
-    <value>Mover elemento</value>
+  <data name="DecryptFileEncodingDescription" xml:space="preserve">
+    <value>The encoding used to interpret the key.</value>
   </data>
-  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
-    <value>Con conexión FTP</value>
+  <data name="DecryptFileInputPathDescription" xml:space="preserve">
+    <value>Path to the file that will be decrypted by this activity.</value>
   </data>
-  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
-    <value>Ámbito de sesión FTP</value>
+  <data name="DecryptFileKeyDescription" xml:space="preserve">
+    <value>The key used to decrypt the input file.</value>
   </data>
-  <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integración de aplicaciones</value>
-    <comment>Activity name</comment>
+  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
+    <value>The path where the decrypted file will be saved.</value>
   </data>
-  <data name="CategoryFTP" xml:space="preserve">
-    <value>FTP</value>
+  <data name="DecryptTextEncodingDescription" xml:space="preserve">
+    <value>The encoding used to interpret the input string and key.</value>
   </data>
-  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+  <data name="DecryptTextInputDescription" xml:space="preserve">
+    <value>The string that will be decrypted by this activity.</value>
+  </data>
+  <data name="DecryptTextKeyDescription" xml:space="preserve">
+    <value>The key used to decrypt the input string.</value>
+  </data>
+  <data name="DecryptTextResultDescription" xml:space="preserve">
+    <value>The decrypted string.</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>編碼中</value>
+  </data>
+  <data name="EncodingDescription" xml:space="preserve">
+    <value>The encoding used to interpret the input string.</value>
+  </data>
+  <data name="EncryptFileEncodingDescription" xml:space="preserve">
+    <value>The encoding used to interpret the key.</value>
+  </data>
+  <data name="EncryptFileInputPathDescription" xml:space="preserve">
+    <value>Path to the file that will be encrypted by this activity.</value>
+  </data>
+  <data name="EncryptFileKeyDescription" xml:space="preserve">
+    <value>The key used to encrypt the input file.</value>
+  </data>
+  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
+    <value>The path where the encrypted file will be saved.</value>
+  </data>
+  <data name="EncryptTextEncodingDescription" xml:space="preserve">
+    <value>The encoding used to interpret the input string and key.</value>
+  </data>
+  <data name="EncryptTextInputDescription" xml:space="preserve">
+    <value>The string that will be encrypted by this activity.</value>
+  </data>
+  <data name="EncryptTextKeyDescription" xml:space="preserve">
+    <value>The key used to encrypt the input string.</value>
+  </data>
+  <data name="EncryptTextResultDescription" xml:space="preserve">
+    <value>The base64 string representation of the encrypted input string.</value>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>File Path</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FilePathDialogTitle" xml:space="preserve">
+    <value>File Path</value>
+  </data>
+  <data name="HashFilePathDescription" xml:space="preserve">
+    <value>Path to the file that will be hashed by this activity.</value>
+  </data>
+  <data name="HashFileResultDescription" xml:space="preserve">
+    <value>The hexadecimal string representation of the hashed file.</value>
+  </data>
+  <data name="HashTextInputDescription" xml:space="preserve">
+    <value>The string that will be hashed by this activity.</value>
+  </data>
+  <data name="HashTextResultDescription" xml:space="preserve">
+    <value>The hexadecimal string representation of the hashed input string.</value>
+  </data>
+  <data name="InputFilePath" xml:space="preserve">
+    <value>Input Path</value>
+    <comment>property name</comment>
+  </data>
+  <data name="InputString" xml:space="preserve">
+    <value>文字</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="KeyedHashEncodingDescription" xml:space="preserve">
+    <value>The encoding used to interpret the input string and key.</value>
+  </data>
+  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+    <value>The encoding used to interpret the key.</value>
+  </data>
+  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
+    <value>The key used to hash the provided file.</value>
+  </data>
+  <data name="KeyedHashFileResultDescription" xml:space="preserve">
+    <value>The hexadecimal string representation of the hashed file.</value>
+  </data>
+  <data name="KeyedHashKeyDescription" xml:space="preserve">
+    <value>The key used to hash the input string.</value>
+  </data>
+  <data name="KeyEncoding" xml:space="preserve">
+    <value>Key encoding</value>
+  </data>
+  <data name="OutputFilePath" xml:space="preserve">
+    <value>Output Path</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Overwrite" xml:space="preserve">
+    <value>Overwrite</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="CategoryCryptography" xml:space="preserve">
+    <value>Cryptography</value>
+  </data>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+    <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinuarConElError</value>
-  </data>
-  <data name="DeleteDisplayName" xml:space="preserve">
-    <value>Delete</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="DirectoryExistsDescription" xml:space="preserve">
-    <value>El directorio existe</value>
-  </data>
-  <data name="DirectoryExistsDisplayName" xml:space="preserve">
-    <value>Directory Exists</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="DownloadFilesDisplayName" xml:space="preserve">
-    <value>Descargar archivos</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
-    <value>Enumerar objetos</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="FileExistsDescription" xml:space="preserve">
-    <value>File Exists</value>
-  </data>
-  <data name="FileExistsDisplayName" xml:space="preserve">
-    <value>File Exists</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="FilesDescription" xml:space="preserve">
-    <value>Archivos</value>
-  </data>
-  <data name="HostDescription" xml:space="preserve">
-    <value>Anfitrión</value>
-  </data>
-  <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
-  </data>
-  <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Mover elemento</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="MoveItemNewPathDescription" xml:space="preserve">
-    <value>Nueva ruta</value>
-  </data>
-  <data name="PasswordDescription" xml:space="preserve">
-    <value>Contraseña</value>
-  </data>
-  <data name="PortDescription" xml:space="preserve">
-    <value>Puerto</value>
-  </data>
-  <data name="RemotePathDescription" xml:space="preserve">
-    <value>Archivo o carpeta a eliminar</value>
-  </data>
-  <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Cargar archivos</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="UseAnonymousLoginDescription" xml:space="preserve">
-    <value>Cuando se marca esta casilla, se omiten los campos Nombre de usuario y Contraseña, y se utiliza un usuario anónimo estándar en su lugar.</value>
-  </data>
-  <data name="UsernameDescription" xml:space="preserve">
-    <value>Nombre de usuario</value>
-  </data>
-  <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ámbito de FTP</value>
+    <value>ContinueOnError</value>
   </data>
 </root>

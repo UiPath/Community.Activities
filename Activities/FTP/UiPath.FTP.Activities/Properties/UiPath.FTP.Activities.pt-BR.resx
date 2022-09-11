@@ -708,7 +708,7 @@
     <value>A senha em formato de string segura</value>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
-    <value>Secure Password</value>
+    <value>Senha Segura</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
     <value>ClientCertificatePassword e ClientCertificateSecurePassword não devem ser nulos</value>

@@ -117,93 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
-    <value>Eliminar</value>
+  <data name="Activity_ConvertJavaObject_Property_TypeArgument_Name" xml:space="preserve">
+    <value>Type Argument</value>
   </data>
-  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
-    <value>Mover elemento</value>
+  <data name="AppInvokerCategory" xml:space="preserve">
+    <value>App Invoker</value>
   </data>
-  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
-    <value>Con conexión FTP</value>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(Collection)</value>
   </data>
-  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
-    <value>Ámbito de sesión FTP</value>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+    <comment>property name</comment>
   </data>
-  <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integración de aplicaciones</value>
-    <comment>Activity name</comment>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>Drop Activity Here</value>
   </data>
-  <data name="CategoryFTP" xml:space="preserve">
-    <value>FTP</value>
+  <data name="EditingText" xml:space="preserve">
+    <value>Editing</value>
   </data>
-  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+  <data name="FieldNameHintText" xml:space="preserve">
+    <value>Field Name</value>
   </data>
-  <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinuarConElError</value>
+  <data name="FieldNameLabel" xml:space="preserve">
+    <value>Field Name</value>
   </data>
-  <data name="DeleteDisplayName" xml:space="preserve">
-    <value>Delete</value>
-    <comment>Activity name</comment>
+  <data name="InvokeMethodJavaObjectHintText" xml:space="preserve">
+    <value>Target Object</value>
   </data>
-  <data name="DirectoryExistsDescription" xml:space="preserve">
-    <value>El directorio existe</value>
+  <data name="InvokeMethodResultHintText" xml:space="preserve">
+    <value>The java object result from invoke method.</value>
   </data>
-  <data name="DirectoryExistsDisplayName" xml:space="preserve">
-    <value>Directory Exists</value>
-    <comment>Activity name</comment>
+  <data name="JarFilePathDialogTitle" xml:space="preserve">
+    <value>Select a jar file.</value>
   </data>
-  <data name="DownloadFilesDisplayName" xml:space="preserve">
-    <value>Descargar archivos</value>
-    <comment>Activity name</comment>
+  <data name="JarPathHint" xml:space="preserve">
+    <value>Jar path. Text must be quoted.</value>
   </data>
-  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
-    <value>Enumerar objetos</value>
-    <comment>Activity name</comment>
+  <data name="JavaCategory" xml:space="preserve">
+    <value>Java</value>
   </data>
-  <data name="FileExistsDescription" xml:space="preserve">
-    <value>File Exists</value>
+  <data name="JavaExcecutableFile" xml:space="preserve">
+    <value>Java Executatable file.</value>
   </data>
-  <data name="FileExistsDisplayName" xml:space="preserve">
-    <value>File Exists</value>
-    <comment>Activity name</comment>
+  <data name="JavaObjectHint" xml:space="preserve">
+    <value>Java Object</value>
   </data>
-  <data name="FilesDescription" xml:space="preserve">
-    <value>Archivos</value>
+  <data name="JavaObjectLabel" xml:space="preserve">
+    <value>Java Object</value>
   </data>
-  <data name="HostDescription" xml:space="preserve">
-    <value>Anfitrión</value>
+  <data name="MethodNameHintText" xml:space="preserve">
+    <value>Method Name</value>
   </data>
-  <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+  <data name="MethodNameLabel" xml:space="preserve">
+    <value>Method Name</value>
   </data>
-  <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Mover elemento</value>
-    <comment>Activity name</comment>
+  <data name="ResultLabel" xml:space="preserve">
+    <value>Result</value>
   </data>
-  <data name="MoveItemNewPathDescription" xml:space="preserve">
-    <value>Nueva ruta</value>
+  <data name="SetParametersLabel" xml:space="preserve">
+    <value>Set Parameters</value>
   </data>
-  <data name="PasswordDescription" xml:space="preserve">
-    <value>Contraseña</value>
+  <data name="TargetObjectHintText" xml:space="preserve">
+    <value>The java object the method will be invoked</value>
   </data>
-  <data name="PortDescription" xml:space="preserve">
-    <value>Puerto</value>
+  <data name="TargetObjectLabel" xml:space="preserve">
+    <value>Target Object</value>
   </data>
-  <data name="RemotePathDescription" xml:space="preserve">
-    <value>Archivo o carpeta a eliminar</value>
+  <data name="TargetTypeHintText" xml:space="preserve">
+    <value>Target Type</value>
   </data>
-  <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Cargar archivos</value>
-    <comment>Activity name</comment>
-  </data>
-  <data name="UseAnonymousLoginDescription" xml:space="preserve">
-    <value>Cuando se marca esta casilla, se omiten los campos Nombre de usuario y Contraseña, y se utiliza un usuario anónimo estándar en su lugar.</value>
-  </data>
-  <data name="UsernameDescription" xml:space="preserve">
-    <value>Nombre de usuario</value>
-  </data>
-  <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ámbito de FTP</value>
+  <data name="TargetTypeLabel" xml:space="preserve">
+    <value>Target Type</value>
   </data>
 </root>

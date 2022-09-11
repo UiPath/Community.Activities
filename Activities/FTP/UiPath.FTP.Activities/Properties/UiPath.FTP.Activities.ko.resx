@@ -282,7 +282,7 @@
     <value>ClientCertificatePassword</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>오류 발생시 계속 진행</value>
+    <value>오류 발생 시 계속 진행</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>파일</value>
@@ -629,7 +629,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>오류 발생시 계속</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
@@ -681,7 +681,7 @@
     <comment>Category name</comment>
   </data>
   <data name="Category_Output_Name" xml:space="preserve">
-    <value>Output</value>
+    <value>출력</value>
     <comment>Category name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">

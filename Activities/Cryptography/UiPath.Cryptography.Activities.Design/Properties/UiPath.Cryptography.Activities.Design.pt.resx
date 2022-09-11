@@ -227,7 +227,7 @@
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Substituir</value>
+    <value>Overwrite</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Resultado</value>
