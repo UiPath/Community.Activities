@@ -147,7 +147,7 @@
     <comment>property name</comment>
   </data>
   <data name="DataTableDisplayName" xml:space="preserve">
-    <value>DataTable</value>
+    <value>TableDonnées</value>
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
@@ -429,7 +429,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
-    <value>Démarrer la transaction (Start Transaction)</value>
+    <value>Start Transaction</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -669,7 +669,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_InsertDataTable_Name" xml:space="preserve">
-    <value>Insérer</value>
+    <value>Insert</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">

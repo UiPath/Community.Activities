@@ -456,7 +456,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Hash File With Key</value>
+    <value>Hash File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -520,7 +520,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>Hash Text With Key</value>
+    <value>Hash Text</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -584,7 +584,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Hash File</value>
+    <value>Hash File (deprecated)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -624,7 +624,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Hash Text</value>
+    <value>Hash Text (deprecated)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
@@ -679,37 +679,37 @@
     <value>A alternância entre Chave e Chave de String Segura</value>
   </data>
   <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>AlterarModoDeEntradaDaChave</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>A alternância entre Chave e Chave de String Segura</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>AlterarModoDeEntradaDaChave</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>A alternância entre Chave e Chave de String Segura</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>AlterarModoDeEntradaDaChave</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>A alternância entre Chave e Chave de String Segura</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>AlterarModoDeEntradaDaChave</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>A alternância entre Chave e Chave de String Segura</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>AlterarModoDeEntradaDaChave</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>A alternância entre Chave e Chave de String Segura</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>AlterarModoDeEntradaDaChave</value>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
     <value>O arquivo criptografado</value>
@@ -774,5 +774,9 @@
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
     <value>Nome de Arquivo Descriptografado</value>
     <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>Opções</value>
+    <comment>Category name</comment>
   </data>
 </root>

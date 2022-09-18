@@ -117,184 +117,186 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConstructorException" xml:space="preserve">
-    <value>No se pudo llamar al constructor.</value>
+  <data name="CodeDescription" xml:space="preserve">
+    <value>Python script content</value>
+  </data>
+  <data name="CodeNameDisplayName" xml:space="preserve">
+    <value>Code</value>
+    <comment>property name</comment>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>No se pudo convertir </value>
-  </data>
-  <data name="ConvertJavaObjectDescription" xml:space="preserve">
-    <value>Convierta un objeto en Java en el tipo .net especificado . Si no fue posible la conversión, arroja una excepción.</value>
-  </data>
-  <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
-    <value>Convert Java Object</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
-    <value>El objeto en Java se convirtió en .net.</value>
-  </data>
-  <data name="CreateJavaObjectDescription" xml:space="preserve">
-    <value>Invoca el constructor en la clase especificada.</value>
-  </data>
-  <data name="CreateJavaObjectDisplayName" xml:space="preserve">
-    <value>Create Java Object</value>
-    <comment>activity name</comment>
+    <value>Error converting Python object</value>
   </data>
   <data name="Do" xml:space="preserve">
-    <value>Hacer</value>
+    <value>執行</value>
   </data>
-  <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>NombreDeCampo</value>
-    <comment>property name</comment>
+  <data name="GetObjectDescription" xml:space="preserve">
+    <value>Get the .NET type from a PythonObject</value>
   </data>
-  <data name="FieldNameDescription" xml:space="preserve">
-    <value>El nombre del campo que la actividad devolverá como un objeto en Java.</value>
-  </data>
-  <data name="GetFieldDescritption" xml:space="preserve">
-    <value>Devuelve un campo público de un objeto en Java.</value>
-  </data>
-  <data name="GetFieldDisplayName" xml:space="preserve">
-    <value>Get Field</value>
+  <data name="GetObjectNameDisplayName" xml:space="preserve">
+    <value>Get Python Object</value>
     <comment>activity name</comment>
   </data>
-  <data name="GetFieldException" xml:space="preserve">
-    <value>No se encontró el campo.</value>
+  <data name="GetObjectResultDescription" xml:space="preserve">
+    <value>The .NET type corresponding to Python object</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Entrada</value>
+    <value>輸入</value>
   </data>
-  <data name="Target" xml:space="preserve">
-    <value>Destino</value>
+  <data name="InstanceDescription" xml:space="preserve">
+    <value>Instance of Python object</value>
   </data>
-  <data name="InvokationObjectException" xml:space="preserve">
-    <value>El objeto de destino y el tipo de destino están vacíos. Al menos se debe establecer uno de ellos.</value>
+  <data name="InstanceNameDisplayName" xml:space="preserve">
+    <value>Instance</value>
+    <comment>property name</comment>
   </data>
-  <data name="InvokeJavaMethodDescription" xml:space="preserve">
-    <value>Invocar el método Java</value>
+  <data name="InvalidMethodNameException" xml:space="preserve">
+    <value>Invalid method name</value>
   </data>
-  <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Invoke Java Method</value>
+  <data name="InvalidPathException" xml:space="preserve">
+    <value>The specified Python path is not valid: {0}</value>
+  </data>
+  <data name="InvokeException" xml:space="preserve">
+    <value>Error invoking Python method</value>
+  </data>
+  <data name="InvokeMethodDescription" xml:space="preserve">
+    <value>Invoke Python method</value>
+  </data>
+  <data name="InvokeMethodNameDisplayName" xml:space="preserve">
+    <value>Invoke Python Method</value>
     <comment>activity name</comment>
   </data>
-  <data name="InvokeJavaResultDescription" xml:space="preserve">
-    <value>Una referencia a un objeto cargado en Java.</value>
+  <data name="LoadScriptDescription" xml:space="preserve">
+    <value>Loads and executes a Python script</value>
   </data>
-  <data name="InvokeMethodException" xml:space="preserve">
-    <value>No se pudo invocar el método.</value>
+  <data name="LoadScriptException" xml:space="preserve">
+    <value>Error loading Python script</value>
   </data>
-  <data name="JarPathDescription" xml:space="preserve">
-    <value>Ruta al JAR que se cargará.</value>
-  </data>
-  <data name="JarPathDisplayName" xml:space="preserve">
-    <value>RutaDeJar</value>
-    <comment>property name</comment>
-  </data>
-  <data name="JavaInitiazeException" xml:space="preserve">
-    <value>Error al inicializar Java : {0}</value>
-  </data>
-  <data name="JavaInvokerNotLoadedException" xml:space="preserve">
-    <value>No se cargó el invocador Java.</value>
-  </data>
-  <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>ObjetoDeJava</value>
-    <comment>property name</comment>
-  </data>
-  <data name="JavaObjectDescription" xml:space="preserve">
-    <value>Una referencia a un objeto cargado en Java.</value>
-  </data>
-  <data name="JavaPathDescription" xml:space="preserve">
-    <value>Ruta a java.exe</value>
-  </data>
-  <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>RutaDeBibliotecaDeJava</value>
-    <comment>property name</comment>
-  </data>
-  <data name="JavaScopeDescription" xml:space="preserve">
-    <value>Contenedor de actividades Java</value>
-  </data>
-  <data name="JavaScopeNameDisplayName" xml:space="preserve">
-    <value>Java Scope</value>
+  <data name="LoadScriptNameDisplayName" xml:space="preserve">
+    <value>Load Python Script</value>
     <comment>activity name</comment>
-  </data>
-  <data name="LoadJarDescription" xml:space="preserve">
-    <value>Carga un JAR en el ámbito de Java actual.</value>
-  </data>
-  <data name="LoadJarDisplayName" xml:space="preserve">
-    <value>Load Jar</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="LoadJarException" xml:space="preserve">
-    <value>No se pudo cargar el JAR.</value>
-  </data>
-  <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>NombreDeMétodo</value>
-    <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>El nombre del método que se ejecutará en Java.</value>
+    <value>Name of the method to be invoked</value>
+  </data>
+  <data name="NameDisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="NoScriptSpecifiedException" xml:space="preserve">
+    <value>No code/script specified</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Salida</value>
+    <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>La lista de los argumentos especificados en el mismo orden que el método Java. Un argumento no puede ser nulo.</value>
+    <value>Input parameters for Python script</value>
   </data>
-  <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parámetros</value>
+  <data name="ParametersNameDisplayName" xml:space="preserve">
+    <value>InputParameters</value>
     <comment>property name</comment>
   </data>
-  <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ListaDeParámetros</value>
+  <data name="PathDescription" xml:space="preserve">
+    <value>Python home path</value>
+  </data>
+  <data name="PathNameDisplayName" xml:space="preserve">
+    <value>Path</value>
     <comment>property name</comment>
   </data>
-  <data name="ParametersSetException" xml:space="preserve">
-    <value>No se pueden establecer tanto {0} como {1}.</value>
+  <data name="PythonEngineNotFoundException" xml:space="preserve">
+    <value>Python engine session was not found</value>
   </data>
-  <data name="ResultDisplayName" xml:space="preserve">
-    <value>Resultado</value>
+  <data name="PythonInitializeException" xml:space="preserve">
+    <value>Error initializing Python engine</value>
+  </data>
+  <data name="PythonObjectDescription" xml:space="preserve">
+    <value>Python object to extract value from</value>
+  </data>
+  <data name="PythonObjectNameDisplayName" xml:space="preserve">
+    <value>PythonObject</value>
     <comment>property name</comment>
   </data>
-  <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>ObjetoDeDestino</value>
+  <data name="PythonScopeDescription" xml:space="preserve">
+    <value>Python activities container</value>
+  </data>
+  <data name="PythonScopeNameDisplayName" xml:space="preserve">
+    <value>Python Scope</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ResultDescription" xml:space="preserve">
+    <value>The result of script invocation</value>
+  </data>
+  <data name="ResultNameDisplayName" xml:space="preserve">
+    <value>Result</value>
     <comment>property name</comment>
   </data>
-  <data name="TargetObjectDescription" xml:space="preserve">
-    <value>Se invocará el método de instancia del objeto Java. El ObjetoDeDestino y el TipoDeDestino no se pueden establecer al mismo tiempo.</value>
+  <data name="RunScriptDescription" xml:space="preserve">
+    <value>Invoke Python script activity</value>
   </data>
-  <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TipoDeDestino</value>
+  <data name="RunScriptException" xml:space="preserve">
+    <value>Error running Python script</value>
+  </data>
+  <data name="RunScriptNameDisplayName" xml:space="preserve">
+    <value>Run Python Script</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ScriptFileDescription" xml:space="preserve">
+    <value>Full path to Python script file</value>
+  </data>
+  <data name="ScriptFileNameDisplayName" xml:space="preserve">
+    <value>File</value>
     <comment>property name</comment>
   </data>
-  <data name="TargetTypeDescription" xml:space="preserve">
-    <value>El nombre de la clase de Java.</value>
+  <data name="ScriptFileNotFoundException" xml:space="preserve">
+    <value>The specified script file was not found</value>
+  </data>
+  <data name="TargetPlatformDisplayName" xml:space="preserve">
+    <value>Target</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetPlatformDescription" xml:space="preserve">
+    <value>Specifies the Python runtime platform</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
-    <value>La actividad es válida solo dentro de {0}</value>
+    <value>Activity is valid only inside {0}</value>
   </data>
-  <data name="FieldName" xml:space="preserve">
-    <value>Nombre del campo</value>
+  <data name="VersionDescription" xml:space="preserve">
+    <value>Python version</value>
   </data>
-  <data name="JavaObject" xml:space="preserve">
-    <value>JavaObject</value>
-  </data>
-  <data name="MethodName" xml:space="preserve">
-    <value>Nombre del método</value>
-  </data>
-  <data name="Output" xml:space="preserve">
-    <value>Salida</value>
-  </data>
-  <data name="InvalidJavaPath" xml:space="preserve">
-    <value>La ruta a la biblioteca Java no es válida.</value>
-  </data>
-  <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Iniciar tiempo de espera (milisegundos)</value>
+  <data name="VersionNameDisplayName" xml:space="preserve">
+    <value>Version</value>
     <comment>property name</comment>
   </data>
-  <data name="TimeoutMSException" xml:space="preserve">
-    <value>El valor proporcionado para TiempoDeEsperaMS debe ser &gt;= 0</value>
+  <data name="Output" xml:space="preserve">
+    <value>輸出</value>
   </data>
-  <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>La cantidad de tiempo (en milisegundos) que se debe esperar la conexión en tiempo de ejecución Java (15 000 ms predeterminados).</value>
+  <data name="WorkingFolder" xml:space="preserve">
+    <value>WorkingFolder</value>
+    <comment>property name</comment>
+  </data>
+  <data name="WorkingFolderDescription" xml:space="preserve">
+    <value>Used to specify the working folder of the scripts executing under the current scope</value>
+  </data>
+  <data name="WorkingFolderPathInvalid" xml:space="preserve">
+    <value>WorkingFolder path is not valid</value>
+  </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value>Selected version {0} is different from the version found {1}</value>
+  </data>
+  <data name="OperationTimeout" xml:space="preserve">
+    <value>Timeout</value>
+  </data>
+  <data name="OperationTimeoutDescription" xml:space="preserve">
+    <value>The amount of time to allow a Python script to run until it is terminated and an exception is thrown.</value>
+  </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty.</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>Library path (Linux or version&gt;3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>Python version &gt;= 3.10 is not supported on 32 bit. </value>
   </data>
 </root>

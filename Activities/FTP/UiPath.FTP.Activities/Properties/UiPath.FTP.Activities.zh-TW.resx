@@ -118,177 +118,177 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptAllCertificates" xml:space="preserve">
-    <value>Tüm sertifikaları kabul et</value>
+    <value>Accept all certificates</value>
   </data>
   <data name="ClientCertificatePassword" xml:space="preserve">
-    <value>İstemci Sertifikası Parolası</value>
+    <value>Client certificate password</value>
   </data>
   <data name="ClientCertificatePath" xml:space="preserve">
-    <value>İstemci sertifika yolu</value>
+    <value>Client certificate path</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Oluştur</value>
+    <value>Create</value>
   </data>
   <data name="Credentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+    <value>Credentials</value>
   </data>
   <data name="DefaultBodyName" xml:space="preserve">
     <value>Do</value>
   </data>
   <data name="PathNotFoundException" xml:space="preserve">
-    <value>&quot;{0}&quot; yolu bulunamadı.</value>
+    <value>Path &quot;{0}&quot; not found.</value>
   </data>
   <data name="ExtensionNotFoundException" xml:space="preserve">
-    <value>Gerekli bir uzantı bulunamadı.</value>
+    <value>A required extension could not be found.</value>
   </data>
   <data name="FTPSessionNotFoundException" xml:space="preserve">
-    <value>FTP oturumu bulunamadı.</value>
+    <value>No FTP session found.</value>
   </data>
   <data name="FtpsMode" xml:space="preserve">
-    <value>FTPS modu</value>
+    <value>FTPS mode</value>
   </data>
   <data name="Host" xml:space="preserve">
-    <value>Ana Bilgisayar</value>
+    <value>Host</value>
   </data>
   <data name="IncompatiblePathsException" xml:space="preserve">
-    <value>Kaynak yol bir dizini işaret ediyor, ancak hedef yol bir dosyayı işaret ediyor.</value>
+    <value>The source path points to a directory but the destination path points to a file.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+    <value>輸入</value>
   </data>
   <data name="LocalPath" xml:space="preserve">
-    <value>Yerel Yol</value>
+    <value>Local path</value>
   </data>
   <data name="OneFTPSessionPerContextException" xml:space="preserve">
-    <value>Geçerli bağlam için bir FTP oturumu zaten sağlandı.</value>
+    <value>An FTP session was already provided for the current context.</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Seçenekler</value>
+    <value>選項</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
+    <value>輸出</value>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>Overwrite</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Parola</value>
+    <value>密碼</value>
   </data>
   <data name="Port" xml:space="preserve">
-    <value>Bağlantı Noktası</value>
+    <value>Port</value>
   </data>
   <data name="Recursive" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>Include subfolders</value>
   </data>
   <data name="RemotePath" xml:space="preserve">
-    <value>Uzak yol</value>
+    <value>Remote path</value>
   </data>
   <data name="Security" xml:space="preserve">
-    <value>Güvenlik</value>
+    <value>Security</value>
   </data>
   <data name="Server" xml:space="preserve">
     <value>Server</value>
   </data>
   <data name="UseAnonymousLogin" xml:space="preserve">
-    <value>Anonim oturum açma kullan</value>
+    <value>Use anonymous login</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+    <value>Username</value>
   </data>
   <data name="UseSftp" xml:space="preserve">
-    <value>SFTP kullan</value>
+    <value>Use SFTP</value>
   </data>
   <data name="UnsupportedObjectTypeException" xml:space="preserve">
-    <value>Desteklenmeyen nesne türüyle karşılaşıldı.</value>
+    <value>Unsupported object type encountered.</value>
   </data>
   <data name="Exists" xml:space="preserve">
-    <value>Var</value>
+    <value>Exists</value>
   </data>
   <data name="Files" xml:space="preserve">
-    <value>Dosyalar</value>
+    <value>Files</value>
   </data>
   <data name="EmptyUsernameException" xml:space="preserve">
-    <value>Kullanıcı adı boş olamaz.</value>
+    <value>Username cannot be empty.</value>
   </data>
   <data name="SslProtocols" xml:space="preserve">
-    <value>SSL protokolleri</value>
+    <value>SSL protocols</value>
   </data>
   <data name="ClientCertificatePathDesc" xml:space="preserve">
-    <value>PKCS #1 PEM biçimindeki Özel anahtarın yolu</value>
+    <value>Path to the Private key in PKCS #1 PEM format</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Geçerli kimlik doğrulama yöntemi bulunamadı: Özel Anahtar dosyası (ve isteğe bağlı olarak parola) veya Parola sağlamanız gerekir</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password</value>
   </data>
   <data name="NewPath" xml:space="preserve">
-    <value>Yeni uzak yol</value>
+    <value>New remote path</value>
   </data>
   <data name="DeleteDescription" xml:space="preserve">
-    <value>Sil</value>
+    <value>Delete</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
     <value>Delete</value>
     <comment>Activity name</comment>
   </data>
   <data name="DirectoryExistsDescription" xml:space="preserve">
-    <value>Dizin Var</value>
+    <value>Directory Exists</value>
   </data>
   <data name="DirectoryExistsDisplayName" xml:space="preserve">
     <value>Directory Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="DownloadFilesDescription" xml:space="preserve">
-    <value>Dosyaları İndir</value>
+    <value>Download Files</value>
   </data>
   <data name="DownloadFilesDisplayName" xml:space="preserve">
     <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="EnumerateObjectsDescription" xml:space="preserve">
-    <value>Nesneleri Numaralandır</value>
+    <value>Enumerate Objects</value>
   </data>
   <data name="EnumerateObjectsDisplayName" xml:space="preserve">
     <value>Enumerate Objects</value>
     <comment>Activity name</comment>
   </data>
   <data name="FileExistsDescription" xml:space="preserve">
-    <value>Dosya Var</value>
+    <value>File Exists</value>
   </data>
   <data name="FileExistsDisplayName" xml:space="preserve">
     <value>File Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="MoveItemDescription" xml:space="preserve">
-    <value>Öğeyi Taşı</value>
+    <value>Move Item</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
     <value>Move Item</value>
     <comment>Activity name</comment>
   </data>
   <data name="UploadFilesDescription" xml:space="preserve">
-    <value>Uygulamaları Yükle</value>
+    <value>Upload Files</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Upload Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="WithFtpSessionDescription" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
+    <value>With Ftp Session</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
+    <value>With Ftp Session</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
     <value>ClientCertificatePassword</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>HataOlursaDevamEt</value>
+    <value>ContinueOnError</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
-    <value>Dosyalar</value>
+    <value>Files</value>
   </data>
   <data name="HostDescription" xml:space="preserve">
-    <value>Ana Bilgisayar</value>
+    <value>Host</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
     <value>LocalPath</value>
@@ -297,31 +297,31 @@
     <value>NewPath</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
+    <value>Password</value>
   </data>
   <data name="PortDescription" xml:space="preserve">
-    <value>Bağlantı Noktası</value>
+    <value>Port</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>Uzak Yol</value>
+    <value>Remote Path</value>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">
-    <value>Bu kutu işaretlendiğinde kullanıcı adı ve parola alanları yok sayılır ve bunun yerine standart bir anonim kullanıcı kullanılır.</value>
+    <value>When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.</value>
   </data>
   <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+    <value>Username</value>
   </data>
   <data name="ValidationError_ValidateParentError" xml:space="preserve">
-    <value>Etkinlik sadece {0} içinde geçerlidir</value>
+    <value>Activity is valid only inside {0}</value>
   </data>
   <data name="Common" xml:space="preserve">
-    <value>Ortak</value>
+    <value>Common</value>
   </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
-    <value>FTP Oturum Kapsamı</value>
+    <value>FTP Session Scope</value>
   </data>
   <data name="Activity_Delete_Description" xml:space="preserve">
-    <value>Bir FTP sunucusundan belirtilen bir dosyayı kaldırır. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>Removes a specified file from an FTP server. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
@@ -329,15 +329,15 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
-    <value>Dosya veya klasörün uzak yolu</value>
+    <value>Remote path to the file or folder</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
-    <value>Silinecek dosya veya klasör</value>
+    <value>File or folder to delete</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
-    <value>Bir FTP sunucusunda belirli bir dizinin var olup olmadığını denetler. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>Checks whether a certain directory exists on an FTP server. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DirectoryExists_Name" xml:space="preserve">
@@ -345,23 +345,23 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
-    <value>Belirtilen dizinin bulunup bulunmadığını belirten bir boole değişkeni.</value>
+    <value>A boolean variable that states whether the indicated directory was found or not.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Name" xml:space="preserve">
-    <value>Var</value>
+    <value>Exists</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Kontrol edilecek uzak klasör yolu</value>
+    <value>Remote folder path to check</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Klasör Yolu</value>
+    <value>Folder Path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>FTP sunucusunda bulunan bir dosya koleksiyonu oluşturur. Alt klasörleri dahil et kutusu işaretlenerek alt klasörler de aramaya dahil edilebilir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -369,31 +369,31 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
-    <value>FTP sunucusunda bulunan dosya koleksiyonu.</value>
+    <value>A collection of files that have been found on the FTP server.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>Dosyalar</value>
+    <value>Files</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
-    <value>Bu onay kutusu seçilirse alt klasörler de FTP sunucusundaki dosya numaralandırılma işlemine dahil edilir.</value>
+    <value>If this check box is selected, the subfolders are also included in the enumeration of the files on the FTP server.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>Include subfolders</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
-    <value>Dosyaların numaralandırılacağı FTP sunucusundaki dizinin yolu.</value>
+    <value>The path of the directory on the FTP server whose files are to be enumerated.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>Uzak Yol</value>
+    <value>Remote Path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
-    <value>Belirtilen FTP dizininde belirli bir dosyanın var olup olmadığını denetler. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>Checks whether a certain file exists in the specified FTP directory. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_FileExists_Name" xml:space="preserve">
@@ -401,23 +401,23 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
-    <value>Belirtilen dosyanın bulunup bulunmadığını belirten bir boole değişkeni.</value>
+    <value>A boolean variable that states whether the indicated file was found or not.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Name" xml:space="preserve">
-    <value>Var</value>
+    <value>Exists</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Kontrol edilecek uzak dosya yolu</value>
+    <value>Remote file path to check</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Dosya Yolu</value>
+    <value>File Path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
-    <value>Bir FTP sunucusuna dosya yükler. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>Uploads a file to an FTP server. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_UploadFiles_Name" xml:space="preserve">
@@ -425,47 +425,47 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse, FTP sunucusunda klasör yolu yoksa oluşturulur.</value>
+    <value>If this box is checked, the folder path will be created on the FTP server in case it does not already exist.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Oluştur</value>
+    <value>Create</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>Yerel yol</value>
+    <value>Local path</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Yüklenecek dosyalar</value>
+    <value>Files to upload</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse FTP sunucusunda depolanan dosyaların üzerine yazılır.</value>
+    <value>If this box is checked, the files will be overwritten on the FTP server if they&apos;re already stored there.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>Overwrite</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse klasörler ilgili alt klasörleriyle birlikte yüklenir.</value>
+    <value>If this box is checked, the folders will be uploaded with their respective subfolders.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>Include subfolders</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>Uzak yol</value>
+    <value>Remote path</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Yüklenecek yer</value>
+    <value>Where to upload</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>FTP sunucusuna bağlanır ve diğer FTP etkinlikleri için bir kapsam sağlar.</value>
+    <value>Connects to FTP server and provides a scope for other FTP activities.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
@@ -473,103 +473,103 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse, süresi dolmuş veya doğrulanmamış olanlar da dahil olmak üzere tüm sertifikalar kabul edilir.</value>
+    <value>If this box is checked, all certificates will be accepted, including the ones that are expired or not verified.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
-    <value>Tüm Sertifikaları Kabul Et</value>
+    <value>Accept All Certificates</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
-    <value>İstemci sertifikasının parolası.</value>
+    <value>The password for the client certificate.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
-    <value>İstemci Sertifikası Parolası</value>
+    <value>Client Certificate Password</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
-    <value>İstemcinin kimliğini doğrulamak için kullanılan sertifikanın yolu.</value>
+    <value>The path to the certificate used to verify the identity of the client.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>İstemci Sertifikası Dosyası</value>
+    <value>Client Certificate File</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Continue On Error</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
-    <value>FTPS protokolüne geçer. Var olan iki seçenekten birini seçin: Açık veya Örtük.</value>
+    <value>Switches to the FTPS protocol. Choose one of the two available options: Explicit or Implicit.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>FTPS Modu</value>
+    <value>FTPS Mode</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
-    <value>Bağlanmak istediğiniz FTP sunucusunun URL&apos;si.</value>
+    <value>The URL of the FTP server that you want to connect to.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Name" xml:space="preserve">
-    <value>Ana Bilgisayar</value>
+    <value>Host</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Description" xml:space="preserve">
-    <value>FTP sunucusuna bağlanmak için kullanılacak parola.</value>
+    <value>The password that will be used to connect to the FTP server.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Name" xml:space="preserve">
-    <value>Parola</value>
+    <value>Password</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Description" xml:space="preserve">
-    <value>Bağlanmak istediğiniz FTP sunucusunun bağlantı noktası.</value>
+    <value>The port of the FTP server that you want to connect to.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Name" xml:space="preserve">
-    <value>Bağlantı Noktası</value>
+    <value>Port</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
-    <value>FTPS bağlantısı için kullanılacak SSL protokolünü seçin</value>
+    <value>Select the SSL protocol to be used for the FTPS connection</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>SSL Protokolleri</value>
+    <value>SSL Protocols</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
-    <value>Bu kutu işaretlendiğinde kullanıcı adı ve parola alanları yok sayılır ve bunun yerine standart bir anonim kullanıcı kullanılır.</value>
+    <value>When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
-    <value>Anonim Oturum Açmayı Kullan</value>
+    <value>Use Anonymous Login</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
-    <value>FTP sunucusuna bağlanmak için kullanılacak kullanıcı adı.</value>
+    <value>The username that will be used to connect to the FTP server.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Name" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+    <value>Username</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
-    <value>SFTP aktarım protokolünü kullanmak istiyorsanız bu kutuyu işaretleyin.</value>
+    <value>Check this box if you want to use the SFTP transfer protocol.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
-    <value>SFTP kullan</value>
+    <value>Use SFTP</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
-    <value>Belirtilen dosyaları bir FTP sunucusundan belirtilen yerel klasöre indirir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a With FTP Session scope activity.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
@@ -577,47 +577,47 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
-    <value>Bu kutu işaretlendiğinde, klasör yolu yoksa yerel olarak oluşturulur.</value>
+    <value>If this box is checked, the folder path will be created locally in case it does not already exist.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Oluştur</value>
+    <value>Create</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>İndirilecek dosyaların yerel yolu.</value>
+    <value>The local path for the files that are to be downloaded.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>İndirme yeri</value>
+    <value>Where to download</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse yerel olarak depolanmış dosyaların üzerine yazılır.</value>
+    <value>If this box is checked, the files will be overwritten locally if they&apos;re already stored there.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>Overwrite</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse klasörler ilgili alt klasörleriyle birlikte indirilir.</value>
+    <value>If this box is checked, the folders will be downloaded with their respective subfolders.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>Include subfolders</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>FTP sunucusunda indirilecek dosyaların yolu.</value>
+    <value>The path of the files on the FTP server that are to be downloaded.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>İndirilecek dosyaların yolu</value>
+    <value>Path to files to download</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
-    <value>Bir FTP sunucusundaki öğeyi farklı bir uzak yola taşır. Bu etkinlik yalnızca With bir FTP içine yerleştirildiğinde çalışır</value>
+    <value>Moves an item on an FTP server to a different remote path. This activity only works if it is placed inside a With FTP</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
@@ -625,59 +625,59 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Continue On Error</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
-    <value>Öğenin taşınacağı yeni yol</value>
+    <value>The new path where to move the item</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
-    <value>Taşınacağı yer</value>
+    <value>Where to move</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse yeni uzak dizinde depolanmış dosyaların üzerine yazılır.</value>
+    <value>If this box is checked, the files will be overwritten in the new remote directory if they&apos;re already stored there.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>Overwrite</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
-    <value>Uzak yol</value>
+    <value>Remote path</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
-    <value>Taşınacak dosya veya klasör</value>
+    <value>File or folder to move</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Credentials_Name" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+    <value>Credentials</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Misc_Name" xml:space="preserve">
-    <value>Çeşitli</value>
+    <value>Misc</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Others_Name" xml:space="preserve">
-    <value>Diğerleri</value>
+    <value>Others</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Principal_Name" xml:space="preserve">
-    <value>Birincil</value>
+    <value>Principal</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Security_Name" xml:space="preserve">
-    <value>Güvenlik</value>
+    <value>Security</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Server_Name" xml:space="preserve">
-    <value>Sunucu</value>
+    <value>Server</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Output_Name" xml:space="preserve">
@@ -685,72 +685,72 @@
     <comment>Category name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
-    <value>Sertifika parolası giriş modu anahtarı</value>
+    <value>The switch for certificate password input mode</value>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>GüvenliParolaGirişModuAnahtarı</value>
+    <value>SecurePasswordInputModeSwitch</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
-    <value>Güvenli dize biçimindeki istemci sertifikası parolası</value>
+    <value>The password for client certificate in secure string format</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
-    <value>İstemci Sertifikası Güvenli Parolası</value>
+    <value>Client Certificate Secure Password</value>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
-    <value>Parola giriş modu anahtarı</value>
+    <value>The switch for password input mode</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>ParolaGirişModuDüğmesi</value>
+    <value>PasswordInputModeSwitch</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
-    <value>Güvenli dize biçiminde parola</value>
+    <value>The password in secure string format</value>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
-    <value>Güvenli Parola</value>
+    <value>Secure Password</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
-    <value>ClientCertificatePassword ve ClientCertificateSecurePassword öğelerinin ikisi de null olmamalıdır</value>
+    <value>ClientCertificatePassword and ClientCertificateSecurePassword must not be both null</value>
   </data>
   <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
-    <value>Parola ve SecurePassword&apos;ün ikisi de null olmamalıdır</value>
+    <value>Password and SecurePassword must not be both null</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
-    <value>Kimlik doğrulaması gerektiğinde proxy için kullanılan parola</value>
+    <value>The password used for proxy if authentication is required</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
-    <value>Proxy Parolası</value>
+    <value>Proxy Password</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
-    <value>Proxy bağlantı noktası numarası</value>
+    <value>Proxy port number</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
-    <value>Proxy Ana Bilgisayar Bağlantı Noktası</value>
+    <value>Proxy Host Port</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
-    <value>Proxy ana bilgisayar adı</value>
+    <value>Proxy host name</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
-    <value>Proxy Ana Bilgisayarı</value>
+    <value>Proxy Host</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
-    <value>Proxy türü</value>
+    <value>The type of proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Proxy Türü</value>
+    <value> Proxy Type</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
-    <value>Kimlik doğrulaması gerektiğinde proxy için kullanılan kullanıcı</value>
+    <value>The user used for proxy if authentication is required</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Name" xml:space="preserve">
-    <value>Proxy Kullanıcı Adı</value>
+    <value>Proxy Username</value>
   </data>
   <data name="Proxy" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
-    <value>{0} için bir değer sağlamanız gerekir.</value>
+    <value>You must provide a value for {0}.</value>
     <comment>error message</comment>
   </data>
 </root>
