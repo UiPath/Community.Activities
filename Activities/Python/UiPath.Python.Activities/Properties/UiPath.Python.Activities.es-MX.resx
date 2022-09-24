@@ -279,7 +279,7 @@
     <value>Se utiliza para especificar la carpeta de trabajo de los scripts que se ejecutan en el ámbito actual</value>
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
-    <value>La ruta Workingfolder no es válida</value>
+    <value>La ruta de la CarpetaDeTrabajo no es válida</value>
   </data>
   <data name="InvalidVersionException" xml:space="preserve">
     <value>La versión seleccionada {0} es diferente de la versión que se encuentra {1}</value>

@@ -227,7 +227,7 @@
     <value>Jar을 로드하지 못했습니다.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>메소드 이름</value>
+    <value>메드 이름</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
@@ -241,7 +241,7 @@
     <value>Java 메서드와 동일한 순서로 지정된 인수의 목록입니다. 인수는 Null이 아니어야 합니다.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>파라미터</value>
+    <value>매개 변수</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
@@ -256,14 +256,14 @@
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>타겟 개체</value>
+    <value>대상 개체</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
     <value>메서드가 호출될 java 객체 인스턴스입니다. TargetObject 및 TargetType을 동시에 설정할 수 없습니다.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>타겟 유형</value>
+    <value>대상 유형</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">

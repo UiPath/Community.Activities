@@ -121,252 +121,252 @@
     <value>mdb</value>
   </data>
   <data name="AccessConnectionUIControl_BrowseFileFilter" xml:space="preserve">
-    <value>Bases de datos de Microsoft Access (*.mdb;*.accdb)|*.mdb;*.accdb| Todo los archivos (*.*)|*.*</value>
+    <value>Microsoft Access Databases (*.mdb;*.accdb)|*.mdb;*.accdb|All Files (*.*)|*.*</value>
   </data>
   <data name="AccessConnectionUIControl_BrowseFileTitle" xml:space="preserve">
-    <value>Seleccione archivo de base de datos de Microsoft Access</value>
+    <value>Select Microsoft Access Database File</value>
   </data>
   <data name="AccessConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OleDBAccessConnectionProperties.</value>
+    <value>The connection properties object must be of type OleDBAccessConnectionProperties.</value>
   </data>
   <data name="AdoDotNetConnectionProperties_NoProperties" xml:space="preserve">
-    <value>No se establecieron propiedades de conexión.</value>
+    <value>No connection properties have been set.</value>
   </data>
   <data name="AdvancedProperties" xml:space="preserve">
-    <value>Propiedades avanzadas</value>
+    <value>Advanced Properties</value>
   </data>
   <data name="Advanced_Label" xml:space="preserve">
-    <value>Avanzado...</value>
+    <value>Advanced...</value>
   </data>
   <data name="AttachRadio_Label" xml:space="preserve">
-    <value>Adjunte un archivo de base de datos:</value>
+    <value>Attach a database file:</value>
   </data>
   <data name="BrowseButton_Label" xml:space="preserve">
-    <value>Explorar...</value>
+    <value>Browse...</value>
   </data>
   <data name="BuildButton_Label" xml:space="preserve">
-    <value>Crear...</value>
+    <value>Build...</value>
   </data>
   <data name="ChooseDataSource" xml:space="preserve">
-    <value>Elegir origen de datos</value>
+    <value>Choose Data Source</value>
   </data>
   <data name="ConnectionProperties" xml:space="preserve">
-    <value>Propiedades de conexión</value>
+    <value>Connection Properties</value>
   </data>
   <data name="ConnectToDb_Label" xml:space="preserve">
-    <value>Conectarse a una base de datos</value>
+    <value>Connect to a database</value>
   </data>
   <data name="ConnStringSpec_Label" xml:space="preserve">
-    <value>Utilice la cadena de conexión:</value>
+    <value>Use connection string:</value>
   </data>
   <data name="DatabaseFileBrowseFilter" xml:space="preserve">
-    <value>Bases de datos de Microsoft SQL Server (*.mdf)|*.mdf|Todos los archivos (*.*)|*.*</value>
+    <value>Microsoft SQL Server Databases (*.mdf)|*.mdf|All files (*.*)|*.*</value>
   </data>
   <data name="DatabaseRadio_Label" xml:space="preserve">
-    <value>Seleccione o ingrese un nombre de base de datos:</value>
+    <value>Select or enter a database name:</value>
   </data>
   <data name="DataConnectionDialog_TestConnectionSucceeded" xml:space="preserve">
-    <value>La conexión de prueba se realizó correctamente.</value>
+    <value>Test connection succeeded.</value>
   </data>
   <data name="DataLinks_Label" xml:space="preserve">
-    <value>Enlaces de datos...</value>
+    <value>Data Links...</value>
   </data>
   <data name="DataProvider_Label" xml:space="preserve">
-    <value>Proveedor de datos:</value>
+    <value>Data provider:</value>
   </data>
   <data name="DataProvider_Odbc" xml:space="preserve">
-    <value>Proveedor de datos de .NET Framework para ODBC</value>
+    <value>.NET Framework Data Provider for ODBC</value>
   </data>
   <data name="DataProvider_Odbc_DataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para especificar un usuario ODBC o un nombre de origen de datos del sistema para conectarse a un controlador ODBC a través del proveedor de datos de .NET Framework para ODBC.</value>
+    <value>Use this selection to specify an ODBC user or system data source name to connect to an ODBC driver through the .NET Framework Data Provider for ODBC.</value>
   </data>
   <data name="DataProvider_Odbc_Description" xml:space="preserve">
-    <value>Utilice este proveedor de datos para conectarse a orígenes de datos ODBC.</value>
+    <value>Use this data provider to connect to ODBC data sources.</value>
   </data>
   <data name="DataProvider_Odbc_Short" xml:space="preserve">
     <value>ODBC</value>
   </data>
   <data name="DataProvider_OleDB" xml:space="preserve">
-    <value>Proveedor de datos de .NET Framework para OLE DB</value>
+    <value>.NET Framework Data Provider for OLE DB</value>
   </data>
   <data name="DataProvider_OleDB_AccessDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a un archivo de base de datos de Microsoft Access a través del proveedor de datos de .NET Framework para OLE DB.</value>
+    <value>Use this selection to connect to a Microsoft Access database file through the .NET Framework Data Provider for OLE DB.</value>
   </data>
   <data name="DataProvider_OleDB_Description" xml:space="preserve">
-    <value>Utilice este proveedor de datos para conectarse a orígenes de datos OLE DB.</value>
+    <value>Use this data provider to connect to OLE DB data sources.</value>
   </data>
   <data name="DataProvider_OleDB_OracleDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a Oracle 7.3, 8i, 9i o 10g mediante el proveedor MSDAORA nativo a través del proveedor de datos de .NET Framework para OLE DB.</value>
+    <value>Use this selection to connect to Oracle 7.3, 8i, 9i or 10g using the native MSDAORA provider through the .NET Framework Data Provider for OLE DB.</value>
   </data>
   <data name="DataProvider_OleDB_Short" xml:space="preserve">
     <value>OLE DB</value>
   </data>
   <data name="DataProvider_OleDB_SqlDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a Microsoft SQL Server 2000 o a una versión posterior mediante el proveedor de datos de .NET Framework para OLEDB.</value>
+    <value>Use this selection to connect to Microsoft SQL Server 2000 or above using the .NET framework data provider for OLEDB.</value>
   </data>
   <data name="DataProvider_Oracle" xml:space="preserve">
     <value>Oracle.ManagedDataAccess</value>
   </data>
   <data name="DataProvider_Oracle_DataSource_Description" xml:space="preserve">
-    <value>ODP.NET, Managed Driver es un controlador de .NET Framework 100 % de código nativo para la base de datos Oracle. No es necesario instalar ningún software adicional de Oracle Client para conectarse a la base de datos Oracle.</value>
+    <value>ODP.NET, Managed Driver is a 100% native code .NET Framework driver for Oracle Database. No additional Oracle Client software is required to be installed to connect to Oracle Database.</value>
   </data>
   <data name="DataProvider_Oracle_Description" xml:space="preserve">
-    <value>Oracle Data Provider para .NET proporciona acceso rápido a los datos desde los clientes .NET hasta las bases de datos Oracle. ODP.NET permite que las aplicaciones .NET aprovechen las características avanzadas de Oracle, como Oracle Real Application Clusters (Oracle RAC) y XML DB. Es accesible a través de cualquier lenguaje .NET, incluidos C#, Visual Basic .NET y C++ .NET.</value>
+    <value>Oracle Data Provider for .NET provides fast data access from .NET clients to Oracle databases. ODP.NET enables .NET applications to take advantage of Oracle advanced features, such as Oracle Real Application Clusters (Oracle RAC) and XML DB. It is accessible through any .NET language, including C#, Visual Basic .NET, and C++ .NET.</value>
   </data>
   <data name="DataProvider_Oracle_Short" xml:space="preserve">
     <value>OracleClient</value>
   </data>
   <data name="DataProvider_Sql" xml:space="preserve">
-    <value>Proveedor de datos de .NET Framework para SQL Server</value>
+    <value>.NET Framework Data Provider for SQL Server</value>
   </data>
   <data name="DataProvider_Sql_DataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a Microsoft SQL Server 2005 o a una versión posterior mediante el proveedor de datos de .NET Framework para SQL Server.</value>
+    <value>Use this selection to connect to Microsoft SQL Server 2005 or above using the .NET Framework Data Provider for SQL Server.</value>
   </data>
   <data name="DataProvider_Sql_Description" xml:space="preserve">
-    <value>Utilice este proveedor de datos para conectarse a Microsoft SQL Server 2005 o a una versión posterior.</value>
+    <value>Use this data provider to connect to Microsoft SQL Server 2005 or above.</value>
   </data>
   <data name="DataProvider_Sql_FileDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para adjuntar un archivo de base de datos a una instancia local de Microsoft SQL Server (incluido Microsoft SQL Express) mediante el proveedor de datos de .NET Framework para SQL Server.</value>
+    <value>Use this selection to attach a database file to a local Microsoft SQL Server instance (including Microsoft SQL Express) using the .NET Framework Data Provider for SQL Server.</value>
   </data>
   <data name="DataProvider_Sql_Short" xml:space="preserve">
     <value>SqlClient</value>
   </data>
   <data name="DataSourceContent_Label" xml:space="preserve">
-    <value>Detalles</value>
+    <value>Details</value>
   </data>
   <data name="DataSourceDescription_Label" xml:space="preserve">
-    <value>Descripción</value>
+    <value>Description</value>
   </data>
   <data name="DataSourceGroupBox_Label" xml:space="preserve">
-    <value>Especificación del origen de datos</value>
+    <value>Data source specification</value>
   </data>
   <data name="DataSourceSpec_Label" xml:space="preserve">
-    <value>Utilice el origen de datos del usuario o del sistema (solo{0} ):</value>
+    <value>Use user or system data source ({0} only):</value>
   </data>
   <data name="DataSource_CannotChangeSingleDataProvider" xml:space="preserve">
-    <value>El proveedor de datos predeterminado no se puede cambiar cuando solo hay un proveedor de datos disponible.</value>
+    <value>The default data provider cannot be changed when there is only one data provider available.</value>
   </data>
   <data name="DataSource_DataProviderNotFound" xml:space="preserve">
-    <value>No se encontró el proveedor de datos.</value>
+    <value>The data provider was not found.</value>
   </data>
   <data name="DataSource_Label" xml:space="preserve">
-    <value>Origen de datos:</value>
+    <value>Data source:</value>
   </data>
   <data name="DataSource_MicrosoftAccess" xml:space="preserve">
-    <value>Archivo de base de datos de Microsoft Access</value>
+    <value>Microsoft Access Database File</value>
   </data>
   <data name="DataSource_MicrosoftOdbcDsn" xml:space="preserve">
-    <value>Origen de datos ODBC de Microsoft</value>
+    <value>Microsoft ODBC Data Source</value>
   </data>
   <data name="DataSource_MicrosoftSqlServer" xml:space="preserve">
     <value>Microsoft SQL Server</value>
   </data>
   <data name="DataSource_MicrosoftSqlServerFile" xml:space="preserve">
-    <value>Archivo de base de datos de Microsoft SQL Server</value>
+    <value>Microsoft SQL Server Database File</value>
   </data>
   <data name="DataSource_UnspecifiedDisplayName" xml:space="preserve">
     <value>&lt;other&gt;</value>
   </data>
   <data name="Error_Label" xml:space="preserve">
-    <value>Error</value>
+    <value>錯誤</value>
   </data>
   <data name="FileName_Label" xml:space="preserve">
-    <value>Nombre del archivo de base de datos:</value>
+    <value>Database file name:</value>
   </data>
   <data name="LogicalName_Label" xml:space="preserve">
-    <value>Nombre lógico:</value>
+    <value>Logical name:</value>
   </data>
   <data name="LogonDBGroupBox_Label" xml:space="preserve">
-    <value>Inicie sesión en la base de datos</value>
+    <value>Log on to database</value>
   </data>
   <data name="LogonGroupBox_Label" xml:space="preserve">
-    <value>Inicie sesión en el servidor</value>
+    <value>Log on to server</value>
   </data>
   <data name="OdbcConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OdbcConnectionProperties.</value>
+    <value>The connection properties object must be of type OdbcConnectionProperties.</value>
   </data>
   <data name="OdbcConnectionUIControl_SQLAllocConnectFailed" xml:space="preserve">
-    <value>Se produjo un error al asignar el identificador de conexión ODBC.</value>
+    <value>Failed to allocate ODBC connection handle.</value>
   </data>
   <data name="OdbcConnectionUIControl_SQLAllocEnvFailed" xml:space="preserve">
-    <value>Se produjo un error al asignar el identificador de entorno ODBC.</value>
+    <value>Failed to allocate ODBC environment handle.</value>
   </data>
   <data name="OdbcConnectionUIControl_SQLDriverConnectFailed" xml:space="preserve">
-    <value>Se produjo un error al llamar a la utilidad de conexión del controlador ODBC.</value>
+    <value>Failed to call the ODBC driver connection utility.</value>
   </data>
   <data name="OleDBConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OleDBConnectionProperties.</value>
+    <value>The connection properties object must be of type OleDBConnectionProperties.</value>
   </data>
   <data name="OleDBConnectionUIInitialCatalog_Label" xml:space="preserve">
-    <value>Catálogo inicial:</value>
+    <value>Initial catalog:</value>
   </data>
   <data name="OleDBConnectionUILocationGroup_Label" xml:space="preserve">
-    <value>Introduzca un nombre de servidor o archivo</value>
+    <value>Enter a server or file name</value>
   </data>
   <data name="OleDBConnectionUILocation_Label" xml:space="preserve">
-    <value>Ubicación:</value>
+    <value>Location:</value>
   </data>
   <data name="OleDBConnectionUISavePassword_Label" xml:space="preserve">
-    <value>Guardar contraseña</value>
+    <value>Save password</value>
   </data>
   <data name="OleDBConnectionUIServer_Label" xml:space="preserve">
-    <value>Nombre del servidor o archivo:</value>
+    <value>Server or file name:</value>
   </data>
   <data name="OleDBConnectionUISSPI_Label" xml:space="preserve">
-    <value>Utilice la seguridad integrada</value>
+    <value>Use Integrated Security</value>
   </data>
   <data name="OleDBConnectionUIUserBlankPassword_Label" xml:space="preserve">
-    <value>Contraseña en blanco</value>
+    <value>Blank password</value>
   </data>
   <data name="OleDBConnectionUIUserPassword_Label" xml:space="preserve">
-    <value>Utilice un nombre de usuario y una contraseña específicos</value>
+    <value>Use a specific user name and password</value>
   </data>
   <data name="OLEDBProvider_Label" xml:space="preserve">
-    <value>Proveedor OLE DB:</value>
+    <value>OLE DB Provider:</value>
   </data>
   <data name="OracleConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OracleConnectionProperties u OleDBOracleConnectionProperties.</value>
+    <value>The connection properties object must be of type OracleConnectionProperties or OleDBOracleConnectionProperties.</value>
   </data>
   <data name="OracleConnectionUIHostname_Label" xml:space="preserve">
-    <value>Nombre de anfitrión:</value>
+    <value>Hostname:</value>
   </data>
   <data name="OracleConnectionUIPort_Label" xml:space="preserve">
-    <value>Puerto:</value>
+    <value>Port:</value>
   </data>
   <data name="OracleConnectionUIService_Label" xml:space="preserve">
-    <value>Nombre del servicio:</value>
+    <value>Service name:</value>
   </data>
   <data name="Password_Label" xml:space="preserve">
-    <value>Contraseña:</value>
+    <value>Password:</value>
   </data>
   <data name="Refresh_Label" xml:space="preserve">
-    <value>Actualizar</value>
+    <value>Refresh</value>
   </data>
   <data name="SavePassword_Label" xml:space="preserve">
-    <value>Guardar mi contraseña</value>
+    <value>Save my password</value>
   </data>
   <data name="Server_Label" xml:space="preserve">
-    <value>Nombre del servidor:</value>
+    <value>Server name:</value>
   </data>
   <data name="SQLAuthentication_Label" xml:space="preserve">
-    <value>Utilice la autenticación de SQL Server</value>
+    <value>Use SQL Server authentication</value>
   </data>
   <data name="SqlConnectionProperties_CannotTestNonExistentDatabase" xml:space="preserve">
-    <value>Esta conexión no se puede probar porque la base de datos especificada no existe o no puede verla el usuario especificado.</value>
+    <value>This connection cannot be tested because the specified database does not exist or is not visible to the specified user.</value>
   </data>
   <data name="SqlConnectionProperties_MustSpecifyDataSource" xml:space="preserve">
-    <value>Esta conexión no se puede probar porque no se especificó ningún nombre de servidor.</value>
+    <value>This connection cannot be tested because no server name has been specified.</value>
   </data>
   <data name="SqlFileConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo SqlFileConnectionProperties.</value>
+    <value>The connection properties object must be of type SqlFileConnectionProperties.</value>
   </data>
   <data name="TestConnection_Label" xml:space="preserve">
-    <value>Conexión de prueba</value>
+    <value>Test connection</value>
   </data>
   <data name="Username_Label" xml:space="preserve">
-    <value>Nombre de usuario:</value>
+    <value>User name:</value>
   </data>
   <data name="WindowsAuthentication_Label" xml:space="preserve">
-    <value>Use la autenticación de Windows</value>
+    <value>Use Windows authentication</value>
   </data>
 </root>

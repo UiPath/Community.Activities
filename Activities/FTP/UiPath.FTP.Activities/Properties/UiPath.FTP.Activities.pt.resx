@@ -169,7 +169,7 @@
     <value>Saída</value>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Substituir</value>
+    <value>Overwrite</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Palavra-passe</value>
@@ -688,7 +688,7 @@
     <value>O comutador para o modo de entrada da palavra-passe do certificado</value>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>SecurePasswordInputModeSwitch</value>
+    <value>ComutadorDoModoDeEntradaDePalavra-PasseSeguro</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
     <value>A palavra-passe para o certificado de cliente no formato de cadeia segura</value>
@@ -708,7 +708,7 @@
     <value>A palavra-passe no formato de cadeia segura</value>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
-    <value>Secure Password</value>
+    <value>Palavra-passe Segura</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
     <value>ClientCertificatePassword e ClientCertificateSecurePassword não podem ser ambas nulas</value>
@@ -720,25 +720,25 @@
     <value>A palavra-passe utilizada para o proxy se for necessária autenticação</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
-    <value>Proxy Password</value>
+    <value>Palavra-passe do Proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
     <value>Número da porta proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
-    <value>Proxy Host Port</value>
+    <value>Porta do Anfitrião Proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
     <value>Nome de anfitrião proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
-    <value>Proxy Host</value>
+    <value>Anfitrião Proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
     <value>O tipo de proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Proxy Type</value>
+    <value> Tipo de Proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>O utilizador utilizado para o proxy se for necessária autenticação</value>

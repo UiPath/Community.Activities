@@ -261,7 +261,7 @@
     <value>Mover elemento</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Mover elemento</value>
     <comment>Activity name</comment>
   </data>
   <data name="UploadFilesDescription" xml:space="preserve">
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>Eliminar archivo o carpeta</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move file or folder</value>
+    <value>Mover archivo o carpeta</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -688,7 +688,7 @@
     <value>El conmutador para el modo de entrada de la contraseña del certificado</value>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>SecurePasswordInputModeSwitch</value>
+    <value>ConmutadorModoEntradaContraseñaProtegida</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
     <value>La contraseña para el certificado de cliente en formato de cadena segura</value>
@@ -708,7 +708,7 @@
     <value>La contraseña en formato de cadena segura</value>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
-    <value>Secure Password</value>
+    <value>Contraseña segura</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
     <value>ClientCertificatePassword y ClientCertificateSecurePassword no pueden ser nulos</value>

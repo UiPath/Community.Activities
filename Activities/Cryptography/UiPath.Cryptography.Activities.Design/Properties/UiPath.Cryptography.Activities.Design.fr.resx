@@ -227,7 +227,7 @@
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Écraser</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Résultat</value>
@@ -236,7 +236,7 @@
     <value>Cryptographie</value>
   </data>
   <data name="CategorySystem" xml:space="preserve">
-    <value>Système</value>
+    <value>System</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
     <value>NomComplet</value>
