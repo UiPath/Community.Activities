@@ -58,8 +58,6 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_DecryptFile_Property_Key_Name",
           "TooltipKey": "Activity_DecryptFile_Property_Key_Description",
-          "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -72,8 +70,6 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_DecryptFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_DecryptFile_Property_KeySecureString_Description",
-          "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -197,7 +193,6 @@
           "DisplayNameKey": "Activity_DecryptText_Property_Key_Name",
           "TooltipKey": "Activity_DecryptText_Property_Key_Description",
           "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -211,7 +206,6 @@
           "DisplayNameKey": "Activity_DecryptText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_DecryptText_Property_KeySecureString_Description",
           "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -310,7 +304,6 @@
           "DisplayNameKey": "Activity_EncryptFile_Property_Key_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Key_Description",
           "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -324,7 +317,6 @@
           "DisplayNameKey": "Activity_EncryptFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_EncryptFile_Property_KeySecureString_Description",
           "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -448,7 +440,6 @@
           "DisplayNameKey": "Activity_EncryptText_Property_Key_Name",
           "TooltipKey": "Activity_EncryptText_Property_Key_Description",
           "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -462,7 +453,6 @@
           "DisplayNameKey": "Activity_EncryptText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_EncryptText_Property_KeySecureString_Description",
           "IsRequired": true,
-          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -560,23 +550,6 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_Key_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_Key_Description",
-          "IsRequired": true,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "KeyInputModeSwitch",
-          "DisplayNameKey": "Activity_KeyedHashFile_Property_Algorithm_Name",
-          "TooltipKey": "Activity_KeyedHashFile_Property_Algorithm_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
           "Category": {
             "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
@@ -588,9 +561,6 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_KeySecureString_Description",
-          "IsRequired": true,
-          "IsPrincipal": false,
-          "IsVisible": true,
           "Category": {
             "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
@@ -673,9 +643,6 @@
           "Name": "Key",
           "DisplayNameKey": "Activity_KeyedHashText_Property_Key_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_Key_Description",
-          "IsRequired": true,
-          "IsPrincipal": false,
-          "IsVisible": true,
           "Category": {
             "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
@@ -687,9 +654,6 @@
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_KeyedHashText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_KeySecureString_Description",
-          "IsRequired": true,
-          "IsPrincipal": false,
-          "IsVisible": true,
           "Category": {
             "Name": null,
             "DisplayNameKey": "Category_Principal_Name"

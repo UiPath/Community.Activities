@@ -167,12 +167,6 @@
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES uses a key that is 16 or 24 bytes long. The length of your key depends on the Encoding.</value>
   </data>
-  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>The key and the secure string must not be both not null.</value>
-  </data>
-  <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>The key and the secure string must not be both null.</value>
-  </data>
   <data name="KeySecureString" xml:space="preserve">
     <value>KeySecureString</value>
   </data>
@@ -778,5 +772,29 @@
   <data name="Category_Options_Name" xml:space="preserve">
     <value>Options</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Use Key Secure String</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>Use Key</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Use Key Secure String</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>Use Key</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>The key and the secure string must not be both not null.</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>The key and the secure string must not be both null.</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>The Key must not be null</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>The Key Secure String must not be null</value>
   </data>
 </root>

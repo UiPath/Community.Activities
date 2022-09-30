@@ -42,9 +42,13 @@ namespace UiPath.Cryptography
         {
             byte[] result;
 
-            using (KeyedHashAlgorithm algorithm = GetKeyedHashAlgorithm(keyedHashAlgorithm))
+            using (HashAlgorithm algorithm = GetKeyedHashAlgorithm(keyedHashAlgorithm))
             {
-                algorithm.Key = keyBytes;
+                if (algorithm is KeyedHashAlgorithm hashAlgorithm)
+                {
+                    hashAlgorithm.Key = keyBytes;
+                }
+                
                 result = algorithm.ComputeHash(inputBytes);
 
                 algorithm.Clear();
@@ -218,7 +222,7 @@ namespace UiPath.Cryptography
             }
         }
 
-        private static KeyedHashAlgorithm GetKeyedHashAlgorithm(KeyedHashAlgorithms keyedHashAlgorithm)
+        private static HashAlgorithm GetKeyedHashAlgorithm(KeyedHashAlgorithms keyedHashAlgorithm)
         {
             switch (keyedHashAlgorithm)
             {
@@ -246,7 +250,14 @@ namespace UiPath.Cryptography
                 case KeyedHashAlgorithms.MACTripleDES: // TODO: What about padding mode?
                     return new MACTripleDES(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
 #endif
-
+                case KeyedHashAlgorithms.SHA1:
+                    return SHA1.Create();
+                case KeyedHashAlgorithms.SHA256:
+                    return SHA256.Create();
+                case KeyedHashAlgorithms.SHA384:
+                    return SHA384.Create();
+                case KeyedHashAlgorithms.SHA512:
+                    return SHA512.Create();
                 default:
                     throw new InvalidOperationException(Resources.UnsupportedKeyedHashAlgorithmException);
             }

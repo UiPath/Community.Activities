@@ -16,6 +16,7 @@
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Activities.Metadata" />
+		<PackageReference Include="System.Activities.ViewModels" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="UiPath.Activities.Api" />
@@ -63,6 +64,6 @@
 		<Folder Include="Resources\" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Condition="'$(TargetFramework)' != 'net5.0'" Remove="NetCore/**" />
+		<Compile Condition="'$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
 	</ItemGroup>
 </Project>

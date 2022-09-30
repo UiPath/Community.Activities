@@ -1177,6 +1177,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Key.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_Key_SwitchName {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_Key_SwitchName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The switch between Key and Secure String Key.
         /// </summary>
         public static string Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description {
@@ -1209,6 +1218,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_KeyedHashFile_Property_KeySecureString_Name {
             get {
                 return ResourceManager.GetString("Activity_KeyedHashFile_Property_KeySecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Key Secure String.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_KeySecureString_SwitchName {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_KeySecureString_SwitchName", resourceCulture);
             }
         }
         
@@ -1339,6 +1357,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Key.
+        /// </summary>
+        public static string Activity_KeyedHashText_Property_Key_SwitchName {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashText_Property_Key_SwitchName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The switch between Key and Secure String Key.
         /// </summary>
         public static string Activity_KeyedHashText_Property_KeyInputModeSwitch_Description {
@@ -1371,6 +1398,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_KeyedHashText_Property_KeySecureString_Name {
             get {
                 return ResourceManager.GetString("Activity_KeyedHashText_Property_KeySecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Key Secure String.
+        /// </summary>
+        public static string Activity_KeyedHashText_Property_KeySecureString_SwitchName {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashText_Property_KeySecureString_SwitchName", resourceCulture);
             }
         }
         
@@ -1564,6 +1600,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Key must not be null.
+        /// </summary>
+        public static string KeyNullError {
+            get {
+                return ResourceManager.GetString("KeyNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to KeySecureString.
         /// </summary>
         public static string KeySecureString {
@@ -1578,6 +1623,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string KeySecureStringDisplayName {
             get {
                 return ResourceManager.GetString("KeySecureStringDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Key Secure String must not be null.
+        /// </summary>
+        public static string KeySecureStringNullError {
+            get {
+                return ResourceManager.GetString("KeySecureStringNullError", resourceCulture);
             }
         }
         

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.Properties;
@@ -45,7 +46,7 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [RequiredArgument]
+        [Browsable(false)]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Encoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Encoding_Description))]
@@ -84,6 +85,20 @@ namespace UiPath.Cryptography.Activities
                 var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                 metadata.AddValidationError(error);
             }
+            if (Algorithm.ToString().StartsWith(nameof(HMAC)))
+            {
+                if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
+                {
+                    var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
+                    metadata.AddValidationError(error);
+                }
+                if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                {
+                    // the validation error is added for having the both fields validated  
+                    var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
+                    metadata.AddValidationError(error);
+                }
+            }
 #if NET461
             if (Algorithm == KeyedHashAlgorithms.MACTripleDES)
             {
@@ -108,16 +123,22 @@ namespace UiPath.Cryptography.Activities
                 if (string.IsNullOrWhiteSpace(filePath) && inputFile == null)
                     throw new ArgumentNullException(Resources.FilePathDisplayName);
 
-                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+                if (Algorithm.ToString().StartsWith(nameof(HMAC)))
+                {
+                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                    }
+                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                    }
+                }
 
                 //either input file path or input file as resource should be used
                 if (!string.IsNullOrWhiteSpace(filePath) && inputFile != null)
                     throw new ArgumentException(string.Format(Resources.Exception_UseOnlyFilePathOrInputResource,
                         Resources.Activity_KeyedHashFile_Property_InputFile_Name, Resources.Activity_KeyedHashFile_Property_FilePath_Name));
-
-                if (key != null && keySecureString != null)
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
 
                 if (keyEncoding == null)
                     throw new ArgumentNullException(Resources.Encoding);
