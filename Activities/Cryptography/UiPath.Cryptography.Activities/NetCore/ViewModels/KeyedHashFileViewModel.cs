@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Security;
+using System.Security.Cryptography;
 using System.Text;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
@@ -72,14 +74,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeModel();
             var propertyOrderIndex = 1;
 
+            Algorithm.IsPrincipal = true;
+            Algorithm.OrderIndex = propertyOrderIndex++;
+            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
+            Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
             InputFile.IsPrincipal = true;
             InputFile.IsRequired = true;
             InputFile.OrderIndex = propertyOrderIndex++;
-
-            Algorithm.IsPrincipal = true;
-            Algorithm.OrderIndex = propertyOrderIndex++;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512);
-            Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -96,20 +98,21 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             ContinueOnError.IsPrincipal = false;
             ContinueOnError.OrderIndex = propertyOrderIndex++;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
 
             MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
-                .AddMenuProperty(Key, KeyInputMode.Key)
-                .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
-                .BuildAndInsertMenuActions();
+    .AddMenuProperty(Key, KeyInputMode.Key)
+    .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
+    .BuildAndInsertMenuActions();
         }
-
         /// <inheritdoc/>
         protected override void InitializeRules()
         {
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
+            Rule(nameof(Algorithm), AlgorithmChanged_Action);
+
         }
 
         /// <inheritdoc/>
@@ -127,12 +130,48 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
+                    Key.IsRequired = true;
                     Key.IsVisible = true;
                     KeySecureString.IsVisible = false;
+                    KeySecureString.IsRequired = false;
                     break;
                 case KeyInputMode.SecureKey:
+                    Key.IsRequired = false;
                     Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
+                    KeySecureString.IsRequired = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Algorithm has changed. Set controls visibility based on selection
+        /// </summary>
+        private void AlgorithmChanged_Action()
+        {
+            switch (Algorithm.Value.ToString().StartsWith(nameof(HMAC)))
+            {
+                case true:
+                    if (KeyInputModeSwitch.Value == KeyInputMode.Key)
+                    {
+                        Key.IsVisible = true;
+                        Key.IsRequired = true;
+                        KeySecureString.IsVisible = false;
+                    }
+                    else
+                    {
+                        Key.IsVisible = false;
+                        KeySecureString.IsRequired = true;
+                        KeySecureString.IsVisible = true;
+                    }
+                    break;
+                case false:
+                    Key.IsRequired = false;
+                    Key.IsVisible = false;
+                    KeySecureString.IsVisible = false;
+                    KeySecureString.IsRequired = false;
                     break;
                 default:
                     throw new NotImplementedException();

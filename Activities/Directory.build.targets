@@ -3,7 +3,8 @@
 		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20220401-03" />
 		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20220401-03" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="6.0.0-20220318.2" />
-		<PackageReference Update="System.Activities.Metadata" Version="6.0.0-20220318.2"/>
+		<PackageReference Update="System.Activities.Metadata" Version="6.0.0-20220831.1" PrivateAssets="All"/>
+		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20220906.1"/>
 	</ItemGroup>
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net5'))">
 		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />

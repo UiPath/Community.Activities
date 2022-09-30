@@ -4,6 +4,7 @@ using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.Security;
 using System.Text;
+using UiPath.Cryptography.Enums;
 using Xunit;
 
 namespace UiPath.Cryptography.Activities.Tests
@@ -161,7 +162,8 @@ namespace UiPath.Cryptography.Activities.Tests
             KeyedHashText keyedHash = new KeyedHashText
             {
                 Algorithm = enumValue,
-                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                KeyInputModeSwitch = KeyInputMode.SecureKey
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(KeyedHashText.Input), toHash);
