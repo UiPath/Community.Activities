@@ -688,7 +688,7 @@
     <value>A chave para o modo de entrada de senha do certificado</value>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>SecurePasswordInputModeSwitch</value>
+    <value>AlterarModoDeEntradaDaSenhaSegura</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
     <value>A senha para o certificado do cliente em formato de string segura</value>
@@ -697,7 +697,7 @@
     <value>Senha segura do certificado do cliente</value>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
-    <value>The switch for password input mode</value>
+    <value>O comutador do modo de entrada da senha</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
@@ -708,7 +708,7 @@
     <value>A senha em formato de string segura</value>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
-    <value>Secure Password</value>
+    <value>Senha Segura</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
     <value>ClientCertificatePassword e ClientCertificateSecurePassword não devem ser nulos</value>

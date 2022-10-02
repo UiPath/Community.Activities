@@ -118,665 +118,665 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FipsComplianceWarning" xml:space="preserve">
-    <value>O algoritmo selecionado não tem uma implementação compatível com FIPS. Isto pode não funcionar em alguns computadores.</value>
+    <value>所選演算法沒有符合 FIPS 的實作。這可能無法在某些電腦上運作。</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Entrada</value>
+    <value>輸入</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
-    <value>Texto</value>
+    <value>文字</value>
     <comment>property name</comment>
   </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
-    <value>O ficheiro não existe.</value>
+    <value>此檔案不存在。</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>Caminho do Ficheiro</value>
+    <value>檔案路徑</value>
     <comment>property name</comment>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>CaminhoEntrada</value>
+    <value>輸入路徑</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>CaminhoSaída</value>
+    <value>輸出路徑</value>
     <comment>property name</comment>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
-    <value>O ficheiro já existe.</value>
+    <value>此檔案已存在。</value>
   </data>
   <data name="GenericCryptographicException" xml:space="preserve">
-    <value>Falha numa operação criptográfica. Certifique-se de que utiliza o mesmo algoritmo e a mesma chave para as operações de encriptação e desencriptação.</value>
+    <value>加密作業失敗。請確保您在加密和解密作業中使用相同的演算法和金鑰。</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Codificação</value>
+    <value>編碼中</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Chave</value>
+    <value>金鑰</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Saída</value>
+    <value>輸出</value>
   </data>
   <data name="Common" xml:space="preserve">
-    <value>Comum</value>
+    <value>常見</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueNoErro</value>
+    <value>錯誤時繼續</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
-    <value>O MACTripleDES utiliza uma chave de 16 ou 24 bytes. O comprimento da sua chave depende da Codificação.</value>
+    <value>MACTripleDES 使用的金鑰長度為 16 或 24 位元組。金鑰長度取決於編碼。</value>
   </data>
   <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>A chave e a cadeia segura não devem ser ambas não nulas.</value>
+    <value>金鑰和安全字串不得同時為非 null。</value>
   </data>
   <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>A chave e a cadeia segura não devem ser ambas nulas.</value>
+    <value>金鑰和安全字串不得同時為 null。</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
-    <value>KeySecureString</value>
+    <value>金鑰安全字串</value>
   </data>
   <data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>金鑰安全字串</value>
   </data>
   <data name="Activity_DecryptFile_Description" xml:space="preserve">
-    <value>Desencripta um ficheiro com base numa codificação de chave e algoritmo especificados.</value>
+    <value>根據指定的金鑰編碼和演算法解密檔案。</value>
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_DecryptFile_Name" xml:space="preserve">
-    <value>Decrypt File</value>
+    <value>解密檔案</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de desencriptação que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的解密演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo quando a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
-    <value>O caminho do ficheiro que pretende desencriptar.</value>
+    <value>您要解密的檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Caminho de Entrada</value>
+    <value>輸入路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
-    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <value>用於解譯在「金鑰」屬性中指定的金鑰的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Codificação de Chave</value>
+    <value>金鑰編碼</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
-    <value>A chave que pretende utilizar para desencriptar o ficheiro especificado.</value>
+    <value>您想用於解密指定檔案的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Chave</value>
+    <value>金鑰</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>O caminho onde pretende guardar o ficheiro desencriptado.</value>
+    <value>您要儲存解密檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Nome e localização do ficheiro de saída</value>
+    <value>輸出檔的名稱和位置</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
-    <value>Se já existir um ficheiro no caminho especificado no campo Caminho de saída, selecionar esta caixa de verificação substitui o mesmo. Se não a marcar, será criado um novo ficheiro.</value>
+    <value>如果檔案已存在於「輸出路徑」欄位中所指定的路徑，選取此核取方塊便會覆寫該檔案。若已取消勾選，則會建立新檔案。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Substituir</value>
+    <value>覆寫</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Name" xml:space="preserve">
-    <value>Decrypt Text</value>
+    <value>解密文字</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DecryptText_Description" xml:space="preserve">
-    <value>Desencripta texto com base numa codificação de chave e algoritmo especificados.</value>
+    <value>根據指定的金鑰編碼和演算法解密文字。</value>
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de desencriptação que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的解密演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo se a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>A codificação utilizada para interpretar o texto de entrada e a chave especificada na propriedade Key.</value>
+    <value>用於解譯在「金鑰」屬性中指定的輸入文字和金鑰的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Codificação</value>
+    <value>編碼中</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
-    <value>O texto que pretende desencriptar.</value>
+    <value>您要解密的文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Name" xml:space="preserve">
-    <value>Texto</value>
+    <value>文字</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>A chave que pretende utilizar para desencriptar o ficheiro especificado.</value>
+    <value>您想用於解密指定檔案的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
-    <value>Chave</value>
+    <value>金鑰</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
-    <value>O texto desencriptado, armazenado numa variável String.</value>
+    <value>儲存在字串變數中的解密文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
-    <value>Texto desencriptado</value>
+    <value>解密的文字</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Description" xml:space="preserve">
-    <value>Encripta um ficheiro com uma chave com base numa codificação de chave e algoritmo especificados.</value>
+    <value>根據指定的金鑰編碼和演算法，使用金鑰加密檔案。</value>
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_EncryptFile_Name" xml:space="preserve">
-    <value>Encrypt File</value>
+    <value>加密檔案</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de encriptação que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的加密演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
-    <value>O caminho do ficheiro que pretende encriptar.</value>
+    <value>您要加密的檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Caminho de Entrada</value>
+    <value>輸入路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
-    <value>A chave que pretende utilizar para encriptar o ficheiro especificado.</value>
+    <value>您想用於加密指定檔案的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Chave</value>
+    <value>金鑰</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
-    <value>A cadeia segura utilizada para desencriptar o ficheiro de entrada.</value>
+    <value>用於解密輸入檔案的安全字串。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>String de Chave Segura</value>
+    <value>金鑰安全字串</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
-    <value>A cadeia segura utilizada para desencriptar a cadeia de entrada.</value>
+    <value>用於解密輸入字串的安全字串。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>String de Chave Segura</value>
+    <value>金鑰安全字串</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo quando a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
-    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <value>用於解譯在「金鑰」屬性中指定的金鑰的編碼。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Codificação de Chave</value>
+    <value>金鑰編碼</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
-    <value>A cadeia segura utilizada para encriptar o ficheiro de entrada.</value>
+    <value>用於加密輸入檔的安全字串。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>String de Chave Segura</value>
+    <value>金鑰安全字串</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>O caminho onde pretende guardar o ficheiro encriptado.</value>
+    <value>您要儲存加密檔案的路徑。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Nome e localização do ficheiro de saída</value>
+    <value>輸出檔的名稱和位置</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
-    <value>Se já existir um ficheiro no caminho especificado no campo Caminho de saída, selecionar esta caixa de verificação substitui o mesmo. Se não a marcar, será criado um novo ficheiro.</value>
+    <value>如果檔案已存在於「輸出路徑」欄位中所指定的路徑，選取此核取方塊便會覆寫該檔案。若已取消勾選，則會建立新檔案。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Substituir</value>
+    <value>覆寫</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptText_Description" xml:space="preserve">
-    <value>Encripta uma cadeia com uma chave com base numa codificação de chave e algoritmo especificados.</value>
+    <value>根據指定的金鑰編碼和演算法，使用金鑰加密字串。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EncryptText_Name" xml:space="preserve">
-    <value>Encrypt Text</value>
+    <value>加密文字</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de encriptação que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的加密演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo quando a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>A codificação utilizada para interpretar o texto de entrada e a chave especificada na propriedade Key.</value>
+    <value>用於解譯在「金鑰」屬性中指定的輸入文字和金鑰的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Codificação</value>
+    <value>編碼中</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
-    <value>O texto que pretende encriptar.</value>
+    <value>您要加密的文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Name" xml:space="preserve">
-    <value>Texto</value>
+    <value>文字</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Description" xml:space="preserve">
-    <value>A cadeia segura utilizada para encriptar a cadeia de entrada.</value>
+    <value>用於加密輸入字串的安全字串。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>String de Chave Segura</value>
+    <value>金鑰安全字串</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>A chave que pretende utilizar para encriptar o ficheiro especificado.</value>
+    <value>您想用於加密指定檔案的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
-    <value>Chave</value>
+    <value>金鑰</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
-    <value>O texto encriptado, armazenado numa variável String.</value>
+    <value>儲存在字串變數中的加密文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
-    <value>Texto Encriptado</value>
+    <value>加密的文字</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Aplica hash a um ficheiro com uma chave utilizando um formato de codificação e algoritmo especificados e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>透過指定的演算法和編碼格式，使用金鑰雜湊處理檔案，並傳回所產生雜湊的十六進位字串表示。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Hash File</value>
+    <value>雜湊檔案</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de aplicação de hash com chave que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的索引雜湊演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo quando a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
-    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <value>用於解譯在「金鑰」屬性中指定的金鑰的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
-    <value>Codificação</value>
+    <value>編碼中</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
-    <value>O caminho do ficheiro em que pretende aplicar hash.</value>
+    <value>您要進行雜湊處理的檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>Caminho do ficheiro</value>
+    <value>檔案路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
-    <value>A cadeia segura utilizada para aplicar hash ao ficheiro fornecido.</value>
+    <value>用於雜湊處理提供的檔案的安全字串。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>String de Chave Segura</value>
+    <value>金鑰安全字串</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
-    <value>A chave que pretende utilizar para aplicar hash ao ficheiro especificado.</value>
+    <value>您想用於雜湊處理指定檔案的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
-    <value>Chave</value>
+    <value>金鑰</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
-    <value>O ficheiro com hash aplicado, armazenado numa variável String.</value>
+    <value>儲存在字串變數中的雜湊檔案。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
-    <value>Hash</value>
+    <value>雜湊</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Aplica hash a uma cadeia com uma chave utilizando um algoritmo especificado e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>透過指定的演算法，使用金鑰對字串進行雜湊處理，並傳回所產生雜湊的十六進位字串表示。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>Hash Text</value>
+    <value>雜湊文字</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de aplicação de hash com chave que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的索引雜湊演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo quando a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
-    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <value>用於解譯在「金鑰」屬性中指定的金鑰的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Codificação</value>
+    <value>編碼中</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
-    <value>O texto ao qual pretende aplicar hash.</value>
+    <value>您要雜湊處理的文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Name" xml:space="preserve">
-    <value>Texto</value>
+    <value>文字</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Description" xml:space="preserve">
-    <value>A cadeia segura utilizada para aplicar hash à cadeia de entrada.</value>
+    <value>用於雜湊處理輸入字串的安全字串。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>String de Chave Segura</value>
+    <value>金鑰安全字串</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>A chave que pretende utilizar para aplicar hash ao ficheiro especificado.</value>
+    <value>您想用於雜湊處理指定檔案的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
-    <value>Chave</value>
+    <value>金鑰</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
-    <value>O texto com hash aplicado, armazenado numa variável String.</value>
+    <value>儲存在字串變數中的雜湊文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
-    <value>Hash</value>
+    <value>雜湊</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Aplica o algoritmo de aplicação de hash selecionado nos conteúdos do ficheiro fornecido e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>對所提供檔案的內容套用所選的雜湊演算法，並傳回所產生雜湊結果的十六進位字串表示。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Hash File (preterido)</value>
+    <value>雜湊檔案 (已淘汰)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de aplicação de hash que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的雜湊演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo quando a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
-    <value>O caminho do ficheiro em que pretende aplicar hash.</value>
+    <value>您要雜湊處理的檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>Caminho do Ficheiro</value>
+    <value>檔案路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
-    <value>O ficheiro com hash aplicado, armazenado numa variável String.</value>
+    <value>儲存在字串變數中的雜湊檔案。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
-    <value>Hash</value>
+    <value>雜湊</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Aplica hash a uma cadeia utilizando um algoritmo especificado e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>使用指定的演算法雜湊處理字串，並傳回所產生雜湊的十六進位字串表示。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Hash Text (preterido)</value>
+    <value>雜湊文字 (已淘汰)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
-    <value>Um menu pendente que lhe permite selecionar o algoritmo de aplicação de hash que pretende utilizar.</value>
+    <value>下拉式功能表，用於選取要使用的雜湊演算法。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algoritmo</value>
+    <value>演算法</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Especifica se a automatização deve continuar, mesmo quando a atividade gerar um erro.</value>
+    <value>指定即使活動擲回錯誤，是否仍應繼續進行自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue No Erro</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
-    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <value>用於解譯在「金鑰」屬性中指定的金鑰的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Codificação</value>
+    <value>編碼中</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
-    <value>O texto ao qual pretende aplicar hash.</value>
+    <value>您要雜湊處理的文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Input_Name" xml:space="preserve">
-    <value>Texto</value>
+    <value>文字</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Result_Description" xml:space="preserve">
-    <value>O texto com hash aplicado, armazenado numa variável String.</value>
+    <value>儲存在字串變數中的雜湊文字。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
-    <value>Hash</value>
+    <value>雜湊</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Others_Name" xml:space="preserve">
-    <value>Outros</value>
+    <value>其他</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Principal_Name" xml:space="preserve">
-    <value>Principal</value>
+    <value>主體</value>
     <comment>Category name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
-    <value>A troca entre Key e Secure String Key</value>
+    <value>金鑰和安全字串金鑰之間的切換</value>
   </data>
   <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>ComutadorDoModoDeEntradaDeTeclas</value>
+    <value>金鑰輸入模式切換</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
-    <value>A troca entre Key e Secure String Key</value>
+    <value>金鑰和安全字串金鑰之間的切換</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>ComutadorDoModoDeEntradaDeTeclas</value>
+    <value>金鑰輸入模式切換</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
-    <value>A troca entre Key e Secure String Key</value>
+    <value>金鑰和安全字串金鑰之間的切換</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>ComutadorDoModoDeEntradaDeTeclas</value>
+    <value>金鑰輸入模式切換</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
-    <value>A troca entre Key e Secure String Key</value>
+    <value>金鑰和安全字串金鑰之間的切換</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>ComutadorDoModoDeEntradaDeTeclas</value>
+    <value>金鑰輸入模式切換</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
-    <value>A troca entre Key e Secure String Key</value>
+    <value>金鑰和安全字串金鑰之間的切換</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>ComutadorDoModoDeEntradaDeTeclas</value>
+    <value>金鑰輸入模式切換</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
-    <value>A troca entre Key e Secure String Key</value>
+    <value>金鑰和安全字串金鑰之間的切換</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>ComutadorDoModoDeEntradaDeTeclas</value>
+    <value>金鑰輸入模式切換</value>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
-    <value>O ficheiro encriptado</value>
+    <value>加密的檔案</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
-    <value>Ficheiro Encriptado</value>
+    <value>加密的檔案</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
-    <value>O ficheiro a ser encriptado</value>
+    <value>要加密的檔案</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
-    <value>Ficheiro</value>
+    <value>檔案</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
-    <value>O ficheiro desencriptado</value>
+    <value>解密的檔案</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
-    <value>Ficheiro Desencriptado</value>
+    <value>解密的檔案</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
-    <value>O ficheiro a ser desencriptado</value>
+    <value>要解密的檔案</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
-    <value>Ficheiro</value>
+    <value>檔案</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
-    <value>O ficheiro a receber um hash</value>
+    <value>要進行雜湊處理的檔案</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
-    <value>Ficheiro</value>
+    <value>檔案</value>
     <comment>property name</comment>
   </data>
   <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
-    <value>Só um entre {{0}} e {1} deve ter os respetivos argumentos configurados.</value>
+    <value>應只為 {{0}} 和 {1} 之一配置其引數。</value>
     <comment>exception</comment>
   </data>
   <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
-    <value>A atividade suporta apenas ficheiros e não pastas.</value>
+    <value>活動僅支援檔案，而不支援資料夾。</value>
     <comment>exception</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFileName_Description" xml:space="preserve">
-    <value>O nome de ficheiro que pretende utilizar para guardar o ficheiro encriptado.</value>
+    <value>要用於儲存加密檔案的檔案名稱。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
-    <value>Nome de Ficheiro Encriptado</value>
+    <value>加密的檔案名稱</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
-    <value>O nome de ficheiro que pretende utilizar para guardar o ficheiro desencriptado.</value>
+    <value>要用於儲存解密檔案的檔案名抽。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
-    <value>Nome de Ficheiro Desencriptado</value>
+    <value>解密檔案名稱</value>
     <comment>property name</comment>
   </data>
   <data name="Category_Options_Name" xml:space="preserve">
-    <value>Opções</value>
+    <value>Options</value>
     <comment>Category name</comment>
   </data>
 </root>

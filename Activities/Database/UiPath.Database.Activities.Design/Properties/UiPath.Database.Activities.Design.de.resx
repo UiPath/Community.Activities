@@ -242,7 +242,7 @@
     <value>(Aufzählung)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError – boolescher Wert</value>
+    <value>BeiFehlerFortsetzen – boolescher Wert</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>

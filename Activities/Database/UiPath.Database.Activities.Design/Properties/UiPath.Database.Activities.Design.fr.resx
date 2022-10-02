@@ -245,7 +245,7 @@
     <value>ContinueOnError Boolean</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>DataTable</value>
+    <value>TableDonnées</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
     <value>L’objet DataTable source pour les éléments à insérer.</value>

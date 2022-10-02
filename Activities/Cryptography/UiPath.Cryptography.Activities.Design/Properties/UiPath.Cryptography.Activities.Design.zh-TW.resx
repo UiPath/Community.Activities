@@ -117,119 +117,132 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_AddCredential_Property_AddCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
+  <data name="Algorithm" xml:space="preserve">
+    <value>演算法</value>
   </data>
-  <data name="Activity_AddCredential_Property_AddCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
-    <comment>Attribute Name</comment>
+  <data name="DecryptFileEncodingDescription" xml:space="preserve">
+    <value>用於解譯金鑰的編碼。</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü - Kimlik Bilgisi Türü için desteklenen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="DecryptFileInputPathDescription" xml:space="preserve">
+    <value>此活動將解密的檔案的路徑。</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="DecryptFileKeyDescription" xml:space="preserve">
+    <value>用於解密輸入檔的金鑰。</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
+  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
+    <value>用於儲存解密檔案的路徑。</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
-    <comment>Attribute Name</comment>
+  <data name="DecryptTextEncodingDescription" xml:space="preserve">
+    <value>用於解譯輸入字串和金鑰的編碼。</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="DecryptTextInputDescription" xml:space="preserve">
+    <value>此活動將解密的字串。</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="DecryptTextKeyDescription" xml:space="preserve">
+    <value>用於解密輸入字串的金鑰。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="DecryptTextResultDescription" xml:space="preserve">
+    <value>解密的字串。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="Encoding" xml:space="preserve">
+    <value>編碼中</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
+  <data name="EncodingDescription" xml:space="preserve">
+    <value>用於解譯輸入字串的編碼。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
-    <comment>Attribute Name</comment>
+  <data name="EncryptFileEncodingDescription" xml:space="preserve">
+    <value>用於解譯金鑰的編碼。</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
+  <data name="EncryptFileInputPathDescription" xml:space="preserve">
+    <value>此活動將加密的檔案的路徑。</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
-    <comment>Attribute Name</comment>
+  <data name="EncryptFileKeyDescription" xml:space="preserve">
+    <value>用於加密輸入檔的金鑰。</value>
   </data>
-  <data name="CategoryCredentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
+    <value>用於儲存加密檔案的路徑。</value>
   </data>
-  <data name="CategorySystem" xml:space="preserve">
-    <value>Sistem</value>
+  <data name="EncryptTextEncodingDescription" xml:space="preserve">
+    <value>用於解譯輸入字串和金鑰的編碼。</value>
   </data>
-  <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+  <data name="EncryptTextInputDescription" xml:space="preserve">
+    <value>此活動將加密的字串。</value>
   </data>
-  <data name="MessageDescription" xml:space="preserve">
-    <value>İleti</value>
+  <data name="EncryptTextKeyDescription" xml:space="preserve">
+    <value>用於加密輸入字串的金鑰。</value>
   </data>
-  <data name="MessageDisplayName" xml:space="preserve">
-    <value>İleti</value>
+  <data name="EncryptTextResultDescription" xml:space="preserve">
+    <value>經加密的輸入字串的 Base64 字串表示。</value>
   </data>
-  <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
+  <data name="FilePath" xml:space="preserve">
+    <value>檔案路徑</value>
+    <comment>property name</comment>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Çıkış</value>
+  <data name="FilePathDialogTitle" xml:space="preserve">
+    <value>檔案路徑</value>
   </data>
-  <data name="PasswordAndSecureStringNotNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
+  <data name="HashFilePathDescription" xml:space="preserve">
+    <value>此活動將雜湊處理的檔案的路徑。</value>
   </data>
-  <data name="PasswordAndSecureStringNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
+  <data name="HashFileResultDescription" xml:space="preserve">
+    <value>雜湊檔案的十六進位字串表示。</value>
   </data>
-  <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
+  <data name="HashTextInputDescription" xml:space="preserve">
+    <value>此活動將進行雜湊處理的字串。</value>
   </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Parola</value>
+  <data name="HashTextResultDescription" xml:space="preserve">
+    <value>經雜湊處理的輸入字串的十六進位字串表示。</value>
   </data>
-  <data name="PasswordSecureStringDescription" xml:space="preserve">
-    <value>Güvenli Dize Parolası</value>
+  <data name="InputFilePath" xml:space="preserve">
+    <value>輸入路徑</value>
+    <comment>property name</comment>
   </data>
-  <data name="PasswordSecureStringDisplayName" xml:space="preserve">
-    <value>Güvenli Dize Parolası </value>
+  <data name="InputString" xml:space="preserve">
+    <value>文字</value>
+    <comment>property name</comment>
   </data>
-  <data name="PersistanceTypeDescription" xml:space="preserve">
-    <value>Kalıcılık Türü </value>
+  <data name="Key" xml:space="preserve">
+    <value>金鑰</value>
   </data>
-  <data name="PersistanceTypeDisplayName" xml:space="preserve">
-    <value>PersistanceType</value>
+  <data name="KeyedHashEncodingDescription" xml:space="preserve">
+    <value>用於解譯輸入字串和金鑰的編碼。</value>
+  </data>
+  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
+    <value>用於解譯金鑰的編碼。</value>
+  </data>
+  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
+    <value>用於雜湊處理提供的檔案的金鑰。</value>
+  </data>
+  <data name="KeyedHashFileResultDescription" xml:space="preserve">
+    <value>雜湊檔案的十六進位字串表示。</value>
+  </data>
+  <data name="KeyedHashKeyDescription" xml:space="preserve">
+    <value>用於雜湊處理輸入字串的金鑰。</value>
+  </data>
+  <data name="KeyEncoding" xml:space="preserve">
+    <value>金鑰編碼</value>
+  </data>
+  <data name="OutputFilePath" xml:space="preserve">
+    <value>輸出路徑</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Overwrite" xml:space="preserve">
+    <value>覆寫</value>
   </data>
   <data name="Result" xml:space="preserve">
-    <value>Sonuç</value>
+    <value>結果</value>
   </data>
-  <data name="TargetDescription" xml:space="preserve">
-    <value>Hedef</value>
+  <data name="CategoryCryptography" xml:space="preserve">
+    <value>密碼編譯</value>
   </data>
-  <data name="TargetDisplayName" xml:space="preserve">
-    <value>Hedef</value>
+  <data name="CategorySystem" xml:space="preserve">
+    <value>系統</value>
   </data>
-  <data name="TitleDescription" xml:space="preserve">
-    <value>Başlık</value>
+  <data name="DisplayName" xml:space="preserve">
+    <value>顯示名稱</value>
+    <comment>property name</comment>
   </data>
-  <data name="TitleDisplayName" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="UsernameDisplayName" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="ValidationError_InvalidCredentialType" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü için izin verilen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>錯誤時繼續</value>
   </data>
 </root>
