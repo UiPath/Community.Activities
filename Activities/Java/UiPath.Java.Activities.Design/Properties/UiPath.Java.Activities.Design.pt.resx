@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Activity_ConvertJavaObject_Property_TypeArgument_Name" xml:space="preserve">
-    <value>Type Argument</value>
+    <value>Escrever Argumento</value>
   </data>
   <data name="AppInvokerCategory" xml:space="preserve">
     <value>Invocador de Aplicação</value>
@@ -173,7 +173,7 @@
     <value>MethodName</value>
   </data>
   <data name="ResultLabel" xml:space="preserve">
-    <value>Result</value>
+    <value>Resultado</value>
   </data>
   <data name="SetParametersLabel" xml:space="preserve">
     <value>Definir Parâmetros</value>

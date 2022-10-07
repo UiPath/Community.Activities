@@ -117,119 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_AddCredential_Property_AddCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
+  <data name="Activity_ConvertJavaObject_Property_TypeArgument_Name" xml:space="preserve">
+    <value>類型引數</value>
   </data>
-  <data name="Activity_AddCredential_Property_AddCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
-    <comment>Attribute Name</comment>
+  <data name="AppInvokerCategory" xml:space="preserve">
+    <value>應用程式啟動程式</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü - Kimlik Bilgisi Türü için desteklenen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(集合)</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="DisplayName" xml:space="preserve">
+    <value>顯示名稱</value>
+    <comment>property name</comment>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>將活動放置在此處</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
-    <comment>Attribute Name</comment>
+  <data name="EditingText" xml:space="preserve">
+    <value>正在編輯</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="FieldNameHintText" xml:space="preserve">
+    <value>欄位名稱</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="FieldNameLabel" xml:space="preserve">
+    <value>欄位名稱</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="InvokeMethodJavaObjectHintText" xml:space="preserve">
+    <value>目標物件</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="InvokeMethodResultHintText" xml:space="preserve">
+    <value>叫用方法所產生的 Java 物件結果。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
+  <data name="JarFilePathDialogTitle" xml:space="preserve">
+    <value>選取 Jar 檔。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
-    <comment>Attribute Name</comment>
+  <data name="JarPathHint" xml:space="preserve">
+    <value>Jar 路徑。文字必須使用引號括住。</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
+  <data name="JavaCategory" xml:space="preserve">
+    <value>Java</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
-    <comment>Attribute Name</comment>
+  <data name="JavaExcecutableFile" xml:space="preserve">
+    <value>Java 可執行檔。</value>
   </data>
-  <data name="CategoryCredentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+  <data name="JavaObjectHint" xml:space="preserve">
+    <value>Java 物件</value>
   </data>
-  <data name="CategorySystem" xml:space="preserve">
-    <value>Sistem</value>
+  <data name="JavaObjectLabel" xml:space="preserve">
+    <value>Java 物件</value>
   </data>
-  <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+  <data name="MethodNameHintText" xml:space="preserve">
+    <value>方法名稱</value>
   </data>
-  <data name="MessageDescription" xml:space="preserve">
-    <value>İleti</value>
+  <data name="MethodNameLabel" xml:space="preserve">
+    <value>方法名稱</value>
   </data>
-  <data name="MessageDisplayName" xml:space="preserve">
-    <value>İleti</value>
+  <data name="ResultLabel" xml:space="preserve">
+    <value>結果</value>
   </data>
-  <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
+  <data name="SetParametersLabel" xml:space="preserve">
+    <value>設定參數</value>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Çıkış</value>
+  <data name="TargetObjectHintText" xml:space="preserve">
+    <value>此方法將被叫用的 Java 物件</value>
   </data>
-  <data name="PasswordAndSecureStringNotNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
+  <data name="TargetObjectLabel" xml:space="preserve">
+    <value>目標物件</value>
   </data>
-  <data name="PasswordAndSecureStringNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
+  <data name="TargetTypeHintText" xml:space="preserve">
+    <value>目標類型</value>
   </data>
-  <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordSecureStringDescription" xml:space="preserve">
-    <value>Güvenli Dize Parolası</value>
-  </data>
-  <data name="PasswordSecureStringDisplayName" xml:space="preserve">
-    <value>Güvenli Dize Parolası </value>
-  </data>
-  <data name="PersistanceTypeDescription" xml:space="preserve">
-    <value>Kalıcılık Türü </value>
-  </data>
-  <data name="PersistanceTypeDisplayName" xml:space="preserve">
-    <value>PersistanceType</value>
-  </data>
-  <data name="Result" xml:space="preserve">
-    <value>Sonuç</value>
-  </data>
-  <data name="TargetDescription" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TargetDisplayName" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TitleDescription" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="TitleDisplayName" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="UsernameDisplayName" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="ValidationError_InvalidCredentialType" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü için izin verilen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="TargetTypeLabel" xml:space="preserve">
+    <value>目標類型</value>
   </data>
 </root>

@@ -178,7 +178,7 @@
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>El valor proporcionado para TimeoutMS debe ser &gt;= 0</value>
+    <value>El valor proporcionado para TiempoDeEsperaMS debe ser &gt;= 0</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
     <value>UsarTransacción</value>
@@ -210,7 +210,7 @@
     <value>Se debe utilizar al menos uno de los campos de cadena de conexión.</value>
   </data>
   <data name="ValidationError_ProviderNull" xml:space="preserve">
-    <value>No se proporcionó el valor del argumento de actividad requerido &quot;ProviderName&quot;</value>
+    <value>No se proporcionó el valor del argumento de actividad requerido &quot;NombreDeProveedor&quot;</value>
   </data>
   <data name="Activity_BulkInsert_Description" xml:space="preserve">
     <value>Actualiza una tabla usando operaciones masivas mediante la implementación específica del controlador de base de datos. Volverá a insertar la tabla de datos si el controlador de base de datos no admite operaciones masivas.</value>
@@ -564,7 +564,7 @@ TableDirect: invoca todos los registros de una tabla.</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Un comando sql que se ejecutará. Este campo debe completarse de acuerdo con la selección de la propiedad CommandType.</value>
+    <value>Un comando sql que se ejecutará. Este campo debe completarse de acuerdo con la selección de la propiedad TipoDeComando.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
@@ -655,7 +655,7 @@ TableDirect: invoca todos los registros de una tabla.</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Un comando sql que se ejecutará. Este campo debe completarse de acuerdo con la selección de la propiedad CommandType.</value>
+    <value>Un comando sql que se ejecutará. Este campo debe completarse de acuerdo con la selección de la propiedad TipoDeComando.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">

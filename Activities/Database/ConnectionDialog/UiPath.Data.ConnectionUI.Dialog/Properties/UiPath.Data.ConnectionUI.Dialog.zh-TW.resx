@@ -121,252 +121,252 @@
     <value>mdb</value>
   </data>
   <data name="AccessConnectionUIControl_BrowseFileFilter" xml:space="preserve">
-    <value>Bases de datos de Microsoft Access (*.mdb;*.accdb)|*.mdb;*.accdb| Todo los archivos (*.*)|*.*</value>
+    <value>Microsoft Access 資料庫 (*.mdb、*.accdb)|*.mdb、*.accdb|所有檔案 (*.*)|*.*</value>
   </data>
   <data name="AccessConnectionUIControl_BrowseFileTitle" xml:space="preserve">
-    <value>Seleccione archivo de base de datos de Microsoft Access</value>
+    <value>選取 Microsoft Access 資料庫檔案</value>
   </data>
   <data name="AccessConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OleDBAccessConnectionProperties.</value>
+    <value>連線屬性物件的類型必須為 OleDBAccessConnectionProperties。</value>
   </data>
   <data name="AdoDotNetConnectionProperties_NoProperties" xml:space="preserve">
-    <value>No se establecieron propiedades de conexión.</value>
+    <value>未設定任何連線屬性。</value>
   </data>
   <data name="AdvancedProperties" xml:space="preserve">
-    <value>Propiedades avanzadas</value>
+    <value>進階屬性</value>
   </data>
   <data name="Advanced_Label" xml:space="preserve">
-    <value>Avanzado...</value>
+    <value>進階...</value>
   </data>
   <data name="AttachRadio_Label" xml:space="preserve">
-    <value>Adjunte un archivo de base de datos:</value>
+    <value>附加資料庫檔案:</value>
   </data>
   <data name="BrowseButton_Label" xml:space="preserve">
-    <value>Explorar...</value>
+    <value>瀏覽...</value>
   </data>
   <data name="BuildButton_Label" xml:space="preserve">
-    <value>Crear...</value>
+    <value>建立...</value>
   </data>
   <data name="ChooseDataSource" xml:space="preserve">
-    <value>Elegir origen de datos</value>
+    <value>選擇資料來源</value>
   </data>
   <data name="ConnectionProperties" xml:space="preserve">
-    <value>Propiedades de conexión</value>
+    <value>連線屬性</value>
   </data>
   <data name="ConnectToDb_Label" xml:space="preserve">
-    <value>Conectarse a una base de datos</value>
+    <value>連接到資料庫</value>
   </data>
   <data name="ConnStringSpec_Label" xml:space="preserve">
-    <value>Utilice la cadena de conexión:</value>
+    <value>使用連線字串:</value>
   </data>
   <data name="DatabaseFileBrowseFilter" xml:space="preserve">
-    <value>Bases de datos de Microsoft SQL Server (*.mdf)|*.mdf|Todos los archivos (*.*)|*.*</value>
+    <value>Microsoft SQL Server 資料庫 (*.mdf)|*.mdf|所有檔案 (*.*)|*.*</value>
   </data>
   <data name="DatabaseRadio_Label" xml:space="preserve">
-    <value>Seleccione o ingrese un nombre de base de datos:</value>
+    <value>選取或輸入資料庫名稱:</value>
   </data>
   <data name="DataConnectionDialog_TestConnectionSucceeded" xml:space="preserve">
-    <value>La conexión de prueba se realizó correctamente.</value>
+    <value>測試連線已成功。</value>
   </data>
   <data name="DataLinks_Label" xml:space="preserve">
-    <value>Enlaces de datos...</value>
+    <value>資料連結...</value>
   </data>
   <data name="DataProvider_Label" xml:space="preserve">
-    <value>Proveedor de datos:</value>
+    <value>資料提供者:</value>
   </data>
   <data name="DataProvider_Odbc" xml:space="preserve">
-    <value>Proveedor de datos de .NET Framework para ODBC</value>
+    <value>.NET Framework Data Provider for ODBC</value>
   </data>
   <data name="DataProvider_Odbc_DataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para especificar un usuario ODBC o un nombre de origen de datos del sistema para conectarse a un controlador ODBC a través del proveedor de datos de .NET Framework para ODBC.</value>
+    <value>使用此選項來指定 ODBC 使用者或系統資料來源名稱，以透過 .NET Framework Data Provider for ODBC 連接到 ODBC 驅動程式。</value>
   </data>
   <data name="DataProvider_Odbc_Description" xml:space="preserve">
-    <value>Utilice este proveedor de datos para conectarse a orígenes de datos ODBC.</value>
+    <value>使用此資料提供者連接到 ODBC 資料來源。</value>
   </data>
   <data name="DataProvider_Odbc_Short" xml:space="preserve">
     <value>ODBC</value>
   </data>
   <data name="DataProvider_OleDB" xml:space="preserve">
-    <value>Proveedor de datos de .NET Framework para OLE DB</value>
+    <value>.NET Framework Data Provider for OLE DB</value>
   </data>
   <data name="DataProvider_OleDB_AccessDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a un archivo de base de datos de Microsoft Access a través del proveedor de datos de .NET Framework para OLE DB.</value>
+    <value>使用此選項，透過 .NET Framework Data Provider for OLE DB 連接到 Microsoft Access 資料庫檔案。</value>
   </data>
   <data name="DataProvider_OleDB_Description" xml:space="preserve">
-    <value>Utilice este proveedor de datos para conectarse a orígenes de datos OLE DB.</value>
+    <value>使用此資料提供者連接到 OLE DB 資料來源。</value>
   </data>
   <data name="DataProvider_OleDB_OracleDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a Oracle 7.3, 8i, 9i o 10g mediante el proveedor MSDAORA nativo a través del proveedor de datos de .NET Framework para OLE DB.</value>
+    <value>使用此選項，透過 .NET Framework Data Provider for OLE DB 連接到使用原生 MSDAORA 提供者的 Oracle 7.3、8i、9i 或 10g。</value>
   </data>
   <data name="DataProvider_OleDB_Short" xml:space="preserve">
     <value>OLE DB</value>
   </data>
   <data name="DataProvider_OleDB_SqlDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a Microsoft SQL Server 2000 o a una versión posterior mediante el proveedor de datos de .NET Framework para OLEDB.</value>
+    <value>使用此選項，透過 .NET Framework Data Provider for OLEDB 連接到 Microsoft SQL Server 2000 或更高版本。</value>
   </data>
   <data name="DataProvider_Oracle" xml:space="preserve">
     <value>Oracle.ManagedDataAccess</value>
   </data>
   <data name="DataProvider_Oracle_DataSource_Description" xml:space="preserve">
-    <value>ODP.NET, Managed Driver es un controlador de .NET Framework 100 % de código nativo para la base de datos Oracle. No es necesario instalar ningún software adicional de Oracle Client para conectarse a la base de datos Oracle.</value>
+    <value>ODP.NET，受管理驅動程式是用於 Oracle 資料庫的 100% 機器碼 .NET 架構驅動程式。無需額外安裝 Oracle 用戶端軟體即可連接到 Oracle 資料庫。</value>
   </data>
   <data name="DataProvider_Oracle_Description" xml:space="preserve">
-    <value>Oracle Data Provider para .NET proporciona acceso rápido a los datos desde los clientes .NET hasta las bases de datos Oracle. ODP.NET permite que las aplicaciones .NET aprovechen las características avanzadas de Oracle, como Oracle Real Application Clusters (Oracle RAC) y XML DB. Es accesible a través de cualquier lenguaje .NET, incluidos C#, Visual Basic .NET y C++ .NET.</value>
+    <value>Oracle Data Provider for .NET 可提供從 .NET 用戶端到 Oracle 資料庫的快速資料存取。ODP.NET 支援 .NET 應用程式利用 Oracle 進階功能，例如 Oracle Real Application Clusters (Oracle RAC) 和 XML DB。可透過任何 .NET 語言進行存取，包括 C＃、Visual Basic .NET 和 C++ .NET。</value>
   </data>
   <data name="DataProvider_Oracle_Short" xml:space="preserve">
-    <value>OracleClient</value>
+    <value>Oracle 用戶端</value>
   </data>
   <data name="DataProvider_Sql" xml:space="preserve">
-    <value>Proveedor de datos de .NET Framework para SQL Server</value>
+    <value>.NET Framework Data Provider for SQL Server</value>
   </data>
   <data name="DataProvider_Sql_DataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para conectarse a Microsoft SQL Server 2005 o a una versión posterior mediante el proveedor de datos de .NET Framework para SQL Server.</value>
+    <value>使用此選項，透過 .NET Framework Data Provider for SQL Server 連接到 Microsoft SQL Server 2005 或更高版本。</value>
   </data>
   <data name="DataProvider_Sql_Description" xml:space="preserve">
-    <value>Utilice este proveedor de datos para conectarse a Microsoft SQL Server 2005 o a una versión posterior.</value>
+    <value>使用此資料提供者連接到 Microsoft SQL Server 2005 或更高版本。</value>
   </data>
   <data name="DataProvider_Sql_FileDataSource_Description" xml:space="preserve">
-    <value>Utilice esta selección para adjuntar un archivo de base de datos a una instancia local de Microsoft SQL Server (incluido Microsoft SQL Express) mediante el proveedor de datos de .NET Framework para SQL Server.</value>
+    <value>使用此選項，透過 .NET Framework Data Provider for SQL Server 將資料庫檔附加到本機 Microsoft SQL Server 執行個體 (包括 Microsoft SQL Express)。</value>
   </data>
   <data name="DataProvider_Sql_Short" xml:space="preserve">
-    <value>SqlClient</value>
+    <value>SQL 用戶端</value>
   </data>
   <data name="DataSourceContent_Label" xml:space="preserve">
-    <value>Detalles</value>
+    <value>詳細資訊</value>
   </data>
   <data name="DataSourceDescription_Label" xml:space="preserve">
-    <value>Descripción</value>
+    <value>說明</value>
   </data>
   <data name="DataSourceGroupBox_Label" xml:space="preserve">
-    <value>Especificación del origen de datos</value>
+    <value>資料來源規格</value>
   </data>
   <data name="DataSourceSpec_Label" xml:space="preserve">
-    <value>Utilice el origen de datos del usuario o del sistema (solo{0} ):</value>
+    <value>使用使用者或系統資料來源 (僅限 {0}):</value>
   </data>
   <data name="DataSource_CannotChangeSingleDataProvider" xml:space="preserve">
-    <value>El proveedor de datos predeterminado no se puede cambiar cuando solo hay un proveedor de datos disponible.</value>
+    <value>只有一個資料提供者可用時，無法變更預設資料提供者。</value>
   </data>
   <data name="DataSource_DataProviderNotFound" xml:space="preserve">
-    <value>No se encontró el proveedor de datos.</value>
+    <value>找不到任何資料提供者。</value>
   </data>
   <data name="DataSource_Label" xml:space="preserve">
-    <value>Origen de datos:</value>
+    <value>資料來源:</value>
   </data>
   <data name="DataSource_MicrosoftAccess" xml:space="preserve">
-    <value>Archivo de base de datos de Microsoft Access</value>
+    <value>Microsoft Access 資料庫檔案</value>
   </data>
   <data name="DataSource_MicrosoftOdbcDsn" xml:space="preserve">
-    <value>Origen de datos ODBC de Microsoft</value>
+    <value>Microsoft ODBC 資料來源</value>
   </data>
   <data name="DataSource_MicrosoftSqlServer" xml:space="preserve">
     <value>Microsoft SQL Server</value>
   </data>
   <data name="DataSource_MicrosoftSqlServerFile" xml:space="preserve">
-    <value>Archivo de base de datos de Microsoft SQL Server</value>
+    <value>Microsoft SQL Server 資料庫檔案</value>
   </data>
   <data name="DataSource_UnspecifiedDisplayName" xml:space="preserve">
     <value>&lt;other&gt;</value>
   </data>
   <data name="Error_Label" xml:space="preserve">
-    <value>Error</value>
+    <value>錯誤</value>
   </data>
   <data name="FileName_Label" xml:space="preserve">
-    <value>Nombre del archivo de base de datos:</value>
+    <value>資料庫檔案名稱:</value>
   </data>
   <data name="LogicalName_Label" xml:space="preserve">
-    <value>Nombre lógico:</value>
+    <value>邏輯名稱:</value>
   </data>
   <data name="LogonDBGroupBox_Label" xml:space="preserve">
-    <value>Inicie sesión en la base de datos</value>
+    <value>登入資料庫</value>
   </data>
   <data name="LogonGroupBox_Label" xml:space="preserve">
-    <value>Inicie sesión en el servidor</value>
+    <value>登入伺服器</value>
   </data>
   <data name="OdbcConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OdbcConnectionProperties.</value>
+    <value>連線屬性物件的類型必須為 OdbcConnectionProperties。</value>
   </data>
   <data name="OdbcConnectionUIControl_SQLAllocConnectFailed" xml:space="preserve">
-    <value>Se produjo un error al asignar el identificador de conexión ODBC.</value>
+    <value>未能成功配置 ODBC 連線控制代碼。</value>
   </data>
   <data name="OdbcConnectionUIControl_SQLAllocEnvFailed" xml:space="preserve">
-    <value>Se produjo un error al asignar el identificador de entorno ODBC.</value>
+    <value>未能成功配置 ODBC 環境控制代碼。</value>
   </data>
   <data name="OdbcConnectionUIControl_SQLDriverConnectFailed" xml:space="preserve">
-    <value>Se produjo un error al llamar a la utilidad de conexión del controlador ODBC.</value>
+    <value>無法叫用 ODBC 驅動程式連線公用程式。</value>
   </data>
   <data name="OleDBConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OleDBConnectionProperties.</value>
+    <value>連線屬性物件的類型必須為 OleDBConnectionProperties。</value>
   </data>
   <data name="OleDBConnectionUIInitialCatalog_Label" xml:space="preserve">
-    <value>Catálogo inicial:</value>
+    <value>初始目錄:</value>
   </data>
   <data name="OleDBConnectionUILocationGroup_Label" xml:space="preserve">
-    <value>Introduzca un nombre de servidor o archivo</value>
+    <value>輸入伺服器或檔案名稱</value>
   </data>
   <data name="OleDBConnectionUILocation_Label" xml:space="preserve">
-    <value>Ubicación:</value>
+    <value>位置:</value>
   </data>
   <data name="OleDBConnectionUISavePassword_Label" xml:space="preserve">
-    <value>Guardar contraseña</value>
+    <value>儲存密碼</value>
   </data>
   <data name="OleDBConnectionUIServer_Label" xml:space="preserve">
-    <value>Nombre del servidor o archivo:</value>
+    <value>伺服器或檔案名稱:</value>
   </data>
   <data name="OleDBConnectionUISSPI_Label" xml:space="preserve">
-    <value>Utilice la seguridad integrada</value>
+    <value>使用整合安全性</value>
   </data>
   <data name="OleDBConnectionUIUserBlankPassword_Label" xml:space="preserve">
-    <value>Contraseña en blanco</value>
+    <value>空白密碼</value>
   </data>
   <data name="OleDBConnectionUIUserPassword_Label" xml:space="preserve">
-    <value>Utilice un nombre de usuario y una contraseña específicos</value>
+    <value>使用特定使用者名稱和密碼</value>
   </data>
   <data name="OLEDBProvider_Label" xml:space="preserve">
-    <value>Proveedor OLE DB:</value>
+    <value>OLE DB 提供者:</value>
   </data>
   <data name="OracleConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo OracleConnectionProperties u OleDBOracleConnectionProperties.</value>
+    <value>連線屬性物件的類型必須為 OracleConnectionProperties 或 OleDBOracleConnectionProperties。</value>
   </data>
   <data name="OracleConnectionUIHostname_Label" xml:space="preserve">
-    <value>Nombre de anfitrión:</value>
+    <value>主機名稱:</value>
   </data>
   <data name="OracleConnectionUIPort_Label" xml:space="preserve">
-    <value>Puerto:</value>
+    <value>連接埠:</value>
   </data>
   <data name="OracleConnectionUIService_Label" xml:space="preserve">
-    <value>Nombre del servicio:</value>
+    <value>服務名稱:</value>
   </data>
   <data name="Password_Label" xml:space="preserve">
-    <value>Contraseña:</value>
+    <value>密碼:</value>
   </data>
   <data name="Refresh_Label" xml:space="preserve">
-    <value>Actualizar</value>
+    <value>重新整理</value>
   </data>
   <data name="SavePassword_Label" xml:space="preserve">
-    <value>Guardar mi contraseña</value>
+    <value>儲存我的密碼</value>
   </data>
   <data name="Server_Label" xml:space="preserve">
-    <value>Nombre del servidor:</value>
+    <value>伺服器名稱:</value>
   </data>
   <data name="SQLAuthentication_Label" xml:space="preserve">
-    <value>Utilice la autenticación de SQL Server</value>
+    <value>使用 SQL Server 驗證</value>
   </data>
   <data name="SqlConnectionProperties_CannotTestNonExistentDatabase" xml:space="preserve">
-    <value>Esta conexión no se puede probar porque la base de datos especificada no existe o no puede verla el usuario especificado.</value>
+    <value>此連線無法測試，因為指定的資料庫不存在或對指定使用者不可見。</value>
   </data>
   <data name="SqlConnectionProperties_MustSpecifyDataSource" xml:space="preserve">
-    <value>Esta conexión no se puede probar porque no se especificó ningún nombre de servidor.</value>
+    <value>無法測試此連線，因為未指定伺服器名稱。</value>
   </data>
   <data name="SqlFileConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
-    <value>El objeto de propiedades de conexión debe ser del tipo SqlFileConnectionProperties.</value>
+    <value>連線屬性物件的類型必須為 SqlFileConnectionProperties。</value>
   </data>
   <data name="TestConnection_Label" xml:space="preserve">
-    <value>Conexión de prueba</value>
+    <value>測試連線</value>
   </data>
   <data name="Username_Label" xml:space="preserve">
-    <value>Nombre de usuario:</value>
+    <value>使用者名稱:</value>
   </data>
   <data name="WindowsAuthentication_Label" xml:space="preserve">
-    <value>Use la autenticación de Windows</value>
+    <value>使用 Windows 驗證</value>
   </data>
 </root>

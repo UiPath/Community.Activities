@@ -285,7 +285,7 @@
     <value>La version sélectionnée {0} est différente de la version rencontrée {1}</value>
   </data>
   <data name="OperationTimeout" xml:space="preserve">
-    <value>Timeout</value>
+    <value>Délai d&apos;attente</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Temps nécessaire pour permettre l’exécution d’un script Python jusqu’à la fin et le lancement d’une exception.</value>

@@ -117,119 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_AddCredential_Property_AddCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
+  <data name="AES" xml:space="preserve">
+    <value>AES (已淘汰)</value>
   </data>
-  <data name="Activity_AddCredential_Property_AddCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
-    <comment>Attribute Name</comment>
+  <data name="AESGCM" xml:space="preserve">
+    <value>AES GCM</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü - Kimlik Bilgisi Türü için desteklenen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="DES" xml:space="preserve">
+    <value>DES (已淘汰)</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="HMACMD5" xml:space="preserve">
+    <value>HMACMD5 (非 FIPS)</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
+  <data name="HMACRIPEMD160" xml:space="preserve">
+    <value>HMACRIPEMD160 (非 FIPS)</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
-    <comment>Attribute Name</comment>
+  <data name="HMACSHA1" xml:space="preserve">
+    <value>HMACSHA1</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="HMACSHA256" xml:space="preserve">
+    <value>HMACSHA256</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="HMACSHA384" xml:space="preserve">
+    <value>HMACSHA384</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="HMACSHA512" xml:space="preserve">
+    <value>HMACSHA512</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="Key" xml:space="preserve">
+    <value>切換至文字輸入</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
+  <data name="MACTripleDES" xml:space="preserve">
+    <value>MACTripleDES</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
-    <comment>Attribute Name</comment>
+  <data name="MD5" xml:space="preserve">
+    <value>MD5 (非 FIPS)</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
+  <data name="RC2" xml:space="preserve">
+    <value>RC2 (非 FIPS) (已淘汰)</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
-    <comment>Attribute Name</comment>
+  <data name="Rijndael" xml:space="preserve">
+    <value>Rijndael (非 FIPS) (已淘汰)</value>
   </data>
-  <data name="CategoryCredentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+  <data name="RIPEMD160" xml:space="preserve">
+    <value>RIPEMD160 (非 FIPS)</value>
   </data>
-  <data name="CategorySystem" xml:space="preserve">
-    <value>Sistem</value>
+  <data name="SecureKey" xml:space="preserve">
+    <value>切換至安全輸入</value>
   </data>
-  <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+  <data name="SHA1" xml:space="preserve">
+    <value>SHA1</value>
   </data>
-  <data name="MessageDescription" xml:space="preserve">
-    <value>İleti</value>
+  <data name="SHA256" xml:space="preserve">
+    <value>SHA256</value>
   </data>
-  <data name="MessageDisplayName" xml:space="preserve">
-    <value>İleti</value>
+  <data name="SHA384" xml:space="preserve">
+    <value>SHA384</value>
   </data>
-  <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
+  <data name="SHA512" xml:space="preserve">
+    <value>SHA512</value>
   </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Çıkış</value>
+  <data name="TripleDES" xml:space="preserve">
+    <value>三重 DES</value>
   </data>
-  <data name="PasswordAndSecureStringNotNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
+  <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
+    <value>不支援所提供的雜湊演算法。</value>
   </data>
-  <data name="PasswordAndSecureStringNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
+  <data name="UnsupportedKeyedHashAlgorithmException" xml:space="preserve">
+    <value>不支援所提供的鍵控雜湊演算法。</value>
   </data>
-  <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordSecureStringDescription" xml:space="preserve">
-    <value>Güvenli Dize Parolası</value>
-  </data>
-  <data name="PasswordSecureStringDisplayName" xml:space="preserve">
-    <value>Güvenli Dize Parolası </value>
-  </data>
-  <data name="PersistanceTypeDescription" xml:space="preserve">
-    <value>Kalıcılık Türü </value>
-  </data>
-  <data name="PersistanceTypeDisplayName" xml:space="preserve">
-    <value>PersistanceType</value>
-  </data>
-  <data name="Result" xml:space="preserve">
-    <value>Sonuç</value>
-  </data>
-  <data name="TargetDescription" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TargetDisplayName" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TitleDescription" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="TitleDisplayName" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="UsernameDisplayName" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="ValidationError_InvalidCredentialType" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü için izin verilen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
+    <value>不支援所提供的對稱演算法。</value>
   </data>
 </root>

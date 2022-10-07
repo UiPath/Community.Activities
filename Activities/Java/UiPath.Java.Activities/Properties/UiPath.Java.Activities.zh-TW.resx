@@ -118,183 +118,183 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConstructorException" xml:space="preserve">
-    <value>No se pudo llamar al constructor.</value>
+    <value>無法呼叫建構函式。</value>
   </data>
   <data name="ConvertException" xml:space="preserve">
-    <value>No se pudo convertir </value>
+    <value>無法轉換 </value>
   </data>
   <data name="ConvertJavaObjectDescription" xml:space="preserve">
-    <value>Convierta un objeto en Java en el tipo .net especificado . Si no fue posible la conversión, arroja una excepción.</value>
+    <value>將 Java 物件轉換為指定的 .net 類型。如果無法轉換，則擲回例外狀況。</value>
   </data>
   <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
-    <value>Convert Java Object</value>
+    <value>轉換 Java 物件</value>
     <comment>activity name</comment>
   </data>
   <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
-    <value>El objeto en Java se convirtió en .net.</value>
+    <value>轉換為 .net 的 Java 物件。</value>
   </data>
   <data name="CreateJavaObjectDescription" xml:space="preserve">
-    <value>Invoca el constructor en la clase especificada.</value>
+    <value>叫用指定類別的建構函式。</value>
   </data>
   <data name="CreateJavaObjectDisplayName" xml:space="preserve">
-    <value>Create Java Object</value>
+    <value>建立 Java 物件</value>
     <comment>activity name</comment>
   </data>
   <data name="Do" xml:space="preserve">
-    <value>Hacer</value>
+    <value>執行</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>NombreDeCampo</value>
+    <value>欄位名稱</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
-    <value>El nombre del campo que la actividad devolverá como un objeto en Java.</value>
+    <value>活動將作為 Java 物件傳回的欄位名稱。</value>
   </data>
   <data name="GetFieldDescritption" xml:space="preserve">
-    <value>Devuelve un campo público de un objeto en Java.</value>
+    <value>從 Java 物件傳回返回公用欄位。</value>
   </data>
   <data name="GetFieldDisplayName" xml:space="preserve">
-    <value>Get Field</value>
+    <value>取得欄位</value>
     <comment>activity name</comment>
   </data>
   <data name="GetFieldException" xml:space="preserve">
-    <value>No se encontró el campo.</value>
+    <value>找不到欄位。</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Entrada</value>
+    <value>輸入</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>Destino</value>
+    <value>目標</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
-    <value>El objeto de destino y el tipo de destino están vacíos. Al menos se debe establecer uno de ellos.</value>
+    <value>目標物件和目標類型都為空。至少要設定其中一項。</value>
   </data>
   <data name="InvokeJavaMethodDescription" xml:space="preserve">
-    <value>Invocar el método Java</value>
+    <value>叫用 Java 方法</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Invoke Java Method</value>
+    <value>叫用 Java 方法</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
-    <value>Una referencia a un objeto cargado en Java.</value>
+    <value>對 Java 中已載入的物件的參考。</value>
   </data>
   <data name="InvokeMethodException" xml:space="preserve">
-    <value>No se pudo invocar el método.</value>
+    <value>無法叫用此方法。</value>
   </data>
   <data name="JarPathDescription" xml:space="preserve">
-    <value>Ruta al JAR que se cargará.</value>
+    <value>將要載入的 Jar 的路徑。</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>RutaDeJar</value>
+    <value>Jar 路徑</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
-    <value>Error al inicializar Java : {0}</value>
+    <value>初始化 Java 時發生錯誤： {0}</value>
   </data>
   <data name="JavaInvokerNotLoadedException" xml:space="preserve">
-    <value>No se cargó el invocador Java.</value>
+    <value>未載入 Java 啟動程式。</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>ObjetoDeJava</value>
+    <value>Java 物件</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
-    <value>Una referencia a un objeto cargado en Java.</value>
+    <value>對 Java 中已載入的物件的參考。</value>
   </data>
   <data name="JavaPathDescription" xml:space="preserve">
-    <value>Ruta a java.exe</value>
+    <value>java.exe 的路徑</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>RutaDeBibliotecaDeJava</value>
+    <value>Java 元件庫路徑</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
-    <value>Contenedor de actividades Java</value>
+    <value>Java 活動容器</value>
   </data>
   <data name="JavaScopeNameDisplayName" xml:space="preserve">
-    <value>Java Scope</value>
+    <value>Java 範圍</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarDescription" xml:space="preserve">
-    <value>Carga un JAR en el ámbito de Java actual.</value>
+    <value>在目前 Java 範圍中載入 Jar。</value>
   </data>
   <data name="LoadJarDisplayName" xml:space="preserve">
-    <value>Load Jar</value>
+    <value>載入 Jar</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarException" xml:space="preserve">
-    <value>No se pudo cargar el JAR.</value>
+    <value>無法載入 Jar。</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>NombreDeMétodo</value>
+    <value>方法名稱</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
-    <value>El nombre del método que se ejecutará en Java.</value>
+    <value>將在 Java 中執行的方法名稱。</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Salida</value>
+    <value>輸出</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>La lista de los argumentos especificados en el mismo orden que el método Java. Un argumento no puede ser nulo.</value>
+    <value>以與 Java 方法相同的順序指定的引數清單。引數不能為 null。</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parámetros</value>
+    <value>參數</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ListaDeParámetros</value>
+    <value>參數清單</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
-    <value>No se pueden establecer tanto {0} como {1}.</value>
+    <value>無法同時設定 &quot;{0}&quot; 和 &quot;{1}&quot;。</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Resultado</value>
+    <value>結果</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>ObjetoDeDestino</value>
+    <value>目標物件</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>Se invocará el método de instancia del objeto Java. El ObjetoDeDestino y el TipoDeDestino no se pueden establecer al mismo tiempo.</value>
+    <value>將叫用此方法的 Java 物件執行個體。無法同時設定目標物件和目標類型。</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TipoDeDestino</value>
+    <value>目標類型</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
-    <value>El nombre de la clase de Java.</value>
+    <value>Java 類別名稱。</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
-    <value>La actividad es válida solo dentro de {0}</value>
+    <value>活動僅在 {0} 內有效</value>
   </data>
   <data name="FieldName" xml:space="preserve">
-    <value>Nombre del campo</value>
+    <value>欄位名稱</value>
   </data>
   <data name="JavaObject" xml:space="preserve">
-    <value>JavaObject</value>
+    <value>Java 物件</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>Nombre del método</value>
+    <value>方法名稱</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Salida</value>
+    <value>輸出</value>
   </data>
   <data name="InvalidJavaPath" xml:space="preserve">
-    <value>La ruta a la biblioteca Java no es válida.</value>
+    <value>Java 元件庫路徑無效。</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Iniciar tiempo de espera (milisegundos)</value>
+    <value>初始化逾時 (毫秒)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>El valor proporcionado para TiempoDeEsperaMS debe ser &gt;= 0</value>
+    <value>針對逾時 (毫秒) 所提供的值必須大於或等於 0</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>La cantidad de tiempo (en milisegundos) que se debe esperar la conexión en tiempo de ejecución Java (15 000 ms predeterminados).</value>
+    <value>等待 Java 執行階段連線的時間量 (以毫秒為單位，預設為 15000 毫秒)。</value>
   </data>
 </root>

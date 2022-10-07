@@ -117,119 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_AddCredential_Property_AddCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
+  <data name="FileExistsException" xml:space="preserve">
+    <value>目的地檔案已存在。</value>
   </data>
-  <data name="Activity_AddCredential_Property_AddCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
-    <comment>Attribute Name</comment>
+  <data name="PathNotFoundException" xml:space="preserve">
+    <value>找不到路徑 “{0}”。</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü - Kimlik Bilgisi Türü için desteklenen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="UnknownFTPSModeException" xml:space="preserve">
+    <value>遇到了異常 FTPS 模式。</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="UnsupportedObjectTypeException" xml:space="preserve">
+    <value>遇到不支援的物件類型。</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
+  <data name="NoValidAuthenticationMethod" xml:space="preserve">
+    <value>找不到有效的驗證方法: 您必須提供私密金鑰檔案 (可選擇提供密碼) 或密碼</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
-    <comment>Attribute Name</comment>
+  <data name="DirectoryExistsException" xml:space="preserve">
+    <value>目的地目錄已存在</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="Password" xml:space="preserve">
+    <value>切換至文字輸入</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
-  </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
-  </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
-  </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
-  </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
-    <comment>Attribute Name</comment>
-  </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
-  </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
-    <comment>Attribute Name</comment>
-  </data>
-  <data name="CategoryCredentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
-  </data>
-  <data name="CategorySystem" xml:space="preserve">
-    <value>Sistem</value>
-  </data>
-  <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
-  </data>
-  <data name="MessageDescription" xml:space="preserve">
-    <value>İleti</value>
-  </data>
-  <data name="MessageDisplayName" xml:space="preserve">
-    <value>İleti</value>
-  </data>
-  <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
-  </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Çıkış</value>
-  </data>
-  <data name="PasswordAndSecureStringNotNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
-  </data>
-  <data name="PasswordAndSecureStringNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
-  </data>
-  <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordSecureStringDescription" xml:space="preserve">
-    <value>Güvenli Dize Parolası</value>
-  </data>
-  <data name="PasswordSecureStringDisplayName" xml:space="preserve">
-    <value>Güvenli Dize Parolası </value>
-  </data>
-  <data name="PersistanceTypeDescription" xml:space="preserve">
-    <value>Kalıcılık Türü </value>
-  </data>
-  <data name="PersistanceTypeDisplayName" xml:space="preserve">
-    <value>PersistanceType</value>
-  </data>
-  <data name="Result" xml:space="preserve">
-    <value>Sonuç</value>
-  </data>
-  <data name="TargetDescription" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TargetDisplayName" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TitleDescription" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="TitleDisplayName" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="UsernameDisplayName" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="ValidationError_InvalidCredentialType" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü için izin verilen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>切換至安全輸入</value>
   </data>
 </root>

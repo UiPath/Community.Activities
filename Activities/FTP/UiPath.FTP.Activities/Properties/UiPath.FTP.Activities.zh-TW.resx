@@ -118,639 +118,639 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptAllCertificates" xml:space="preserve">
-    <value>Tüm sertifikaları kabul et</value>
+    <value>接受所有憑證</value>
   </data>
   <data name="ClientCertificatePassword" xml:space="preserve">
-    <value>İstemci Sertifikası Parolası</value>
+    <value>用戶端憑證密碼</value>
   </data>
   <data name="ClientCertificatePath" xml:space="preserve">
-    <value>İstemci sertifika yolu</value>
+    <value>用戶端憑證路徑</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Oluştur</value>
+    <value>建立</value>
   </data>
   <data name="Credentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+    <value>憑證</value>
   </data>
   <data name="DefaultBodyName" xml:space="preserve">
-    <value>Do</value>
+    <value>執行</value>
   </data>
   <data name="PathNotFoundException" xml:space="preserve">
-    <value>&quot;{0}&quot; yolu bulunamadı.</value>
+    <value>找不到路徑 “{0}”。</value>
   </data>
   <data name="ExtensionNotFoundException" xml:space="preserve">
-    <value>Gerekli bir uzantı bulunamadı.</value>
+    <value>找不到所需的副檔名。</value>
   </data>
   <data name="FTPSessionNotFoundException" xml:space="preserve">
-    <value>FTP oturumu bulunamadı.</value>
+    <value>找不到 FTP 工作階段。</value>
   </data>
   <data name="FtpsMode" xml:space="preserve">
-    <value>FTPS modu</value>
+    <value>FTPS 模式</value>
   </data>
   <data name="Host" xml:space="preserve">
-    <value>Ana Bilgisayar</value>
+    <value>主機</value>
   </data>
   <data name="IncompatiblePathsException" xml:space="preserve">
-    <value>Kaynak yol bir dizini işaret ediyor, ancak hedef yol bir dosyayı işaret ediyor.</value>
+    <value>來源路徑指向目錄，但目的地路徑指向檔案。</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+    <value>輸入</value>
   </data>
   <data name="LocalPath" xml:space="preserve">
-    <value>Yerel Yol</value>
+    <value>本機路徑</value>
   </data>
   <data name="OneFTPSessionPerContextException" xml:space="preserve">
-    <value>Geçerli bağlam için bir FTP oturumu zaten sağlandı.</value>
+    <value>已為目前的上下文提供 FTP 工作階段。</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Seçenekler</value>
+    <value>選項</value>
   </data>
   <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
+    <value>輸出</value>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>覆寫</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Parola</value>
+    <value>密碼</value>
   </data>
   <data name="Port" xml:space="preserve">
-    <value>Bağlantı Noktası</value>
+    <value>連接埠</value>
   </data>
   <data name="Recursive" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>包括子資料夾</value>
   </data>
   <data name="RemotePath" xml:space="preserve">
-    <value>Uzak yol</value>
+    <value>遠端路徑</value>
   </data>
   <data name="Security" xml:space="preserve">
-    <value>Güvenlik</value>
+    <value>安全性</value>
   </data>
   <data name="Server" xml:space="preserve">
-    <value>Server</value>
+    <value>伺服器</value>
   </data>
   <data name="UseAnonymousLogin" xml:space="preserve">
-    <value>Anonim oturum açma kullan</value>
+    <value>使用匿名登入</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+    <value>使用者名稱</value>
   </data>
   <data name="UseSftp" xml:space="preserve">
-    <value>SFTP kullan</value>
+    <value>使用 SFTP</value>
   </data>
   <data name="UnsupportedObjectTypeException" xml:space="preserve">
-    <value>Desteklenmeyen nesne türüyle karşılaşıldı.</value>
+    <value>遇到不支援的物件類型。</value>
   </data>
   <data name="Exists" xml:space="preserve">
-    <value>Var</value>
+    <value>存在</value>
   </data>
   <data name="Files" xml:space="preserve">
-    <value>Dosyalar</value>
+    <value>檔案</value>
   </data>
   <data name="EmptyUsernameException" xml:space="preserve">
-    <value>Kullanıcı adı boş olamaz.</value>
+    <value>使用者名稱不得為空。</value>
   </data>
   <data name="SslProtocols" xml:space="preserve">
-    <value>SSL protokolleri</value>
+    <value>SSL 通訊協定</value>
   </data>
   <data name="ClientCertificatePathDesc" xml:space="preserve">
-    <value>PKCS #1 PEM biçimindeki Özel anahtarın yolu</value>
+    <value>PKCS #1 PEM 格式的私密金鑰路徑</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Geçerli kimlik doğrulama yöntemi bulunamadı: Özel Anahtar dosyası (ve isteğe bağlı olarak parola) veya Parola sağlamanız gerekir</value>
+    <value>找不到有效的驗證方法: 您必須提供私密金鑰檔案 (可選擇提供密碼) 或密碼</value>
   </data>
   <data name="NewPath" xml:space="preserve">
-    <value>Yeni uzak yol</value>
+    <value>新遠端路徑</value>
   </data>
   <data name="DeleteDescription" xml:space="preserve">
-    <value>Sil</value>
+    <value>刪除</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
-    <value>Delete</value>
+    <value>刪除</value>
     <comment>Activity name</comment>
   </data>
   <data name="DirectoryExistsDescription" xml:space="preserve">
-    <value>Dizin Var</value>
+    <value>目錄存在</value>
   </data>
   <data name="DirectoryExistsDisplayName" xml:space="preserve">
-    <value>Directory Exists</value>
+    <value>目錄存在</value>
     <comment>Activity name</comment>
   </data>
   <data name="DownloadFilesDescription" xml:space="preserve">
-    <value>Dosyaları İndir</value>
+    <value>下載檔案</value>
   </data>
   <data name="DownloadFilesDisplayName" xml:space="preserve">
-    <value>Download Files</value>
+    <value>下載檔案</value>
     <comment>Activity name</comment>
   </data>
   <data name="EnumerateObjectsDescription" xml:space="preserve">
-    <value>Nesneleri Numaralandır</value>
+    <value>列舉對象</value>
   </data>
   <data name="EnumerateObjectsDisplayName" xml:space="preserve">
-    <value>Enumerate Objects</value>
+    <value>列舉對象</value>
     <comment>Activity name</comment>
   </data>
   <data name="FileExistsDescription" xml:space="preserve">
-    <value>Dosya Var</value>
+    <value>檔案存在</value>
   </data>
   <data name="FileExistsDisplayName" xml:space="preserve">
-    <value>File Exists</value>
+    <value>檔案存在</value>
     <comment>Activity name</comment>
   </data>
   <data name="MoveItemDescription" xml:space="preserve">
-    <value>Öğeyi Taşı</value>
+    <value>移動項目</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Move Item</value>
+    <value>移動項目</value>
     <comment>Activity name</comment>
   </data>
   <data name="UploadFilesDescription" xml:space="preserve">
-    <value>Uygulamaları Yükle</value>
+    <value>上傳檔案</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Upload Files</value>
+    <value>上傳檔案</value>
     <comment>Activity name</comment>
   </data>
   <data name="WithFtpSessionDescription" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
+    <value>啟用 FTP 工作階段</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
+    <value>啟用 FTP 工作階段</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>用戶端憑證密碼</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>HataOlursaDevamEt</value>
+    <value>錯誤時繼續</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
-    <value>Dosyalar</value>
+    <value>檔案</value>
   </data>
   <data name="HostDescription" xml:space="preserve">
-    <value>Ana Bilgisayar</value>
+    <value>主機</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+    <value>本機路徑</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
-    <value>NewPath</value>
+    <value>新路徑</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
+    <value>密碼</value>
   </data>
   <data name="PortDescription" xml:space="preserve">
-    <value>Bağlantı Noktası</value>
+    <value>連接埠</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>Uzak Yol</value>
+    <value>遠端路徑</value>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">
-    <value>Bu kutu işaretlendiğinde kullanıcı adı ve parola alanları yok sayılır ve bunun yerine standart bir anonim kullanıcı kullanılır.</value>
+    <value>勾選此方塊時，將忽略使用者名稱和密碼欄位，並改用標準匿名使用者。</value>
   </data>
   <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+    <value>使用者名稱</value>
   </data>
   <data name="ValidationError_ValidateParentError" xml:space="preserve">
-    <value>Etkinlik sadece {0} içinde geçerlidir</value>
+    <value>活動僅在 {0} 內有效</value>
   </data>
   <data name="Common" xml:space="preserve">
-    <value>Ortak</value>
+    <value>常見</value>
   </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
-    <value>FTP Oturum Kapsamı</value>
+    <value>FTP 工作階段範圍</value>
   </data>
   <data name="Activity_Delete_Description" xml:space="preserve">
-    <value>Bir FTP sunucusundan belirtilen bir dosyayı kaldırır. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>從 FTP 伺服器中移除指定檔案。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>刪除檔案或資料夾</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
-    <value>Dosya veya klasörün uzak yolu</value>
+    <value>檔案或資料夾的遠端路徑</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
-    <value>Silinecek dosya veya klasör</value>
+    <value>要刪除的檔案或資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
-    <value>Bir FTP sunucusunda belirli bir dizinin var olup olmadığını denetler. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>檢查 FTP 伺服器上是否存在某個目錄。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DirectoryExists_Name" xml:space="preserve">
-    <value>Directory Exists</value>
+    <value>目錄存在</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
-    <value>Belirtilen dizinin bulunup bulunmadığını belirten bir boole değişkeni.</value>
+    <value>此為「布林值」變數，用於表示是否已找到指定目錄。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Name" xml:space="preserve">
-    <value>Var</value>
+    <value>存在</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Kontrol edilecek uzak klasör yolu</value>
+    <value>要檢查的遠端資料夾路徑</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Klasör Yolu</value>
+    <value>資料夾路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>FTP sunucusunda bulunan bir dosya koleksiyonu oluşturur. Alt klasörleri dahil et kutusu işaretlenerek alt klasörler de aramaya dahil edilebilir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>產生一個檔案集合，其中的檔案是在 FTP 伺服器上找到的檔案。勾選「包括子資料夾」方塊後，搜尋結果中也會包含子資料夾。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
-    <value>Enumerate Objects</value>
+    <value>列舉對象</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
-    <value>FTP sunucusunda bulunan dosya koleksiyonu.</value>
+    <value>已在 FTP 伺服器上找到檔案的集合。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>Dosyalar</value>
+    <value>檔案</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
-    <value>Bu onay kutusu seçilirse alt klasörler de FTP sunucusundaki dosya numaralandırılma işlemine dahil edilir.</value>
+    <value>如果勾選此方塊，FTP 伺服器上的檔案列舉也將包含子資料夾。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>包括子資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
-    <value>Dosyaların numaralandırılacağı FTP sunucusundaki dizinin yolu.</value>
+    <value>FTP 伺服器上要對其檔案進行列舉的目錄的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>Uzak Yol</value>
+    <value>遠端路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
-    <value>Belirtilen FTP dizininde belirli bir dosyanın var olup olmadığını denetler. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>檢查指定 FTP 目錄中是否存在特定檔案。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_FileExists_Name" xml:space="preserve">
-    <value>File Exists</value>
+    <value>檔案存在</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
-    <value>Belirtilen dosyanın bulunup bulunmadığını belirten bir boole değişkeni.</value>
+    <value>此為「布林值」變數，用於表示是否已找到指定檔案。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Name" xml:space="preserve">
-    <value>Var</value>
+    <value>存在</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Kontrol edilecek uzak dosya yolu</value>
+    <value>要檢查的遠端檔案路徑</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Dosya Yolu</value>
+    <value>檔案路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
-    <value>Bir FTP sunucusuna dosya yükler. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>上傳檔案至 FTP 伺服器。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_UploadFiles_Name" xml:space="preserve">
-    <value>Upload Files</value>
+    <value>上傳檔案</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse, FTP sunucusunda klasör yolu yoksa oluşturulur.</value>
+    <value>如果勾選此方塊，則會在資料夾路徑尚不存在的情況下在 FTP 伺服器上加以建立。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Oluştur</value>
+    <value>建立</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>Yerel yol</value>
+    <value>本機路徑</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Yüklenecek dosyalar</value>
+    <value>要上傳的檔案</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse FTP sunucusunda depolanan dosyaların üzerine yazılır.</value>
+    <value>如果勾選此方塊，則 FTP 伺服器上已儲存的檔案將被覆寫。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>覆寫</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse klasörler ilgili alt klasörleriyle birlikte yüklenir.</value>
+    <value>如果勾選此核取方塊，則系統將上傳資料夾及其各自的子資料夾。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>包括子資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>Uzak yol</value>
+    <value>遠端路徑</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Yüklenecek yer</value>
+    <value>上傳位置</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>FTP sunucusuna bağlanır ve diğer FTP etkinlikleri için bir kapsam sağlar.</value>
+    <value>連接到 FTP 伺服器，並為其他 FTP 活動提供範圍。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Use FTP connection</value>
+    <value>使用 FTP 連線</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse, süresi dolmuş veya doğrulanmamış olanlar da dahil olmak üzere tüm sertifikalar kabul edilir.</value>
+    <value>如果勾選此方塊，則系統將接受所有憑證，包括過期或未經驗證的憑證。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
-    <value>Tüm Sertifikaları Kabul Et</value>
+    <value>接受所有憑證</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
-    <value>İstemci sertifikasının parolası.</value>
+    <value>用戶端憑證的密碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
-    <value>İstemci Sertifikası Parolası</value>
+    <value>用戶端憑證密碼</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
-    <value>İstemcinin kimliğini doğrulamak için kullanılan sertifikanın yolu.</value>
+    <value>用於對用戶端進行驗證的憑證的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>İstemci Sertifikası Dosyası</value>
+    <value>用戶端憑證檔案</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
-    <value>FTPS protokolüne geçer. Var olan iki seçenekten birini seçin: Açık veya Örtük.</value>
+    <value>切換至 FTPS 通訊協定。從兩個可用的選項中選擇一個: 明確或隱含。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>FTPS Modu</value>
+    <value>FTPS 模式</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
-    <value>Bağlanmak istediğiniz FTP sunucusunun URL&apos;si.</value>
+    <value>要連接的 FTP 伺服器的 URL。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Name" xml:space="preserve">
-    <value>Ana Bilgisayar</value>
+    <value>主機</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Description" xml:space="preserve">
-    <value>FTP sunucusuna bağlanmak için kullanılacak parola.</value>
+    <value>用於連接 FTP 伺服器的密碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Name" xml:space="preserve">
-    <value>Parola</value>
+    <value>密碼</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Description" xml:space="preserve">
-    <value>Bağlanmak istediğiniz FTP sunucusunun bağlantı noktası.</value>
+    <value>要連接的 FTP 伺服器的連接埠。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Name" xml:space="preserve">
-    <value>Bağlantı Noktası</value>
+    <value>連接埠</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
-    <value>FTPS bağlantısı için kullanılacak SSL protokolünü seçin</value>
+    <value>選擇用於 FTPS 連線的 SSL 通訊協定</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>SSL Protokolleri</value>
+    <value>SSL 通訊協定</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
-    <value>Bu kutu işaretlendiğinde kullanıcı adı ve parola alanları yok sayılır ve bunun yerine standart bir anonim kullanıcı kullanılır.</value>
+    <value>勾選此方塊時，將忽略使用者名稱和密碼欄位，並改用標準匿名使用者。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
-    <value>Anonim Oturum Açmayı Kullan</value>
+    <value>使用匿名登入</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
-    <value>FTP sunucusuna bağlanmak için kullanılacak kullanıcı adı.</value>
+    <value>用於連接 FTP 伺服器的使用者名稱。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Name" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+    <value>使用者名稱</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
-    <value>SFTP aktarım protokolünü kullanmak istiyorsanız bu kutuyu işaretleyin.</value>
+    <value>如果要使用 SFTP 傳輸通訊協定，請勾選此方塊。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
-    <value>SFTP kullan</value>
+    <value>使用 SFTP</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
-    <value>Belirtilen dosyaları bir FTP sunucusundan belirtilen yerel klasöre indirir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>將來自 FTP 伺服器的指定檔案下載至指定的本機資料夾。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Download files</value>
+    <value>下載檔案</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
-    <value>Bu kutu işaretlendiğinde, klasör yolu yoksa yerel olarak oluşturulur.</value>
+    <value>如果勾選此方塊，則系統會在資料夾路徑尚不存在的情況下在本機加以建立。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Oluştur</value>
+    <value>建立</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>İndirilecek dosyaların yerel yolu.</value>
+    <value>要下載的檔案的本機路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>İndirme yeri</value>
+    <value>下載位置</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse yerel olarak depolanmış dosyaların üzerine yazılır.</value>
+    <value>如果勾選此方塊，則系統會覆寫已儲存在本機的檔案。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>覆寫</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse klasörler ilgili alt klasörleriyle birlikte indirilir.</value>
+    <value>如果勾選此方塊，則系統將下載資料夾及其各自的子資料夾。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Alt klasörleri dahil et</value>
+    <value>包括子資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>FTP sunucusunda indirilecek dosyaların yolu.</value>
+    <value>FTP 伺服器上要下載的檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>İndirilecek dosyaların yolu</value>
+    <value>要下載的檔案的路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
-    <value>Bir FTP sunucusundaki öğeyi farklı bir uzak yola taşır. Bu etkinlik yalnızca With bir FTP içine yerleştirildiğinde çalışır</value>
+    <value>將 FTP 伺服器上的項目移動到其他遠端路徑。僅當此活動置於「使用 FTP」中時才能正常工作</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move file or folder</value>
+    <value>移動檔案或資料夾</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
-    <value>Öğenin taşınacağı yeni yol</value>
+    <value>要將項目移動到的新路徑</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
-    <value>Taşınacağı yer</value>
+    <value>要移動到的位置</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
-    <value>Bu kutu işaretlenirse yeni uzak dizinde depolanmış dosyaların üzerine yazılır.</value>
+    <value>如果勾選此方塊，則新遠端目錄上已儲存的檔案將被覆寫。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>Üzerine yaz</value>
+    <value>覆寫</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
-    <value>Uzak yol</value>
+    <value>遠端路徑</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
-    <value>Taşınacak dosya veya klasör</value>
+    <value>要移動的檔案或資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Credentials_Name" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+    <value>憑證</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Misc_Name" xml:space="preserve">
-    <value>Çeşitli</value>
+    <value>其他</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Others_Name" xml:space="preserve">
-    <value>Diğerleri</value>
+    <value>其他</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Principal_Name" xml:space="preserve">
-    <value>Birincil</value>
+    <value>主體</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Security_Name" xml:space="preserve">
-    <value>Güvenlik</value>
+    <value>安全性</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Server_Name" xml:space="preserve">
-    <value>Sunucu</value>
+    <value>伺服器</value>
     <comment>Category name</comment>
   </data>
   <data name="Category_Output_Name" xml:space="preserve">
-    <value>Output</value>
+    <value>輸出</value>
     <comment>Category name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
-    <value>Sertifika parolası giriş modu anahtarı</value>
+    <value>憑證密碼輸入模式開關</value>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>GüvenliParolaGirişModuAnahtarı</value>
+    <value>安全密碼輸入模式開關</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
-    <value>Güvenli dize biçimindeki istemci sertifikası parolası</value>
+    <value>安全字串格式中的用戶端憑證密碼</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
-    <value>İstemci Sertifikası Güvenli Parolası</value>
+    <value>用戶端憑證安全密碼</value>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
-    <value>Parola giriş modu anahtarı</value>
+    <value>密碼輸入模式的開關</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>ParolaGirişModuDüğmesi</value>
+    <value>密碼輸入模式開關</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
-    <value>Güvenli dize biçiminde parola</value>
+    <value>安全字串格式中的密碼</value>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
-    <value>Güvenli Parola</value>
+    <value>安全密碼</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
-    <value>ClientCertificatePassword ve ClientCertificateSecurePassword öğelerinin ikisi de null olmamalıdır</value>
+    <value>用戶端憑證密碼和用戶端憑證安全密碼不得同時為 null</value>
   </data>
   <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
-    <value>Parola ve SecurePassword&apos;ün ikisi de null olmamalıdır</value>
+    <value>密碼和安全密碼不得同時為 null</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
-    <value>Kimlik doğrulaması gerektiğinde proxy için kullanılan parola</value>
+    <value>如需要驗證，則使用用於 Proxy 的密碼</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
-    <value>Proxy Parolası</value>
+    <value>Proxy 密碼</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
-    <value>Proxy bağlantı noktası numarası</value>
+    <value>Proxy 連接埠編號</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
-    <value>Proxy Ana Bilgisayar Bağlantı Noktası</value>
+    <value>Proxy 主機連接埠</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
-    <value>Proxy ana bilgisayar adı</value>
+    <value>Proxy 主機名稱</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
-    <value>Proxy Ana Bilgisayarı</value>
+    <value>Proxy 主機</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
-    <value>Proxy türü</value>
+    <value>Proxy 類型</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Proxy Türü</value>
+    <value> Proxy 類型</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
-    <value>Kimlik doğrulaması gerektiğinde proxy için kullanılan kullanıcı</value>
+    <value>如需驗證，則需使用用於 Proxy 的使用者</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Name" xml:space="preserve">
-    <value>Proxy Kullanıcı Adı</value>
+    <value>Proxy 使用者名稱</value>
   </data>
   <data name="Proxy" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
-    <value>{0} için bir değer sağlamanız gerekir.</value>
+    <value>必須為 {0} 提供一個值。</value>
     <comment>error message</comment>
   </data>
 </root>

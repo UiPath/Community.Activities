@@ -167,12 +167,6 @@
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES 使用的密钥长度为 16 或 24 字节。密钥长度取决于编码。</value>
   </data>
-  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>密钥和安全字符串不可同时为非空。</value>
-  </data>
-  <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>密钥和安全字符串不可同时为空。</value>
-  </data>
   <data name="KeySecureString" xml:space="preserve">
     <value>密钥安全字符串</value>
   </data>
@@ -456,7 +450,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>使用密钥散列文件</value>
+    <value>散列文件</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -520,7 +514,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>使用密钥散列文本</value>
+    <value>散列文本</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -584,7 +578,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>散列文件</value>
+    <value>散列文件（已弃用）</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -624,7 +618,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>散列文本</value>
+    <value>散列文本（已弃用）</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
@@ -774,5 +768,33 @@
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
     <value>解密文件名</value>
     <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>选项</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>使用密钥安全字符串</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>使用密钥</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>使用密钥安全字符串</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>使用密钥</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>密钥和安全字符串不可同时为非空。</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>密钥和安全字符串不可同时为空。</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>密钥不得为空</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>密钥安全字符串不得为 null</value>
   </data>
 </root>

@@ -117,119 +117,93 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_AddCredential_Property_AddCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>刪除</value>
   </data>
-  <data name="Activity_AddCredential_Property_AddCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
-    <comment>Attribute Name</comment>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>移動項目</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü - Kimlik Bilgisi Türü için desteklenen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>使用 FTP 連線</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
+    <value>FTP 工作階段範圍</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
+  <data name="CategoryAppIntegration" xml:space="preserve">
+    <value>應用程式整合</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
-    <comment>Attribute Name</comment>
+  <data name="CategoryFTP" xml:space="preserve">
+    <value>FTP</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
+    <value>用戶端憑證密碼</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>錯誤時繼續</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="DeleteDisplayName" xml:space="preserve">
+    <value>刪除</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="DirectoryExistsDescription" xml:space="preserve">
+    <value>目錄存在</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
+  <data name="DirectoryExistsDisplayName" xml:space="preserve">
+    <value>目錄存在</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
-    <comment>Attribute Name</comment>
+  <data name="DownloadFilesDisplayName" xml:space="preserve">
+    <value>下載檔案</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
+  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
+    <value>列舉對象</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
-    <comment>Attribute Name</comment>
+  <data name="FileExistsDescription" xml:space="preserve">
+    <value>檔案存在</value>
   </data>
-  <data name="CategoryCredentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+  <data name="FileExistsDisplayName" xml:space="preserve">
+    <value>檔案存在</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="CategorySystem" xml:space="preserve">
-    <value>Sistem</value>
+  <data name="FilesDescription" xml:space="preserve">
+    <value>檔案</value>
   </data>
-  <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+  <data name="HostDescription" xml:space="preserve">
+    <value>主機</value>
   </data>
-  <data name="MessageDescription" xml:space="preserve">
-    <value>İleti</value>
+  <data name="LocalPathDescription" xml:space="preserve">
+    <value>本機路徑</value>
   </data>
-  <data name="MessageDisplayName" xml:space="preserve">
-    <value>İleti</value>
+  <data name="MoveItemDisplayName" xml:space="preserve">
+    <value>移動項目</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
-  </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Çıkış</value>
-  </data>
-  <data name="PasswordAndSecureStringNotNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
-  </data>
-  <data name="PasswordAndSecureStringNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
+  <data name="MoveItemNewPathDescription" xml:space="preserve">
+    <value>新路徑</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
+    <value>密碼</value>
   </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Parola</value>
+  <data name="PortDescription" xml:space="preserve">
+    <value>連接埠</value>
   </data>
-  <data name="PasswordSecureStringDescription" xml:space="preserve">
-    <value>Güvenli Dize Parolası</value>
+  <data name="RemotePathDescription" xml:space="preserve">
+    <value>要刪除的檔案或資料夾</value>
   </data>
-  <data name="PasswordSecureStringDisplayName" xml:space="preserve">
-    <value>Güvenli Dize Parolası </value>
+  <data name="UploadFilesDisplayName" xml:space="preserve">
+    <value>上傳檔案</value>
+    <comment>Activity name</comment>
   </data>
-  <data name="PersistanceTypeDescription" xml:space="preserve">
-    <value>Kalıcılık Türü </value>
-  </data>
-  <data name="PersistanceTypeDisplayName" xml:space="preserve">
-    <value>PersistanceType</value>
-  </data>
-  <data name="Result" xml:space="preserve">
-    <value>Sonuç</value>
-  </data>
-  <data name="TargetDescription" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TargetDisplayName" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TitleDescription" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="TitleDisplayName" xml:space="preserve">
-    <value>Başlık</value>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>勾選此方塊時，將忽略使用者名稱和密碼欄位，並改用標準匿名使用者。</value>
   </data>
   <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+    <value>使用者名稱</value>
   </data>
-  <data name="UsernameDisplayName" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="ValidationError_InvalidCredentialType" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü için izin verilen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP 範圍</value>
   </data>
 </root>

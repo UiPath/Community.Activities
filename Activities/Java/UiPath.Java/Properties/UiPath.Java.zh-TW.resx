@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -117,119 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_AddCredential_Property_AddCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
+  <data name="CastArrayException" xml:space="preserve">
+    <value>無法將 Java 物件轉換為陣列。</value>
   </data>
-  <data name="Activity_AddCredential_Property_AddCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Ekle</value>
-    <comment>Attribute Name</comment>
+  <data name="CastException" xml:space="preserve">
+    <value>無法將 Java 物件轉換為 .net 類型。</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü - Kimlik Bilgisi Türü için desteklenen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="ClassNotFoundException" xml:space="preserve">
+    <value>找不到目標類型。</value>
   </data>
-  <data name="Activity_AddCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="ConstructorNotFoundException" xml:space="preserve">
+    <value>無法叫用建構函式。</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
+  <data name="DeserializationException" xml:space="preserve">
+    <value>來自 Java 的結果無法還原序列化。</value>
   </data>
-  <data name="Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgilerini Sil</value>
-    <comment>Attribute Name</comment>
+  <data name="FieldNotFoundException" xml:space="preserve">
+    <value>目標中找不到具有指定名稱的欄位。</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="IllegalAccessException" xml:space="preserve">
+    <value>只能存取公開成員。</value>
   </data>
-  <data name="Activity_GetCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="IllegalArgumentsException" xml:space="preserve">
+    <value>已傳送非法或不適當的參數。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="InstanceNotFoundException" xml:space="preserve">
+    <value>未建立指定執行個體。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_CredentialType_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü</value>
+  <data name="InstantiationException" xml:space="preserve">
+    <value>無法具現化目標類別。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
+  <data name="InvocationTargetException" xml:space="preserve">
+    <value>執行目標期間發生叫用例外狀況。</value>
   </data>
-  <data name="Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name" xml:space="preserve">
-    <value>Güvenli Kimlik Bilgisi Al</value>
-    <comment>Attribute Name</comment>
+  <data name="JarAlreadyLoadedException" xml:space="preserve">
+    <value>已載入具有指定路徑的 Jar。</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDescription_Description" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
+  <data name="JarNotFoundException" xml:space="preserve">
+    <value>找不到指定 Jar 的路徑或不存在。</value>
   </data>
-  <data name="Activity_RequestCredential_Property_RequestCredentialDisplayName_Name" xml:space="preserve">
-    <value>Kimlik Bilgisi İste</value>
-    <comment>Attribute Name</comment>
+  <data name="JarNotLoadedException" xml:space="preserve">
+    <value>無法載入 Jar。</value>
   </data>
-  <data name="CategoryCredentials" xml:space="preserve">
-    <value>Kimlik Bilgileri</value>
+  <data name="JavaTimeoutException" xml:space="preserve">
+    <value>Java 初始化逾時過期。</value>
   </data>
-  <data name="CategorySystem" xml:space="preserve">
-    <value>Sistem</value>
+  <data name="MethodNotFoundException" xml:space="preserve">
+    <value>無法叫用方法。</value>
   </data>
-  <data name="Input" xml:space="preserve">
-    <value>Giriş</value>
+  <data name="SerializationException" xml:space="preserve">
+    <value>無法序列化 .net 物件</value>
   </data>
-  <data name="MessageDescription" xml:space="preserve">
-    <value>İleti</value>
-  </data>
-  <data name="MessageDisplayName" xml:space="preserve">
-    <value>İleti</value>
-  </data>
-  <data name="Output" xml:space="preserve">
-    <value>Çıkış</value>
-  </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Çıkış</value>
-  </data>
-  <data name="PasswordAndSecureStringNotNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
-  </data>
-  <data name="PasswordAndSecureStringNull" xml:space="preserve">
-    <value>Hem parola hem de güvenli dize parolası null olamaz</value>
-  </data>
-  <data name="PasswordDescription" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordDisplayName" xml:space="preserve">
-    <value>Parola</value>
-  </data>
-  <data name="PasswordSecureStringDescription" xml:space="preserve">
-    <value>Güvenli Dize Parolası</value>
-  </data>
-  <data name="PasswordSecureStringDisplayName" xml:space="preserve">
-    <value>Güvenli Dize Parolası </value>
-  </data>
-  <data name="PersistanceTypeDescription" xml:space="preserve">
-    <value>Kalıcılık Türü </value>
-  </data>
-  <data name="PersistanceTypeDisplayName" xml:space="preserve">
-    <value>PersistanceType</value>
-  </data>
-  <data name="Result" xml:space="preserve">
-    <value>Sonuç</value>
-  </data>
-  <data name="TargetDescription" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TargetDisplayName" xml:space="preserve">
-    <value>Hedef</value>
-  </data>
-  <data name="TitleDescription" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="TitleDisplayName" xml:space="preserve">
-    <value>Başlık</value>
-  </data>
-  <data name="UsernameDescription" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="UsernameDisplayName" xml:space="preserve">
-    <value>Kullanıcı adı</value>
-  </data>
-  <data name="ValidationError_InvalidCredentialType" xml:space="preserve">
-    <value>Kimlik Bilgisi Türü için izin verilen değerler sadece &apos;Genel&apos; veya &apos;Etki Alanı Parolası&apos;dır</value>
+  <data name="UnknowException" xml:space="preserve">
+    <value>叫用過程中發生非預期的例外狀況。</value>
   </data>
 </root>
