@@ -19,6 +19,15 @@ namespace UiPath.Cryptography.Activities
     public partial class KeyedHashFile
     {
     }
+
+    /// <summary>
+    /// Hashes a file with a key using a specified algorithm and encoding format 
+    /// and returns the hexadecimal string representation of the resulting hash.
+    /// </summary>
+    [ViewModelClass(typeof(KeyedHashFileViewModel))]
+    public partial class HashFile
+    {
+    }
 }
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
@@ -34,10 +43,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         }
 
         /// <summary>
-        /// The file that you want to encrypt.
+        /// The file that you want to hash.
         /// </summary>
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
 
+        /// <summary>
+        /// The path to the file you want to hash.
+        /// </summary>
+        public DesignInArgument<string> FilePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// A drop-down which enables you to select the keyed hashing algorithm you want to use.
@@ -80,8 +93,10 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             InputFile.IsPrincipal = true;
-            InputFile.IsRequired = true;
             InputFile.OrderIndex = propertyOrderIndex++;
+
+            FilePath.IsPrincipal = true;
+            FilePath.OrderIndex = propertyOrderIndex++;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -102,9 +117,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Value = false;
 
             MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
-    .AddMenuProperty(Key, KeyInputMode.Key)
-    .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
-    .BuildAndInsertMenuActions();
+                .AddMenuProperty(Key, KeyInputMode.Key)
+                .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
+                .BuildAndInsertMenuActions();
         }
         /// <inheritdoc/>
         protected override void InitializeRules()

@@ -853,7 +853,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies the selected hashing algorithm on the contents of the provided file and returns the hexadecimal string representation of the resulting hash..
+        ///   Looks up a localized string similar to This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash File..
         /// </summary>
         public static string Activity_HashFile_Description {
             get {
@@ -943,7 +943,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hashes a string using a specified algorithm and returns the hexadecimal string representation of the resulting hash..
+        ///   Looks up a localized string similar to This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash Text..
         /// </summary>
         public static string Activity_HashText_Description {
             get {
@@ -1051,7 +1051,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hashes a file with a key using a specified algorithm and encoding format and returns the hexadecimal string representation of the resulting hash..
+        ///   Looks up a localized string similar to Hashes a file with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key..
         /// </summary>
         public static string Activity_KeyedHashFile_Description {
             get {
@@ -1249,7 +1249,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash..
+        ///   Looks up a localized string similar to Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key..
         /// </summary>
         public static string Activity_KeyedHashText_Description {
             get {

@@ -86,7 +86,6 @@ namespace UiPath.Cryptography.Activities
                 }
                 if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
                 {
-                    // the validation error is added for having the both fields validated  
                     var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                     metadata.AddValidationError(error);
                 }

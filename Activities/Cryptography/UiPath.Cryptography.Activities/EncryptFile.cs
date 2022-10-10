@@ -32,6 +32,8 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Algorithm_Description))]
         public SymmetricAlgorithms Algorithm { get; set; }
 
+        [RequiredArgument]
+        [OverloadGroup(nameof(InputFilePath))]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_InputFilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_InputFilePath_Description))]
@@ -82,6 +84,8 @@ namespace UiPath.Cryptography.Activities
         public InArgument<bool> ContinueOnError { get; set; }
 
         [Browsable(false)]
+        [RequiredArgument]
+        [OverloadGroup(nameof(InputFile))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_InputFile_Name))]
@@ -105,6 +109,17 @@ namespace UiPath.Cryptography.Activities
 
                 metadata.AddValidationError(error);
             }
+
+            if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
+            {
+                var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
+                metadata.AddValidationError(error);
+            }
+            if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
+            {
+                var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
+                metadata.AddValidationError(error);
+            }
         }
 
         protected override void Execute(CodeActivityContext context)
@@ -119,22 +134,14 @@ namespace UiPath.Cryptography.Activities
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = KeyEncoding.Get(context);
 
-                if (string.IsNullOrWhiteSpace(inputFilePath) && inputFile == null)
-                    throw new ArgumentNullException(Resources.InputFilePathDisplayName);
-
-                if (string.IsNullOrWhiteSpace(outputFilePath) && inputFile == null)
-                    throw new ArgumentNullException(Resources.OutputFilePathDisplayName);
-
-                //either input file path or input file as resource should be used
-                if (!string.IsNullOrWhiteSpace(inputFilePath) && inputFile != null)
-                    throw new ArgumentException(string.Format(Resources.Exception_UseOnlyFilePathOrInputResource,
-                        Resources.Activity_EncryptFile_Property_InputFile_Name, Resources.Activity_EncryptFile_Property_InputFilePath_Name));
-
-                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-
-                if (key != null && keySecureString != null)
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
+                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                }
+                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                }
 
                 if (keyEncoding == null) throw new ArgumentNullException(Resources.Encoding);
 
