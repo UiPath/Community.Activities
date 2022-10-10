@@ -446,7 +446,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Hashes a file with a key using a specified algorithm and encoding format and returns the hexadecimal string representation of the resulting hash.</value>
+    <value>Hashes a file with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash.</value>
+    <value>Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -574,7 +574,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Applies the selected hashing algorithm on the contents of the provided file and returns the hexadecimal string representation of the resulting hash.</value>
+    <value>This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash File.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +614,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Hashes a string using a specified algorithm and returns the hexadecimal string representation of the resulting hash.</value>
+    <value>This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash Text.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">

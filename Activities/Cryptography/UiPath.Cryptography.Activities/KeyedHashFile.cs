@@ -25,6 +25,8 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Algorithm_Description))]
         public KeyedHashAlgorithms Algorithm { get; set; }
 
+        [RequiredArgument]
+        [OverloadGroup(nameof(FilePath))]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_FilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_FilePath_Description))]
@@ -64,6 +66,8 @@ namespace UiPath.Cryptography.Activities
         public InArgument<bool> ContinueOnError { get; set; }
 
         [Browsable(false)]
+        [RequiredArgument]
+        [OverloadGroup(nameof(InputFile))]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Name))]
@@ -94,7 +98,6 @@ namespace UiPath.Cryptography.Activities
                 }
                 if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
                 {
-                    // the validation error is added for having the both fields validated  
                     var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                     metadata.AddValidationError(error);
                 }
@@ -120,9 +123,6 @@ namespace UiPath.Cryptography.Activities
                 var keyEncoding = Encoding.Get(context);
                 var inputFile = InputFile.Get(context);
 
-                if (string.IsNullOrWhiteSpace(filePath) && inputFile == null)
-                    throw new ArgumentNullException(Resources.FilePathDisplayName);
-
                 if (Algorithm.ToString().StartsWith(nameof(HMAC)))
                 {
                     if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
@@ -134,11 +134,6 @@ namespace UiPath.Cryptography.Activities
                         throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
                     }
                 }
-
-                //either input file path or input file as resource should be used
-                if (!string.IsNullOrWhiteSpace(filePath) && inputFile != null)
-                    throw new ArgumentException(string.Format(Resources.Exception_UseOnlyFilePathOrInputResource,
-                        Resources.Activity_KeyedHashFile_Property_InputFile_Name, Resources.Activity_KeyedHashFile_Property_FilePath_Name));
 
                 if (keyEncoding == null)
                     throw new ArgumentNullException(Resources.Encoding);

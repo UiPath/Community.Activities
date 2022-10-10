@@ -123,12 +123,16 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
+                    Key.IsRequired = true;
                     Key.IsVisible = true;
                     KeySecureString.IsVisible = false;
+                    KeySecureString.IsRequired = false;
                     break;
                 case KeyInputMode.SecureKey:
+                    Key.IsRequired = false;
                     Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
+                    KeySecureString.IsRequired = true;
                     break;
                 default:
                     throw new NotImplementedException();

@@ -18,6 +18,15 @@ namespace UiPath.Cryptography.Activities
     public partial class KeyedHashText
     {
     }
+
+    /// <summary>
+    /// Hashes a string with a key using a specified algorithm and returns 
+    /// the hexadecimal string representation of the resulting hash.
+    /// </summary>
+    [ViewModelClass(typeof(KeyedHashTextViewModel))]
+    public partial class HashText
+    {
+    }
 }
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
@@ -100,9 +109,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Value = false;
 
             MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
-   .AddMenuProperty(Key, KeyInputMode.Key)
-   .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
-   .BuildAndInsertMenuActions();
+               .AddMenuProperty(Key, KeyInputMode.Key)
+               .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
+               .BuildAndInsertMenuActions();
         }
         /// <inheritdoc/>
         protected override void InitializeRules()

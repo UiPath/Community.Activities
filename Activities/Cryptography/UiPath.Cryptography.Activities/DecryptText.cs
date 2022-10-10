@@ -82,6 +82,17 @@ namespace UiPath.Cryptography.Activities
                 default:
                     break;
             }
+
+            if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
+            {
+                var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
+                metadata.AddValidationError(error);
+            }
+            if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
+            {
+                var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
+                metadata.AddValidationError(error);
+            }
         }
 
         protected override string Execute(CodeActivityContext context)
@@ -98,11 +109,14 @@ namespace UiPath.Cryptography.Activities
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
 
-                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-
-                if (key != null && keySecureString != null)
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
+                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                }
+                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                }
 
                 if (keyEncoding == null)
                     throw new ArgumentNullException(Resources.Encoding);

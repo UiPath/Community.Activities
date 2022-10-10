@@ -193,7 +193,8 @@ namespace UiPath.Cryptography.Activities.Tests
             EncryptText symmetricAlgorithm = new EncryptText
             {
                 Algorithm = enumValue,
-                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                KeyInputModeSwitch = KeyInputMode.SecureKey
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(EncryptText.Input), toProcess);
@@ -224,7 +225,8 @@ namespace UiPath.Cryptography.Activities.Tests
             DecryptText symmetricAlgorithm = new DecryptText
             {
                 Algorithm = enumValue,
-                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                KeyInputModeSwitch = KeyInputMode.SecureKey
             };
 
             Dictionary<string, object> arguments = new Dictionary<string, object>();

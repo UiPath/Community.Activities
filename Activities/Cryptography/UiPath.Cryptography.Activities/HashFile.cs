@@ -84,4 +84,12 @@ namespace UiPath.Cryptography.Activities
         }
     }
 #endif
+#if NET
+    [Browsable(false)]
+    [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_HashFile_Description))]
+    public partial class HashFile : KeyedHashFile
+    {
+    }
+#endif
 }

@@ -66,6 +66,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
 
         /// <summary>
+        /// The path to the file that you want to encrypt.
+        /// </summary>
+        public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
+
+        /// <summary>
         /// The file that you want to encrypt.
         /// </summary>
         public DesignOutArgument<ILocalResource> EncryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
@@ -81,8 +86,10 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             var propertyOrderIndex = 1;
 
             InputFile.IsPrincipal = true;
-            InputFile.IsRequired = true;
             InputFile.OrderIndex = propertyOrderIndex++;
+
+            InputFilePath.IsPrincipal = true;
+            InputFilePath.OrderIndex = propertyOrderIndex++;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
@@ -146,17 +153,17 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
+                    Key.IsRequired = true;
                     Key.IsVisible = true;
                     KeySecureString.IsVisible = false;
-
+                    KeySecureString.IsRequired = false;
                     break;
-
                 case KeyInputMode.SecureKey:
+                    Key.IsRequired = false;
                     Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
-
+                    KeySecureString.IsRequired = true;
                     break;
-
                 default:
                     throw new NotImplementedException();
             }
