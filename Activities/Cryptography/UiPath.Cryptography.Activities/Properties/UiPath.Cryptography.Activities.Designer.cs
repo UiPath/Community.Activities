@@ -1339,7 +1339,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The key that you want to use to hash the specified file..
+        ///   Looks up a localized string similar to The key that you want to use to hash the specified text..
         /// </summary>
         public static string Activity_KeyedHashText_Property_Key_Description {
             get {
