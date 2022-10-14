@@ -139,10 +139,10 @@
     <value>Ferme une connexion à une base de données.</value>
   </data>
   <data name="DataTableDescription" xml:space="preserve">
-    <value>Le résultat de la commande SQL encapsulé dans un objet DataTable</value>
+    <value>Le résultat de la commande SQL encapsulé dans un objet TableDonnées</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>Établit la connexion à une base de données et renvoie une connexion à une base de données (DatabaseConnection) en fournissant un cadre aux activités en lien avec la base de données. Si la propriété Utiliser une transaction (UseTransaction) est définie sur true, les opérations contenues sont exécutées dans une seule transaction et appliquées à la fin si aucune d’elles n’a échoué. Si la propriété Utiliser une transaction (UseTransaction) est définie sur false, toutes les opérations sont validées individuellement. Lorsque cette activité se termine, la connexion à la base de données prend fin.</value>
+    <value>Établit la connexion à une base de données et renvoie une connexion à une ConnexionBaseDonnées en fournissant un cadre aux activités en lien avec la base de données. Si la propriété UtiliserTransaction (UseTransaction) est définie sur true, les opérations contenues sont exécutées dans une seule transaction et appliquées à la fin si aucune d’elles n’a échoué. Si la propriété UtiliserTransaction (UseTransaction) est définie sur false, toutes les opérations sont validées individuellement. Lorsque cette activité se termine, la connexion à la base de données prend fin.</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
@@ -157,7 +157,7 @@
     <value>Connexion à une base de données déjà établie. Si cette propriété est définie, les propriétés Chaîne de connexion (Connection String) et Nom du fournisseur (Provider Name) sont ignorées.</value>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>Insère un objet DataTable compatible dans un objet Table existant. Renvoie le nombre de lignes affectées.</value>
+    <value>Insère un objet TableDonnées compatible dans un objet Table existant. Renvoie le nombre de lignes affectées.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Dictionnaire de paramètres nommés liés à la commande SQL. La liaison s’effectue en spécifiant l’instruction « @parameterName » dans la commande SQL. Lors de l’exécution, parameterName sera remplacé par sa valeur dans le dictionnaire.</value>
@@ -184,7 +184,7 @@
     <value>Configurer la connexion...</value>
   </data>
   <data name="InserDataTableInputDescription" xml:space="preserve">
-    <value>Objet DataTable à insérer dans la Table. La description des colonnes de la DataTable doit correspondre aux colonnes de la table de base de données</value>
+    <value>Objet TableDonnées à insérer dans la Table. La description des colonnes de la TableDonnées doit correspondre aux colonnes de la table de base de données</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
     <value>Assistant de connexion</value>
@@ -242,16 +242,16 @@
     <value>(Collection)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError Boolean</value>
+    <value>ContinuerSurErreur Boolean</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>DataTable</value>
+    <value>TableDonnées</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>L’objet DataTable source pour les éléments à insérer.</value>
+    <value>L’objet TableDonnées source pour les éléments à insérer.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Objet DataTable source</value>
+    <value>Objet TableDonnées source</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
     <value>Nom de table</value>
@@ -269,7 +269,7 @@
     <value>La collection de noms de colonnes utilisée pour la correspondance de lignes</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Met à jour un objet DataTable compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
+    <value>Met à jour un objet TableDonnées compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
     <value>Le nombre de lignes mises à jour</value>
@@ -278,7 +278,7 @@
     <value>Si la valeur est définie sur Vrai, créera une table temporaire à l’aide d’une insertion en masse et réalisera une mise à jour en utilisant une jointure entre les tables. Sinon, des mises à jour en bloc seront émises par lots.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>L’objet DataTable qui sera utilisé pour mettre à jour la table. La description des colonnes DataTable doit correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble</value>
+    <value>L’objet TableDonnées qui sera utilisé pour mettre à jour la table. La description des colonnes TableDonnées doit correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Mettra à jour une table à l’aide d’opérations en masse via l&apos;implémentation spécifique de pilote de base de données. Cette activité sera remplacée par Insérer une table de données (Insert Data Table) si le pilote de base de données ne prend pas en charge les opérations en masse.</value>

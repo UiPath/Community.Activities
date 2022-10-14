@@ -167,12 +167,6 @@
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES utiliza una clave de 16 o 24 bytes de longitud. La longitud de la clave depende de la codificación.</value>
   </data>
-  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>La clave y la cadena segura no deben ser ambas nulas.</value>
-  </data>
-  <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>La clave y la cadena segura no deben ser ambas nulas.</value>
-  </data>
   <data name="KeySecureString" xml:space="preserve">
     <value>Clave SecureString</value>
   </data>
@@ -456,7 +450,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Archivo hash con clave</value>
+    <value>Aplicar hash al archivo</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -520,7 +514,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>Aplicar hash con clave al texto</value>
+    <value>Texto hash</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -584,7 +578,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Aplicar hash al archivo</value>
+    <value>Archivo hash (obsoleto)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -592,7 +586,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algortithm</value>
+    <value>Algoritmo</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -624,7 +618,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Texto hash</value>
+    <value>Texto hash (obsoleto)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
@@ -764,7 +758,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
-    <value>Nombre del archivo cifrado</value>
+    <value>Nombre de archivo cifrado</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
@@ -772,7 +766,35 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
-    <value>Nombre del archivo descifrado</value>
+    <value>Nombre de archivo descifrado</value>
     <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>Opciones</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Usar una contraseña de cadena segura</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>Usar clave</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Usar una contraseña de cadena segura</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>Usar clave</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>La clave y la cadena segura no deben ser ambas nulas.</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>La clave y la cadena segura no deben ser ambas nulas.</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>La contraseña no puede ser nula</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>La contraseña de cadena segura no puede ser nula</value>
   </data>
 </root>

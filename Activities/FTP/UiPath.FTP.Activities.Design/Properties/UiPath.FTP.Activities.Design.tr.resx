@@ -137,10 +137,10 @@
     <value>FTP</value>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>İstemciSertifikasıParolası</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>HataOlursaDevamEt</value>
+    <value>HataOlduğundaDevamEt</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
     <value>Delete</value>

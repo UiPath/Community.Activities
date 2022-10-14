@@ -260,7 +260,7 @@
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>A instância do objeto java em que o método será invocado. TargetObject e TargetType não podem ser definidos ao mesmo tempo.</value>
+    <value>A instância do objeto java em que o método será invocado. ObjetoDestino e TipoDestino não podem ser definidos ao mesmo tempo.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
     <value>TipoDestino</value>

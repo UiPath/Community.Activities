@@ -161,17 +161,11 @@
     <value>Allgemein</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>BeiFehlerFortsetzen</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES verwendet einen Schlüssel, der 16 oder 24 Byte lang ist. Die Länge Ihres Schlüssels hängt von der Codierung ab.</value>
-  </data>
-  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>Der Schlüssel und die sichere Zeichenfolge dürfen nicht beide nicht NULL sein.</value>
-  </data>
-  <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>Der Schlüssel und die sichere Zeichenfolge dürfen nicht beide NULL sein.</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
     <value>KeySecureString</value>
@@ -456,7 +450,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Hash File With Key</value>
+    <value>Hash File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -520,7 +514,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>Hash Text With Key</value>
+    <value>Hash Text</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -584,7 +578,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Hash File</value>
+    <value>Hash File (deprecated)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -624,7 +618,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Hash Text</value>
+    <value>Hash Text (deprecated)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
@@ -774,5 +768,33 @@
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
     <value>Entschlüsselter Dateiname</value>
     <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>Optionen</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Sichere Schlüsselzeichenfolge verwenden</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>Schlüssel verwenden</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Sichere Schlüsselzeichenfolge verwenden</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>Schlüssel verwenden</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>Der Schlüssel und die sichere Zeichenfolge dürfen nicht beide nicht NULL sein.</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>Der Schlüssel und die sichere Zeichenfolge dürfen nicht beide NULL sein.</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>Der Schlüssel darf nicht NULL sein.</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>Die sichere Schlüsselzeichenfolge darf nicht NULL sein.</value>
   </data>
 </root>

@@ -260,7 +260,7 @@
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>Die Java-Objektinstanz, mit der die Methode aufgerufen wird. TargetObject und TargetType können nicht gleichzeitig festgelegt werden.</value>
+    <value>Die Java-Objektinstanz, mit der die Methode aufgerufen wird. „Zielobjekt“ und „Zieltyp“ können nicht gleichzeitig festgelegt werden.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
     <value>Zieltyp</value>
@@ -276,7 +276,7 @@
     <value>Name des Felds</value>
   </data>
   <data name="JavaObject" xml:space="preserve">
-    <value>JavaObject</value>
+    <value>JavaObjekt</value>
   </data>
   <data name="MethodName" xml:space="preserve">
     <value>Methodenname</value>

@@ -121,7 +121,7 @@
     <value>Eliminar</value>
   </data>
   <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Mover elemento</value>
   </data>
   <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
     <value>Con conexión FTP</value>
@@ -178,7 +178,7 @@
     <value>LocalPath</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Mover elemento</value>
     <comment>Activity name</comment>
   </data>
   <data name="MoveItemNewPathDescription" xml:space="preserve">
@@ -194,7 +194,7 @@
     <value>Archivo o carpeta a eliminar</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Cargar archivos</value>
+    <value>Upload Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">

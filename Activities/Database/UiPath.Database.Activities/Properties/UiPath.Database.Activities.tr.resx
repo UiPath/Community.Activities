@@ -139,7 +139,7 @@
     <comment>property name</comment>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>HataOlursaDevamEt</value>
+    <value>HataOlduğundaDevamEt</value>
     <comment>property name</comment>
   </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">

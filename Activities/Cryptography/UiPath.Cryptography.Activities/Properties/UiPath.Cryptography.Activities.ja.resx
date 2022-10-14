@@ -167,12 +167,6 @@
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES は長さが 16 または 24 バイトのキーを使用します。キーの長さは、エンコードによって異なります。</value>
   </data>
-  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>キーとセキュリティで保護された文字列は、両方とも null 以外にしてはなりません。</value>
-  </data>
-  <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>キーとセキュリティで保護された文字列は、両方とも null にしてはなりません。</value>
-  </data>
   <data name="KeySecureString" xml:space="preserve">
     <value>キー (SecureString)</value>
   </data>
@@ -456,7 +450,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>ファイルをキーでハッシュ</value>
+    <value>ファイルをハッシュ</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -520,7 +514,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>テキストをキーでハッシュ</value>
+    <value>テキストをハッシュ</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -584,7 +578,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>ファイルをハッシュ</value>
+    <value>ファイルをハッシュ (非推奨)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -624,7 +618,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>テキストをハッシュ</value>
+    <value>テキストをハッシュ (非推奨)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
@@ -774,5 +768,33 @@
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
     <value>復号後のファイル名</value>
     <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>オプション</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>キー (SecureString) を使用</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>キーを使用</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>キー (SecureString) を使用</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>キーを使用</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>キーとセキュリティで保護された文字列は、両方とも null 以外にしてはなりません。</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>キーとセキュリティで保護された文字列は、両方とも null にしてはなりません。</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>[キー] を null にすることはできません。</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>[キー (SecureString)] を null にすることはできません。</value>
   </data>
 </root>

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BulkInsert_ColumnsDataTypesMustMatch" xml:space="preserve">
-    <value>As colunas fornecidas na DataTable não correspondem aos tipos de dados das colunas na base de dados.</value>
+    <value>As colunas fornecidas na TabelaDeDados não correspondem aos tipos de dados das colunas na base de dados.</value>
   </data>
   <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
     <value>A coluna não mapeada {0} não foi encontrada na tabela de base de dados de destino {1}</value>
@@ -127,7 +127,7 @@
     <value>A versão do controlador fornecida não suporta operações Inserir em Massa. Verifique o controlador.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
-    <value>O número de colunas fornecido na DataTable tem de corresponder ao número de colunas na tabela de BD.</value>
+    <value>O número de colunas fornecido na TabelaDeDados tem de corresponder ao número de colunas na tabela de BD.</value>
   </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>Ligação não inicializada</value>

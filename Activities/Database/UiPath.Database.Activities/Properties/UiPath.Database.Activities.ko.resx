@@ -139,7 +139,7 @@
     <comment>property name</comment>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>오류 발생시 계속 진행</value>
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
@@ -162,7 +162,7 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>파라미터</value>
+    <value>매개 변수</value>
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
@@ -553,7 +553,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>파라미터</value>
+    <value>매개 변수</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
@@ -644,7 +644,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>파라미터</value>
+    <value>매개 변수</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">

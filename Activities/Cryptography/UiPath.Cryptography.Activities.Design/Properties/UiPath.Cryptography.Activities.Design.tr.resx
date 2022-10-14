@@ -243,6 +243,6 @@
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>HataOlursaDevamEt</value>
+    <value>HataOlduğundaDevamEt</value>
   </data>
 </root>
