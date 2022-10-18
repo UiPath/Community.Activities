@@ -140,7 +140,7 @@
     <value>ClientCertificatePassword</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>오류 발생시 계속 진행</value>
+    <value>오류 발생 시 계속 진행</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
     <value>Delete</value>

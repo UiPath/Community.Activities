@@ -147,7 +147,7 @@
     <comment>property name</comment>
   </data>
   <data name="DataTableDisplayName" xml:space="preserve">
-    <value>DataTable</value>
+    <value>TableDonnées</value>
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
@@ -178,7 +178,7 @@
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>La valeur fournie pour TimeoutMS doit être &gt;= 0</value>
+    <value>La valeur fournie pour DélaiAttenteMillisecondes doit être &gt;= 0</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
     <value>UtiliserTransaction</value>
@@ -210,7 +210,7 @@
     <value>Au moins un des champs de chaîne de connexion doit être utilisé.</value>
   </data>
   <data name="ValidationError_ProviderNull" xml:space="preserve">
-    <value>Valeur de l’argument ’ProviderName’ d’activité requis non fournie</value>
+    <value>Valeur de l’argument « NomFournisseur » d’activité requis non fournie</value>
   </data>
   <data name="Activity_BulkInsert_Description" xml:space="preserve">
     <value>Met à jour une table à l’aide d’opérations en bloc via l’implémentation spécifique de pilote de base de données. Cette activité sera remplacée par Insert Data Table (Insérer une table de données) si le pilote de base de données ne prend pas en charge les opérations en bloc.</value>
@@ -249,7 +249,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
-    <value>L’objet DataTable source pour les éléments à insérer.</value>
+    <value>L’objet TableDonnées source pour les éléments à insérer.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
@@ -257,7 +257,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Une connexion à une base de données déjà ouverte. Si une telle connexion est fournie, les propriétés ConnectionString et SecureConnectionString sont ignorées.</value>
+    <value>Une connexion à une base de données déjà ouverte. Si une telle connexion est fournie, les propriétés ChaîneConnexion et SecureConnectionString sont ignorées.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -281,7 +281,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
-    <value>Met à jour un objet DataTable compatible dans une Table existante. L’activité met également à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé primaire. Renvoie le nombre de lignes affectées.</value>
+    <value>Met à jour un objet TableDonnées compatible dans une Table existante. L’activité met également à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé primaire. Renvoie le nombre de lignes affectées.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkUpdate_Name" xml:space="preserve">
@@ -337,7 +337,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
-    <value>L’objet DataTable qui sera utilisé pour mettre à jour la table. Les descriptions des colonnes DataTable doivent correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble.</value>
+    <value>L’objet TableDonnées qui sera utilisé pour mettre à jour la table. Les descriptions des colonnes TableDonnées doivent correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
@@ -345,7 +345,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Connexion à une base de données déjà ouverte. Si une telle connexion est fournie, les propriétés ConnectionString et SecureConnectionString sont ignorées.</value>
+    <value>Connexion à une base de données déjà ouverte. Si une telle connexion est fournie, les propriétés ChaîneConnexion et SecureConnectionString sont ignorées.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -425,11 +425,11 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
-    <value>Établit une connexion à une base de données et comporte une « Sequence » qui peut exécuter plusieurs transactions avec la base de données. Cette activité renvoie une variable DatabaseConnection, fournissant une étendue pour les activités de la base de données.⏎Si la propriété UseTransaction (Utiliser une transaction) est définie sur True, les opérations contenues sont exécutées dans une seule transaction et appliquées à la fin si aucune d’elles n’a échoué. Si la propriété UseTransaction est définie sur False, toutes les opérations sont validées individuellement. Lorsque cette activité se termine, la connexion à la base de données est fermée.</value>
+    <value>Établit une connexion à une base de données et comporte une « Sequence » qui peut exécuter plusieurs transactions avec la base de données. Cette activité renvoie une variable ConnexionBaseDonnées, fournissant une étendue pour les activités de la base de données.⏎Si la propriété UtiliserTransaction est définie sur True, les opérations contenues sont exécutées dans une seule transaction et appliquées à la fin si aucune d’elles n’a échoué. Si la propriété UtiliserTransaction est définie sur False, toutes les opérations sont validées individuellement. Lorsque cette activité se termine, la connexion à la base de données est fermée.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
-    <value>Démarrer la transaction (Start Transaction)</value>
+    <value>Start Transaction</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -465,7 +465,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>La variable DatabaseConnection que vous souhaitez utiliser pour vous connecter à une base de données. Si une telle connexion est fournie, les propriétés ConnectionString et SecureConnectionString sont ignorées. Peut être récupérée à partir des autres activités de base de données qui ont le champ DatabaseConnection dans la section propriété Sortie (Output).</value>
+    <value>La variable ConnexionBaseDonnées que vous souhaitez utiliser pour vous connecter à une base de données. Si une telle connexion est fournie, les propriétés ChaîneConnexion et SecureConnectionString sont ignorées. Peut être récupérée à partir des autres activités de base de données qui ont le champ ConnexionBaseDonnées dans la section propriété Sortie (Output).</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -537,7 +537,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Connexion à une base de données déjà ouverte. Si une telle connexion est fournie, les propriétés ConnectionString et SecureConnectionString sont ignorées.</value>
+    <value>Connexion à une base de données déjà ouverte. Si une telle connexion est fournie, les propriétés ChaîneConnexion et SecureConnectionString sont ignorées.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -561,7 +561,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Une commande SQL à exécuter. Ce champ doit être rempli en fonction de la sélection effectuée dans la propriété CommandType.</value>
+    <value>Une commande SQL à exécuter. Ce champ doit être rempli en fonction de la sélection effectuée dans la propriété TypeCommande.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
@@ -577,7 +577,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
-    <value>Exécute une requête sur une base de données et renvoie le résultat de la requête dans un objet Datatable.</value>
+    <value>Exécute une requête sur une base de données et renvoie le résultat de la requête dans un objet TableDonnées.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
@@ -617,7 +617,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
-    <value>Le résultat de la commande SQL encapsulé dans une variable DataTable.</value>
+    <value>Le résultat de la commande SQL encapsulé dans une variable TableDonnées.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
@@ -625,7 +625,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Une connexion à une base de données déjà ouverte obtenue à partir des activités Connecter (Connect) ou Démarrer une transaction (Start Transaction). Si une telle connexion est fournie, les propriétés ConnectionString et SecureConnectionString sont ignorées.</value>
+    <value>Une connexion à une base de données déjà ouverte obtenue à partir des activités Connecter (Connect) ou Démarrer une transaction (Start Transaction). Si une telle connexion est fournie, les propriétés ChaîneConnexion et SecureConnectionString sont ignorées.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -649,7 +649,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Une commande SQL à exécuter. Ce champ doit être rempli en fonction de la sélection effectuée dans la propriété CommandType.</value>
+    <value>Une commande SQL à exécuter. Ce champ doit être rempli en fonction de la sélection effectuée dans la propriété TypeCommande.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
@@ -665,11 +665,11 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Description" xml:space="preserve">
-    <value>Insère un objet DataTable compatible dans une Table existante. Renvoie le nombre de lignes affectées. Si les contraintes de la table ne sont pas respectées, l’activité ne sera pas effectuée correctement et toutes les lignes écrites seront sauvegardées.</value>
+    <value>Insère un objet TableDonnées compatible dans une Table existante. Renvoie le nombre de lignes affectées. Si les contraintes de la table ne sont pas respectées, l’activité ne sera pas effectuée correctement et toutes les lignes écrites seront sauvegardées.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_InsertDataTable_Name" xml:space="preserve">
-    <value>Insérer</value>
+    <value>Insert</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
@@ -705,7 +705,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
-    <value>L’Objet DataTable qui sera inséré dans la Table. La description des colonnes de la DataTable doit correspondre aux colonnes de la table de base de données</value>
+    <value>L’Objet TableDonnées qui sera inséré dans la Table. La description des colonnes de la TableDonnées doit correspondre aux colonnes de la table de base de données</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
@@ -713,7 +713,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Une connexion à une base de données déjà ouverte obtenue à partir des activités Connecter (Connect) ou Démarrer une transaction (Start Transaction). Si une telle connexion est fournie, les propriétés ConnectionString et SecureConnectionString sont ignorées.</value>
+    <value>Une connexion à une base de données déjà ouverte obtenue à partir des activités Connecter (Connect) ou Démarrer une transaction (Start Transaction). Si une telle connexion est fournie, les propriétés ChaîneConnexion et SecureConnectionString sont ignorées.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">

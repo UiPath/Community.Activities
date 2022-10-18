@@ -139,10 +139,10 @@
     <value>Schließt die Verbindung zu einer Datenbank.</value>
   </data>
   <data name="DataTableDescription" xml:space="preserve">
-    <value>Die Ausgabe des SQL-Befehls, der in ein DataTable-Objekt eingeschlossen ist</value>
+    <value>Die Ausgabe des SQL-Befehls, der in ein Datentabellenobjekt eingeschlossen ist</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>Stellt eine Verbindung mit einer Datenbank her und gibt eine DatenbankVerbindung (DatabaseConnection) zurück, die einen Scope für Datenbankaktivitäten bereitstellt. Wenn VerwendenTransaktion (UseTransaction) auf wahr gesetzt ist, werden die enthaltenen Vorgänge in einer einzelnen Transaktion ausgeführt und am Ende angewendet, wenn keine von ihnen fehlgeschlagen ist. Wenn VerwendenTransaktion (UseTransaction) auf falsch gesetzt ist, werden alle Operationen einzeln ausgeführt. Wenn diese Aktivität beendet wird, wird die Verbindung zur Datenbank geschlossen.</value>
+    <value>Stellt eine Verbindung mit einer Datenbank her und gibt eine Datenbankverbindung zurück, die einen Scope für Datenbankaktivitäten bereitstellt. Wenn TransaktionVerwenden auf „true“ gesetzt ist, werden die enthaltenen Vorgänge in einer einzelnen Transaktion ausgeführt und am Ende angewendet, wenn keine von ihnen fehlgeschlagen ist. Wenn TransaktionVerwenden auf „false“ gesetzt ist, werden alle Vorgänge einzeln ausgeführt. Wenn diese Aktivität beendet wird, wird die Verbindung zur Datenbank geschlossen.</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
@@ -157,7 +157,7 @@
     <value>Eine bereits geöffnete Datenbankverbindung. Wenn diese Eigenschaft festgelegt ist, werden die Eigenschaften „Verbindungszeichenfolge“ und „Name des Anbieters“ ignoriert.</value>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
+    <value>Fügt eine kompatible Datentabelle in eine vorhandene Tabelle ein. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Ein Wörterbuch benannter Parameter, die an den SQL-Befehl gebunden sind. Die Bindung erfolgt durch Angabe der Anweisung „@parameterName“ im SQL-Befehl. Zur Laufzeit wird „parameterName“ durch seinen Wert aus dem Wörterbuch ersetzt.</value>
@@ -184,7 +184,7 @@
     <value>Verbindung konfigurieren...</value>
   </data>
   <data name="InserDataTableInputDescription" xml:space="preserve">
-    <value>Das DataTable-Objekt, das in die Tabelle eingefügt wird. Die Beschreibung der DataTable-Spalten muss mit den Spalten aus der Datenbanktabelle übereinstimmen.</value>
+    <value>Das Datentabellenobjekt, das in die Tabelle eingefügt wird. Die Beschreibung der Datentabellenspalten muss mit den Spalten aus der Datenbanktabelle übereinstimmen.</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
     <value>Verbindungs-Assistent</value>
@@ -242,16 +242,16 @@
     <value>(Aufzählung)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError – boolescher Wert</value>
+    <value>BeiFehlerFortsetzen – boolescher Wert</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>DataTable</value>
+    <value>Datentabelle</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>Die Quell-DataTable für die einzufügenden Elemente.</value>
+    <value>Die Quell-Datentabelle für die einzufügenden Elemente.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Quell-DataTable</value>
+    <value>Quelldatentabelle</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
     <value>Tabellenname</value>
@@ -269,7 +269,7 @@
     <value>Die Sammlung von Spaltennamen, die für den Zeilenabgleich verwendet werden</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Fügt eine kompatible DataTable in eine vorhandene Tabelle ein. Aktualisiert alle Spalten, die sich nicht in der Sammlung der Spaltennamen befinden, die als Primärschlüssel verwendet werden. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
+    <value>Fügt eine Datentabelle in eine vorhandene Tabelle ein. Aktualisiert alle Spalten, die sich nicht in der Sammlung der Spaltennamen befinden, die als Primärschlüssel verwendet werden. Gibt die Anzahl der betroffenen Zeilen zurück.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
     <value>Die Anzahl der aktualisierten Zeilen</value>
@@ -278,7 +278,7 @@
     <value>Bei „true“ wird durch Masseneinfügung eine temporäre Tabelle erstellt und mithilfe der Verknüpfung zwischen Tabellen aktualisiert. Andernfalls werden Massenaktualisierungen im Batch ausgegeben.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>Das DataTable-Objekt, das in die Tabelle eingefügt wird. Die Beschreibung der DataTable-Spalten muss mit den Spalten aus der Datenbanktabelle übereinstimmen und eine Teilmenge dieser sein.</value>
+    <value>Das Datentabellenobjekt, das in die Tabelle eingefügt wird. Die Beschreibung der Datentabellenspalten muss mit den Spalten aus der Datenbanktabelle übereinstimmen und eine Teilmenge dieser sein.</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Aktualisiert eine Tabelle mithilfe von Massenvorgängen mit der spezifischen Datenbank-Treiberimplementierung. Greift auf „Datentabelle einfügen“ zurück, wenn der Datenbanktreiber keine Massenvorgänge unterstützt.</value>

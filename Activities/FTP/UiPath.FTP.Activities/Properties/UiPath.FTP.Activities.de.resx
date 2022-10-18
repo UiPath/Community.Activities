@@ -279,7 +279,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>Clientzertifikatpasswort</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>BeiFehlerFortsetzen</value>
@@ -291,7 +291,7 @@
     <value>Host</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+    <value>LokalerPfad</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
     <value>NewPath</value>
@@ -711,10 +711,10 @@
     <value>Sicheres Kennwort</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
-    <value>„ClientCertificatePassword“ und „ClientCertificateSecurePassword“ dürfen nicht beide NULL sein.</value>
+    <value>„Clientzertifikatpasswort“ und „ClientCertificateSecurePassword“ dürfen nicht beide NULL sein.</value>
   </data>
   <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
-    <value>„Password“ und „SecurePassword“ dürfen nicht beide NULL sein.</value>
+    <value>„Kennwort“ und „SicheresKennwort“ dürfen nicht beide NULL sein.</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
     <value>Das für den Proxy verwendete Kennwort, wenn Authentifizierung erforderlich ist</value>

@@ -131,7 +131,7 @@
     <value>Faire</value>
   </data>
   <data name="GetObjectDescription" xml:space="preserve">
-    <value>Obtenir le type .NET à partir d’un objet Python (PythonObject)</value>
+    <value>Obtenir le type .NET à partir d’un objet Python (ObjetPython)</value>
   </data>
   <data name="GetObjectNameDisplayName" xml:space="preserve">
     <value>Get Python Object</value>
@@ -279,13 +279,13 @@
     <value>Utilisé pour indiquer le dossier de travail des scripts en cours d’exécution dans le cadre actuel.</value>
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
-    <value>Le chemin d’accès du dossier de travail (WorkingFolder) n’est pas valide</value>
+    <value>Le chemin d’accès du DossierTravail (WorkingFolder) n’est pas valide</value>
   </data>
   <data name="InvalidVersionException" xml:space="preserve">
     <value>La version sélectionnée {0} est différente de la version rencontrée {1}</value>
   </data>
   <data name="OperationTimeout" xml:space="preserve">
-    <value>Timeout</value>
+    <value>Délai d&apos;attente</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Temps nécessaire pour permettre l’exécution d’un script Python jusqu’à la fin et le lancement d’une exception.</value>

@@ -161,17 +161,11 @@
     <value>공통</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>오류 발생시 계속 진행</value>
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES에서는 16 또는 24바이트 길이의 키가 사용됩니다. 키의 길이는 인코딩에 따라 다를 수 있습니다.</value>
-  </data>
-  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>키 및 보안 문자열 모두 null이어야 합니다.</value>
-  </data>
-  <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
     <value>KeySecureString</value>
@@ -456,7 +450,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Hash File With Key</value>
+    <value>Hash File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -520,7 +514,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>Hash Text With Key</value>
+    <value>Hash Text</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -584,7 +578,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Hash File</value>
+    <value>Hash File (사용되지 않음)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -624,7 +618,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Hash Text</value>
+    <value>Hash Text (사용되지 않음)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
@@ -679,40 +673,40 @@
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
-    <value>The encrypted file</value>
+    <value>암호화된 파일</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
@@ -774,5 +768,33 @@
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
     <value>암호 해독된 파일 이름</value>
     <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>옵션</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>키 보안 문자열 사용</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>키 사용</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>키 보안 문자열 사용</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>키 사용</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>키 및 보안 문자열 모두 null이어야 합니다.</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>키는 Null이 아니어야 합니다.</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>키 보안 문자열은 Null이 아니어야 합니다.</value>
   </data>
 </root>

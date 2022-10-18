@@ -260,7 +260,7 @@
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
-    <value>Se invocará el método de instancia del objeto Java. TargetObject y TargetType no se pueden establecer al mismo tiempo.</value>
+    <value>Se invocará el método de instancia del objeto Java. El ObjetoDeDestino y el TipoDeDestino no se pueden establecer al mismo tiempo.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
     <value>TipoDeDestino</value>
@@ -292,7 +292,7 @@
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
-    <value>El valor proporcionado para TimeoutMS debe ser &gt;= 0</value>
+    <value>El valor proporcionado para TiempoDeEsperaMS debe ser &gt;= 0</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
     <value>La cantidad de tiempo (en milisegundos) que se debe esperar la conexión en tiempo de ejecución Java (15 000 ms predeterminados).</value>

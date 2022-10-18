@@ -137,7 +137,7 @@
     <value>FTP</value>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>MotDePasseCertificatClient</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinuerSurErreur</value>
@@ -175,7 +175,7 @@
     <value>Hôte</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>Chemin local</value>
+    <value>CheminLocal</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
     <value>Move Item</value>
