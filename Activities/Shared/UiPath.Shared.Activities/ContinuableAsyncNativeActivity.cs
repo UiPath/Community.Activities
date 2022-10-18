@@ -4,6 +4,10 @@ using System.Diagnostics;
 
 namespace UiPath.Shared.Activities
 {
+    /// <summary>
+    /// Abstract class that inherits AsyncTaskNativeActivity
+    /// and use Trace class for errors
+    /// </summary>
     public abstract class ContinuableAsyncNativeActivity : AsyncTaskNativeActivity
     {
         public abstract InArgument<bool> ContinueOnError { get; set; }

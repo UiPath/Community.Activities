@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\Scripting.build.props" />
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-windows</TargetFrameworks>

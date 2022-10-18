@@ -4,11 +4,13 @@ using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Threading;
 
-namespace UiPath.Scripting.Activities.PowerShell
+namespace UiPath.Scripting.Activities
 {
-    // An instance of this object is returned to the runtime upon beginning
-    // execution.  This also keeps a pointer to a callback function, which
-    // it calls when it completes.
+    /// <summary>
+    /// An instance of this object is returned to the runtime upon beginning
+    /// execution.  This also keeps a pointer to a callback function, which
+    /// it calls when it completes.
+    /// </summary>
     public sealed class PipelineInvokerAsyncResult : IAsyncResult
     {
         /// <summary>
@@ -131,7 +133,11 @@ namespace UiPath.Scripting.Activities.PowerShell
             }
         }
 
-        // Called by the underlying PowerShell pipeline object on state changes.
+        /// <summary>
+        /// Called by the underlying PowerShell pipeline object on state changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void OnStateChanged(object sender, PipelineStateEventArgs args)
         {
             try

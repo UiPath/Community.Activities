@@ -9,6 +9,9 @@ using System.Windows;
 
 namespace UiPath.Scripting.Activities.Design
 {
+    /// <summary>
+    /// Argument Dictionary Editor
+    /// </summary>
     internal class ArgumentDictionaryEditor : DialogPropertyValueEditor
     {
         public ArgumentDictionaryEditor()

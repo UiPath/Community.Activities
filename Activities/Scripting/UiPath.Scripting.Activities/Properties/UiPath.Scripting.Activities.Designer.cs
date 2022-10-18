@@ -61,6 +61,132 @@ namespace UiPath.Scripting.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Execute a PowerShell Core command.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute Power Shell Core.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The PowerShell command that is to be executed..
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_CommandText_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_CommandText_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command Text.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_CommandText_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_CommandText_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies to continue executing the remaining activities even if the current activity failed. Only boolean values (True, False) are supported..
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_ContinueOnError_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_ContinueOnError_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue On Error.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_ContinueOnError_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_ContinueOnError_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A collection of PSObjects that are passed to the writer of the pipeline used to execute the command. Can be the output of another InvokePowerShellCore activity..
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_Input_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_Input_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_Input_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_Input_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies if the command text is a script..
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_IsScript_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_IsScript_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IsScript.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_IsScript_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_IsScript_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A dictionary of PowerShell command parameters..
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_Parameters_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_Parameters_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_Parameters_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_Parameters_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A dictionary of named objects that represent variables used within the current session of the command. A PowerShell command can retrieve information from IN and In/Out variables and can set Out variables..
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_PowerShellVariables_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_PowerShellVariables_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PowerShell Variables.
+        /// </summary>
+        public static string Activity_ExecutePowerShellCore_Property_PowerShellVariables_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecutePowerShellCore_Property_PowerShellVariables_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invoke a PowerShell Core command.
         /// </summary>
         public static string Activity_InvokePowerShellCore_Description {
@@ -70,7 +196,7 @@ namespace UiPath.Scripting.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoke PowerShell Core.
+        ///   Looks up a localized string similar to Invoke Power Shell Core.
         /// </summary>
         public static string Activity_InvokePowerShellCore_Name {
             get {
@@ -205,6 +331,24 @@ namespace UiPath.Scripting.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        public static string Category_Others_Name {
+            get {
+                return ResourceManager.GetString("Category_Others_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Principal.
+        /// </summary>
+        public static string Category_Principal_Name {
+            get {
+                return ResourceManager.GetString("Category_Principal_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common.
         /// </summary>
         public static string Common {
@@ -246,6 +390,15 @@ namespace UiPath.Scripting.Activities.Properties {
         public static string Do {
             get {
                 return ResourceManager.GetString("Do", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activities.Scripting.Powershell.
+        /// </summary>
+        public static string General_Category {
+            get {
+                return ResourceManager.GetString("General_Category", resourceCulture);
             }
         }
         

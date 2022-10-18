@@ -4,8 +4,11 @@ using System.Collections.ObjectModel;
 using System.Management.Automation;
 using UiPath.Scripting.Activities.Properties;
 
-namespace UiPath.Scripting.Activities.PowerShell
+namespace UiPath.Scripting.Activities
 {
+    /// <summary>
+    /// Helper class for binding the properties
+    /// </summary>
     public sealed class IPSHelper
     {
         /// <summary>

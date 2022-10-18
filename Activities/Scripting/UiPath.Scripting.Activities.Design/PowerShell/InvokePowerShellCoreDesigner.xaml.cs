@@ -1,6 +1,8 @@
 ﻿namespace UiPath.Scripting.Activities.Design
 {
-    // Interaction logic for InvokePowerShellCoreDesigner.xaml
+    /// <summary>
+    /// Interaction logic for InvokePowerShellCoreDesigner.xaml
+    /// </summary>
     public partial class InvokePowerShellCoreDesigner
     {
         public InvokePowerShellCoreDesigner()

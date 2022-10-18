@@ -6,17 +6,20 @@ using System.ComponentModel;
 using System.Linq;
 using System.Management.Automation;
 using UiPath.Scripting.Activities.Design.Properties;
-using UiPath.Scripting.Activities.PowerShell;
 
 namespace UiPath.Scripting.Activities.Design
 {
     public class DesignerMetadata : IRegisterMetadata
     {
+        private const string AssemblyName = "System.Activities.Presentation";
+        private const string AttrTypeName = "System.Activities.Presentation.FeatureAttribute";
+        private const string ArgTypeName = "System.Activities.Presentation.UpdatableGenericArgumentsFeature";
+
         private void AddDefaultTypeArgumentAttribute(AttributeTableBuilder builder)
         {
-            var presentationDll = AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "System.Activities.Presentation");
-            Type attrType = presentationDll.GetType("System.Activities.Presentation.FeatureAttribute");
-            Type argType = presentationDll.GetType("System.Activities.Presentation.UpdatableGenericArgumentsFeature");
+            var presentationDll = AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == AssemblyName);
+            Type attrType = presentationDll.GetType(AttrTypeName);
+            Type argType = presentationDll.GetType(ArgTypeName);
 
             var genericTypeArgument = Activator.CreateInstance(attrType, new object[] { argType }) as Attribute;
 

@@ -3,24 +3,92 @@
   "Activities": [
     {
       "AssemblyQualifiedName": null,
-      "FullName": "UiPath.Scripting.Activities.InvokePowerShellCore",
-      "ShortName": "InvokePowerShellCore",
-      "DisplayNameKey": "Activity_InvokePowerShellCore_Name",
-      "DescriptionKey": "Activity_InvokePowerShellCore_Description",
-      "IconKey": null,
+      "FullName": "UiPath.Scripting.Activities.ExecutePowerShellCore",
+      "ShortName": "ExecutePowerShellCore",
+      "DisplayNameKey": "Activity_ExecutePowerShellCore_Name",
+      "DescriptionKey": "Activity_ExecutePowerShellCore_Description",
+      "IconKey": "Hash_file.svg",
       "CategoryKey": null,
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-
+          "Name": "CommandText",
+          "DisplayNameKey": "Activity_ExecutePowerShellCore_Property_CommandText_Name",
+          "TooltipKey": "Activity_ExecuteePowerShellCore_Property_CommandText_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "IsScript",
+          "DisplayNameKey": "Activity_ExecutePowerShellCore_Property_IsScript_Name",
+          "TooltipKey": "Activity_ExecutePowerShellCore_Property_IsScript_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_ExecutePowerShellCore_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_ExecutePowerShellCore_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "Parameters",
+          "DisplayNameKey": "Activity_ExecutePowerShellCore_Property_Parameters_Name",
+          "TooltipKey": "Activity_ExecutePowerShellCore_Property_Parameters_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "PowerShellVariables",
+          "DisplayNameKey": "Activity_ExecutePowerShellCore_Property_PowerShellVariables_Name",
+          "TooltipKey": "Activity_ExecutePowerShellCore_Property_PowerShellVariables_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal_Name"
+          },
+          "Widget": null,
+          "IconKey": null
         }
-      ]
+      ],
+      "DefaultFactory": null
     }
   ],
   "DefaultActivityColor": "#526069",
   "DefaultActivityNameBackgroundColor": "#FFFFFF",
-  "DefaultActivityIconKey": null,
-  "AssemblyIconKey": null,
+  "DefaultActivityIconKey": "Cryptography.svg",
+  "AssemblyIconKey": "Hash_text.svg",
   "ResourceManagerName": "UiPath.Scripting.Activities.Properties.UiPath.Scripting.Activities"
 }

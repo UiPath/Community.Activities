@@ -8,13 +8,15 @@ using System.ComponentModel;
 using System.Management.Automation;
 using UiPath.Scripting.Activities.Properties;
 
-namespace UiPath.Scripting.Activities.PowerShell
+namespace UiPath.Scripting.Activities
 {
     /// <summary>
     /// Invokes the powershell by sending the propeties to the ExecutePowershellCore.
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
-    public sealed class InvokePowerShellCore<TResult> : Activity
+    [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Description))]
+    public partial class InvokePowerShellCore<T> : Activity
     {
         private Dictionary<string, InArgument> parameters;
         private Dictionary<string, Argument> powerShellVariables;
@@ -99,7 +101,7 @@ namespace UiPath.Scripting.Activities.PowerShell
         [DefaultValue(null)]
         [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Property_Output_Name))]
         [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Property_Output_Description))]
-        public OutArgument<Collection<TResult>> Output { get; set; }
+        public OutArgument<Collection<T>> Output { get; set; }
 
         /// <summary>
         /// Specifies to continue executing the remaining activities even if the current activity failed. Only boolean values (True, False) are supported.
@@ -112,7 +114,7 @@ namespace UiPath.Scripting.Activities.PowerShell
         public InvokePowerShellCore()
             : base()
         {
-            DelegateOutArgument<TResult> result = new DelegateOutArgument<TResult>() { Name = "result" };
+            DelegateOutArgument<T> result = new DelegateOutArgument<T>() { Name = "result" };
             DelegateInArgument<PSObject> psObject = new DelegateInArgument<PSObject>() { Name = "psObject" };
 
             this.childParameters = new Dictionary<string, InArgument>();
@@ -129,7 +131,7 @@ namespace UiPath.Scripting.Activities.PowerShell
             IPSHelper.CacheMetadataHelper(metadata, this.Input, this.Errors, this.CommandText, GetType().Name,
                 this.DisplayName, this.PowerShellVariables, this.Parameters, this.childPowerShellVariables, this.childParameters);
 
-            RuntimeArgument outputArgument = new RuntimeArgument("Output", typeof(Collection<TResult>), ArgumentDirection.Out, false);
+            RuntimeArgument outputArgument = new RuntimeArgument("Output", typeof(Collection<T>), ArgumentDirection.Out, false);
             metadata.Bind(this.Output, outputArgument);
             metadata.AddArgument(new RuntimeArgument("CommandText", typeof(String), ArgumentDirection.In));
             metadata.AddArgument(new RuntimeArgument("ContinueOnError", typeof(bool), ArgumentDirection.In));
@@ -143,9 +145,9 @@ namespace UiPath.Scripting.Activities.PowerShell
         private Activity CreateBody()
         {
             Variable<Collection<PSObject>> psObjects = new Variable<Collection<PSObject>>();
-            Variable<TResult> outputObject = new Variable<TResult>();
+            Variable<T> outputObject = new Variable<T>();
             DelegateInArgument<PSObject> psObject = new DelegateInArgument<PSObject>();
-            Variable<Collection<TResult>> outputObjects = new Variable<Collection<TResult>>() { Default = new New<Collection<TResult>>(), };
+            Variable<Collection<T>> outputObjects = new Variable<Collection<T>>() { Default = new New<Collection<T>>(), };
             DelegateInArgument<Exception> exception = new DelegateInArgument<Exception>();
 
             return new TryCatch
@@ -155,15 +157,15 @@ namespace UiPath.Scripting.Activities.PowerShell
                     Variables = { psObjects, outputObjects },
                     Activities =
                     {
-                         new ExecutePowerShellCore
+                        new ExecutePowerShellCore
                         {
                             CommandText = new ArgumentValue<string> { ArgumentName = "CommandText" },
                             Parameters = this.childParameters,
                             PowerShellVariables = this.childPowerShellVariables,
-                            PipelineOutput = psObjects,
-                            Errors = new ArgumentReference<Collection<ErrorRecord>> { ArgumentName = "Errors" },
+                            //PipelineOutput = psObjects,
+                            //Errors = new ArgumentReference<Collection<ErrorRecord>> { ArgumentName = "Errors" },
                             IsScript = this.IsScript,
-                            Input = new ArgumentValue<Collection<PSObject>> { ArgumentName = "Input" },
+                            //Input = new ArgumentValue<Collection<PSObject>> { ArgumentName = "Input" },
                             ContinueOnError = new ArgumentValue<bool> { ArgumentName = "ContinueOnError" }
                         },
                         new If
@@ -179,16 +181,16 @@ namespace UiPath.Scripting.Activities.PowerShell
                                         Body = new ActivityAction<PSObject>
                                         {
                                             Argument = psObject,
-                                            Handler = new AddToCollection<TResult>
+                                            Handler = new AddToCollection<T>
                                             {
                                                 Collection = outputObjects,
-                                                Item = new InArgument<TResult>(ctx => (TResult) psObject.Get(ctx).BaseObject)
+                                                Item = new InArgument<T>(ctx => (T) psObject.Get(ctx).BaseObject)
                                             }
                                         }
                                     },
-                                    new Assign<Collection<TResult>>
+                                    new Assign<Collection<T>>
                                     {
-                                        To = new OutArgument<Collection<TResult>>(ctx => this.Output.Get(ctx)),
+                                        To = new OutArgument<Collection<T>>(ctx => this.Output.Get(ctx)),
                                         Value = outputObjects
                                     }
                                 }

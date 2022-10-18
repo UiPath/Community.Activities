@@ -4,6 +4,9 @@ using UiPath.Scripting.Activities.Properties;
 
 namespace UiPath.Scripting.Activities
 {
+    /// <summary>
+    /// Get Category Name from Resources
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class LocalizedCategoryAttribute : CategoryAttribute
     {
@@ -18,6 +21,9 @@ namespace UiPath.Scripting.Activities
         }
     }
 
+    /// <summary>
+    /// Get Display Name from Resources
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
     public class LocalizedDisplayNameAttribute : DisplayNameAttribute
     {
@@ -36,6 +42,9 @@ namespace UiPath.Scripting.Activities
         }
     }
 
+    /// <summary>
+    /// Get Description from Resources
+    /// </summary>
     public class LocalizedDescriptionAttribute : DescriptionAttribute
     {
         public LocalizedDescriptionAttribute(string displayName)

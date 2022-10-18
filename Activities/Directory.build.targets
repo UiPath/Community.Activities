@@ -4,13 +4,7 @@
 		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20220401-03" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="6.0.0-20220506.1" />
 		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20220422.1"/>
-		<PackageReference Update="System.Management.Automation" Version="7.2.5" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" Version="7.2.5"/>
-		<PackageReference Include="Microsoft.PowerShell.ConsoleHost" Version="7.2.5" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Utility" Version="7.2.5" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Management" Version="7.2.5" />
-		<PackageReference Include="Microsoft.WSMan.Management" Version="7.2.5" />
-		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.0.1" />
+		
 	</ItemGroup>
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net5'))">
 		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
@@ -24,6 +18,15 @@
 		<PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Update="System.Management.Automation" Version="7.2.6" />
+		<PackageReference Update="Microsoft.PowerShell.Commands.Diagnostics" Version="7.2.6"/>
+		<PackageReference Update="Microsoft.PowerShell.ConsoleHost" Version="7.2.6" />
+		<PackageReference Update="Microsoft.PowerShell.SDK" Version="7.2.6" />
+		<PackageReference Update="Microsoft.PowerShell.Native" Version="7.2.0" />
+		<PackageReference Update="Microsoft.PowerShell.Commands.Utility" Version="7.2.6" />
+		<PackageReference Update="Microsoft.PowerShell.Commands.Management" Version="7.2.6" />
+		<PackageReference Update="Microsoft.WSMan.Management" Version="7.2.6" />
+		<PackageReference Update="Microsoft.CodeAnalysis.VisualBasic" Version="4.0.1" />
 		<PackageReference Update="UiPath.Robot.Api" Version="22.4.1" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Api" Version="22.4.1" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Contracts" Version="22.4.1" PrivateAssets="All" />

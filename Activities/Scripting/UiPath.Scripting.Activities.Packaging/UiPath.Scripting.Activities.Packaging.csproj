@@ -12,8 +12,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageId>UiPath.Scripting.Activities</PackageId>
-		<PackageTitle>UiPath.Scripting.Activities</PackageTitle>
+		<PackageId>Bogdan.UiPath.Scripting.Activities</PackageId>
+		<PackageTitle>Bogdan.UiPath.Scripting.Activities</PackageTitle>
 		<PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
 		<PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-scripting-activities-pack</PackageLicenseUrl>
 		<PackageTags>UiPathActivities</PackageTags>
@@ -34,8 +34,8 @@
 		<PackageReference Include="UiPath.Workflow.Runtime" PrivateAssets="All" />
 		<PackageReference Include="UiPath.Workflow" PrivateAssets="All" />
 		<PackageReference Include="System.Activities.ViewModels" PrivateAssets="All" />
-		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.5" />
-		<PackageReference Include="Microsoft.PowerShell.Native" Version="7.2.0" />
+		<PackageReference Include="Microsoft.PowerShell.SDK" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.PowerShell.Native" PrivateAssets="All"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.Management.Automation" />

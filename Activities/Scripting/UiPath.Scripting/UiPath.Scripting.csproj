@@ -6,10 +6,8 @@
 	</PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
 		<PackageReference Include="UiPath.Workflow" />
-		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.4" />
-		<PackageReference Include="Microsoft.PowerShell.Native" Version="7.2.0" />
+		<PackageReference Update="Microsoft.PowerShell.SDK" />
+		<PackageReference Update="Microsoft.PowerShell.Native" />
 		<PackageReference Include="System.Management.Automation" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" />
-		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic"/>
 	</ItemGroup>
 </Project>

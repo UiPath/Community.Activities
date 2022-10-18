@@ -9,17 +9,17 @@
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Activities.ViewModels" />
-		<PackageReference Include="System.Activities.Metadata" Version="0.1.0"/>
+		<PackageReference Include="System.Activities.Metadata" />
 		<PackageReference Include="UiPath.Activities.Api" />
 		<PackageReference Include="UiPath.Activities.Contracts" />
 		<PackageReference Include="UiPath.Platform" />
 		<PackageReference Include="System.Management.Automation" />
 		<PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" />
 		<PackageReference Include="Microsoft.PowerShell.ConsoleHost" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Utility"/>
-		<PackageReference Include="Microsoft.PowerShell.Commands.Management"/>
-		<PackageReference Include="Microsoft.WSMan.Management"/>
-		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic"/>
+		<PackageReference Include="Microsoft.PowerShell.Commands.Utility" />
+		<PackageReference Include="Microsoft.PowerShell.Commands.Management" />
+		<PackageReference Include="Microsoft.WSMan.Management" />
+		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\UiPath.Scripting\UiPath.Scripting.csproj">
@@ -42,5 +42,17 @@
 	<Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
 	<ItemGroup>
 		<Compile Condition="'$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="InvokePowerShellCoreViewModel.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\ActivitiesMetadata.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Resources\Icons\" />
 	</ItemGroup>
 </Project>

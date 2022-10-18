@@ -9,14 +9,21 @@ using System.Threading;
 using UiPath.Scripting.Activities.Properties;
 
 
-namespace UiPath.Scripting.Activities.PowerShell
+namespace UiPath.Scripting.Activities
 {
     /// <summary>
     /// Executes the powershell command or the powershell script.
     /// </summary>
-    public sealed class ExecutePowerShellCore : AsyncCodeActivity
+    [LocalizedDisplayName(nameof(Resources.Activity_ExecutePowerShellCore_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_ExecutePowerShellCore_Description))]
+    public partial class ExecutePowerShellCore : AsyncCodeActivity
     {
         private const string PowerShellGlobalVariableNamePrefix = "Global.";
+        private const string InputArgumentName = "Input";
+        private const string PipelineOutputArgumentName = "PipelineOutput";
+        private const string ErrorsArgumentName = "Errors";
+        private const string CommandTextArgumentName = "CommandText";
+        private const string ContinueOnErrorArgumentName = "ContinueOnError";
 
         public ExecutePowerShellCore()
             : base()
@@ -27,32 +34,32 @@ namespace UiPath.Scripting.Activities.PowerShell
         /// Specifies to continue executing the remaining activities even if the current activity failed. Only boolean values (True, False) are supported.
         /// </summary>
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Property_ContinueOnError_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecutePowerShellCore_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecutePowerShellCore_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         /// <summary>
         /// The PowerShell command that is to be executed.
         /// </summary>
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Property_CommandText_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Property_CommandText_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecutePowerShellCore_Property_CommandText_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecutePowerShellCore_Property_CommandText_Description))]
         public InArgument<string> CommandText { get; set; }
 
         /// <summary>
         /// A dictionary of PowerShell command parameters.
         /// </summary>
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Property_Parameters_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Property_Parameters_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecutePowerShellCore_Property_Parameters_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecutePowerShellCore_Property_Parameters_Description))]
         public IDictionary<string, InArgument> Parameters { get; set; }
 
         /// <summary>
         /// A collection of PSObjects that are passed to the writer of the pipeline used to execute the command. Can be the output of another InvokePowerShellCore activity.
         /// </summary>
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Property_Input_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Property_Input_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecutePowerShellCore_Property_Input_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecutePowerShellCore_Property_Input_Description))]
         public InArgument<Collection<PSObject>> Input { get; set; }
 
         /// <summary>
@@ -72,49 +79,52 @@ namespace UiPath.Scripting.Activities.PowerShell
         /// <summary>
         /// Specifies if the command text is a script.
         /// </summary>
-        [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Property_IsScript_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Property_IsScript_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecutePowerShellCore_Property_IsScript_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecutePowerShellCore_Property_IsScript_Description))]
         public bool IsScript { get; set; }
 
         /// <summary>
         /// A dictionary of named objects that represent variables used within the current session of the command. A PowerShell command can retrieve information from IN and In/Out variables and can set Out variables.
         /// </summary>
-        [LocalizedDisplayName(nameof(Resources.Activity_InvokePowerShellCore_Property_PowerShellVariables_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_InvokePowerShellCore_Property_PowerShellVariables_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecutePowerShellCore_Property_PowerShellVariables_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecutePowerShellCore_Property_PowerShellVariables_Description))]
         public IDictionary<string, Argument> PowerShellVariables { get; set; }
 
-        // Called before workflow execution to inform the runtime about arguments.
+        /// <summary>
+        /// Called before workflow execution to inform the runtime about arguments.
+        /// </summary>
+        /// <param name="metadata"></param>
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             Collection<RuntimeArgument> arguments = new Collection<RuntimeArgument>();
 
             // Overridding base.OnGetArguments to avoid reflection costs
-            RuntimeArgument inputArgument = new RuntimeArgument("Input", typeof(Collection<PSObject>), ArgumentDirection.In);
+            RuntimeArgument inputArgument = new RuntimeArgument(InputArgumentName, typeof(Collection<PSObject>), ArgumentDirection.In);
             metadata.Bind(this.Input, inputArgument);
             arguments.Add(inputArgument);
 
-            RuntimeArgument pipelineOutputArgument = new RuntimeArgument("PipelineOutput", typeof(Collection<PSObject>), ArgumentDirection.Out);
+            RuntimeArgument pipelineOutputArgument = new RuntimeArgument(PipelineOutputArgumentName, typeof(Collection<PSObject>), ArgumentDirection.Out);
             metadata.Bind(this.PipelineOutput, pipelineOutputArgument);
             arguments.Add(pipelineOutputArgument);
 
-            RuntimeArgument errorsArgument = new RuntimeArgument("Errors", typeof(Collection<ErrorRecord>), ArgumentDirection.Out);
+            RuntimeArgument errorsArgument = new RuntimeArgument(ErrorsArgumentName, typeof(Collection<ErrorRecord>), ArgumentDirection.Out);
             metadata.Bind(this.Errors, errorsArgument);
             arguments.Add(errorsArgument);
 
-            if (this.Parameters.Count != 0)
+            if (this.Parameters is not null &&  this.Parameters?.Count != 0)
             {
                 AddDictionaryOfArguments<InArgument>(metadata, arguments, this.Parameters, string.Empty, true);
             }
 
-            if (this.PowerShellVariables.Count != 0)
+            if (this.PowerShellVariables is not null && this.PowerShellVariables.Count != 0)
             {
                 //Prefix variable name so the name is unique from runtime's point of view,
                 //this is to handle the case where user might use the same name for variables and parameters
                 AddDictionaryOfArguments<Argument>(metadata, arguments, this.PowerShellVariables, PowerShellGlobalVariableNamePrefix, false);
             }
 
-            arguments.Add(new RuntimeArgument("CommandText", typeof(String), ArgumentDirection.In));
-            arguments.Add(new RuntimeArgument("ContinueOnError", typeof(bool), ArgumentDirection.In));
+            arguments.Add(new RuntimeArgument(CommandTextArgumentName, typeof(String), ArgumentDirection.In));
+            arguments.Add(new RuntimeArgument(ContinueOnErrorArgumentName, typeof(bool), ArgumentDirection.In));
             metadata.SetArgumentsCollection(arguments);
         }
 
@@ -132,7 +142,10 @@ namespace UiPath.Scripting.Activities.PowerShell
             pipelineInstance = null;
         }
 
-        // Called by the runtime to cancel the execution of this asynchronous activity.
+        /// <summary>
+        /// Called by the runtime to cancel the execution of this asynchronous activity.
+        /// </summary>
+        /// <param name="context"></param>
         protected override void Cancel(AsyncCodeActivityContext context)
         {
             Pipeline pipeline = context.UserState as Pipeline;
@@ -144,7 +157,13 @@ namespace UiPath.Scripting.Activities.PowerShell
             base.Cancel(context);
         }
 
-        // Called by the runtime to begin execution of this asynchronous activity.
+        /// <summary>
+        /// Called by the runtime to begin execution of this asynchronous activity.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="callback"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
             Runspace runspace = null;
@@ -214,7 +233,11 @@ namespace UiPath.Scripting.Activities.PowerShell
             return new PipelineInvokerAsyncResult(pipeline, callback, state);
         }
 
-        // Called by the runtime after execution of this asynchronous activity.
+        /// <summary>
+        /// Called by the runtime after execution of this asynchronous activity.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="result"></param>
         protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
         {
             PipelineInvokerAsyncResult asyncResult = result as PipelineInvokerAsyncResult;

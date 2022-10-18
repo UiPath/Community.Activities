@@ -4,6 +4,9 @@ using System.Windows.Controls;
 
 namespace UiPath.Scripting.Activities.Design
 {
+    /// <summary>
+    /// Password Box Assistant
+    /// </summary>
     public class PasswordBoxAssistant
     {
         public static readonly DependencyProperty BoundPassword =
