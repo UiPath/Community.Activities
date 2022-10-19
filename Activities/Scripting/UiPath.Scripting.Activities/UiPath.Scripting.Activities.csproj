@@ -13,13 +13,15 @@
 		<PackageReference Include="UiPath.Activities.Api" />
 		<PackageReference Include="UiPath.Activities.Contracts" />
 		<PackageReference Include="UiPath.Platform" />
-		<PackageReference Include="System.Management.Automation" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" />
-		<PackageReference Include="Microsoft.PowerShell.ConsoleHost" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Utility" />
-		<PackageReference Include="Microsoft.PowerShell.Commands.Management" />
-		<PackageReference Include="Microsoft.WSMan.Management" />
-		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" />
+		<PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" Version="7.2.6"/>
+		<PackageReference Include="Microsoft.PowerShell.ConsoleHost" Version="7.2.6" />
+		<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.6" />
+		<PackageReference Include="Microsoft.PowerShell.Native" Version="7.2.0" />
+		<PackageReference Include="Microsoft.PowerShell.Commands.Utility" Version="7.2.6" />
+		<PackageReference Include="Microsoft.PowerShell.Commands.Management" Version="7.2.6" />
+		<PackageReference Include="System.Management.Automation" Version="7.2.6"/>
+		<PackageReference Include="Microsoft.WSMan.Management" Version="7.2.6"/>
+		<PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.3.1"/>
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\UiPath.Scripting\UiPath.Scripting.csproj">
