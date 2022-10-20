@@ -63,6 +63,7 @@
     <None Include="$(OutputPath)\net461\pt-BR\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\pt-BR\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net461\tr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\tr\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net461\zh-CN\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\zh-CN\UiPath.Python.resources.dll" />
+	<None Include="$(OutputPath)\net461\zh-TW\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\zh-TW\UiPath.Python.resources.dll" />
 
     <None Include="$(OutputPath)\net5.0-windows\fr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\fr\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net5.0-windows\ja\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\ja\UiPath.Python.resources.dll" />
@@ -75,6 +76,7 @@
     <None Include="$(OutputPath)\net5.0-windows\pt-BR\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\pt-BR\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net5.0-windows\tr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\tr\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net5.0-windows\zh-CN\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\zh-CN\UiPath.Python.resources.dll" />
+	<None Include="$(OutputPath)\net5.0-windows\zh-TW\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0-windows7.0\zh-TW\UiPath.Python.resources.dll" />
 
     <None Include="$(OutputPath)\net5.0\fr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\fr\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net5.0\ja\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\ja\UiPath.Python.resources.dll" />
@@ -87,6 +89,7 @@
     <None Include="$(OutputPath)\net5.0\pt-BR\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\pt-BR\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net5.0\tr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\tr\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net5.0\zh-CN\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\zh-CN\UiPath.Python.resources.dll" />
+	<None Include="$(OutputPath)\net5.0\zh-TW\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net5.0\zh-TW\UiPath.Python.resources.dll" />
   </ItemGroup>
 
 
@@ -106,6 +109,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.resources.dll" TargetPath="pt-BR\UiPath.Python.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.resources.dll" TargetPath="tr\UiPath.Python.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.resources.dll" TargetPath="zh-CN\UiPath.Python.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Python.resources.dll" TargetPath="zh-TW\UiPath.Python.resources.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Python.Activities.resources.dll" TargetPath="fr\UiPath.Python.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Python.Activities.resources.dll" TargetPath="ja\UiPath.Python.Activities.resources.dll" />
@@ -118,6 +122,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.Activities.resources.dll" TargetPath="pt-BR\UiPath.Python.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.Activities.resources.dll" TargetPath="tr\UiPath.Python.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.Activities.resources.dll" TargetPath="zh-CN\UiPath.Python.Activities.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Python.Activities.resources.dll" TargetPath="zh-TW\UiPath.Python.Activities.resources.dll" />
 
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
@@ -134,6 +139,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Python.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Python.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Python.Activities.Design.resources.dll" TargetPath="tr\UiPath.Python.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Python.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Python.Activities.Design.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Python.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Python.Activities.Design.resources.dll" />
     </ItemGroup>
   </Target>
 
