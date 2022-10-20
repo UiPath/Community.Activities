@@ -53,6 +53,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.resources.dll" TargetPath="pt-BR\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.resources.dll" TargetPath="tr\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.resources.dll" TargetPath="zh-CN\UiPath.Database.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.resources.dll" TargetPath="zh-TW\UiPath.Database.resources.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.resources.dll" TargetPath="fr\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.resources.dll" TargetPath="ja\UiPath.Database.Activities.resources.dll" />
@@ -65,6 +66,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.resources.dll" TargetPath="tr\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.resources.dll" />
 
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
@@ -81,6 +83,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.Design.resources.dll" />	
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
