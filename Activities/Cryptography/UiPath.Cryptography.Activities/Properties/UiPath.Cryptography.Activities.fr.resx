@@ -446,7 +446,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Hache un fichier avec une clé à l&apos;aide d&apos;un algorithme et d&apos;un format de chiffrement spécifiés et renvoie la représentation de la chaîne hexadécimale du hachage produit.</value>
+    <value>Hache un fichier avec une clé à l&apos;aide d&apos;un algorithme spécifié et renvoie la représentation de la chaîne hexadécimale du hachage produit. Il prend en charge les algorithmes de hachage avec et sans clé.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Hache une chaîne avec une clé à l&apos;aide d&apos;un algorithme spécifié et renvoie la représentation de la chaîne hexadécimale du hachage produit.</value>
+    <value>Hache une chaîne avec une clé à l&apos;aide d&apos;un algorithme spécifié et renvoie la représentation de la chaîne hexadécimale du hachage produit. Il prend en charge les algorithmes de hachage avec et sans clé.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>La clé que vous souhaitez utiliser pour le hachage du fichier spécifié.</value>
+    <value>La clé que vous souhaitez utiliser pour le hachage du texte spécifié.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +574,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Applique l’algorithme de hachage sélectionné au contenu du fichier fourni et renvoie la représentation de la chaîne hexadécimale du hachage produit.</value>
+    <value>Cette activité est désormais obsolète. SHA1, SHA256, SHA384 et SHA512 ont été déplacés vers une seule activité Hash File.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +614,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Hache une chaîne à l&apos;aide d&apos;un algorithme spécifié et renvoie la représentation de la chaîne hexadécimale du hachage produit.</value>
+    <value>Cette activité est désormais obsolète. SHA1, SHA256, SHA384 et SHA512 ont été déplacés vers une seule activité Hash Text.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">

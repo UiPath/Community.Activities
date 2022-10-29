@@ -446,7 +446,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Выполняет хэширование файла с помощью ключа, используя указанный алгоритм и формат кодировки, и возвращает шестнадцатеричное строковое представление результата хэширования.</value>
+    <value>Hashes a file with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Выполняет хэширование строки с помощью ключа, используя указанный алгоритм, и возвращает шестнадцатеричное строковое представление результата хэширования.</value>
+    <value>Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>Ключ, который следует использовать для хэширования указанного файла.</value>
+    <value>The key that you want to use to hash the specified text.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +574,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Применяет выбранный алгоритм хэширования к содержимому предоставленного файла и возвращает представление шестнадцатеричной строки полученного хэша.</value>
+    <value>This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash File.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +614,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Выполняет хэширование строки, используя указанный алгоритм, и возвращает шестнадцатеричное строковое представление результата хэширования.</value>
+    <value>This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash Text.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">

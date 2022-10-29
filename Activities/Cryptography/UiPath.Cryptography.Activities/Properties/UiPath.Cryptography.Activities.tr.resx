@@ -446,7 +446,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Belirtilen bir algoritma ve kodlama biçimini kullanarak anahtarla bir dosyayı karma hale getirir ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+    <value>Belirtilen algoritmayı kullanarak bir anahtarla bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür. Bir anahtara sahip ve anahtarsız karma algoritmaları destekler.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Belirtilen algoritmayı kullanarak bir anahtarla bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür.</value>
+    <value>Belirtilen algoritmayı kullanarak bir anahtarla bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür. Bir anahtara sahip ve anahtarsız karma algoritmaları destekler.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -574,7 +574,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Sağlanan dosyanın içeriğinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+    <value>Bu etkinlik artık kullanımdan kaldırıldı. SHA1, SHA256, SHA384 ve SHA512 tek bir etkinlik Karma Dosyasına taşındı.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +614,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Belirtilen algoritmayı kullanarak bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür.</value>
+    <value>Bu etkinlik artık kullanımdan kaldırıldı. SHA1, SHA256, SHA384 ve SHA512, Karma Metni tek bir etkinliğe taşındı.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
