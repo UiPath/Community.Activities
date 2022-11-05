@@ -446,7 +446,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>透過指定的演算法和編碼格式，使用金鑰雜湊處理檔案，並傳回所產生雜湊的十六進位字串表示。</value>
+    <value>透過指定的演算法，使用金鑰對檔案進行雜湊處理，並傳回所產生雜湊的十六進位字串表示。它支援使用金鑰和不使用金鑰的雜湊演算法。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>透過指定的演算法，使用金鑰對字串進行雜湊處理，並傳回所產生雜湊的十六進位字串表示。</value>
+    <value>透過指定的演算法，使用金鑰對字串進行雜湊處理，並傳回所產生雜湊的十六進位字串表示。它支援使用金鑰和不使用金鑰的雜湊演算法。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>您想用於雜湊處理指定檔案的金鑰。</value>
+    <value>您想用於雜湊處理指定文字的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +574,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>對所提供檔案的內容套用所選的雜湊演算法，並傳回所產生雜湊結果的十六進位字串表示。</value>
+    <value>此活動現在已被淘汰。SHA1、SHA256、SHA384 和 SHA512 已移至單一活動雜湊檔案。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +614,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>使用指定的演算法雜湊處理字串，並傳回所產生雜湊的十六進位字串表示。</value>
+    <value>此活動現在已被淘汰。SHA1、SHA256、SHA384 和 SHA512 已移至單一活動雜湊文字。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
