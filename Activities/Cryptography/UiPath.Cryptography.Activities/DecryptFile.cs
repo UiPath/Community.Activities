@@ -26,7 +26,6 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Algorithm_Description))]
         public SymmetricAlgorithms Algorithm { get; set; }
 
-        [RequiredArgument]
         [OverloadGroup(nameof(InputFilePath))]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_InputFilePath_Name))]
@@ -49,7 +48,6 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KeyEncoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeyEncoding_Description))]
@@ -156,6 +154,7 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
                 var fileName = string.Empty;
+                string filePath = string.Empty;
                 //get the input file from the Resource
                 if (inputFile != null && !inputFile.IsFolder)
                 {
@@ -172,6 +171,23 @@ namespace UiPath.Cryptography.Activities
                 {
                     fileName = outputFileName;
                 }
+                else
+                {
+                    fileName = Path.GetFileNameWithoutExtension(inputFilePath) + "_Decrypted" + Path.GetExtension(inputFilePath);
+                    if (string.IsNullOrEmpty(Path.GetDirectoryName(inputFilePath)))
+                    {
+                        filePath = fileName;
+                    }
+                    else
+                    {
+                        filePath = Path.GetFullPath(Path.GetDirectoryName(inputFilePath)) + "\\" + fileName;
+                    }
+                    if (outputFilePath == null && !Overwrite && File.Exists(filePath))
+                    {
+                        throw new ArgumentException(Resources.FileAlreadyExistsException,
+                        Resources.OutputFilePathDisplayName);
+                    }
+                }
 
                 var encrypted = File.ReadAllBytes(inputFilePath);
 
@@ -187,11 +203,19 @@ namespace UiPath.Cryptography.Activities
 
                 if (string.IsNullOrEmpty(outputFilePath))
                 {
-                    var item = new CryptographyLocalItem(decrypted, fileName);
+                    var item = new CryptographyLocalItem(decrypted, fileName, filePath);
 
                     DecryptedFile.Set(context, item);
 
                     outputFilePath = item.LocalPath;
+                }
+                else
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath));
+
+                    var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
+
+                    DecryptedFile.Set(context, item);
                 }
 
                 // This overwrites the file if it already exists.

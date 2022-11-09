@@ -17,9 +17,12 @@ namespace UiPath.Cryptography.Activities.Models
         /// </summary>
         /// <param name="byteArray"></param>
         /// <param name="fullName"></param>
-        internal CryptographyLocalItem(byte[] byteArray, string fullName)
+        internal CryptographyLocalItem(byte[] byteArray, string fullName, string path = null)
         {
-            var path = Path.GetRandomFileName();
+            if (path == null)
+            {
+                path = Path.GetRandomFileName();
+            }
 
             File.WriteAllBytes(path, byteArray);
 

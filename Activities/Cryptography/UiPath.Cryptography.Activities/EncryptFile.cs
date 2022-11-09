@@ -23,7 +23,7 @@ namespace UiPath.Cryptography.Activities
         public EncryptFile()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
-            KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.UTF8));
+            KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
         }
 
         [RequiredArgument]
@@ -32,7 +32,6 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Algorithm_Description))]
         public SymmetricAlgorithms Algorithm { get; set; }
 
-        [RequiredArgument]
         [OverloadGroup(nameof(InputFilePath))]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_InputFilePath_Name))]
@@ -55,7 +54,6 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_KeyEncoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_KeyEncoding_Description))]
@@ -158,6 +156,7 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
                 string fileName = string.Empty;
+                string filePath = string.Empty;
 
                 if (inputFile != null && !inputFile.IsFolder)
                 {
@@ -175,18 +174,42 @@ namespace UiPath.Cryptography.Activities
                 {
                     fileName = outputFileName;
                 }
+                else
+                {
+                    fileName = Path.GetFileNameWithoutExtension(inputFilePath) + "_Encrypted" + Path.GetExtension(inputFilePath);
+                    if (Path.GetDirectoryName(inputFilePath) == null)
+                    {
+                        filePath = fileName;
+                    }
+                    else
+                    {
+                        filePath = Path.GetFullPath(Path.GetDirectoryName(inputFilePath)) + "\\" + fileName;
+                    }
+                    if (outputFilePath == null && !Overwrite && File.Exists(filePath))
+                    {
+                        throw new ArgumentException(Resources.FileAlreadyExistsException,
+                        Resources.OutputFilePathDisplayName);
+                    }
+                }
 
                 var encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(inputFilePath),
                     CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                 if (string.IsNullOrEmpty(outputFilePath))
                 {
-                    var item = new CryptographyLocalItem(encrypted, fileName);
+                    var item = new CryptographyLocalItem(encrypted, fileName, filePath);
 
                     EncryptedFile.Set(context, item);
                     
                     outputFilePath = item.LocalPath;
+                }
+                else
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath));
 
+                    var item = new CryptographyLocalItem(encrypted, Path.GetFileName(outputFilePath), outputFilePath);
+
+                    EncryptedFile.Set(context, item);
                 }
 
                 // This overwrites the file if it already exists.

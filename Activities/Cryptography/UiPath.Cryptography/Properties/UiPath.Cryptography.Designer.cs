@@ -88,6 +88,24 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle to File input.
+        /// </summary>
+        internal static string General_FileInput {
+            get {
+                return ResourceManager.GetString("General_FileInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle to File Path input.
+        /// </summary>
+        internal static string General_FilePathInput {
+            get {
+                return ResourceManager.GetString("General_FilePathInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HMACMD5 (Non-FIPS).
         /// </summary>
         internal static string HMACMD5 {

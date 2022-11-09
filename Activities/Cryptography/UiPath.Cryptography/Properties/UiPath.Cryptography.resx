@@ -126,6 +126,12 @@
   <data name="DES" xml:space="preserve">
     <value>DES  (Deprecated)</value>
   </data>
+  <data name="General_FileInput" xml:space="preserve">
+    <value>Toggle to File input</value>
+  </data>
+  <data name="General_FilePathInput" xml:space="preserve">
+    <value>Toggle to File Path input</value>
+  </data>
   <data name="HMACMD5" xml:space="preserve">
     <value>HMACMD5 (Non-FIPS)</value>
   </data>
