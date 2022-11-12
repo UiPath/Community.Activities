@@ -446,11 +446,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Aplica un hash a un archivo con una clave utilizando un algoritmo y un formato de codificación especificados, y devuelve la representación de cadena hexadecimal del hash resultante.</value>
+    <value>Aplica un &lt;em&gt;hash&lt;/em&gt; a un archivo con una clave mediante un algoritmo especificado y devuelve la representación de cadena hexadecimal del &lt;em&gt;hash&lt;/em&gt; resultante. Admite algoritmos &lt;em&gt;hash&lt;/em&gt; con una clave y sin clave.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Hash File</value>
+    <value>Archivo Hash</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -510,11 +510,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Aplica un hash a una cadena con una clave mediante un algoritmo especificado y devuelve la representación de cadena hexadecimal del hash resultante.</value>
+    <value>Aplica un hash a una cadena con una clave mediante un algoritmo especificado y devuelve la representación de cadena hexadecimal del &lt;em&gt;hash&lt;/em&gt; resultante. Admite algoritmos &lt;em&gt;hash&lt;/em&gt; con una clave y sin clave.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>Hash Text</value>
+    <value>Texto Hash</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -574,11 +574,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Aplica el algoritmo hash seleccionado en el contenido del archivo proporcionado y devuelve la representación de cadena hexadecimal del hash resultante.</value>
+    <value>Esta actividad pasó a estar obsoleta. SHA1, SHA256, SHA384 y SHA512 se movieron a un solo archivo &lt;em&gt;hash&lt;/em&gt; de actividad.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Hash File (obsoleto)</value>
+    <value>Archivo Hash (obsoleto)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -614,11 +614,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Aplica un hash a una cadena mediante un algoritmo especificado y devuelve la representación de cadena hexadecimal del hash resultante.</value>
+    <value>Esta actividad pasó a estar obsoleta. SHA1, SHA256, SHA384 y SHA512 se movieron a un solo texto de &lt;em&gt;hash&lt;/em&gt; de una sola actividad.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Hash Text (obsoleto)</value>
+    <value>Texto Hash (obsoleto)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">

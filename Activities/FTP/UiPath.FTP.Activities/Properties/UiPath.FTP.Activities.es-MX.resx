@@ -268,7 +268,7 @@
     <value>Cargar archivos</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Upload Files</value>
+    <value>Subir archivos</value>
     <comment>Activity name</comment>
   </data>
   <data name="WithFtpSessionDescription" xml:space="preserve">
