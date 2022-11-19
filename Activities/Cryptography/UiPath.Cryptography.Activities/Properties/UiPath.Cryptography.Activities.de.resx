@@ -446,7 +446,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Hasht eine Datei mit einem Schlüssel mit einem angegebenen Algorithmus und einem Verschlüsselungsformat und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Hasht eine Datei mit einem Schlüssel mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück. Unterstützt Hashing-Algorithmen mit und ohne Schlüssel.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Hasht eine Zeichenfolge mit einem Schlüssel mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Hasht eine Zeichenfolge mit einem Schlüssel mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück. Unterstützt Hashing-Algorithmen mit und ohne Schlüssel.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>Der Schlüssel, den Sie zum Hashen der angegebenen Datei verwenden möchten.</value>
+    <value>Der Schlüssel, den Sie zum Hashen des angegebenen Texts verwenden möchten.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +574,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Wendet den ausgewählten Hash-Algorithmus auf den Inhalt der bereitgestellten Datei an und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Diese Aktivität ist jetzt veraltet. SHA1, SHA256, SHA384 und SHA512 wurden in eine Einzelaktivität-Hash-Datei verschoben.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +614,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Hasht eine Zeichenfolge mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Diese Aktivität ist jetzt veraltet. SHA1, SHA256, SHA384 und SHA512 wurden in einen Einzelaktivität-Hash-Text verschoben.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
