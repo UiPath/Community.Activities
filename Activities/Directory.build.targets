@@ -18,11 +18,11 @@
 		<PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Update="UiPath.Robot.Api" Version="22.4.1" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Activities.Api" Version="22.4.1" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Activities.Contracts" Version="22.4.1" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Robot.Api" Version="22.10.2" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Activities.Api" Version="22.10.2" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Activities.Contracts" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Telemetry.Client" Version="1.5.3" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Platform" Version="22.4.1"  PrivateAssets="All" />
+		<PackageReference Update="UiPath.Platform" Version="22.10.2"  PrivateAssets="All" />
 	</ItemGroup>
 
 

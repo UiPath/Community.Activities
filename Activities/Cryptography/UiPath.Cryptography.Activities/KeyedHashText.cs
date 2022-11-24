@@ -7,9 +7,9 @@ using System.Diagnostics;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
-using UiPath.Studio.Activities.Api.Activities;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -51,6 +51,9 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
 
+        [Browsable(false)]
+        public InArgument<string> KeyEncodingString { get; set; }
+
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashText_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashText_Property_Result_Description))]
@@ -65,7 +68,14 @@ namespace UiPath.Cryptography.Activities
         public KeyedHashText()
         {
             Algorithm = KeyedHashAlgorithms.HMACSHA256;
+#if NET461
+//we only use this on legacy
             Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
+#endif
+#if NET
+            //for modern and cross projects
+            KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
+#endif
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -109,6 +119,7 @@ namespace UiPath.Cryptography.Activities
                 var key = Key.Get(context);
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = Encoding.Get(context);
+                var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
@@ -125,8 +136,9 @@ namespace UiPath.Cryptography.Activities
                     }
                 }
 
-                if (keyEncoding == null)
-                    throw new ArgumentNullException(Resources.Encoding);
+                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
+
+                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
                 var hashed = CryptographyHelper.HashDataWithKey(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
@@ -144,5 +156,7 @@ namespace UiPath.Cryptography.Activities
 
             return result;
         }
+
+
     }
 }
