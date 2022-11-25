@@ -205,6 +205,14 @@
     <value>Input Path</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>The encoding used to interpret the key specified in the Key property.</value>
     <comment>Property description</comment>
@@ -267,6 +275,14 @@
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
     <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -349,6 +365,14 @@
     <value>Continue On Error</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>The encoding used to interpret the key specified in the Key property.</value>
     <comment>property description</comment>
@@ -411,6 +435,14 @@
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
     <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -477,6 +509,14 @@
     <value>Encoding</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
     <value>The path to the file you want to hash.</value>
     <comment>Property description</comment>
@@ -539,6 +579,14 @@
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
     <value>Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">

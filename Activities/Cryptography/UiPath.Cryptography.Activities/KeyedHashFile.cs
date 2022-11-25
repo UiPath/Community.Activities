@@ -9,6 +9,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
@@ -54,6 +55,9 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
 
+        [Browsable(false)]
+        public InArgument<string> KeyEncodingString { get; set; }
+
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Result_Description))]
@@ -77,7 +81,15 @@ namespace UiPath.Cryptography.Activities
         public KeyedHashFile()
         {
             Algorithm = KeyedHashAlgorithms.HMACSHA256;
+#if NET461
+//we only use this on legacy
             Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
+#endif
+#if NET
+            //for modern and cross projects
+            KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
+#endif
+
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -122,6 +134,7 @@ namespace UiPath.Cryptography.Activities
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = Encoding.Get(context);
                 var inputFile = InputFile.Get(context);
+                var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (Algorithm.ToString().StartsWith(nameof(HMAC)))
                 {
@@ -135,8 +148,7 @@ namespace UiPath.Cryptography.Activities
                     }
                 }
 
-                if (keyEncoding == null)
-                    throw new ArgumentNullException(Resources.Encoding);
+                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
 
                 if (!File.Exists(filePath) && inputFile == null)
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
@@ -153,6 +165,8 @@ namespace UiPath.Cryptography.Activities
 
                     filePath = localFile.LocalPath;
                 }
+
+                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
                 var hashed = CryptographyHelper.HashDataWithKey(Algorithm, File.ReadAllBytes(filePath),
                     CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));

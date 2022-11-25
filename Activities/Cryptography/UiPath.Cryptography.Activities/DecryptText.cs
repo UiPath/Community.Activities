@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 
@@ -50,6 +51,9 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
 
+        [Browsable(false)]
+        public InArgument<string> KeyEncodingString { get; set; }
+
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Result_Description))]
@@ -64,7 +68,15 @@ namespace UiPath.Cryptography.Activities
         public DecryptText()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
-            Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
+#if NET461
+//we only use this on legacy
+             Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
+#endif
+#if NET
+            //for modern and cross projects
+            KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
+#endif
+
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -105,6 +117,7 @@ namespace UiPath.Cryptography.Activities
                 var key = Key.Get(context);
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = Encoding.Get(context);
+                var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
@@ -118,8 +131,10 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
                 }
 
-                if (keyEncoding == null)
+                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                     throw new ArgumentNullException(Resources.Encoding);
+
+                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
                 byte[] decrypted = null;
                 try

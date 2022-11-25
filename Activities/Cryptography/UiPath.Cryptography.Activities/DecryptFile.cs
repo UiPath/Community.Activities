@@ -8,7 +8,7 @@ using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Models;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
@@ -20,13 +20,14 @@ namespace UiPath.Cryptography.Activities
     [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Description))]
     public partial class DecryptFile : CodeActivity
     {
+        private const string Decrypted = "_Decrypted";
+
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Algorithm_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Algorithm_Description))]
         public SymmetricAlgorithms Algorithm { get; set; }
 
-        [RequiredArgument]
         [OverloadGroup(nameof(InputFilePath))]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_InputFilePath_Name))]
@@ -49,11 +50,13 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KeyEncoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeyEncoding_Description))]
         public InArgument<Encoding> KeyEncoding { get; set; }
+
+        [Browsable(false)]
+        public InArgument<string> KeyEncodingString { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_OutputFilePath_Name))]
@@ -96,7 +99,14 @@ namespace UiPath.Cryptography.Activities
         public DecryptFile()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
+#if NET461
+//we only use this on legacy
             KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
+#endif
+#if NET
+            //for modern and cross projects
+            KeyEncodingString = Encoding.UTF8.CodePage.ToString();
+#endif
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -132,18 +142,18 @@ namespace UiPath.Cryptography.Activities
                 var key = Key.Get(context);
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = KeyEncoding.Get(context);
+                var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                    throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_Key_Name);
                 }
                 if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
                 {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                    throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_KeySecureString_Name);
                 }
 
-                if (keyEncoding == null)
-                    throw new ArgumentNullException(Resources.Encoding);
+                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
 
                 if (!File.Exists(inputFilePath) && inputFile == null)
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
@@ -155,25 +165,11 @@ namespace UiPath.Cryptography.Activities
                 if (inputFile != null && inputFile.IsFolder)
                     throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
-                var fileName = string.Empty;
-                //get the input file from the Resource
-                if (inputFile != null && !inputFile.IsFolder)
-                {
-                    // Get local file
-                    var localFile = inputFile.ToLocalResource();
-                    //Resolve Sync
-                    Task.Run(async () => await localFile.ResolveAsync()).GetAwaiter().GetResult();
+                var result = FilePathHelpers.GetDefaultFileNameAndLocation(inputFile, inputFilePath, outputFileName, Overwrite, outputFilePath, Decrypted);
 
-                    inputFilePath = localFile.LocalPath;
-                    fileName = localFile.FullName;
-                }
+                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-                if (outputFileName != null)
-                {
-                    fileName = outputFileName;
-                }
-
-                var encrypted = File.ReadAllBytes(inputFilePath);
+                var encrypted = File.ReadAllBytes(result.Item3);
 
                 byte[] decrypted = null;
                 try
@@ -187,11 +183,24 @@ namespace UiPath.Cryptography.Activities
 
                 if (string.IsNullOrEmpty(outputFilePath))
                 {
-                    var item = new CryptographyLocalItem(decrypted, fileName);
+                    var item = new CryptographyLocalItem(decrypted, result.Item1, result.Item2);
 
                     DecryptedFile.Set(context, item);
 
                     outputFilePath = item.LocalPath;
+                }
+                else
+                {
+                    var directory = Path.GetDirectoryName(outputFilePath);
+
+                    if (!string.IsNullOrEmpty(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
+
+                    DecryptedFile.Set(context, item);
                 }
 
                 // This overwrites the file if it already exists.

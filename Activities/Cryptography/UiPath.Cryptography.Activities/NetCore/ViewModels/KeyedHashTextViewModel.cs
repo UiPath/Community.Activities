@@ -4,7 +4,7 @@ using System.Activities.ViewModels;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Cryptography;
-using System.Text;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 
@@ -33,12 +33,15 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class KeyedHashTextViewModel : DesignPropertiesViewModel
     {
+        private readonly DataSource<string> _encodingDataSource;
+
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public KeyedHashTextViewModel(IDesignServices services) : base(services)
         {
+            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
         /// <summary>
@@ -55,6 +58,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// The key that you want to use to hash the specified file.
         /// </summary>
         public DesignInArgument<string> Key { get; set; } = new DesignInArgument<string>();
+
+        /// <summary>
+        /// A drop-down which enables you to select the encoding option you want to use.
+        /// </summary>
+        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
 
         /// <summary>
         /// The secure string used to hash the input string.
@@ -100,6 +108,15 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
+            KeyEncodingString.IsPrincipal = false;
+            KeyEncodingString.IsVisible = true;
+            KeyEncodingString.OrderIndex = propertyOrderIndex++;
+
+            KeyEncodingString.DataSource = _encodingDataSource;
+            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+
+            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
 
@@ -133,23 +150,28 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
                     Key.IsRequired = true;
                     Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
-                    KeySecureString.IsRequired = false;
                     break;
                 case KeyInputMode.SecureKey:
-                    Key.IsRequired = false;
-                    Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
                     KeySecureString.IsRequired = true;
                     break;
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void ResetAllKeyInputMode()
+        {
+            Key.IsRequired = false;
+            Key.IsVisible = false;
+            KeySecureString.IsVisible = false;
+            KeySecureString.IsRequired = false;
         }
 
         /// <summary>
@@ -160,7 +182,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             switch (Algorithm.Value.ToString().StartsWith(nameof(HMAC)))
             {
                 case true:
-                    if(KeyInputModeSwitch.Value == KeyInputMode.Key)
+                    if (KeyInputModeSwitch.Value == KeyInputMode.Key)
                     {
                         Key.IsVisible = true;
                         Key.IsRequired = true;

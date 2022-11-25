@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Security;
-using System.Text;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 
@@ -21,12 +22,15 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class EncryptTextViewModel : DesignPropertiesViewModel
     {
+        private readonly DataSource<string> _encodingDataSource;
+
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public EncryptTextViewModel(IDesignServices services) : base(services)
         {
+            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
         /// <summary>
@@ -48,6 +52,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// The secure string used to encrypt the input string.
         /// </summary>
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
+
+        /// <summary>
+        /// A drop-down which enables you to select the encoding option you want to use.
+        /// </summary>
+        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
 
         /// <summary>
         /// Switches Key as string or secure string 
@@ -87,6 +96,16 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
+            KeyEncodingString.IsPrincipal = false;
+            KeyEncodingString.IsVisible = true;
+            KeyEncodingString.OrderIndex = propertyOrderIndex++;
+
+            KeyEncodingString.DataSource = _encodingDataSource;
+            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+
+            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+
+
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
 
@@ -120,23 +139,28 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
                     Key.IsRequired = true;
                     Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
-                    KeySecureString.IsRequired = false;
                     break;
                 case KeyInputMode.SecureKey:
-                    Key.IsRequired = false;
-                    Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
                     KeySecureString.IsRequired = true;
                     break;
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void ResetAllKeyInputMode()
+        {
+            Key.IsRequired = false;
+            Key.IsVisible = false;
+            KeySecureString.IsVisible = false;
+            KeySecureString.IsRequired = false;
         }
     }
 }

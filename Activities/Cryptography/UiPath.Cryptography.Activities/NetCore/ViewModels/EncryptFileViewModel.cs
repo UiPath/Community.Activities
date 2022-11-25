@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Security;
-using System.Text;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
@@ -22,18 +23,26 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class EncryptFileViewModel : DesignPropertiesViewModel
     {
+        private readonly DataSource<string> _encodingDataSource;
+
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public EncryptFileViewModel(IDesignServices services) : base(services)
         {
+            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
         /// <summary>
         /// A drop-down which enables you to select the encryption algorithm you want to use.
         /// </summary>
         public DesignProperty<SymmetricAlgorithms> Algorithm { get; set; } = new DesignProperty<SymmetricAlgorithms>();
+
+        /// <summary>
+        /// A drop-down which enables you to select the encoding option you want to use.
+        /// </summary>
+        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
 
         /// <summary>
         /// The key that you want to use to encrypt the specified file.
@@ -71,14 +80,19 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
+        /// Switches File as IResource or string
+        /// </summary>
+        public DesignProperty<FileInputMode> FileInputModeSwitch { get; set; } = new DesignProperty<FileInputMode>();
+
+        /// <summary>
+        /// The output path to the file that you want to encrypt.
+        /// </summary>
+        public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
+
+        /// <summary>
         /// The file that you want to encrypt.
         /// </summary>
         public DesignOutArgument<ILocalResource> EncryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
-
-        /// <summary>
-        /// The filename you want to use for the encrypted file.
-        /// </summary>
-        public DesignInArgument<string> OutputFileName { get; set; } = new DesignInArgument<string>();
 
         protected override void InitializeModel()
         {
@@ -86,10 +100,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             var propertyOrderIndex = 1;
 
             InputFile.IsPrincipal = true;
+            InputFile.IsVisible = true;
             InputFile.OrderIndex = propertyOrderIndex++;
 
             InputFilePath.IsPrincipal = true;
+            InputFilePath.IsVisible = false;
             InputFilePath.OrderIndex = propertyOrderIndex++;
+
+            FileInputModeSwitch.IsVisible = false;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
@@ -110,8 +128,19 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
-            OutputFileName.IsPrincipal = false;
-            OutputFileName.OrderIndex = propertyOrderIndex++;
+            KeyEncodingString.IsPrincipal = false;
+            KeyEncodingString.IsVisible = true;
+            KeyEncodingString.OrderIndex = propertyOrderIndex++;
+
+            KeyEncodingString.DataSource = _encodingDataSource;
+            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+
+            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+
+            OutputFilePath.IsPrincipal = false;
+            OutputFilePath.IsVisible = true;
+            OutputFilePath.IsRequired = false;
+            OutputFilePath.OrderIndex = propertyOrderIndex++;
 
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = propertyOrderIndex++;
@@ -127,6 +156,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
                 .BuildAndInsertMenuActions();
 
+            MenuActionsBuilder<FileInputMode>.WithValueProperty(FileInputModeSwitch)
+                .AddMenuProperty(InputFile, FileInputMode.File)
+                .AddMenuProperty(InputFilePath, FileInputMode.FilePath)
+                .BuildAndInsertMenuActions();
+
             EncryptedFile.IsPrincipal = false;
             EncryptedFile.OrderIndex = propertyOrderIndex++;
         }
@@ -136,6 +170,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
+            Rule(nameof(FileInputModeSwitch), FileInputModeChanged_Action);
         }
 
         /// <inheritdoc />
@@ -143,6 +178,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.ManualRegisterDependencies();
             RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
+            RegisterDependency(FileInputModeSwitch, nameof(FileInputModeSwitch.Value), nameof(FileInputModeSwitch));
         }
 
         /// <summary>
@@ -150,23 +186,58 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
-                    Key.IsRequired = true;
                     Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
-                    KeySecureString.IsRequired = false;
+                    Key.IsRequired = true;
                     break;
                 case KeyInputMode.SecureKey:
-                    Key.IsRequired = false;
-                    Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
                     KeySecureString.IsRequired = true;
                     break;
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        /// <summary>
+        /// File input Mode has changed. Set controls visibility based on selection
+        /// </summary>
+        private void FileInputModeChanged_Action()
+        {
+            ResetAllInputFile();
+            switch (FileInputModeSwitch.Value)
+            {
+                case FileInputMode.File:
+                    InputFile.IsRequired = true;
+                    InputFile.IsVisible = true;
+                    break;
+                case FileInputMode.FilePath:
+                    InputFilePath.IsVisible = true;
+                    InputFilePath.IsRequired = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void ResetAllKeyInputMode()
+        {
+            Key.IsRequired = false;
+            Key.IsVisible = false;
+            KeySecureString.IsVisible = false;
+            KeySecureString.IsRequired = false;
+        }
+
+        private void ResetAllInputFile()
+        {
+            InputFile.IsRequired = false;
+            InputFile.IsVisible = false;
+            InputFilePath.IsVisible = false;
+            InputFilePath.IsRequired = false;
+            InputFilePath.Value = null;
         }
     }
 }

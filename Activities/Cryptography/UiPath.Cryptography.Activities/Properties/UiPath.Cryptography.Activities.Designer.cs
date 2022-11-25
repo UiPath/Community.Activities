@@ -205,6 +205,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The encoding used to interpret the key specified in the Key property..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_KeyEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_KeyEncodingString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Encoding.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_KeyEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_KeyEncodingString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The switch between Key and Secure String Key.
         /// </summary>
         public static string Activity_DecryptFile_Property_KeyInputModeSwitch_Description {
@@ -399,6 +417,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_DecryptText_Property_Key_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_Key_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encoding used to interpret the key specified in the Key property..
+        /// </summary>
+        public static string Activity_DecryptText_Property_KeyEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_KeyEncodingString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Encoding.
+        /// </summary>
+        public static string Activity_DecryptText_Property_KeyEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_KeyEncodingString_Name", resourceCulture);
             }
         }
         
@@ -601,6 +637,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The encoding used to interpret the key specified in the Key property..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_KeyEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_KeyEncodingString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Encoding.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_KeyEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_KeyEncodingString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The switch between Key and Secure String Key.
         /// </summary>
         public static string Activity_EncryptFile_Property_KeyInputModeSwitch_Description {
@@ -795,6 +849,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptText_Property_Key_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_Key_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encoding used to interpret the key specified in the Key property..
+        /// </summary>
+        public static string Activity_EncryptText_Property_KeyEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_KeyEncodingString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Encoding.
+        /// </summary>
+        public static string Activity_EncryptText_Property_KeyEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_KeyEncodingString_Name", resourceCulture);
             }
         }
         
@@ -1186,6 +1258,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The encoding used to interpret the key specified in the Key property..
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_KeyEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_KeyEncodingString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Encoding.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_KeyEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_KeyEncodingString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The switch between Key and Secure String Key.
         /// </summary>
         public static string Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description {
@@ -1362,6 +1452,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_KeyedHashText_Property_Key_SwitchName {
             get {
                 return ResourceManager.GetString("Activity_KeyedHashText_Property_Key_SwitchName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encoding used to interpret the key specified in the Key property..
+        /// </summary>
+        public static string Activity_KeyedHashText_Property_KeyEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashText_Property_KeyEncodingString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key Encoding.
+        /// </summary>
+        public static string Activity_KeyedHashText_Property_KeyEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashText_Property_KeyEncodingString_Name", resourceCulture);
             }
         }
         
