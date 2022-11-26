@@ -446,7 +446,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>指定したアルゴリズムとエンコード形式を使用して、ファイルをキーでハッシュします。結果として生成されるハッシュを表す 16 進数文字列を返します。(Hash File With Key)</value>
+    <value>指定したアルゴリズムを使用して、ファイルをキーでハッシュします。結果として生成されるハッシュを表す 16 進数文字列を返します。キーを使用したハッシュ アルゴリズムと、キーを使用しないハッシュ アルゴリズムの両方をサポートします。(Hash File)</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -510,7 +510,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>指定したアルゴリズムを使用して、文字列をキーでハッシュします。結果として生成されるハッシュを表す 16 進数文字列を返します。(Hash Text With Key)</value>
+    <value>指定したアルゴリズムを使用して、文字列をキーでハッシュします。結果として生成されるハッシュを表す 16 進数文字列を返します。キーを使用したハッシュ アルゴリズムと、キーを使用しないハッシュ アルゴリズムの両方をサポートします。(Hash Text)</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>指定したファイルのハッシュに使用するキーです。</value>
+    <value>指定したテキストのハッシュに使用するキーです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +574,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>選択したハッシュ アルゴリズムを指定したファイルのコンテンツに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File)</value>
+    <value>このアクティビティは非推奨になりました。SHA1、SHA256、SHA384、SHA512 は単一の [ファイルをハッシュ] アクティビティに移動されました。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +614,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>指定したアルゴリズムを使用して、文字列をハッシュします。結果として生成されるハッシュを表す 16 進数文字列を返します。(Hash Text)</value>
+    <value>このアクティビティは非推奨になりました。SHA1、SHA256、SHA384、SHA512 は単一の [テキストをハッシュ] アクティビティに移動されました。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
