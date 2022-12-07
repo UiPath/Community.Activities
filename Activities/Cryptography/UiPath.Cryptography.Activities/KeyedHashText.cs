@@ -69,7 +69,7 @@ namespace UiPath.Cryptography.Activities
         {
             Algorithm = KeyedHashAlgorithms.HMACSHA256;
 #if NET461
-//we only use this on legacy
+            //we only use this on legacy
             Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
 #endif
 #if NET
@@ -89,6 +89,7 @@ namespace UiPath.Cryptography.Activities
             }
             if (Algorithm.ToString().StartsWith(nameof(HMAC)))
             {
+#if NET
                 if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
                 {
                     var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
@@ -99,6 +100,7 @@ namespace UiPath.Cryptography.Activities
                     var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                     metadata.AddValidationError(error);
                 }
+#endif
             }
 #if NET461
             if (Algorithm == KeyedHashAlgorithms.MACTripleDES)
@@ -126,6 +128,7 @@ namespace UiPath.Cryptography.Activities
 
                 if (Algorithm.ToString().StartsWith(nameof(HMAC)))
                 {
+#if NET
                     if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                     {
                         throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
@@ -134,6 +137,14 @@ namespace UiPath.Cryptography.Activities
                     {
                         throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
                     }
+#endif
+
+#if NET461
+                    if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
+                    {
+                        throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+                    }
+#endif
                 }
 
                 if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);

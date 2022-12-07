@@ -25,7 +25,7 @@ namespace UiPath.Cryptography.Activities
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
 #if NET461
-//we only use this on legacy
+            //we only use this on legacy
             KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
 #endif
 #if NET
@@ -118,7 +118,7 @@ namespace UiPath.Cryptography.Activities
 
                 metadata.AddValidationError(error);
             }
-
+#if NET
             if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
             {
                 var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
@@ -129,6 +129,7 @@ namespace UiPath.Cryptography.Activities
                 var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                 metadata.AddValidationError(error);
             }
+#endif
         }
 
         protected override void Execute(CodeActivityContext context)
@@ -143,7 +144,7 @@ namespace UiPath.Cryptography.Activities
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = KeyEncoding.Get(context);
                 var keyEncodingString = KeyEncodingString.Get(context);
-
+#if NET
                 if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 {
                     throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_Key_Name);
@@ -152,7 +153,14 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_KeySecureString_Name);
                 }
+#endif
 
+#if NET461
+                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+                }
+#endif
                 if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
 
                 if (!File.Exists(inputFilePath) && inputFile == null)
@@ -206,7 +214,5 @@ namespace UiPath.Cryptography.Activities
                 if (!ContinueOnError.Get(context)) throw;
             }
         }
-
-
     }
 }

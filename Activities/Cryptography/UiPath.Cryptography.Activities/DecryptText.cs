@@ -45,7 +45,6 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Encoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Encoding_Description))]
@@ -69,8 +68,8 @@ namespace UiPath.Cryptography.Activities
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
 #if NET461
-//we only use this on legacy
-             Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
+            //we only use this on legacy
+            Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
 #endif
 #if NET
             //for modern and cross projects
@@ -94,7 +93,7 @@ namespace UiPath.Cryptography.Activities
                 default:
                     break;
             }
-
+#if NET
             if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
             {
                 var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
@@ -105,6 +104,7 @@ namespace UiPath.Cryptography.Activities
                 var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                 metadata.AddValidationError(error);
             }
+#endif
         }
 
         protected override string Execute(CodeActivityContext context)
@@ -121,7 +121,7 @@ namespace UiPath.Cryptography.Activities
 
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
-
+#if NET
                 if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 {
                     throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
@@ -130,7 +130,14 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
                 }
+#endif
 
+#if NET461
+                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
+                {
+                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+                }
+#endif
                 if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                     throw new ArgumentNullException(Resources.Encoding);
 

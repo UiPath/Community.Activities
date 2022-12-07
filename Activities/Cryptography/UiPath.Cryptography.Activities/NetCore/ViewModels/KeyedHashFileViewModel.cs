@@ -106,11 +106,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             InputFile.IsPrincipal = true;
-            InputFile.IsVisible = true;
+            InputFile.IsVisible = false;
             InputFile.OrderIndex = propertyOrderIndex++;
 
             FilePath.IsPrincipal = true;
-            FilePath.IsVisible = false;
+            FilePath.IsVisible = true;
             FilePath.OrderIndex = propertyOrderIndex++;
 
             FileInputModeSwitch.IsVisible = false;
@@ -226,7 +226,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             InputFile.IsVisible = false;
             FilePath.IsVisible = false;
             FilePath.IsRequired = false;
-            FilePath.Value = null;
         }
 
         /// <summary>

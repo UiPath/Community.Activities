@@ -58,7 +58,7 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         public static Encoding KeyEncodingOrString(Encoding keyEncoding, string keyEncodingString)
         {
-            if (keyEncoding == null)
+            if (keyEncodingString != null)
             {
                 //for modern and cross projects - use the string code page to get the encoding
                 keyEncoding = int.TryParse(keyEncodingString, out int codePage)
