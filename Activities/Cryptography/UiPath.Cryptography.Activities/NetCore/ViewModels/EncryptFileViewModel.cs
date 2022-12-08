@@ -100,11 +100,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             var propertyOrderIndex = 1;
 
             InputFile.IsPrincipal = true;
-            InputFile.IsVisible = true;
+            InputFile.IsVisible = false;
             InputFile.OrderIndex = propertyOrderIndex++;
 
             InputFilePath.IsPrincipal = true;
-            InputFilePath.IsVisible = false;
+            InputFilePath.IsVisible = true;
             InputFilePath.OrderIndex = propertyOrderIndex++;
 
             FileInputModeSwitch.IsVisible = false;
@@ -157,8 +157,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .BuildAndInsertMenuActions();
 
             MenuActionsBuilder<FileInputMode>.WithValueProperty(FileInputModeSwitch)
-                .AddMenuProperty(InputFile, FileInputMode.File)
                 .AddMenuProperty(InputFilePath, FileInputMode.FilePath)
+                .AddMenuProperty(InputFile, FileInputMode.File)
                 .BuildAndInsertMenuActions();
 
             EncryptedFile.IsPrincipal = false;
@@ -237,7 +237,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             InputFile.IsVisible = false;
             InputFilePath.IsVisible = false;
             InputFilePath.IsRequired = false;
-            InputFilePath.Value = null;
         }
     }
 }

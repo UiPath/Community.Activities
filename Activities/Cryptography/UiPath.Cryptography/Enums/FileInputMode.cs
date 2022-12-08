@@ -8,15 +8,16 @@ namespace UiPath.Cryptography.Enums
     public enum FileInputMode
     {
         /// <summary>
-        /// File in a IResource format
-        /// </summary>
-        [LocalizedDescription(nameof(Resources.General_FileInput))]
-        File,
-
-        /// <summary>
         /// File in a string format
         /// </summary>
         [LocalizedDescription(nameof(Resources.General_FilePathInput))]
         FilePath,
+
+        /// <summary>
+        /// File in a IResource format
+        /// </summary>
+        [LocalizedDescription(nameof(Resources.General_FileInput))]
+        File
+
     }
 }
