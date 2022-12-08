@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Activities;
 using System.Activities.Statements;
+using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -28,6 +29,12 @@ namespace UiPath.Python.Activities
         [LocalizedDescription(nameof(Resources.PathDescription))]
         [DefaultValue(null)]
         public InArgument<string> Path { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.LibraryPathNameDisplayName))]
+        [LocalizedDescription(nameof(Resources.LibraryPathDescription))]
+        [DefaultValue(null)]
+        public InArgument<string> LibraryPath { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.TargetPlatformDisplayName))]
@@ -90,9 +97,17 @@ namespace UiPath.Python.Activities
             };
         }
 
+        protected override void CacheMetadata(NativeActivityMetadata metadata)
+        {
+            base.CacheMetadata(metadata);
+            if(Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
+                metadata.AddValidationError(new ValidationError(Resources.ValidationErrorPlatformUnsupported, false, nameof(Version)));
+        }
+
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
             string path = Path.Get(context);
+            string libraryPath = LibraryPath.Get(context);
             if (!path.IsNullOrEmpty() && !Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
@@ -100,7 +115,10 @@ namespace UiPath.Python.Activities
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            _pythonEngine = EngineProvider.Get(Version, path, !Isolated, TargetPlatform, ShowConsole);
+            _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
+
+            if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
+                throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
 
             var workingFolder = WorkingFolder.Get(context);
             if (!workingFolder.IsNullOrEmpty())

@@ -26,20 +26,33 @@ namespace UiPath.Python
         }
     }
 
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class LocalizedDescriptionAttribute : DescriptionAttribute
+    {
+        public LocalizedDescriptionAttribute(string displayName)
+            : base(displayName)
+        {
+        }
+
+        public override string Description
+        {
+            get
+            {
+                return Resources.ResourceManager.GetString(DescriptionValue) ?? base.Description;
+            }
+        }
+    }
+
     [TypeConverter(typeof(EnumTypeConverter))]
     public enum Version
     {
         //Unknown = -1,
-
+        [LocalizedDescription(nameof(Resources.Activity_PythonScope_Property_Auto_Description))]
         Auto,
 #if NET461
         [Version(2, 7, "Python.Runtime.27.dll")]
         [Description("Python 2.7")]
         Python_27,
-
-        [Version(3, 3, "Python.Runtime.33.dll")]
-        [Description("Python 3.3")]
-        Python_33,
 
         [Version(3, 4, "Python.Runtime.34.dll")]
         [Description("Python 3.4")]
@@ -64,6 +77,10 @@ namespace UiPath.Python
         [Version(3, 9, "Python.Runtime.39.dll")]
         [Description("Python 3.9")]
         Python_39,
+
+        [Version(3, 10, "Python.Runtime.dll")]
+        [Description("Python >=3.10")]
+        Python_310,
     }
 
     /// <summary>
@@ -109,6 +126,8 @@ namespace UiPath.Python
         private static Version GetPythonVersion(int major, int minor)
         {
             Type t = typeof(Version);
+            if ((major == 3 && minor >= 10) || (major > 4))
+                return Version.Python_310;
             foreach (Version version in Enum.GetValues(t))
             {
                 FieldInfo fi = t.GetField(version.ToString());

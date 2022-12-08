@@ -1,0 +1,75 @@
+﻿<sap:WorkflowElementDialog  x:Class="UiPath.Data.ConnectionUI.Dialog.Controls.OleDBConnectionUIControl"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+        xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+        xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+        xmlns:p="clr-namespace:UiPath.Data.ConnectionUI.Dialog.Properties">
+    <sap:WorkflowElementDialog.Resources>
+        <ResourceDictionary
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:uip="clr-namespace:UiPath.Data.ConnectionUI.Dialog"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <uip:ComboBoxSelectedItemConverter x:Key="ComboBoxSelectedItemConverter" />
+            <uip:BoolInverterConverter x:Key="BoolInverterConverter" />
+        </ResourceDictionary>
+    </sap:WorkflowElementDialog.Resources>
+    <StackPanel>
+        <Label Content="{x:Static p:Resources.OLEDBProvider_Label}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" Name="providerCombobox" HorizontalAlignment="Stretch" Margin="5,0,5,0" ItemsSource="{Binding Providers}" DisplayMemberPath="DisplayName" SelectedValuePath="Name" SelectedValue="{Binding Path=OleDbProvider, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ProviderCombobox_SelectionChanged"/>
+            <Button Grid.Column="1" Content="{x:Static p:Resources.DataLinks_Label}" Click="DataLink_Click" IsEnabled="{Binding ElementName=providerCombobox, Path=Text, Converter={StaticResource ComboBoxSelectedItemConverter}}"/>
+        </Grid>
+        <GroupBox Header="{x:Static p:Resources.OleDBConnectionUILocationGroup_Label}" IsEnabled="{Binding ElementName=providerCombobox, Path=Text, Converter={StaticResource ComboBoxSelectedItemConverter}}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.OleDBConnectionUIServer_Label}" Grid.Column="0" Name="serverLabel"/>
+                    <Label Grid.Row="1" Content="{x:Static p:Resources.OleDBConnectionUILocation_Label}" Grid.Column="0" Name="locationLabel"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="serverTextbox" Text="{Binding Path=Datasource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="locationTextBox" Text="{Binding Path=Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="{x:Static p:Resources.LogonGroupBox_Label}" Name="logonGroup" IsEnabled="{Binding ElementName=providerCombobox, Path=Text, Converter={StaticResource ComboBoxSelectedItemConverter}}">
+            <StackPanel>
+                <RadioButton Content="{x:Static p:Resources.OleDBConnectionUISSPI_Label}" IsChecked="{Binding UseWindowsAuthentication, Mode=TwoWay}" Margin="5,5,5,5" Name="integraredSecRadioButton" />
+                <RadioButton Content="{x:Static p:Resources.OleDBConnectionUIUserPassword_Label}" IsChecked="{Binding UseWindowsAuthentication, Mode=TwoWay, Converter={StaticResource BoolInverterConverter}}" Margin="5,0,5,5" Name="sqlAuthentication"/>
+                <Grid  IsEnabled="{Binding ElementName=sqlAuthentication, Path=IsChecked}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.Username_Label}" Grid.Column="1" Name="usernameLabel"/>
+                    <Label Grid.Row="1" Content="{x:Static p:Resources.Password_Label}" Grid.Column="1" Name="passwordLabel"/>
+                    <CheckBox Grid.Row="2" Content="{x:Static p:Resources.OleDBConnectionUISavePassword_Label}" IsChecked="{Binding SavePassword, Mode=TwoWay}" Grid.Column="2" Margin="5,0,0,0" Name="savepasswordCheckbox"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,4.6,0" Name="usernameTextbox"  Text="{Binding Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="17" VerticalAlignment="Top"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="passwordTextbox" PasswordChanged="PasswordTextbox_PasswordChanged" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="{x:Static p:Resources.OleDBConnectionUIInitialCatalog_Label}" Name="initialCatalogGroup" IsEnabled="False">
+            <ComboBox Grid.Column="0" Name="databaseCombobox" DropDownOpened="DatabaseCombobox_DropDownOpened" HorizontalAlignment="Stretch" Margin="5,0,5,0" ItemsSource="{Binding Databases}" MaxDropDownHeight="150"  IsEditable="True" Text="{Binding Path=InitialCatalog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </GroupBox>
+    </StackPanel>
+</sap:WorkflowElementDialog>

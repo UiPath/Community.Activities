@@ -14,6 +14,8 @@ namespace UiPath.FTP
     public class SftpSession : IFtpSession
     {
         private readonly SftpClient _sftpClient;
+        private const int DefaultFtpPort = 21;
+        private const int DefaultProxyPort = 3128;
 
         public SftpSession(FtpConfiguration ftpConfiguration)
         {
@@ -45,14 +47,23 @@ namespace UiPath.FTP
             {
                 throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
             }
-
-            if (ftpConfiguration.Port == null)
+            if (ftpConfiguration.ProxyType == FtpProxyType.None)
             {
-                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Username, authMethods.ToArray());
+                if (ftpConfiguration.Port == null)
+                {
+                    connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Username, authMethods.ToArray());
+                }
+                else
+                {
+                    connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Port.Value, ftpConfiguration.Username, authMethods.ToArray());
+                }
             }
             else
             {
-                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Port.Value, ftpConfiguration.Username, authMethods.ToArray());
+                int proxyPort = (ftpConfiguration.ProxyPort == null) ? DefaultProxyPort : ftpConfiguration.ProxyPort.Value;
+                int ftpPort = (ftpConfiguration.Port == null) ? DefaultFtpPort : ftpConfiguration.Port.Value;
+
+                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpPort, ftpConfiguration.Username, ftpConfiguration.ProxyType.ToMaster(),ftpConfiguration.ProxyServer, proxyPort,ftpConfiguration.ProxyUsername,ftpConfiguration.ProxyPassword, authMethods.ToArray());
             }
 
             _sftpClient = new SftpClient(connectionInfo);

@@ -4,6 +4,7 @@ using System.Activities.Statements;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Activities.Properties;
@@ -30,6 +31,8 @@ namespace UiPath.Java.Activities
         public ActivityAction<object> Body { get; set; }
 
         private IInvoker _invoker;
+        private const string _javaExeWindows = "java.exe";
+        private const string _javaExeLinux = "java";
 
         internal static IInvoker GetJavaInvoker(System.Activities.ActivityContext context)
         {
@@ -58,9 +61,14 @@ namespace UiPath.Java.Activities
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken ct)
         {
             string javaPath = JavaPath.Get(context);
+            var javaExec = _javaExeWindows;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                javaExec = _javaExeLinux;
+#endif
             if (javaPath != null)
             {
-                javaPath = Path.Combine(javaPath, "bin", "java.exe");
+                javaPath = Path.Combine(javaPath, "bin", javaExec);
                 if (!File.Exists(javaPath))
                 {
                     throw new ArgumentException(Resources.InvalidJavaPath, Resources.JavaPathDisplayName);

@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
-    <value>AffectedRecords</value>
+    <value>RegistrosAfetados</value>
     <comment>property name</comment>
   </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
-    <value>CommandType</value>
+    <value>TipoDeComando</value>
     <comment>property name</comment>
   </data>
   <data name="Common" xml:space="preserve">
@@ -135,69 +135,631 @@
     <value>Configuração de conexão</value>
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
-    <value>ConnectionString</value>
+    <value>StringDeConexão</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinuarComErro</value>
     <comment>property name</comment>
   </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
-    <value>DatabaseConnection</value>
+    <value>ConexãoComBancoDeDados</value>
     <comment>property name</comment>
   </data>
   <data name="DataTableDisplayName" xml:space="preserve">
-    <value>DataTable</value>
+    <value>TabelaDeDados</value>
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Existing Connection</value>
+    <value>Conexão Existente</value>
     <comment>property name</comment>
   </data>
   <data name="Input" xml:space="preserve">
     <value>Entrada</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Saída</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Parâmetros</value>
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
-    <value>ProviderName</value>
+    <value>NomeDoProvedor</value>
     <comment>property name</comment>
   </data>
   <data name="TableNameDisplayName" xml:space="preserve">
-    <value>TableName</value>
+    <value>NomeDaTabela</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout (milliseconds)</value>
+    <value>Tempo Limite (milissegundos)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>O valor fornecido para TimeoutMS deve ser &gt;= 0</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
-    <value>UseTransaction</value>
+    <value>UsarTransação</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Saída</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>NomesDasColunas</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
-    <value>Only one of the connection string fields can be used.</value>
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
+    <value>Apenas um dos campos de string de conexão pode ser usado.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
     <value>SecureConnectionString</value>
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
-    <value>Bulk/Batch Update</value>
+    <value>Atualização em Massa/Lote</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>Apenas uma das conexões pode ser usada.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>Pelo menos uma das conexões deve ser usada.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>Pelo menos um dos campos de string de conexão deve ser usado.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>O valor do argumento de atividade &apos;ProviderName&apos; solicitado não foi fornecido</value>
+  </data>
+  <data name="Activity_BulkInsert_Description" xml:space="preserve">
+    <value>Atualiza uma tabela usando Operações em massa com a implementação específica de driver do banco de dados. Realizará o fallback para Insert Data Table se o driver do banco de dados não for compatível com Operações em massa.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Name" xml:space="preserve">
+    <value>Bulk Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Armazena o número de linhas afetadas em uma variável Int64.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Registros afetados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>String de conexão segura</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
+    <value>String de conexão</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar com erro</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>A DataTable de origem dos itens a serem inseridos.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabela de dados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Uma conexão de banco de dados já aberta. Se uma conexão assim estiver disponível, as propriedades ConnectionString e SecureConnectionString serão ignoradas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexão existente</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
+    <value>O nome do provedor usado para acessar o banco de dados.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
+    <value>Nome do provedor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>Nome da tabela de destino no banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>Nome da tabela</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Description" xml:space="preserve">
+    <value>Atualiza uma DataTable compatível em uma Tabela existente. Atualiza todas as colunas que não fazem parte do conjunto de nomes de coluna usado como chave primária. Retorna o número de linhas afetadas.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Name" xml:space="preserve">
+    <value>Bulk update</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>O número de linhas atualizadas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Linhas afetadas</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
+    <value>Marque esta caixa para habilitar a criação de uma tabela temporária usando Bulk Insert e para atualizar a junção entre tabelas. Do contrário, as atualizações em massa serão feitas em lote.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
+    <value>Atualização em massa/lote</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
+    <value>O conjunto de nomes de colunas usados na correspondência de linhas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
+    <value>Colunas usadas para a correspondência de linhas</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>String de conexão segura</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
+    <value>String de conexão</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica se a automação deve continuar mesmo quando a atividade gera um erro.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar com erro</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
+    <value>O objeto DataTable que será usado para atualizar a tabela. A descrição das colunas DataTable deve corresponder às colunas da tabela do banco de dados e ser um subconjunto delas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabela de dados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Uma conexão de banco de dados já aberta. Se uma conexão assim estiver disponível, as propriedades ConnectionString e SecureConnectionString serão ignoradas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexão existente</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
+    <value>O nome do provedor usado para acessar o banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
+    <value>Nome do provedor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
+    <value>A tabela de banco de dados de destino.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
+    <value>Nome da tabela</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
+    <value>Conecta-se a um banco de dados usando uma string de conexão padrão.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
+    <value>Connect to database</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>String de conexão segura</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
+    <value>String de conexão</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>A conexão de banco de dados usada para as operações nesta atividade.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Conexão com banco de dados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
+    <value>O nome do provedor usado para acessar o banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
+    <value>Nome do provedor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
+    <value>Encerra uma conexão com um banco de dados.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
+    <value>Disconnect from database</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>A conexão de banco de dados usada para operações nesta atividade.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Conexão com banco de dados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
+    <value>Conecta-se a um banco de dados e inclui uma Sequência que pode realizar várias transações com o banco de dados. Retorna uma variável DatabaseConnection, fornecendo um escopo para atividades de Banco de dados.
+Se UseTransaction estiver definido como True, as operações contidas serão executadas em uma única transação e aplicadas no final, se nenhuma delas falhar. Se UseTransaction estiver definido como False, todas as operações serão confirmadas individualmente. Quando esta atividade termina, a conexão com o banco de dados é encerrada.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
+    <value>Start Transaction</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>String de conexão segura</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
+    <value>String de conexão</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica se a automação deve continuar mesmo quando a atividade gera um erro.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar com erro</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>A variável de conexão de banco de dados retornada pela atividade. Pode ser usada para as outras operações de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Conexão com banco de dados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>A variável DatabaseConnection que você quer usar para conectar-se a um banco de dados. Se uma conexão assim estiver disponível, as propriedades ConnectionString e SecureConnectionString serão ignoradas. Pode ser recuperada de outras atividades de Banco de dados que tenham o campo DatabaseConnection na seção da propriedade Output.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexão existente</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
+    <value>O nome do provedor usado para acessar o banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
+    <value>Nome do provedor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
+    <value>Especifica se as operações de banco de dados desta atividade devem ser envolvidas em uma transação de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
+    <value>Usar transação</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
+    <value>Executa uma instrução sem consulta em um banco de dados. Para instruções ATUALIZAR, INSERIR e EXCLUIR, o valor de retorno é o número de linhas afetadas pelo comando. Para todos os outros tipos de instruções, o valor de retorno é -1.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
+    <value>Run command</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>O resultado da execução do comando sql. Para instruções ATUALIZAR, INSERIR e EXCLUIR, o valor de retorno é o número de linhas afetadas pelo comando. Para todos os outros tipos de instruções, o valor de retorno é -1.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Registros afetados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
+    <value>Especifica como uma string de comando é interpretada. As seguintes opções estão disponíveis:
+Texto - executa a consulta no parâmetro SQL.
+StoredProcedure - invoca o nome de procedimento especificado no parâmetro SQL.
+TableDirect - invoca todos os registros de uma tabela.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
+    <value>Tipo de comando</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>String de conexão segura</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
+    <value>String de conexão</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica se a automação deve continuar mesmo quando a atividade gera um erro.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar com erro</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Uma conexão de banco de dados já aberta. Se uma conexão assim estiver disponível, as propriedades ConnectionString e SecureConnectionString serão ignoradas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexão existente</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
+    <value>Um dicionário de parâmetros nomeados que estão vinculados ao comando sql. A vinculação é feita especificando a instrução &apos;@parameterName&apos; no comando sql. No ambiente de execução, parameterName será substituído por seu valor do dicionário.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
+    <value>Parâmetros</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
+    <value>O nome do provedor usado para acessar o banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
+    <value>Nome do provedor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>Um comando sql a ser executado. O campo deve estar completo de acordo com a seleção de uma propriedade CommandType.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>Comando SQL</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>Especifica o tempo (em milissegundos) a ser aguardado para que o comando sql seja executado antes de gerar um erro. O valor padrão é 30.000 milissegundos (30 segundos) e deve ser maior ou igual a 0.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>Tempo Limite</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
+    <value>Executa uma consulta em um banco de dados e retorna o resultado em uma Tabela de dados.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
+    <value>Run query</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
+    <value>Especifica como uma string de comando é interpretada. As seguintes opções estão disponíveis:
+Texto - executa a consulta no parâmetro SQL.
+StoredProcedure - invoca o nome de procedimento especificado no parâmetro SQL.
+TableDirect - invoca todos os registros de uma tabela.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
+    <value>Tipo de comando</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>String de conexão segura</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
+    <value>String de conexão</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica se a automação deve continuar mesmo quando a atividade gera um erro.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar com erro</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
+    <value>A saída do comando SQL envolvido em uma variável DataTable.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabela de dados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Uma conexão de banco de dados já aberta obtida das atividades Connect ou Start Transaction. Se uma conexão assim estiver disponível, as propriedades ConnectionString e SecureConnectionString serão ignoradas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexão existente</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
+    <value>Um dicionário de parâmetros nomeados que estão vinculados ao comando sql. A vinculação é feita especificando a instrução &apos;@parameterName&apos; no comando sql. No ambiente de execução, parameterName será substituído por seu valor do dicionário.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
+    <value>Parâmetros</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">
+    <value>O nome do provedor usado para acessar o banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_ProviderName_Name" xml:space="preserve">
+    <value>Nome do Provedor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>Um comando sql a ser executado. O campo deve estar completo de acordo com a seleção de uma propriedade CommandType.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>Consulta SQL</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>Especifica o tempo (em milissegundos) a ser aguardado para que o comando sql seja executado antes de gerar um erro. O valor padrão é 30.000 milissegundos (30 segundos) e deve ser maior ou igual a 0.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>Tempo Limite</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Description" xml:space="preserve">
+    <value>Insere uma variável DataTable compatível em uma Tabela existente. Retorna o número de linhas afetadas. Se as restrições na tabela não forem atendidas, a atividade não será concluída com sucesso e todas as linhas escritas serão salvas.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Name" xml:space="preserve">
+    <value>Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Armazena o número de linhas afetadas em uma variável Int32.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Registros afetados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados como uma String Segura.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>String de conexão segura</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
+    <value>A string de conexão usada para estabelecer uma conexão de banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
+    <value>String de conexão</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica se a automação deve continuar mesmo quando a atividade gera um erro.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar com erro</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
+    <value>A variável DataTable a ser inserida na Tabela. A descrição e o nome das colunas DataTable deve corresponder às colunas da tabela do banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabela de dados</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Uma conexão de banco de dados já aberta obtida das atividades Connect ou Start Transaction. Se uma conexão assim estiver disponível, as propriedades ConnectionString e SecureConnectionString serão ignoradas.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexão existente</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
+    <value>O nome do provedor usado para acessar o banco de dados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
+    <value>Nome do provedor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
+    <value>A tabela SQL em que os dados serão inseridos.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
+    <value>Nome da tabela</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica se a automação deve continuar mesmo quando a atividade gera um erro.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Outro</value>
+    <comment>category name</comment>
+  </data>
+  <data name="Category_Principal" xml:space="preserve">
+    <value>Principal</value>
+    <comment>category name</comment>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Saída</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>A conexão existente é inválida. Certifique-se de que a conexão pode ser estabelecida.</value>
   </data>
 </root>

@@ -121,7 +121,7 @@
     <value>Python 스크립트 내용</value>
   </data>
   <data name="CodeNameDisplayName" xml:space="preserve">
-    <value>Code</value>
+    <value>코드</value>
     <comment>property name</comment>
   </data>
   <data name="ConvertException" xml:space="preserve">
@@ -147,7 +147,7 @@
     <value>Python 개체의 인스턴스</value>
   </data>
   <data name="InstanceNameDisplayName" xml:space="preserve">
-    <value>Instance</value>
+    <value>인스턴스</value>
     <comment>property name</comment>
   </data>
   <data name="InvalidMethodNameException" xml:space="preserve">
@@ -180,28 +180,28 @@
     <value>호출될 메서드의 이름</value>
   </data>
   <data name="NameDisplayName" xml:space="preserve">
-    <value>Name</value>
+    <value>이름</value>
     <comment>property name</comment>
   </data>
   <data name="NoScriptSpecifiedException" xml:space="preserve">
     <value>코드/스크립트 지정 안 됨</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>출력</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Python 스크립트의 입력 파라미터</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>InputParameters</value>
+    <value>입력 파라미터</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Python 홈 경로</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>경로</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -214,7 +214,7 @@
     <value>값을 추출할 Python 개체</value>
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
-    <value>PythonObject</value>
+    <value>Python 개체</value>
     <comment>property name</comment>
   </data>
   <data name="PythonScopeDescription" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>스크립트 호출 결과</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>결과</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
@@ -245,14 +245,14 @@
     <value>Python 스크립트 파일의 전체 경로</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>파일</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>지정된 스크립트 파일을 찾을 수 없음</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>Target</value>
+    <value>타겟</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
@@ -265,14 +265,14 @@
     <value>Python 버전</value>
   </data>
   <data name="VersionNameDisplayName" xml:space="preserve">
-    <value>Version</value>
+    <value>버전</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
     <value>출력</value>
   </data>
   <data name="WorkingFolder" xml:space="preserve">
-    <value>WorkingFolder</value>
+    <value>작업 폴더</value>
     <comment>property name</comment>
   </data>
   <data name="WorkingFolderDescription" xml:space="preserve">
@@ -289,5 +289,14 @@
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간입니다.</value>
+  </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Linux의 경우 Python libpython*.so 라이브러리(라이브러리 이름 포함). Windows(버전&gt;3.9)의 경우 python**.dll 라이브러리 이름 포함(일반적으로 Python 홈 경로에 있음). Windows(버전&lt;=3.9)의 경우 비워 둡니다.</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>라이브러리 경로(Linux 또는 버전&gt; 3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>3.10 이상인 Python 버전은 32비트에서 지원되지 않습니다. </value>
   </data>
 </root>

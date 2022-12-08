@@ -6,7 +6,7 @@
                            xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
                            xmlns:s="clr-namespace:System;assembly=mscorlib"
                            xmlns:p="clr-namespace:UiPath.Database.Activities.Design.Properties"
-                           Title="{x:Static p:Resources.EditSql}" MinWidth="355">
+                           Title="{x:Static p:Resources.EditSql}" MinWidth="355" WindowResizeMode="CanResizeWithGrip">
 
     <sap:WorkflowElementDialog.Resources>
         <ResourceDictionary>

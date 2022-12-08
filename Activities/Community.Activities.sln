@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92E6CB4E-6542-419B-B674-7D8B9FB02BD2}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,6 +34,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{ED3DF9E3-2366-483E-9124-3FA8766EEF77}"
 	ProjectSection(SolutionItems) = preProject
 		Database\Database.build.props = Database\Database.build.props
+		Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj = Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database", "Database\UiPath.Database\UiPath.Database.csproj", "{BD4850CC-23BF-4BEA-933E-F1FD7C692451}"
@@ -127,6 +128,7 @@ Global
 		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems*{e116c90e-c6a0-4292-b1ff-e0746ffe95d5}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{e270608b-ba9e-4972-a18e-34b93e6552b4}*SharedItemsImports = 5
+		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{fdfc92ee-090c-4e23-9422-f90eb94c43dd}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

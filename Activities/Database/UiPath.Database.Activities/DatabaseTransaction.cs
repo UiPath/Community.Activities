@@ -5,121 +5,116 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
 using System.Security;
-using System.Windows.Markup;
+using System.Threading;
+using System.Threading.Tasks;
 using UiPath.Database.Activities.Properties;
+using UiPath.Shared.Activities;
 
 namespace UiPath.Database.Activities
 {
-    public class DatabaseTransaction : AsyncNativeActivity
+    [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Description))]
+    public partial class DatabaseTransaction : AsyncTaskNativeActivity
     {
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("New Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_ProviderName_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Property_ProviderName_Description))]
         public InArgument<string> ProviderName { get; set; }
 
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [DefaultValue(null)]
-        [OverloadGroup("New Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_ConnectionString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Property_ConnectionString_Description))]
         public InArgument<string> ConnectionString { get; set; }
 
-
         [DefaultValue(null)]
-        [DependsOn(nameof(ProviderName))]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [OverloadGroup("New Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_ConnectionSecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Property_ConnectionSecureString_Description))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [RequiredArgument]
-        [OverloadGroup("Existing Database Connection")]
-        [LocalizedDisplayName(nameof(Resources.ExistingDbConnectionDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_ExistingDbConnection_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Property_ExistingDbConnection_Description))]
         public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
 
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.DatabaseConnectionDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_DatabaseConnection_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Property_DatabaseConnection_Description))]
         public OutArgument<DatabaseConnection> DatabaseConnection { get; set; }
 
         [Browsable(false)]
         public System.Activities.Activity Body { get; set; }
 
-        [LocalizedDisplayName(nameof(Resources.UseTransactionDisplayName))]
-        public bool UseTransaction { get; set; }
-
-        private Func<DatabaseConnection> ConnectionInitFunc;
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_UseTransaction_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Property_UseTransaction_Description))]
+        public bool UseTransaction { get; set; } = true;
 
         public DatabaseTransaction()
         {
-            UseTransaction = true;
             Body = new Sequence
             {
                 DisplayName = "Do"
             };
         }
 
-        protected override void CacheMetadata(NativeActivityMetadata metadata)
+        private void HandleException(Exception ex, bool continueOnError)
         {
-            metadata.AddChild(Body);
-            base.CacheMetadata(metadata);
+            if (continueOnError) return;
+            throw ex;
         }
 
-        protected override IAsyncResult BeginExecute(NativeActivityContext context, AsyncCallback callback, object state)
+
+        protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
             var connString = ConnectionString.Get(context);
             SecureString connSecureString = null;
             var provName = ProviderName.Get(context);
             connSecureString = ConnectionSecureString.Get(context);
+            DatabaseConnection existingConnection = null;
+            existingConnection = ExistingDbConnection.Get(context);
+            DatabaseConnection dbConnection = null;
 
-            var dbConnection = ExistingDbConnection.Get(context) ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-            if (dbConnection == null && connString == null && connSecureString == null)
-            {
-                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
-            }
-            ConnectionInitFunc = () => dbConnection;
-            return ConnectionInitFunc.BeginInvoke(callback, state);
-        }
 
-        protected override void EndExecute(NativeActivityContext context, IAsyncResult result)
-        {
-            var databaseConn = ConnectionInitFunc.EndInvoke(result);
-            if (databaseConn == null) return;
-
+            ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+            dbConnection = await Task.Run(() => existingConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName));
             if (UseTransaction)
             {
-                databaseConn.BeginTransaction();
+                dbConnection.BeginTransaction();
             }
 
-            DatabaseConnection.Set(context, databaseConn);
-
-            if (Body != null)
+            return (nativeActivityContext) =>
             {
-                context.ScheduleActivity(Body, OnCompletedCallback, OnFaultedCallback);
-            }
+                DatabaseConnection.Set(nativeActivityContext, dbConnection);
+                if (Body != null)
+                {
+                    nativeActivityContext.ScheduleActivity(Body, OnCompletedCallback, OnFaultedCallback);
+                }
+
+            };
+        
         }
 
-        private void OnCompletedCallback(NativeActivityContext context, ActivityInstance activityInstance)
+        private void OnCompletedCallback(NativeActivityContext context, ActivityInstance completedInstance)
         {
             DatabaseConnection conn = null;
             try
             {
                 conn = DatabaseConnection.Get(context);
-                if (UseTransaction)
+                if (UseTransaction && conn.State != System.Data.ConnectionState.Closed)
                 {
                     conn.Commit();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                HandleException(ex, ContinueOnError.Get(context));
+                throw;
             }
             finally
             {
@@ -134,11 +129,12 @@ namespace UiPath.Database.Activities
         {
             faultContext.CancelChildren();
             DatabaseConnection conn = DatabaseConnection.Get(faultContext);
+            var continueOnError = ContinueOnError.Get(faultContext);
             if (conn != null)
             {
                 try
                 {
-                    if (UseTransaction)
+                    if (UseTransaction && conn.State != System.Data.ConnectionState.Closed)
                     {
                         conn.Rollback();
                     }
@@ -146,6 +142,7 @@ namespace UiPath.Database.Activities
                 catch (Exception ex)
                 {
                     Trace.TraceError(ex.Message);
+                    HandleException(ex, continueOnError);
                 }
                 finally
                 {
@@ -153,14 +150,8 @@ namespace UiPath.Database.Activities
                 }
             }
 
-            HandleException(exception, ContinueOnError.Get(faultContext));
             faultContext.HandleFault();
         }
 
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
-        }
     }
 }

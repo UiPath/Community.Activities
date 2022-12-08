@@ -7,6 +7,7 @@
     <Product>UiPath.Database.Tests</Product>
     <Copyright>Copyright ©  2018</Copyright>
     <OutputPath>..\..\OutputTests\Database\</OutputPath>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' ">
     <DebugType>full</DebugType>
@@ -20,8 +21,8 @@
     <PackageReference Include="Microsoft.Activities.Extensions" Version="2.0.6.9" />
     <PackageReference Include="Microsoft.Activities.UnitTesting" Version="2.0.6.9" />
     <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
@@ -32,7 +33,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="UiPath.Activities.Api"  PrivateAssets="All" />
+    <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Activities" />

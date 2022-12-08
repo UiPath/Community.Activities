@@ -8,11 +8,14 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
-    public class Delete : ContinuableAsyncCodeActivity
+    [LocalizedDisplayName(nameof(Resources.Activity_Delete_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_Delete_Description))]
+    public partial class Delete : FtpAsyncActivity
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.RemotePath))]
+        [LocalizedDisplayName(nameof(Resources.Activity_Delete_Property_RemotePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_Delete_Property_RemotePath_Description))]
         public InArgument<string> RemotePath { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)

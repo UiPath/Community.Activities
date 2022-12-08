@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Bir komut dizesinin nasıl yorumlanacağını belirtir</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Bağlan</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>Veritabanı bağlantısı kurmak için kullanılan bağlantı dizesi</value>
   </data>
@@ -151,10 +147,6 @@
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
   </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Bağlantıyı Kes</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Veritabanında bir SQL deyimi yürütür. UPDATE, INSERT ve DELETE deyimleri için dönüş değeri komutun etkilediği satır sayısıdır. Diğer tüm deyim türleri için dönüş değeri -1&apos;dir.</value>
   </data>
@@ -163,10 +155,6 @@
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Zaten açılmış bir veritabanı bağlantısı. Bu özellik ayarlanırsa Bağlantı Dizesi ve Sağlayıcı Adı özellikleri yok sayılır</value>
-  </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
-    <comment>activity name</comment>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>Varolan bir Tabloya uyumlu bir DataTable ekler. Etkilenen satır sayısını döndürür.</value>
@@ -179,10 +167,6 @@
   </data>
   <data name="SqlDescription" xml:space="preserve">
     <value>Yürütülecek bir SQL komutu.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Start Transaction</value>
-    <comment>activity name</comment>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>Hedef veritabanı tablosu</value>
@@ -221,7 +205,7 @@
     <value>Parametreler</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>GörünenAd</value>
     <comment>property name</comment>
   </data>
   <data name="ConnectionString" xml:space="preserve">
@@ -254,20 +238,11 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Uygulama Tümleştirmesi</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Sorgu Olmayanı Yürüt</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Sorguyu Yürüt</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Koleksiyon)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>ContinueOnError Boole</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Toplu Ekle</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
     <value>DataTable</value>
@@ -293,25 +268,34 @@
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
     <value>Satır eşleştirmek için kullanılan sütun adları koleksiyonu</value>
   </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Toplu Güncelleştir</value>
-  </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Mevcut bir Tablo&apos;daki uyumlu DataTable&apos;i güncelleştirir. Ana anahtar olarak kullanılan sütun adları koleksiyonunda yer almayan sütunları güncelleştirir. Etkilenen satır sayısını döndürür.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>Güncelleştirilen satırların sayısı</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Doğru ise, Toplu eklemeyi kullanarak geçici bir tablo oluşturur ve tablolar arasında birleştirmeyi kullanarak güncelleştirir, aksi takdirde toplu olarak toplu güncelleştirmeler yayımlar.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>Tabloyu güncelleştirmek için kullanılacak DataTable nesnesi. DataTable sütunlarının açıklaması veritabanı tablosundaki sütunlarla eşleşmeli ve bunların bir alt kümesi olmalıdır</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Belirli veritabanı sürücü uygulamasını kullanarak Toplu işlemlerin kullanıldığı bir tabloyu güncelleştirir. Veritabanı sürücüsü Toplu işlemleri desteklemiyorsa Insert Data Table&apos;a geri döner.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>Güvenli Dize olarak bir veritabanı bağlantısı kurmak için kullanılan bağlantı dizesi</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Execute Non Query</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Execute Query</value>
   </data>
 </root>

@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AES" xml:space="preserve">
-    <value>AES</value>
+    <value>AES (устаревший)</value>
+  </data>
+  <data name="AESGCM" xml:space="preserve">
+    <value>AES GCM</value>
   </data>
   <data name="DES" xml:space="preserve">
-    <value>DES</value>
+    <value>DES (устаревший)</value>
   </data>
   <data name="HMACMD5" xml:space="preserve">
     <value>HMACMD5 (не соответствует стандарту FIPS)</value>
@@ -141,6 +144,9 @@
   <data name="HMACSHA512" xml:space="preserve">
     <value>HMACSHA512</value>
   </data>
+  <data name="Key" xml:space="preserve">
+    <value>Переключатель на текстовый ввод</value>
+  </data>
   <data name="MACTripleDES" xml:space="preserve">
     <value>MACTripleDES</value>
   </data>
@@ -148,13 +154,16 @@
     <value>MD5 (не соответствует стандарту FIPS)</value>
   </data>
   <data name="RC2" xml:space="preserve">
-    <value>RC2 (не соответствует стандарту FIPS)</value>
+    <value>RC2 (не соответствует стандарту FIPS) (устаревший)</value>
   </data>
   <data name="Rijndael" xml:space="preserve">
-    <value>Rijndael (не соответствует стандарту FIPS)</value>
+    <value>Rijndael (не соответствует стандарту FIPS) (устаревший)</value>
   </data>
   <data name="RIPEMD160" xml:space="preserve">
     <value>RIPEMD160 (не соответствует стандарту FIPS)</value>
+  </data>
+  <data name="SecureKey" xml:space="preserve">
+    <value>Переключатель на защищенный ввод</value>
   </data>
   <data name="SHA1" xml:space="preserve">
     <value>SHA1</value>

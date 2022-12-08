@@ -19,7 +19,7 @@ namespace UiPath.Cryptography.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UiPath_Cryptography {
@@ -79,11 +79,443 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arabic (864).
+        /// </summary>
+        internal static string Arabic_864 {
+            get {
+                return ResourceManager.GetString("Arabic_864", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic (ASMO 708).
+        /// </summary>
+        internal static string Arabic_ASMO708 {
+            get {
+                return ResourceManager.GetString("Arabic_ASMO708", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic (DOS).
+        /// </summary>
+        internal static string Arabic_DOS {
+            get {
+                return ResourceManager.GetString("Arabic_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic (ISO).
+        /// </summary>
+        internal static string Arabic_ISO {
+            get {
+                return ResourceManager.GetString("Arabic_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic (Mac).
+        /// </summary>
+        internal static string Arabic_Mac {
+            get {
+                return ResourceManager.GetString("Arabic_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic (Windows).
+        /// </summary>
+        internal static string Arabic_Windows {
+            get {
+                return ResourceManager.GetString("Arabic_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baltic (DOS).
+        /// </summary>
+        internal static string Baltic_DOS {
+            get {
+                return ResourceManager.GetString("Baltic_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baltic (ISO).
+        /// </summary>
+        internal static string Baltic_ISO {
+            get {
+                return ResourceManager.GetString("Baltic_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Baltic (Windows).
+        /// </summary>
+        internal static string Baltic_Windows {
+            get {
+                return ResourceManager.GetString("Baltic_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Central European (DOS).
+        /// </summary>
+        internal static string CentralEuropean_DOS {
+            get {
+                return ResourceManager.GetString("CentralEuropean_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Central European (ISO).
+        /// </summary>
+        internal static string CentralEuropean_ISO {
+            get {
+                return ResourceManager.GetString("CentralEuropean_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Central European (Mac).
+        /// </summary>
+        internal static string CentralEuropean_Mac {
+            get {
+                return ResourceManager.GetString("CentralEuropean_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Central European (Windows).
+        /// </summary>
+        internal static string CentralEuropean_Windows {
+            get {
+                return ResourceManager.GetString("CentralEuropean_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Simplified (EUC).
+        /// </summary>
+        internal static string ChineseSimplified_EUC {
+            get {
+                return ResourceManager.GetString("ChineseSimplified_EUC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Simplified (GB18030).
+        /// </summary>
+        internal static string ChineseSimplified_GB18030 {
+            get {
+                return ResourceManager.GetString("ChineseSimplified_GB18030", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Simplified (GB2312).
+        /// </summary>
+        internal static string ChineseSimplified_GB2312 {
+            get {
+                return ResourceManager.GetString("ChineseSimplified_GB2312", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Simplified (GB2312-80).
+        /// </summary>
+        internal static string ChineseSimplified_GB2312_80 {
+            get {
+                return ResourceManager.GetString("ChineseSimplified_GB2312_80", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Simplified (HZ).
+        /// </summary>
+        internal static string ChineseSimplified_HZ {
+            get {
+                return ResourceManager.GetString("ChineseSimplified_HZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Simplified (ISO-2022).
+        /// </summary>
+        internal static string ChineseSimplified_ISO_2022 {
+            get {
+                return ResourceManager.GetString("ChineseSimplified_ISO_2022", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Simplified (Mac).
+        /// </summary>
+        internal static string ChineseSimplified_Mac {
+            get {
+                return ResourceManager.GetString("ChineseSimplified_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Traditional (Big5).
+        /// </summary>
+        internal static string ChineseTraditional_Big5 {
+            get {
+                return ResourceManager.GetString("ChineseTraditional_Big5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Traditional (CNS).
+        /// </summary>
+        internal static string ChineseTraditional_CNS {
+            get {
+                return ResourceManager.GetString("ChineseTraditional_CNS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Traditional (Eten).
+        /// </summary>
+        internal static string ChineseTraditional_Eten {
+            get {
+                return ResourceManager.GetString("ChineseTraditional_Eten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese Traditional (Mac).
+        /// </summary>
+        internal static string ChineseTraditional_Mac {
+            get {
+                return ResourceManager.GetString("ChineseTraditional_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Croatian (Mac).
+        /// </summary>
+        internal static string Croatian_Mac {
+            get {
+                return ResourceManager.GetString("Croatian_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cyrillic (DOS).
+        /// </summary>
+        internal static string Cyrillic_DOS {
+            get {
+                return ResourceManager.GetString("Cyrillic_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cyrillic (ISO).
+        /// </summary>
+        internal static string Cyrillic_ISO {
+            get {
+                return ResourceManager.GetString("Cyrillic_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cyrillic (KOI8-R).
+        /// </summary>
+        internal static string Cyrillic_KOI8_R {
+            get {
+                return ResourceManager.GetString("Cyrillic_KOI8_R", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cyrillic (KOI8-U).
+        /// </summary>
+        internal static string Cyrillic_KOI8_U {
+            get {
+                return ResourceManager.GetString("Cyrillic_KOI8_U", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cyrillic (Mac).
+        /// </summary>
+        internal static string Cyrillic_Mac {
+            get {
+                return ResourceManager.GetString("Cyrillic_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cyrillic (Windows).
+        /// </summary>
+        internal static string Cyrillic_Windows {
+            get {
+                return ResourceManager.GetString("Cyrillic_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System default.
+        /// </summary>
+        internal static string DefaultCodePage {
+            get {
+                return ResourceManager.GetString("DefaultCodePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DES  (Deprecated).
         /// </summary>
         internal static string DES {
             get {
                 return ResourceManager.GetString("DES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estonian (ISO).
+        /// </summary>
+        internal static string Estonian_ISO {
+            get {
+                return ResourceManager.GetString("Estonian_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Europa.
+        /// </summary>
+        internal static string Europa {
+            get {
+                return ResourceManager.GetString("Europa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to French Canadian (DOS).
+        /// </summary>
+        internal static string FrenchCanadian_DOS {
+            get {
+                return ResourceManager.GetString("FrenchCanadian_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle to File input.
+        /// </summary>
+        internal static string General_FileInput {
+            get {
+                return ResourceManager.GetString("General_FileInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle to File Path input.
+        /// </summary>
+        internal static string General_FilePathInput {
+            get {
+                return ResourceManager.GetString("General_FilePathInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to German (IA5).
+        /// </summary>
+        internal static string German_IA5 {
+            get {
+                return ResourceManager.GetString("German_IA5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greek (DOS).
+        /// </summary>
+        internal static string Greek_DOS {
+            get {
+                return ResourceManager.GetString("Greek_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greek (ISO).
+        /// </summary>
+        internal static string Greek_ISO {
+            get {
+                return ResourceManager.GetString("Greek_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greek (Mac).
+        /// </summary>
+        internal static string Greek_Mac {
+            get {
+                return ResourceManager.GetString("Greek_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greek, Modern (DOS).
+        /// </summary>
+        internal static string Greek_Modern_DOS {
+            get {
+                return ResourceManager.GetString("Greek_Modern_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greek (Windows).
+        /// </summary>
+        internal static string Greek_Windows {
+            get {
+                return ResourceManager.GetString("Greek_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hebrew (DOS).
+        /// </summary>
+        internal static string Hebrew_DOS {
+            get {
+                return ResourceManager.GetString("Hebrew_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hebrew (ISO-Logical).
+        /// </summary>
+        internal static string Hebrew_ISO_Logical {
+            get {
+                return ResourceManager.GetString("Hebrew_ISO_Logical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hebrew (ISO-Visual).
+        /// </summary>
+        internal static string Hebrew_ISO_Visual {
+            get {
+                return ResourceManager.GetString("Hebrew_ISO_Visual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hebrew (Mac).
+        /// </summary>
+        internal static string Hebrew_Mac {
+            get {
+                return ResourceManager.GetString("Hebrew_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hebrew (Windows).
+        /// </summary>
+        internal static string Hebrew_Windows {
+            get {
+                return ResourceManager.GetString("Hebrew_Windows", resourceCulture);
             }
         }
         
@@ -142,6 +574,573 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IBM5550 Taiwan.
+        /// </summary>
+        internal static string IBM5550Taiwan {
+            get {
+                return ResourceManager.GetString("IBM5550Taiwan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Arabic).
+        /// </summary>
+        internal static string IBMEBCDIC_Arabic {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Arabic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Cyrillic Russian).
+        /// </summary>
+        internal static string IBMEBCDIC_CyrillicRussian {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_CyrillicRussian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Cyrillic Serbian-Bulgarian).
+        /// </summary>
+        internal static string IBMEBCDIC_CyrillicSerbian_Bulgarian {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_CyrillicSerbian_Bulgarian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Denmark-Norway).
+        /// </summary>
+        internal static string IBMEBCDIC_Denmark_Norway {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Denmark_Norway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Denmark-Norway-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_Denmark_Norway_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Denmark_Norway_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Finland-Sweden).
+        /// </summary>
+        internal static string IBMEBCDIC_Finland_Sweden {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Finland_Sweden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Finland-Sweden-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_Finland_Sweden_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Finland_Sweden_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (France).
+        /// </summary>
+        internal static string IBMEBCDIC_France {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_France", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (France-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_France_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_France_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Germany).
+        /// </summary>
+        internal static string IBMEBCDIC_Germany {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Germany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Germany-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_Germany_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Germany_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Greek).
+        /// </summary>
+        internal static string IBMEBCDIC_Greek {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Greek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Greek Modern).
+        /// </summary>
+        internal static string IBMEBCDIC_GreekModern {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_GreekModern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Hebrew).
+        /// </summary>
+        internal static string IBMEBCDIC_Hebrew {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Hebrew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Icelandic).
+        /// </summary>
+        internal static string IBMEBCDIC_Icelandic {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Icelandic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Icelandic-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_Icelandic_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Icelandic_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (International).
+        /// </summary>
+        internal static string IBMEBCDIC_International {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_International", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (International-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_International_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_International_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Italy).
+        /// </summary>
+        internal static string IBMEBCDIC_Italy {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Italy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Italy-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_Italy_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Italy_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Japanese katakana).
+        /// </summary>
+        internal static string IBMEBCDIC_Japanesekatakana {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Japanesekatakana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Korean Extended).
+        /// </summary>
+        internal static string IBMEBCDIC_KoreanExtended {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_KoreanExtended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Multilingual Latin-2).
+        /// </summary>
+        internal static string IBMEBCDIC_MultilingualLatin_2 {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_MultilingualLatin_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Spain).
+        /// </summary>
+        internal static string IBMEBCDIC_Spain {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Spain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Spain-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_Spain_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Spain_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Thai).
+        /// </summary>
+        internal static string IBMEBCDIC_Thai {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Thai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Turkish).
+        /// </summary>
+        internal static string IBMEBCDIC_Turkish {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_Turkish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (Turkish Latin-5).
+        /// </summary>
+        internal static string IBMEBCDIC_TurkishLatin_5 {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_TurkishLatin_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (UK).
+        /// </summary>
+        internal static string IBMEBCDIC_UK {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_UK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (UK-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_UK_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_UK_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (US-Canada).
+        /// </summary>
+        internal static string IBMEBCDIC_US_Canada {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_US_Canada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM EBCDIC (US-Canada-Euro).
+        /// </summary>
+        internal static string IBMEBCDIC_US_Canada_Euro {
+            get {
+                return ResourceManager.GetString("IBMEBCDIC_US_Canada_Euro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBM Latin-1.
+        /// </summary>
+        internal static string IBMLatin_1 {
+            get {
+                return ResourceManager.GetString("IBMLatin_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icelandic (DOS).
+        /// </summary>
+        internal static string Icelandic_DOS {
+            get {
+                return ResourceManager.GetString("Icelandic_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icelandic (Mac).
+        /// </summary>
+        internal static string Icelandic_Mac {
+            get {
+                return ResourceManager.GetString("Icelandic_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Assamese.
+        /// </summary>
+        internal static string ISCIIAssamese {
+            get {
+                return ResourceManager.GetString("ISCIIAssamese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Bengali.
+        /// </summary>
+        internal static string ISCIIBengali {
+            get {
+                return ResourceManager.GetString("ISCIIBengali", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Devanagari.
+        /// </summary>
+        internal static string ISCIIDevanagari {
+            get {
+                return ResourceManager.GetString("ISCIIDevanagari", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Gujarati.
+        /// </summary>
+        internal static string ISCIIGujarati {
+            get {
+                return ResourceManager.GetString("ISCIIGujarati", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Kannada.
+        /// </summary>
+        internal static string ISCIIKannada {
+            get {
+                return ResourceManager.GetString("ISCIIKannada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Malayalam.
+        /// </summary>
+        internal static string ISCIIMalayalam {
+            get {
+                return ResourceManager.GetString("ISCIIMalayalam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Oriya.
+        /// </summary>
+        internal static string ISCIIOriya {
+            get {
+                return ResourceManager.GetString("ISCIIOriya", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Punjabi.
+        /// </summary>
+        internal static string ISCIIPunjabi {
+            get {
+                return ResourceManager.GetString("ISCIIPunjabi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Tamil.
+        /// </summary>
+        internal static string ISCIITamil {
+            get {
+                return ResourceManager.GetString("ISCIITamil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISCII Telugu.
+        /// </summary>
+        internal static string ISCIITelugu {
+            get {
+                return ResourceManager.GetString("ISCIITelugu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ISO-6937.
+        /// </summary>
+        internal static string ISO_6937 {
+            get {
+                return ResourceManager.GetString("ISO_6937", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese (EUC).
+        /// </summary>
+        internal static string Japanese_EUC {
+            get {
+                return ResourceManager.GetString("Japanese_EUC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese (JIS).
+        /// </summary>
+        internal static string Japanese_JIS {
+            get {
+                return ResourceManager.GetString("Japanese_JIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese (JIS-Allow 1 byte Kana).
+        /// </summary>
+        internal static string Japanese_JIS_Allow1byteKana {
+            get {
+                return ResourceManager.GetString("Japanese_JIS_Allow1byteKana", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese (JIS-Allow 1 byte Kana - SO/SI).
+        /// </summary>
+        internal static string Japanese_JIS_Allow1byteKana_SO_SI {
+            get {
+                return ResourceManager.GetString("Japanese_JIS_Allow1byteKana_SO_SI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese (JIS 0208-1990 and 0212-1990).
+        /// </summary>
+        internal static string Japanese_JIS0208_1990and0212_1990 {
+            get {
+                return ResourceManager.GetString("Japanese_JIS0208_1990and0212_1990", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese (Mac).
+        /// </summary>
+        internal static string Japanese_Mac {
+            get {
+                return ResourceManager.GetString("Japanese_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japanese (Shift-JIS).
+        /// </summary>
+        internal static string Japanese_Shift_JIS {
+            get {
+                return ResourceManager.GetString("Japanese_Shift_JIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle to text input.
+        /// </summary>
+        internal static string Key {
+            get {
+                return ResourceManager.GetString("Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korean.
+        /// </summary>
+        internal static string Korean {
+            get {
+                return ResourceManager.GetString("Korean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korean (EUC).
+        /// </summary>
+        internal static string Korean_EUC {
+            get {
+                return ResourceManager.GetString("Korean_EUC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korean (ISO).
+        /// </summary>
+        internal static string Korean_ISO {
+            get {
+                return ResourceManager.GetString("Korean_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korean (Johab).
+        /// </summary>
+        internal static string Korean_Johab {
+            get {
+                return ResourceManager.GetString("Korean_Johab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korean (Mac).
+        /// </summary>
+        internal static string Korean_Mac {
+            get {
+                return ResourceManager.GetString("Korean_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korean Wansung.
+        /// </summary>
+        internal static string KoreanWansung {
+            get {
+                return ResourceManager.GetString("KoreanWansung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latin 3 (ISO).
+        /// </summary>
+        internal static string Latin3_ISO {
+            get {
+                return ResourceManager.GetString("Latin3_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latin 9 (ISO).
+        /// </summary>
+        internal static string Latin9_ISO {
+            get {
+                return ResourceManager.GetString("Latin9_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MACTripleDES.
         /// </summary>
         internal static string MACTripleDES {
@@ -156,6 +1155,60 @@ namespace UiPath.Cryptography.Properties {
         internal static string MD5 {
             get {
                 return ResourceManager.GetString("MD5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nordic (DOS).
+        /// </summary>
+        internal static string Nordic_DOS {
+            get {
+                return ResourceManager.GetString("Nordic_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norwegian (IA5).
+        /// </summary>
+        internal static string Norwegian_IA5 {
+            get {
+                return ResourceManager.GetString("Norwegian_IA5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OEM Cyrillic.
+        /// </summary>
+        internal static string OEMCyrillic {
+            get {
+                return ResourceManager.GetString("OEMCyrillic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OEM Multilingual Latin I.
+        /// </summary>
+        internal static string OEMMultilingualLatinI {
+            get {
+                return ResourceManager.GetString("OEMMultilingualLatinI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OEM United States.
+        /// </summary>
+        internal static string OEMUnitedStates {
+            get {
+                return ResourceManager.GetString("OEMUnitedStates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portuguese (DOS).
+        /// </summary>
+        internal static string Portuguese_DOS {
+            get {
+                return ResourceManager.GetString("Portuguese_DOS", resourceCulture);
             }
         }
         
@@ -183,6 +1236,24 @@ namespace UiPath.Cryptography.Properties {
         internal static string RIPEMD160 {
             get {
                 return ResourceManager.GetString("RIPEMD160", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Romanian (Mac).
+        /// </summary>
+        internal static string Romanian_Mac {
+            get {
+                return ResourceManager.GetString("Romanian_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle to Secure input.
+        /// </summary>
+        internal static string SecureKey {
+            get {
+                return ResourceManager.GetString("SecureKey", resourceCulture);
             }
         }
         
@@ -223,11 +1294,164 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Swedish (IA5).
+        /// </summary>
+        internal static string Swedish_IA5 {
+            get {
+                return ResourceManager.GetString("Swedish_IA5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to T.61.
+        /// </summary>
+        internal static string T61 {
+            get {
+                return ResourceManager.GetString("T61", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TCA Taiwan.
+        /// </summary>
+        internal static string TCATaiwan {
+            get {
+                return ResourceManager.GetString("TCATaiwan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeleText Taiwan.
+        /// </summary>
+        internal static string TeleTextTaiwan {
+            get {
+                return ResourceManager.GetString("TeleTextTaiwan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thai (Mac).
+        /// </summary>
+        internal static string Thai_Mac {
+            get {
+                return ResourceManager.GetString("Thai_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thai (Windows).
+        /// </summary>
+        internal static string Thai_Windows {
+            get {
+                return ResourceManager.GetString("Thai_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TripleDES.
         /// </summary>
         internal static string TripleDES {
             get {
                 return ResourceManager.GetString("TripleDES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turkish (DOS).
+        /// </summary>
+        internal static string Turkish_DOS {
+            get {
+                return ResourceManager.GetString("Turkish_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turkish (ISO).
+        /// </summary>
+        internal static string Turkish_ISO {
+            get {
+                return ResourceManager.GetString("Turkish_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turkish (Mac).
+        /// </summary>
+        internal static string Turkish_Mac {
+            get {
+                return ResourceManager.GetString("Turkish_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turkish (Windows).
+        /// </summary>
+        internal static string Turkish_Windows {
+            get {
+                return ResourceManager.GetString("Turkish_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukrainian (Mac).
+        /// </summary>
+        internal static string Ukrainian_Mac {
+            get {
+                return ResourceManager.GetString("Ukrainian_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode.
+        /// </summary>
+        internal static string Unicode {
+            get {
+                return ResourceManager.GetString("Unicode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode (Big-Endian).
+        /// </summary>
+        internal static string Unicode_Big_Endian {
+            get {
+                return ResourceManager.GetString("Unicode_Big_Endian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode (UTF-32).
+        /// </summary>
+        internal static string Unicode_UTF_32 {
+            get {
+                return ResourceManager.GetString("Unicode_UTF_32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode (UTF-32 Big-Endian).
+        /// </summary>
+        internal static string Unicode_UTF_32Big_Endian {
+            get {
+                return ResourceManager.GetString("Unicode_UTF_32Big_Endian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode (UTF-7).
+        /// </summary>
+        internal static string Unicode_UTF_7 {
+            get {
+                return ResourceManager.GetString("Unicode_UTF_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unicode (UTF-8).
+        /// </summary>
+        internal static string Unicode_UTF_8 {
+            get {
+                return ResourceManager.GetString("Unicode_UTF_8", resourceCulture);
             }
         }
         
@@ -255,6 +1479,78 @@ namespace UiPath.Cryptography.Properties {
         internal static string UnsupportedSymmetricAlgorithmException {
             get {
                 return ResourceManager.GetString("UnsupportedSymmetricAlgorithmException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to US-ASCII.
+        /// </summary>
+        internal static string US_ASCII {
+            get {
+                return ResourceManager.GetString("US_ASCII", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vietnamese (Windows).
+        /// </summary>
+        internal static string Vietnamese_Windows {
+            get {
+                return ResourceManager.GetString("Vietnamese_Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wang Taiwan.
+        /// </summary>
+        internal static string WangTaiwan {
+            get {
+                return ResourceManager.GetString("WangTaiwan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Western European (DOS).
+        /// </summary>
+        internal static string WesternEuropean_DOS {
+            get {
+                return ResourceManager.GetString("WesternEuropean_DOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Western European (IA5).
+        /// </summary>
+        internal static string WesternEuropean_IA5 {
+            get {
+                return ResourceManager.GetString("WesternEuropean_IA5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Western European (ISO).
+        /// </summary>
+        internal static string WesternEuropean_ISO {
+            get {
+                return ResourceManager.GetString("WesternEuropean_ISO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Western European (Mac).
+        /// </summary>
+        internal static string WesternEuropean_Mac {
+            get {
+                return ResourceManager.GetString("WesternEuropean_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Western European (Windows).
+        /// </summary>
+        internal static string WesternEuropean_Windows {
+            get {
+                return ResourceManager.GetString("WesternEuropean_Windows", resourceCulture);
             }
         }
     }

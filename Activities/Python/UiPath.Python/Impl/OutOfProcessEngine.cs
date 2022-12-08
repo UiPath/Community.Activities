@@ -24,13 +24,15 @@ namespace UiPath.Python.Impl
 
         private Version _version;
         private string _path;
+        private string _libraryPath;
 
         #endregion Runtime info
 
-        internal OutOfProcessEngine(Version version, string path, TargetPlatform target, bool visible)
+        internal OutOfProcessEngine(Version version, string path, string libraryPath, TargetPlatform target, bool visible)
         {
             _version = version;
             _path = path;
+            _libraryPath = libraryPath;
             _target = target;
             _visible = visible;
         }
@@ -55,7 +57,7 @@ namespace UiPath.Python.Impl
             };
             _provider.Create();
             _proxy = new PythonProxy(_provider.Client, timeout, ct);
-            _proxy.Initialize(_path, _version, workingFolder);
+            _proxy.Initialize(_path, _libraryPath, _version, workingFolder);
 
             sw.Stop();
 
