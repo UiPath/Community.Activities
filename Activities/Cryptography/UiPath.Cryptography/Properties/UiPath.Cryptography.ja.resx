@@ -126,6 +126,12 @@
   <data name="DES" xml:space="preserve">
     <value>DES (非推奨)</value>
   </data>
+  <data name="General_FileInput" xml:space="preserve">
+    <value>ファイルの入力に切り替え</value>
+  </data>
+  <data name="General_FilePathInput" xml:space="preserve">
+    <value>ファイル パスの入力に切り替え</value>
+  </data>
   <data name="HMACMD5" xml:space="preserve">
     <value>HMACMD5 (非 FIPS)</value>
   </data>
@@ -188,5 +194,426 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>指定した対称アルゴリズムはサポートされていません。</value>
+  </data>
+
+   <data name="DefaultCodePage" xml:space="preserve">
+    <value>システムの既定</value>
+  </data>
+  <data name="IBMEBCDIC_US_Canada" xml:space="preserve">
+    <value>IBM EBCDIC (米国 - カナダ)</value>
+  </data>
+  <data name="OEMUnitedStates" xml:space="preserve">
+    <value>OEM 米国</value>
+  </data>
+  <data name="IBMEBCDIC_International" xml:space="preserve">
+    <value>IBM EBCDIC (インターナショナル)</value>
+  </data>
+  <data name="Arabic_ASMO708" xml:space="preserve">
+    <value>アラビア語 (ASMO 708)</value>
+  </data>
+  <data name="Arabic_DOS" xml:space="preserve">
+    <value>アラビア語 (DOS)</value>
+  </data>
+  <data name="Greek_DOS" xml:space="preserve">
+    <value>ギリシャ語 (DOS)</value>
+  </data>
+  <data name="Baltic_DOS" xml:space="preserve">
+    <value>バルト言語 (DOS)</value>
+  </data>
+  <data name="WesternEuropean_DOS" xml:space="preserve">
+    <value>西ヨーロッパ言語 (DOS)</value>
+  </data>
+  <data name="CentralEuropean_DOS" xml:space="preserve">
+    <value>中央ヨーロッパ言語 (DOS)</value>
+  </data>
+  <data name="OEMCyrillic" xml:space="preserve">
+    <value>OEM キリル</value>
+  </data>
+  <data name="Turkish_DOS" xml:space="preserve">
+    <value>トルコ語 (DOS)</value>
+  </data>
+  <data name="OEMMultilingualLatinI" xml:space="preserve">
+    <value>OEM マルチリンガル ラテン I</value>
+  </data>
+  <data name="Portuguese_DOS" xml:space="preserve">
+    <value>ポルトガル語 (DOS)</value>
+  </data>
+  <data name="Icelandic_DOS" xml:space="preserve">
+    <value>アイスランド語 (DOS)</value>
+  </data>
+  <data name="Hebrew_DOS" xml:space="preserve">
+    <value>ヘブライ語 (DOS)</value>
+  </data>
+  <data name="FrenchCanadian_DOS" xml:space="preserve">
+    <value>フランス語 (カナダ) (DOS)</value>
+  </data>
+  <data name="Arabic_864" xml:space="preserve">
+    <value>アラビア語 (864)</value>
+  </data>
+  <data name="Nordic_DOS" xml:space="preserve">
+    <value>北欧 (DOS)</value>
+  </data>
+  <data name="Cyrillic_DOS" xml:space="preserve">
+    <value>キリル言語 (DOS)</value>
+  </data>
+  <data name="Greek_Modern_DOS" xml:space="preserve">
+    <value>ギリシャ語, Modern (DOS)</value>
+  </data>
+  <data name="IBMEBCDIC_MultilingualLatin_2" xml:space="preserve">
+    <value>IBM EBCDIC (多言語ラテン 2)</value>
+  </data>
+  <data name="Thai_Windows" xml:space="preserve">
+    <value>タイ語 (Windows)</value>
+  </data>
+  <data name="IBMEBCDIC_GreekModern" xml:space="preserve">
+    <value>IBM EBCDIC (ギリシャ語 Modern)</value>
+  </data>
+  <data name="Japanese_Shift_JIS" xml:space="preserve">
+    <value>日本語 (Shift-JIS)</value>
+  </data>
+  <data name="ChineseSimplified_GB2312" xml:space="preserve">
+    <value>簡体字中国語 (GB2312)</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>韓国語</value>
+  </data>
+  <data name="ChineseTraditional_Big5" xml:space="preserve">
+    <value>繁体字中国語 (Big5)</value>
+  </data>
+  <data name="IBMEBCDIC_TurkishLatin_5" xml:space="preserve">
+    <value>IBM EBCDIC (トルコ語ラテン 5)</value>
+  </data>
+  <data name="IBMLatin_1" xml:space="preserve">
+    <value>IBM ラテン 1</value>
+  </data>
+  <data name="IBMEBCDIC_US_Canada_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (米国 - カナダ - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_Germany_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (ドイツ - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_Denmark_Norway_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (デンマーク - ノルウェー - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_Finland_Sweden_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (フィンランド - スウェーデン - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_Italy_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (イタリア - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_Spain_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (スペイン - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_UK_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (英国 - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_France_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (フランス - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_International_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (インターナショナル - ヨーロッパ)</value>
+  </data>
+  <data name="IBMEBCDIC_Icelandic_Euro" xml:space="preserve">
+    <value>IBM EBCDIC (アイスランド語 - ヨーロッパ)</value>
+  </data>
+  <data name="Unicode" xml:space="preserve">
+    <value>Unicode</value>
+  </data>
+  <data name="Unicode_Big_Endian" xml:space="preserve">
+    <value>Unicode (Big-Endian)</value>
+  </data>
+  <data name="CentralEuropean_Windows" xml:space="preserve">
+    <value>中央ヨーロッパ言語 (Windows)</value>
+  </data>
+  <data name="Cyrillic_Windows" xml:space="preserve">
+    <value>キリル言語 (Windows)</value>
+  </data>
+  <data name="WesternEuropean_Windows" xml:space="preserve">
+    <value>西ヨーロッパ言語 (Windows)</value>
+  </data>
+  <data name="Greek_Windows" xml:space="preserve">
+    <value>ギリシャ語 (Windows)</value>
+  </data>
+  <data name="Turkish_Windows" xml:space="preserve">
+    <value>トルコ語 (Windows)</value>
+  </data>
+  <data name="Hebrew_Windows" xml:space="preserve">
+    <value>ヘブライ語 (Windows)</value>
+  </data>
+  <data name="Arabic_Windows" xml:space="preserve">
+    <value>アラビア語 (Windows)</value>
+  </data>
+  <data name="Baltic_Windows" xml:space="preserve">
+    <value>バルト言語 (Windows)</value>
+  </data>
+  <data name="Vietnamese_Windows" xml:space="preserve">
+    <value>ベトナム語 (Windows)</value>
+  </data>
+  <data name="Korean_Johab" xml:space="preserve">
+    <value>韓国語 (Johab)</value>
+  </data>
+  <data name="WesternEuropean_Mac" xml:space="preserve">
+    <value>西ヨーロッパ言語 (Mac)</value>
+  </data>
+  <data name="Japanese_Mac" xml:space="preserve">
+    <value>日本語 (Mac)</value>
+  </data>
+  <data name="ChineseTraditional_Mac" xml:space="preserve">
+    <value>繁体字中国語 (Mac)</value>
+  </data>
+  <data name="Korean_Mac" xml:space="preserve">
+    <value>韓国語 (Mac)</value>
+  </data>
+  <data name="Arabic_Mac" xml:space="preserve">
+    <value>アラビア語 (Mac)</value>
+  </data>
+  <data name="Hebrew_Mac" xml:space="preserve">
+    <value>ヘブライ語 (Mac)</value>
+  </data>
+  <data name="Greek_Mac" xml:space="preserve">
+    <value>ギリシャ語 (Mac)</value>
+  </data>
+  <data name="Cyrillic_Mac" xml:space="preserve">
+    <value>キリル言語 (Mac)</value>
+  </data>
+  <data name="ChineseSimplified_Mac" xml:space="preserve">
+    <value>簡体字中国語 (Mac)</value>
+  </data>
+  <data name="Romanian_Mac" xml:space="preserve">
+    <value>ルーマニア語 (Mac)</value>
+  </data>
+  <data name="Ukrainian_Mac" xml:space="preserve">
+    <value>ウクライナ語 (Mac)</value>
+  </data>
+  <data name="Thai_Mac" xml:space="preserve">
+    <value>タイ語 (Mac)</value>
+  </data>
+  <data name="CentralEuropean_Mac" xml:space="preserve">
+    <value>中央ヨーロッパ言語 (Mac)</value>
+  </data>
+  <data name="Icelandic_Mac" xml:space="preserve">
+    <value>アイスランド語 (Mac)</value>
+  </data>
+  <data name="Turkish_Mac" xml:space="preserve">
+    <value>トルコ語 (Mac)</value>
+  </data>
+  <data name="Croatian_Mac" xml:space="preserve">
+    <value>クロアチア語 (Mac)</value>
+  </data>
+  <data name="Unicode_UTF_32" xml:space="preserve">
+    <value>Unicode (UTF-32)</value>
+  </data>
+  <data name="Unicode_UTF_32Big_Endian" xml:space="preserve">
+    <value>Unicode (UTF-32 Big-Endian)</value>
+  </data>
+  <data name="ChineseTraditional_CNS" xml:space="preserve">
+    <value>繁体字中国語 (CNS)</value>
+  </data>
+  <data name="TCATaiwan" xml:space="preserve">
+    <value>TCA 台湾</value>
+  </data>
+  <data name="ChineseTraditional_Eten" xml:space="preserve">
+    <value>繁体字中国語 (Eten)</value>
+  </data>
+  <data name="IBM5550Taiwan" xml:space="preserve">
+    <value>IBM5550 台湾</value>
+  </data>
+  <data name="TeleTextTaiwan" xml:space="preserve">
+    <value>TeleText 台湾</value>
+  </data>
+  <data name="WangTaiwan" xml:space="preserve">
+    <value>Wang 台湾</value>
+  </data>
+  <data name="WesternEuropean_IA5" xml:space="preserve">
+    <value>西ヨーロッパ言語 (IA5)</value>
+  </data>
+  <data name="German_IA5" xml:space="preserve">
+    <value>ドイツ語 (IA5)</value>
+  </data>
+  <data name="Swedish_IA5" xml:space="preserve">
+    <value>スウェーデン語 (IA5)</value>
+  </data>
+  <data name="Norwegian_IA5" xml:space="preserve">
+    <value>ノルウェー語 (IA5)</value>
+  </data>
+  <data name="US_ASCII" xml:space="preserve">
+    <value>US-ASCII</value>
+  </data>
+  <data name="T61" xml:space="preserve">
+    <value>T.61</value>
+  </data>
+  <data name="ISO_6937" xml:space="preserve">
+    <value>ISO-6937</value>
+  </data>
+  <data name="IBMEBCDIC_Germany" xml:space="preserve">
+    <value>IBM EBCDIC (ドイツ)</value>
+  </data>
+  <data name="IBMEBCDIC_Denmark_Norway" xml:space="preserve">
+    <value>IBM EBCDIC (デンマーク - ノルウェー)</value>
+  </data>
+  <data name="IBMEBCDIC_Finland_Sweden" xml:space="preserve">
+    <value>IBM EBCDIC (フィンランド - スウェーデン)</value>
+  </data>
+  <data name="IBMEBCDIC_Italy" xml:space="preserve">
+    <value>IBM EBCDIC (イタリア)</value>
+  </data>
+  <data name="IBMEBCDIC_Spain" xml:space="preserve">
+    <value>IBM EBCDIC (スペイン)</value>
+  </data>
+  <data name="IBMEBCDIC_UK" xml:space="preserve">
+    <value>IBM EBCDIC (英国)</value>
+  </data>
+  <data name="IBMEBCDIC_Japanesekatakana" xml:space="preserve">
+    <value>IBM EBCDIC (日本語カタカナ)</value>
+  </data>
+  <data name="IBMEBCDIC_France" xml:space="preserve">
+    <value>IBM EBCDIC (フランス)</value>
+  </data>
+  <data name="IBMEBCDIC_Arabic" xml:space="preserve">
+    <value>IBM EBCDIC (アラビア語)</value>
+  </data>
+  <data name="IBMEBCDIC_Greek" xml:space="preserve">
+    <value>IBM EBCDIC (ギリシャ語)</value>
+  </data>
+  <data name="IBMEBCDIC_Hebrew" xml:space="preserve">
+    <value>IBM EBCDIC (ヘブライ語)</value>
+  </data>
+  <data name="IBMEBCDIC_KoreanExtended" xml:space="preserve">
+    <value>IBM EBCDIC (韓国語拡張)</value>
+  </data>
+  <data name="IBMEBCDIC_Thai" xml:space="preserve">
+    <value>IBM EBCDIC (タイ語)</value>
+  </data>
+  <data name="Cyrillic_KOI8_R" xml:space="preserve">
+    <value>キリル言語 (KOI8-R)</value>
+  </data>
+  <data name="IBMEBCDIC_Icelandic" xml:space="preserve">
+    <value>IBM EBCDIC (アイスランド語)</value>
+  </data>
+  <data name="IBMEBCDIC_CyrillicRussian" xml:space="preserve">
+    <value>IBM EBCDIC (キリル言語 - ロシア語)</value>
+  </data>
+  <data name="IBMEBCDIC_Turkish" xml:space="preserve">
+    <value>IBM EBCDIC (トルコ語)</value>
+  </data>
+  <data name="Japanese_JIS0208_1990and0212_1990" xml:space="preserve">
+    <value>日本語 (JIS 0208-1990 および 0212-1990)</value>
+  </data>
+  <data name="ChineseSimplified_GB2312_80" xml:space="preserve">
+    <value>簡体字中国語 (GB2312-80)</value>
+  </data>
+  <data name="KoreanWansung" xml:space="preserve">
+    <value>韓国語 Wansung</value>
+  </data>
+  <data name="IBMEBCDIC_CyrillicSerbian_Bulgarian" xml:space="preserve">
+    <value>IBM EBCDIC (キリル言語 セルビア - ブルガリア)</value>
+  </data>
+  <data name="Cyrillic_KOI8_U" xml:space="preserve">
+    <value>キリル言語 (KOI8-U)</value>
+  </data>
+  <data name="WesternEuropean_ISO" xml:space="preserve">
+    <value>西ヨーロッパ言語 (ISO)</value>
+  </data>
+  <data name="CentralEuropean_ISO" xml:space="preserve">
+    <value>中央ヨーロッパ言語 (ISO)</value>
+  </data>
+  <data name="Latin3_ISO" xml:space="preserve">
+    <value>ラテン 3 (ISO)</value>
+  </data>
+  <data name="Baltic_ISO" xml:space="preserve">
+    <value>バルト言語 (ISO)</value>
+  </data>
+  <data name="Cyrillic_ISO" xml:space="preserve">
+    <value>キリル言語 (ISO)</value>
+  </data>
+  <data name="Arabic_ISO" xml:space="preserve">
+    <value>アラビア語 (ISO)</value>
+  </data>
+  <data name="Greek_ISO" xml:space="preserve">
+    <value>ギリシャ語 (ISO)</value>
+  </data>
+  <data name="Hebrew_ISO_Visual" xml:space="preserve">
+    <value>ヘブライ語 (ISO-Visual)</value>
+  </data>
+  <data name="Turkish_ISO" xml:space="preserve">
+    <value>トルコ語 (ISO)</value>
+  </data>
+  <data name="Estonian_ISO" xml:space="preserve">
+    <value>エストニア語 (ISO)</value>
+  </data>
+  <data name="Latin9_ISO" xml:space="preserve">
+    <value>ラテン 3 (ISO)</value>
+  </data>
+  <data name="Europa" xml:space="preserve">
+    <value>ヨーロッパ</value>
+  </data>
+  <data name="Hebrew_ISO_Logical" xml:space="preserve">
+    <value>ヘブライ語 (ISO-Logical)</value>
+  </data>
+  <data name="Japanese_JIS" xml:space="preserve">
+    <value>日本語 (JIS)</value>
+  </data>
+  <data name="Japanese_JIS_Allow1byteKana" xml:space="preserve">
+    <value>日本語 (JIS 1 バイト カタカナ可)</value>
+  </data>
+  <data name="Japanese_JIS_Allow1byteKana_SO_SI" xml:space="preserve">
+    <value>日本語 (JIS 1 バイト カタカナ可 - SO/SI)</value>
+  </data>
+  <data name="Korean_ISO" xml:space="preserve">
+    <value>韓国語 (ISO)</value>
+  </data>
+  <data name="ChineseSimplified_ISO_2022" xml:space="preserve">
+    <value>簡体字中国語 (ISO-2022)</value>
+  </data>
+  <data name="Japanese_EUC" xml:space="preserve">
+    <value>日本語 (EUC)</value>
+  </data>
+  <data name="ChineseSimplified_EUC" xml:space="preserve">
+    <value>簡体字中国語 (EUC)</value>
+  </data>
+  <data name="Korean_EUC" xml:space="preserve">
+    <value>韓国語 (EUC)</value>
+  </data>
+  <data name="ChineseSimplified_HZ" xml:space="preserve">
+    <value>簡体字中国語 (HZ)</value>
+  </data>
+  <data name="ChineseSimplified_GB18030" xml:space="preserve">
+    <value>簡体字中国語 (GB18030)</value>
+  </data>
+  <data name="ISCIIDevanagari" xml:space="preserve">
+    <value>ISCII デバナガリ文字</value>
+  </data>
+  <data name="ISCIIBengali" xml:space="preserve">
+    <value>ISCII バングラ語</value>
+  </data>
+  <data name="ISCIITamil" xml:space="preserve">
+    <value>ISCII タミール語</value>
+  </data>
+  <data name="ISCIITelugu" xml:space="preserve">
+    <value>ISCII テルグ語</value>
+  </data>
+  <data name="ISCIIAssamese" xml:space="preserve">
+    <value>ISCII アッサム語</value>
+  </data>
+  <data name="ISCIIOriya" xml:space="preserve">
+    <value>ISCII オリヤー語</value>
+  </data>
+  <data name="ISCIIKannada" xml:space="preserve">
+    <value>ISCII カンナダ語</value>
+  </data>
+  <data name="ISCIIMalayalam" xml:space="preserve">
+    <value>ISCII マラヤーラム語</value>
+  </data>
+  <data name="ISCIIGujarati" xml:space="preserve">
+    <value>ISCII グジャラート語</value>
+  </data>
+  <data name="ISCIIPunjabi" xml:space="preserve">
+    <value>ISCII パンジャブ語</value>
+  </data>
+  <data name="Unicode_UTF_7" xml:space="preserve">
+    <value>Unicode (UTF-7)</value>
+  </data>
+  <data name="Unicode_UTF_8" xml:space="preserve">
+    <value>Unicode (UTF-8)</value>
   </data>
 </root>
