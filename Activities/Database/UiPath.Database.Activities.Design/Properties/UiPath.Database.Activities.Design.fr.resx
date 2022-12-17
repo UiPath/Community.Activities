@@ -275,7 +275,7 @@
     <value>Le nombre de lignes mises à jour</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>Si la valeur est définie sur Vrai, créera une table temporaire à l’aide d’une insertion en masse et réalisera une mise à jour en utilisant une jointure entre les tables. Sinon, des mises à jour en bloc seront émises par lots.</value>
+    <value>Si la valeur est définie sur True, créera une table temporaire à l’aide d’une insertion en masse et réalisera une mise à jour en utilisant une jointure entre les tables. Sinon, des mises à jour en bloc seront émises par lots.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
     <value>L’objet TableDonnées qui sera utilisé pour mettre à jour la table. La description des colonnes TableDonnées doit correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble</value>
