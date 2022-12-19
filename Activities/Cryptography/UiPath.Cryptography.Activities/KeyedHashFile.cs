@@ -78,6 +78,12 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Description))]
         public InArgument<IResource> InputFile { get; set; }
 
+        [Browsable(false)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_FileInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_FileInputModeSwitch_Description))]
+        public FileInputMode FileInputModeSwitch { get; set; }
+
         public KeyedHashFile()
         {
             Algorithm = KeyedHashAlgorithms.HMACSHA256;
