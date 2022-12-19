@@ -133,6 +133,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_FileInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be decrypted.
         /// </summary>
         public static string Activity_DecryptFile_Property_InputFile_Description {
@@ -565,6 +583,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_FileInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be encrypted.
         /// </summary>
         public static string Activity_EncryptFile_Property_InputFile_Description {
@@ -979,6 +1015,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_HashFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_HashFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_HashFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_HashFile_Property_FileInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to he path to the file you want to hash..
         /// </summary>
         public static string Activity_HashFile_Property_FilePath_Description {
@@ -1191,6 +1245,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_KeyedHashFile_Property_Encoding_Name {
             get {
                 return ResourceManager.GetString("Activity_KeyedHashFile_Property_Encoding_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_FileInputModeSwitch_Name", resourceCulture);
             }
         }
         
