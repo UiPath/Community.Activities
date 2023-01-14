@@ -205,6 +205,14 @@
     <value>輸入路徑</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用於解譯在「金鑰」屬性中指定金鑰的編碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>金鑰編碼</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>用於解譯在「金鑰」屬性中指定的金鑰的編碼。</value>
     <comment>Property description</comment>
@@ -267,6 +275,14 @@
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
     <value>編碼中</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用於解譯在「金鑰」屬性中指定金鑰的編碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>金鑰編碼</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -349,6 +365,14 @@
     <value>錯誤時繼續</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用於解譯在「金鑰」屬性中指定金鑰的編碼。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>金鑰編碼</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>用於解譯在「金鑰」屬性中指定的金鑰的編碼。</value>
     <comment>property description</comment>
@@ -413,6 +437,14 @@
     <value>編碼中</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用於解譯在「金鑰」屬性中指定金鑰的編碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>金鑰編碼</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
     <value>您要加密的文字。</value>
     <comment>Property description</comment>
@@ -446,7 +478,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>透過指定的演算法和編碼格式，使用金鑰雜湊處理檔案，並傳回所產生雜湊的十六進位字串表示。</value>
+    <value>透過指定的演算法，使用金鑰對檔案進行雜湊處理，並傳回所產生雜湊的十六進位字串表示。它支援使用金鑰和不使用金鑰的雜湊演算法。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -475,6 +507,14 @@
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
     <value>編碼中</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用於解譯在「金鑰」屬性中指定金鑰的編碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>金鑰編碼</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -510,7 +550,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>透過指定的演算法，使用金鑰對字串進行雜湊處理，並傳回所產生雜湊的十六進位字串表示。</value>
+    <value>透過指定的演算法，使用金鑰對字串進行雜湊處理，並傳回所產生雜湊的十六進位字串表示。它支援使用金鑰和不使用金鑰的雜湊演算法。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -541,6 +581,14 @@
     <value>編碼中</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用於解譯在「金鑰」屬性中指定金鑰的編碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>金鑰編碼</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
     <value>您要雜湊處理的文字。</value>
     <comment>Property description</comment>
@@ -558,7 +606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>您想用於雜湊處理指定檔案的金鑰。</value>
+    <value>您想用於雜湊處理指定文字的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +622,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>對所提供檔案的內容套用所選的雜湊演算法，並傳回所產生雜湊結果的十六進位字串表示。</value>
+    <value>此活動現在已被淘汰。SHA1、SHA256、SHA384 和 SHA512 已移至單一活動雜湊檔案。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +662,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>使用指定的演算法雜湊處理字串，並傳回所產生雜湊的十六進位字串表示。</value>
+    <value>此活動現在已被淘汰。SHA1、SHA256、SHA384 和 SHA512 已移至單一活動雜湊文字。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
@@ -796,5 +844,29 @@
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>金鑰安全字串不得為 null</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在檔案路徑和資源之間切換</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>檔案輸入模式切換</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在檔案路徑和資源之間切換</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>檔案輸入模式切換</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在檔案路徑和資源之間切換</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>檔案輸入模式切換</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在檔案路徑和資源之間切換</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>檔案輸入模式切換</value>
   </data>
 </root>
