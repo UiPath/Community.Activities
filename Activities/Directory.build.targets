@@ -22,7 +22,7 @@
 		<PackageReference Update="UiPath.Activities.Api" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Contracts" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Telemetry.Client" Version="1.5.3" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Platform" Version="22.10.2"  PrivateAssets="All" />
+		<PackageReference Update="UiPath.Platform" Version="22.10.2"/>
 	</ItemGroup>
 
 
