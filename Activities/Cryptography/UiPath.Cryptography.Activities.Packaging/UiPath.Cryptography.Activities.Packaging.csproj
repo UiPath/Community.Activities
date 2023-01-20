@@ -104,4 +104,11 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
   </ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<PackageReference Include="System.Activities.ViewModels" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="UiPath.Platform" />
+	</ItemGroup>
 </Project>
