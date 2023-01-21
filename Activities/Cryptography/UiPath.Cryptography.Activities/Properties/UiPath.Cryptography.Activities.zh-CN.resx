@@ -205,6 +205,14 @@
     <value>输入路径</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>用于解释在“密钥”属性中指定密钥的编码。</value>
     <comment>Property description</comment>
@@ -267,6 +275,14 @@
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
     <value>编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -349,6 +365,14 @@
     <value>出错时继续</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>用于解释在“密钥”属性中指定密钥的编码。</value>
     <comment>property description</comment>
@@ -413,6 +437,14 @@
     <value>编码</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
     <value>您要加密的文本。</value>
     <comment>Property description</comment>
@@ -446,7 +478,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>通过指定算法和编码格式，使用密钥散列文件，并返回所生成散列结果的十六进制字符串表示。</value>
+    <value>通过指定算法，使用密钥散列文件，并返回所生成散列结果的十六进制字符串表示。该操作支持使用密钥和不使用密钥的散列算法。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -475,6 +507,14 @@
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
     <value>编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -510,7 +550,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>通过指定算法，使用密钥散列字符串，并返回所生成散列结果的十六进制字符串表示。</value>
+    <value>通过指定算法，使用密钥散列字符串，并返回所生成散列结果的十六进制字符串表示。该操作支持使用密钥和不使用密钥的散列算法。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -541,6 +581,14 @@
     <value>编码</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
     <value>您要散列的文本。</value>
     <comment>Property description</comment>
@@ -558,7 +606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>您想用于散列指定文件的密钥。</value>
+    <value>要用于散列指定文本的密钥。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +622,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>对给定文件中的内容应用选定的散列算法，并返回所生成散列结果的十六进制字符串表示。</value>
+    <value>此活动现已弃用。SHA1、SHA256、SHA384 和 SHA512 已移至单个活动散列文件。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +662,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>使用指定算法散列字符串，并返回所生成散列结果的十六进制字符串表示。</value>
+    <value>此活动现已弃用。SHA1、SHA256、SHA384 和 SHA512 已移至单个活动散列文本。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
@@ -796,5 +844,29 @@
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>密钥安全字符串不得为 null</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
   </data>
 </root>
