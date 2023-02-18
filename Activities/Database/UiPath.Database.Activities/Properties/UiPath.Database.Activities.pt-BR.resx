@@ -426,7 +426,7 @@
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
     <value>Conecta-se a um banco de dados e inclui uma Sequência que pode realizar várias transações com o banco de dados. Retorna uma variável DatabaseConnection, fornecendo um escopo para atividades de Banco de dados.
-Se UseTransaction estiver definido como True, as operações contidas serão executadas em uma única transação e aplicadas no final, se nenhuma delas falhar. Se UseTransaction estiver definido como False, todas as operações serão confirmadas individualmente. Quando esta atividade termina, a conexão com o banco de dados é encerrada.</value>
+Se UseTransaction estiver definido como Verdadeiro, as operações contidas serão executadas em uma única transação e aplicadas no final, se nenhuma delas falhar. Se UseTransaction estiver definido como Falso, todas as operações serão confirmadas individualmente. Quando esta atividade termina, a conexão com o banco de dados é encerrada.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
