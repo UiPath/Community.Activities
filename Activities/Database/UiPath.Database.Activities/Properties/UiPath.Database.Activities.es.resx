@@ -426,7 +426,7 @@
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
     <value>Se conecta a una base de datos y contiene una secuencia que puede realizar varias transacciones con la base de datos. Devuelve una ConexiónABaseDeDatos, lo que proporciona un ámbito a las actividades de la base de datos.
-Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se ejecutarán en una sola transacción y se aplicarán al final si ninguna de ellas ha fallado. Si UtilizarTransacción se establece en falso, todas las operaciones se confirmarán individualmente. Al finalizar esta actividad, se cerrará la conexión a la base de datos.</value>
+Si UtilizarTransacción se establece en Verdadero, las operaciones contenidas se ejecutarán en una sola transacción y se aplicarán al final si ninguna de ellas ha fallado. Si UtilizarTransacción se establece en Falso, todas las operaciones se confirmarán individualmente. Al finalizar esta actividad, se cerrará la conexión a la base de datos.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
