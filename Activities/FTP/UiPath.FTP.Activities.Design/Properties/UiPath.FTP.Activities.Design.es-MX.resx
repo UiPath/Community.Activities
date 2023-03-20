@@ -194,7 +194,7 @@
     <value>Archivo o carpeta a eliminar</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Upload Files</value>
+    <value>Subir archivos</value>
     <comment>Activity name</comment>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">
