@@ -279,7 +279,7 @@
     <value>Wird verwendet, um den Arbeitsordner der Skripte anzugeben, die im aktuellen Scope ausgeführt werden</value>
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
-    <value>WorkingFolder-Pfad ist ungültig</value>
+    <value>Arbeitsordner-Pfad ist ungültig</value>
   </data>
   <data name="InvalidVersionException" xml:space="preserve">
     <value>Die ausgewählte Version {0} unterscheidet sich von der gefundenen Version {1}.</value>
