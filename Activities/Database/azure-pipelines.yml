@@ -3,7 +3,7 @@ resources:
   - repository: common
     type: github
     name: UiPath/AzurePipelinesTemplates
-    ref: refs/tags/uipath.community.activities.1.1.0
+    ref: refs/tags/uipath.community.activities.1.3.0
     endpoint: "GitHub connection"
 
 trigger:
@@ -47,4 +47,3 @@ stages:
       sdkBuild: true
       enableCDStages: false
       hasQaPackages: false
-      azureSignConnectionName: "AzureSigningInternalProductionEA"
