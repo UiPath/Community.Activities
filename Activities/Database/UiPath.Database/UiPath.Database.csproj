@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="../Database.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
@@ -26,7 +26,7 @@
     <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
     <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
     <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.90" PrivateAssets="All" />
 
   </ItemGroup>
   <ItemGroup>
