@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
@@ -23,7 +23,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows.Forms" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.18.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Dialogs\DataConnectionConfiguration.cs" />
