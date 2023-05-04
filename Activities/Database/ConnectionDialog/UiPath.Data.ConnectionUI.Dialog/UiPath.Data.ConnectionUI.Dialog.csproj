@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
@@ -39,7 +39,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <PackageReference Include="Oracle.ManagedDataAccess">
-      <Version>19.11.0</Version>
+      <Version>19.18.0</Version>
     </PackageReference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
