@@ -295,6 +295,6 @@
     <value>El valor proporcionado para TiempoDeEsperaMS debe ser &gt;= 0</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>La cantidad de tiempo (en milisegundos) que se debe esperar la conexión de tiempo de ejecución de Java (por defecto, 15 000 ms).</value>
+    <value>La cantidad de tiempo (en milisegundos) que se debe esperar la conexión de runtime de Java (por defecto, 15 000 ms).</value>
   </data>
 </root>

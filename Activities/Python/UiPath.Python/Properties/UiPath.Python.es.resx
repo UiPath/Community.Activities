@@ -133,7 +133,7 @@
     <value>No se ha encontrado el archivo ejecutable de Python</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
-    <value>No se ha encontrado el tipo/método/propiedad del tiempo de ejecución de Python: {0}</value>
+    <value>No se ha encontrado el tipo/método/propiedad de runtime de Python: {0}</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
     <value>Excepción de serialización de Python</value>
