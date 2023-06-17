@@ -205,6 +205,14 @@
     <value>Caminho de Entrada</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Codificação de Chave</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
     <comment>Property description</comment>
@@ -267,6 +275,14 @@
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
     <value>Codificação</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Codificação de Chave</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -349,6 +365,14 @@
     <value>Continue No Erro</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Codificação de Chave</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
     <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
     <comment>property description</comment>
@@ -413,6 +437,14 @@
     <value>Codificação</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Codificação de Chave</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
     <value>O texto que pretende encriptar.</value>
     <comment>Property description</comment>
@@ -446,7 +478,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Aplica hash a um ficheiro com uma chave utilizando um formato de codificação e algoritmo especificados e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>Aplica hash a um ficheiro com uma chave utilizando um algoritmo especificado e devolve a representação da cadeia hexadecimal do hash resultante. Suporta a aplicação de hash a algoritmos com uma chave e sem uma chave.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -475,6 +507,14 @@
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
     <value>Codificação</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Codificação de Chave</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -510,7 +550,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Aplica hash a uma cadeia com uma chave utilizando um algoritmo especificado e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>Aplica hash a uma cadeia com uma chave utilizando um algoritmo especificado e devolve a representação da cadeia hexadecimal do hash resultante. Suporta a aplicação de hash a algoritmos com uma chave e sem uma chave.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -539,6 +579,14 @@
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
     <value>Codificação</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>A codificação utilizada para interpretar a chave especificada na propriedade Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Codificação de Chave</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
@@ -574,7 +622,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Aplica o algoritmo de aplicação de hash selecionado nos conteúdos do ficheiro fornecido e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>Esta atividade está agora preterida. SHA1, SHA256, SHA384 e SHA512 foram movidos para um único Ficheiro Hash de atividade.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +662,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Aplica hash a uma cadeia utilizando um algoritmo especificado e devolve a representação da cadeia hexadecimal do hash resultante.</value>
+    <value>Esta atividade está agora preterida. SHA1, SHA256, SHA384 e SHA512 foram movidos para um único Texto Hash de atividade.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
@@ -796,5 +844,29 @@
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>A String de Chave Segura não pode estar vazia</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>O comutador entre o Caminho do Ficheiro e o Recurso</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>InterruptorDoModoDeEntradaDeFicheiro</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>O comutador entre o Caminho do Ficheiro e o Recurso</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>InterruptorDoModoDeEntradaDeFicheiro</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>O comutador entre o Caminho do Ficheiro e o Recurso</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>InterruptorDoModoDeEntradaDeFicheiro</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>O comutador entre o Caminho do Ficheiro e o Recurso</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>InterruptorDoModoDeEntradaDeFicheiro</value>
   </data>
 </root>
