@@ -160,7 +160,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .BuildAndInsertMenuActions();
 
             DecryptedFile.IsPrincipal = false;
-            DecryptedFile.OrderIndex = propertyOrderIndex++;
+            DecryptedFile.OrderIndex = propertyOrderIndex;
         }
 
         /// <inheritdoc/>

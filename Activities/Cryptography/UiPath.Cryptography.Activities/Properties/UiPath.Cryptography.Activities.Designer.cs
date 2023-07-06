@@ -178,7 +178,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input Path.
+        ///   Looks up a localized string similar to File path.
         /// </summary>
         public static string Activity_DecryptFile_Property_InputFilePath_Name {
             get {
@@ -637,7 +637,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input Path.
+        ///   Looks up a localized string similar to File path.
         /// </summary>
         public static string Activity_EncryptFile_Property_InputFilePath_Name {
             get {
@@ -1042,7 +1042,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to he path to the file you want to hash..
+        ///   Looks up a localized string similar to The path to the file you want to hash..
         /// </summary>
         public static string Activity_HashFile_Property_FilePath_Description {
             get {

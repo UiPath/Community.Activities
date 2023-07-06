@@ -12,7 +12,7 @@ using UiPath.Shared.Activities.Services;
 
 namespace UiPath.Cryptography.Activities.Helpers
 {
-    public class EncodingHelpers
+    public static class EncodingHelpers
     {
 #if NET
         public static DataSource<string> ConfigureEncodingDataSource()
@@ -33,9 +33,24 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         public static List<string> GetAvailableEncodings()
         {
-            var availableEncodingsList = new List<string>() { ((int)CodePages.Default).ToString() };
-            availableEncodingsList.AddRange(Encoding.GetEncodings().Select(e => e.CodePage.ToString()).ToList());
-            return availableEncodingsList;
+            var availableEncodingsList = new List<int>() { ((int)CodePages.Default) };
+            availableEncodingsList.AddRange(Encoding.GetEncodings().Select(e => e.CodePage).ToList());
+            availableEncodingsList = availableEncodingsList.OrderBy(e => GetEncodingOrderIndex(e)).ToList();
+            
+            return availableEncodingsList.Select(e => e.ToString()).ToList();
+        }
+
+        /// <summary>
+        /// Calculates an orderIndex which respects exceptions included in "exceptionDictioanry"
+        /// </summary>
+        private static int GetEncodingOrderIndex(int codePage)
+        {
+            var exceptionDictionary = new Dictionary<int, int> 
+            { 
+                {65001, 1 } // UNICODE UTF-8 https://uipath.atlassian.net/browse/STUD-64202
+            };
+
+            return exceptionDictionary.GetValueOrDefault(codePage, codePage * 10);
         }
 
 #endif

@@ -99,12 +99,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.InitializeModel();
             var propertyOrderIndex = 1;
-
-            Algorithm.IsPrincipal = true;
-            Algorithm.OrderIndex = propertyOrderIndex++;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
-            Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
+            
             InputFile.IsPrincipal = true;
             InputFile.IsVisible = false;
             InputFile.OrderIndex = propertyOrderIndex++;
@@ -112,6 +107,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             FilePath.IsPrincipal = true;
             FilePath.IsVisible = true;
             FilePath.OrderIndex = propertyOrderIndex++;
+            
+            Algorithm.IsPrincipal = true;
+            Algorithm.OrderIndex = propertyOrderIndex++;
+            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
+            Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
 
             FileInputModeSwitch.IsVisible = false;
 
@@ -138,7 +139,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Result.OrderIndex = propertyOrderIndex++;
 
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
+            ContinueOnError.OrderIndex = propertyOrderIndex;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
 
