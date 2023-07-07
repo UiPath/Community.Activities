@@ -7,6 +7,8 @@ using System.Text;
 using UiPath.Cryptography.Enums;
 using Xunit;
 
+#pragma warning disable CS0618
+
 namespace UiPath.Cryptography.Activities.Tests
 {
     public class CryptographyTests

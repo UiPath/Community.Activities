@@ -16,6 +16,8 @@ using System.Security.Cryptography;
 using System.Text;
 using UiPath.Cryptography.Properties;
 
+#pragma warning disable CS0618 // obsolete encryption algorithm
+
 namespace UiPath.Cryptography
 {
     public static class CryptographyHelper

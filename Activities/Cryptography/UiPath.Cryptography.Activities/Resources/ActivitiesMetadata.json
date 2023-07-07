@@ -284,6 +284,11 @@
                 "IconKey": null
             },
             {
+              "Name": "DeprecatedWarning",
+              "IsPrincipal": true,
+              "IsVisible": null
+            },
+            {
                 "Name": "InputFilePath",
                 "DisplayNameKey": "Activity_EncryptFile_Property_InputFilePath_Name",
                 "TooltipKey": "Activity_EncryptFile_Property_InputFilePath_Description",
@@ -431,6 +436,11 @@
           },
           "Widget": null,
           "IconKey": null
+        },
+        {
+          "Name": "DeprecatedWarning",
+          "IsPrincipal": true,
+          "IsVisible": null
         },
         {
           "Name": "Input",

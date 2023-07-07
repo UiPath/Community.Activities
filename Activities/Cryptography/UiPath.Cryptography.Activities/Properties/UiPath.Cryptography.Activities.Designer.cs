@@ -511,6 +511,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected encryption algorithm is deprecated and it will no longer be supported in future versions..
+        /// </summary>
+        public static string Activity_Encrypt_Algorithm_Deprecated_Warning {
+            get {
+                return ResourceManager.GetString("Activity_Encrypt_Algorithm_Deprecated_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encrypts a file with a key based on a specified key encoding and algorithm..
         /// </summary>
         public static string Activity_EncryptFile_Description {
