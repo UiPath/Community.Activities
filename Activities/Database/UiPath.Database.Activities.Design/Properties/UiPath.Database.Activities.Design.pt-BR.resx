@@ -275,7 +275,7 @@
     <value>O número de linhas atualizadas</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>Se for true, criará uma tabela temporária usando Inserção em massa e atualizará com a junção entre tabelas, do contrário emitirá atualizações em massa em lote.</value>
+    <value>Se for verdadeiro, criará uma tabela temporária usando Inserção em massa e atualizará com a junção entre tabelas, do contrário emitirá atualizações em massa em lote.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
     <value>O objeto DataTable que será usado para atualizar a Tabela. A descrição das colunas DataTable deve corresponder às colunas da tabela do banco de dados</value>
