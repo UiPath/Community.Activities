@@ -869,4 +869,7 @@
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>FileInputModeSwitch</value>
   </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>The selected encryption algorithm is deprecated and it will no longer be supported in future versions.</value>
+  </data>
 </root>

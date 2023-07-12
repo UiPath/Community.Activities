@@ -19,6 +19,8 @@ namespace UiPath.Cryptography.Activities
     }
 }
 
+#pragma warning disable CS0618 // obsolete encryption algorithm
+
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class DecryptFileViewModel : DesignPropertiesViewModel

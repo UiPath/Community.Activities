@@ -2,9 +2,11 @@
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Security;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
+using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
 
@@ -18,6 +20,8 @@ namespace UiPath.Cryptography.Activities
     {
     }
 }
+
+#pragma warning disable CS0618 // obsolete encryption algorithm
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
@@ -94,6 +98,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         public DesignOutArgument<ILocalResource> EncryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
 
+        /// <summary>
+        /// A warning about using a deprecated encryption algorithm, due to be removed in the future
+        /// </summary>
+        [NotMappedProperty]
+        public DesignProperty<string> DeprecatedWarning { get; set; } = new DesignProperty<string>();
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -117,6 +127,13 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 SymmetricAlgorithms.TripleDES);
 
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
+            DeprecatedWarning.OrderIndex = propertyOrderIndex++;
+            DeprecatedWarning.Widget = new TextBlockWidget
+            {
+                Level = TextBlockWidgetLevel.Warning
+            };
+            DeprecatedWarning.Value = Resources.Activity_Encrypt_Algorithm_Deprecated_Warning;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -171,6 +188,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
             Rule(nameof(FileInputModeSwitch), FileInputModeChanged_Action);
+            Rule(nameof(Algorithm), DeprecatedAlgorithmWarning_Action);
         }
 
         /// <inheritdoc />
@@ -179,6 +197,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.ManualRegisterDependencies();
             RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
             RegisterDependency(FileInputModeSwitch, nameof(FileInputModeSwitch.Value), nameof(FileInputModeSwitch));
+            RegisterDependency(Algorithm, nameof(Algorithm.Value), nameof(Algorithm));
         }
 
         /// <summary>
@@ -237,6 +256,32 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             InputFile.IsVisible = false;
             InputFilePath.IsVisible = false;
             InputFilePath.IsRequired = false;
+        }
+
+        /// <summary>
+        /// Checks if the selected encryption algorithm is obsolete 
+        /// </summary>
+        private void DeprecatedAlgorithmWarning_Action()
+        {
+            try
+            {
+                var enumName = typeof(SymmetricAlgorithms).GetEnumName(Algorithm.Value);
+                var field = typeof(SymmetricAlgorithms).GetField(enumName);
+
+                var obsoleteAttribute = field?.GetCustomAttribute<ObsoleteAttribute>();
+                if (obsoleteAttribute != null) 
+                {
+                    DeprecatedWarning.IsVisible = true;
+                }
+                else
+                {
+                    DeprecatedWarning.IsVisible= false;
+                }
+            }
+            catch
+            {
+                DeprecatedWarning.IsVisible = false;
+            }
         }
     }
 }
