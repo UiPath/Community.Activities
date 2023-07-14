@@ -25,22 +25,20 @@
 		<PackageReference Update="UiPath.Platform" Version="22.10.2"/>
 	</ItemGroup>
 
-
+	<!-- the None element is used for keeping files visible in solution explorer -->
 	<Choose>
 		<When Condition="$(TargetFramework.StartsWith('net4'))">
 			<ItemGroup>
-				<Compile Remove="NetCore\**\*.cs" />
-			</ItemGroup>
-			<ItemGroup>
-				<Page Remove="NetCore\**\*.xaml" />
+				<Compile Remove="**\NetCore*\**\*.cs" />
+				<Page Remove="**\NetCore\**\*.xaml" />
+				<None Include="**\NetCore\**\*.cs" Exclude="obj\**"/>
 			</ItemGroup>
 		</When>
 		<Otherwise>
 			<ItemGroup>
-				<Compile Remove="NetFramework\**\*.cs" />
-			</ItemGroup>
-			<ItemGroup>
-				<Page Remove="NetFramework\**\*.xaml" />
+				<Compile Remove="**\NetFramework\**\*.cs" />
+				<Page Remove="**\NetFramework\**\*.xaml" />
+				<None Include="**\NetFramework\**\*.cs" Exclude="obj\**"/>
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
