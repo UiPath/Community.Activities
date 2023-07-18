@@ -88,6 +88,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeModel();
             var propertyOrderIndex = 1;
 
+            Input.IsPrincipal = true;
+            Input.OrderIndex = propertyOrderIndex++;
+
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.DataSource = DataSourceHelper.ForEnum(SymmetricAlgorithms.AES, SymmetricAlgorithms.AESGCM, SymmetricAlgorithms.DES, SymmetricAlgorithms.RC2, SymmetricAlgorithms.Rijndael, SymmetricAlgorithms.TripleDES);
@@ -99,9 +102,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 Level = TextBlockWidgetLevel.Warning
             };
             DeprecatedWarning.Value = Resources.Activity_Encrypt_Algorithm_Deprecated_Warning;
-
-            Input.IsPrincipal = true;
-            Input.OrderIndex = propertyOrderIndex++;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -127,7 +127,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Result.OrderIndex = propertyOrderIndex++;
 
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
+            ContinueOnError.OrderIndex = propertyOrderIndex;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
             ContinueOnError.Value = false;
 
