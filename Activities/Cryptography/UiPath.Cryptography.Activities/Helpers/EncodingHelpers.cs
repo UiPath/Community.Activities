@@ -33,11 +33,14 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         public static List<string> GetAvailableEncodings()
         {
-            var availableEncodingsList = new List<int>() { ((int)CodePages.Default) };
-            availableEncodingsList.AddRange(Encoding.GetEncodings().Select(e => e.CodePage).ToList());
-            availableEncodingsList = availableEncodingsList.OrderBy(e => GetEncodingOrderIndex(e)).ToList();
-            
-            return availableEncodingsList.Select(e => e.ToString()).ToList();
+            var availableEncodingsList = new List<string>() { CodePages.Default.ToString() };
+            availableEncodingsList.AddRange(Encoding.GetEncodings()
+                .Select(e => e.CodePage)
+                .OrderBy(e => GetEncodingOrderIndex(e))
+                .Select(e => e.ToString())
+                .ToList());
+
+            return availableEncodingsList;
         }
 
         /// <summary>
