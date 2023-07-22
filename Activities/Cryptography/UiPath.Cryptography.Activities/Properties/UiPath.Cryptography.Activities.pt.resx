@@ -869,4 +869,7 @@
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>InterruptorDoModoDeEntradaDeFicheiro</value>
   </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>O algoritmo de encriptação selecionado está preterido e deixará de ser suportado nas versões futuras.</value>
+  </data>
 </root>

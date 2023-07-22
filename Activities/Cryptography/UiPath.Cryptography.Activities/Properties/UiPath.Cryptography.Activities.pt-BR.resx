@@ -869,4 +869,7 @@
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>AlternânciaDoModoDeEntradaDoArquivo</value>
   </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>O algoritmo de criptografia selecionado está obsoleto e não terá mais suporte em versões futuras.</value>
+  </data>
 </root>

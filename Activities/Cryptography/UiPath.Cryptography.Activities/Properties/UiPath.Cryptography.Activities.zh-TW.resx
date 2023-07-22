@@ -869,4 +869,7 @@
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>檔案輸入模式切換</value>
   </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>所選加密演算法已淘汰，未來版本中將不再支援。</value>
+  </data>
 </root>

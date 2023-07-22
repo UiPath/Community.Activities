@@ -869,4 +869,7 @@
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>DosyaGirişModuAnahtarı</value>
   </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>Seçilen şifreleme algoritması kullanım dışı ve artık gelecekteki sürümlerde desteklenmeyecek.</value>
+  </data>
 </root>

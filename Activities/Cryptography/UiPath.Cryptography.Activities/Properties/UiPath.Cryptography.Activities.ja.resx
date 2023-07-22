@@ -869,4 +869,7 @@
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>ファイルの入力モードの切り替え</value>
   </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>選択した暗号化アルゴリズムは非推奨となり、今後のバージョンではサポートされなくなります。</value>
+  </data>
 </root>

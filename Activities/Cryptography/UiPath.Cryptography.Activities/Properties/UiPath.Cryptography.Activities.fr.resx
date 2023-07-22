@@ -869,4 +869,7 @@
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>CommutateurModeEntréeFichier</value>
   </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>L&apos;algorithme de chiffrement sélectionné est obsolète et ne sera plus pris en charge dans les futures versions.</value>
+  </data>
 </root>
