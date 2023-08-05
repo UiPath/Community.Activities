@@ -179,7 +179,7 @@
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Chemin d’accès au fichier</value>
+    <value>Chemin du fichier</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Chemin d’accès du fichier qui sera déchiffré par cette activité.</value>
