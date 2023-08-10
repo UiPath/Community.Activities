@@ -175,11 +175,11 @@
     <value>The base64 string representation of the encrypted input string.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>File path</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>File Path</value>
+    <value>File path</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Path to the file that will be hashed by this activity.</value>
@@ -194,7 +194,7 @@
     <value>The hexadecimal string representation of the hashed input string.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Input path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">

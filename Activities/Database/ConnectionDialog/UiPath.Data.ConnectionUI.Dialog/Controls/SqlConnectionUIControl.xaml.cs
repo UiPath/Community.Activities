@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
 using System.Data.Sql;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -571,7 +571,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                     }
                     if (_properties is SqlConnectionProperties)
                     {
-                        connectionString += "Pooling=False;";
+                        connectionString += "Pooling=False;Encrypt=false";
                     }
                 }
                 if (_properties is OdbcConnectionProperties)

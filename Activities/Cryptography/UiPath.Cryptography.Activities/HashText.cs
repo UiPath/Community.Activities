@@ -58,7 +58,7 @@ namespace UiPath.Cryptography.Activities
             {
                 case HashAlgorithms.MD5:
                 case HashAlgorithms.RIPEMD160:
-                    ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
+                    var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                     metadata.AddValidationError(error);
                     break;
                 default:
@@ -72,19 +72,16 @@ namespace UiPath.Cryptography.Activities
 
             try
             {
-                string input = Input.Get(context);
-                Encoding encoding = Encoding.Get(context);
+                var input = Input.Get(context);
+                var encoding = Encoding.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
-                {
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
-                }
-                if (encoding == null)
-                {
-                    throw new ArgumentNullException(Resources.Encoding);
-                }
 
-                byte[] hashed = CryptographyHelper.HashData(Algorithm, encoding.GetBytes(input));
+                if (encoding == null)
+                    throw new ArgumentNullException(Resources.Encoding);
+
+                var hashed = CryptographyHelper.HashData(Algorithm, encoding.GetBytes(input));
 
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }
@@ -100,6 +97,14 @@ namespace UiPath.Cryptography.Activities
 
             return result;
         }
+    }
+#endif
+#if NET
+    [Browsable(false)]
+    [LocalizedDisplayName(nameof(Resources.Activity_HashText_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_HashText_Description))]
+    public partial class HashText : KeyedHashText
+    {
     }
 #endif
 }

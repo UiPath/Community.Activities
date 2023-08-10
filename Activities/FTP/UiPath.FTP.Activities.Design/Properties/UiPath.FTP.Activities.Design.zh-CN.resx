@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>移动项目</value>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>使用 FTP 连接</value>
+  </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
     <value>FTP 会话作用域</value>
   </data>
@@ -182,7 +191,7 @@
     <value>端口</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>远程路径</value>
+    <value>要删除的文件/文件夹</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>上传文件</value>
@@ -194,10 +203,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>用户名</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>启用 FTP 会话</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>启用 FTP 会话</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP 作用域</value>
   </data>
 </root>

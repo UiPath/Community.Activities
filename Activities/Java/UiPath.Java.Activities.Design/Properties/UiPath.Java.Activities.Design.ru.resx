@@ -127,7 +127,7 @@
     <value>(Коллекция)</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>ОтображаемоеИмя</value>
     <comment>property name</comment>
   </data>
   <data name="DropActivityHere" xml:space="preserve">

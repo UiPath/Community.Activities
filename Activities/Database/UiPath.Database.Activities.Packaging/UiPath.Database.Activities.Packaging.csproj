@@ -53,6 +53,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.resources.dll" TargetPath="pt-BR\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.resources.dll" TargetPath="tr\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.resources.dll" TargetPath="zh-CN\UiPath.Database.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.resources.dll" TargetPath="zh-TW\UiPath.Database.resources.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.resources.dll" TargetPath="fr\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.resources.dll" TargetPath="ja\UiPath.Database.Activities.resources.dll" />
@@ -65,6 +66,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.resources.dll" TargetPath="tr\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.resources.dll" />
 
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
@@ -81,14 +83,15 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.Design.resources.dll" />	
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-      <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x86\native\sni.dll" TargetPath="runtimes\win-x86\native\sni.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll" TargetPath="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll"/>
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
-      <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\sni.dll" TargetPath="runtimes\win-x64\native\sni.dll" />
-    </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" TargetPath="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+	</ItemGroup>
   </Target>
   <Target Name="CleanPackageFiles" BeforeTargets="Build">
 	<Message Text="Deleting packages ..." />
@@ -98,7 +101,7 @@
 	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
   </Target>
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">

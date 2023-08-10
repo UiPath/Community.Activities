@@ -16,6 +16,10 @@ namespace UiPath.Database.Activities.Design
     /// </summary>
     public partial class ConnectionDialog : WorkflowElementDialog
     {
+        private const string DefaultSqlClient = "System.Data.SqlClient";
+        private const string MicrosoftSqlClient = "Microsoft.Data.SqlClient";
+        private const string OracleClient = "Oracle.ManagedDataAccess.Client";
+
         public static List<string> ProviderNames { get; set; }
 
         public ConnectionDialog(ModelItem modelItem)
@@ -23,10 +27,11 @@ namespace UiPath.Database.Activities.Design
             ProviderNames = new List<string>();
             List<string> providers = new List<string>();
 #if NETFRAMEWORK
-            providers.Add("Oracle.ManagedDataAccess.Client");
+            providers.Add(OracleClient);
+            providers.Add(MicrosoftSqlClient);
 #endif
 #if NETCOREAPP
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", Microsoft.Data.SqlClient.SqlClientFactory.Instance);
             DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
             DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
             DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
@@ -34,7 +39,8 @@ namespace UiPath.Database.Activities.Design
             var installedProviders = DbProviderFactories.GetFactoryClasses();
             foreach (DataRow installedProvider in installedProviders.Rows)
             {
-                ProviderNames.Add(installedProvider["InvariantName"] as string);
+                if((installedProvider["InvariantName"] as string).ToLower() != DefaultSqlClient)
+                    ProviderNames.Add(installedProvider["InvariantName"] as string);
             }
             foreach (var provider in providers)
                 if (!ProviderNames.Contains(provider))

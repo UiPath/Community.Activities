@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>Öğeyi Taşı</value>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>FTP bağlantısı ile</value>
+  </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
     <value>FTP Oturum Kapsamı</value>
   </data>
@@ -128,10 +137,10 @@
     <value>FTP</value>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>İstemciSertifikasıParolası</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>HataOlduğundaDevamEt</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
     <value>Delete</value>
@@ -182,7 +191,7 @@
     <value>Bağlantı Noktası</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>RemotePath</value>
+    <value>Silinecek dosya veya klasör</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Upload Files</value>
@@ -194,10 +203,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>Kullanıcı adı</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP Kapsamı</value>
   </data>
 </root>

@@ -49,6 +49,9 @@
     <None Include="UiPath.FTP.Activities.Design.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api" Version="21.10.4" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Properties\UiPath.FTP.Activities.Design.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

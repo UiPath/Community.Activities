@@ -2,6 +2,9 @@
 using System.Activities.ViewModels;
 using System.Threading.Tasks;
 using UiPath.FTP.Activities.NetCore.ViewModels;
+using System.Security;
+using System;
+using UiPath.FTP.Enums;
 
 namespace UiPath.FTP.Activities
 {
@@ -47,6 +50,16 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         public DesignInArgument<string> Password { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
+        /// The secure password that will be used to connect to the FTP server.
+        /// </summary>
+        public DesignInArgument<SecureString> SecurePassword { get; set; } = new DesignInArgument<SecureString>();
+
+        /// <summary>
+        /// Switches Password as string or secure string 
+        /// </summary>
+        public DesignProperty<PasswordInputMode> PasswordInputModeSwitch { get; set; } = new DesignProperty<PasswordInputMode>();
+
+        /// <summary>
         /// When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.
         /// </summary>
         public DesignProperty<bool> UseAnonymousLogin { get; set; } = new DesignProperty<bool>();
@@ -77,6 +90,16 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         public DesignInArgument<string> ClientCertificatePassword { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
+        /// The secure password that will be used to connect to the FTP server.
+        /// </summary>
+        public DesignInArgument<SecureString> ClientCertificateSecurePassword { get; set; } = new DesignInArgument<SecureString>();
+
+        /// <summary>
+        /// Switches Password as string or secure string 
+        /// </summary>
+        public DesignProperty<PasswordInputMode> CertificatePasswordInputModeSwitch { get; set; } = new DesignProperty<PasswordInputMode>();
+
+        /// <summary>
         /// If this box is checked, all certificates will be accepted, including the ones that are expired or not verified.
         /// </summary>
         public DesignProperty<bool> AcceptAllCertificates { get; set; } = new DesignProperty<bool>();
@@ -98,7 +121,14 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             Username.IsPrincipal = true;
 
             Password.OrderIndex = propertyOrderIndex++;
+            Password.IsVisible = true;
             Password.IsPrincipal = true;
+
+            SecurePassword.OrderIndex = propertyOrderIndex++;
+            SecurePassword.IsVisible = false;
+            SecurePassword.IsPrincipal = true;
+
+            PasswordInputModeSwitch.IsVisible = false;
 
             Port.OrderIndex = propertyOrderIndex++;
             Port.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
@@ -115,6 +145,14 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             ClientCertificatePath.OrderIndex = propertyOrderIndex++;
 
             ClientCertificatePassword.OrderIndex = propertyOrderIndex++;
+            ClientCertificatePassword.IsPrincipal = false;
+            ClientCertificatePassword.IsVisible = true;
+
+            ClientCertificateSecurePassword.OrderIndex = propertyOrderIndex++;
+            ClientCertificateSecurePassword.IsPrincipal = false;
+            ClientCertificateSecurePassword.IsVisible = false;
+
+            CertificatePasswordInputModeSwitch.IsVisible = false;
 
             FtpsMode.OrderIndex = propertyOrderIndex++;
             FtpsMode.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
@@ -125,6 +163,15 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             UseSftp.OrderIndex = propertyOrderIndex++;
             UseSftp.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
+            MenuActionsBuilder<PasswordInputMode>.WithValueProperty(PasswordInputModeSwitch)
+              .AddMenuProperty(Password, PasswordInputMode.Password)
+              .AddMenuProperty(SecurePassword, PasswordInputMode.SecurePassword)
+              .BuildAndInsertMenuActions();
+
+            MenuActionsBuilder<PasswordInputMode>.WithValueProperty(CertificatePasswordInputModeSwitch)
+              .AddMenuProperty(ClientCertificatePassword, PasswordInputMode.Password)
+              .AddMenuProperty(ClientCertificateSecurePassword, PasswordInputMode.SecurePassword)
+              .BuildAndInsertMenuActions();
         }
 
         protected override async ValueTask InitializeModelAsync()
@@ -132,9 +179,60 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             await base.InitializeModelAsync();
         }
 
+        /// <inheritdoc/>
         protected override void InitializeRules()
         {
             base.InitializeRules();
+            Rule(nameof(PasswordInputModeSwitch), PasswordInputModeChanged_Action);
+            Rule(nameof(CertificatePasswordInputModeSwitch), CertificatePasswordInputModeChanged_Action);
+        }
+
+        /// <inheritdoc/>
+        protected override void ManualRegisterDependencies()
+        {
+            base.ManualRegisterDependencies();
+            RegisterDependency(PasswordInputModeSwitch, nameof(PasswordInputModeSwitch.Value), nameof(PasswordInputModeSwitch));
+            RegisterDependency(CertificatePasswordInputModeSwitch, nameof(CertificatePasswordInputModeSwitch.Value), nameof(CertificatePasswordInputModeSwitch));
+        }
+
+        /// <summary>
+        /// Password input Mode has changed. Set controls visibility based on selection
+        /// </summary>
+        private void PasswordInputModeChanged_Action()
+        {
+            switch (PasswordInputModeSwitch.Value)
+            {
+                case PasswordInputMode.Password:
+                    Password.IsVisible = true;
+                    SecurePassword.IsVisible = false;
+                    break;
+                case PasswordInputMode.SecurePassword:
+                    Password.IsVisible = false;
+                    SecurePassword.IsVisible = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// CertificatePassword input Mode has changed. Set controls visibility based on selection
+        /// </summary>
+        private void CertificatePasswordInputModeChanged_Action()
+        {
+            switch (CertificatePasswordInputModeSwitch.Value)
+            {
+                case PasswordInputMode.Password:
+                    ClientCertificatePassword.IsVisible = true;
+                    ClientCertificateSecurePassword.IsVisible = false;
+                    break;
+                case PasswordInputMode.SecurePassword:
+                    ClientCertificatePassword.IsVisible = false;
+                    ClientCertificateSecurePassword.IsVisible = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
     }
 }

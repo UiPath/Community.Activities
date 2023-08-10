@@ -142,7 +142,7 @@
     <value>La salida del comando sql rodeado por un objeto DataTable</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>Se conecta a una base de datos y devuelve una ConexiónABaseDeDatos, lo que proporciona un ámbito a las actividades de la base de datos. Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se ejecutarán en una sola transacción y se aplicarán al final si ninguna de ellas ha fallado. Si UtilizarTransacción se establece en falso, todas las operaciones se confirmarán individualmente. Al finalizar esta actividad, se cerrará la conexión a la base de datos.</value>
+    <value>Se conecta a una base de datos y devuelve una ConexiónABaseDeDatos, lo que proporciona un ámbito a las actividades de la base de datos. Si UtilizarTransacción se establece en Verdadero, las operaciones contenidas se ejecutarán en una sola transacción y se aplicarán al final si ninguna de ellas ha fallado. Si UtilizarTransacción se establece en Falso, todas las operaciones se confirmarán individualmente. Al finalizar esta actividad, se cerrará la conexión a la base de datos.</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
@@ -160,7 +160,7 @@
     <value>Inserta una TablaDeDatos compatible en una tabla existente. Devuelve el número de filas afectadas.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Un diccionario de parámetros con nombre enlazados al comando sql. El enlace se realiza especificando la instrucción &apos;@nombreDelParámetro&apos; en el comando sql. Durante el tiempo de ejecución, se reemplazará nombreDelParámetro por su valor en el diccionario</value>
+    <value>Un diccionario de parámetros con nombre enlazados al comando sql. El enlace se realiza especificando la instrucción &apos;@nombreDelParámetro&apos; en el comando sql. Durante el runtime, se reemplazará nombreDelParámetro por su valor en el diccionario</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
     <value>El nombre del proveedor de la base de datos utilizado para tener acceso a la base de datos. Puede encontrar una lista de proveedores de datos en http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
@@ -287,15 +287,15 @@
     <value>La cadena de conexión utilizada para establecer una conexión con la base de datos como cadena segura</value>
   </data>
   <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
-    <value>Connect</value>
+    <value>Conectar</value>
   </data>
   <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
-    <value>Disconnect</value>
+    <value>Desconectar</value>
   </data>
   <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
-    <value>Execute Non Query</value>
+    <value>Ejecutar operación que no es una consulta</value>
   </data>
   <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
-    <value>Execute Query</value>
+    <value>Ejecutar Consulta</value>
   </data>
 </root>

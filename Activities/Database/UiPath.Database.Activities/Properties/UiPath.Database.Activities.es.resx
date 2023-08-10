@@ -217,7 +217,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkInsert_Name" xml:space="preserve">
-    <value>Bulk insert</value>
+    <value>Inserción por lotes</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
@@ -225,7 +225,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>RegistrosAfectados</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -233,7 +233,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>AsegurarCadenaDeConexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
@@ -241,11 +241,11 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Cadena de conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuar en caso de error</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
@@ -253,7 +253,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Tabla de datos</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -261,7 +261,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Conexión Existente</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
@@ -269,7 +269,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>NombreDelProveedor</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
@@ -277,7 +277,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nombre de la tabla</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
@@ -285,7 +285,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkUpdate_Name" xml:space="preserve">
-    <value>Bulk update</value>
+    <value>Actualización por lotes</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
@@ -293,7 +293,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected rows</value>
+    <value>Filas afectadas</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
@@ -301,7 +301,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
-    <value>Bulk/batch update</value>
+    <value>Actualización masiva/por lotes</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
@@ -309,7 +309,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>Columnas utilizadas para filas coincidentes</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -317,7 +317,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>AsegurarCadenaDeConexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
@@ -325,7 +325,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Cadena de conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
@@ -333,7 +333,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuar en caso de error</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
@@ -341,7 +341,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Tabla de datos</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -349,7 +349,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Conexión Existente</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
@@ -357,7 +357,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>NombreDelProveedor</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
@@ -365,7 +365,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nombre de la tabla</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
@@ -373,7 +373,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
-    <value>Connect to database</value>
+    <value>Conectar a base de datos</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -381,7 +381,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>AsegurarCadenaDeConexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
@@ -389,7 +389,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Cadena de conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -397,7 +397,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Conexión de base de datos</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
@@ -405,7 +405,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>NombreDelProveedor</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
@@ -413,7 +413,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
-    <value>Disconnect from database</value>
+    <value>Desconectarse de la base de datos</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -421,12 +421,12 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Conexión de base de datos</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
     <value>Se conecta a una base de datos y contiene una secuencia que puede realizar varias transacciones con la base de datos. Devuelve una ConexiónABaseDeDatos, lo que proporciona un ámbito a las actividades de la base de datos.
-Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se ejecutarán en una sola transacción y se aplicarán al final si ninguna de ellas ha fallado. Si UtilizarTransacción se establece en falso, todas las operaciones se confirmarán individualmente. Al finalizar esta actividad, se cerrará la conexión a la base de datos.</value>
+Si UtilizarTransacción se establece en Verdadero, las operaciones contenidas se ejecutarán en una sola transacción y se aplicarán al final si ninguna de ellas ha fallado. Si UtilizarTransacción se establece en Falso, todas las operaciones se confirmarán individualmente. Al finalizar esta actividad, se cerrará la conexión a la base de datos.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
@@ -438,7 +438,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>AsegurarCadenaDeConexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
@@ -446,7 +446,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Cadena de conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
@@ -454,7 +454,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuar en caso de error</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -462,7 +462,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Conexión de base de datos</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -470,7 +470,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Exiting connection</value>
+    <value>Terminar conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
@@ -478,7 +478,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>NombreDelProveedor</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
@@ -486,7 +486,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
-    <value>Use transaction</value>
+    <value>UtilizarTransacción</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
@@ -494,7 +494,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
-    <value>Run command</value>
+    <value>Ejecutar comando</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
@@ -502,7 +502,7 @@ Si UtilizarTransacción se establece en verdadero, las operaciones contenidas se
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>RegistrosAfectados</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
@@ -513,7 +513,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command type</value>
+    <value>TipoDeComando</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -521,7 +521,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>AsegurarCadenaDeConexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
@@ -529,7 +529,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Cadena de conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
@@ -537,7 +537,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuar en caso de error</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -545,7 +545,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Conexión Existente</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
@@ -561,7 +561,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>NombreDelProveedor</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
@@ -569,7 +569,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL command</value>
+    <value>Comando SQL</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
@@ -585,7 +585,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
-    <value>Run query</value>
+    <value>Ejecutar consulta</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
@@ -596,7 +596,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command type</value>
+    <value>TipoDeComando</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -604,7 +604,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>AsegurarCadenaDeConexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
@@ -612,7 +612,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Cadena de conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
@@ -620,7 +620,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuar en caso de error</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
@@ -628,7 +628,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Tabla de datos</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -636,7 +636,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Conexión Existente</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
@@ -660,7 +660,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL query</value>
+    <value>Consulta SQL</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
@@ -684,7 +684,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>RegistrosAfectados</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -692,7 +692,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>AsegurarCadenaDeConexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
@@ -700,7 +700,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Cadena de conexión</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
@@ -708,7 +708,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Continuar en caso de error</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
@@ -716,7 +716,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Tabla de datos</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -724,7 +724,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Conexión Existente</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
@@ -732,7 +732,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>NombreDelProveedor</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
@@ -740,7 +740,7 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Nombre de la tabla</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
@@ -754,5 +754,12 @@ DirectorioTabla: invoca todos los registros de una tabla.</value>
   <data name="Category_Principal" xml:space="preserve">
     <value>Principal</value>
     <comment>category name</comment>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Salida</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>La conexión existente no es válida. Asegúrese de que se pueda establecer la conexión.</value>
   </data>
 </root>

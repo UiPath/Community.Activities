@@ -145,7 +145,7 @@
     <value>Расшифрованная строка.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Кодировка</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>Кодировка, используемая для интерпретации строки ввода.</value>
@@ -175,7 +175,7 @@
     <value>Представление строки base64 зашифрованной строки ввода.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>Путь к файлу</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
@@ -194,11 +194,11 @@
     <value>Представление шестнадцатеричной строки хэшированной строки ввода.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Путь к файлу с входными данными</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Text</value>
+    <value>Текст</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
@@ -223,11 +223,11 @@
     <value>Кодировка ключей</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Путь к файлу с выходными данными</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Перезаписать</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Результат</value>
@@ -239,10 +239,10 @@
     <value>Система</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>ОтображаемоеИмя</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ПродолжитьПриОшибке</value>
   </data>
 </root>

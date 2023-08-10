@@ -160,7 +160,7 @@
     <value>Inserta una tabla de datos compatible en una tabla existente. Devuelve el número de filas afectadas.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Diccionario de parámetros con nombre enlazados al comando sql. El enlace se realiza especificando la instrucción &quot;@parameterName&quot; en el comando sql. En tiempo de ejecución, parameterName se reemplazará por su valor del diccionario</value>
+    <value>Diccionario de parámetros con nombre enlazados al comando sql. El enlace se realiza especificando la instrucción &quot;@NombreDeParámetro&quot; en el comando sql. En tiempo de ejecución, NombreDeParámetro se reemplazará por su valor del diccionario</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
     <value>El nombre del proveedor de base de datos utilizado para tener acceso a la base de datos. Puede encontrar una lista de proveedores de datos en http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
@@ -205,7 +205,7 @@
     <value>Parámetros</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NombreParaMostrar</value>
     <comment>property name</comment>
   </data>
   <data name="ConnectionString" xml:space="preserve">

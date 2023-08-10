@@ -74,6 +74,7 @@ namespace UiPath.Database.Activities
             catch (Exception e)
             {
                 Trace.TraceError($"{e}");
+                throw;
             }
 
             return asyncCodeActivityContext =>

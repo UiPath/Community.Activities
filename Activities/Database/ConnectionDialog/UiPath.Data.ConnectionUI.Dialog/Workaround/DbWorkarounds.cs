@@ -11,10 +11,10 @@ namespace UiPath.Data.ConnectionUI.Dialog.Workaround
     public static class DbWorkarounds
     {
 #if NETCOREAPP
-        private const string RelativePath = @"\..\runtimes\win-x64\native\sni.dll";
+        private static string RelativePath = @"\..\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll";
 #endif
 #if NETFRAMEWORK
-        private const string RelativePath = @"\..\runtimes\win-x86\native\sni.dll";
+        private static string RelativePath = Environment.Is64BitProcess ? @"\..\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" : @"\..\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll";
 #endif
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
