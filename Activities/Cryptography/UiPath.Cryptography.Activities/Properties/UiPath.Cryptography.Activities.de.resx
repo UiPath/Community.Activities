@@ -202,7 +202,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Eingabepfad</value>
+    <value>Dateipfad</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -330,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Eingabepfad</value>
+    <value>Dateipfad</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -868,5 +868,8 @@
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>Der ausgewählte Verschlüsselungsalgorithmus ist veraltet und wird in zukünftigen Versionen nicht mehr unterstützt.</value>
   </data>
 </root>

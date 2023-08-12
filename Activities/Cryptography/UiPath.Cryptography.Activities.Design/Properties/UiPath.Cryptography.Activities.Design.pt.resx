@@ -175,11 +175,11 @@
     <value>A representação da cadeia base64 da cadeia de entrada encriptada.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>Caminho do Ficheiro</value>
+    <value>Caminho do ficheiro</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Caminho de ficheiro</value>
+    <value>Caminho do ficheiro</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Caminho para o ficheiro ao qual será aplicado hash através desta atividade.</value>
