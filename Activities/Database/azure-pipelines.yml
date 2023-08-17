@@ -44,6 +44,6 @@ stages:
       projectName: 'Database'
       solutionPath: '$(SolutionsPath)/Activities.Database.sln'
       sonarKeyPrefix: 'CommunityActivities'
-      sdkBuild: true
+      sdkBuild: false
       enableCDStages: false
       hasQaPackages: false

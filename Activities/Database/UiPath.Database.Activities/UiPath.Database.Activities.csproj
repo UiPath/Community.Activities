@@ -3,7 +3,7 @@
   <Import Project="../Database.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -11,7 +11,7 @@
     <Platforms>AnyCPU;x86;x64</Platforms>
 	<RootNamespace>UiPath.Database.Activities</RootNamespace>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
@@ -22,13 +22,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net461'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net461'">
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
   <ItemGroup>
-	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net5.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
-	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net5.0' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
 	  <EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
     <EmbeddedResource Include="Resources\Icons\Bulk_update.svg" />
     <EmbeddedResource Include="Resources\Icons\Connect.svg" />
@@ -68,10 +68,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Condition="'$(TargetFramework)' != 'net5.0'" Remove="NetCore/**" />
+    <Compile Condition="'$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition="'$(TargetFramework)' == 'net461'" Remove="NetCore/**" />
+    <Compile Condition="'$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
   </ItemGroup>
 </Project>
