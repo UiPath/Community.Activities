@@ -9,6 +9,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <Platforms>AnyCPU;x86;x64</Platforms>
+	<RootNamespace>UiPath.Database.Activities</RootNamespace>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
@@ -26,10 +27,9 @@
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ActivitiesMetadata.json">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
+	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net5.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net5.0' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+	  <EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
     <EmbeddedResource Include="Resources\Icons\Bulk_update.svg" />
     <EmbeddedResource Include="Resources\Icons\Connect.svg" />
     <EmbeddedResource Include="Resources\Icons\Disconnect.svg" />
@@ -66,9 +66,6 @@
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.ru.resx">
       <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition="'$(TargetFramework)' != 'net5.0'" Remove="NetCore/**" />
