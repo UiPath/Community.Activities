@@ -1,8 +1,13 @@
-﻿using System.Activities.DesignViewModels;
+﻿using System;
+using System.Activities;
+using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Security;
 using System.Threading.Tasks;
 using UiPath.Database.Activities.NetCore.ViewModels;
+using UiPath.Database.Activities.NetCore.ViewModels.Helpers;
+using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
@@ -19,6 +24,8 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
 {
     public partial class DatabaseConnectViewModel : DesignPropertiesViewModel
     {
+        private static string[] ProviderNameDataSourceItems { get => new string[] { "Microsoft.Data.SqlClient", "System.Data.OleDb", "System.Data.Odbc", "Oracle.ManagedDataAccess.Client" }; }
+
         /// <summary>
         /// Basic constructor
         /// </summary>
@@ -35,12 +42,12 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         /// <summary>
         /// The connection string used to establish a database connection.
         /// </summary>
-        public DesignInArgument<string> ConnectionString { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<string> ConnectionString { get; set; } = new DesignInArgument<string>() { Name = nameof(ConnectionString)};
 
         /// <summary>
         /// The connection string used to establish a database connection as Secure String.
         /// </summary>
-        public DesignInArgument<SecureString> ConnectionSecureString { get; set; } = new DesignInArgument<SecureString>();
+        public DesignInArgument<SecureString> ConnectionSecureString { get; set; } = new DesignInArgument<SecureString>() { Name = nameof(ConnectionSecureString)};
 
         /// <summary>
         /// The database connection used for the operations within this activity.
@@ -50,35 +57,58 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         protected override void InitializeModel()
         {
             base.InitializeModel();
+            InitializeConnectionFields();
+            
             int propertyOrderIndex = 1;
-
-            ConnectionString.IsPrincipal = true;
-            ConnectionString.IsRequired = true;
-            ConnectionString.OrderIndex = propertyOrderIndex++;
-            ConnectionString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             ProviderName.IsPrincipal = true;
             ProviderName.IsRequired = true;
             ProviderName.OrderIndex = propertyOrderIndex++;
-            ProviderName.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+            ProviderName.Widget = new DefaultWidget
+            {
+                Type = ViewModelWidgetType.AutoCompleteForExpression,
+            };
+            ProviderName.DataSource = DataSourceBuilder<string>
+                                            .WithId(p => p)
+                                            .WithLabel(d => d)
+                                            .WithData(ProviderNameDataSourceItems)
+                                            .Build();
+
+            ConnectionString.IsPrincipal = true;
+            ConnectionString.IsRequired = true;
+            ConnectionString.OrderIndex = propertyOrderIndex++;
 
             ConnectionSecureString.IsPrincipal = true;
             ConnectionSecureString.OrderIndex = propertyOrderIndex++;
-            ConnectionSecureString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
-            DatabaseConnection.OrderIndex = propertyOrderIndex++;
+            DatabaseConnection.OrderIndex = propertyOrderIndex;
             DatabaseConnection.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
+            var useConnectionStringMenuAction = new MenuAction
+            {
+                DisplayName = Resources.ConnectionStringMenuAction,
+                Handler = (_) => DesignPropertyHelpers.ToggleDesignProperties(ConnectionString, ConnectionSecureString)
+            };
+            var useConnectionSecureStringMenuAction = new MenuAction
+            {
+                DisplayName = Resources.ConnectionSecureStringMenuAction,
+                Handler = (_) => DesignPropertyHelpers.ToggleDesignProperties(ConnectionSecureString, ConnectionString)
+            };
+
+            ConnectionString.AddMenuAction(useConnectionSecureStringMenuAction);
+            ConnectionSecureString.AddMenuAction(useConnectionStringMenuAction);
         }
 
-        protected override async ValueTask InitializeModelAsync()
+        private void InitializeConnectionFields()
         {
-            await base.InitializeModelAsync();
-        }
-
-        protected override void InitializeRules()
-        {
-            base.InitializeRules();
+            if(ConnectionString.Value != null)
+            {
+                DesignPropertyHelpers.ToggleDesignProperties(ConnectionString, ConnectionSecureString);
+            }
+            else
+            {
+                DesignPropertyHelpers.ToggleDesignProperties(ConnectionSecureString, ConnectionString);
+            }
         }
     }
 }

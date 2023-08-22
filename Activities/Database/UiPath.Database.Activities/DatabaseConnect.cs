@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
@@ -14,15 +15,19 @@ namespace UiPath.Database.Activities
     [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Description))]
     public partial class DatabaseConnect : AsyncTaskCodeActivity
     {
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        private const string DefaultProviderNameValue = "Microsoft.Data.SqlClient";
+
         [RequiredArgument]
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_ProviderName_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_ProviderName_Description))]
-        public InArgument<string> ProviderName { get; set; }
-
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
+        public InArgument<string> ProviderName { get; set; } = DefaultProviderNameValue;
+
+        [DefaultValue(null)]
+        [DependsOn(nameof(ProviderName))]
+        [OverloadGroup(nameof(ConnectionString))]
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionString_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionString_Description))]
@@ -30,6 +35,8 @@ namespace UiPath.Database.Activities
 
         [DefaultValue(null)]
         [DependsOn(nameof(ProviderName))]
+        [OverloadGroup(nameof(ConnectionSecureString))]
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionSecureString_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionSecureString_Description))]
@@ -57,19 +64,24 @@ namespace UiPath.Database.Activities
         {
             var connString = ConnectionString.Get(context);
             var connSecureString = ConnectionSecureString.Get(context);
-            if (connString == null && connSecureString == null)
+            var connectionStringForFactory = string.Empty;
+            if (connString != null)
+            {
+                connectionStringForFactory = connString;
+            }
+            else if (connSecureString != null)
+            {
+                connectionStringForFactory = new NetworkCredential("", connSecureString).Password;
+            }
+            else
             {
                 throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
-            }
-            if (connString != null && connSecureString != null)
-            {
-                throw new ArgumentException(Resources.ValidationError_ConnectionStringMustBeSet);
             }
             var provName = ProviderName.Get(context);
             DatabaseConnection dbConnection = null;
             try
             {
-                dbConnection = await Task.Run(() => _connectionFactory.Create(connString ?? new NetworkCredential("", connSecureString).Password, provName));
+                dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName));
             }
             catch (Exception e)
             {
