@@ -421,7 +421,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connects to a database by using a standard connection string..
+        ///   Looks up a localized string similar to Connects to a database by using a standard connection string.
         /// </summary>
         public static string Activity_DatabaseConnect_Description {
             get {
@@ -430,7 +430,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect to database.
+        ///   Looks up a localized string similar to Connect to Database.
         /// </summary>
         public static string Activity_DatabaseConnect_Name {
             get {
@@ -439,7 +439,25 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection as Secure String..
+        ///   Looks up a localized string similar to The switch between Connection String and Connection Secure String.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConnectionInputModeSwitch.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples..
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ConnectionSecureString_Description {
             get {
@@ -457,7 +475,16 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection..
+        ///   Looks up a localized string similar to Please provide the database connection SecureString variable.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection. Please see the documentation for more examples..
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ConnectionString_Description {
             get {
@@ -471,6 +498,15 @@ namespace UiPath.Database.Activities.Properties {
         public static string Activity_DatabaseConnect_Property_ConnectionString_Name {
             get {
                 return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide the database connection string.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionString_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionString_Placeholder", resourceCulture);
             }
         }
         
@@ -493,7 +529,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The name of the database provider used to access the database..
+        ///   Looks up a localized string similar to The name of the database provider used to access the database. Please see the documentation for more examples..
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ProviderName_Description {
             get {
@@ -507,6 +543,15 @@ namespace UiPath.Database.Activities.Properties {
         public static string Activity_DatabaseConnect_Property_ProviderName_Name {
             get {
                 return ResourceManager.GetString("Activity_DatabaseConnect_Property_ProviderName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide the database provider name.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ProviderName_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ProviderName_Placeholder", resourceCulture);
             }
         }
         
@@ -1355,11 +1400,47 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle to secure string connection.
+        /// </summary>
+        public static string ConnectionSecureStringMenuAction {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringMenuAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection SecureString must be used.
+        /// </summary>
+        public static string ConnectionSecureStringNullError {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConnectionString.
         /// </summary>
         public static string ConnectionStringDisplayName {
             get {
                 return ResourceManager.GetString("ConnectionStringDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle to connection string.
+        /// </summary>
+        public static string ConnectionStringMenuAction {
+            get {
+                return ResourceManager.GetString("ConnectionStringMenuAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection string must be used.
+        /// </summary>
+        public static string ConnectionStringNullError {
+            get {
+                return ResourceManager.GetString("ConnectionStringNullError", resourceCulture);
             }
         }
         
