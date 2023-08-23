@@ -24,6 +24,8 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
 {
     public partial class DatabaseConnectViewModel : DesignPropertiesViewModel
     {
+        private const string DefaultProviderNameValue = "Microsoft.Data.SqlClient";
+
         private static string[] ProviderNameDataSourceItems { get => new string[] { "Microsoft.Data.SqlClient", "System.Data.OleDb", "System.Data.Odbc", "Oracle.ManagedDataAccess.Client" }; }
 
         /// <summary>
@@ -58,7 +60,8 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         {
             base.InitializeModel();
             InitializeConnectionFields();
-            
+            PersistValuesChangedDuringInit();
+
             int propertyOrderIndex = 1;
 
             ProviderName.IsPrincipal = true;
@@ -73,6 +76,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
                                             .WithLabel(d => d)
                                             .WithData(ProviderNameDataSourceItems)
                                             .Build();
+            ProviderName.Value ??= new InArgument<string>(DefaultProviderNameValue);
 
             ConnectionString.IsPrincipal = true;
             ConnectionString.IsRequired = true;
