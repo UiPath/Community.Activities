@@ -477,53 +477,12 @@
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ProviderName_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -534,10 +493,10 @@
         },
         {
           "Name": "CommandType",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_CommandType_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_CommandType_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_CommandType_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_CommandType_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -550,6 +509,7 @@
           "Name": "Sql",
           "DisplayNameKey": "Activity_ExecuteNonQuery_Property_Sql_Name",
           "TooltipKey": "Activity_ExecuteNonQuery_Property_Sql_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_Sql_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -561,9 +521,9 @@
           "IconKey": null
         },
         {
-          "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ContinueOnError_Description",
+          "Name": "Parameters",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_Parameters_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_Parameters_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -576,8 +536,9 @@
         },
         {
           "Name": "TimeoutMS",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_TimeoutMS_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_TimeoutMS_Description",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_TimeoutMS_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_TimeoutMS_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_TimeoutMS_Placeholder",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -589,9 +550,9 @@
           "IconKey": null
         },
         {
-          "Name": "Parameters",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_Parameters_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_Parameters_Description",
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -632,53 +593,12 @@
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ProviderName_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -689,10 +609,10 @@
         },
         {
           "Name": "CommandType",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_CommandType_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_CommandType_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_CommandType_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_CommandType_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -705,6 +625,7 @@
           "Name": "Sql",
           "DisplayNameKey": "Activity_ExecuteQuery_Property_Sql_Name",
           "TooltipKey": "Activity_ExecuteQuery_Property_Sql_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_Sql_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -716,9 +637,9 @@
           "IconKey": null
         },
         {
-          "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ContinueOnError_Description",
+          "Name": "Parameters",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_Parameters_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_Parameters_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -731,8 +652,9 @@
         },
         {
           "Name": "TimeoutMS",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_TimeoutMS_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_TimeoutMS_Description",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_TimeoutMS_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_TimeoutMS_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_TimeoutMS_Placeholder",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -744,9 +666,9 @@
           "IconKey": null
         },
         {
-          "Name": "Parameters",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_Parameters_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_Parameters_Description",
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
