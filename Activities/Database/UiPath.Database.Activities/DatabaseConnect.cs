@@ -15,14 +15,12 @@ namespace UiPath.Database.Activities
     [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Description))]
     public partial class DatabaseConnect : AsyncTaskCodeActivity
     {
-        private const string DefaultProviderNameValue = "Microsoft.Data.SqlClient";
-
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_ProviderName_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_ProviderName_Description))]
         [DefaultValue(null)]
-        public InArgument<string> ProviderName { get; set; } = DefaultProviderNameValue;
+        public InArgument<string> ProviderName { get; set; }
 
         [DefaultValue(null)]
         [DependsOn(nameof(ProviderName))]
