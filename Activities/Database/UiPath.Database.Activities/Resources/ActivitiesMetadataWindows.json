@@ -285,35 +285,6 @@
     },
     {
       "AssemblyQualifiedName": null,
-      "FullName": "UiPath.Database.Activities.DatabaseDisconnect",
-      "ShortName": "DatabaseDisconnect",
-      "DisplayNameKey": "Activity_DatabaseDisconnect_Name",
-      "DescriptionKey": "Activity_DatabaseDisconnect_Description",
-      "IconKey": "Disconnect.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
-      "Properties": [
-        {
-          "Name": "DatabaseConnection",
-          "DisplayNameKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Name",
-          "TooltipKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        }
-      ],
-      "DefaultFactory": null,
-      "ViewModelType": null
-    },
-    {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Database.Activities.DatabaseTransaction",
       "ShortName": "DatabaseTransaction",
       "DisplayNameKey": "Activity_DatabaseTransaction_Name",
