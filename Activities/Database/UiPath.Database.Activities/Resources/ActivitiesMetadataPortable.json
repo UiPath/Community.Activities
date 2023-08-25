@@ -449,7 +449,8 @@
         {
           "Name": "DatabaseConnection",
           "DisplayNameKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Name",
-          "TooltipKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Description",
+          "TooltipKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform",
+          "PlaceholderKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,

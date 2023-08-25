@@ -556,7 +556,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Closes a connection to a database..
+        ///   Looks up a localized string similar to Closes a connection to a database.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Description {
             get {
@@ -565,7 +565,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disconnect from database.
+        ///   Looks up a localized string similar to Disconnect from Database.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Name {
             get {
@@ -583,11 +583,30 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database connection.
+        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect to Database activity..
+        /// </summary>
+        public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing connection.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Name {
             get {
                 return ResourceManager.GetString("Activity_DatabaseDisconnect_Property_DatabaseConnection_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the output of the Connect to Database activity.
+        /// </summary>
+        public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder", resourceCulture);
             }
         }
         
