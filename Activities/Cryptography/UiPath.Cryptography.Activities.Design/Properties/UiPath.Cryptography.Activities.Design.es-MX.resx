@@ -179,7 +179,7 @@
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Ruta de archivo</value>
+    <value>Ruta del archivo</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Ruta de acceso al archivo en el que esta actividad utilizó un hash.</value>

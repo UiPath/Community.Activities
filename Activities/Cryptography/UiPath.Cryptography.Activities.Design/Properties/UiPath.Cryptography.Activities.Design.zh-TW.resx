@@ -175,11 +175,11 @@
     <value>經加密的輸入字串的 Base64 字串表示。</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>檔案路徑</value>
+    <value>檔路徑</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>檔案路徑</value>
+    <value>檔路徑</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>此活動將雜湊處理的檔案的路徑。</value>
