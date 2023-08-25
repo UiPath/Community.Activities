@@ -16,8 +16,6 @@ namespace UiPath.Database.Activities
     {
         private const int _defaultTimeout = 30000;
 
-        private Dictionary<string, Argument> parameters;
-
         protected DatabaseConnection DbConnection = null;
 
         [DefaultValue(null)]
@@ -48,26 +46,10 @@ namespace UiPath.Database.Activities
         [LocalizedDescription(nameof(Resources.Activity_DatabaseExecute_Property_CommandType_Description))]
         public CommandType CommandType { get; set; }
 
-        [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [Browsable(true)]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseExecute_Property_Parameters_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseExecute_Property_Parameters_Description))]
-        public Dictionary<string, Argument> Parameters
-        {
-            get
-            {
-                if (this.parameters == null)
-                {
-                    this.parameters = new Dictionary<string, Argument>();
-                }
-                return this.parameters;
-            }
-            set
-            {
-                parameters = value;
-            }
-        }
+        public Dictionary<string, Argument> Parameters { get; set; }
 
         [LocalizedCategory(nameof(Resources.Common))]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseExecute_Property_ContinueOnError_Name))]
@@ -79,7 +61,7 @@ namespace UiPath.Database.Activities
         [LocalizedDescription(nameof(Resources.Activity_DatabaseExecute_Property_TimeoutMS_Description))]
         public InArgument<int> TimeoutMS { get; set; }
 
-        protected override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
+        protected sealed override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             if(TimeoutMS.Expression is null)
             {
