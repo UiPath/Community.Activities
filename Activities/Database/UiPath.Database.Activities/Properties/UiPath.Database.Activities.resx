@@ -514,13 +514,7 @@ If UseTransaction is set to True, the contained operations are executed in a sin
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
-    <value>Specifies how a command string is interpreted. The following options are available:
-
-Text - Executes the SQL command.
-
-Stored Procedure - Invokes the procedure name specified in the SQL command.
-
-Table Direct - Invokes all records from a table.</value>
+    <value>Specifies how a command string is interpreted</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
@@ -751,5 +745,14 @@ Table Direct - Invokes all records from a table.</value>
   <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
     <value>SQL query</value>
     <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>Invokes the procedure name specified in the SQL command.</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>Invokes all records from a table.</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>Executes the SQL command.</value>
   </data>
 </root>

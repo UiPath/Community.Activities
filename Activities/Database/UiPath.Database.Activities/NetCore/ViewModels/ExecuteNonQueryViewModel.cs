@@ -83,6 +83,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             CommandType.DataSource = DataSourceBuilder<CommandType>
                 .WithId(t => t.ToString())
                 .WithLabel(t => t.GetLabel())
+                .WithTooltip(t => t.GetTooltip())
                 .WithData(Enum.GetValues(typeof(CommandType)) as IReadOnlyList<CommandType>)
                 .Build();
             CommandType.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };

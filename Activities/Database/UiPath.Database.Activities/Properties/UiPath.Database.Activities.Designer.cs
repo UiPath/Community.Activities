@@ -611,13 +611,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies how a command string is interpreted. The following options are available:
-        ///
-        ///Text - Executes the SQL command.
-        ///
-        ///Stored Procedure - Invokes the procedure name specified in the SQL command.
-        ///
-        ///Table Direct - Invokes all records from a table..
+        ///   Looks up a localized string similar to Specifies how a command string is interpreted.
         /// </summary>
         public static string Activity_DatabaseExecute_Property_CommandType_Description {
             get {
@@ -1275,6 +1269,15 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invokes the procedure name specified in the SQL command..
+        /// </summary>
+        public static string CommandType_StoredProcedure_Tooltip {
+            get {
+                return ResourceManager.GetString("CommandType_StoredProcedure_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Table Direct.
         /// </summary>
         public static string CommandType_TableDirect_FriendlyName {
@@ -1284,11 +1287,29 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invokes all records from a table..
+        /// </summary>
+        public static string CommandType_TableDirect_Tooltip {
+            get {
+                return ResourceManager.GetString("CommandType_TableDirect_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text.
         /// </summary>
         public static string CommandType_Text_FriendlyName {
             get {
                 return ResourceManager.GetString("CommandType_Text_FriendlyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executes the SQL command..
+        /// </summary>
+        public static string CommandType_Text_Tooltip {
+            get {
+                return ResourceManager.GetString("CommandType_Text_Tooltip", resourceCulture);
             }
         }
         

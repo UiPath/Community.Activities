@@ -19,5 +19,20 @@ namespace UiPath.Database.Activities.NetCore
                     return string.Empty;
             }
         }
+
+        public static string GetTooltip(this CommandType commandType)
+        {
+            switch (commandType)
+            {
+                case System.Data.CommandType.Text:
+                    return Resources.CommandType_Text_Tooltip;
+                case System.Data.CommandType.TableDirect:
+                    return Resources.CommandType_TableDirect_Tooltip;
+                case System.Data.CommandType.StoredProcedure:
+                    return Resources.CommandType_StoredProcedure_Tooltip;
+                default:
+                    return string.Empty;
+            }
+        }
     }
 }
