@@ -105,13 +105,13 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
 
         private void InitializeConnectionFields()
         {
-            if(ConnectionString.Value != null)
+            if(ConnectionSecureString.Value != null)
             {
-                DesignPropertyHelpers.ToggleDesignProperties(ConnectionString, ConnectionSecureString);
+                DesignPropertyHelpers.ToggleDesignProperties(ConnectionSecureString, ConnectionString);
             }
             else
             {
-                DesignPropertyHelpers.ToggleDesignProperties(ConnectionSecureString, ConnectionString);
+                DesignPropertyHelpers.ToggleDesignProperties(ConnectionString, ConnectionSecureString);
             }
         }
     }
