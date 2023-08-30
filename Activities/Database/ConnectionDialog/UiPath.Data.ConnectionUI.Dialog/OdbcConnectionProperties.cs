@@ -45,7 +45,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 					{
 						if (driverDesc.Contains("Native") && driverDesc.Contains("Client"))
 						{
-							StringBuilder driverBuf = new StringBuilder(1024);
+							StringBuilder driverBuf = new StringBuilder();
 							int len = NativeMethods.SQLGetPrivateProfileString(driverDesc, "Driver", "", driverBuf, driverBuf.Capacity, "ODBCINST.INI");
 							if (len > 0 && driverBuf.Length > 0)
 							{

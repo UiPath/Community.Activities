@@ -8,7 +8,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 {
 	internal sealed class HelpUtils
 	{
-		private const int KeyValueNameLength = 1024; // 1024 should be enough for registry key value name. 
+		//private const int KeyValueNameLength = 1024; // 1024 should be enough for registry key value name. 
 
 		private HelpUtils()
 		{
@@ -76,8 +76,8 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
 					for (uint index = 0; index < numValues; index++)
 					{
-						StringBuilder builder = new StringBuilder(KeyValueNameLength);
-						uint size = KeyValueNameLength;
+						StringBuilder builder = new StringBuilder();
+						uint size = (uint)short.MaxValue;
 
 						try
 						{
