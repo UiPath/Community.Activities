@@ -29,7 +29,7 @@ namespace UiPath.Database.Activities.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UiPath_Database_Activities() {
+        public UiPath_Database_Activities() {
         }
         
         /// <summary>
