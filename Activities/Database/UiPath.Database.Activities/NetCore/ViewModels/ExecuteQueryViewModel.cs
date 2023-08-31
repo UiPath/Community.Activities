@@ -70,6 +70,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         {
             base.InitializeModel();
             int propertyOrderIndex = 1;
+            int propertyColumnIndex = 1;
 
             ExistingDbConnection.IsPrincipal = true;
             ExistingDbConnection.IsRequired = true;
@@ -96,9 +97,11 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             Parameters.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dictionary };
 
             TimeoutMS.OrderIndex = propertyOrderIndex;
+            TimeoutMS.ColumnOrder = propertyColumnIndex++;
             TimeoutMS.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             ContinueOnError.OrderIndex = propertyOrderIndex++;
+            ContinueOnError.ColumnOrder = propertyColumnIndex;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
 
             DataTable.OrderIndex = propertyOrderIndex++;
