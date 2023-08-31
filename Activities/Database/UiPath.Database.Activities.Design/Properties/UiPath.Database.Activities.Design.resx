@@ -166,7 +166,7 @@
     <value>The name of the database provider used to access the database. A list of Data Providers can be found at http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>A sql command to be executed.</value>
+    <value>Provide an SQL statement that corresponds to the selected command type</value>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>The target database table</value>

@@ -490,136 +490,58 @@ If UseTransaction is set to True, the contained operations are executed in a sin
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
-    <value>Executes an non query statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
+    <value>Executes an SQL statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
-    <value>Run command</value>
+    <value>Run Command</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>The result of the execution of the sql command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
+    <value>The result of the execution of the SQL command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>Specifies how a command string is interpreted. The following options are available:
-Text - Executes the query given in the SQL parameter.
-StoredProcedure - Invokes the procedure name specified in the SQL parameter.
-TableDirect - Invokes all records from a table.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command type</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>The connection string used to establish a database connection.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Specifies if the automation should continue even when the activity throws an error.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>A dictionary of named parameters that are bound to the sql command. The binding is done by specifying the '@parameterName' statement in the sql command. At runtime the parameterName will be replaced with its value from the dictionary.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>Parameters</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>The name of the database provider used to access the database.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
-    <value>An sql command to be executed. This field must be completed according to the selection from the CommandType property.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL command</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown. The default value is 30000 milliseconds (30 seconds) and must be greater than or equal to 0.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Timeout</value>
+    <value>Affected rows count</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
-    <value>Executes a query on a database and returns the query result in a Datatable.</value>
+    <value>Executes a query on a database and returns the query result as a Data Table</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
-    <value>Run query</value>
+    <value>Run Query</value>
     <comment>activity name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>Specifies how a command string is interpreted. The following options are available:
-Text - Executes the query given in the SQL parameter.
-StoredProcedure - Invokes the procedure name specified in the SQL parameter.
-TableDirect - Invokes all records from a table.</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
+    <value>Specifies how a command string is interpreted</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
     <value>Command type</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Name" xml:space="preserve">
     <value>Secure connection string</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>The connection string used to establish a database connection.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Name" xml:space="preserve">
     <value>Connection string</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Specifies if the automation should continue even when the activity throws an error.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continue on error</value>
     <comment>property name</comment>
   </data>
@@ -631,43 +553,43 @@ TableDirect - Invokes all records from a table.</value>
     <value>Data table</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>An already opened database connection obtained from the Connect or Start Transaction activities. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
     <value>Existing connection</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>A dictionary of named parameters that are bound to the sql command. The binding is done by specifying the '@parameterName' statement in the sql command. At runtime the parameterName will be replaced with its value from the dictionary.</value>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
+    <value>A dictionary of named parameters that are bound to the SQL command. The binding is done by specifying the '@parameterName' statement in the SQL command. At runtime the parameterName will be replaced with its value from the dictionary.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
     <value>Parameters</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>The name of the database provider used to access the database.</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database. Please see the documention for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
-    <value>An sql command to be executed. This field must be completed according to the selection from the CommandType property.</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>An SQL command to be executed. This property must be completed according to the selection from the Command type property</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL query</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL command</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
     <value>Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown. The default value is 30000 milliseconds (30 seconds) and must be greater than or equal to 0.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
     <value>Timeout</value>
     <comment>property name</comment>
   </data>
@@ -792,7 +714,45 @@ TableDirect - Invokes all records from a table.</value>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
     <value>An already opened database connection obtained from the Connect to Database activity.</value>
   </data>
+  <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
+    <value>Stored Procedure</value>
+  </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
     <value>Use the output of the Connect to Database activity</value>
+  </data>
+  <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
+    <value>Table Direct</value>
+  </data>
+  <data name="CommandType_Text_FriendlyName" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
+    <value>Provide an SQL statement that corresponds to the selected command type</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Placeholder" xml:space="preserve">
+    <value>Default is 30000 miliseconds</value>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>An SQL query to be executed. This property must be completed according to the selection from the Command type property</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL query</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>Invokes the procedure name specified in the SQL command.</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>Invokes all records from a table.</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>Executes the SQL command.</value>
   </data>
 </root>

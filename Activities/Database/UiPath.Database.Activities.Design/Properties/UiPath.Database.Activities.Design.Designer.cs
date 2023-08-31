@@ -538,7 +538,7 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A sql command to be executed..
+        ///   Looks up a localized string similar to Provide an SQL statement that corresponds to the selected command type.
         /// </summary>
         public static string SqlDescription {
             get {

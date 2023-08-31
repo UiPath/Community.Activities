@@ -12,82 +12,18 @@ using UiPath.Database.Activities.Properties;
 namespace UiPath.Database.Activities
 {
     [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Description))]
-    public partial class ExecuteNonQuery : AsyncTaskCodeActivity
+    public partial class ExecuteNonQuery : DatabaseExecute
     {
-        // public arguments
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ProviderName_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ProviderName_Description))]
-        public InArgument<string> ProviderName { get; set; }
-
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionString_Description))]
-        public InArgument<string> ConnectionString { get; set; }
-
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description))]
-        public InArgument<SecureString> ConnectionSecureString { get; set; }
-
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description))]
-        public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
-
-        [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_CommandType_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_CommandType_Description))]
-        public CommandType CommandType { get; set; }
-
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_Sql_Name))]
         [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_Sql_Description))]
         public InArgument<string> Sql { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ContinueOnError_Description))]
-        public InArgument<bool> ContinueOnError { get; set; }
-
-        [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_TimeoutMS_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_TimeoutMS_Description))]
-        public InArgument<int> TimeoutMS { get; set; }
-
-        private Dictionary<string, Argument> parameters;
-
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Input))]
-        [Browsable(true)]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_Parameters_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_Parameters_Description))]
-        public Dictionary<string, Argument> Parameters
-        {
-            get
-            {
-                if (this.parameters == null)
-                {
-                    this.parameters = new Dictionary<string, Argument>();
-                }
-                return this.parameters;
-            }
-            set
-            {
-                parameters = value;
-            }
-        }
-
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_AffectedRecords_Name))]
         [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_AffectedRecords_Description))]
         public OutArgument<int> AffectedRecords { get; set; }
-
-        private DatabaseConnection DbConnection = null;
 
         public ExecuteNonQuery()
         {
@@ -100,7 +36,7 @@ namespace UiPath.Database.Activities
             throw ex;
         }
 
-        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteInternalAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             string connString = null;
             SecureString connSecureString = null;
