@@ -195,9 +195,6 @@
   <data name="EditConnectionSettings" xml:space="preserve">
     <value>Edit Connection Settings</value>
   </data>
-  <data name="EditQuery" xml:space="preserve">
-    <value>Edit Query...</value>
-  </data>
   <data name="NewDatabaseConnection" xml:space="preserve">
     <value>New Database Connection</value>
   </data>
@@ -300,5 +297,14 @@
   </data>
   <data name="SqlQuery" xml:space="preserve">
     <value>SQL query</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="SqlCommand" xml:space="preserve">
+    <value>SQL Command</value>
+  </data>
+  <data name="SqlCommandHint" xml:space="preserve">
+    <value>Sql command. Text must be quoted</value>
   </data>
 </root>

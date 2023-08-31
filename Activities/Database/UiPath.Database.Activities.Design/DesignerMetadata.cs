@@ -41,8 +41,8 @@ namespace UiPath.Database.Activities.Design
             builder.AddCustomAttributes(typeof(DatabaseConnect), new DesignerAttribute(typeof(ConnectDatabaseDesigner)));
             builder.AddCustomAttributes(typeof(DatabaseDisconnect), new DesignerAttribute(typeof(DisconnectDesigner)));
             builder.AddCustomAttributes(typeof(DatabaseTransaction), new DesignerAttribute(typeof(ConnectDatabaseDesigner)));
-            builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DesignerAttribute(typeof(GenericDatabaseDesigner)));
-            builder.AddCustomAttributes(typeof(ExecuteQuery), new DesignerAttribute(typeof(GenericDatabaseDesigner)));
+            builder.AddCustomAttributes(typeof(ExecuteNonQuery), new DesignerAttribute(typeof(ExecuteNonQueryDesigner)));
+            builder.AddCustomAttributes(typeof(ExecuteQuery), new DesignerAttribute(typeof(ExecuteQueryDesigner)));
             builder.AddCustomAttributes(typeof(InsertDataTable), new DesignerAttribute(typeof(InsertDataTableDesigner)));
             builder.AddCustomAttributes(typeof(BulkInsert), new DesignerAttribute(typeof(BulkInsertDesigner)));
             builder.AddCustomAttributes(typeof(BulkUpdate), new DesignerAttribute(typeof(BulkUpdateDesigner)));

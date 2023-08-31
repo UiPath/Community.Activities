@@ -61,4 +61,9 @@
       <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Page Update="ExecuteNonQueryDesigner.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
 </Project>

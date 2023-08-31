@@ -412,20 +412,20 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string EditButton {
+            get {
+                return ResourceManager.GetString("EditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Connection Settings.
         /// </summary>
         public static string EditConnectionSettings {
             get {
                 return ResourceManager.GetString("EditConnectionSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Query....
-        /// </summary>
-        public static string EditQuery {
-            get {
-                return ResourceManager.GetString("EditQuery", resourceCulture);
             }
         }
         
@@ -534,6 +534,24 @@ namespace UiPath.Database.Activities.Design.Properties {
         public static string QueryTimeoutMSDescription {
             get {
                 return ResourceManager.GetString("QueryTimeoutMSDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQL Command.
+        /// </summary>
+        public static string SqlCommand {
+            get {
+                return ResourceManager.GetString("SqlCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sql command. Text must be quoted.
+        /// </summary>
+        public static string SqlCommandHint {
+            get {
+                return ResourceManager.GetString("SqlCommandHint", resourceCulture);
             }
         }
         
