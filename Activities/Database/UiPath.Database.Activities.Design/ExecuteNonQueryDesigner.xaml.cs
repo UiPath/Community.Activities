@@ -3,9 +3,9 @@
 namespace UiPath.Database.Activities.Design
 {
     // Interaction logic for GenericDatabaseDesigner.xaml
-    public partial class GenericDatabaseDesigner
+    public partial class ExecuteNonQueryDesigner
     {
-        public GenericDatabaseDesigner()
+        public ExecuteNonQueryDesigner()
         {
             InitializeComponent();
         }
