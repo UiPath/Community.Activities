@@ -12,30 +12,21 @@ using UiPath.Robot.Activities.Api;
 namespace UiPath.Database.Activities
 {
     [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Description))]
-    public partial class BulkUpdate : AsyncTaskCodeActivity
+    public partial class BulkUpdate : DatabaseRowActivity
     {
+        [LocalizedCategory(nameof(Resources.Input))]
+        [RequiredArgument]
         [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ProviderName_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ProviderName_Description))]
-        public InArgument<string> ProviderName { get; set; }
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_TableName_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_TableName_Description))]
+        public InArgument<string> TableName { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
         [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ConnectionString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ConnectionString_Description))]
-        public InArgument<string> ConnectionString { get; set; }
-
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ConnectionSecureString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ConnectionSecureString_Description))]
-        public InArgument<SecureString> ConnectionSecureString { get; set; }
-
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ExistingDbConnection_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ExistingDbConnection_Description))]
-        public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
+        [RequiredArgument]
+        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_DataTable_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_DataTable_Description))]
+        public InArgument<DataTable> DataTable { get; set; }
 
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_BulkUpdateFlag_Name))]
@@ -46,28 +37,9 @@ namespace UiPath.Database.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [RequiredArgument]
         [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_TableName_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_TableName_Description))]
-        public InArgument<string> TableName { get; set; }
-
-        [LocalizedCategory(nameof(Resources.Input))]
-        [RequiredArgument]
-        [DefaultValue(null)]
         [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ColumnNames_Name))]
         [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ColumnNames_Description))]
         public InArgument<string[]> ColumnNames { get; set; }
-
-        [LocalizedCategory(nameof(Resources.Input))]
-        [DefaultValue(null)]
-        [RequiredArgument]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_DataTable_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_DataTable_Description))]
-        public InArgument<DataTable> DataTable { get; set; }
-
-        [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkUpdate_Property_ContinueOnError_Description))]
-        public InArgument<bool> ContinueOnError { get; set; }
 
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_BulkUpdate_Property_AffectedRecords_Name))]
@@ -75,12 +47,6 @@ namespace UiPath.Database.Activities
         public OutArgument<long> AffectedRecords { get; set; }
 
         private DatabaseConnection DbConnection = null;
-
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
-        }
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {

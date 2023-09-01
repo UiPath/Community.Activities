@@ -27,9 +27,8 @@
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
   <ItemGroup>
-	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
-	  <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
-	  <EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
+	<EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0' " Include="Resources\ActivitiesMetadata.json" />
+	<EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
     <EmbeddedResource Include="Resources\Icons\Bulk_update.svg" />
     <EmbeddedResource Include="Resources\Icons\Connect.svg" />
     <EmbeddedResource Include="Resources\Icons\Disconnect.svg" />
@@ -69,6 +68,5 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Condition="'$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
-    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>
