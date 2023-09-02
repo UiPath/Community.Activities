@@ -369,15 +369,15 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
-    <value>Standart bir bağlantı dizesi kullanarak bir veritabanına bağlanır.</value>
+    <value>Connects to a database by using a standard connection string</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
-    <value>Connect to database</value>
+    <value>Connect to Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Güvenli Dize olarak bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
@@ -385,7 +385,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
@@ -401,7 +401,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
-    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı.</value>
+    <value>The name of the database provider used to access the database. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
@@ -409,11 +409,11 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
-    <value>Veritabanı bağlantısını kapatır.</value>
+    <value>Closes a connection to a database</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
-    <value>Disconnect from database</value>
+    <value>Disconnect from Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -421,7 +421,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Veritabanı bağlantısı</value>
+    <value>Existing connection</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
@@ -761,5 +761,38 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
   </data>
   <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
     <value>Mevcut bağlantı geçersiz. Lütfen bağlantının kurulabildiğinden emin olun.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between Connection String and Connection Secure String</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
+    <value>ConnectionInputModeSwitch</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
+    <value>Please provide the database connection SecureString variable</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Placeholder" xml:space="preserve">
+    <value>Please provide the database connection string</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Placeholder" xml:space="preserve">
+    <value>Please provide the database provider name</value>
+  </data>
+  <data name="ConnectionSecureStringNullError" xml:space="preserve">
+    <value>Connection SecureString must be used</value>
+  </data>
+  <data name="ConnectionStringNullError" xml:space="preserve">
+    <value>Connection string must be used</value>
+  </data>
+  <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
+    <value>Toggle to secure string connection</value>
+  </data>
+  <data name="ConnectionStringMenuAction" xml:space="preserve">
+    <value>Toggle to connection string</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
   </data>
 </root>
