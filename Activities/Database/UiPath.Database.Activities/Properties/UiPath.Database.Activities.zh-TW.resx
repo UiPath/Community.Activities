@@ -117,6 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>要在資料表中插入的 DataTable 變數。DataTable 欄的名稱和說明必須與資料庫資料表中的欄名稱和說明相符。</value>
+    <comment>property name</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>輸入資料表</value>
+    <comment>property description</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>提供 DataTable 變數</value>
+  </data>
+	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>要在其中插入資料的目標資料庫資料表</value>
+    <comment>property description</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>目標資料表名稱</value>
+    <comment>property name</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+    <value>提供目標資料庫資料表名稱</value>
+  </data>
+	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>從 Connect to Database 活動獲得且已開啟的資料庫連線。</value>
+  </data>
+	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>使用 Connect to Database 活動的輸出</value>
+  </data>
+	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>提供 DataTable 變數</value>
+  </data>
+	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+    <value>提供目標資料庫資料表名稱</value>
+  </data>
+	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+    <value>用於列比對的欄名稱</value>
+  </data>
+	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>提供 DataTable 變數</value>
+  </data>
+	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+    <value>提供目標資料庫資料表名稱</value>
+  </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
     <value>受影響的記錄</value>
     <comment>property name</comment>
@@ -213,7 +256,7 @@
     <value>未提供所需活動引數「提供者名稱」的值</value>
   </data>
   <data name="Activity_BulkInsert_Description" xml:space="preserve">
-    <value>將使用透過特定資料庫驅動程式實作的大量作業更新資料表。如果資料庫驅動程式不支援大量作業，將回復至「插入資料表」。</value>
+    <value>透過特定資料庫驅動程式的大量作業更新資料庫資料表。如果資料庫驅動程式不支援大量作業，則回復為 Insert Data Table。</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkInsert_Name" xml:space="preserve">
@@ -221,67 +264,59 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>將受影響的列數儲存在 Int64 變數中。</value>
+    <value>受影響的列數。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>受影響的記錄</value>
+    <value>受影響的列計數</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>用於以「安全字串」形式建立資料庫連線的連線字串。</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>以 SecureString 形式提供，用於建立資料庫連線的連線字串。請參閱文件取得更多範例。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name" xml:space="preserve">
     <value>安全連線字串</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
-    <value>用於建立資料庫連線的連線字串。</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用於建立資料庫連線的連線字串。請參閱文件取得更多範例。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Name" xml:space="preserve">
     <value>連線字串</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
     <value>錯誤時繼續</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
     <value>要插入項目的來源資料表。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Name" xml:space="preserve">
     <value>資料表</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>已開啟的資料庫連線。如果提供此連線，則系統將忽略「連線字串」和「安全連線字串」屬性。</value>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>已開啟的資料庫連線。如果提供此連線，則系統將忽略 ConnectionString 和 SecureConnectionString 屬性。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name" xml:space="preserve">
     <value>現有連線</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
-    <value>用於存取資料庫的資料庫提供者的名稱。</value>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Description" xml:space="preserve">
+    <value>用於存取資料庫的資料庫提供者的名稱。請參閱文件以取得更多範例。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Name" xml:space="preserve">
     <value>提供者名稱</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
-    <value>目的地資料庫資料表名稱。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
-    <value>資料表名稱</value>
-    <comment>property name</comment>
-  </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
-    <value>更新現有資料表中的相容資料表。此活動也將更新所有未在欄名稱集合中用作主鍵的欄。傳回受影響的列數。</value>
+    <value>更新現有資料庫資料表中的相容 DataTable。此活動也將更新所有未在欄名稱集合中用作主索引鍵的欄。傳回受影響的列數。</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkUpdate_Name" xml:space="preserve">
@@ -289,11 +324,11 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>已更新的列數。</value>
+    <value>受影響的列數。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>受影響的列</value>
+    <value>受影響的列計數</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
@@ -305,7 +340,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
-    <value>用於列比對的欄名稱集合。</value>
+    <value>用於列比對的欄名稱集合。Bulk Update 活動不會變更這些欄名稱。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
@@ -328,20 +363,12 @@
     <value>連線字串</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>錯誤時繼續</value>
-    <comment>property name</comment>
-  </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
-    <value>在更新資料表時將使用的「資料表」物件。資料表欄的說明必須與資料庫資料表中的欄一致，並且屬於這些欄的子集。</value>
+    <value>將用於更新資料庫資料表的 DataTable 變數。DataTable 欄的名稱和說明必須與資料庫資料表中的欄相符，並且屬於這些欄的子集。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
-    <value>資料表</value>
+    <value>輸入資料表</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -361,23 +388,23 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
-    <value>目標資料庫資料表。</value>
+    <value>要在其中插入資料的目標資料庫資料表。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
-    <value>資料表名稱</value>
+    <value>目標資料表名稱</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
-    <value>使用標準連線字串連接到資料庫。</value>
+    <value>使用標準連線字串連接至資料庫</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
-    <value>連接到資料庫</value>
+    <value>連接至資料庫</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>用於以「安全字串」形式建立資料庫連線的連線字串。</value>
+    <value>以 SecureString 形式提供，用於建立資料庫連線的連線字串。請參閱文件取得更多範例。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
@@ -385,7 +412,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
-    <value>用於建立資料庫連線的連線字串。</value>
+    <value>用於建立資料庫連線的連線字串。請參閱文件取得更多範例。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
@@ -401,7 +428,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
-    <value>用於存取資料庫的資料庫提供者的名稱。</value>
+    <value>用於存取資料庫的資料庫提供者的名稱。請參閱文件取得更多範例。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
@@ -409,7 +436,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
-    <value>關閉資料庫連線。</value>
+    <value>關閉資料庫連線</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
@@ -421,7 +448,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>資料庫連線</value>
+    <value>現有連線</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
@@ -489,7 +516,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
-    <value>對資料庫執行非查詢陳述式。對於 UPDATE、INSERT 和 DELETE 陳述式，傳回值為該命令影響的列數。對於所有其他類型的陳述式，傳回值均為 -1。</value>
+    <value>對資料庫執行 SQL 陳述式。對於 UPDATE、INSERT 和 DELETE 陳述式，傳回值為該命令影響的列數。對於所有其他類型的陳述式，傳回值均為 -1。</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
@@ -501,120 +528,46 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>受影響的記錄</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>指定命令字串的解釋方式。可用的選項如下: 
-文字 - 執行 SQL 參數中指定的查詢。儲存的程序 - 叫用 SQL 參數中指定的程序名稱。&quot;TableDirect&quot; - 叫用資料表中的所有記錄。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>命令類型</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>用於以「安全字串」形式建立資料庫連線的連線字串。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>安全連線字串</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>用於建立資料庫連線的連線字串。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>連線字串</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>錯誤時繼續</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>已開啟的資料庫連線。如果提供此連線，則系統將忽略「連線字串」和「安全連線字串」屬性。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>現有連線</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>繫結到 SQL 命令的具名參數字典。可透過在 SQL 命令中指定 &quot;@parameterName&quot; 陳述式以完成繫結。在執行階段時，「參數名稱」將取代為其在字典中的值。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>參數</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>用於存取資料庫的資料庫提供者的名稱。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>提供者名稱</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
-    <value>要執行的 SQL 命令。必須根據「命令類型」屬性中的選擇填寫該欄位。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL 命令</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>指定等待時間 (以毫秒為單位)，如果超出該時間後 SQL 命令並未執行，就會擲回錯誤。預設值為 30000 毫秒 (30 秒)，且必須大於或等於 0。</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>逾時</value>
+    <value>受影響的列計數</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
-    <value>對資料庫執行查詢，即可在資料表中傳回查詢結果。</value>
+    <value>對資料庫執行查詢，並將查詢結果以資料表的形式傳回</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
     <value>執行查詢</value>
     <comment>activity name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>指定命令字串的解釋方式。可用的選項如下: 
-文字 - 執行 SQL 參數中指定的查詢。儲存的程序 - 叫用 SQL 參數中指定的程序名稱。&quot;TableDirect&quot; - 叫用資料表中的所有記錄。</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
+    <value>指定命令字串的解釋方式</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
     <value>命令類型</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>用於以「安全字串」形式建立資料庫連線的連線字串。</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>以 SecureString 形式提供，用於建立資料庫連線的連線字串。請參閱文件取得更多範例。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Name" xml:space="preserve">
     <value>安全連線字串</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>用於建立資料庫連線的連線字串。</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Description" xml:space="preserve">
+    <value>用於建立資料庫連線的連線字串。請參閱文件取得更多範例。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Name" xml:space="preserve">
     <value>連線字串</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Description" xml:space="preserve">
     <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
     <value>錯誤時繼續</value>
     <comment>property name</comment>
   </data>
@@ -626,48 +579,48 @@
     <value>資料表</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>從「連接」或「啟動交易」活動獲得且已開啟的資料庫連線。如果提供此連線，則系統將忽略「連線字串」和「安全連線字串」屬性。</value>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>從 Connect 或 Start Transaction 活動獲得且已開啟的資料庫連線。如果提供此連線，則系統將忽略 ConnectionString 和 SecureConnectionString 屬性。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
     <value>現有連線</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>繫結到 SQL 命令的具名參數字典。可透過在 SQL 命令中指定 &quot;@parameterName&quot; 陳述式以完成繫結。在執行階段時，「參數名稱」將取代為其在字典中的值。</value>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
+    <value>繫結到 SQL 命令的具名參數字典。可透過在 SQL 命令中指定 &quot;@parameterName&quot; 陳述式以完成繫結。在執行階段時，parameterName 將取代為其在字典中的值。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
     <value>參數</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>用於存取資料庫的資料庫提供者的名稱。</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Description" xml:space="preserve">
+    <value>用於存取資料庫的資料庫提供者的名稱。請參閱文件以取得更多範例。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Name" xml:space="preserve">
     <value>提供者名稱</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
-    <value>要執行的 SQL 命令。必須根據「命令類型」屬性中的選擇填寫該欄位。</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>要執行的 SQL 命令。必須根據 Command type 屬性中的選擇填寫此屬性</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL 查詢</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL 命令</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>指定等待時間 (以毫秒為單位)，如果超出該時間後 SQL 命令並未執行，就會擲回錯誤。預設值為 30000 毫秒 (30 秒)，且必須大於或等於 0。</value>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>指定等待時間 (以毫秒為單位)，如果超出該時間後 SQL 指令並未運行，就會引發錯誤。預設值為 30000 毫秒 (30 秒)，且必須大於或等於 0。</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
     <value>逾時</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Description" xml:space="preserve">
-    <value>在現有資料表中插入相容的「資料表」變數。傳回受影響的列數。如果不滿足資料表中的限制條件，則無法成功完成該活動，並且系統會儲存所有寫入的列。</value>
+    <value>在現有的資料庫資料表中插入相容的 DataTable。傳回受影響的列數。</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_InsertDataTable_Name" xml:space="preserve">
@@ -675,11 +628,11 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>將受影響的列數儲存在 Int32 變數中。</value>
+    <value>受影響的列數。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>受影響的記錄</value>
+    <value>受影響的列計數</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -711,7 +664,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
-    <value>資料表</value>
+    <value>輸入資料表</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -731,14 +684,14 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
-    <value>要在其中插入資料的 SQL 資料表。</value>
+    <value>要在其中插入資料的目標資料庫資料表</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
-    <value>資料表名稱</value>
+    <value>目標資料表名稱</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Description" xml:space="preserve">
     <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
     <comment>property description</comment>
   </data>
@@ -756,5 +709,76 @@
   </data>
   <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
     <value>現有連線無效。請確保可建立連線。</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description" xml:space="preserve">
+    <value>在 Connection String 和 Connection Secure String 之間切換</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
+    <value>ConnectionInputModeSwitch</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
+    <value>請提供資料庫連線 SecureString 變數</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Placeholder" xml:space="preserve">
+    <value>請提供資料庫連線字串</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Placeholder" xml:space="preserve">
+    <value>請提供資料庫提供者名稱</value>
+  </data>
+  <data name="ConnectionSecureStringNullError" xml:space="preserve">
+    <value>必須使用連線 SecureString</value>
+  </data>
+  <data name="ConnectionStringNullError" xml:space="preserve">
+    <value>必須使用連線字串</value>
+  </data>
+  <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
+    <value>切換至安全字串連線</value>
+  </data>
+  <data name="ConnectionStringMenuAction" xml:space="preserve">
+    <value>切換至連線字串</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
+    <value>從 Connect to Database 活動獲得且已開啟的資料庫連線。</value>
+  </data>
+  <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
+    <value>已儲存的程序</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
+    <value>使用 Connect to Database 活動的輸出</value>
+  </data>
+  <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
+    <value>直接使用資料表</value>
+  </data>
+  <data name="CommandType_Text_FriendlyName" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>從 Connect to Database 活動獲得且已開啟的資料庫連線。</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>使用 Connect to Database 活動的輸出</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
+    <value>提供與所選命令類型對應的 SQL 陳述式</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Placeholder" xml:space="preserve">
+    <value>預設值為 30000 毫秒</value>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>要執行的 SQL 查詢。必須根據 Command type 屬性中的選擇填寫此屬性</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL 查詢</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>叫用 SQL 命令中指定的程序名稱。</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>叫用資料表中的所有記錄。</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>執行 SQL 命令。</value>
   </data>
 </root>
