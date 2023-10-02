@@ -23,7 +23,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows.Forms" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.20.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Dialogs\DataConnectionConfiguration.cs" />
