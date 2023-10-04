@@ -114,7 +114,22 @@ namespace UiPath.Database
             return result;
         }
 
-        public virtual int InsertDataTable(string tableName, DataTable dataTable, bool removeBrackets = false)
+
+        public virtual int InsertDataTable(string tableName, DataTable dataTable)
+        {
+            // the select command text should be different depending on the provider
+            // in this iteration we will try both formats for an insert operation, but a proper matching must be implemented
+            try
+            {
+                return InsertDataTableInternal(tableName, dataTable, true);
+            }
+            catch(Exception)
+            {
+                return InsertDataTableInternal(tableName, dataTable, false);
+            }
+        }
+
+        private int InsertDataTableInternal(string tableName, DataTable dataTable, bool removeBrackets)
         {
             DbDataAdapter dbDA = GetCurrentFactory().CreateDataAdapter();
             DbCommandBuilder cmdb = GetCurrentFactory().CreateCommandBuilder();
@@ -124,17 +139,9 @@ namespace UiPath.Database
             dbDA.SelectCommand = _connection.CreateCommand();
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
-            try
-            {
-                dbDA.SelectCommand.CommandText = string.Format("select {0} from {1}", GetColumnNames(dataTable, removeBrackets), tableName);
-                dbDA.InsertCommand = cmdb.GetInsertCommand();
-            }
-            catch (Exception)
-            {
-                //try again with/without brackets
-                dbDA.SelectCommand.CommandText = string.Format("select {0} from {1}", GetColumnNames(dataTable, !removeBrackets), tableName);
-                dbDA.InsertCommand = cmdb.GetInsertCommand();
-            }
+
+            dbDA.SelectCommand.CommandText = string.Format("select {0} from {1}", GetColumnNames(dataTable, removeBrackets), tableName);
+            dbDA.InsertCommand = cmdb.GetInsertCommand();
 
             dbDA.InsertCommand.Connection = _connection;
             dbDA.InsertCommand.Transaction = _transaction;
