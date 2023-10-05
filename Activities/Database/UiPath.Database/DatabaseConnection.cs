@@ -119,14 +119,26 @@ namespace UiPath.Database
         {
             // the select command text should be different depending on the provider
             // in this iteration we will try both formats for an insert operation, but a proper matching must be implemented
+            Exception firstException, secondException;
             try
             {
                 return InsertDataTableInternal(tableName, dataTable, true);
             }
-            catch(Exception)
+            catch(Exception e)
+            {
+                firstException = e;
+            }
+            try
             {
                 return InsertDataTableInternal(tableName, dataTable, false);
             }
+            catch (Exception e)
+            {
+                secondException = e;
+            }
+
+            // if both methods fail, return both fail messages 
+            throw new AggregateException(firstException, secondException);
         }
 
         private int InsertDataTableInternal(string tableName, DataTable dataTable, bool removeBrackets)
