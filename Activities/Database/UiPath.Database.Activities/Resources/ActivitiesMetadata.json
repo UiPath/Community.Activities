@@ -3,88 +3,12 @@
   "Activities": [
     {
       "AssemblyQualifiedName": null,
-      "FullName": "UiPath.Database.Activities.DatabaseConnect",
-      "ShortName": "DatabaseConnect",
-      "DisplayNameKey": "Activity_DatabaseConnect_Name",
-      "DescriptionKey": "Activity_DatabaseConnect_Description",
-      "IconKey": "Connect.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
-      "Properties": [
-        {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_DatabaseConnect_Property_ProviderName_Name",
-          "TooltipKey": "Activity_DatabaseConnect_Property_ProviderName_Description",
-          "PlaceholderKey": "Activity_DatabaseConnect_Property_ProviderName_Placeholder",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": {
-            "type": "AutoCompleteForExpression"
-          },
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_DatabaseConnect_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_DatabaseConnect_Property_ConnectionString_Description",
-          "PlaceholderKey": "Activity_DatabaseConnect_Property_ConnectionString_Placeholder",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_DatabaseConnect_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_DatabaseConnect_Property_ConnectionSecureString_Description",
-          "PlaceholderKey": "Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "DatabaseConnection",
-          "DisplayNameKey": "Activity_DatabaseConnect_Property_DatabaseConnection_Name",
-          "TooltipKey": "Activity_DatabaseConnect_Property_DatabaseConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Output"
-          },
-          "Widget": null,
-          "IconKey": null
-        }
-      ],
-      "DefaultFactory": null,
-      "ViewModelType": null
-    },
-    {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Database.Activities.BulkInsert",
       "ShortName": "BulkInsert",
       "DisplayNameKey": "Activity_BulkInsert_Name",
       "DescriptionKey": "Activity_BulkInsert_Description",
       "IconKey": "Bulk_insert.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
@@ -172,7 +96,7 @@
       "DisplayNameKey": "Activity_BulkUpdate_Name",
       "DescriptionKey": "Activity_BulkUpdate_Description",
       "IconKey": "Bulk_update.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
@@ -289,7 +213,7 @@
       "DisplayNameKey": "Activity_DatabaseConnect_Name",
       "DescriptionKey": "Activity_DatabaseConnect_Description",
       "IconKey": "Connect.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
@@ -365,7 +289,7 @@
       "DisplayNameKey": "Activity_DatabaseDisconnect_Name",
       "DescriptionKey": "Activity_DatabaseDisconnect_Description",
       "IconKey": "Disconnect.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
@@ -395,7 +319,7 @@
       "DisplayNameKey": "Activity_ExecuteNonQuery_Name",
       "DescriptionKey": "Activity_ExecuteNonQuery_Description",
       "IconKey": "Run_command.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
@@ -511,7 +435,7 @@
       "DisplayNameKey": "Activity_ExecuteQuery_Name",
       "DescriptionKey": "Activity_ExecuteQuery_Description",
       "IconKey": "Run_Query.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
@@ -627,7 +551,7 @@
       "DisplayNameKey": "Activity_InsertDataTable_Name",
       "DescriptionKey": "Activity_InsertDataTable_Description",
       "IconKey": "Insert.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [

@@ -539,133 +539,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples..
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secure connection string.
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection. Please see the documentation for more examples..
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ConnectionString_Description {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connection string.
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ConnectionString_Name {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ContinueOnError_Description {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ContinueOnError_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue on error.
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ContinueOnError_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The source DataTable for the items to be inserted..
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_DataTable_Description {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_DataTable_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data table.
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_DataTable_Name {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_DataTable_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored..
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect to Database activity..
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatf" +
-                        "orm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Existing connection.
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Use the output of the Connect to Database activity.
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The name of the database provider used to access the database. Please see the documention for more examples..
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ProviderName_Description {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ProviderName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provider name.
-        /// </summary>
-        public static string Activity_DatabaseRowActivity_Property_ProviderName_Name {
-            get {
-                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ProviderName_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         /// </summary>
         public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder {
             get {
@@ -850,6 +724,133 @@ namespace UiPath.Database.Activities.Properties {
         public static string Activity_DatabaseExecute_Property_TimeoutMS_Placeholder {
             get {
                 return ResourceManager.GetString("Activity_DatabaseExecute_Property_TimeoutMS_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure connection string.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection. Please see the documentation for more examples..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection string.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ContinueOnError_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ContinueOnError_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue on error.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ContinueOnError_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ContinueOnError_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The source DataTable for the items to be inserted..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_DataTable_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_DataTable_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data table.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_DataTable_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_DataTable_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect to Database activity..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatf" +
+                        "orm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing connection.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the output of the Connect to Database activity.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the database provider used to access the database. Please see the documention for more examples..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ProviderName_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ProviderName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider name.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ProviderName_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ProviderName_Name", resourceCulture);
             }
         }
         
@@ -1440,7 +1441,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle to secure string connection.
+        ///   Looks up a localized string similar to Toggle to secure connection string.
         /// </summary>
         public static string ConnectionSecureStringMenuAction {
             get {
@@ -1490,6 +1491,15 @@ namespace UiPath.Database.Activities.Properties {
         public static string ContinueOnErrorDisplayName {
             get {
                 return ResourceManager.GetString("ContinueOnErrorDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database.
+        /// </summary>
+        public static string DatabaseCategory {
+            get {
+                return ResourceManager.GetString("DatabaseCategory", resourceCulture);
             }
         }
         
