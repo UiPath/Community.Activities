@@ -117,6 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>The DataTable variable that will be inserted into the Table. The DataTable columns&apos; name and description must match the ones from the database table.</value>
+    <comment>property name</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>Input data table</value>
+    <comment>property description</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Provide the DataTable variable</value>
+  </data>
+	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>The target database table in which the data is to be inserted</value>
+    <comment>property description</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>Target table name</value>
+    <comment>property name</comment>
+  </data>
+	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Provide the target database table name</value>
+  </data>
+	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
+  </data>
+	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Provide the DataTable variable</value>
+  </data>
+	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Provide the target database table name</value>
+  </data>
+	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Column names used for row matching</value>
+  </data>
+	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Provide the DataTable variable</value>
+  </data>
+	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Provide the target database table name</value>
+  </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
     <value>ЗатронутыеЗаписи</value>
     <comment>property name</comment>
@@ -213,7 +256,7 @@
     <value>Не указано значение обязательного аргумента действия &quot;ProviderName&quot;</value>
   </data>
   <data name="Activity_BulkInsert_Description" xml:space="preserve">
-    <value>Обновляет таблицу с помощью массовых операций с использованием определенного внедрения драйвера базы данных. Вернется к вставке таблицы данных, если драйвер базы данных не поддерживает массовые операции.</value>
+    <value>Updates a database table via Bulk operations of the specific database driver. Falls back to Insert Data Table if the database driver does not support Bulk operations.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkInsert_Name" xml:space="preserve">
@@ -221,67 +264,59 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>Сохраняет число измененных строк в переменной Int64.</value>
+    <value>Number of affected rows.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Затронутые записи</value>
+    <value>Affected rows count</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных как Secure String.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Надежная строка подключения</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Строка подключения</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Продолжить при ошибке</value>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue on error</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
-    <value>Исходный параметр DataTable для элементов, которые необходимо вставить.</value>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
+    <value>The source DataTable for the items to be inserted.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
-    <value>Таблица данных</value>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Name" xml:space="preserve">
+    <value>Data table</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Уже открытое подключение к базе данных. Если задано это подключение, свойства ConnectionString и SecureConnectionString игнорируются.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Существующее подключение</value>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Existing connection</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
-    <value>Имя провайдера базы данных, используемое для доступа к базе данных.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database. Please see the documention for more examples.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
-    <value>Имя поставщика</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
-    <value>Имя целевой таблицы базы данных.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
-    <value>Имя таблицы</value>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
-    <value>Обновляет совместимый объект DataTable в существующей таблице. Действие также обновляет все столбцы, которых нет в коллекции имен столбцов, используемых как основной ключ. Возвращает число затронутых строк.</value>
+    <value>Updates a compatible DataTable in an existing database table. The activity also updates all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkUpdate_Name" xml:space="preserve">
@@ -289,11 +324,11 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>Количество обновленных строк.</value>
+    <value>Number of affected rows.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Затронутые строки</value>
+    <value>Affected rows count</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
@@ -305,7 +340,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
-    <value>Коллекция имен столбцов, используемых для сопоставления строк.</value>
+    <value>The collection of column names used for row matching. These column names will not be changed by the Bulk Update activity.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
@@ -328,20 +363,12 @@
     <value>Строка подключения</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Продолжить при ошибке</value>
-    <comment>property name</comment>
-  </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
-    <value>Объект DataTable, который будет использоваться при обновлении таблицы. Описания столбцов DataTable должны совпадать со столбцами из таблицы базы данных и быть их подмножеством.</value>
+    <value>The DataTable variable that will be used to update the database table. The DataTable columns&apos; name and description must match the columns from the database table and be a subset of them.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
-    <value>Таблица данных</value>
+    <value>Input data table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -361,23 +388,23 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
-    <value>Таблица целевой базы данных.</value>
+    <value>The target database table in which the data is to be updated.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
-    <value>Имя таблицы</value>
+    <value>Target table name</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
-    <value>Подключение к базе данных выполняется с помощью стандартной строки подключения.</value>
+    <value>Connects to a database by using a standard connection string</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
-    <value>Connect to database</value>
+    <value>Connect to Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных как Secure String.</value>
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
@@ -385,7 +412,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных.</value>
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
@@ -401,7 +428,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
-    <value>Имя провайдера базы данных, используемое для доступа к базе данных.</value>
+    <value>The name of the database provider used to access the database. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
@@ -409,11 +436,11 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
-    <value>Закрывает подключение к базе данных.</value>
+    <value>Closes a connection to a database</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
-    <value>Disconnect from database</value>
+    <value>Disconnect from Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -421,7 +448,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Подключение к базе данных</value>
+    <value>Existing connection</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
@@ -490,137 +517,59 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
-    <value>Выполняет команду, отличную от запроса, в базе данных. Для команд UPDATE, INSERT и DELETE возвращаемым значением является число строк, на которые влияет данная команда. Для всех других типов операторов возвращаемое значение равно -1.</value>
+    <value>Executes an SQL statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
-    <value>Run command</value>
+    <value>Run Command</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>Результат выполнения команды sql. Для операторов UPDATE, INSERT и DELETE возвращаемым значением является число строк, на которые влияет данная команда. Для всех других типов операторов возвращаемое значение равно -1.</value>
+    <value>The result of the execution of the SQL command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Затронутые записи</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>Указывает способ интерпретации командной строки. Доступны следующие варианты:
-Text — выполняет запрос, указанный в параметре SQL.
-StoredProcedure — вызывает имя процедуры, указанное в параметре SQL.
-TableDirect — вызывает все записи из таблицы.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Тип команды</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных как Secure String.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Надежная строка подключения</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Строка подключения</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Продолжить при ошибке</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Уже открытое подключение к базе данных. Если задано это подключение, свойства ConnectionString и SecureConnectionString игнорируются.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Существующее подключение</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>Справочник именованных параметров, связанных с командой sql. Привязка выполняется путем указания оператора &quot;@parameterName&quot; в команде sql. В среде выполнения параметр parameterName будет заменен его значением из справочника.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>Параметры</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>Имя провайдера базы данных, используемое для доступа к базе данных.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Имя поставщика</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Команда sql для выполнения. Это поле должно быть заполнено в соответствии с выбором для свойства CommandType.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
-    <value>Команда SQL</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>Указывает в миллисекундах время ожидания выполнения команды sql до возникновения ошибки. Значение по умолчанию равно 30 000 миллисекунд (30 секунд) и должно быть больше или равно 0.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Время ожидания</value>
+    <value>Affected rows count</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
-    <value>Выполняет запрос к базе данных и возвращает результат запроса в Datatable.</value>
+    <value>Executes a query on a database and returns the query result as a Data Table</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
-    <value>Run query</value>
+    <value>Run Query</value>
     <comment>activity name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>Указывает способ интерпретации командной строки. Доступны следующие варианты:
-Text — выполняет запрос, указанный в параметре SQL.
-StoredProcedure — вызывает имя процедуры, указанное в параметре SQL.
-TableDirect — вызывает все записи из таблицы.</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
+    <value>Specifies how a command string is interpreted</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Тип команды</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
+    <value>Command type</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных как Secure String.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Надежная строка подключения</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Строка подключения, используемая для установления соединения с базой данных.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Строка подключения</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Продолжить при ошибке</value>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue on error</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
@@ -631,48 +580,48 @@ TableDirect — вызывает все записи из таблицы.</valu
     <value>Таблица данных</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Уже открытое подключение к базе данных, полученное с помощью действий Connect или Start Transaction. Если задано это подключение, свойства ConnectionString и SecureConnectionString игнорируются.</value>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect or Start Transaction activities. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Существующее подключение</value>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Existing connection</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>Справочник именованных параметров, связанных с командой sql. Привязка выполняется путем указания оператора &quot;@parameterName&quot; в команде sql. В среде выполнения параметр parameterName будет заменен его значением из справочника.</value>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
+    <value>A dictionary of named parameters that are bound to the SQL command. The binding is done by specifying the &apos;@parameterName&apos; statement in the SQL command. At runtime the parameterName will be replaced with its value from the dictionary.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>Параметры</value>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
+    <value>Parameters</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>Имя провайдера базы данных, используемое для доступа к базе данных.</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database. Please see the documention for more examples.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Имя поставщика</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Команда sql для выполнения. Это поле должно быть заполнено в соответствии с выбором для свойства CommandType.</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>An SQL command to be executed. This property must be completed according to the selection from the Command type property</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
-    <value>Запрос SQL</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>Команда SQL</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>Указывает в миллисекундах время ожидания выполнения команды sql до возникновения ошибки. Значение по умолчанию равно 30 000 миллисекунд (30 секунд) и должно быть больше или равно 0.</value>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown. The default value is 30000 milliseconds (30 seconds) and must be greater than or equal to 0.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Время ожидания</value>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>Timeout</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Description" xml:space="preserve">
-    <value>Вставляет совместимую переменную DataTable в существующую таблицу. Возвращает число затронутых строк. Если ограничения для данной таблицы не соблюдаются, действие не будет выполнено, и все записанные строки будут сохранены.</value>
+    <value>Inserts a compatible DataTable in an existing database table. Returns the number of rows affected.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_InsertDataTable_Name" xml:space="preserve">
@@ -680,11 +629,11 @@ TableDirect — вызывает все записи из таблицы.</valu
     <comment>activity name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>Сохраняет число измененных строк в переменной Int32.</value>
+    <value>Number of affected rows.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Затронутые записи</value>
+    <value>Affected rows count</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -716,7 +665,7 @@ TableDirect — вызывает все записи из таблицы.</valu
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
-    <value>Таблица данных</value>
+    <value>Input data table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -736,15 +685,15 @@ TableDirect — вызывает все записи из таблицы.</valu
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
-    <value>Таблица SQL, в которую должны вводиться данные.</value>
+    <value>The target database table in which the data is to be inserted</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
-    <value>Имя таблицы</value>
+    <value>Target table name</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
     <comment>property description</comment>
   </data>
   <data name="Category_Other" xml:space="preserve">
@@ -761,5 +710,76 @@ TableDirect — вызывает все записи из таблицы.</valu
   </data>
   <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
     <value>Существующее подключение недействительно. Убедитесь, что можно установить подключение.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between Connection String and Connection Secure String</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
+    <value>ConnectionInputModeSwitch</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
+    <value>Please provide the database connection SecureString variable</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Placeholder" xml:space="preserve">
+    <value>Please provide the database connection string</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Placeholder" xml:space="preserve">
+    <value>Please provide the database provider name</value>
+  </data>
+  <data name="ConnectionSecureStringNullError" xml:space="preserve">
+    <value>Connection SecureString must be used</value>
+  </data>
+  <data name="ConnectionStringNullError" xml:space="preserve">
+    <value>Connection string must be used</value>
+  </data>
+  <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
+    <value>Toggle to secure string connection</value>
+  </data>
+  <data name="ConnectionStringMenuAction" xml:space="preserve">
+    <value>Toggle to connection string</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+  <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
+    <value>Stored Procedure</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
+  </data>
+  <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
+    <value>Table Direct</value>
+  </data>
+  <data name="CommandType_Text_FriendlyName" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
+    <value>Provide an SQL statement that corresponds to the selected command type</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Placeholder" xml:space="preserve">
+    <value>Default is 30000 miliseconds</value>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>An SQL query to be executed. This property must be completed according to the selection from the Command type property</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>Запрос SQL</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>Invokes the procedure name specified in the SQL command.</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>Invokes all records from a table.</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>Executes the SQL command.</value>
   </data>
 </root>
