@@ -121,43 +121,43 @@
     <value>要在資料表中插入的 DataTable 變數。DataTable 欄的名稱和說明必須與資料庫資料表中的欄名稱和說明相符。</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
     <value>輸入資料表</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
     <value>提供 DataTable 變數</value>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
     <value>要在其中插入資料的目標資料庫資料表</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
     <value>目標資料表名稱</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
     <value>提供目標資料庫資料表名稱</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
     <value>從 Connect to Database 活動獲得且已開啟的資料庫連線。</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>使用 Connect to Database 活動的輸出</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
     <value>提供 DataTable 變數</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
     <value>提供目標資料庫資料表名稱</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
     <value>用於列比對的欄名稱</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
     <value>提供 DataTable 變數</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
     <value>提供目標資料庫資料表名稱</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
@@ -732,7 +732,7 @@
     <value>必須使用連線字串</value>
   </data>
   <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
-    <value>切換至安全字串連線</value>
+    <value>切換至安全連線字串</value>
   </data>
   <data name="ConnectionStringMenuAction" xml:space="preserve">
     <value>切換至連線字串</value>
@@ -780,5 +780,8 @@
   </data>
   <data name="CommandType_Text_Tooltip" xml:space="preserve">
     <value>執行 SQL 命令。</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>資料庫</value>
   </data>
 </root>

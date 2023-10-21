@@ -121,43 +121,43 @@
     <value>Die Datentabellenvariable, die in die Tabelle eingefügt werden soll. Der Name und die Beschreibung der Datentabellenspalten müssen denen der Datenbanktabelle entsprechen.</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
     <value>Eingabedatentabelle</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
     <value>DataTable-Variable angeben</value>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
     <value>Die Zieldatenbanktabelle, in die die Daten eingefügt werden sollen</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
     <value>Name der Zieltabelle</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
     <value>Namen der Zieldatenbanktabelle angeben</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
     <value>Eine bereits geöffnete Datenbankverbindung, die von der Aktivität „Connect to Database“ abgerufen wurde.</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>Ausgabe der Aktivität „Connect to Database“ verwenden</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
     <value>DataTable-Variable angeben</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
     <value>Namen der Zieldatenbanktabelle angeben</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
     <value>Spaltennamen, die für den Zeilenabgleich verwendet werden</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
     <value>DataTable-Variable angeben</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
     <value>Namen der Zieldatenbanktabelle angeben</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
@@ -733,7 +733,7 @@ Wenn „TransaktionVerwenden“ auf „true“ gesetzt ist, werden die enthalten
     <value>Verbindungszeichenfolge muss verwendet werden</value>
   </data>
   <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
-    <value>Auf Verbindung mit sicherer Zeichenfolge umschalten</value>
+    <value>Auf sichere Verbindungszeichenfolge umschalten</value>
   </data>
   <data name="ConnectionStringMenuAction" xml:space="preserve">
     <value>Auf Verbindungszeichenfolge umschalten</value>
@@ -781,5 +781,8 @@ Wenn „TransaktionVerwenden“ auf „true“ gesetzt ist, werden die enthalten
   </data>
   <data name="CommandType_Text_Tooltip" xml:space="preserve">
     <value>Führt den SQL-Befehl aus.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>Datenbank</value>
   </data>
 </root>

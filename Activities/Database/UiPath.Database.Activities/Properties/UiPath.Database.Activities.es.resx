@@ -121,43 +121,43 @@
     <value>La variable TablaDeDatos que se insertará en la tabla. El nombre y descripción de las columnas TablaDeDatos debe coincidir con los de la tabla de la base de datos.</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
     <value>Tabla de datos de entrada</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
     <value>Proporcionar la variable TablaDeDatos</value>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
     <value>La tabla de la base de datos de destino en la que se insertarán los datos</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
     <value>Nombre de la tabla de destino</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
     <value>Proporcionar el nombre de la tabla de la base de datos de destino</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
     <value>Ya hay una conexión de base de datos abierta que se ha recibido de actividades Conectar a la base de datos.</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>Usar el resultado de la actividad Conectar a la base de datos</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
     <value>Proporcionar la variable TablaDeDatos</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
     <value>Proporcionar el nombre de la tabla de la base de datos de destino</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
     <value>Nombres de columna utilizados para la coincidencia de filas</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
     <value>Proporcionar la variable TablaDeDatos</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
     <value>Proporcionar el nombre de la tabla de la base de datos de destino</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
@@ -733,7 +733,7 @@ Si UtilizarTransacción se establece en Verdadero, las operaciones contenidas se
     <value>Se debe usar una cadena de conexión</value>
   </data>
   <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
-    <value>Cambiar para asegurar la conexión de la cadena</value>
+    <value>Cambiar a cadena de conexión segura</value>
   </data>
   <data name="ConnectionStringMenuAction" xml:space="preserve">
     <value>Cambiar a cadena de conexión</value>
@@ -781,5 +781,8 @@ Si UtilizarTransacción se establece en Verdadero, las operaciones contenidas se
   </data>
   <data name="CommandType_Text_Tooltip" xml:space="preserve">
     <value>Ejecuta el comando SQL.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>Base de datos</value>
   </data>
 </root>

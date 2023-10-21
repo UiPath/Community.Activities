@@ -121,43 +121,43 @@
     <value>A variável TabelaDeDados que será inserida na Tabela. O nome e a descrição das colunas da TabelaDeDados têm de corresponder aos da tabela de base de dados.</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
     <value>Tabela de dados de entrada</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
     <value>Forneça a variável TabelaDeDados</value>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
     <value>A tabela de base de dados de destino na qual os dados serão inseridos</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
     <value>Nome da tabela de destino</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
     <value>Forneça o nome da tabela de base de dados de destino</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
     <value>Uma ligação de base de dados já aberta obtida a partir da atividade Connect to Database.</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>Utilizar a saída da atividade Connect to Database</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
     <value>Forneça a variável TabelaDeDados</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
     <value>Forneça o nome da tabela de base de dados de destino</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
     <value>Nomes de colunas utilizados para correspondência de linhas</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
     <value>Forneça a variável TabelaDeDados</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
     <value>Forneça o nome da tabela de base de dados de destino</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
@@ -733,7 +733,7 @@ Se UseTransaction for definido como Verdadeiro, as operações contidas são exe
     <value>A string de ligação tem de ser utilizada</value>
   </data>
   <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
-    <value>Alternar para ligação de string segura</value>
+    <value>Alternar para string de ligação segura</value>
   </data>
   <data name="ConnectionStringMenuAction" xml:space="preserve">
     <value>Alternar para string de ligação</value>
@@ -781,5 +781,8 @@ Se UseTransaction for definido como Verdadeiro, as operações contidas são exe
   </data>
   <data name="CommandType_Text_Tooltip" xml:space="preserve">
     <value>Executa o comando SQL.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>Base de dados</value>
   </data>
 </root>
