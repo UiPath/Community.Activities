@@ -121,43 +121,43 @@
     <value>Tabloya eklenecek VeriTablosu değişkeni. VeriTablosu sütunlarının adı ve açıklaması veritabanı tablosundakilerle eşleşmelidir.</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
     <value>Giriş veri tablosu</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
     <value>VeriTablosu değişkenini sağlayın</value>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
     <value>Verilerin ekleneceği hedef veritabanı tablosu</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
     <value>Hedef tablo adı</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
     <value>Hedef veritabanı tablo adını sağlayın</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
     <value>Connect to Database etkinliğinden elde edilen, zaten açık olan bir veritabanı bağlantısı.</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>Connect to Veritabanı etkinliğinin çıkışını kullan</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
     <value>VeriTablosu değişkenini sağlayın</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
     <value>Hedef veritabanı tablo adını sağlayın</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
     <value>Satır eşleştirmek için kullanılan sütun adları</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
     <value>VeriTablosu değişkenini sağlayın</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
     <value>Hedef veritabanı tablo adını sağlayın</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
@@ -733,7 +733,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <value>Bağlantı dizesi kullanılmalıdır</value>
   </data>
   <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
-    <value>Güvenli dize bağlantısına geç</value>
+    <value>Güvenli bağlantı dizesine geç</value>
   </data>
   <data name="ConnectionStringMenuAction" xml:space="preserve">
     <value>Bağlantı dizesine geç</value>
@@ -781,5 +781,8 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
   </data>
   <data name="CommandType_Text_Tooltip" xml:space="preserve">
     <value>SQL komutunu yürütür.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>Veritabanı</value>
   </data>
 </root>

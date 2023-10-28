@@ -121,43 +121,43 @@
     <value>테이블에 삽입될 데이터 테이블 변수입니다. 데이터 테이블 열의 이름 및 설명은 데이터베이스 테이블의 열의 이름 및 설명과 일치해야 합니다.</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
     <value>입력 데이터 테이블</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
     <value>데이터 테이블 변수 제공</value>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
     <value>데이터를 삽입할 대상 데이터베이스 테이블</value>
     <comment>property description</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
     <value>대상 테이블 이름</value>
     <comment>property name</comment>
   </data>
-	<data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
     <value>대상 데이터베이스 테이블 이름 제공</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
     <value>데이터베이스에 연결 액티비티에서 가져온 이미 열린 데이터베이스 연결입니다.</value>
   </data>
-	<data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>데이터베이스에 연결 액티비티의 출력 사용</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
     <value>데이터 테이블 변수 제공</value>
   </data>
-	<data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
     <value>대상 데이터베이스 테이블 이름 제공</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
     <value>행 일치에 사용되는 열 이름</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
     <value>데이터 테이블 변수 제공</value>
   </data>
-	<data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
     <value>대상 데이터베이스 테이블 이름 제공</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
@@ -733,7 +733,7 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <value>연결 문자열을 사용해야 합니다.</value>
   </data>
   <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
-    <value>보안 문자열 연결로 토글</value>
+    <value>보안 연결 문자열로 전환</value>
   </data>
   <data name="ConnectionStringMenuAction" xml:space="preserve">
     <value>연결 문자열로 전환</value>
@@ -781,5 +781,8 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
   </data>
   <data name="CommandType_Text_Tooltip" xml:space="preserve">
     <value>SQL 명령을 실행합니다.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>데이터베이스</value>
   </data>
 </root>
