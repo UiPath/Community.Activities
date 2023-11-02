@@ -105,7 +105,7 @@
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version ="19.20.0"/>
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
   </ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
 		<PackageReference Include="System.Activities.ViewModels" />
