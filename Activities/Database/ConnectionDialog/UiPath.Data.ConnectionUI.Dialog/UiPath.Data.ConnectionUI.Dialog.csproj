@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
     <PackageReference Include="Oracle.ManagedDataAccess.Core">
-      <Version>3.21.1</Version>
+      <Version>3.21.90</Version>
     </PackageReference>
     <PackageReference Include="System.Activities">
       <Version>1.0.0-20201117-04</Version>
