@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ActivitiesBindings.json" />
     <None Remove="Resources\ActivitiesMetadata.json" />
     <None Remove="Resources\calculator.svg" />
   </ItemGroup>
@@ -21,6 +22,10 @@
     <PackageReference Include="System.Activities.ViewModels" Version="1.0.0-20230919.1" />
     <PackageReference Include="UiPath.Activities.Api" Version="22.4.1" PrivateAssets="All" />
     <PackageReference Include="UiPath.Workflow" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ActivitiesBindings.json" />
   </ItemGroup>
 
   <ItemGroup>

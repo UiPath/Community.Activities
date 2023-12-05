@@ -1,0 +1,18 @@
+{
+  "ActivityBindings": [
+    {
+      "Activities": [
+        "UiPath.Examples.Activities.Mail"
+      ],
+      "Type": "Type",
+      "Key": "Key",
+      "Values": {
+        "ConnectionId": "ConnectionId"
+      },
+      "Arguments": {
+        "BindingsVersion": { "Constant": "2.1" },
+        "Connector": "Connector"
+      }
+    }
+  ]
+}

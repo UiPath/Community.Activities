@@ -149,5 +149,59 @@ namespace UiPath.Examples.Activities {
                 return ResourceManager.GetString("Calculator_SelectedOperation_Tooltip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection Id.
+        /// </summary>
+        public static string ConnectionId_DisplayName {
+            get {
+                return ResourceManager.GetString("ConnectionId_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a connection defined in Integration Service.
+        /// </summary>
+        public static string ConnectionId_Tooltip {
+            get {
+                return ResourceManager.GetString("ConnectionId_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connector.
+        /// </summary>
+        public static string Connector_DisplayName {
+            get {
+                return ResourceManager.GetString("Connector_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select the UiPath integration connector you wish to use.
+        /// </summary>
+        public static string Connector_Tooltip {
+            get {
+                return ResourceManager.GetString("Connector_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example activity that uses integration service connections.
+        /// </summary>
+        public static string Mail_Description {
+            get {
+                return ResourceManager.GetString("Mail_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail.
+        /// </summary>
+        public static string Mail_DisplayName {
+            get {
+                return ResourceManager.GetString("Mail_DisplayName", resourceCulture);
+            }
+        }
     }
 }

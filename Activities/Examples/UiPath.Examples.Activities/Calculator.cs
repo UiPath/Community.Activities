@@ -21,7 +21,7 @@ namespace UiPath.Examples.Activities
         protected override int Execute(CodeActivityContext context)
         {
             // This is how you can log messages from your activity. logs are sent to the Robot which will forward them to Orchestrator
-            context.GetExecutorRuntime().LogMessage(new Robot.Activities.Api.LogMessage()
+            context.GetExecutorRuntime()?.LogMessage(new Robot.Activities.Api.LogMessage()
             {
                 EventType = TraceEventType.Information,
                 Message = "Executing Calculator activity"

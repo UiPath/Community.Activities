@@ -9,6 +9,15 @@
       "categoryKey": "Examples",
       "iconKey": "calculator.svg",
       "viewModelType": "UiPath.Examples.Activities.ViewModels.CalculatorViewModel"
+    },
+    {
+      "fullName": "UiPath.Examples.Activities.Mail",
+      "shortName": "Mail",
+      "displayNameKey": "Mail_DisplayName",
+      "descriptionKey": "Mail_Description",
+      "categoryKey": "Examples",
+      "iconKey": "mail.svg",
+      "viewModelType": "UiPath.Examples.Activities.ViewModels.MailViewModel"
     }
   ]
 }

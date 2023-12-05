@@ -157,4 +157,27 @@
     <value>Select the operation to be applied to the two input numbers</value>
     <comment>property description</comment>
   </data>
+  <data name="ConnectionId_DisplayName" xml:space="preserve">
+    <value>Connection Id</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConnectionId_Tooltip" xml:space="preserve">
+    <value>Select a connection defined in Integration Service</value>
+  </data>
+  <data name="Connector_DisplayName" xml:space="preserve">
+    <value>Connector</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Connector_Tooltip" xml:space="preserve">
+    <value>Please select the UiPath integration connector you wish to use</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Mail_Description" xml:space="preserve">
+    <value>Example activity that uses integration service connections</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Mail_DisplayName" xml:space="preserve">
+    <value>Mail</value>
+    <comment>activity name</comment>
+  </data>
 </root>
