@@ -6,7 +6,7 @@ namespace UiPath.Examples.Activities
     /// Bindings are used by activities to expose resources needed for execution.
     /// These resources can be defined at design time (saved in the workflow) or overriden before runtime (in Assistant or Orchestrator).
     /// </summary>
-    public class BindingsActivityBase : CodeActivity
+    public abstract class BindingsActivityBase<T> : CodeActivity<T>
     {
         /// <summary>
         /// The Type of the resource (ex: Connection, Asset, Queue, etc)
@@ -19,10 +19,6 @@ namespace UiPath.Examples.Activities
         /// The key is used to identify the resource at runtime.
         /// </summary>
         public string Key { get; set; }
-
-        protected override void Execute(CodeActivityContext context)
-        {   
-        }
 
         /// <summary>
         /// Used to generate the key for the runtime bindings dictionary.

@@ -1,13 +1,12 @@
-﻿
-namespace UiPath.Examples.Activities
+﻿namespace UiPath.Examples.Activities
 {
-    public class IntegrationActivityBase : BindingsActivityBase
+    public abstract class IntegrationActivityBase<T> : BindingsActivityBase<T>
     {
         public string ConnectionId { get; set; }
-        //public Connectors Connector { get; set; }
+        public string Connector { get; set; }
 
         public IntegrationActivityBase()
-        {   
+        {
             Type = "Connection";
             Key = GenerateBindingsKey();
         }
