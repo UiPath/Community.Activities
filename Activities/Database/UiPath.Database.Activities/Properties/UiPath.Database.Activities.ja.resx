@@ -364,7 +364,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
-    <value>データベース テーブルの更新に使用する DataTable 型変数です。DataTable 列名および記述は、データベース テーブルの列と一致しており、それらの列のサブセットである必要があります。</value>
+    <value>データベース テーブルの更新に使用する DataTable 型変数です。この変数の列名および記述は、データベース テーブルの列と一致しており、それらの列のサブセットである必要があります。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
@@ -517,7 +517,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
-    <value>データベースに対して SQL ステートメントを実行します。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受けた行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。(Run Command)</value>
+    <value>データベースに対して SQL ステートメントを実行します。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受ける行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。(Run Command)</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
@@ -525,7 +525,7 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>SQL コマンドの実行の結果です。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受けた行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。</value>
+    <value>SQL コマンドの実行の結果です。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受ける行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">

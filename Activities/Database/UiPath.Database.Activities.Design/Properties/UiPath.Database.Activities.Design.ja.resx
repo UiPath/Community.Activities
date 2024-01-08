@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AffectedRecordsDescription" xml:space="preserve">
-    <value>SQL コマンドの実行の結果です。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受けた行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。</value>
+    <value>SQL コマンドの実行の結果です。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受ける行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。</value>
   </data>
   <data name="CategoryDatabase" xml:space="preserve">
     <value>データベース</value>
@@ -148,7 +148,7 @@
     <value>300</value>
   </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
-    <value>データベースに対して SQL ステートメントを実行します。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受けた行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。(Execute Non Query)</value>
+    <value>データベースに対して SQL ステートメントを実行します。UPDATE、INSERT、および DELETE ステートメントの場合、戻り値は、コマンドの影響を受ける行の数です。それら以外の種類のステートメントでは、戻り値はいずれも -1 です。(Execute Non Query)</value>
   </data>
   <data name="ExecuteQueryDescription" xml:space="preserve">
     <value>データベースに対してクエリを実行し、クエリの結果をデータテーブルとして返します。(Execute Query)</value>
