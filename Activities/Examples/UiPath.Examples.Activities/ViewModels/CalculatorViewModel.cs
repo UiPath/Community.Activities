@@ -9,16 +9,16 @@ namespace UiPath.Examples.Activities.ViewModels
          * Properties names must match the names and generic type arguments of the properties in the activity
          * Use DesignInArgument for properties that accept a variable
          */
-        public DesignInArgument<int> FirstNumber { get; set; }
-        public DesignInArgument<int> SecondNumber { get; set; }
+        public DesignInArgument<int>? FirstNumber { get; set; }
+        public DesignInArgument<int>? SecondNumber { get; set; }
         /*
-         * Use DesignProperty for properties that accept a constant value                
+         * Use DesignProperty for properties that accept a constant value
          */
-        public DesignProperty<Operation> SelectedOperation { get; set; }
+        public DesignProperty<Operation>? SelectedOperation { get; set; }
         /*
          * The result property comes from the activity's base class
          */
-        public DesignOutArgument<int> Result { get; set; }
+        public DesignOutArgument<int>? Result { get; set; }
 
         public CalculatorViewModel(IDesignServices services) : base(services)
         {
@@ -36,7 +36,7 @@ namespace UiPath.Examples.Activities.ViewModels
 
             var orderIndex = 0;
 
-            FirstNumber.DisplayName = Resources.Calculator_FirstNumber_DisplayName;
+            FirstNumber!.DisplayName = Resources.Calculator_FirstNumber_DisplayName;
             FirstNumber.Tooltip = Resources.Calculator_FirstNumber_Tooltip;
             /*
              * Required fields will automatically raise validation errors when empty.
@@ -49,13 +49,13 @@ namespace UiPath.Examples.Activities.ViewModels
             FirstNumber.IsPrincipal = true; // specifies if it belongs to the main category (which cannot be collapsed)
             FirstNumber.OrderIndex = orderIndex++; // indicates the order in which the fields appear in the designer (i.e. the line number);
 
-            SecondNumber.DisplayName = Resources.Calculator_SecondNumber_DisplayName;
+            SecondNumber!.DisplayName = Resources.Calculator_SecondNumber_DisplayName;
             SecondNumber.Tooltip = Resources.Calculator_SecondNumber_Tooltip;
             SecondNumber.IsRequired = true;
             SecondNumber.IsPrincipal = true;
             SecondNumber.OrderIndex = orderIndex++;
 
-            SelectedOperation.DisplayName = Resources.Calculator_SelectedOperation_DisplayName;
+            SelectedOperation!.DisplayName = Resources.Calculator_SelectedOperation_DisplayName;
             SelectedOperation.Tooltip = Resources.Calculator_SelectedOperation_Tooltip;
             SelectedOperation.IsRequired = true;
             SelectedOperation.IsPrincipal = true;
@@ -65,7 +65,7 @@ namespace UiPath.Examples.Activities.ViewModels
              * Output properties are never mandatory.
              * By convention, they are not principal and they are placed at the end of the activity.
              */
-            Result.DisplayName = Resources.Calculator_Result_DisplayName;
+            Result!.DisplayName = Resources.Calculator_Result_DisplayName;
             Result.Tooltip = Resources.Calculator_Result_Tooltip;
             Result.OrderIndex = orderIndex;
         }

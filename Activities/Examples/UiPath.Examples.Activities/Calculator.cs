@@ -7,10 +7,10 @@ namespace UiPath.Examples.Activities
     public class Calculator : CodeActivity<int> // This base class exposes an OutArgument named Result
     {
         [RequiredArgument]
-        public InArgument<int> FirstNumber { get; set; } //InArgument allows a varriable to be set from the workflow
+        public InArgument<int>? FirstNumber { get; set; } //InArgument allows a variable to be set from the workflow
 
         [RequiredArgument]
-        public InArgument<int> SecondNumber { get; set; }
+        public InArgument<int>? SecondNumber { get; set; }
 
         [RequiredArgument]
         public Operation SelectedOperation { get; set; } = Operation.Multiply; // default value is optional
@@ -27,8 +27,8 @@ namespace UiPath.Examples.Activities
                 Message = "Executing Calculator activity"
             });
 
-            var fistNumber = FirstNumber.Get(context); //get the value from the workflow context (remember, this can be a variable)
-            var secondNumber = SecondNumber.Get(context);
+            var fistNumber = FirstNumber!.Get(context); //get the value from the workflow context (remember, this can be a variable)
+            var secondNumber = SecondNumber!.Get(context);
 
             if (secondNumber == 0 && SelectedOperation == Operation.Divide)
             {
