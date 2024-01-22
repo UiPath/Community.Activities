@@ -33,7 +33,7 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         public static List<string> GetAvailableEncodings()
         {
-            var availableEncodingsList = new List<string>() { CodePages.Default.ToString() };
+            var availableEncodingsList = new List<string>() { ((int)CodePages.Default).ToString() };
             availableEncodingsList.AddRange(Encoding.GetEncodings()
                 .Select(e => e.CodePage)
                 .OrderBy(e => GetEncodingOrderIndex(e))
