@@ -840,7 +840,7 @@
     <value>The key and the secure string must not be both null.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>The Key must not be null</value>
+    <value>Value for a required activity argument 'Key' was not supplied</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>The Key Secure String must not be null</value>
