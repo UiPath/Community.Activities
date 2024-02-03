@@ -840,7 +840,7 @@
     <value>Anahtar ve güvenli dizenin her ikisi de null olmamalıdır.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>Anahtar null olmamalıdır</value>
+    <value>Gerekli bir etkinlik bağımsız değişkeni olan &apos;Key&apos; için değer sağlanmamış</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>Anahtar Güvenli Dizesi null olmamalıdır</value>

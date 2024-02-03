@@ -840,7 +840,7 @@
     <value>Der Schlüssel und die sichere Zeichenfolge dürfen nicht beide NULL sein.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>Der Schlüssel darf nicht NULL sein.</value>
+    <value>Wert für erforderliches Aktivitätsargument „Schlüssel“ wurde nicht angegeben.</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>Die sichere Schlüsselzeichenfolge darf nicht NULL sein.</value>
