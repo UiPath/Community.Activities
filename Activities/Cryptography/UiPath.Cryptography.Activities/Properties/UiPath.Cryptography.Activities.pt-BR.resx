@@ -840,7 +840,7 @@
     <value>A chave e a string segura não podem ser nulas ao mesmo tempo.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>Chave não pode ter valor nulo</value>
+    <value>O valor de um argumento de atividade &quot;Key&quot; exigido não foi fornecido</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>String Segura da Chave não pode ter valor nulo</value>

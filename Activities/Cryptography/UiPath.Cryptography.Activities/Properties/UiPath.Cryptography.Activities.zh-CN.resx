@@ -840,7 +840,7 @@
     <value>密钥和安全字符串不可同时为空。</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>密钥不得为空</value>
+    <value>未提供所需活动参数“键”的值</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>密钥安全字符串不得为 null</value>

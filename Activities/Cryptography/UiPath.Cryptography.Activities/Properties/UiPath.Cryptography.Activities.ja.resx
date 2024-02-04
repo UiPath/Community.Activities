@@ -840,7 +840,7 @@
     <value>キーとセキュリティで保護された文字列は、両方とも null にしてはなりません。</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>[キー] を null にすることはできません。</value>
+    <value>アクティビティの必須の引数「key」の値が指定されていません。</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>[キー (SecureString)] を null にすることはできません。</value>

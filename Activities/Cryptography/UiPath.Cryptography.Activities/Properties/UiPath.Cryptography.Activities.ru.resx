@@ -840,7 +840,7 @@
     <value>Ключ и защищенная строка не должны одновременно иметь нулевое значение.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>The Key must not be null</value>
+    <value>Value for a required activity argument &apos;Key&apos; was not supplied</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>The Key Secure String must not be null</value>

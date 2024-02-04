@@ -840,7 +840,7 @@
     <value>La clave y la cadena segura no deben ser ambas nulas.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>La contraseña no puede ser nula</value>
+    <value>No se proporcionó el valor para un argumento de actividad &apos;Clave&apos; requerido</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>La contraseña de cadena segura no puede ser nula</value>

@@ -840,7 +840,7 @@
     <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>키는 Null이 아니어야 합니다.</value>
+    <value>필수 액티비티 인수 &apos;키&apos;의 값이 제공되지 않았습니다</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>키 보안 문자열은 Null이 아니어야 합니다.</value>
