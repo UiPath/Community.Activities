@@ -27,31 +27,15 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         public BulkUpdateViewModel(IDesignServices services) : base(services)
         {
         }
-
-        /// <summary>
-        /// The name of the database provider used to access the database.
-        /// </summary>
-        public DesignInArgument<string> ProviderName { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// The connection string used to establish a database connection.
-        /// </summary>
-        public DesignInArgument<string> ConnectionString { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// The connection string used to establish a database connection as Secure String.
-        /// </summary>
-        public DesignInArgument<SecureString> ConnectionSecureString { get; set; } = new DesignInArgument<SecureString>();
-
         /// <summary>
         /// An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.
         /// </summary>
         public DesignInArgument<DatabaseConnection> ExistingDbConnection { get; set; } = new DesignInArgument<DatabaseConnection>();
 
         /// <summary>
-        /// Check this box to enable the creation of a temp table using Bulk insert and to update using join between tables.
+        /// The DataTable object that will be used in updating the table.
         /// </summary>
-        public DesignProperty<bool> BulkUpdateFlag { get; set; } = new DesignProperty<bool>();
+        public DesignInArgument<DataTable> DataTable { get; set; } = new DesignInArgument<DataTable>();
 
         /// <summary>
         /// The target database table.
@@ -63,10 +47,6 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         /// </summary>
         public DesignInArgument<string[]> ColumnNames { get; set; } = new DesignInArgument<string[]>();
 
-        /// <summary>
-        /// The DataTable object that will be used in updating the table.
-        /// </summary>
-        public DesignInArgument<DataTable> DataTable { get; set; } = new DesignInArgument<DataTable>();
 
         /// <summary>
         /// Specifies if the automation should continue even when the activity throws an error.
@@ -87,37 +67,25 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             ExistingDbConnection.OrderIndex = propertyOrderIndex++;
             ExistingDbConnection.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
-            TableName.IsPrincipal = true;
-            TableName.IsRequired = true;
-            TableName.OrderIndex = propertyOrderIndex++;
-            TableName.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
             DataTable.IsPrincipal = true;
             DataTable.IsRequired = true;
             DataTable.OrderIndex = propertyOrderIndex++;
             DataTable.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
+            TableName.IsPrincipal = true;
+            TableName.IsRequired = true;
+            TableName.OrderIndex = propertyOrderIndex++;
+            TableName.Widget = new DefaultWidget { Type = ViewModelWidgetType.TextComposer };
+
             ColumnNames.IsPrincipal = true;
             ColumnNames.IsRequired = true;
             ColumnNames.OrderIndex = propertyOrderIndex++;
-            ColumnNames.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            BulkUpdateFlag.OrderIndex = propertyOrderIndex++;
-            BulkUpdateFlag.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
-
-            ConnectionString.OrderIndex = propertyOrderIndex++;
-            ConnectionString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            ProviderName.OrderIndex = propertyOrderIndex++;
-            ProviderName.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            ConnectionSecureString.OrderIndex = propertyOrderIndex++;
-            ConnectionSecureString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+            ColumnNames.Widget = new DefaultWidget { Type = ViewModelWidgetType.Collection };
 
             ContinueOnError.OrderIndex = propertyOrderIndex++;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
-
-            AffectedRecords.OrderIndex = propertyOrderIndex++;
+         
+            AffectedRecords.OrderIndex = propertyOrderIndex;
             AffectedRecords.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
         }
 

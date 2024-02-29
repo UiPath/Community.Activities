@@ -24,11 +24,6 @@ namespace UiPath.Database.Activities
             base.Cancel(context);
         }
 
-        protected override void CacheMetadata(CodeActivityMetadata metadata)
-        {
-            base.CacheMetadata(metadata);
-        }
-
         protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
         {
             if (!_tokenDisposed)

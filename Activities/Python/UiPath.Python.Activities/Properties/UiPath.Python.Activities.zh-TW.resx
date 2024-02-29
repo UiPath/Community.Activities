@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CodeDescription" xml:space="preserve">
+    <value>Python 指令碼內容</value>
+  </data>
+  <data name="CodeNameDisplayName" xml:space="preserve">
+    <value>程式碼</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConvertException" xml:space="preserve">
+    <value>轉換 Python 物件時發生錯誤</value>
+  </data>
+  <data name="Do" xml:space="preserve">
+    <value>執行</value>
+  </data>
+  <data name="GetObjectDescription" xml:space="preserve">
+    <value>從 Python 物件取得 .NET 類型</value>
+  </data>
+  <data name="GetObjectNameDisplayName" xml:space="preserve">
+    <value>取得 Python 物件</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetObjectResultDescription" xml:space="preserve">
+    <value>與 Python 物件相對應的 .NET 類型</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>輸入</value>
+  </data>
+  <data name="InstanceDescription" xml:space="preserve">
+    <value>Python 物件的執行個體</value>
+  </data>
+  <data name="InstanceNameDisplayName" xml:space="preserve">
+    <value>執行個體</value>
+    <comment>property name</comment>
+  </data>
+  <data name="InvalidMethodNameException" xml:space="preserve">
+    <value>方法名稱無效</value>
+  </data>
+  <data name="InvalidPathException" xml:space="preserve">
+    <value>指定的 Python 路徑無效: {0}</value>
+  </data>
+  <data name="InvokeException" xml:space="preserve">
+    <value>叫用 Python 方法時發生錯誤</value>
+  </data>
+  <data name="InvokeMethodDescription" xml:space="preserve">
+    <value>叫用 Python 方法</value>
+  </data>
+  <data name="InvokeMethodNameDisplayName" xml:space="preserve">
+    <value>叫用 Python 方法</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="LoadScriptDescription" xml:space="preserve">
+    <value>載入並執行 Python 指令碼</value>
+  </data>
+  <data name="LoadScriptException" xml:space="preserve">
+    <value>載入 Python 指令碼時發生錯誤</value>
+  </data>
+  <data name="LoadScriptNameDisplayName" xml:space="preserve">
+    <value>載入 Python 指令碼</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="MethodNameDescription" xml:space="preserve">
+    <value>要叫用的方法名稱</value>
+  </data>
+  <data name="NameDisplayName" xml:space="preserve">
+    <value>名稱</value>
+    <comment>property name</comment>
+  </data>
+  <data name="NoScriptSpecifiedException" xml:space="preserve">
+    <value>未指定程式碼/指令碼</value>
+  </data>
+  <data name="OutputDisplayName" xml:space="preserve">
+    <value>輸出</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>Python 指令碼的輸入參數</value>
+  </data>
+  <data name="ParametersNameDisplayName" xml:space="preserve">
+    <value>輸入參數</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PathDescription" xml:space="preserve">
+    <value>Python 主目錄路徑</value>
+  </data>
+  <data name="PathNameDisplayName" xml:space="preserve">
+    <value>路徑</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PythonEngineNotFoundException" xml:space="preserve">
+    <value>找不到 Python 引擎工作階段</value>
+  </data>
+  <data name="PythonInitializeException" xml:space="preserve">
+    <value>初始化 Python 引擎時發生錯誤</value>
+  </data>
+  <data name="PythonObjectDescription" xml:space="preserve">
+    <value>要從中擷取值的 Python 物件</value>
+  </data>
+  <data name="PythonObjectNameDisplayName" xml:space="preserve">
+    <value>Python 物件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PythonScopeDescription" xml:space="preserve">
+    <value>Python 活動容器</value>
+  </data>
+  <data name="PythonScopeNameDisplayName" xml:space="preserve">
+    <value>Python 範圍</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ResultDescription" xml:space="preserve">
+    <value>指令碼叫用結果</value>
+  </data>
+  <data name="ResultNameDisplayName" xml:space="preserve">
+    <value>結果</value>
+    <comment>property name</comment>
+  </data>
+  <data name="RunScriptDescription" xml:space="preserve">
+    <value>叫用 Python 指令碼活動</value>
+  </data>
+  <data name="RunScriptException" xml:space="preserve">
+    <value>執行 Python 指令碼時發生錯誤</value>
+  </data>
+  <data name="RunScriptNameDisplayName" xml:space="preserve">
+    <value>執行 Python 指令碼</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ScriptFileDescription" xml:space="preserve">
+    <value>Python 指令碼檔案的完整路徑</value>
+  </data>
+  <data name="ScriptFileNameDisplayName" xml:space="preserve">
+    <value>檔案</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ScriptFileNotFoundException" xml:space="preserve">
+    <value>找不到指定的指令碼檔案</value>
+  </data>
+  <data name="TargetPlatformDisplayName" xml:space="preserve">
+    <value>目標</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetPlatformDescription" xml:space="preserve">
+    <value>指定 Python 執行階段平台</value>
+  </data>
+  <data name="ValidateParentError" xml:space="preserve">
+    <value>活動僅在 {0} 內有效</value>
+  </data>
+  <data name="VersionDescription" xml:space="preserve">
+    <value>Python 版本</value>
+  </data>
+  <data name="VersionNameDisplayName" xml:space="preserve">
+    <value>版本</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="WorkingFolder" xml:space="preserve">
+    <value>工作資料夾</value>
+    <comment>property name</comment>
+  </data>
+  <data name="WorkingFolderDescription" xml:space="preserve">
+    <value>用於指定在目前範圍內執行的指令碼的工作資料夾</value>
+  </data>
+  <data name="WorkingFolderPathInvalid" xml:space="preserve">
+    <value>工作資料夾路徑無效</value>
+  </data>
+  <data name="InvalidVersionException" xml:space="preserve">
+    <value>所選版本 {0} 不同於已找到的版本 {1}</value>
+  </data>
+  <data name="OperationTimeout" xml:space="preserve">
+    <value>逾時</value>
+  </data>
+  <data name="OperationTimeoutDescription" xml:space="preserve">
+    <value>在遭到終止及擲回例外狀況之前，允許 Python 指令碼執行的時間長度。</value>
+  </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>對於 Linux，是 Python libpython*.so 元件庫的路徑，包含元件庫名稱。對於 Windows (版本 &gt; 3.9)，是 python**.dll 的路徑，包括元件庫名稱 (通常位於 Python 主目錄路徑)。對於 Windows (版本 &lt;= 3.9)，留空。</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>元件庫路徑 (適用於 Linux 或版本 &gt; 3.9 的 Windows)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>32 位元上不支援 3.10 及以上的 Python 版本。 </value>
+  </data>
+</root>

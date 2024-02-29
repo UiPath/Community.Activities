@@ -124,22 +124,22 @@
     <value>입력</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
-    <value>Text</value>
+    <value>텍스트</value>
     <comment>property name</comment>
   </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
     <value>파일이 없습니다.</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>FilePath</value>
+    <value>파일 경로</value>
     <comment>property name</comment>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>InputPath</value>
+    <value>입력 경로</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>OutputPath</value>
+    <value>출력 경로</value>
     <comment>property name</comment>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
@@ -149,7 +149,7 @@
     <value>암호화 작업이 실패했습니다. 암호화와 암호 해독 작업에서 동일한 알고리즘과 키가 사용되었는지 확인하십시오.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>인코딩</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>키</value>
@@ -161,17 +161,11 @@
     <value>공통</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES에서는 16 또는 24바이트 길이의 키가 사용됩니다. 키의 길이는 인코딩에 따라 다를 수 있습니다.</value>
-  </data>
-  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
-    <value>키 및 보안 문자열 모두 null이어야 합니다.</value>
-  </data>
-  <data name="KeyAndSecureStringNull" xml:space="preserve">
-    <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
   </data>
   <data name="KeySecureString" xml:space="preserve">
     <value>KeySecureString</value>
@@ -192,7 +186,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -200,7 +194,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
@@ -208,7 +202,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Input Path</value>
+    <value>파일 경로</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>키 인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -216,7 +218,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Key Encoding</value>
+    <value>키 인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
@@ -224,7 +226,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>키</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
@@ -232,7 +234,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>출력 파일 이름 및 위치</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -240,7 +242,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>덮어쓰기</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Name" xml:space="preserve">
@@ -256,7 +258,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -264,7 +266,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
@@ -272,7 +274,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>인코딩</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>키 인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -280,7 +290,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Name" xml:space="preserve">
-    <value>Text</value>
+    <value>텍스트</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
@@ -288,7 +298,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>키</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
@@ -296,7 +306,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>텍스트 암호 해독</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Description" xml:space="preserve">
@@ -312,7 +322,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
@@ -320,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Input Path</value>
+    <value>파일 경로</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -328,7 +338,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>키</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -336,7 +346,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>키 보안 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
@@ -344,7 +354,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>키 보안 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -352,7 +362,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>키 인코딩</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -360,7 +378,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Key Encoding</value>
+    <value>키 인코딩</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -368,7 +386,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>키 보안 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
@@ -376,7 +394,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Output Path</value>
+    <value>출력 파일 이름 및 위치</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -384,7 +402,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>덮어쓰기</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptText_Description" xml:space="preserve">
@@ -400,7 +418,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -408,7 +426,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
@@ -416,7 +434,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>인코딩</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>키 인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -424,7 +450,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Name" xml:space="preserve">
-    <value>Text</value>
+    <value>텍스트</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Description" xml:space="preserve">
@@ -432,7 +458,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>키 보안 문자열</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
@@ -440,7 +466,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>키</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
@@ -448,15 +474,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>암호화된 텍스트</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>지정된 알고리즘 및 인코딩 형식을 사용하여 키로 파일을 해시하고 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
+    <value>지정된 알고리즘을 사용하여 키로 파일을 해시하고 결과 해시를 16진수 문자열 표현으로 반환합니다. 키가 있거나 키가 없는 해시 알고리즘을 지원합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Hash File With Key</value>
+    <value>Hash File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -464,7 +490,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -472,7 +498,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
@@ -480,7 +506,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>인코딩</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>키 인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -488,7 +522,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>File path</value>
+    <value>파일 경로</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -496,7 +530,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>키 보안 문자열</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
@@ -504,7 +538,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>키</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
@@ -512,15 +546,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>해시</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>지정된 알고리즘을 사용하여 키로 문자열을 해시하고 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
+    <value>지정된 알고리즘을 사용하여 키로 문자열을 해시하고 결과 해시를 16진수 문자열 표현으로 반환합니다. 키가 있거나 키가 없는 해시 알고리즘을 지원합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
-    <value>Hash Text With Key</value>
+    <value>Hash Text</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
@@ -528,7 +562,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -536,7 +570,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
@@ -544,7 +578,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>인코딩</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>키 인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
@@ -552,7 +594,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Name" xml:space="preserve">
-    <value>Text</value>
+    <value>텍스트</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Description" xml:space="preserve">
@@ -560,15 +602,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Key Secure String</value>
+    <value>키 보안 문자열</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>지정된 파일을 해시하는 데 사용할 키입니다.</value>
+    <value>지정된 텍스트를 해시하는 데 사용할 키입니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
-    <value>Key</value>
+    <value>키</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
@@ -576,15 +618,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>해시</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>선택한 해싱 알고리즘을 제공된 파일의 콘텐츠에 적용한 후 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
+    <value>이 액티비티는 더 이상 사용되지 않습니다. SHA1, SHA256, SHA384, SHA512가 단일 액티비티 해시 파일로 이동되었습니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Hash File</value>
+    <value>Hash File (사용되지 않음)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -592,7 +634,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -600,7 +642,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
@@ -608,7 +650,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>File Path</value>
+    <value>파일 경로</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
@@ -616,15 +658,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>해시</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>지정된 알고리즘을 사용하여 문자열을 해시하고 결과 해시를 16진수 문자열 표현으로 반환합니다.</value>
+    <value>이 액티비티는 더 이상 사용되지 않습니다. SHA1, SHA256, SHA384, SHA512가 단일 액티비티 해시 텍스트로 이동되었습니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Hash Text</value>
+    <value>Hash Text (사용되지 않음)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
@@ -632,7 +674,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>알고리즘</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Description" xml:space="preserve">
@@ -640,7 +682,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
@@ -648,7 +690,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
-    <value>Encoding</value>
+    <value>인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
@@ -656,7 +698,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Input_Name" xml:space="preserve">
-    <value>Text</value>
+    <value>텍스트</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Result_Description" xml:space="preserve">
@@ -664,7 +706,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
-    <value>Result</value>
+    <value>해시</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Others_Name" xml:space="preserve">
@@ -679,36 +721,155 @@
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
     <value>키와 보안 문자열 키 간 전환</value>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
-    <value>KeyInputModeSwitch</value>
+    <value>키 입력 모드 스위치</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>암호화된 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>암호화된 파일</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>암호화할 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>파일</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>해독된 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>암호 해독된 파일</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>암호를 해독할 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>파일</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>해시할 파일</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>파일</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>{{0}} 및 {1} 중 하나에만 인수를 구성해야 합니다.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>액티비티는 폴더가 아닌 파일만 지원합니다.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>암호화된 파일을 저장할 파일 이름입니다.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>암호화된 파일 이름</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>암호 해독된 파일을 저장할 파일 이름입니다.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>암호 해독된 파일 이름</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>옵션</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>키 보안 문자열 사용</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>키 사용</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>키 보안 문자열 사용</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>키 사용</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>키 및 보안 문자열 모두 null이어야 합니다.</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>필수 액티비티 인수 &apos;키&apos;의 값이 제공되지 않았습니다</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>키 보안 문자열은 Null이 아니어야 합니다.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>파일 경로와 리소스 간 전환</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>파일 입력 모드 전환</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>파일 경로와 리소스 간 전환</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>파일 입력 모드 전환</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>파일 경로와 리소스 간 전환</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>파일 입력 모드 전환</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>파일 경로와 리소스 간 전환</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>파일 입력 모드 전환</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>선택한 암호화 알고리즘은 사용되지 않으며 향후 버전에서 더 이상 지원되지 않습니다.</value>
   </data>
 </root>

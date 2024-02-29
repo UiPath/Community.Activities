@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Security;
-using System.Text;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 
@@ -17,16 +18,21 @@ namespace UiPath.Cryptography.Activities
     }
 }
 
+#pragma warning disable CS0618 // obsolete encryption algorithm
+
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class DecryptTextViewModel : DesignPropertiesViewModel
     {
+        private readonly DataSource<string> _encodingDataSource;
+
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public DecryptTextViewModel(IDesignServices services) : base(services)
         {
+            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
         /// <summary>
@@ -50,6 +56,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
+        /// A drop-down which enables you to select the encoding option you want to use.
+        /// </summary>
+        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
+
+        /// <summary>
         /// Switches Key as string or secure string 
         /// </summary>
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
@@ -69,13 +80,13 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeModel();
             var propertyOrderIndex = 1;
 
+            Input.IsPrincipal = true;
+            Input.OrderIndex = propertyOrderIndex++;
+
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.DataSource = DataSourceHelper.ForEnum(SymmetricAlgorithms.AES, SymmetricAlgorithms.AESGCM, SymmetricAlgorithms.DES, SymmetricAlgorithms.RC2, SymmetricAlgorithms.Rijndael, SymmetricAlgorithms.TripleDES);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
-            Input.IsPrincipal = true;
-            Input.OrderIndex = propertyOrderIndex++;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -87,11 +98,20 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
+            KeyEncodingString.IsPrincipal = false;
+            KeyEncodingString.IsVisible = true;
+            KeyEncodingString.OrderIndex = propertyOrderIndex++;
+
+            KeyEncodingString.DataSource = _encodingDataSource;
+            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+
+            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
 
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
+            ContinueOnError.OrderIndex = propertyOrderIndex;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
             ContinueOnError.Value = false;
 
@@ -120,19 +140,28 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
+                    Key.IsRequired = true;
                     Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
                     break;
                 case KeyInputMode.SecureKey:
-                    Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
+                    KeySecureString.IsRequired = true;
                     break;
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void ResetAllKeyInputMode()
+        {
+            Key.IsRequired = false;
+            Key.IsVisible = false;
+            KeySecureString.IsVisible = false;
+            KeySecureString.IsRequired = false;
         }
     }
 }

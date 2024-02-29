@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Security;
-using System.Text;
+using System.Security.Cryptography;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
@@ -17,25 +19,46 @@ namespace UiPath.Cryptography.Activities
     public partial class KeyedHashFile
     {
     }
+
+    /// <summary>
+    /// Hashes a file with a key using a specified algorithm and encoding format 
+    /// and returns the hexadecimal string representation of the resulting hash.
+    /// </summary>
+    [ViewModelClass(typeof(KeyedHashFileViewModel))]
+    public partial class HashFile
+    {
+    }
 }
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class KeyedHashFileViewModel : DesignPropertiesViewModel
     {
+        private readonly DataSource<string> _encodingDataSource;
+
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public KeyedHashFileViewModel(IDesignServices services) : base(services)
         {
+            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
         /// <summary>
-        /// The file that you want to encrypt.
+        /// The file that you want to hash.
         /// </summary>
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
 
+        /// <summary>
+        /// The path to the file you want to hash.
+        /// </summary>
+        public DesignInArgument<string> FilePath { get; set; } = new DesignInArgument<string>();
+
+        /// <summary>
+        /// Switches Key as string or secure string 
+        /// </summary>
+        public DesignProperty<FileInputMode> FileInputModeSwitch { get; set; } = new DesignProperty<FileInputMode>();
 
         /// <summary>
         /// A drop-down which enables you to select the keyed hashing algorithm you want to use.
@@ -51,6 +74,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// The secure string used to hash the provided file.
         /// </summary>
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
+
+        /// <summary>
+        /// A drop-down which enables you to select the encoding option you want to use.
+        /// </summary>
+        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
 
         /// <summary>
         /// Switches Key as string or secure string 
@@ -71,15 +99,22 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.InitializeModel();
             var propertyOrderIndex = 1;
-
+            
             InputFile.IsPrincipal = true;
-            InputFile.IsRequired = true;
+            InputFile.IsVisible = false;
             InputFile.OrderIndex = propertyOrderIndex++;
 
+            FilePath.IsPrincipal = true;
+            FilePath.IsVisible = true;
+            FilePath.OrderIndex = propertyOrderIndex++;
+            
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512);
+            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
+
+            FileInputModeSwitch.IsVisible = false;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -91,25 +126,41 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
+            KeyEncodingString.IsPrincipal = false;
+            KeyEncodingString.IsVisible = true;
+            KeyEncodingString.OrderIndex = propertyOrderIndex++;
+
+            KeyEncodingString.DataSource = _encodingDataSource;
+            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+
+            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
 
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+            ContinueOnError.OrderIndex = propertyOrderIndex;
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
 
             MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
                 .AddMenuProperty(Key, KeyInputMode.Key)
                 .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
                 .BuildAndInsertMenuActions();
-        }
 
+            MenuActionsBuilder<FileInputMode>.WithValueProperty(FileInputModeSwitch)
+                .AddMenuProperty(InputFile, FileInputMode.File)
+                .AddMenuProperty(FilePath, FileInputMode.FilePath)
+                .BuildAndInsertMenuActions();
+        }
         /// <inheritdoc/>
         protected override void InitializeRules()
         {
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
+            Rule(nameof(FileInputModeSwitch), FileInputModeChanged_Action);
+            Rule(nameof(Algorithm), AlgorithmChanged_Action);
+
         }
 
         /// <inheritdoc/>
@@ -117,6 +168,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.ManualRegisterDependencies();
             RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
+            RegisterDependency(FileInputModeSwitch, nameof(FileInputModeSwitch.Value), nameof(FileInputModeSwitch));
         }
 
         /// <summary>
@@ -124,15 +176,85 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
+                    Key.IsRequired = true;
                     Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
                     break;
                 case KeyInputMode.SecureKey:
+                    Key.IsRequired = false;
                     Key.IsVisible = false;
-                    KeySecureString.IsVisible = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// File input Mode has changed. Set controls visibility based on selection
+        /// </summary>
+        private void FileInputModeChanged_Action()
+        {
+            ResetAllInputFile();
+            switch (FileInputModeSwitch.Value)
+            {
+                case FileInputMode.File:
+                    InputFile.IsRequired = true;
+                    InputFile.IsVisible = true;
+                    break;
+                case FileInputMode.FilePath:
+                    FilePath.IsVisible = true;
+                    FilePath.IsRequired = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void ResetAllKeyInputMode()
+        {
+            Key.IsRequired = false;
+            Key.IsVisible = false;
+            KeySecureString.IsVisible = false;
+            KeySecureString.IsRequired = false;
+        }
+
+        private void ResetAllInputFile()
+        {
+            InputFile.IsRequired = false;
+            InputFile.IsVisible = false;
+            FilePath.IsVisible = false;
+            FilePath.IsRequired = false;
+        }
+
+        /// <summary>
+        /// Algorithm has changed. Set controls visibility based on selection
+        /// </summary>
+        private void AlgorithmChanged_Action()
+        {
+            switch (Algorithm.Value.ToString().StartsWith(nameof(HMAC)))
+            {
+                case true:
+                    if (KeyInputModeSwitch.Value == KeyInputMode.Key)
+                    {
+                        Key.IsVisible = true;
+                        Key.IsRequired = true;
+                        KeySecureString.IsVisible = false;
+                    }
+                    else
+                    {
+                        Key.IsVisible = false;
+                        KeySecureString.IsRequired = true;
+                        KeySecureString.IsVisible = true;
+                    }
+                    break;
+                case false:
+                    Key.IsRequired = false;
+                    Key.IsVisible = false;
+                    KeySecureString.IsVisible = false;
+                    KeySecureString.IsRequired = false;
                     break;
                 default:
                     throw new NotImplementedException();

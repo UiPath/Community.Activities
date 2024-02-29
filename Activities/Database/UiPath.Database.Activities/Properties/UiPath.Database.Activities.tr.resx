@@ -117,12 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>Tabloya eklenecek VeriTablosu değişkeni. VeriTablosu sütunlarının adı ve açıklaması veritabanı tablosundakilerle eşleşmelidir.</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>Giriş veri tablosu</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>VeriTablosu değişkenini sağlayın</value>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>Verilerin ekleneceği hedef veritabanı tablosu</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>Hedef tablo adı</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Hedef veritabanı tablo adını sağlayın</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>Connect to Database etkinliğinden elde edilen, zaten açık olan bir veritabanı bağlantısı.</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Connect to Veritabanı etkinliğinin çıkışını kullan</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>VeriTablosu değişkenini sağlayın</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Hedef veritabanı tablo adını sağlayın</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Satır eşleştirmek için kullanılan sütun adları</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>VeriTablosu değişkenini sağlayın</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Hedef veritabanı tablo adını sağlayın</value>
+  </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
-    <value>AffectedRecords</value>
+    <value>EtkilenenKayıtlar</value>
     <comment>property name</comment>
   </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
-    <value>CommandType</value>
+    <value>KomutTürü</value>
     <comment>property name</comment>
   </data>
   <data name="Common" xml:space="preserve">
@@ -135,60 +178,60 @@
     <value>Bağlantı Yapılandırması</value>
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
-    <value>ConnectionString</value>
+    <value>BağlantıDizesi</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>HataOlduğundaDevamEt</value>
     <comment>property name</comment>
   </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
-    <value>DatabaseConnection</value>
+    <value>VeritabanıBağlantısı</value>
     <comment>property name</comment>
   </data>
   <data name="DataTableDisplayName" xml:space="preserve">
-    <value>DataTable</value>
+    <value>VeriTablosu</value>
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Existing Connection</value>
+    <value>Var Olan Bağlantı</value>
     <comment>property name</comment>
   </data>
   <data name="Input" xml:space="preserve">
     <value>Giriş</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Çıkış</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Parametreler</value>
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
-    <value>ProviderName</value>
+    <value>SağlayıcıAdı</value>
     <comment>property name</comment>
   </data>
   <data name="TableNameDisplayName" xml:space="preserve">
-    <value>TableName</value>
+    <value>TabloAdı</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout (milliseconds)</value>
+    <value>Zaman aşımı (milisaniye)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>TimeoutMS için sağlanan değer &gt;= 0 olmalıdır</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
-    <value>UseTransaction</value>
+    <value>İşlemKullan</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Çıkış</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>SütunAdları</value>
     <comment>property name</comment>
   </data>
   <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
@@ -213,87 +256,79 @@
     <value>Gerekli etkinlik bağımsız değişkeni &apos;ProviderName&apos; için değer sağlanmamış</value>
   </data>
   <data name="Activity_BulkInsert_Description" xml:space="preserve">
-    <value>Belirli veritabanı sürücü uygulamasını kullanarak Toplu işlemlerin kullanıldığı bir tabloyu güncelleştirir. Veritabanı sürücüsü Toplu işlemleri desteklemiyorsa Veri Tablosu Ekle&apos;ye geri döner.</value>
+    <value>Belirli veritabanı sürücüsünün Toplu işlemleri aracılığıyla bir veritabanı tablosunu güncelleştirir. Veritabanı sürücüsü Toplu işlemleri desteklemiyorsa Veri Tablosu Ekle&apos;ye geri döner.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkInsert_Name" xml:space="preserve">
-    <value>Bulk insert</value>
+    <value>Bulk Insert</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>Etkilenen satırların sayısını bir Int64 değişkeninde depolar.</value>
+    <value>Etkilenen satırların sayısı.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>Etkilenen satır sayısı</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Güvenli Dize olarak bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>Güvenli Dize olarak bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi. Daha fazla ayrıntı için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Güvenli bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi. Daha fazla örnek için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Hata olduğunda devam et</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
-    <value>Öğeler için eklenecek kaynak DataTable.</value>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
+    <value>Öğeler için eklenecek kaynak VeriTablosu.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Name" xml:space="preserve">
+    <value>Veri tablosu</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Zaten açılmış bir veritabanı bağlantısı. Böyle bir bağlantı sağlanırsa ConnectionString ve SecureConnectionString özellikleri yoksayılır.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Zaten açılmış bir veritabanı bağlantısı. Böyle bir bağlantı sağlanırsa BağlantıDizesi ve GüvenliBağlantıDizesi özellikleri yoksayılır.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Var olan bağlantı</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
-    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Description" xml:space="preserve">
+    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı. Daha fazla örnek için lütfen belgelere bakın.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
-    <value>Hedef veritabanı tablo adı.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Name" xml:space="preserve">
+    <value>Sağlayıcı adı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
-    <value>Mevcut bir Tablo&apos;daki uyumlu DataTable&apos;ı güncelleştirir. Etkinlik ayrıca birincil anahtar olarak kullanılan sütun adları koleksiyonunda bulunmayan tüm sütunları da güncelleştirir. Etkilenen satır sayısını döndürür.</value>
+    <value>Mevcut bir veritabanı tablosundaki uyumlu VeriTablosu&apos;nu güncelleştirir. Etkinlik ayrıca birincil anahtar olarak kullanılan sütun adları koleksiyonunda bulunmayan tüm sütunları da güncelleştirir. Etkilenen satır sayısını döndürür.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkUpdate_Name" xml:space="preserve">
-    <value>Bulk update</value>
+    <value>Bulk Update</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>Güncelleştirilen satırların sayısı.</value>
+    <value>Etkilenen satırların sayısı.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected rows</value>
+    <value>Etkilenen satır sayısı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
@@ -301,15 +336,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
-    <value>Bulk/batch update</value>
+    <value>Toplu/toplu iş güncelleştirme</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
-    <value>Satır eşleştirmek için kullanılan sütun adları koleksiyonu.</value>
+    <value>Satır eşleştirmek için kullanılan sütun adları koleksiyonu. Bu sütun adları, Bulk Update etkinliği tarafından değiştirilmez.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>Eşleşen satırlar için kullanılan sütunlar</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -317,7 +352,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Güvenli bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
@@ -325,23 +360,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
-    <value>Tabloyu güncelleştirmek için kullanılacak DataTable nesnesi. DataTable sütunlarının açıklaması veritabanı tablosundaki sütunlarla eşleşmeli ve bunların bir alt kümesi olmalıdır.</value>
+    <value>Veritabanı tablosunu güncelleştirmek için kullanılacak VeriTablosu değişkeni. VeriTablosu sütunlarının açıklaması veritabanı tablosundaki sütunlarla eşleşmeli ve bunların bir alt kümesi olmalıdır</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Giriş veri tablosu</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -349,7 +376,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Var olan bağlantı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
@@ -357,15 +384,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Sağlayıcı adı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
-    <value>Hedef veritabanı tablosu.</value>
+    <value>Verilerin güncelleştirileceği hedef veritabanı tablosu.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Hedef tablo adı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
@@ -373,23 +400,23 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
-    <value>Connect to database</value>
+    <value>Connect to Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Güvenli Dize olarak bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+    <value>GüvenliDize olarak bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi. Daha fazla örnek için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Güvenli bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi. Daha fazla ayrıntı için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -397,15 +424,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Veritabanı bağlantısı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
-    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı.</value>
+    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı. Daha fazla örnek için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Sağlayıcı adı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
@@ -413,7 +440,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
-    <value>Disconnect from database</value>
+    <value>Disconnect from Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -421,7 +448,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Var olan bağlantı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
@@ -438,7 +465,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Güvenli bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
@@ -446,7 +473,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
@@ -454,7 +481,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Hata olduğunda devam et</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -462,7 +489,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>Veritabanı bağlantısı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -470,7 +497,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Exiting connection</value>
+    <value>Bağlantıdan çıkış</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
@@ -478,7 +505,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Sağlayıcı adı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
@@ -486,15 +513,15 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
-    <value>Use transaction</value>
+    <value>İşlem kullan</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
-    <value>Bir veritabanında sorgu olmayan bir deyimi yürütür. UPDATE, INSERT ve DELETE deyimleri için dönüş değeri komutun etkilediği satır sayısıdır. Diğer tüm deyim türleri için dönüş değeri -1&apos;dir.</value>
+    <value>Veritabanında bir SQL deyimi yürütür. UPDATE, INSERT ve DELETE deyimleri için dönüş değeri komutun etkilediği satır sayısıdır. Diğer tüm deyim türleri için dönüş değeri -1&apos;dir.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
-    <value>Run command</value>
+    <value>Run Command</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
@@ -502,82 +529,7 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>Bir komut dizesinin nasıl yorumlanacağını belirtir. Şu seçenekler kullanılabilir:
- Metin - SQL parametresinde belirtilen sorguyu yürütür.
-StoredProcedure - SQL parametresinde belirtilen prosedür adını çağırır.
-TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command type</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Güvenli Dize olarak bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Zaten açılmış bir veritabanı bağlantısı. Böyle bir bağlantı sağlanırsa ConnectionString ve SecureConnectionString özellikleri yoksayılır.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>Sql komutuna bağlı adlandırılmış parametreleri içeren bir sözlük. Bağlama, sql komutunda &apos;@parameterName&apos; deyimi belirtilerek yapılır. Çalışma zamanında parametreName sözlükten gelen değeriyle değiştirilir.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>Parameters</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Yürütülecek bir sql komutu. Bu alan, CommandType özelliğinden yapılan seçime göre doldurulmalıdır.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL command</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>Hata oluşturulmadan önce sql komutunun çalışmasının bekleneceği süreyi belirtir (milisaniye olarak). Varsayılan değer 30.000 milisaniyedir (30 saniye) ve 0&apos;dan büyük veya 0&apos;a eşit olmalıdır.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Timeout</value>
+    <value>Etkilenen satır sayısı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
@@ -585,42 +537,39 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
-    <value>Run query</value>
+    <value>Run Query</value>
     <comment>activity name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>Bir komut dizesinin nasıl yorumlanacağını belirtir. Şu seçenekler kullanılabilir:
- Metin - SQL parametresinde belirtilen sorguyu yürütür.
-StoredProcedure - SQL parametresinde belirtilen prosedür adını çağırır.
-TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
+    <value>Bir komut dizesinin nasıl yorumlanacağını belirtir</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command type</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
+    <value>Komut türü</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>Güvenli Dize olarak bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>GüvenliDize olarak sağlanan bir veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi. Daha fazla örnek için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Güvenli bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Veritabanı bağlantısı oluşturmak için kullanılan bağlantı dizesi. Daha fazla örnek için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Hata olduğunda devam et</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
@@ -628,51 +577,51 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Veri tablosu</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Connect veya Start Transaction etkinliklerinden elde edilen, zaten açık olan bir veritabanı bağlantısı. Böyle bir bağlantı sağlanırsa ConnectionString ve SecureConnectionString özellikleri yoksayılır.</value>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Connect veya Start Transaction etkinliklerinden elde edilen, zaten açık olan bir veritabanı bağlantısı. Böyle bir bağlantı sağlanırsa BağlantıDizesi ve GüvenliBağlantıDizesi özellikleri yoksayılır.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Var olan bağlantı</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>Sql komutuna bağlı adlandırılmış parametreleri içeren bir sözlük. Bağlama, sql komutunda &apos;@parameterName&apos; deyimi belirtilerek yapılır. Çalışma zamanında parametreName sözlükten gelen değeriyle değiştirilir.</value>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
+    <value>SQL komutuna bağlı adlandırılmış parametreleri içeren bir sözlük. Bağlama, sql komutunda &apos;@parameterName&apos; deyimi belirtilerek yapılır. Çalışma zamanında parametreAdı sözlükten gelen değeriyle değiştirilir.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>Parameters</value>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
+    <value>Parametreler</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı.</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Description" xml:space="preserve">
+    <value>Veritabanına erişmek için kullanılan veritabanı sağlayıcısının adı. Daha fazla örnek için lütfen belgelere bakın.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Name" xml:space="preserve">
+    <value>Sağlayıcı adı</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
-    <value>Yürütülecek bir sql komutu. Bu alan, CommandType özelliğinden yapılan seçime göre doldurulmalıdır.</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>Yürütülecek bir SQL komutu. Bu özellik, Komut türü özelliğinden yapılan seçime göre doldurulmalıdır.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL query</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL komutu</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>Hata oluşturulmadan önce sql komutunun çalışmasının bekleneceği süreyi belirtir (milisaniye olarak). Varsayılan değer 30000 milisaniyedir (30 saniye) ve 0&apos;dan büyük veya 0&apos;a eşit olmalıdır.</value>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>Hata oluşturulmadan önce sql komutunun çalışmasının bekleneceği süreyi belirtir (milisaniye olarak). Varsayılan değer 30.000 milisaniyedir (30 saniye) ve 0&apos;dan büyük veya 0&apos;a eşit olmalıdır.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Timeout</value>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>Zaman aşımı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Description" xml:space="preserve">
-    <value>Var olan bir Tabloya uyumlu bir DataTable değişkeni ekler. Etkilenen satır sayısını döndürür. Tablodaki kısıtlamalar karşılanmazsa etkinlik başarıyla tamamlanamaz ve yazılan tüm satırlar kaydedilir.</value>
+    <value>Varolan bir veritabanı tablosuna uyumlu bir VeriTablosu ekler. Etkilenen satır sayısını döndürür.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_InsertDataTable_Name" xml:space="preserve">
@@ -680,11 +629,11 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>Etkilenen satırların sayısını bir Int64 değişkeninde depolar.</value>
+    <value>Etkilenen satırların sayısı.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected records</value>
+    <value>Etkilenen satır sayısı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -692,7 +641,7 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure connection string</value>
+    <value>Güvenli bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
@@ -700,7 +649,7 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection string</value>
+    <value>Bağlantı dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
@@ -708,7 +657,7 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>Hata olduğunda devam et</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
@@ -716,7 +665,7 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>Giriş veri tablosu</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -724,7 +673,7 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>Var olan bağlantı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
@@ -732,18 +681,18 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider name</value>
+    <value>Sağlayıcı adı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
-    <value>Verilerin ekleneceği SQL tablosu.</value>
+    <value>Verilerin ekleneceği hedef veritabanı tablosu</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>Hedef tablo adı</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
     <comment>property description</comment>
   </data>
@@ -761,5 +710,79 @@ TableDirect - Bir tablodaki tüm kayıtları çağırır.</value>
   </data>
   <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
     <value>Mevcut bağlantı geçersiz. Lütfen bağlantının kurulabildiğinden emin olun.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description" xml:space="preserve">
+    <value>Bağlantı Dizesi ile Güvenli Bağlantı Dizesi arasındaki geçiş</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
+    <value>BağlantıGirişModuAnahtarı</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
+    <value>Lütfen veritabanı bağlantısı SecureString değişkenini sağlayın</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Placeholder" xml:space="preserve">
+    <value>Lütfen veritabanı bağlantı dizesini sağlayın</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Placeholder" xml:space="preserve">
+    <value>Lütfen veritabanı sağlayıcı adını belirtin</value>
+  </data>
+  <data name="ConnectionSecureStringNullError" xml:space="preserve">
+    <value>Bağlantı GüvenliDizesi kullanılmalıdır</value>
+  </data>
+  <data name="ConnectionStringNullError" xml:space="preserve">
+    <value>Bağlantı dizesi kullanılmalıdır</value>
+  </data>
+  <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
+    <value>Güvenli bağlantı dizesine geç</value>
+  </data>
+  <data name="ConnectionStringMenuAction" xml:space="preserve">
+    <value>Bağlantı dizesine geç</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
+    <value>Connect to Databse etkinliğinden elde edilen, zaten açık olan bir veritabanı bağlantısı.</value>
+  </data>
+  <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
+    <value>Depolanan Prosedür</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
+    <value>Connect to Database etkinliğinin çıkışını kullan</value>
+  </data>
+  <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
+    <value>Doğrudan tablo</value>
+  </data>
+  <data name="CommandType_Text_FriendlyName" xml:space="preserve">
+    <value>Metin</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>Connect veya Start Transaction etkinliklerinden elde edilen, zaten açık olan bir veritabanı bağlantısı.</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Connect to Database etkinliğinin çıkışını kullan</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
+    <value>Seçili komut türüne karşılık gelen bir SQL deyimi sağlayın</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Placeholder" xml:space="preserve">
+    <value>Varsayılan 30.000 milisaniyedir</value>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>Yürütülecek bir SQL sorgusu. Bu alan, Komut türü özelliğinden yapılan seçime göre doldurulmalıdır</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL sorgusu</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>SQL komutunda belirtilen prosedür adını çağırır.</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>Bir tablodaki tüm kayıtları çağırır.</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>SQL komutunu yürütür.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>Veritabanı</value>
   </data>
 </root>

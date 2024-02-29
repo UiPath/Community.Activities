@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Security;
-using System.Text;
+using System.Security.Cryptography;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 
@@ -16,18 +18,30 @@ namespace UiPath.Cryptography.Activities
     public partial class KeyedHashText
     {
     }
+
+    /// <summary>
+    /// Hashes a string with a key using a specified algorithm and returns 
+    /// the hexadecimal string representation of the resulting hash.
+    /// </summary>
+    [ViewModelClass(typeof(KeyedHashTextViewModel))]
+    public partial class HashText
+    {
+    }
 }
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class KeyedHashTextViewModel : DesignPropertiesViewModel
     {
+        private readonly DataSource<string> _encodingDataSource;
+
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public KeyedHashTextViewModel(IDesignServices services) : base(services)
         {
+            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
         /// <summary>
@@ -44,6 +58,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// The key that you want to use to hash the specified file.
         /// </summary>
         public DesignInArgument<string> Key { get; set; } = new DesignInArgument<string>();
+
+        /// <summary>
+        /// A drop-down which enables you to select the encoding option you want to use.
+        /// </summary>
+        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
 
         /// <summary>
         /// The secure string used to hash the input string.
@@ -70,13 +89,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeModel();
             var propertyOrderIndex = 1;
 
+            Input.IsPrincipal = true;
+            Input.IsRequired = true;
+            Input.OrderIndex = propertyOrderIndex++;
+
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512);
+            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
-            Input.IsPrincipal = true;
-            Input.OrderIndex = propertyOrderIndex++;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -88,12 +108,21 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
+            KeyEncodingString.IsPrincipal = false;
+            KeyEncodingString.IsVisible = true;
+            KeyEncodingString.OrderIndex = propertyOrderIndex++;
+
+            KeyEncodingString.DataSource = _encodingDataSource;
+            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+
+            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
 
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+            ContinueOnError.OrderIndex = propertyOrderIndex;
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
 
             MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
@@ -101,12 +130,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
                .BuildAndInsertMenuActions();
         }
-
         /// <inheritdoc/>
         protected override void InitializeRules()
         {
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
+            Rule(nameof(Algorithm), AlgorithmChanged_Action);
         }
 
         /// <inheritdoc/>
@@ -121,15 +150,56 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
+                    Key.IsRequired = true;
                     Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
                     break;
                 case KeyInputMode.SecureKey:
-                    Key.IsVisible = false;
                     KeySecureString.IsVisible = true;
+                    KeySecureString.IsRequired = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void ResetAllKeyInputMode()
+        {
+            Key.IsRequired = false;
+            Key.IsVisible = false;
+            KeySecureString.IsVisible = false;
+            KeySecureString.IsRequired = false;
+        }
+
+        /// <summary>
+        /// Algorithm has changed. Set controls visibility based on selection
+        /// </summary>
+        private void AlgorithmChanged_Action()
+        {
+            switch (Algorithm.Value.ToString().StartsWith(nameof(HMAC)))
+            {
+                case true:
+                    if (KeyInputModeSwitch.Value == KeyInputMode.Key)
+                    {
+                        Key.IsVisible = true;
+                        Key.IsRequired = true;
+                        KeySecureString.IsVisible = false;
+                    }
+                    else
+                    {
+                        Key.IsVisible = false;
+                        KeySecureString.IsRequired = true;
+                        KeySecureString.IsVisible = true;
+                    }
+                    break;
+                case false:
+                    Key.IsRequired = false;
+                    Key.IsVisible = false;
+                    KeySecureString.IsVisible = false;
+                    KeySecureString.IsRequired = false;
                     break;
                 default:
                     throw new NotImplementedException();

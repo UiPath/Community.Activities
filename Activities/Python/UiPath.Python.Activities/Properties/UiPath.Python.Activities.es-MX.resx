@@ -121,7 +121,7 @@
     <value>Contenido de secuencia de comandos de Python</value>
   </data>
   <data name="CodeNameDisplayName" xml:space="preserve">
-    <value>Code</value>
+    <value>Código</value>
     <comment>property name</comment>
   </data>
   <data name="ConvertException" xml:space="preserve">
@@ -147,7 +147,7 @@
     <value>Instancia del objeto Python</value>
   </data>
   <data name="InstanceNameDisplayName" xml:space="preserve">
-    <value>Instance</value>
+    <value>Instancia</value>
     <comment>property name</comment>
   </data>
   <data name="InvalidMethodNameException" xml:space="preserve">
@@ -180,28 +180,28 @@
     <value>Nombre del método que se invocará</value>
   </data>
   <data name="NameDisplayName" xml:space="preserve">
-    <value>Name</value>
+    <value>Nombre</value>
     <comment>property name</comment>
   </data>
   <data name="NoScriptSpecifiedException" xml:space="preserve">
     <value>Sin código/script especificado</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Salida</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Parámetros de entrada para la secuencia de comandos de Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>InputParameters</value>
+    <value>ParámetrosDeEntrada</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Ruta de inicio de Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>Ruta</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -214,7 +214,7 @@
     <value>Objeto de Python del que extraer valor</value>
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
-    <value>PythonObject</value>
+    <value>ObjetoPython</value>
     <comment>property name</comment>
   </data>
   <data name="PythonScopeDescription" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>El resultado de la invocación del script</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Resultado</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
@@ -245,14 +245,14 @@
     <value>Ruta completa al archivo de script de Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>File</value>
+    <value>Archivo</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>No se encontró el archivo de script especificado</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>Target</value>
+    <value>Destino</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
@@ -265,21 +265,21 @@
     <value>Versión de Python</value>
   </data>
   <data name="VersionNameDisplayName" xml:space="preserve">
-    <value>Version</value>
+    <value>Versión</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Salida</value>
   </data>
   <data name="WorkingFolder" xml:space="preserve">
-    <value>WorkingFolder</value>
+    <value>CarpetaDeTrabajo</value>
     <comment>property name</comment>
   </data>
   <data name="WorkingFolderDescription" xml:space="preserve">
     <value>Se utiliza para especificar la carpeta de trabajo de los scripts que se ejecutan en el ámbito actual</value>
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
-    <value>La ruta Workingfolder no es válida</value>
+    <value>La ruta de la CarpetaDeTrabajo no es válida</value>
   </data>
   <data name="InvalidVersionException" xml:space="preserve">
     <value>La versión seleccionada {0} es diferente de la versión que se encuentra {1}</value>

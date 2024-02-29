@@ -1,4 +1,5 @@
-﻿using System.Activities;
+﻿using System;
+using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
@@ -31,21 +32,6 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         }
 
         /// <summary>
-        /// The name of the database provider used to access the database.
-        /// </summary>
-        public DesignInArgument<string> ProviderName { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// The connection string used to establish a database connection.
-        /// </summary>
-        public DesignInArgument<string> ConnectionString { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// The connection string used to establish a database connection as Secure String.
-        /// </summary>
-        public DesignInArgument<SecureString> ConnectionSecureString { get; set; } = new DesignInArgument<SecureString>();
-
-        /// <summary>
         /// An already open database connection.
         /// </summary>
         public DesignInArgument<DatabaseConnection> ExistingDbConnection { get; set; } = new DesignInArgument<DatabaseConnection>();
@@ -61,9 +47,9 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         public DesignInArgument<string> Sql { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
-        /// Specifies if the automation should continue even when the activity throws an error.
+        /// A dictionary of named parameters that are bound to the sql command.
         /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
+        public DesignProperty<Dictionary<string, Argument>> Parameters { get; set; } = new DesignProperty<Dictionary<string, Argument>>();
 
         /// <summary>
         /// Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown.
@@ -71,9 +57,9 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         public DesignInArgument<int> TimeoutMS { get; set; } = new DesignInArgument<int>();
 
         /// <summary>
-        /// A dictionary of named parameters that are bound to the sql command.
+        /// Specifies if the automation should continue even when the activity throws an error.
         /// </summary>
-        public DesignProperty<Dictionary<string, Argument>> Parameters { get; set; } = new DesignProperty<Dictionary<string, Argument>>();
+        public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
 
         /// <summary>
         /// The result of the execution of the sql command.
@@ -84,39 +70,42 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         {
             base.InitializeModel();
             int propertyOrderIndex = 1;
+            int propertyColumnIndex = 1;
 
             ExistingDbConnection.IsPrincipal = true;
+            ExistingDbConnection.IsRequired = true;
             ExistingDbConnection.OrderIndex = propertyOrderIndex++;
             ExistingDbConnection.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+
+            CommandType.OrderIndex = propertyOrderIndex++;
+            CommandType.IsPrincipal = true;
+            CommandType.IsRequired = true;
+            CommandType.DataSource = DataSourceBuilder<CommandType>
+                .WithId(t => t.ToString())
+                .WithLabel(t => t.GetLabel())
+                .WithTooltip(t => t.GetTooltip())
+                .WithData(Enum.GetValues(typeof(CommandType)) as IReadOnlyList<CommandType>)
+                .Build();
+            CommandType.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             Sql.IsPrincipal = true;
             Sql.IsRequired = true;
             Sql.OrderIndex = propertyOrderIndex++;
-            Sql.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            ConnectionString.OrderIndex = propertyOrderIndex++;
-            ConnectionString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            ProviderName.OrderIndex = propertyOrderIndex++;
-            ProviderName.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            ConnectionSecureString.OrderIndex = propertyOrderIndex++;
-            ConnectionSecureString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            CommandType.OrderIndex = propertyOrderIndex++;
-            CommandType.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
-            TimeoutMS.OrderIndex = propertyOrderIndex++;
-            TimeoutMS.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+            Sql.Widget = new DefaultWidget { Type = ViewModelWidgetType.TextComposer };
 
             Parameters.OrderIndex = propertyOrderIndex++;
             Parameters.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dictionary };
 
-            DataTable.OrderIndex = propertyOrderIndex++;
-            DataTable.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+            TimeoutMS.OrderIndex = propertyOrderIndex;
+            TimeoutMS.ColumnOrder = propertyColumnIndex++;
+            TimeoutMS.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
             ContinueOnError.OrderIndex = propertyOrderIndex++;
+            ContinueOnError.ColumnOrder = propertyColumnIndex;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+
+            DataTable.OrderIndex = propertyOrderIndex++;
+            DataTable.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
         }
 
         protected override async ValueTask InitializeModelAsync()

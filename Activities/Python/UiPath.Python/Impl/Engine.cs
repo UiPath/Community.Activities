@@ -98,7 +98,7 @@ namespace UiPath.Python.Impl
                         Stopwatch sw = Stopwatch.StartNew();
 
                         // needed in oder to find Python dll
-                        if(_isWindows)
+                        if (_isWindows)
                             SetDllDirectory(Path.GetFullPath(_path));
 
                         // load the dedicated Python.Runtime.XX.dll
@@ -121,9 +121,9 @@ namespace UiPath.Python.Impl
                                 _pyRuntime.PythonDLL = _libraryPath;
                         }
                         else
-                            _pyEngine.PythonHome = _path; 
-                        
-                        if (_version >= Version.Python_36 && _version<=Version.Python_39|| !_isWindows)
+                            _pyEngine.PythonHome = _path;
+
+                        if (_version >= Version.Python_36 && _version <= Version.Python_39 || !_isWindows)
                             _pyEngine.Initialize(null, null, null, null);
                         else
                             _pyEngine.Initialize(null, null, null);
@@ -172,7 +172,7 @@ namespace UiPath.Python.Impl
                     try
                     {
                         // using a Guid for "name" import
-                        if(Version == Version.Python_310)
+                        if (Version == Version.Python_310)
                             module = _pyModule.FromString(GetModuleName(code), code);
                         else
                             module = _pyEngine.ModuleFromString(GetModuleName(code), code);
@@ -274,8 +274,8 @@ namespace UiPath.Python.Impl
             _pyRuntime = DynamicStaticTypeMembers.Create(assembly.GetType(PythonRuntimeTypeName));
             _pyObject = DynamicStaticTypeMembers.Create(assembly.GetType(PythonObjectTypeName));
             _py = DynamicStaticTypeMembers.Create(assembly.GetType(PyTypeName));
-            if(Version == Version.Python_310)
-                _pyModule= DynamicStaticTypeMembers.Create(assembly.GetType(PythonModuleTypeName));
+            if (Version == Version.Python_310)
+                _pyModule = DynamicStaticTypeMembers.Create(assembly.GetType(PythonModuleTypeName));
             _pyConverterExtension = DynamicStaticTypeMembers.Create(assembly.GetType(ConverterExtensionTypeName));
 
             // TODO: find a nicer way
@@ -355,7 +355,7 @@ namespace UiPath.Python.Impl
                     tcs.SetException(e);
                 }
             });
-            if(_isWindows)
+            if (_isWindows)
                 thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
 

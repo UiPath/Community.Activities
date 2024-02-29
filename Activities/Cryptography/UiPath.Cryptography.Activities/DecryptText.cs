@@ -7,8 +7,11 @@ using System.Diagnostics;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
+
+#pragma warning disable CS0618 // obsolete encryption algorithm
 
 namespace UiPath.Cryptography.Activities
 {
@@ -44,11 +47,13 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Encoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
+
+        [Browsable(false)]
+        public InArgument<string> KeyEncodingString { get; set; }
 
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Result_Name))]
@@ -64,7 +69,15 @@ namespace UiPath.Cryptography.Activities
         public DecryptText()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
+#if NET461
+            //we only use this on legacy
             Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
+#endif
+#if NET
+            //for modern and cross projects
+            KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
+#endif
+
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -82,6 +95,18 @@ namespace UiPath.Cryptography.Activities
                 default:
                     break;
             }
+#if NET
+            if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
+            {
+                var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
+                metadata.AddValidationError(error);
+            }
+            if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
+            {
+                var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
+                metadata.AddValidationError(error);
+            }
+#endif
         }
 
         protected override string Execute(CodeActivityContext context)
@@ -94,18 +119,31 @@ namespace UiPath.Cryptography.Activities
                 var key = Key.Get(context);
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = Encoding.Get(context);
+                var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
+#if NET
+                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                }
+                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                }
+#endif
 
-                if (string.IsNullOrWhiteSpace(key) && keySecureString == null)
+#if NET461
+                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
+                {
                     throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-
-                if (key != null && keySecureString != null)
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNotNull);
-
-                if (keyEncoding == null)
+                }
+#endif
+                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                     throw new ArgumentNullException(Resources.Encoding);
+
+                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
                 byte[] decrypted = null;
                 try

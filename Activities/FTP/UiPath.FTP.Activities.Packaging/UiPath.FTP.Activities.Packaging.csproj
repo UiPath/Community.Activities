@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentFTP" Version="37.1.0" />
-    <PackageReference Include="SSH.NET" Version="2020.0.1" />
+    <PackageReference Include="SSH.NET" Version="2020.0.2" />
   </ItemGroup>
 
 	<Target Name="AddDlls">
@@ -56,6 +56,7 @@
 			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.FTP.resources.dll" TargetPath="pt-BR\UiPath.FTP.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.resources.dll" TargetPath="tr\UiPath.FTP.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.resources.dll" TargetPath="zh-CN\UiPath.FTP.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.FTP.resources.dll" TargetPath="zh-TW\UiPath.FTP.resources.dll" />
 
 			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.FTP.Activities.resources.dll" TargetPath="fr\UiPath.FTP.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.FTP.Activities.resources.dll" TargetPath="ja\UiPath.FTP.Activities.resources.dll" />
@@ -68,6 +69,7 @@
 			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.FTP.Activities.resources.dll" TargetPath="pt-BR\UiPath.FTP.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.Activities.resources.dll" TargetPath="tr\UiPath.FTP.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.Activities.resources.dll" TargetPath="zh-CN\UiPath.FTP.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.FTP.Activities.resources.dll" TargetPath="zh-TW\UiPath.FTP.Activities.resources.dll" />
 
 		</ItemGroup>
 		<ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">

@@ -1,11 +1,13 @@
-﻿using Microsoft.Activities.UnitTesting;
-using System;
+﻿using System;
 using System.Activities;
 using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.Security;
 using System.Text;
+using UiPath.Cryptography.Enums;
 using Xunit;
+
+#pragma warning disable CS0618
 
 namespace UiPath.Cryptography.Activities.Tests
 {
@@ -32,8 +34,8 @@ namespace UiPath.Cryptography.Activities.Tests
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(HashText.Input), toHash);
 
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(hash);
-            string activityString = (string)invoker.TestActivity(arguments)[nameof(hash.Result)];
+            WorkflowInvoker invoker = new WorkflowInvoker(hash);
+            string activityString = (string)invoker.Invoke(arguments)[nameof(hash.Result)];
 
             byte[] algorithmBytes = CryptographyHelper.HashData(enumValue, Encoding.Unicode.GetBytes(toHash));
 
@@ -162,7 +164,8 @@ namespace UiPath.Cryptography.Activities.Tests
             KeyedHashText keyedHash = new KeyedHashText
             {
                 Algorithm = enumValue,
-                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                KeyInputModeSwitch = KeyInputMode.SecureKey
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(KeyedHashText.Input), toHash);
@@ -192,7 +195,8 @@ namespace UiPath.Cryptography.Activities.Tests
             EncryptText symmetricAlgorithm = new EncryptText
             {
                 Algorithm = enumValue,
-                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                KeyInputModeSwitch = KeyInputMode.SecureKey
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(EncryptText.Input), toProcess);
@@ -223,7 +227,8 @@ namespace UiPath.Cryptography.Activities.Tests
             DecryptText symmetricAlgorithm = new DecryptText
             {
                 Algorithm = enumValue,
-                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
+                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                KeyInputModeSwitch = KeyInputMode.SecureKey
             };
 
             Dictionary<string, object> arguments = new Dictionary<string, object>();

@@ -3,7 +3,7 @@ resources:
   - repository: common
     type: github
     name: UiPath/AzurePipelinesTemplates
-    ref: feature/activities_templates
+    ref: refs/tags/uipath.community.activities.1.3.0
     endpoint: "GitHub connection"
 
 trigger:
@@ -44,6 +44,7 @@ stages:
       projectName: 'Python'
       solutionPath: '$(SolutionsPath)/Activities.Python.sln'
       sonarKeyPrefix: 'CommunityActivities'
-      sdkBuild: true
+      sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+

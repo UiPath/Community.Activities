@@ -13,6 +13,9 @@ using UiPath.Shared.Activities;
 namespace UiPath.Database.Activities
 {
     [LocalizedDescription(nameof(Resources.Activity_DatabaseTransaction_Description))]
+#if NETSTANDARD
+    [Browsable(false)]
+#endif
     public partial class DatabaseTransaction : AsyncTaskNativeActivity
     {
         [DefaultValue(null)]

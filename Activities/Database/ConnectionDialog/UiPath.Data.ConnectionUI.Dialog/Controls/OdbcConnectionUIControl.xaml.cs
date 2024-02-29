@@ -103,12 +103,12 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 }
 
                 string currentConnectionString = _connectionProperties.ToFullString();
-                System.Text.StringBuilder newConnectionString = new System.Text.StringBuilder(1024);
-                result = NativeMethods.SQLDriverConnect(hdbc, new WindowInteropHelper(Window.GetWindow(this)).Handle, currentConnectionString, (short)currentConnectionString.Length, newConnectionString, 1024, out short newConnectionStringLength, NativeMethods.SQL_DRIVER_PROMPT);
+                System.Text.StringBuilder newConnectionString = new System.Text.StringBuilder();
+                result = NativeMethods.SQLDriverConnect(hdbc, new WindowInteropHelper(Window.GetWindow(this)).Handle, currentConnectionString, (short)currentConnectionString.Length, newConnectionString, short.MaxValue, out short newConnectionStringLength, NativeMethods.SQL_DRIVER_PROMPT);
                 if (!NativeMethods.SQL_SUCCEEDED(result) && result != NativeMethods.SQL_NO_DATA)
                 {
                     // Try again without the current connection string, in case it was invalid
-                    result = NativeMethods.SQLDriverConnect(hdbc, new WindowInteropHelper(Window.GetWindow(this)).Handle, null, 0, newConnectionString, 1024, out newConnectionStringLength, NativeMethods.SQL_DRIVER_PROMPT);
+                    result = NativeMethods.SQLDriverConnect(hdbc, new WindowInteropHelper(Window.GetWindow(this)).Handle, null, 0, newConnectionString, short.MaxValue, out newConnectionStringLength, NativeMethods.SQL_DRIVER_PROMPT);
                 }
                 if (!NativeMethods.SQL_SUCCEEDED(result) && result != NativeMethods.SQL_NO_DATA)
                 {
