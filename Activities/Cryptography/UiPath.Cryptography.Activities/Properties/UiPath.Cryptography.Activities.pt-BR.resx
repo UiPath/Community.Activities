@@ -202,7 +202,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Caminho de Entrada</value>
+    <value>Caminho do arquivo</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -330,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Caminho de Entrada</value>
+    <value>Caminho do arquivo</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -840,7 +840,7 @@
     <value>A chave e a string segura não podem ser nulas ao mesmo tempo.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>Chave não pode ter valor nulo</value>
+    <value>O valor de um argumento de atividade &quot;Key&quot; exigido não foi fornecido</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>String Segura da Chave não pode ter valor nulo</value>
@@ -868,5 +868,8 @@
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>AlternânciaDoModoDeEntradaDoArquivo</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>O algoritmo de criptografia selecionado está obsoleto e não terá mais suporte em versões futuras.</value>
   </data>
 </root>

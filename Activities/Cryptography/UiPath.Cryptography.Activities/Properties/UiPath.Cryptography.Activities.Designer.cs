@@ -1789,7 +1789,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Key must not be null.
+        ///   Looks up a localized string similar to Value for a required activity argument &apos;Key&apos; was not supplied.
         /// </summary>
         public static string KeyNullError {
             get {

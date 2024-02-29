@@ -99,7 +99,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             DeprecatedWarning.OrderIndex = propertyOrderIndex++;
             DeprecatedWarning.Widget = new TextBlockWidget
             {
-                Level = TextBlockWidgetLevel.Warning
+                Level = TextBlockWidgetLevel.Warning,
+                Multiline = true
             };
             DeprecatedWarning.Value = Resources.Activity_Encrypt_Algorithm_Deprecated_Warning;
 

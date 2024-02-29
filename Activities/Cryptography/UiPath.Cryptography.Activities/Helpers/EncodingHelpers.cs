@@ -12,9 +12,25 @@ using UiPath.Shared.Activities.Services;
 
 namespace UiPath.Cryptography.Activities.Helpers
 {
-    public static class EncodingHelpers
+    public sealed class EncodingHelpers
     {
 #if NET
+        private EncodingHelpers()
+        {
+        }
+
+        static EncodingHelpers()
+        {
+            try
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            }
+            catch
+            {
+                // Redundant try-catch to ignore encoding provider init errors if any exist
+            }
+        }
+
         public static DataSource<string> ConfigureEncodingDataSource()
         {
             return DataSourceBuilder<string>
@@ -33,7 +49,7 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         public static List<string> GetAvailableEncodings()
         {
-            var availableEncodingsList = new List<string>() { CodePages.Default.ToString() };
+            var availableEncodingsList = new List<string>() { ((int)CodePages.Default).ToString() };
             availableEncodingsList.AddRange(Encoding.GetEncodings()
                 .Select(e => e.CodePage)
                 .OrderBy(e => GetEncodingOrderIndex(e))
@@ -50,7 +66,13 @@ namespace UiPath.Cryptography.Activities.Helpers
         {
             var exceptionDictionary = new Dictionary<int, int> 
             { 
-                {65001, 1 } // UNICODE UTF-8 https://uipath.atlassian.net/browse/STUD-64202
+                {(int)CodePages.UTF_8, 1 }, // https://uipath.atlassian.net/browse/STUD-64202
+                {(int)CodePages.UTF_16, 2 },
+                {(int)CodePages.UTF_16BE, 3 },
+                {(int)CodePages.UTF_32, 4 },
+                {(int)CodePages.UTF_32BE, 5 },
+                {(int)CodePages.US_ASCII, 6 },
+                {(int)CodePages.ISO_8859_1, 7 },
             };
 
             return exceptionDictionary.GetValueOrDefault(codePage, codePage * 10);

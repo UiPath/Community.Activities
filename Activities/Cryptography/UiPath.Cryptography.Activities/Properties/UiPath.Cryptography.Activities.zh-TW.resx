@@ -202,7 +202,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>輸入路徑</value>
+    <value>檔路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -330,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>輸入路徑</value>
+    <value>檔路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -646,7 +646,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
-    <value>您要雜湊處理的檔案的路徑。</value>
+    <value>您要散列的檔路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
@@ -840,7 +840,7 @@
     <value>金鑰和安全字串不得同時為 null。</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>金鑰不得為 null</value>
+    <value>未提供所需活動引數 &quot;索引鍵&quot; 的值</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>金鑰安全字串不得為 null</value>
@@ -868,5 +868,8 @@
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>檔案輸入模式切換</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>所選加密演算法已淘汰，未來版本中將不再支援。</value>
   </data>
 </root>

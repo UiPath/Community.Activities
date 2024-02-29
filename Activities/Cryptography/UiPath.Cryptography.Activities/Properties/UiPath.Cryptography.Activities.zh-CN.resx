@@ -202,7 +202,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>输入路径</value>
+    <value>文件路径</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -330,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>输入路径</value>
+    <value>文件路径</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -840,7 +840,7 @@
     <value>密钥和安全字符串不可同时为空。</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>密钥不得为空</value>
+    <value>未提供所需活动参数“键”的值</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>密钥安全字符串不得为 null</value>
@@ -868,5 +868,8 @@
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>文件输入模式切换</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>所选加密算法已弃用，未来版本将不再提供支持。</value>
   </data>
 </root>

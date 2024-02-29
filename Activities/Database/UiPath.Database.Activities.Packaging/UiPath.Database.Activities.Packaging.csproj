@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Database.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Platforms>AnyCPU;x86;x64</Platforms>
@@ -69,7 +69,7 @@
       <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.resources.dll" />
 
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+    <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
@@ -105,19 +105,22 @@
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version ="19.20.0"/>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' or '$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<PackageReference Include="System.Activities.ViewModels" />
+	</ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.90" />
+    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
     <ProjectReference Include="..\..\Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
     <ProjectReference Include="..\..\Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>

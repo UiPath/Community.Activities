@@ -202,7 +202,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Путь к файлу с входными данными</value>
+    <value>File path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -330,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Путь к файлу с входными данными</value>
+    <value>File path</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -646,7 +646,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
-    <value>Путь к файлу, для которого следует выполнить хэширование.</value>
+    <value>The path to the file you want to hash.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
@@ -840,7 +840,7 @@
     <value>Ключ и защищенная строка не должны одновременно иметь нулевое значение.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>The Key must not be null</value>
+    <value>Value for a required activity argument &apos;Key&apos; was not supplied</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>The Key Secure String must not be null</value>
@@ -868,5 +868,8 @@
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>The selected encryption algorithm is deprecated and it will no longer be supported in future versions.</value>
   </data>
 </root>

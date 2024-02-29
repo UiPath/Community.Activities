@@ -202,7 +202,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>입력 경로</value>
+    <value>파일 경로</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -330,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>입력 경로</value>
+    <value>파일 경로</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -840,7 +840,7 @@
     <value>키 및 보안 문자열 모두 null이 아니어야 합니다.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>키는 Null이 아니어야 합니다.</value>
+    <value>필수 액티비티 인수 &apos;키&apos;의 값이 제공되지 않았습니다</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>키 보안 문자열은 Null이 아니어야 합니다.</value>
@@ -868,5 +868,8 @@
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>파일 입력 모드 전환</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>선택한 암호화 알고리즘은 사용되지 않으며 향후 버전에서 더 이상 지원되지 않습니다.</value>
   </data>
 </root>

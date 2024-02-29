@@ -202,7 +202,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>入力パス</value>
+    <value>ファイル パス</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -330,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>入力パス</value>
+    <value>ファイル パス</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -840,7 +840,7 @@
     <value>キーとセキュリティで保護された文字列は、両方とも null にしてはなりません。</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>[キー] を null にすることはできません。</value>
+    <value>アクティビティの必須の引数「key」の値が指定されていません。</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>[キー (SecureString)] を null にすることはできません。</value>
@@ -868,5 +868,8 @@
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>ファイルの入力モードの切り替え</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>選択した暗号化アルゴリズムは非推奨となり、今後のバージョンではサポートされなくなります。</value>
   </data>
 </root>

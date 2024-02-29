@@ -166,7 +166,7 @@
     <value>Имя провайдера базы данных, используемое для доступа к базе данных. Список провайдеров данных можно найти на странице http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>Команда sql для выполнения.</value>
+    <value>Provide an SQL statement that corresponds to the selected command type</value>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>Таблица целевой базы данных</value>
@@ -194,9 +194,6 @@
   </data>
   <data name="EditConnectionSettings" xml:space="preserve">
     <value>Изменить параметры подключения</value>
-  </data>
-  <data name="EditQuery" xml:space="preserve">
-    <value>Изменить запрос...</value>
   </data>
   <data name="NewDatabaseConnection" xml:space="preserve">
     <value>Новое подключение к базе данных</value>
@@ -245,28 +242,28 @@
     <value>ContinueOnError Boolean</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>DataTable</value>
+    <value>Input data table</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
     <value>Исходный параметр DataTable для элементов, которые необходимо вставить.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Source DataTable</value>
+    <value>Provide the DataTable variable</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Имя таблицы</value>
+    <value>Target table name</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
     <value>Имя таблицы базы данных, в которую нужно вставить элементы.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Имя целевой таблицы базы данных</value>
+    <value>Provide the target database table name</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
     <value>Столбцы, используемые для сопоставления строк</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>Коллекция имен столбцов, используемых для сопоставления строк</value>
+    <value>Column names used for row matching</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Обновляет совместимый объект DataTable в существующей таблице. Обновляет все столбцы, которых нет в коллекции имен столбцов, используемых как основной ключ. Возвращает число затронутых строк.</value>
@@ -297,5 +294,17 @@
   </data>
   <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
     <value>Выполнить запрос</value>
+  </data>
+  <data name="SqlQuery" xml:space="preserve">
+    <value>SQL query</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="SqlCommand" xml:space="preserve">
+    <value>SQL Command</value>
+  </data>
+  <data name="SqlCommandHint" xml:space="preserve">
+    <value>Sql command. Text must be quoted</value>
   </data>
 </root>

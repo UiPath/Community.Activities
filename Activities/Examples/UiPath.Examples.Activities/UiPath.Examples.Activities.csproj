@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<PackageId>UiPath.Examples.Activities.Activities</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\ActivitiesMetadata.json" />
+    <None Remove="Resources\calculator.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
+    <EmbeddedResource Include="Resources\Icons\calculator.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Activities.ViewModels" Version="1.0.0-20230919.1" />
+    <PackageReference Include="UiPath.Activities.Api" Version="22.4.1" PrivateAssets="All" />
+    <PackageReference Include="UiPath.Workflow" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <CustomToolNamespace>UiPath.Examples.Activities</CustomToolNamespace>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>UiPath.Examples.Activities</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
