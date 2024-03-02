@@ -233,7 +233,7 @@
     <value>Bir hata oluşturulmadan önce SQL sorgusunun çalışmasının bekleneceği süreyi (milisaniye olarak) belirtir (sorgu sonucu almaya yönelik yanıt süresini içermez). Varsayılan değer 30000 milisaniyedir (30 saniye) ve 0&apos;dan büyük veya 0&apos;a eşit olmalıdır.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Uygulama Tümleştirmesi</value>
+    <value>App Integration</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Koleksiyon)</value>
