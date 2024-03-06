@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Design", "Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj", "{2629567D-4737-4A1B-9876-F00C948270E3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Tests", "Cryptography\UiPath.Cryptography.Activities.Tests\UiPath.Cryptography.Activities.Tests.csproj", "{32563B0E-C9B0-468F-85CC-04BB4802FE37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2629567D-4737-4A1B-9876-F00C948270E3} = {2629567D-4737-4A1B-9876-F00C948270E3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Packaging", "Cryptography\UiPath.Cryptography.Activities.Packaging\UiPath.Cryptography.Activities.Packaging.csproj", "{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}"
 EndProject
