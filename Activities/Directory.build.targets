@@ -47,4 +47,19 @@
 	<PropertyGroup>
 		<DefineConstants Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'">$(DefineConstants);NETSTANDARD</DefineConstants>
 	</PropertyGroup>
+
+	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
+		<!--PackageReference Include="Moq" Version="4.14.5" /-->
+		<PackageReference Include="Shouldly" Version="3.0.2" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+		<PackageReference Update="Microsoft.Activities.UnitTesting" Version="2.0.6.9" />
+		<PackageReference Update="Xunit.StaFact" Version="0.3.18" />
+		<PackageReference Update="ReflectionMagic" Version="4.1.0" />
+	</ItemGroup>
 </Project>

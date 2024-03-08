@@ -19,7 +19,7 @@ namespace UiPath.Cryptography.Activities
 {
     [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Name))]
     [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Description))]
-    public partial class EncryptFile : CodeActivity
+    public class EncryptFile : CodeActivity
     {
         private const string Encrypted = "_Encrypted";
 
