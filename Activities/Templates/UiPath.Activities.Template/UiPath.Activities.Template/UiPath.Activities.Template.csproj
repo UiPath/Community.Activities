@@ -18,7 +18,7 @@
   <ItemGroup>
     <PackageReference Include="System.Activities.ViewModels" Version="1.0.0-20230919.1" />
     <PackageReference Include="UiPath.Activities.Api" Version="22.4.1" PrivateAssets="All" />
-    <PackageReference Include="UiPath.Workflow" Version="6.0.3" />
+    <PackageReference Include="UiPath.Workflow" Version="6.0.0-20220401-03" />
   </ItemGroup>
 
   <ItemGroup>
