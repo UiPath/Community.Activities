@@ -7,6 +7,7 @@
 		<Product>UiPath.Cryptography.Activities.Tests</Product>
 		<Copyright>Copyright ©  2018</Copyright>
 		<OutputPath>..\..\OutputTests\Cryptography\</OutputPath>
+		<IsTestProject>true</IsTestProject>
 	</PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
 		<PackageReference Include="UiPath.Workflow.Runtime" />
@@ -28,6 +29,7 @@
 		<ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="Shouldly" Version="4.2.1" />
 		<PackageReference Include="xunit" Version="2.4.0" />
 		<PackageReference Include="xunit.abstractions" Version="2.0.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">

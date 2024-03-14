@@ -2,161 +2,136 @@
   "AssemblyRelativePath": "UiPath.Cryptography.Activities.dll",
   "Activities": [
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Cryptography.Activities.DecryptFile",
       "ShortName": "DecryptFile",
       "DisplayNameKey": "Activity_DecryptFile_Name",
       "DescriptionKey": "Activity_DecryptFile_Description",
       "IconKey": "Decrypt_file.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
-        "Properties": [
-            {
-                "Name": "Algorithm",
-                "DisplayNameKey": "Activity_DecryptFile_Property_Algorithm_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_Algorithm_Description",
-                "IsRequired": true,
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "InputFile",
-                "DisplayNameKey": "Activity_DecryptFile_Property_InputFile_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_InputFile_Description",
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "InputFilePath",
-                "DisplayNameKey": "Activity_DecryptFile_Property_InputFilePath_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_InputFilePath_Description",
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "Key",
-                "DisplayNameKey": "Activity_DecryptFile_Property_Key_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_Key_Description",
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "KeySecureString",
-                "DisplayNameKey": "Activity_DecryptFile_Property_KeySecureString_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_KeySecureString_Description",
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "OutputFilePath",
-                "DisplayNameKey": "Activity_DecryptFile_Property_OutputFilePath_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_OutputFilePath_Description",
-                "IsRequired": false,
-                "IsPrincipal": false,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Options_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "KeyEncodingString",
-                "DisplayNameKey": "Activity_DecryptFile_Property_KeyEncodingString_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_KeyEncodingString_Description",
-                "IsRequired": false,
-                "IsPrincipal": false,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Options_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "Overwrite",
-                "DisplayNameKey": "Activity_DecryptFile_Property_Overwrite_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_Overwrite_Description",
-                "IsRequired": false,
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Options_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "ContinueOnError",
-                "DisplayNameKey": "Activity_DecryptFile_Property_ContinueOnError_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_ContinueOnError_Description",
-                "IsRequired": false,
-                "IsPrincipal": false,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Options_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "DecryptedFile",
-                "DisplayNameKey": "Activity_DecryptFile_Property_DecryptedFile_Name",
-                "TooltipKey": "Activity_DecryptFile_Property_DecryptedFile_Description",
-                "IsRequired": false,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Output"
-                }
-            }
-        ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.DecryptFileViewModel",
+      "Properties": [
+        {
+          "Name": "Algorithm",
+          "DisplayNameKey": "Activity_DecryptFile_Property_Algorithm_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_Algorithm_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_DecryptFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_InputFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputFilePath",
+          "DisplayNameKey": "Activity_DecryptFile_Property_InputFilePath_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_InputFilePath_Description",
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Key",
+          "DisplayNameKey": "Activity_DecryptFile_Property_Key_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_Key_Description",
+          "IsVisible": true,
+          "IsPrincipal": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeySecureString",
+          "DisplayNameKey": "Activity_DecryptFile_Property_KeySecureString_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_KeySecureString_Description",
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "OutputFilePath",
+          "DisplayNameKey": "Activity_DecryptFile_Property_OutputFilePath_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_OutputFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "KeyEncodingString",
+          "DisplayNameKey": "Activity_DecryptFile_Property_KeyEncodingString_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_KeyEncodingString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_DecryptFile_Property_Overwrite_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_DecryptFile_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "DecryptedFile",
+          "DisplayNameKey": "Activity_DecryptFile_Property_DecryptedFile_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_DecryptedFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Cryptography.Activities.DecryptText",
       "ShortName": "DecryptText",
       "DisplayNameKey": "Activity_DecryptText_Name",
       "DescriptionKey": "Activity_DecryptText_Description",
       "IconKey": "Decrypt_text.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.DecryptTextViewModel",
       "Properties": [
         {
           "Name": "Algorithm",
@@ -166,11 +141,9 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "Input",
@@ -180,11 +153,9 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "Key",
@@ -193,11 +164,9 @@
           "IsRequired": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeySecureString",
@@ -206,11 +175,9 @@
           "IsRequired": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeyEncodingString",
@@ -220,11 +187,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ContinueOnError",
@@ -234,11 +199,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Result",
@@ -248,180 +211,150 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Output",
             "DisplayNameKey": "Output"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
-      ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      ]
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Cryptography.Activities.EncryptFile",
       "ShortName": "EncryptFile",
       "DisplayNameKey": "Activity_EncryptFile_Name",
       "DescriptionKey": "Activity_EncryptFile_Description",
       "IconKey": "Encrypt_file.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
-        "Properties": [
-            {
-                "Name": "Algorithm",
-                "DisplayNameKey": "Activity_EncryptFile_Property_Algorithm_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_Algorithm_Description",
-                "IsRequired": true,
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-              "Name": "DeprecatedWarning",
-              "IsPrincipal": true,
-              "IsVisible": false
-            },
-            {
-                "Name": "InputFilePath",
-                "DisplayNameKey": "Activity_EncryptFile_Property_InputFilePath_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_InputFilePath_Description",
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "InputFile",
-                "DisplayNameKey": "Activity_EncryptFile_Property_InputFile_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_InputFile_Description",
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "Key",
-                "DisplayNameKey": "Activity_EncryptFile_Property_Key_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_Key_Description",
-                "IsRequired": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "KeySecureString",
-                "DisplayNameKey": "Activity_EncryptFile_Property_KeySecureString_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_KeySecureString_Description",
-                "IsRequired": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Principal_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.EncryptFileViewModel",
+      "Properties": [
+        {
+          "Name": "Algorithm",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Algorithm_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Algorithm_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "DeprecatedWarning",
+          "IsPrincipal": true,
+          "IsVisible": false
+        },
+        {
+          "Name": "InputFilePath",
+          "DisplayNameKey": "Activity_EncryptFile_Property_InputFilePath_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_InputFilePath_Description",
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_EncryptFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_InputFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Key",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Key_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Key_Description",
+          "IsRequired": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeySecureString",
+          "DisplayNameKey": "Activity_EncryptFile_Property_KeySecureString_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_KeySecureString_Description",
+          "IsRequired": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
 
-            {
-                "Name": "OutputFilePath",
-                "DisplayNameKey": "Activity_EncryptFile_Property_OutputFilePath_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_OutputFilePath_Description",
-                "IsRequired": false,
-                "IsPrincipal": false,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Options_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-          {
-            "Name": "KeyEncodingString",
-            "DisplayNameKey": "Activity_EncryptFile_Property_KeyEncoding_Name",
-            "TooltipKey": "Activity_EncryptFile_Property_KeyEncoding_Description",
-            "IsRequired": false,
-            "IsPrincipal": false,
-            "IsVisible": true,
-            "Category": {
-              "Name": null,
-              "DisplayNameKey": "Category_Options_Name"
-            },
-            "Widget": null,
-            "IconKey": null
-          },
-            {
-                "Name": "Overwrite",
-                "DisplayNameKey": "Activity_EncryptFile_Property_Overwrite_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_Overwrite_Description",
-                "IsRequired": false,
-                "IsPrincipal": true,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Options_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "ContinueOnError",
-                "DisplayNameKey": "Activity_EncryptFile_Property_ContinueOnError_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_ContinueOnError_Description",
-                "IsRequired": false,
-                "IsPrincipal": false,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Category_Options_Name"
-                },
-                "Widget": null,
-                "IconKey": null
-            },
-            {
-                "Name": "EncryptedFile",
-                "DisplayNameKey": "Activity_EncryptFile_Property_EncryptedFile_Name",
-                "TooltipKey": "Activity_EncryptFile_Property_EncryptedFile_Description",
-                "IsRequired": false,
-                "IsVisible": true,
-                "Category": {
-                    "Name": null,
-                    "DisplayNameKey": "Output"
-                }
-            }
-        ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+        {
+          "Name": "OutputFilePath",
+          "DisplayNameKey": "Activity_EncryptFile_Property_OutputFilePath_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_OutputFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "KeyEncodingString",
+          "DisplayNameKey": "Activity_EncryptFile_Property_KeyEncoding_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_KeyEncoding_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Overwrite_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_EncryptFile_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "EncryptedFile",
+          "DisplayNameKey": "Activity_EncryptFile_Property_EncryptedFile_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_EncryptedFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Cryptography.Activities.EncryptText",
       "ShortName": "EncryptText",
       "DisplayNameKey": "Activity_EncryptText_Name",
       "DescriptionKey": "Activity_EncryptText_Description",
       "IconKey": "Encrypt_text.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.EncryptTextViewModel",
       "Properties": [
         {
           "Name": "Algorithm",
@@ -431,11 +364,9 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "DeprecatedWarning",
@@ -450,11 +381,9 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "Key",
@@ -463,11 +392,9 @@
           "IsRequired": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeySecureString",
@@ -476,11 +403,9 @@
           "IsRequired": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeyEncodingString",
@@ -490,11 +415,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ContinueOnError",
@@ -504,11 +427,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Result",
@@ -518,26 +439,19 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Output",
             "DisplayNameKey": "Output"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
-      ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      ]
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Cryptography.Activities.KeyedHashFile",
       "ShortName": "KeyedHashFile",
       "DisplayNameKey": "Activity_KeyedHashFile_Name",
       "DescriptionKey": "Activity_KeyedHashFile_Description",
       "IconKey": "Hash_file_with_key.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.KeyedHashFileViewModel",
       "Properties": [
         {
           "Name": "Algorithm",
@@ -547,11 +461,9 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "InputFile",
@@ -560,11 +472,9 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "FilePath",
@@ -573,33 +483,27 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "Key",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_Key_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_Key_Description",
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_KeyedHashFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_KeyedHashFile_Property_KeySecureString_Description",
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeyEncodingString",
@@ -609,11 +513,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ContinueOnError",
@@ -623,11 +525,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Result",
@@ -637,26 +537,19 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Output",
             "DisplayNameKey": "Output"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
-      ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      ]
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.Cryptography.Activities.KeyedHashText",
       "ShortName": "KeyedHashText",
       "DisplayNameKey": "Activity_KeyedHashText_Name",
       "DescriptionKey": "Activity_KeyedHashText_Description",
       "IconKey": "Hash_text_with_key.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.KeyedHashTextViewModel",
       "Properties": [
         {
           "Name": "Algorithm",
@@ -666,11 +559,9 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "Input",
@@ -680,33 +571,27 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "Key",
           "DisplayNameKey": "Activity_KeyedHashText_Property_Key_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_Key_Description",
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeySecureString",
           "DisplayNameKey": "Activity_KeyedHashText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_KeyedHashText_Property_KeySecureString_Description",
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "KeyEncodingString",
@@ -716,11 +601,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ContinueOnError",
@@ -730,11 +613,9 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Result",
@@ -744,20 +625,15 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
+            "Name": "Output",
             "DisplayNameKey": "Output"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
-      ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      ]
     }
   ],
   "DefaultActivityColor": "#526069",
   "DefaultActivityNameBackgroundColor": "#FFFFFF",
-  "DefaultActivityIconKey": null,
   "AssemblyIconKey": "Cryptography.svg",
   "ResourceManagerName": "UiPath.Cryptography.Activities.Properties.UiPath.Cryptography.Activities"
 }
