@@ -18,7 +18,7 @@ namespace UiPath.Cryptography.Activities
 {
     [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Name))]
     [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Description))]
-    public partial class KeyedHashFile : CodeActivity<string>
+    public class KeyedHashFile : CodeActivity<string>
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -77,6 +77,12 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Name))]
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Description))]
         public InArgument<IResource> InputFile { get; set; }
+
+        [Browsable(false)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_FileInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_FileInputModeSwitch_Description))]
+        public FileInputMode FileInputModeSwitch { get; set; }
 
         public KeyedHashFile()
         {

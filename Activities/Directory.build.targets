@@ -4,7 +4,8 @@
 		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20220401-03" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="6.0.0-20220318.2" />
 		<PackageReference Update="System.Activities.Metadata" Version="6.0.0-20220831.1" PrivateAssets="All"/>
-		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20220906.1"/>
+		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20230713.1"/>
+		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
 	</ItemGroup>
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net5'))">
 		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
@@ -22,25 +23,23 @@
 		<PackageReference Update="UiPath.Activities.Api" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Contracts" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Telemetry.Client" Version="1.5.3" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Platform" Version="22.10.2"  PrivateAssets="All" />
+		<PackageReference Update="UiPath.Platform" Version="22.10.2"/>
 	</ItemGroup>
 
-
+	<!-- the None element is used for keeping files visible in solution explorer -->
 	<Choose>
 		<When Condition="$(TargetFramework.StartsWith('net4'))">
 			<ItemGroup>
-				<Compile Remove="NetCore\**\*.cs" />
-			</ItemGroup>
-			<ItemGroup>
-				<Page Remove="NetCore\**\*.xaml" />
+				<Compile Remove="**\NetCore*\**\*.cs" />
+				<Page Remove="**\NetCore\**\*.xaml" />
+				<None Include="**\NetCore\**\*.cs" Exclude="obj\**"/>
 			</ItemGroup>
 		</When>
 		<Otherwise>
 			<ItemGroup>
-				<Compile Remove="NetFramework\**\*.cs" />
-			</ItemGroup>
-			<ItemGroup>
-				<Page Remove="NetFramework\**\*.xaml" />
+				<Compile Remove="**\NetFramework\**\*.cs" />
+				<Page Remove="**\NetFramework\**\*.xaml" />
+				<None Include="**\NetFramework\**\*.cs" Exclude="obj\**"/>
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
@@ -48,4 +47,19 @@
 	<PropertyGroup>
 		<DefineConstants Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'">$(DefineConstants);NETSTANDARD</DefineConstants>
 	</PropertyGroup>
+
+	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
+		<!--PackageReference Include="Moq" Version="4.14.5" /-->
+		<PackageReference Include="Shouldly" Version="3.0.2" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+		<PackageReference Update="Microsoft.Activities.UnitTesting" Version="2.0.6.9" />
+		<PackageReference Update="Xunit.StaFact" Version="0.3.18" />
+		<PackageReference Update="ReflectionMagic" Version="4.1.0" />
+	</ItemGroup>
 </Project>

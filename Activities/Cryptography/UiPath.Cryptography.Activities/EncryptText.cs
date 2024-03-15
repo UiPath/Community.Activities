@@ -10,6 +10,8 @@ using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 
+#pragma warning disable CS0618 // obsolete encryption algorithm
+
 namespace UiPath.Cryptography.Activities
 {
     [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Name))]

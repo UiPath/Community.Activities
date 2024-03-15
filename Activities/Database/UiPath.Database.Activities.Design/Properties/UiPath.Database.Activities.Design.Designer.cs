@@ -19,7 +19,7 @@ namespace UiPath.Database.Activities.Design.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_Database_Activities_Design {
@@ -133,7 +133,7 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DataTable.
+        ///   Looks up a localized string similar to Input data table.
         /// </summary>
         public static string BulkInsert_DataTable {
             get {
@@ -151,7 +151,7 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Source DataTable.
+        ///   Looks up a localized string similar to Provide the DataTable variable.
         /// </summary>
         public static string BulkInsert_DataTable_Placeholder {
             get {
@@ -160,7 +160,7 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table name.
+        ///   Looks up a localized string similar to Target table name.
         /// </summary>
         public static string BulkInsert_TableName {
             get {
@@ -178,7 +178,7 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Destination database table name.
+        ///   Looks up a localized string similar to Provide the target database table name.
         /// </summary>
         public static string BulkInsert_TableName_Placeholder {
             get {
@@ -205,7 +205,7 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The collection of column names used for row matching.
+        ///   Looks up a localized string similar to Column names used for row matching.
         /// </summary>
         public static string BulkUpdate_ColumnNames_Placeholder {
             get {
@@ -412,20 +412,20 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string EditButton {
+            get {
+                return ResourceManager.GetString("EditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Connection Settings.
         /// </summary>
         public static string EditConnectionSettings {
             get {
                 return ResourceManager.GetString("EditConnectionSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Query....
-        /// </summary>
-        public static string EditQuery {
-            get {
-                return ResourceManager.GetString("EditQuery", resourceCulture);
             }
         }
         
@@ -538,11 +538,38 @@ namespace UiPath.Database.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A sql command to be executed..
+        ///   Looks up a localized string similar to SQL Command.
+        /// </summary>
+        public static string SqlCommand {
+            get {
+                return ResourceManager.GetString("SqlCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sql command. Text must be quoted.
+        /// </summary>
+        public static string SqlCommandHint {
+            get {
+                return ResourceManager.GetString("SqlCommandHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide an SQL statement that corresponds to the selected command type.
         /// </summary>
         public static string SqlDescription {
             get {
                 return ResourceManager.GetString("SqlDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQL query.
+        /// </summary>
+        public static string SqlQuery {
+            get {
+                return ResourceManager.GetString("SqlQuery", resourceCulture);
             }
         }
         

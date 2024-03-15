@@ -14,11 +14,13 @@ using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
 
+#pragma warning disable CS0618 // obsolete encryption algorithm
+
 namespace UiPath.Cryptography.Activities
 {
     [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Name))]
     [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Description))]
-    public partial class DecryptFile : CodeActivity
+    public class DecryptFile : CodeActivity
     {
         private const string Decrypted = "_Decrypted";
 
@@ -57,6 +59,12 @@ namespace UiPath.Cryptography.Activities
 
         [Browsable(false)]
         public InArgument<string> KeyEncodingString { get; set; }
+
+        [Browsable(false)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_FileInputModeSwitch_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_FileInputModeSwitch_Description))]
+        public FileInputMode FileInputModeSwitch { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_OutputFilePath_Name))]

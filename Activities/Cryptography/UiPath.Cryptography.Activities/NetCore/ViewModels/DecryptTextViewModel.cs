@@ -18,6 +18,8 @@ namespace UiPath.Cryptography.Activities
     }
 }
 
+#pragma warning disable CS0618 // obsolete encryption algorithm
+
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     public partial class DecryptTextViewModel : DesignPropertiesViewModel
@@ -78,13 +80,13 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeModel();
             var propertyOrderIndex = 1;
 
+            Input.IsPrincipal = true;
+            Input.OrderIndex = propertyOrderIndex++;
+
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.DataSource = DataSourceHelper.ForEnum(SymmetricAlgorithms.AES, SymmetricAlgorithms.AESGCM, SymmetricAlgorithms.DES, SymmetricAlgorithms.RC2, SymmetricAlgorithms.Rijndael, SymmetricAlgorithms.TripleDES);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
-            Input.IsPrincipal = true;
-            Input.OrderIndex = propertyOrderIndex++;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -109,7 +111,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Result.OrderIndex = propertyOrderIndex++;
 
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
+            ContinueOnError.OrderIndex = propertyOrderIndex;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
             ContinueOnError.Value = false;
 

@@ -133,6 +133,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_FileInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be decrypted.
         /// </summary>
         public static string Activity_DecryptFile_Property_InputFile_Description {
@@ -160,7 +178,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input Path.
+        ///   Looks up a localized string similar to File path.
         /// </summary>
         public static string Activity_DecryptFile_Property_InputFilePath_Name {
             get {
@@ -493,6 +511,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected encryption algorithm is deprecated and it will no longer be supported in future versions..
+        /// </summary>
+        public static string Activity_Encrypt_Algorithm_Deprecated_Warning {
+            get {
+                return ResourceManager.GetString("Activity_Encrypt_Algorithm_Deprecated_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encrypts a file with a key based on a specified key encoding and algorithm..
         /// </summary>
         public static string Activity_EncryptFile_Description {
@@ -565,6 +592,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_FileInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be encrypted.
         /// </summary>
         public static string Activity_EncryptFile_Property_InputFile_Description {
@@ -592,7 +637,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input Path.
+        ///   Looks up a localized string similar to File path.
         /// </summary>
         public static string Activity_EncryptFile_Property_InputFilePath_Name {
             get {
@@ -979,7 +1024,25 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to he path to the file you want to hash..
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_HashFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_HashFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_HashFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_HashFile_Property_FileInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the file you want to hash..
         /// </summary>
         public static string Activity_HashFile_Property_FilePath_Description {
             get {
@@ -1191,6 +1254,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_KeyedHashFile_Property_Encoding_Name {
             get {
                 return ResourceManager.GetString("Activity_KeyedHashFile_Property_Encoding_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The switch between File Path and Resource.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_FileInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_FileInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileInputModeSwitch.
+        /// </summary>
+        public static string Activity_KeyedHashFile_Property_FileInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_KeyedHashFile_Property_FileInputModeSwitch_Name", resourceCulture);
             }
         }
         
@@ -1708,7 +1789,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Key must not be null.
+        ///   Looks up a localized string similar to Value for a required activity argument &apos;Key&apos; was not supplied.
         /// </summary>
         public static string KeyNullError {
             get {

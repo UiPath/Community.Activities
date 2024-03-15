@@ -175,11 +175,11 @@
     <value>Представление строки base64 зашифрованной строки ввода.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>Путь к файлу</value>
+    <value>File path</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Путь к файлу</value>
+    <value>File path</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Путь к файлу, который будет хэширован этим действием.</value>
@@ -194,7 +194,7 @@
     <value>Представление шестнадцатеричной строки хэшированной строки ввода.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Путь к файлу с входными данными</value>
+    <value>Input path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">

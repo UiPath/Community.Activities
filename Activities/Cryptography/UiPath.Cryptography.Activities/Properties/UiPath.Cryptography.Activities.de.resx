@@ -202,7 +202,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Eingabepfad</value>
+    <value>Dateipfad</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, die zum Interpretieren des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Schlüsselcodierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -269,6 +277,14 @@
     <value>Codierung</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, die zum Interpretieren des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Schlüsselcodierung</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>Der Text, den Sie entschlüsseln möchten.</value>
     <comment>Property description</comment>
@@ -314,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Eingabepfad</value>
+    <value>Dateipfad</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -347,6 +363,14 @@
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Bei Fehler fortsetzen</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, die zum Interpretieren des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Schlüsselcodierung</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -413,6 +437,14 @@
     <value>Codierung</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, die zum Interpretieren des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Schlüsselcodierung</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
     <value>Der Text, den Sie verschlüsseln möchten.</value>
     <comment>Property description</comment>
@@ -446,7 +478,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Hasht eine Datei mit einem Schlüssel mit einem angegebenen Algorithmus und einem Verschlüsselungsformat und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Hasht eine Datei mit einem Schlüssel mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück. Unterstützt Hashing-Algorithmen mit und ohne Schlüssel.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -475,6 +507,14 @@
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
     <value>Codierung</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, die zum Interpretieren des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Schlüsselcodierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -510,7 +550,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Hasht eine Zeichenfolge mit einem Schlüssel mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Hasht eine Zeichenfolge mit einem Schlüssel mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück. Unterstützt Hashing-Algorithmen mit und ohne Schlüssel.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -541,6 +581,14 @@
     <value>Codierung</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, die zum Interpretieren des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Schlüsselcodierung</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
     <value>Der Text, den Sie hashen möchten.</value>
     <comment>Property description</comment>
@@ -558,7 +606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
-    <value>Der Schlüssel, den Sie zum Hashen der angegebenen Datei verwenden möchten.</value>
+    <value>Der Schlüssel, den Sie zum Hashen des angegebenen Texts verwenden möchten.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
@@ -574,7 +622,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Wendet den ausgewählten Hash-Algorithmus auf den Inhalt der bereitgestellten Datei an und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Diese Aktivität ist jetzt veraltet. SHA1, SHA256, SHA384 und SHA512 wurden in eine Einzelaktivität-Hash-Datei verschoben.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +662,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Hasht eine Zeichenfolge mithilfe eines angegebenen Algorithmus und gibt die hexadezimale Zeichenfolgendarstellung des resultierenden Hashs zurück.</value>
+    <value>Diese Aktivität ist jetzt veraltet. SHA1, SHA256, SHA384 und SHA512 wurden in einen Einzelaktivität-Hash-Text verschoben.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
@@ -792,9 +840,36 @@
     <value>Der Schlüssel und die sichere Zeichenfolge dürfen nicht beide NULL sein.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>Der Schlüssel darf nicht NULL sein.</value>
+    <value>Wert für erforderliches Aktivitätsargument „Schlüssel“ wurde nicht angegeben.</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>Die sichere Schlüsselzeichenfolge darf nicht NULL sein.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Der Wechsel zwischen Dateipfad und Ressource</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>WechselDesDateieingabemodus</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Der Wechsel zwischen Dateipfad und Ressource</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Der Wechsel zwischen Dateipfad und Ressource</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Der Wechsel zwischen Dateipfad und Ressource</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>Der ausgewählte Verschlüsselungsalgorithmus ist veraltet und wird in zukünftigen Versionen nicht mehr unterstützt.</value>
   </data>
 </root>

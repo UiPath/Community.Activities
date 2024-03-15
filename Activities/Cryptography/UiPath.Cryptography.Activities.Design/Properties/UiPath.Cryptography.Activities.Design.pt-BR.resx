@@ -175,11 +175,11 @@
     <value>A representação da string base64 da string de entrada criptografada.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>Caminho do Arquivo</value>
+    <value>Caminho do arquivo</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Caminho do Arquivo</value>
+    <value>Caminho do arquivo</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Caminho para o arquivo cujo hash será feito por esta atividade.</value>

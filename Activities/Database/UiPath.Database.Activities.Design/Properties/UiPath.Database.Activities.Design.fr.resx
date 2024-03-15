@@ -166,7 +166,7 @@
     <value>Nom du fournisseur de base de données utilisé pour accéder à la base de données. Une liste des fournisseurs de données est disponible à l’adresse suivante : https://docs.microsoft.com/fr-fr/previous-versions/dotnet/netframework-4.0/a6cd7c08(v=vs.100)?redirectedfrom=MSDN</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>Commande SQL à exécuter.</value>
+    <value>Saisissez une instruction SQL correspondant au type de commande sélectionné</value>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>Table de base de données cible</value>
@@ -194,9 +194,6 @@
   </data>
   <data name="EditConnectionSettings" xml:space="preserve">
     <value>Modifier les paramètres de connexion</value>
-  </data>
-  <data name="EditQuery" xml:space="preserve">
-    <value>Modifier la requête...</value>
   </data>
   <data name="NewDatabaseConnection" xml:space="preserve">
     <value>Nouvelle connexion à la base de données</value>
@@ -245,28 +242,28 @@
     <value>ContinuerSurErreur Boolean</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>TableDonnées</value>
+    <value>Table de données d&apos;entrée</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
     <value>L’objet TableDonnées source pour les éléments à insérer.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Objet TableDonnées source</value>
+    <value>Indiquez la variable TableDonnées</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Nom de table</value>
+    <value>Nom de la table cible</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
     <value>Le nom de la table de base de données dans laquelle vous souhaitez insérer les éléments.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Nom de la table de base de données de destination</value>
+    <value>Indiquez le nom de la table de base de données cible</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
     <value>Colonnes utilisées pour la correspondance de lignes</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>La collection de noms de colonnes utilisée pour la correspondance de lignes</value>
+    <value>Noms de colonnes utilisés pour la correspondance de lignes</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
     <value>Met à jour un objet TableDonnées compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
@@ -275,7 +272,7 @@
     <value>Le nombre de lignes mises à jour</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>Si la valeur est définie sur Vrai, créera une table temporaire à l’aide d’une insertion en masse et réalisera une mise à jour en utilisant une jointure entre les tables. Sinon, des mises à jour en bloc seront émises par lots.</value>
+    <value>Si la valeur est définie sur True, créera une table temporaire à l’aide d’une insertion en masse et réalisera une mise à jour en utilisant une jointure entre les tables. Sinon, des mises à jour en bloc seront émises par lots.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
     <value>L’objet TableDonnées qui sera utilisé pour mettre à jour la table. La description des colonnes TableDonnées doit correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble</value>
@@ -297,5 +294,17 @@
   </data>
   <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
     <value>Exécuter la requête (Execute Query)</value>
+  </data>
+  <data name="SqlQuery" xml:space="preserve">
+    <value>Requête SQL</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="SqlCommand" xml:space="preserve">
+    <value>Commande SQL</value>
+  </data>
+  <data name="SqlCommandHint" xml:space="preserve">
+    <value>Commande SQL. Le texte doit être entre guillemets</value>
   </data>
 </root>

@@ -202,7 +202,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Giriş Yolu</value>
+    <value>Dosya yolu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Anahtar Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -269,6 +277,14 @@
     <value>Kodlama</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Anahtar Kodlama</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>Şifresini çözmek istediğiniz metin.</value>
     <comment>Property description</comment>
@@ -314,7 +330,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Giriş Yolu</value>
+    <value>Dosya yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
@@ -347,6 +363,14 @@
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Hata Olduğunda Devam Et</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Anahtar Kodlama</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -413,6 +437,14 @@
     <value>Kodlama</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Anahtar Kodlama</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
     <value>Şifresini çözmek istediğiniz metin.</value>
     <comment>Property description</comment>
@@ -446,7 +478,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
-    <value>Belirtilen bir algoritma ve kodlama biçimini kullanarak anahtarla bir dosyayı karma hale getirir ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+    <value>Belirtilen algoritmayı kullanarak bir anahtarla bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür. Bir anahtara sahip ve anahtarsız karma algoritmaları destekler.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
@@ -475,6 +507,14 @@
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
     <value>Kodlama</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Anahtar Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -510,7 +550,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Description" xml:space="preserve">
-    <value>Belirtilen algoritmayı kullanarak bir anahtarla bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür.</value>
+    <value>Belirtilen algoritmayı kullanarak bir anahtarla bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür. Bir anahtara sahip ve anahtarsız karma algoritmaları destekler.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashText_Name" xml:space="preserve">
@@ -539,6 +579,14 @@
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
     <value>Kodlama</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Anahtar Kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
@@ -574,7 +622,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Description" xml:space="preserve">
-    <value>Sağlanan dosyanın içeriğinde seçili karma algoritmasını uygular ve elde edilen karmanın on altılık dize gösterimini döndürür.</value>
+    <value>Bu etkinlik artık kullanımdan kaldırıldı. SHA1, SHA256, SHA384 ve SHA512 tek bir etkinlik Karma Dosyasına taşındı.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
@@ -614,7 +662,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Description" xml:space="preserve">
-    <value>Belirtilen algoritmayı kullanarak bir dizeyi karma hale getirir ve elde edilen karmanın onaltılık dize gösterimini döndürür.</value>
+    <value>Bu etkinlik artık kullanımdan kaldırıldı. SHA1, SHA256, SHA384 ve SHA512, Karma Metni tek bir etkinliğe taşındı.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
@@ -792,9 +840,36 @@
     <value>Anahtar ve güvenli dizenin her ikisi de null olmamalıdır.</value>
   </data>
   <data name="KeyNullError" xml:space="preserve">
-    <value>Anahtar null olmamalıdır</value>
+    <value>Gerekli bir etkinlik bağımsız değişkeni olan &apos;Key&apos; için değer sağlanmamış</value>
   </data>
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>Anahtar Güvenli Dizesi null olmamalıdır</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Dosya Yolu ve Kaynak arasındaki geçiş</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>DosyaGirişModuAnahtarı</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Dosya Yolu ve Kaynak arasındaki geçiş</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>DosyaGirişModuAnahtarı</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Dosya Yolu ve Kaynak arasındaki geçiş</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>DosyaGirişModuAnahtarı</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>Dosya Yolu ve Kaynak arasındaki geçiş</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>DosyaGirişModuAnahtarı</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>Seçilen şifreleme algoritması kullanım dışı ve artık gelecekteki sürümlerde desteklenmeyecek.</value>
   </data>
 </root>
