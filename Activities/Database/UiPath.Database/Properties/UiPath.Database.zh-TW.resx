@@ -124,7 +124,7 @@
     <value>目的地資料庫資料表 {1} 中找不到未對應的欄 {0}</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>提供的驅動程式版本不支援大量插入作業。請檢查驅動程式。</value>
+    <value>設定的提供者不支援大量插入作業。支援大量插入作業的提供者為: Microsoft.Data.SqlClient 和 Oracle.ManagedDataAccess.Client.OracleConnection。</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>資料表中提供的欄數必須與 DB 資料表中的欄數相符。</value>
