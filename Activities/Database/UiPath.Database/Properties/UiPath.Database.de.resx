@@ -124,7 +124,7 @@
     <value>Die nicht zugeordnete Spalte {0} wurde in der Zieldatenbanktabelle {1} nicht gefunden.</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>Die bereitgestellte Treiberversion unterstützt keine Masseneinfügungsvorgänge. Überprüfen Sie den Treiber.</value>
+    <value>Der konfigurierte Anbieter unterstützt keine Masseneinfügevorgänge. Anbieter, die Masseneinfügevorgänge unterstützen, sind: Microsoft.Data.SqlClient und Oracle.ManagedDataAccess.Client.OracleConnection.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>Die angegebene Anzahl von Spalten in der Datentabelle muss mit der Anzahl der Spalten in der DB-Tabelle übereinstimmen.</value>

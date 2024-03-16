@@ -124,7 +124,7 @@
     <value>Eşlemesi kaldırılan {0} sütunu, {1} adlı hedef veritabanı tablosunda bulunamadı</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>Sağlanan sürücü sürümü Toplu Ekle işlemlerini desteklemiyor. Lütfen sürücüyü kontrol edin.</value>
+    <value>Yapılandırılmış sağlayıcı Toplu Ekle işlemlerini desteklemiyor. Toplu Ekle işlemlerini destekleyen sağlayıcılar şunlardır: Microsoft.Data.SqlClient ve Oracle.ManagingDataAccess.Client.OracleConnection.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>DataTable içindeki sağlanan sütun sayısı, DB tablosundaki sütun sayısıyla eşleşmelidir.</value>
