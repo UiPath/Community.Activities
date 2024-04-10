@@ -154,7 +154,7 @@
     <value>データベースに対してクエリを実行し、クエリの結果をデータテーブルとして返します。(Execute Query)</value>
   </data>
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
-    <value>既に開かれているデータベース接続です。このプロパティを設定した場合は、[接続文字列] と [プロバイダー名] プロパティは無視されます。</value>
+    <value>すでに開かれているデータベース接続です。このプロパティを設定した場合は、[接続文字列] と [プロバイダー名] プロパティは無視されます。</value>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
     <value>既存のテーブルに対応するデータテーブルを挿入します。また、影響を受けた行の数を返します。(Insert)</value>
