@@ -34,6 +34,21 @@
     <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Remove="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\Workaround\DbWorkarounds.cs" Link="Workaround\DbWorkarounds.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Properties\UiPath.Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
