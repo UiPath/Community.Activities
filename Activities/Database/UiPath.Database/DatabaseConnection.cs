@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
+using UiPath.Data.ConnectionUI.Dialog.Workaround;
 using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Database
@@ -38,6 +39,7 @@ namespace UiPath.Database
 #if NETCOREAPP
             _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #endif
+            DbWorkarounds.SNILoadWorkaround(_isWindows);
         }
 
         public DatabaseConnection Initialize(DbConnection connection)
