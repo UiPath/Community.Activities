@@ -10,12 +10,12 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<VersionBuild>$([System.DateTime]::UtcNow.DayOfYear.ToString("F0"))</VersionBuild>
 		<VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("F0"))</VersionRevision>
-		<PackageId>UiPath.Activities.Template</PackageId>
+		<PackageId>$ext_safeprojectname$</PackageId>
 		<VersionPrefix Condition="'$(Configuration)' == 'Release'">1.0.0</VersionPrefix>
 		<VersionPrefix Condition="'$(Configuration)' == 'Debug'">1.0.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
 		<Authors>UiPath</Authors>
 		<PackageTags>UiPathActivities</PackageTags>
-		<Product>UiPath.Activities.Template</Product>
+		<Product>$safeprojectname$</Product>
 		<PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
 		<PackageOutputPath>..\Output\Activities\Packages\</PackageOutputPath>
 		<TargetsForTfmSpecificBuildOutput>AddDlls</TargetsForTfmSpecificBuildOutput>
@@ -25,10 +25,10 @@
 	<Target Name="AddDlls">
 		<!-- PDBs for debug-->
 		<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Activities.Template.pdb" />
+			<BuildOutputInPackage Include="$(OutputPath)$ext_safeprojectname$.pdb" />
 		</ItemGroup>
 		<ItemGroup>
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.Activities.Template.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)$ext_safeprojectname$.dll" />
 		</ItemGroup>
 	</Target>
 
@@ -47,7 +47,7 @@
 	</Target>
 	
 	<ItemGroup>
-		<ProjectReference Include="..\UiPath.Activities.Template\UiPath.Activities.Template.csproj">
+		<ProjectReference Include="..\$ext_safeprojectname$\$ext_safeprojectname$.csproj">
 			<PrivateAssets>All</PrivateAssets>
 		</ProjectReference>
 	</ItemGroup>

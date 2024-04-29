@@ -1,13 +1,13 @@
 {
-  "resourceManagerName": "UiPath.Activities.Template.Resources.Resources",
+  "resourceManagerName": "$safeprojectname$.Resources.Resources",
   "activities": [
     {
-      "fullName": "UiPath.Activities.Template.ActivityTemplate",
+      "fullName": "$safeprojectname$.ActivityTemplate",
       "shortName": "Template",
       "displayNameKey": "ActivityTemplate_DisplayName",
       "descriptionKey": "ActivityTemplate_Description",
       "categoryKey": "Templates",
-      "viewModelType": "UiPath.Activities.Template.ViewModels.ActivityTemplateViewModel"
+      "viewModelType": "$safeprojectname$.ViewModels.ActivityTemplateViewModel"
     }
   ]
 }

@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UiPath.Activities.Template\UiPath.Activities.Template.csproj" />
+    <ProjectReference Include="..\$ext_safeprojectname$\$ext_safeprojectname$.csproj" />
   </ItemGroup>
 
 </Project>
