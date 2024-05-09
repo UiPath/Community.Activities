@@ -1,0 +1,86 @@
+parameters:
+  robotVersion: '24.2.1-beta.15932'
+
+jobs:
+- job: "BuildDatabaseRuntimeTests"
+  displayName: "Run Database Runtime Tests"
+  variables:
+    IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
+    StudioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
+  timeoutInMinutes: 90
+  pool:
+    vmImage: windows-2022
+  workspace:
+    clean: outputs | resources | all
+
+  steps:     
+  - template: Testing/Automation/install.studio.steps.template.yml@automationTests
+    parameters:
+      installType: 'machine'
+      studioVersion: ${{ parameters.robotVersion }}
+      license: "7445-1270-1408-6250"
+      studioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+
+  - powershell: |
+      & "C:/Program Files/UiPath/Studio/UiRobot.exe" trace --enableLowLevel
+    displayName: "Enable robot low level"
+    failOnStderr: false
+
+  - powershell: |
+      if (Test-Path -Path "$(IntegrationTestStudioPackPath)") {
+        Remove-Item -Path $(IntegrationTestStudioPackPath) -Force -Recurse
+        Write-Host "Removed old packages" 
+      }
+      mkdir $(IntegrationTestStudioPackPath)
+      $seconds = ([System.DateTime]::Now - [System.DateTime]::Today).TotalSeconds -as [int]
+      & "C:/Program Files/UiPath/Studio/UIRobot.exe" --version
+      Write-Host " "
+      
+      $projectPath = Join-Path -Path "$(Build.SourcesDirectory)" -ChildPath "$(StudioProjectPath)"
+      $project = (get-content "$projectPath" | ConvertFrom-Json)
+      $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_portable"
+      Write-Host "Pack for portable " + $project.name
+      echo $project.name
+      $project.targetFramework = "Portable"
+      $project | ConvertTo-JSon | Out-File  "$projectPath"
+      
+      $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+      
+      if (-Not $output.Contains("Project published successfully."))
+      {
+        echo "Sleep 1 minute"
+        Start-Sleep -Seconds 60
+        $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+        if (-Not $output.Contains("Project published successfully."))
+        {
+          throw "Pack failed: " + $output  
+        }
+      }
+
+      $project = (get-content "$projectPath" | ConvertFrom-Json)
+      $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_windows"
+      Write-Host "Pack for windows " + $project.name
+      $project.targetFramework = "Windows"
+      $project | ConvertTo-JSon | Out-File  "$projectPath"
+
+      $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+
+      if (-Not $output.Contains("Project published successfully."))
+      {
+        echo "Sleep 1 minute"
+        Start-Sleep -Seconds 60
+        $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+        if (-Not $output.Contains("Project published successfully."))
+        {
+          throw "Pack failed: " + $output  
+        }
+      }
+    displayName: "Pack runtime tests project using UiPath.Studio.CommandLine.exe"
+    failOnStderr: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish packed tests"
+    inputs:
+      PathToPublish: "$(IntegrationTestStudioPackPath)"
+      ArtifactName: "Packages"
+      ArtifactType: "Container"
