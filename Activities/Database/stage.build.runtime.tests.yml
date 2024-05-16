@@ -22,15 +22,27 @@ jobs:
       studioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
 
   - powershell: |
+      echo "##vso[task.setvariable variable=studioPackagesPath]$env:ProgramFiles/UiPath/Studio/Packages"
       & "C:/Program Files/UiPath/Studio/UiRobot.exe" trace --enableLowLevel
     displayName: "Enable robot low level"
     failOnStderr: false
+
+  - task: DownloadPipelineArtifact@2
+    displayName: "Download Packages"
+    inputs:
+      artifact: "Packages"
+      path: "$(studioPackagesPath)"
 
   - powershell: |
       if (Test-Path -Path "$(IntegrationTestStudioPackPath)") {
         Remove-Item -Path $(IntegrationTestStudioPackPath) -Force -Recurse
         Write-Host "Removed old packages" 
       }
+      
+      $file = (Get-Item -Path "$(studioPackagesPath)/UiPath.Database.Activities.*.nupkg" | select Name).Name
+      $null = $file -match '(?<name>[^\d]+)(?<version>.*).nupkg'
+      $pkgName, $pkgVersion = $Matches['name'].TrimEnd('.'), $Matches['version']
+
       mkdir $(IntegrationTestStudioPackPath)
       $seconds = ([System.DateTime]::Now - [System.DateTime]::Today).TotalSeconds -as [int]
       & "C:/Program Files/UiPath/Studio/UIRobot.exe" --version
@@ -39,6 +51,8 @@ jobs:
       $projectPath = Join-Path -Path "$(Build.SourcesDirectory)" -ChildPath "$(StudioProjectPath)"
       $project = (get-content "$projectPath" | ConvertFrom-Json)
       $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_portable"
+      $project.dependencies.'UiPath.Database.Activities' = "[$pkgVersion]"
+      
       Write-Host "Pack for portable " + $project.name
       echo $project.name
       $project.targetFramework = "Portable"
