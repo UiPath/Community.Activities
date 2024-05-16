@@ -48,7 +48,7 @@ jobs:
   - bash: |
       docker ps
       cp -rvf $(Build.ArtifactStagingDirectory)/TestRunner $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/mount/input/
-      cp -vf $(IntegrationTestStudioPackPath)/UiPath.Database.Runtime.Tests_portable* $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/mount/input/
+      cp -vf $(IntegrationTestStudioPackPath)/*nupkg $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/mount/input/
       PACKAGE=$(basename $(ls $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/mount/input/*_portable*.nupkg))
       echo "package = $PACKAGE"
       echo "##vso[task.setvariable variable=pkgPath]/input/$PACKAGE"
