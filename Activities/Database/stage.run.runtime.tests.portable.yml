@@ -1,5 +1,5 @@
 parameters:
-  robotVersion: '24.2.1-beta.15932'
+  robotVersion: '23.10.6'
 
 jobs:
 - job: "RunDatabaseRuntimeTestsPortable"
