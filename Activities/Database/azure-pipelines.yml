@@ -8,7 +8,7 @@ resources:
   - repository: automationTests
     type: github
     name: UiPath/AzurePipelinesTemplates
-    ref: refs/tags/automation-templates1.0.1
+    ref: refs/tags/uipath.waitforbuild.1.0.3
     endpoint: "GitHub connection"
 
 trigger:

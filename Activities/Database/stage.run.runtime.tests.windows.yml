@@ -76,7 +76,7 @@ jobs:
   - powershell: |
       $filepath = Get-ChildItem $(IntegrationTestStudioPackPath)/UiPath.Database.Runtime.Tests_windows*
       $fullPath = $filepath.FullName
-      docker ps
+      $env:MOUNT_OUTPUT=$(System.ArtifactsDirectory)
       $env:SQL_SERVER_HOST="localhost"
       $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory)
     displayName: 'Execute tests'
