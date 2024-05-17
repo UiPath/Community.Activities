@@ -73,6 +73,8 @@ jobs:
       ports:
         1433:1433
     displayName: 'Run SQL Server Image'
+    env:
+      MOUNT_OUTPUT: $(System.ArtifactsDirectory)
 
   - powershell: |
       $filepath = Get-ChildItem $(IntegrationTestStudioPackPath)/UiPath.Database.Runtime.Tests_windows*
