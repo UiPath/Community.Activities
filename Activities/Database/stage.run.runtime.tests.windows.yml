@@ -1,5 +1,5 @@
 parameters:
-  robotVersion: '24.2.1-beta.15932'
+  robotVersion: '23.10.6'
 
 jobs:
 - job: "RunDatabaseRuntimeTestsWindows"
@@ -52,15 +52,16 @@ jobs:
       path: "$(IntegrationTestStudioPackPath)"
 
   # install robot
-  - template: Testing/Automation/install.studio.steps.template.yml@automationTests
+  - template: Testing/Automation/install.msi.steps.template.yml@automationTests
     parameters:
       installType: 'machine'
-      studioVersion: ${{ parameters.robotVersion }}
+      msiType: 'robot'
+      msiVersion: ${{ parameters.robotVersion }}
       license: "7445-1270-1408-6250"
-      studioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+      installComponents: 'Robot'
 
   - powershell: |
-      & "C:/Program Files/UiPath/Studio/UiRobot.exe" trace --enableLowLevel
+      & "C:/Program Files/UiPath/Robot/UiRobot.exe" trace --enableLowLevel
     displayName: "Enable robot low level"
     failOnStderr: false
   
@@ -76,9 +77,9 @@ jobs:
   - powershell: |
       $filepath = Get-ChildItem $(IntegrationTestStudioPackPath)/UiPath.Database.Runtime.Tests_windows*
       $fullPath = $filepath.FullName
-      $env:MOUNT_OUTPUT=$(System.ArtifactsDirectory)
+      $env:MOUNT_OUTPUT="$(System.ArtifactsDirectory)"
       $env:SQL_SERVER_HOST="localhost"
-      $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory)
+      $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory) --robotPath "C:/Program Files/UiPath/Robot/UiRobot.exe"
     displayName: 'Execute tests'
 
   - task: PublishTestResults@2
