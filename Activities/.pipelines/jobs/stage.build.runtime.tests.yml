@@ -44,11 +44,12 @@ jobs:
       
       $packageUnderTest = "${{ parameters.packageUnderTestName }}"
       $path = "$(studioPackagesPath)/" + $packageUnderTest + ".*.nupkg"
-      Write-Host "path " + $path
       $file = (Get-Item -Path "$path" | select Name).Name
       $null = $file -match '(?<name>[^\d]+)(?<version>.*).nupkg'
       $pkgName, $pkgVersion = $Matches['name'].TrimEnd('.'), $Matches['version']
 
+      Write-Host "Will build against $pkgName with version $pkgVersion"
+      
       mkdir $(IntegrationTestStudioPackPath)
       $seconds = ([System.DateTime]::Now - [System.DateTime]::Today).TotalSeconds -as [int]
       & "C:/Program Files/UiPath/Studio/UIRobot.exe" --version
