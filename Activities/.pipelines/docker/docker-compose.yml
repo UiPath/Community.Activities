@@ -10,5 +10,5 @@ services:
     environment:
       OFFLINE: 'true'
       LICENSE_AGREEMENT: 'accept'
-      SQL_SERVER_HOST: test_mssql_linux
+      SQL_SERVER_HOST: ${SQL_SERVER_HOST}
     entrypoint: "/bin/sh /input/startup.sh"

@@ -2,6 +2,7 @@ parameters:
   robotVersion: ''
   beforeTestsCustomSteps: []
   afterTestsCustomSteps: []
+  environment: {}
 
 jobs:
 - job: "RunDatabaseRuntimeTestsPortable"
@@ -50,12 +51,14 @@ jobs:
     displayName: 'Prepare tests'
 
   - bash: |
+      env
       cd $(Build.SourcesDirectory)/Activities/.pipelines/docker
       export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
       chmod -R 777  $(System.ArtifactsDirectory)
       docker-compose up -d robot
       docker-compose exec -T robot dotnet /input/TestRunner/uipath.studio.codedwf.tests.runner.dll run --package $(pkgPath) --robotPath /application/UiRobot.dll --output /output
     displayName: 'Run tests'
+    env: ${{ parameters.environment }}
 
   - ${{ each step in parameters.afterTestsCustomSteps }}:
     - ${{ step }}

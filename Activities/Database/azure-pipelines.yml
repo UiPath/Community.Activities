@@ -10,6 +10,12 @@ resources:
     name: UiPath/AzurePipelinesTemplates
     ref: refs/tags/uipath.waitforbuild.1.0.3
     endpoint: "GitHub connection"
+  - repository: template-helpers
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    endpoint: "UiPath"
+    ref: refs/tags/uipath.templates.helpers.1.1.4
+
 
 trigger:
   batch: true
@@ -53,10 +59,22 @@ stages:
       enableCDStages: false
       hasQaPackages: false
 
+  - stage: CreateAndSetupBYOSAgent
+    dependsOn:
+      - Build
+    displayName: "Create and Setup BYOS Agent"
+    variables:
+      eteKvName: "ete-variables-kv"
+      athenaservicesAgentPrefix: "cact"
+      eteAgentPoolName: vcanja1
+      eteProjName: "Ephemeral Testing Environment"
+    jobs:
+    - template: "stage.create.byos.agent.yml"
+
   - stage: BuildDatabaseRuntimeTests
     displayName: 'Build Database Runtime Tests'
     dependsOn:
-      - Build
+      - CreateAndSetupBYOSAgent
     jobs:
     - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
       parameters:
@@ -68,43 +86,41 @@ stages:
 
   - stage: RunDatabaseRuntimeTestsWindows
     displayName: 'Run Database Runtime Tests Windows'
+    variables:
+      DatabaseServicesAgentPublicIp: $[stageDependencies.CreateAndSetupBYOSAgent.ConfigureDatabaseServicesAgents.outputs['AddNsgRule.DatabaseServicesAgentPublicIp']]
     dependsOn:
       - BuildDatabaseRuntimeTests
+      - CreateAndSetupBYOSAgent
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
-        beforeTestsCustomSteps:
-          - powershell: |
-              $env:SQL_SERVER_HOST="localhost"
-            displayName: "Set env"
-
-          - task: DockerCompose@0
-            inputs:
-              dockerComposeFile: '$(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/docker-compose.yml'
-              action: 'Run a specific service'
-              serviceName: 'test_mssql_windows'
-              ports:
-                1433:1433
-            displayName: 'Run SQL Server Image'
-            env:
-              MOUNT_OUTPUT: $(System.ArtifactsDirectory)
+        environment:
+          SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
 
   - stage: RunDatabaseRuntimeTestsPortable
     displayName: 'Run Database Runtime Tests Portable'
+    variables:
+      DatabaseServicesAgentPublicIp: $[stageDependencies.CreateAndSetupBYOSAgent.ConfigureDatabaseServicesAgents.outputs['AddNsgRule.DatabaseServicesAgentPublicIp']]
     dependsOn:
       - BuildDatabaseRuntimeTests
+      - CreateAndSetupBYOSAgent
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
-        beforeTestsCustomSteps:
-          - bash: |
-              cd $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker
-              docker-compose --version
-              export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
-              export SQL_SERVER_HOST="test_mssql_linux"
-              chmod -R 777 $(System.ArtifactsDirectory)
-              docker-compose up -d test_mssql_linux
-            displayName: "Start database containers"
+        environment:
+          SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
 
+  - stage: DeleteBYOSAgent
+    displayName: "Delete BYOS Agent"
+    condition: always()
+    variables:
+      athenaservicesEnvironmentIds: $[stageDependencies.CreateAndSetupBYOSAgent.CreateBYOSAgent.outputs['DeployDatabaseServicesImage.environmentIds']]
+      eteKvName: "ete-variables-kv"
+    dependsOn:
+      - CreateAndSetupBYOSAgent
+      - RunDatabaseRuntimeTestsPortable
+      - RunDatabaseRuntimeTestsWindows
+    jobs:
+    - template: stage.delete.byos.agent.yml
