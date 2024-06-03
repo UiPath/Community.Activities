@@ -62,6 +62,8 @@ stages:
       parameters:
         robotVersion: $(TestsStudioVersion)
         studioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
+        buildForWindows: true
+        buildForPortable: true
 
   - stage: RunDatabaseRuntimeTestsWindows
     displayName: 'Run Database Runtime Tests Windows'
@@ -69,6 +71,8 @@ stages:
       - BuildDatabaseRuntimeTests
     jobs:
     - template: stage.run.runtime.tests.windows.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
 
   - stage: RunDatabaseRuntimeTestsPortable
     displayName: 'Run Database Runtime Tests Portable'
@@ -76,3 +80,5 @@ stages:
       - BuildDatabaseRuntimeTests
     jobs:
     - template: stage.run.runtime.tests.portable.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
