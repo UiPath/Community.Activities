@@ -1,12 +1,12 @@
 parameters:
-  robotVersion: '23.10.6'
+  robotVersion: "23.10.6"
+  studioProjectPath: ""
 
 jobs:
 - job: "BuildDatabaseRuntimeTests"
   displayName: "Run Database Runtime Tests"
   variables:
     IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
-    StudioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
   timeoutInMinutes: 90
   pool:
     vmImage: windows-2022
@@ -48,7 +48,8 @@ jobs:
       & "C:/Program Files/UiPath/Studio/UIRobot.exe" --version
       Write-Host " "
       
-      $projectPath = Join-Path -Path "$(Build.SourcesDirectory)" -ChildPath "$(StudioProjectPath)"
+      $projectPath = Join-Path -Path "$(Build.SourcesDirectory)" -ChildPath "${{ parameters.studioProjectPath }}"
+      Write-Host "Project Path = $projectPath"
       $project = (get-content "$projectPath" | ConvertFrom-Json)
       $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_portable"
       $project.dependencies.'UiPath.Database.Activities' = "[$pkgVersion]"

@@ -6,3 +6,4 @@ variables:
   SolutionsPath: "$(Build.SourcesDirectory)\\Activities"
   ToolsPath: "$(Build.SourcesDirectory)\\Activities\\Tools"
   TestRunnerVersion: "1.594.543"
+  TestsStudioVersion: "23.10.6"

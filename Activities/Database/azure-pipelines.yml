@@ -58,7 +58,10 @@ stages:
     dependsOn:
       - Build
     jobs:
-    - template: stage.build.runtime.tests.yml
+    - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+        studioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
 
   - stage: RunDatabaseRuntimeTestsWindows
     displayName: 'Run Database Runtime Tests Windows'
