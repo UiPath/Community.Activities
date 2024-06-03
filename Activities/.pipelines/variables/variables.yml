@@ -5,3 +5,4 @@ variables:
   RunSettingsFilePath: "$(Build.SourcesDirectory)\\Activities\\CodeCoverage.runsettings"
   SolutionsPath: "$(Build.SourcesDirectory)\\Activities"
   ToolsPath: "$(Build.SourcesDirectory)\\Activities\\Tools"
+  TestRunnerVersion: "1.594.543"

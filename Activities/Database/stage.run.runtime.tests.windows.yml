@@ -21,7 +21,7 @@ jobs:
       downloadDirectory: "$(Build.ArtifactStagingDirectory)/TestRunner"
       vstsFeed: "UiPath-DevPackages"
       vstsFeedPackage: "uipath.testrunner"
-      vstsPackageVersion: "1.587.4306"
+      vstsPackageVersion: $(TestRunnerVersion)
       verbosity: 'Trace'
 
   - task: BuildProcessCleaner@0
