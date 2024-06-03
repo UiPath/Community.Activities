@@ -75,6 +75,10 @@ stages:
       parameters:
         robotVersion: $(TestsStudioVersion)
         beforeTestsCustomSteps:
+          - powershell: |
+              $env:SQL_SERVER_HOST="localhost"
+            displayName: "Set env"
+
           - task: DockerCompose@0
             inputs:
               dockerComposeFile: '$(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/docker-compose.yml'
@@ -99,6 +103,7 @@ stages:
               cd $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker
               docker-compose --version
               export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
+              export SQL_SERVER_HOST="test_mssql_linux"
               chmod -R 777 $(System.ArtifactsDirectory)
               docker-compose up -d test_mssql_linux
             displayName: "Start database containers"

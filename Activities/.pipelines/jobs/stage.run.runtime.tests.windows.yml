@@ -74,7 +74,6 @@ jobs:
       $filepath = Get-ChildItem $(IntegrationTestStudioPackPath)/*_windows*
       $fullPath = $filepath.FullName
       $env:MOUNT_OUTPUT="$(System.ArtifactsDirectory)"
-      $env:SQL_SERVER_HOST="localhost"
       $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory) --robotPath "C:/Program Files/UiPath/Robot/UiRobot.exe"
     displayName: 'Execute tests'
 

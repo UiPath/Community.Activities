@@ -52,7 +52,6 @@ jobs:
   - bash: |
       cd $(Build.SourcesDirectory)/Activities/.pipelines/docker
       export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
-      export SQL_SERVER_HOST="test_mssql_linux"
       chmod -R 777  $(System.ArtifactsDirectory)
       docker-compose up -d robot
       docker-compose exec -T robot dotnet /input/TestRunner/uipath.studio.codedwf.tests.runner.dll run --package $(pkgPath) --robotPath /application/UiRobot.dll --output /output
