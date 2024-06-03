@@ -3,10 +3,11 @@ parameters:
   studioProjectPath: ""
   buildForWindows: true
   buildForPortable: true
+  packageUnderTestName: ''
 
 jobs:
-- job: "BuildDatabaseRuntimeTests"
-  displayName: "Run Database Runtime Tests"
+- job: "BuildRuntimeTests"
+  displayName: "Build Runtime Tests"
   variables:
     IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
   timeoutInMinutes: 90
@@ -41,7 +42,10 @@ jobs:
         Write-Host "Removed old packages" 
       }
       
-      $file = (Get-Item -Path "$(studioPackagesPath)/UiPath.Database.Activities.*.nupkg" | select Name).Name
+      $packageUnderTest = "${{ parameters.packageUnderTestName }}"
+      $path = "$(studioPackagesPath)/" + $packageUnderTest + ".*.nupkg"
+      Write-Host "path " + $path
+      $file = (Get-Item -Path "$path" | select Name).Name
       $null = $file -match '(?<name>[^\d]+)(?<version>.*).nupkg'
       $pkgName, $pkgVersion = $Matches['name'].TrimEnd('.'), $Matches['version']
 
@@ -54,7 +58,7 @@ jobs:
       Write-Host "Project Path = $projectPath"
       $project = (get-content "$projectPath" | ConvertFrom-Json)
       $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_portable"
-      $project.dependencies.'UiPath.Database.Activities' = "[$pkgVersion]"
+      $project.dependencies.$packageUnderTest = "[$pkgVersion]"
       
       if ("${{ parameters.buildForPortable }}" -eq "true") {
         Write-Host "Pack for portable " + $project.name

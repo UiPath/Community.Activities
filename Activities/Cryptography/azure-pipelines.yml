@@ -5,6 +5,11 @@ resources:
     name: UiPath/AzurePipelinesTemplates
     ref: refs/tags/uipath.community.activities.1.3.0
     endpoint: "GitHub connection"
+  - repository: automationTests
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: refs/tags/uipath.waitforbuild.1.0.3
+    endpoint: "GitHub connection"
 
 trigger:
   batch: true
@@ -49,3 +54,34 @@ stages:
       sdkBuild: true
       enableCDStages: false
       hasQaPackages: false
+
+  - stage: BuildCryptographyRuntimeTests
+    displayName: 'Build Cryptography Runtime Tests'
+    dependsOn:
+      - Build
+    jobs:
+    - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+        studioProjectPath: 'Activities/Cryptography/UiPath.Cryptography.Activities.RuntimeTests/project.json'
+        buildForWindows: true
+        buildForPortable: true
+        packageUnderTestName: 'UiPath.Cryptography.Activities'
+
+  - stage: RunCryptographyRuntimeTestsWindows
+    displayName: 'Run Cryptography Runtime Tests Windows'
+    dependsOn:
+      - BuildCryptographyRuntimeTests
+    jobs:
+    - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+
+  - stage: RunCryptographyRuntimeTestsPortable
+    displayName: 'Run Cryptography Runtime Tests Portable'
+    dependsOn:
+      - BuildCryptographyRuntimeTests
+    jobs:
+    - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)

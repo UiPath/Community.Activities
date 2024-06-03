@@ -64,6 +64,7 @@ stages:
         studioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
         buildForWindows: true
         buildForPortable: true
+        packageUnderTestName: 'UiPath.Database.Activities'
 
   - stage: RunDatabaseRuntimeTestsWindows
     displayName: 'Run Database Runtime Tests Windows'
