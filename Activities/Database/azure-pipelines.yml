@@ -70,15 +70,35 @@ stages:
     dependsOn:
       - BuildDatabaseRuntimeTests
     jobs:
-    - template: stage.run.runtime.tests.windows.yml
+    - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        beforeTestsCustomSteps:
+          - task: DockerCompose@0
+            inputs:
+              dockerComposeFile: '$(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/docker-compose.yml'
+              action: 'Run a specific service'
+              serviceName: 'test_mssql_windows'
+              ports:
+                1433:1433
+            displayName: 'Run SQL Server Image'
+            env:
+              MOUNT_OUTPUT: $(System.ArtifactsDirectory)
 
   - stage: RunDatabaseRuntimeTestsPortable
     displayName: 'Run Database Runtime Tests Portable'
     dependsOn:
       - BuildDatabaseRuntimeTests
     jobs:
-    - template: stage.run.runtime.tests.portable.yml
+    - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        beforeTestsCustomSteps:
+          - bash: |
+              cd $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker
+              docker-compose --version
+              export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
+              chmod -R 777 $(System.ArtifactsDirectory)
+              docker-compose up -d test_mssql_linux
+            displayName: "Start database containers"
+
