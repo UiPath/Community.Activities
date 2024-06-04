@@ -43,10 +43,10 @@ jobs:
       containerRegistry: 'codedwfdemoregistry'
 
   - task: UseDotNet@2
-    displayName: 'Use .NET SDK 8.0.x'
+    displayName: 'Use .NET SDK 6.0.x'
     inputs:
       packageType: 'sdk'
-      version: '8.0.x'
+      version: '6.0.x'
 
   - task: DownloadPipelineArtifact@2
     displayName: "Download Packages"
