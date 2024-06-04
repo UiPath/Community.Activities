@@ -74,6 +74,8 @@ stages:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        environment:
+          PYTHON_HOME: "C:/hostedtoolcache/windows/Python/3.12.3/x64"
         beforeTestsCustomSteps:
           - task: UsePythonVersion@0
             displayName: 'Use Python 3.x'

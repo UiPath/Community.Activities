@@ -4,9 +4,8 @@
   "description": "Support project for Python Activities runtime tests.",
   "main": "Tests\\SampleTest.xaml",
   "dependencies": {
-    "UiPath.Python.Activities": "[1.8.1]",
-    "UiPath.System.Activities": "[24.2.0-preview]",
-    "UiPath.Testing.Activities": "[24.2.0-preview]"
+    "UiPath.Python.Activities": "[1.9.0-alpha.5252821]",
+    "UiPath.System.Activities": "[24.2.0-preview]"
   },
   "webServices": [],
   "entitiesStores": [],

@@ -2,6 +2,7 @@ parameters:
   robotVersion: ''
   beforeTestsCustomSteps: []
   afterTestsCustomSteps: []
+  environment: {}
 
 jobs:
 - job: "RunDatabaseRuntimeTestsWindows"
@@ -53,6 +54,9 @@ jobs:
       artifact: "Packages"
       path: "$(IntegrationTestStudioPackPath)"
 
+  - ${{ each step in parameters.beforeTestsCustomSteps }}:
+    - ${{ step }}
+
   # install robot
   - template: Testing/Automation/install.msi.steps.template.yml@automationTests
     parameters:
@@ -67,15 +71,13 @@ jobs:
     displayName: "Enable robot low level"
     failOnStderr: false
   
-  - ${{ each step in parameters.beforeTestsCustomSteps }}:
-    - ${{ step }}
-
   - powershell: |
       $filepath = Get-ChildItem $(IntegrationTestStudioPackPath)/*_windows*
       $fullPath = $filepath.FullName
       $env:MOUNT_OUTPUT="$(System.ArtifactsDirectory)"
       $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory) --robotPath "C:/Program Files/UiPath/Robot/UiRobot.exe"
     displayName: 'Execute tests'
+    env: ${{ parameters.environment }}
 
   - ${{ each step in parameters.afterTestsCustomSteps }}:
     - ${{ step }}
