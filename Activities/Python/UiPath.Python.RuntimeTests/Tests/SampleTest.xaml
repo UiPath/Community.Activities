@@ -130,7 +130,7 @@
         </InArgument>
       </ui:LogMessage.Message>
     </ui:LogMessage>
-    <p:PythonScope OperationTimeout="{x:Null}" DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="450,228" sap2010:WorkflowViewState.IdRef="PythonScope_2">
+    <p:PythonScope OperationTimeout="{x:Null}" DisplayName="Python Scope" sap:VirtualizedContainerService.HintSize="450,228" sap2010:WorkflowViewState.IdRef="PythonScope_2" TargetPlatform="x64">
       <p:PythonScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -152,6 +152,11 @@
           </Sequence>
         </ActivityAction>
       </p:PythonScope.Body>
+      <p:PythonScope.Path>
+        <InArgument x:TypeArguments="x:String">
+          <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_17">pythonPath</CSharpValue>
+        </InArgument>
+      </p:PythonScope.Path>
     </p:PythonScope>
   </Sequence>
 </Activity>

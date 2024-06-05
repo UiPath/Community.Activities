@@ -78,13 +78,15 @@ jobs:
     failOnStderr: false
   
   - powershell: |
+      Write-Host "Listing environment"
+      gci env:* | sort-object name
+      Write-Host "=============================================================================="
       $filepath = Get-ChildItem $(IntegrationTestStudioPackPath)/*_windows*
       $fullPath = $filepath.FullName
       $env:MOUNT_OUTPUT="$(System.ArtifactsDirectory)"
       $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory) --robotPath "C:/Program Files/UiPath/Robot/UiRobot.exe"
     displayName: 'Execute tests'
-    env: 
-      ${{ parameters.environment }}
+    env: ${{ parameters.environment }}
 
   - ${{ each step in parameters.afterTestsCustomSteps }}:
     - ${{ step }}
