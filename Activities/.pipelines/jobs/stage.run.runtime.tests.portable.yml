@@ -1,12 +1,13 @@
 parameters:
-  robotVersion: '23.10.6'
+  robotVersion: ''
+  beforeTestsCustomSteps: []
+  afterTestsCustomSteps: []
 
 jobs:
 - job: "RunDatabaseRuntimeTestsPortable"
   displayName: "Run Database Runtime Tests Portable"
   variables:
     IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
-    StudioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
   timeoutInMinutes: 90
   pool:
     vmImage: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
       downloadDirectory: "$(Build.ArtifactStagingDirectory)/TestRunner"
       vstsFeed: "UiPath-DevPackages"
       vstsFeedPackage: "uipath.testrunner"
-      vstsPackageVersion: "1.587.4306"
+      vstsPackageVersion: $(TestRunnerVersion)
       verbosity: 'Trace'
 
   - task: Docker@2
@@ -30,14 +31,8 @@ jobs:
       command: login
       containerRegistry: 'robotdevregistry'
 
-  - bash: |
-      cd $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker
-      docker-compose --version
-      export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
-      chmod -R 777 $(System.ArtifactsDirectory)
-      docker-compose up -d test_mssql_linux
-      docker-compose up -d robot
-    displayName: "Start containers"
+  - ${{ each step in parameters.beforeTestsCustomSteps }}:
+    - ${{ step }}
 
   - task: DownloadPipelineArtifact@2
     displayName: "Download Packages"
@@ -47,20 +42,23 @@ jobs:
 
   - bash: |
       docker ps
-      cp -rvf $(Build.ArtifactStagingDirectory)/TestRunner $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/mount/input/
-      cp -vf $(IntegrationTestStudioPackPath)/*nupkg $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/mount/input/
-      PACKAGE=$(basename $(ls $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker/mount/input/*_portable*.nupkg))
+      cp -rvf $(Build.ArtifactStagingDirectory)/TestRunner $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/
+      cp -vf $(IntegrationTestStudioPackPath)/*nupkg $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/
+      PACKAGE=$(basename $(ls $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/*_portable*.nupkg))
       echo "package = $PACKAGE"
       echo "##vso[task.setvariable variable=pkgPath]/input/$PACKAGE"
     displayName: 'Prepare tests'
 
   - bash: |
-      cd $(Build.SourcesDirectory)/Activities/Database/UiPath.Database.Runtime.Tests/docker
+      cd $(Build.SourcesDirectory)/Activities/.pipelines/docker
       export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
-      export SQL_SERVER_HOST="test_mssql_linux"
       chmod -R 777  $(System.ArtifactsDirectory)
+      docker-compose up -d robot
       docker-compose exec -T robot dotnet /input/TestRunner/uipath.studio.codedwf.tests.runner.dll run --package $(pkgPath) --robotPath /application/UiRobot.dll --output /output
     displayName: 'Run tests'
+
+  - ${{ each step in parameters.afterTestsCustomSteps }}:
+    - ${{ step }}
 
   - task: PublishTestResults@2
     inputs:

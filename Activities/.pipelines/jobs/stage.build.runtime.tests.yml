@@ -1,12 +1,15 @@
 parameters:
-  robotVersion: '23.10.6'
+  robotVersion: "23.10.6"
+  studioProjectPath: ""
+  buildForWindows: true
+  buildForPortable: true
+  packageUnderTestName: ''
 
 jobs:
-- job: "BuildDatabaseRuntimeTests"
-  displayName: "Run Database Runtime Tests"
+- job: "BuildRuntimeTests"
+  displayName: "Build Runtime Tests"
   variables:
     IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
-    StudioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
   timeoutInMinutes: 90
   pool:
     vmImage: windows-2022
@@ -39,54 +42,64 @@ jobs:
         Write-Host "Removed old packages" 
       }
       
-      $file = (Get-Item -Path "$(studioPackagesPath)/UiPath.Database.Activities.*.nupkg" | select Name).Name
+      $packageUnderTest = "${{ parameters.packageUnderTestName }}"
+      $path = "$(studioPackagesPath)/" + $packageUnderTest + ".*.nupkg"
+      $file = (Get-Item -Path "$path" | select Name).Name
       $null = $file -match '(?<name>[^\d]+)(?<version>.*).nupkg'
       $pkgName, $pkgVersion = $Matches['name'].TrimEnd('.'), $Matches['version']
 
+      Write-Host "Will build against $pkgName with version $pkgVersion"
+      
       mkdir $(IntegrationTestStudioPackPath)
       $seconds = ([System.DateTime]::Now - [System.DateTime]::Today).TotalSeconds -as [int]
       & "C:/Program Files/UiPath/Studio/UIRobot.exe" --version
       Write-Host " "
       
-      $projectPath = Join-Path -Path "$(Build.SourcesDirectory)" -ChildPath "$(StudioProjectPath)"
+      $projectPath = Join-Path -Path "$(Build.SourcesDirectory)" -ChildPath "${{ parameters.studioProjectPath }}"
+      Write-Host "Project Path = $projectPath"
       $project = (get-content "$projectPath" | ConvertFrom-Json)
       $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_portable"
-      $project.dependencies.'UiPath.Database.Activities' = "[$pkgVersion]"
+      $project.dependencies.$packageUnderTest = "[$pkgVersion]"
       
-      Write-Host "Pack for portable " + $project.name
-      echo $project.name
-      $project.targetFramework = "Portable"
-      $project | ConvertTo-JSon | Out-File  "$projectPath"
-      
-      $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
-      
-      if (-Not $output.Contains("Project published successfully."))
-      {
-        echo "Sleep 1 minute"
-        Start-Sleep -Seconds 60
+      if ("${{ parameters.buildForPortable }}" -eq "true") {
+        Write-Host "Pack for portable " + $project.name
+        echo $project.name
+        $project.targetFramework = "Portable"
+        $project | ConvertTo-JSon | Out-File  "$projectPath"
+        
         $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+        
         if (-Not $output.Contains("Project published successfully."))
         {
-          throw "Pack failed: " + $output  
+          echo "Sleep 1 minute"
+          Start-Sleep -Seconds 60
+          $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+          if (-Not $output.Contains("Project published successfully."))
+          {
+            throw "Pack failed: " + $output  
+          }
         }
       }
 
-      $project = (get-content "$projectPath" | ConvertFrom-Json)
-      $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_windows"
-      Write-Host "Pack for windows " + $project.name
-      $project.targetFramework = "Windows"
-      $project | ConvertTo-JSon | Out-File  "$projectPath"
-
-      $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
-
-      if (-Not $output.Contains("Project published successfully."))
+      if ("${{ parameters.buildForWindows }}" -eq "true")
       {
-        echo "Sleep 1 minute"
-        Start-Sleep -Seconds 60
+        $project = (get-content "$projectPath" | ConvertFrom-Json)
+        $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_windows"
+        Write-Host "Pack for windows " + $project.name
+        $project.targetFramework = "Windows"
+        $project | ConvertTo-JSon | Out-File  "$projectPath"
+
         $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+
         if (-Not $output.Contains("Project published successfully."))
         {
-          throw "Pack failed: " + $output  
+          echo "Sleep 1 minute"
+          Start-Sleep -Seconds 60
+          $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
+          if (-Not $output.Contains("Project published successfully."))
+          {
+            throw "Pack failed: " + $output  
+          }
         }
       }
     displayName: "Pack runtime tests project using UiPath.Studio.CommandLine.exe"

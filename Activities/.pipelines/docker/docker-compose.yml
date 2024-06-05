@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  robot:
+    image: robotdevregistry.azurecr.io/robot/uiautomation-runtime:23.10.81.43986-robot24.4.0-s137
+    volumes:
+      - ./mount/input:/input
+      - ${MOUNT_OUTPUT}:/output
+      - ./mount/application/EnableOfflineExecution.txt:/application/EnableOfflineExecution.txt
+      - ./mount/application/NuGet.config:/application/NuGet.config
+    environment:
+      OFFLINE: 'true'
+      LICENSE_AGREEMENT: 'accept'
+      SQL_SERVER_HOST: test_mssql_linux
+    entrypoint: "/bin/sh /input/startup.sh"
