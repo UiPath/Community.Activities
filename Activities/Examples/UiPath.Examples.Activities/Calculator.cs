@@ -27,7 +27,7 @@ namespace UiPath.Examples.Activities
                 Message = "Executing Calculator activity"
             });
 
-            var fistNumber = FirstNumber!.Get(context); //get the value from the workflow context (remember, this can be a variable)
+            var firstNumber = FirstNumber!.Get(context); //get the value from the workflow context (remember, this can be a variable)
             var secondNumber = SecondNumber!.Get(context);
 
             if (secondNumber == 0 && SelectedOperation == Operation.Divide)
@@ -35,7 +35,7 @@ namespace UiPath.Examples.Activities
                 throw new DivideByZeroException("Second number should not be zero when the selected operation is divide");
             }
 
-            return ExecuteInternal(fistNumber, secondNumber);
+            return ExecuteInternal(firstNumber, secondNumber);
         }
 
         public int ExecuteInternal(int firstNumber, int secondNumber)
