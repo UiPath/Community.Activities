@@ -51,6 +51,12 @@
       "uniqueId": "f2814f99-ced0-4321-8acd-137307f286eb",
       "input": [],
       "output": []
+    },
+    {
+      "filePath": "Tests\\TestOracleServer.xaml",
+      "uniqueId": "0b3f761c-83b8-4b68-9325-b5f27c4fd874",
+      "input": [],
+      "output": []
     }
   ],
   "isTemplate": false,
