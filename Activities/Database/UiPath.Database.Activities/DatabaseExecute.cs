@@ -49,6 +49,7 @@ namespace UiPath.Database.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseExecute_Property_Parameters_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseExecute_Property_Parameters_Description))]
+        [Browsable(true)]
         public Dictionary<string, Argument> Parameters { get; set; } = new Dictionary<string, Argument>();
 
         [LocalizedCategory(nameof(Resources.Common))]
