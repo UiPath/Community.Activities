@@ -83,22 +83,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
         {
             Debug.Assert(providerName != null);
             _providerName = providerName;
-            var builder = new AttributeTableBuilder();
-            DataRow dr = null;
-#if NETFRAMEWORK
-            var dataSet = ConfigurationManager.GetSection("system.data") as System.Data.DataSet;
-            dr = dataSet.Tables[0].NewRow();
-            dr[0] = "ODP.NET, Managed Driver";
-            dr[1] = ".Net Framework Data Provider for Oracle";
-            dr[2] = "Oracle.ManagedDataAccess.Client";
-            dr[3] = "Oracle.ManagedDataAccess.Client.OracleClientFactory, Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342";
-
-            dr = dataSet.Tables[0].NewRow();
-            dr[0] = ".Net Framework Data Provider";
-            dr[1] = ".Net Framework Data Provider";
-            dr[2] = "Microsoft.Data.SqlClient";
-            dr[3] = "Microsoft.Data.SqlClient.SqlClientFactory, Microsoft.Data.SqlClient, Version=4.10.22031.3, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5";
-#endif
 
 #if NETCOREAPP
             DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", Microsoft.Data.SqlClient.SqlClientFactory.Instance);
@@ -113,12 +97,14 @@ namespace UiPath.Data.ConnectionUI.Dialog
             {
                 factory = DbProviderFactories.GetFactory(providerName);
             }
-            catch(Exception ex)
+            catch
             {
-                if (dr != null && (string)dr[2] == providerName)
-                    factory = DbProviderFactories.GetFactory(dr);
-                else
-                    throw ex;
+#if NETFRAMEWORK
+                if (!LegacyProviders.GetLegacyFactory(providerName, out factory))
+                    throw;
+#else
+                throw;
+#endif
             }
             Debug.Assert(factory != null);
             _connectionStringBuilder = factory.CreateConnectionStringBuilder();
@@ -434,6 +420,46 @@ namespace UiPath.Data.ConnectionUI.Dialog
             
         }
         #endregion ICustomTypeDescriptor implementation
+
+#if NETFRAMEWORK
+        private static class LegacyProviders
+        {
+            private static readonly Lazy<Dictionary<string, DataRow>> _LegacyProviders = new Lazy<Dictionary<string, DataRow>>(() => InitLegacyProviders());
+
+            private static Dictionary<string, DataRow> InitLegacyProviders()
+            {
+                var legacyConfig = new Dictionary<string, DataRow>();
+
+                var dataSet = ConfigurationManager.GetSection("system.data") as System.Data.DataSet;
+                var dr = dataSet.Tables[0].NewRow();
+                dr[0] = "ODP.NET, Managed Driver";
+                dr[1] = ".Net Framework Data Provider for Oracle";
+                dr[2] = "Oracle.ManagedDataAccess.Client";
+                dr[3] = typeof(OracleClientFactory).AssemblyQualifiedName;
+                legacyConfig.Add((string)dr[2], dr);
+
+                dr = dataSet.Tables[0].NewRow();
+                dr[0] = ".Net Framework Data Provider";
+                dr[1] = ".Net Framework Data Provider";
+                dr[2] = "Microsoft.Data.SqlClient";
+                dr[3] = typeof(SqlClientFactory).AssemblyQualifiedName;
+                legacyConfig.Add((string)dr[2], dr);
+
+                return legacyConfig;
+            }
+            internal static bool GetLegacyFactory(string providerName, out DbProviderFactory factory)
+            {
+                factory = null;
+                if (_LegacyProviders.Value.TryGetValue(providerName, out var factoryConfig))
+                {
+                    factory = DbProviderFactories.GetFactory(factoryConfig);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+#endif
 
         private class KeyValuePropertyDescriptor : PropertyDescriptor
         {
