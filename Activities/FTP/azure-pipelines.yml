@@ -44,7 +44,7 @@ stages:
       projectName: 'FTP'
       solutionPath: '$(SolutionsPath)/Activities.FTP.sln'
       sonarKeyPrefix: 'CommunityActivities'
-      sdkBuild: true
+      sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
 
