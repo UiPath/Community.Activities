@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0;net6.0-windows</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -13,16 +13,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.Services" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FluentFTP" Version="37.1.0" />
-    <PackageReference Include="SSH.NET" Version="2020.0.2" />
+    <PackageReference Include="FluentFTP" Version="50.1.0" />
+    <PackageReference Include="SSH.NET" Version="2024.0.0" />
   </ItemGroup>
 
 </Project>
