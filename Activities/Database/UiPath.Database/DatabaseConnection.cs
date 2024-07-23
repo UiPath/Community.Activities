@@ -15,6 +15,7 @@ using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
 using UiPath.Data.ConnectionUI.Dialog.Workaround;
 using UiPath.Robot.Activities.Api;
+using Oracle.ManagedDataAccess.Types;
 
 namespace UiPath.Database
 {
@@ -57,7 +58,7 @@ namespace UiPath.Database
             DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", Microsoft.Data.SqlClient.SqlClientFactory.Instance);
 
             //OLEDB driver is Windows propietary - there is no support for other OS
-            if(_isWindows)
+            if (_isWindows)
                 DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
 
             DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
@@ -85,7 +86,7 @@ namespace UiPath.Database
             _transaction = _connection.BeginTransaction();
         }
 
-        public virtual DataTable ExecuteQuery(string sql, Dictionary<string, Tuple<object, ArgumentDirection>> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
+        public virtual DataTable ExecuteQuery(string sql, Dictionary<string, ParameterInfo> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
         {
             OpenConnection();
             SetupCommand(sql, parameters, commandTimeout, commandType);
@@ -95,12 +96,13 @@ namespace UiPath.Database
             foreach (var param in _command.Parameters)
             {
                 var dbParam = param as DbParameter;
-                parameters[dbParam.ParameterName] = new Tuple<object, ArgumentDirection>(dbParam.Value, WokflowParameterDirectionToDbParameter(dbParam.Direction));
+                parameters[dbParam.ParameterName] = new ParameterInfo() { Value = dbParam.Value,
+                    Direction = WokflowParameterDirectionToDbParameter(dbParam.Direction) };
             }
             return dt;
         }
 
-        public virtual int Execute(string sql, Dictionary<string, Tuple<object, ArgumentDirection>> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
+        public virtual int Execute(string sql, Dictionary<string, ParameterInfo> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
         {
             OpenConnection();
             SetupCommand(sql, parameters, commandTimeout, commandType);
@@ -109,7 +111,11 @@ namespace UiPath.Database
             foreach (var param in _command.Parameters)
             {
                 var dbParam = param as DbParameter;
-                parameters[dbParam.ParameterName] = new Tuple<object, ArgumentDirection>(dbParam.Value, WokflowParameterDirectionToDbParameter(dbParam.Direction));
+                parameters[dbParam.ParameterName] = new ParameterInfo()
+                {
+                    Value = dbParam.Value,
+                    Direction = WokflowParameterDirectionToDbParameter(dbParam.Direction)
+                };
             }
             return result;
         }
@@ -124,7 +130,7 @@ namespace UiPath.Database
             {
                 return InsertDataTableInternal(tableName, dataTable, true);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 firstException = e;
             }
@@ -442,7 +448,7 @@ namespace UiPath.Database
             }
         }
 
-        private void SetupCommand(string sql, Dictionary<string, Tuple<object, ArgumentDirection>> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
+        private void SetupCommand(string sql, Dictionary<string, ParameterInfo> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
         {
             if (_connection == null)
             {
@@ -461,6 +467,7 @@ namespace UiPath.Database
             _command.CommandType = commandType;
             _command.CommandText = sql;
             _command.Parameters.Clear();
+
             if (parameters == null)
             {
                 return;
@@ -469,13 +476,16 @@ namespace UiPath.Database
             {
                 DbParameter dbParameter = _command.CreateParameter();
                 dbParameter.ParameterName = param.Key;
-                dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Item2);
+                dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Direction);
                 if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
                 {
                     dbParameter.Size = GetParameterSize(dbParameter);
                 }
 
-                dbParameter.Value = param.Value.Item1 ?? DBNull.Value;
+                dbParameter.Value = param.Value.Value ?? DBNull.Value;
+
+                UpdateDbParamType(dbParameter, param.Value);
+
                 _command.Parameters.Add(dbParameter);
             }
         }
@@ -551,5 +561,51 @@ namespace UiPath.Database
                     throw new ArgumentException(Resources.ParameterDirectionArgumentException);
             }
         }
+
+        private void UpdateDbParamType(DbParameter dbParameter, ParameterInfo parameterInfo)
+        {
+            if (parameterInfo?.Type is null)
+                return;
+            else if (UpdateDbParamTypeOracle(dbParameter, parameterInfo))
+                return; //in the futuree we might consider update param type for other providers
+        }
+
+        private bool UpdateDbParamTypeOracle(DbParameter dbParameter, ParameterInfo parameterInfo)
+        {
+            if (dbParameter is OracleParameter oracleParameter && _oracleMappings.TryGetValue(parameterInfo.Type, out var oracleType))
+            {
+                oracleParameter.OracleDbType = oracleType;
+                return true;
+            }
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// The mapping of C# Type to OracleDbType or to DbType is not 1-1
+        /// There are a lot of conversions behind the scene that are done
+        /// Most of the conversions work ok with string type
+        /// Here is some reference (it might not be up to date)
+        /// https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-data-type-mappings
+        /// https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/oracle-data-type-mappings
+        /// For now leave only a few conversions
+        /// </summary>
+        private readonly Dictionary<Type, OracleDbType> _oracleMappings = new Dictionary<Type, OracleDbType>()
+        {
+            { typeof(OracleRefCursor), OracleDbType.RefCursor },
+            { typeof(bool), OracleDbType.Boolean },
+            { typeof(int), OracleDbType.Int32 },
+            { typeof(uint), OracleDbType.Int32 },
+            { typeof(short), OracleDbType.Int16 },
+            { typeof(ushort), OracleDbType.Int16 },
+            { typeof(long), OracleDbType.Int64 },
+            { typeof(ulong), OracleDbType.Int64 },
+            { typeof(byte), OracleDbType.Byte },
+            { typeof(sbyte), OracleDbType.Byte },
+            { typeof(float), OracleDbType.Single },
+            { typeof(double), OracleDbType.Double },
+            { typeof(decimal), OracleDbType.Decimal }
+        };
     }
 }
