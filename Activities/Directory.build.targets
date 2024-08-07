@@ -1,4 +1,5 @@
 <Project>
+
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6'))">
 		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20220401-03" />
 		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20220401-03" />
@@ -7,23 +8,31 @@
 		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20230713.1"/>
 		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
 	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<PackageReference Update="System.Security.Cryptography.Cng" Version="4.5.2" />
+		<PackageReference Update="System.Formats.Asn1" Version="8.0.1" />
+	</ItemGroup>
+
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net5'))">
 		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
 		<PackageReference Update="UiPath.Workflow" Version="5.0.0-20210615-01" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="5.0.0-20210724.1" />
 		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20220307.1"/>
 	</ItemGroup>
+
 	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
 		<PackageReference Update="System.Activities" Version="1.0.0-20201105-02" />
 		<PackageReference Update="UiPath.Workflow" Version="1.0.0-20201105-02" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
 	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Update="UiPath.Robot.Api" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Api" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Contracts" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Telemetry.Client" Version="1.5.3" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Platform" Version="22.10.2"/>
+		<PackageReference Update="UiPath.Platform" Version="24.10.3"/>
 	</ItemGroup>
 
 	<!-- the None element is used for keeping files visible in solution explorer -->
