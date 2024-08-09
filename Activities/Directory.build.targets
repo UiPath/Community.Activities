@@ -36,6 +36,9 @@
 		<PackageReference Update="System.Drawing.Common" Version="6.0.0" />
 		<PackageReference Update="System.Text.RegularExpressions" Version="4.3.1" />
 		<PackageReference Update="System.Formats.Asn1" Version="8.0.1" />
+
+		<PackageReference Update="Azure.Identity" Version="1.11.4" />
+		<PackageReference Update="Microsoft.Identity.Client" Version="4.62.0" />
 	</ItemGroup>
 
 	<!-- the None element is used for keeping files visible in solution explorer -->
