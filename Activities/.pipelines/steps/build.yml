@@ -12,6 +12,12 @@ parameters:
   versionSuffix: ""
 
 steps:
+ - bash: |
+      which bash
+      echo Hello $name
+   displayName: Multiline Bash script
+   env:
+     name: Microsoft
 - ${{ each depend in parameters.restoreDependencies }}:
   - task: NuGetCommand@2
     displayName: "Restore Nuget packages ${{ depend }}"
