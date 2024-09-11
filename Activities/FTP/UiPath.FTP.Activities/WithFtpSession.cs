@@ -112,26 +112,31 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Description))]
         public override InArgument<bool> ContinueOnError { get; set; } = false;
 
+        [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Proxy))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyServer_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyServer_Description))]
         public InArgument<string> ProxyServer { get; set; }
 
+        [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Proxy))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyPort_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyPort_Description))]
         public InArgument<int> ProxyPort { get; set; }
 
+        [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Proxy))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyUser_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyUser_Description))]
         public InArgument<string> ProxyUser { get; set; }
 
+        [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Proxy))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyPassword_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyPassword_Description))]
         public InArgument<string> ProxyPassword { get; set; }
 
+        [DefaultValue(FtpProxyType.None)]
         [LocalizedCategory(nameof(Resources.Proxy))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Description))]
