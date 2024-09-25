@@ -117,57 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
-    <value>算法</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDisplayName" xml:space="preserve">
-    <value>编码</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDescription" xml:space="preserve">
-    <value>用于解释输入字符串的编码。</value>
-  </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>此活动将使用的加密算法。</value>
-  </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>用于解释输入字符串和密钥的编码。</value>
-  </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
-    <value>加密文本</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptTextDescription" xml:space="preserve">
-    <value>使用选定算法和给定密钥加密输入字符串，并返回加密结果的 Base64 字符串表示。</value>
-  </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>此活动将加密的字符串。</value>
-  </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>用于加密输入字符串的密钥。</value>
-  </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>经加密的输入字符串的 Base64 字符串表示。</value>
-  </data>
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>所选算法不具有符合 FIPS 的实现。可能无法在某些计算机上工作。</value>
-  </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
-    <value>此活动将使用的散列算法。</value>
-  </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
-    <value>散列文本</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashTextDescription" xml:space="preserve">
-    <value>对输入字符串应用选定的散列算法，并返回所生成散列结果的十六进制字符串表示。</value>
-  </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
-    <value>此活动将散列的字符串。</value>
-  </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
-    <value>经散列的输入字符串的十六进制字符串表示。</value>
   </data>
   <data name="Input" xml:space="preserve">
     <value>输入</value>
@@ -176,110 +127,12 @@
     <value>文本</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyDisplayName" xml:space="preserve">
-    <value>键值</value>
-    <comment>property name</comment>
-  </data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
-    <value>此活动将使用的键控散列算法。</value>
-  </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>用于解释输入字符串和密钥的编码。</value>
-  </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
-    <value>用于散列输入字符串的密钥。</value>
-  </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>使用密钥散列文本</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
-    <value>对输入字符串应用选定的散列算法，并使用给定密钥进行散列，然后返回所生成散列结果的十六进制字符串表示。</value>
-  </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>输出</value>
-    <comment>property name</comment>
-  </data>
-  <data name="ResultDisplayName" xml:space="preserve">
-    <value>结果</value>
-    <comment>property name</comment>
-  </data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>此活动将使用的解密算法。</value>
-  </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>解密文本</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptTextDescription" xml:space="preserve">
-    <value>使用选定算法和给定密钥解密输入字符串，并返回未加密的原始字符串。</value>
-  </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>用于解释输入字符串和密钥的编码。</value>
-  </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>此活动将解密的字符串。</value>
-  </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>用于解密输入字符串的密钥。</value>
-  </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>解密后的字符串。</value>
-  </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
     <value>文件不存在。</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
     <value>文件路径</value>
     <comment>property name</comment>
-  </data>
-  <data name="HashFileDisplayName" xml:space="preserve">
-    <value>散列文件</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashFileDescription" xml:space="preserve">
-    <value>对给定文件中的内容应用选定的散列算法，并返回所生成散列结果的十六进制字符串表示。</value>
-  </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
-    <value>此活动将散列的文件路径。</value>
-  </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
-    <value>散列文件的十六进制字符串表示。</value>
-  </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>使用密钥散列文件</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
-    <value>对输入文件应用选定的散列算法，并使用给定密钥进行散列，然后返回所生成散列结果的十六进制字符串表示。</value>
-  </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>用于散列给定文件的密钥。</value>
-  </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>散列文件的十六进制字符串表示。</value>
-  </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>用于解释密钥的编码。</value>
-  </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
-    <value>加密文件</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptFileDescription" xml:space="preserve">
-    <value>使用选定算法和给定密钥加密输入文件，并将结果保存在输出文件中。</value>
-  </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>用于解释密钥的编码。</value>
-  </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>此活动将加密的文件路径。</value>
-  </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>用于加密输入文件的密钥。</value>
-  </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>用于保存加密文件的路径。</value>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
     <value>输入路径</value>
@@ -289,41 +142,11 @@
     <value>输出路径</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>覆盖</value>
-    <comment>property name</comment>
-  </data>
-  <data name="OverwriteDescription" xml:space="preserve">
-    <value>如果输出文件已存在，则覆盖该文件。</value>
-  </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
     <value>文件已存在。</value>
   </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
-    <value>解密文件</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptFileDescription" xml:space="preserve">
-    <value>使用选定算法和给定密钥解密输入文件，同时保存未加密的原始文件。</value>
-  </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>用于解释密钥的编码。</value>
-  </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>此活动将解密的文件路径。</value>
-  </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>用于解密输入文件的密钥。</value>
-  </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>用于保存解密文件的路径。</value>
-  </data>
   <data name="GenericCryptographicException" xml:space="preserve">
     <value>加密操作失败。请确保您在加密和解密操作中使用的算法和密钥相同。</value>
-  </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>密钥编码</value>
-    <comment>property name</comment>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>编码</value>
@@ -343,5 +166,710 @@
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES 使用的密钥长度为 16 或 24 字节。密钥长度取决于编码。</value>
+  </data>
+  <data name="KeySecureString" xml:space="preserve">
+    <value>密钥安全字符串</value>
+  </data>
+  <data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>密钥安全字符串</value>
+  </data>
+  <data name="Activity_DecryptFile_Description" xml:space="preserve">
+    <value>根据指定的密钥编码和算法解密文件。</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Name" xml:space="preserve">
+    <value>解密文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的解密算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>您要解密的文件路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>文件路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
+    <value>您想用于解密指定文件的密钥。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
+    <value>密钥</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>您要保存已解密文件的路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>输出文件的名称和位置</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果文件已存在于“输出路径”字段所指定的路径中，选中此复选框便会覆盖该文件。如取消勾选，系统便会新建文件。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆盖</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Name" xml:space="preserve">
+    <value>解密文本</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptText_Description" xml:space="preserve">
+    <value>根据指定的密钥编码和算法解密文本。</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的解密算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定的输入文本和密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
+    <value>您要解密的文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Name" xml:space="preserve">
+    <value>文本</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
+    <value>您想用于解密指定文件的密钥。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
+    <value>密钥</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
+    <value>储存在字符串变量的已解密文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
+    <value>解密的文本</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Description" xml:space="preserve">
+    <value>根据指定的密钥编码和算法使用密钥加密文件。</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Name" xml:space="preserve">
+    <value>加密文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的加密算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>您要加密的文件路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>文件路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
+    <value>您想用于加密指定文件的密钥。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
+    <value>密钥</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>用于解密输入文件的安全字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>密钥安全字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>用于解密输入字符串的安全字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>密钥安全字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>用于加密输入文件的安全字符串。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>密钥安全字符串</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>您要保存已加密文件的路径。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>输出文件的名称和位置</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果文件已存在于“输出路径”字段所指定的路径中，选中此复选框便会覆盖该文件。如取消勾选，系统便会新建文件。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆盖</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Description" xml:space="preserve">
+    <value>根据指定的密钥编码和算法使用密钥加密字符串。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_EncryptText_Name" xml:space="preserve">
+    <value>加密文本</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的加密算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定的输入文本和密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
+    <value>您要加密的文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Name" xml:space="preserve">
+    <value>文本</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>用于加密输入字符串的安全字符串。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>密钥安全字符串</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
+    <value>您想用于加密指定文件的密钥。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
+    <value>密钥</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
+    <value>储存在字符串变量的加密文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
+    <value>加密的文本</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
+    <value>通过指定算法，使用密钥散列文件，并返回所生成散列结果的十六进制字符串表示。该操作支持使用密钥和不使用密钥的散列算法。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
+    <value>散列文件</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的加密散列算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
+    <value>编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>您要散列的文件路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>文件路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>用于散列给定文件的安全字符串。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>密钥安全字符串</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
+    <value>您想用于散列指定文件的密钥。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
+    <value>密钥</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
+    <value>储存在字符串变量的已散列文件。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
+    <value>哈希值</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Description" xml:space="preserve">
+    <value>通过指定算法，使用密钥散列字符串，并返回所生成散列结果的十六进制字符串表示。该操作支持使用密钥和不使用密钥的散列算法。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Name" xml:space="preserve">
+    <value>散列文本</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的加密散列算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
+    <value>编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
+    <value>您要散列的文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Name" xml:space="preserve">
+    <value>文本</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>用于散列输入字符串的安全字符串。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>密钥安全字符串</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
+    <value>要用于散列指定文本的密钥。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
+    <value>密钥</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
+    <value>储存在字符串变量的已散列文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
+    <value>哈希值</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Description" xml:space="preserve">
+    <value>此活动现已弃用。SHA1、SHA256、SHA384 和 SHA512 已移至单个活动散列文件。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashFile_Name" xml:space="preserve">
+    <value>散列文件（已弃用）</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的散列算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>您要散列的文件路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>文件路径</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
+    <value>储存在字符串变量的已散列文件。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
+    <value>哈希值</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Description" xml:space="preserve">
+    <value>此活动现已弃用。SHA1、SHA256、SHA384 和 SHA512 已移至单个活动散列文本。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashText_Name" xml:space="preserve">
+    <value>散列文本（已弃用）</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>下拉菜单，用于选择要使用的散列算法。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>算法</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活动引发错误，是否仍应继续自动化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>出错时继续</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
+    <value>用于解释在“密钥”属性中指定密钥的编码。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
+    <value>编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
+    <value>您要散列的文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Name" xml:space="preserve">
+    <value>文本</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Description" xml:space="preserve">
+    <value>储存在字符串变量的已散列文本。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
+    <value>哈希值</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Category_Others_Name" xml:space="preserve">
+    <value>其他</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Principal_Name" xml:space="preserve">
+    <value>主体</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>用于在密钥和安全字符串密钥之间完成切换</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>密钥输入模式开关</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>用于在密钥和安全字符串密钥之间完成切换</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>密钥输入模式开关</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>用于在密钥和安全字符串密钥之间完成切换</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>密钥输入模式开关</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>用于在密钥和安全字符串密钥之间完成切换</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>密钥输入模式开关</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>用于在密钥和安全字符串密钥之间完成切换</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>密钥输入模式开关</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>用于在密钥和安全字符串密钥之间完成切换</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>密钥输入模式开关</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>加密文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>加密的文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>要加密的文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>解密文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>解密的文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>要解密的文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>要散列处理的文件</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>文件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>应只为 {{0}} 和 {1} 中的各一项配置其参数。</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>活动仅支持文件 (而非文件夹)。</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>要用于保存加密文件的文件名。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>加密文件名</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>要用于保存解密文件的文件名。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>解密文件名</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>选项</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>使用密钥安全字符串</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>使用密钥</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>使用密钥安全字符串</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>使用密钥</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>密钥和安全字符串不可同时为非空。</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>密钥和安全字符串不可同时为空。</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>未提供所需活动参数“键”的值</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>密钥安全字符串不得为 null</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在文件路径和资源之间切换</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>文件输入模式切换</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在文件路径和资源之间切换</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>文件输入模式切换</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在文件路径和资源之间切换</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>文件输入模式切换</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>在文件路径和资源之间切换</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>文件输入模式切换</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>所选加密算法已弃用，未来版本将不再提供支持。</value>
   </data>
 </root>

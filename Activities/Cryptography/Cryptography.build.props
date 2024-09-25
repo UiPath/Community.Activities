@@ -1,7 +1,28 @@
 <Project>
   <PropertyGroup>
+    <Product>Cryptography</Product>
+    <Authors>UiPath</Authors>
     <Company>UiPath</Company>
     <Copyright>© UiPath</Copyright>
-    <VersionPrefix>1.3.0</VersionPrefix>
+    <VersionBuild>$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("F0"))</VersionBuild>
+    <VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("F0"))</VersionRevision>
+    <VersionPrefix Condition="'$(Configuration)' == 'Release'">1.6.0</VersionPrefix>
+    <VersionPrefix Condition="'$(Configuration)' == 'Debug'">1.6.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
+    <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">1.6.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsTestProject)' != 'true'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Debug|net461'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net461'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <IsConfigurationRelease>true</IsConfigurationRelease>
   </PropertyGroup>
 </Project>

@@ -1,41 +1,52 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Validation;
 using System.ComponentModel;
-using System.Data.Common;
+using System.Diagnostics;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
-    public class DatabaseConnect : AsyncCodeActivity
+    [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Description))]
+    public partial class DatabaseConnect : AsyncTaskCodeActivity
     {
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [RequiredArgument]
-        [LocalizedDisplayName(nameof(Resources.ProviderNameDisplayName))]
+        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_ProviderName_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_ProviderName_Description))]
+        [DefaultValue(null)]
         public InArgument<string> ProviderName { get; set; }
 
-        [DependsOn(nameof(ProviderName))]
         [DefaultValue(null)]
+        [DependsOn(nameof(ProviderName))]
+        [OverloadGroup(nameof(ConnectionString))]
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.ConnectionStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionString_Description))]
         public InArgument<string> ConnectionString { get; set; }
 
         [DefaultValue(null)]
         [DependsOn(nameof(ProviderName))]
+        [OverloadGroup(nameof(ConnectionSecureString))]
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.ConnectionSecureStringDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionSecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_ConnectionSecureString_Description))]
         public InArgument<SecureString> ConnectionSecureString { get; set; }
 
         [LocalizedCategory(nameof(Resources.Output))]
         [DependsOn(nameof(ProviderName))]
-        [LocalizedDisplayName(nameof(Resources.DatabaseConnectionDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseConnect_Property_DatabaseConnection_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseConnect_Property_DatabaseConnection_Description))]
         public OutArgument<DatabaseConnection> DatabaseConnection { get; set; }
 
-        private readonly IDBConnectionFactory  _connectionFactory;
+        private readonly IDBConnectionFactory _connectionFactory;
 
         public DatabaseConnect()
         {
@@ -47,26 +58,41 @@ namespace UiPath.Database.Activities
             _connectionFactory = factory;
         }
 
-        protected override IAsyncResult BeginExecute(AsyncCodeActivityContext context, AsyncCallback callback, object state)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             var connString = ConnectionString.Get(context);
             var connSecureString = ConnectionSecureString.Get(context);
-            if (connString==null && connSecureString==null)
+            var connectionStringForFactory = string.Empty;
+            if (connString != null)
             {
-                throw new ArgumentNullException(Resources.ConnectionMustBeSet);
+                connectionStringForFactory = connString;
+            }
+            else if (connSecureString != null)
+            {
+                connectionStringForFactory = new NetworkCredential("", connSecureString).Password;
+            }
+            else
+            {
+                throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
             }
             var provName = ProviderName.Get(context);
-            Func<DatabaseConnection> action = () => _connectionFactory.Create(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-            context.UserState = action;
+            DatabaseConnection dbConnection = null;
+            try
+            {
+                dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName));
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"{e}");
+                throw;
+            }
 
-            return action.BeginInvoke(callback, state);
+            return asyncCodeActivityContext =>
+            {
+                DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
+            };
+
         }
 
-        protected override void EndExecute(AsyncCodeActivityContext context, IAsyncResult result)
-        {
-            Func<DatabaseConnection> action = (Func<DatabaseConnection>)context.UserState;
-            var dbConn = action.EndInvoke(result);
-            DatabaseConnection.Set(context, dbConn);
-        }
     }
 }

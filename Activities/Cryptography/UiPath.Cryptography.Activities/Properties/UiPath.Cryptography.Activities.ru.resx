@@ -117,216 +117,39 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
-    <value>Algorithm</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDisplayName" xml:space="preserve">
-    <value>Encoding</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDescription" xml:space="preserve">
-    <value>Кодировка, используемая для интерпретации строки ввода.</value>
-  </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>Алгоритм шифрования, который будет использоваться этим действием.</value>
-  </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>Кодировка, используемая для интерпретации строки ввода и ключа.</value>
-  </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
-    <value>Encrypt Text</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptTextDescription" xml:space="preserve">
-    <value>Шифрует строку ввода с помощью выбранного алгоритма и предоставленного ключа и возвращает представление строки base64 зашифрованного результата.</value>
-  </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>Строка, которая будет зашифрована этим действием.</value>
-  </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>Ключ, используемый для шифрования строки ввода.</value>
-  </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>Представление строки base64 зашифрованной строки ввода.</value>
-  </data>
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>Выбранный алгоритм не имеет реализации соответствия требованиям FIPS. На некоторых компьютерах это может не работать.</value>
-  </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
-    <value>Алгоритм хэширования, который будет использоваться этим действием.</value>
-  </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
-    <value>Hash Text</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashTextDescription" xml:space="preserve">
-    <value>Применяет выбранный алгоритм хэширования к строке ввода и возвращает представление шестнадцатеричной строки полученного хэша.</value>
-  </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
-    <value>Строка, которая будет хэширована этим действием.</value>
-  </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Представление шестнадцатеричной строки хэшированной строки ввода.</value>
   </data>
   <data name="Input" xml:space="preserve">
     <value>Ввод</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
-    <value>Text</value>
+    <value>Текст</value>
     <comment>property name</comment>
-  </data>
-  <data name="KeyDisplayName" xml:space="preserve">
-    <value>Key</value>
-    <comment>property name</comment>
-  </data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
-    <value>Алгоритм хэширования с ключом, который будет использоваться этим действием.</value>
-  </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>Кодировка, используемая для интерпретации строки ввода и ключа.</value>
-  </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
-    <value>Ключ, используемый для хэширования строки ввода.</value>
-  </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>Hash Text With Key</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
-    <value>Применяет выбранный алгоритм хэширования к строке ввода с помощью предоставленного ключа для хэширования и возвращает представление шестнадцатеричной строки полученного хэша.</value>
-  </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
-    <comment>property name</comment>
-  </data>
-  <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
-    <comment>property name</comment>
-  </data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>Алгоритм расшифровки, который будет использоваться этим действием.</value>
-  </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>Decrypt Text</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptTextDescription" xml:space="preserve">
-    <value>Расшифровывает строку ввода с помощью выбранного алгоритма и предоставленного ключа и возвращает исходную незашифрованную строку.</value>
-  </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>Кодировка, используемая для интерпретации строки ввода и ключа.</value>
-  </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>Строка, которая будет расшифрована этим действием.</value>
-  </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>Ключ, используемый для расшифровки строки ввода.</value>
-  </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>Расшифрованная строка.</value>
   </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
     <value>Файл не существует.</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>FilePath</value>
+    <value>ПутьКФайлу</value>
     <comment>property name</comment>
   </data>
-  <data name="HashFileDisplayName" xml:space="preserve">
-    <value>Hash File</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashFileDescription" xml:space="preserve">
-    <value>Применяет выбранный алгоритм хэширования к содержимому предоставленного файла и возвращает представление шестнадцатеричной строки полученного хэша.</value>
-  </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
-    <value>Путь к файлу, который будет хэширован этим действием.</value>
-  </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
-    <value>Представление шестнадцатеричной строки хэшированного файла.</value>
-  </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>Hash File With Key</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
-    <value>Применяет выбранный алгоритм хэширования к входному файлу с помощью предоставленного ключа для хэширования и возвращает представление шестнадцатеричной строки полученного хэша.</value>
-  </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>Ключ, используемый для хэширования предоставленного файла.</value>
-  </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>Представление шестнадцатеричной строки хэшированного файла.</value>
-  </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>Кодировка, используемая для интерпретации ключа.</value>
-  </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
-    <value>Encrypt File</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptFileDescription" xml:space="preserve">
-    <value>Шифрует входной файл с помощью выбранного алгоритма и предоставленного ключа и сохраняет результат в выходном файле.</value>
-  </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>Кодировка, используемая для интерпретации ключа.</value>
-  </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>Путь к файлу, который будет зашифрован этим действием.</value>
-  </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>Ключ, используемый для шифрования входного файла.</value>
-  </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>Путь, по которому сохранится зашифрованный файл.</value>
-  </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>InputPath</value>
+    <value>ПутьКФайлуСВходнымиДанными</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>OutputPath</value>
+    <value>ПутьКФайлуСВыходнымиДанными</value>
     <comment>property name</comment>
-  </data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>Overwrite</value>
-    <comment>property name</comment>
-  </data>
-  <data name="OverwriteDescription" xml:space="preserve">
-    <value>Перезаписать выходной файл, если он уже существует.</value>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
     <value>Файл уже существует.</value>
   </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
-    <value>Decrypt File</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptFileDescription" xml:space="preserve">
-    <value>Расшифровывает входной файл с помощью выбранного алгоритма и предоставленного ключа и сохраняет исходный незашифрованный файл.</value>
-  </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>Кодировка, используемая для интерпретации ключа.</value>
-  </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>Путь к файлу, который будет расшифрован этим действием.</value>
-  </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>Ключ, используемый для расшифровки входного файла.</value>
-  </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>Путь, по которому сохранится расшифрованный файл.</value>
-  </data>
   <data name="GenericCryptographicException" xml:space="preserve">
     <value>Не удалось выполнить криптографическую операцию. Обязательно используйте тот же алгоритм и ключ для операций шифрования и расшифровки.</value>
   </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>KeyEncoding</value>
-    <comment>property name</comment>
-  </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Кодировка</value>
   </data>
   <data name="Key" xml:space="preserve">
     <value>Ключ</value>
@@ -338,10 +161,715 @@
     <value>Общие</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ПродолжитьПриОшибке</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES использует ключ длиной 16 байт или 24 байта. Длина вашего ключа зависит от кодировки.</value>
+  </data>
+  <data name="KeySecureString" xml:space="preserve">
+    <value>KeySecureString</value>
+  </data>
+  <data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>Ключ защищенной строки</value>
+  </data>
+  <data name="Activity_DecryptFile_Description" xml:space="preserve">
+    <value>Дешифрует файл, основываясь на указанном кодировании ключа и алгоритме.</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Name" xml:space="preserve">
+    <value>Decrypt File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм расшифровки для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>Путь к файлу, который необходимо расшифровать.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>File path</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>Кодировка, используемая для интерпретации ключа, указанного в свойстве Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>Кодировка ключей</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
+    <value>Ключ, который необходимо использовать для расшифровки указанного файла.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
+    <value>Ключ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>Расположение, в котором следует сохранить расшифрованный файл.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>Имя и расположение файла с выходными данными</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>Если файл уже существует в расположении, указанном в поле &quot;Путь выходных данных&quot;, установка этого флажка перезаписывает его. Если флажок не установлен, создается новый файл.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>Перезаписать</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Name" xml:space="preserve">
+    <value>Decrypt Text</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptText_Description" xml:space="preserve">
+    <value>Дешифрует текст, основываясь на указанной кодировке ключа и алгоритме.</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм расшифровки для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>Кодировка, используемая для интерпретации вводного текста и ключа, указанного в свойстве Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>Кодировка</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
+    <value>Текст, который следует расшифровать.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Name" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
+    <value>Ключ, который необходимо использовать для расшифровки указанного файла.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
+    <value>Ключ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
+    <value>Расшифрованный текст, хранящийся в переменной String.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
+    <value>Расшифрованный текст</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Description" xml:space="preserve">
+    <value>Шифрует файл с помощью ключа, основываясь на указанном кодировании ключа и алгоритме.</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Name" xml:space="preserve">
+    <value>Encrypt File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм шифрования для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>Путь к файлу, который необходимо зашифровать.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>File path</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
+    <value>Ключ, который необходимо использовать для шифрования указанного файла.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
+    <value>Ключ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Защищенная строка, используемая для расшифровки входного файла.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Ключ защищенной строки</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Защищенная строка, используемая для дешифрования строки ввода.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Ключ защищенной строки</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>Кодировка, используемая для интерпретации ключа, указанного в свойстве Key.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>Кодировка ключей</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Защищенная строка, используемая для шифрования входного файла.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Ключ защищенной строки</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>Расположение, в котором следует сохранить зашифрованный файл.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>Имя и расположение файла с выходными данными</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>Если файл уже существует в расположении, указанном в поле &quot;Путь выходных данных&quot;, установка этого флажка перезаписывает его. Если флажок не установлен, создается новый файл.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>Перезаписать</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Description" xml:space="preserve">
+    <value>Шифрует строку с помощью ключа, основываясь на указанном кодировании ключа и алгоритме.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_EncryptText_Name" xml:space="preserve">
+    <value>Encrypt Text</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм шифрования для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>Кодировка, используемая для интерпретации вводного текста и ключа, указанного в свойстве Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>Кодировка</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
+    <value>Текст, который следует зашифровать.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Name" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Защищенная строка, используемая для шифрования строки ввода.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Ключ защищенной строки</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
+    <value>Ключ, который необходимо использовать для шифрования указанного файла.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
+    <value>Ключ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
+    <value>Зашифрованный текст, хранящийся в переменной String.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
+    <value>Зашифрованный текст</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
+    <value>Hashes a file with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
+    <value>Hash File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм хэширования с ключом для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
+    <value>Кодировка, используемая для интерпретации ключа, указанного в свойстве Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
+    <value>Кодировка</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>Путь к файлу, для которого следует выполнить хэширование.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>Путь к файлу</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Защищенная строка, используемая для хэширования указанного файла.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Ключ защищенной строки</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
+    <value>Ключ, который следует использовать для хэширования указанного файла.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
+    <value>Ключ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
+    <value>Хэшированный файл, хранящийся в переменной String.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
+    <value>Хэш</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Description" xml:space="preserve">
+    <value>Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash. It supports hashing algorithms with a key and without a key.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Name" xml:space="preserve">
+    <value>Hash Text</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм хэширования с ключом для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
+    <value>Кодировка, используемая для интерпретации ключа, указанного в свойстве Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
+    <value>Кодировка</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to interpret the key specified in the Key property.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>Key Encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
+    <value>Текст, для которого следует выполнить хэширование.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Name" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>Защищенная строка, используемая для хэширования строки ввода.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>Ключ защищенной строки</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
+    <value>The key that you want to use to hash the specified text.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
+    <value>Ключ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
+    <value>Хэшированный текст, хранящийся в переменной String.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
+    <value>Хэш</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Description" xml:space="preserve">
+    <value>This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash File.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashFile_Name" xml:space="preserve">
+    <value>Hash File (deprecated)</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм хэширования для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>The path to the file you want to hash.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>Путь к файлу</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
+    <value>Хэшированный файл, хранящийся в переменной String.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
+    <value>Хэш</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Description" xml:space="preserve">
+    <value>This activity is now deprecated. SHA1, SHA256, SHA384, and SHA512 were moved to a single activity Hash Text.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashText_Name" xml:space="preserve">
+    <value>Hash Text (deprecated)</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>Раскрывающийся список, позволяющий выбрать алгоритм хэширования для использования.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>Алгоритм</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Указывает, должна ли автоматизация продолжаться, даже если действие вызывает ошибку.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Продолжить при ошибке</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
+    <value>Кодировка, используемая для интерпретации ключа, указанного в свойстве Key.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
+    <value>Кодировка</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
+    <value>Текст, для которого следует выполнить хэширование.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Name" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Description" xml:space="preserve">
+    <value>Хэшированный текст, хранящийся в переменной String.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
+    <value>Хэш</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Category_Others_Name" xml:space="preserve">
+    <value>Others</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Principal_Name" xml:space="preserve">
+    <value>Principal</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключение между ключом и ключом защищенной строки</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключение между ключом и ключом защищенной строки</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключение между ключом и ключом защищенной строки</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключение между ключом и ключом защищенной строки</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключение между ключом и ключом защищенной строки</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключение между ключом и ключом защищенной строки</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>KeyInputModeSwitch</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>Зашифрованный файл</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>Зашифрованный файл</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Файл, который следует зашифровать</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Файл</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>Расшифрованный файл</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>Расшифрованный файл</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Файл, который следует расшифровать</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Файл</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>Файл, подлежащий хэшированию</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Файл</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>Необходимо настроить аргументы для {{0] или {1}.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>Действие поддерживает только файлы, а не папки.</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>Имя файла, используемого для сохранения зашифрованного файла.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>Имя зашифрованного файла</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>Имя файла, используемого для сохранения расшифрованного файла.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>Имя расшифрованного файла</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>Options</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Use Key Secure String</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>Use Key</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>Use Key Secure String</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>Use Key</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>Ключ и защищенная строка не должны одновременно иметь не нулевое значение.</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>Ключ и защищенная строка не должны одновременно иметь нулевое значение.</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>Value for a required activity argument &apos;Key&apos; was not supplied</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>The Key Secure String must not be null</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between File Path and Resource</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>FileInputModeSwitch</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>The selected encryption algorithm is deprecated and it will no longer be supported in future versions.</value>
   </data>
 </root>

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using UiPath.Python.Impl;
 using UiPath.Python.Properties;
+using System.Runtime.InteropServices;
 
 namespace UiPath.Python
 {
@@ -14,13 +15,14 @@ namespace UiPath.Python
     {
         private const string PythonHomeEnv = "PYTHONHOME";
         private const string PythonExe = "python.exe";
+        private const string PythonLinux = "python";
         private const string PythonVersionArgument = "--version";
 
         // engines cache
         private static object _lock = new object();
         private static Dictionary<Version, IEngine> _cache = new Dictionary<Version, IEngine>();
 
-        public static IEngine Get(Version version, string path, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
+        public static IEngine Get(Version version, string path, string libraryPath, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
         {
             IEngine engine = null;
             lock (_lock)
@@ -45,14 +47,14 @@ namespace UiPath.Python
                 {
                     if (!_cache.TryGetValue(version, out engine))
                     {
-                        engine = new Engine(version, path);
+                        engine = new Engine(version, path, libraryPath);
                     }
                     _cache[version] = engine;
                 }
                 else
                 {
                     // TODO: do we need caching when running as service (out of process)?
-                    engine = new OutOfProcessEngine(version, path, target, visible);
+                    engine = new OutOfProcessEngine(version, path, libraryPath, target, visible);
                 }
             }
             return engine;
@@ -61,7 +63,12 @@ namespace UiPath.Python
         public static void Autodetect(string path, out Version version)
         {
             Trace.TraceInformation($"Trying to autodetect Python version from path {path}");
-            string pyExe = Path.GetFullPath(Path.Combine(path, PythonExe));
+            var pythonExec = PythonExe;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                pythonExec = PythonLinux;
+#endif
+            string pyExe = Path.GetFullPath(Path.Combine(path, pythonExec));
             if (!File.Exists(pyExe))
             {
                 throw new FileNotFoundException(Resources.PythonExeNotFoundException, pyExe);

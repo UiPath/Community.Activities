@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Hedef dizin zaten var</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Metin girişine geç</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>Güvenli girişe geç</value>
+  </data>
 </root>

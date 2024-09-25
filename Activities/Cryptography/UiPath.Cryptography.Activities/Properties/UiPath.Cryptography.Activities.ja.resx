@@ -117,57 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlgorithmDisplayName" xml:space="preserve">
-    <value>アルゴリズム</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDisplayName" xml:space="preserve">
-    <value>エンコード</value>
-    <comment>property name</comment>
-  </data>
-  <data name="EncodingDescription" xml:space="preserve">
-    <value>入力文字列の解釈に使用するエンコードです。</value>
-  </data>
-  <data name="EncryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する暗号化アルゴリズムです。</value>
-  </data>
-  <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
-  </data>
-  <data name="EncryptTextDisplayName" xml:space="preserve">
-    <value>テキストを暗号化</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptTextDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を暗号化し、復号結果の base64 文字列表現を返します。(Encrypt Text)</value>
-  </data>
-  <data name="EncryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで暗号化する文字列です。</value>
-  </data>
-  <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>入力文字列の暗号化に使用するキーです。</value>
-  </data>
-  <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>暗号化された入力文字列の base64 文字列表現です。</value>
-  </data>
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>選択したアルゴリズムは FIPS に準拠していません。これは、一部のマシン上では動作しない可能性があります。</value>
-  </data>
-  <data name="HashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するハッシュ アルゴリズムです。</value>
-  </data>
-  <data name="HashTextDisplayName" xml:space="preserve">
-    <value>テキストをハッシュ</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashTextDescription" xml:space="preserve">
-    <value>選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text)</value>
-  </data>
-  <data name="HashTextInputDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュする文字列です。</value>
-  </data>
-  <data name="HashTextResultDescription" xml:space="preserve">
-    <value>ハッシュされた入力文字列の 16 進数文字列表現です。</value>
   </data>
   <data name="Input" xml:space="preserve">
     <value>入力</value>
@@ -176,110 +127,12 @@
     <value>テキスト</value>
     <comment>property name</comment>
   </data>
-  <data name="KeyDisplayName" xml:space="preserve">
-    <value>キー</value>
-    <comment>property name</comment>
-  </data>
-  <data name="KeyedHashAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用するキー付きハッシュ アルゴリズムです。</value>
-  </data>
-  <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
-  </data>
-  <data name="KeyedHashTextKeyDescription" xml:space="preserve">
-    <value>入力文字列のハッシュに使用するキーです。</value>
-  </data>
-  <data name="KeyedHashTextDisplayName" xml:space="preserve">
-    <value>テキストをキーでハッシュ</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashTextDescription" xml:space="preserve">
-    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力文字列に適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash Text With Key)</value>
-  </data>
-  <data name="OutputDisplayName" xml:space="preserve">
-    <value>出力</value>
-    <comment>property name</comment>
-  </data>
-  <data name="ResultDisplayName" xml:space="preserve">
-    <value>結果</value>
-    <comment>property name</comment>
-  </data>
-  <data name="DecryptAlgorithmDescription" xml:space="preserve">
-    <value>このアクティビティで使用する復号アルゴリズムです。</value>
-  </data>
-  <data name="DecryptTextDisplayName" xml:space="preserve">
-    <value>テキストを復号</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptTextDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力文字列を復号し、元の暗号化されていない文字列を返します。（Decrypt Text)</value>
-  </data>
-  <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>入力文字列とキーの解釈に使用するエンコードです。</value>
-  </data>
-  <data name="DecryptTextInputDescription" xml:space="preserve">
-    <value>このアクティビティで復号する文字列です。</value>
-  </data>
-  <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>入力文字列の復号に使用するキーです。</value>
-  </data>
-  <data name="DecryptTextResultDescription" xml:space="preserve">
-    <value>復号された文字列です。</value>
-  </data>
   <data name="FileDoesNotExistsException" xml:space="preserve">
     <value>ファイルが存在しません。</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
     <value>ファイル パス</value>
     <comment>property name</comment>
-  </data>
-  <data name="HashFileDisplayName" xml:space="preserve">
-    <value>ファイルをハッシュ</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="HashFileDescription" xml:space="preserve">
-    <value>選択したハッシュ アルゴリズムを指定したファイルのコンテンツに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File)</value>
-  </data>
-  <data name="HashFilePathDescription" xml:space="preserve">
-    <value>このアクティビティでハッシュするファイルのパスです。</value>
-  </data>
-  <data name="HashFileResultDescription" xml:space="preserve">
-    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
-  </data>
-  <data name="KeyedHashFileDisplayName" xml:space="preserve">
-    <value>ファイルをキーでハッシュ</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="KeyedHashFileDescription" xml:space="preserve">
-    <value>ハッシュに指定したキーを使用して、選択したハッシュ アルゴリズムを入力ファイルに適用し、結果として生成されるハッシュの 16 進数文字列表現を返します。(Hash File With Key)</value>
-  </data>
-  <data name="KeyedHashFileKeyDescription" xml:space="preserve">
-    <value>指定したファイルのハッシュに使用するキーです。</value>
-  </data>
-  <data name="KeyedHashFileResultDescription" xml:space="preserve">
-    <value>ハッシュされたファイルの 16 進数文字列表現です。</value>
-  </data>
-  <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
-  </data>
-  <data name="EncryptFileDisplayName" xml:space="preserve">
-    <value>ファイルを暗号化</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="EncryptFileDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを暗号化し、結果を出力ファイルに保存します。(Encrypt File)</value>
-  </data>
-  <data name="EncryptFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
-  </data>
-  <data name="EncryptFileInputPathDescription" xml:space="preserve">
-    <value>このアクティビティで暗号化するファイルのパスです。</value>
-  </data>
-  <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>入力ファイルの暗号化に使用するキーです。</value>
-  </data>
-  <data name="EncryptFileOutputPathDescription" xml:space="preserve">
-    <value>暗号化されたファイルの保存先のパスです。</value>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
     <value>入力パス</value>
@@ -289,41 +142,11 @@
     <value>出力パス</value>
     <comment>property name</comment>
   </data>
-  <data name="OverwriteDisplayName" xml:space="preserve">
-    <value>上書き</value>
-    <comment>property name</comment>
-  </data>
-  <data name="OverwriteDescription" xml:space="preserve">
-    <value>出力ファイルが既に存在する場合は、ファイルを上書きします。</value>
-  </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
-    <value>ファイルが既に存在します。</value>
-  </data>
-  <data name="DecryptFileDisplayName" xml:space="preserve">
-    <value>ファイルを復号</value>
-    <comment>activity name</comment>
-  </data>
-  <data name="DecryptFileDescription" xml:space="preserve">
-    <value>選択したアルゴリズムと指定したキーを使用して入力ファイルを復号し、元の暗号化されていないファイルを保存します。（Decrypt File)</value>
-  </data>
-  <data name="DecryptFileEncodingDescription" xml:space="preserve">
-    <value>キーの解釈に使用するエンコードです。</value>
-  </data>
-  <data name="DecryptFileInputPathDescription" xml:space="preserve">
-    <value>このアクティビティで復号するファイルのパスです。</value>
-  </data>
-  <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>入力ファイルの復号に使用するキーです。</value>
-  </data>
-  <data name="DecryptFileOutputPathDescription" xml:space="preserve">
-    <value>復号されたファイルの保存先のパスです。</value>
+    <value>ファイルがすでに存在します。</value>
   </data>
   <data name="GenericCryptographicException" xml:space="preserve">
     <value>暗号化操作に失敗しました。暗号化と復号の両方の操作に同じアルゴリズムとキーを使用してください。</value>
-  </data>
-  <data name="KeyEncodingDisplayName" xml:space="preserve">
-    <value>キー エンコード</value>
-    <comment>property name</comment>
   </data>
   <data name="Encoding" xml:space="preserve">
     <value>エンコード</value>
@@ -343,5 +166,710 @@
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">
     <value>MACTripleDES は長さが 16 または 24 バイトのキーを使用します。キーの長さは、エンコードによって異なります。</value>
+  </data>
+  <data name="KeySecureString" xml:space="preserve">
+    <value>キー (SecureString)</value>
+  </data>
+  <data name="KeySecureStringDisplayName" xml:space="preserve">
+    <value>キー (SecureString)</value>
+  </data>
+  <data name="Activity_DecryptFile_Description" xml:space="preserve">
+    <value>指定したキーのエンコードとアルゴリズムに基づき、ファイルを復号します。(Decrypt File)</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Name" xml:space="preserve">
+    <value>ファイルを復号</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用する復号アルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>復号するファイルのパスです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>ファイル パス</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
+    <value>指定したファイルの復号に使用するキーです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Key_Name" xml:space="preserve">
+    <value>キー</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>復号するファイルの保存先のパスです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>出力ファイル名と場所</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>[出力パス] フィールドで指定したパスにファイルがすでに存在する場合、このチェック ボックスをオンにすると、既存のファイルが上書きされます。オフにすると、新しいファイルが作成されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>上書き</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Name" xml:space="preserve">
+    <value>テキストを復号</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DecryptText_Description" xml:space="preserve">
+    <value>指定したキーのエンコードとアルゴリズムに基づき、テキストを復号します。(Decrypt Text)</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用する復号アルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>入力テキストおよび [キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>エンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
+    <value>復号するテキストです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Input_Name" xml:space="preserve">
+    <value>テキスト</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
+    <value>指定したファイルの復号に使用するキーです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
+    <value>キー</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Description" xml:space="preserve">
+    <value>復号されるテキストです。String 変数に格納されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
+    <value>復号済みのテキスト</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Description" xml:space="preserve">
+    <value>指定したキーのエンコードとアルゴリズムに基づき、ファイルをキーで暗号化します。(Encrypt File)</value>
+    <comment>Activity Description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Name" xml:space="preserve">
+    <value>ファイルを暗号化</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用する暗号化アルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>暗号化するファイルのパスです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>ファイル パス</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Description" xml:space="preserve">
+    <value>指定したファイルの暗号化に使用するキーです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Key_Name" xml:space="preserve">
+    <value>キー</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>入力ファイルの復号に使用する、セキュリティで保護された文字列です。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>キー (SecureString)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>入力文字列の復号に使用する、セキュリティで保護された文字列です。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>キー (SecureString)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>入力ファイルの暗号化に使用する、セキュリティで保護された文字列です。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>キー (SecureString)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>暗号化するファイルの保存先のパスです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>出力ファイル名と場所</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>[出力パス] フィールドで指定したパスにファイルがすでに存在する場合、このチェック ボックスをオンにすると、既存のファイルが上書きされます。オフにすると、新しいファイルが作成されます。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>上書き</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Description" xml:space="preserve">
+    <value>指定したキーのエンコードとアルゴリズムに基づき、文字列をキーで暗号化します。(Encrypt Text)</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_EncryptText_Name" xml:space="preserve">
+    <value>テキストを暗号化</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用する暗号化アルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
+    <value>入力テキストおよび [キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
+    <value>エンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
+    <value>暗号化するテキストです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Input_Name" xml:space="preserve">
+    <value>テキスト</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>入力文字列の暗号化に使用する、セキュリティで保護された文字列です。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>キー (SecureString)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
+    <value>指定したファイルの暗号化に使用するキーです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
+    <value>キー</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Description" xml:space="preserve">
+    <value>暗号化するテキストです。String 変数に格納されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
+    <value>暗号化済みのテキスト</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
+    <value>指定したアルゴリズムを使用して、ファイルをキーでハッシュします。結果として生成されるハッシュを表す 16 進数文字列を返します。キーを使用したハッシュ アルゴリズムと、キーを使用しないハッシュ アルゴリズムの両方をサポートします。(Hash File)</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
+    <value>ファイルをハッシュ</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用する、キー付きハッシュ アルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Encoding_Name" xml:space="preserve">
+    <value>エンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>ハッシュするファイルのパスです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>ファイル パス</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Description" xml:space="preserve">
+    <value>指定したファイルのハッシュに使用する、セキュリティで保護された文字列です。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
+    <value>キー (SecureString)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
+    <value>指定したファイルのハッシュに使用するキーです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_Name" xml:space="preserve">
+    <value>キー</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Description" xml:space="preserve">
+    <value>ハッシュされるファイルです。String 型変数に格納されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Result_Name" xml:space="preserve">
+    <value>ハッシュ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Description" xml:space="preserve">
+    <value>指定したアルゴリズムを使用して、文字列をキーでハッシュします。結果として生成されるハッシュを表す 16 進数文字列を返します。キーを使用したハッシュ アルゴリズムと、キーを使用しないハッシュ アルゴリズムの両方をサポートします。(Hash Text)</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Name" xml:space="preserve">
+    <value>テキストをハッシュ</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用する、キー付きハッシュ アルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Encoding_Name" xml:space="preserve">
+    <value>エンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
+    <value>キーのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
+    <value>ハッシュするテキストです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Input_Name" xml:space="preserve">
+    <value>テキスト</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Description" xml:space="preserve">
+    <value>入力文字列のハッシュに使用する、セキュリティで保護された文字列です。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
+    <value>キー (SecureString)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
+    <value>指定したテキストのハッシュに使用するキーです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_Name" xml:space="preserve">
+    <value>キー</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Description" xml:space="preserve">
+    <value>ハッシュされるテキストです。String 型変数に格納されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Result_Name" xml:space="preserve">
+    <value>ハッシュ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Description" xml:space="preserve">
+    <value>このアクティビティは非推奨になりました。SHA1、SHA256、SHA384、SHA512 は単一の [ファイルをハッシュ] アクティビティに移動されました。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashFile_Name" xml:space="preserve">
+    <value>ファイルをハッシュ (非推奨)</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用するハッシュのアルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
+    <value>ハッシュするファイルのパスです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
+    <value>ファイル パス</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
+    <value>ハッシュされるファイルです。String 型変数に格納されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashFile_Property_Result_Name" xml:space="preserve">
+    <value>ハッシュ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Description" xml:space="preserve">
+    <value>このアクティビティは非推奨になりました。SHA1、SHA256、SHA384、SHA512 は単一の [テキストをハッシュ] アクティビティに移動されました。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_HashText_Name" xml:space="preserve">
+    <value>テキストをハッシュ (非推奨)</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">
+    <value>使用するハッシュのアルゴリズムをドロップダウン リストから選択します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Algorithm_Name" xml:space="preserve">
+    <value>アルゴリズム</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>エラー発生時に実行を継続</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
+    <value>[キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Encoding_Name" xml:space="preserve">
+    <value>エンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Description" xml:space="preserve">
+    <value>ハッシュするテキストです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Input_Name" xml:space="preserve">
+    <value>テキスト</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Description" xml:space="preserve">
+    <value>ハッシュされるテキストです。String 型変数に格納されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_HashText_Property_Result_Name" xml:space="preserve">
+    <value>ハッシュ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Category_Others_Name" xml:space="preserve">
+    <value>その他</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Principal_Name" xml:space="preserve">
+    <value>プリンシパル</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>[キー] と [キー (SecureString)] を切り替えます。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>キーの入力モードを切り替え</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>[キー] と [キー (SecureString)] を切り替えます。</value>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>キーの入力モードを切り替え</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>[キー] と [キー (SecureString)] を切り替えます。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>キーの入力モードを切り替え</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>[キー] と [キー (SecureString)] を切り替えます。</value>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>キーの入力モードを切り替え</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>[キー] と [キー (SecureString)] を切り替えます。</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>キーの入力モードを切り替え</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Description" xml:space="preserve">
+    <value>[キー] と [キー (SecureString)] を切り替えます。</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeyInputModeSwitch_Name" xml:space="preserve">
+    <value>キーの入力モードを切り替え</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Description" xml:space="preserve">
+    <value>暗号化済みのファイルです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
+    <value>暗号化済みのファイル</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>暗号化するファイルです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>ファイル</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Description" xml:space="preserve">
+    <value>復号済みのファイルです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
+    <value>復号済みのファイル</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
+    <value>復号するファイルです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_InputFile_Name" xml:space="preserve">
+    <value>ファイル</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Description" xml:space="preserve">
+    <value>ハッシュするファイルです。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_InputFile_Name" xml:space="preserve">
+    <value>ファイル</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Exception_UseOnlyFilePathOrInputResource" xml:space="preserve">
+    <value>{{0}} または {1} のいずれか 1 つのみに引数を設定する必要があります。</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Exception_UseOnlyFilesNotFolders" xml:space="preserve">
+    <value>このアクティビティではファイルのみがサポートされており、フォルダーはサポートされていません。</value>
+    <comment>exception</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>暗号化後のファイルを保存する際に使用するファイル名です。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>暗号化後のファイル名</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
+    <value>復号後のファイルを保存する際に使用するファイル名です。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
+    <value>復号後のファイル名</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Category_Options_Name" xml:space="preserve">
+    <value>オプション</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>キー (SecureString) を使用</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_Key_SwitchName" xml:space="preserve">
+    <value>キーを使用</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_KeySecureString_SwitchName" xml:space="preserve">
+    <value>キー (SecureString) を使用</value>
+  </data>
+  <data name="Activity_KeyedHashText_Property_Key_SwitchName" xml:space="preserve">
+    <value>キーを使用</value>
+  </data>
+  <data name="KeyAndSecureStringNotNull" xml:space="preserve">
+    <value>キーとセキュリティで保護された文字列は、両方とも null 以外にしてはなりません。</value>
+  </data>
+  <data name="KeyAndSecureStringNull" xml:space="preserve">
+    <value>キーとセキュリティで保護された文字列は、両方とも null にしてはなりません。</value>
+  </data>
+  <data name="KeyNullError" xml:space="preserve">
+    <value>アクティビティの必須の引数「key」の値が指定されていません。</value>
+  </data>
+  <data name="KeySecureStringNullError" xml:space="preserve">
+    <value>[キー (SecureString)] を null にすることはできません。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>ファイル パスとリソースを切り替えます。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>ファイルの入力モードの切り替え</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>ファイル パスとリソースを切り替えます。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>ファイルの入力モードの切り替え</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>ファイル パスとリソースを切り替えます。</value>
+  </data>
+  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>ファイルの入力モードの切り替え</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
+    <value>ファイル パスとリソースを切り替えます。</value>
+  </data>
+  <data name="Activity_HashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
+    <value>ファイルの入力モードの切り替え</value>
+  </data>
+  <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
+    <value>選択した暗号化アルゴリズムは非推奨となり、今後のバージョンではサポートされなくなります。</value>
   </data>
 </root>

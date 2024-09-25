@@ -1,4 +1,5 @@
 ﻿using FluentFTP;
+using FluentFTP.Proxy.SyncProxy;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,6 +19,8 @@ namespace UiPath.FTP
     {
         private readonly FtpClient _ftpClient;
 
+        private const int DefaultProxyPort = 3128;
+
         public FtpSession(FtpConfiguration ftpConfiguration, FtpsMode ftpsMode)
         {
             if (ftpConfiguration == null)
@@ -25,7 +28,36 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(ftpConfiguration));
             }
 
-            _ftpClient = new FtpClient(ftpConfiguration.Host);
+            var proxy = new FtpProxyProfile();
+            if(ftpConfiguration.ProxyType != FtpProxyType.None)
+            {
+                proxy.ProxyHost = ftpConfiguration.ProxyServer;
+                proxy.ProxyPort = (ftpConfiguration.ProxyPort == null) ? DefaultProxyPort : ftpConfiguration.ProxyPort.Value;
+                if (!string.IsNullOrEmpty(ftpConfiguration.ProxyUsername))
+                    proxy.ProxyCredentials = new NetworkCredential(ftpConfiguration.ProxyUsername, ftpConfiguration.ProxyPassword);
+            }
+
+            switch (ftpConfiguration.ProxyType)
+            {
+                case FtpProxyType.None:
+                    _ftpClient = new FtpClient(ftpConfiguration.Host);
+                    break;
+                case FtpProxyType.Http:
+                    _ftpClient = new FtpClientHttp11Proxy(proxy);
+                    _ftpClient.Host = ftpConfiguration.Host;
+                    break;
+                case FtpProxyType.Socks4:
+                    _ftpClient = new FtpClientSocks4Proxy(proxy);
+                    _ftpClient.Host = ftpConfiguration.Host;
+                    break;
+                case FtpProxyType.Socks5:
+                    _ftpClient = new FtpClientSocks5Proxy(proxy);
+                    _ftpClient.Host = ftpConfiguration.Host;
+                    break;
+                default:
+                    throw new NotImplementedException();
+
+            }
 
             if (ftpConfiguration.Port != null)
             {
@@ -39,13 +71,13 @@ namespace UiPath.FTP
             switch (ftpsMode)
             {
                 case FtpsMode.Explicit:
-                    _ftpClient.EncryptionMode = FtpEncryptionMode.Explicit;
+                    _ftpClient.Config.EncryptionMode = FtpEncryptionMode.Explicit;
                     break;
                 case FtpsMode.Implicit:
-                    _ftpClient.EncryptionMode = FtpEncryptionMode.Implicit;
+                    _ftpClient.Config.EncryptionMode = FtpEncryptionMode.Implicit;
                     break;
                 case FtpsMode.None:
-                    _ftpClient.EncryptionMode = FtpEncryptionMode.None;
+                    _ftpClient.Config.EncryptionMode = FtpEncryptionMode.None;
                     break;
                 default:
                     throw new InvalidOperationException(Resources.UnknownFTPSModeException);
@@ -53,8 +85,8 @@ namespace UiPath.FTP
 
             if (ftpsMode != FtpsMode.None)
             {
-                _ftpClient.SslProtocols = (SslProtocols)ftpConfiguration.SslProtocols;
-                _ftpClient.ValidateCertificate += (control, e) => _ftpClient_ValidateCertificate(control, e, ftpConfiguration.AcceptAllCertificates);
+                _ftpClient.Config.SslProtocols = (SslProtocols)ftpConfiguration.SslProtocols; //viorel -> to review
+                _ftpClient.ValidateCertificate += (control, e) => _ftpClient_ValidateCertificate(control as FtpClient, e, ftpConfiguration.AcceptAllCertificates);
 
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath) == false)
                 {
@@ -68,7 +100,7 @@ namespace UiPath.FTP
                         clientCertificate = new X509Certificate2(ftpConfiguration.ClientCertificatePath, ftpConfiguration.ClientCertificatePassword);
                     }
 
-                    _ftpClient.ClientCertificates.Add(clientCertificate);
+                    _ftpClient.Config.ClientCertificates.Add(clientCertificate);
                 }
             }
         }
@@ -137,14 +169,14 @@ namespace UiPath.FTP
             FtpListItem[] items = _ftpClient.GetListing(currentDirectory.FullName);
             string nextLocalPath = Path.Combine(localPath, currentDirectory.Name);
 
-            foreach (FtpListItem file in items.Where(i => i.Type == FtpFileSystemObjectType.File))
+            foreach (FtpListItem file in items.Where(i => i.Type == FluentFTP.FtpObjectType.File))
             {
                 listing.Add(new Tuple<string, string>(Path.Combine(nextLocalPath, file.Name), file.FullName));
             }
 
             if (recursive)
             {
-                foreach (FtpListItem directory in items.Where(i => i.Type == FtpFileSystemObjectType.Directory))
+                foreach (FtpListItem directory in items.Where(i => i.Type == FluentFTP.FtpObjectType.Directory))
                 {
                     listing.AddRange(GetRemoteListing(directory.FullName, nextLocalPath, recursive));
                 }
@@ -174,7 +206,7 @@ namespace UiPath.FTP
 
             if (recursive)
             {
-                foreach (FtpListItem directory in items.Where(i => i.Type == FtpFileSystemObjectType.Directory))
+                foreach (FtpListItem directory in items.Where(i => i.Type == FluentFTP.FtpObjectType.Directory))
                 {
                     listing.AddRange(GetRemoteListing(directory.FullName, recursive));
                 }
@@ -198,29 +230,29 @@ namespace UiPath.FTP
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            string initialWorkingDirectory = await _ftpClient.GetWorkingDirectoryAsync();
-            await _ftpClient.SetWorkingDirectoryAsync(remotePath);
-            string currentWorkingDirectory = await _ftpClient.GetWorkingDirectoryAsync();
+            string initialWorkingDirectory = _ftpClient.GetWorkingDirectory();
+            _ftpClient.SetWorkingDirectory(remotePath);
+            string currentWorkingDirectory = _ftpClient.GetWorkingDirectory();
 
             List<Tuple<string, string>> listing = new List<Tuple<string, string>>();
-            FtpListItem currentDirectory = await _ftpClient.GetObjectInfoAsync(currentWorkingDirectory);
-            FtpListItem[] items = await _ftpClient.GetListingAsync(currentDirectory.FullName);
+            FtpListItem currentDirectory = await Task.Run(() => _ftpClient.GetObjectInfo(currentWorkingDirectory), cancellationToken);
+            FtpListItem[] items = await Task.Run(() => _ftpClient.GetListing(currentDirectory.FullName), cancellationToken);
             string nextLocalPath = Path.Combine(localPath, currentDirectory.Name);
 
-            foreach (FtpListItem file in items.Where(i => i.Type == FtpFileSystemObjectType.File))
+            foreach (FtpListItem file in items.Where(i => i.Type == FluentFTP.FtpObjectType.File))
             {
                 listing.Add(new Tuple<string, string>(Path.Combine(nextLocalPath, file.Name), file.FullName));
             }
 
             if (recursive)
             {
-                foreach (FtpListItem directory in items.Where(i => i.Type == FtpFileSystemObjectType.Directory))
+                foreach (FtpListItem directory in items.Where(i => i.Type == FluentFTP.FtpObjectType.Directory))
                 {
                     listing.AddRange(await GetRemoteListingAsync(directory.FullName, nextLocalPath, recursive, cancellationToken));
                 }
             }
 
-            await _ftpClient.SetWorkingDirectoryAsync(initialWorkingDirectory);
+            await Task.Run(() => _ftpClient.SetWorkingDirectory(initialWorkingDirectory), cancellationToken);
 
             return listing;
         }
@@ -238,13 +270,13 @@ namespace UiPath.FTP
             FtpListItem currentDirectory = _ftpClient.GetObjectInfo(_ftpClient.GetWorkingDirectory());
 
             List<FtpObjectInfo> listing = new List<FtpObjectInfo>();
-            FtpListItem[] items = await _ftpClient.GetListingAsync(currentDirectory?.FullName ?? remotePath);
+            FtpListItem[] items = await Task.Run(() => _ftpClient.GetListing(currentDirectory?.FullName ?? remotePath), cancellationToken);
 
             listing.AddRange(items.Select(fli => fli.ToFtpObjectInfo()));
 
             if (recursive)
             {
-                foreach (FtpListItem directory in items.Where(i => i.Type == FtpFileSystemObjectType.Directory))
+                foreach (FtpListItem directory in items.Where(i => i.Type == FluentFTP.FtpObjectType.Directory))
                 {
                     listing.AddRange(await GetRemoteListingAsync(directory.FullName, recursive, cancellationToken));
                 }
@@ -279,7 +311,7 @@ namespace UiPath.FTP
             Trace.TraceInformation("Attempting to asynchronously open an FTP connection.");
 
             // TODO: Should we check for cancellation here?
-            return _ftpClient.ConnectAsync();
+            return Task.Run(() => _ftpClient.Connect(), cancellationToken);
         }
 
         void IFtpSession.Close()
@@ -294,7 +326,7 @@ namespace UiPath.FTP
             Trace.TraceInformation("Attempting to asynchronously close an FTP connection.");
 
             // TODO: Should we check for cancellation here?
-            return _ftpClient.DisconnectAsync();
+            return Task.Run(() => _ftpClient.Disconnect(), cancellationToken);
         }
 
         void IFtpSession.CreateDirectory(string path)
@@ -315,7 +347,7 @@ namespace UiPath.FTP
             }
 
             // TODO: Should we check for cancellation here?
-            return _ftpClient.CreateDirectoryAsync(path);
+            return Task.Run(() => _ftpClient.CreateDirectory(path), cancellationToken);
         }
 
         void IFtpSession.Delete(string path)
@@ -327,10 +359,10 @@ namespace UiPath.FTP
 
             switch (((IFtpSession)this).GetObjectType(path))
             {
-                case FtpObjectType.Directory:
+                case UiPath.FTP.FtpObjectType.Directory:
                     _ftpClient.DeleteDirectory(path);
                     break;
-                case FtpObjectType.File:
+                case UiPath.FTP.FtpObjectType.File:
                     _ftpClient.DeleteFile(path);
                     break;
                 default:
@@ -347,11 +379,11 @@ namespace UiPath.FTP
 
             switch (await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken))
             {
-                case FtpObjectType.Directory:
-                    await _ftpClient.DeleteDirectoryAsync(path);
+                case UiPath.FTP.FtpObjectType.Directory:
+                    await Task.Run(() => _ftpClient.DeleteDirectory(path), cancellationToken);
                     break;
-                case FtpObjectType.File:
-                    await _ftpClient.DeleteFileAsync(path);
+                case UiPath.FTP.FtpObjectType.File:
+                    await Task.Run(() => _ftpClient.DeleteFile(path), cancellationToken);
                     break;
                 default:
                     throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
@@ -376,7 +408,7 @@ namespace UiPath.FTP
             }
 
             // TODO: Should we check for cancellation here?
-            return _ftpClient.DirectoryExistsAsync(path);
+            return Task.Run(() => _ftpClient.DirectoryExists(path), cancellationToken);
         }
 
         void IFtpSession.Download(string remotePath, string localPath, bool overwrite, bool recursive)
@@ -390,8 +422,8 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(localPath));
             }
 
-            FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
-            if (objectType == FtpObjectType.Directory)
+            UiPath.FTP.FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
+            if (objectType == UiPath.FTP.FtpObjectType.Directory)
             {
                 IEnumerable<Tuple<string, string>> listing = GetRemoteListing(remotePath, localPath, recursive);
 
@@ -402,14 +434,14 @@ namespace UiPath.FTP
             }
             else
             {
-                if (objectType == FtpObjectType.File)
+                if (objectType == UiPath.FTP.FtpObjectType.File)
                 {
                     if (File.Exists(localPath) && !overwrite)
                     {
                         throw new IOException(Resources.FileExistsException);
                     }
 
-                    _ftpClient.DownloadFileAsync(localPath, remotePath, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip); 
+                    _ftpClient.DownloadFile(localPath, remotePath, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip); 
                 }
                 else
                 {
@@ -429,8 +461,8 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(localPath));
             }
 
-            FtpObjectType objectType = await ((IFtpSession)this).GetObjectTypeAsync(remotePath, cancellationToken);
-            if (objectType == FtpObjectType.Directory)
+            UiPath.FTP.FtpObjectType objectType = await ((IFtpSession)this).GetObjectTypeAsync(remotePath, cancellationToken);
+            if (objectType == UiPath.FTP.FtpObjectType.Directory)
             {
                 IEnumerable<Tuple<string, string>> listing = await GetRemoteListingAsync(remotePath, localPath, recursive, cancellationToken);
 
@@ -438,19 +470,19 @@ namespace UiPath.FTP
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    await _ftpClient.DownloadFileAsync(pair.Item1, pair.Item2, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip, FtpVerify.None, null, cancellationToken);
+                    await Task.Run(() => _ftpClient.DownloadFile(pair.Item1, pair.Item2, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip, FtpVerify.None, null), cancellationToken);
                 }
             }
             else
             {
-                if (objectType == FtpObjectType.File)
+                if (objectType == UiPath.FTP.FtpObjectType.File)
                 {
                     if (File.Exists(localPath) && !overwrite)
                     {
                         throw new IOException(Resources.FileExistsException);
                     }
 
-                    await _ftpClient.DownloadFileAsync(localPath, remotePath, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip, FtpVerify.None, null, cancellationToken);
+                    await Task.Run(() => _ftpClient.DownloadFile(localPath, remotePath, overwrite ? FtpLocalExists.Overwrite : FtpLocalExists.Skip, FtpVerify.None, null), cancellationToken);
                 }
                 else
                 {
@@ -477,29 +509,29 @@ namespace UiPath.FTP
             }
 
             // TODO: Should we check for cancellation here?
-            return _ftpClient.FileExistsAsync(path);
+            return Task.Run(() => _ftpClient.FileExists(path), cancellationToken);
         }
 
-        FtpObjectType IFtpSession.GetObjectType(string path)
+        UiPath.FTP.FtpObjectType IFtpSession.GetObjectType(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
             }
 
-            FtpObjectType objectType = FtpObjectType.File;
+            UiPath.FTP.FtpObjectType objectType = UiPath.FTP.FtpObjectType.File;
             FtpListItem objectInfo = _ftpClient.GetObjectInfo(path);
             if (objectInfo == null)
             {
                 if (_ftpClient.FileExists(path))
                 {
-                    objectType = FtpObjectType.File;
+                    objectType = UiPath.FTP.FtpObjectType.File;
                 }
                 else
                 {
                     if (_ftpClient.DirectoryExists(path))
                     {
-                        objectType = FtpObjectType.Directory;
+                        objectType = UiPath.FTP.FtpObjectType.Directory;
                     }
                     else
                     {
@@ -515,26 +547,26 @@ namespace UiPath.FTP
             return objectType;
         }
 
-        async Task<FtpObjectType> IFtpSession.GetObjectTypeAsync(string path, CancellationToken cancellationToken)
+        async Task<UiPath.FTP.FtpObjectType> IFtpSession.GetObjectTypeAsync(string path, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentNullException(nameof(path));
             }
 
-            FtpObjectType objectType = FtpObjectType.File;
-            FtpListItem objectInfo = await _ftpClient.GetObjectInfoAsync(path);
+            UiPath.FTP.FtpObjectType objectType = UiPath.FTP.FtpObjectType.File;
+            FtpListItem objectInfo = await Task.Run(() => _ftpClient.GetObjectInfo(path));
             if (objectInfo == null)
             {
-                if (await _ftpClient.FileExistsAsync(path))
+                if (await Task.Run(() => _ftpClient.FileExists(path), cancellationToken))
                 {
-                    objectType = FtpObjectType.File;
+                    objectType = UiPath.FTP.FtpObjectType.File;
                 }
                 else
                 {
-                    if (await _ftpClient.DirectoryExistsAsync(path))
+                    if (await Task.Run(() => _ftpClient.DirectoryExists(path), cancellationToken))
                     {
-                        objectType = FtpObjectType.Directory;
+                        objectType = UiPath.FTP.FtpObjectType.Directory;
                     }
                     else
                     {
@@ -586,7 +618,7 @@ namespace UiPath.FTP
             {
                 throw new IOException(string.Format(Resources.PathNotFoundException, RemotePath));
             }
-            if (ftpItem.Type == FtpFileSystemObjectType.Directory)
+            if (ftpItem.Type == FluentFTP.FtpObjectType.Directory)
             {
                 if (_ftpClient.DirectoryExists(newPath) && !overwrite)
                 {
@@ -594,7 +626,7 @@ namespace UiPath.FTP
                 }
                 _ftpClient.MoveDirectory(RemotePath, newPath, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip);
             }
-            else if (ftpItem.Type == FtpFileSystemObjectType.File)
+            else if (ftpItem.Type == FluentFTP.FtpObjectType.File)
             {
                 if (_ftpClient.FileExists(newPath) && !overwrite)
                 {
@@ -665,19 +697,19 @@ namespace UiPath.FTP
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    await _ftpClient.UploadFileAsync(pair.Item1, pair.Item2, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true, FtpVerify.None, null, cancellationToken);
+                    await Task.Run(() => _ftpClient.UploadFile(pair.Item1, pair.Item2, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true, FtpVerify.None, null), cancellationToken);
                 }
             }
             else
             {
                 if (File.Exists(localPath))
                 {
-                    if ((await _ftpClient.FileExistsAsync(remotePath)) && !overwrite)
+                    if (await Task.Run(() => _ftpClient.FileExists(remotePath), cancellationToken) && !overwrite)
                     {
                         throw new IOException(Resources.FileExistsException);
                     }
 
-                    await _ftpClient.UploadFileAsync(localPath, remotePath, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true, FtpVerify.None, null, cancellationToken); 
+                    await Task.Run(() => _ftpClient.UploadFile(localPath, remotePath, overwrite ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip, true, FtpVerify.None, null), cancellationToken); 
                 }
                 else
                 {

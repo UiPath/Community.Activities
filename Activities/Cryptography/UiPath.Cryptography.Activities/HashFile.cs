@@ -9,38 +9,36 @@ using UiPath.Cryptography.Activities.Properties;
 namespace UiPath.Cryptography.Activities
 {
 #if NET461
-    [LocalizedDisplayName(nameof(Resources.HashFileDisplayName))]
-    [LocalizedDescription(nameof(Resources.HashFileDescription))]
+    [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_HashFile_Description))]
     public class HashFile : CodeActivity<string>
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.AlgorithmDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashAlgorithmDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_Algorithm_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_Algorithm_Description))]
         public HashAlgorithms Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.FilePathDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashFilePathDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_FilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_FilePath_Description))]
         public InArgument<string> FilePath { get; set; }
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.ResultDisplayName))]
-        [LocalizedDescription(nameof(Resources.HashFileResultDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_Result_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_Result_Description))]
         public new OutArgument<string> Result { get => base.Result; set => base.Result = value; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.ContinueOnErrorDisplayName))]
+        [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_HashFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         public HashFile()
         {
-
             Algorithm = HashAlgorithms.SHA256;
-
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -49,7 +47,7 @@ namespace UiPath.Cryptography.Activities
 
             if (!CryptographyHelper.IsFipsCompliant(Algorithm))
             {
-                ValidationError error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
+                var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
                 metadata.AddValidationError(error);
             }
         }
@@ -60,18 +58,15 @@ namespace UiPath.Cryptography.Activities
 
             try
             {
-                string filePath = FilePath.Get(context);
+                var filePath = FilePath.Get(context);
 
                 if (string.IsNullOrWhiteSpace(filePath))
-                {
                     throw new ArgumentNullException(Resources.FilePathDisplayName);
-                }
-                if (!File.Exists(filePath))
-                {
-                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
-                }
 
-                byte[] hashed = CryptographyHelper.HashData(Algorithm, File.ReadAllBytes(filePath));
+                if (!File.Exists(filePath))
+                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
+
+                var hashed = CryptographyHelper.HashData(Algorithm, File.ReadAllBytes(filePath));
 
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }
@@ -87,6 +82,14 @@ namespace UiPath.Cryptography.Activities
 
             return result;
         }
+    }
+#endif
+#if NET
+    [Browsable(false)]
+    [LocalizedDisplayName(nameof(Resources.Activity_HashFile_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_HashFile_Description))]
+    public class HashFile : KeyedHashFile
+    {
     }
 #endif
 }

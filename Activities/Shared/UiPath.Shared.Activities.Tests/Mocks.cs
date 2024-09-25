@@ -7,6 +7,7 @@ namespace UiPath.Shared.Activities.Tests
 {
     internal class FailsAfterDelayNativeActivity : ContinuableAsyncNativeActivity
     {
+        public override InArgument<bool> ContinueOnError { get; set; } = false;
         public InArgument<int> Delay { get; set; }
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
@@ -29,6 +30,7 @@ namespace UiPath.Shared.Activities.Tests
 
     internal class FailsWhenReturningNativeActivity : ContinuableAsyncNativeActivity
     {
+        public override InArgument<bool> ContinueOnError { get; set; } = false;
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
             Task taskThatRuns = Task.Run(async () =>

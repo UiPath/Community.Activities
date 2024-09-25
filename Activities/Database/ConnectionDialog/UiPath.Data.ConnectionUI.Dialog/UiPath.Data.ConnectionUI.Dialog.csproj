@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+  <PropertyGroup>
+    <TargetFrameworks>net461;net6.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+
+    <!--Dependencies override to solve FOSSA issues-->
+    <PackageReference Include="System.Text.RegularExpressions"/>
+    <PackageReference Include="Azure.Identity" />
+    <PackageReference Include="Microsoft.Identity.Client" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Core.Presentation" />
+    <Reference Include="System.Activities.Presentation" />
+
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\UiPath.Data.ConnectionUI.Dialog.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UiPath.Data.ConnectionUI.Dialog.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.Data.ConnectionUI.Dialog.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiPath.Data.ConnectionUI.Dialog.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dialogs\DataConnectionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="Oracle.ManagedDataAccess">
+      <Version>19.20.0</Version>
+    </PackageReference>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+    <PackageReference Include="Oracle.ManagedDataAccess.Core">
+      <Version>3.21.90</Version>
+    </PackageReference>
+    <PackageReference Include="System.Activities">
+      <Version>1.0.0-20201117-04</Version>
+    </PackageReference>
+    <PackageReference Include="System.Activities.Core.Presentation">
+      <Version>5.0.0-20210724.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

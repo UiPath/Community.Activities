@@ -10,8 +10,8 @@ namespace UiPath.Database.Activities.Design
     {
         public SqlEditorDialog(ModelItem modelItem)
         {
-            this.ModelItem = modelItem;
-            this.Context = modelItem.GetEditingContext();
+            ModelItem = modelItem;
+            Context = modelItem.GetEditingContext();
             InitializeComponent();
         }
 

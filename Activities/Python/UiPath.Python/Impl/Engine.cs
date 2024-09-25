@@ -28,13 +28,19 @@ namespace UiPath.Python.Impl
         /// https://github.com/pythonnet/pythonnet/blob/master/src/runtime/pyobject.cs
         /// </summary>
         private const string PythonEngineTypeName = "Python.Runtime.PythonEngine";
+        private const string PythonRuntimeTypeName = "Python.Runtime.Runtime";
 
         private const string PythonObjectTypeName = "Python.Runtime.PyObject";
+        private const string PythonModuleTypeName = "Python.Runtime.PyModule";
         private const string PyTypeName = "Python.Runtime.Py";
         private const string ConverterExtensionTypeName = "Python.Runtime.ConverterExtension";
 
+        private const string PythonLinuxRuntimeLib = "Python.Runtime.Unix.dll";
+
         private dynamic _pyEngine = null;
+        private dynamic _pyRuntime = null;
         private dynamic _pyObject = null;
+        private dynamic _pyModule = null;
         private dynamic _py = null;
         private dynamic _pyConverterExtension = null;
         private object _pythreads;
@@ -47,7 +53,7 @@ namespace UiPath.Python.Impl
         private Type _pyObjType = null;
         private MethodInfo _toPythonMethod = null;
         private MethodInfo _pyObjInvokeMethod = null;
-
+        private bool _isWindows = true;
         #endregion Python Runtime
 
         #region Caching
@@ -60,13 +66,19 @@ namespace UiPath.Python.Impl
 
         private Version _version;
         private string _path;
+        private string _libraryPath;
 
         #endregion Runtime info
 
-        internal Engine(Version version, string path)
+        internal Engine(Version version, string path, string libraryPath)
         {
             _version = version;
             _path = path;
+            _libraryPath = libraryPath;
+#if NETCOREAPP
+            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                _isWindows = false;
+#endif
         }
 
         #region IEngine
@@ -86,12 +98,16 @@ namespace UiPath.Python.Impl
                         Stopwatch sw = Stopwatch.StartNew();
 
                         // needed in oder to find Python dll
-                        SetDllDirectory(Path.GetFullPath(_path));
+                        if (_isWindows)
+                            SetDllDirectory(Path.GetFullPath(_path));
 
                         // load the dedicated Python.Runtime.XX.dll
                         string path = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(GetType()).CodeBase).LocalPath);
                         path = Path.Combine(path, (IntPtr.Size == 8) ? "x64" : "x86");
-                        path = Path.Combine(path, _version.GetAssemblyName());
+                        if (_isWindows)
+                            path = Path.Combine(path, _version.GetAssemblyName());
+                        else
+                            path = Path.Combine(path, PythonLinuxRuntimeLib);
 
                         Assembly assembly = Assembly.LoadFile(path);
                         ct.ThrowIfCancellationRequested();
@@ -99,14 +115,15 @@ namespace UiPath.Python.Impl
                         InitializeRuntime(assembly);
                         ct.ThrowIfCancellationRequested();
 
-                        _pyEngine.PythonHome = _path;
-#if NET461
-                        //Pythonnet removed support for version 3.3 and 3.4 so we have the old dlls. Initialize method was updated in current package.
-                        if (_version == Version.Python_33)
-                            _pyEngine.Initialize(null, null);
+                        if (!_isWindows || _version == Version.Python_310)
+                        {
+                            if (!string.IsNullOrEmpty(_libraryPath))
+                                _pyRuntime.PythonDLL = _libraryPath;
+                        }
                         else
-#endif
-                            if (_version >= Version.Python_36)
+                            _pyEngine.PythonHome = _path;
+
+                        if (_version >= Version.Python_36 && _version <= Version.Python_39 || !_isWindows)
                             _pyEngine.Initialize(null, null, null, null);
                         else
                             _pyEngine.Initialize(null, null, null);
@@ -136,6 +153,7 @@ namespace UiPath.Python.Impl
         {
             lock (this)
             {
+                _pyEngine.Shutdown();
                 // TODO: release resources if using app domains; also clear the cache
                 return Task.FromResult(true);
             }
@@ -154,7 +172,10 @@ namespace UiPath.Python.Impl
                     try
                     {
                         // using a Guid for "name" import
-                        module = _pyEngine.ModuleFromString(GetModuleName(code), code);
+                        if (Version == Version.Python_310)
+                            module = _pyModule.FromString(GetModuleName(code), code);
+                        else
+                            module = _pyEngine.ModuleFromString(GetModuleName(code), code);
                         var result = new PythonObject(module);
                         return result;
                     }
@@ -250,8 +271,11 @@ namespace UiPath.Python.Impl
         private void InitializeRuntime(Assembly assembly)
         {
             _pyEngine = DynamicStaticTypeMembers.Create(assembly.GetType(PythonEngineTypeName));
+            _pyRuntime = DynamicStaticTypeMembers.Create(assembly.GetType(PythonRuntimeTypeName));
             _pyObject = DynamicStaticTypeMembers.Create(assembly.GetType(PythonObjectTypeName));
             _py = DynamicStaticTypeMembers.Create(assembly.GetType(PyTypeName));
+            if (Version == Version.Python_310)
+                _pyModule = DynamicStaticTypeMembers.Create(assembly.GetType(PythonModuleTypeName));
             _pyConverterExtension = DynamicStaticTypeMembers.Create(assembly.GetType(ConverterExtensionTypeName));
 
             // TODO: find a nicer way
@@ -331,8 +355,8 @@ namespace UiPath.Python.Impl
                     tcs.SetException(e);
                 }
             });
-
-            thread.SetApartmentState(ApartmentState.STA);
+            if (_isWindows)
+                thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
 
             return tcs.Task;

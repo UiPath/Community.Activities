@@ -1,43 +1,70 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Cryptography.build.props" />
-  <PropertyGroup>
-    <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>net461;net5.0</TargetFrameworks>
-    <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.fr.resx">
-      <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.ja.resx">
-      <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.ru.resx">
-      <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UiPath.Cryptography.Activities.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\UiPath.Cryptography.Activities.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<Import Project="..\Cryptography.build.props" />
+	<PropertyGroup>
+		<PackageId>.noconflict</PackageId>
+		<TargetFrameworks>net461;net6.0</TargetFrameworks>
+		<OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="System.Activities" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="System.Data.DataSetExtensions" />
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="System.Net.Http" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<PackageReference Include="UiPath.Workflow.Runtime" />
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="System.Activities.Metadata" />
+		<PackageReference Include="System.Activities.ViewModels" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="UiPath.Activities.Api" />
+		<PackageReference Include="UiPath.Activities.Contracts" />
+		<PackageReference Include="UiPath.Platform" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
+		<EmbeddedResource Include="Resources\Icons\Cryptography.svg" />
+		<EmbeddedResource Include="Resources\Icons\Decrypt_file.svg" />
+		<EmbeddedResource Include="Resources\Icons\Decrypt_text.svg" />
+		<EmbeddedResource Include="Resources\Icons\Encrypt_text.svg" />
+		<EmbeddedResource Include="Resources\Icons\Encrypt_file.svg" />
+		<EmbeddedResource Include="Resources\Icons\Hash_file.svg" />
+		<EmbeddedResource Include="Resources\Icons\Hash_file_with_key.svg" />
+		<EmbeddedResource Include="Resources\Icons\Hash_text.svg" />
+		<EmbeddedResource Include="Resources\Icons\Hash_text_with_key.svg" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.fr.resx">
+			<DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.ja.resx">
+			<DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.ru.resx">
+			<DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>UiPath.Cryptography.Activities.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\UiPath.Cryptography.Activities.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Resources\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Condition="'$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
+	</ItemGroup>
+	<Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
 </Project>

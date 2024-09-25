@@ -126,10 +126,6 @@
   <data name="CommandTypeDescription" xml:space="preserve">
     <value>Indique la façon dont une chaîne de commande est interprétée</value>
   </data>
-  <data name="Connect" xml:space="preserve">
-    <value>Se connecter</value>
-    <comment>activity name</comment>
-  </data>
   <data name="ConnectionStringDescription" xml:space="preserve">
     <value>Chaîne de connexion utilisée pour se connecter à une base de données</value>
   </data>
@@ -143,17 +139,13 @@
     <value>Ferme une connexion à une base de données.</value>
   </data>
   <data name="DataTableDescription" xml:space="preserve">
-    <value>Le résultat de la commande SQL encapsulé dans un objet DataTable</value>
+    <value>Le résultat de la commande SQL encapsulé dans un objet TableDonnées</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>Établit la connexion à une base de données et renvoie une connexion à une base de données (DatabaseConnection) en fournissant un cadre aux activités en lien avec la base de données. Si la propriété Utiliser une transaction (UseTransaction) est définie sur true, les opérations contenues sont exécutées dans une seule transaction et appliquées à la fin si aucune d’elles n’a échoué. Si la propriété Utiliser une transaction (UseTransaction) est définie sur false, toutes les opérations sont validées individuellement. Lorsque cette activité se termine, la connexion à la base de données prend fin.</value>
+    <value>Établit la connexion à une base de données et renvoie une connexion à une ConnexionBaseDonnées en fournissant un cadre aux activités en lien avec la base de données. Si la propriété UtiliserTransaction (UseTransaction) est définie sur true, les opérations contenues sont exécutées dans une seule transaction et appliquées à la fin si aucune d’elles n’a échoué. Si la propriété UtiliserTransaction (UseTransaction) est définie sur false, toutes les opérations sont validées individuellement. Lorsque cette activité se termine, la connexion à la base de données prend fin.</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
-  </data>
-  <data name="Disconnect" xml:space="preserve">
-    <value>Déconnecter</value>
-    <comment>activity name</comment>
   </data>
   <data name="ExecuteNonQueryDescription" xml:space="preserve">
     <value>Exécute une instruction SQL sur une base de données. Pour les instructions UPDATE, INSERT et DELETE, la valeur renvoyée est le nombre de lignes affectées par la commande. Pour tous les autres types d’instructions, la valeur renvoyée est de -1.</value>
@@ -164,12 +156,8 @@
   <data name="ExistingDbConnectionDescription" xml:space="preserve">
     <value>Connexion à une base de données déjà établie. Si cette propriété est définie, les propriétés Chaîne de connexion (Connection String) et Nom du fournisseur (Provider Name) sont ignorées.</value>
   </data>
-  <data name="Insert" xml:space="preserve">
-    <value>Insérer (Insert)</value>
-    <comment>activity name</comment>
-  </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>Insère un objet DataTable compatible dans un objet Table existant. Renvoie le nombre de lignes affectées.</value>
+    <value>Insère un objet TableDonnées compatible dans un objet Table existant. Renvoie le nombre de lignes affectées.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Dictionnaire de paramètres nommés liés à la commande SQL. La liaison s’effectue en spécifiant l’instruction « @parameterName » dans la commande SQL. Lors de l’exécution, parameterName sera remplacé par sa valeur dans le dictionnaire.</value>
@@ -178,11 +166,7 @@
     <value>Nom du fournisseur de base de données utilisé pour accéder à la base de données. Une liste des fournisseurs de données est disponible à l’adresse suivante : https://docs.microsoft.com/fr-fr/previous-versions/dotnet/netframework-4.0/a6cd7c08(v=vs.100)?redirectedfrom=MSDN</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>Commande SQL à exécuter.</value>
-  </data>
-  <data name="StartTransaction" xml:space="preserve">
-    <value>Démarrer la transaction (Start Transaction)</value>
-    <comment>activity name</comment>
+    <value>Saisissez une instruction SQL correspondant au type de commande sélectionné</value>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>Table de base de données cible</value>
@@ -200,7 +184,7 @@
     <value>Configurer la connexion...</value>
   </data>
   <data name="InserDataTableInputDescription" xml:space="preserve">
-    <value>Objet DataTable à insérer dans la Table. La description des colonnes de la DataTable doit correspondre aux colonnes de la table de base de données</value>
+    <value>Objet TableDonnées à insérer dans la Table. La description des colonnes de la TableDonnées doit correspondre aux colonnes de la table de base de données</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
     <value>Assistant de connexion</value>
@@ -211,9 +195,6 @@
   <data name="EditConnectionSettings" xml:space="preserve">
     <value>Modifier les paramètres de connexion</value>
   </data>
-  <data name="EditQuery" xml:space="preserve">
-    <value>Modifier la requête...</value>
-  </data>
   <data name="NewDatabaseConnection" xml:space="preserve">
     <value>Nouvelle connexion à la base de données</value>
   </data>
@@ -221,7 +202,7 @@
     <value>Paramètres</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NomComplet</value>
     <comment>property name</comment>
   </data>
   <data name="ConnectionString" xml:space="preserve">
@@ -246,7 +227,7 @@
     <value>Requête SQL. Le texte doit être entre guillemets</value>
   </data>
   <data name="TableNameHint" xml:space="preserve">
-    <value>Nom de la table. Le texte doit être entre guillemets</value>
+    <value>Nom de table. Le texte doit être entre guillemets</value>
   </data>
   <data name="QueryTimeoutMSDescription" xml:space="preserve">
     <value>Indique la durée (en millisecondes) d’attente pour l’exécution de la requête SQL avant qu’une erreur soit générée (n’inclut pas le temps de réponse pour la récupération du résultat de la requête). La valeur par défaut est de 30 000 millisecondes (30 secondes) et doit être supérieure ou égale à 0.</value>
@@ -254,64 +235,76 @@
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Intégration de l&apos;appli</value>
   </data>
-  <data name="ExecuteNonQuery" xml:space="preserve">
-    <value>Exécuter la non-requête (Execute Non Query)</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Exécuter la requête (Execute Query)</value>
-  </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Collection)</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError Boolean</value>
-  </data>
-  <data name="BulkInsert" xml:space="preserve">
-    <value>Insertion en masse</value>
+    <value>ContinuerSurErreur Boolean</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>DataTable</value>
+    <value>Table de données d&apos;entrée</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>L’objet DataTable source pour les éléments à insérer.</value>
+    <value>L’objet TableDonnées source pour les éléments à insérer.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>Objet DataTable source</value>
+    <value>Indiquez la variable TableDonnées</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Nom du tableau</value>
+    <value>Nom de la table cible</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
     <value>Le nom de la table de base de données dans laquelle vous souhaitez insérer les éléments.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Nom de la table de base de données de destination</value>
+    <value>Indiquez le nom de la table de base de données cible</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
     <value>Colonnes utilisées pour la correspondance de lignes</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>La collection de noms de colonnes utilisée pour la correspondance de lignes</value>
-  </data>
-  <data name="BulkUpdate" xml:space="preserve">
-    <value>Mise à jour en masse</value>
+    <value>Noms de colonnes utilisés pour la correspondance de lignes</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Met à jour un objet DataTable compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
+    <value>Met à jour un objet TableDonnées compatible dans un objet Table existant. Mettra à jour toutes les colonnes qui ne font pas partie de la collection de noms de colonnes utilisée comme clé principale. Renvoie le nombre de lignes affectées.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
-    <value>The number of updatedrows</value>
+    <value>Le nombre de lignes mises à jour</value>
   </data>
   <data name="BulkFlagDescription" xml:space="preserve">
-    <value>If true will create a temp table using Bulk insert and will update using join between tables, else will issue bulk updates in batch.</value>
+    <value>Si la valeur est définie sur True, créera une table temporaire à l’aide d’une insertion en masse et réalisera une mise à jour en utilisant une jointure entre les tables. Sinon, des mises à jour en bloc seront émises par lots.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>The DataTable object that will be used in updating the Table. The DataTable columns description must match the columns from the database table and be a subset of them</value>
+    <value>L’objet TableDonnées qui sera utilisé pour mettre à jour la table. La description des colonnes TableDonnées doit correspondre aux colonnes de la table de la base de données et en constituer un sous-ensemble</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
-    <value>Mettra à jour une table à l’aide d’opérations en masse via la mise en œuvre spécifique de pilote de base de données. Cette activité sera remplacée par Insérer une table de données (Insert Data Table) si le pilote de base de données ne prend pas en charge les opérations en masse.</value>
+    <value>Mettra à jour une table à l’aide d’opérations en masse via l&apos;implémentation spécifique de pilote de base de données. Cette activité sera remplacée par Insérer une table de données (Insert Data Table) si le pilote de base de données ne prend pas en charge les opérations en masse.</value>
   </data>
   <data name="ConnectionSecureStringDescription" xml:space="preserve">
-    <value>The connection string used to establish a database connection as Secure String</value>
+    <value>La chaîne de connexion utilisée pour établir une connexion à la base de données en tant que chaîne sécurisée</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Déconnecter</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Exécuter la non-requête (Execute Non Query)</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Exécuter la requête (Execute Query)</value>
+  </data>
+  <data name="SqlQuery" xml:space="preserve">
+    <value>Requête SQL</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="SqlCommand" xml:space="preserve">
+    <value>Commande SQL</value>
+  </data>
+  <data name="SqlCommandHint" xml:space="preserve">
+    <value>Commande SQL. Le texte doit être entre guillemets</value>
   </data>
 </root>
