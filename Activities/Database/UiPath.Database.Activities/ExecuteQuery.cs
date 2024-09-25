@@ -50,7 +50,7 @@ namespace UiPath.Database.Activities
             {
                 throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
             }
-            Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
+            Dictionary<string, ParameterInfo> parameters = null;
             var continueOnError = ContinueOnError.Get(context);
             try
             {
@@ -62,10 +62,13 @@ namespace UiPath.Database.Activities
                 ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                 if (Parameters != null)
                 {
-                    parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();
+                    parameters = new Dictionary<string, ParameterInfo>();
                     foreach (var param in Parameters)
                     {
-                        parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
+                        parameters.Add(param.Key, new ParameterInfo() { 
+                            Value = param.Value.Get(context), 
+                            Direction = param.Value.Direction,
+                            Type = param.Value.ArgumentType});
                     }
                 }
 
@@ -107,7 +110,7 @@ namespace UiPath.Database.Activities
                     var currentParam = Parameters[param.Key];
                     if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
                     {
-                        currentParam.Set(asyncCodeActivityContext, param.Value.Item1);
+                        currentParam.Set(asyncCodeActivityContext, param.Value.Value);
                     }
                 }
             };
@@ -116,15 +119,15 @@ namespace UiPath.Database.Activities
         private class DBExecuteQueryResult
         {
             public DataTable Result { get; }
-            public Dictionary<string, Tuple<object, ArgumentDirection>> ParametersBind { get; }
+            public Dictionary<string, ParameterInfo> ParametersBind { get; }
 
             public DBExecuteQueryResult()
             {
                 this.Result = new DataTable();
-                this.ParametersBind = new Dictionary<string, Tuple<object, ArgumentDirection>>();
+                this.ParametersBind = new Dictionary<string, ParameterInfo>();
             }
 
-            public DBExecuteQueryResult(DataTable result, Dictionary<string, Tuple<object, ArgumentDirection>> parametersBind)
+            public DBExecuteQueryResult(DataTable result, Dictionary<string, ParameterInfo> parametersBind)
             {
                 this.Result = result;
                 this.ParametersBind = parametersBind;

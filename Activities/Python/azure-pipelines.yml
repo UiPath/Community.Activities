@@ -5,6 +5,11 @@ resources:
     name: UiPath/AzurePipelinesTemplates
     ref: refs/tags/uipath.community.activities.1.3.0
     endpoint: "GitHub connection"
+  - repository: automationTests
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: refs/tags/uipath.waitforbuild.1.0.3
+    endpoint: "GitHub connection"
 
 trigger:
   batch: true
@@ -47,4 +52,31 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+
+  - stage: BuildPythonRuntimeTests
+    displayName: 'Build Python Runtime Tests'
+    dependsOn:
+      - Build
+    jobs:
+    - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+        studioProjectPath: 'Activities/Python/UiPath.Python.RuntimeTests/project.json'
+        buildForWindows: true
+        buildForPortable: false
+        packageUnderTestName: 'UiPath.Python.Activities'
+
+  - stage: RunPythonRuntimeTestsWindows
+    displayName: 'Run Python Runtime Tests Windows'
+    dependsOn:
+      - BuildPythonRuntimeTests
+    jobs:
+    - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+        environment:
+          PYTHON_HOME: "C:/hostedtoolcache/windows/Python/3.12.3/x64"
+        beforeTestsCustomSteps:
+          - task: UsePythonVersion@0
+            displayName: 'Use Python 3.x'
 

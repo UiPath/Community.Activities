@@ -1,0 +1,16 @@
+{
+  "SecureLicenseKey": "",
+  "TracingLevel": "Information",
+  "UiPathServerUrl": "",
+  "ConnectionString": "",
+  "ActivitiesFeed": "",
+  "NuGetApiKey": "",
+  "NuGetServerUrl": "/home/robotuser/.local/share/UiPath/Packages",
+  "LowLevelTracing": false,
+  "LoginToConsole": true,
+  "ResolutionWidth": 0,
+  "ResolutionHeight": 0,
+  "ResolutionDepth": 0,
+  "FontSmoothing": false,
+  "UiPathServerUrl": "https://alabala.com/"
+}

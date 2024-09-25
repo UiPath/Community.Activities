@@ -5,6 +5,17 @@ resources:
     name: UiPath/AzurePipelinesTemplates
     ref: refs/tags/uipath.community.activities.1.3.0
     endpoint: "GitHub connection"
+  - repository: automationTests
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    ref: refs/tags/uipath.waitforbuild.1.0.3
+    endpoint: "GitHub connection"
+  - repository: template-helpers
+    type: github
+    name: UiPath/AzurePipelinesTemplates
+    endpoint: "UiPath"
+    ref: refs/tags/uipath.templates.helpers.1.1.4
+
 
 trigger:
   batch: true
@@ -47,3 +58,69 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+
+  - stage: CreateAndSetupBYOSAgent
+    dependsOn:
+      - Build
+    displayName: "Create and Setup BYOS Agent"
+    variables:
+      eteKvName: "ete-variables-kv"
+      athenaservicesAgentPrefix: "cact"
+      eteAgentPoolName: vcanja1
+      eteProjName: "Ephemeral Testing Environment"
+    jobs:
+    - template: "stage.create.byos.agent.yml"
+
+  - stage: BuildDatabaseRuntimeTests
+    displayName: 'Build Database Runtime Tests'
+    dependsOn:
+      - CreateAndSetupBYOSAgent
+    jobs:
+    - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+        studioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
+        buildForWindows: true
+        buildForPortable: true
+        packageUnderTestName: 'UiPath.Database.Activities'
+
+  - stage: RunDatabaseRuntimeTestsWindows
+    displayName: 'Run Database Runtime Tests Windows'
+    variables:
+      DatabaseServicesAgentPublicIp: $[stageDependencies.CreateAndSetupBYOSAgent.ConfigureDatabaseServicesAgents.outputs['AddNsgRule.DatabaseServicesAgentPublicIp']]
+    dependsOn:
+      - BuildDatabaseRuntimeTests
+      - CreateAndSetupBYOSAgent
+    jobs:
+    - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+        environment:
+          SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
+
+  - stage: RunDatabaseRuntimeTestsPortable
+    displayName: 'Run Database Runtime Tests Portable'
+    variables:
+      DatabaseServicesAgentPublicIp: $[stageDependencies.CreateAndSetupBYOSAgent.ConfigureDatabaseServicesAgents.outputs['AddNsgRule.DatabaseServicesAgentPublicIp']]
+    dependsOn:
+      - BuildDatabaseRuntimeTests
+      - CreateAndSetupBYOSAgent
+    jobs:
+    - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
+      parameters:
+        robotVersion: $(TestsStudioVersion)
+        environment:
+          SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
+
+  - stage: DeleteBYOSAgent
+    displayName: "Delete BYOS Agent"
+    condition: always()
+    variables:
+      athenaservicesEnvironmentIds: $[stageDependencies.CreateAndSetupBYOSAgent.CreateBYOSAgent.outputs['DeployDatabaseServicesImage.environmentIds']]
+      eteKvName: "ete-variables-kv"
+    dependsOn:
+      - CreateAndSetupBYOSAgent
+      - RunDatabaseRuntimeTestsPortable
+      - RunDatabaseRuntimeTestsWindows
+    jobs:
+    - template: stage.delete.byos.agent.yml

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
 using UiPath.Shared.Activities;
+using UiPath.FTP;
 
 namespace UiPath.FTP.Activities
 {

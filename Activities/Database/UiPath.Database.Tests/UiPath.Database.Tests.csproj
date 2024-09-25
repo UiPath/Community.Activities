@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.Activities.Extensions" Version="2.0.6.9" />
     <PackageReference Include="Microsoft.Activities.UnitTesting" Version="2.0.6.9" />
     <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />

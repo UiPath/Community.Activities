@@ -1,0 +1,13 @@
+{
+  "UiPath.UIAutomationNext.Activities.Generic.CaptureScreenshots": "True",
+  "UiPath.UIAutomationNext.Activities.SearchStepsWeb.EdgeInteractionMode": "DebuggerApi",
+  "UiPath.UIAutomationNext.Activities.SearchStepsWeb.FullSelector": "False",
+  "UiPath.UIAutomationNext.Activities.SearchStepsWeb.FuzzySelector": "True",
+  "UiPath.UIAutomationNext.Activities.SearchStepsWeb.ComputerVision": "True",
+  "UiPath.UIAutomationNext.Activities.SearchStepsWeb.IgnoreSelectorsWithIdx": "True",
+  "UiPath.UIAutomationNext.Activities.SearchStepsSAP.InteractionMode": "Simulate",
+  "UiPath.UIAutomationNext.Activities.SearchStepsSAP.FullSelector": "True",
+  "UiPath.UIAutomationNext.Activities.SearchStepsSAP.FuzzySelector": "False",
+  "UiPath.UIAutomationNext.Activities.SearchStepsSAP.ComputerVision": "False",
+  "UiPath.UIAutomationNext.Activities.SearchStepsSAP.IgnoreSelectorsWithIdx": "True"
+}
