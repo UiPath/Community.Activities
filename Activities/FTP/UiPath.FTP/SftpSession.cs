@@ -115,18 +115,18 @@ namespace UiPath.FTP
             _sftpClient.ChangeDirectory(remotePath);
             
             List<Tuple<string, string>> listing = new List<Tuple<string, string>>();
-            SftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
-            IEnumerable<SftpFile> items = _sftpClient.ListDirectory(currentDirectory.FullName);
+            ISftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
+            IEnumerable<ISftpFile> items = _sftpClient.ListDirectory(currentDirectory.FullName);
             string nextLocalPath = Path.Combine(localPath, currentDirectory.Name);
 
-            foreach (SftpFile file in items.Where(i => i.IsRegularFile))
+            foreach (var file in items.Where(i => i.IsRegularFile))
             {
                 listing.Add(new Tuple<string, string>(Path.Combine(nextLocalPath, file.Name), file.FullName));
             }
 
             if (recursive)
             {
-                foreach (SftpFile directory in items.Where(i => i.IsDirectory && i.Name != "." && i.Name != ".."))
+                foreach (var directory in items.Where(i => i.IsDirectory && i.Name != "." && i.Name != ".."))
                 {
                     listing.AddRange(GetRemoteListing(directory.FullName, nextLocalPath, recursive));
                 }
@@ -147,16 +147,16 @@ namespace UiPath.FTP
             string initialWorkingDirectory = _sftpClient.WorkingDirectory;
             _sftpClient.ChangeDirectory(remotePath);
 
-            SftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
+            var currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
 
             List<FtpObjectInfo> listing = new List<FtpObjectInfo>();
-            IEnumerable<SftpFile> items = _sftpClient.ListDirectory(currentDirectory.FullName).Where(sf => sf.Name != "." && sf.Name != "..");
+            var items = _sftpClient.ListDirectory(currentDirectory.FullName).Where(sf => sf.Name != "." && sf.Name != "..");
 
             listing.AddRange(items.Select(sf => sf.ToFtpObjectInfo()));
 
             if (recursive)
             {
-                foreach (SftpFile directory in items.Where(i => i.IsDirectory))
+                foreach (var directory in items.Where(i => i.IsDirectory))
                 {
                     listing.AddRange(GetRemoteListing(directory.FullName, recursive));
                 }
@@ -184,18 +184,18 @@ namespace UiPath.FTP
             _sftpClient.ChangeDirectory(remotePath);
 
             List<Tuple<string, string>> listing = new List<Tuple<string, string>>();
-            SftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
-            IEnumerable<SftpFile> items = await Task.Factory.FromAsync(_sftpClient.BeginListDirectory(currentDirectory.FullName, null, null), _sftpClient.EndListDirectory);
+            var currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
+            var items = await Task.Factory.FromAsync(_sftpClient.BeginListDirectory(currentDirectory.FullName, null, null), _sftpClient.EndListDirectory);
             string nextLocalPath = Path.Combine(localPath, currentDirectory.Name);
 
-            foreach (SftpFile file in items.Where(i => i.IsRegularFile))
+            foreach (var file in items.Where(i => i.IsRegularFile))
             {
                 listing.Add(new Tuple<string, string>(Path.Combine(nextLocalPath, file.Name), file.FullName));
             }
 
             if (recursive)
             {
-                foreach (SftpFile directory in items.Where(i => i.IsDirectory && i.Name != "." && i.Name != ".."))
+                foreach (var directory in items.Where(i => i.IsDirectory && i.Name != "." && i.Name != ".."))
                 {
                     listing.AddRange(await GetRemoteListingAsync(directory.FullName, nextLocalPath, recursive, cancellationToken));
                 }
@@ -216,17 +216,17 @@ namespace UiPath.FTP
             string initialWorkingDirectory = _sftpClient.WorkingDirectory;
             _sftpClient.ChangeDirectory(remotePath);
 
-            SftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
+            var currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
 
             List<FtpObjectInfo> listing = new List<FtpObjectInfo>();
-            IEnumerable<SftpFile> items = await Task.Factory.FromAsync(_sftpClient.BeginListDirectory(currentDirectory.FullName, null, null), _sftpClient.EndListDirectory);
+            var items = await Task.Factory.FromAsync(_sftpClient.BeginListDirectory(currentDirectory.FullName, null, null), _sftpClient.EndListDirectory);
             items = items.Where(sf => sf.Name != "." && sf.Name != "..");
 
             listing.AddRange(items.Select(sf => sf.ToFtpObjectInfo()));
 
             if (recursive)
             {
-                foreach (SftpFile directory in items.Where(i => i.IsDirectory))
+                foreach (var directory in items.Where(i => i.IsDirectory))
                 {
                     listing.AddRange(await GetRemoteListingAsync(directory.FullName, recursive, cancellationToken));
                 }
@@ -372,7 +372,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            return _sftpClient.Exists(path) && ((IFtpSession)this).GetObjectType(path) == FtpObjectType.Directory;
+            return _sftpClient.Exists(path) && ((IFtpSession)this).GetObjectType(path) == UiPath.FTP.FtpObjectType.Directory;
         }
 
         async Task<bool> IFtpSession.DirectoryExistsAsync(string path, CancellationToken cancellationToken)
@@ -384,7 +384,7 @@ namespace UiPath.FTP
 
             if (_sftpClient.Exists(path))
             {
-                return await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken) == FtpObjectType.Directory;
+                return await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken) == UiPath.FTP.FtpObjectType.Directory;
             }
             else
             {
@@ -403,8 +403,8 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(localPath));
             }
 
-            FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
-            if (objectType == FtpObjectType.Directory)
+            UiPath.FTP.FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
+            if (objectType == UiPath.FTP.FtpObjectType.Directory)
             {
                 IEnumerable<Tuple<string, string>> listing = GetRemoteListing(remotePath, localPath, recursive);
 
@@ -424,7 +424,7 @@ namespace UiPath.FTP
             }
             else
             {
-                if (objectType == FtpObjectType.File)
+                if (objectType == UiPath.FTP.FtpObjectType.File)
                 {
                     if (File.Exists(localPath) && !overwrite)
                     {
@@ -454,8 +454,8 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(localPath));
             }
 
-            FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
-            if (objectType == FtpObjectType.Directory)
+            UiPath.FTP.FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
+            if (objectType == UiPath.FTP.FtpObjectType.Directory)
             {
                 IEnumerable<Tuple<string, string>> listing = await GetRemoteListingAsync(remotePath, localPath, recursive, cancellationToken);
 
@@ -482,7 +482,7 @@ namespace UiPath.FTP
             }
             else
             {
-                if (objectType == FtpObjectType.File)
+                if (objectType == UiPath.FTP.FtpObjectType.File)
                 {
                     if (File.Exists(localPath))
                     {
@@ -515,7 +515,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            return _sftpClient.Exists(path) && ((IFtpSession)this).GetObjectType(path) == FtpObjectType.File;
+            return _sftpClient.Exists(path) && ((IFtpSession)this).GetObjectType(path) == UiPath.FTP.FtpObjectType.File;
         }
 
         async Task<bool> IFtpSession.FileExistsAsync(string path, CancellationToken cancellationToken)
@@ -527,7 +527,7 @@ namespace UiPath.FTP
 
             if (_sftpClient.Exists(path))
             {
-                return await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken) == FtpObjectType.File;
+                return await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken) == UiPath.FTP.FtpObjectType.File;
             }
             else
             {
@@ -535,7 +535,7 @@ namespace UiPath.FTP
             }
         }
 
-        FtpObjectType IFtpSession.GetObjectType(string path)
+        UiPath.FTP.FtpObjectType IFtpSession.GetObjectType(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -550,7 +550,7 @@ namespace UiPath.FTP
             return _sftpClient.Get(path).GetFtpObjectType();
         }
 
-        Task<FtpObjectType> IFtpSession.GetObjectTypeAsync(string path, CancellationToken cancellationToken)
+        Task<UiPath.FTP.FtpObjectType> IFtpSession.GetObjectTypeAsync(string path, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(path))
             {

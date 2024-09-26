@@ -208,7 +208,7 @@
     <value>Oracle.ManagedDataAccess</value>
   </data>
   <data name="DataProvider_Oracle_DataSource_Description" xml:space="preserve">
-    <value>ODP.NET 管理対象ドライバは、Oracle データベース用の 100% ネイティブ コードの .NET Framework ドライバーです。Oracle データベースに接続するために Oracle クライアント ソフトウェアを追加でインストールする必要はありません。</value>
+    <value>ODP.NET 管理対象ドライバーは、Oracle データベース用の 100% ネイティブ コードの .NET Framework ドライバーです。Oracle データベースに接続するために Oracle クライアント ソフトウェアを追加でインストールする必要はありません。</value>
   </data>
   <data name="DataProvider_Oracle_Description" xml:space="preserve">
     <value>Oracle Data Provider for .NET では、.NET クライアントから Oracle データベースへのすばやいデータ アクセスを提供します。ODP.NET を使用すると、.NET アプリケーションが Oracle の高度な機能 (Oracle Real Application Clusters (Oracle RAC) や Oracle XML DB など) を活用できます。C#、Visual Basic .NET、C++ .NET を含む、あらゆる .NET 言語でアクセスできます。</value>
@@ -292,7 +292,7 @@
     <value>ODBC 環境ハンドルの割り当てに失敗しました。</value>
   </data>
   <data name="OdbcConnectionUIControl_SQLDriverConnectFailed" xml:space="preserve">
-    <value>ODBC ドライバ接続ユーティリティの呼び出しに失敗しました。</value>
+    <value>ODBC ドライバー接続ユーティリティの呼び出しに失敗しました。</value>
   </data>
   <data name="OleDBConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
     <value>接続プロパティ オブジェクトは、OleDBConnectionProperties 型である必要があります。</value>

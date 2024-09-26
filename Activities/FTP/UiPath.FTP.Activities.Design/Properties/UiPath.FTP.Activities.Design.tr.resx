@@ -130,7 +130,7 @@
     <value>FTP Oturum Kapsamı</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Uygulama Tümleştirmesi</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">

@@ -124,7 +124,7 @@
     <value>No se ha encontrado la columna sin asignar {0} en la tabla de la base de datos de destino {1}</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>La versión del controlador proporcionada no admite operaciones de inserción por lotes. Compruebe el controlador.</value>
+    <value>El proveedor configurado no admite operaciones de inserción masiva. Los proveedores que admiten operaciones de inserción masiva son: Microsoft.Data.SqlClient y Oracle.ManagedDataAccess.Client.OracleConnection.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>El número de columnas proporcionado en la TablaDeDatos debe coincidir con el número de columnas en la tabla de la base de datos.</value>

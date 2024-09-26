@@ -1,40 +1,23 @@
 ﻿using System;
+using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Security.Cryptography;
 using UiPath.Cryptography.Activities.Helpers;
-using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
 
-namespace UiPath.Cryptography.Activities
-{
-    /// <summary>
-    /// Hashes a file with a key using a specified algorithm and encoding format 
-    /// and returns the hexadecimal string representation of the resulting hash.
-    /// </summary>
-    [ViewModelClass(typeof(KeyedHashFileViewModel))]
-    public partial class KeyedHashFile
-    {
-    }
-
-    /// <summary>
-    /// Hashes a file with a key using a specified algorithm and encoding format 
-    /// and returns the hexadecimal string representation of the resulting hash.
-    /// </summary>
-    [ViewModelClass(typeof(KeyedHashFileViewModel))]
-    public partial class HashFile
-    {
-    }
-}
-
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
-    public partial class KeyedHashFileViewModel : DesignPropertiesViewModel
+    [ExcludeFromCodeCoverage]
+    public class KeyedHashFileViewModel : DesignPropertiesViewModel
     {
         private readonly DataSource<string> _encodingDataSource;
+        private InArgument<IResource> _backupInputFile;
+        private InArgument<string> _backupInputFilePath;
 
         /// <summary>
         /// Basic constructor
@@ -56,7 +39,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<string> FilePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
-        /// Switches Key as string or secure string 
+        /// Switches Key as string or secure string
         /// </summary>
         public DesignProperty<FileInputMode> FileInputModeSwitch { get; set; } = new DesignProperty<FileInputMode>();
 
@@ -81,7 +64,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
 
         /// <summary>
-        /// Switches Key as string or secure string 
+        /// Switches Key as string or secure string
         /// </summary>
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
 
@@ -99,7 +82,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.InitializeModel();
             var propertyOrderIndex = 1;
-            
+
             InputFile.IsPrincipal = true;
             InputFile.IsVisible = false;
             InputFile.OrderIndex = propertyOrderIndex++;
@@ -107,7 +90,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             FilePath.IsPrincipal = true;
             FilePath.IsVisible = true;
             FilePath.OrderIndex = propertyOrderIndex++;
-            
+
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
@@ -152,6 +135,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .AddMenuProperty(InputFile, FileInputMode.File)
                 .AddMenuProperty(FilePath, FileInputMode.FilePath)
                 .BuildAndInsertMenuActions();
+
+            _backupInputFile = InputFile.Value;
+            _backupInputFilePath = FilePath.Value;
         }
         /// <inheritdoc/>
         protected override void InitializeRules()
@@ -201,13 +187,25 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             switch (FileInputModeSwitch.Value)
             {
                 case FileInputMode.File:
+                    _backupInputFilePath = FilePath.Value;
+                    FilePath.Value = null;
+
                     InputFile.IsRequired = true;
                     InputFile.IsVisible = true;
+                    InputFile.Value = _backupInputFile;
+
                     break;
+
                 case FileInputMode.FilePath:
+                    _backupInputFile = InputFile.Value;
+                    InputFile.Value = null;
+
                     FilePath.IsVisible = true;
                     FilePath.IsRequired = true;
+                    FilePath.Value = _backupInputFilePath;
+
                     break;
+
                 default:
                     throw new NotImplementedException();
             }

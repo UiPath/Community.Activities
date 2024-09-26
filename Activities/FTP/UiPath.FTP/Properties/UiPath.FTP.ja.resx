@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FileExistsException" xml:space="preserve">
-    <value>宛先ファイルは既に存在します。</value>
+    <value>宛先ファイルはすでに存在します。</value>
   </data>
   <data name="PathNotFoundException" xml:space="preserve">
     <value>パス &quot;{0}&quot; が見つかりません。</value>
@@ -133,7 +133,7 @@
     <value>有効な認証方法が見つかりません: 秘密キー ファイル (必要に応じてパスフレーズも含む) またはパスワードのいずれかを入力する必要があります。</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
-    <value>宛先ディレクトリは既に存在します。</value>
+    <value>宛先ディレクトリはすでに存在します。</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>テキスト入力に切り替え</value>

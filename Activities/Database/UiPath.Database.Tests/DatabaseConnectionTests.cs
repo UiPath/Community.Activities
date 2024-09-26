@@ -89,7 +89,10 @@ namespace UiPath.Database.Tests
             param.SetReturnsDefault(ParameterDirection.InputOutput);
 
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);
-            var parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>() { { "param1", new Tuple<object, ArgumentDirection>("", ArgumentDirection.Out) } };
+            var parameters = new Dictionary<string, ParameterInfo>() { 
+                { "param1", new ParameterInfo() {Value = "", Direction = ArgumentDirection.Out}
+                }
+            };
             databaseConnection.ExecuteQuery("TestProcedure", parameters, 0);
             if (provider.ToLower().Contains("oracle"))
                 Assert.True(param.Object.Size == 1000000);

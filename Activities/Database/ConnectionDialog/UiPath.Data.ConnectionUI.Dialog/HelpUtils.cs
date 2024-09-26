@@ -74,7 +74,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
 					for (uint index = 0; index < numValues; index++)
 					{
-						StringBuilder builder = new StringBuilder();
+						StringBuilder builder = new StringBuilder(short.MaxValue);
 						uint size = (uint)short.MaxValue;
 
 						try

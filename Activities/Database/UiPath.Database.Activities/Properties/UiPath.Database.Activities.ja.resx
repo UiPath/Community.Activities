@@ -140,7 +140,7 @@
     <value>ターゲットのデータベース テーブルの名前を指定します。</value>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
-    <value>[データベースに接続] アクティビティから取得する、既に開かれているデータベース接続です。</value>
+    <value>[データベースに接続] アクティビティから取得する、すでに開かれているデータベース接続です。</value>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>[データベースに接続] アクティビティの出力を使用します。</value>
@@ -300,7 +300,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>既に開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
+    <value>すでに開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -372,7 +372,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>既に開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
+    <value>すでに開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -581,7 +581,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>[接続] または [トランザクションを開始] アクティビティから取得する、既に開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
+    <value>[接続] または [トランザクションを開始] アクティビティから取得する、すでに開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -669,7 +669,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>[接続] または [トランザクションを開始] アクティビティから取得する、既に開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
+    <value>[接続] または [トランザクションを開始] アクティビティから取得する、すでに開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -739,7 +739,7 @@
     <value>接続文字列に切り替え</value>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
-    <value>[データベースに接続] アクティビティから取得する、既に開かれているデータベース接続です。</value>
+    <value>[データベースに接続] アクティビティから取得する、すでに開かれているデータベース接続です。</value>
   </data>
   <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
     <value>ストアド プロシージャ</value>
@@ -754,7 +754,7 @@
     <value>テキスト</value>
   </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
-    <value>[データベースに接続] アクティビティから取得する、既に開かれているデータベース接続です。</value>
+    <value>[データベースに接続] アクティビティから取得する、すでに開かれているデータベース接続です。</value>
   </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
     <value>[データベースに接続] アクティビティの出力を使用します。</value>

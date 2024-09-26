@@ -1,26 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\Cryptography.build.props" />
+
 	<PropertyGroup>
 		<TargetFrameworks>net461;net6.0</TargetFrameworks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
 	</PropertyGroup>
+
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
+
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
 		<Reference Include="System.ComponentModel.DataAnnotations" />
 		<Reference Include="System.Xaml" />
 		<Reference Include="System.Data.DataSetExtensions" />
 		<Reference Include="Microsoft.CSharp" />
 		<Reference Include="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
 		<PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
 	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="System.Security.Cryptography.Cng" />
+		<PackageReference Include="System.Formats.Asn1" />
 	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
-	</ItemGroup>
+
 	<ItemGroup>
 		<Compile Update="Properties\UiPath.Cryptography.Designer.cs">
 			<AutoGen>True</AutoGen>
@@ -28,6 +35,7 @@
 			<DependentUpon>UiPath.Cryptography.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
+
 	<ItemGroup>
 		<EmbeddedResource Update="Properties\UiPath.Cryptography.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
