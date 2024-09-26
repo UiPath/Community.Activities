@@ -1,6 +1,7 @@
 ﻿using System.Activities;
+using System.Diagnostics;
 
-namespace UiPath.Activities.Template
+namespace $safeprojectname$
 {
     public class ActivityTemplate : CodeActivity // This base class exposes an OutArgument named Result
     {
@@ -14,6 +15,8 @@ namespace UiPath.Activities.Template
 
         public void ExecuteInternal()
         {
+            // use this to automatically attach the debugger to the process
+            //Debugger.Launch();
             throw new NotImplementedException();
         }
     }

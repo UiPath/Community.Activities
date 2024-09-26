@@ -18,7 +18,7 @@ namespace UiPath.Cryptography.Activities
 {
     [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Name))]
     [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Description))]
-    public partial class KeyedHashFile : CodeActivity<string>
+    public class KeyedHashFile : CodeActivity<string>
     {
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]

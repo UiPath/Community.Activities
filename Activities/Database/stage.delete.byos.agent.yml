@@ -1,0 +1,24 @@
+jobs:
+  - job: DeleteEteHost
+    condition: always()
+    pool:
+      vmImage: "ubuntu-latest"
+    steps:
+      - checkout: none
+
+      - task: AzureKeyVault@2
+        inputs:
+          azureSubscription: "Ete-Consumer"
+          KeyVaultName: $(eteKvName)
+
+      - task: BYOS@1
+        displayName: "Delete agent"
+        inputs:
+          action: "DeleteAgent"
+          projectName: "$(System.TeamProject)"
+          organizationname: "uipath"
+          authToken: "$(System.AccessToken)"
+          buildId: $(Build.BuildId)
+          environmentId: "$(athenaservicesEnvironmentIds)"
+          byosServiceKey: "$(ephemeral-byos-service-key-prod)"
+          byosServiceUrl: "$(ephemeral-byos-service-url-prod)"

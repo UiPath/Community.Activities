@@ -1,0 +1,76 @@
+parameters:
+  robotVersion: ''
+  beforeTestsCustomSteps: []
+  afterTestsCustomSteps: []
+  environment: {}
+
+jobs:
+- job: "RunDatabaseRuntimeTestsPortable"
+  displayName: "Run Database Runtime Tests Portable"
+  variables:
+    IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
+  timeoutInMinutes: 90
+  pool:
+    vmImage: ubuntu-latest
+  workspace:
+    clean: outputs | resources | all
+
+  steps:
+  - task: UniversalPackages@0
+    displayName: "Download TestRunner"
+    inputs:
+      command: 'download'
+      downloadDirectory: "$(Build.ArtifactStagingDirectory)/TestRunner"
+      vstsFeed: "UiPath-DevPackages"
+      vstsFeedPackage: "uipath.testrunner"
+      vstsPackageVersion: $(TestRunnerVersion)
+      verbosity: 'Trace'
+
+  - task: Docker@2
+    displayName: Login to container registry
+    inputs:
+      command: login
+      containerRegistry: 'robotdevregistry'
+
+  - ${{ each step in parameters.beforeTestsCustomSteps }}:
+    - ${{ step }}
+
+  - task: DownloadPipelineArtifact@2
+    displayName: "Download Packages"
+    inputs:
+      artifact: "Packages"
+      path: "$(IntegrationTestStudioPackPath)"
+
+  - bash: |
+      which docker
+      docker ps
+      cp -rvf $(Build.ArtifactStagingDirectory)/TestRunner $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/
+      cp -vf $(IntegrationTestStudioPackPath)/*nupkg $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/
+      PACKAGE=$(basename $(ls $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/*_portable*.nupkg))
+      echo "package = $PACKAGE"
+      echo "##vso[task.setvariable variable=pkgPath]/input/$PACKAGE"
+    displayName: 'Prepare tests'
+
+  - bash: |
+      cd $(Build.SourcesDirectory)/Activities/.pipelines/docker
+      export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
+      export PATH=/usr/libexec/docker/cli-plugins:$PATH
+      chmod -R 777  $(System.ArtifactsDirectory)
+      docker-compose up -d robot
+      docker-compose exec robot dotnet /input/TestRunner/uipath.studio.codedwf.tests.runner.dll run --package $(pkgPath) --robotPath /application/UiRobot.dll --output /output
+    displayName: 'Run tests'
+    env: ${{ parameters.environment }}
+
+  - ${{ each step in parameters.afterTestsCustomSteps }}:
+    - ${{ step }}
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'VSTest'
+      testRunTitle: "Portable Runtime Tests"
+      testResultsFiles: '$(System.ArtifactsDirectory)/results*.trx'
+      publishRunAttachments: true
+      failTaskOnFailedTests: true
+      mergeTestResults: true
+    displayName: 'Publish Tests Results'
+    condition: always()

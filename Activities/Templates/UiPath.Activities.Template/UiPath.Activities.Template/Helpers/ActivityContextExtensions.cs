@@ -1,7 +1,7 @@
 ﻿using System.Activities;
 using UiPath.Robot.Activities.Api;
 
-namespace UiPath.Activities.Template.Helpers
+namespace $safeprojectname$.Helpers
 {
     public static class ActivityContextExtensions
     {

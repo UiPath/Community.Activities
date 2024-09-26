@@ -143,7 +143,7 @@
     <comment>property name</comment>
   </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
-    <value>ファイルが既に存在します。</value>
+    <value>ファイルがすでに存在します。</value>
   </data>
   <data name="GenericCryptographicException" xml:space="preserve">
     <value>暗号化操作に失敗しました。暗号化と復号の両方の操作に同じアルゴリズムとキーを使用してください。</value>
@@ -238,7 +238,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
-    <value>[出力パス] フィールドで指定したパスにファイルが既に存在する場合、このチェック ボックスをオンにすると、既存のファイルが上書きされます。オフにすると、新しいファイルが作成されます。</value>
+    <value>[出力パス] フィールドで指定したパスにファイルがすでに存在する場合、このチェック ボックスをオンにすると、既存のファイルが上書きされます。オフにすると、新しいファイルが作成されます。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
@@ -398,7 +398,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
-    <value>[出力パス] フィールドで指定したパスにファイルが既に存在する場合、このチェック ボックスをオンにすると、既存のファイルが上書きされます。オフにすると、新しいファイルが作成されます。</value>
+    <value>[出力パス] フィールドで指定したパスにファイルがすでに存在する場合、このチェック ボックスをオンにすると、既存のファイルが上書きされます。オフにすると、新しいファイルが作成されます。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">

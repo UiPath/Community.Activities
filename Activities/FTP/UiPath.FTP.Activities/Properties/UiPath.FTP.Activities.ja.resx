@@ -160,7 +160,7 @@
     <value>ローカル パス</value>
   </data>
   <data name="OneFTPSessionPerContextException" xml:space="preserve">
-    <value>FTP セッションは現在のコンテキストに既に提供されています。</value>
+    <value>FTP セッションは現在のコンテキストにすでに提供されています。</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>オプション</value>
@@ -441,7 +441,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>このチェックボックスをオンにすると、指定したファイルが既に FTP サーバー上に保存されている場合は上書きされます。</value>
+    <value>このチェックボックスをオンにすると、指定したファイルがすでに FTP サーバー上に保存されている場合は上書きされます。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
@@ -593,7 +593,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>このチェックボックスをオンにすると、指定したファイルが既にローカルに保存されている場合は上書きされます。</value>
+    <value>このチェックボックスをオンにすると、指定したファイルがすでにローカルに保存されている場合は上書きされます。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
@@ -641,7 +641,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
-    <value>このチェックボックスをオンにすると、指定したファイルが既に新しいリモート ディレクトリ上に保存されている場合は上書きされます。</value>
+    <value>このチェックボックスをオンにすると、指定したファイルがすでに新しいリモート ディレクトリ上に保存されている場合は上書きされます。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">

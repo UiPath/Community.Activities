@@ -23,6 +23,35 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
+    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+    <PackageReference Include="System.Security.Cryptography.Cng" />
+    <PackageReference Include="System.Formats.Asn1" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+    <PackageReference Include="System.Activities.ViewModels" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UiPath.Platform" />
+  </ItemGroup>
+
   <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
     <ItemGroup>
       <BuiltProjectOutputGroupOutput Remove="@(BuiltProjectOutputGroupOutput)" />
@@ -63,7 +92,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Cryptography.Activities.resources.dll" TargetPath="pt-BR\UiPath.Cryptography.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Cryptography.Activities.resources.dll" TargetPath="tr\UiPath.Cryptography.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Cryptography.Activities.resources.dll" TargetPath="zh-CN\UiPath.Cryptography.Activities.resources.dll" />
-	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Cryptography.Activities.resources.dll" TargetPath="zh-TW\UiPath.Cryptography.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Cryptography.Activities.resources.dll" TargetPath="zh-TW\UiPath.Cryptography.Activities.resources.dll" />
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.Design.dll" />
@@ -79,36 +108,15 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Cryptography.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="tr\UiPath.Cryptography.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Cryptography.Activities.Design.resources.dll" />
-	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Cryptography.Activities.Design.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Cryptography.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Cryptography.Activities.Design.resources.dll" />
     </ItemGroup>
   </Target>
+
   <Target Name="CleanPackageFiles" BeforeTargets="Build">
-	<Message Text="Deleting packages ..." />
-	  <ItemGroup>
-		<PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
-	  </ItemGroup>
-	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
+    <Message Text="Deleting packages ..." />
+    <ItemGroup>
+      <PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+    </ItemGroup>
+    <Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
   </Target>
-
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
-    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj">
-      <PrivateAssets>All</PrivateAssets>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj">
-      <PrivateAssets>All</PrivateAssets>
-    </ProjectReference>
-    <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="Portable.BouncyCastle" Version="1.8.8" />
-  </ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
-		<PackageReference Include="System.Activities.ViewModels" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="UiPath.Platform" />
-	</ItemGroup>
 </Project>
