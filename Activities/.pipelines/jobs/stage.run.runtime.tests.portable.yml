@@ -42,6 +42,7 @@ jobs:
       path: "$(IntegrationTestStudioPackPath)"
 
   - bash: |
+      which docker
       docker ps
       cp -rvf $(Build.ArtifactStagingDirectory)/TestRunner $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/
       cp -vf $(IntegrationTestStudioPackPath)/*nupkg $(Build.SourcesDirectory)/Activities/.pipelines/docker/mount/input/
@@ -51,12 +52,12 @@ jobs:
     displayName: 'Prepare tests'
 
   - bash: |
-      env
       cd $(Build.SourcesDirectory)/Activities/.pipelines/docker
       export MOUNT_OUTPUT=$(System.ArtifactsDirectory)
+      export PATH=/usr/libexec/docker/cli-plugins:$PATH
       chmod -R 777  $(System.ArtifactsDirectory)
       docker-compose up -d robot
-      docker-compose exec -T robot dotnet /input/TestRunner/uipath.studio.codedwf.tests.runner.dll run --package $(pkgPath) --robotPath /application/UiRobot.dll --output /output
+      docker-compose exec robot dotnet /input/TestRunner/uipath.studio.codedwf.tests.runner.dll run --package $(pkgPath) --robotPath /application/UiRobot.dll --output /output
     displayName: 'Run tests'
     env: ${{ parameters.environment }}
 
@@ -72,4 +73,4 @@ jobs:
       failTaskOnFailedTests: true
       mergeTestResults: true
     displayName: 'Publish Tests Results'
-    condition: always()    
+    condition: always()
