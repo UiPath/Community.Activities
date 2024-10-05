@@ -272,7 +272,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>データベース接続の確立に使用する SecureString 型として指定された接続文字列です。他の例については、ドキュメントをご覧ください。</value>
+    <value>データベース接続の確立に使用する、SecureString 型として入力される接続文字列です。他の例については、ドキュメントをご覧ください。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name" xml:space="preserve">
@@ -404,7 +404,7 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>データベース接続の確立に使用する SecureString 型として指定された接続文字列です。他の例については、ドキュメントをご覧ください。</value>
+    <value>データベース接続の確立に使用する、SecureString 型として入力される接続文字列です。他の例については、ドキュメントをご覧ください。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
