@@ -28,7 +28,7 @@ namespace UiPath.Shared.Activities
         }
 
         protected override void BookmarkResumptionCallback(NativeActivityContext context, Bookmark bookmark, object value)
-        {          
+        {
             try
             {
                 base.BookmarkResumptionCallback(context, bookmark, value);
