@@ -14,7 +14,7 @@ namespace UiPath.Shared.Activities
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        public static Constraint HasParent<TActivity>(Func<Activity, bool> condition, string validationMessage) 
+        public static Constraint HasParent<TActivity>(Func<Activity, bool> condition, string validationMessage)
             where TActivity : Activity
         {
             var element = new DelegateInArgument<TActivity>();

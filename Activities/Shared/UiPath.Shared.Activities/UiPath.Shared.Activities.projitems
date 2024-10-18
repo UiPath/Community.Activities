@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ActivitiesConstraints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskCodeActivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnumExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InArgumentExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\ActivityArgumentHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Bindings\DependantBindingPropertiesModel.cs" />
