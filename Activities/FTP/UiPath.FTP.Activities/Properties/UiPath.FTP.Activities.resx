@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -279,10 +279,10 @@
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>Client certificate password</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>Continue on error</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Files</value>
@@ -291,10 +291,10 @@
     <value>Host</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+    <value>Local path</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
-    <value>NewPath</value>
+    <value>New path</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
     <value>Password</value>
@@ -303,7 +303,7 @@
     <value>Port</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Remote path</value>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">
     <value>When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>Delete File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -469,7 +469,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Use FTP connection</value>
+    <value>Use FTP Connection</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Download files</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move file or folder</value>
+    <value>Move File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -752,5 +752,12 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>You must provide a value for {0}.</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0} (Obsolete)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>Leave empty for auto configuration</value>
   </data>
 </root>
