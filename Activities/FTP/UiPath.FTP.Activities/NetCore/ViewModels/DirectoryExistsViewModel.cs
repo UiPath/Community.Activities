@@ -1,18 +1,5 @@
 ﻿using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
-using System.Threading.Tasks;
-using UiPath.FTP.Activities.NetCore.ViewModels;
-
-namespace UiPath.FTP.Activities
-{
-    /// <summary>
-    /// Checks whether a certain directory exists on an FTP server. 
-    /// </summary>
-    [ViewModelClass(typeof(DirectoryExistsViewModel))]
-    public partial class DirectoryExists
-    {
-    }
-}
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
@@ -29,34 +16,22 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// The path of the FTP directory in which to check whether the indicated directory exists.
         /// </summary>
-        public DesignInArgument<string> RemotePath { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<string> RemotePath { get; set; }
 
         /// <summary>
         /// A boolean variable that states whether the indicated directory was found or not.
         /// </summary>
-        public DesignOutArgument<bool> Exists { get; set; } = new DesignOutArgument<bool>();
+        public DesignOutArgument<bool> Exists { get; set; }
 
         protected override void InitializeModel()
         {
             base.InitializeModel();
+            PersistValuesChangedDuringInit();
+
             int propertyOrderIndex = 1;
 
-            RemotePath.IsPrincipal = true;
             RemotePath.OrderIndex = propertyOrderIndex++;
-            RemotePath.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
-
-            Exists.IsPrincipal = false;
-            Exists.OrderIndex = propertyOrderIndex++;
-        }
-
-        protected override async ValueTask InitializeModelAsync()
-        {
-            await base.InitializeModelAsync();
-        }
-
-        protected override void InitializeRules()
-        {
-            base.InitializeRules();
+            Exists.OrderIndex = propertyOrderIndex;
         }
     }
 }

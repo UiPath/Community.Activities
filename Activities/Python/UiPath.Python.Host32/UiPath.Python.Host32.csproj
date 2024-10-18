@@ -16,6 +16,7 @@
 
   <Import Project="..\..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
   <Import Project="..\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.ServiceModel" />
