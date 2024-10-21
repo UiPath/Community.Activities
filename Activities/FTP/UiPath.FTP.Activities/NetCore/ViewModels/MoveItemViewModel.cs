@@ -45,7 +45,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             Overwrite.OrderIndex = propertyOrderIndex++;
             ContinueOnError.OrderIndex = propertyOrderIndex;
 
-            Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+            //Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
         }
     }
