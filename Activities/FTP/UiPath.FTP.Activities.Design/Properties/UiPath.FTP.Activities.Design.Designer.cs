@@ -70,6 +70,33 @@ namespace UiPath.FTP.Activities.Design.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ActivitySynonymDeleteFileOrFolder {
+            get {
+                return ResourceManager.GetString("ActivitySynonymDeleteFileOrFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Item.
+        /// </summary>
+        public static string ActivitySynonymMoveFileOrFolder {
+            get {
+                return ResourceManager.GetString("ActivitySynonymMoveFileOrFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With FTP connection.
+        /// </summary>
+        public static string ActivitySynonymUseFtpConnection {
+            get {
+                return ResourceManager.GetString("ActivitySynonymUseFtpConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App Integration.
         /// </summary>
         public static string CategoryAppIntegration {
@@ -232,7 +259,7 @@ namespace UiPath.FTP.Activities.Design.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RemotePath.
+        ///   Looks up a localized string similar to File or Folder to delete.
         /// </summary>
         public static string RemotePathDescription {
             get {

@@ -169,7 +169,7 @@
     <value>Вывод</value>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Перезаписать</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
@@ -193,7 +193,7 @@
     <value>Использовать анонимный вход</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя пользователя</value>
   </data>
   <data name="UseSftp" xml:space="preserve">
     <value>Использовать SFTP</value>
@@ -202,7 +202,7 @@
     <value>Обнаружен неподдерживаемый тип объекта.</value>
   </data>
   <data name="Exists" xml:space="preserve">
-    <value>Exists</value>
+    <value>Существует</value>
   </data>
   <data name="Files" xml:space="preserve">
     <value>Файлы</value>
@@ -282,7 +282,7 @@
     <value>ClientCertificatePassword</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ПродолжитьПриОшибке</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Файлы</value>
@@ -325,15 +325,15 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete</value>
+    <value>Удалить файл или папку</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
-    <value>Путь к файлу, который должен быть удален с FTP-сервера.</value>
+    <value>Удаленный путь к файлу или папке</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Файл или папка для удаления</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
@@ -349,19 +349,19 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Name" xml:space="preserve">
-    <value>Exists</value>
+    <value>Существует</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Путь к каталогу FTP, для которого нужно проверить, существует ли указанный каталог.</value>
+    <value>Удаленный путь к папке для проверки</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Путь к папке</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Создает переменную DataTable, содержащую список файлов, найденных по указанному пути на FTP-сервере. Вложенные папки также можно включить в поиск, установив флажок для включения вложенных папок. Это действие работает только в том случае, если оно помещено в действие области With FTP Session.</value>
+    <value>Создает коллекцию файлов, найденных на FTP-сервере. Вложенные папки также можно включить в поиск, установив флажок для включения вложенных папок. Это действие работает только в том случае, если оно помещено в действие области With FTP Session.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -373,7 +373,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>Files</value>
+    <value>Файлы</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
@@ -381,7 +381,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Включить вложенные папки</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
@@ -389,7 +389,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Удаленный путь</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
@@ -405,15 +405,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Name" xml:space="preserve">
-    <value>Exists</value>
+    <value>Существует</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Путь к каталогу FTP, для которого нужно проверить, существует ли указанный файл.</value>
+    <value>Удаленный путь к файлу для проверки</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Путь к файлу</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
@@ -429,15 +429,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Create</value>
+    <value>Создать</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>Локальный путь к файлам, которые должны быть загружены.</value>
+    <value>Локальный путь</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>Файлы, которые необходимо загрузить</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -445,7 +445,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Перезаписать</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
@@ -453,31 +453,31 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Включить вложенные папки</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>Путь на FTP-сервере к местоположению, куда должен быть загружен файл.</value>
+    <value>Удаленный путь</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Место для загрузки</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>Контейнер, отвечающий за соединение с FTP-сервером и обеспечивающий область для всех действий с FTP-сервером.</value>
-    <comment>Property description</comment>
+    <value>Подключается к серверу FTP и предоставляет область для других действий FTP.</value>
+    <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>With Ftp Session</value>
-    <comment>Property name</comment>
+    <value>Use FTP connection</value>
+    <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
     <value>Если этот флажок установлен, все сертификаты будут приняты, включая непроверенные и с истекшим сроком действия.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
-    <value>Accept All Certificates</value>
+    <value>Принять все сертификаты</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
@@ -485,7 +485,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
-    <value>Client Certificate Password</value>
+    <value>Пароль сертификата клиента</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Client Certificate Path</value>
+    <value>Файл сертификата клиента</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -501,7 +501,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Продолжить при ошибке</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Ftps Mode</value>
+    <value>Режим FTPS</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -517,7 +517,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Name" xml:space="preserve">
-    <value>Host</value>
+    <value>Хост</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Description" xml:space="preserve">
@@ -525,7 +525,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Name" xml:space="preserve">
-    <value>Password</value>
+    <value>Пароль</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Description" xml:space="preserve">
@@ -533,7 +533,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Name" xml:space="preserve">
-    <value>Port</value>
+    <value>Порт</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>Ssl Protocols</value>
+    <value>Протоколы SSL</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
@@ -549,7 +549,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
-    <value>Use Anonymous Login</value>
+    <value>Использовать анонимный вход</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
@@ -557,7 +557,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Name" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя пользователя</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
@@ -565,7 +565,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
-    <value>Use SFTP</value>
+    <value>Использовать SFTP</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
@@ -581,7 +581,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Create</value>
+    <value>Создать</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -589,7 +589,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>Место для скачивания</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -597,7 +597,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Перезаписать</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
@@ -605,7 +605,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Включить вложенные папки</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Description" xml:space="preserve">
@@ -613,7 +613,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Путь к файлам для скачивания</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Move file or folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -629,15 +629,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Продолжить при ошибке</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
-    <value>Удаленный путь на FTP-сервере к местоположению, куда должен быть перемещен файл.</value>
+    <value>Новый путь для перемещения элемента</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
-    <value>New Remote Path</value>
+    <value>Место для перемещения</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
@@ -645,15 +645,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Перезаписать</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
-    <value>Удаленный путь на FTP-сервере к текущему местоположению файла.</value>
+    <value>Удаленный путь</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Файл или папка для перемещения</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Credentials_Name" xml:space="preserve">
@@ -679,5 +679,78 @@
   <data name="Category_Server_Name" xml:space="preserve">
     <value>Server</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Output</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключатель для режима ввода пароля сертификата</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>SecurePasswordInputModeSwitch</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
+    <value>Пароль сертификата клиента в формате защищенной строки</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
+    <value>Надежный пароль сертификата клиента</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Переключатель для режима ввода пароля</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>ПереключательРежимаВводаПароля</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
+    <value>Пароль в формате защищенной строки</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
+    <value>Безопасный пароль</value>
+  </data>
+  <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
+    <value>ClientCertificatePassword и ClientCertificateSecurePassword не должны одновременно иметь нулевое значение</value>
+  </data>
+  <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
+    <value>Пароль и безопасный пароль не должны одновременно иметь нулевое значение</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
+    <value>Пароль, используемый для прокси-сервера, если требуется проверка подлинности</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
+    <value>Пароль прокси-сервера</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
+    <value>Номер порта прокси-сервера</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
+    <value>Порт хоста прокси-сервера</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
+    <value>Имя хоста прокси-сервера</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
+    <value>Хост прокси-сервера</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
+    <value>Тип прокси-сервера</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
+    <value> Тип прокси-сервера</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
+    <value>Пользователь, используемый для прокси-сервера, если требуется проверка подлинности</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Name" xml:space="preserve">
+    <value>Имя пользователя прокси-сервера</value>
+  </data>
+  <data name="Proxy" xml:space="preserve">
+    <value>Прокси-сервер</value>
+  </data>
+  <data name="ValidationErrorFormat" xml:space="preserve">
+    <value>Необходимо указать значение для {0}.</value>
+    <comment>error message</comment>
   </data>
 </root>

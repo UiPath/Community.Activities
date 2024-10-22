@@ -235,7 +235,7 @@
     <value>Detalles</value>
   </data>
   <data name="DataSourceDescription_Label" xml:space="preserve">
-    <value>Description</value>
+    <value>Descripción</value>
   </data>
   <data name="DataSourceGroupBox_Label" xml:space="preserve">
     <value>Especificación del origen de datos</value>

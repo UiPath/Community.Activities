@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BulkInsert_ColumnsDataTypesMustMatch" xml:space="preserve">
-    <value>Die angegebenen Spalten in der DataTable stimmen nicht mit den Spaltendatentypen in der Datenbank überein.</value>
+    <value>Die angegebenen Spalten in der Datentabelle stimmen nicht mit den Spaltendatentypen in der Datenbank überein.</value>
   </data>
   <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
     <value>Die nicht zugeordnete Spalte {0} wurde in der Zieldatenbanktabelle {1} nicht gefunden.</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>Die bereitgestellte Treiberversion unterstützt keine Masseneinfügungsvorgänge. Überprüfen Sie den Treiber.</value>
+    <value>Der konfigurierte Anbieter unterstützt keine Masseneinfügevorgänge. Anbieter, die Masseneinfügevorgänge unterstützen, sind: Microsoft.Data.SqlClient und Oracle.ManagedDataAccess.Client.OracleConnection.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
-    <value>Die angegebene Anzahl von Spalten in der DataTable muss mit der Anzahl der Spalten in der DB-Tabelle übereinstimmen.</value>
+    <value>Die angegebene Anzahl von Spalten in der Datentabelle muss mit der Anzahl der Spalten in der DB-Tabelle übereinstimmen.</value>
   </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>Die Verbindung ist nicht initialisiert.</value>

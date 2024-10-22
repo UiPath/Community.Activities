@@ -124,7 +124,7 @@
     <value>A coluna {0} não mapeada não foi encontrada na tabela {1} do banco de dados de destino</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>A versão do driver fornecido não é compatível com operações do tipo Inserção em Massa. Verifique o driver.</value>
+    <value>O provedor configurado não aceita operações de Inserção em massa. Os provedores que aceitam operações de Inserção em massa são: Microsoft.Data.SqlClient e Oracle.ManagedDataAccess.Client.OracleConnection.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>O número fornecido de colunas na DataTable deve coincidir com o número de colunas na tabela do banco de dados.</value>

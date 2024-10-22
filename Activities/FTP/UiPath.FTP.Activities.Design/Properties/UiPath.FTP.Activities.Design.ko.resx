@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>항목 이동</value>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>FTP 연결 사용</value>
+  </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
     <value>FTP 세션 범위</value>
   </data>
@@ -131,7 +140,7 @@
     <value>ClientCertificatePassword</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>오류 발생 시 계속 진행</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
     <value>Delete</value>
@@ -182,7 +191,7 @@
     <value>포트</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>RemotePath</value>
+    <value>삭제할 파일 또는 폴더</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Upload Files</value>
@@ -194,10 +203,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>사용자 이름</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>FTP 세션 포함</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>FTP 세션 포함</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP 범위</value>
   </data>
 </root>

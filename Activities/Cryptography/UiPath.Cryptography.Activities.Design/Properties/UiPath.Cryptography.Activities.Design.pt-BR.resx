@@ -145,7 +145,7 @@
     <value>A string descriptografada.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codificação</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>A codificação usada para interpretar a string de entrada.</value>
@@ -175,11 +175,11 @@
     <value>A representação da string base64 da string de entrada criptografada.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>Caminho do arquivo</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Caminho do Arquivo</value>
+    <value>Caminho do arquivo</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Caminho para o arquivo cujo hash será feito por esta atividade.</value>
@@ -194,11 +194,11 @@
     <value>A representação de string hexadecimal da string de entrada com hash.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Caminho de Entrada</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Text</value>
+    <value>Texto</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
@@ -223,11 +223,11 @@
     <value>Codificação de chave</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Caminho de Saída</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Substituir</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Resultado</value>
@@ -239,10 +239,10 @@
     <value>Sistema</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NomeDeExibição</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinuarComErro</value>
   </data>
 </root>

@@ -8,70 +8,15 @@
       "DisplayNameKey": "Activity_BulkInsert_Name",
       "DescriptionKey": "Activity_BulkInsert_Description",
       "IconKey": "Bulk_insert.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_BulkInsert_Property_ProviderName_Name",
-          "TooltipKey": "Activity_BulkInsert_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_BulkInsert_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_BulkInsert_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_BulkInsert_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_BulkInsert_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_BulkInsert_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_BulkInsert_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "TableName",
-          "DisplayNameKey": "Activity_BulkInsert_Property_TableName_Name",
-          "TooltipKey": "Activity_BulkInsert_Property_TableName_Description",
+          "DisplayNameKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name",
+          "TooltipKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform",
+          "PlaceholderKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -86,6 +31,22 @@
           "Name": "DataTable",
           "DisplayNameKey": "Activity_BulkInsert_Property_DataTable_Name",
           "TooltipKey": "Activity_BulkInsert_Property_DataTable_Description",
+          "PlaceholderKey": "Activity_BulkInsert_Property_DataTable_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "TableName",
+          "DisplayNameKey": "Activity_BulkInsert_Property_TableName_Name",
+          "TooltipKey": "Activity_BulkInsert_Property_TableName_Description",
+          "PlaceholderKey": "Activity_BulkInsert_Property_TableName_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -98,8 +59,8 @@
         },
         {
           "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_BulkInsert_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_BulkInsert_Property_ContinueOnError_Description",
+          "DisplayNameKey": "Activity_DatabaseRowActivity_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DatabaseRowActivity_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -119,7 +80,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Principal"
+            "DisplayNameKey": "Category_Output"
           },
           "Widget": null,
           "IconKey": null
@@ -135,58 +96,47 @@
       "DisplayNameKey": "Activity_BulkUpdate_Name",
       "DescriptionKey": "Activity_BulkUpdate_Description",
       "IconKey": "Bulk_update.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_BulkUpdate_Property_ProviderName_Name",
-          "TooltipKey": "Activity_BulkUpdate_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_BulkUpdate_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_BulkUpdate_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_BulkUpdate_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_BulkUpdate_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_BulkUpdate_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_BulkUpdate_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name",
+          "TooltipKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform",
+          "PlaceholderKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "DataTable",
+          "DisplayNameKey": "Activity_BulkUpdate_Property_DataTable_Name",
+          "TooltipKey": "Activity_BulkUpdate_Property_DataTable_Description",
+          "PlaceholderKey": "Activity_BulkUpdate_Property_DataTable_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "TableName",
+          "DisplayNameKey": "Activity_BulkUpdate_Property_TableName_Name",
+          "TooltipKey": "Activity_BulkUpdate_Property_TableName_Description",
+          "PlaceholderKey": "Activity_BulkUpdate_Property_TableName_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -210,37 +160,10 @@
           "IconKey": null
         },
         {
-          "Name": "TableName",
-          "DisplayNameKey": "Activity_BulkUpdate_Property_TableName_Name",
-          "TooltipKey": "Activity_BulkUpdate_Property_TableName_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ColumnNames",
           "DisplayNameKey": "Activity_BulkUpdate_Property_ColumnNames_Name",
           "TooltipKey": "Activity_BulkUpdate_Property_ColumnNames_Description",
-          "IsRequired": true,
-          "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "DataTable",
-          "DisplayNameKey": "Activity_BulkUpdate_Property_DataTable_Name",
-          "TooltipKey": "Activity_BulkUpdate_Property_DataTable_Description",
+          "PlaceholderKey": "Activity_BulkUpdate_Property_ColumnNames_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -253,8 +176,8 @@
         },
         {
           "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_BulkUpdate_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_BulkUpdate_Property_ContinueOnError_Description",
+          "DisplayNameKey": "Activity_DatabaseRowActivity_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DatabaseRowActivity_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -290,7 +213,7 @@
       "DisplayNameKey": "Activity_DatabaseConnect_Name",
       "DescriptionKey": "Activity_DatabaseConnect_Description",
       "IconKey": "Connect.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
@@ -298,6 +221,7 @@
           "Name": "ProviderName",
           "DisplayNameKey": "Activity_DatabaseConnect_Property_ProviderName_Name",
           "TooltipKey": "Activity_DatabaseConnect_Property_ProviderName_Description",
+          "PlaceholderKey": "Activity_DatabaseConnect_Property_ProviderName_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -305,15 +229,18 @@
             "Name": null,
             "DisplayNameKey": "Category_Principal"
           },
-          "Widget": null,
+          "Widget": {
+            "type": "AutoCompleteForExpression"
+          },
           "IconKey": null
         },
         {
           "Name": "ConnectionString",
           "DisplayNameKey": "Activity_DatabaseConnect_Property_ConnectionString_Name",
           "TooltipKey": "Activity_DatabaseConnect_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "PlaceholderKey": "Activity_DatabaseConnect_Property_ConnectionString_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -326,12 +253,13 @@
           "Name": "ConnectionSecureString",
           "DisplayNameKey": "Activity_DatabaseConnect_Property_ConnectionSecureString_Name",
           "TooltipKey": "Activity_DatabaseConnect_Property_ConnectionSecureString_Description",
+          "PlaceholderKey": "Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder",
           "IsRequired": false,
-          "IsPrincipal": false,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Other"
+            "DisplayNameKey": "Category_Principal"
           },
           "Widget": null,
           "IconKey": null
@@ -361,147 +289,21 @@
       "DisplayNameKey": "Activity_DatabaseDisconnect_Name",
       "DescriptionKey": "Activity_DatabaseDisconnect_Description",
       "IconKey": "Disconnect.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "DatabaseConnection",
           "DisplayNameKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Name",
-          "TooltipKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Description",
+          "TooltipKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform",
+          "PlaceholderKey": "Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
             "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        }
-      ],
-      "DefaultFactory": null,
-      "ViewModelType": null
-    },
-    {
-      "AssemblyQualifiedName": null,
-      "FullName": "UiPath.Database.Activities.DatabaseTransaction",
-      "ShortName": "DatabaseTransaction",
-      "DisplayNameKey": "Activity_DatabaseTransaction_Name",
-      "DescriptionKey": "Activity_DatabaseTransaction_Description",
-      "IconKey": "Start_transaction.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
-      "Properties": [
-        {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_DatabaseTransaction_Property_ProviderName_Name",
-          "TooltipKey": "Activity_DatabaseTransaction_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_DatabaseTransaction_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_DatabaseTransaction_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_DatabaseTransaction_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_DatabaseTransaction_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_DatabaseTransaction_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_DatabaseTransaction_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_DatabaseTransaction_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_DatabaseTransaction_Property_ContinueOnError_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "DatabaseConnection",
-          "DisplayNameKey": "Activity_DatabaseTransaction_Property_DatabaseConnection_Name",
-          "TooltipKey": "Activity_DatabaseTransaction_Property_DatabaseConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "Body",
-          "DisplayNameKey": null,
-          "TooltipKey": null,
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": false,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": null
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "UseTransaction",
-          "DisplayNameKey": "Activity_DatabaseTransaction_Property_UseTransaction_Name",
-          "TooltipKey": "Activity_DatabaseTransaction_Property_UseTransaction_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
           },
           "Widget": null,
           "IconKey": null
@@ -517,58 +319,17 @@
       "DisplayNameKey": "Activity_ExecuteNonQuery_Name",
       "DescriptionKey": "Activity_ExecuteNonQuery_Description",
       "IconKey": "Run_command.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ProviderName_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -579,10 +340,10 @@
         },
         {
           "Name": "CommandType",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_CommandType_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_CommandType_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_CommandType_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_CommandType_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -595,6 +356,7 @@
           "Name": "Sql",
           "DisplayNameKey": "Activity_ExecuteNonQuery_Property_Sql_Name",
           "TooltipKey": "Activity_ExecuteNonQuery_Property_Sql_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_Sql_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -606,9 +368,9 @@
           "IconKey": null
         },
         {
-          "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_ContinueOnError_Description",
+          "Name": "Parameters",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_Parameters_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_Parameters_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -621,8 +383,9 @@
         },
         {
           "Name": "TimeoutMS",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_TimeoutMS_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_TimeoutMS_Description",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_TimeoutMS_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_TimeoutMS_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_TimeoutMS_Placeholder",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -634,9 +397,9 @@
           "IconKey": null
         },
         {
-          "Name": "Parameters",
-          "DisplayNameKey": "Activity_ExecuteNonQuery_Property_Parameters_Name",
-          "TooltipKey": "Activity_ExecuteNonQuery_Property_Parameters_Description",
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -672,58 +435,17 @@
       "DisplayNameKey": "Activity_ExecuteQuery_Name",
       "DescriptionKey": "Activity_ExecuteQuery_Description",
       "IconKey": "Run_Query.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ProviderName_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -734,10 +456,10 @@
         },
         {
           "Name": "CommandType",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_CommandType_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_CommandType_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_CommandType_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_CommandType_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": null,
@@ -750,6 +472,7 @@
           "Name": "Sql",
           "DisplayNameKey": "Activity_ExecuteQuery_Property_Sql_Name",
           "TooltipKey": "Activity_ExecuteQuery_Property_Sql_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_Sql_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -761,9 +484,9 @@
           "IconKey": null
         },
         {
-          "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_ContinueOnError_Description",
+          "Name": "Parameters",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_Parameters_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_Parameters_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -776,8 +499,9 @@
         },
         {
           "Name": "TimeoutMS",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_TimeoutMS_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_TimeoutMS_Description",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_TimeoutMS_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_TimeoutMS_Description",
+          "PlaceholderKey": "Activity_DatabaseExecute_Property_TimeoutMS_Placeholder",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -789,9 +513,9 @@
           "IconKey": null
         },
         {
-          "Name": "Parameters",
-          "DisplayNameKey": "Activity_ExecuteQuery_Property_Parameters_Name",
-          "TooltipKey": "Activity_ExecuteQuery_Property_Parameters_Description",
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_DatabaseExecute_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DatabaseExecute_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -827,70 +551,15 @@
       "DisplayNameKey": "Activity_InsertDataTable_Name",
       "DescriptionKey": "Activity_InsertDataTable_Description",
       "IconKey": "Insert.svg",
-      "CategoryKey": null,
+      "CategoryKey": "DatabaseCategory",
       "ActivityColor": null,
       "ActivityNameBackgroundColor": null,
       "Properties": [
         {
-          "Name": "ProviderName",
-          "DisplayNameKey": "Activity_InsertDataTable_Property_ProviderName_Name",
-          "TooltipKey": "Activity_InsertDataTable_Property_ProviderName_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionString",
-          "DisplayNameKey": "Activity_InsertDataTable_Property_ConnectionString_Name",
-          "TooltipKey": "Activity_InsertDataTable_Property_ConnectionString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "ConnectionSecureString",
-          "DisplayNameKey": "Activity_InsertDataTable_Property_ConnectionSecureString_Name",
-          "TooltipKey": "Activity_InsertDataTable_Property_ConnectionSecureString_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Other"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
           "Name": "ExistingDbConnection",
-          "DisplayNameKey": "Activity_InsertDataTable_Property_ExistingDbConnection_Name",
-          "TooltipKey": "Activity_InsertDataTable_Property_ExistingDbConnection_Description",
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal"
-          },
-          "Widget": null,
-          "IconKey": null
-        },
-        {
-          "Name": "TableName",
-          "DisplayNameKey": "Activity_InsertDataTable_Property_TableName_Name",
-          "TooltipKey": "Activity_InsertDataTable_Property_TableName_Description",
+          "DisplayNameKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name",
+          "TooltipKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform",
+          "PlaceholderKey": "Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -905,6 +574,22 @@
           "Name": "DataTable",
           "DisplayNameKey": "Activity_InsertDataTable_Property_DataTable_Name",
           "TooltipKey": "Activity_InsertDataTable_Property_DataTable_Description",
+          "PlaceholderKey": "Activity_InsertDataTable_Property_DataTable_Placeholder",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": null,
+            "DisplayNameKey": "Category_Principal"
+          },
+          "Widget": null,
+          "IconKey": null
+        },
+        {
+          "Name": "TableName",
+          "DisplayNameKey": "Activity_InsertDataTable_Property_TableName_Name",
+          "TooltipKey": "Activity_InsertDataTable_Property_TableName_Description",
+          "PlaceholderKey": "Activity_InsertDataTable_Property_TableName_Placeholder",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -917,8 +602,8 @@
         },
         {
           "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_InsertDataTable_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_InsertDataTable_Property_ContinueOnError_Description",
+          "DisplayNameKey": "Activity_DatabaseRowActivity_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_DatabaseRowActivity_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -938,7 +623,7 @@
           "IsVisible": true,
           "Category": {
             "Name": null,
-            "DisplayNameKey": "Category_Principal"
+            "DisplayNameKey": "Category_Output"
           },
           "Widget": null,
           "IconKey": null

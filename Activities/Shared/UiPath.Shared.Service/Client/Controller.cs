@@ -63,7 +63,7 @@ namespace UiPath.Shared.Service.Client
                     exeFullPath = "dotnet";
                 }
 
-                
+
             }
 
             if (!File.Exists(exeFullPath) && isWindows

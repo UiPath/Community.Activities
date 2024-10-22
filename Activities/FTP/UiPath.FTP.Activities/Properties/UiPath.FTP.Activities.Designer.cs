@@ -29,7 +29,7 @@ namespace UiPath.FTP.Activities.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public UiPath_FTP_Activities() {
+        internal UiPath_FTP_Activities() {
         }
         
         /// <summary>
@@ -79,7 +79,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Delete File or Folder.
         /// </summary>
         public static string Activity_Delete_Name {
             get {
@@ -88,7 +88,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path of the file that is to be removed from the FTP server..
+        ///   Looks up a localized string similar to Remote path to the file or folder.
         /// </summary>
         public static string Activity_Delete_Property_RemotePath_Description {
             get {
@@ -97,7 +97,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to File or folder to delete.
         /// </summary>
         public static string Activity_Delete_Property_RemotePath_Name {
             get {
@@ -142,7 +142,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path of the FTP directory in which to check whether the indicated directory exists..
+        ///   Looks up a localized string similar to Remote folder path to check.
         /// </summary>
         public static string Activity_DirectoryExists_Property_RemotePath_Description {
             get {
@@ -151,7 +151,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Folder Path.
         /// </summary>
         public static string Activity_DirectoryExists_Property_RemotePath_Name {
             get {
@@ -169,7 +169,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download files.
+        ///   Looks up a localized string similar to Download Files.
         /// </summary>
         public static string Activity_DownloadFiles_Name {
             get {
@@ -205,7 +205,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local Path.
+        ///   Looks up a localized string similar to Where to download.
         /// </summary>
         public static string Activity_DownloadFiles_Property_LocalPath_Name {
             get {
@@ -259,7 +259,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Path to files to download.
         /// </summary>
         public static string Activity_DownloadFiles_Property_RemotePath_Name {
             get {
@@ -376,7 +376,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path of the FTP directory in which to check whether the indicated file exists..
+        ///   Looks up a localized string similar to Remote file path to check.
         /// </summary>
         public static string Activity_FileExists_Property_RemotePath_Description {
             get {
@@ -385,7 +385,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to File Path.
         /// </summary>
         public static string Activity_FileExists_Property_RemotePath_Name {
             get {
@@ -403,7 +403,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move Item.
+        ///   Looks up a localized string similar to Move File or Folder.
         /// </summary>
         public static string Activity_MoveItem_Name {
             get {
@@ -430,7 +430,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The remote path on the FTP server where the file will be moved..
+        ///   Looks up a localized string similar to The new path where to move the item.
         /// </summary>
         public static string Activity_MoveItem_Property_NewPath_Description {
             get {
@@ -439,7 +439,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Remote Path.
+        ///   Looks up a localized string similar to Where to move.
         /// </summary>
         public static string Activity_MoveItem_Property_NewPath_Name {
             get {
@@ -466,7 +466,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The remote path on the FTP server where the file is currently located..
+        ///   Looks up a localized string similar to Remote path.
         /// </summary>
         public static string Activity_MoveItem_Property_RemotePath_Description {
             get {
@@ -475,7 +475,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to File or folder to move.
         /// </summary>
         public static string Activity_MoveItem_Property_RemotePath_Name {
             get {
@@ -520,7 +520,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The local path of the files that are to be uploaded..
+        ///   Looks up a localized string similar to Local path.
         /// </summary>
         public static string Activity_UploadFiles_Property_LocalPath_Description {
             get {
@@ -529,7 +529,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local Path.
+        ///   Looks up a localized string similar to Files to upload.
         /// </summary>
         public static string Activity_UploadFiles_Property_LocalPath_Name {
             get {
@@ -574,7 +574,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path on the FTP server where the file is to be uploaded..
+        ///   Looks up a localized string similar to Remote path.
         /// </summary>
         public static string Activity_UploadFiles_Property_RemotePath_Description {
             get {
@@ -583,7 +583,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Where to upload.
         /// </summary>
         public static string Activity_UploadFiles_Property_RemotePath_Name {
             get {
@@ -601,7 +601,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FTP Scope.
+        ///   Looks up a localized string similar to Use FTP Connection.
         /// </summary>
         public static string Activity_WithFtpSession_Name {
             get {
@@ -635,9 +635,9 @@ namespace UiPath.FTP.Activities.Properties {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to CertificatePasswordInputModeSwitch.
+        ///   Looks up a localized string similar to SecurePasswordInputModeSwitch.
         /// </summary>
         public static string Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name {
             get {
@@ -817,6 +817,96 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password used for proxy if authentication is required.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPassword_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy port number.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPort_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPort_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Host Port.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyPort_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyPort_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy host name.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyServer_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyServer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Host.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyServer_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyServer_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of proxy.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyType_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Proxy Type.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyType_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user used for proxy if authentication is required.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyUser_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyUser_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Username.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyUser_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyUser_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password in secure string format.
         /// </summary>
         public static string Activity_WithFtpSession_Property_SecurePassword_Description {
@@ -849,6 +939,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string Activity_WithFtpSession_Property_SslProtocols_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_SslProtocols_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave empty for auto configuration.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SslProtocols_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SslProtocols_Placeholder", resourceCulture);
             }
         }
         
@@ -979,7 +1078,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ClientCertificatePassword.
+        ///   Looks up a localized string similar to Client certificate password.
         /// </summary>
         public static string ClientCertificatePasswordDescription {
             get {
@@ -1015,7 +1114,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ContinueOnError.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string ContinueOnError {
             get {
@@ -1249,7 +1348,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LocalPath.
+        ///   Looks up a localized string similar to Local path.
         /// </summary>
         public static string LocalPathDescription {
             get {
@@ -1285,7 +1384,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NewPath.
+        ///   Looks up a localized string similar to New path.
         /// </summary>
         public static string NewPathDescription {
             get {
@@ -1299,6 +1398,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string NoValidAuthenticationMethod {
             get {
                 return ResourceManager.GetString("NoValidAuthenticationMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (Obsolete).
+        /// </summary>
+        public static string ObsoleteEnumValue {
+            get {
+                return ResourceManager.GetString("ObsoleteEnumValue", resourceCulture);
             }
         }
         
@@ -1384,6 +1492,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proxy.
+        /// </summary>
+        public static string Proxy {
+            get {
+                return ResourceManager.GetString("Proxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include subfolders.
         /// </summary>
         public static string Recursive {
@@ -1402,7 +1519,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Remote path.
         /// </summary>
         public static string RemotePathDescription {
             get {
@@ -1533,6 +1650,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string ValidationError_ValidateParentError {
             get {
                 return ResourceManager.GetString("ValidationError_ValidateParentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must provide a value for {0}..
+        /// </summary>
+        public static string ValidationErrorFormat {
+            get {
+                return ResourceManager.GetString("ValidationErrorFormat", resourceCulture);
             }
         }
         

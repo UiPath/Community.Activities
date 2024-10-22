@@ -24,6 +24,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Data.ConnectionUI.Dialog", "Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj", "{BA22A083-23F5-46B5-A037-9618D2E2D185}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64

@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Python\</OutputPath>
     <OutputType>Exe</OutputType>
 	<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    <PublishTrimmed>true</PublishTrimmed>
     <PublishReadyToRun>true</PublishReadyToRun>
     <PlatformTarget>x86</PlatformTarget>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -17,6 +16,7 @@
 
   <Import Project="..\..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
   <Import Project="..\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.ServiceModel" />

@@ -1,44 +1,38 @@
 ﻿using System;
+using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using UiPath.Cryptography.Activities.NetCore.ViewModels;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Enums;
+using UiPath.Platform.ResourceHandling;
 
-namespace UiPath.Cryptography.Activities
-{
-    /// <summary>
-    /// Decrypts a file based on a specified key encoding and algorithm.
-    /// </summary>
-    [ViewModelClass(typeof(DecryptFileViewModel))]
-    public partial class DecryptFile
-    {
-    }
-}
+#pragma warning disable CS0618 // obsolete encryption algorithm
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
-    public partial class DecryptFileViewModel : DesignPropertiesViewModel
+    [ExcludeFromCodeCoverage]
+    public class DecryptFileViewModel : DesignPropertiesViewModel
     {
+        private readonly DataSource<string> _encodingDataSource;
+        private InArgument<IResource> _backupInputFile;
+        private InArgument<string> _backupInputFilePath;
+
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
         public DecryptFileViewModel(IDesignServices services) : base(services)
         {
+            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
         /// <summary>
         /// A drop-down which enables you to select the decryption algorithm you want to use.
         /// </summary>
         public DesignProperty<SymmetricAlgorithms> Algorithm { get; set; } = new DesignProperty<SymmetricAlgorithms>();
-
-        /// <summary>
-        /// The path to the file that you want to decrypt.
-        /// </summary>
-        public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The key that you want to use to decrypt the specified file.
@@ -51,22 +45,17 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
-        /// Switches Key as string or secure string 
+        /// Switches Key as string or secure string
         /// </summary>
         public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
 
         /// <summary>
-        /// The encoding used to interpret the key specified in the Key property.
+        /// A drop-down which enables you to select the encoding option you want to use.
         /// </summary>
-        public DesignInArgument<Encoding> KeyEncoding { get; set; } = new DesignInArgument<Encoding>();
+        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
 
         /// <summary>
-        /// The path where you want to save the decrypted file.
-        /// </summary>
-        public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// If a file already exists at the path specified in the Output path field, selecting this check box overwrites it. 
+        /// If a file already exists at the path specified in the Output path field, selecting this check box overwrites it.
         /// </summary>
         public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
 
@@ -75,18 +64,50 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
 
+        /// <summary>
+        /// The file that you want to decrypt.
+        /// </summary>
+        public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
+
+        /// <summary>
+        /// The path to the file that you want to decrypt.
+        /// </summary>
+        public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
+
+        /// <summary>
+        /// Switches File as IResource or string
+        /// </summary>
+        public DesignProperty<FileInputMode> FileInputModeSwitch { get; set; } = new DesignProperty<FileInputMode>();
+
+        /// <summary>
+        /// The output path to the file that you want to decrypt.
+        /// </summary>
+        public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
+
+        /// <summary>
+        /// The file that you want to decrypt.
+        /// </summary>
+        public DesignOutArgument<ILocalResource> DecryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            int propertyOrderIndex = 1;
+            var propertyOrderIndex = 1;
+
+            InputFile.IsPrincipal = true;
+            InputFile.IsVisible = false;
+            InputFile.OrderIndex = propertyOrderIndex++;
+
+            InputFilePath.IsPrincipal = true;
+            InputFilePath.IsVisible = true;
+            InputFilePath.OrderIndex = propertyOrderIndex++;
+
+            FileInputModeSwitch.IsVisible = false;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.DataSource = DataSourceHelper.ForEnum(SymmetricAlgorithms.AES, SymmetricAlgorithms.AESGCM, SymmetricAlgorithms.DES, SymmetricAlgorithms.RC2, SymmetricAlgorithms.Rijndael, SymmetricAlgorithms.TripleDES);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
-            InputFilePath.IsPrincipal = true;
-            InputFilePath.OrderIndex = propertyOrderIndex++;
 
             Key.IsPrincipal = true;
             Key.IsVisible = true;
@@ -98,13 +119,19 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyInputModeSwitch.IsVisible = false;
 
-            OutputFilePath.IsPrincipal = true;
-            OutputFilePath.OrderIndex = propertyOrderIndex++;
+            KeyEncodingString.IsPrincipal = false;
+            KeyEncodingString.IsVisible = true;
+            KeyEncodingString.OrderIndex = propertyOrderIndex++;
 
-            KeyEncoding.IsPrincipal = false;
-            KeyEncoding.OrderIndex = propertyOrderIndex++;
-            KeyEncoding.Value = null;
-            KeyEncoding.IsRequired = true;
+            KeyEncodingString.DataSource = _encodingDataSource;
+            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+
+            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+
+            OutputFilePath.IsPrincipal = false;
+            OutputFilePath.IsVisible = true;
+            OutputFilePath.IsRequired = false;
+            OutputFilePath.OrderIndex = propertyOrderIndex++;
 
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = propertyOrderIndex++;
@@ -119,6 +146,16 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .AddMenuProperty(Key, KeyInputMode.Key)
                 .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
                 .BuildAndInsertMenuActions();
+
+            MenuActionsBuilder<FileInputMode>.WithValueProperty(FileInputModeSwitch)
+                .AddMenuProperty(InputFile, FileInputMode.File)
+                .AddMenuProperty(InputFilePath, FileInputMode.FilePath)
+                .BuildAndInsertMenuActions();
+
+            DecryptedFile.OrderIndex = propertyOrderIndex;
+
+            _backupInputFile = InputFile.Value;
+            _backupInputFilePath = InputFilePath.Value;
         }
 
         /// <inheritdoc/>
@@ -126,6 +163,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
+            Rule(nameof(FileInputModeSwitch), FileInputModeChanged_Action);
         }
 
         /// <inheritdoc/>
@@ -133,6 +171,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             base.ManualRegisterDependencies();
             RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
+            RegisterDependency(FileInputModeSwitch, nameof(FileInputModeSwitch.Value), nameof(FileInputModeSwitch));
         }
 
         /// <summary>
@@ -140,19 +179,69 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
                 case KeyInputMode.Key:
+                    Key.IsRequired = true;
                     Key.IsVisible = true;
-                    KeySecureString.IsVisible = false;
                     break;
-                case KeyInputMode.SecureKey:                   
-                    Key.IsVisible = false;
+                case KeyInputMode.SecureKey:
                     KeySecureString.IsVisible = true;
+                    KeySecureString.IsRequired = true;
                     break;
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        /// <summary>
+        /// File input Mode has changed. Set controls visibility based on selection
+        /// </summary>
+        private void FileInputModeChanged_Action()
+        {
+            ResetAllInputFile();
+            switch (FileInputModeSwitch.Value)
+            {
+                case FileInputMode.File:
+                    _backupInputFilePath = InputFilePath.Value;
+                    InputFilePath.Value = null;
+
+                    InputFile.IsRequired = true;
+                    InputFile.IsVisible = true;
+                    InputFile.Value = _backupInputFile;
+
+                    break;
+
+                case FileInputMode.FilePath:
+                    _backupInputFile = InputFile.Value;
+                    InputFile.Value = null;
+
+                    InputFilePath.IsVisible = true;
+                    InputFilePath.IsRequired = true;
+                    InputFilePath.Value = _backupInputFilePath;
+
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void ResetAllKeyInputMode()
+        {
+            Key.IsRequired = false;
+            Key.IsVisible = false;
+            KeySecureString.IsRequired = false;
+            KeySecureString.IsVisible = false;
+        }
+
+        private void ResetAllInputFile()
+        {
+            InputFile.IsRequired = false;
+            InputFile.IsVisible = false;
+            InputFilePath.IsRequired = false;
+            InputFilePath.IsVisible = false;
         }
     }
 }

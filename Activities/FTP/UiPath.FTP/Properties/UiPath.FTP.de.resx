@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Das Zielverzeichnis ist bereits vorhanden.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Zur Texteingabe umschalten</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>Zu sicherer Eingabe umschalten</value>
+  </data>
 </root>

@@ -144,7 +144,7 @@
     <value>실행</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>FieldName</value>
+    <value>필드 이름</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
@@ -164,7 +164,7 @@
     <value>입력</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>Target</value>
+    <value>타겟</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
     <value>대상 객체와 대상 형식이 모두 비어 있습니다. 둘 중 하나 이상은 설정되어야 합니다.</value>
@@ -186,7 +186,7 @@
     <value>로드될 jar의 경로입니다.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>JarPath</value>
+    <value>Jar 경로</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
@@ -196,7 +196,7 @@
     <value>Java 호출자가 로드되지 않았습니다.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>JavaObject</value>
+    <value>Java 개체</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
@@ -206,7 +206,7 @@
     <value>java.exe의 경로</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>JavaLibraryPath</value>
+    <value>Java 라이브러리경로</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
@@ -227,43 +227,43 @@
     <value>Jar을 로드하지 못했습니다.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>메드 이름</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
     <value>Java에서 실행될 메서드의 이름입니다.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>출력</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Java 메서드와 동일한 순서로 지정된 인수의 목록입니다. 인수는 Null이 아니어야 합니다.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>매개 변수</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ParametersList</value>
+    <value>파라미터 목록</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>{0} 및 {1} 모두를 설정할 수 없습니다.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>결과</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>TargetObject</value>
+    <value>대상 개체</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
     <value>메서드가 호출될 java 객체 인스턴스입니다. TargetObject 및 TargetType을 동시에 설정할 수 없습니다.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TargetType</value>
+    <value>대상 유형</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
@@ -279,7 +279,7 @@
     <value>JavaObject</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>메서드 이름</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>출력</value>
@@ -288,7 +288,7 @@
     <value>java 라이브러리의 경로가 잘못되었습니다.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Init timeout (milliseconds)</value>
+    <value>시간 제한(밀리초)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">

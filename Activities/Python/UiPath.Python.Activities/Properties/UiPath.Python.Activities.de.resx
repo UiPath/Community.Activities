@@ -147,7 +147,7 @@
     <value>Instanz des Python-Objekts</value>
   </data>
   <data name="InstanceNameDisplayName" xml:space="preserve">
-    <value>Instance</value>
+    <value>Instanz</value>
     <comment>property name</comment>
   </data>
   <data name="InvalidMethodNameException" xml:space="preserve">
@@ -187,21 +187,21 @@
     <value>Kein Code/Skript angegeben</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Ausgabe</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Eingabeparameter für Python-Skript</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>InputParameters</value>
+    <value>Eingabeparameter</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Python-Hauptpfad</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>Pfad</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -214,7 +214,7 @@
     <value>Python-Objekt, aus dem der Wert extrahiert werden soll</value>
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
-    <value>PythonObject</value>
+    <value>PythonObjekt</value>
     <comment>property name</comment>
   </data>
   <data name="PythonScopeDescription" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>Das Ergebnis eines Skriptaufrufs</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Ergebnis</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
@@ -245,14 +245,14 @@
     <value>Vollständiger Pfad zur Python-Skriptdatei</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>File</value>
+    <value>Datei</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>Die angegebene Skriptdatei wurde nicht gefunden.</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>Target</value>
+    <value>Ziel</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
@@ -272,14 +272,14 @@
     <value>Ausgabe</value>
   </data>
   <data name="WorkingFolder" xml:space="preserve">
-    <value>WorkingFolder</value>
+    <value>Arbeitsordner</value>
     <comment>property name</comment>
   </data>
   <data name="WorkingFolderDescription" xml:space="preserve">
     <value>Wird verwendet, um den Arbeitsordner der Skripte anzugeben, die im aktuellen Scope ausgeführt werden</value>
   </data>
   <data name="WorkingFolderPathInvalid" xml:space="preserve">
-    <value>WorkingFolder-Pfad ist ungültig</value>
+    <value>Arbeitsordner-Pfad ist ungültig</value>
   </data>
   <data name="InvalidVersionException" xml:space="preserve">
     <value>Die ausgewählte Version {0} unterscheidet sich von der gefundenen Version {1}.</value>
@@ -291,9 +291,12 @@
     <value>Die Zeit, die ein Python-Skript ausgeführt werden kann, bis es beendet und eine Ausnahme ausgelöst wird.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Pfad zur Python-Bibliothek „libpython*.so“ einschließlich Bibliotheksname</value>
+    <value>Für Linux ist der Pfad zur Python-Bibliothek „libpython*.so“ einschließlich des Bibliotheksnamens anzugeben. Für Windows (Version &gt; 3.9) ist der Pfad zu „python**.dll“ einschließlich des Bibliotheksnamens (steht normalerweise im Python-Startpfad) anzugeben. Für Windows (Version &lt;= 3.9) leer lassen.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Bibliothekspfad (nur Linux)</value>
+    <value>Bibliothekspfad (Linux oder Version &gt; 3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>Eine Python-Version &gt;= 3.10 wird unter 32 Bit nicht unterstützt. </value>
   </data>
 </root>

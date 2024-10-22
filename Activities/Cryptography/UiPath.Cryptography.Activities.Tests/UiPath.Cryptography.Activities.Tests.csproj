@@ -1,39 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
-    <ProjectGuid>{32563B0E-C9B0-468F-85CC-04BB4802FE37}</ProjectGuid>
-    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
-    <AssemblyTitle>UiPath.Cryptography.Activities.Tests</AssemblyTitle>
-    <Product>UiPath.Cryptography.Activities.Tests</Product>
-    <Copyright>Copyright ©  2018</Copyright>
-    <OutputPath>..\..\OutputTests\Cryptography\</OutputPath>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities" />
-    <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.Core.Presentation" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Activities.Presentation" />
-    <Reference Include="System.Activities.Core.Presentation" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />
-    <ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Activities.Extensions" Version="2.0.6.9" />
-    <PackageReference Include="Microsoft.Activities.UnitTesting" Version="2.0.6.9" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
+	<PropertyGroup>
+		<Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
+		<ProjectGuid>{32563B0E-C9B0-468F-85CC-04BB4802FE37}</ProjectGuid>
+		<TargetFrameworks>net461;net6.0-windows</TargetFrameworks>
+		<AssemblyTitle>UiPath.Cryptography.Activities.Tests</AssemblyTitle>
+		<Product>UiPath.Cryptography.Activities.Tests</Product>
+		<Copyright>Copyright ©  2018</Copyright>
+		<OutputPath>..\..\OutputTests\Cryptography\</OutputPath>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+		<PackageReference Include="UiPath.Workflow.Runtime" />
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="System.Activities.Core.Presentation" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Reference Include="System.Activities" />
+		<Reference Include="System.Activities.Presentation" />
+		<Reference Include="System.Activities.Core.Presentation" />
+		<Reference Include="System.ServiceModel" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="WindowsBase" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />
+		<ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Shouldly" Version="4.2.1" />
+		<PackageReference Include="xunit" Version="2.4.0" />
+		<PackageReference Include="xunit.abstractions" Version="2.0.3" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
 </Project>

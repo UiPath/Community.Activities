@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Database.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Platforms>AnyCPU;x86;x64</Platforms>
@@ -53,6 +53,7 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.resources.dll" TargetPath="pt-BR\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.resources.dll" TargetPath="tr\UiPath.Database.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.resources.dll" TargetPath="zh-CN\UiPath.Database.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.resources.dll" TargetPath="zh-TW\UiPath.Database.resources.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.resources.dll" TargetPath="fr\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Database.Activities.resources.dll" TargetPath="ja\UiPath.Database.Activities.resources.dll" />
@@ -65,9 +66,10 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.resources.dll" TargetPath="tr\UiPath.Database.Activities.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.resources.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.resources.dll" />
 
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+    <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Database.Activities.Design.resources.dll" TargetPath="fr\UiPath.Database.Activities.Design.resources.dll" />
@@ -81,14 +83,15 @@
       <BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Database.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Database.Activities.Design.resources.dll" TargetPath="tr\UiPath.Database.Activities.Design.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Database.Activities.Design.resources.dll" />
+	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.Design.resources.dll" />	
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-      <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x86\native\sni.dll" TargetPath="runtimes\win-x86\native\sni.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll" TargetPath="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll"/>
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
-      <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\sni.dll" TargetPath="runtimes\win-x64\native\sni.dll" />
-    </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" TargetPath="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+	</ItemGroup>
   </Target>
   <Target Name="CleanPackageFiles" BeforeTargets="Build">
 	<Message Text="Deleting packages ..." />
@@ -98,23 +101,30 @@
 	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
   </Target>
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+
+    <!--Dependencies override to solve FOSSA issues-->
+    <PackageReference Include="Azure.Identity" />
+    <PackageReference Include="Microsoft.Identity.Client" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version ="19.22.0"/>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' or '$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<PackageReference Include="System.Activities.ViewModels" />
+	</ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.0" />
+    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
     <ProjectReference Include="..\..\Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
     <ProjectReference Include="..\..\Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>

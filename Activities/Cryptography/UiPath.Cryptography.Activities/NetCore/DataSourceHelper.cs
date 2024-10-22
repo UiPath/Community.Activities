@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Activities.DesignViewModels;
+using System.Collections.Generic;
+using System.Text;
 using UiPath.Shared;
 
 namespace UiPath.Cryptography.Activities.NetCore
@@ -17,5 +19,17 @@ namespace UiPath.Cryptography.Activities.NetCore
                 .WithData(data)
                 .Build();
         }
+
+        public static List<string> ForEncoding(params EncodingInfo[] data)
+        {
+            var encodingList = new List<string>();
+            foreach (var aux in data)
+            {
+                encodingList.Add(aux.GetEncoding().EncodingName);
+            }
+
+            return encodingList;
+        }
+
     }
 }

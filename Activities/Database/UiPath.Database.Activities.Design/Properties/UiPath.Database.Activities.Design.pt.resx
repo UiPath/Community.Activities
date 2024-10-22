@@ -139,10 +139,10 @@
     <value>Fecha uma ligação a uma base de dados.</value>
   </data>
   <data name="DataTableDescription" xml:space="preserve">
-    <value>A saída do comando sql moldada num objeto DataTable</value>
+    <value>A saída do comando sql moldada num objeto TabelaDeDados</value>
   </data>
   <data name="DbTransactionDescription" xml:space="preserve">
-    <value>Estabelece ligação a uma base de dados e devolve um DatabaseConnection, fornecendo um âmbito para atividades de Base de dados. Se UseTransaction for definido como verdadeiro, as operações contidas são executadas numa única transação e aplicadas no final, se nenhuma delas falhar. Se UseTransaction for definido como falso, todas as operações são consolidadas individualmente. Quando esta atividade termina, a ligação à base de dados é fechada.</value>
+    <value>Estabelece ligação a uma base de dados e devolve uma LigaçãoBaseDeDados, fornecendo um âmbito para atividades de Base de dados. Se UtilizarTransação for definido como verdadeiro, as operações contidas são executadas numa única transação e aplicadas no final, se nenhuma delas falhar. Se UtilizarTransação for definido como falso, todas as operações são consolidadas individualmente. Quando esta atividade termina, a ligação à base de dados é fechada.</value>
   </data>
   <data name="DefaultWidth" xml:space="preserve">
     <value>300</value>
@@ -157,7 +157,7 @@
     <value>Uma ligação de base de dados já aberta. Se esta propriedade estiver definida, as propriedades Cadeia de Ligação e Nome do Fornecedor são ignoradas</value>
   </data>
   <data name="InsertDataTableDescription" xml:space="preserve">
-    <value>Insere uma DataTable compatível numa Tabela existente. Devolve o número de linhas afetadas.</value>
+    <value>Insere uma TabelaDeDados compatível numa Tabela existente. Devolve o número de linhas afetadas.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Um dicionário de parâmetros nomeados que estão vinculados ao comando sql. A vinculação é feita ao especificar a instrução &quot;@parameterName&quot; no comando sql. No runtime, parameterName será substituído pelo respetivo valor do dicionário.</value>
@@ -166,7 +166,7 @@
     <value>O nome do fornecedor de base de dados utilizado para aceder à base de dados. Pode encontrar uma lista de Fornecedores de Dados em http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
   </data>
   <data name="SqlDescription" xml:space="preserve">
-    <value>Um comando sql a ser executado.</value>
+    <value>Forneça uma instrução SQL que corresponda ao tipo de comando selecionado</value>
   </data>
   <data name="TableNameDescription" xml:space="preserve">
     <value>A tabela de base de dados de destino</value>
@@ -184,7 +184,7 @@
     <value>Configurar Ligação...</value>
   </data>
   <data name="InserDataTableInputDescription" xml:space="preserve">
-    <value>O objeto DataTable que será inserido na Tabela. A descrição das colunas da DataTable tem de corresponder às colunas da tabela de base de dados</value>
+    <value>O objeto TabelaDeDados que será inserido na Tabela. A descrição das colunas da TabelaDeDados tem de corresponder às colunas da tabela de base de dados</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
     <value>Assistente de Ligação</value>
@@ -195,9 +195,6 @@
   <data name="EditConnectionSettings" xml:space="preserve">
     <value>Editar Definições de Ligação</value>
   </data>
-  <data name="EditQuery" xml:space="preserve">
-    <value>Editar Consulta...</value>
-  </data>
   <data name="NewDatabaseConnection" xml:space="preserve">
     <value>Nova Ligação de Base de Dados</value>
   </data>
@@ -205,7 +202,7 @@
     <value>Parâmetros</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NomeApresentar</value>
     <comment>property name</comment>
   </data>
   <data name="ConnectionString" xml:space="preserve">
@@ -236,7 +233,7 @@
     <value>Especifica a quantidade de tempo (em milissegundos) a aguardar que a consulta sql seja executada antes de ser gerado um erro (não inclui o tempo de resposta para a obtenção do resultado da consulta). O valor predefinido é de 30 000 milissegundos (30 segundos) e tem de ser superior ou igual a 0.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integração de Aplicações</value>
+    <value>App Integration</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Coleção)</value>
@@ -245,31 +242,31 @@
     <value>ContinueOnError Boolean</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>DataTable</value>
+    <value>Tabela de dados de entrada</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
-    <value>A DataTable de origem para os itens a inserir.</value>
+    <value>A TabelaDeDados de origem para os itens a inserir.</value>
   </data>
   <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
-    <value>DataTable de Origem</value>
+    <value>Forneça a variável TabelaDeDados</value>
   </data>
   <data name="BulkInsert_TableName" xml:space="preserve">
-    <value>Nome da tabela</value>
+    <value>Nome da tabela de destino</value>
   </data>
   <data name="BulkInsert_TableName_Description" xml:space="preserve">
     <value>O nome da tabela de base de dados na qual pretende inserir os itens.</value>
   </data>
   <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
-    <value>Nome da tabela de base de dados de destino</value>
+    <value>Forneça o nome da tabela de base de dados de destino</value>
   </data>
   <data name="BulkUpdate_ColumnNames" xml:space="preserve">
     <value>Colunas utilizadas para corresponder linhas</value>
   </data>
   <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
-    <value>A coleção de nomes de colunas utilizados para a correspondência de linhas</value>
+    <value>Nomes de colunas utilizados para correspondência de linhas</value>
   </data>
   <data name="BulkUpdateDescription" xml:space="preserve">
-    <value>Atualiza uma DataTable compatível numa Tabela existente. Irá atualizar todas as colunas que não fazem parte da coleção de nomes de colunas utilizados como chave principal. Devolve o número de linhas afetadas.</value>
+    <value>Atualiza uma TabelaDeDados compatível numa Tabela existente. Irá atualizar todas as colunas que não fazem parte da coleção de nomes de colunas utilizados como chave principal. Devolve o número de linhas afetadas.</value>
   </data>
   <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
     <value>O número de linhas atualizadas</value>
@@ -278,7 +275,7 @@
     <value>Caso seja verdadeiro, criará uma tabela temporária através da inserção em massa e atualizará através da junção entre tabelas. Caso contrário, emitirá atualizações em massa no lote.</value>
   </data>
   <data name="UpdateDataTableInputDescription" xml:space="preserve">
-    <value>O objeto DataTable que será utilizado na atualização da Tabela. A descrição das colunas da DataTable tem de corresponder às colunas da tabela de base de dados e ser um subconjunto das mesmas</value>
+    <value>O objeto TabelaDeDados que será utilizado na atualização da Tabela. A descrição das colunas da TabelaDeDados tem de corresponder às colunas da tabela de base de dados e ser um subconjunto das mesmas</value>
   </data>
   <data name="BulkInsertDescription" xml:space="preserve">
     <value>Irá atualizar uma tabela com operações Em Massa através da implementação do controlador da base de dados específico. Irá reverter para Insert Data Table se o controlador da base de dados não suportar operações Em Massa.</value>
@@ -297,5 +294,17 @@
   </data>
   <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
     <value>Executar Consulta</value>
+  </data>
+  <data name="SqlQuery" xml:space="preserve">
+    <value>Consulta SQL</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="SqlCommand" xml:space="preserve">
+    <value>Comando SQL</value>
+  </data>
+  <data name="SqlCommandHint" xml:space="preserve">
+    <value>Comando SQL. O texto tem de estar entre aspas</value>
   </data>
 </root>

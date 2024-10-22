@@ -169,7 +169,7 @@
     <value>Çıkış</value>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Üzerine yaz</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Parola</value>
@@ -193,7 +193,7 @@
     <value>Anonim oturum açma kullan</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Kullanıcı adı</value>
   </data>
   <data name="UseSftp" xml:space="preserve">
     <value>SFTP kullan</value>
@@ -202,7 +202,7 @@
     <value>Desteklenmeyen nesne türüyle karşılaşıldı.</value>
   </data>
   <data name="Exists" xml:space="preserve">
-    <value>Exists</value>
+    <value>Var</value>
   </data>
   <data name="Files" xml:space="preserve">
     <value>Dosyalar</value>
@@ -279,10 +279,10 @@
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>İstemciSertifikasıParolası</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>HataOlduğundaDevamEt</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Dosyalar</value>
@@ -325,15 +325,15 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete</value>
+    <value>Delete file or folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
-    <value>FTP sunucusundan kaldırılacak dosyanın yolu.</value>
+    <value>Dosya veya klasörün uzak yolu</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Silinecek dosya veya klasör</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
@@ -349,23 +349,23 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Name" xml:space="preserve">
-    <value>Exists</value>
+    <value>Var</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Belirtilen dizinin var olup olmadığının denetleneceği FTP dizininin yolu.</value>
+    <value>Kontrol edilecek uzak klasör yolu</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Klasör Yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Belirtilen FTP sunucu yolundaki dosyalardan oluşan bir listeyi içeren bir DataTable değişkeni oluşturur. Alt klasörleri dahil et kutusu işaretlenerek alt klasörler de aramaya dahil edilebilir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
+    <value>FTP sunucusunda bulunan bir dosya koleksiyonu oluşturur. Alt klasörleri dahil et kutusu işaretlenerek alt klasörler de aramaya dahil edilebilir. Bu etkinlik yalnızca bir FTP Oturumu kapsam etkinliğinin içine yerleştirilmişse çalışır.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
-    <value>Nesneleri Numaralandır</value>
+    <value>Enumerate Objects</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
@@ -373,7 +373,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>Files</value>
+    <value>Dosyalar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
@@ -389,7 +389,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Uzak Yol</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
@@ -405,15 +405,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Name" xml:space="preserve">
-    <value>Exists</value>
+    <value>Var</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>Belirtilen dosyanın var olup olmadığının denetleneceği FTP dizininin yolu.</value>
+    <value>Kontrol edilecek uzak dosya yolu</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Dosya Yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
@@ -429,15 +429,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Create</value>
+    <value>Oluştur</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>Yüklenecek dosyaların yerel yolu.</value>
+    <value>Yerel yol</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>Yüklenecek dosyalar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -445,7 +445,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Üzerine yaz</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
@@ -453,31 +453,31 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Alt klasörleri dahil et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>FTP sunucusunda dosyanın yükleneceği yol.</value>
+    <value>Uzak yol</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Yüklenecek yer</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>FTP sunucusuna yönelik bağlantıyı işleyen ve tüm FTP etkinlikleri için kapsam sağlayan bir kapsayıcı.</value>
-    <comment>Property description</comment>
+    <value>FTP sunucusuna bağlanır ve diğer FTP etkinlikleri için bir kapsam sağlar.</value>
+    <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>With Ftp Session</value>
-    <comment>Property name</comment>
+    <value>Use FTP connection</value>
+    <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
     <value>Bu kutu işaretlenirse, süresi dolmuş veya doğrulanmamış olanlar da dahil olmak üzere tüm sertifikalar kabul edilir.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
-    <value>Accept All Certificates</value>
+    <value>Tüm Sertifikaları Kabul Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
@@ -485,7 +485,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
-    <value>Client Certificate Password</value>
+    <value>İstemci Sertifikası Parolası</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Client Certificate Path</value>
+    <value>İstemci Sertifikası Dosyası</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -501,7 +501,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Ftps Mode</value>
+    <value>FTPS Modu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -517,7 +517,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Name" xml:space="preserve">
-    <value>Host</value>
+    <value>Ana Bilgisayar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Description" xml:space="preserve">
@@ -525,7 +525,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Name" xml:space="preserve">
-    <value>Password</value>
+    <value>Parola</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Description" xml:space="preserve">
@@ -533,7 +533,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Name" xml:space="preserve">
-    <value>Port</value>
+    <value>Bağlantı Noktası</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>Ssl Protocols</value>
+    <value>SSL Protokolleri</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
@@ -549,7 +549,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
-    <value>Use Anonymous Login</value>
+    <value>Anonim Oturum Açmayı Kullan</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
@@ -557,7 +557,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Name" xml:space="preserve">
-    <value>Username</value>
+    <value>Kullanıcı adı</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
@@ -565,7 +565,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
-    <value>Use SFTP</value>
+    <value>SFTP kullan</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
@@ -581,7 +581,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Create</value>
+    <value>Oluştur</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -589,7 +589,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>İndirme yeri</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -597,7 +597,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Üzerine yaz</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
@@ -605,7 +605,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Alt klasörleri dahil et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Description" xml:space="preserve">
@@ -613,7 +613,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>İndirilecek dosyaların yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Move File/Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -629,15 +629,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
-    <value>FTP sunucusunda dosyanın taşınacağı uzak yol.</value>
+    <value>Öğenin taşınacağı yeni yol</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
-    <value>New Remote Path</value>
+    <value>Taşınacağı yer</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
@@ -645,15 +645,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Üzerine yaz</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
-    <value>FTP sunucusunda dosyanın şu anda bulunduğu uzak yol.</value>
+    <value>Uzak yol</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Taşınacak dosya veya klasör</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Credentials_Name" xml:space="preserve">
@@ -679,5 +679,78 @@
   <data name="Category_Server_Name" xml:space="preserve">
     <value>Sunucu</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Output</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Sertifika parolası giriş modu anahtarı</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>GüvenliParolaGirişModuAnahtarı</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
+    <value>Güvenli dize biçimindeki istemci sertifikası parolası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
+    <value>İstemci Sertifikası Güvenli Parolası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>Parola giriş modu anahtarı</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>ParolaGirişModuDüğmesi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
+    <value>Güvenli dize biçiminde parola</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
+    <value>Güvenli Parola</value>
+  </data>
+  <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
+    <value>İstemciSertifikasıParolası ve ClientCertificateSecurePassword öğelerinin ikisi de null olmamalıdır</value>
+  </data>
+  <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
+    <value>Parola ve SecurePassword&apos;ün ikisi de null olmamalıdır</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
+    <value>Kimlik doğrulaması gerektiğinde proxy için kullanılan parola</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
+    <value>Proxy Parolası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
+    <value>Proxy bağlantı noktası numarası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
+    <value>Proxy Ana Bilgisayar Bağlantı Noktası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
+    <value>Proxy ana bilgisayar adı</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
+    <value>Proxy Ana Bilgisayarı</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
+    <value>Proxy türü</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
+    <value> Proxy Türü</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
+    <value>Kimlik doğrulaması gerektiğinde proxy için kullanılan kullanıcı</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Name" xml:space="preserve">
+    <value>Proxy Kullanıcı Adı</value>
+  </data>
+  <data name="Proxy" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="ValidationErrorFormat" xml:space="preserve">
+    <value>{0} için bir değer sağlamanız gerekir.</value>
+    <comment>error message</comment>
   </data>
 </root>

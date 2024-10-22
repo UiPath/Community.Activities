@@ -256,7 +256,7 @@
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
-    <value>Especifica la plataforma de tiempo de ejecución de Python</value>
+    <value>Especifica la plataforma de runtime de Python</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
     <value>La actividad es válida solo dentro de {0}</value>
@@ -291,9 +291,12 @@
     <value>La cantidad de tiempo que se permite que se ejecute un script de Python hasta que finaliza y se genera una excepción.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Ruta a la biblioteca de Python libpython*.so incluyendo el nombre de la biblioteca</value>
+    <value>Para Linux, es la ruta a la biblioteca Python libpython*.so, incluido el nombre de la biblioteca. Para Windows (versión &gt;3.9), la ruta a python**.dll incluido el nombre de la biblioteca (generalmente se encuentra en la ruta de inicio de Python). Para Windows (versión &lt;= 3.9), se debe dejar vacío.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Ruta de la biblioteca (solo Linux)</value>
+    <value>Ruta de la biblioteca (Linux o versión &gt;3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>Las versiones de Python &gt;= 3.10 no son compatibles en 32 bit. </value>
   </data>
 </root>

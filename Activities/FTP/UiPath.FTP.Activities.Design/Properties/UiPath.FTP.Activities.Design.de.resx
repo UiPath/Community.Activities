@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>Element verschieben</value>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>Mit FTP-Verbindung</value>
+  </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
     <value>Scope der FTP-Sitzung</value>
   </data>
@@ -128,10 +137,10 @@
     <value>FTP</value>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>Clientzertifikatpasswort</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>BeiFehlerFortsetzen</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
     <value>Delete</value>
@@ -166,7 +175,7 @@
     <value>Host</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+    <value>LokalerPfad</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
     <value>Move Item</value>
@@ -182,7 +191,7 @@
     <value>Port</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>RemotePath</value>
+    <value>Zu löschende Datei oder zu löschender Ordner</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
     <value>Upload Files</value>
@@ -194,10 +203,7 @@
   <data name="UsernameDescription" xml:space="preserve">
     <value>Benutzername</value>
   </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Mit FTP-Sitzung</value>
-  </data>
-	<data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Mit FTP-Sitzung</value>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>FTP-Scope</value>
   </data>
 </root>

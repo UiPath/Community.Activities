@@ -12,82 +12,18 @@ using UiPath.Database.Activities.Properties;
 namespace UiPath.Database.Activities
 {
     [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Description))]
-    public partial class ExecuteNonQuery : AsyncTaskCodeActivity
+    public partial class ExecuteNonQuery : DatabaseExecute
     {
-        // public arguments
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ProviderName_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ProviderName_Description))]
-        public InArgument<string> ProviderName { get; set; }
-
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionString_Description))]
-        public InArgument<string> ConnectionString { get; set; }
-
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description))]
-        public InArgument<SecureString> ConnectionSecureString { get; set; }
-
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description))]
-        public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
-
-        [DefaultValue(null)]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_CommandType_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_CommandType_Description))]
-        public CommandType CommandType { get; set; }
-
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_Sql_Name))]
         [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_Sql_Description))]
         public InArgument<string> Sql { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_ContinueOnError_Description))]
-        public InArgument<bool> ContinueOnError { get; set; }
-
-        [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_TimeoutMS_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_TimeoutMS_Description))]
-        public InArgument<int> TimeoutMS { get; set; }
-
-        private Dictionary<string, Argument> parameters;
-
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Input))]
-        [Browsable(true)]
-        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_Parameters_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_Parameters_Description))]
-        public Dictionary<string, Argument> Parameters
-        {
-            get
-            {
-                if (this.parameters == null)
-                {
-                    this.parameters = new Dictionary<string, Argument>();
-                }
-                return this.parameters;
-            }
-            set
-            {
-                parameters = value;
-            }
-        }
-
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_ExecuteNonQuery_Property_AffectedRecords_Name))]
         [LocalizedDescription(nameof(Resources.Activity_ExecuteNonQuery_Property_AffectedRecords_Description))]
         public OutArgument<int> AffectedRecords { get; set; }
-
-        private DatabaseConnection DbConnection = null;
 
         public ExecuteNonQuery()
         {
@@ -100,7 +36,7 @@ namespace UiPath.Database.Activities
             throw ex;
         }
 
-        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteInternalAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             string connString = null;
             SecureString connSecureString = null;
@@ -113,7 +49,7 @@ namespace UiPath.Database.Activities
             {
                 throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
             }
-            Dictionary<string, Tuple<object, ArgumentDirection>> parameters = null;
+            Dictionary<string, ParameterInfo> parameters = null;
             var continueOnError = ContinueOnError.Get(context);
             try
             {
@@ -125,10 +61,10 @@ namespace UiPath.Database.Activities
 
                 if (Parameters != null)
                 {
-                    parameters = new Dictionary<string, Tuple<object, ArgumentDirection>>();
+                    parameters = new Dictionary<string, ParameterInfo>();
                     foreach (var param in Parameters)
                     {
-                        parameters.Add(param.Key, new Tuple<object, ArgumentDirection>(param.Value.Get(context), param.Value.Direction));
+                        parameters.Add(param.Key, new ParameterInfo() { Value = param.Value.Get(context), Direction = param.Value.Direction, Type = param.Value.ArgumentType });
                     }
                 }
                 ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
@@ -169,7 +105,7 @@ namespace UiPath.Database.Activities
                     var currentParam = Parameters[param.Key];
                     if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
                     {
-                        currentParam.Set(asyncCodeActivityContext, param.Value.Item1);
+                        currentParam.Set(asyncCodeActivityContext, param.Value.Value);
                     }
                 }
             };
@@ -179,15 +115,15 @@ namespace UiPath.Database.Activities
         private class DBExecuteCommandResult
         {
             public int Result { get; }
-            public Dictionary<string, Tuple<object, ArgumentDirection>> ParametersBind { get; }
+            public Dictionary<string, ParameterInfo> ParametersBind { get; }
 
             public DBExecuteCommandResult()
             {
                 this.Result = 0;
-                this.ParametersBind = new Dictionary<string, Tuple<object, ArgumentDirection>>();
+                this.ParametersBind = new Dictionary<string, ParameterInfo>();
             }
 
-            public DBExecuteCommandResult(int result, Dictionary<string, Tuple<object, ArgumentDirection>> parametersBind)
+            public DBExecuteCommandResult(int result, Dictionary<string, ParameterInfo> parametersBind)
             {
                 this.Result = result;
                 this.ParametersBind = parametersBind;

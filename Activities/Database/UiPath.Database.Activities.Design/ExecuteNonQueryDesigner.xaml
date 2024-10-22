@@ -1,4 +1,4 @@
-﻿<sap:ActivityDesigner x:Class="UiPath.Database.Activities.Design.GenericDatabaseDesigner"
+﻿<sap:ActivityDesigner x:Class="UiPath.Database.Activities.Design.ExecuteNonQueryDesigner"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
@@ -27,13 +27,18 @@
 
     <src:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <DockPanel Width="{Binding Source={x:Static p:Resources.DefaultWidth}, Mode=OneWay}">
-            <Button Height="23" Content="{x:Static p:Resources.ConfigureConnection}" DockPanel.Dock="Top" Click="ConfigureButton_Click" HorizontalAlignment="Left"  />
-            <DockPanel DockPanel.Dock="Bottom" LastChildFill="True" Margin="0,6,0,0">
-                <Button Click="SqlButton_Click"  Content="{x:Static p:Resources.EditQuery}" DockPanel.Dock="Right" Margin="3,0,0,0" Width="70" />
-                <sapv:ExpressionTextBox Expression="{Binding Path=ModelItem.Sql, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In}"
+            <StackPanel Orientation="Vertical" Width="300" Margin="0 0 0 5">
+                <Button Height="23" Content="{x:Static p:Resources.ConfigureConnection}" DockPanel.Dock="Top" Click="ConfigureButton_Click" HorizontalAlignment="Left"  />
+                <Label Padding="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Margin="0, 5, 0, 0" Content="{x:Static p:Resources.SqlCommand}"
+                       ToolTip="{x:Static p:Resources.SqlDescription}" />
+                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True" Margin="0,6,0,0">
+                    <Button Click="SqlButton_Click"  Content="{x:Static p:Resources.EditButton}" DockPanel.Dock="Right" Margin="3,0,0,0" Width="70" />
+                    <sapv:ExpressionTextBox Expression="{Binding Path=ModelItem.Sql, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In}"
                                     OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" Height="23"
-                                    DockPanel.Dock="Left" HintText="{x:Static p:Resources.SqlQueryHint}" />
-            </DockPanel>
+                                    DockPanel.Dock="Left" HintText="{x:Static p:Resources.SqlCommandHint}" />
+                </DockPanel>
+            </StackPanel>
         </DockPanel>
     </src:ActivityDecoratorControl>
 

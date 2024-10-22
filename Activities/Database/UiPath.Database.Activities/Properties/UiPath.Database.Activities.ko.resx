@@ -117,12 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>테이블에 삽입될 데이터 테이블 변수입니다. 데이터 테이블 열의 이름 및 설명은 데이터베이스 테이블의 열의 이름 및 설명과 일치해야 합니다.</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>입력 데이터 테이블</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>데이터 테이블 변수 제공</value>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>데이터를 삽입할 대상 데이터베이스 테이블</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>대상 테이블 이름</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+    <value>대상 데이터베이스 테이블 이름 제공</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>데이터베이스에 연결 액티비티에서 가져온 이미 열린 데이터베이스 연결입니다.</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>데이터베이스에 연결 액티비티의 출력 사용</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>데이터 테이블 변수 제공</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+    <value>대상 데이터베이스 테이블 이름 제공</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+    <value>행 일치에 사용되는 열 이름</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>데이터 테이블 변수 제공</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+    <value>대상 데이터베이스 테이블 이름 제공</value>
+  </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
-    <value>AffectedRecords</value>
+    <value>영향을 받는 레코드</value>
     <comment>property name</comment>
   </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
-    <value>CommandType</value>
+    <value>명령 유형</value>
     <comment>property name</comment>
   </data>
   <data name="Common" xml:space="preserve">
@@ -135,15 +178,15 @@
     <value>연결 구성</value>
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
-    <value>ConnectionString</value>
+    <value>연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
-    <value>DatabaseConnection</value>
+    <value>데이터베이스연결</value>
     <comment>property name</comment>
   </data>
   <data name="DataTableDisplayName" xml:space="preserve">
@@ -151,44 +194,44 @@
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Existing Connection</value>
+    <value>기존 연결</value>
     <comment>property name</comment>
   </data>
   <data name="Input" xml:space="preserve">
     <value>입력</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>출력</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>매개 변수</value>
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
-    <value>ProviderName</value>
+    <value>공급자 이름</value>
     <comment>property name</comment>
   </data>
   <data name="TableNameDisplayName" xml:space="preserve">
-    <value>TableName</value>
+    <value>테이블 이름</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout (milliseconds)</value>
+    <value>시간 제한(밀리초)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
     <value>TimeoutMS의 입력 값은 0 이상이어야 합니다.</value>
   </data>
   <data name="UseTransactionDisplayName" xml:space="preserve">
-    <value>UseTransaction</value>
+    <value>트랜잭션 사용</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
     <value>출력</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>열 이름</value>
     <comment>property name</comment>
   </data>
   <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
@@ -213,7 +256,7 @@
     <value>필수 액티비티 인수 &apos;ProviderName&apos;의 값이 입력되지 않았습니다.</value>
   </data>
   <data name="Activity_BulkInsert_Description" xml:space="preserve">
-    <value>특정 데이터베이스 드라이버 구현을 사용하여 일괄 작업을 사용하는 테이블을 업데이트합니다. 데이터베이스 드라이버가 일괄 작업을 지원하지 않는 경우 데이터 테이블 삽입으로 대체됩니다.</value>
+    <value>특정 데이터베이스 드라이버의 일괄 작업을 통해 데이터베이스 테이블을 업데이트합니다. 데이터베이스 드라이버가 일괄 작업을 지원하지 않는 경우 데이터 테이블 삽입으로 대체됩니다.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkInsert_Name" xml:space="preserve">
@@ -221,67 +264,59 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>영향을 받는 행의 수를 Int64 변수에 저장합니다.</value>
+    <value>영향을 받는 행 수입니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected Records</value>
+    <value>영향을 받는 행 수</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>데이터베이스 연결을 보안 문자열로 설정하기 위해 사용되는 연결 문자열입니다.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>SecureString으로 제공되는 데이터베이스 연결을 설정하는 데 사용되는 연결 문자열입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure Connection String</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>보안 연결 문자열</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Description" xml:space="preserve">
-    <value>데이터베이스를 연결하기 위해 사용되는 연결 문자열입니다.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Description" xml:space="preserve">
+    <value>데이터베이스 연결을 설정하는 데 사용되는 연결 문자열입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection String</value>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Name" xml:space="preserve">
+    <value>연결 문자열</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
-    <value>삽입할 항목에 대한 소스 DataTable입니다.</value>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
+    <value>삽입할 항목에 대한 소스 데이터 테이블입니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Name" xml:space="preserve">
+    <value>데이터 테이블</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>이미 열린 데이터베이스 연결입니다. 이러한 연결이 제공되면 ConnectionString 및 SecureConnectionString 속성이 무시됩니다.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>이미 열린 데이터베이스 연결입니다. 이러한 연결이 제공되면 연결 문자열 및 보안 연결 문자열 속성이 무시됩니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>기존 연결</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Description" xml:space="preserve">
-    <value>데이터베이스에 액세스하기 위해 사용되는 데이터베이스 제공자의 이름입니다.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Description" xml:space="preserve">
+    <value>데이터베이스에 액세스하는 데 사용되는 데이터베이스 공급자의 이름입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
-    <value>대상 데이터베이스 테이블 이름입니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Name" xml:space="preserve">
+    <value>공급자 이름</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Description" xml:space="preserve">
-    <value>기존 테이블에서 호환되는 DataTable을 업데이트합니다. 이 액티비티는 기본 키로 사용되는 열 이름의 컬렉션에 없는 모든 열도 업데이트합니다. 영향을 받는 행의 수를 반환합니다.</value>
+    <value>기존 데이터베이스 테이블에서 호환되는 데이터 테이블을 업데이트합니다. 이 액티비티는 기본 키로 사용되는 열 이름의 컬렉션에 없는 모든 열도 업데이트합니다. 영향을 받는 행의 수를 반환합니다.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkUpdate_Name" xml:space="preserve">
@@ -289,11 +324,11 @@
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>업데이트된 행의 수입니다.</value>
+    <value>영향을 받는 행 수입니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected Rows</value>
+    <value>영향을 받는 행 수</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
@@ -301,15 +336,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
-    <value>Bulk/Batch Update</value>
+    <value>대량/일괄 업데이트</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
-    <value>행 일치에 사용되는 열 이름의 컬렉션입니다.</value>
+    <value>행 일치에 사용되는 열 이름의 컬렉션입니다. 이러한 열 이름은 대량 업데이트 액티비티로 변경되지 않습니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
-    <value>Columns used for matching rows</value>
+    <value>일치하는 행에 사용되는 열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -317,7 +352,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure Connection String</value>
+    <value>보안 연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
@@ -325,23 +360,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection String</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>액티비티에서 오류가 발생한 경우에도 자동화를 계속 진행해야 할지 지정합니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_BulkUpdate_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
-    <value>테이블을 업데이트할 때 사용할 DataTable 개체입니다. DataTable 열 설명은 데이터베이스 테이블의 열과 일치하며 해당 테이블의 하위 집합이어야 합니다.</value>
+    <value>데이터베이스 테이블을 업데이트하는 데 사용되는 데이터 테이블 변수입니다. 데이터 테이블 열의 이름과 설명은 데이터베이스 테이블의 열과 일치하며 해당 열의 하위 집합이어야 합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>입력 데이터 테이블</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -349,7 +376,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>기존 연결</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
@@ -357,39 +384,39 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
+    <value>공급자 이름</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
-    <value>대상 데이터베이스 테이블입니다.</value>
+    <value>데이터를 업데이트할 대상 데이터베이스 테이블입니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>대상 테이블 이름</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
-    <value>표준 연결 문자열을 사용하여 데이터베이스에 연결합니다.</value>
+    <value>표준 연결 문자열을 사용하여 데이터베이스에 연결</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
-    <value>Connect to database</value>
+    <value>Connect to Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>데이터베이스 연결을 보안 문자열로 설정하기 위해 사용되는 연결 문자열입니다.</value>
+    <value>SecureString으로 제공되는 데이터베이스 연결을 설정하는 데 사용되는 연결 문자열입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure Connection String</value>
+    <value>보안 연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
-    <value>데이터베이스를 연결하기 위해 사용되는 연결 문자열입니다.</value>
+    <value>데이터베이스 연결을 설정하는 데 사용되는 연결 문자열입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection String</value>
+    <value>연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -397,15 +424,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>데이터베이스 연결</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
-    <value>데이터베이스에 액세스하기 위해 사용되는 데이터베이스 제공자의 이름입니다.</value>
+    <value>데이터베이스에 액세스하는 데 사용되는 데이터베이스 공급자의 이름입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
+    <value>공급자 이름</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
@@ -413,7 +440,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
-    <value>Disconnect from database</value>
+    <value>Disconnect from Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -421,7 +448,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>기존 연결</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
@@ -438,7 +465,7 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure Connection String</value>
+    <value>보안 연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
@@ -446,7 +473,7 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection String</value>
+    <value>연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
@@ -454,7 +481,7 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -462,7 +489,7 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
-    <value>Database connection</value>
+    <value>데이터베이스 연결</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -470,7 +497,7 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Exiting Connection</value>
+    <value>연결 종료 중</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
@@ -478,7 +505,7 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
+    <value>공급자 이름</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
@@ -486,141 +513,63 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
-    <value>Use Transaction</value>
+    <value>트랜잭션 사용</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
-    <value>데이터베이스에서 쿼리가 아닌 문을 실행합니다. UPDATE, INSERT 및 DELETE 문의 경우, 반환 값은 명령에 의해 영향을 받는 행의 수입니다. 기타 모든 문에서는 -1이 반환됩니다.</value>
+    <value>데이터베이스에서 SQL 문을 실행합니다. UPDATE, INSERT 및 DELETE 문의 경우, 반환 값은 명령에 의해 영향을 받는 행의 수입니다. 다른 모든 유형의 문에서는 -1이 반환됩니다.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
-    <value>Run command</value>
+    <value>Run Command</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>SQL 명령의 실행 결과입니다. UPDATE, INSERT 및 DELETE 문의 경우, 반환 값은 명령에 의해 영향을 받는 행의 수입니다. 기타 모든 문에서는 -1이 반환됩니다.</value>
+    <value>SQL 명령의 실행 결과입니다. UPDATE, INSERT 및 DELETE 문의 경우, 반환 값은 명령에 의해 영향을 받는 행의 수입니다. 다른 모든 유형의 문에서는 -1이 반환됩니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected Records</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>명령 문자열이 해석되는 방법을 지정합니다. 사용할 수 있는 옵션:
-Text -SQL 파라미터에 지정된 쿼리를 실행합니다.
-StoredProcedure -SQL 파라미터에 지정된 프로시저 이름을 호출합니다.
-TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command Type</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>데이터베이스 연결을 보안 문자열로 설정하기 위해 사용되는 연결 문자열입니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure Connection String</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>데이터베이스를 연결하기 위해 사용되는 연결 문자열입니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection String</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>액티비티에서 오류가 발생한 경우에도 자동화를 계속 진행해야 할지 지정합니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>이미 열린 데이터베이스 연결입니다. 이러한 연결이 제공되면 ConnectionString 및 SecureConnectionString 속성이 무시됩니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Description" xml:space="preserve">
-    <value>SQL 명령으로 바인딩된 이름이 지정된 파라미터의 딕셔너리입니다. 바인딩은 SQL 명령에 &apos;@parameterName&apos; 문을 지정하여 수행됩니다. 런타임 시에 parameterName은 딕셔너리의 값으로 대체됩니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>Parameters</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>데이터베이스에 액세스하기 위해 사용되는 데이터베이스 제공자의 이름입니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
-    <value>실행될 SQL 명령입니다. 이 필드는 CommandType 속성의 선택에 따라 작성되어야 합니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL command</value>
-    <comment>property name</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>오류가 throw되기 전 SQL 명령이 실행을 위해 대기하는 시간(밀리초)을 지정합니다. 기본값은 30000밀리초(30초)이며 이 값은 0 이상이어야 합니다.</value>
-    <comment>property description</comment>
-  </data>
-  <data name="Activity_ExecuteNonQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Timeout</value>
+    <value>영향을 받는 행 수</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
-    <value>데이터베이스에서 쿼리를 실행하고 데이터 테이블의 쿼리 결과를 반환합니다.</value>
+    <value>데이터베이스에서 쿼리를 실행하고 쿼리 결과를 데이터 테이블로 반환합니다.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
-    <value>Run query</value>
+    <value>Run Query</value>
     <comment>activity name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Description" xml:space="preserve">
-    <value>명령 문자열이 해석되는 방법을 지정합니다. 사용할 수 있는 옵션:
-Text -SQL 파라미터에 지정된 쿼리를 실행합니다.
-StoredProcedure -SQL 파라미터에 지정된 프로시저 이름을 호출합니다.
-TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
+    <value>명령 문자열이 해석되는 방법을 지정합니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_CommandType_Name" xml:space="preserve">
-    <value>Command Type</value>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
+    <value>명령 유형</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Description" xml:space="preserve">
-    <value>데이터베이스 연결을 보안 문자열로 설정하기 위해 사용되는 연결 문자열입니다.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>SecureString으로 제공되는 데이터베이스 연결을 설정하는 데 사용되는 연결 문자열입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure Connection String</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>보안 연결 문자열</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Description" xml:space="preserve">
-    <value>데이터베이스를 연결하기 위해 사용되는 연결 문자열입니다.</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Description" xml:space="preserve">
+    <value>데이터베이스 연결을 설정하는 데 사용되는 연결 문자열입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection String</value>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Name" xml:space="preserve">
+    <value>연결 문자열</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>액티비티에서 오류가 발생한 경우에도 자동화를 계속 진행해야 할지 지정합니다.</value>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>액티비티 패널에 오류가 발생해도 자동화를 계속 진행할지 지정합니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
@@ -628,51 +577,51 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>데이터 테이블</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Connect 또는 Start Transaction 액티비티에서 가져온 이미 열린 데이터베이스 연결입니다. 이러한 연결이 제공되면 ConnectionString 및 SecureConnectionString 속성이 무시됩니다.</value>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Connect 또는 Start Transaction 액티비티에서 가져온 이미 열린 데이터베이스 연결입니다. 이러한 연결이 제공되면 연결 문자열 및 보안 연결 문자열 속성이 무시됩니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>기존 연결</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Description" xml:space="preserve">
+  <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
     <value>SQL 명령으로 바인딩된 이름이 지정된 파라미터의 딕셔너리입니다. 바인딩은 SQL 명령에 &apos;@parameterName&apos; 문을 지정하여 수행됩니다. 런타임 시에 parameterName은 딕셔너리의 값으로 대체됩니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Parameters_Name" xml:space="preserve">
-    <value>Parameters</value>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
+    <value>매개 변수</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Description" xml:space="preserve">
-    <value>데이터베이스에 액세스하기 위해 사용되는 데이터베이스 제공자의 이름입니다.</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Description" xml:space="preserve">
+    <value>데이터베이스에 액세스하는 데 사용되는 데이터베이스 공급자의 이름입니다. 더 많은 예시는 설명서를 참조하십시오.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Name" xml:space="preserve">
+    <value>공급자 이름</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
-    <value>실행될 SQL 명령입니다. 이 필드는 CommandType 속성의 선택에 따라 작성되어야 합니다.</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>실행할 SQL 명령입니다. 이 속성은 명령 유형 속성에서의 선택에 따라 작성해야 합니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
-    <value>SQL query</value>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL 명령</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>오류가 throw되기 전 SQL 명령이 실행을 위해 대기하는 시간(밀리초)을 지정합니다. 기본값은 30000밀리초(30초)이며 이 값은 0 이상이어야 합니다.</value>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>오류가 throw되기 전 SQL 명령이 실행을 위해 대기하는 시간(밀리초)을 지정합니다. 기본값은 30,000밀리초(30초)이며 이 값은 0 이상이어야 합니다.</value>
     <comment>property description</comment>
   </data>
-  <data name="Activity_ExecuteQuery_Property_TimeoutMS_Name" xml:space="preserve">
-    <value>Timeout</value>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>시간 제한</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Description" xml:space="preserve">
-    <value>기존 테이블에서 호환되는 DataTable 변수를 삽입합니다. 영향을 받는 행의 수를 반환합니다. 테이블의 제약 조건이 충족되지 않으면 액티비티가 완료되지 않으며 작성된 모든 행이 저장됩니다.</value>
+    <value>기존 데이터베이스 테이블에 호환되는 데이터 테이블을 삽입합니다. 영향을 받는 행의 수를 반환합니다.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_InsertDataTable_Name" xml:space="preserve">
@@ -680,11 +629,11 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
-    <value>영향을 받는 행의 수를 Int32 변수에 저장합니다.</value>
+    <value>영향을 받는 행 수입니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
-    <value>Affected Records</value>
+    <value>영향을 받는 행 수</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -692,7 +641,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
-    <value>Secure Connection String</value>
+    <value>보안 연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
@@ -700,7 +649,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
-    <value>Connection String</value>
+    <value>연결 문자열</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
@@ -708,7 +657,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue on error</value>
+    <value>오류 발생 시 계속 진행</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
@@ -716,7 +665,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
-    <value>Data table</value>
+    <value>입력 데이터 테이블</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -724,7 +673,7 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
-    <value>Existing connection</value>
+    <value>기존 연결</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
@@ -732,19 +681,19 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
-    <value>Provider Name</value>
+    <value>공급자 이름</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
-    <value>데이터가 삽입될 SQL 테이블입니다.</value>
+    <value>데이터를 삽입할 대상 데이터베이스 테이블</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
-    <value>Table name</value>
+    <value>대상 테이블 이름</value>
     <comment>property name</comment>
   </data>
-  <data name="Activity_BulkInsert_Property_ContinueOnError_Description" xml:space="preserve">
-    <value>액티비티에서 오류가 발생한 경우에도 자동화를 계속 진행해야 할지 지정합니다.</value>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>액티비티 패널에 오류가 발생해도 자동화를 계속 진행할지 지정합니다.</value>
     <comment>property description</comment>
   </data>
   <data name="Category_Other" xml:space="preserve">
@@ -754,5 +703,86 @@ TableDirect -테이블에서 모든 레코드를 호출합니다.</value>
   <data name="Category_Principal" xml:space="preserve">
     <value>사용자</value>
     <comment>category name</comment>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>출력</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>기존 연결이 유효하지 않습니다. 연결을 설정할 수 있는지 확인하십시오.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description" xml:space="preserve">
+    <value>연결 문자열과 연결 보안 문자열 간 전환</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
+    <value>연결입력모드스위치</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
+    <value>데이터베이스 연결 SecureString 변수를 입력하십시오.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Placeholder" xml:space="preserve">
+    <value>데이터베이스 연결 문자열을 입력하십시오.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Placeholder" xml:space="preserve">
+    <value>데이터베이스 공급자 이름을 입력하십시오.</value>
+  </data>
+  <data name="ConnectionSecureStringNullError" xml:space="preserve">
+    <value>연결 SecureString을 사용해야 합니다.</value>
+  </data>
+  <data name="ConnectionStringNullError" xml:space="preserve">
+    <value>연결 문자열을 사용해야 합니다.</value>
+  </data>
+  <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
+    <value>보안 연결 문자열로 전환</value>
+  </data>
+  <data name="ConnectionStringMenuAction" xml:space="preserve">
+    <value>연결 문자열로 전환</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
+    <value>데이터베이스에 연결 액티비티에서 가져온 이미 열린 데이터베이스 연결입니다.</value>
+  </data>
+  <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
+    <value>저장 프로시저</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
+    <value>데이터베이스에 연결 액티비티의 출력 사용</value>
+  </data>
+  <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
+    <value>테이블 다이렉트</value>
+  </data>
+  <data name="CommandType_Text_FriendlyName" xml:space="preserve">
+    <value>텍스트</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>데이터베이스에 연결 액티비티에서 가져온 이미 열린 데이터베이스 연결입니다.</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>데이터베이스에 연결 액티비티의 출력 사용</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
+    <value>선택한 명령 유형에 해당하는 SQL 문 제공</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Placeholder" xml:space="preserve">
+    <value>기본값은 30,000밀리초입니다.</value>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>실행할 SQL 쿼리입니다. 이 속성은 명령 유형 속성에서의 선택에 따라 작성해야 합니다.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL 쿼리</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>SQL 명령에 지정된 프로시저 이름을 호출합니다.</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>테이블에서 모든 레코드를 호출합니다.</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>SQL 명령을 실행합니다.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>데이터베이스</value>
   </data>
 </root>

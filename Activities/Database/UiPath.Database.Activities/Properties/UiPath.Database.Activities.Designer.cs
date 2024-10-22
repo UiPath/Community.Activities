@@ -61,7 +61,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updates a table using Bulk operations using the specific database driver implementation. Will fallback to Insert Data Table if the database driver does not support Bulk operations..
+        ///   Looks up a localized string similar to Updates a database table via Bulk operations of the specific database driver. Falls back to Insert Data Table if the database driver does not support Bulk operations..
         /// </summary>
         public static string Activity_BulkInsert_Description {
             get {
@@ -70,7 +70,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bulk insert.
+        ///   Looks up a localized string similar to Bulk Insert.
         /// </summary>
         public static string Activity_BulkInsert_Name {
             get {
@@ -79,7 +79,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stores the number of affected rows into an Int64 variable..
+        ///   Looks up a localized string similar to Number of affected rows..
         /// </summary>
         public static string Activity_BulkInsert_Property_AffectedRecords_Description {
             get {
@@ -88,7 +88,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected records.
+        ///   Looks up a localized string similar to Affected rows count.
         /// </summary>
         public static string Activity_BulkInsert_Property_AffectedRecords_Name {
             get {
@@ -97,61 +97,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection as Secure String..
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ConnectionSecureString_Description {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ConnectionSecureString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secure connection string.
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ConnectionSecureString_Name {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ConnectionSecureString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection..
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ConnectionString_Description {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ConnectionString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connection string.
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ConnectionString_Name {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ConnectionString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ContinueOnError_Description {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ContinueOnError_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue on error.
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ContinueOnError_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The source DataTable for the items to be inserted..
+        ///   Looks up a localized string similar to The DataTable variable that will be inserted into the Table. The DataTable columns&apos; name and description must match the ones from the database table..
         /// </summary>
         public static string Activity_BulkInsert_Property_DataTable_Description {
             get {
@@ -160,7 +106,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data table.
+        ///   Looks up a localized string similar to Input data table.
         /// </summary>
         public static string Activity_BulkInsert_Property_DataTable_Name {
             get {
@@ -169,43 +115,16 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored..
+        ///   Looks up a localized string similar to Provide the DataTable variable.
         /// </summary>
-        public static string Activity_BulkInsert_Property_ExistingDbConnection_Description {
+        public static string Activity_BulkInsert_Property_DataTable_Placeholder {
             get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ExistingDbConnection_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_BulkInsert_Property_DataTable_Placeholder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Existing connection.
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ExistingDbConnection_Name {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ExistingDbConnection_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The name of the database provider used to access the database..
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ProviderName_Description {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ProviderName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provider name.
-        /// </summary>
-        public static string Activity_BulkInsert_Property_ProviderName_Name {
-            get {
-                return ResourceManager.GetString("Activity_BulkInsert_Property_ProviderName_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The destination database table name..
+        ///   Looks up a localized string similar to The target database table in which the data is to be inserted.
         /// </summary>
         public static string Activity_BulkInsert_Property_TableName_Description {
             get {
@@ -214,7 +133,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table name.
+        ///   Looks up a localized string similar to Target table name.
         /// </summary>
         public static string Activity_BulkInsert_Property_TableName_Name {
             get {
@@ -223,7 +142,16 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updates a compatible DataTable in an existing Table. The activity also updates all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected..
+        ///   Looks up a localized string similar to Provide the target database table name.
+        /// </summary>
+        public static string Activity_BulkInsert_Property_TableName_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_BulkInsert_Property_TableName_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates a compatible DataTable in an existing database table. The activity also updates all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected..
         /// </summary>
         public static string Activity_BulkUpdate_Description {
             get {
@@ -232,7 +160,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bulk update.
+        ///   Looks up a localized string similar to Bulk Update.
         /// </summary>
         public static string Activity_BulkUpdate_Name {
             get {
@@ -241,7 +169,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The number of updated rows..
+        ///   Looks up a localized string similar to Number of affected rows..
         /// </summary>
         public static string Activity_BulkUpdate_Property_AffectedRecords_Description {
             get {
@@ -250,7 +178,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected rows.
+        ///   Looks up a localized string similar to Affected rows count.
         /// </summary>
         public static string Activity_BulkUpdate_Property_AffectedRecords_Name {
             get {
@@ -277,7 +205,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The collection of column names used for row matching..
+        ///   Looks up a localized string similar to The collection of column names used for row matching. These column names will not be changed by the Bulk Update activity..
         /// </summary>
         public static string Activity_BulkUpdate_Property_ColumnNames_Description {
             get {
@@ -291,6 +219,15 @@ namespace UiPath.Database.Activities.Properties {
         public static string Activity_BulkUpdate_Property_ColumnNames_Name {
             get {
                 return ResourceManager.GetString("Activity_BulkUpdate_Property_ColumnNames_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column names used for row matching.
+        /// </summary>
+        public static string Activity_BulkUpdate_Property_ColumnNames_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_BulkUpdate_Property_ColumnNames_Placeholder", resourceCulture);
             }
         }
         
@@ -331,25 +268,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
-        /// </summary>
-        public static string Activity_BulkUpdate_Property_ContinueOnError_Description {
-            get {
-                return ResourceManager.GetString("Activity_BulkUpdate_Property_ContinueOnError_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue on error.
-        /// </summary>
-        public static string Activity_BulkUpdate_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_BulkUpdate_Property_ContinueOnError_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The DataTable object that will be used in updating the table. The DataTable columns descriptions must match the columns from the database table and be a subset of them..
+        ///   Looks up a localized string similar to The DataTable variable that will be used to update the database table. The DataTable columns&apos; name and description must match the columns from the database table and be a subset of them..
         /// </summary>
         public static string Activity_BulkUpdate_Property_DataTable_Description {
             get {
@@ -358,11 +277,20 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data table.
+        ///   Looks up a localized string similar to Input data table.
         /// </summary>
         public static string Activity_BulkUpdate_Property_DataTable_Name {
             get {
                 return ResourceManager.GetString("Activity_BulkUpdate_Property_DataTable_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the DataTable variable.
+        /// </summary>
+        public static string Activity_BulkUpdate_Property_DataTable_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_BulkUpdate_Property_DataTable_Placeholder", resourceCulture);
             }
         }
         
@@ -403,7 +331,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The target database table..
+        ///   Looks up a localized string similar to The target database table in which the data is to be updated..
         /// </summary>
         public static string Activity_BulkUpdate_Property_TableName_Description {
             get {
@@ -412,7 +340,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table name.
+        ///   Looks up a localized string similar to Target table name.
         /// </summary>
         public static string Activity_BulkUpdate_Property_TableName_Name {
             get {
@@ -421,7 +349,16 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connects to a database by using a standard connection string..
+        ///   Looks up a localized string similar to Provide the target database table name.
+        /// </summary>
+        public static string Activity_BulkUpdate_Property_TableName_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_BulkUpdate_Property_TableName_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connects to a database by using a standard connection string.
         /// </summary>
         public static string Activity_DatabaseConnect_Description {
             get {
@@ -430,7 +367,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect to database.
+        ///   Looks up a localized string similar to Connect to Database.
         /// </summary>
         public static string Activity_DatabaseConnect_Name {
             get {
@@ -439,7 +376,25 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection as Secure String..
+        ///   Looks up a localized string similar to The switch between Connection String and Connection Secure String.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ConnectionInputModeSwitch.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples..
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ConnectionSecureString_Description {
             get {
@@ -457,7 +412,16 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection..
+        ///   Looks up a localized string similar to Please provide the database connection SecureString variable.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection. Please see the documentation for more examples..
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ConnectionString_Description {
             get {
@@ -471,6 +435,15 @@ namespace UiPath.Database.Activities.Properties {
         public static string Activity_DatabaseConnect_Property_ConnectionString_Name {
             get {
                 return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please provide the database connection string.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ConnectionString_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ConnectionString_Placeholder", resourceCulture);
             }
         }
         
@@ -493,7 +466,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The name of the database provider used to access the database..
+        ///   Looks up a localized string similar to The name of the database provider used to access the database. Please see the documentation for more examples..
         /// </summary>
         public static string Activity_DatabaseConnect_Property_ProviderName_Description {
             get {
@@ -511,7 +484,16 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Closes a connection to a database..
+        ///   Looks up a localized string similar to Please provide the database provider name.
+        /// </summary>
+        public static string Activity_DatabaseConnect_Property_ProviderName_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseConnect_Property_ProviderName_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closes a connection to a database.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Description {
             get {
@@ -520,7 +502,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disconnect from database.
+        ///   Looks up a localized string similar to Disconnect from Database.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Name {
             get {
@@ -538,11 +520,337 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database connection.
+        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect to Database activity..
+        /// </summary>
+        public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing connection.
         /// </summary>
         public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Name {
             get {
                 return ResourceManager.GetString("Activity_DatabaseDisconnect_Property_DatabaseConnection_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the output of the Connect to Database activity.
+        /// </summary>
+        public static string Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies how a command string is interpreted.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_CommandType_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_CommandType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command type.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_CommandType_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_CommandType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ConnectionSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ConnectionSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure connection string.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ConnectionSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ConnectionSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection. Please see the documentation for more examples..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ConnectionString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ConnectionString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection string.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ConnectionString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ConnectionString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ContinueOnError_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ContinueOnError_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue on error.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ContinueOnError_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ContinueOnError_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect or Start Transaction activities. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ExistingDbConnection_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ExistingDbConnection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect to Database activity..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing connection.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ExistingDbConnection_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ExistingDbConnection_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the output of the Connect to Database activity.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A dictionary of named parameters that are bound to the SQL command. The binding is done by specifying the &apos;@parameterName&apos; statement in the SQL command. At runtime the parameterName will be replaced with its value from the dictionary..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_Parameters_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_Parameters_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_Parameters_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_Parameters_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the database provider used to access the database. Please see the documention for more examples..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ProviderName_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ProviderName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider name.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_ProviderName_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_ProviderName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide an SQL statement that corresponds to the selected command type.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_Sql_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_Sql_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown. The default value is 30000 milliseconds (30 seconds) and must be greater than or equal to 0..
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_TimeoutMS_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_TimeoutMS_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_TimeoutMS_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_TimeoutMS_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default is 30000 miliseconds.
+        /// </summary>
+        public static string Activity_DatabaseExecute_Property_TimeoutMS_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseExecute_Property_TimeoutMS_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure connection string.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The connection string used to establish a database connection. Please see the documentation for more examples..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection string.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ConnectionString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ConnectionString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ContinueOnError_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ContinueOnError_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue on error.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ContinueOnError_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ContinueOnError_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The source DataTable for the items to be inserted..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_DataTable_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_DataTable_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data table.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_DataTable_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_DataTable_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect to Database activity..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatf" +
+                        "orm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing connection.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the output of the Connect to Database activity.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the database provider used to access the database. Please see the documention for more examples..
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ProviderName_Description {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ProviderName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider name.
+        /// </summary>
+        public static string Activity_DatabaseRowActivity_Property_ProviderName_Name {
+            get {
+                return ResourceManager.GetString("Activity_DatabaseRowActivity_Property_ProviderName_Name", resourceCulture);
             }
         }
         
@@ -692,7 +1000,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Executes an non query statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1..
+        ///   Looks up a localized string similar to Executes an SQL statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1..
         /// </summary>
         public static string Activity_ExecuteNonQuery_Description {
             get {
@@ -701,7 +1009,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run command.
+        ///   Looks up a localized string similar to Run Command.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Name {
             get {
@@ -710,7 +1018,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The result of the execution of the sql command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1..
+        ///   Looks up a localized string similar to The result of the execution of the SQL command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1..
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_AffectedRecords_Description {
             get {
@@ -719,7 +1027,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected records.
+        ///   Looks up a localized string similar to Affected rows count.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_AffectedRecords_Name {
             get {
@@ -728,136 +1036,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies how a command string is interpreted. The following options are available:
-        ///Text - Executes the query given in the SQL parameter.
-        ///StoredProcedure - Invokes the procedure name specified in the SQL parameter.
-        ///TableDirect - Invokes all records from a table..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_CommandType_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_CommandType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Command type.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_CommandType_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_CommandType_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection as Secure String..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ConnectionSecureString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secure connection string.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ConnectionSecureString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ConnectionString_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ConnectionString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connection string.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ConnectionString_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ConnectionString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ContinueOnError_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ContinueOnError_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue on error.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ContinueOnError_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ExistingDbConnection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Existing connection.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ExistingDbConnection_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A dictionary of named parameters that are bound to the sql command. The binding is done by specifying the &apos;@parameterName&apos; statement in the sql command. At runtime the parameterName will be replaced with its value from the dictionary..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_Parameters_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_Parameters_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parameters.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_Parameters_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_Parameters_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The name of the database provider used to access the database..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ProviderName_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ProviderName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provider name.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_ProviderName_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_ProviderName_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An sql command to be executed. This field must be completed according to the selection from the CommandType property..
+        ///   Looks up a localized string similar to An SQL command to be executed. This property must be completed according to the selection from the Command type property.
         /// </summary>
         public static string Activity_ExecuteNonQuery_Property_Sql_Description {
             get {
@@ -875,25 +1054,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown. The default value is 30000 milliseconds (30 seconds) and must be greater than or equal to 0..
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_TimeoutMS_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_TimeoutMS_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Timeout.
-        /// </summary>
-        public static string Activity_ExecuteNonQuery_Property_TimeoutMS_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteNonQuery_Property_TimeoutMS_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Executes a query on a database and returns the query result in a Datatable..
+        ///   Looks up a localized string similar to Executes a query on a database and returns the query result as a Data Table.
         /// </summary>
         public static string Activity_ExecuteQuery_Description {
             get {
@@ -902,86 +1063,11 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run query.
+        ///   Looks up a localized string similar to Run Query.
         /// </summary>
         public static string Activity_ExecuteQuery_Name {
             get {
                 return ResourceManager.GetString("Activity_ExecuteQuery_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies how a command string is interpreted. The following options are available:
-        ///Text - Executes the query given in the SQL parameter.
-        ///StoredProcedure - Invokes the procedure name specified in the SQL parameter.
-        ///TableDirect - Invokes all records from a table..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_CommandType_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_CommandType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Command type.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_CommandType_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_CommandType_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection as Secure String..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ConnectionSecureString_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ConnectionSecureString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secure connection string.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ConnectionSecureString_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ConnectionSecureString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection string used to establish a database connection..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ConnectionString_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ConnectionString_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connection string.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ConnectionString_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ConnectionString_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ContinueOnError_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ContinueOnError_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue on error.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ContinueOnError_Name", resourceCulture);
             }
         }
         
@@ -1004,61 +1090,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An already opened database connection obtained from the Connect or Start Transaction activities. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ExistingDbConnection_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ExistingDbConnection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Existing connection.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ExistingDbConnection_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ExistingDbConnection_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A dictionary of named parameters that are bound to the sql command. The binding is done by specifying the &apos;@parameterName&apos; statement in the sql command. At runtime the parameterName will be replaced with its value from the dictionary..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_Parameters_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_Parameters_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parameters.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_Parameters_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_Parameters_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The name of the database provider used to access the database..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ProviderName_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ProviderName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provider Name.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_ProviderName_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_ProviderName_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An sql command to be executed. This field must be completed according to the selection from the CommandType property..
+        ///   Looks up a localized string similar to An SQL query to be executed. This property must be completed according to the selection from the Command type property.
         /// </summary>
         public static string Activity_ExecuteQuery_Property_Sql_Description {
             get {
@@ -1076,25 +1108,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown. The default value is 30000 milliseconds (30 seconds) and must be greater than or equal to 0..
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_TimeoutMS_Description {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_TimeoutMS_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Timeout.
-        /// </summary>
-        public static string Activity_ExecuteQuery_Property_TimeoutMS_Name {
-            get {
-                return ResourceManager.GetString("Activity_ExecuteQuery_Property_TimeoutMS_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inserts a compatible DataTable variable in an existing Table. Returns the number of rows affected. If the constraints on the table aren&apos;t met, the activity will not be completed successfully and all the written rows will be saved..
+        ///   Looks up a localized string similar to Inserts a compatible DataTable in an existing database table. Returns the number of rows affected..
         /// </summary>
         public static string Activity_InsertDataTable_Description {
             get {
@@ -1112,7 +1126,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stores the number of affected rows into an Int32 variable..
+        ///   Looks up a localized string similar to Number of affected rows..
         /// </summary>
         public static string Activity_InsertDataTable_Property_AffectedRecords_Description {
             get {
@@ -1121,7 +1135,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affected records.
+        ///   Looks up a localized string similar to Affected rows count.
         /// </summary>
         public static string Activity_InsertDataTable_Property_AffectedRecords_Name {
             get {
@@ -1193,11 +1207,20 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data table.
+        ///   Looks up a localized string similar to Input data table.
         /// </summary>
         public static string Activity_InsertDataTable_Property_DataTable_Name {
             get {
                 return ResourceManager.GetString("Activity_InsertDataTable_Property_DataTable_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the DataTable variable.
+        /// </summary>
+        public static string Activity_InsertDataTable_Property_DataTable_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_InsertDataTable_Property_DataTable_Placeholder", resourceCulture);
             }
         }
         
@@ -1238,7 +1261,7 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The SQL table in which the data is to be inserted..
+        ///   Looks up a localized string similar to The target database table in which the data is to be inserted.
         /// </summary>
         public static string Activity_InsertDataTable_Property_TableName_Description {
             get {
@@ -1247,11 +1270,20 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Table name.
+        ///   Looks up a localized string similar to Target table name.
         /// </summary>
         public static string Activity_InsertDataTable_Property_TableName_Name {
             get {
                 return ResourceManager.GetString("Activity_InsertDataTable_Property_TableName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide the target database table name.
+        /// </summary>
+        public static string Activity_InsertDataTable_Property_TableName_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_InsertDataTable_Property_TableName_Placeholder", resourceCulture);
             }
         }
         
@@ -1310,6 +1342,60 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stored Procedure.
+        /// </summary>
+        public static string CommandType_StoredProcedure_FriendlyName {
+            get {
+                return ResourceManager.GetString("CommandType_StoredProcedure_FriendlyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invokes the procedure name specified in the SQL command..
+        /// </summary>
+        public static string CommandType_StoredProcedure_Tooltip {
+            get {
+                return ResourceManager.GetString("CommandType_StoredProcedure_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table Direct.
+        /// </summary>
+        public static string CommandType_TableDirect_FriendlyName {
+            get {
+                return ResourceManager.GetString("CommandType_TableDirect_FriendlyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invokes all records from a table..
+        /// </summary>
+        public static string CommandType_TableDirect_Tooltip {
+            get {
+                return ResourceManager.GetString("CommandType_TableDirect_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string CommandType_Text_FriendlyName {
+            get {
+                return ResourceManager.GetString("CommandType_Text_FriendlyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executes the SQL command..
+        /// </summary>
+        public static string CommandType_Text_Tooltip {
+            get {
+                return ResourceManager.GetString("CommandType_Text_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CommandType.
         /// </summary>
         public static string CommandTypeDisplayName {
@@ -1355,6 +1441,24 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle to secure connection string.
+        /// </summary>
+        public static string ConnectionSecureStringMenuAction {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringMenuAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection SecureString must be used.
+        /// </summary>
+        public static string ConnectionSecureStringNullError {
+            get {
+                return ResourceManager.GetString("ConnectionSecureStringNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConnectionString.
         /// </summary>
         public static string ConnectionStringDisplayName {
@@ -1364,11 +1468,38 @@ namespace UiPath.Database.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle to connection string.
+        /// </summary>
+        public static string ConnectionStringMenuAction {
+            get {
+                return ResourceManager.GetString("ConnectionStringMenuAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection string must be used.
+        /// </summary>
+        public static string ConnectionStringNullError {
+            get {
+                return ResourceManager.GetString("ConnectionStringNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ContinueOnError.
         /// </summary>
         public static string ContinueOnErrorDisplayName {
             get {
                 return ResourceManager.GetString("ContinueOnErrorDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database.
+        /// </summary>
+        public static string DatabaseCategory {
+            get {
+                return ResourceManager.GetString("DatabaseCategory", resourceCulture);
             }
         }
         

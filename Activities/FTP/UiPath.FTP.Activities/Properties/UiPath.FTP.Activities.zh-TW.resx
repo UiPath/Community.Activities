@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptAllCertificates" xml:space="preserve">
+    <value>接受所有憑證</value>
+  </data>
+  <data name="ClientCertificatePassword" xml:space="preserve">
+    <value>用戶端憑證密碼</value>
+  </data>
+  <data name="ClientCertificatePath" xml:space="preserve">
+    <value>用戶端憑證路徑</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="Credentials" xml:space="preserve">
+    <value>憑證</value>
+  </data>
+  <data name="DefaultBodyName" xml:space="preserve">
+    <value>執行</value>
+  </data>
+  <data name="PathNotFoundException" xml:space="preserve">
+    <value>找不到路徑 “{0}”。</value>
+  </data>
+  <data name="ExtensionNotFoundException" xml:space="preserve">
+    <value>找不到所需的副檔名。</value>
+  </data>
+  <data name="FTPSessionNotFoundException" xml:space="preserve">
+    <value>找不到 FTP 工作階段。</value>
+  </data>
+  <data name="FtpsMode" xml:space="preserve">
+    <value>FTPS 模式</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>主機</value>
+  </data>
+  <data name="IncompatiblePathsException" xml:space="preserve">
+    <value>來源路徑指向目錄，但目的地路徑指向檔案。</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>輸入</value>
+  </data>
+  <data name="LocalPath" xml:space="preserve">
+    <value>本機路徑</value>
+  </data>
+  <data name="OneFTPSessionPerContextException" xml:space="preserve">
+    <value>已為目前的上下文提供 FTP 工作階段。</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>選項</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="Overwrite" xml:space="preserve">
+    <value>覆寫</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>連接埠</value>
+  </data>
+  <data name="Recursive" xml:space="preserve">
+    <value>包括子資料夾</value>
+  </data>
+  <data name="RemotePath" xml:space="preserve">
+    <value>遠端路徑</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>安全性</value>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>伺服器</value>
+  </data>
+  <data name="UseAnonymousLogin" xml:space="preserve">
+    <value>使用匿名登入</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>使用者名稱</value>
+  </data>
+  <data name="UseSftp" xml:space="preserve">
+    <value>使用 SFTP</value>
+  </data>
+  <data name="UnsupportedObjectTypeException" xml:space="preserve">
+    <value>遇到不支援的物件類型。</value>
+  </data>
+  <data name="Exists" xml:space="preserve">
+    <value>存在</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="EmptyUsernameException" xml:space="preserve">
+    <value>使用者名稱不得為空。</value>
+  </data>
+  <data name="SslProtocols" xml:space="preserve">
+    <value>SSL 通訊協定</value>
+  </data>
+  <data name="ClientCertificatePathDesc" xml:space="preserve">
+    <value>PKCS #1 PEM 格式的私密金鑰路徑</value>
+  </data>
+  <data name="NoValidAuthenticationMethod" xml:space="preserve">
+    <value>找不到有效的驗證方法: 您必須提供私密金鑰檔案 (可選擇提供密碼) 或密碼</value>
+  </data>
+  <data name="NewPath" xml:space="preserve">
+    <value>新遠端路徑</value>
+  </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="DeleteDisplayName" xml:space="preserve">
+    <value>刪除</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DirectoryExistsDescription" xml:space="preserve">
+    <value>目錄存在</value>
+  </data>
+  <data name="DirectoryExistsDisplayName" xml:space="preserve">
+    <value>目錄存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="DownloadFilesDescription" xml:space="preserve">
+    <value>下載檔案</value>
+  </data>
+  <data name="DownloadFilesDisplayName" xml:space="preserve">
+    <value>下載檔案</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="EnumerateObjectsDescription" xml:space="preserve">
+    <value>列舉對象</value>
+  </data>
+  <data name="EnumerateObjectsDisplayName" xml:space="preserve">
+    <value>列舉對象</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="FileExistsDescription" xml:space="preserve">
+    <value>檔案存在</value>
+  </data>
+  <data name="FileExistsDisplayName" xml:space="preserve">
+    <value>檔案存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="MoveItemDescription" xml:space="preserve">
+    <value>移動項目</value>
+  </data>
+  <data name="MoveItemDisplayName" xml:space="preserve">
+    <value>移動項目</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="UploadFilesDescription" xml:space="preserve">
+    <value>上傳檔案</value>
+  </data>
+  <data name="UploadFilesDisplayName" xml:space="preserve">
+    <value>上傳檔案</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="WithFtpSessionDescription" xml:space="preserve">
+    <value>啟用 FTP 工作階段</value>
+  </data>
+  <data name="WithFtpSessionDisplayName" xml:space="preserve">
+    <value>啟用 FTP 工作階段</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="ClientCertificatePasswordDescription" xml:space="preserve">
+    <value>用戶端憑證密碼</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>錯誤時繼續</value>
+  </data>
+  <data name="FilesDescription" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="HostDescription" xml:space="preserve">
+    <value>主機</value>
+  </data>
+  <data name="LocalPathDescription" xml:space="preserve">
+    <value>本機路徑</value>
+  </data>
+  <data name="NewPathDescription" xml:space="preserve">
+    <value>新路徑</value>
+  </data>
+  <data name="PasswordDescription" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="PortDescription" xml:space="preserve">
+    <value>連接埠</value>
+  </data>
+  <data name="RemotePathDescription" xml:space="preserve">
+    <value>遠端路徑</value>
+  </data>
+  <data name="UseAnonymousLoginDescription" xml:space="preserve">
+    <value>勾選此方塊時，將忽略使用者名稱和密碼欄位，並改用標準匿名使用者。</value>
+  </data>
+  <data name="UsernameDescription" xml:space="preserve">
+    <value>使用者名稱</value>
+  </data>
+  <data name="ValidationError_ValidateParentError" xml:space="preserve">
+    <value>活動僅在 {0} 內有效</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>常見</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
+    <value>FTP 工作階段範圍</value>
+  </data>
+  <data name="Activity_Delete_Description" xml:space="preserve">
+    <value>從 FTP 伺服器中移除指定檔案。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_Delete_Name" xml:space="preserve">
+    <value>刪除檔案或資料夾</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
+    <value>檔案或資料夾的遠端路徑</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
+    <value>要刪除的檔案或資料夾</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Description" xml:space="preserve">
+    <value>檢查 FTP 伺服器上是否存在某個目錄。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Name" xml:space="preserve">
+    <value>目錄存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
+    <value>此為「布林值」變數，用於表示是否已找到指定目錄。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_Exists_Name" xml:space="preserve">
+    <value>存在</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
+    <value>要檢查的遠端資料夾路徑</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
+    <value>資料夾路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
+    <value>產生一個檔案集合，其中的檔案是在 FTP 伺服器上找到的檔案。勾選「包括子資料夾」方塊後，搜尋結果中也會包含子資料夾。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
+    <value>列舉對象</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
+    <value>已在 FTP 伺服器上找到檔案的集合。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
+    <value>檔案</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
+    <value>如果勾選此方塊，FTP 伺服器上的檔案列舉也將包含子資料夾。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
+    <value>包括子資料夾</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
+    <value>FTP 伺服器上要對其檔案進行列舉的目錄的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
+    <value>遠端路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_FileExists_Description" xml:space="preserve">
+    <value>檢查指定 FTP 目錄中是否存在特定檔案。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_FileExists_Name" xml:space="preserve">
+    <value>檔案存在</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
+    <value>此為「布林值」變數，用於表示是否已找到指定檔案。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_FileExists_Property_Exists_Name" xml:space="preserve">
+    <value>存在</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
+    <value>要檢查的遠端檔案路徑</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
+    <value>檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Description" xml:space="preserve">
+    <value>上傳檔案至 FTP 伺服器。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Name" xml:space="preserve">
+    <value>上傳檔案</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
+    <value>如果勾選此方塊，則會在資料夾路徑尚不存在的情況下在 FTP 伺服器上加以建立。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
+    <value>建立</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
+    <value>本機路徑</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
+    <value>要上傳的檔案</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果勾選此方塊，則 FTP 伺服器上已儲存的檔案將被覆寫。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆寫</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
+    <value>如果勾選此核取方塊，則系統將上傳資料夾及其各自的子資料夾。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
+    <value>包括子資料夾</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
+    <value>遠端路徑</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
+    <value>上傳位置</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Description" xml:space="preserve">
+    <value>連接到 FTP 伺服器，並為其他 FTP 活動提供範圍。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Name" xml:space="preserve">
+    <value>使用 FTP 連線</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
+    <value>如果勾選此方塊，則系統將接受所有憑證，包括過期或未經驗證的憑證。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
+    <value>接受所有憑證</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
+    <value>用戶端憑證的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
+    <value>用戶端憑證密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
+    <value>用於對用戶端進行驗證的憑證的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
+    <value>用戶端憑證檔案</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>錯誤時繼續</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
+    <value>切換至 FTPS 通訊協定。從兩個可用的選項中選擇一個: 明確或隱含。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
+    <value>FTPS 模式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
+    <value>要連接的 FTP 伺服器的 URL。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Host_Name" xml:space="preserve">
+    <value>主機</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Password_Description" xml:space="preserve">
+    <value>用於連接 FTP 伺服器的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Password_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Port_Description" xml:space="preserve">
+    <value>要連接的 FTP 伺服器的連接埠。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Port_Name" xml:space="preserve">
+    <value>連接埠</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
+    <value>選擇用於 FTPS 連線的 SSL 通訊協定</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
+    <value>SSL 通訊協定</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
+    <value>勾選此方塊時，將忽略使用者名稱和密碼欄位，並改用標準匿名使用者。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
+    <value>使用匿名登入</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
+    <value>用於連接 FTP 伺服器的使用者名稱。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Username_Name" xml:space="preserve">
+    <value>使用者名稱</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
+    <value>如果要使用 SFTP 傳輸通訊協定，請勾選此方塊。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
+    <value>使用 SFTP</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Description" xml:space="preserve">
+    <value>將來自 FTP 伺服器的指定檔案下載至指定的本機資料夾。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Name" xml:space="preserve">
+    <value>下載檔案</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
+    <value>如果勾選此方塊，則系統會在資料夾路徑尚不存在的情況下在本機加以建立。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
+    <value>建立</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
+    <value>要下載的檔案的本機路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
+    <value>下載位置</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果勾選此方塊，則系統會覆寫已儲存在本機的檔案。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆寫</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
+    <value>如果勾選此方塊，則系統將下載資料夾及其各自的子資料夾。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
+    <value>包括子資料夾</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_RemotePath_Description" xml:space="preserve">
+    <value>FTP 伺服器上要下載的檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
+    <value>要下載的檔案的路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Description" xml:space="preserve">
+    <value>將 FTP 伺服器上的項目移動到其他遠端路徑。僅當此活動置於「使用 FTP」中時才能正常工作</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_MoveItem_Name" xml:space="preserve">
+    <value>移動檔案/資料夾</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>錯誤時繼續</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
+    <value>要將項目移動到的新路徑</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
+    <value>要移動到的位置</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果勾選此方塊，則新遠端目錄上已儲存的檔案將被覆寫。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆寫</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
+    <value>遠端路徑</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
+    <value>要移動的檔案或資料夾</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Category_Credentials_Name" xml:space="preserve">
+    <value>憑證</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Misc_Name" xml:space="preserve">
+    <value>其他</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Others_Name" xml:space="preserve">
+    <value>其他</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Principal_Name" xml:space="preserve">
+    <value>主體</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Security_Name" xml:space="preserve">
+    <value>安全性</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Server_Name" xml:space="preserve">
+    <value>伺服器</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>輸出</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>憑證密碼輸入模式開關</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>安全密碼輸入模式開關</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
+    <value>安全字串格式中的用戶端憑證密碼</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
+    <value>用戶端憑證安全密碼</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>密碼輸入模式的開關</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>密碼輸入模式開關</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
+    <value>安全字串格式中的密碼</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
+    <value>安全密碼</value>
+  </data>
+  <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
+    <value>用戶端憑證密碼和用戶端憑證安全密碼不得同時為 null</value>
+  </data>
+  <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
+    <value>密碼和安全密碼不得同時為 null</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
+    <value>如需要驗證，則使用用於 Proxy 的密碼</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
+    <value>Proxy 密碼</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
+    <value>Proxy 連接埠編號</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
+    <value>Proxy 主機連接埠</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
+    <value>Proxy 主機名稱</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
+    <value>Proxy 主機</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
+    <value>Proxy 類型</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
+    <value> Proxy 類型</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
+    <value>如需驗證，則需使用用於 Proxy 的使用者</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Name" xml:space="preserve">
+    <value>Proxy 使用者名稱</value>
+  </data>
+  <data name="Proxy" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="ValidationErrorFormat" xml:space="preserve">
+    <value>必須為 {0} 提供一個值。</value>
+    <comment>error message</comment>
+  </data>
+</root>

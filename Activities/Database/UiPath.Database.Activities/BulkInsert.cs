@@ -12,31 +12,8 @@ using UiPath.Robot.Activities.Api;
 namespace UiPath.Database.Activities
 {
     [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Description))]
-    public partial class BulkInsert : AsyncTaskCodeActivity
+    public partial class BulkInsert : DatabaseRowActivity
     {
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkInsert_Property_ProviderName_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Property_ProviderName_Description))]
-        public InArgument<string> ProviderName { get; set; }
-
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkInsert_Property_ConnectionString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Property_ConnectionString_Description))]
-        public InArgument<string> ConnectionString { get; set; }
-
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkInsert_Property_ConnectionSecureString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Property_ConnectionSecureString_Description))]
-        public InArgument<SecureString> ConnectionSecureString { get; set; }
-
-        [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkInsert_Property_ExistingDbConnection_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Property_ExistingDbConnection_Description))]
-        public InArgument<DatabaseConnection> ExistingDbConnection { get; set; }
-
         [LocalizedCategory(nameof(Resources.Input))]
         [RequiredArgument]
         [DefaultValue(null)]
@@ -51,23 +28,12 @@ namespace UiPath.Database.Activities
         [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Property_DataTable_Description))]
         public InArgument<DataTable> DataTable { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_BulkInsert_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Property_ContinueOnError_Description))]
-        public InArgument<bool> ContinueOnError { get; set; }
-
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_BulkInsert_Property_AffectedRecords_Name))]
         [LocalizedDescription(nameof(Resources.Activity_BulkInsert_Property_AffectedRecords_Description))]
         public OutArgument<long> AffectedRecords { get; set; }
 
         private DatabaseConnection DbConnection = null;
-
-        private void HandleException(Exception ex, bool continueOnError)
-        {
-            if (continueOnError) return;
-            throw ex;
-        }
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {

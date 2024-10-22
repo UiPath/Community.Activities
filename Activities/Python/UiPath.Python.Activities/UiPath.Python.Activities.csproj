@@ -2,7 +2,7 @@
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>net461;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Python\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
@@ -10,6 +10,7 @@
     <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
   </PropertyGroup>-->
   <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
@@ -19,7 +20,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Activities" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>

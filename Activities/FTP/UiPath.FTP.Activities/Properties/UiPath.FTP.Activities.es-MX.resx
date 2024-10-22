@@ -169,7 +169,7 @@
     <value>Salida</value>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Sobrescribir</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
@@ -193,7 +193,7 @@
     <value>Usar el inicio de sesión anónimo</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Nombre de usuario</value>
   </data>
   <data name="UseSftp" xml:space="preserve">
     <value>Usar SFTP</value>
@@ -202,7 +202,7 @@
     <value>Tipo de objeto no admitido encontrado.</value>
   </data>
   <data name="Exists" xml:space="preserve">
-    <value>Exists</value>
+    <value>Existe</value>
   </data>
   <data name="Files" xml:space="preserve">
     <value>Archivos</value>
@@ -261,14 +261,14 @@
     <value>Mover elemento</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Mover elemento</value>
     <comment>Activity name</comment>
   </data>
   <data name="UploadFilesDescription" xml:space="preserve">
     <value>Cargar archivos</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Cargar archivos</value>
+    <value>Subir archivos</value>
     <comment>Activity name</comment>
   </data>
   <data name="WithFtpSessionDescription" xml:space="preserve">
@@ -282,7 +282,7 @@
     <value>ClientCertificatePassword</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinuarConElError</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Archivos</value>
@@ -325,15 +325,15 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete</value>
+    <value>Eliminar archivo o carpeta</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
-    <value>La ruta del archivo que se eliminará del servidor FTP.</value>
+    <value>Ruta remota al archivo o carpeta</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Archivo o carpeta para eliminar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
@@ -349,19 +349,19 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Name" xml:space="preserve">
-    <value>Exists</value>
+    <value>Existe</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>La ruta del directorio FTP en la que se comprueba si existe el directorio indicado.</value>
+    <value>Ruta de la carpeta remota para comprobar</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Ruta de la carpeta</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Genera una variable DataTable que contiene una lista que comprende los archivos que se encuentran en la ruta del servidor FTP especificada. Las subcarpetas también se pueden incluir en la búsqueda marcando la casilla Incluye subcarpetas. Esta actividad solo funciona si se coloca dentro de una actividad de ámbito de sesión con FTP.</value>
+    <value>Genera una colección de archivos que se han encontrado en el servidor FTP. Las subcarpetas también se pueden incluir en la búsqueda marcando la casilla Incluye subcarpetas. Esta actividad solo funciona si se coloca dentro de una actividad de ámbito de sesión con FTP.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
@@ -373,7 +373,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>Files</value>
+    <value>Archivos</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
@@ -381,7 +381,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Incluir subcarpetas</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
@@ -389,7 +389,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Ruta remota</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
@@ -405,15 +405,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Name" xml:space="preserve">
-    <value>Exists</value>
+    <value>Existe</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Description" xml:space="preserve">
-    <value>La ruta del directorio de FTP en la que se comprueba si existe el archivo indicado.</value>
+    <value>Ruta del archivo remoto para comprobar</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Ruta del archivo</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
@@ -429,15 +429,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Create</value>
+    <value>Crear</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
-    <value>La ruta local de los archivos que se cargarán.</value>
+    <value>Ruta local</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>Archivo que se cargará</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -445,7 +445,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Sobrescribir</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
@@ -453,31 +453,31 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Incluir subcarpetas</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Description" xml:space="preserve">
-    <value>La ruta en el servidor FTP donde se cargará el archivo.</value>
+    <value>Ruta de acceso remota</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Dónde subir</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Description" xml:space="preserve">
-    <value>Un contenedor que controla la conexión al servidor FTP y proporciona un ámbito para todas las actividades de FTP.</value>
-    <comment>Property description</comment>
+    <value>Se conecta al servidor de FTP y proporciona un ámbito para otras actividades de FTP.</value>
+    <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>With Ftp Session</value>
-    <comment>Property name</comment>
+    <value>Use FTP connection</value>
+    <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
     <value>Si esta casilla está marcada, se aceptarán todos los certificados, incluidos los que hayan caducado o no se hayan verificado.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
-    <value>Accept All Certificates</value>
+    <value>Aceptar todos los certificados</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
@@ -485,7 +485,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
-    <value>Client Certificate Password</value>
+    <value>Contraseña del certificado de cliente</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
@@ -493,7 +493,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Name" xml:space="preserve">
-    <value>Client Certificate Path</value>
+    <value>Archivo de certificado de cliente</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Description" xml:space="preserve">
@@ -501,7 +501,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Continuar con el error</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
@@ -509,7 +509,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Ftps Mode</value>
+    <value>Modo FTPS</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -517,7 +517,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Name" xml:space="preserve">
-    <value>Host</value>
+    <value>Anfitrión</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Description" xml:space="preserve">
@@ -525,7 +525,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Password_Name" xml:space="preserve">
-    <value>Password</value>
+    <value>Contraseña</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Description" xml:space="preserve">
@@ -533,7 +533,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Port_Name" xml:space="preserve">
-    <value>Port</value>
+    <value>Puerto</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>Ssl Protocols</value>
+    <value>Protocolos SSL</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
@@ -549,7 +549,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
-    <value>Use Anonymous Login</value>
+    <value>Usar inicio de sesión anónimo</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
@@ -557,7 +557,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Name" xml:space="preserve">
-    <value>Username</value>
+    <value>Nombre de usuario</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
@@ -565,7 +565,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
-    <value>Use SFTP</value>
+    <value>Usar SFTP</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
@@ -581,7 +581,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Create</value>
+    <value>Crear</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -589,7 +589,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Name" xml:space="preserve">
-    <value>Local Path</value>
+    <value>Dónde descargar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
@@ -597,7 +597,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Sobrescribir</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
@@ -605,7 +605,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
-    <value>Include subfolders</value>
+    <value>Incluir subcarpetas</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Description" xml:space="preserve">
@@ -613,7 +613,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Ruta a los archivos para descargar</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move Item</value>
+    <value>Mover archivo/carpeta</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -629,15 +629,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continue On Error</value>
+    <value>Continuar con el error</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Description" xml:space="preserve">
-    <value>La ruta remota en el servidor FTP donde se moverá el archivo.</value>
+    <value>La nueva ruta de acceso donde se moverá el elemento</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_NewPath_Name" xml:space="preserve">
-    <value>New Remote Path</value>
+    <value>Dónde mover</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
@@ -645,15 +645,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Sobrescribir</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
-    <value>La ruta remota en el servidor FTP donde se encuentra el archivo.</value>
+    <value>Ruta de acceso remota</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Name" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Archivo o carpeta por mover</value>
     <comment>Property name</comment>
   </data>
   <data name="Category_Credentials_Name" xml:space="preserve">
@@ -679,5 +679,78 @@
   <data name="Category_Server_Name" xml:space="preserve">
     <value>Servidor</value>
     <comment>Category name</comment>
+  </data>
+  <data name="Category_Output_Name" xml:space="preserve">
+    <value>Output</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>El conmutador para el modo de entrada de la contraseña del certificado</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>ConmutadorModoEntradaContraseñaProtegida</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
+    <value>La contraseña para el certificado de cliente en formato de cadena segura</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
+    <value>Contraseña segura del certificado de cliente</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
+    <value>El conmutador para el modo de entrada de la contraseña</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
+    <value>CambioDeModoDeIngresoDeContraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Description" xml:space="preserve">
+    <value>La contraseña en formato de cadena segura</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
+    <value>Contraseña segura</value>
+  </data>
+  <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
+    <value>ClientCertificatePassword y ClientCertificateSecurePassword no pueden ser nulos</value>
+  </data>
+  <data name="ValidationError_PasswordFieldsNotNull" xml:space="preserve">
+    <value>La contraseña y SecurePassword no pueden ser nulas</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Description" xml:space="preserve">
+    <value>La contraseña utilizada para el proxy si se requiere autenticación</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPassword_Name" xml:space="preserve">
+    <value>Contraseña de proxy</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Description" xml:space="preserve">
+    <value>Número de puerto de proxy</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
+    <value>Puerto de host de proxy</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
+    <value>Nombre de host de proxy</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Name" xml:space="preserve">
+    <value>Host de proxy</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Description" xml:space="preserve">
+    <value>El tipo de proxy</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
+    <value> Tipo de proxy</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
+    <value>El usuario utilizado para el proxy si se requiere autenticación</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyUser_Name" xml:space="preserve">
+    <value>Nombre de usuario del proxy</value>
+  </data>
+  <data name="Proxy" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="ValidationErrorFormat" xml:space="preserve">
+    <value>Debe proporcionar un valor para {0}.</value>
+    <comment>error message</comment>
   </data>
 </root>

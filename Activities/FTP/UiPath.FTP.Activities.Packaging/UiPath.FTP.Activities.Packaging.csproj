@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows;net5.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
 	<VersionSuffix></VersionSuffix>
@@ -31,8 +31,8 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="FluentFTP" Version="34.0.0" />
-    <PackageReference Include="SSH.NET" Version="2020.0.1" />
+    <PackageReference Include="FluentFTP" Version="51.1.0" />
+    <PackageReference Include="SSH.NET" Version="2024.1.0" />
   </ItemGroup>
 
 	<Target Name="AddDlls">
@@ -56,6 +56,7 @@
 			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.FTP.resources.dll" TargetPath="pt-BR\UiPath.FTP.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.resources.dll" TargetPath="tr\UiPath.FTP.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.resources.dll" TargetPath="zh-CN\UiPath.FTP.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.FTP.resources.dll" TargetPath="zh-TW\UiPath.FTP.resources.dll" />
 
 			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.FTP.Activities.resources.dll" TargetPath="fr\UiPath.FTP.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.FTP.Activities.resources.dll" TargetPath="ja\UiPath.FTP.Activities.resources.dll" />
@@ -68,9 +69,10 @@
 			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.FTP.Activities.resources.dll" TargetPath="pt-BR\UiPath.FTP.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.Activities.resources.dll" TargetPath="tr\UiPath.FTP.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.Activities.resources.dll" TargetPath="zh-CN\UiPath.FTP.Activities.resources.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.FTP.Activities.resources.dll" TargetPath="zh-TW\UiPath.FTP.Activities.resources.dll" />
 
 		</ItemGroup>
-		<ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+		<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
 		</ItemGroup>
 	</Target>
@@ -82,12 +84,12 @@
 		<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
 	</Target>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>

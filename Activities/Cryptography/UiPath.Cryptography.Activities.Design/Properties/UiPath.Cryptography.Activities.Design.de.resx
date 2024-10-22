@@ -145,7 +145,7 @@
     <value>Die entschlüsselte Zeichenfolge.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codierung</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge verwendet wird.</value>
@@ -175,7 +175,7 @@
     <value>Die Base64-Zeichenfolgendarstellung der verschlüsselten Eingabezeichenfolge.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>Dateipfad</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Schlüssel</value>
+    <value>Taste</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
     <value>Die Codierung, die zum Interpretieren der Eingabezeichenfolge und des Schlüssels verwendet wird.</value>
@@ -223,11 +223,11 @@
     <value>Schlüsselcodierung</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Ausgabepfad</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Überschreiben</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Ergebnis</value>
@@ -239,10 +239,10 @@
     <value>System</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>Anzeigename</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>BeiFehlerFortsetzen</value>
   </data>
 </root>
