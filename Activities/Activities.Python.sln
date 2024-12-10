@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared", "Shared\UiPath.Shared\UiPath.Shared.shproj", "{2E040804-8ED9-4FB8-BB8A-4A38479E2A9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Activities.ViewModels", "Python\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj", "{5EF1F67E-C7E0-4118-9F7F-E3FA5A1FDE1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2C94889-1E86-4ABD-9D5E-631B3463DA86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EF1F67E-C7E0-4118-9F7F-E3FA5A1FDE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EF1F67E-C7E0-4118-9F7F-E3FA5A1FDE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EF1F67E-C7E0-4118-9F7F-E3FA5A1FDE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EF1F67E-C7E0-4118-9F7F-E3FA5A1FDE1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
