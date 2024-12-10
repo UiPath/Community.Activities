@@ -4,6 +4,7 @@ using System.Activities.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UiPath.Shared;
 
 //NOTE: This class was taken from Activities repo
 namespace UiPath.FTP.Activities.NetCore
@@ -90,7 +91,7 @@ namespace UiPath.FTP.Activities.NetCore
                 };
                 foreach (var propertyInfo in _properties.Where(pi => pi != targetPropertyInfo))
                 {
-                   
+
 
                     propertyInfo.Property.AddMenuAction(menuAction);
                 }

@@ -29,7 +29,7 @@ namespace UiPath.FTP.Activities.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public UiPath_FTP_Activities() {
+        internal UiPath_FTP_Activities() {
         }
         
         /// <summary>
@@ -79,7 +79,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete file or folder.
+        ///   Looks up a localized string similar to Delete File or Folder.
         /// </summary>
         public static string Activity_Delete_Name {
             get {
@@ -169,7 +169,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download files.
+        ///   Looks up a localized string similar to Download Files.
         /// </summary>
         public static string Activity_DownloadFiles_Name {
             get {
@@ -403,7 +403,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move file or folder.
+        ///   Looks up a localized string similar to Move File or Folder.
         /// </summary>
         public static string Activity_MoveItem_Name {
             get {
@@ -601,7 +601,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use FTP connection.
+        ///   Looks up a localized string similar to Use FTP Connection.
         /// </summary>
         public static string Activity_WithFtpSession_Name {
             get {
@@ -635,9 +635,9 @@ namespace UiPath.FTP.Activities.Properties {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to CertificatePasswordInputModeSwitch.
+        ///   Looks up a localized string similar to SecurePasswordInputModeSwitch.
         /// </summary>
         public static string Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name {
             get {
@@ -943,6 +943,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave empty for auto configuration.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_SslProtocols_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_SslProtocols_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
         /// </summary>
         public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Description {
@@ -1069,7 +1078,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ClientCertificatePassword.
+        ///   Looks up a localized string similar to Client certificate password.
         /// </summary>
         public static string ClientCertificatePasswordDescription {
             get {
@@ -1105,7 +1114,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ContinueOnError.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string ContinueOnError {
             get {
@@ -1339,7 +1348,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LocalPath.
+        ///   Looks up a localized string similar to Local path.
         /// </summary>
         public static string LocalPathDescription {
             get {
@@ -1375,7 +1384,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NewPath.
+        ///   Looks up a localized string similar to New path.
         /// </summary>
         public static string NewPathDescription {
             get {
@@ -1389,6 +1398,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string NoValidAuthenticationMethod {
             get {
                 return ResourceManager.GetString("NoValidAuthenticationMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (Obsolete).
+        /// </summary>
+        public static string ObsoleteEnumValue {
+            get {
+                return ResourceManager.GetString("ObsoleteEnumValue", resourceCulture);
             }
         }
         
@@ -1501,7 +1519,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Remote path.
         /// </summary>
         public static string RemotePathDescription {
             get {

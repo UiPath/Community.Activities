@@ -2,15 +2,11 @@
   "AssemblyRelativePath": "UiPath.FTP.Activities.dll",
   "Activities": [
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.Delete",
       "ShortName": "Delete",
       "DisplayNameKey": "Activity_Delete_Name",
       "DescriptionKey": "Activity_Delete_Description",
       "IconKey": "Delete_file_or_folder.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "RemotePath",
@@ -20,26 +16,18 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "DisplayNameKey": "Input"
+          }
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DeleteViewModel"
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.DirectoryExists",
       "ShortName": "DirectoryExists",
       "DisplayNameKey": "Activity_DirectoryExists_Name",
       "DescriptionKey": "Activity_DirectoryExists_Description",
       "IconKey": "Folder_exists.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "RemotePath",
@@ -49,11 +37,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "DisplayNameKey": "Input"
+          }
         },
         {
           "Name": "Exists",
@@ -63,26 +48,18 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
-            "DisplayNameKey": "Category_Output_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+            "DisplayNameKey": "Output"
+          }
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DirectoryExistsViewModel"
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.DownloadFiles",
       "ShortName": "DownloadFiles",
       "DisplayNameKey": "Activity_DownloadFiles_Name",
       "DescriptionKey": "Activity_DownloadFiles_Description",
       "IconKey": "Download_files.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "RemotePath",
@@ -92,11 +69,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "LocalPath",
@@ -106,11 +80,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Recursive",
@@ -120,11 +91,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Create",
@@ -134,11 +102,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Overwrite",
@@ -148,26 +113,18 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DownloadFilesViewModel"
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.EnumerateObjects",
       "ShortName": "EnumerateObjects",
       "DisplayNameKey": "Activity_EnumerateObjects_Name",
       "DescriptionKey": "Activity_EnumerateObjects_Description",
       "IconKey": "Get_files.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "RemotePath",
@@ -177,11 +134,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Recursive",
@@ -191,11 +145,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Files",
@@ -205,26 +156,18 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Output_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.EnumerateObjectsViewModel"
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.FileExists",
       "ShortName": "FileExists",
       "DisplayNameKey": "Activity_FileExists_Name",
       "DescriptionKey": "Activity_FileExists_Description",
       "IconKey": "File_exists.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "RemotePath",
@@ -234,11 +177,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Exists",
@@ -248,26 +188,18 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Output_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.FileExistsViewModel"
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.MoveItem",
       "ShortName": "MoveItem",
       "DisplayNameKey": "Activity_MoveItem_Name",
       "DescriptionKey": "Activity_MoveItem_Description",
       "IconKey": "Move_file_or_folder.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "RemotePath",
@@ -277,11 +209,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "NewPath",
@@ -291,11 +220,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Overwrite",
@@ -305,11 +231,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ContinueOnError",
@@ -319,26 +242,18 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.MoveItemViewModel"
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.UploadFiles",
       "ShortName": "UploadFiles",
       "DisplayNameKey": "Activity_UploadFiles_Name",
       "DescriptionKey": "Activity_UploadFiles_Description",
       "IconKey": "Upload_files.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "LocalPath",
@@ -348,11 +263,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "RemotePath",
@@ -362,11 +274,8 @@
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Principal_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Recursive",
@@ -376,11 +285,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Create",
@@ -390,11 +296,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "Overwrite",
@@ -404,40 +307,22 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Others_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.UploadFilesViewModel"
     },
     {
-      "AssemblyQualifiedName": null,
       "FullName": "UiPath.FTP.Activities.WithFtpSession",
       "ShortName": "WithFtpSession",
       "DisplayNameKey": "Activity_WithFtpSession_Name",
       "DescriptionKey": "Activity_WithFtpSession_Description",
       "IconKey": "FTP_Connection.svg",
-      "CategoryKey": null,
-      "ActivityColor": null,
-      "ActivityNameBackgroundColor": null,
       "Properties": [
         {
           "Name": "Body",
-          "DisplayNameKey": null,
-          "TooltipKey": null,
-          "IsRequired": false,
-          "IsPrincipal": false,
-          "IsVisible": false,
-          "Category": {
-            "Name": null,
-            "DisplayNameKey": null
-          },
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": false
         },
         {
           "Name": "Host",
@@ -445,10 +330,7 @@
           "TooltipKey": "Activity_WithFtpSession_Property_Host_Description",
           "IsRequired": true,
           "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": null,
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": true
         },
         {
           "Name": "Port",
@@ -456,10 +338,7 @@
           "TooltipKey": "Activity_WithFtpSession_Property_Port_Description",
           "IsRequired": false,
           "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": null,
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": true
         },
         {
           "Name": "Username",
@@ -467,10 +346,7 @@
           "TooltipKey": "Activity_WithFtpSession_Property_Username_Description",
           "IsRequired": false,
           "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": null,
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": true
         },
         {
           "Name": "Password",
@@ -478,10 +354,7 @@
           "TooltipKey": "Activity_WithFtpSession_Property_Password_Description",
           "IsRequired": false,
           "IsPrincipal": true,
-          "IsVisible": true,
-          "Category": null,
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": true
         },
         {
           "Name": "SecurePassword",
@@ -489,10 +362,7 @@
           "TooltipKey": "Activity_WithFtpSession_Property_SecurePassword_Description",
           "IsRequired": false,
           "IsPrincipal": true,
-          "IsVisible": false,
-          "Category": null,
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": false
         },
         {
           "Name": "PasswordInputModeSwitch",
@@ -501,7 +371,6 @@
           "IsRequired": false,
           "IsVisible": false,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Input"
           }
         },
@@ -511,10 +380,7 @@
           "TooltipKey": "Activity_WithFtpSession_Property_UseAnonymousLogin_Description",
           "IsRequired": false,
           "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": null,
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": true
         },
         {
           "Name": "FtpsMode",
@@ -524,25 +390,20 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Security_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "SslProtocols",
           "DisplayNameKey": "Activity_WithFtpSession_Property_SslProtocols_Name",
           "TooltipKey": "Activity_WithFtpSession_Property_SslProtocols_Description",
+          "placeholderKey": "Activity_WithFtpSession_Property_SslProtocols_Placeholder",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Security_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "UseSftp",
@@ -552,11 +413,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Security_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ClientCertificatePath",
@@ -566,11 +424,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Security_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ClientCertificatePassword",
@@ -580,11 +435,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Security_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ClientCertificateSecurePassword",
@@ -594,11 +446,8 @@
           "IsPrincipal": false,
           "IsVisible": false,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Security_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "CertificatePasswordInputModeSwitch",
@@ -607,7 +456,6 @@
           "IsRequired": false,
           "IsVisible": false,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Input"
           }
         },
@@ -619,11 +467,8 @@
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
-            "Name": null,
             "DisplayNameKey": "Category_Security_Name"
-          },
-          "Widget": null,
-          "IconKey": null
+          }
         },
         {
           "Name": "ContinueOnError",
@@ -631,19 +476,13 @@
           "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
-          "IsVisible": true,
-          "Category": null,
-          "Widget": null,
-          "IconKey": null
+          "IsVisible": true
         }
       ],
-      "DefaultFactory": null,
-      "ViewModelType": null
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.WithFtpSessionViewModel"
     }
   ],
   "DefaultActivityColor": "#526069",
   "DefaultActivityNameBackgroundColor": "#FFFFFF",
-  "DefaultActivityIconKey": null,
-  "AssemblyIconKey": null,
   "ResourceManagerName": "UiPath.FTP.Activities.Properties.UiPath.FTP.Activities"
 }

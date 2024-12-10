@@ -15,6 +15,9 @@ namespace UiPath.Shared.Service.Client
         /// </summary>
         private readonly TimeSpan RetryInterval = TimeSpan.FromMilliseconds(50);
 
+        //Timeout in milliseconds for pipe connection (attempt)
+        private readonly int PipeConnectionTimeoutMs = 1000;
+
         internal int ProcessId { get; private set; }
 
         internal string Arguments { get; set; } = null;
@@ -59,11 +62,11 @@ namespace UiPath.Shared.Service.Client
                 else
                 {
                     folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
-                    Arguments = string.Concat(Path.Combine(folder, ExeFile.Replace(".exe",".dll")), " ", Arguments);
+                    Arguments = string.Concat(Path.Combine(folder, ExeFile.Replace(".exe", ".dll")), " ", Arguments);
                     exeFullPath = "dotnet";
                 }
 
-                
+
             }
 
             if (!File.Exists(exeFullPath) && isWindows
@@ -73,28 +76,70 @@ namespace UiPath.Shared.Service.Client
             // start the host process
             ProcessStartInfo psi = new ProcessStartInfo()
             {
-                UseShellExecute = true,
+                UseShellExecute = false,
                 FileName = exeFullPath,
                 WorkingDirectory = folder,
                 Arguments = Arguments,
-                WindowStyle = Visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden
+                WindowStyle = Visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
             };
             Process process = Process.Start(psi);
 
             // wait for service to become available
             bool ServiceReady()
             {
-                pipeClient =
-                    new NamedPipeClientStream(".", process.Id.ToString(), PipeDirection.InOut,
-                            PipeOptions.Asynchronous);
+                if (HostProcessHasExited())
+                {
+                    using (var readerOutput = process.StandardOutput)
+                    using (var readerError = process.StandardError)
+                    {
+                        string output = readerOutput.ReadToEnd();
+                        string error = readerError.ReadToEnd();
+                        throw new Exception($"Host process has exit!\n output: {output} \n error: {error} \n");
+                    }
+                }
 
-                pipeClient.Connect();
+                if (pipeClient == null)
+                {
+                    pipeClient = new NamedPipeClientStream(".", process.Id.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
+                }
+
+                TryConnectPipeClient();
                 if (pipeClient.IsConnected)
                 {
                     return true;
                 }
                 return false;
             }
+
+            void TryConnectPipeClient()
+            {
+                try
+                {
+                    pipeClient.Connect(PipeConnectionTimeoutMs);
+                }
+                catch
+                {
+                    //In case of exception we are going to retry to connect next time
+                    //On timeout, if failure persists exception will be thrown
+                }
+            }
+
+            bool HostProcessHasExited()
+            {
+                try
+                {
+                    return process.HasExited;
+                }
+                catch
+                {
+                    //For wathever reason if HasExited throws, we assume that the process has not exited
+                    //Error will be thrown when timeout expires
+                    return false;
+                }
+            }
+
             Retry(ServiceReady, StartTimeout, RetryInterval);
             return pipeClient;
         }

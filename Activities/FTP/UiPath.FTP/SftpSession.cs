@@ -27,7 +27,7 @@ namespace UiPath.FTP
             ConnectionInfo connectionInfo = null;
 
             var authMethods = new List<AuthenticationMethod>();
-            
+
             //Add password authentication method if password is provided
             if (!String.IsNullOrEmpty(ftpConfiguration.Password))
             {
@@ -113,7 +113,7 @@ namespace UiPath.FTP
 
             string initialWorkingDirectory = _sftpClient.WorkingDirectory;
             _sftpClient.ChangeDirectory(remotePath);
-            
+
             List<Tuple<string, string>> listing = new List<Tuple<string, string>>();
             ISftpFile currentDirectory = _sftpClient.Get(_sftpClient.WorkingDirectory);
             IEnumerable<ISftpFile> items = _sftpClient.ListDirectory(currentDirectory.FullName);
@@ -499,7 +499,7 @@ namespace UiPath.FTP
                     using (Stream fileStream = File.OpenWrite(localPath))
                     {
                         await Task.Factory.FromAsync(_sftpClient.BeginDownloadFile(remotePath, fileStream), _sftpClient.EndDownloadFile);
-                    } 
+                    }
                 }
                 else
                 {
@@ -605,9 +605,9 @@ namespace UiPath.FTP
             {
                 throw new IOException(Resources.FileExistsException);
             }
-            
+
             var file = _sftpClient.Get(remotePath);
-            
+
             if(_sftpClient.Exists(newPath) && file.IsRegularFile)
             {
                 var movePath = _sftpClient.Get(newPath);
@@ -726,7 +726,7 @@ namespace UiPath.FTP
                     using (Stream fileStream = File.OpenRead(localPath))
                     {
                         await Task.Factory.FromAsync(_sftpClient.BeginUploadFile(fileStream, remotePath, overwrite, null, null), _sftpClient.EndUploadFile);
-                    } 
+                    }
                 }
                 else
                 {
@@ -763,7 +763,7 @@ namespace UiPath.FTP
         // }
 
         // This code added to correctly implement the disposable pattern.
-        void IDisposable.Dispose()  
+        void IDisposable.Dispose()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);

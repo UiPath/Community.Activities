@@ -55,7 +55,7 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description))]
         public PasswordInputMode PasswordInputModeSwitch { get; set; }
-  
+
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Credentials))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_UseAnonymousLogin_Name))]
@@ -68,7 +68,7 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_FtpsMode_Description))]
         public FtpsMode FtpsMode { get; set; }
 
-        [DefaultValue(FtpSslProtocols.Default)]
+        [DefaultValue(FtpSslProtocols.Auto)]
         [LocalizedCategory(nameof(Resources.Security))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_SslProtocols_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_SslProtocols_Description))]
@@ -100,7 +100,7 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description))]
         public PasswordInputMode CertificatePasswordInputModeSwitch { get; set; }
- 
+
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Security))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_AcceptAllCertificates_Name))]
@@ -144,8 +144,6 @@ namespace UiPath.FTP.Activities
 
         public WithFtpSession()
         {
-            FtpsMode = FtpsMode.None;
-            SslProtocols = FtpSslProtocols.Default;
             Body = new ActivityAction<IFtpSession>()
             {
                 Argument = new DelegateInArgument<IFtpSession>(FtpSessionPropertyName),
@@ -170,11 +168,11 @@ namespace UiPath.FTP.Activities
             SecureString securePasswordValue = SecurePassword.Get(context);
             string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
             SecureString clientCertificateSecurePasswordValue = ClientCertificateSecurePassword.Get(context);
-            
+
             FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
             ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
             ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
-            ftpConfiguration.SslProtocols = SslProtocols;   
+            ftpConfiguration.SslProtocols = SslProtocols;
             ftpConfiguration.Password = passwordValue;
             ftpConfiguration.ProxyType = ProxyType;
 
@@ -206,7 +204,7 @@ namespace UiPath.FTP.Activities
                 {
                     throw new ArgumentNullException(Resources.EmptyUsernameException);
                 }
-                
+
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
                 {
                     throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace UiPath.Shared
 {
-    public class LocalizedEnum
+    internal class LocalizedEnum
     {
         public string Name { get; private set; }
         public Enum Value { get; private set; }
@@ -41,7 +41,7 @@ namespace UiPath.Shared
         }
     }
 
-    public class LocalizedEnum<T> : LocalizedEnum
+    internal class LocalizedEnum<T> : LocalizedEnum
     {
         protected LocalizedEnum(string name, Enum value) : base(name, value)
         {

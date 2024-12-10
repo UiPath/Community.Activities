@@ -14,7 +14,7 @@ namespace UiPath.Shared.Activities
     /// <summary>
     /// Taken from System Activities
     /// </summary>
-    public static class InArgumentExtensions
+    internal static class InArgumentExtensions
     {
         public static T? GetArgumentLiteralValue<T>(this InArgument<T> inArgument) where T : struct
         {
