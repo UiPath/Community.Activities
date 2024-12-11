@@ -29,6 +29,7 @@ trigger:
     include:
     - Activities/Database/*
     - Activities/Activities.Database.sln
+    - Activities/Directory.build.targets    
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -43,6 +44,7 @@ pr:
     include:
     - Activities/Database/*
     - Activities/Activities.Database.sln
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -83,6 +85,7 @@ stages:
         buildForWindows: true
         buildForPortable: true
         packageUnderTestName: 'UiPath.Database.Activities'
+        studioLicense: $(StudioLicense)
 
   - stage: RunDatabaseRuntimeTestsWindows
     displayName: 'Run Database Runtime Tests Windows'
