@@ -135,12 +135,12 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(PasswordInputModeSwitch)
               .AddMenuProperty(Password, PasswordInputMode.Password)
               .AddMenuProperty(SecurePassword, PasswordInputMode.SecurePassword)
-              .BuildAndInsertMenuActions();
+              .BuildAndInsertMenuActions(true);
 
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(CertificatePasswordInputModeSwitch)
               .AddMenuProperty(ClientCertificatePassword, PasswordInputMode.Password)
               .AddMenuProperty(ClientCertificateSecurePassword, PasswordInputMode.SecurePassword)
-              .BuildAndInsertMenuActions();
+              .BuildAndInsertMenuActions(true);
         }
 
         /// <inheritdoc/>
