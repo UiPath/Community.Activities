@@ -173,13 +173,17 @@ namespace UiPath.FTP.Activities
             ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
             ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
             ftpConfiguration.SslProtocols = SslProtocols;
-            ftpConfiguration.Password = passwordValue;
             ftpConfiguration.ProxyType = ProxyType;
 
-            if (ftpConfiguration.Password == null)
+            if (PasswordInputModeSwitch == PasswordInputMode.Password)
+            {
+                ftpConfiguration.Password = passwordValue;
+            }
+            else
             {
                 ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
             }
+
             if(ftpConfiguration.ProxyType != FtpProxyType.None)
             {
                 ftpConfiguration.ProxyServer = ProxyServer.Get(context);
