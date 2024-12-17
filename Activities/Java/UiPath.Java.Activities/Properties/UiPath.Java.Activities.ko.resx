@@ -227,7 +227,7 @@
     <value>Jar을 로드하지 못했습니다.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>메드 이름</value>
+    <value>메소드 이름</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">

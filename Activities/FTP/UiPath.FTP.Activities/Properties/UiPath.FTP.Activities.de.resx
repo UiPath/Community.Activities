@@ -275,7 +275,7 @@
     <value>Mit FTP-Sitzung</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Mit FTP-Sitzung</value>
+    <value>With Ftp Session</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
