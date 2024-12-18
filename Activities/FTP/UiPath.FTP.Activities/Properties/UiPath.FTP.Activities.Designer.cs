@@ -880,7 +880,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Proxy Type.
+        ///   Looks up a localized string similar to Proxy Type.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyType_Name {
             get {
