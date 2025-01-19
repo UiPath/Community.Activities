@@ -136,9 +136,9 @@
     <value>Hedef dizin zaten var</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Metin girişine geç</value>
+    <value>Use string</value>
   </data>
   <data name="SecurePassword" xml:space="preserve">
-    <value>Güvenli girişe geç</value>
+    <value>Use secure string</value>
   </data>
 </root>

@@ -136,9 +136,9 @@
     <value>Le fichier de destination existe déjà.</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Basculer vers la saisie de texte</value>
+    <value>Use string</value>
   </data>
   <data name="SecurePassword" xml:space="preserve">
-    <value>Basculer vers la saisie sécurisée</value>
+    <value>Use secure string</value>
   </data>
 </root>
