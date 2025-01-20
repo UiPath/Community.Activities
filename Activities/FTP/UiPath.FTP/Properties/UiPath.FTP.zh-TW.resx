@@ -136,9 +136,9 @@
     <value>目的地目錄已存在</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Use string</value>
+    <value>使用字串</value>
   </data>
   <data name="SecurePassword" xml:space="preserve">
-    <value>Use secure string</value>
+    <value>使用安全字串</value>
   </data>
 </root>
