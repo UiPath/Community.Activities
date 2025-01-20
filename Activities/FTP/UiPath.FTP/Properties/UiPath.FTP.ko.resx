@@ -136,9 +136,9 @@
     <value>대상 디렉터리가 이미 있습니다.</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Use string</value>
+    <value>문자열 사용</value>
   </data>
   <data name="SecurePassword" xml:space="preserve">
-    <value>Use secure string</value>
+    <value>보안 문자열 사용</value>
   </data>
 </root>

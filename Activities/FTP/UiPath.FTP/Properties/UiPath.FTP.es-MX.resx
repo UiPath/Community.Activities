@@ -136,9 +136,9 @@
     <value>El directorio de destino ya existe</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Use string</value>
+    <value>Usar cadena</value>
   </data>
   <data name="SecurePassword" xml:space="preserve">
-    <value>Use secure string</value>
+    <value>Usar cadena segura</value>
   </data>
 </root>
