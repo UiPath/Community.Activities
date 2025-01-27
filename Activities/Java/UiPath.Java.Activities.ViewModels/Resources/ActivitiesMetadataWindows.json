@@ -43,5 +43,5 @@
   "defaultActivityColor": "#00489D",
   "defaultActivityIconKey": "JavaIcon.svg",
   "assemblyIconKey": "JavaIcon.svg",
-  "resourceManagerName": "UiPath.Java.Activities.Design.Properties.UiPath.Java.Activities.Design"
+  "resourceManagerName": "UiPath.Java.Activities.Properties.UiPath.Java.Activities"
 }

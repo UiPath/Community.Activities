@@ -38,5 +38,5 @@
   "defaultActivityColor": "#00489D",
   "defaultActivityIconKey": "PythonIcon.svg",
   "assemblyIconKey": "PythonIcon.svg",
-  "resourceManagerName": "UiPath.Python.Activities.Design.Properties.UiPath.Python.Activities.Design"
+  "resourceManagerName": "UiPath.Python.Activities.Properties.UiPath.Python.Activities"
 }
