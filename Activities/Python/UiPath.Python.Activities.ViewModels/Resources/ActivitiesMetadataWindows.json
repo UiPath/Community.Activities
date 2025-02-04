@@ -10,26 +10,26 @@
       },
       {
         "fullName": "UiPath.Python.Activities.InvokeMethod",
-        "displayNameKey": "InstanceNameDisplayName",
-        "descriptionKey": "InstanceDescription",
+        "displayNameKey": "InvokeMethodNameDisplayName",
+        "descriptionKey": "InvokeMethodDescription",
         "iconKey": "PythonIcon.svg"
       },
       {
         "fullName": "UiPath.Python.Activities.LoadScript",
-        "displayNameKey": "ScriptFileNameDisplayName",
-        "descriptionKey": "ScriptFileDescription",
+        "displayNameKey": "LoadScriptNameDisplayName",
+        "descriptionKey": "LoadScriptDescription",
         "iconKey": "PythonIcon.svg"
       },
       {
         "fullName": "UiPath.Python.Activities.PythonScope",
-        "displayNameKey": "VersionNameDisplayName",
-        "descriptionKey": "VersionDescription",
+        "displayNameKey": "PythonScopeNameDisplayName",
+        "descriptionKey": "PythonScopeDescription",
         "iconKey": "PythonIcon.svg"
       },
       {
         "fullName": "UiPath.Python.Activities.RunScript",
-        "displayNameKey": "ScriptFileNameDisplayName",
-        "descriptionKey": "ScriptFileDescription",
+        "displayNameKey": "RunScriptNameDisplayName",
+        "descriptionKey": "RunScriptDescription",
         "iconKey": "PythonIcon.svg"
       }
     ]
