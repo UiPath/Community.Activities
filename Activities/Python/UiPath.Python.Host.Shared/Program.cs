@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Threading;
 
 namespace UiPath.Python.Host
 {
@@ -17,12 +17,17 @@ namespace UiPath.Python.Host
 
             _service = new PythonService();
             _service.RunServer();
-            Console.ReadLine();
+
+            //Console.ReadLine can throw under some unknown circumstances
+            //Simulate waiting for key by sleeping forever
+            //https://forum.uipath.com/t/python-scope-throws-an-error-on-the-latest-uipath-python-activities-1-9-0-and-net8/2752619/6
+            Thread.Sleep(Timeout.Infinite);
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
             AppDomain.CurrentDomain.ProcessExit -= Application_ApplicationExit;
+
             _service?.Shutdown();
         }
     }

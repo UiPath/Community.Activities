@@ -165,6 +165,10 @@
     </ProjectReference>
   </ItemGroup>
 
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<PackageReference Include="System.Activities.ViewModels"/>
+	</ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
     <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
   </Target>
