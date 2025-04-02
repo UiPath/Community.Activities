@@ -1,4 +1,8 @@
 <Project>
+	<PropertyGroup>
+		<!-- Make sure that we don't overlook assembly version conflicts -->
+		<MSBuildWarningsAsErrors>MSB3277</MSBuildWarningsAsErrors>
+	</PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6'))">
 		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20220401-03" />
