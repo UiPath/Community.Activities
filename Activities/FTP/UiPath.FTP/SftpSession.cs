@@ -1,4 +1,6 @@
-﻿using Renci.SshNet;
+﻿using FluentFTP.Exceptions;
+using Renci.SshNet;
+using Renci.SshNet.Common;
 using Renci.SshNet.Sftp;
 using System;
 using System.Collections.Generic;
@@ -28,10 +30,24 @@ namespace UiPath.FTP
 
             var authMethods = new List<AuthenticationMethod>();
 
-            //Add password authentication method if password is provided
+            //Add password authentication methods if password is provided
             if (!String.IsNullOrEmpty(ftpConfiguration.Password))
             {
                 authMethods.Add(new PasswordAuthenticationMethod(ftpConfiguration.Username, ftpConfiguration.Password));
+
+                // Add keyboard interactive method
+                var kiAuth = new KeyboardInteractiveAuthenticationMethod(ftpConfiguration.Username);
+                kiAuth.AuthenticationPrompt += ((sender, args) =>
+                {
+                    foreach (AuthenticationPrompt prompt in args.Prompts)
+                    {
+                        if (prompt.Request.ToLowerInvariant().Contains("password"))
+                        {
+                            prompt.Response = ftpConfiguration.Password ?? string.Empty;
+                        }
+                    }
+                });
+                authMethods.Add(new KeyboardInteractiveAuthenticationMethod(ftpConfiguration.Username));
             }
 
             //Add private key authentication method if private key is provided
