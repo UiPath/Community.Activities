@@ -1,9 +1,10 @@
 parameters:
-  robotVersion: "23.10.6"
+  robotVersion: "24.10.8"
   studioProjectPath: ""
   buildForWindows: true
   buildForPortable: true
   packageUnderTestName: ''
+  studioLicense: ""
 
 jobs:
 - job: "BuildRuntimeTests"
@@ -21,7 +22,7 @@ jobs:
     parameters:
       installType: 'machine'
       studioVersion: ${{ parameters.robotVersion }}
-      license: "7445-1270-1408-6250"
+      license: $(studioLicense)
       studioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
 
   - powershell: |

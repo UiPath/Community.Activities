@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+	<Import Project="..\Python.build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
+    <DefineConstants>VIEW_MODELS</DefineConstants>
+    <AssemblyName>UiPath.Python.Activities.ViewModels</AssemblyName>
+    <RootNamespace>UiPath.Activities.Python.ViewModels</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+    <EmbeddedResource Include="Resources\Icons\*.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.Python.Activities\UiPath.Python.Activities.csproj">
+       <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

@@ -125,6 +125,11 @@
 	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Python.Activities.resources.dll" TargetPath="zh-TW\UiPath.Python.Activities.resources.dll" />
 
     </ItemGroup>
+
+	  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		  <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.ViewModels.dll" />
+	  </ItemGroup>
+	  
     <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.Design.dll" />
 
@@ -143,6 +148,12 @@
     </ItemGroup>
   </Target>
 
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<ProjectReference Include="..\..\Python\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj">
+			<PrivateAssets>All</PrivateAssets>
+		</ProjectReference>
+	</ItemGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
     <ProjectReference Include="..\..\Python\UiPath.Python.Activities.Design\UiPath.Python.Activities.Design.csproj">
       <PrivateAssets>All</PrivateAssets>
@@ -153,6 +164,10 @@
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+		<PackageReference Include="System.Activities.ViewModels"/>
+	</ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
     <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />

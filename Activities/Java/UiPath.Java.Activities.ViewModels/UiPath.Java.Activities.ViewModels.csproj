@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <Import Project="..\Java.build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
+    <DefineConstants>VIEW_MODELS</DefineConstants>
+    <AssemblyName>UiPath.Java.Activities.ViewModels</AssemblyName>
+    <RootNamespace>UiPath.Activities.Java.ViewModels</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+   <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+   <EmbeddedResource Include="Resources\Icons\*.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+     <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
+       <PrivateAssets>All</PrivateAssets>
+       </ProjectReference>
+  </ItemGroup>
+
+</Project>

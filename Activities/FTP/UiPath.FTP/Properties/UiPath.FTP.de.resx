@@ -136,9 +136,9 @@
     <value>Das Zielverzeichnis ist bereits vorhanden.</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Zur Texteingabe umschalten</value>
+    <value>Zeichenfolge verwenden</value>
   </data>
   <data name="SecurePassword" xml:space="preserve">
-    <value>Zu sicherer Eingabe umschalten</value>
+    <value>Sichere Zeichenfolge verwenden</value>
   </data>
 </root>

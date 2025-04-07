@@ -738,7 +738,7 @@
     <value>代理类型</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> 代理类型</value>
+    <value>代理类型</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>如需身份验证，则需使用用于代理的用户</value>
@@ -752,5 +752,12 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>必须为 {0} 提供值。</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0}（已过时）</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>留空以使用自动配置</value>
   </data>
 </root>

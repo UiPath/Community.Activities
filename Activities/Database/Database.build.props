@@ -6,9 +6,9 @@
     <Copyright>© UiPath</Copyright>
     <VersionBuild>$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("F0"))</VersionBuild>
     <VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("F0"))</VersionRevision>
-    <VersionPrefix Condition="'$(Configuration)' == 'Release'">1.9.0</VersionPrefix>
-    <VersionPrefix Condition="'$(Configuration)' == 'Debug'">1.9.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
-    <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">1.9.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+    <VersionPrefix Condition="'$(Configuration)' == 'Release'">1.10.0</VersionPrefix>
+    <VersionPrefix Condition="'$(Configuration)' == 'Debug'">1.10.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
+    <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">1.10.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsTestProject)' != 'true'">

@@ -4,16 +4,23 @@
     xmlns:uip="clr-namespace:UiPath.Activities.Presentation" 
     xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
     xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
-    xmlns:p="clr-namespace:UiPath.Java.Activities.Design.Properties">
+    xmlns:p="clr-namespace:UiPath.Java.Activities.Design.Properties"
+    xmlns:uipc="clr-namespace:UiPath.Activities.Presentation.Converters">
 
     <sap:ActivityDesigner.Resources>
         <ResourceDictionary>
             <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <uipc:ActivityIconConverter x:Key="ActivityIconConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Generic.xaml" />
+                <ResourceDictionary Source="Themes/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </sap:ActivityDesigner.Resources>
+
+    <sap:ActivityDesigner.Icon>
+        <DrawingBrush Stretch="Uniform" Drawing="{Binding Path=ModelItem, Converter={StaticResource ActivityIconConverter}}" />
+    </sap:ActivityDesigner.Icon>
 
     <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <DockPanel LastChildFill="True" Width="300">

@@ -27,15 +27,9 @@
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
   <ItemGroup>
-	<EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0' " Include="Resources\ActivitiesMetadata.json" />
-	<EmbeddedResource Include="Resources\Icons\Bulk_insert.svg" />
-    <EmbeddedResource Include="Resources\Icons\Bulk_update.svg" />
-    <EmbeddedResource Include="Resources\Icons\Connect.svg" />
-    <EmbeddedResource Include="Resources\Icons\Disconnect.svg" />
-    <EmbeddedResource Include="Resources\Icons\Insert.svg" />
-    <EmbeddedResource Include="Resources\Icons\Run_command.svg" />
-    <EmbeddedResource Include="Resources\Icons\Run_Query.svg" />
-    <EmbeddedResource Include="Resources\Icons\Start_transaction.svg" />
+    <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+    <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+    <EmbeddedResource Include="Resources\Icons\*.svg" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
