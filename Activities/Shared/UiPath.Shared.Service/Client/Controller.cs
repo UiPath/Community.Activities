@@ -2,9 +2,11 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Net;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace UiPath.Shared.Service.Client
 {
@@ -13,12 +15,12 @@ namespace UiPath.Shared.Service.Client
         /// <summary>
         /// time between retries for service availability
         /// </summary>
-        private readonly TimeSpan RetryInterval = TimeSpan.FromMilliseconds(50);
+        private readonly TimeSpan RetryInterval = TimeSpan.FromMilliseconds(500);
 
         //Timeout in milliseconds for pipe connection (attempt)
         private readonly int PipeConnectionTimeoutMs = 1000;
 
-        internal int ProcessId { get; private set; }
+        internal HostWrapper PythonWrapper = new HostWrapper();
 
         internal string Arguments { get; set; } = null;
 
@@ -26,24 +28,20 @@ namespace UiPath.Shared.Service.Client
 
         internal string ExeFile { get; set; }
 
-        internal NamedPipeClientStream Client { get; private set; }
-
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
 
-        internal NamedPipeClientStream pipeClient { get; set; }
-
-        internal NamedPipeClientStream Create()
+        internal HostWrapper Create()
         {
-            Client = StartHostService();
-            return Client;
+            StartHostService();            
+            return PythonWrapper;
         }
 
         internal void ForceStop()
         {
-            Process.GetProcessById(ProcessId)?.Kill();
+            PythonWrapper?.Proc.Kill();
         }
 
-        private NamedPipeClientStream StartHostService()
+        private void StartHostService()
         {
             var isWindows = true;
 #if NETCOREAPP
@@ -65,8 +63,6 @@ namespace UiPath.Shared.Service.Client
                     Arguments = string.Concat(Path.Combine(folder, ExeFile.Replace(".exe", ".dll")), " ", Arguments);
                     exeFullPath = "dotnet";
                 }
-
-
             }
 
             if (!File.Exists(exeFullPath) && isWindows
@@ -84,40 +80,34 @@ namespace UiPath.Shared.Service.Client
                 RedirectStandardError = true,
                 RedirectStandardOutput = true
             };
-            Process process = Process.Start(psi);
 
+            PythonWrapper.Proc = Process.Start(psi);
+
+            Retry(ServiceReady, StartTimeout, RetryInterval);
+            
             // wait for service to become available
             bool ServiceReady()
             {
-                if (HostProcessHasExited())
-                {
-                    using (var readerOutput = process.StandardOutput)
-                    using (var readerError = process.StandardError)
-                    {
-                        string output = readerOutput.ReadToEnd();
-                        string error = readerError.ReadToEnd();
-                        throw new Exception($"Host process has exit!\n output: {output} \n error: {error} \n");
-                    }
-                }
+                PythonWrapper.ThrowIfProcessHasExited();
 
-                if (pipeClient == null)
+                //for some edge case - check if the process has the id set               
+                if (!PythonWrapper.GetHostProcessId(out var processId))
+                    return false;
+                
+                if (PythonWrapper.Pipe == null)
                 {
-                    pipeClient = new NamedPipeClientStream(".", process.Id.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
+                    PythonWrapper.Pipe = new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
                 }
 
                 TryConnectPipeClient();
-                if (pipeClient.IsConnected)
-                {
-                    return true;
-                }
-                return false;
+                return PythonWrapper.Pipe.IsConnected;
             }
 
             void TryConnectPipeClient()
             {
                 try
                 {
-                    pipeClient.Connect(PipeConnectionTimeoutMs);
+                    PythonWrapper.Pipe.Connect(PipeConnectionTimeoutMs);
                 }
                 catch
                 {
@@ -125,23 +115,6 @@ namespace UiPath.Shared.Service.Client
                     //On timeout, if failure persists exception will be thrown
                 }
             }
-
-            bool HostProcessHasExited()
-            {
-                try
-                {
-                    return process.HasExited;
-                }
-                catch
-                {
-                    //For wathever reason if HasExited throws, we assume that the process has not exited
-                    //Error will be thrown when timeout expires
-                    return false;
-                }
-            }
-
-            Retry(ServiceReady, StartTimeout, RetryInterval);
-            return pipeClient;
         }
 
         private static void Retry(Func<bool> checkFunction, TimeSpan timeout, TimeSpan retryInterval)

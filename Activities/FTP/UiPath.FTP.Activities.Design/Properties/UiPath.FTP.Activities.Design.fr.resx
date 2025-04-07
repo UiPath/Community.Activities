@@ -130,7 +130,7 @@
     <value>Portée de la session FTP</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Intégration de l&apos;appli</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">

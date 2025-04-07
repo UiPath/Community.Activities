@@ -213,7 +213,7 @@
     <comment>property name</comment>
   </data>
   <data name="TableNameDisplayName" xml:space="preserve">
-    <value>NombreDeTabla</value>
+    <value>NombreDeLaTabla</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">

@@ -1,0 +1,42 @@
+{
+  "orderedCategoryDisplayNameKeys": [],
+  "additionalTypeCacheInfo": {
+    "legacyDesignerActivities": [
+      {
+        "fullName": "UiPath.Python.Activities.GetObject",
+        "displayNameKey": "PythonObjectNameDisplayName",
+        "descriptionKey": "PythonObjectDescription",
+        "iconKey": "PythonIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Python.Activities.InvokeMethod",
+        "displayNameKey": "InvokeMethodNameDisplayName",
+        "descriptionKey": "InvokeMethodDescription",
+        "iconKey": "PythonIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Python.Activities.LoadScript",
+        "displayNameKey": "LoadScriptNameDisplayName",
+        "descriptionKey": "LoadScriptDescription",
+        "iconKey": "PythonIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Python.Activities.PythonScope",
+        "displayNameKey": "PythonScopeNameDisplayName",
+        "descriptionKey": "PythonScopeDescription",
+        "iconKey": "PythonIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Python.Activities.RunScript",
+        "displayNameKey": "RunScriptNameDisplayName",
+        "descriptionKey": "RunScriptDescription",
+        "iconKey": "PythonIcon.svg"
+      }
+    ]
+  },
+  "defaultActivityNameBackgroundColor": "#00489D",
+  "defaultActivityColor": "#00489D",
+  "defaultActivityIconKey": "PythonIcon.svg",
+  "assemblyIconKey": "PythonIcon.svg",
+  "resourceManagerName": "UiPath.Python.Activities.Properties.UiPath.Python.Activities"
+}

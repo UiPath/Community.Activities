@@ -65,6 +65,7 @@ stages:
         buildForWindows: true
         buildForPortable: false
         packageUnderTestName: 'UiPath.Python.Activities'
+        studioLicense: $(StudioLicense)        
 
   - stage: RunPythonRuntimeTestsWindows
     displayName: 'Run Python Runtime Tests Windows'

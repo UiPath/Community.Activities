@@ -102,6 +102,31 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// </summary>
         public DesignInArgument<bool> ContinueOnError { get; set; }
 
+        /// <summary>
+        /// The type of proxy used
+        /// </summary>
+        public DesignProperty<FtpProxyType> ProxyType { get; set; }
+
+        /// <summary>
+        /// The proxy host
+        /// </summary>
+        public DesignInArgument<string> ProxyServer { get; set; }
+
+        /// <summary>
+        /// The proxy port
+        /// </summary>
+        public DesignInArgument<int> ProxyPort { get; set; }
+
+        /// <summary>
+        /// User used for proxy authentification
+        /// </summary>
+        public DesignInArgument<string> ProxyUser { get; set; }
+
+        /// <summary>
+        /// Password for proxy
+        /// </summary>
+        public DesignInArgument<string> ProxyPassword { get; set; }
+
         private static DataSource<FtpSslProtocols> _sslProtocolsDataSource;
 
         protected override void InitializeModel()
@@ -135,12 +160,12 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(PasswordInputModeSwitch)
               .AddMenuProperty(Password, PasswordInputMode.Password)
               .AddMenuProperty(SecurePassword, PasswordInputMode.SecurePassword)
-              .BuildAndInsertMenuActions();
+              .BuildAndInsertMenuActions(true);
 
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(CertificatePasswordInputModeSwitch)
               .AddMenuProperty(ClientCertificatePassword, PasswordInputMode.Password)
               .AddMenuProperty(ClientCertificateSecurePassword, PasswordInputMode.SecurePassword)
-              .BuildAndInsertMenuActions();
+              .BuildAndInsertMenuActions(true);
         }
 
         /// <inheritdoc/>

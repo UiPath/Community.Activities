@@ -2,7 +2,7 @@
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net461;net6.0-windows</TargetFrameworks>
-    <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>

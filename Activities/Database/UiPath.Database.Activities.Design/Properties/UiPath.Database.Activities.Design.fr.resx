@@ -233,7 +233,7 @@
     <value>Indique la durée (en millisecondes) d’attente pour l’exécution de la requête SQL avant qu’une erreur soit générée (n’inclut pas le temps de réponse pour la récupération du résultat de la requête). La valeur par défaut est de 30 000 millisecondes (30 secondes) et doit être supérieure ou égale à 0.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Intégration de l&apos;appli</value>
+    <value>App Integration</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Collection)</value>

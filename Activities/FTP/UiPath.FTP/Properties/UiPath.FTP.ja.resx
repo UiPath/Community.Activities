@@ -136,9 +136,9 @@
     <value>宛先ディレクトリはすでに存在します。</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>テキスト入力に切り替え</value>
+    <value>文字列を使用</value>
   </data>
   <data name="SecurePassword" xml:space="preserve">
-    <value>セキュリティで保護された入力に切り替え</value>
+    <value>セキュリティで保護された文字列を使用</value>
   </data>
 </root>

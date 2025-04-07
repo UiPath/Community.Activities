@@ -55,8 +55,9 @@ namespace UiPath.Python.Impl
                 ExeFile = TargetPlatform.x64 == _target ? ServiceExe_x64 : ServiceExe_x86,
                 Visible = _visible
             };
+
             _provider.Create();
-            _proxy = new PythonProxy(_provider.Client, timeout, ct);
+            _proxy = new PythonProxy(_provider.PythonWrapper, timeout, ct);
             _proxy.Initialize(_path, _libraryPath, _version, workingFolder);
 
             sw.Stop();
@@ -70,6 +71,7 @@ namespace UiPath.Python.Impl
         {
             _proxy?.Shutdown();
             _proxy = null;
+            _provider?.PythonWrapper?.Dispose();//Prevent host process leak in certain scenarios
             return Task.FromResult(true);
         }
 

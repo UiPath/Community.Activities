@@ -1,4 +1,8 @@
 <Project>
+	<PropertyGroup>
+		<!-- Make sure that we don't overlook assembly version conflicts -->
+		<MSBuildWarningsAsErrors>MSB3277</MSBuildWarningsAsErrors>
+	</PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6'))">
 		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20220401-03" />
@@ -37,8 +41,7 @@
 		<PackageReference Update="System.Text.RegularExpressions" Version="4.3.1" />
 		<PackageReference Update="System.Formats.Asn1" Version="8.0.1" />
 
-		<PackageReference Update="Azure.Identity" Version="1.11.4" />
-		<PackageReference Update="Microsoft.Identity.Client" Version="4.62.0" />
+		<PackageReference Update="Azure.Identity" Version="1.13.1" />
 	</ItemGroup>
 
 	<!-- the None element is used for keeping files visible in solution explorer -->

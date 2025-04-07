@@ -477,6 +477,61 @@
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true
+        },
+        {
+          "Name": "ProxyType",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyType_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxyType_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
+        },
+        {
+          "Name": "ProxyServer",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyServer_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxyServer_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
+        },
+        {
+          "Name": "ProxyPort",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyPort_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxyPort_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
+        },
+        {
+          "Name": "ProxyUser",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyUser_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxyUser_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
+        },
+        {
+          "Name": "ProxyPassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyPassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxyPassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
         }
       ],
       "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.WithFtpSessionViewModel"
