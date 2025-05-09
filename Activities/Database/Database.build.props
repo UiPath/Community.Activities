@@ -14,14 +14,6 @@
   <PropertyGroup Condition="'$(IsTestProject)' != 'true'">
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Debug|net461'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net461'">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <IsConfigurationRelease>true</IsConfigurationRelease>
   </PropertyGroup>

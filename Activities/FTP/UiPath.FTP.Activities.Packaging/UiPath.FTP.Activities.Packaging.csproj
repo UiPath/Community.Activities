@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
 	<VersionSuffix></VersionSuffix>

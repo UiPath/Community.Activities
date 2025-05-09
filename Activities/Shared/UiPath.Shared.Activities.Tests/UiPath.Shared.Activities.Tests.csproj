@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{7421A593-343B-4D49-AFBE-A1B8BE179CE2}</ProjectGuid>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
     <AssemblyTitle>UiPath.Shared.Activities.Tests</AssemblyTitle>
     <Product>UiPath.Shared.Activities.Tests</Product>
     <Copyright>Copyright ©  2018</Copyright>

@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>UiPath.Java.Test</RootNamespace>
     <AssemblyName>UiPath.Java.Test</AssemblyName>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <OutputPath>..\..\OutputTests\Java\</OutputPath>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -53,7 +53,6 @@
       <Link>xunit.runner.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\UiPath.TestUtils\UiPath.TestUtils.csproj">

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{D2C94889-1E86-4ABD-9D5E-631B3463DA86}</ProjectGuid>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
     <AssemblyTitle>UiPath.TestUtils</AssemblyTitle>
     <Product>UiPath.TestUtils</Product>
     <Copyright>Copyright ©  2018</Copyright>
@@ -20,4 +20,13 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+    <PackageReference Include="System.Activities.Core.Presentation"  />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UiPath.Workflow" />
+  </ItemGroup>
+
 </Project>

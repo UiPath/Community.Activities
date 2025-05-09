@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Database\</OutputPath>
     <UseWPF>true</UseWPF>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -16,18 +16,7 @@
     <!--Dependencies override to solve FOSSA issues-->
     <PackageReference Include="System.Formats.Asn1" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Activities.Presentation" />
-    <Reference Include="System.Activities.Core.Presentation" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Windows.Forms" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.22.0" PrivateAssets="All" />
-  </ItemGroup>
+	
   <ItemGroup>
     <Compile Remove="Dialogs\DataConnectionConfiguration.cs" />
   </ItemGroup>
