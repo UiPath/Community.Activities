@@ -1,6 +1,6 @@
-﻿using Microsoft.Activities.UnitTesting;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
+using System.Activities;
 
 namespace UiPath.Shared.Activities.Tests
 {
@@ -17,9 +17,8 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
-
-            invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2));
+            
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2));
         }
 
         [TestCase]
@@ -32,9 +31,8 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2)); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2)); });
         }
 
         [TestCase]
@@ -44,9 +42,8 @@ namespace UiPath.Shared.Activities.Tests
             {
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            invoker.TestActivity();
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30));
         }
 
         [TestCase]
@@ -56,9 +53,8 @@ namespace UiPath.Shared.Activities.Tests
             {
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30)); });
         }
 
         [TestCase]
@@ -71,9 +67,8 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2));
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2));
         }
 
         [TestCase]
@@ -86,9 +81,8 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2)); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2)); });
         }
 
         [TestCase]
@@ -98,9 +92,8 @@ namespace UiPath.Shared.Activities.Tests
             {
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            invoker.TestActivity();
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30));
         }
 
         [TestCase]
@@ -110,9 +103,8 @@ namespace UiPath.Shared.Activities.Tests
             {
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30)); });
         }
     }
 }
