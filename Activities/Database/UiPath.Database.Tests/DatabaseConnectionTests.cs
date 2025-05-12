@@ -26,9 +26,6 @@ namespace UiPath.Database.Tests
             };
 
             WorkflowInvoker.Invoke(connectActivity, TimeSpan.FromSeconds(30));
-            //var host = new WorkflowInvokerTest(connectActivity);
-            //var ex = Record.Exception(() => host.TestActivity());
-            //Assert.Null(ex);
         }
 
         [Fact]
@@ -39,15 +36,13 @@ namespace UiPath.Database.Tests
             dbConnection.Setup(con => con.Dispose()).Callback(() => executed = true);
             dynamic arguments = new ExpandoObject();
             arguments.DatabaseConnection = dbConnection.Object;
-            //var host = new WorkflowInvokerTest(new DatabaseDisconnect(), arguments);
-            //var ex = Record.Exception(() => host.TestActivity());
             var disconnectActivity = new DatabaseDisconnect()
             {
                 DatabaseConnection = new InArgument<DatabaseConnection>(ctx => dbConnection.Object),
             };
             
             WorkflowInvoker.Invoke(disconnectActivity, TimeSpan.FromSeconds(30));
-            //Assert.Null(ex);
+
             Assert.True(executed);
         }
 
@@ -68,11 +63,6 @@ namespace UiPath.Database.Tests
             };
 
             WorkflowInvoker.Invoke(dbTransactionActivity, TimeSpan.FromSeconds(30));
-
-
-            //var host = new WorkflowInvokerTest(dbTransactionActivity, arguments);
-            //var ex = Record.Exception(() => host.TestActivity());
-            //Assert.Null(ex);
             Assert.True(executed == useTransaction);
         }
 

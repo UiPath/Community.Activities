@@ -31,6 +31,7 @@
   </Target>
 
   <ItemGroup>
+    <PackageReference Include="System.Activities.ViewModels"/>
     <PackageReference Include="FluentFTP" Version="51.1.0" />
     <PackageReference Include="SSH.NET" Version="2024.1.0" />
   </ItemGroup>

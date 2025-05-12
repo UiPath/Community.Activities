@@ -17,19 +17,6 @@
 		<PackageReference Update="System.Security.Cryptography.Cng" Version="4.5.2" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net5'))">
-		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
-		<PackageReference Update="UiPath.Workflow" Version="5.0.0-20210615-01" />
-		<PackageReference Update="System.Activities.Core.Presentation" Version="5.0.0-20210724.1" />
-		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20220307.1"/>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-		<PackageReference Update="System.Activities" Version="1.0.0-20201105-02" />
-		<PackageReference Update="UiPath.Workflow" Version="1.0.0-20201105-02" />
-		<PackageReference Update="System.Activities.Core.Presentation" Version="1.0.0-alpha003" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Update="UiPath.Robot.Api" Version="22.10.2" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Api" Version="22.10.2" PrivateAssets="All" />
@@ -63,7 +50,7 @@
 	</Choose>
 
 	<PropertyGroup>
-		<DefineConstants Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net5.0'">$(DefineConstants);NETSTANDARD</DefineConstants>
+		<DefineConstants Condition="'$(TargetFramework)' == 'net6.0'">$(DefineConstants);NETSTANDARD</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(IsTestProject)' == 'true'">

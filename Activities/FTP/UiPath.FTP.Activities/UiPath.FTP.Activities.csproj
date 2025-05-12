@@ -5,15 +5,16 @@
     <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+
+  <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
     <EmbeddedResource Include="Resources\Icons\Delete_file_or_folder.svg" />

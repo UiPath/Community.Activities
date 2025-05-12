@@ -21,7 +21,6 @@
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.8.0" PrivateAssets="All" />
     <PackageReference Include="System.Activities" />
     <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="System.Activities.Presentation" />
   </ItemGroup>
 
   <ItemGroup>
