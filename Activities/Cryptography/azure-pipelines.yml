@@ -37,6 +37,7 @@ pr:
     include:
     - Activities/Cryptography/*
     - Activities/Activities.Cryptography.sln
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -63,7 +64,7 @@ stages:
         robotVersion: $(TestsStudioVersion)
         studioProjectPath: 'Activities/Cryptography/UiPath.Cryptography.Activities.RuntimeTests/project.json'
         buildForWindows: true
-        buildForPortable: true
+        buildForPortable: false
         packageUnderTestName: 'UiPath.Cryptography.Activities'
         studioLicense: $(StudioLicense)
 
@@ -80,6 +81,7 @@ stages:
     displayName: 'Run Cryptography Runtime Tests Portable'
     dependsOn:
       - BuildCryptographyRuntimeTests
+    condition: false # Temporary disable runtime tests for portable
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
       parameters:

@@ -18,6 +18,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Credentials.Activities", "Credentials\UiPath.Credentials.Activities\UiPath.Credentials.Activities.csproj", "{ACB02213-A7C2-4BCA-ACE2-2BFAD6E0E54C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FTP", "FTP", "{099CA148-FA0A-44E4-8C8A-CAF7B106897E}"
+	ProjectSection(SolutionItems) = preProject
+		FTP\FTP.build.props = FTP\FTP.build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.FTP", "FTP\UiPath.FTP\UiPath.FTP.csproj", "{E9137637-B657-4C22-85A5-2E30ADF82566}"
 EndProject
@@ -46,6 +49,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Database.Tests", "Database\UiPath.Database.Tests\UiPath.Database.Tests.csproj", "{4F6DE5DC-1E17-4713-AF82-BE99643D5326}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptography", "Cryptography", "{FBD4F6B1-98F2-4985-9111-C65C5A1C8D75}"
+	ProjectSection(SolutionItems) = preProject
+		Cryptography\Cryptography.build.props = Cryptography\Cryptography.build.props
+	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared", "Shared\UiPath.Shared\UiPath.Shared.shproj", "{2E040804-8ED9-4FB8-BB8A-4A38479E2A9E}"
 EndProject
@@ -58,6 +64,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activities.Tests", "Cryptography\UiPath.Cryptography.Activities.Tests\UiPath.Cryptography.Activities.Tests.csproj", "{32563B0E-C9B0-468F-85CC-04BB4802FE37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Java", "Java", "{C94C49B6-DB81-47C2-BD39-72376423F2F0}"
+	ProjectSection(SolutionItems) = preProject
+		Java\Java.build.props = Java\Java.build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Java", "Java\UiPath.Java\UiPath.Java.csproj", "{89957ABF-8A15-484A-94BA-6565969046AD}"
 EndProject
@@ -70,6 +79,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Java.Test", "Java\UiPath.Java.Test\UiPath.Java.Test.csproj", "{49C33D77-EADB-4F07-A1A2-91B88F531E8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{913E6ED1-5915-4C4C-85BE-94E8CEE315FF}"
+	ProjectSection(SolutionItems) = preProject
+		Python\Python.build.props = Python\Python.build.props
+	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Service", "Shared\UiPath.Shared.Service\UiPath.Shared.Service.shproj", "{A6A27646-4889-4F95-A0DF-DD78D287388F}"
 EndProject
