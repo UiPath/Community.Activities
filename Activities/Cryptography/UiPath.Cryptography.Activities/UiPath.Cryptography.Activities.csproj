@@ -2,17 +2,10 @@
 	<Import Project="..\Cryptography.build.props" />
 	<PropertyGroup>
 		<PackageId>.noconflict</PackageId>
-		<TargetFrameworks>net461;net6.0</TargetFrameworks>
+		<TargetFrameworks>net6.0</TargetFrameworks>
 		<OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
 	</PropertyGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-		<Reference Include="System.Activities" />
-		<Reference Include="System.Xaml" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<Reference Include="Microsoft.CSharp" />
-		<Reference Include="System.Net.Http" />
-	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Activities.Metadata" />

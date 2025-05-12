@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
     <VersionSuffix></VersionSuffix>
     <!--leave empty for ci to replace with prelease tag-->
@@ -29,15 +29,12 @@
   </Target>
 
   <ItemGroup>
-    <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="bin\net461\x86" />
-    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net6.0-windows7.0\x86" />
-    <None Include="..\3rdparty\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net6.0\x86" />
+    <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="bin\net6.0-windows7.0\x86" />
+    <None Include="..\3rdparty\Python.Runtime*.dll" Pack="true" PackagePath="bin\net6.0\x86" />
 
-    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="bin\net461\x64" />
-    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net6.0-windows7.0\x64" />
-    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Exclude="**\*.27.dll;**\*.34.dll;**\*.35.dll" Pack="true" PackagePath="bin\net6.0\x64" />
+    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="bin\net6.0-windows7.0\x64" />
+    <None Include="..\3rdparty\x64\Python.Runtime*.dll" Pack="true" PackagePath="bin\net6.0\x64" />
 
-    <None Include="$(OutputPath)\net461\UiPath.Python.Host*.exe" Pack="true" PackagePath="bin\net461" />
     <None Include="$(OutputPath)\net6.0\UiPath.Python.Host*.*exe" Pack="true" PackagePath="bin\net6.0" />
     <None Include="$(OutputPath)\net6.0-windows\UiPath.Python.Host*.*exe" Pack="true" PackagePath="bin\net6.0-windows7.0" />
     <None Include="$(OutputPath)\net6.0\UiPath.Python.Host*.*dll" Pack="true" PackagePath="bin\net6.0" />
@@ -49,21 +46,8 @@
     <None Include="$(OutputPath)\net6.0\*.*dll" Pack="true" PackagePath="bin\net6.0" />
     <None Include="$(OutputPath)\net6.0-windows\*.*dll" Pack="true" PackagePath="bin\net6.0-windows7.0" />
 
-    <None Include="$(OutputPath)\net461\UiPath.Python.dll" Pack="true" PackagePath="bin\net461" />
     <None Include="$(OutputPath)\net6.0\UiPath.Python.dll" Pack="true" PackagePath="bin\net6.0" />
     <None Include="$(OutputPath)\net6.0-windows\UiPath.Python.dll" Pack="true" PackagePath="bin\net6.0-windows7.0" />
-
-    <None Include="$(OutputPath)\net461\ja\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\ja\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\ru\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\ru\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\de\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\de\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\es\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\es\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\es-MX\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\es-MX\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\ko\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\ko\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\pt\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\pt\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\pt-BR\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\pt-BR\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\tr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\tr\UiPath.Python.resources.dll" />
-    <None Include="$(OutputPath)\net461\zh-CN\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\zh-CN\UiPath.Python.resources.dll" />
-	<None Include="$(OutputPath)\net461\zh-TW\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net461\zh-TW\UiPath.Python.resources.dll" />
 
     <None Include="$(OutputPath)\net6.0-windows\fr\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net6.0-windows7.0\fr\UiPath.Python.resources.dll" />
     <None Include="$(OutputPath)\net6.0-windows\ja\UiPath.Python.resources.dll" Pack="true" PackagePath="bin\net6.0-windows7.0\ja\UiPath.Python.resources.dll" />
@@ -126,7 +110,7 @@
 
     </ItemGroup>
 
-	  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+	  <ItemGroup>
 		  <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.ViewModels.dll" />
 	  </ItemGroup>
 	  
@@ -148,7 +132,7 @@
     </ItemGroup>
   </Target>
 
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+	<ItemGroup>
 		<ProjectReference Include="..\..\Python\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj">
 			<PrivateAssets>All</PrivateAssets>
 		</ProjectReference>
@@ -165,11 +149,11 @@
     </ProjectReference>
   </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+	<ItemGroup>
 		<PackageReference Include="System.Activities.ViewModels"/>
 	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net6.0' AND $(ConfigurationName) == Debug ">
     <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
   </Target>
 </Project>

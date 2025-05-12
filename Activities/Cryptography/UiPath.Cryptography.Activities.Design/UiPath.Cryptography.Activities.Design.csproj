@@ -2,24 +2,14 @@
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
 	<Import Project="..\Cryptography.build.props" />
 	<PropertyGroup>
-		<TargetFrameworks>net461;net6.0-windows</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows</TargetFrameworks>
 		<OutputPath>$(ProjectDir)..\..\Output\Activities\Cryptography\</OutputPath>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Activities.Core.Presentation" />
-	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-		<Reference Include="System.Activities" />
-		<Reference Include="System.Activities.Presentation" />
-		<Reference Include="System.Activities.Core.Presentation" />
-		<Reference Include="System.ServiceModel" />
-		<Reference Include="System.Xaml" />
-		<Reference Include="WindowsBase" />
-		<Reference Include="PresentationCore" />
-		<Reference Include="PresentationFramework" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="..\..\Shared\UiPath.Activities.Presentation\ActivityDecoratorControl.cs" Link="Controls\ActivityDecoratorControl.cs" />

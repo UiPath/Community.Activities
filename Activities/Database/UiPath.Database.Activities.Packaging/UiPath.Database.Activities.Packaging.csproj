@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Database.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0-windows;net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net6.0</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Platforms>AnyCPU;x86;x64</Platforms>
@@ -86,10 +86,7 @@
 	  <BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Database.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Database.Activities.Design.resources.dll" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-      <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll" TargetPath="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll"/>
-    </ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+	<ItemGroup>
 		<BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" TargetPath="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
 	</ItemGroup>
   </Target>
@@ -107,14 +104,11 @@
     <!--Dependencies override to solve FOSSA issues-->
     <PackageReference Include="Azure.Identity" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="Oracle.ManagedDataAccess" Version ="19.22.0"/>
-  </ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
+	<ItemGroup>
 		<PackageReference Include="System.Activities.ViewModels" />
 	</ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.0" />
+  <ItemGroup>
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.8.0" />
     <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
     <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
   </ItemGroup>
@@ -129,7 +123,7 @@
     </ProjectReference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net461' AND $(ConfigurationName) == Debug ">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net6.0' AND $(ConfigurationName) == Debug ">
     <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
   </Target>
 </Project>

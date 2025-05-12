@@ -48,10 +48,8 @@ stages:
     parameters:
       projectName: 'Cryptography'
       solutionPath: '$(SolutionsPath)/Activities.Cryptography.sln'
-      buildPoolName: 'activities-build'
-      testPoolName: 'activities-build'
       sonarKeyPrefix: 'CommunityActivities'
-      sdkBuild: true
+      sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
 
@@ -67,6 +65,7 @@ stages:
         buildForWindows: true
         buildForPortable: true
         packageUnderTestName: 'UiPath.Cryptography.Activities'
+        studioLicense: $(StudioLicense)
 
   - stage: RunCryptographyRuntimeTestsWindows
     displayName: 'Run Cryptography Runtime Tests Windows'

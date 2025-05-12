@@ -5,8 +5,8 @@ parameters:
   environment: {}
 
 jobs:
-- job: "RunDatabaseRuntimeTestsPortable"
-  displayName: "Run Database Runtime Tests Portable"
+- job: "RunRuntimeTestsPortable"
+  displayName: "Run Runtime Tests Portable"
   variables:
     IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
   timeoutInMinutes: 90
