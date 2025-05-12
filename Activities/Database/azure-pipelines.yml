@@ -28,7 +28,7 @@ trigger:
     include:
     - Activities/Database/*
     - Activities/Activities.Database.sln
-    - Activities/Directory.build.targets    
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
