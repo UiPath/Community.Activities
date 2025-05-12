@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System;
 using System.Activities;
 
 namespace UiPath.Shared.Activities.Tests
 {
-    [TestFixture]
+    
     public class AbstractActivities
     {
-        [TestCase]
+        [Fact]
         public void NativeActivity_ContinuesWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -21,7 +21,7 @@ namespace UiPath.Shared.Activities.Tests
             WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2));
         }
 
-        [TestCase]
+        [Fact]
         public void NativeActivity_FailsWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -35,7 +35,7 @@ namespace UiPath.Shared.Activities.Tests
             Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2)); });
         }
 
-        [TestCase]
+        [Fact]
         public void NativeActivity_ContinuesWhenReturnedDelegateFails()
         {
             FailsWhenReturningNativeActivity mock = new FailsWhenReturningNativeActivity()
@@ -46,7 +46,7 @@ namespace UiPath.Shared.Activities.Tests
             WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30));
         }
 
-        [TestCase]
+        [Fact]
         public void NativeActivity_FailsWhenReturnedDelegateFails()
         {
             FailsWhenReturningNativeActivity mock = new FailsWhenReturningNativeActivity()
@@ -57,7 +57,7 @@ namespace UiPath.Shared.Activities.Tests
             Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30)); });
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_ContinuesWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -71,7 +71,7 @@ namespace UiPath.Shared.Activities.Tests
             WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2));
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_FailsWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -85,7 +85,7 @@ namespace UiPath.Shared.Activities.Tests
             Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2)); });
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_ContinuesWhenReturnedDelegateFails()
         {
             FailsWhenReturningCodeActivity mock = new FailsWhenReturningCodeActivity()
@@ -96,7 +96,7 @@ namespace UiPath.Shared.Activities.Tests
             WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30));
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_FailsWhenReturnedDelegateFails()
         {
             FailsWhenReturningCodeActivity mock = new FailsWhenReturningCodeActivity()

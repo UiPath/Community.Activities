@@ -11,12 +11,6 @@
   </PropertyGroup>
 	
   <Import Project="..\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="NUnit" Version="3.13.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
 		<PackageReference Include="System.Activities.Core.Presentation" />
