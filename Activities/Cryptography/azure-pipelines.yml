@@ -23,6 +23,7 @@ trigger:
     include:
     - Activities/Cryptography/*
     - Activities/Activities.Cryptography.sln
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
