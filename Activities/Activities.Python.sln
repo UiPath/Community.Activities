@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python", "Python\UiP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Activities", "Python\UiPath.Python.Activities\UiPath.Python.Activities.csproj", "{E270608B-BA9E-4972-A18E-34B93E6552B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Activities.Design", "Python\UiPath.Python.Activities.Design\UiPath.Python.Activities.Design.csproj", "{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Host", "Python\UiPath.Python.Host\UiPath.Python.Host.csproj", "{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Python.Host.Shared", "Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.shproj", "{25FF4279-6EE6-441E-9D40-A40DB81CB57C}"
@@ -47,10 +45,6 @@ Global
 		{E270608B-BA9E-4972-A18E-34B93E6552B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E270608B-BA9E-4972-A18E-34B93E6552B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E270608B-BA9E-4972-A18E-34B93E6552B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E116C90E-C6A0-4292-B1FF-E0746FFE95D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FBF5F7E-2AE4-4F4A-84CB-26B3A9E3119C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -94,7 +88,6 @@ Global
 		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
-		Shared\UiPath.Shared.Activities.Design\UiPath.Shared.Activities.Design.projitems*{e116c90e-c6a0-4292-b1ff-e0746ffe95d5}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{e270608b-ba9e-4972-a18e-34b93e6552b4}*SharedItemsImports = 5
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{e270608b-ba9e-4972-a18e-34b93e6552b4}*SharedItemsImports = 5
 	EndGlobalSection
