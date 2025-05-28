@@ -8,6 +8,7 @@
       "DescriptionKey": "GetObjectDescription",
       "viewModelType": "UiPath.Activities.Python.ViewModels.GetObjectViewModel`1",
       "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
       "Properties": [
         {
           "Name": "PythonObject",
@@ -52,6 +53,7 @@
       "DescriptionKey": "PythonScopeDescription",
       "viewModelType": "UiPath.Activities.Python.ViewModels.PythonScopeViewModel",
       "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
       "Properties": [
         {
           "Name": "Version",
@@ -134,6 +136,7 @@
       "DescriptionKey": "RunScriptDescription",
       "viewModelType": "UiPath.Activities.Python.ViewModels.RunScriptViewModel",
       "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
       "Properties": [
         {
           "Name": "ScriptFile",
@@ -168,6 +171,7 @@
       "DescriptionKey": "LoadScriptDescription",
       "viewModelType": "UiPath.Activities.Python.ViewModels.LoadScriptViewModel",
       "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
       "Properties": [
         {
           "Name": "ScriptFile",
@@ -214,6 +218,7 @@
       "DescriptionKey": "InvokeMethodDescription",
       "viewModelType": "UiPath.Activities.Python.ViewModels.InvokeMethodViewModel",
       "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
       "Properties": [
         {
           "Name": "Instance",
