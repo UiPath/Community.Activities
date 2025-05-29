@@ -1,6 +1,5 @@
 ﻿using System.Activities.DesignViewModels;
 using System.Diagnostics.CodeAnalysis;
-using UiPath.Studio.Activities.Api;
 using UiPath.Python;
 
 namespace UiPath.Activities.Python.ViewModels
@@ -10,10 +9,6 @@ namespace UiPath.Activities.Python.ViewModels
     {
         public PythonScopeViewModel(IDesignServices services) : base(services)
         {
-            //Force dependency here for activities.api
-            //Otherwise this assembly will be ignored by studio
-            //see STUD-73622
-            var _ = services.GetService<IWorkflowDesignApi>();
         }
 
         public DesignProperty<Version> Version { get; set; }
