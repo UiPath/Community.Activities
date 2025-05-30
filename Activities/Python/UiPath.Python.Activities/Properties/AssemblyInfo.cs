@@ -19,5 +19,4 @@ using System.Windows.Markup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("e270608b-ba9e-4972-a18e-34b93e6552b4")]
 
-[assembly: InternalsVisibleTo("UiPath.Python.Activities.Design")]
 

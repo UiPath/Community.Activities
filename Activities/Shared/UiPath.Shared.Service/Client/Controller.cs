@@ -2,10 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
-using System.Net;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
 namespace UiPath.Shared.Service.Client
@@ -22,17 +20,15 @@ namespace UiPath.Shared.Service.Client
 
         internal HostWrapper PythonWrapper = new HostWrapper();
 
-        internal string Arguments { get; set; } = null;
-
         internal bool Visible { get; set; } = true;
 
-        internal string ExeFile { get; set; }
+        internal string HostLibFile { get; set; }
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
 
         internal HostWrapper Create()
         {
-            StartHostService();            
+            StartHostService();
             return PythonWrapper;
         }
 
@@ -45,46 +41,40 @@ namespace UiPath.Shared.Service.Client
         {
             var isWindows = true;
 #if NETCOREAPP
-            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 isWindows = false;
 #endif
-            string folder = Path.GetDirectoryName(ExeFile);
-            string exeFullPath = ExeFile;
+            string folder = Path.GetDirectoryName(HostLibFile);
+            var hostLibFullPath = HostLibFile;
             if (folder.IsNullOrEmpty())
             {
                 if (isWindows)
-                {
                     folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\", "\\bin\\");
-                    exeFullPath = Path.Combine(folder, ExeFile);
-                }
                 else
-                {
                     folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
-                    Arguments = string.Concat(Path.Combine(folder, ExeFile.Replace(".exe", ".dll")), " ", Arguments);
-                    exeFullPath = "dotnet";
-                }
+
+                hostLibFullPath = Path.Combine(folder, HostLibFile);
             }
 
-            if (!File.Exists(exeFullPath) && isWindows
-                || !isWindows && string.IsNullOrEmpty(Arguments))
-                throw new Exception($"Process path not found: {exeFullPath}");
+            if (!File.Exists(hostLibFullPath))
+                throw new Exception($"Process path not found: {hostLibFullPath}");
 
-            // start the host process
+            // start the host process using dotnet
             ProcessStartInfo psi = new ProcessStartInfo()
             {
                 UseShellExecute = false,
-                FileName = exeFullPath,
+                FileName = "dotnet",
                 WorkingDirectory = folder,
-                Arguments = Arguments,
                 WindowStyle = Visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true
             };
+            psi.ArgumentList.Add(hostLibFullPath);
 
             PythonWrapper.Proc = Process.Start(psi);
 
             Retry(ServiceReady, StartTimeout, RetryInterval);
-            
+
             // wait for service to become available
             bool ServiceReady()
             {
@@ -93,11 +83,8 @@ namespace UiPath.Shared.Service.Client
                 //for some edge case - check if the process has the id set               
                 if (!PythonWrapper.GetHostProcessId(out var processId))
                     return false;
-                
-                if (PythonWrapper.Pipe == null)
-                {
-                    PythonWrapper.Pipe = new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
-                }
+
+                PythonWrapper.Pipe ??= new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
 
                 TryConnectPipeClient();
                 return PythonWrapper.Pipe.IsConnected;

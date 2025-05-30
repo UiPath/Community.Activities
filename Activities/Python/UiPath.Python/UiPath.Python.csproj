@@ -1,41 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\Python.build.props" />
-  <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
-    <OutputPath>..\..\Output\Activities\Python\</OutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-  <!--<PropertyGroup>
+    <Import Project="..\Python.build.props" />
+    <PropertyGroup>
+        <TargetFrameworks>net6.0</TargetFrameworks>
+        <OutputPath>..\..\Output\Activities\Python\</OutputPath>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+    <!--<PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
   </PropertyGroup>-->
-  <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Python.fr.resx">
-      <DependentUpon>UiPath.Python.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.ja.resx">
-      <DependentUpon>UiPath.Python.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UiPath.Python.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.ru.resx">
-      <DependentUpon>UiPath.Python.resx</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\Init.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\UiPath.Python.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UiPath.Python.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
+    <Import Project="..\..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
+    <ItemGroup>
+        <PackageReference Include="UiPath.Workflow" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\UiPath.Python.fr.resx">
+            <DependentUpon>UiPath.Python.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Python.ja.resx">
+            <DependentUpon>UiPath.Python.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Python.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>UiPath.Python.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Python.ru.resx">
+            <DependentUpon>UiPath.Python.resx</DependentUpon>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Scripts\Init.py" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Properties\UiPath.Python.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>UiPath.Python.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
 </Project>

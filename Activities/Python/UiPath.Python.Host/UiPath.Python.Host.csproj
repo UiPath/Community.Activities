@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows;net6.0</TargetFrameworks>
@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
 	<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     <PublishReadyToRun>true</PublishReadyToRun>
-    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 

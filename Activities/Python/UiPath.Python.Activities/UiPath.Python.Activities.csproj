@@ -11,7 +11,7 @@
   </PropertyGroup>-->
   <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
   <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+  <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>
@@ -21,9 +21,13 @@
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api" />
+    <PackageReference Include="UiPath.Activities.Contracts" />
     <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Properties\UiPath.Python.Activities.fr.resx">
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
@@ -38,10 +42,5 @@
     <EmbeddedResource Update="Properties\UiPath.Python.Activities.ru.resx">
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\..\RecognizedWordsDictionary.xml">
-      <Link>RecognizedWordsDictionary.xml</Link>
-    </CodeAnalysisDictionary>
   </ItemGroup>
 </Project>

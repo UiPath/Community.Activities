@@ -35,8 +35,6 @@ namespace UiPath.Python.Impl
         private const string PyTypeName = "Python.Runtime.Py";
         private const string ConverterExtensionTypeName = "Python.Runtime.ConverterExtension";
 
-        private const string PythonLinuxRuntimeLib = "Python.Runtime.Unix.dll";
-
         private dynamic _pyEngine = null;
         private dynamic _pyRuntime = null;
         private dynamic _pyObject = null;
@@ -97,25 +95,22 @@ namespace UiPath.Python.Impl
                         Trace.TraceInformation($"Initializing Python runtime using version {_version} and path {_path}");
                         Stopwatch sw = Stopwatch.StartNew();
 
-                        // needed in oder to find Python dll
+                        // needed in oder to find Python dll ??
                         if (_isWindows)
                             SetDllDirectory(Path.GetFullPath(_path));
 
                         // load the dedicated Python.Runtime.XX.dll
-                        string path = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(GetType()).CodeBase).LocalPath);
+                        string path = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(GetType()).Location).LocalPath);
                         path = Path.Combine(path, (IntPtr.Size == 8) ? "x64" : "x86");
-                        if (_isWindows)
-                            path = Path.Combine(path, _version.GetAssemblyName());
-                        else
-                            path = Path.Combine(path, PythonLinuxRuntimeLib);
-
+                        path = Path.Combine(path, _version.GetAssemblyName());
+                        
                         Assembly assembly = Assembly.LoadFile(path);
                         ct.ThrowIfCancellationRequested();
 
                         InitializeRuntime(assembly);
                         ct.ThrowIfCancellationRequested();
 
-                        if (!_isWindows || _version == Version.Python_310)
+                        if (_version == Version.Python_310)
                         {
                             if (!string.IsNullOrEmpty(_libraryPath))
                                 _pyRuntime.PythonDLL = _libraryPath;
@@ -123,7 +118,7 @@ namespace UiPath.Python.Impl
                         else
                             _pyEngine.PythonHome = _path;
 
-                        if (_version >= Version.Python_36 && _version <= Version.Python_39 || !_isWindows)
+                        if (_version >= Version.Python_36 && _version <= Version.Python_39)
                             _pyEngine.Initialize(null, null, null, null);
                         else
                             _pyEngine.Initialize(null, null, null);
