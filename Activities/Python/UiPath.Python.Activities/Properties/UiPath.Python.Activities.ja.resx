@@ -299,4 +299,8 @@
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>v3.10 以上の Python は 32 ビット版ではサポートされていません。 </value>
   </data>
+  <data name="CategoryPython" xml:space="preserve">
+    <value>アプリの呼び出し.Python</value>
+    <comment>category names (separated by .)</comment>
+  </data>
 </root>
