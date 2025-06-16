@@ -2,7 +2,7 @@
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
   </PropertyGroup>
 
@@ -11,7 +11,7 @@
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
 

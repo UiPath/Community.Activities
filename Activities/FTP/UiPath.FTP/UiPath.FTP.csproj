@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>

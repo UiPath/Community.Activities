@@ -2,14 +2,14 @@
 	<Import Project="..\Cryptography.build.props" />
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFrameworks>$(PortableFramework)</TargetFrameworks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
 	</PropertyGroup>
 
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
 	
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Security.Cryptography.Cng" />

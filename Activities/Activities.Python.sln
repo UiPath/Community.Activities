@@ -23,6 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.TestUtils", "Shared\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29811D5E-843A-4697-8C4F-660A29A97F7F}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.build.props = Directory.build.props
 		Directory.build.targets = Directory.build.targets
 		Python\Python.build.props = Python\Python.build.props
 	EndProjectSection

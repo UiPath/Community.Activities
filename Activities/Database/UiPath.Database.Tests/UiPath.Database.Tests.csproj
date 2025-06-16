@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <ProjectGuid>{4F6DE5DC-1E17-4713-AF82-BE99643D5326}</ProjectGuid>
-    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <AssemblyTitle>UiPath.Database.Tests</AssemblyTitle>
     <Product>UiPath.Database.Tests</Product>
     <Copyright>Copyright ©  2018</Copyright>
@@ -27,7 +27,7 @@
     <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
   </ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">
 		<PackageReference Include="System.Activities.Core.Presentation" />
 	</ItemGroup>
 

@@ -4,7 +4,7 @@
 		<MSBuildWarningsAsErrors>MSB3277</MSBuildWarningsAsErrors>
 	</PropertyGroup>
 
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6'))">
+	<ItemGroup>
 		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20240320-03" />
 		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20240320-03" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="6.0.0-20220318.2" />
@@ -13,7 +13,7 @@
 		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
 		<PackageReference Update="System.Security.Cryptography.Cng" Version="4.5.2" />
 	</ItemGroup>
 
@@ -31,26 +31,8 @@
 		<PackageReference Update="Azure.Identity" Version="1.13.1" />
 	</ItemGroup>
 
-	<!-- the None element is used for keeping files visible in solution explorer -->
-	<Choose>
-		<When Condition="$(TargetFramework.StartsWith('net4'))">
-			<ItemGroup>
-				<Compile Remove="**\NetCore*\**\*.cs" />
-				<Page Remove="**\NetCore\**\*.xaml" />
-				<None Include="**\NetCore\**\*.cs" Exclude="obj\**"/>
-			</ItemGroup>
-		</When>
-		<Otherwise>
-			<ItemGroup>
-				<Compile Remove="**\NetFramework\**\*.cs" />
-				<Page Remove="**\NetFramework\**\*.xaml" />
-				<None Include="**\NetFramework\**\*.cs" Exclude="obj\**"/>
-			</ItemGroup>
-		</Otherwise>
-	</Choose>
-
 	<PropertyGroup>
-		<DefineConstants Condition="'$(TargetFramework)' == 'net6.0'">$(DefineConstants);NETSTANDARD</DefineConstants>
+		<DefineConstants Condition="'$(TargetFramework)' == '$(PortableFramework)'">$(DefineConstants);NETSTANDARD</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(IsTestProject)' == 'true'">

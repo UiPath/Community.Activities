@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>UiPath.Java.Test</RootNamespace>
     <AssemblyName>UiPath.Java.Test</AssemblyName>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
     <OutputPath>..\..\OutputTests\Java\</OutputPath>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

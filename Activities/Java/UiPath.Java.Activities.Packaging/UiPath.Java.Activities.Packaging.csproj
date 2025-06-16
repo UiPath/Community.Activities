@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\Java.build.props" />
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows;net6.0</TargetFrameworks>
+		<TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
 		<OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
 		<VersionSuffix></VersionSuffix>
 		<!--leave empty for ci to replace with prelease tag-->
@@ -54,7 +54,7 @@
 			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Java.Activities.resources.dll" TargetPath="zh-CN\UiPath.Java.Activities.resources.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Java.Activities.resources.dll" TargetPath="zh-TW\UiPath.Java.Activities.resources.dll" />
 		</ItemGroup>
-		<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
+		<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.Java.Activities.Design.dll" />
 
 			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Java.Activities.Design.resources.dll" TargetPath="de\UiPath.Java.Activities.Design.resources.dll" />
@@ -76,12 +76,12 @@
 		</ItemGroup>
 	</Target>
 
-	<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
+	<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
 		<ProjectReference Include="..\..\Java\UiPath.Java.Activities.Design\UiPath.Java.Activities.Design.csproj">
 			<PrivateAssets>All</PrivateAssets>
 		</ProjectReference>
 	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
 		<ProjectReference Include="..\..\Java\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
 			<PrivateAssets>All</PrivateAssets>
 		</ProjectReference>
@@ -92,7 +92,7 @@
 		</ProjectReference>
 	</ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == 'net6.0' AND $(ConfigurationName) == Debug ">
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
 		<Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Java.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Java.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
 	</Target>
 </Project>

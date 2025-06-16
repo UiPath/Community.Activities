@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{9E913818-9270-4570-A8F4-80812EBFA09E}</ProjectGuid>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>$(PortableFramework)</TargetFramework>
     <AssemblyTitle>UiPath.Python.Tests</AssemblyTitle>
     <Product>UiPath.Python.Tests</Product>
     <Copyright>Copyright ©  2018</Copyright>
@@ -14,8 +14,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UiPath.Python.Tests</RootNamespace>
     <AssemblyName>UiPath.Python.Tests</AssemblyName>
-    <TargetFrameworks>net6.0</TargetFrameworks>
-    <OutputPath>..\..\OutputTests\Python\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' ">
     <DebugType>full</DebugType>
