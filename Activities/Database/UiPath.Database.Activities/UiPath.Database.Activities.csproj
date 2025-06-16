@@ -3,7 +3,7 @@
   <Import Project="../Database.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>net6.0-windows;net6.0</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Database\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -16,8 +16,8 @@
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
-    <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
     <EmbeddedResource Include="Resources\Icons\*.svg" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +50,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Condition="'$(TargetFramework)' != 'net6.0'" Remove="NetCore/**" />
+    <Compile Condition="'$(TargetFramework)' != '$(PortableFramework)'" Remove="NetCore/**" />
   </ItemGroup>
 </Project>

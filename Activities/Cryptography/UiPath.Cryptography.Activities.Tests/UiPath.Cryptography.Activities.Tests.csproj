@@ -2,14 +2,14 @@
 	<PropertyGroup>
 		<Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
 		<ProjectGuid>{32563B0E-C9B0-468F-85CC-04BB4802FE37}</ProjectGuid>
-		<TargetFrameworks>net6.0-windows</TargetFrameworks>
+		<TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
 		<AssemblyTitle>UiPath.Cryptography.Activities.Tests</AssemblyTitle>
 		<Product>UiPath.Cryptography.Activities.Tests</Product>
 		<Copyright>Copyright ©  2018</Copyright>
 		<OutputPath>..\..\OutputTests\Cryptography\</OutputPath>
 		<IsTestProject>true</IsTestProject>
 	</PropertyGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Activities.Core.Presentation" />

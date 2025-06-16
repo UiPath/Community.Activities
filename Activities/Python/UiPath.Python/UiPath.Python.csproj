@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
     <Import Project="..\Python.build.props" />
     <PropertyGroup>
-        <TargetFrameworks>net6.0</TargetFrameworks>
+        <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
         <OutputPath>..\..\Output\Activities\Python\</OutputPath>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>

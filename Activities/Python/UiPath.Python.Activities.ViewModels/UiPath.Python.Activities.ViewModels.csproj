@@ -2,7 +2,7 @@
     <Import Project="..\Python.build.props" />
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
+        <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
         <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
         <DefineConstants>VIEW_MODELS</DefineConstants>
         <AssemblyName>UiPath.Python.Activities.ViewModels</AssemblyName>
@@ -16,13 +16,13 @@
         <PackageReference Include="System.Activities.Metadata" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+    <ItemGroup Condition="'$(TargetFramework)' == '$(WindowsFramework)'">
         <PackageReference Include="System.Activities.Core.Presentation" />
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0-windows' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
-        <EmbeddedResource Condition=" '$(TargetFramework)' == 'net6.0' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+        <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+        <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
         <EmbeddedResource Include="Resources\Icons\*.svg" />
     </ItemGroup>
 

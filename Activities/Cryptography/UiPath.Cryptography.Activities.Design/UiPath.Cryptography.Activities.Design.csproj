@@ -2,7 +2,7 @@
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
 	<Import Project="..\Cryptography.build.props" />
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows</TargetFrameworks>
+		<TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
 		<OutputPath>$(ProjectDir)..\..\Output\Activities\Cryptography\</OutputPath>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
