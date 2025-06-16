@@ -299,4 +299,8 @@
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>32 位元上不支援 3.10 及以上的 Python 版本。 </value>
   </data>
+  <data name="CategoryPython" xml:space="preserve">
+    <value>應用程式叫用器.Python</value>
+    <comment>category names (separated by .)</comment>
+  </data>
 </root>
