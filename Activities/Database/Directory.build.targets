@@ -1,0 +1,14 @@
+<Project>
+    <!-- Import first the parent targets -->
+    <Import Project="../Directory.build.targets" />
+
+    <ItemGroup>
+        <PackageReference Update="Microsoft.Data.SqlClient" Version="5.2.1" />
+        <PackageReference Update="System.Data.Common" Version="4.3.0" />
+        <PackageReference Update="System.Data.Odbc" Version="6.0.0" />
+        <PackageReference Update="System.Data.OleDb" Version="6.0.0" />
+        <PackageReference Update="Oracle.ManagedDataAccess.Core" Version="23.8.0"/>
+        <PackageReference Update="System.Resources.Extensions" Version="6.0.0" />
+    </ItemGroup>
+    
+</Project>

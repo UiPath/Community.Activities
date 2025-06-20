@@ -36,7 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Shared.Activities.Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{ED3DF9E3-2366-483E-9124-3FA8766EEF77}"
 	ProjectSection(SolutionItems) = preProject
-		Database\Database.build.props = Database\Database.build.props
+		Database\Directory.build.props = Database\Directory.build.props
+		Database\Directory.build.targets = Database\Directory.build.targets
 		Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj = Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj
 	EndProjectSection
 EndProject

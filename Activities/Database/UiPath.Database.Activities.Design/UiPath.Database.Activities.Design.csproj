@@ -11,7 +11,7 @@
     <PackageReference Include="System.Activities" />
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.8.0" PrivateAssets="All" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" />
 
     <!--Dependencies override to solve FOSSA issues-->
     <PackageReference Include="System.Formats.Asn1" />
@@ -21,7 +21,7 @@
     <Compile Remove="Dialogs\DataConnectionConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+    <PackageReference Include="System.Resources.Extensions"/>
     <PackageReference Include="UiPath.Activities.Api" />
 	<PackageReference Include="UiPath.Activities.Contracts" />
   </ItemGroup>
