@@ -1,0 +1,231 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="TestExcelExtensions.ExcelActivityTest" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="TestExcelExtensions.ExcelActivityTest_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:si="clr-namespace:System.IO;assembly=mscorlib"
+ xmlns:ux="clr-namespace:UiPathTeam.XLExcel;assembly=UiPathTeam.XLExcel"
+ xmlns:uxa="clr-namespace:UiPathTeam.XLExcel.Activities;assembly=UiPathTeam.XLExcel.Activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>UiPathTeam.XLExcel</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>DocumentFormat.OpenXml</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Net.Http</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPathTeam.XLExcel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPathTeam.XLExcel.Activities</AssemblyReference>
+      <AssemblyReference>UiPathTeam.XLExcel</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>TestExcelExtensions</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="dt" />
+      <Variable x:TypeArguments="x:String" Name="asdfasdf" />
+      <Variable x:TypeArguments="si:StreamWriter" Name="streamWriter" />
+    </Sequence.Variables>
+    <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="123" />
+    <uxa:XLExcelApplicationScope sap2010:WorkflowViewState.IdRef="XLExcelApplicationScope_6">
+      <uxa:XLExcelApplicationScope.Body>
+        <ActivityAction x:TypeArguments="ux:XLExcelContextInfo">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ux:XLExcelContextInfo" Name="XLExcelContextInfoInfoTag" />
+          </ActivityAction.Argument>
+          <uxa:ReadRange Name="{x:Null}" Range="{x:Null}" Headers="False" sap2010:WorkflowViewState.IdRef="ReadRange_8" SheetName="P0120180117_034752">
+            <uxa:ReadRange.Result>
+              <OutArgument x:TypeArguments="sd:DataTable">
+                <mca:CSharpReference x:TypeArguments="sd:DataTable">dt</mca:CSharpReference>
+              </OutArgument>
+            </uxa:ReadRange.Result>
+          </uxa:ReadRange>
+        </ActivityAction>
+      </uxa:XLExcelApplicationScope.Body>
+      <uxa:XLExcelApplicationScope.FilePath>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">"C:\\UiPath\\Test123.xlsx"</mca:CSharpValue>
+        </InArgument>
+      </uxa:XLExcelApplicationScope.FilePath>
+    </uxa:XLExcelApplicationScope>
+    <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_1">
+      <InArgument x:TypeArguments="x:String">
+        <mca:CSharpValue x:TypeArguments="x:String">dt.Dump()</mca:CSharpValue>
+      </InArgument>
+    </WriteLine>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="si:StreamWriter">
+          <mca:CSharpReference x:TypeArguments="si:StreamWriter">streamWriter</mca:CSharpReference>
+        </OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="si:StreamWriter">
+          <mca:CSharpValue x:TypeArguments="si:StreamWriter">new System.IO.StreamWriter(@"C:\Users\bucur\source\repos\ExcelSheetExtensionClasses\ExcelSheetExtensionClasses.UnitTests\FilesUsedForTesting\ExpectedResultsFile\output.txt")</mca:CSharpValue>
+        </InArgument>
+      </Assign.Value>
+    </Assign>
+    <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Write">
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="si:StreamWriter">
+          <mca:CSharpValue x:TypeArguments="si:StreamWriter">streamWriter</mca:CSharpValue>
+        </InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="x:String">
+        <mca:CSharpValue x:TypeArguments="x:String">dt.Dump()</mca:CSharpValue>
+      </InArgument>
+    </InvokeMethod>
+    <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Close">
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="si:StreamWriter">
+          <mca:CSharpValue x:TypeArguments="si:StreamWriter">streamWriter</mca:CSharpValue>
+        </InArgument>
+      </InvokeMethod.TargetObject>
+    </InvokeMethod>
+    <If Condition="False" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <uxa:XLExcelApplicationScope FilePath="C:\UiPath\CustomActivities\ExcelSheetExtensionClasses\ExcelSheetExtensionClasses.UnitTests\FilesUsedForTesting\AMS_SC_Inputs_201801.xlsx" sap2010:WorkflowViewState.IdRef="XLExcelApplicationScope_1">
+            <uxa:XLExcelApplicationScope.Body>
+              <ActivityAction x:TypeArguments="ux:XLExcelContextInfo">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ux:XLExcelContextInfo" Name="XLExcelContextInfoInfoTag" />
+                </ActivityAction.Argument>
+                <uxa:ReadRange Name="{x:Null}" Range="{x:Null}" Headers="False" sap2010:WorkflowViewState.IdRef="ReadRange_4" SheetName="US">
+                  <uxa:ReadRange.Result>
+                    <OutArgument x:TypeArguments="sd:DataTable">
+                      <mca:CSharpReference x:TypeArguments="sd:DataTable">dt</mca:CSharpReference>
+                    </OutArgument>
+                  </uxa:ReadRange.Result>
+                </uxa:ReadRange>
+              </ActivityAction>
+            </uxa:XLExcelApplicationScope.Body>
+          </uxa:XLExcelApplicationScope>
+          <uxa:XLExcelApplicationScope FilePath="C:\Users\bucur\source\repos\ExcelSheetExtensionClasses\TestExcelExtensions\TestFiles\LALALA.xlsx" sap2010:WorkflowViewState.IdRef="XLExcelApplicationScope_4">
+            <uxa:XLExcelApplicationScope.Body>
+              <ActivityAction x:TypeArguments="ux:XLExcelContextInfo">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ux:XLExcelContextInfo" Name="XLExcelContextInfoInfoTag" />
+                </ActivityAction.Argument>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <uxa:ReadRange Name="{x:Null}" Headers="False" sap2010:WorkflowViewState.IdRef="ReadRange_5" Range="B3:J11" SheetName="Sheet1">
+                    <uxa:ReadRange.Result>
+                      <OutArgument x:TypeArguments="sd:DataTable">
+                        <mca:CSharpReference x:TypeArguments="sd:DataTable">dt</mca:CSharpReference>
+                      </OutArgument>
+                    </uxa:ReadRange.Result>
+                  </uxa:ReadRange>
+                  <uxa:ReadRange Name="{x:Null}" Range="{x:Null}" Headers="False" sap2010:WorkflowViewState.IdRef="ReadRange_6" SheetName="Sheet1">
+                    <uxa:ReadRange.Result>
+                      <OutArgument x:TypeArguments="sd:DataTable">
+                        <mca:CSharpReference x:TypeArguments="sd:DataTable">dt</mca:CSharpReference>
+                      </OutArgument>
+                    </uxa:ReadRange.Result>
+                  </uxa:ReadRange>
+                </Sequence>
+              </ActivityAction>
+            </uxa:XLExcelApplicationScope.Body>
+          </uxa:XLExcelApplicationScope>
+          <uxa:XLExcelApplicationScope FilePath="C:\Users\bucur\Downloads\AMS_SC_Inputs_201801.xlsx" sap2010:WorkflowViewState.IdRef="XLExcelApplicationScope_5">
+            <uxa:XLExcelApplicationScope.Body>
+              <ActivityAction x:TypeArguments="ux:XLExcelContextInfo">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ux:XLExcelContextInfo" Name="XLExcelContextInfoInfoTag" />
+                </ActivityAction.Argument>
+                <uxa:ReadRange Name="{x:Null}" Range="{x:Null}" Headers="False" sap2010:WorkflowViewState.IdRef="ReadRange_7" SheetName="US">
+                  <uxa:ReadRange.Result>
+                    <OutArgument x:TypeArguments="sd:DataTable">
+                      <mca:CSharpReference x:TypeArguments="sd:DataTable">dt</mca:CSharpReference>
+                    </OutArgument>
+                  </uxa:ReadRange.Result>
+                </uxa:ReadRange>
+              </ActivityAction>
+            </uxa:XLExcelApplicationScope.Body>
+          </uxa:XLExcelApplicationScope>
+        </Sequence>
+      </If.Then>
+    </If>
+    <sads:DebugSymbol.Symbol>d2JDOlxVaVBhdGhcQ3VzdG9tQWN0aXZpdGllc1xDb21tdW5pdHkuQWN0aXZpdGllc1xYTEV4Y2VsXFRlc3RFeGNlbEV4dGVuc2lvbnNcRXhjZWxBY3Rpdml0eVRlc3QueGFtbCkxA68BDgIBATcFN0sCAVE4BUwjAgFFTQVREQIBQFIFXQ4CATdeBWcUAgEuaAVuFAIBKW8FrQEKAgECN0M3SAIBUkkLSWMCAU0+C0QbAgFGTwlPUAIBQVoLWv0BAgE8VQtVZAIBOGUJZVACATNhC2FcAgEvawtrXAIBKm8TbxoCAQNxCasBFAIBBEERQV0CAUg+gwE+lwECAUdyC4EBKQIBIIIBC5oBKQIBDpsBC6oBKQIBBXIxcrsBAgEoeBF+IQIBIYIBMYIBkwECAR+IARGXARwCAQ+bATGbAWUCAQ2hARGnASECAQZ7F3tjAgEjeIkBeI0BAgEiiQETjwEjAgEXkAETlgEjAgEQpAEXpAFjAgEIoQGJAaEBjQECAQeMARmMAWUCARqJAXaJAX4CARmJAYkBiQGRAQIBGJMBGZMBZQIBEpABiwGQAZMBAgER</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="629.6,62.4" />
+      <sap2010:ViewStateData Id="ReadRange_8" sap:VirtualizedContainerService.HintSize="247.2,66.4" />
+      <sap2010:ViewStateData Id="XLExcelApplicationScope_6" sap:VirtualizedContainerService.HintSize="629.6,188" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="629.6,62.4" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="629.6,62.4" />
+      <sap2010:ViewStateData Id="InvokeMethod_2" sap:VirtualizedContainerService.HintSize="629.6,131.2" />
+      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="629.6,131.2" />
+      <sap2010:ViewStateData Id="ReadRange_4" sap:VirtualizedContainerService.HintSize="247.2,66.4" />
+      <sap2010:ViewStateData Id="XLExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="482.4,188" />
+      <sap2010:ViewStateData Id="ReadRange_5" sap:VirtualizedContainerService.HintSize="247.2,66.4" />
+      <sap2010:ViewStateData Id="ReadRange_6" sap:VirtualizedContainerService.HintSize="247.2,66.4" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="269.6,297.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="XLExcelApplicationScope_4" sap:VirtualizedContainerService.HintSize="482.4,419.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReadRange_7" sap:VirtualizedContainerService.HintSize="247.2,66.4" />
+      <sap2010:ViewStateData Id="XLExcelApplicationScope_5" sap:VirtualizedContainerService.HintSize="482.4,188">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="504.8,1000">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="629.6,1152" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="652,2154.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TestExcelExtensions.ExcelActivityTest_1" sap:VirtualizedContainerService.HintSize="692,2234.4" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <Import Project="..\XLExcel.build.props" />
+  <PropertyGroup>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>UiPath.XLExcel.Activities</PackageId>
+    <Title>XL Excel activities</Title>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
+    <PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
+    <Description>
+      <![CDATA[IMPORTANT: This package version requires Studio 23.10 or higher. On lower versions some functionality may be missing, or unexpected behaviours may occur.
+———————————
+A set of activities for interacting with large Excel files.]]>
+    </Description>
+    <PackageTags>UiPathActivities UiPath Excel</PackageTags>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
+    <!--leave empty for ci to replace with prelease tag-->
+    <VersionSuffix></VersionSuffix>
+    <!--TODO: add details
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://www.uipath.com/hubfs/legalspot/UiPath_MSSA.pdf</PackageLicenseUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>-->
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputPath>..\..\Output\Activities\XLExcel\</OutputPath>
+  </PropertyGroup>
+
+  <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
+    <ItemGroup>
+      <BuiltProjectOutputGroupOutput Remove="@(BuiltProjectOutputGroupOutput)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="AddDlls">
+
+     <!--PDBs for debug-->
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.XLExcel.Activities.pdb" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.XLExcel.pdb" />
+    </ItemGroup>
+
+    <!-- Proper packge contents -->
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.XLExcel.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.XLExcel.Activities.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.XLExcel.Activities.Design.dll" />
+    </ItemGroup>
+  </Target>
+  <Target Name="CleanPackageFiles" BeforeTargets="Build">
+    <Message Text="Deleting packages ..." />
+    <ItemGroup>
+      <PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+    </ItemGroup>
+    <Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.XLExcel.Activities.Design\UiPath.XLExcel.Activities.Design.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\UiPath.XLExcel.Activities\UiPath.XLExcel.Activities.csproj" PrivateAssets="all" />
+  </ItemGroup>
+ 
+</Project>

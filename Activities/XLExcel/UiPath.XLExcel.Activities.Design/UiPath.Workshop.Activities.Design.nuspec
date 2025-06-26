@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$title$</id>
+    <version>$version$</version>
+    <title>Extra Large Excel</title>
+    <authors>Radu Bucur</authors>
+    <owners>Radu Bucur</owners>
+    <projectUrl>https://github.com/RaduPantelimon/UiPathActivities</projectUrl>
+    <iconUrl>https://gallery.uipath.com/images?url=http://www.uipath.com/hubfs/Logos/uipath-nuget-logo.png</iconUrl>
+    <language></language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <summary>Package designed for the processing of large Excel Files</summary>
+    <releaseNotes> Imporved file selection mechanism (default folder is current project folder) and changed Icon</releaseNotes>
+    <tags>XL, Extra, Large, Excel, Office</tags>
+  </metadata>
+</package>

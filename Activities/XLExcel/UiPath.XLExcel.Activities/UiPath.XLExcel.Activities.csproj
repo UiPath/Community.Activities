@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UiPath.XLExcel.Activities</RootNamespace>
+    <AssemblyName>UiPath.XLExcel.Activities</AssemblyName>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="UiPath.Workflow" Version="6.0.0-20250624-08" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.XLExcel\UiPath.XLExcel.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+  <OutputPath>..\Output</OutputPath>
+</PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
+    <NoWarn>1701;1702;CA1416;</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
+    <NoWarn>1701;1702;CA1416;</NoWarn>
+  </PropertyGroup>
+</Project>

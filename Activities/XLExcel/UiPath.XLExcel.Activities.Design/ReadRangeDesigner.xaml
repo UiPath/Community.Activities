@@ -1,0 +1,81 @@
+﻿<sap:ActivityDesigner x:Class="UiPathTeam.XLExcel.Activities.Design.ReadRangeDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+    xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+    xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation">
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <sapv:ExpressionTextBox 
+                    Name="SheetName"
+                            Expression="{Binding Path=ModelItem.SheetName, Mode=TwoWay, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }"
+                            ExpressionType="s:String"
+                            HintText="Enter the sheet name"
+                            OwnerActivity="{Binding Path=ModelItem}"
+                            Margin="2"
+                            Width="180"    
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            MaxLines="1" />
+        <sapv:ExpressionTextBox 
+                    Name="Range"
+                            Expression="{Binding Path=ModelItem.Range, Mode=TwoWay, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }"
+                            ExpressionType="s:String"
+                            HintText="Range"
+                            OwnerActivity="{Binding Path=ModelItem}"
+                            Margin="2"
+                            Width="45"    
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            MaxLines="1" />
+    </Grid>
+</sap:ActivityDesigner>
+
+    
+    <!--
+    
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <sapv:ExpressionTextBox 
+                    Name="SheetName"
+                            Expression="{Binding Path=ModelItem.SheetName, Mode=TwoWay, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }"
+                            ExpressionType="s:String"
+                            HintText="Enter the sheet name"
+                            OwnerActivity="{Binding Path=ModelItem}"
+                            Margin="5"
+                            Width="360"    
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            MaxLines="1" />
+        <sapv:ExpressionTextBox 
+                    Name="Range"
+                            Expression="{Binding Path=ModelItem.Range, Mode=TwoWay, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In }"
+                            ExpressionType="s:String"
+                            HintText="Range"
+                            OwnerActivity="{Binding Path=ModelItem}"
+                            Margin="5"
+                            Width="90"    
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            MaxLines="1" />
+    -->

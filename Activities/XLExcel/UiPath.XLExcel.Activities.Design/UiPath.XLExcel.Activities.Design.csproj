@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UiPath.XLExcel.Activities.Design</RootNamespace>
+    <AssemblyName>UiPath.XLExcel.Activities.Design</AssemblyName>
+     <TargetFrameworks>net6.0-windows</TargetFrameworks>
+     <UseWPF>True</UseWPF>
+  </PropertyGroup>
+ 
+ <ItemGroup>
+  <PackageReference Include="System.Activities.Metadata" Version="6.0.0-20250625.1" />
+  <PackageReference Include="System.Activities.Core.Presentation" Version="6.0.0-20250625.1" />
+  <PackageReference Include="UiPath.Workflow" Version="6.0.0-20250624-08" />
+</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.XLExcel.Activities\UiPath.XLExcel.Activities.csproj" />
+  </ItemGroup>
+
+<PropertyGroup>
+  <OutputPath>..\Output</OutputPath>
+</PropertyGroup>
+ 
+</Project>
