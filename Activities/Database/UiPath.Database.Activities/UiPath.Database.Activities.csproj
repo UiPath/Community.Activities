@@ -1,55 +1,60 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
-  <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
-  <Import Project="../Database.build.props" />
-  <PropertyGroup>
-    <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
-    <OutputPath>..\..\Output\Activities\Database\</OutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    <Platforms>AnyCPU;x86;x64</Platforms>
-	<RootNamespace>UiPath.Database.Activities</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.ViewModels" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
-    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
-    <EmbeddedResource Include="Resources\Icons\*.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
-    <PackageReference Include="UiPath.Activities.Api" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\UiPath.Database.Activities.Designer.cs">
-      <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.fr.resx">
-      <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.ja.resx">
-      <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UiPath.Database.Activities.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.ru.resx">
-      <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Condition="'$(TargetFramework)' != '$(PortableFramework)'" Remove="NetCore/**" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+    <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
+    <PropertyGroup>
+        <PackageId>.noconflict</PackageId>
+        <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+        <OutputPath>..\..\Output\Activities\Database\</OutputPath>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+        <RootNamespace>UiPath.Database.Activities</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="UiPath.Workflow" />
+        <PackageReference Include="System.Activities.ViewModels" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Data.Odbc" />
+        <PackageReference Include="System.Data.OleDb" />
+        <PackageReference Include="UiPath.Workflow" />
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+        <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+        <EmbeddedResource Include="Resources\Icons\*.svg" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Resources.Extensions"/>
+        <PackageReference Include="UiPath.Activities.Api" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Properties\UiPath.Database.Activities.Designer.cs">
+            <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
+            <AutoGen>True</AutoGen>
+            <DesignTime>True</DesignTime>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\UiPath.Database.Activities.fr.resx">
+            <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Database.Activities.ja.resx">
+            <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Database.Activities.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>UiPath.Database.Activities.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Database.Activities.ru.resx">
+            <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Condition="'$(TargetFramework)' != '$(PortableFramework)'" Remove="NetCore/**" />
+    </ItemGroup>
 </Project>

@@ -33,6 +33,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow" />
-		<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.8.0" PrivateAssets="All" />
+		<PackageReference Include="Oracle.ManagedDataAccess.Core" PrivateAssets="All" />
 	</ItemGroup>
 </Project>
