@@ -6,8 +6,8 @@ using System.Data;
 using System.Data.Common;
 using System.Dynamic;
 using UiPath.Database.Activities;
-using UiPath.Database.BulkOps;
 using Xunit;
+using UiPath.Database;
 
 namespace UiPath.Database.Tests
 {
@@ -67,13 +67,13 @@ namespace UiPath.Database.Tests
         }
 
         [Theory]
-        [InlineData("System.Data.Odbc")]
-        [InlineData("System.Data.Oledb")]
-        [InlineData("System.Data.OracleClient")]
-        [InlineData("Microsoft.Data.SqlClient")]
-        [InlineData("Oracle.DataAccess.Client")]
-        [InlineData("Oracle.ManagedDataAccess.Client")]
-        [InlineData("Mysql.Data.MysqlClient")]
+        [InlineData(DatabaseConstants.OdbcProvider)]
+        [InlineData(DatabaseConstants.OleDbProvider)]
+        [InlineData(DatabaseConstants.SqlServerProvider)]
+        [InlineData(DatabaseConstants.OracleProvider)]
+        [InlineData("Mysql.Data.MysqlClient")] //Legacy
+        [InlineData("System.Data.OracleClient")] //Legacy
+        [InlineData("Oracle.DataAccess.Client")] //Legacy
         public void TestSize(string provider)
         {
             var con = new Mock<DbConnection>();
@@ -99,9 +99,9 @@ namespace UiPath.Database.Tests
                 }
             };
             databaseConnection.ExecuteQuery("TestProcedure", parameters, 0);
-            if (provider.ToLower().Contains("oracle"))
+            if (provider.Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
                 Assert.True(param.Object.Size == 1000000);
-            if (!provider.ToLower().Contains("oracle"))
+            if (!provider.ToLower().Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
                 Assert.True(param.Object.Size == -1);
         }
 

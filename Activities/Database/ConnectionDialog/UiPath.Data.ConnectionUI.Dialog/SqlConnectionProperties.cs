@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UiPath.Data.ConnectionUI.Dialog.Properties;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog
 {
@@ -17,14 +15,14 @@ namespace UiPath.Data.ConnectionUI.Dialog
         {
             get
             {
-                if (!(ConnectionStringBuilder["Data Source"] is string) ||
-                    (ConnectionStringBuilder["Data Source"] as string).Length == 0)
+                if (!(ConnectionStringBuilder[DatabaseConstants.Data_Source] is string) ||
+                    (ConnectionStringBuilder[DatabaseConstants.Data_Source] as string).Length == 0)
                 {
                     return false;
                 }
-                if (!(bool)ConnectionStringBuilder["Integrated Security"] &&
-                    (!(ConnectionStringBuilder["User ID"] is string) ||
-                    (ConnectionStringBuilder["User ID"] as string).Length == 0))
+                if (!(bool)ConnectionStringBuilder[DatabaseConstants.Integrated_Security] &&
+                    (!(ConnectionStringBuilder[DatabaseConstants.User_ID] is string) ||
+                    (ConnectionStringBuilder[DatabaseConstants.User_ID] as string).Length == 0))
                 {
                     return false;
                 }
@@ -41,7 +39,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         }
 
         public SqlConnectionProperties()
-            : base("Microsoft.Data.SqlClient")
+            : base(DatabaseConstants.SqlServerProvider)
         {
             LocalReset();
         }
@@ -55,12 +53,12 @@ namespace UiPath.Data.ConnectionUI.Dialog
         private void LocalReset()
         {
             // We always start with integrated security turned on
-            this["Integrated Security"] = true;
+            this[DatabaseConstants.Integrated_Security] = true;
         }
 
         public override void Test()
         {
-            string dataSource = ConnectionStringBuilder["Data Source"] as string;
+            string dataSource = ConnectionStringBuilder[DatabaseConstants.Data_Source] as string;
             if (dataSource == null || dataSource.Length == 0)
             {
                 throw new InvalidOperationException(Resources.SqlConnectionProperties_MustSpecifyDataSource);
@@ -98,14 +96,14 @@ namespace UiPath.Data.ConnectionUI.Dialog
         protected override string ToTestString()
         {
             AddEncryptIfNeeded();
-            bool savedPooling = (bool)ConnectionStringBuilder["Pooling"];
-            bool wasDefault = !ConnectionStringBuilder.ShouldSerialize("Pooling");
-            ConnectionStringBuilder["Pooling"] = false;
+            bool savedPooling = (bool)ConnectionStringBuilder[DatabaseConstants.Pooling];
+            bool wasDefault = !ConnectionStringBuilder.ShouldSerialize(DatabaseConstants.Pooling);
+            ConnectionStringBuilder[DatabaseConstants.Pooling] = false;
             string testString = ConnectionStringBuilder.ConnectionString;
-            ConnectionStringBuilder["Pooling"] = savedPooling;
+            ConnectionStringBuilder[DatabaseConstants.Pooling] = savedPooling;
             if (wasDefault)
             {
-                ConnectionStringBuilder.Remove("Pooling");
+                ConnectionStringBuilder.Remove(DatabaseConstants.Pooling);
             }
             return testString;
         }
@@ -148,8 +146,8 @@ namespace UiPath.Data.ConnectionUI.Dialog
         
         private void LocalReset()
         {
-            this["Data Source"] = _defaultDataSource;
-            this["User Instance"] = true;
+            this[DatabaseConstants.Data_Source] = _defaultDataSource;
+            this[DatabaseConstants.User_Instance] = true;
             this["Connection Timeout"] = 30;
         }
         

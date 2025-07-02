@@ -5,8 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using UiPath.Data.ConnectionUI.Dialog.Workaround;
 using Res = UiPath.Data.ConnectionUI.Dialog.Properties;
 
 namespace UiPath.Data.ConnectionUI.Dialog.Dialogs
@@ -98,7 +96,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Dialogs
         public DataConnectionSourceDialog()
         {
             InitializeComponent();
-            DbWorkarounds.SNILoadWorkaround();
+            Database.DbWorkarounds.SNILoadWorkaround();
             DataConnectionConfiguration config = new DataConnectionConfiguration();
             _dataSources = config.DataSources; 
         }

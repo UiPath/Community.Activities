@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Activities.Presentation;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
-using System.Data.Sql;
-using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using UiPath.Data.ConnectionUI.Dialog;
+using UiPath.Database;
 using Res = UiPath.Data.ConnectionUI.Dialog.Properties;
 
 namespace UiPath.Data.ConnectionUI.Dialog.Controls
@@ -65,7 +64,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 
             if (connectionProperties is OleDBSqlConnectionProperties)
             {
-                currentOleDBProvider = connectionProperties["Provider"] as string;
+                currentOleDBProvider = connectionProperties[DatabaseConstants.Provider] as string;
             }
             _controlProperties = new ControlProperties(connectionProperties);
         }
@@ -138,12 +137,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             DataTable dataTable = null;
             try
             {
-#if NETFRAMEWORK
-                dataTable = SqlDataSourceEnumerator.Instance.GetDataSources();
-#endif
-#if NETCOREAPP
                 dataTable = SqlServerScanner.GetList();
-#endif
             }
             catch
             {
@@ -157,8 +151,8 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             _servers = new List<string>();
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                string name = dataTable.Rows[i]["ServerName"].ToString();
-                string instance = dataTable.Rows[i]["InstanceName"].ToString();
+                string name = dataTable.Rows[i][DatabaseConstants.ServerName].ToString();
+                string instance = dataTable.Rows[i][DatabaseConstants.InstanceName].ToString();
                 if (instance.Length == 0)
                 {
                     _servers.Add(name);
@@ -247,7 +241,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 
             public ControlProperties(IDataConnectionProperties properties)
             {
-                properties["Integrated Security"] = true;
+                properties[DatabaseConstants.Integrated_Security] = true;
                 _properties = properties;
                 UseWindowsAuthentication = true;
             }
@@ -258,7 +252,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 {
                     if (_properties is OleDBSqlConnectionProperties)
                     {
-                        return _properties["Provider"] as string;
+                        return _properties[DatabaseConstants.Provider] as string;
                     }
                     return null;
                 }
@@ -289,7 +283,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 {
                     if (_properties is SqlConnectionProperties)
                     {
-                        return (bool)_properties["User Instance"];
+                        return (bool)_properties[DatabaseConstants.User_Instance];
                     }
                     return false;
                 }
@@ -301,19 +295,19 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 {
                     if (_properties is SqlConnectionProperties)
                     {
-                        return (bool)_properties["Integrated Security"];
+                        return (bool)_properties[DatabaseConstants.Integrated_Security];
                     }
                     if (_properties is OleDBConnectionProperties)
                     {
-                        return _properties.Contains("Integrated Security") &&
-                            _properties["Integrated Security"] is string &&
-                            (_properties["Integrated Security"] as string).Equals("SSPI", StringComparison.OrdinalIgnoreCase);
+                        return _properties.Contains(DatabaseConstants.Integrated_Security) &&
+                            _properties[DatabaseConstants.Integrated_Security] is string &&
+                            (_properties[DatabaseConstants.Integrated_Security] as string).Equals("SSPI", StringComparison.OrdinalIgnoreCase);
                     }
                     if (_properties is OdbcConnectionProperties)
                     {
-                        return _properties.Contains("Trusted_Connection") &&
-                            _properties["Trusted_Connection"] is string &&
-                            (_properties["Trusted_Connection"] as string).Equals("Yes", StringComparison.OrdinalIgnoreCase);
+                        return _properties.Contains(DatabaseConstants.Trusted_Connection) &&
+                            _properties[DatabaseConstants.Trusted_Connection] is string &&
+                            (_properties[DatabaseConstants.Trusted_Connection] as string).Equals("Yes", StringComparison.OrdinalIgnoreCase);
                     }
                     return false;
                 }
@@ -323,33 +317,33 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                     {
                         if (value)
                         {
-                            _properties["Integrated Security"] = value;
+                            _properties[DatabaseConstants.Integrated_Security] = value;
                         }
                         else
                         {
-                            _properties.Reset("Integrated Security");
+                            _properties.Reset(DatabaseConstants.Integrated_Security);
                         }
                     }
                     if (_properties is OleDBConnectionProperties)
                     {
                         if (value)
                         {
-                            _properties["Integrated Security"] = "SSPI";
+                            _properties[DatabaseConstants.Integrated_Security] = "SSPI";
                         }
                         else
                         {
-                            _properties.Reset("Integrated Security");
+                            _properties.Reset(DatabaseConstants.Integrated_Security);
                         }
                     }
                     if (_properties is OdbcConnectionProperties)
                     {
                         if (value)
                         {
-                            _properties["Trusted_Connection"] = "Yes";
+                            _properties[DatabaseConstants.Trusted_Connection] = "Yes";
                         }
                         else
                         {
-                            _properties.Remove("Trusted_Connection");
+                            _properties.Remove(DatabaseConstants.Trusted_Connection);
                         }
                     }
                 }
@@ -401,18 +395,18 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                     {
                         return false;
                     }
-                    return (bool)_properties["Persist Security Info"];
+                    return (bool)_properties[DatabaseConstants.Persist_Security_Info];
                 }
                 set
                 {
                     Debug.Assert(!(_properties is OdbcConnectionProperties));
                     if (value)
                     {
-                        _properties["Persist Security Info"] = value;
+                        _properties[DatabaseConstants.Persist_Security_Info] = value;
                     }
                     else
                     {
-                        _properties.Reset("Persist Security Info");
+                        _properties.Reset(DatabaseConstants.Persist_Security_Info);
                     }
                 }
             }
@@ -494,8 +488,8 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 get
                 {
                     return
-                        (_properties is SqlConnectionProperties) ? "Data Source" :
-                        (_properties is OleDBConnectionProperties) ? "Data Source" :
+                        (_properties is SqlConnectionProperties) ? DatabaseConstants.Data_Source :
+                        (_properties is OleDBConnectionProperties) ? DatabaseConstants.Data_Source :
                         (_properties is OdbcConnectionProperties) ? "SERVER" : null;
                 }
             }
@@ -505,9 +499,9 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 get
                 {
                     return
-                        (_properties is SqlConnectionProperties) ? "User ID" :
-                        (_properties is OleDBConnectionProperties) ? "User ID" :
-                        (_properties is OdbcConnectionProperties) ? "UID" : null;
+                        (_properties is SqlConnectionProperties) ? DatabaseConstants.User_ID :
+                        (_properties is OleDBConnectionProperties) ? DatabaseConstants.User_ID :
+                        (_properties is OdbcConnectionProperties) ? DatabaseConstants.UID : null;
                 }
             }
 
@@ -516,8 +510,8 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 get
                 {
                     return
-                        (_properties is SqlConnectionProperties) ? "Password" :
-                        (_properties is OleDBConnectionProperties) ? "Password" :
+                        (_properties is SqlConnectionProperties) ? DatabaseConstants.Password :
+                        (_properties is OleDBConnectionProperties) ? DatabaseConstants.Password :
                         (_properties is OdbcConnectionProperties) ? "PWD" : null;
                 }
             }
@@ -538,9 +532,9 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 get
                 {
                     return
-                        (_properties is SqlConnectionProperties) ? "AttachDbFilename" :
+                        (_properties is SqlConnectionProperties) ? DatabaseConstants.AttachDbFilename :
                         (_properties is OleDBConnectionProperties) ? "Initial File Name" :
-                        (_properties is OdbcConnectionProperties) ? "AttachDBFileName" : null;
+                        (_properties is OdbcConnectionProperties) ? DatabaseConstants.AttachDbFilename : null;
                 }
             }
 
@@ -553,25 +547,25 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                 {
                     if (_properties is OleDBConnectionProperties)
                     {
-                        connectionString += "Provider=" + _properties["Provider"].ToString() + ";";
+                        connectionString += $"{DatabaseConstants.Provider}=" + _properties[DatabaseConstants.Provider].ToString() + ";";
                     }
-                    connectionString += "Data Source='" + ServerName.Replace("'", "''") + "';";
+                    connectionString += $"{DatabaseConstants.Data_Source}='" + ServerName.Replace("'", "''") + "';";
                     if (UserInstance)
                     {
-                        connectionString += "User Instance=true;";
+                        connectionString += $"{DatabaseConstants.User_Instance}=true;";
                     }
                     if (UseWindowsAuthentication)
                     {
-                        connectionString += "Integrated Security=" + _properties["Integrated Security"].ToString() + ";";
+                        connectionString += $"{DatabaseConstants.Integrated_Security}=" + _properties[DatabaseConstants.Integrated_Security].ToString() + ";";
                     }
                     else
                     {
-                        connectionString += "User ID='" + UserName.Replace("'", "''") + "';";
-                        connectionString += "Password='" + Password.Replace("'", "''") + "';";
+                        connectionString += $"{DatabaseConstants.User_ID}='" + UserName.Replace("'", "''") + "';";
+                        connectionString += $"{DatabaseConstants.Password}='" + Password.Replace("'", "''") + "';";
                     }
                     if (_properties is SqlConnectionProperties)
                     {
-                        connectionString += "Pooling=False;Encrypt=false";
+                        connectionString += $"{DatabaseConstants.Pooling}=False;Encrypt=false";
                     }
                 }
                 if (_properties is OdbcConnectionProperties)
@@ -580,7 +574,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
                     connectionString += "SERVER={" + ServerName.Replace("}", "}}") + "};";
                     if (UseWindowsAuthentication)
                     {
-                        connectionString += "Trusted_Connection=Yes;";
+                        connectionString += $"{DatabaseConstants.Trusted_Connection}=Yes;";
                     }
                     else
                     {
