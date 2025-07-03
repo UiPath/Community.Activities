@@ -9,8 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+    <PackageReference Include="System.Data.Odbc" Version="6.0.2" />
+    <PackageReference Include="System.Data.OleDb" Version="6.0.1" />
 
     <!--Dependencies override to solve FOSSA issues-->
     <PackageReference Include="System.Text.RegularExpressions"/>
