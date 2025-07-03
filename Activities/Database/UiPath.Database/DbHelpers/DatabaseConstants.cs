@@ -3,8 +3,7 @@ namespace UiPath.Database
 {
     public static class DatabaseConstants
     {
-        //+++++++Main providers section+++++++++++
-        //++++++++++++++++++++++++++++++++++++++++
+        #region MainProviders
 
         //Oracle Data Provider for .NET Assemblies
         public const string OracleProvider = "Oracle.ManagedDataAccess.Client";
@@ -18,9 +17,9 @@ namespace UiPath.Database
         //Data provider for ODBC data sources
         public const string OdbcProvider = "System.Data.Odbc";
 
-        
-        //++++Microsoft Ole DB providers+++++++++++
-        //+++++++++++++++++++++++++++++++++++++++++
+        #endregion
+
+        #region OleDbProviders
 
         //Microsoft OLE DB Driver for SQL Server
         public const string OleDbSql = "SQLOLEDB";
@@ -29,14 +28,14 @@ namespace UiPath.Database
         public const string OleDbJet = "Microsoft.Jet.OLEDB.4.0";
 
         //Microsoft OLE DB Provider for Access
-        public const string OleDbAce = "Microsoft.ACE.OLEDB.12.0"; 
+        public const string OleDbAce = "Microsoft.ACE.OLEDB.12.0";
 
         //Microsoft OLE DB Provider for Oracle
         public const string OleDbOra = "MSDAORA";
 
+        #endregion
 
-        //+++Connection properties+++++++++++++++++
-        //+++++++++++++++++++++++++++++++++++++++++
+        #region ConnectionProperties
 
         public const string SqlServerNativeClient = "SQLNCLI";
 
@@ -60,11 +59,15 @@ namespace UiPath.Database
 
         public const string InstanceName = "InstanceName";
 
-        public const string User_Instance =  "User Instance";
+        public const string User_Instance = "User Instance";
 
         public const string Trusted_Connection = "Trusted_Connection";
 
         public const string Pooling = "Pooling";
+
+        #endregion
+
+        #region Miscellaneous 
 
         //Document-Based Question
         public const string DBQ = "DBQ";
@@ -75,5 +78,7 @@ namespace UiPath.Database
         public const string OracleOdbcDriverPattern = "SQORA";
 
         public const string DB2OdbcDriverPattern = "DB2";
+
+        #endregion
     }
 }
