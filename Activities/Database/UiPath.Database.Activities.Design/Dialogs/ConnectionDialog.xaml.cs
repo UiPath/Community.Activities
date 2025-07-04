@@ -55,6 +55,7 @@ namespace UiPath.Database.Activities.Design
             try
             {
                 DataConnectionSourceDialog dataConnectionDialog = new DataConnectionSourceDialog();
+                dataConnectionDialog.Owner = this;
                 if (dataConnectionDialog.ShowOkCancel())
                 {
                     string connString = dataConnectionDialog.ConnectionString;
