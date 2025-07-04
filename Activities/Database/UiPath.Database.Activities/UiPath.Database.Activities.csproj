@@ -11,13 +11,10 @@
         <RootNamespace>UiPath.Database.Activities</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="UiPath.Workflow" />
         <PackageReference Include="System.Activities.ViewModels" />
-    </ItemGroup>
-    <ItemGroup>
+        <PackageReference Include="UiPath.Workflow" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
-        <PackageReference Include="UiPath.Workflow" />
         <PackageReference Include="Oracle.ManagedDataAccess.Core" />
     </ItemGroup>
     <ItemGroup>

@@ -1,7 +1,8 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using UiPath.Database;
+
 namespace UiPath.Data.ConnectionUI.Dialog
 {
-
 	public class OracleConnectionProperties : AdoDotNetConnectionProperties
 	{
 		private OracleConnectionStringBuilder _connStringBuilder;
@@ -10,14 +11,13 @@ namespace UiPath.Data.ConnectionUI.Dialog
 		{
 			get
 			{
-				if (!(_connStringBuilder["Data Source"] is string) ||
-					(_connStringBuilder["Data Source"] as string).Length == 0)
+				if (!(_connStringBuilder[DatabaseConstants.Data_Source] is string) ||
+					(_connStringBuilder[DatabaseConstants.Data_Source] as string).Length == 0)
 				{
 					return false;
 				}
-				if (!(bool)_connStringBuilder["Integrated Security"] &&
-					(!(_connStringBuilder["User ID"] is string) ||
-					(_connStringBuilder["User ID"] as string).Length == 0))
+				if ((!(_connStringBuilder[DatabaseConstants.User_ID] is string) ||
+					(_connStringBuilder[DatabaseConstants.User_ID] as string).Length == 0))
 				{
 					return false;
 				}
@@ -26,7 +26,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 		}
 
 		public OracleConnectionProperties()
-			: base("Oracle.ManagedDataAccess.Client")
+			: base(DatabaseConstants.OracleProvider)
 		{
 			LocalReset();
 			_connStringBuilder = ConnectionStringBuilder as OracleConnectionStringBuilder;
@@ -40,22 +40,27 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
 		protected override string ToTestString()
 		{
-			bool savedPooling = (bool)_connStringBuilder["Pooling"];
-			bool wasDefault = !_connStringBuilder.ShouldSerialize("Pooling");
-			_connStringBuilder["Pooling"] = false;
-			string dataSource = _connStringBuilder["Data Source"] as string;
-			string password = _connStringBuilder["Password"] as string;
-			string userId = _connStringBuilder["User Id"] as string;
-			string testString = $"User Id={userId};Password={password};Data Source={dataSource};POOLING={savedPooling}";
-			_connStringBuilder["Pooling"] = savedPooling;
+			bool savedPooling = (bool)_connStringBuilder[DatabaseConstants.Pooling];
+			bool wasDefault = !_connStringBuilder.ShouldSerialize(DatabaseConstants.Pooling);
+			_connStringBuilder[DatabaseConstants.Pooling] = false;
+			string dataSource = _connStringBuilder[DatabaseConstants.Data_Source] as string;
+			string password = _connStringBuilder[DatabaseConstants.Password] as string;
+			string userId = _connStringBuilder[DatabaseConstants.User_ID] as string;
+			string testString = $"{DatabaseConstants.User_ID}={userId};{DatabaseConstants.Password}={password};{DatabaseConstants.Data_Source}={dataSource};{DatabaseConstants.Pooling}={savedPooling}";
+			_connStringBuilder[DatabaseConstants.Pooling] = savedPooling;
 			if (wasDefault)
 			{
-				_connStringBuilder.Remove("Pooling");
+				_connStringBuilder.Remove(DatabaseConstants.Pooling);
 			}
 			return testString;
 		}
 
-		private void LocalReset()
+        public override string ToFullString()
+        {
+			return base.ToFullString().Replace("\"", "");
+        }
+
+        private void LocalReset()
 		{
 			// We always start with unicode turned on
 			//this["Unicode"] = true;

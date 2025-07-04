@@ -18,7 +18,10 @@
         <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
         <PackageLicenseUrl>https://github.com/UiPath/Community.Activities/tree/develop/Activities/Database/Licenses</PackageLicenseUrl>
         <PackageTags>UiPathActivities</PackageTags>
-        <Description>UiPath Database Activities Pack</Description>
+        <Description>
+            <![CDATA[IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows.
+            UiPath Database Activities Pack]]>
+        </Description>
         <Authors>UiPath</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
@@ -51,7 +54,7 @@
                 <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
             </BuildOutputInPackage>
         </ItemGroup>
-        
+
         <ItemGroup Label="AddWindowsSpecificDlls" Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
@@ -74,12 +77,12 @@
         <Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
     </Target>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Data.SqlClient"/>
-        <PackageReference Include="System.Resources.Extensions"/>
+        <PackageReference Include="Microsoft.Data.SqlClient" />
+        <PackageReference Include="System.Resources.Extensions" />
         <PackageReference Include="System.Activities.ViewModels" />
-        <PackageReference Include="Oracle.ManagedDataAccess.Core"/>
-        <PackageReference Include="System.Data.Odbc"/>
-        <PackageReference Include="System.Data.OleDb"/>
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+        <PackageReference Include="System.Data.Odbc" />
+        <PackageReference Include="System.Data.OleDb" />
 
         <!--Dependencies override to solve FOSSA issues-->
         <PackageReference Include="Azure.Identity" />
