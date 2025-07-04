@@ -142,6 +142,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Dialogs
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
             DataConnectionAdvancedDialog dataAdvancedDialog = new DataConnectionAdvancedDialog(ConnectionProperties);
+            dataAdvancedDialog.Owner = this;
             if (dataAdvancedDialog.ShowOkCancel())
                 VisualTreeHelpers.RefreshBindings(this);
         }
