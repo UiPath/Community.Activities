@@ -336,6 +336,9 @@
   <data name="OracleConnectionUIService_Label" xml:space="preserve">
     <value>서비스 이름:</value>
   </data>
+  <data name="OracleConnectionUISID_Label" xml:space="preserve">
+    <value>SID:</value>
+  </data>
   <data name="Password_Label" xml:space="preserve">
     <value>암호:</value>
   </data>
