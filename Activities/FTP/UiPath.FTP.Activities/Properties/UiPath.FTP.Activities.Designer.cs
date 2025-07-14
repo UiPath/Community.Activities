@@ -853,6 +853,24 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The proxy password in secure string format.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxySecurePassword_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxySecurePassword_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Secure Password.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxySecurePassword_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxySecurePassword_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proxy host name.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyServer_Description {
