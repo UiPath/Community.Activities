@@ -336,6 +336,9 @@
   <data name="OracleConnectionUIService_Label" xml:space="preserve">
     <value>Nom du service :</value>
   </data>
+  <data name="OracleConnectionUISID_Label" xml:space="preserve">
+    <value>SID :</value>
+  </data>
   <data name="Password_Label" xml:space="preserve">
     <value>Mot de passe :</value>
   </data>

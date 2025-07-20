@@ -299,4 +299,8 @@
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>A versão do Python &gt;= 3.10 não é suportada em 32 bits. </value>
   </data>
+  <data name="CategoryPython" xml:space="preserve">
+    <value>Aplicação Invocador.Python</value>
+    <comment>category names (separated by .)</comment>
+  </data>
 </root>

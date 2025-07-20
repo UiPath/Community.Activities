@@ -136,11 +136,21 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyPassword_Description))]
         public InArgument<string> ProxyPassword { get; set; }
 
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Proxy))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Description))]
+        public InArgument<SecureString> ProxySecurePassword { get; set; }
+
+        [Browsable(false)]
+        public PasswordInputMode ProxyPasswordInputModeSwitch { get; set; }
+
         [DefaultValue(FtpProxyType.None)]
         [LocalizedCategory(nameof(Resources.Proxy))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Description))]
         public FtpProxyType ProxyType { get; set; } = FtpProxyType.None;
+
 
         public WithFtpSession()
         {
@@ -184,12 +194,16 @@ namespace UiPath.FTP.Activities
                 ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
             }
 
-            if(ftpConfiguration.ProxyType != FtpProxyType.None)
+            if (ftpConfiguration.ProxyType != FtpProxyType.None)
             {
                 ftpConfiguration.ProxyServer = ProxyServer.Get(context);
-                ftpConfiguration.ProxyPort = ProxyPort.Expression == null? null: (int?)ProxyPort.Get(context);
+                ftpConfiguration.ProxyPort = ProxyPort.Expression == null ? null : (int?)ProxyPort.Get(context);
                 ftpConfiguration.ProxyUsername = ProxyUser.Get(context);
-                ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
+
+                if (ProxyPasswordInputModeSwitch == PasswordInputMode.Password)
+                    ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
+                else
+                    ftpConfiguration.ProxyPassword = new NetworkCredential(string.Empty, ProxySecurePassword.Get(context)).Password;
             }
 
             ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);

@@ -299,4 +299,8 @@
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>3.10 이상인 Python 버전은 32비트에서 지원되지 않습니다. </value>
   </data>
+  <data name="CategoryPython" xml:space="preserve">
+    <value>앱 호출자.Python</value>
+    <comment>category names (separated by .)</comment>
+  </data>
 </root>

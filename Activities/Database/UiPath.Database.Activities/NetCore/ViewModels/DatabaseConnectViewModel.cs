@@ -1,13 +1,11 @@
-﻿using System;
-using System.Activities;
+﻿using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
-using System.Collections.Generic;
 using System.Security;
-using System.Threading.Tasks;
 using UiPath.Database.Activities.NetCore.ViewModels;
 using UiPath.Database.Activities.NetCore.ViewModels.Helpers;
 using UiPath.Database.Activities.Properties;
+using UiPath.Database;
 
 namespace UiPath.Database.Activities
 {
@@ -24,9 +22,9 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
 {
     public partial class DatabaseConnectViewModel : DesignPropertiesViewModel
     {
-        private const string DefaultProviderNameValue = "Microsoft.Data.SqlClient";
+        private const string DefaultProviderNameValue = DatabaseConstants.SqlServerProvider;
 
-        private static string[] ProviderNameDataSourceItems { get => new string[] { "Microsoft.Data.SqlClient", "System.Data.OleDb", "System.Data.Odbc", "Oracle.ManagedDataAccess.Client" }; }
+        private static string[] ProviderNameDataSourceItems { get => new string[] { DatabaseConstants.SqlServerProvider, DatabaseConstants.OleDbProvider, DatabaseConstants.OdbcProvider, DatabaseConstants.OracleProvider }; }
 
         /// <summary>
         /// Basic constructor

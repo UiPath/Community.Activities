@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <Company>UiPath</Company>
+        <Copyright>© UiPath</Copyright>
+        <LangVersion>latest</LangVersion>
+        <WindowsFramework>net6.0-windows</WindowsFramework>
+        <PortableFramework>net6.0</PortableFramework>
+    </PropertyGroup>
+</Project>

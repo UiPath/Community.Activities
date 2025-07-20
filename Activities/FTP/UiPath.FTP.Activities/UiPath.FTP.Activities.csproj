@@ -2,26 +2,19 @@
   <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
-    <TargetFrameworks>net461;net6.0;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+
+  <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">
     <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.ViewModels" />
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
     <EmbeddedResource Include="Resources\Icons\Delete_file_or_folder.svg" />
@@ -55,9 +48,6 @@
   <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
   <ItemGroup>
     <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Condition="'$(TargetFramework)' == 'net461'" Remove="NetCore/**" />
   </ItemGroup>
   <ItemGroup>
   	<InternalsVisibleTo Include="UiPath.FTP.Activities.Design" />

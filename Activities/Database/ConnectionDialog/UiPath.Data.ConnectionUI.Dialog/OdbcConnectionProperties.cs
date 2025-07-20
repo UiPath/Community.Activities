@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog
 {
@@ -27,7 +26,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 		}
 
 		public OdbcConnectionProperties()
-			: base("System.Data.Odbc")
+			: base(DatabaseConstants.OdbcProvider)
 		{
 		}
 

@@ -127,6 +127,16 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// </summary>
         public DesignInArgument<string> ProxyPassword { get; set; }
 
+        /// <summary>
+        /// Secured password for proxy
+        /// </summary>
+        public DesignInArgument<SecureString> ProxySecurePassword { get; set; }
+
+        /// <summary>
+        /// Switches Proxy Password as string or secure string
+        /// </summary>
+        public DesignProperty<PasswordInputMode> ProxyPasswordInputModeSwitch { get; set; }
+
         private static DataSource<FtpSslProtocols> _sslProtocolsDataSource;
 
         protected override void InitializeModel()
@@ -166,6 +176,11 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
               .AddMenuProperty(ClientCertificatePassword, PasswordInputMode.Password)
               .AddMenuProperty(ClientCertificateSecurePassword, PasswordInputMode.SecurePassword)
               .BuildAndInsertMenuActions(true);
+
+            MenuActionsBuilder<PasswordInputMode>.WithValueProperty(ProxyPasswordInputModeSwitch)
+              .AddMenuProperty(ProxyPassword, PasswordInputMode.Password)
+              .AddMenuProperty(ProxySecurePassword, PasswordInputMode.SecurePassword)
+              .BuildAndInsertMenuActions(true);
         }
 
         /// <inheritdoc/>
@@ -174,7 +189,10 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             base.InitializeRules();
             Rule(nameof(PasswordInputModeSwitch), PasswordInputModeChanged_Action);
             Rule(nameof(CertificatePasswordInputModeSwitch), CertificatePasswordInputModeChanged_Action);
+            Rule(nameof(ProxyPasswordInputModeSwitch), ProxyPasswordInputModeChanged_Action);
             Rule(nameof(FtpsMode), FtpEncryptionModeChanged_Action);
+            Rule(nameof(ProxyType), ProxyModeChanged_Action);
+
         }
 
         /// <inheritdoc/>
@@ -183,7 +201,9 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             base.ManualRegisterDependencies();
             RegisterDependency(PasswordInputModeSwitch, nameof(PasswordInputModeSwitch.Value), nameof(PasswordInputModeSwitch));
             RegisterDependency(CertificatePasswordInputModeSwitch, nameof(CertificatePasswordInputModeSwitch.Value), nameof(CertificatePasswordInputModeSwitch));
+            RegisterDependency(ProxyPasswordInputModeSwitch, nameof(ProxyPasswordInputModeSwitch.Value), nameof(ProxyPasswordInputModeSwitch));
             RegisterDependency(FtpsMode, nameof(FtpsMode.Value), nameof(FtpsMode));
+            RegisterDependency(ProxyType, nameof(ProxyType.Value), nameof(ProxyType));
         }
 
         /// <summary>
@@ -226,6 +246,26 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             }
         }
 
+        /// <summary>
+        /// CertificatePassword input Mode has changed. Set controls visibility based on selection
+        /// </summary>
+        private void ProxyPasswordInputModeChanged_Action()
+        {
+            switch (ProxyPasswordInputModeSwitch.Value)
+            {
+                case PasswordInputMode.Password:
+                    ProxyPassword.IsVisible = true;
+                    ProxySecurePassword.IsVisible = false;
+                    break;
+                case PasswordInputMode.SecurePassword:
+                    ProxyPassword.IsVisible = false;
+                    ProxySecurePassword.IsVisible = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
         private void FtpEncryptionModeChanged_Action()
         {
             if (FtpsMode.Value == FTP.FtpsMode.None)
@@ -235,6 +275,17 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             }
 
             SslProtocols.IsVisible = true;
+        }
+
+        private void ProxyModeChanged_Action()
+        {
+            bool proxyConfigVisible = ProxyType.Value != FtpProxyType.None;
+            ProxyServer.IsVisible = proxyConfigVisible;
+            ProxyPort.IsVisible = proxyConfigVisible;
+            ProxyUser.IsVisible = proxyConfigVisible;
+            ProxyPassword.IsVisible = proxyConfigVisible && ProxyPasswordInputModeSwitch.Value == PasswordInputMode.Password;
+            ProxySecurePassword.IsVisible = proxyConfigVisible && ProxyPasswordInputModeSwitch.Value == PasswordInputMode.SecurePassword;
+            ProxyServer.IsVisible = proxyConfigVisible;
         }
 
         private static void InitializeFtpsModeDataSource()

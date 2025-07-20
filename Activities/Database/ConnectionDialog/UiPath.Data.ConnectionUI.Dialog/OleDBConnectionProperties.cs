@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.OleDb;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog
 {
@@ -29,8 +27,8 @@ namespace UiPath.Data.ConnectionUI.Dialog
         {
             get
             {
-                if (!(ConnectionStringBuilder["Provider"] is string) ||
-                    (ConnectionStringBuilder["Provider"] as string).Length == 0)
+                if (!(ConnectionStringBuilder[DatabaseConstants.Provider] is string) ||
+                    (ConnectionStringBuilder[DatabaseConstants.Provider] as string).Length == 0)
                 {
                     return false;
                 }
@@ -39,7 +37,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         }
 
         public OleDBConnectionProperties()
-           : base("System.Data.OleDb")
+           : base(DatabaseConstants.OleDbProvider)
         {
         }
 
@@ -103,7 +101,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             PropertyDescriptorCollection descriptors = base.GetProperties(attributes);
             if (_disableProviderSelection)
             {
-                PropertyDescriptor providerDescriptor = descriptors.Find("Provider", true);
+                PropertyDescriptor providerDescriptor = descriptors.Find(DatabaseConstants.Provider, true);
                 if (providerDescriptor != null)
                 {
                     int index = descriptors.IndexOf(providerDescriptor);
@@ -157,7 +155,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         private void LocalReset()
         {
             // Initialize with the selected provider
-            this["Provider"] = _provider;
+            this[DatabaseConstants.Provider] = _provider;
         }
     }
 
@@ -175,15 +173,15 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 {
                     return false;
                 }
-                if (!(ConnectionStringBuilder["Data Source"] is string) ||
-                    (ConnectionStringBuilder["Data Source"] as string).Length == 0)
+                if (!(ConnectionStringBuilder[DatabaseConstants.Data_Source] is string) ||
+                    (ConnectionStringBuilder[DatabaseConstants.Data_Source] as string).Length == 0)
                 {
                     return false;
                 }
-                if ((ConnectionStringBuilder["Integrated Security"] == null ||
-                    !ConnectionStringBuilder["Integrated Security"].ToString().Equals("SSPI", StringComparison.OrdinalIgnoreCase)) &&
-                    (!(ConnectionStringBuilder["User ID"] is string) ||
-                    (ConnectionStringBuilder["User ID"] as string).Length == 0))
+                if ((ConnectionStringBuilder[DatabaseConstants.Integrated_Security] == null ||
+                    !ConnectionStringBuilder[DatabaseConstants.Integrated_Security].ToString().Equals("SSPI", StringComparison.OrdinalIgnoreCase)) &&
+                    (!(ConnectionStringBuilder[DatabaseConstants.User_ID] is string) ||
+                    (ConnectionStringBuilder[DatabaseConstants.User_ID] as string).Length == 0))
                 {
                     return false;
                 }
@@ -203,7 +201,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     Debug.Assert(providers != null, "provider list is null");
                     foreach (string provider in providers)
                     {
-                        if (provider.StartsWith("SQLNCLI"))
+                        if (provider.StartsWith(DatabaseConstants.SqlServerNativeClient))
                         {
                             int idx = provider.IndexOf(".");
                             if (idx > 0)
@@ -246,7 +244,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         }
 
         public OleDBSqlConnectionProperties()
-            : base("SQLOLEDB")
+            : base(DatabaseConstants.OleDbSql)
         {
             LocalReset();
         }
@@ -260,7 +258,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         private void LocalReset()
         {
             // We always start with integrated security turned on
-            this["Integrated Security"] = "SSPI";
+            this[DatabaseConstants.Integrated_Security] = "SSPI";
         }
 
         protected override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
@@ -268,7 +266,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             PropertyDescriptorCollection descriptors = base.GetProperties(attributes);
             if (SqlNativeClientRegistered)
             {
-                DynamicPropertyDescriptor providerDescriptor = descriptors.Find("Provider", true) as DynamicPropertyDescriptor;
+                DynamicPropertyDescriptor providerDescriptor = descriptors.Find(DatabaseConstants.Provider, true) as DynamicPropertyDescriptor;
                 if (providerDescriptor != null)
                 {
                     if (!DisableProviderSelection)
@@ -302,7 +300,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             {
                 List<string> stdCollection = new List<string>
                 {
-                    "SQLOLEDB"
+                    DatabaseConstants.OleDbSql
                 };
 
                 foreach (string provider in SqlNativeClientProviders)
@@ -330,7 +328,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     Microsoft.Win32.RegistryKey key = null;
                     try
                     {
-                        key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("Microsoft.ACE.OLEDB.12.0");
+                        key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(DatabaseConstants.OleDbAce);
                         _access12ProviderRegistered = (key != null);
                     }
                     finally
@@ -347,7 +345,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         }
 
         public OleDBAccessConnectionProperties()
-            : base("Microsoft.Jet.OLEDB.4.0")
+            : base(DatabaseConstants.OleDbJet)
         {
             _userChangedProvider = false;
         }
@@ -363,7 +361,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             set
             {
                 base[propertyName] = value;
-                if (string.Equals(propertyName, "Provider", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(propertyName, DatabaseConstants.Provider, StringComparison.OrdinalIgnoreCase))
                 {
                     if (value != null && value != DBNull.Value)
                     {
@@ -374,7 +372,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                         _userChangedProvider = false;
                     }
                 }
-                if (string.Equals(propertyName, "Data Source", StringComparison.Ordinal))
+                if (string.Equals(propertyName, DatabaseConstants.Data_Source, StringComparison.Ordinal))
                 {
                     OnDataSourceChanged(ConnectionStringBuilder, EventArgs.Empty);
                 }
@@ -393,17 +391,17 @@ namespace UiPath.Data.ConnectionUI.Dialog
         {
             if (Access12ProviderRegistered && !_userChangedProvider)
             {
-                string dataSource = this["Data Source"] as string;
+                string dataSource = this[DatabaseConstants.Data_Source] as string;
                 if (dataSource != null)
                 {
                     dataSource = dataSource.Trim().ToUpperInvariant();
                     if (dataSource.EndsWith(".ACCDB", StringComparison.Ordinal))
                     {
-                        base["Provider"] = "Microsoft.ACE.OLEDB.12.0";
+                        base[DatabaseConstants.Provider] = DatabaseConstants.OleDbAce;
                     }
                     else
                     {
-                        base["Provider"] = "Microsoft.Jet.OLEDB.4.0";
+                        base[DatabaseConstants.Provider] = DatabaseConstants.OleDbJet;
                     }
                 }
             }
@@ -414,7 +412,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             PropertyDescriptorCollection descriptors = base.GetProperties(attributes);
             if (Access12ProviderRegistered)
             {
-                DynamicPropertyDescriptor providerDescriptor = descriptors.Find("Provider", true) as DynamicPropertyDescriptor;
+                DynamicPropertyDescriptor providerDescriptor = descriptors.Find(DatabaseConstants.Provider, true) as DynamicPropertyDescriptor;
                 if (providerDescriptor != null)
                 {
                     if (!DisableProviderSelection)
@@ -466,7 +464,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
             {
                 return new StandardValuesCollection(new string[] {
-                    "Microsoft.Jet.OLEDB.4.0", "Microsoft.ACE.OLEDB.12.0"
+                    DatabaseConstants.OleDbJet, DatabaseConstants.OleDbAce
                 });
             }
         }
@@ -475,7 +473,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
     public class OleDBOracleConnectionProperties : OleDBSpecializedConnectionProperties
     {
         public OleDBOracleConnectionProperties()
-            : base("MSDAORA")
+            : base(DatabaseConstants.OleDbOra)
         {
         }
 
@@ -487,13 +485,13 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 {
                     return false;
                 }
-                if (!(ConnectionStringBuilder["Data Source"] is string) ||
-                    (ConnectionStringBuilder["Data Source"] as string).Length == 0)
+                if (!(ConnectionStringBuilder[DatabaseConstants.Data_Source] is string) ||
+                    (ConnectionStringBuilder[DatabaseConstants.Data_Source] as string).Length == 0)
                 {
                     return false;
                 }
-                if ((!(ConnectionStringBuilder["User ID"] is string) ||
-                    (ConnectionStringBuilder["User ID"] as string).Length == 0))
+                if ((!(ConnectionStringBuilder[DatabaseConstants.User_ID] is string) ||
+                    (ConnectionStringBuilder[DatabaseConstants.User_ID] as string).Length == 0))
                 {
                     return false;
                 }
