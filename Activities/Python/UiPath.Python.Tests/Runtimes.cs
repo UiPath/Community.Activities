@@ -82,21 +82,6 @@ namespace UiPath.Python.Tests
             {
                 new object[]
                 {
-                    @"C:\Python\python27-x86",
-                    Version.Python_27
-                },
-                new object[]
-                {
-                    @"C:\Python\python34-x86",
-                    Version.Python_34
-                },
-                new object[]
-                {
-                    @"C:\Python\python35-x86",
-                    Version.Python_35
-                },
-                new object[]
-                {
                     @"C:\Python\python36-x86",
                     Version.Python_36
                 },
@@ -120,16 +105,6 @@ namespace UiPath.Python.Tests
         public static IEnumerable<object[]> X64Engines =>
             new List<object[]>
             {
-                new object[]
-                {
-                    @"C:\Python\python27-x64",
-                    Version.Python_27
-                },
-                new object[]
-                {
-                    @"C:\Python\python35-x64",
-                    Version.Python_35
-                },
                 new object[]
                 {
                     @"C:\Python\python36-x64",

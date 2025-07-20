@@ -5,8 +5,7 @@
     xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
     xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
     xmlns:uip="clr-namespace:UiPath.Activities.Presentation"
-    xmlns:uipc="clr-namespace:UiPath.Activities.Presentation.Converters"
-    >
+    xmlns:uipc="clr-namespace:UiPath.Activities.Presentation.Converters">
 
     <sap:ActivityDesigner.Resources>
         <ResourceDictionary>
@@ -14,6 +13,7 @@
             <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Generic.xaml" />
+                <ResourceDictionary Source="Themes/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </sap:ActivityDesigner.Resources>

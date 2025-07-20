@@ -299,4 +299,8 @@
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Las versiones de Python &gt;= 3.10 no son compatibles en 32 bit. </value>
   </data>
+  <data name="CategoryPython" xml:space="preserve">
+    <value>Aplicación Solicitante.Python</value>
+    <comment>category names (separated by .)</comment>
+  </data>
 </root>

@@ -3,7 +3,7 @@ using System.Activities.Presentation;
 using System.Windows;
 using System.Windows.Controls;
 using Res=UiPath.Data.ConnectionUI.Dialog.Properties;
-
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog.Controls
 {
@@ -19,11 +19,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return (string)_connectionProperties["Password"];
+                return (string)_connectionProperties[DatabaseConstants.Password];
             }
             set
             {
-                _connectionProperties["Password"] = value;
+                _connectionProperties[DatabaseConstants.Password] = value;
             }
         }
 
@@ -31,11 +31,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return (string)_connectionProperties["User ID"];
+                return (string)_connectionProperties[DatabaseConstants.User_ID];
             }
             set
             {
-                _connectionProperties["User ID"] = value;
+                _connectionProperties[DatabaseConstants.User_ID] = value;
             }
         }
 
@@ -43,11 +43,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return (bool)_connectionProperties["Persist Security Info"];
+                return (bool)_connectionProperties[DatabaseConstants.Persist_Security_Info];
             }
             set
             {
-                _connectionProperties["Persist Security Info"] = value;
+                _connectionProperties[DatabaseConstants.Persist_Security_Info] = value;
             }
         }
 
@@ -55,11 +55,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return (string)_connectionProperties["AttachDbFilename"];
+                return (string)_connectionProperties[DatabaseConstants.AttachDbFilename];
             }
             set
             {
-                _connectionProperties["AttachDbFilename"] = value;
+                _connectionProperties[DatabaseConstants.AttachDbFilename] = value;
             }
         }
 
@@ -67,11 +67,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return (bool)_connectionProperties["Integrated Security"];
+                return (bool)_connectionProperties[DatabaseConstants.Integrated_Security];
             }
             set
             {
-                _connectionProperties["Integrated Security"] = value;
+                _connectionProperties[DatabaseConstants.Integrated_Security] = value;
                 if (value)
                 {
                     usernameTextbox.Clear();

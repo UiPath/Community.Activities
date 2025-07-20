@@ -275,14 +275,14 @@
     <value>Mit FTP-Sitzung</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Mit FTP-Sitzung</value>
+    <value>With Ftp Session</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>Clientzertifikatpasswort</value>
+    <value>Clientzertifikat-Kennwort</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>BeiFehlerFortsetzen</value>
+    <value>Bei Fehler fortfahren</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Dateien</value>
@@ -291,10 +291,10 @@
     <value>Host</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LokalerPfad</value>
+    <value>Lokaler Pfad</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
-    <value>NewPath</value>
+    <value>Neuer Pfad</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
     <value>Kennwort</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>Delete File/Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Download files</value>
+    <value>Dateien herunterladen</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move File/Folder</value>
+    <value>Move File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -738,7 +738,7 @@
     <value>Der Typ des Proxys</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Proxy-Typ</value>
+    <value>Proxy-Typ</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>Der für den Proxy verwendete Benutzer, wenn Authentifizierung erforderlich ist</value>
@@ -752,5 +752,12 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>Sie müssen einen Wert für {0} angeben.</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0} (Veraltet)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>Für die automatische Konfiguration leer lassen</value>
   </data>
 </root>

@@ -1,26 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0-windows</TargetFrameworks>
-    <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
+    <TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
+    <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
+  <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.Core.Presentation" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Activities.Core.Presentation" />
-    <Reference Include="System.Activities.Presentation" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
-
   <!--<PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
   </PropertyGroup>-->

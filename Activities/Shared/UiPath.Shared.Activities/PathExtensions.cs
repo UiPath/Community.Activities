@@ -8,7 +8,7 @@ namespace UiPath.Shared.Activities
     /// <summary>
     /// Taken from System Activities
     /// </summary>
-    public static class PathExtensions
+    internal static class PathExtensions
     {
         /// <summary>
         /// Returns true if the given path does not contain any invalid characters, false otherwise.
@@ -27,7 +27,7 @@ namespace UiPath.Shared.Activities
         /// <returns></returns>
         public static string AdjustPathSeparator(this string originalPath)
         {
-            return originalPath?.Replace('\\', Path.DirectorySeparatorChar)?.Replace('/', Path.DirectorySeparatorChar);
+            return originalPath?.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
         }
 
         public static bool PathContainsInvalidCharacters(this string path)

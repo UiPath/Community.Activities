@@ -39,8 +39,8 @@ namespace UiPath.Python.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.TargetPlatformDisplayName))]
         [LocalizedDescription(nameof(Resources.TargetPlatformDescription))]
-        [DefaultValue(TargetPlatform.x86)]
-        public TargetPlatform TargetPlatform { get; set; } = TargetPlatform.x86;
+        [DefaultValue(TargetPlatform.x64)]
+        public TargetPlatform TargetPlatform { get; set; } = TargetPlatform.x64;
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.WorkingFolder))]
