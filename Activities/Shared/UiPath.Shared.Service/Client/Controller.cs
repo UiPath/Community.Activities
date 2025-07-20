@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace UiPath.Shared.Service.Client
 {
@@ -13,90 +13,95 @@ namespace UiPath.Shared.Service.Client
         /// <summary>
         /// time between retries for service availability
         /// </summary>
-        private readonly TimeSpan RetryInterval = TimeSpan.FromMilliseconds(50);
+        private readonly TimeSpan RetryInterval = TimeSpan.FromMilliseconds(500);
 
-        internal int ProcessId { get; private set; }
+        //Timeout in milliseconds for pipe connection (attempt)
+        private readonly int PipeConnectionTimeoutMs = 1000;
 
-        internal string Arguments { get; set; } = null;
+        internal HostWrapper PythonWrapper = new HostWrapper();
 
         internal bool Visible { get; set; } = true;
 
-        internal string ExeFile { get; set; }
-
-        internal NamedPipeClientStream Client { get; private set; }
+        internal string HostLibFile { get; set; }
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
 
-        internal NamedPipeClientStream pipeClient { get; set; }
-
-        internal NamedPipeClientStream Create()
+        internal HostWrapper Create()
         {
-            Client = StartHostService();
-            return Client;
+            StartHostService();
+            return PythonWrapper;
         }
 
         internal void ForceStop()
         {
-            Process.GetProcessById(ProcessId)?.Kill();
+            PythonWrapper?.Proc.Kill();
         }
 
-        private NamedPipeClientStream StartHostService()
+        private void StartHostService()
         {
             var isWindows = true;
 #if NETCOREAPP
-            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 isWindows = false;
 #endif
-            string folder = Path.GetDirectoryName(ExeFile);
-            string exeFullPath = ExeFile;
+            string folder = Path.GetDirectoryName(HostLibFile);
+            var hostLibFullPath = HostLibFile;
             if (folder.IsNullOrEmpty())
             {
                 if (isWindows)
-                {
                     folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\", "\\bin\\");
-                    exeFullPath = Path.Combine(folder, ExeFile);
-                }
                 else
-                {
                     folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
-                    Arguments = string.Concat(Path.Combine(folder, ExeFile.Replace(".exe",".dll")), " ", Arguments);
-                    exeFullPath = "dotnet";
-                }
 
-                
+                hostLibFullPath = Path.Combine(folder, HostLibFile);
             }
 
-            if (!File.Exists(exeFullPath) && isWindows
-                || !isWindows && string.IsNullOrEmpty(Arguments))
-                throw new Exception($"Process path not found: {exeFullPath}");
+            if (!File.Exists(hostLibFullPath))
+                throw new Exception($"Process path not found: {hostLibFullPath}");
 
-            // start the host process
+            // start the host process using dotnet
             ProcessStartInfo psi = new ProcessStartInfo()
             {
-                UseShellExecute = true,
-                FileName = exeFullPath,
+                UseShellExecute = false,
+                FileName = "dotnet",
                 WorkingDirectory = folder,
-                Arguments = Arguments,
-                WindowStyle = Visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden
+                WindowStyle = Visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
             };
-            Process process = Process.Start(psi);
+            psi.ArgumentList.Add(hostLibFullPath);
+
+            PythonWrapper.Proc = Process.Start(psi);
+
+            Retry(ServiceReady, StartTimeout, RetryInterval);
 
             // wait for service to become available
             bool ServiceReady()
             {
-                pipeClient =
-                    new NamedPipeClientStream(".", process.Id.ToString(), PipeDirection.InOut,
-                            PipeOptions.Asynchronous);
+                PythonWrapper.ThrowIfProcessHasExited();
 
-                pipeClient.Connect();
-                if (pipeClient.IsConnected)
-                {
-                    return true;
-                }
-                return false;
+                //for some edge case - check if the process has the id set               
+                if (!PythonWrapper.GetHostProcessId(out var processId))
+                    return false;
+
+                PythonWrapper.Pipe ??= new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
+
+                TryConnectPipeClient();
+                return PythonWrapper.Pipe.IsConnected;
             }
-            Retry(ServiceReady, StartTimeout, RetryInterval);
-            return pipeClient;
+
+            void TryConnectPipeClient()
+            {
+                try
+                {
+                    PythonWrapper.Pipe.Connect(PipeConnectionTimeoutMs);
+                }
+                catch
+                {
+                    //In case of exception we are going to retry to connect next time
+                    //On timeout, if failure persists exception will be thrown
+                }
+            }
         }
 
         private static void Retry(Func<bool> checkFunction, TimeSpan timeout, TimeSpan retryInterval)

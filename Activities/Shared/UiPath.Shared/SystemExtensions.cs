@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace System
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static bool IsNullOrEmpty(this string value)
         {
@@ -19,9 +19,9 @@ namespace System
             return new Comparer<T>(compare);
         }
 
-        private class Comparer<T> : IComparer<T>
+        private sealed class Comparer<T> : IComparer<T>
         {
-            private Func<T, T, int> _compare;
+            private readonly Func<T, T, int> _compare;
             public Comparer(Func<T, T, int> comparison)
             {
                 _compare = comparison;
@@ -45,7 +45,7 @@ namespace System
 
         public static IDisposable DisposeWith<T>(this T obj, Action<T> onDispose)
         {
-            if (obj == null)
+            if (object.Equals(obj, default(T)))
             {
                 return Disposable.Empty;
             }
@@ -54,18 +54,22 @@ namespace System
 
         public static IDisposable DisposeWithReleaseComObject<T>(this T obj, out T outObj)
         {
+#if NET6_0_OR_GREATER && WINDOWS
             return DisposeWith(obj, (onDispose) => Marshal.ReleaseComObject(obj), out outObj);
+#else
+            throw new PlatformNotSupportedException("COM available only on Windows");
+#endif
         }
 
         public static IDisposable DisposeWithReleaseComObject<T>(this T obj)
         {
-            return DisposeWith(obj, (onDispose) => Marshal.ReleaseComObject(obj));
+            return DisposeWithReleaseComObject<T>(obj, out _);
         }
 
-        private class Disposable : IDisposable
+        private sealed class Disposable : IDisposable
         {
-            public static Disposable Empty = new Disposable(null) { _disposed = true };
-            private Action _onDispose;
+            public static readonly Disposable Empty = new Disposable(null) { _disposed = true };
+            private readonly Action _onDispose;
             public Disposable(Action onDispose)
             {
                 _onDispose = onDispose;
@@ -129,7 +133,7 @@ namespace System
 
 namespace System.Collections.Generic
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
         {
@@ -173,13 +177,13 @@ namespace System.Collections.Generic
                 return value;
             }
             return null;
-        } 
+        }
     }
 }
 
 namespace System.IO
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static byte[] ReadToEnd(this Stream stream, int chunkSize = 1024)
         {
@@ -216,12 +220,12 @@ namespace System.IO
 
 namespace System.Threading.Tasks
 {
-    public static class TaskExtensions
+    internal static class TaskExtensions
     {
         [Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "task")]
         public static void DoNotAwait(this Task task)
         {
-
+            // nothing to do
         }
     }
 }

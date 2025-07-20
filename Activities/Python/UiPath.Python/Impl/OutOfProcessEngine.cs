@@ -11,8 +11,8 @@ namespace UiPath.Python.Impl
 {
     internal class OutOfProcessEngine : IEngine
     {
-        private const string ServiceExe_x64 = "UiPath.Python.Host.exe";
-        private const string ServiceExe_x86 = "UiPath.Python.Host32.exe";
+        private const string ServiceDll_x64 = "UiPath.Python.Host.dll";
+        private const string ServiceDll_x86 = "UiPath.Python.Host32.dll";
 
         private PythonProxy _proxy;
         private Controller<IPythonService> _provider;
@@ -52,11 +52,12 @@ namespace UiPath.Python.Impl
             // TODO: expose visible as a property?
             _provider = new Controller<IPythonService>()
             {
-                ExeFile = TargetPlatform.x64 == _target ? ServiceExe_x64 : ServiceExe_x86,
+                HostLibFile = TargetPlatform.x64 == _target ? ServiceDll_x64 : ServiceDll_x86,
                 Visible = _visible
             };
+
             _provider.Create();
-            _proxy = new PythonProxy(_provider.Client, timeout, ct);
+            _proxy = new PythonProxy(_provider.PythonWrapper, timeout, ct);
             _proxy.Initialize(_path, _libraryPath, _version, workingFolder);
 
             sw.Stop();
@@ -70,6 +71,7 @@ namespace UiPath.Python.Impl
         {
             _proxy?.Shutdown();
             _proxy = null;
+            _provider?.PythonWrapper?.Dispose();//Prevent host process leak in certain scenarios
             return Task.FromResult(true);
         }
 

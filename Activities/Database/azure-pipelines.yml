@@ -16,7 +16,6 @@ resources:
     endpoint: "UiPath"
     ref: refs/tags/uipath.templates.helpers.1.1.4
 
-
 trigger:
   batch: true
   branches:
@@ -29,6 +28,7 @@ trigger:
     include:
     - Activities/Database/*
     - Activities/Activities.Database.sln
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -43,11 +43,14 @@ pr:
     include:
     - Activities/Database/*
     - Activities/Activities.Database.sln
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
 variables:
   - template: ..\.pipelines\variables\variables.yml
+  - name: PerformDatabaseTests
+    value: false
 
 stages:
   - template: Activities/stage.start.yml@common
@@ -62,6 +65,7 @@ stages:
   - stage: CreateAndSetupBYOSAgent
     dependsOn:
       - Build
+    condition: eq(variables.PerformDatabaseTests, true)
     displayName: "Create and Setup BYOS Agent"
     variables:
       eteKvName: "ete-variables-kv"
@@ -75,6 +79,7 @@ stages:
     displayName: 'Build Database Runtime Tests'
     dependsOn:
       - CreateAndSetupBYOSAgent
+    condition: eq(variables.PerformDatabaseTests, true)
     jobs:
     - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
       parameters:
@@ -83,6 +88,7 @@ stages:
         buildForWindows: true
         buildForPortable: true
         packageUnderTestName: 'UiPath.Database.Activities'
+        studioLicense: $(StudioLicense)
 
   - stage: RunDatabaseRuntimeTestsWindows
     displayName: 'Run Database Runtime Tests Windows'
@@ -91,6 +97,7 @@ stages:
     dependsOn:
       - BuildDatabaseRuntimeTests
       - CreateAndSetupBYOSAgent
+    condition: eq(variables.PerformDatabaseTests, true)      
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
@@ -105,6 +112,7 @@ stages:
     dependsOn:
       - BuildDatabaseRuntimeTests
       - CreateAndSetupBYOSAgent
+    condition: eq(variables.PerformDatabaseTests, true)
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
       parameters:
@@ -114,7 +122,7 @@ stages:
 
   - stage: DeleteBYOSAgent
     displayName: "Delete BYOS Agent"
-    condition: always()
+    condition: eq(variables.PerformDatabaseTests, true)
     variables:
       athenaservicesEnvironmentIds: $[stageDependencies.CreateAndSetupBYOSAgent.CreateBYOSAgent.outputs['DeployDatabaseServicesImage.environmentIds']]
       eteKvName: "ete-variables-kv"

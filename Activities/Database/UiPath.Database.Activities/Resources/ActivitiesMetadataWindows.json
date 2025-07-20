@@ -1,0 +1,78 @@
+{
+  "AssemblyRelativePath": "UiPath.Database.Activities.dll",
+  "Activities": [
+  ],
+  "additionalTypeCacheInfo": {
+    "legacyDesignerActivities": [
+      {
+        "fullName": "UiPath.Database.Activities.BulkInsert",
+        "shortName": "BulkInsert",
+        "displayNameKey": "Activity_BulkInsert_Name",
+        "descriptionKey": "Activity_BulkInsert_Description",
+        "iconKey": "Bulk_insert.svg",
+        "categoryKey": "DatabaseCategory"
+      },
+      {
+        "fullName": "UiPath.Database.Activities.BulkUpdate",
+        "shortName": "BulkUpdate",
+        "displayNameKey": "Activity_BulkUpdate_Name",
+        "descriptionKey": "Activity_BulkUpdate_Description",
+        "iconKey": "Bulk_update.svg",
+        "categoryKey": "DatabaseCategory"
+      },
+      {
+        "fullName": "UiPath.Database.Activities.DatabaseConnect",
+        "shortName": "DatabaseConnect",
+        "displayNameKey": "Activity_DatabaseConnect_Name",
+        "descriptionKey": "Activity_DatabaseConnect_Description",
+        "iconKey": "Connect.svg",
+        "categoryKey": "DatabaseCategory"
+      },
+      {
+        "fullName": "UiPath.Database.Activities.DatabaseDisconnect",
+        "shortName": "DatabaseDisconnect",
+        "displayNameKey": "Activity_DatabaseDisconnect_Name",
+        "descriptionKey": "Activity_DatabaseDisconnect_Description",
+        "iconKey": "Disconnect.svg",
+        "categoryKey": "DatabaseCategory"
+      },
+      {
+        "fullName": "UiPath.Database.Activities.ExecuteNonQuery",
+        "shortName": "ExecuteNonQuery",
+        "displayNameKey": "Activity_ExecuteNonQuery_Name",
+        "descriptionKey": "Activity_ExecuteNonQuery_Description",
+        "iconKey": "Run_command.svg",
+        "categoryKey": "DatabaseCategory"
+      },
+      {
+        "fullName": "UiPath.Database.Activities.ExecuteQuery",
+        "shortName": "ExecuteQuery",
+        "displayNameKey": "Activity_ExecuteQuery_Name",
+        "descriptionKey": "Activity_ExecuteQuery_Description",
+        "iconKey": "Run_Query.svg",
+        "categoryKey": "DatabaseCategory"
+      },
+      {
+        "fullName": "UiPath.Database.Activities.InsertDataTable",
+        "shortName": "InsertDataTable",
+        "displayNameKey": "Activity_InsertDataTable_Name",
+        "descriptionKey": "Activity_InsertDataTable_Description",
+        "iconKey": "Insert.svg",
+        "categoryKey": "DatabaseCategory"
+      },
+      {
+        "fullName": "UiPath.Database.Activities.DatabaseTransaction",
+        "shortName": "DatabaseTransaction",
+        "displayNameKey": "Activity_DatabaseTransaction_Name",
+        "descriptionKey": "Activity_DatabaseTransaction_Description",
+        "iconKey": "Start_transaction.svg",
+        "categoryKey": "DatabaseCategory"
+      }
+    ]
+  },
+  "DefaultActivityColor": "#526069",
+  "DefaultActivityNameBackgroundColor": "#FFFFFF",
+  "DefaultActivityIconKey": null,
+  "AssemblyIconKey": null,
+  "ResourceManagerName": "UiPath.Database.Activities.Properties.UiPath.Database.Activities"
+}

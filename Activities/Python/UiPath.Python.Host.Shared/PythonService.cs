@@ -10,6 +10,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using UiPath.Python.Service;
 using UiPath.Shared.Service;
+using System.Data;
 
 namespace UiPath.Python.Host
 {
@@ -62,7 +63,6 @@ namespace UiPath.Python.Host
                                 Initialize(request.ScriptPath, request.LibraryPath, (Version)Enum.Parse(typeof(Version), request.PythonVersion), request.WorkingFolder);
                                 response.ResultState = ResultState.Successful;
                                 streamWriter.WriteLine(response.Serialize());
-
                                 break;
 
                             case RequestType.Shutdown:
@@ -134,10 +134,10 @@ namespace UiPath.Python.Host
 
                         streamWriter.WriteLine(response.Serialize());
                         WaitForPipeDrain(pipeServer);
-                        throw;
                     }
                 }
         }
+
         private bool IsWindows()
         {
             bool isWindows = true;
@@ -237,6 +237,8 @@ namespace UiPath.Python.Host
         {
             try
             {
+                //Delay the actual killing of the process a little bit in order for the client to process the shutdown response
+                Thread.Sleep(1000);
                 Process.GetCurrentProcess().Kill();
                 Environment.Exit(1);
             }

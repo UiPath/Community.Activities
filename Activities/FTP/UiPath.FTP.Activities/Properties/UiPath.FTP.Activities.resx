@@ -279,10 +279,10 @@
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>Client certificate password</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>Continue on error</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Files</value>
@@ -291,10 +291,10 @@
     <value>Host</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+    <value>Local path</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
-    <value>NewPath</value>
+    <value>New path</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
     <value>Password</value>
@@ -303,7 +303,7 @@
     <value>Port</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>Remote Path</value>
+    <value>Remote path</value>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">
     <value>When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>Delete File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -469,7 +469,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Use FTP connection</value>
+    <value>Use FTP Connection</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Download files</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move file or folder</value>
+    <value>Move File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -738,7 +738,7 @@
     <value>The type of proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Proxy Type</value>
+    <value>Proxy Type</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>The user used for proxy if authentication is required</value>
@@ -752,5 +752,18 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>You must provide a value for {0}.</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0} (Obsolete)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>Leave empty for auto configuration</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>The proxy password in secure string format</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Proxy Secure Password</value>
   </data>
 </root>

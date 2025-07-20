@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Activities.Presentation;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog.Controls
 {
@@ -41,11 +32,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 		{
 			get
 			{
-				return (string)_connectionProperties["Password"];
+				return (string)_connectionProperties[DatabaseConstants.Password];
 			}
 			set
 			{
-				_connectionProperties["Password"] = value;
+                _connectionProperties[DatabaseConstants.Password] = value;
 			}
 		}
 
@@ -53,11 +44,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 		{
 			get
 			{
-				return (string)_connectionProperties["User ID"];
+				return (string)_connectionProperties[DatabaseConstants.User_ID];
 			}
 			set
 			{
-				_connectionProperties["User ID"] = value;
+				_connectionProperties[DatabaseConstants.User_ID] = value;
 			}
 		}
 		
@@ -65,11 +56,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 		{
 			get
 			{
-				return (string)_connectionProperties["Provider"];
+				return (string)_connectionProperties[DatabaseConstants.Provider];
 			}
 			set
 			{
-				_connectionProperties["Provider"] = value;
+				_connectionProperties[DatabaseConstants.Provider] = value;
 			}
 		}
 
@@ -77,11 +68,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 		{
 			get
 			{
-				return (string)_connectionProperties["Data Source"];
+				return (string)_connectionProperties[DatabaseConstants.Data_Source];
 			}
 			set
 			{
-				_connectionProperties["Data Source"] = value;
+				_connectionProperties[DatabaseConstants.Data_Source] = value;
 			}
 		}
 
@@ -101,20 +92,20 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 		{
 			get
 			{
-				return _connectionProperties.Contains("Integrated Security") &&
-						   _connectionProperties["Integrated Security"] is string &&
-						   (_connectionProperties["Integrated Security"] as string).Length>0;
+				return _connectionProperties.Contains(DatabaseConstants.Integrated_Security) &&
+						   _connectionProperties[DatabaseConstants.Integrated_Security] is string &&
+						   (_connectionProperties[DatabaseConstants.Integrated_Security] as string).Length>0;
 			}
 			set
 			{
 				string val = (value) ? "SSPI" : null;
 				if (value)
 				{
-					_connectionProperties.Reset("User ID");
-					_connectionProperties.Reset("Password");
-					_connectionProperties.Reset("Persist Security Info");
+					_connectionProperties.Reset(DatabaseConstants.User_ID);
+                    _connectionProperties.Reset(DatabaseConstants.Password);
+					_connectionProperties.Reset(DatabaseConstants.Persist_Security_Info);
 				}
-				_connectionProperties["Integrated Security"] = val;
+				_connectionProperties[DatabaseConstants.Integrated_Security] = val;
 			}
 		}
 
@@ -122,14 +113,14 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 		{
 			get
 			{
-				if (_connectionProperties.Contains("Persist Security Info") &&
-				_connectionProperties["Persist Security Info"] is bool)
-					return (bool)_connectionProperties["Persist Security Info"];
+				if (_connectionProperties.Contains(DatabaseConstants.Persist_Security_Info) &&
+				_connectionProperties[DatabaseConstants.Persist_Security_Info] is bool)
+					return (bool)_connectionProperties[DatabaseConstants.Persist_Security_Info];
 				return false;
 			}
 			set
 			{
-				_connectionProperties["Persist Security Info"] = value;
+				_connectionProperties[DatabaseConstants.Persist_Security_Info] = value;
 			}
 		}
 
@@ -245,29 +236,29 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 				locationLabel.IsEnabled = true;
 				locationTextBox.IsEnabled = true;
 			}
-			if ((propertyDescriptor = propertyDescriptors["Integrated Security"]) != null &&
+			if ((propertyDescriptor = propertyDescriptors[DatabaseConstants.Integrated_Security]) != null &&
 				propertyDescriptor.IsBrowsable)
 			{
 				integraredSecRadioButton.IsEnabled = true;
 			}
-			if ((propertyDescriptor = propertyDescriptors["User ID"]) != null &&
+			if ((propertyDescriptor = propertyDescriptors[DatabaseConstants.User_ID]) != null &&
 				propertyDescriptor.IsBrowsable)
 			{
 				usernameTextbox.IsEnabled = true;
 				usernameLabel.IsEnabled = true;
 				sqlAuthentication.IsEnabled = true;
 			}
-			if (_connectionProperties["Password"] != null)
+			if (_connectionProperties[DatabaseConstants.Password] != null)
 			{
-				passwordLabel.IsEnabled = true;
-				passwordTextbox.IsEnabled = true;
-				sqlAuthentication.IsEnabled = true;
+                passwordLabel.IsEnabled = true;
+                passwordTextbox.IsEnabled = true;
+                sqlAuthentication.IsEnabled = true;
 			}
-			if (_connectionProperties["Password"] != null &&
+			if (_connectionProperties[DatabaseConstants.Password] != null &&
 					(propertyDescriptor = propertyDescriptors["PersistSecurityInfo"]) != null &&
 					propertyDescriptor.IsBrowsable)
 			{
-				savepasswordCheckbox.IsEnabled = true;
+                savepasswordCheckbox.IsEnabled = true;
 			}
 			if ((propertyDescriptor = propertyDescriptors["Initial Catalog"]) != null &&
 					propertyDescriptor.IsBrowsable)

@@ -275,14 +275,14 @@
     <value>Com a sessão do FTP</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Com a sessão do FTP</value>
+    <value>With Ftp Session</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>SenhadoCertificadodoCliente</value>
+    <value>Senha do certificado do cliente</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinuarComErro</value>
+    <value>Continuar no erro</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Arquivos</value>
@@ -291,10 +291,10 @@
     <value>Host</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>CaminhoLocal</value>
+    <value>Caminho local</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
-    <value>NewPath</value>
+    <value>Novo Caminho</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
     <value>Senha</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>Delete File/Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Download files</value>
+    <value>Faz o download de arquivos</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -738,7 +738,7 @@
     <value>O tipo de proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Tipo de proxy</value>
+    <value>Tipo de proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>Usuário para proxy se a autenticação for necessária</value>
@@ -752,5 +752,12 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>Forneça um valor para {0}.</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0} (Obsoleto)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>Deixe vazio para configuração automática</value>
   </data>
 </root>

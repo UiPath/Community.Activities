@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Activities.Presentation;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog.Controls
 {
@@ -30,11 +20,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             {
                 if (!(_connectionProperties is OdbcConnectionProperties))
                 {
-                    return "Data Source";
+                    return DatabaseConstants.Data_Source;
                 }
                 else
                 {
-                    return "DBQ";
+                    return DatabaseConstants.DBQ;
                 }
             }
         }
@@ -45,11 +35,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             {
                 if (!(_connectionProperties is OdbcConnectionProperties))
                 {
-                    return "User ID";
+                    return DatabaseConstants.User_ID;
                 }
                 else
                 {
-                    return "UID";
+                    return DatabaseConstants.UID;
                 }
             }
         }
@@ -99,11 +89,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return (bool)_connectionProperties["Persist Security Info"];
+                return (bool)_connectionProperties[DatabaseConstants.Persist_Security_Info];
             }
             set
             {
-                _connectionProperties["Persist Security Info"] = value;
+                _connectionProperties[DatabaseConstants.Persist_Security_Info] = value;
             }
         }
         
