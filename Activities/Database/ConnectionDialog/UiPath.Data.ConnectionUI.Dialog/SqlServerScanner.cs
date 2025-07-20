@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog
 {
@@ -25,7 +26,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
         private static readonly List<UdpClient> listenSockets = new List<UdpClient>();
         private static readonly int SqlBrowserPort = 1434; // Port SQL Server Browser service listens on.
-        private const string ServerName = "ServerName";
+
 
         public static DataTable GetList()
         {
@@ -97,8 +98,8 @@ namespace UiPath.Data.ConnectionUI.Dialog
         {
             if (serverInstances.Columns.Count == 0)
             {
-                serverInstances.Columns.Add("ServerName", typeof(string));
-                serverInstances.Columns.Add("InstanceName", typeof(string));
+                serverInstances.Columns.Add(DatabaseConstants.ServerName, typeof(string));
+                serverInstances.Columns.Add(DatabaseConstants.InstanceName, typeof(string));
                 serverInstances.Columns.Add("IsClustered", typeof(string));
                 serverInstances.Columns.Add("Version", typeof(string));
             }
@@ -164,18 +165,18 @@ namespace UiPath.Data.ConnectionUI.Dialog
             }
 
             // Remove cruft from instances string.
-            var firstRecord = response.IndexOf(ServerName);
+            var firstRecord = response.IndexOf(DatabaseConstants.ServerName);
             response = response.Remove(0, firstRecord);
             response = response.Substring(0, response.Length - 2);
 
             var instance = response.Split(';');
             for (int i = 0; i < instance.Length; i++)
             {
-                if (instance[i].Equals("ServerName"))
+                if (instance[i].Equals(DatabaseConstants.ServerName))
                 {
                     var row = serverInstances.NewRow();
-                    row["ServerName"] = instance[i + 1];
-                    row["InstanceName"] = (instance[i + 3] != "MSSQLSERVER") ? instance[i + 3] : string.Empty;
+                    row[DatabaseConstants.ServerName] = instance[i + 1];
+                    row[DatabaseConstants.InstanceName] = (instance[i + 3] != "MSSQLSERVER") ? instance[i + 3] : string.Empty;
                     row["IsClustered"] = instance[i + 5].Equals("Yes");
                     row["Version"] = instance[i + 7];
                     yield return row;

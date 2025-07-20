@@ -1,16 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="../Java.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Java\</OutputPath>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web.Services" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
 </Project>

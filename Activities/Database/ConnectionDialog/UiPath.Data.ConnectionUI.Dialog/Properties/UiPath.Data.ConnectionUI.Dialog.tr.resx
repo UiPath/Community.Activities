@@ -336,6 +336,9 @@
   <data name="OracleConnectionUIService_Label" xml:space="preserve">
     <value>Hizmet adı:</value>
   </data>
+  <data name="OracleConnectionUISID_Label" xml:space="preserve">
+    <value>Güvenlik kimliği</value>
+  </data>
   <data name="Password_Label" xml:space="preserve">
     <value>Parola:</value>
   </data>

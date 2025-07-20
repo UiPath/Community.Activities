@@ -1,23 +1,18 @@
-﻿using Oracle.ManagedDataAccess.Client;
-using System.Diagnostics;
-using System.Data.Common;
-using System.ComponentModel;
+﻿using Microsoft.Data.SqlClient;
+using Oracle.ManagedDataAccess.Client;
 using System;
-using UiPath.Data.ConnectionUI.Dialog.Properties;
 using System.Collections.Generic;
-using System.Collections;
-using System.Data.OleDb;
-using System.Reflection;
-using System.Activities.Presentation.Metadata;
-using System.Windows;
-using System.Configuration;
+using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
+using System.Diagnostics;
 using System.Linq;
-using Microsoft.Data.SqlClient;
+using UiPath.Data.ConnectionUI.Dialog.Properties;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog
 {
-    
+
     public class AdoDotNetConnectionProperties : IDataConnectionProperties, ICustomTypeDescriptor
     {
         private string _providerName;
@@ -84,12 +79,8 @@ namespace UiPath.Data.ConnectionUI.Dialog
             Debug.Assert(providerName != null);
             _providerName = providerName;
 
-#if NETCOREAPP
-            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", Microsoft.Data.SqlClient.SqlClientFactory.Instance);
-            DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
-            DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
-            DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
-#endif
+            DatabaseHelper.RegisterFactories(true);
+
             //SqlConnectionStringBuilder
             // Create an underlying connection string builder object
             DbProviderFactory factory = null;
@@ -99,19 +90,14 @@ namespace UiPath.Data.ConnectionUI.Dialog
             }
             catch
             {
-#if NETFRAMEWORK
-                if (!LegacyProviders.GetLegacyFactory(providerName, out factory))
-                    throw;
-#else
                 throw;
-#endif
             }
             Debug.Assert(factory != null);
             _connectionStringBuilder = factory.CreateConnectionStringBuilder();
             Debug.Assert(_connectionStringBuilder != null);
             _connectionStringBuilder.BrowsableConnectionString = false;
         }
-        
+
         public virtual void Reset()
         {
             _connectionStringBuilder.Clear();
@@ -166,23 +152,22 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 throw new InvalidOperationException(Resources.AdoDotNetConnectionProperties_NoProperties);
             }
             // Create a connection object
-            DbConnection connection = null;
-            DbProviderFactory factory = null;
+            DbConnection connection;
             switch (_providerName)
             {
-                case "Oracle.ManagedDataAccess.Client":
+                case DatabaseConstants.OracleProvider:
                     connection = new OracleConnection(testString);
                     break;
-                case "Microsoft.Data.SqlClient":
+                case DatabaseConstants.SqlServerProvider:
                     connection = new SqlConnection(testString);
                     break;
                 default:
-                    factory = DbProviderFactories.GetFactory(_providerName);
+                    DbProviderFactory factory = DbProviderFactories.GetFactory(_providerName);
                     Debug.Assert(factory != null);
                     connection = factory.CreateConnection();
                     break;
             }
-                
+
             Debug.Assert(connection != null);
             // Try to open it
             try
@@ -196,7 +181,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 connection.Dispose();
             }
         }
-        
+
         public virtual string ToDisplayString()
         {
             PropertyDescriptorCollection sensitiveProperties = TypeDescriptor.GetProperties(_connectionStringBuilder, new Attribute[] { PasswordPropertyTextAttribute.Yes });
@@ -337,16 +322,16 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 if (trimmedName == name && (props.Where(x => x.Name.Replace(" ", "") == trimmedName).Count() > 1))
                     duplicates.Add(prop);
             }
-            foreach(var prop in duplicates)
+            foreach (var prop in duplicates)
                 props.Remove(prop);
             return new PropertyDescriptorCollection(props.ToArray());
         }
-        
+
         protected virtual void OnPropertyChanged(EventArgs e)
         {
             PropertyChanged?.Invoke(this, e);
         }
-        
+
         protected virtual void OnPropertyValueChanged(EventArgs e)
         {
             PropertyValueChanged?.Invoke(this, e);
@@ -417,49 +402,9 @@ namespace UiPath.Data.ConnectionUI.Dialog
         public object GetPropertyOwner(PropertyDescriptor pd)
         {
             return _connectionStringBuilder;
-            
+
         }
         #endregion ICustomTypeDescriptor implementation
-
-#if NETFRAMEWORK
-        private static class LegacyProviders
-        {
-            private static readonly Lazy<Dictionary<string, DataRow>> _LegacyProviders = new Lazy<Dictionary<string, DataRow>>(() => InitLegacyProviders());
-
-            private static Dictionary<string, DataRow> InitLegacyProviders()
-            {
-                var legacyConfig = new Dictionary<string, DataRow>();
-
-                var dataSet = ConfigurationManager.GetSection("system.data") as System.Data.DataSet;
-                var dr = dataSet.Tables[0].NewRow();
-                dr[0] = "ODP.NET, Managed Driver";
-                dr[1] = ".Net Framework Data Provider for Oracle";
-                dr[2] = "Oracle.ManagedDataAccess.Client";
-                dr[3] = typeof(OracleClientFactory).AssemblyQualifiedName;
-                legacyConfig.Add((string)dr[2], dr);
-
-                dr = dataSet.Tables[0].NewRow();
-                dr[0] = ".Net Framework Data Provider";
-                dr[1] = ".Net Framework Data Provider";
-                dr[2] = "Microsoft.Data.SqlClient";
-                dr[3] = typeof(SqlClientFactory).AssemblyQualifiedName;
-                legacyConfig.Add((string)dr[2], dr);
-
-                return legacyConfig;
-            }
-            internal static bool GetLegacyFactory(string providerName, out DbProviderFactory factory)
-            {
-                factory = null;
-                if (_LegacyProviders.Value.TryGetValue(providerName, out var factoryConfig))
-                {
-                    factory = DbProviderFactories.GetFactory(factoryConfig);
-                    return true;
-                }
-                else
-                    return false;
-            }
-        }
-#endif
 
         private class KeyValuePropertyDescriptor : PropertyDescriptor
         {
@@ -489,7 +434,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     return m_Property.Description;
                 }
             }
-            
+
             public object Value
             {
                 get
@@ -514,7 +459,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 }
 
             }
-            
+
             public override bool IsReadOnly
             {
                 get
@@ -559,15 +504,15 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 connStrB.TryGetValue(m_Property.DisplayName, out var val);
                 try
                 {
-                    if(m_Property.Converter.CanConvertTo(m_Property.PropertyType))
+                    if (m_Property.Converter.CanConvertTo(m_Property.PropertyType))
                         val = m_Property.Converter.ConvertTo(val, m_Property.PropertyType);
                 }
-                catch (Exception){ }
+                catch (Exception) { }
                 conProp._errorProperties.Remove(m_Property.DisplayName);
                 conProp.OnErrorValidating(EventArgs.Empty);
                 return val;
             }
-            
+
             public override void ResetValue(object component)
             {
                 //Have to implement
@@ -582,11 +527,11 @@ namespace UiPath.Data.ConnectionUI.Dialog
             {
                 AdoDotNetConnectionProperties conProp = (AdoDotNetConnectionProperties)component;
                 var connStrB = conProp.ConnectionStringBuilder;
-                
+
                 try
                 {
                     conProp._hasErrors = false;
-                    
+
                     if (m_Property.Converter.CanConvertFrom(value.GetType()))
                         value = m_Property.Converter.ConvertFrom(value);
                     if (value is string && string.IsNullOrEmpty((string)value))
@@ -594,7 +539,8 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
                     connStrB[m_Property.DisplayName] = value;
                 }
-                catch(Exception ex) {
+                catch (Exception ex)
+                {
                     conProp._errorProperties.Add(m_Property.DisplayName);
                     conProp._hasErrors = true;
                     conProp.OnErrorValidating(EventArgs.Empty);

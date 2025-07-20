@@ -2,11 +2,9 @@
 using System;
 using System.Activities.Presentation;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UiPath.Data.ConnectionUI.Dialog.Controls;
 using UiPath.Data.ConnectionUI.Dialog.Properties;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog
 {
@@ -84,7 +82,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     };
 
                     _sqlDataProvider = new DataProvider(
-                        "Microsoft.Data.SqlClient",
+                        DatabaseConstants.SqlServerProvider,
                         Resources.DataProvider_Sql,
                         Resources.DataProvider_Sql_Short,
                         Resources.DataProvider_Sql_Description,
@@ -124,7 +122,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     };
 
                     _oleDBDataProvider = new DataProvider(
-                        "System.Data.OleDb",
+                        DatabaseConstants.OleDbProvider,
                         Resources.DataProvider_OleDB,
                         Resources.DataProvider_OleDB_Short,
                         Resources.DataProvider_OleDB_Description,
@@ -154,7 +152,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     };
 
                     _odbcDataProvider = new DataProvider(
-                        "System.Data.Odbc",
+                        DatabaseConstants.OdbcProvider,
                         Resources.DataProvider_Odbc,
                         Resources.DataProvider_Odbc_Short,
                         Resources.DataProvider_Odbc_Description,
@@ -184,7 +182,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     };
 
                     _oracleManagedDataAcessProvider = new DataProvider(
-                        "Oracle.ManagedDataAccess.Client",
+                        DatabaseConstants.OracleProvider,
                         Resources.DataProvider_Oracle,
                         Resources.DataProvider_Oracle_Short,
                         Resources.DataProvider_Oracle_Description,

@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Activities.Presentation;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UiPath.Database;
 
 namespace UiPath.Data.ConnectionUI.Dialog.Controls
 {
@@ -22,23 +12,25 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
     public partial class OracleConnectionUIControl : WorkflowElementDialog, IDataConnectionUIControl
     {
         private IDataConnectionProperties _connectionProperties;
-        string _host, _port, _service;
+        string _host, _port, _service, _sid;
+
+        bool _useSID;
 
         private string DataSource
         {
             get
             {
-                return _connectionProperties["Data Source"] as string;
+                return _connectionProperties[DatabaseConstants.Data_Source] as string;
             }
             set
             {
                 if (value != null && value.Trim().Length > 0)
                 {
-                    _connectionProperties["Data Source"] = value.Trim();
+                    _connectionProperties[DatabaseConstants.Data_Source] = value.Trim();
                 }
                 else
                 {
-                    _connectionProperties.Reset("Data Source");
+                    _connectionProperties.Reset(DatabaseConstants.Data_Source);
                 }
             }
         }
@@ -82,15 +74,39 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             }
         }
 
+        public string SID
+        {
+            get
+            {
+                return _sid;
+            }
+            set
+            {
+                _sid = value; SetDataSource();
+            }
+        }
+
+        public bool UseSID
+        {
+            get 
+            { 
+                return _useSID;
+            }
+            set 
+            {
+                _useSID = value; SetDataSource();
+            }
+        }
+
         public string UserName
         {
             get
             {
-                return _connectionProperties["User ID"] as string;
+                return _connectionProperties[DatabaseConstants.User_ID] as string;
             }
             set
             {
-                _connectionProperties["User ID"] = value.Trim();
+                _connectionProperties[DatabaseConstants.User_ID] = value.Trim();
             }
         }
 
@@ -98,11 +114,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return _connectionProperties["Password"] as string;
+                return _connectionProperties[DatabaseConstants.Password] as string;
             }
             set
             {
-                _connectionProperties["Password"] = value.Trim();
+                _connectionProperties[DatabaseConstants.Password] = value.Trim();
             }
         }
         
@@ -110,11 +126,11 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             get
             {
-                return (bool)_connectionProperties["Persist Security Info"];
+                return (bool)_connectionProperties[DatabaseConstants.Persist_Security_Info];
             }
             set
             {
-                _connectionProperties["Persist Security Info"] = value;
+                _connectionProperties[DatabaseConstants.Persist_Security_Info] = value;
 
             }
         }
@@ -149,7 +165,10 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 
         private void SetDataSource()
         {
-            DataSource=  $"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {_host})(PORT = {_port})))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {_service})))";
+            if (_useSID)
+                DataSource = $"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {_host})(PORT = {_port})))(CONNECT_DATA = (SERVER = DEDICATED)(SID = {_sid})))";
+            else
+                DataSource = $"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {_host})(PORT = {_port})))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {_service})))";
         }
     }
 }

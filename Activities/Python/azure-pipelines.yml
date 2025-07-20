@@ -23,6 +23,7 @@ trigger:
     include:
     - Activities/Python/*
     - Activities/Activities.Python.sln
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -37,6 +38,7 @@ pr:
     include:
     - Activities/Python/*
     - Activities/Activities.Python.sln
+    - Activities/Directory.build.targets
     - Activities/Shared/*
     - Activities/Tools/*
 
@@ -65,6 +67,7 @@ stages:
         buildForWindows: true
         buildForPortable: false
         packageUnderTestName: 'UiPath.Python.Activities'
+        studioLicense: $(StudioLicense)        
 
   - stage: RunPythonRuntimeTestsWindows
     displayName: 'Run Python Runtime Tests Windows'
