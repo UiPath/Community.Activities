@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AffectedRecordsDescription" xml:space="preserve">
+    <value>SQL 命令的執行結果。對於 UPDATE、INSERT 和 DELETE 陳述式，傳回值為該命令影響的列數。對於所有其他類型的陳述式，傳回值均為 -1。</value>
+  </data>
+  <data name="CategoryDatabase" xml:space="preserve">
+    <value>資料庫</value>
+  </data>
+  <data name="CommandTypeDescription" xml:space="preserve">
+    <value>指定命令字串的解釋方式</value>
+  </data>
+  <data name="ConnectionStringDescription" xml:space="preserve">
+    <value>用於建立資料庫連線的連線字串</value>
+  </data>
+  <data name="DatabaseConnectDescription" xml:space="preserve">
+    <value>連接到資料庫。</value>
+  </data>
+  <data name="DatabaseConnectionDescription" xml:space="preserve">
+    <value>用於此活動所含作業的資料庫連線</value>
+  </data>
+  <data name="DatabaseDisconnectDescription" xml:space="preserve">
+    <value>關閉資料庫連線。</value>
+  </data>
+  <data name="DataTableDescription" xml:space="preserve">
+    <value>包含在「資料表」物件中的 SQL 命令輸出</value>
+  </data>
+  <data name="DbTransactionDescription" xml:space="preserve">
+    <value>連接到資料庫並傳回「資料庫連線」，為資料庫活動提供範圍。如果將「使用交易」設為 Ture，所含作業將在單一交易中執行，並在最後套用 (如果所有作業均未失敗)。如果將「使用交易」設為 False，則會單獨執行所有作業。該活動結束後，系統便會關閉資料庫連線。</value>
+  </data>
+  <data name="DefaultWidth" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="ExecuteNonQueryDescription" xml:space="preserve">
+    <value>對資料庫執行 SQL 陳述式。對於 UPDATE、INSERT 和 DELETE 陳述式，傳回值為該命令影響的列數。對於所有其他類型的陳述式，傳回值均為 -1。</value>
+  </data>
+  <data name="ExecuteQueryDescription" xml:space="preserve">
+    <value>對資料庫執行查詢，即可在資料表中傳回查詢結果。</value>
+  </data>
+  <data name="ExistingDbConnectionDescription" xml:space="preserve">
+    <value>已開啟的資料庫連線。如果將此屬性設定為「連線字串」，則會忽略「提供者名稱」屬性</value>
+  </data>
+  <data name="InsertDataTableDescription" xml:space="preserve">
+    <value>在現有資料表中插入相容的資料表。傳回受影響的列數。</value>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>繫結到 SQL 命令的具名參數字典。可透過在 SQL 命令中指定 &quot;@parameterName&quot; 陳述式以完成繫結。在執行階段時，「參數名稱」將取代為其在字典中的值</value>
+  </data>
+  <data name="ProviderNameDescription" xml:space="preserve">
+    <value>用於存取資料庫的資料庫提供者的名稱。資料提供者清單詳見 http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
+  </data>
+  <data name="SqlDescription" xml:space="preserve">
+    <value>提供與所選命令類型對應的 SQL 陳述式</value>
+  </data>
+  <data name="TableNameDescription" xml:space="preserve">
+    <value>目標資料庫資料表</value>
+  </data>
+  <data name="TimeoutMSDescription" xml:space="preserve">
+    <value>指定等待時間 (以毫秒為單位)，如果超出該時間後 SQL 命令並未執行，就會擲回錯誤。預設值為 30000 毫秒 (30 秒)，且必須大於或等於 0。</value>
+  </data>
+  <data name="UseTransactionDescription" xml:space="preserve">
+    <value>指定是否應將此活動內的資料庫作業包含在資料庫交易中</value>
+  </data>
+  <data name="AffectedRecordsInsertDescription" xml:space="preserve">
+    <value>插入的列數</value>
+  </data>
+  <data name="ConfigureConnection" xml:space="preserve">
+    <value>配置連線...</value>
+  </data>
+  <data name="InserDataTableInputDescription" xml:space="preserve">
+    <value>要在資料表中插入的「資料表」物件。資料表欄的說明必須與資料庫資料表欄的說明相符</value>
+  </data>
+  <data name="ConnectionWizard" xml:space="preserve">
+    <value>連線精靈</value>
+  </data>
+  <data name="DoubleClickToView" xml:space="preserve">
+    <value>按兩下以檢視</value>
+  </data>
+  <data name="EditConnectionSettings" xml:space="preserve">
+    <value>編輯連線設定</value>
+  </data>
+  <data name="NewDatabaseConnection" xml:space="preserve">
+    <value>新的資料庫連線</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>參數</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>顯示名稱</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConnectionString" xml:space="preserve">
+    <value>連線字串</value>
+  </data>
+  <data name="DatabaseConnection" xml:space="preserve">
+    <value>資料庫連線</value>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value>資料表</value>
+  </data>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>將活動放置在此處</value>
+  </data>
+  <data name="EditSql" xml:space="preserve">
+    <value>編輯 SQL</value>
+  </data>
+  <data name="ExistingDatabaseConnection" xml:space="preserve">
+    <value>現有資料庫連線</value>
+  </data>
+  <data name="SqlQueryHint" xml:space="preserve">
+    <value>SQL 查詢。文字必須使用引號括住</value>
+  </data>
+  <data name="TableNameHint" xml:space="preserve">
+    <value>資料表名稱。文字必須使用引號括住</value>
+  </data>
+  <data name="QueryTimeoutMSDescription" xml:space="preserve">
+    <value>指定等待時間 (以毫秒為單位)，如果超出該時間後 SQL 查詢並未執行，就會擲回錯誤 (不包括查詢結果擷取的回應時間)。預設值為 30000 毫秒 (30 秒)，且必須大於或等於 0。</value>
+  </data>
+  <data name="CategoryAppIntegration" xml:space="preserve">
+    <value>應用程式整合</value>
+  </data>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(集合)</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>出錯時繼續布林值</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>輸入資料表</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>要插入項目的來源資料表。</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>提供 DataTable 變數</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>目標資料表名稱</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>要插入項目的資料庫資料表的名稱。</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>提供目標資料庫資料表名稱</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>用於相符列的欄</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>用於列比對的欄名稱</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>在現有資料表中更新相容的資料表。將更新所有未在欄名稱集合中用作主鍵的欄。傳回受影響的列數。</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>已更新的列數</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>如果為 true，系統將使用大量插入功能建立臨時資料表，並使用資料表之間的連接進行更新；否則，系統將批次發佈大量更新。</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>在更新資料表時將使用的「資料表」物件。資料表欄的說明必須與資料庫資料表的欄一致，而且屬於這些欄的子集</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>將使透過特定資料庫驅動程式實作的大量作業更新表。如果資料庫驅動程式不支援大量作業，將回復至「插入資料表」。</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>用於以安全字串形式建立資料庫連線的連線字串</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>連接</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>中斷連線</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>執行非查詢</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>執行查詢</value>
+  </data>
+  <data name="SqlQuery" xml:space="preserve">
+    <value>SQL 查詢</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="SqlCommand" xml:space="preserve">
+    <value>SQL 命令</value>
+  </data>
+  <data name="SqlCommandHint" xml:space="preserve">
+    <value>SQL 命令。必須將文字放入引號中</value>
+  </data>
+</root>

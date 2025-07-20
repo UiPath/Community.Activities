@@ -124,7 +124,7 @@
     <value>매핑되지 않은 열 {0}을(를) 대상 데이터베이스 테이블 {1}에서 찾지 못했습니다.</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>제공된 드라이버 버전은 일괄 삽입 작업을 지원하지 않습니다. 드라이버를 확인하십시오.</value>
+    <value>구성된 공급자는 대량 삽입 작업을 지원하지 않습니다. 일괄 삽입 작업을 지원하는 공급자는 Microsoft.Data.SqlClient 및 Oracle.ManagedDataAccess.Client.OracleConnection입니다.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>입력된 DataTable의 열 수는 DB 테이블의 열 수와 일치해야 합니다.</value>

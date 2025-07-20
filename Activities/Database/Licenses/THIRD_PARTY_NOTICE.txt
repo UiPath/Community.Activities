@@ -1,0 +1,21 @@
+Third-party notice
+
+In addition to the UiPath license agreement (the "UiPath Agreement") applicable to this UiPath software product, the below terms and conditions apply with respect to the Oracle.ManagedDataAccess and Oracle.ManagedDataAccess.Core libraries (the "Libraries") included in the product.
+
+Whereas:
+	(i) 	the Libraries are owned by Oracle America Inc. ("Oracle") and redistributed by UiPath as part of our product subject to the Oracle Technology Network License Agreement (the "Oracle Agreement"),
+
+You hereby agree that:
+
+	(i)	with respect to your use of the Libraries as part of our product, Oracle is deemed a third-party beneficiary to the UiPath Agreement and this Third-Party Notice;
+	(ii)	you must not distribute the Libraries and the Libraries user manuals and installation manuals, if any, whether standalone, or as part of our product;   
+	(iii)	Disclaimer of Warranties; Limitation of Liability
+
+	IN NO EVENT WILL ORACLE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE OR CONSEQUENTIAL DAMAGES, OR DAMAGES FOR LOSS OF PROFITS, REVENUE, DATA OR DATA USE, INCURRED BY YOU OR ANY THIRD PARTY, WHETHER IN AN ACTION IN CONTRACT OR TORT, EVEN IF ORACLE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. ORACLE’S ENTIRE LIABILITY FOR DAMAGES UNDER THIS AGREEMENT SHALL IN NO EVENT EXCEED ONE THOUSAND DOLLARS (U.S. $1,000)
+
+	(v)	information collection
+	The Libraries' installation and/or auto-update processes, if any, may transmit a limited amount of data to Oracle or its service provider about those processes to help Oracle understand and optimize them. Oracle does not associate the data with personally identifiable information. Refer to Oracle’s Privacy Policy at http://www.oracle.com/legal/privacy/privacy-policy.html.
+
+
+
+

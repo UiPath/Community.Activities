@@ -1,13 +1,13 @@
-﻿using Microsoft.Activities.UnitTesting;
-using NUnit.Framework;
+﻿using Xunit;
 using System;
+using System.Activities;
 
 namespace UiPath.Shared.Activities.Tests
 {
-    [TestFixture]
+    
     public class AbstractActivities
     {
-        [TestCase]
+        [Fact]
         public void NativeActivity_ContinuesWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -17,12 +17,11 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
-
-            invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2));
+            
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2));
         }
 
-        [TestCase]
+        [Fact]
         public void NativeActivity_FailsWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -32,36 +31,33 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2)); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2)); });
         }
 
-        [TestCase]
+        [Fact]
         public void NativeActivity_ContinuesWhenReturnedDelegateFails()
         {
             FailsWhenReturningNativeActivity mock = new FailsWhenReturningNativeActivity()
             {
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            invoker.TestActivity();
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30));
         }
 
-        [TestCase]
+        [Fact]
         public void NativeActivity_FailsWhenReturnedDelegateFails()
         {
             FailsWhenReturningNativeActivity mock = new FailsWhenReturningNativeActivity()
             {
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30)); });
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_ContinuesWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -71,12 +67,11 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2));
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2));
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_FailsWhenInnerTaskFails()
         {
             int delay = 1000;
@@ -86,33 +81,30 @@ namespace UiPath.Shared.Activities.Tests
                 Delay = delay,
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(TimeSpan.FromMilliseconds(delay * 2)); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromMilliseconds(delay * 2)); });
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_ContinuesWhenReturnedDelegateFails()
         {
             FailsWhenReturningCodeActivity mock = new FailsWhenReturningCodeActivity()
             {
                 ContinueOnError = true
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            invoker.TestActivity();
+            WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30));
         }
 
-        [TestCase]
+        [Fact]
         public void CodeActivity_FailsWhenReturnedDelegateFails()
         {
             FailsWhenReturningCodeActivity mock = new FailsWhenReturningCodeActivity()
             {
                 ContinueOnError = false
             };
-            WorkflowInvokerTest invoker = new WorkflowInvokerTest(mock);
 
-            Assert.Throws<NotImplementedException>(() => { invoker.TestActivity(); });
+            Assert.Throws<NotImplementedException>(() => { WorkflowInvoker.Invoke(mock, TimeSpan.FromSeconds(30)); });
         }
     }
 }

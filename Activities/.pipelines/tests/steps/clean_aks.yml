@@ -1,8 +1,4 @@
 parameters:
-  - name: azureServiceConnectionName
-    type: string
-  - name: aksResourcePrefix
-    type: string
   - name: sftpContainer
     type: string
   - name: sqlserverContainer
@@ -22,17 +18,17 @@ parameters:
 steps:
   - ${{ if eq(parameters.deploySftpContainer, true) }}:  
     - script: |
-          kubectl delete -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(sftpContainer).yml --namespace=$(namespace)
+          kubectl delete -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(sftpContainer)-deployment.yml --namespace=$(namespace)
       displayName: clean - kube delete $(sftpContainer)
 
   - ${{ if eq(parameters.deploySqlserverContainer, true) }}:  
     - script: |
-          kubectl delete -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(sqlserverContainer).yml --namespace=$(namespace)
+          kubectl delete -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(sqlserverContainer)-deployment.yml --namespace=$(namespace)
       displayName: clean - kube delete $(sqlserverContainer)
 
   - ${{ if eq(parameters.deployOracleContainer, true) }}:  
     - script: |
-          kubectl delete -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(oracleContainer).yml --namespace=$(namespace)
+          kubectl delete -f $(Build.SourcesDirectory)/Activities/.pipelines/tests/kube/$(oracleContainer)-deployment.yml --namespace=$(namespace)
       displayName: clean - kube delete $(oracleContainer)
 
   - script: |

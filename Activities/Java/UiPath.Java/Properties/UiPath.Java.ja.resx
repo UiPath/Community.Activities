@@ -151,7 +151,7 @@
     <value>ターゲットの実行中に起動例外が発生しました。</value>
   </data>
   <data name="JarAlreadyLoadedException" xml:space="preserve">
-    <value>指定したパスの Jar ファイルは既に読み込まれています。</value>
+    <value>指定したパスの Jar ファイルはすでに読み込まれています。</value>
   </data>
   <data name="JarNotFoundException" xml:space="preserve">
     <value>指定した Jar ファイルのパスが見つからないか、存在しません。</value>

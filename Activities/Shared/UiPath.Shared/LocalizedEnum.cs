@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace UiPath.Shared
 {
-    public class LocalizedEnum
+    internal class LocalizedEnum
     {
         public string Name { get; private set; }
         public Enum Value { get; private set; }
@@ -24,9 +24,24 @@ namespace UiPath.Shared
             Name = name;
             Value = value;
         }
+
+        /// <summary>
+        /// Method that returns a localized enum with the description as a name, if the description exists.
+        /// </summary>
+        /// <param name="enumType"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static LocalizedEnum GetLocalizedValue(Type enumType, object value)
+        {
+            var name = enumType.GetEnumName(value);
+            var field = enumType.GetField(name);
+            DescriptionAttribute descriptionAttribute = field?.GetCustomAttribute<DescriptionAttribute>();
+
+            return new LocalizedEnum(descriptionAttribute?.Description ?? name, value as Enum);
+        }
     }
 
-    public class LocalizedEnum<T> : LocalizedEnum
+    internal class LocalizedEnum<T> : LocalizedEnum
     {
         protected LocalizedEnum(string name, Enum value) : base(name, value)
         {

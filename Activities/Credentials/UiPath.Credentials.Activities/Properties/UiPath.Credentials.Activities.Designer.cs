@@ -61,6 +61,132 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Credentials.
+        /// </summary>
+        public static string Activity_AddCredential_Property_AddCredentialDescription_Description {
+            get {
+                return ResourceManager.GetString("Activity_AddCredential_Property_AddCredentialDescription_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Credentials.
+        /// </summary>
+        public static string Activity_AddCredential_Property_AddCredentialDisplayName_Name {
+            get {
+                return ResourceManager.GetString("Activity_AddCredential_Property_AddCredentialDisplayName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credential Type - The only supported values for Credential Type are &apos;Generic&apos; or &apos;DomainPassword&apos;.
+        /// </summary>
+        public static string Activity_AddCredential_Property_CredentialType_Description {
+            get {
+                return ResourceManager.GetString("Activity_AddCredential_Property_CredentialType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credential Type.
+        /// </summary>
+        public static string Activity_AddCredential_Property_CredentialType_Name {
+            get {
+                return ResourceManager.GetString("Activity_AddCredential_Property_CredentialType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Credentials.
+        /// </summary>
+        public static string Activity_DeleteCredential_Property_DeleteCredentialDescription_Description {
+            get {
+                return ResourceManager.GetString("Activity_DeleteCredential_Property_DeleteCredentialDescription_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Credentials.
+        /// </summary>
+        public static string Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name {
+            get {
+                return ResourceManager.GetString("Activity_DeleteCredential_Property_DeleteCredentialDisplayName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credential Type.
+        /// </summary>
+        public static string Activity_GetCredential_Property_CredentialType_Description {
+            get {
+                return ResourceManager.GetString("Activity_GetCredential_Property_CredentialType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credential Type.
+        /// </summary>
+        public static string Activity_GetCredential_Property_CredentialType_Name {
+            get {
+                return ResourceManager.GetString("Activity_GetCredential_Property_CredentialType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credential Type.
+        /// </summary>
+        public static string Activity_GetSecureCredential_Property_CredentialType_Description {
+            get {
+                return ResourceManager.GetString("Activity_GetSecureCredential_Property_CredentialType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credential Type.
+        /// </summary>
+        public static string Activity_GetSecureCredential_Property_CredentialType_Name {
+            get {
+                return ResourceManager.GetString("Activity_GetSecureCredential_Property_CredentialType_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Secure Credentials.
+        /// </summary>
+        public static string Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description {
+            get {
+                return ResourceManager.GetString("Activity_GetSecureCredential_Property_GetSecureCredentialDescription_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Secure Credentials.
+        /// </summary>
+        public static string Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name {
+            get {
+                return ResourceManager.GetString("Activity_GetSecureCredential_Property_GetSecureCredentialDisplayName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Credentials.
+        /// </summary>
+        public static string Activity_RequestCredential_Property_RequestCredentialDescription_Description {
+            get {
+                return ResourceManager.GetString("Activity_RequestCredential_Property_RequestCredentialDescription_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Credentials.
+        /// </summary>
+        public static string Activity_RequestCredential_Property_RequestCredentialDisplayName_Name {
+            get {
+                return ResourceManager.GetString("Activity_RequestCredential_Property_RequestCredentialDisplayName_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Credentials.
         /// </summary>
         public static string CategoryCredentials {
@@ -75,24 +201,6 @@ namespace UiPath.Credentials.Activities.Properties {
         public static string CategorySystem {
             get {
                 return ResourceManager.GetString("CategorySystem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Credential Type.
-        /// </summary>
-        public static string CredentialTypeDescription {
-            get {
-                return ResourceManager.GetString("CredentialTypeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CredentialType.
-        /// </summary>
-        public static string CredentialTypeDisplayName {
-            get {
-                return ResourceManager.GetString("CredentialTypeDisplayName", resourceCulture);
             }
         }
         
@@ -142,6 +250,24 @@ namespace UiPath.Credentials.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password and the secure string password cannot be both not null.
+        /// </summary>
+        public static string PasswordAndSecureStringNotNull {
+            get {
+                return ResourceManager.GetString("PasswordAndSecureStringNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password and the secure string password cannot be both null.
+        /// </summary>
+        public static string PasswordAndSecureStringNull {
+            get {
+                return ResourceManager.GetString("PasswordAndSecureStringNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordDescription {
@@ -156,6 +282,24 @@ namespace UiPath.Credentials.Activities.Properties {
         public static string PasswordDisplayName {
             get {
                 return ResourceManager.GetString("PasswordDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure String Password.
+        /// </summary>
+        public static string PasswordSecureStringDescription {
+            get {
+                return ResourceManager.GetString("PasswordSecureStringDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secure String Password .
+        /// </summary>
+        public static string PasswordSecureStringDisplayName {
+            get {
+                return ResourceManager.GetString("PasswordSecureStringDisplayName", resourceCulture);
             }
         }
         
@@ -237,6 +381,15 @@ namespace UiPath.Credentials.Activities.Properties {
         public static string UsernameDisplayName {
             get {
                 return ResourceManager.GetString("UsernameDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The only allowed values for Credential Type are &apos;Generic&apos; or &apos;DomainPassword&apos;.
+        /// </summary>
+        public static string ValidationError_InvalidCredentialType {
+            get {
+                return ResourceManager.GetString("ValidationError_InvalidCredentialType", resourceCulture);
             }
         }
     }

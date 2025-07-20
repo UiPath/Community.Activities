@@ -16,6 +16,11 @@ namespace UiPath.FTP
         public string ClientCertificatePath { get; set; }
         public string ClientCertificatePassword { get; set; }
         public bool AcceptAllCertificates { get; set; }
+        public FtpProxyType ProxyType { get; set; }
+        public string ProxyServer { get; set; }
+        public int? ProxyPort { get; set; }
+        public string ProxyUsername { get; set; }
+        public string ProxyPassword { get; set; }
 
         public FtpConfiguration(string host)
         {

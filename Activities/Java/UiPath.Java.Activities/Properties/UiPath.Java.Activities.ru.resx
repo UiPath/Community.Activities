@@ -144,7 +144,7 @@
     <value>Сделать</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>FieldName</value>
+    <value>ИмяПоля</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
@@ -164,7 +164,7 @@
     <value>Ввод</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>Target</value>
+    <value>Целевой объект</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
     <value>Не указаны значения для целевого объекта и типа целевого объекта. Необходимо задать хотя бы одно из двух значений.</value>
@@ -186,7 +186,7 @@
     <value>Путь к загружаемому JAR-файлу.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>JarPath</value>
+    <value>ПутьКФайлуJAR</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
@@ -196,7 +196,7 @@
     <value>Вызывающий объект Java не загружен.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>JavaObject</value>
+    <value>ОбъектJava</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
@@ -206,7 +206,7 @@
     <value>Путь к java.exe</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>JavaLibraryPath</value>
+    <value>ПутьКБиблиотекеJava</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
@@ -227,43 +227,43 @@
     <value>Не удалось загрузить JAR-файл.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>НазваниеМетода</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
     <value>Имя метода, который будет выполняться в Java.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Вывод</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Список аргументов, указанных в том же порядке, что и в методе Java. Аргумент не может иметь значение null.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Параметры</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ParametersList</value>
+    <value>СписокПараметров</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>Невозможно одновременно задать параметры &quot;{0}&quot; и &quot;{1}&quot;.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Результат</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>TargetObject</value>
+    <value>ЦелевойОбъект</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
     <value>Будет вызван экземпляр объекта Java этого метода. Невозможно одновременно задать параметры TargetObject и TargetType.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TargetType</value>
+    <value>ТипЦелевогоОбъекта</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
@@ -279,7 +279,7 @@
     <value>JavaObject</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>Название метода</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Вывод</value>
@@ -288,7 +288,7 @@
     <value>Недопустимый путь к библиотеке Java.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Init timeout (milliseconds)</value>
+    <value>Время ожидания начала (в миллисекундах)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">

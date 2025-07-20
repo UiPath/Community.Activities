@@ -15,8 +15,8 @@ namespace UiPath.Credentials.Activities
         public InArgument<string> Target { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.CredentialTypeDisplayName))]
-        [LocalizedDescription(nameof(Resources.CredentialTypeDescription))]
+        [LocalizedDisplayName(nameof(Resources.Activity_GetCredential_Property_CredentialType_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_GetCredential_Property_CredentialType_Description))]
         public CredentialType CredentialType { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]

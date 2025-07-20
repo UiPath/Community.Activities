@@ -1,0 +1,61 @@
+﻿<sap:WorkflowElementDialog x:Class="UiPath.Data.ConnectionUI.Dialog.Dialogs.DataConnectionSourceDialog"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+        xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+        xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+        xmlns:p="clr-namespace:UiPath.Data.ConnectionUI.Dialog.Properties"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        Title="{x:Static p:Resources.ChooseDataSource}" MinWidth="500" MaxWidth="5000">
+    
+    <sap:WorkflowElementDialog.Resources>
+        <ResourceDictionary
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:uip="clr-namespace:UiPath.Data.ConnectionUI.Dialog"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <uip:ObjectToVisibility x:Key="ObjectToVisibility" />
+        </ResourceDictionary>
+    </sap:WorkflowElementDialog.Resources>
+    
+    <StackPanel>
+        <Grid x:Name="LayoutRoot">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"  Grid.Column="1" Margin="5,5,5,5" Padding="0,0,0,0" Content="{x:Static p:Resources.DataSource_Label}"/>
+            <ComboBox  Grid.Row="0"  Grid.Column="2" Margin="5,5,5,5" Padding="0,0,0,0"  Name="dataSourceCombo" 
+                 ItemsSource="{Binding DataSources}" SelectedValuePath="Key" DisplayMemberPath="Value.DisplayName" SelectionChanged="DataSourceCombo_SelectionChanged"/>
+            <Label Grid.Row="1"  Grid.Column="1"  Margin="5,5,5,5" Padding="0,0,0,0" Content="{x:Static p:Resources.DataProvider_Label}" />
+            <ComboBox Grid.Row="1"  Grid.Column="2" Margin="5,5,5,5"  Padding="0,0,0,0" Name="providerCombo" ItemsSource="{Binding SelectedDataSource.Providers}" DisplayMemberPath="DisplayName" SelectionChanged="ProviderCombo_SelectionChanged"/>
+        </Grid>
+        <GroupBox  Header="{x:Static p:Resources.DataSourceDescription_Label}" Margin="5,5,5,5" MaxHeight="150" MaxWidth="{Binding ElementName=LayoutRoot, Path=ActualWidth}">
+            <TextBlock TextWrapping="Wrap"  Margin="5,0,5,0" Padding="0,0,0,0" Name="descriptionLabel" MaxHeight="150"/>
+        </GroupBox>
+        <GroupBox  Header="{x:Static p:Resources.DataSourceContent_Label}" Margin="5,5,5,5" Height="Auto" Visibility="{Binding ElementName=contentControl, Path=Content, Converter ={StaticResource ObjectToVisibility}}">
+            <StackPanel Visibility="{Binding ElementName=contentControl, Path=ActualHeight }">
+                <ContentControl Name="contentControl"/>
+                <Grid  Name="currentCol">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button Content="{x:Static p:Resources.TestConnection_Label}" Width="100" HorizontalAlignment="Left" Click="TestButton_Click"/>
+                    <Button Content="{x:Static p:Resources.Advanced_Label}" Width="100" HorizontalAlignment="Right" Click="AdvancedButton_Click"/>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="1" Background="#FFFFECED" Foreground="#FFBC316A"  Name="errorLabel" Visibility="{Binding ElementName=errorLabel, Path=Text, Converter ={StaticResource ObjectToVisibility}}" MaxWidth="{Binding ElementName=currentCol, Path=ActualWidth}"/>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="1" Background="#FFE4F8E2" Foreground="#FF298420"  Name="okLabel" Visibility="{Binding ElementName=okLabel, Path=Text, Converter ={StaticResource ObjectToVisibility}}" MaxWidth="{Binding ElementName=currentCol, Path=ActualWidth}"/>
+                </Grid>
+                
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</sap:WorkflowElementDialog>

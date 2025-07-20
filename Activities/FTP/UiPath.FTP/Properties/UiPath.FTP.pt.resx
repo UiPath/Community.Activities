@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>O diretório de destino já existe</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Utilizar cadeia</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>Utilizar cadeia segura</value>
+  </data>
 </root>

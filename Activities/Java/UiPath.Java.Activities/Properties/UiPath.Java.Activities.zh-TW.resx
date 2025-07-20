@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConstructorException" xml:space="preserve">
+    <value>無法呼叫建構函式。</value>
+  </data>
+  <data name="ConvertException" xml:space="preserve">
+    <value>無法轉換 </value>
+  </data>
+  <data name="ConvertJavaObjectDescription" xml:space="preserve">
+    <value>將 Java 物件轉換為指定的 .net 類型。如果無法轉換，則擲回例外狀況。</value>
+  </data>
+  <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
+    <value>轉換 Java 物件</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
+    <value>轉換為 .net 的 Java 物件。</value>
+  </data>
+  <data name="CreateJavaObjectDescription" xml:space="preserve">
+    <value>叫用指定類別的建構函式。</value>
+  </data>
+  <data name="CreateJavaObjectDisplayName" xml:space="preserve">
+    <value>建立 Java 物件</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Do" xml:space="preserve">
+    <value>執行</value>
+  </data>
+  <data name="FieldNameDisplayName" xml:space="preserve">
+    <value>欄位名稱</value>
+    <comment>property name</comment>
+  </data>
+  <data name="FieldNameDescription" xml:space="preserve">
+    <value>活動將作為 Java 物件傳回的欄位名稱。</value>
+  </data>
+  <data name="GetFieldDescritption" xml:space="preserve">
+    <value>從 Java 物件傳回返回公用欄位。</value>
+  </data>
+  <data name="GetFieldDisplayName" xml:space="preserve">
+    <value>取得欄位</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="GetFieldException" xml:space="preserve">
+    <value>找不到欄位。</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>輸入</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>目標</value>
+  </data>
+  <data name="InvokationObjectException" xml:space="preserve">
+    <value>目標物件和目標類型都為空。至少要設定其中一項。</value>
+  </data>
+  <data name="InvokeJavaMethodDescription" xml:space="preserve">
+    <value>叫用 Java 方法</value>
+  </data>
+  <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
+    <value>叫用 Java 方法</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="InvokeJavaResultDescription" xml:space="preserve">
+    <value>對 Java 中已載入的物件的參考。</value>
+  </data>
+  <data name="InvokeMethodException" xml:space="preserve">
+    <value>無法叫用此方法。</value>
+  </data>
+  <data name="JarPathDescription" xml:space="preserve">
+    <value>將要載入的 Jar 的路徑。</value>
+  </data>
+  <data name="JarPathDisplayName" xml:space="preserve">
+    <value>Jar 路徑</value>
+    <comment>property name</comment>
+  </data>
+  <data name="JavaInitiazeException" xml:space="preserve">
+    <value>初始化 Java 時發生錯誤： {0}</value>
+  </data>
+  <data name="JavaInvokerNotLoadedException" xml:space="preserve">
+    <value>未載入 Java 啟動程式。</value>
+  </data>
+  <data name="JavaObjectDisplayName" xml:space="preserve">
+    <value>Java 物件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="JavaObjectDescription" xml:space="preserve">
+    <value>對 Java 中已載入的物件的參考。</value>
+  </data>
+  <data name="JavaPathDescription" xml:space="preserve">
+    <value>java.exe 的路徑</value>
+  </data>
+  <data name="JavaPathDisplayName" xml:space="preserve">
+    <value>Java 元件庫路徑</value>
+    <comment>property name</comment>
+  </data>
+  <data name="JavaScopeDescription" xml:space="preserve">
+    <value>Java 活動容器</value>
+  </data>
+  <data name="JavaScopeNameDisplayName" xml:space="preserve">
+    <value>Java 範圍</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="LoadJarDescription" xml:space="preserve">
+    <value>在目前 Java 範圍中載入 Jar。</value>
+  </data>
+  <data name="LoadJarDisplayName" xml:space="preserve">
+    <value>載入 Jar</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="LoadJarException" xml:space="preserve">
+    <value>無法載入 Jar。</value>
+  </data>
+  <data name="MethodNameDisplayName" xml:space="preserve">
+    <value>方法名稱</value>
+    <comment>property name</comment>
+  </data>
+  <data name="MethodNameDescription" xml:space="preserve">
+    <value>將在 Java 中執行的方法名稱。</value>
+  </data>
+  <data name="OutputDisplayName" xml:space="preserve">
+    <value>輸出</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>以與 Java 方法相同的順序指定的引數清單。引數不能為 null。</value>
+  </data>
+  <data name="ParametersDisplayName" xml:space="preserve">
+    <value>參數</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersListDisplayName" xml:space="preserve">
+    <value>參數清單</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersSetException" xml:space="preserve">
+    <value>無法同時設定 &quot;{0}&quot; 和 &quot;{1}&quot;。</value>
+  </data>
+  <data name="ResultDisplayName" xml:space="preserve">
+    <value>結果</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetObjectDisplayName" xml:space="preserve">
+    <value>目標物件</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetObjectDescription" xml:space="preserve">
+    <value>將叫用此方法的 Java 物件執行個體。無法同時設定目標物件和目標類型。</value>
+  </data>
+  <data name="TargetTypeDisplayName" xml:space="preserve">
+    <value>目標類型</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TargetTypeDescription" xml:space="preserve">
+    <value>Java 類別名稱。</value>
+  </data>
+  <data name="ValidateParentError" xml:space="preserve">
+    <value>活動僅在 {0} 內有效</value>
+  </data>
+  <data name="FieldName" xml:space="preserve">
+    <value>欄位名稱</value>
+  </data>
+  <data name="JavaObject" xml:space="preserve">
+    <value>Java 物件</value>
+  </data>
+  <data name="MethodName" xml:space="preserve">
+    <value>方法名稱</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="InvalidJavaPath" xml:space="preserve">
+    <value>Java 元件庫路徑無效。</value>
+  </data>
+  <data name="TimeoutMSDisplayName" xml:space="preserve">
+    <value>初始化逾時 (毫秒)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TimeoutMSException" xml:space="preserve">
+    <value>針對逾時 (毫秒) 所提供的值必須大於或等於 0</value>
+  </data>
+  <data name="TimeoutMSDescription" xml:space="preserve">
+    <value>等待 Java 執行階段連線的時間量 (以毫秒為單位，預設為 15000 毫秒)。</value>
+  </data>
+</root>

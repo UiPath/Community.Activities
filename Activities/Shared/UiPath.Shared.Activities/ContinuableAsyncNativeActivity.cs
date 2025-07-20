@@ -6,7 +6,7 @@ namespace UiPath.Shared.Activities
 {
     public abstract class ContinuableAsyncNativeActivity : AsyncTaskNativeActivity
     {
-        public InArgument<bool> ContinueOnError { get; set; } = false;
+        public abstract InArgument<bool> ContinueOnError { get; set; }
 
         protected override void Execute(NativeActivityContext context)
         {
@@ -49,7 +49,7 @@ namespace UiPath.Shared.Activities
 
     public abstract class AsyncTaskNativeActivityContinue<T> : AsyncTaskNativeActivity<T>
     {
-        public InArgument<bool> ContinueOnError { get; set; } = false;
+        public abstract InArgument<bool> ContinueOnError { get; set; }
 
         protected override void Execute(NativeActivityContext context)
         {

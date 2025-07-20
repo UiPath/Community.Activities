@@ -20,6 +20,7 @@ function Main {
     $uri = $uri + "?api-version=5.0"
 
     Write-Host "Get build details"
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $response = Invoke-RestMethod -Uri $uri -Method Get -Headers $headers
 
     $minLastUpdatedDate = $($response.queueTime)

@@ -6,15 +6,15 @@ variables:
   - group: SQLServer-tests
   - group: Oracle-tests
   - name: azureServiceConnectionName
-    value: 'AzureDevTest-EA'
+    value: 'AzureDevTest-EA_act-tst-com-we-rg'
   - name: aksResourcePrefix
-    value: 'dvts-ts-ta-we'
+    value: 'act-tst-com-we'
   - name: sftpContainer
-    value: 'sftpserver-deployment'
+    value: 'sftpserver'
   - name: sqlserverContainer
-    value: 'sqlserver-deployment'
+    value: 'sqlserver'
   - name: oracleContainer
-    value: 'oracleserver-deployment'
+    value: 'oracleserver'
   - name: uipathLicenseCode
     value: $(LicenseCode)
   - name: uipathVersion
@@ -141,8 +141,6 @@ stages:
   
      - template: steps/clean_aks.yml
        parameters:
-         azureServiceConnectionName: $(azureServiceConnectionName)
-         aksResourcePrefix: $(aksResourcePrefix)
          sftpContainer: $(sftpContainer)
          oracleContainer: $(oracleContainer)
          sqlserverContainer: $(sqlserverContainer)
@@ -185,8 +183,6 @@ stages:
   
      - template: steps/clean_aks.yml
        parameters:
-         azureServiceConnectionName: $(azureServiceConnectionName)
-         aksResourcePrefix: $(aksResourcePrefix)
          sftpContainer: $(sftpContainer)
          sqlserverContainer: $(sqlserverContainer)
          oracleContainer: $(oracleContainer)
@@ -225,8 +221,6 @@ stages:
   
      - template: steps/clean_aks.yml
        parameters:
-         azureServiceConnectionName: $(azureServiceConnectionName)
-         aksResourcePrefix: $(aksResourcePrefix)
          sftpContainer: $(sftpContainer)
          sqlserverContainer: $(sqlserverContainer)
          oracleContainer: $(oracleContainer)

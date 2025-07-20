@@ -1,6 +1,8 @@
 ﻿using CredentialManagement;
 using System.Activities;
 using System.ComponentModel;
+using System.Net;
+using System.Security;
 using UiPath.Credentials.Activities.Properties;
 
 namespace UiPath.Credentials.Activities
@@ -28,6 +30,11 @@ namespace UiPath.Credentials.Activities
         [LocalizedDescription(nameof(Resources.PasswordDescription))]
         public OutArgument<string> Password { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedDisplayName(nameof(Resources.PasswordSecureStringDisplayName))]
+        [LocalizedDescription(nameof(Resources.PasswordSecureStringDescription))]
+        public OutArgument<SecureString> PasswordSecureString { get; set; }
+
         protected override bool Execute(CodeActivityContext context)
         {
             var credPrompt = new VistaPrompt
@@ -51,6 +58,7 @@ namespace UiPath.Credentials.Activities
 
             Username.Set(context, credPrompt.Username);
             Password.Set(context, credPrompt.Password);
+            PasswordSecureString.Set(context, (new NetworkCredential("", credPrompt.Password).SecurePassword));
             return true;
         }
     }

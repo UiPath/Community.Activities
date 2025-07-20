@@ -121,7 +121,7 @@
     <value>Содержимое сценария Python</value>
   </data>
   <data name="CodeNameDisplayName" xml:space="preserve">
-    <value>Code</value>
+    <value>Код</value>
     <comment>property name</comment>
   </data>
   <data name="ConvertException" xml:space="preserve">
@@ -147,7 +147,7 @@
     <value>Экземпляр объекта Python</value>
   </data>
   <data name="InstanceNameDisplayName" xml:space="preserve">
-    <value>Instance</value>
+    <value>Экземпляр</value>
     <comment>property name</comment>
   </data>
   <data name="InvalidMethodNameException" xml:space="preserve">
@@ -180,28 +180,28 @@
     <value>Имя метода, который нужно вызвать</value>
   </data>
   <data name="NameDisplayName" xml:space="preserve">
-    <value>Name</value>
+    <value>Имя</value>
     <comment>property name</comment>
   </data>
   <data name="NoScriptSpecifiedException" xml:space="preserve">
     <value>Код/сценарий не указан</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Вывод</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Параметры ввода для сценария Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>InputParameters</value>
+    <value>ПараметрыВвода</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Путь к личному каталогу Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>Путь</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -214,7 +214,7 @@
     <value>Объект Python для извлечения значения</value>
   </data>
   <data name="PythonObjectNameDisplayName" xml:space="preserve">
-    <value>PythonObject</value>
+    <value>ОбъектPython</value>
     <comment>property name</comment>
   </data>
   <data name="PythonScopeDescription" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>Результат вызова сценария</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Результат</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
@@ -245,14 +245,14 @@
     <value>Полный путь к файлу сценария Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>File</value>
+    <value>Файл</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>Указанный файл сценария не найден</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>Target</value>
+    <value>Целевой объект</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
@@ -265,14 +265,14 @@
     <value>Версия Python</value>
   </data>
   <data name="VersionNameDisplayName" xml:space="preserve">
-    <value>Version</value>
+    <value>Версия</value>
     <comment>property name</comment>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Вывод</value>
   </data>
   <data name="WorkingFolder" xml:space="preserve">
-    <value>WorkingFolder</value>
+    <value>РабочаяПапка</value>
     <comment>property name</comment>
   </data>
   <data name="WorkingFolderDescription" xml:space="preserve">
@@ -289,5 +289,14 @@
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
     <value>Время на выполнение сценария Python, прежде чем он завершится и возникнет исключение.</value>
+  </data>
+  <data name="LibraryPathDescription" xml:space="preserve">
+    <value>Для Linux это путь к библиотеке Python libpython*.so, включая имя библиотеки. Для Windows (версия выше 3.9) путь к python**.dll, включая имя библиотеки (обычно в пути Python Home). Для Windows (версия ниже 3.9) оставьте поле пустым.</value>
+  </data>
+  <data name="LibraryPathNameDisplayName" xml:space="preserve">
+    <value>Путь библиотеки (Linux или версия ниже 3.9)</value>
+  </data>
+  <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
+    <value>Версия Python &gt;= 3.10 не поддерживается в 32-битной версии. </value>
   </data>
 </root>

@@ -124,7 +124,7 @@
     <value>マップされていない列 {0} は、挿入先のデータベース テーブル {1} で見つかりませんでした。</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>指定されたドライバーのバージョンは、一括挿入操作をサポートしていません。ドライバーを確認してください。</value>
+    <value>設定されたプロバイダーは、一括挿入操作をサポートしていません。一括挿入操作をサポートするプロバイダーは、Microsoft.Data.SqlClient および Oracle.ManagedDataAccess.Client.OracleConnection です。</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>データテーブルで指定された列の数は、データベース テーブル内の列の数と一致する必要があります。</value>

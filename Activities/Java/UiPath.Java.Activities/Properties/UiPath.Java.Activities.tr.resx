@@ -144,7 +144,7 @@
     <value>Yap</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>FieldName</value>
+    <value>AlanAdı</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
@@ -164,7 +164,7 @@
     <value>Giriş</value>
   </data>
   <data name="Target" xml:space="preserve">
-    <value>Target</value>
+    <value>Hedef</value>
   </data>
   <data name="InvokationObjectException" xml:space="preserve">
     <value>Hedef Nesne ve Hedef Türü&apos;nün ikisi de boş. En azından biri ayarlanmalıdır.</value>
@@ -186,7 +186,7 @@
     <value>Yüklenecek jar dosyasının yolu.</value>
   </data>
   <data name="JarPathDisplayName" xml:space="preserve">
-    <value>JarPath</value>
+    <value>JarYolu</value>
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
@@ -196,7 +196,7 @@
     <value>Java çağırıcısı yüklenmedi.</value>
   </data>
   <data name="JavaObjectDisplayName" xml:space="preserve">
-    <value>JavaObject</value>
+    <value>JavaNesnesi</value>
     <comment>property name</comment>
   </data>
   <data name="JavaObjectDescription" xml:space="preserve">
@@ -206,7 +206,7 @@
     <value>java.exe&apos;nin yolu</value>
   </data>
   <data name="JavaPathDisplayName" xml:space="preserve">
-    <value>JavaLibraryPath</value>
+    <value>JavaKitaplığıYolu</value>
     <comment>property name</comment>
   </data>
   <data name="JavaScopeDescription" xml:space="preserve">
@@ -227,43 +227,43 @@
     <value>Jar yüklenemedi.</value>
   </data>
   <data name="MethodNameDisplayName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>Yöntem Adı</value>
     <comment>property name</comment>
   </data>
   <data name="MethodNameDescription" xml:space="preserve">
     <value>Java&apos;da yürütülecek yöntemin adı.</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
-    <value>Output</value>
+    <value>Çıkış</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
     <value>Java yöntemiyle aynı sırada belirtilen bağımsız değişkenlerin listesi. Bağımsız değişken null olamaz.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Parametreler</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ParametersList</value>
+    <value>ParametreListesi</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>Hem {0} hem de {1} ayarlanamaz.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Sonuç</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
-    <value>TargetObject</value>
+    <value>Hedef Nesne</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDescription" xml:space="preserve">
     <value>Yöntemi çağırmak için kullanılacak java nesnesi. Aynı anda hem TargetObject hem de TargetType ayarlanamaz.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TargetType</value>
+    <value>Hedef Türü</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
@@ -279,7 +279,7 @@
     <value>JavaObject</value>
   </data>
   <data name="MethodName" xml:space="preserve">
-    <value>MethodName</value>
+    <value>Yöntem Adı</value>
   </data>
   <data name="Output" xml:space="preserve">
     <value>Çıkış</value>
@@ -288,7 +288,7 @@
     <value>Java kitaplığının yolu geçersiz.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Init timeout (milliseconds)</value>
+    <value>Başlatma zaman aşımı (milisaniye)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">

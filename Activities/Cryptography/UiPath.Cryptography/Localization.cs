@@ -18,7 +18,7 @@ namespace UiPath.Cryptography
         }
     }
 
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Field)]
     public class LocalizedDisplayNameAttribute : DisplayNameAttribute
     {
         public LocalizedDisplayNameAttribute(string displayName)

@@ -1,0 +1,52 @@
+﻿<sap:WorkflowElementDialog x:Class="UiPath.Data.ConnectionUI.Dialog.Controls.OdbcConnectionUIControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+        xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+        xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+        xmlns:p="clr-namespace:UiPath.Data.ConnectionUI.Dialog.Properties">
+    <StackPanel>
+        <GroupBox Header="{x:Static p:Resources.DataSourceGroupBox_Label}">
+            <StackPanel>
+                <RadioButton Content="{Binding DataSourceLabel}" Margin="5,5,5,5" Name="dsOption" IsChecked="True"/>
+                <Grid IsEnabled="{Binding ElementName=dsOption, Path=IsChecked}" Name="LayoutRoot">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox IsReadOnly="True" Grid.Column="0" Name="dsncomboBox" HorizontalAlignment="Stretch" Margin="5,0,5,0" MaxDropDownHeight="150" Text="{Binding Path=DataSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding DataSources}" />
+                    <Button Grid.Column="1" Content="{x:Static p:Resources.Refresh_Label}" Click="Refresh_Click" />
+                </Grid>
+                <RadioButton Content="{x:Static p:Resources.ConnStringSpec_Label}" Margin="5,5,5,5" Name="csOption"/>
+                <Grid IsEnabled="{Binding ElementName=csOption, Path=IsChecked}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Name="conStrTextBox" HorizontalAlignment="Stretch" Margin="5,0,5,0"  Text="{Binding Path=ConString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  MaxWidth="{Binding ElementName=dsncomboBox, Path=ActualWidth}" LostFocus="ConStrTextBox_LostFocus"/>
+                    <Button Grid.Column="1" Content="{x:Static p:Resources.BuildButton_Label}" Click="Build_Click"/>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="{x:Static p:Resources.LogonDBGroupBox_Label}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="68.8"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.Username_Label}" Grid.Column="1"/>
+                    <Label Grid.Row="1" Content="{x:Static p:Resources.Password_Label}" Grid.Column="1"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="usernameTextbox" Text="{Binding Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="passwordTextbox"  PasswordChanged="PasswordTextbox_PasswordChanged"/>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</sap:WorkflowElementDialog>

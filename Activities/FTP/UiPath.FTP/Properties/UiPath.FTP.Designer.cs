@@ -113,5 +113,27 @@ namespace UiPath.FTP.Properties {
                 return ResourceManager.GetString("UnsupportedObjectTypeException", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Password..
+        /// </summary>
+        internal static string Password
+        {
+            get
+            {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to SecurePassword..
+        /// </summary>
+        internal static string SecurePassword
+        {
+            get
+            {
+                return ResourceManager.GetString("SecurePassword", resourceCulture);
+            }
+        }
     }
 }

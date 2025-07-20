@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Le fichier de destination existe déjà.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Utiliser une chaîne de caractères</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>Utiliser une chaîne de caractères sécurisée</value>
+  </data>
 </root>

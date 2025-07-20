@@ -4,7 +4,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.Python.Activities
 {
-    public abstract class PythonActivity : AsyncTaskCodeActivity
+    public abstract class PythonActivity : UiPath.Shared.Activities.AsyncTaskCodeActivity
     {
         protected PythonActivity()
         {

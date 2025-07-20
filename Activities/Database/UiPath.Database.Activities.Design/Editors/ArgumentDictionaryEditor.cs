@@ -11,11 +11,11 @@ namespace UiPath.Activities.Presentation.Editors
     /// </summary>
     public partial class ArgumentDictionaryEditor : DialogPropertyValueEditor
     {
-        private static DataTemplate EditorTemplate = (DataTemplate)new EditorTemplates()["ArgumentDictionaryEditor"];
+        private static readonly DataTemplate EditorTemplate = (DataTemplate)new EditorTemplates()["ArgumentDictionaryEditor"];
 
         public ArgumentDictionaryEditor()
         {
-            this.InlineEditorTemplate = EditorTemplate; 
+            InlineEditorTemplate = EditorTemplate; 
         }
 
         public override void ShowDialog(PropertyValue propertyValue, IInputElement commandSource)

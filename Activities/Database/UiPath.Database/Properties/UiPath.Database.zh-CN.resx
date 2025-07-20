@@ -124,7 +124,7 @@
     <value>目标数据库表“{1}”中未找到未映射的列“{0}”</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>提供的驱动程序版本不支持批量插入操作。请检查该驱动程序。</value>
+    <value>配置的提供程序不支持批量插入操作。支持批量插入操作的提供程序包括：Microsoft.Data.SqlClient 和 Oracle.ManagedDataAccess.Client.OracleConnection。</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>数据表中提供的列数必须与 DB 表中的列数匹配。</value>

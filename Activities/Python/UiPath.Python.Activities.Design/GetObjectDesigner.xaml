@@ -1,0 +1,38 @@
+﻿<sap:ActivityDesigner x:Class="UiPath.Python.Activities.Design.GetObjectDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:p="clr-namespace:UiPath.Python.Activities.Design.Properties"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+    xmlns:uip="clr-namespace:UiPath.Activities.Presentation"
+    xmlns:uipc="clr-namespace:UiPath.Activities.Presentation.Converters"
+    xmlns:pa="clr-namespace:UiPath.Python.Activities.Properties;assembly=UiPath.Python.Activities"
+    xmlns:python="clr-namespace:UiPath.Python;assembly=UiPath.Python"
+    xmlns:s="clr-namespace:System;assembly=mscorlib">
+
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <uipc:ActivityIconConverter x:Key="ActivityIconConverter" />
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Generic.xaml" />
+                <ResourceDictionary Source="Themes/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+
+    <sap:ActivityDesigner.Icon>
+        <DrawingBrush Stretch="Uniform" Drawing="{Binding Path=ModelItem, Converter={StaticResource ActivityIconConverter}}" />
+    </sap:ActivityDesigner.Icon>
+
+    <uip:ActivityDecoratorControl  HorizontalAlignment="Center" Style="{StaticResource ActivityDecoratorStyle}">
+        <StackPanel Orientation="Vertical" Width="400" Margin="0 0 0 5">
+            <Label Padding="0 5 5 5" Content="{x:Static pa:Resources.PythonObjectNameDisplayName}" ToolTip="{x:Static pa:Resources.PythonObjectDescription}" />
+            <sapv:ExpressionTextBox OwnerActivity="{Binding Path=ModelItem}"
+                            Expression="{Binding Path=ModelItem.PythonObject, Converter={StaticResource ArgumentToExpressionConverter}, ConverterParameter=In, Mode=TwoWay}"
+                            HintText="{x:Static pa:Resources.PythonObjectDescription}" ExpressionType="{x:Type python:PythonObject}" MaxLines="1" VerticalScrollBarVisibility="Auto"
+                            ToolTip="{x:Static pa:Resources.PythonObjectDescription}" />
+        </StackPanel>
+    </uip:ActivityDecoratorControl>
+</sap:ActivityDesigner>

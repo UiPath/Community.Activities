@@ -1,0 +1,142 @@
+jobs:
+- job: "CreateBYOSAgent"
+  displayName: "Create BYOS Agent"
+  timeoutInMinutes: 90
+  pool:
+    vmImage: ubuntu-latest
+  workspace:
+    clean: outputs | resources | all
+
+  steps:
+  - checkout: none
+  - task: AzureKeyVault@2
+    inputs:
+      azureSubscription: "Ete-Consumer"
+      KeyVaultName: $(eteKvName)
+
+  - task: BYOS@1
+    name: DeployDatabaseServicesImage
+    inputs:
+      action: "CreateAgent"
+      poolName: "$(eteAgentPoolName)"
+      projectName: "$(eteProjName)"
+      ownerUsername: $(Build.RequestedForEmail)
+      organizationname: "uipath"
+      authToken: "$(System.AccessToken)"
+      byosServiceKey: "$(ephemeral-byos-service-key-prod)"
+      byosServiceUrl: "$(ephemeral-byos-service-url-prod)"
+      projectShortName: "$(athenaservicesAgentPrefix)"
+      numberOfAgents: "1"
+      autoLogon: "True"
+      agentBitness: "x64"
+      agentVersion: "3.220.0"
+      adminUsername: "$(ephemeral-env-admin-username)"
+      adminPassword: "$(ephemeral-env-admin-password)"
+      extensionType: "azurePipelinesLinuxAgent"
+      location: "westeurope"
+      sourceResourceType: "image"
+      vmSize: "Standard_D4s_v3"
+      subnetId: ""
+      diskSize: "512"
+      sourceResourceUri: "/subscriptions/3085bae6-b893-42de-ba97-87e64e81e372/resourceGroups/devops-prod-images-we-rg/providers/Microsoft.Compute/images/tas-image-2"
+      capabilities: '[{"capabilityName":"agentKey","capabilityValue":"$(athenaservicesAgentPrefix)-$(Build.BuildId)"}]'
+      debug: "True"
+      hostAgent: "True"
+      winAgents: "0"
+      lnxAgents: "0"
+      osType: "Linux"
+      expiryTimeMinutes: 90
+      removePublicIp: "False"
+
+  - template: AzurePipelines/wait-for-agent.yml@template-helpers
+    parameters:
+      capabilities: "{'agentKey': '$(athenaservicesAgentPrefix)-$(Build.BuildId)'}"
+      azureDevOpsToken: "$(System.AccessToken)"
+      poolName: "$(eteAgentPoolName)"
+      noOfAgents: 1
+
+- job: ConfigureDatabaseServicesAgents
+  dependsOn: CreateBYOSAgent
+  pool:
+    name: "$(eteAgentPoolName)"
+    demands:
+      - agentKey -equals $(athenaservicesAgentPrefix)-$(Build.BuildId)
+  steps:
+    - checkout: none
+
+    - bash: |
+        sudo apt-get install -y wget apt-transport-https software-properties-common
+        source /etc/os-release
+        wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
+        sudo dpkg -i packages-microsoft-prod.deb
+        rm packages-microsoft-prod.deb
+        sudo apt-get update
+        
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg |
+        sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bullseye stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get update -y
+        sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+        docker run --name SQLServer -d -p 1433:1433 -e ACCEPT_EULA=Y -e SA_PASSWORD=Sample123$ mcr.microsoft.com/mssql/server:2022-latest
+        docker run --name OracleXE_Server -d -e ORACLE_PWD=ORACLE -p 1521:1521 container-registry.oracle.com/database/express:21.3.0-xe
+        docker ps
+      displayName: "Setup"
+
+    - task: AzureCLI@2
+      inputs:
+        scriptType: "bash"
+        scriptLocation: "inlineScript"
+        inlineScript: |      
+          prefix="$AGENT_NAME"
+          rgName="$prefix-rg"
+          nsgName="$prefix-nsg"
+          pipName="$prefix-pip0"
+
+
+          echo "Get public IP address of the VM."
+
+          publicIpAddress=$(az network public-ip show \
+              --resource-group $rgName \
+              --name $pipName \
+              --query ipAddress \
+              --output tsv)
+
+          echo "Public IP address: $publicIpAddress"
+
+          port=1433
+          echo "Create rule to allow all incoming traffic to port $port for NSG $nsgName."
+          az network nsg rule create \
+              --resource-group $rgName \
+              --nsg-name $nsgName \
+              --name AthenaControllerAllowIncomingPortForSqlServer \
+              --priority 4090 \
+              --source-address-prefixes '*' \
+              --source-port-ranges '*' \
+              --destination-address-prefixes '*' \
+              --destination-port-ranges $port \
+              --access Allow \
+              --protocol '*' \
+              --description "Allow all incoming traffic to port $port"
+
+          port=1521
+          echo "Create rule to allow all incoming traffic to port $port for NSG $nsgName."
+          az network nsg rule create \
+              --resource-group $rgName \
+              --nsg-name $nsgName \
+              --name AthenaControllerAllowIncomingPortForOracle \
+              --priority 4091 \
+              --source-address-prefixes '*' \
+              --source-port-ranges '*' \
+              --destination-address-prefixes '*' \
+              --destination-port-ranges $port \
+              --access Allow \
+              --protocol '*' \
+              --description "Allow all incoming traffic to port $port"
+
+          echo "##vso[task.setvariable variable=DatabaseServicesAgentPublicIp;isOutput=true]$publicIpAddress"
+        azureSubscription: "BYOS-EA"
+      displayName: "AddNsgRule"
+      name: "AddNsgRule"

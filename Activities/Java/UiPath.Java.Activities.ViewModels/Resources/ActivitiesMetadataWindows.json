@@ -1,0 +1,47 @@
+{
+  "additionalTypeCacheInfo": {
+    "legacyDesignerActivities": [
+      {
+        "fullName": "UiPath.Java.Activities.ConvertJavaObject",
+        "displayNameKey": "ConvertJavaObjectDisplayName",
+        "descriptionKey": "ConvertJavaObjectDescription",
+        "iconKey": "JavaIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Java.Activities.CreateJavaObject",
+        "displayNameKey": "CreateJavaObjectDisplayName",
+        "descriptionKey": "CreateJavaObjectDescription",
+        "iconKey": "JavaIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Java.Activities.GetJavaField",
+        "displayNameKey": "GetFieldDisplayName",
+        "descriptionKey": "GetFieldDescritption",
+        "iconKey": "JavaIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Java.Activities.InvokeJavaMethod",
+        "displayNameKey": "InvokeJavaMethodDisplayName",
+        "descriptionKey": "InvokeJavaMethodDescription",
+        "iconKey": "JavaIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Java.Activities.JavaScope",
+        "displayNameKey": "JavaScopeNameDisplayName",
+        "descriptionKey": "JavaScopeDescription",
+        "iconKey": "JavaIcon.svg"
+      },
+      {
+        "fullName": "UiPath.Java.Activities.LoadJar",
+        "displayNameKey": "LoadJarDisplayName",
+        "descriptionKey": "LoadJarDescription",
+        "iconKey": "JavaIcon.svg"
+      }
+    ]
+  },
+  "defaultActivityNameBackgroundColor": "#00489D",
+  "defaultActivityColor": "#00489D",
+  "defaultActivityIconKey": "JavaIcon.svg",
+  "assemblyIconKey": "JavaIcon.svg",
+  "resourceManagerName": "UiPath.Java.Activities.Properties.UiPath.Java.Activities"
+}

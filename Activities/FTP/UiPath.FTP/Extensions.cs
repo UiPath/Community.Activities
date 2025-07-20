@@ -24,7 +24,7 @@ namespace UiPath.FTP
             return ftpObjectInfo;
         }
 
-        public static FtpObjectInfo ToFtpObjectInfo(this SftpFile sftpFile)
+        public static FtpObjectInfo ToFtpObjectInfo(this ISftpFile sftpFile)
         {
             FtpObjectInfo ftpObjectInfo = new FtpObjectInfo();
 
@@ -41,22 +41,22 @@ namespace UiPath.FTP
             return ftpObjectInfo;
         }
 
-        public static FtpObjectType ToFtpObjectType(this FtpFileSystemObjectType ftpFileSystemObjectType)
+        public static UiPath.FTP.FtpObjectType ToFtpObjectType(this FluentFTP.FtpObjectType ftpFileSystemObjectType)
         {
             switch (ftpFileSystemObjectType)
             {
-                case FtpFileSystemObjectType.File:
-                    return FtpObjectType.File;
-                case FtpFileSystemObjectType.Directory:
-                    return FtpObjectType.Directory;
-                case FtpFileSystemObjectType.Link:
-                    return FtpObjectType.Link;
+                case FluentFTP.FtpObjectType.File:
+                    return UiPath.FTP.FtpObjectType.File;
+                case FluentFTP.FtpObjectType.Directory:
+                    return UiPath.FTP.FtpObjectType.Directory;
+                case FluentFTP.FtpObjectType.Link:
+                    return UiPath.FTP.FtpObjectType.Link;
                 default:
                     throw new NotSupportedException(Resources.UnsupportedObjectTypeException);
             }
         }
 
-        public static FtpObjectType GetFtpObjectType(this SftpFile sftpFile)
+        public static UiPath.FTP.FtpObjectType GetFtpObjectType(this ISftpFile sftpFile)
         {
             if (sftpFile == null)
             {
@@ -65,15 +65,15 @@ namespace UiPath.FTP
 
             if (sftpFile.IsRegularFile)
             {
-                return FtpObjectType.File;
+                return UiPath.FTP.FtpObjectType.File;
             }
             if (sftpFile.IsDirectory)
             {
-                return FtpObjectType.Directory;
+                return UiPath.FTP.FtpObjectType.Directory;
             }
             if (sftpFile.IsSymbolicLink)
             {
-                return FtpObjectType.Link;
+                return UiPath.FTP.FtpObjectType.Link;
             }
 
             throw new NotSupportedException(Resources.UnsupportedObjectTypeException);

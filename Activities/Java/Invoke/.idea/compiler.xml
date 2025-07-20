@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <option name="USE_RELEASE_OPTION" value="false" />
-    <bytecodeTargetLevel target="5">
-      <module name="Invoke" target="5" />
+    <bytecodeTargetLevel target="16">
+      <module name="Invoke" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

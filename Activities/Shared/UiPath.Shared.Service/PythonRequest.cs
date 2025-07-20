@@ -18,6 +18,9 @@ namespace UiPath.Shared.Service
         [DataMember(Name = "script_path", EmitDefaultValue = false)]
         public string ScriptPath { get; set; }
 
+        [DataMember(Name = "library_path", EmitDefaultValue = false)]
+        public string LibraryPath { get; set; }
+
         [DataMember(Name = "python_version", EmitDefaultValue = false)]
         public string PythonVersion { get; set; }
 

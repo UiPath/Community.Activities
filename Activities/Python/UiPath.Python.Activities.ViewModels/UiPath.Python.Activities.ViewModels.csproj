@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+    <Import Project="..\Python.build.props" />
+
+    <PropertyGroup>
+        <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+        <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
+        <DefineConstants>VIEW_MODELS</DefineConstants>
+        <AssemblyName>UiPath.Python.Activities.ViewModels</AssemblyName>
+        <RootNamespace>UiPath.Activities.Python.ViewModels</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="UiPath.Workflow"/>
+        <PackageReference Include="System.Activities.ViewModels" />
+        <PackageReference Include="UiPath.Activities.Api" />
+        <PackageReference Include="System.Activities.Metadata" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == '$(WindowsFramework)'">
+        <PackageReference Include="System.Activities.Core.Presentation" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+        <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+        <EmbeddedResource Include="Resources\Icons\*.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UiPath.Python.Activities\UiPath.Python.Activities.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
+    </ItemGroup>
+
+</Project>

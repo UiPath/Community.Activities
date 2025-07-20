@@ -2,12 +2,15 @@
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <ProjectGuid>{4F6DE5DC-1E17-4713-AF82-BE99643D5326}</ProjectGuid>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <AssemblyTitle>UiPath.Database.Tests</AssemblyTitle>
     <Product>UiPath.Database.Tests</Product>
     <Copyright>Copyright ©  2018</Copyright>
     <OutputPath>..\..\OutputTests\Database\</OutputPath>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' ">
     <DebugType>full</DebugType>
   </PropertyGroup>
@@ -16,33 +19,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.3.1" />
-    <PackageReference Include="Microsoft.Activities.Extensions" Version="2.0.6.9" />
-    <PackageReference Include="Microsoft.Activities.UnitTesting" Version="2.0.6.9" />
-    <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
-    <PackageReference Include="xunit.assert" Version="2.4.0" />
-    <PackageReference Include="xunit.core" Version="2.4.0" />
-    <PackageReference Include="xunit.extensibility.core" Version="2.4.0" />
-    <PackageReference Include="xunit.extensibility.execution" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="UiPath.Activities.Api"  PrivateAssets="All" />
+    <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.ServiceModel.Activities" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Database.Activities\UiPath.Database.Activities.csproj" />
     <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
   </ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">
+		<PackageReference Include="System.Activities.Core.Presentation" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="Oracle.ManagedDataAccess.Core" PrivateAssets="All" />
+	</ItemGroup>
 </Project>

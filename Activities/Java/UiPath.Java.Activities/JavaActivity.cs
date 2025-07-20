@@ -6,7 +6,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.Java.Activities
 {
-    public abstract class JavaActivity : AsyncTaskCodeActivity
+    public abstract class JavaActivity : UiPath.Shared.Activities.AsyncTaskCodeActivity
     {
         protected JavaActivity()
         {

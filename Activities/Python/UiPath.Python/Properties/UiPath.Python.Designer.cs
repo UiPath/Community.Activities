@@ -29,7 +29,7 @@ namespace UiPath.Python.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UiPath_Python() {
+        public UiPath_Python() {
         }
         
         /// <summary>
@@ -57,6 +57,15 @@ namespace UiPath.Python.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto.
+        /// </summary>
+        public static string Activity_PythonScope_Property_Auto_Description {
+            get {
+                return ResourceManager.GetString("Activity_PythonScope_Property_Auto_Description", resourceCulture);
             }
         }
         

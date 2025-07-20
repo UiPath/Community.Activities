@@ -1,54 +1,56 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="../Database.build.props" />
-  <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
-    <OutputPath>..\..\Output\Activities\Database\</OutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System" />
-    <Reference Include="System.Activities" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" PrivateAssets="All"/>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
-    <PackageReference Include="System.Activities" />
-    <PackageReference Include="System.Data.Odbc" />
-    <PackageReference Include="UiPath.Workflow" />
-    <PackageReference Include="System.Activities.Core.Presentation" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" PrivateAssets="All"/>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" PrivateAssets="All" />
-    <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\UiPath.Database.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UiPath.Database.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Database.fr.resx">
-      <DependentUpon>UiPath.Database.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.ja.resx">
-      <DependentUpon>UiPath.Database.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>UiPath.Database.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.ru.resx">
-      <DependentUpon>UiPath.Database.resx</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+        <OutputPath>..\..\Output\Activities\Database\</OutputPath>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Data.Odbc" />
+        <PackageReference Include="System.Data.OleDb" />
+        <PackageReference Include="UiPath.Workflow" />
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Data.SqlClient" />
+        <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
+
+        <!--Dependencies override to solve FOSSA issues-->
+        <PackageReference Include="System.Formats.Asn1" />
+        <PackageReference Include="Azure.Identity" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Properties\UiPath.Database.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DesignTime>True</DesignTime>
+            <DependentUpon>UiPath.Database.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\UiPath.Database.fr.resx">
+            <DependentUpon>UiPath.Database.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Database.ja.resx">
+            <DependentUpon>UiPath.Database.resx</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Database.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>UiPath.Database.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Properties\UiPath.Database.ru.resx">
+            <DependentUpon>UiPath.Database.resx</DependentUpon>
+        </EmbeddedResource>
+    </ItemGroup>
 </Project>

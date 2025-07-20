@@ -1,0 +1,45 @@
+﻿<sap:ActivityDesigner x:Class="UiPath.Database.Activities.Design.ExecuteNonQueryDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+    xmlns:p="clr-namespace:UiPath.Database.Activities.Design.Properties"
+    xmlns:src="clr-namespace:UiPath.Activities.Presentation"
+    xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+    xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation">
+    
+    <sap:ActivityDesigner.Resources>
+        <ResourceDictionary>
+            <sapc:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes\Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </sap:ActivityDesigner.Resources>
+    
+    <sap:ActivityDesigner.Icon>
+        <DrawingBrush Viewbox="0,0,36.682,49.252" ViewboxUnits="Absolute" Stretch="Uniform">
+            <DrawingBrush.Drawing>
+                <GeometryDrawing Brush="#FF49442F" Geometry="M18.340017,12.865008 C9.4010189,12.865008 3.47102,10.038009 3.47102,8.1680098 3.47102,6.2990103 9.4010189,3.4700111 18.340017,3.4700111 27.279016,3.4700111 33.211014,6.2990103 33.211014,8.1680098 33.211014,10.038009 27.279016,12.865008 18.340017,12.865008 M33.211014,19.140007 C33.211014,21.010006 27.279016,23.838005 18.340017,23.838005 9.4010189,23.838005 3.47102,21.010006 3.47102,19.140007 L3.47102,13.150008 C6.9810193,15.254008 12.681018,16.336007 18.340017,16.336007 23.998016,16.336007 29.700015,15.254008 33.211014,13.150008 z M33.211014,30.113003 C33.211014,31.982003 27.279016,34.808002 18.340017,34.808002 9.4010189,34.808002 3.47102,31.982003 3.47102,30.113003 L3.47102,24.123005 C6.9810193,26.226005 12.681018,27.308004 18.340017,27.308004 23.998016,27.308004 29.700015,26.226005 33.211014,24.122005 z M33.211014,41.085 C33.211014,42.954 27.279016,45.780999 18.340017,45.780999 9.4010189,45.780999 3.47102,42.954 3.47102,41.085 L3.47102,35.094002 C6.9810193,37.197001 12.681018,38.280001 18.340017,38.280001 23.998016,38.280001 29.700015,37.197001 33.211014,35.094002 z M36.682014,8.1680098 C36.682014,2.8050113 27.454015,1.2109371E-05 18.340017,1.2109371E-05 9.2250189,1.2109371E-05 2.0605465E-05,2.8050113 2.0605465E-05,8.1680098 2.0605465E-05,8.1830098 0.0020206051,8.1990098 0.0020206051,8.2150097 0.0020206051,8.2220097 2.0605465E-05,8.2300097 2.0605465E-05,8.2390097 L2.0605465E-05,19.140007 2.0605465E-05,30.113003 2.0605465E-05,41.085 C2.0605465E-05,46.446999 9.2250189,49.251998 18.340017,49.251998 27.454015,49.251998 36.682014,46.446999 36.682014,41.085 L36.682014,30.113003 36.682014,19.140007 36.682014,8.2390097 C36.682014,8.2300097 36.680014,8.2220097 36.680014,8.2150097 36.680014,8.1990098 36.682014,8.1830098 36.682014,8.1680098" />
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </sap:ActivityDesigner.Icon>
+
+    <src:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
+        <DockPanel Width="{Binding Source={x:Static p:Resources.DefaultWidth}, Mode=OneWay}">
+            <StackPanel Orientation="Vertical" Width="300" Margin="0 0 0 5">
+                <Button Height="23" Content="{x:Static p:Resources.ConfigureConnection}" DockPanel.Dock="Top" Click="ConfigureButton_Click" HorizontalAlignment="Left"  />
+                <Label Padding="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Margin="0, 5, 0, 0" Content="{x:Static p:Resources.SqlCommand}"
+                       ToolTip="{x:Static p:Resources.SqlDescription}" />
+                <DockPanel DockPanel.Dock="Bottom" LastChildFill="True" Margin="0,6,0,0">
+                    <Button Click="SqlButton_Click"  Content="{x:Static p:Resources.EditButton}" DockPanel.Dock="Right" Margin="3,0,0,0" Width="70" />
+                    <sapv:ExpressionTextBox Expression="{Binding Path=ModelItem.Sql, Converter={StaticResource ArgumentToExpressionConverter}, Mode=TwoWay, ConverterParameter=In}"
+                                    OwnerActivity="{Binding Path=ModelItem}" ExpressionType="s:String" Height="23"
+                                    DockPanel.Dock="Left" HintText="{x:Static p:Resources.SqlCommandHint}" />
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
+    </src:ActivityDecoratorControl>
+
+</sap:ActivityDesigner>

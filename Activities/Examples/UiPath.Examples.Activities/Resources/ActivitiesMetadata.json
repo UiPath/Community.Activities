@@ -1,0 +1,14 @@
+{
+  "resourceManagerName": "UiPath.Examples.Activities.Resources.Resources",
+  "activities": [
+    {
+      "fullName": "UiPath.Examples.Activities.Calculator",
+      "shortName": "Calculator",
+      "displayNameKey": "Calculator_DisplayName",
+      "descriptionKey": "Calculator_Description",
+      "categoryKey": "Examples",
+      "iconKey": "calculator.svg",
+      "viewModelType": "UiPath.Examples.Activities.ViewModels.CalculatorViewModel"
+    }
+  ]
+}

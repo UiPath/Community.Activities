@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_PythonScope_Property_Auto_Description" xml:space="preserve">
+    <value>Automático</value>
+  </data>
   <data name="DeserializationException" xml:space="preserve">
     <value>Excepción de deserialización de Python</value>
   </data>
@@ -130,7 +133,7 @@
     <value>No se ha encontrado el archivo ejecutable de Python</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
-    <value>No se ha encontrado el tipo/método/propiedad del tiempo de ejecución de Python: {0}</value>
+    <value>No se ha encontrado el tipo/método/propiedad de runtime de Python: {0}</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
     <value>Excepción de serialización de Python</value>

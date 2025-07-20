@@ -145,7 +145,7 @@
     <value>La cadena descifrada.</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Codificación</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
     <value>La codificación utilizada para interpretar la cadena de entrada.</value>
@@ -175,11 +175,11 @@
     <value>La representación de cadena base64 de la cadena de entrada cifrada.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
-    <value>File Path</value>
+    <value>Ruta del archivo</value>
     <comment>property name</comment>
   </data>
   <data name="FilePathDialogTitle" xml:space="preserve">
-    <value>Ruta de archivo</value>
+    <value>Ruta del archivo</value>
   </data>
   <data name="HashFilePathDescription" xml:space="preserve">
     <value>Ruta de acceso al archivo en el que esta actividad utilizó un hash.</value>
@@ -194,11 +194,11 @@
     <value>La representación de cadena hexadecimal de la cadena de entrada donde se utilizó un hash.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Input Path</value>
+    <value>Ruta de entrada</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
-    <value>Text</value>
+    <value>Texto</value>
     <comment>property name</comment>
   </data>
   <data name="Key" xml:space="preserve">
@@ -223,11 +223,11 @@
     <value>Codificación clave</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Output Path</value>
+    <value>Ruta de salida</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>Sobrescribir</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Resultado</value>
@@ -239,10 +239,10 @@
     <value>Sistema</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
-    <value>DisplayName</value>
+    <value>NombreParaMostrar</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>ContinuarConElError</value>
   </data>
 </root>

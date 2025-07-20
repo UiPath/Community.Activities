@@ -135,4 +135,10 @@
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>The destination directory already exists</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Use string</value>
+  </data>
+  <data name="SecurePassword" xml:space="preserve">
+    <value>Use secure string</value>
+  </data>
 </root>

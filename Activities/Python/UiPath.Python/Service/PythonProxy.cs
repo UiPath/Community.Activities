@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using UiPath.Python.Properties;
 using UiPath.Shared.Service;
+using System.Runtime.InteropServices;
+using UiPath.Shared.Service.Client;
 
 namespace UiPath.Python.Service
 {
@@ -20,13 +22,13 @@ namespace UiPath.Python.Service
 
         #endregion Constants
 
-        private NamedPipeClientStream ClientStream { get; set; }
+        private HostWrapper PythonHostWrapper { get; set; }
         private double Timeout { get; set; }
         private CancellationToken Token { get; set; }
 
-        internal PythonProxy(NamedPipeClientStream endpoint, double timeout, CancellationToken cancellationToken)
+        internal PythonProxy(HostWrapper hostWrapper, double timeout, CancellationToken cancellationToken)
         {
-            ClientStream = endpoint;
+            PythonHostWrapper = hostWrapper;
             Timeout = timeout;
             Token = cancellationToken;
         }
@@ -91,7 +93,7 @@ namespace UiPath.Python.Service
             }
         }
 
-        public void Initialize(string path, Version version, string workingFolder)
+        public void Initialize(string path, string libraryPath, Version version, string workingFolder)
         {
             using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
@@ -101,6 +103,7 @@ namespace UiPath.Python.Service
                     {
                         RequestType = RequestType.Initialize,
                         ScriptPath = path,
+                        LibraryPath = libraryPath,
                         PythonVersion = version.ToString(),
                         WorkingFolder = workingFolder
                     };
@@ -167,7 +170,7 @@ namespace UiPath.Python.Service
                     PythonResponse response = RequestAsync(request, cts.Token);
 
                     cts.Token.ThrowIfCancellationRequested();
-
+                    response.ThrowExceptionIfNeeded();
                     Trace.TraceInformation("LoadScript Guid:: " + response.Guid);
 
                     return response.Guid;
@@ -186,6 +189,10 @@ namespace UiPath.Python.Service
 
         public void Shutdown()
         {
+            //Process has already exited, no need to send kill request
+            if (PythonHostWrapper.HostProcessHasExited())
+                return;
+
             using (var cts = new CancellationTokenSource((int)Timeout * 1000))
             {
                 var request = new PythonRequest()
@@ -194,7 +201,6 @@ namespace UiPath.Python.Service
                 };
 
                 PythonResponse response = RequestAsync(request, cts.Token);
-
                 cts.Token.ThrowIfCancellationRequested();
             }
         }
@@ -212,53 +218,88 @@ namespace UiPath.Python.Service
         {
             using (CancellationTokenRegistration ctr = ct.Register(() => OnCancellationRequested()))
             {
-                using (var streamWriter = new StreamWriter(ClientStream, _utf8Encoding, _defaultBufferSize,
+                SendRequest(request, ct);
+                return ReadResponse(request, ct);
+            }
+        }
+
+        private void SendRequest(PythonRequest request, CancellationToken ct)
+        {
+            try
+            {
+                using (var streamWriter = new StreamWriter(PythonHostWrapper.Pipe, _utf8Encoding, _defaultBufferSize,
                                                            leaveOpen: true)
                 { AutoFlush = true })
                 {
                     Trace.TraceInformation("Sending information to Python.");
                     streamWriter.WriteLine(request.Serialize());
                 }
-
                 ct.ThrowIfCancellationRequested();
-                ClientStream.WaitForPipeDrain();
+                WaitForPipeDrain();
+            }
+            catch
+            {
+                //ignore exception here
+                //the exception will be thrown later
+                //if we rethrow the exception, we might get generic error here
+            }
 
-                using (var streamReader = new StreamReader(ClientStream, _utf8Encoding, false, _defaultBufferSize,
+            ct.ThrowIfCancellationRequested();
+            PythonHostWrapper.ThrowIfProcessHasExited();
+        }
+
+        private PythonResponse ReadResponse(PythonRequest request, CancellationToken ct)
+        {
+            PythonResponse response = null;
+            try
+            {
+                using (var streamReader = new StreamReader(PythonHostWrapper.Pipe, _utf8Encoding, false, _defaultBufferSize,
                                                            leaveOpen: true))
                 {
-                    return PythonResponse.Deserialize(streamReader.ReadLine());
+                    response = PythonResponse.Deserialize(streamReader.ReadLine());
                 }
             }
+            catch
+            {
+                //ignore exception, see above
+            }
+
+            ct.ThrowIfCancellationRequested();
+            PythonHostWrapper.ThrowIfProcessHasExited();
+            return response;
+        }
+
+        private bool IsWindows()
+        {
+            bool isWindows = true;
+#if NETCOREAPP
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                isWindows = false;
+#endif
+            return isWindows;
+        }
+        private void WaitForPipeDrain()
+        {
+            if (IsWindows())
+                PythonHostWrapper.Pipe.WaitForPipeDrain();
         }
 
         #region Dispose Methods
 
         private void OnCancellationRequested()
         {
-            OnPipeDisposed();
-            OnProcessDisposed();
+            DisposeHostWrapper();
         }
 
         public void Dispose()
         {
-            OnPipeDisposed();
-            OnProcessDisposed();
+            DisposeHostWrapper();
             GC.SuppressFinalize(this);
         }
 
-        public void OnPipeDisposed()
+        private void DisposeHostWrapper()
         {
-            if (ClientStream != null && ClientStream.IsConnected)
-            {
-                ClientStream?.Close();
-            }
-            ClientStream?.Close();
-            ClientStream?.Dispose();
-            ClientStream = null;
-        }
-
-        public void OnProcessDisposed()
-        {
+            PythonHostWrapper?.Dispose();
         }
 
         ~PythonProxy()

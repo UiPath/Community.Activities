@@ -1,0 +1,52 @@
+﻿<sap:WorkflowElementDialog x:Class="UiPath.Data.ConnectionUI.Dialog.Controls.SqlFileConnectionUIControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+        xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+        xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+        xmlns:p="clr-namespace:UiPath.Data.ConnectionUI.Dialog.Properties"
+        xmlns:s="clr-namespace:System;assembly=mscorlib" MinWidth="300">
+    <sap:WorkflowElementDialog.Resources>
+        <ResourceDictionary
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:uip="clr-namespace:UiPath.Data.ConnectionUI.Dialog"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <uip:BoolInverterConverter x:Key="BoolInverterConverter" />
+        </ResourceDictionary>
+    </sap:WorkflowElementDialog.Resources>
+    <StackPanel>
+        <Label Content="{x:Static p:Resources.FileName_Label}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Name="fileNameTextBox" HorizontalAlignment="Stretch" Margin="5,0,5,0"  Text="{Binding Path=DatabaseFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Grid.Column="1" Content="{x:Static p:Resources.BrowseButton_Label}" Click="BrowseButton_Click"/>
+        </Grid>
+        <GroupBox Header="{x:Static p:Resources.LogonGroupBox_Label}">
+            <StackPanel>
+                <RadioButton  IsChecked="{Binding UseWindowsAuthentication, Mode=TwoWay}"  Content="{x:Static p:Resources.WindowsAuthentication_Label}" Margin="5,5,5,5" Name="windowsAuthentication"/>
+                <RadioButton  IsChecked="{Binding UseWindowsAuthentication, Mode=TwoWay, Converter={StaticResource BoolInverterConverter}}" Content="{x:Static p:Resources.SQLAuthentication_Label}" Margin="5,0,5,5" Name="sqlAuthentication"/>
+                <Grid  IsEnabled="{Binding ElementName=sqlAuthentication, Path=IsChecked}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.Username_Label}" Grid.Column="1"/>
+                    <Label Grid.Row="1" Content="{x:Static p:Resources.Password_Label}" Grid.Column="1"/>
+                    <CheckBox Grid.Row="2" Content="{x:Static p:Resources.SavePassword_Label}" Grid.Column="2" Margin="5,0,0,0"  IsChecked="{Binding Path=SavePassword, Mode=TwoWay}"  Name="saveCheckbox"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="usernameTextbox" Text="{Binding Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="passwordTextbox"  PasswordChanged="PasswordTextbox_PasswordChanged" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</sap:WorkflowElementDialog>

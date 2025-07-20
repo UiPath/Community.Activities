@@ -11,10 +11,20 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ActivitiesConstraints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskCodeActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnumExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InArgumentExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\ActivityArgumentHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bindings\DependantBindingPropertiesModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IAttachedDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContinuableAsyncCodeActivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContinuableAsyncNativeActivity.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeActivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BookmarkResumptionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncTaskNativeImplementation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ArgumentFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ArgumentFactoryHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PathExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\ICSharpExpressionParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DefaultCSharpExpressionParser.cs" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,69 @@
+﻿<sap:WorkflowElementDialog x:Class="UiPath.Data.ConnectionUI.Dialog.Controls.SqlConnectionUIControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sapc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+        xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+        xmlns:sap="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+        xmlns:p="clr-namespace:UiPath.Data.ConnectionUI.Dialog.Properties"
+        xmlns:s="clr-namespace:System;assembly=mscorlib" MinWidth="300">
+    <sap:WorkflowElementDialog.Resources>
+        <ResourceDictionary
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:uip="clr-namespace:UiPath.Data.ConnectionUI.Dialog"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <uip:BoolInverterConverter x:Key="BoolInverterConverter" />
+        </ResourceDictionary>
+    </sap:WorkflowElementDialog.Resources>
+    <StackPanel>
+        <Label Content="{x:Static p:Resources.Server_Label}" Padding="0,5,0,5"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox  Margin="0,0,5,0" HorizontalAlignment="Stretch" Name="serverList" IsEditable="True" ItemsSource="{Binding Servers}" MaxDropDownHeight="150"  DropDownOpened="ServerList_DropDownOpened" Text="{Binding Properties.ServerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="{x:Static p:Resources.Refresh_Label}"  Grid.Column="1" Click="RefreshServersButton_Click"/>
+        </Grid>
+        <GroupBox Header="{x:Static p:Resources.LogonGroupBox_Label}">
+            <StackPanel>
+                <RadioButton Content="{x:Static p:Resources.WindowsAuthentication_Label}" IsChecked="{Binding Properties.UseWindowsAuthentication, Mode=TwoWay}" Margin="5,5,5,5"/>
+                <RadioButton Content="{x:Static p:Resources.SQLAuthentication_Label}" IsChecked="{Binding Properties.UseWindowsAuthentication, Mode=TwoWay, Converter={StaticResource BoolInverterConverter}}" Margin="5,0,5,5" Name="sqlAuthentication" Unchecked="SqlAuthentication_Unchecked"/>
+                <Grid  IsEnabled="{Binding ElementName=sqlAuthentication, Path=IsChecked}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{x:Static p:Resources.Username_Label}" Grid.Column="1"/>
+                    <Label Grid.Row="1" Content="{x:Static p:Resources.Password_Label}" Grid.Column="1"/>
+                    <CheckBox Grid.Row="2" Content="{x:Static p:Resources.SavePassword_Label}" IsChecked="{Binding Properties.SavePassword, Mode=TwoWay}" Grid.Column="2" Margin="5,0,0,0" Name="savepasswordCheckbox"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="usernameTextbox"  Text="{Binding Path=Properties.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,5,5,5" Name="passwordTextbox" PasswordChanged="PasswordTextbox_PasswordChanged" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="{x:Static p:Resources.ConnectToDb_Label}">
+            <StackPanel>
+                <RadioButton  GroupName="database" Content="{x:Static p:Resources.DatabaseRadio_Label}" IsChecked="{Binding Properties.UseDBFile, Mode=OneWay, Converter={StaticResource BoolInverterConverter}}" Margin="5,5,5,5" Name="databaseOption" Click="DatabaseOption_Click"/>
+                <ComboBox Name="databaseList" IsEditable="True" Margin="25,0,5,0"  IsEnabled="{Binding ElementName=databaseOption, Path=IsChecked}" DropDownOpened="DatabaseList_DropDownOpened" ItemsSource="{Binding Databases}" MaxDropDownHeight="150"  Text="{Binding Properties.DatabaseName}" />
+                <RadioButton  GroupName="database" Content="{x:Static p:Resources.AttachRadio_Label}" IsChecked="{Binding Properties.UseDBFile, Mode=OneWay}" Margin="5,5,5,5" Name="attachOption" Click="AttachOption_Click"/>
+                <Grid IsEnabled="{Binding ElementName=attachOption, Path=IsChecked}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox  Margin="25,0,5,0" HorizontalAlignment="Stretch" Name="attachedDatabaseTextbox"   Text="{Binding Properties.DatabaseFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="{x:Static p:Resources.BrowseButton_Label}"  Grid.Column="1" Click="BrowseButton_Click"/>
+                </Grid>
+                <Label Content="{x:Static p:Resources.LogicalName_Label}" IsEnabled="{Binding ElementName=attachOption, Path=IsChecked}"/>
+                <TextBox  Margin="25,0,5,0" HorizontalAlignment="Stretch" Name="logicalNameTextbox" IsEnabled="{Binding ElementName=attachOption, Path=IsChecked}" Text="{Binding Properties.LogicalDatabaseName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</sap:WorkflowElementDialog>

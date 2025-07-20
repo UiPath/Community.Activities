@@ -117,6 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>The DataTable variable that will be inserted into the Table. The DataTable columns' name and description must match the ones from the database table.</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>Input data table</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Provide the DataTable variable</value>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>The target database table in which the data is to be inserted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>Target table name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Provide the target database table name</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Provide the DataTable variable</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Provide the target database table name</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Column names used for row matching</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Provide the DataTable variable</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Provide the target database table name</value>
+  </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
     <value>AffectedRecords</value>
     <comment>property name</comment>
@@ -191,7 +234,7 @@
     <value>ColumnNames</value>
     <comment>property name</comment>
   </data>
-  <data name="ConnectionMustBeSet" xml:space="preserve">
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
     <value>Only one of the connection string fields can be used.</value>
   </data>
   <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
@@ -199,5 +242,547 @@
   </data>
   <data name="BulkUpdateFlag" xml:space="preserve">
     <value>Bulk/Batch Update</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>Only one of the connections can be used.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>At least one of the connections must be used.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>At least one of the connection string fields must be used.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>Value for required activity argument 'ProviderName' was not supplied</value>
+  </data>
+  <data name="Activity_BulkInsert_Description" xml:space="preserve">
+    <value>Updates a database table via Bulk operations of the specific database driver. Falls back to Insert Data Table if the database driver does not support Bulk operations.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Name" xml:space="preserve">
+    <value>Bulk Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Number of affected rows.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Affected rows count</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue on error</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
+    <value>The source DataTable for the items to be inserted.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Name" xml:space="preserve">
+    <value>Data table</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Existing connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database. Please see the documention for more examples.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Description" xml:space="preserve">
+    <value>Updates a compatible DataTable in an existing database table. The activity also updates all the columns that are not in the collection of column names used as a primary key. Returns the number of rows affected.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Name" xml:space="preserve">
+    <value>Bulk Update</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Number of affected rows.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Affected rows count</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
+    <value>Check this box to enable the creation of a temp table using Bulk insert and to update using join between tables. Otherwise, bulk updates are issued in batch.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
+    <value>Bulk/batch update</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
+    <value>The collection of column names used for row matching. These column names will not be changed by the Bulk Update activity.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
+    <value>Columns used for matching rows</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
+    <value>The DataTable variable that will be used to update the database table. The DataTable columns' name and description must match the columns from the database table and be a subset of them.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
+    <value>Input data table</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>An already open database connection. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Existing connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
+    <value>The target database table in which the data is to be updated.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
+    <value>Target table name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
+    <value>Connects to a database by using a standard connection string</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
+    <value>Connect to Database</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>The database connection used for the operations within this activity.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Database connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database. Please see the documentation for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
+    <value>Closes a connection to a database</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
+    <value>Disconnect from Database</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>The database connection used for operations within this activity.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Existing connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
+    <value>Connects to a database and features a Sequence which can perform multiple transactions with the database. It returns a DatabaseConnection variable, providing a scope for Database activities.
+If UseTransaction is set to True, the contained operations are executed in a single transaction, and applied at the end if none of the them failed. If UseTransaction is set to False, all operations are committed individually. When this activity ends, the connection to the database is closed.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
+    <value>Start Transaction</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue on error</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>The database connection variable returned by the activity. This can be subsequently used for other database operations.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Database connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>The DatabaseConnection variable you want to use for connecting to a database. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored. Can be retrieved from other Database activities that have the DatabaseConnection field in the Output property section.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Exiting connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
+    <value>Specifies if the database operations within this activity should be wrapped in a database transaction.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
+    <value>Use transaction</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
+    <value>Executes an SQL statement on a database. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
+    <value>Run Command</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>The result of the execution of the SQL command. For UPDATE, INSERT, and DELETE statements, the return value is the number of rows affected by the command. For all other types of statements, the return value is -1.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Affected rows count</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
+    <value>Executes a query on a database and returns the query result as a Data Table</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
+    <value>Run Query</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
+    <value>Specifies how a command string is interpreted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
+    <value>Command type</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection provided as a SecureString. Please see the documentation for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection. Please see the documentation for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue on error</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
+    <value>The output of the SQL command wrapped in a DataTable variable.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
+    <value>Data table</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect or Start Transaction activities. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Existing connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
+    <value>A dictionary of named parameters that are bound to the SQL command. The binding is done by specifying the '@parameterName' statement in the SQL command. At runtime the parameterName will be replaced with its value from the dictionary.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
+    <value>Parameters</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database. Please see the documention for more examples.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>An SQL command to be executed. This property must be completed according to the selection from the Command type property</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL command</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>Specifies the amount of time (in millisecond) to wait for the sql command to run before an error is thrown. The default value is 30000 milliseconds (30 seconds) and must be greater than or equal to 0.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>Timeout</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Description" xml:space="preserve">
+    <value>Inserts a compatible DataTable in an existing database table. Returns the number of rows affected.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Name" xml:space="preserve">
+    <value>Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Number of affected rows.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Affected rows count</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection as Secure String.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Secure connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
+    <value>The connection string used to establish a database connection.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Connection string</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continue on error</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
+    <value>The DataTable variable that will be inserted into the Table. The DataTable columns' name and description must match the ones from the database table.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
+    <value>Input data table</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect or Start Transaction activities. If such a connection is provided, the ConnectionString and SecureConnectionString properties are ignored.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Existing connection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
+    <value>The name of the database provider used to access the database.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
+    <value>Provider name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
+    <value>The target database table in which the data is to be inserted</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
+    <value>Target table name</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifies if the automation should continue even when the activity throws an error.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Other</value>
+    <comment>category name</comment>
+  </data>
+  <data name="Category_Principal" xml:space="preserve">
+    <value>Principal</value>
+    <comment>category name</comment>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Output</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>Existing connection is invalid. Please ensure the connection can be established.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description" xml:space="preserve">
+    <value>The switch between Connection String and Connection Secure String</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
+    <value>ConnectionInputModeSwitch</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
+    <value>Please provide the database connection SecureString variable</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Placeholder" xml:space="preserve">
+    <value>Please provide the database connection string</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Placeholder" xml:space="preserve">
+    <value>Please provide the database provider name</value>
+  </data>
+  <data name="ConnectionSecureStringNullError" xml:space="preserve">
+    <value>Connection SecureString must be used</value>
+  </data>
+  <data name="ConnectionStringNullError" xml:space="preserve">
+    <value>Connection string must be used</value>
+  </data>
+  <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
+    <value>Toggle to secure connection string</value>
+  </data>
+  <data name="ConnectionStringMenuAction" xml:space="preserve">
+    <value>Toggle to connection string</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+  <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
+    <value>Stored Procedure</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
+  </data>
+  <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
+    <value>Table Direct</value>
+  </data>
+  <data name="CommandType_Text_FriendlyName" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>An already opened database connection obtained from the Connect to Database activity.</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Use the output of the Connect to Database activity</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
+    <value>Provide an SQL statement that corresponds to the selected command type</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Placeholder" xml:space="preserve">
+    <value>Default is 30000 miliseconds</value>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>An SQL query to be executed. This property must be completed according to the selection from the Command type property</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>SQL query</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>Invokes the procedure name specified in the SQL command.</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>Invokes all records from a table.</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>Executes the SQL command.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>Database</value>
   </data>
 </root>

@@ -5,7 +5,7 @@ namespace UiPath.Python.Service
 {
     public interface IPythonService
     {
-        void Initialize(string path, Version version, string workingFolder);
+        void Initialize(string path, string libraryPath, Version version, string workingFolder);
 
         void Shutdown();
 

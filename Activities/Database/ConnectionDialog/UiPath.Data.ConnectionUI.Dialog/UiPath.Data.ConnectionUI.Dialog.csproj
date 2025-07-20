@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+    <PropertyGroup>
+        <TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Data.SqlClient" />
+        <PackageReference Include="System.Data.Common" />
+        <PackageReference Include="System.Data.Odbc" />
+        <PackageReference Include="System.Data.OleDb" />
+
+        <!--Dependencies override to solve FOSSA issues-->
+        <PackageReference Include="System.Text.RegularExpressions" />
+        <PackageReference Include="Azure.Identity" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+        <PackageReference Include="System.Activities" />
+        <PackageReference Include="System.Activities.Core.Presentation" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\UiPath.Database\UiPath.Database.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Properties\UiPath.Data.ConnectionUI.Dialog.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>UiPath.Data.ConnectionUI.Dialog.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\UiPath.Data.ConnectionUI.Dialog.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>UiPath.Data.ConnectionUI.Dialog.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Dialogs\DataConnectionDialog.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </None>
+    </ItemGroup>
+
+</Project>

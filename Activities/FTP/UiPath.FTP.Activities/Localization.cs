@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using UiPath.FTP.Activities.Properties;
 
 namespace UiPath.FTP.Activities
@@ -18,7 +20,7 @@ namespace UiPath.FTP.Activities
         }
     }
 
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
     public class LocalizedDisplayNameAttribute : DisplayNameAttribute
     {
         public LocalizedDisplayNameAttribute(string displayName)

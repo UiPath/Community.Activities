@@ -124,7 +124,7 @@
     <value>Несопоставленный столбец {0} не найден в целевой таблице базы данных {1}</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
-    <value>Предоставленная версия драйвера не поддерживает операции массовой вставки. Проверьте драйвер.</value>
+    <value>The configured provider does not support Bulk Insert operations. Providers that support Bulk Insert operations are: Microsoft.Data.SqlClient and Oracle.ManagedDataAccess.Client.OracleConnection.</value>
   </data>
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>Предоставленное количество столбцов в DataTable должно соответствовать количеству столбцов в таблице баз данных.</value>

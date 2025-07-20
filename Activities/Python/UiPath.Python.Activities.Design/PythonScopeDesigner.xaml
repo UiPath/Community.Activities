@@ -14,9 +14,14 @@
             <uipc:ActivityIconConverter x:Key="ActivityIconConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Generic.xaml" />
+                <ResourceDictionary Source="Themes/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </sap:ActivityDesigner.Resources>
+
+    <sap:ActivityDesigner.Icon>
+        <DrawingBrush Stretch="Uniform" Drawing="{Binding Path=ModelItem, Converter={StaticResource ActivityIconConverter}}" />
+    </sap:ActivityDesigner.Icon>
 
     <uip:ActivityDecoratorControl Style="{StaticResource ActivityDecoratorStyle}">
         <StackPanel>
