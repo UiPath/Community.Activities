@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="UiPath.Activities.Api" />
-    <PackageReference Include="UiPath.Activities.Contracts" />
+    
     <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
   </ItemGroup>
 
