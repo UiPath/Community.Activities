@@ -16,14 +16,13 @@
     <!--Dependencies override to solve FOSSA issues-->
     <PackageReference Include="System.Formats.Asn1" />
   </ItemGroup>
-	
+
   <ItemGroup>
     <Compile Remove="Dialogs\DataConnectionConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions"/>
     <PackageReference Include="UiPath.Activities.Api" />
-	<PackageReference Include="UiPath.Activities.Contracts" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.fr.resx">
