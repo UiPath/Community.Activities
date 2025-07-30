@@ -103,7 +103,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             List<string> labels = new();
             foreach (var flag in Decompose(value))
             {
-                labels.Add(GetFilteObjectTypeFlagLabel(flag));
+                labels.Add(GetFilterObjectTypeFlagLabel(flag));
             }
 
             return string.Join(" | ", labels);
@@ -115,7 +115,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// </summary>
         /// <param name="flag"></param>
         /// <returns>The localized name</returns>
-        private static string GetFilteObjectTypeFlagLabel(FtpFilterObjectType flag)
+        private static string GetFilterObjectTypeFlagLabel(FtpFilterObjectType flag)
         {
             var localizedName = LocalizedEnum.GetLocalizedValue(typeof(FtpFilterObjectType), flag).Name;
 
