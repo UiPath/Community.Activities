@@ -304,6 +304,33 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filters items based on type (what is selected will be included).
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Filter_Description {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object types.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Filter_Name {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Filter_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select object types to include.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Filter_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Filter_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If this check box is selected, the subfolders are also included in the enumeration of the files on the FTP server..
         /// </summary>
         public static string Activity_EnumerateObjects_Property_Recursive_Description {

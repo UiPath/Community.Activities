@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
@@ -12,8 +11,8 @@
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FluentFTP" Version="51.1.0" />
-    <PackageReference Include="SSH.NET" Version="2024.1.0" />
+    <PackageReference Include="FluentFTP" />
+    <PackageReference Include="SSH.NET" />
   </ItemGroup>
 
 </Project>

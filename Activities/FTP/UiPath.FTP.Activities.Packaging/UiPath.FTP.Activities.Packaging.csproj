@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
@@ -31,9 +30,9 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="System.Activities.ViewModels"/>
-    <PackageReference Include="FluentFTP" Version="51.1.0" />
-    <PackageReference Include="SSH.NET" Version="2024.1.0" />
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="FluentFTP" />
+    <PackageReference Include="SSH.NET" />
   </ItemGroup>
 
 	<Target Name="AddDlls">
@@ -46,37 +45,22 @@
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.FTP.resources.dll" TargetPath="fr\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.FTP.resources.dll" TargetPath="ja\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.FTP.resources.dll" TargetPath="ru\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.FTP.resources.dll" TargetPath="de\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.FTP.resources.dll" TargetPath="es\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.FTP.resources.dll" TargetPath="es-MX\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.FTP.resources.dll" TargetPath="ko\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.FTP.resources.dll" TargetPath="pt\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.FTP.resources.dll" TargetPath="pt-BR\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.resources.dll" TargetPath="tr\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.resources.dll" TargetPath="zh-CN\UiPath.FTP.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.FTP.resources.dll" TargetPath="zh-TW\UiPath.FTP.resources.dll" />
+      <FtpResources Include="$(OutputPath)**\UiPath.FTP.resources.dll" />
+      <BuildOutputInPackage Include="@(FtpResources)">
+        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </BuildOutputInPackage>
 
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.FTP.Activities.resources.dll" TargetPath="fr\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.FTP.Activities.resources.dll" TargetPath="ja\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.FTP.Activities.resources.dll" TargetPath="ru\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.FTP.Activities.resources.dll" TargetPath="de\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.FTP.Activities.resources.dll" TargetPath="es\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.FTP.Activities.resources.dll" TargetPath="es-MX\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.FTP.Activities.resources.dll" TargetPath="ko\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.FTP.Activities.resources.dll" TargetPath="pt\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.FTP.Activities.resources.dll" TargetPath="pt-BR\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.FTP.Activities.resources.dll" TargetPath="tr\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.FTP.Activities.resources.dll" TargetPath="zh-CN\UiPath.FTP.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.FTP.Activities.resources.dll" TargetPath="zh-TW\UiPath.FTP.Activities.resources.dll" />
-
+      <FtpActivitiesResources Include="$(OutputPath)**\UiPath.FTP.Activities.resources.dll" />
+      <BuildOutputInPackage Include="@(FtpActivitiesResources)">
+        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </BuildOutputInPackage>
 		</ItemGroup>
+    
 		<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
 		</ItemGroup>
 	</Target>
+  
 	<Target Name="CleanPackageFiles" BeforeTargets="Build">
 		<Message Text="Deleting packages ..." />
 		<ItemGroup>

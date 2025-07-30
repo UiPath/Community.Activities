@@ -11,7 +11,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    public partial class WithFtpSessionViewModel : DesignPropertiesViewModel
+    internal class WithFtpSessionViewModel : BaseFtpViewModel
     {
         /// <summary>
         /// Basic constructor
@@ -96,11 +96,6 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// If this box is checked, all certificates will be accepted, including the ones that are expired or not verified.
         /// </summary>
         public DesignProperty<bool> AcceptAllCertificates { get; set; }
-
-        /// <summary>
-        /// Specifies if the automation should continue even when the activity throws an error.
-        /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; }
 
         /// <summary>
         /// The type of proxy used

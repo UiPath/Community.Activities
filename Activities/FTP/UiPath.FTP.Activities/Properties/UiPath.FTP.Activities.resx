@@ -766,4 +766,15 @@
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
     <value>Proxy Secure Password</value>
   </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>Filters items based on type (what is selected will be included)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>Object types</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>Select object types to include</value>
+  </data>
 </root>

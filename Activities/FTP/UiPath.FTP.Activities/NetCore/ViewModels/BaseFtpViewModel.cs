@@ -1,21 +1,21 @@
-﻿using System.Activities.DesignViewModels;
+using System.Activities.DesignViewModels;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    internal class DeleteViewModel : BaseFtpViewModel
+    internal abstract class BaseFtpViewModel : DesignPropertiesViewModel
     {
         /// <summary>
         /// Basic constructor
         /// </summary>
         /// <param name="services"></param>
-        public DeleteViewModel(IDesignServices services) : base(services)
+        public BaseFtpViewModel(IDesignServices services) : base(services)
         {
         }
 
         /// <summary>
-        /// The path of the file that is to be removed from the FTP server.
+        /// Specifies if the automation should continue even when the activity throws an error.
         /// </summary>
-        public DesignInArgument<string> RemotePath { get; set; }
+        public DesignInArgument<bool> ContinueOnError { get; set; }
 
         protected override void InitializeModel()
         {

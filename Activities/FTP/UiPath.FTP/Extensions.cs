@@ -52,7 +52,7 @@ namespace UiPath.FTP
                 case FluentFTP.FtpObjectType.Link:
                     return UiPath.FTP.FtpObjectType.Link;
                 default:
-                    throw new NotSupportedException(Resources.UnsupportedObjectTypeException);
+                    return UiPath.FTP.FtpObjectType.Other;
             }
         }
 
@@ -76,7 +76,7 @@ namespace UiPath.FTP
                 return UiPath.FTP.FtpObjectType.Link;
             }
 
-            throw new NotSupportedException(Resources.UnsupportedObjectTypeException);
+            return UiPath.FTP.FtpObjectType.Other;
         }
 
         public static FtpPermissions ToFtpPermissions(this FtpPermission ftpPermission)
