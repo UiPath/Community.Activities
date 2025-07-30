@@ -28,7 +28,7 @@ namespace UiPath.FTP.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_EnumerateObjects_Property_Filter_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EnumerateObjects_Property_Filter_Description))]
         [DefaultValue(FtpFilterObjectType.Directory | FtpFilterObjectType.File)]
-        public FtpFilterObjectType Filter { get; set; } = FtpFilterObjectType.Directory | FtpFilterObjectType.File;
+        public FtpFilterObjectType Filter { get; set; } = FtpFilterObjectType.All;
 
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_EnumerateObjects_Property_Files_Name))]
