@@ -1,0 +1,10 @@
+<Project>
+  <!-- Import first the parent targets -->
+  <Import Project="../Directory.build.targets" />
+
+  <ItemGroup>
+    <PackageReference Update="FluentFTP" Version="51.1.0" />
+    <PackageReference Update="SSH.NET" Version="2024.1.0" />
+  </ItemGroup>
+
+</Project>

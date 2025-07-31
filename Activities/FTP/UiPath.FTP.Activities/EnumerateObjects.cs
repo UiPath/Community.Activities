@@ -2,10 +2,10 @@
 using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
-using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities
 {
@@ -24,6 +24,12 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_EnumerateObjects_Property_Recursive_Description))]
         public bool Recursive { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Options))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EnumerateObjects_Property_Filter_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EnumerateObjects_Property_Filter_Description))]
+        [DefaultValue(FtpFilterObjectType.Directory | FtpFilterObjectType.File)]
+        public FtpFilterObjectType Filter { get; set; } = FtpFilterObjectType.All;
+
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_EnumerateObjects_Property_Files_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EnumerateObjects_Property_Files_Description))]
@@ -40,6 +46,28 @@ namespace UiPath.FTP.Activities
             }
 
             IEnumerable<FtpObjectInfo> files = await ftpSession.EnumerateObjectsAsync(RemotePath.Get(context), Recursive, cancellationToken);
+
+            //Filter the returned objects based on user's selection
+            //If none selected, clear all
+            if (Filter == FtpFilterObjectType.None)
+            {
+                files = Enumerable.Empty<FtpObjectInfo>();
+            }
+            //filter based on what the user selection
+            else if (Filter != FtpFilterObjectType.All)
+            {
+                files = files.Where(x =>
+                {
+                    return x.Type switch
+                    {
+                        FtpObjectType.Directory => (Filter & FtpFilterObjectType.Directory) != 0,
+                        FtpObjectType.File => (Filter & FtpFilterObjectType.File) != 0,
+                        FtpObjectType.Link => (Filter & FtpFilterObjectType.Link) != 0,
+                        FtpObjectType.Other => (Filter & FtpFilterObjectType.Other) != 0,
+                        _ => false,
+                    };
+                });
+            }
 
             return (asyncCodeActivityContext) =>
             {

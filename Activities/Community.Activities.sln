@@ -19,7 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Credentials.Activiti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FTP", "FTP", "{099CA148-FA0A-44E4-8C8A-CAF7B106897E}"
 	ProjectSection(SolutionItems) = preProject
-		FTP\FTP.build.props = FTP\FTP.build.props
+		FTP\Directory.build.props = FTP\Directory.build.props
+		FTP\Directory.build.targets = FTP\Directory.build.targets
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.FTP", "FTP\UiPath.FTP\UiPath.FTP.csproj", "{E9137637-B657-4C22-85A5-2E30ADF82566}"

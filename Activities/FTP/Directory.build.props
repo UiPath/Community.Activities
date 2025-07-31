@@ -1,4 +1,7 @@
 <Project>
+  <!-- Import first the parent targets -->
+  <Import Project="../Directory.build.props" />
+  
   <PropertyGroup>
     <Product>FTP</Product>
     <Authors>UiPath</Authors>

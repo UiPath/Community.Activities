@@ -19,6 +19,8 @@ namespace UiPath.FTP.Activities
     {
         private IFtpSession _ftpSession;
 
+        private readonly IFtpSession _setFtpSession; //used for unittests
+
         public static readonly string FtpSessionPropertyName = "FtpSession";
 
         [Browsable(false)]
@@ -161,6 +163,11 @@ namespace UiPath.FTP.Activities
             };
         }
 
+        internal WithFtpSession(IFtpSession setFtpSession): this()
+        {
+            _setFtpSession = setFtpSession;
+        }
+
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             base.CacheMetadata(metadata);
@@ -172,8 +179,6 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
-            IFtpSession ftpSession = null;
-
             string passwordValue = Password.Get(context);
             SecureString securePasswordValue = SecurePassword.Get(context);
             string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
@@ -229,13 +234,14 @@ namespace UiPath.FTP.Activities
                 }
             }
 
+            IFtpSession ftpSession = _setFtpSession;
             if (UseSftp)
             {
-                ftpSession = new SftpSession(ftpConfiguration);
+                ftpSession ??= new SftpSession(ftpConfiguration);
             }
             else
             {
-                ftpSession = new FtpSession(ftpConfiguration, FtpsMode);
+                ftpSession ??= new FtpSession(ftpConfiguration, FtpsMode);
             }
 
             await ftpSession.OpenAsync(cancellationToken);
@@ -263,11 +269,8 @@ namespace UiPath.FTP.Activities
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
-            PropertyDescriptor ftpSessionProperty = faultContext.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
-            IFtpSession ftpSession = ftpSessionProperty?.GetValue(faultContext.DataContext) as IFtpSession;
-
-            ftpSession?.Close();
-            ftpSession?.Dispose();
+            _ftpSession?.Close();
+            _ftpSession?.Dispose();
         }
     }
 }

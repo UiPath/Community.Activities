@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
     <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
@@ -17,14 +16,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
-    <EmbeddedResource Include="Resources\Icons\Delete_file_or_folder.svg" />
-    <EmbeddedResource Include="Resources\Icons\Download_files.svg" />
-    <EmbeddedResource Include="Resources\Icons\File_exists.svg" />
-    <EmbeddedResource Include="Resources\Icons\Folder_exists.svg" />
-    <EmbeddedResource Include="Resources\Icons\FTP_Connection.svg" />
-    <EmbeddedResource Include="Resources\Icons\Get_files.svg" />
-    <EmbeddedResource Include="Resources\Icons\Move_file_or_folder.svg" />
-    <EmbeddedResource Include="Resources\Icons\Upload_files.svg" />
+    <EmbeddedResource Include="Resources\Icons\*.svg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UiPath.FTP\UiPath.FTP.csproj">
@@ -50,6 +42,6 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-  	<InternalsVisibleTo Include="UiPath.FTP.Activities.Design" />
+    <InternalsVisibleTo Include="UiPath.FTP.Activities.Design" />
   </ItemGroup>
 </Project>

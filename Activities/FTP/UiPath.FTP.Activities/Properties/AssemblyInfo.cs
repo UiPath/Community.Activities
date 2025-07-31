@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
@@ -14,3 +15,5 @@ using System.Windows.Markup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM.
 
 [assembly: Guid("fdfc92ee-090c-4e23-9422-f90eb94c43dd")]
+
+[assembly: InternalsVisibleTo("UiPath.FTP.Tests")]

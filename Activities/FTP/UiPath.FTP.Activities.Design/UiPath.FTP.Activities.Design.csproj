@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
-  <Import Project="..\FTP.build.props" />
   <PropertyGroup>
     <TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\FTP\</OutputPath>
@@ -32,10 +31,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="UiPath.FTP.Activities.Design.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="UiPath.Activities.Api"/>
+    <PackageReference Include="UiPath.Activities.Api" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.FTP.Activities.Design.Designer.cs">
