@@ -18,6 +18,5 @@ namespace UiPath.FTP
         File = 1 << 1,
         Link = 1 << 2,
         Other = 1 << 3,
-        All = Directory | File | Link | Other
     }
 }

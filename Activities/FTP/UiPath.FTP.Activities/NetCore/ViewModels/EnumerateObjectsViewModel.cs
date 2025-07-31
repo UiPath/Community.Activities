@@ -67,8 +67,8 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
                 return;
             }
 
-            var protocols = Enum.GetValues<FtpFilterObjectType>()
-                .Where(s => s != FtpFilterObjectType.None && s != FtpFilterObjectType.All)
+            var objectTypes = Enum.GetValues<FtpFilterObjectType>()
+                .Where(s => s != FtpFilterObjectType.None)
                 .OrderBy(s => s)
                 .ToList();
 
@@ -87,7 +87,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
                     },
                     valueToSelection: s => Decompose(s).ToArray()
                     )
-                .WithData(protocols)
+                .WithData(objectTypes)
                 .Build();
         }
 

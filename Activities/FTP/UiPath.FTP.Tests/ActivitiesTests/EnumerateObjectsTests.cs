@@ -15,11 +15,11 @@ namespace UiPath.FTP.Tests.ActivitiesTests
     {
         [Theory]
         [InlineData(FtpFilterObjectType.None)]
-        [InlineData(FtpFilterObjectType.All)]
         [InlineData(FtpFilterObjectType.Directory)]
         [InlineData(FtpFilterObjectType.File)]
         [InlineData(FtpFilterObjectType.Other)]
         [InlineData(FtpFilterObjectType.Directory | FtpFilterObjectType.File)]
+        [InlineData(FtpFilterObjectType.Directory | FtpFilterObjectType.File | FtpFilterObjectType.Link | FtpFilterObjectType.Other)]
         public void EnumerateObjects_FilterTests(FtpFilterObjectType filter)
         {
             var session = new Mock<IFtpSession>();
@@ -105,6 +105,13 @@ namespace UiPath.FTP.Tests.ActivitiesTests
                 var resultTask = Task.FromResult(lstObjects);
                 session.Setup(a => a.EnumerateObjectsAsync(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<CancellationToken>())).Returns(resultTask);
             }
+        }
+
+        //If the filters will change, make sure to adjust the activity also
+        [Fact]
+        public void TestFilterOptions_EnumValues()
+        {
+            Assert.Equal(5, Enum.GetValues(typeof(FtpFilterObjectType)).Length);
         }
     }
 }
