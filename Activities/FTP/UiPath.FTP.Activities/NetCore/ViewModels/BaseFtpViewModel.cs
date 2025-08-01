@@ -1,4 +1,5 @@
 using System.Activities.DesignViewModels;
+using System.Activities.ViewModels;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
@@ -21,6 +22,8 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         {
             base.InitializeModel();
             PersistValuesChangedDuringInit();
+
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
         }
     }
 }
