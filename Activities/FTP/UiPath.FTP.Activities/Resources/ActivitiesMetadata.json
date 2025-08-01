@@ -601,26 +601,34 @@
           }
         },
         {
-            "Name": "ProxyPassword",
-            "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyPassword_Name",
-            "TooltipKey": "Activity_WithFtpSession_Property_ProxyPassword_Description",
-            "IsRequired": false,
-            "IsPrincipal": false,
-            "IsVisible": true,
-            "Category": {
-                "DisplayNameKey": "Proxy"
-            }
+          "Name": "ProxyPassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyPassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxyPassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
         },
         {
-            "Name": "ProxySecurePassword",
-            "DisplayNameKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Name",
-            "TooltipKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Description",
-            "IsRequired": false,
-            "IsPrincipal": false,
-            "IsVisible": false,
-            "Category": {
-                "DisplayNameKey": "Proxy"
-            }
+          "Name": "ProxySecurePassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
+        },
+        {
+          "Name": "ProxyPasswordInputModeSwitch",
+          "IsRequired": false,
+          "IsVisible": false,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
         }
       ],
       "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.WithFtpSessionViewModel"
