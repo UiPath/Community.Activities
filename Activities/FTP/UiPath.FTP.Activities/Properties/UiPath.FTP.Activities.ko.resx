@@ -761,9 +761,9 @@
     <value>자동 구성을 위해 비워두십시오</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
-    <value>The proxy password in secure string format</value>
+    <value>보안 문자열 형식의 프록시 암호</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
-    <value>Proxy Secure Password</value>
+    <value>프록시 보안 암호</value>
   </data>
 </root>

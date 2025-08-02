@@ -761,9 +761,9 @@
     <value>Otomatik yapılandırma için boş bırakın</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
-    <value>The proxy password in secure string format</value>
+    <value>Güvenli dize biçiminde proxy parolası</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
-    <value>Proxy Secure Password</value>
+    <value>Proxy Güvenli Parola</value>
   </data>
 </root>

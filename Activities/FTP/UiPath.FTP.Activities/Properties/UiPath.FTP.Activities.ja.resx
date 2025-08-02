@@ -761,9 +761,9 @@
     <value>自動設定の場合は空のままにします。</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
-    <value>The proxy password in secure string format</value>
+    <value>Secure String 型のプロキシ パスワードです。</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
-    <value>Proxy Secure Password</value>
+    <value>セキュリティで保護されたプロキシのパスワード</value>
   </data>
 </root>
