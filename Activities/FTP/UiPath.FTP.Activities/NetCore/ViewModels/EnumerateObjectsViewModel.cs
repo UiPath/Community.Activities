@@ -94,6 +94,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         private static List<FtpFilterObjectType> Decompose(FtpFilterObjectType value)
         {
             var bits = EnumExtensions<FtpFilterObjectType>.Decompose(value);
+            bits.Remove(FtpFilterObjectType.None);
             return bits;
         }
 
