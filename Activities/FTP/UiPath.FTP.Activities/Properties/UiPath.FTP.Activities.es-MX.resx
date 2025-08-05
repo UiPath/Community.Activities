@@ -761,9 +761,9 @@
     <value>Dejar vacío para la configuración automática</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
-    <value>The proxy password in secure string format</value>
+    <value>La contraseña de proxy en formato de cadena segura</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
-    <value>Proxy Secure Password</value>
+    <value>Contraseña segura de proxy</value>
   </data>
 </root>
