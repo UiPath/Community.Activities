@@ -766,4 +766,15 @@
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
     <value>セキュリティで保護されたプロキシのパスワード</value>
   </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>種類に基づいて項目をフィルター処理します (選択した種類が含まれる)。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>オブジェクトの種類</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>含めるオブジェクトの種類を選択します。</value>
+  </data>
 </root>
