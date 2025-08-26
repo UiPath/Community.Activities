@@ -1,21 +1,19 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using Microsoft.Data.SqlClient;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
-using Microsoft.Data.SqlClient;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using UiPath.Database.BulkOps;
 using UiPath.Database.Properties;
-using UiPath.Data.ConnectionUI.Dialog.Workaround;
 using UiPath.Robot.Activities.Api;
-using Oracle.ManagedDataAccess.Types;
 
 namespace UiPath.Database
 {
@@ -25,21 +23,14 @@ namespace UiPath.Database
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
-        private const string SqlOdbcDriverPattern = "SQLSRV";
-        private const string OracleOdbcDriverPattern = "SQORA";
-        private const string DB2OdbcDriverPattern = "DB2";
-        private const string OraclePattern = "oracle";
-        private const string OracleProvider = "oracle.manageddataaccess.client";
-        private const string SqlProvider = "microsoft.data.sqlclient";
+        
         private bool _isWindows = true;
-
+        
         public ConnectionState? State => _connection?.State;
 
         public DatabaseConnection()
         {
-#if NETCOREAPP
             _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#endif
             DbWorkarounds.SNILoadWorkaround(_isWindows);
         }
 
@@ -54,28 +45,15 @@ namespace UiPath.Database
         {
             _providerName = providerName;
 
-#if NETCOREAPP
-            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", Microsoft.Data.SqlClient.SqlClientFactory.Instance);
+            DatabaseHelper.RegisterFactories(_isWindows);
+            
+            if (providerName.Equals(DatabaseConstants.SqlServerProvider, StringComparison.OrdinalIgnoreCase))
+                _connection = new SqlConnection();
+            else if (providerName.Equals(DatabaseConstants.OracleProvider, StringComparison.OrdinalIgnoreCase))
+                _connection = new OracleConnection();
+            else
+                _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
 
-            //OLEDB driver is Windows propietary - there is no support for other OS
-            if (_isWindows)
-                DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
-
-            DbProviderFactories.RegisterFactory("System.Data.Odbc", System.Data.Odbc.OdbcFactory.Instance);
-            DbProviderFactories.RegisterFactory("Oracle.ManagedDataAccess.Client", Oracle.ManagedDataAccess.Client.OracleClientFactory.Instance);
-#endif
-            switch (providerName.ToLower())
-            {
-                case SqlProvider:
-                    _connection = new SqlConnection();
-                    break;
-                case OracleProvider:
-                    _connection = new OracleConnection();
-                    break;
-                default:
-                    _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
-                    break;
-            }
             _connection.ConnectionString = connectionString;
             OpenConnection();
             return this;
@@ -96,8 +74,11 @@ namespace UiPath.Database
             foreach (var param in _command.Parameters)
             {
                 var dbParam = param as DbParameter;
-                parameters[dbParam.ParameterName] = new ParameterInfo() { Value = dbParam.Value,
-                    Direction = WokflowParameterDirectionToDbParameter(dbParam.Direction) };
+                parameters[dbParam.ParameterName] = new ParameterInfo()
+                {
+                    Value = dbParam.Value,
+                    Direction = WokflowParameterDirectionToDbParameter(dbParam.Direction)
+                };
             }
             return dt;
         }
@@ -492,8 +473,8 @@ namespace UiPath.Database
 
         private int GetParameterSize(DbParameter dbParameter)
         {
-            if ((_connection.GetType() == typeof(OdbcConnection) && (((OdbcConnection)_connection).Driver.StartsWith(OracleOdbcDriverPattern) || ((OdbcConnection)_connection).Driver.StartsWith(DB2OdbcDriverPattern)))
-               || _connection.ToString().ToLower().Contains(OraclePattern))
+            if ((_connection.GetType() == typeof(OdbcConnection) && (((OdbcConnection)_connection).Driver.StartsWith(DatabaseConstants.OracleOdbcDriverPattern) || ((OdbcConnection)_connection).Driver.StartsWith(DatabaseConstants.DB2OdbcDriverPattern)))
+               || _connection.ToString().Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
                 return 1000000;
             if (_connection.GetType() == typeof(OdbcConnection))
                 return 4000;

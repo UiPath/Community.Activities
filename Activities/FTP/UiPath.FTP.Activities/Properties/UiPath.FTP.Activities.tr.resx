@@ -275,14 +275,14 @@
     <value>Ftp Oturumuyla</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Ftp Oturumuyla</value>
+    <value>With Ftp Session</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>İstemciSertifikasıParolası</value>
+    <value>İstemci Sertifikası Parolası</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>HataOlduğundaDevamEt</value>
+    <value>Hata olduğunda devam et</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Dosyalar</value>
@@ -291,10 +291,10 @@
     <value>Ana Bilgisayar</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+    <value>Yerel yol</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
-    <value>NewPath</value>
+    <value>Yeni Yol</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
     <value>Parola</value>
@@ -303,7 +303,7 @@
     <value>Bağlantı Noktası</value>
   </data>
   <data name="RemotePathDescription" xml:space="preserve">
-    <value>Uzak Yol</value>
+    <value>Uzak yol</value>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">
     <value>Bu kutu işaretlendiğinde kullanıcı adı ve parola alanları yok sayılır ve bunun yerine standart bir anonim kullanıcı kullanılır.</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>Delete File/Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Download files</value>
+    <value>Dosyaları İndir</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -738,7 +738,7 @@
     <value>Proxy türü</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Proxy Türü</value>
+    <value>Proxy Türü</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>Kimlik doğrulaması gerektiğinde proxy için kullanılan kullanıcı</value>
@@ -752,5 +752,18 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>{0} için bir değer sağlamanız gerekir.</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0} (Eski)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>Otomatik yapılandırma için boş bırakın</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>The proxy password in secure string format</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Proxy Secure Password</value>
   </data>
 </root>

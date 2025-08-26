@@ -3,7 +3,7 @@ using System.Activities.ViewModels;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    public partial class MoveItemViewModel : DesignPropertiesViewModel
+    internal class MoveItemViewModel : BaseFtpViewModel
     {
         /// <summary>
         /// Basic constructor
@@ -28,11 +28,6 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// </summary>
         public DesignProperty<bool> Overwrite { get; set; }
 
-        /// <summary>
-        /// Specifies if the automation should continue even when the activity throws an error.
-        /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; }
-
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -45,7 +40,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             Overwrite.OrderIndex = propertyOrderIndex++;
             ContinueOnError.OrderIndex = propertyOrderIndex;
 
-            //Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+            Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
         }
     }

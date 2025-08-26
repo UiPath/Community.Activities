@@ -19,6 +19,8 @@ namespace UiPath.FTP.Activities
     {
         private IFtpSession _ftpSession;
 
+        private readonly IFtpSession _setFtpSession; //used for unittests
+
         public static readonly string FtpSessionPropertyName = "FtpSession";
 
         [Browsable(false)]
@@ -136,11 +138,21 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyPassword_Description))]
         public InArgument<string> ProxyPassword { get; set; }
 
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Proxy))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Description))]
+        public InArgument<SecureString> ProxySecurePassword { get; set; }
+
+        [Browsable(false)]
+        public PasswordInputMode ProxyPasswordInputModeSwitch { get; set; }
+
         [DefaultValue(FtpProxyType.None)]
         [LocalizedCategory(nameof(Resources.Proxy))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxyType_Description))]
         public FtpProxyType ProxyType { get; set; } = FtpProxyType.None;
+
 
         public WithFtpSession()
         {
@@ -149,6 +161,11 @@ namespace UiPath.FTP.Activities
                 Argument = new DelegateInArgument<IFtpSession>(FtpSessionPropertyName),
                 Handler = new Sequence() { DisplayName = Resources.DefaultBodyName }
             };
+        }
+
+        internal WithFtpSession(IFtpSession setFtpSession): this()
+        {
+            _setFtpSession = setFtpSession;
         }
 
         protected override void CacheMetadata(NativeActivityMetadata metadata)
@@ -162,8 +179,6 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
-            IFtpSession ftpSession = null;
-
             string passwordValue = Password.Get(context);
             SecureString securePasswordValue = SecurePassword.Get(context);
             string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
@@ -173,19 +188,27 @@ namespace UiPath.FTP.Activities
             ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
             ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
             ftpConfiguration.SslProtocols = SslProtocols;
-            ftpConfiguration.Password = passwordValue;
             ftpConfiguration.ProxyType = ProxyType;
 
-            if (ftpConfiguration.Password == null)
+            if (PasswordInputModeSwitch == PasswordInputMode.Password)
+            {
+                ftpConfiguration.Password = passwordValue;
+            }
+            else
             {
                 ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
             }
-            if(ftpConfiguration.ProxyType != FtpProxyType.None)
+
+            if (ftpConfiguration.ProxyType != FtpProxyType.None)
             {
                 ftpConfiguration.ProxyServer = ProxyServer.Get(context);
-                ftpConfiguration.ProxyPort = ProxyPort.Expression == null? null: (int?)ProxyPort.Get(context);
+                ftpConfiguration.ProxyPort = ProxyPort.Expression == null ? null : (int?)ProxyPort.Get(context);
                 ftpConfiguration.ProxyUsername = ProxyUser.Get(context);
-                ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
+
+                if (ProxyPasswordInputModeSwitch == PasswordInputMode.Password)
+                    ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
+                else
+                    ftpConfiguration.ProxyPassword = new NetworkCredential(string.Empty, ProxySecurePassword.Get(context)).Password;
             }
 
             ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
@@ -211,13 +234,14 @@ namespace UiPath.FTP.Activities
                 }
             }
 
+            IFtpSession ftpSession = _setFtpSession;
             if (UseSftp)
             {
-                ftpSession = new SftpSession(ftpConfiguration);
+                ftpSession ??= new SftpSession(ftpConfiguration);
             }
             else
             {
-                ftpSession = new FtpSession(ftpConfiguration, FtpsMode);
+                ftpSession ??= new FtpSession(ftpConfiguration, FtpsMode);
             }
 
             await ftpSession.OpenAsync(cancellationToken);
@@ -245,11 +269,8 @@ namespace UiPath.FTP.Activities
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
-            PropertyDescriptor ftpSessionProperty = faultContext.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
-            IFtpSession ftpSession = ftpSessionProperty?.GetValue(faultContext.DataContext) as IFtpSession;
-
-            ftpSession?.Close();
-            ftpSession?.Dispose();
+            _ftpSession?.Close();
+            _ftpSession?.Dispose();
         }
     }
 }

@@ -279,7 +279,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>クライアント証明書パスワードです。</value>
+    <value>クライアント証明書のパスワードです。</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>ファイルまたはフォルダーを削除</value>
+    <value>ファイル/フォルダーを削除</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -738,7 +738,7 @@
     <value>プロキシの種類です。</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> プロキシの種類</value>
+    <value>プロキシの種類</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>認証が求められる場合にプロキシに使用されるユーザー名です。</value>
@@ -752,5 +752,18 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>{0} に値を入力してください。</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0} (廃止)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>自動設定の場合は空のままにします。</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>The proxy password in secure string format</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Proxy Secure Password</value>
   </data>
 </root>

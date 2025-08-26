@@ -19,6 +19,8 @@ namespace UiPath.Python.Activities.Design
             builder.AddCustomAttributes(typeof(PythonScope), new DesignerAttribute(typeof(PythonScopeDesigner)));
             builder.AddCustomAttributes(typeof(LoadScript), new DesignerAttribute(typeof(LoadScriptDesigner)));
             builder.AddCustomAttributes(typeof(RunScript), new DesignerAttribute(typeof(RunScriptDesigner)));
+            builder.AddCustomAttributes(typeof(GetObject<>), new DesignerAttribute(typeof(GetObjectDesigner)));
+            builder.AddCustomAttributes(typeof(InvokeMethod), new DesignerAttribute(typeof(InvokeMethodDesigner)));
 
             // Browsable false
 

@@ -85,7 +85,7 @@ namespace UiPath.FTP
 
             if (ftpsMode != FtpsMode.None)
             {
-                _ftpClient.Config.SslProtocols = (SslProtocols)ftpConfiguration.SslProtocols; //viorel -> to review
+                _ftpClient.Config.SslProtocols = (SslProtocols)ftpConfiguration.SslProtocols;
                 _ftpClient.ValidateCertificate += (control, e) => _ftpClient_ValidateCertificate(control as FtpClient, e, ftpConfiguration.AcceptAllCertificates);
 
                 if (string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath) == false)

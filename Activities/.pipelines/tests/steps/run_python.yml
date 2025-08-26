@@ -25,7 +25,8 @@ steps:
       ignoreLASTEXITCODE: true
       script: |
         cd ${{ parameters.packagesFolder }}
-        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File | Where-Object { $_.Name -like "*.Activities.*" -and $_.Name -notlike "*symbols*" } | Select-Object -ExpandProperty Name
+        Write-Host "Found activities package file $file"
         $dot = $file.LastIndexof('.')
         $file = $file.Replace(".nupkg","")
         $act = $file.LastIndexof('Activities.')

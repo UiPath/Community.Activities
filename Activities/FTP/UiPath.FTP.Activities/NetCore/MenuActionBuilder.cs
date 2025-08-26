@@ -75,13 +75,14 @@ namespace UiPath.FTP.Activities.NetCore
         /// <summary>
         /// For each of the stored properties, adds <see cref="MenuAction">menu actions</see> that represent all the other stored properties.
         /// </summary>
-        public void BuildAndInsertMenuActions()
+        public void BuildAndInsertMenuActions(bool isMain)
         {
             foreach (var targetPropertyInfo in _properties)
             {
                 var menuAction = new MenuAction
                 {
                     DisplayName = targetPropertyInfo.DisplayName,
+                    IsMain = isMain,
                     Handler = _ =>
                     {
                         _valueProperty.Value = targetPropertyInfo.Value;
@@ -91,8 +92,6 @@ namespace UiPath.FTP.Activities.NetCore
                 };
                 foreach (var propertyInfo in _properties.Where(pi => pi != targetPropertyInfo))
                 {
-
-
                     propertyInfo.Property.AddMenuAction(menuAction);
                 }
             }

@@ -1,5 +1,4 @@
-﻿using Microsoft.Activities.UnitTesting;
-using Moq;
+﻿using Moq;
 using System;
 using System.Activities;
 using System.Collections.Generic;
@@ -7,8 +6,8 @@ using System.Data;
 using System.Data.Common;
 using System.Dynamic;
 using UiPath.Database.Activities;
-using UiPath.Database.BulkOps;
 using Xunit;
+using UiPath.Database;
 
 namespace UiPath.Database.Tests
 {
@@ -25,9 +24,8 @@ namespace UiPath.Database.Tests
                 ConnectionString = new InArgument<string>("alpha"),
                 ProviderName = new InArgument<string>("beta")
             };
-            var host = new WorkflowInvokerTest(connectActivity);
-            var ex = Record.Exception(() => host.TestActivity());
-            Assert.Null(ex);
+
+            WorkflowInvoker.Invoke(connectActivity, TimeSpan.FromSeconds(30));
         }
 
         [Fact]
@@ -38,9 +36,13 @@ namespace UiPath.Database.Tests
             dbConnection.Setup(con => con.Dispose()).Callback(() => executed = true);
             dynamic arguments = new ExpandoObject();
             arguments.DatabaseConnection = dbConnection.Object;
-            var host = new WorkflowInvokerTest(new DatabaseDisconnect(), arguments);
-            var ex = Record.Exception(() => host.TestActivity());
-            Assert.Null(ex);
+            var disconnectActivity = new DatabaseDisconnect()
+            {
+                DatabaseConnection = new InArgument<DatabaseConnection>(ctx => dbConnection.Object),
+            };
+            
+            WorkflowInvoker.Invoke(disconnectActivity, TimeSpan.FromSeconds(30));
+
             Assert.True(executed);
         }
 
@@ -54,21 +56,24 @@ namespace UiPath.Database.Tests
             dbConnection.Setup(con => con.BeginTransaction()).Callback(() => executed = true);
             dynamic arguments = new ExpandoObject();
             arguments.ExistingDbConnection = dbConnection.Object;
-            var dbTransactionActivity = new DatabaseTransaction { UseTransaction = useTransaction };
-            var host = new WorkflowInvokerTest(dbTransactionActivity, arguments);
-            var ex = Record.Exception(() => host.TestActivity());
-            Assert.Null(ex);
+            var dbTransactionActivity = new DatabaseTransaction 
+            { 
+                UseTransaction = useTransaction,
+                ExistingDbConnection = new InArgument<DatabaseConnection>(ctx => dbConnection.Object)
+            };
+
+            WorkflowInvoker.Invoke(dbTransactionActivity, TimeSpan.FromSeconds(30));
             Assert.True(executed == useTransaction);
         }
 
         [Theory]
-        [InlineData("System.Data.Odbc")]
-        [InlineData("System.Data.Oledb")]
-        [InlineData("System.Data.OracleClient")]
-        [InlineData("Microsoft.Data.SqlClient")]
-        [InlineData("Oracle.DataAccess.Client")]
-        [InlineData("Oracle.ManagedDataAccess.Client")]
-        [InlineData("Mysql.Data.MysqlClient")]
+        [InlineData(DatabaseConstants.OdbcProvider)]
+        [InlineData(DatabaseConstants.OleDbProvider)]
+        [InlineData(DatabaseConstants.SqlServerProvider)]
+        [InlineData(DatabaseConstants.OracleProvider)]
+        [InlineData("Mysql.Data.MysqlClient")] //Legacy
+        [InlineData("System.Data.OracleClient")] //Legacy
+        [InlineData("Oracle.DataAccess.Client")] //Legacy
         public void TestSize(string provider)
         {
             var con = new Mock<DbConnection>();
@@ -94,9 +99,9 @@ namespace UiPath.Database.Tests
                 }
             };
             databaseConnection.ExecuteQuery("TestProcedure", parameters, 0);
-            if (provider.ToLower().Contains("oracle"))
+            if (provider.Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
                 Assert.True(param.Object.Size == 1000000);
-            if (!provider.ToLower().Contains("oracle"))
+            if (!provider.ToLower().Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
                 Assert.True(param.Object.Size == -1);
         }
 

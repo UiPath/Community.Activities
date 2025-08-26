@@ -11,7 +11,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    public partial class WithFtpSessionViewModel : DesignPropertiesViewModel
+    internal class WithFtpSessionViewModel : BaseFtpViewModel
     {
         /// <summary>
         /// Basic constructor
@@ -20,6 +20,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         public WithFtpSessionViewModel(IDesignServices services) : base(services)
         {
             InitializeFtpsModeDataSource();
+            InitializeProxyModeDataSource();
         }
 
         /// <summary>
@@ -98,11 +99,43 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         public DesignProperty<bool> AcceptAllCertificates { get; set; }
 
         /// <summary>
-        /// Specifies if the automation should continue even when the activity throws an error.
+        /// The type of proxy used
         /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; }
+        public DesignProperty<FtpProxyType> ProxyType { get; set; }
+
+        /// <summary>
+        /// The proxy host
+        /// </summary>
+        public DesignInArgument<string> ProxyServer { get; set; }
+
+        /// <summary>
+        /// The proxy port
+        /// </summary>
+        public DesignInArgument<int> ProxyPort { get; set; }
+
+        /// <summary>
+        /// User used for proxy authentification
+        /// </summary>
+        public DesignInArgument<string> ProxyUser { get; set; }
+
+        /// <summary>
+        /// Password for proxy
+        /// </summary>
+        public DesignInArgument<string> ProxyPassword { get; set; }
+
+        /// <summary>
+        /// Secured password for proxy
+        /// </summary>
+        public DesignInArgument<SecureString> ProxySecurePassword { get; set; }
+
+        /// <summary>
+        /// Switches Proxy Password as string or secure string
+        /// </summary>
+        public DesignProperty<PasswordInputMode> ProxyPasswordInputModeSwitch { get; set; }
 
         private static DataSource<FtpSslProtocols> _sslProtocolsDataSource;
+
+        private static IDataSource _proxyTypeDataSource;
 
         protected override void InitializeModel()
         {
@@ -131,16 +164,22 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             UseSftp.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
             SslProtocols.DataSource = _sslProtocolsDataSource;
+            ProxyType.DataSource = _proxyTypeDataSource;
 
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(PasswordInputModeSwitch)
               .AddMenuProperty(Password, PasswordInputMode.Password)
               .AddMenuProperty(SecurePassword, PasswordInputMode.SecurePassword)
-              .BuildAndInsertMenuActions();
+              .BuildAndInsertMenuActions(true);
 
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(CertificatePasswordInputModeSwitch)
               .AddMenuProperty(ClientCertificatePassword, PasswordInputMode.Password)
               .AddMenuProperty(ClientCertificateSecurePassword, PasswordInputMode.SecurePassword)
-              .BuildAndInsertMenuActions();
+              .BuildAndInsertMenuActions(true);
+
+            MenuActionsBuilder<PasswordInputMode>.WithValueProperty(ProxyPasswordInputModeSwitch)
+              .AddMenuProperty(ProxyPassword, PasswordInputMode.Password)
+              .AddMenuProperty(ProxySecurePassword, PasswordInputMode.SecurePassword)
+              .BuildAndInsertMenuActions(true);
         }
 
         /// <inheritdoc/>
@@ -149,7 +188,10 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             base.InitializeRules();
             Rule(nameof(PasswordInputModeSwitch), PasswordInputModeChanged_Action);
             Rule(nameof(CertificatePasswordInputModeSwitch), CertificatePasswordInputModeChanged_Action);
+            Rule(nameof(ProxyPasswordInputModeSwitch), ProxyPasswordInputModeChanged_Action);
             Rule(nameof(FtpsMode), FtpEncryptionModeChanged_Action);
+            Rule(nameof(ProxyType), ProxyModeChanged_Action);
+
         }
 
         /// <inheritdoc/>
@@ -158,7 +200,9 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             base.ManualRegisterDependencies();
             RegisterDependency(PasswordInputModeSwitch, nameof(PasswordInputModeSwitch.Value), nameof(PasswordInputModeSwitch));
             RegisterDependency(CertificatePasswordInputModeSwitch, nameof(CertificatePasswordInputModeSwitch.Value), nameof(CertificatePasswordInputModeSwitch));
+            RegisterDependency(ProxyPasswordInputModeSwitch, nameof(ProxyPasswordInputModeSwitch.Value), nameof(ProxyPasswordInputModeSwitch));
             RegisterDependency(FtpsMode, nameof(FtpsMode.Value), nameof(FtpsMode));
+            RegisterDependency(ProxyType, nameof(ProxyType.Value), nameof(ProxyType));
         }
 
         /// <summary>
@@ -201,6 +245,26 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             }
         }
 
+        /// <summary>
+        /// CertificatePassword input Mode has changed. Set controls visibility based on selection
+        /// </summary>
+        private void ProxyPasswordInputModeChanged_Action()
+        {
+            switch (ProxyPasswordInputModeSwitch.Value)
+            {
+                case PasswordInputMode.Password:
+                    ProxyPassword.IsVisible = true;
+                    ProxySecurePassword.IsVisible = false;
+                    break;
+                case PasswordInputMode.SecurePassword:
+                    ProxyPassword.IsVisible = false;
+                    ProxySecurePassword.IsVisible = true;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
         private void FtpEncryptionModeChanged_Action()
         {
             if (FtpsMode.Value == FTP.FtpsMode.None)
@@ -210,6 +274,17 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             }
 
             SslProtocols.IsVisible = true;
+        }
+
+        private void ProxyModeChanged_Action()
+        {
+            bool proxyConfigVisible = ProxyType.Value != FtpProxyType.None;
+            ProxyServer.IsVisible = proxyConfigVisible;
+            ProxyPort.IsVisible = proxyConfigVisible;
+            ProxyUser.IsVisible = proxyConfigVisible;
+            ProxyPassword.IsVisible = proxyConfigVisible && ProxyPasswordInputModeSwitch.Value == PasswordInputMode.Password;
+            ProxySecurePassword.IsVisible = proxyConfigVisible && ProxyPasswordInputModeSwitch.Value == PasswordInputMode.SecurePassword;
+            ProxyServer.IsVisible = proxyConfigVisible;
         }
 
         private static void InitializeFtpsModeDataSource()
@@ -243,6 +318,11 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
                     )
                 .WithData(protocols)
                 .Build();
+        }
+
+        private static void InitializeProxyModeDataSource()
+        {
+            _proxyTypeDataSource ??= ProxyTypeHelper.GetProxyTypeDataSource();   
         }
 
         private static List<FtpSslProtocols> Decompose(FtpSslProtocols value)
@@ -285,4 +365,27 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         }
 
     }
+
+    internal static class ProxyTypeHelper
+    {
+        internal static IDataSource GetProxyTypeDataSource()
+        => DataSourceBuilder<FtpProxyType>
+            .WithId(t => t.ToString())
+            .WithLabel(GetLocalizedFtpObjectTypeDisplayName)
+            .WithData(GetOrderedProxyTypeList())
+            .Build();
+
+        internal static IReadOnlyList<FtpProxyType> GetOrderedProxyTypeList()
+        => new List<FtpProxyType>()
+        {
+            FtpProxyType.None,
+            FtpProxyType.Socks4,
+            FtpProxyType.Socks5,
+            FtpProxyType.Http,
+        };
+
+        internal static string GetLocalizedFtpObjectTypeDisplayName(FtpProxyType type)
+        => LocalizedEnum.GetLocalizedValue(typeof(FtpProxyType), type).Name;   
+    }
+
 }

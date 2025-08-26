@@ -299,4 +299,8 @@
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Python&apos;un 3.10 veya daha üst sürümleri 32 bit&apos;te desteklenmez. </value>
   </data>
+  <data name="CategoryPython" xml:space="preserve">
+    <value>Uygulama Invoker.Python</value>
+    <comment>category names (separated by .)</comment>
+  </data>
 </root>

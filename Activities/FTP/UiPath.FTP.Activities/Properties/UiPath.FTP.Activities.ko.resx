@@ -275,11 +275,11 @@
     <value>FTP 세션 포함</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>FTP 세션 포함</value>
+    <value>With Ftp Session</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>ClientCertificatePassword</value>
+    <value>클라이언트 인증서 암호</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>오류 발생 시 계속 진행</value>
@@ -291,10 +291,10 @@
     <value>호스트</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>LocalPath</value>
+    <value>로컬 경로</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
-    <value>NewPath</value>
+    <value>새 경로</value>
   </data>
   <data name="PasswordDescription" xml:space="preserve">
     <value>암호</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete file or folder</value>
+    <value>Delete File/Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Download files</value>
+    <value>파일 다운로드</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move File/Folder</value>
+    <value>Move File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -738,7 +738,7 @@
     <value>프록시 형식</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> 프록시 형식</value>
+    <value>프록시 형식</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>인증이 필요한 경우 프록시에 사용되는 사용자</value>
@@ -752,5 +752,18 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>{0}에 대한 값을 제공해야 합니다.</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0}(사용되지 않음)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>자동 구성을 위해 비워두십시오</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>The proxy password in secure string format</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Proxy Secure Password</value>
   </data>
 </root>

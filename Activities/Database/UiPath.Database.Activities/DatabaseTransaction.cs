@@ -69,7 +69,7 @@ namespace UiPath.Database.Activities
 
         private void HandleException(Exception ex, bool continueOnError)
         {
-            if (continueOnError) return;
+            if (continueOnError || ex == null) return;
             throw ex;
         }
 
@@ -107,6 +107,8 @@ namespace UiPath.Database.Activities
         private void OnCompletedCallback(NativeActivityContext context, ActivityInstance completedInstance)
         {
             DatabaseConnection conn = null;
+            Exception ex = null;
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
                 conn = DatabaseConnection.Get(context);
@@ -115,9 +117,9 @@ namespace UiPath.Database.Activities
                     conn.Commit();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                ex = e;
             }
             finally
             {
@@ -126,6 +128,8 @@ namespace UiPath.Database.Activities
                     conn.Dispose();
                 }
             }
+
+            HandleException(ex, continueOnError);
         }
 
         private void OnFaultedCallback(NativeActivityFaultContext faultContext, Exception exception, ActivityInstance source)
@@ -133,6 +137,7 @@ namespace UiPath.Database.Activities
             faultContext.CancelChildren();
             DatabaseConnection conn = DatabaseConnection.Get(faultContext);
             var continueOnError = ContinueOnError.Get(faultContext);
+            var primaryException = exception;
             if (conn != null)
             {
                 try
@@ -145,7 +150,9 @@ namespace UiPath.Database.Activities
                 catch (Exception ex)
                 {
                     Trace.TraceError(ex.Message);
-                    HandleException(ex, continueOnError);
+                    //we should trace the original exception if present
+                    if (primaryException == null)
+                        primaryException = ex;
                 }
                 finally
                 {
@@ -154,6 +161,8 @@ namespace UiPath.Database.Activities
             }
 
             faultContext.HandleFault();
+
+            HandleException(primaryException, continueOnError);
         }
 
     }

@@ -1,0 +1,279 @@
+{
+  "orderedCategoryDisplayNameKeys": [],
+  "Activities": [
+    {
+      "FullName": "UiPath.Python.Activities.GetObject`1",
+      "ShortName": "GetObject",
+      "DisplayNameKey": "GetObjectNameDisplayName",
+      "DescriptionKey": "GetObjectDescription",
+      "viewModelType": "UiPath.Activities.Python.ViewModels.GetObjectViewModel`1",
+      "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
+      "Properties": [
+        {
+          "Name": "PythonObject",
+          "DisplayNameKey": "PythonObjectNameDisplayName",
+          "TooltipKey": "PythonObjectDescription",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputType",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Result",
+          "DisplayNameKey": "ResultNameDisplayName",
+          "TooltipKey": "GetObjectResultDescription",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Python.Activities.PythonScope",
+      "ShortName": "PythonScope",
+      "DisplayNameKey": "PythonScopeNameDisplayName",
+      "DescriptionKey": "PythonScopeDescription",
+      "viewModelType": "UiPath.Activities.Python.ViewModels.PythonScopeViewModel",
+      "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
+      "Properties": [
+        {
+          "Name": "Version",
+          "DisplayNameKey": "VersionNameDisplayName",
+          "TooltipKey": "VersionDescription",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Path",
+          "DisplayNameKey": "PathNameDisplayName",
+          "TooltipKey": "PathDescription",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "LibraryPath",
+          "DisplayNameKey": "LibraryPathNameDisplayName",
+          "TooltipKey": "LibraryPathDescription",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "TargetPlatform",
+          "DisplayNameKey": "TargetPlatformDisplayName",
+          "TooltipKey": "TargetPlatformDescription",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "WorkingFolder",
+          "DisplayNameKey": "WorkingFolder",
+          "TooltipKey": "WorkingFolderDescription",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "OperationTimeout",
+          "DisplayNameKey": "OperationTimeout",
+          "TooltipKey": "OperationTimeoutDescription",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Python.Activities.RunScript",
+      "ShortName": "RunScript",
+      "DisplayNameKey": "RunScriptNameDisplayName",
+      "DescriptionKey": "RunScriptDescription",
+      "viewModelType": "UiPath.Activities.Python.ViewModels.RunScriptViewModel",
+      "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
+      "Properties": [
+        {
+          "Name": "ScriptFile",
+          "DisplayNameKey": "ScriptFileNameDisplayName",
+          "TooltipKey": "ScriptFileDescription",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Code",
+          "DisplayNameKey": "CodeNameDisplayName",
+          "TooltipKey": "CodeDescription",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Python.Activities.LoadScript",
+      "ShortName": "LoadScript",
+      "DisplayNameKey": "LoadScriptNameDisplayName",
+      "DescriptionKey": "LoadScriptDescription",
+      "viewModelType": "UiPath.Activities.Python.ViewModels.LoadScriptViewModel",
+      "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
+      "Properties": [
+        {
+          "Name": "ScriptFile",
+          "DisplayNameKey": "ScriptFileNameDisplayName",
+          "TooltipKey": "ScriptFileDescription",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Code",
+          "DisplayNameKey": "CodeNameDisplayName",
+          "TooltipKey": "CodeDescription",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Result",
+          "DisplayNameKey": "ResultNameDisplayName",
+          "TooltipKey": "ResultDescription",
+          "IsRequired": false,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Python.Activities.InvokeMethod",
+      "ShortName": "InvokeMethod",
+      "DisplayNameKey": "InvokeMethodNameDisplayName",
+      "DescriptionKey": "InvokeMethodDescription",
+      "viewModelType": "UiPath.Activities.Python.ViewModels.InvokeMethodViewModel",
+      "IconKey": "PythonIcon.svg",
+      "categoryKey": "CategoryPython",
+      "Properties": [
+        {
+          "Name": "Instance",
+          "DisplayNameKey": "InstanceNameDisplayName",
+          "TooltipKey": "InstanceDescription",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Name",
+          "DisplayNameKey": "NameDisplayName",
+          "TooltipKey": "MethodNameDescription",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Parameters",
+          "DisplayNameKey": "ParametersNameDisplayName",
+          "TooltipKey": "ParametersDescription",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Result",
+          "DisplayNameKey": "ResultNameDisplayName",
+          "TooltipKey": "ResultDescription",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
+    }
+  ],
+  "defaultActivityNameBackgroundColor": "#00489D",
+  "defaultActivityColor": "#00489D",
+  "defaultActivityIconKey": "PythonIcon.svg",
+  "assemblyIconKey": "PythonIcon.svg",
+  "resourceManagerName": "UiPath.Python.Activities.Properties.UiPath.Python.Activities"
+}

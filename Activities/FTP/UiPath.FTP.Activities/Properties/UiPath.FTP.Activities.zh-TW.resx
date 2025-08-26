@@ -279,7 +279,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
-    <value>用戶端憑證密碼</value>
+    <value>用戶端證書密碼</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
     <value>錯誤時繼續</value>
@@ -291,7 +291,7 @@
     <value>主機</value>
   </data>
   <data name="LocalPathDescription" xml:space="preserve">
-    <value>本機路徑</value>
+    <value>本地路徑</value>
   </data>
   <data name="NewPathDescription" xml:space="preserve">
     <value>新路徑</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>刪除檔案或資料夾</value>
+    <value>刪除檔或資料夾</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>移動檔案/資料夾</value>
+    <value>移動文件/資料夾</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -738,7 +738,7 @@
     <value>Proxy 類型</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyType_Name" xml:space="preserve">
-    <value> Proxy 類型</value>
+    <value>Proxy 類型</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyUser_Description" xml:space="preserve">
     <value>如需驗證，則需使用用於 Proxy 的使用者</value>
@@ -752,5 +752,18 @@
   <data name="ValidationErrorFormat" xml:space="preserve">
     <value>必須為 {0} 提供一個值。</value>
     <comment>error message</comment>
+  </data>
+  <data name="ObsoleteEnumValue" xml:space="preserve">
+    <value>{0} (已過時)</value>
+    <comment>it is used to mark the obsolete values in a dropdown</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
+    <value>如果留空，將自動配置</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>The proxy password in secure string format</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Proxy Secure Password</value>
   </data>
 </root>
