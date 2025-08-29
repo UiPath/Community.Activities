@@ -19,6 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
 	<PackageReference Include="UiPath.Activities.Api" Version="24.10.1" developmentDependency="true" />
+	<PackageReference Include="UiPath.Workflow" Version="6.0.0-20240401-07" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
