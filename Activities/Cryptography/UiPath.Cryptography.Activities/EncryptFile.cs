@@ -12,6 +12,10 @@ using UiPath.Cryptography.Activities.Models;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 #pragma warning disable CS0618 // obsolete encryption algorithm
 
@@ -142,25 +146,31 @@ namespace UiPath.Cryptography.Activities
 
         protected override void Execute(CodeActivityContext context)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                var inputFilePath = InputFilePath.Get(context);
-                var inputFile = InputFile.Get(context);
-                var outputFilePath = OutputFilePath.Get(context);
-                var outputFileName = OutputFileName.Get(context);
-                var key = Key.Get(context);
-                var keySecureString = KeySecureString.Get(context);
-                var keyEncoding = KeyEncoding.Get(context);
-                var keyEncodingString = KeyEncodingString.Get(context);
+                try
+                {
+                    var inputFilePath = InputFilePath.Get(context);
+                    var inputFile = InputFile.Get(context);
+                    var outputFilePath = OutputFilePath.Get(context);
+                    var outputFileName = OutputFileName.Get(context);
+                    var key = Key.Get(context);
+                    var keySecureString = KeySecureString.Get(context);
+                    var keyEncoding = KeyEncoding.Get(context);
+                    var keyEncodingString = KeyEncodingString.Get(context);
 #if NET
-                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
-                {
-                    throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_Key_Name);
-                }
-                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                {
-                    throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_KeySecureString_Name);
-                }
+                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_Key_Name);
+                    }
+                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_KeySecureString_Name);
+                    }
 #endif
 
 #if NET461
@@ -169,57 +179,64 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
                 }
 #endif
-                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
+                    if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
 
-                if (!File.Exists(inputFilePath) && inputFile == null)
-                    throw new ArgumentException(Resources.FileDoesNotExistsException,
-                        Resources.InputFilePathDisplayName);
+                    if (!File.Exists(inputFilePath) && inputFile == null)
+                        throw new ArgumentException(Resources.FileDoesNotExistsException,
+                            Resources.InputFilePathDisplayName);
 
-                // Because we use File.WriteAllText below, we don't need to delete the file now.
-                if (File.Exists(outputFilePath) && !Overwrite)
-                    throw new ArgumentException(Resources.FileAlreadyExistsException,
-                        Resources.OutputFilePathDisplayName);
+                    // Because we use File.WriteAllText below, we don't need to delete the file now.
+                    if (File.Exists(outputFilePath) && !Overwrite)
+                        throw new ArgumentException(Resources.FileAlreadyExistsException,
+                            Resources.OutputFilePathDisplayName);
 
-                if (inputFile != null && inputFile.IsFolder)
-                    throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
+                    if (inputFile != null && inputFile.IsFolder)
+                        throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
-                var result = FilePathHelpers.GetDefaultFileNameAndLocation(inputFile, inputFilePath, outputFileName, Overwrite, outputFilePath, Encrypted);
+                    var result = FilePathHelpers.GetDefaultFileNameAndLocation(inputFile, inputFilePath, outputFileName, Overwrite, outputFilePath, Encrypted);
 
-                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+                    keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-                var encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(result.Item3),
-                    CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                    var encrypted = CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(result.Item3),
+                        CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
-                if (string.IsNullOrEmpty(outputFilePath))
-                {
-                    var item = new CryptographyLocalItem(encrypted, result.Item1, result.Item2);
-
-                    EncryptedFile.Set(context, item);
-
-                    outputFilePath = item.LocalPath;
-                }
-                else
-                {
-                    var directory = Path.GetDirectoryName(outputFilePath);
-
-                    if (!string.IsNullOrEmpty(directory))
+                    if (string.IsNullOrEmpty(outputFilePath))
                     {
-                        Directory.CreateDirectory(directory);
+                        var item = new CryptographyLocalItem(encrypted, result.Item1, result.Item2);
+
+                        EncryptedFile.Set(context, item);
+
+                        outputFilePath = item.LocalPath;
+                    }
+                    else
+                    {
+                        var directory = Path.GetDirectoryName(outputFilePath);
+
+                        if (!string.IsNullOrEmpty(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        var item = new CryptographyLocalItem(encrypted, Path.GetFileName(outputFilePath), outputFilePath);
+
+                        EncryptedFile.Set(context, item);
                     }
 
-                    var item = new CryptographyLocalItem(encrypted, Path.GetFileName(outputFilePath), outputFilePath);
-
-                    EncryptedFile.Set(context, item);
+                    // This overwrites the file if it already exists.
+                    File.WriteAllBytes(outputFilePath, encrypted);
                 }
+                catch (Exception ex)
+                {
+                    Trace.TraceError(ex.ToString());
 
-                // This overwrites the file if it already exists.
-                File.WriteAllBytes(outputFilePath, encrypted);
+                    if (!ContinueOnError.Get(context)) throw;
+                }
+                telemetryOperation?.Send();
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.ToString());
-
-                if (!ContinueOnError.Get(context)) throw;
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
         }
     }

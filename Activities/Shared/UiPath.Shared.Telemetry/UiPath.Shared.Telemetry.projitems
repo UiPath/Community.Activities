@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>58b0d9da-673e-4e61-9497-fea04e51a90e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>UiPath.Shared.Telemetry</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\ActivityExceptionData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\BasicEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\BasicOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IActivityTelemetryData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IActivityTelemetryHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\ITelemetryService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\TelemetryCommon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DefaultActivityTelemetryHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\ICustomTelemetryActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DesignTimeTelemetryService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExecutionOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\RuntimeTelemetryService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\TelemetryService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\TelemetryServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TelemetryOperationWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TelemetryProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TelemetryOutlet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TelemetryOutletConfiguration.cs" />
+  </ItemGroup>
+</Project>

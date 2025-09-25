@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{02
 		Database\Directory.build.targets = Database\Directory.build.targets
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Telemetry", "Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.shproj", "{58B0D9DA-673E-4E61-9497-FEA04E51A90E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +128,8 @@ Global
 		SolutionGuid = {5AC55779-EA32-41AD-BAAD-1808F8A412CB}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems*{58b0d9da-673e-4e61-9497-fea04e51a90e}*SharedItemsImports = 13
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
+		Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

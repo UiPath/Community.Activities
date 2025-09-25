@@ -5,6 +5,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using UiPath.Cryptography.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Cryptography.Activities
 {
@@ -54,6 +58,12 @@ namespace UiPath.Cryptography.Activities
 
         protected override string Execute(CodeActivityContext context)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+            try
+            {
             string result = null;
 
             try
@@ -79,8 +89,14 @@ namespace UiPath.Cryptography.Activities
                     throw;
                 }
             }
-
+            telemetryOperation?.Send();
             return result;
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 #endif

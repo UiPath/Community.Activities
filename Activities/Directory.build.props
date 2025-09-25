@@ -6,5 +6,6 @@
         <LangVersion>latest</LangVersion>
         <WindowsFramework>net6.0-windows</WindowsFramework>
         <PortableFramework>net6.0</PortableFramework>
+		<DefineConstants>$(DefineConstants);ENABLE_DEFAULT_TELEMETRY</DefineConstants>
     </PropertyGroup>
 </Project>

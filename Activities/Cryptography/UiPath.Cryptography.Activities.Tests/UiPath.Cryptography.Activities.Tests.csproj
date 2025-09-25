@@ -13,6 +13,7 @@
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Activities.Core.Presentation" />
+		<PackageReference Include="UiPath.Platform" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />
