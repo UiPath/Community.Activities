@@ -110,7 +110,14 @@ namespace UiPath.Database.Activities
                     var currentParam = Parameters[param.Key];
                     if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
                     {
-                        currentParam.Set(asyncCodeActivityContext, param.Value.Value);
+                        if (param.Value.Value != DBNull.Value)
+                        {
+                            currentParam.Set(asyncCodeActivityContext, param.Value.Value);
+                        }
+                        else
+                        {
+                            currentParam.Set(asyncCodeActivityContext, null);
+                        }
                     }
                 }
             };
