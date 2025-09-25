@@ -3,6 +3,7 @@ using System;
 using System.Activities;
 using System.Security;
 using Xunit;
+using UiPath.Platform;
 
 namespace UiPath.Cryptography.Activities.Tests
 {

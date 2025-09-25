@@ -9,6 +9,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Activities.Properties;
 using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
+
 
 namespace UiPath.Java.Activities
 {
@@ -60,42 +64,56 @@ namespace UiPath.Java.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken ct)
         {
-            string javaPath = JavaPath.Get(context);
-            var javaExec = _javaExeWindows;
-#if NETCOREAPP
-            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                javaExec = _javaExeLinux;
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-            if (javaPath != null)
-            {
-                javaPath = Path.Combine(javaPath, "bin", javaExec);
-                if (!File.Exists(javaPath))
-                {
-                    throw new ArgumentException(Resources.InvalidJavaPath, Resources.JavaPathDisplayName);
-                }
-            }
-            _invoker = new JavaInvoker(javaPath);
-
-            int initTimeout = TimeoutMS.Get(context);
-            if (initTimeout < 0)
-            {
-                throw new ArgumentException(UiPath.Java.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
-            }
-
             try
             {
-                await _invoker.StartJavaService(initTimeout);
+                string javaPath = JavaPath.Get(context);
+                var javaExec = _javaExeWindows;
+#if NETCOREAPP
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    javaExec = _javaExeLinux;
+#endif
+                if (javaPath != null)
+                {
+                    javaPath = Path.Combine(javaPath, "bin", javaExec);
+                    if (!File.Exists(javaPath))
+                    {
+                        throw new ArgumentException(Resources.InvalidJavaPath, Resources.JavaPathDisplayName);
+                    }
+                }
+                _invoker = new JavaInvoker(javaPath);
+
+                int initTimeout = TimeoutMS.Get(context);
+                if (initTimeout < 0)
+                {
+                    throw new ArgumentException(UiPath.Java.Activities.Properties.Resources.TimeoutMSException, "TimeoutMS");
+                }
+
+                try
+                {
+                    await _invoker.StartJavaService(initTimeout);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Error initializing Java Invoker: {e}");
+                    throw new InvalidOperationException(string.Format(Resources.JavaInitiazeException, e.ToString()));
+                }
+                ct.ThrowIfCancellationRequested();
+                var result = new Action<NativeActivityContext>(ctx =>
+                {
+                    ctx.ScheduleAction(Body, _invoker, OnCompleted, OnFaulted);
+                });
+                telemetryOperation?.Send();
+                return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Trace.TraceError($"Error initializing Java Invoker: {e}");
-                throw new InvalidOperationException(string.Format(Resources.JavaInitiazeException, e.ToString()));
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-            ct.ThrowIfCancellationRequested();
-            return ctx =>
-            {
-                ctx.ScheduleAction(Body, _invoker, OnCompleted, OnFaulted);
-            };
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)

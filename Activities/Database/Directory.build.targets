@@ -10,6 +10,12 @@
         <PackageReference Update="System.Data.OleDb" Version="8.0.0" />
         <PackageReference Update="Oracle.ManagedDataAccess.Core" Version="23.8.0"/>
         <PackageReference Update="System.Resources.Extensions" Version="8.0.0" />
+		<PackageReference Update="System.Activities.Presentation" Version="6.0.0-20250327.10" />
+		
+		<!-- Studio contract-->
+		<PackageReference Update="UiPath.Activities.Contracts" Version="24.10.1" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Platform" PrivateAssets="All" />
     </ItemGroup>
     
 </Project>

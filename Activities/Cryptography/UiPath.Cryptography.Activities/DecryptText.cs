@@ -10,6 +10,10 @@ using System.Text;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 #pragma warning disable CS0618 // obsolete encryption algorithm
 
@@ -111,27 +115,33 @@ namespace UiPath.Cryptography.Activities
 
         protected override string Execute(CodeActivityContext context)
         {
-            string result = null;
-
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                var input = Input.Get(context);
-                var key = Key.Get(context);
-                var keySecureString = KeySecureString.Get(context);
-                var keyEncoding = Encoding.Get(context);
-                var keyEncodingString = KeyEncodingString.Get(context);
+                string result = null;
 
-                if (string.IsNullOrWhiteSpace(input))
-                    throw new ArgumentNullException(Resources.InputStringDisplayName);
+                try
+                {
+                    var input = Input.Get(context);
+                    var key = Key.Get(context);
+                    var keySecureString = KeySecureString.Get(context);
+                    var keyEncoding = Encoding.Get(context);
+                    var keyEncodingString = KeyEncodingString.Get(context);
+
+                    if (string.IsNullOrWhiteSpace(input))
+                        throw new ArgumentNullException(Resources.InputStringDisplayName);
 #if NET
-                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
-                {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
-                }
-                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
-                }
+                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                    }
+                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                    }
 #endif
 
 #if NET461
@@ -140,34 +150,40 @@ namespace UiPath.Cryptography.Activities
                     throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
                 }
 #endif
-                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
-                    throw new ArgumentNullException(Resources.Encoding);
+                    if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
+                        throw new ArgumentNullException(Resources.Encoding);
 
-                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+                    keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-                byte[] decrypted = null;
-                try
-                {
-                    decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                    byte[] decrypted = null;
+                    try
+                    {
+                        decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                    }
+                    catch (CryptographicException ex)
+                    {
+                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+                    }
+
+                    result = keyEncoding.GetString(decrypted);
                 }
-                catch (CryptographicException ex)
+                catch (Exception ex)
                 {
-                    throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-                }
+                    Trace.TraceError(ex.ToString());
 
-                result = keyEncoding.GetString(decrypted);
+                    if (!ContinueOnError.Get(context))
+                    {
+                        throw;
+                    }
+                }
+                telemetryOperation?.Send();
+                return result;
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.ToString());
-
-                if (!ContinueOnError.Get(context))
-                {
-                    throw;
-                }
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-
-            return result;
         }
     }
 }

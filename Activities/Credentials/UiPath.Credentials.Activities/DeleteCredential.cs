@@ -1,7 +1,12 @@
 ﻿using CredentialManagement;
+using System;
 using System.Activities;
-using System.ComponentModel;
 using UiPath.Credentials.Activities.Properties;
+using UiPath.Shared.Activities;
+
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Credentials.Activities
 {
@@ -15,8 +20,24 @@ namespace UiPath.Credentials.Activities
 
         protected override bool Execute(CodeActivityContext context)
         {
-            Credential credential = new Credential { Target = Target.Get(context) };
-            return credential.Delete();
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
+            try
+            {
+                Credential credential = new Credential { Target = Target.Get(context) };
+
+                telemetryOperation?.Send();
+
+                return credential.Delete();
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

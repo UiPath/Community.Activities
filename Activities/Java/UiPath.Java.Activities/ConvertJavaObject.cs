@@ -2,6 +2,11 @@
 using System.Activities;
 using System.ComponentModel;
 using UiPath.Java.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
+
 
 namespace UiPath.Java.Activities
 {
@@ -36,9 +41,22 @@ namespace UiPath.Java.Activities
 
         protected override void Execute(CodeActivityContext context)
         {
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var javaObject = JavaObject.Get(context) ?? throw new ArgumentNullException(Resources.JavaObject);
-            Result.Set(context, javaObject.Convert<T>());
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+            try
+            {
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var javaObject = JavaObject.Get(context) ?? throw new ArgumentNullException(Resources.JavaObject);
+                Result.Set(context, javaObject.Convert<T>());
+                telemetryOperation?.Send();
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

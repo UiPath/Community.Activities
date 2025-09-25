@@ -4,6 +4,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Database.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Database.Activities
 {
@@ -18,21 +22,35 @@ namespace UiPath.Database.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            var dbConnection = DatabaseConnection.Get(context);
-            // create the action for doing the actual work
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                await Task.Run(() => dbConnection?.Dispose());
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"{e}");
-            }
+                var dbConnection = DatabaseConnection.Get(context);
+                // create the action for doing the actual work
+                try
+                {
+                    await Task.Run(() => dbConnection?.Dispose());
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"{e}");
+                }
 
-            return asyncCodeActivityContext =>
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    //no OutArgument
+                });
+                telemetryOperation?.Send();
+                return result;
+            }
+            catch (Exception ex)
             {
-                //no OutArgument
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }
