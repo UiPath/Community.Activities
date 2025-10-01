@@ -231,10 +231,11 @@ namespace UiPath.Cryptography.Activities
 
                     // This overwrites the file if it already exists.
                     File.WriteAllBytes(outputFilePath, decrypted);
-
+                    telemetryOperation?.Send();
                 }
                 catch (Exception ex)
                 {
+                    telemetryOperation?.SendWithException(ex);
                     Trace.TraceError(ex.ToString());
 
                     if (!ContinueOnError.Get(context))
@@ -242,7 +243,6 @@ namespace UiPath.Cryptography.Activities
                         throw;
                     }
                 }
-                telemetryOperation?.Send();
             }
             catch (Exception ex)
             {

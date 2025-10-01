@@ -157,17 +157,17 @@ namespace UiPath.Cryptography.Activities
                     var encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                     result = Convert.ToBase64String(encrypted);
+                    telemetryOperation?.Send();
                 }
                 catch (Exception ex)
                 {
+                    telemetryOperation?.SendWithException(ex);
                     Trace.TraceError(ex.ToString());
-
                     if (!ContinueOnError.Get(context))
                     {
                         throw;
                     }
                 }
-                telemetryOperation?.Send();
                 return result;
             }
             catch (Exception ex)

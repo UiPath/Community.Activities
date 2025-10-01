@@ -98,6 +98,7 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
+                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"Error initializing Java Invoker: {e}");
                     throw new InvalidOperationException(string.Format(Resources.JavaInitiazeException, e.ToString()));
                 }

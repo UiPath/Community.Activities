@@ -71,6 +71,7 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
+                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"The method could not be invoked: {e}");
                     throw new InvalidOperationException(Resources.InvokeMethodException, e);
                 }

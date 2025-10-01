@@ -78,11 +78,13 @@ namespace UiPath.Database.Activities
                         return DbConnection.BulkInsertDataTable(tableName, dataTable, executorRuntime);
                     else
                         return DbConnection.BulkInsertDataTable(tableName, dataTable);
-                });
 
+                });
+                telemetryOperation?.Send();
                 }
                 catch (Exception ex)
                 {
+                    telemetryOperation?.SendWithException(ex);
                     HandleException(ex, continueOnError);
                 }
                 finally
@@ -96,7 +98,6 @@ namespace UiPath.Database.Activities
                 {
                     AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
                 });
-                telemetryOperation?.Send();
                 return result;
             }
             catch (Exception ex)

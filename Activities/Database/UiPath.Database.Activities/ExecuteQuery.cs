@@ -101,6 +101,7 @@ namespace UiPath.Database.Activities
                 }
                 catch (Exception ex)
                 {
+                    telemetryOperation?.SendWithException(ex);
                     HandleException(ex, continueOnError);
                 }
                 finally

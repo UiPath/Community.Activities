@@ -7,9 +7,7 @@ using UiPath.Java.Activities.Properties;
 using UiPath.Shared.Activities;
 #if ENABLE_DEFAULT_TELEMETRY
 using UiPath.Shared.Telemetry.Services;
-using UiPath.Studio.Activities.Api;
 #endif
-
 
 namespace UiPath.Java.Activities
 {
@@ -66,6 +64,7 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
+                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"Could not get java field: {e}");
                     throw new InvalidOperationException(Resources.GetFieldException, e);
                 }

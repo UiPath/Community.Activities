@@ -66,32 +66,33 @@ namespace UiPath.Cryptography.Activities
             {
             string result = null;
 
-            try
-            {
-                var filePath = FilePath.Get(context);
-
-                if (string.IsNullOrWhiteSpace(filePath))
-                    throw new ArgumentNullException(Resources.FilePathDisplayName);
-
-                if (!File.Exists(filePath))
-                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
-
-                var hashed = CryptographyHelper.HashData(Algorithm, File.ReadAllBytes(filePath));
-
-                result = BitConverter.ToString(hashed).Replace("-", string.Empty);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.ToString());
-
-                if (!ContinueOnError.Get(context))
+                try
                 {
-                    throw;
+                    var filePath = FilePath.Get(context);
+    
+                    if (string.IsNullOrWhiteSpace(filePath))
+                        throw new ArgumentNullException(Resources.FilePathDisplayName);
+    
+                    if (!File.Exists(filePath))
+                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
+    
+                    var hashed = CryptographyHelper.HashData(Algorithm, File.ReadAllBytes(filePath));
+    
+                    result = BitConverter.ToString(hashed).Replace("-", string.Empty);
+                    telemetryOperation?.Send();
                 }
-            }
-            telemetryOperation?.Send();
-            return result;
-            }
+                catch (Exception ex)
+                {
+                    telemetryOperation?.SendWithException(ex);
+                    Trace.TraceError(ex.ToString());
+    
+                    if (!ContinueOnError.Get(context))
+                    {
+                        throw;
+                    }
+                }
+                return result;
+                }
             catch (Exception ex)
             {
                 telemetryOperation?.SendWithException(ex);

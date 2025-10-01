@@ -33,7 +33,7 @@ namespace UiPath.Shared.Contracts
         public DesignerContract With(string featureName)
         {
             var result = new DesignerContract(_contractObj, featureName);
-#if NEWTRAMEWORK
+#if NETFRAMEWORK
             result._ctx = _ctx;
 #endif
             return result;

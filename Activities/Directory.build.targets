@@ -38,7 +38,7 @@
 		<PackageReference Update="Azure.Identity" Version="1.13.1" />
 
 		<!-- Studio contract-->
-		<PackageReference Update="UiPath.Activities.Contracts" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Activities.Contracts" Version="24.10.1" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Activities.Api" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Platform" PrivateAssets="All" />
 	</ItemGroup>

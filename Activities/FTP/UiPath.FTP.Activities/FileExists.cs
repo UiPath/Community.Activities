@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
-using UiPath.Studio.Activities.Api;
 using UiPath.Shared.Activities;
 #if ENABLE_DEFAULT_TELEMETRY
 using UiPath.Shared.Telemetry.Services;

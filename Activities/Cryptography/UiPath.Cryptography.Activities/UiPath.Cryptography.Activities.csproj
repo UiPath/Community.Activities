@@ -11,7 +11,7 @@
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Activities.Metadata" />
 		<PackageReference Include="System.Activities.ViewModels" />
-		<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" Version="24.10.1" />
+		<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
 		<PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
 		<PackageReference Include="UiPath.Platform" />
 	</ItemGroup>

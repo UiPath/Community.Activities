@@ -38,6 +38,7 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
+                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"Jar could not be loaded{e}");
                     throw new InvalidOperationException(Resources.LoadJarException, e);
                 }

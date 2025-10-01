@@ -224,14 +224,14 @@ namespace UiPath.Cryptography.Activities
 
                     // This overwrites the file if it already exists.
                     File.WriteAllBytes(outputFilePath, encrypted);
+                    telemetryOperation?.Send();
                 }
                 catch (Exception ex)
                 {
+                    telemetryOperation?.SendWithException(ex);
                     Trace.TraceError(ex.ToString());
-
                     if (!ContinueOnError.Get(context)) throw;
                 }
-                telemetryOperation?.Send();
             }
             catch (Exception ex)
             {

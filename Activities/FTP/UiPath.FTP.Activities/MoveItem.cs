@@ -2,10 +2,7 @@
 using System.Activities;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
-using UiPath.Studio.Activities.Api;
 using UiPath.Shared.Activities;
 #if ENABLE_DEFAULT_TELEMETRY
 using UiPath.Shared.Telemetry.Services;
@@ -59,6 +56,7 @@ namespace UiPath.FTP.Activities
                 }
                 catch (Exception e)
                 {
+                    telemetryOperation?.SendWithException(e);
                     if (ContinueOnError.Get(context))
                     {
                         Trace.TraceError(e.ToString());

@@ -166,9 +166,11 @@ namespace UiPath.Cryptography.Activities
                     }
 
                     result = keyEncoding.GetString(decrypted);
+                    telemetryOperation?.Send();
                 }
                 catch (Exception ex)
                 {
+                    telemetryOperation?.SendWithException(ex);
                     Trace.TraceError(ex.ToString());
 
                     if (!ContinueOnError.Get(context))
@@ -176,7 +178,6 @@ namespace UiPath.Cryptography.Activities
                         throw;
                     }
                 }
-                telemetryOperation?.Send();
                 return result;
             }
             catch (Exception ex)

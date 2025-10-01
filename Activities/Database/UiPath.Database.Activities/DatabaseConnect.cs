@@ -95,6 +95,7 @@ namespace UiPath.Database.Activities
                 }
                 catch (Exception e)
                 {
+                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"{e}");
                     throw;
                 }
