@@ -492,6 +492,11 @@ Global
 		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{a1783eab-5baf-49f1-8372-b467b57063cc}*SharedItemsImports = 5
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{a1783eab-5baf-49f1-8372-b467b57063cc}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{a6a27646-4889-4f95-a0df-dd78d287388f}*SharedItemsImports = 13
+		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{acb02213-a7c2-4bca-ace2-2bfad6e0e54c}*SharedItemsImports = 5
+		Shared\UiPath.Shared.Contracts.Private\UiPath.Shared.Contracts.Private.projitems*{acb02213-a7c2-4bca-ace2-2bfad6e0e54c}*SharedItemsImports = 5
+		Shared\UiPath.Shared.Contracts\UiPath.Shared.Contracts.projitems*{acb02213-a7c2-4bca-ace2-2bfad6e0e54c}*SharedItemsImports = 5
+		Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems*{acb02213-a7c2-4bca-ace2-2bfad6e0e54c}*SharedItemsImports = 5
+		Shared\UiPath.Shared\UiPath.Shared.projitems*{acb02213-a7c2-4bca-ace2-2bfad6e0e54c}*SharedItemsImports = 5
 		Python\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5

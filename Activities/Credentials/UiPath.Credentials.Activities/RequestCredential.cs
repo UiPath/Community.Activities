@@ -1,9 +1,13 @@
 ﻿using CredentialManagement;
 using System.Activities;
-using System.ComponentModel;
 using System.Net;
 using System.Security;
 using UiPath.Credentials.Activities.Properties;
+using UiPath.Shared.Activities;
+
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Credentials.Activities
 {
@@ -37,29 +41,50 @@ namespace UiPath.Credentials.Activities
 
         protected override bool Execute(CodeActivityContext context)
         {
-            var credPrompt = new VistaPrompt
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
+            try
             {
-                GenericCredentials = true
-            };
-            var message = Message.Get(context);
-            if (message != null)
-            {
-                credPrompt.Message = message;
+                var credPrompt = new VistaPrompt
+                {
+                    GenericCredentials = true
+                };
+                var message = Message.Get(context);
+                if (message != null)
+                {
+                    credPrompt.Message = message;
+                }
+
+                var title = Title.Get(context);
+                if (title != null)
+                {
+                    credPrompt.Title = title;
+                }
+
+                telemetryOperation?.SetCustomDataKey(nameof(Message) + " IsUsed", message != null);
+                telemetryOperation?.SetCustomDataKey(nameof(Message) + " Length", message != null ? message.Length : 0);
+                telemetryOperation?.SetCustomDataKey(nameof(Title) + " IsUsed", title != null);
+                telemetryOperation?.SetCustomDataKey(nameof(Title) + " Length", title != null ? title.Length : 0);
+
+                var res = credPrompt.ShowDialog();
+                if (res != DialogResult.OK) return false;
+
+                Username.Set(context, credPrompt.Username);
+                Password.Set(context, credPrompt.Password);
+                PasswordSecureString.Set(context, (new NetworkCredential("", credPrompt.Password).SecurePassword));
+
+                telemetryOperation?.Send();
+
+                return true;
             }
-
-            var title = Title.Get(context);
-            if (title != null)
+            catch (System.Exception ex)
             {
-                credPrompt.Title = title;
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-
-            var res = credPrompt.ShowDialog();
-            if (res != DialogResult.OK) return false;
-
-            Username.Set(context, credPrompt.Username);
-            Password.Set(context, credPrompt.Password);
-            PasswordSecureString.Set(context, (new NetworkCredential("", credPrompt.Password).SecurePassword));
-            return true;
         }
     }
 }
