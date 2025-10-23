@@ -2,9 +2,11 @@
 using System.Activities;
 using System.Activities.Statements;
 using System.Activities.Validation;
+using System.Buffers.Text;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python.Activities.Properties;
@@ -182,6 +184,181 @@ namespace UiPath.Python.Activities
         {
             _pythonEngine?.Release();
             _pythonEngine = null;
+        }
+
+        public static string TryGetPythonHomeOnWindows(Version desiredVersion, TargetPlatform desiredPlatform)
+        {
+            try
+            {
+                // check if the OS is Windows or not
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    return null;
+                }
+                Process p = null;
+
+                //use the Python launcher to find the best matching version
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "py.exe",
+                    Arguments = "-0p",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                try
+                {
+                    p = Process.Start(psi);
+                }
+                catch (Win32Exception)
+                {
+                    Trace.TraceWarning("Python launcher (py.exe) not found on PATH.");
+                    return null;
+                }
+
+                //using var p = Process.Start(psi);
+                var output = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+
+                var lines = output.Split(new[]
+                { '\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
+
+                //parse the output to find the best matching version
+                foreach (var line in lines)
+                {
+                    var parts = line.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length < 2)
+                        continue;
+
+                    var versionFlag = parts[0];
+                    var pythonPath = parts[parts.Length - 1];
+
+                    if (versionFlag.StartsWith("-") && versionFlag.Length > 1)
+                    {
+                        var flag = versionFlag.Substring(1); // Remove dash
+
+                        if (flag.StartsWith("V:", StringComparison.OrdinalIgnoreCase))
+                        {
+                            flag = flag.Substring(2);
+                        }
+                        flag = flag.Trim();
+                        
+                        if (flag.EndsWith("*"))
+                        {
+                            flag = flag.TrimEnd('*');
+                        }
+                        if (flag.StartsWith(":"))
+                        {
+                            flag = flag.Substring(1);
+                        }
+
+
+                        // Determine platform
+                        var platform = TargetPlatform.x64; // default
+                        if (flag.EndsWith("-32"))
+                        {
+                            platform = TargetPlatform.x86;
+                            flag = flag.Substring(0, flag.Length - 3);
+                        }
+                        else if (flag.EndsWith("-64"))
+                        {
+                            platform = TargetPlatform.x64;
+                            flag = flag.Substring(0, flag.Length - 3);
+                        }
+
+                        // Parse version
+                        if (System.Version.TryParse(flag, out var parsedVersion))
+                        {
+                            var version = parsedVersion.Major == 3 ? parsedVersion.Minor switch
+                            {
+                                6 => Version.Python_36,
+                                7 => Version.Python_37,
+                                8 => Version.Python_38,
+                                9 => Version.Python_39,
+                                10 => Version.Python_310,
+                                11 => Version.Python_311,
+                                12 => Version.Python_312,
+                                13 => Version.Python_313,
+                                _ => Version.Auto
+                            } : Version.Auto;
+
+                            // Check if this matches our criteria
+                            if ((desiredVersion == Version.Auto || desiredVersion == version) &&
+                                desiredPlatform == platform)
+                            {
+                                return System.IO.Path.GetDirectoryName(pythonPath);
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceWarning($"Error trying to autodetect Python install: {ex}");
+                return null;
+            }
+        }
+
+        public static string TryGetPythonLibraryPathOnWindows(string pythonHome, Version desiredVersion)
+        {
+            if (string.IsNullOrEmpty(pythonHome))
+                return null;
+
+            // If Auto is specified, try to detect the actual version from the Python installation
+            if (desiredVersion == Version.Auto)
+            {
+                try
+                {
+                    EngineProvider.Autodetect(pythonHome, out var detectedVersion);
+                    if (detectedVersion != Version.Auto)
+                    {
+                        desiredVersion = detectedVersion;
+                        System.Diagnostics.Debug.WriteLine($"Auto-detected version {detectedVersion} for library path");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Could not auto-detect version for library path");
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Failed to auto-detect version: {ex.Message}");
+                    return null;
+                }
+            }
+
+            string dllName = desiredVersion switch
+            {
+                Version.Python_36 => "python36.dll",
+                Version.Python_37 => "python37.dll",
+                Version.Python_38 => "python38.dll",
+                Version.Python_39 => "python39.dll",
+                Version.Python_310 => "python310.dll",
+                Version.Python_311 => "python311.dll",
+                Version.Python_312 => "python312.dll",
+                Version.Python_313 => "python313.dll",
+                _ => null
+            };
+
+            if (string.IsNullOrEmpty(dllName))
+            {
+                System.Diagnostics.Debug.WriteLine($"No DLL mapping for version {desiredVersion}");
+                return null;
+            }
+
+            var libPath = System.IO.Path.Combine(pythonHome, dllName);
+            if (File.Exists(libPath))
+            {
+                System.Diagnostics.Debug.WriteLine($"Found library at {libPath}");
+                return libPath;
+            }
+
+            System.Diagnostics.Debug.WriteLine($"Library not found at {libPath}");
+            return null;
         }
     }
 }

@@ -65,9 +65,22 @@ namespace UiPath.Python
         [Description("Python 3.9")]
         Python_39,
 
-        [Version(3, 10, "Python.Runtime.dll")]
-        [Description("Python >=3.10")]
+        [Version(3, 10, "Python.Runtime.310.dll")]
+        [Description("Python 3.10")]
         Python_310,
+
+        [Version(3, 11, "Python.Runtime.311.dll")]
+        [Description("Python 3.11")]
+        Python_311,
+
+        [Version(3, 12, "Python.Runtime.312.dll")]
+        [Description("Python 3.11")]
+        Python_312,
+
+        [Version(3, 13, "Python.Runtime.dll")]
+        [Description("Python >=3.13")]
+        Python_313,
+
     }
 
     /// <summary>
@@ -112,16 +125,33 @@ namespace UiPath.Python
 
         private static Version GetPythonVersion(int major, int minor)
         {
-            Type t = typeof(Version);
-            if ((major == 3 && minor >= 10) || (major > 4))
-                return Version.Python_310;
-            foreach (Version version in Enum.GetValues(t))
+            // Handle Python 3.x versions specifically
+            if (major == 3)
             {
-                FieldInfo fi = t.GetField(version.ToString());
-                VersionAttribute attr = (VersionAttribute)Attribute.GetCustomAttribute(t.GetField(version.ToString()), typeof(VersionAttribute));
-                if (attr?.Major == major && attr?.Minor == minor)
-                    return version;
+                return minor switch
+                {
+                    6 => Version.Python_36,
+                    7 => Version.Python_37,
+                    8 => Version.Python_38,
+                    9 => Version.Python_39,
+                    10 => Version.Python_310,
+                    11 => Version.Python_311,
+                    12 => Version.Python_312,
+                    13 => Version.Python_313,
+                    // For Python 3.14+ in the future, map to Python_313 (>=3.13)
+                    >= 14 => Version.Python_313,
+                    _ => Version.Auto
+                };
             }
+            
+            // Handle other major versions (Python 2.x, 4.x+)
+            if (major >= 4)
+            {
+                // Future Python versions (4.x+) - map to latest supported
+                return Version.Python_313;
+            }
+            
+            // Python 2.x or other unsupported versions
             return Version.Auto;
         }
 
