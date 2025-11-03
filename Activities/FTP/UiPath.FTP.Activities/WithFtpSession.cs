@@ -258,6 +258,8 @@ namespace UiPath.FTP.Activities
                 {
                     if (Body != null)
                         nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
+                    else
+                        _telemetryOperation?.Send();
                 });
                 return result;
             }
