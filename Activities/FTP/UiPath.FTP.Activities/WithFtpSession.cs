@@ -250,14 +250,15 @@ namespace UiPath.FTP.Activities
                 else
                     ftpSession ??= new FtpSession(ftpConfiguration, FtpsMode);
 
-                _ftpSession = ftpSession;
-
                 await ftpSession.OpenAsync(cancellationToken);
 
                 var result = new Action<NativeActivityContext>(nativeActivityContext =>
                 {
                     if (Body != null)
+                    {
+                        _ftpSession = ftpSession;
                         nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
+                    }
                     else
                         _telemetryOperation?.Send();
                 });
