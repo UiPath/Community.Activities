@@ -10,7 +10,6 @@ using UiPath.FTP.Enums;
 using System.Security;
 using System.Net;
 using System.Activities.Validation;
-using UiPath.Shared.Activities;
 #if ENABLE_DEFAULT_TELEMETRY
 using UiPath.Shared.Telemetry.Services;
 #endif
@@ -24,6 +23,7 @@ namespace UiPath.FTP.Activities
         private IFtpSession _ftpSession;
 
         private readonly IFtpSession _setFtpSession; //used for unittests
+        private ITelemetryOperationWrapper _telemetryOperation;
 
         public static readonly string FtpSessionPropertyName = "FtpSession";
 
@@ -183,9 +183,8 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            _telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
             try
             {
@@ -245,31 +244,26 @@ namespace UiPath.FTP.Activities
                 }
 
                 IFtpSession ftpSession = _setFtpSession;
+
                 if (UseSftp)
-                {
                     ftpSession ??= new SftpSession(ftpConfiguration);
-                }
                 else
-                {
                     ftpSession ??= new FtpSession(ftpConfiguration, FtpsMode);
-                }
+
+                _ftpSession = ftpSession;
 
                 await ftpSession.OpenAsync(cancellationToken);
 
                 var result = new Action<NativeActivityContext>(nativeActivityContext =>
                 {
                     if (Body != null)
-                    {
-                        _ftpSession = ftpSession;
                         nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
-                    }
                 });
-                telemetryOperation?.Send();
                 return result;
             }
             catch (Exception ex)
             {
-                telemetryOperation?.SendWithException(ex);
+                _telemetryOperation?.SendWithException(ex);
                 throw;
             }
 
@@ -278,18 +272,18 @@ namespace UiPath.FTP.Activities
         private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)
         {
             if (_ftpSession == null)
-            {
                 throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
-            }
 
             _ftpSession.Close();
             _ftpSession.Dispose();
+            _telemetryOperation?.Send();
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
             _ftpSession?.Close();
             _ftpSession?.Dispose();
+            _telemetryOperation?.SendWithException(propagatedException);
         }
     }
 }
