@@ -23,7 +23,6 @@ namespace UiPath.FTP.Activities
         private IFtpSession _ftpSession;
 
         private readonly IFtpSession _setFtpSession; //used for unittests
-        private ITelemetryOperationWrapper _telemetryOperation;
 
         public static readonly string FtpSessionPropertyName = "FtpSession";
 
@@ -183,8 +182,10 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+
 #if ENABLE_DEFAULT_TELEMETRY
-            _telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
             try
             {
@@ -260,13 +261,13 @@ namespace UiPath.FTP.Activities
                         nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
                     }
                     else
-                        _telemetryOperation?.Send();
+                        telemetryOperation?.Send();
                 });
                 return result;
             }
             catch (Exception ex)
             {
-                _telemetryOperation?.SendWithException(ex);
+                telemetryOperation?.SendWithException(ex);
                 throw;
             }
 
@@ -279,14 +280,26 @@ namespace UiPath.FTP.Activities
 
             _ftpSession.Close();
             _ftpSession.Dispose();
-            _telemetryOperation?.Send();
+
+            ITelemetryOperationWrapper telemetryOperation = null;
+
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+            telemetryOperation?.Send();
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
             _ftpSession?.Close();
             _ftpSession?.Dispose();
-            _telemetryOperation?.SendWithException(propagatedException);
+
+            ITelemetryOperationWrapper telemetryOperation = null;
+
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+#endif
+            telemetryOperation?.SendWithException(propagatedException);
         }
     }
 }
