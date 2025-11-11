@@ -16,10 +16,6 @@
 		<PackageReference Include="UiPath.Platform" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="UiPath.Activities.Api" />
-		<PackageReference Include="UiPath.Platform" />
-	</ItemGroup>
-	<ItemGroup>
 		<EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
 		<EmbeddedResource Include="Resources\Icons\Cryptography.svg" />
 		<EmbeddedResource Include="Resources\Icons\Decrypt_file.svg" />

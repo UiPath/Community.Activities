@@ -19,7 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DefaultActivityTelemetryHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\ICustomTelemetryActivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\DesignTimeTelemetryService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventTracker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExecutionOperation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\RuntimeTelemetryService.cs" />

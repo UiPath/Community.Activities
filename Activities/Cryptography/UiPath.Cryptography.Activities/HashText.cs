@@ -76,43 +76,36 @@ namespace UiPath.Cryptography.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-            try
-            {
+
             string result = null;
 
-               try
-               {
-                   var input = Input.Get(context);
-                   var encoding = Encoding.Get(context);
+            try
+            {
+                var input = Input.Get(context);
+                var encoding = Encoding.Get(context);
 
-                   if (string.IsNullOrWhiteSpace(input))
-                       throw new ArgumentNullException(Resources.InputStringDisplayName);
+                if (string.IsNullOrWhiteSpace(input))
+                    throw new ArgumentNullException(Resources.InputStringDisplayName);
 
-                   if (encoding == null)
-                       throw new ArgumentNullException(Resources.Encoding);
+                if (encoding == null)
+                    throw new ArgumentNullException(Resources.Encoding);
 
-                   var hashed = CryptographyHelper.HashData(Algorithm, encoding.GetBytes(input));
+                var hashed = CryptographyHelper.HashData(Algorithm, encoding.GetBytes(input));
 
-                   result = BitConverter.ToString(hashed).Replace("-", string.Empty);
-                   telemetryOperation?.Send();
-               }
-               catch (Exception ex)
-               {
-                   telemetryOperation?.SendWithException(ex);
-                   Trace.TraceError(ex.ToString());
-
-                   if (!ContinueOnError.Get(context))
-                   {
-                       throw;
-                   }
-               }
-               return result;
-               }
+                result = BitConverter.ToString(hashed).Replace("-", string.Empty);
+                telemetryOperation?.Send();
+            }
             catch (Exception ex)
             {
                 telemetryOperation?.SendWithException(ex);
-                throw;
+                Trace.TraceError(ex.ToString());
+
+                if (!ContinueOnError.Get(context))
+                {
+                    throw;
+                }
             }
+            return result;
         }
     }
 #endif

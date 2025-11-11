@@ -150,104 +150,97 @@ namespace UiPath.Cryptography.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
+
             try
             {
-                try
-                {
-                    var inputFilePath = InputFilePath.Get(context);
-                    var inputFile = InputFile.Get(context);
-                    var outputFilePath = OutputFilePath.Get(context);
-                    var outputFileName = OutputFileName.Get(context);
-                    var key = Key.Get(context);
-                    var keySecureString = KeySecureString.Get(context);
-                    var keyEncoding = KeyEncoding.Get(context);
-                    var keyEncodingString = KeyEncodingString.Get(context);
+                var inputFilePath = InputFilePath.Get(context);
+                var inputFile = InputFile.Get(context);
+                var outputFilePath = OutputFilePath.Get(context);
+                var outputFileName = OutputFileName.Get(context);
+                var key = Key.Get(context);
+                var keySecureString = KeySecureString.Get(context);
+                var keyEncoding = KeyEncoding.Get(context);
+                var keyEncodingString = KeyEncodingString.Get(context);
 #if NET
-                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
-                    {
-                        throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_Key_Name);
-                    }
-                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                    {
-                        throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_KeySecureString_Name);
-                    }
+                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                {
+                    throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_Key_Name);
+                }
+                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                {
+                    throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_KeySecureString_Name);
+                }
 #endif
 
 #if NET461
-                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
-                {
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-                }
+            if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
+            {
+                throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+            }
 #endif
-                    if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
+                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
 
-                    if (!File.Exists(inputFilePath) && inputFile == null)
-                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
+                if (!File.Exists(inputFilePath) && inputFile == null)
+                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
 
-                    // Because we use File.WriteAllText below, we don't need to delete the file now.
-                    if (File.Exists(outputFilePath) && !Overwrite)
-                        throw new ArgumentException(Resources.FileAlreadyExistsException, Resources.OutputFilePathDisplayName);
+                // Because we use File.WriteAllText below, we don't need to delete the file now.
+                if (File.Exists(outputFilePath) && !Overwrite)
+                    throw new ArgumentException(Resources.FileAlreadyExistsException, Resources.OutputFilePathDisplayName);
 
-                    if (inputFile != null && inputFile.IsFolder)
-                        throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
+                if (inputFile != null && inputFile.IsFolder)
+                    throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
-                    var result = FilePathHelpers.GetDefaultFileNameAndLocation(inputFile, inputFilePath, outputFileName, Overwrite, outputFilePath, Decrypted);
+                var result = FilePathHelpers.GetDefaultFileNameAndLocation(inputFile, inputFilePath, outputFileName, Overwrite, outputFilePath, Decrypted);
 
-                    keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-                    var encrypted = File.ReadAllBytes(result.Item3);
+                var encrypted = File.ReadAllBytes(result.Item3);
 
-                    byte[] decrypted = null;
-                    try
-                    {
-                        decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
-                    }
-                    catch (CryptographicException ex)
-                    {
-                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-                    }
-
-                    if (string.IsNullOrEmpty(outputFilePath))
-                    {
-                        var item = new CryptographyLocalItem(decrypted, result.Item1, result.Item2);
-
-                        DecryptedFile.Set(context, item);
-
-                        outputFilePath = item.LocalPath;
-                    }
-                    else
-                    {
-                        var directory = Path.GetDirectoryName(outputFilePath);
-
-                        if (!string.IsNullOrEmpty(directory))
-                        {
-                            Directory.CreateDirectory(directory);
-                        }
-
-                        var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
-
-                        DecryptedFile.Set(context, item);
-                    }
-
-                    // This overwrites the file if it already exists.
-                    File.WriteAllBytes(outputFilePath, decrypted);
-                    telemetryOperation?.Send();
-                }
-                catch (Exception ex)
+                byte[] decrypted = null;
+                try
                 {
-                    telemetryOperation?.SendWithException(ex);
-                    Trace.TraceError(ex.ToString());
-
-                    if (!ContinueOnError.Get(context))
-                    {
-                        throw;
-                    }
+                    decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
                 }
+                catch (CryptographicException ex)
+                {
+                    throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+                }
+
+                if (string.IsNullOrEmpty(outputFilePath))
+                {
+                    var item = new CryptographyLocalItem(decrypted, result.Item1, result.Item2);
+
+                    DecryptedFile.Set(context, item);
+
+                    outputFilePath = item.LocalPath;
+                }
+                else
+                {
+                    var directory = Path.GetDirectoryName(outputFilePath);
+
+                    if (!string.IsNullOrEmpty(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
+
+                    DecryptedFile.Set(context, item);
+                }
+
+                // This overwrites the file if it already exists.
+                File.WriteAllBytes(outputFilePath, decrypted);
+                telemetryOperation?.Send();
             }
             catch (Exception ex)
             {
                 telemetryOperation?.SendWithException(ex);
-                throw;
+                Trace.TraceError(ex.ToString());
+
+                if (!ContinueOnError.Get(context))
+                {
+                    throw;
+                }
             }
         }
     }

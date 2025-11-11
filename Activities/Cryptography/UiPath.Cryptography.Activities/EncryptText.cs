@@ -119,62 +119,54 @@ namespace UiPath.Cryptography.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
+
+            string result = null;
             try
             {
-                string result = null;
+                var input = Input.Get(context);
+                var key = Key.Get(context);
+                var keySecureString = KeySecureString.Get(context);
+                var keyEncoding = Encoding.Get(context);
+                var keyEncodingString = KeyEncodingString.Get(context);
 
-                try
-                {
-                    var input = Input.Get(context);
-                    var key = Key.Get(context);
-                    var keySecureString = KeySecureString.Get(context);
-                    var keyEncoding = Encoding.Get(context);
-                    var keyEncodingString = KeyEncodingString.Get(context);
-
-                    if (string.IsNullOrWhiteSpace(input))
-                        throw new ArgumentNullException(Resources.InputStringDisplayName);
+                if (string.IsNullOrWhiteSpace(input))
+                    throw new ArgumentNullException(Resources.InputStringDisplayName);
 #if NET
-                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
-                    {
-                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
-                    }
-                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                    {
-                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
-                    }
+                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                }
+                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                {
+                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                }
 #endif
 
 #if NET461
-                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
-                {
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-                }
+            if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
+            {
+                throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
+            }
 #endif
-                    if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
+                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
 
-                    keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-                    var encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                var encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
-                    result = Convert.ToBase64String(encrypted);
-                    telemetryOperation?.Send();
-                }
-                catch (Exception ex)
-                {
-                    telemetryOperation?.SendWithException(ex);
-                    Trace.TraceError(ex.ToString());
-                    if (!ContinueOnError.Get(context))
-                    {
-                        throw;
-                    }
-                }
-                return result;
+                result = Convert.ToBase64String(encrypted);
+                telemetryOperation?.Send();
             }
             catch (Exception ex)
             {
                 telemetryOperation?.SendWithException(ex);
-                throw;
+                Trace.TraceError(ex.ToString());
+                if (!ContinueOnError.Get(context))
+                {
+                    throw;
+                }
             }
+            return result;
         }
     }
 }

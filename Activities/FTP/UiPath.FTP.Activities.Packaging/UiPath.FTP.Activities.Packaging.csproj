@@ -33,6 +33,7 @@
     <PackageReference Include="System.Activities.ViewModels" />
     <PackageReference Include="FluentFTP" />
     <PackageReference Include="SSH.NET" />
+    <PackageReference Include="UiPath.Telemetry.Client" />
   </ItemGroup>
 
 	<Target Name="AddDlls">

@@ -23,14 +23,6 @@ namespace UiPath.Shared.Telemetry
             ActivityType = Name;
             ActivityPackage = assemblyName.Name;
             ActivityPackageVersion = assemblyName.Version.ToString();
-
-            // To be added back after profiling support is implemented in Robot.
-            //ProfilingData = new ProfilingData()
-            //{
-            //    ActivityId = caller.Id,
-            //    WorkflowInstanceId = context.WorkflowInstanceId.ToString(),
-            //    WorkflowFilePath = context.GetExtension<IRunningJobInformation>()?.WorkflowFilePath ?? string.Empty,
-            //};
         }
 
         public ExecutionOperation(string activityType, string activityPackage, string activityPackageVersion, string eventName = null) : base(eventName ?? activityType)

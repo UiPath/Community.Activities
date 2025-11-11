@@ -64,10 +64,10 @@ namespace UiPath.Credentials.Activities
                     credPrompt.Title = title;
                 }
 
-                telemetryOperation?.SetCustomDataKey(nameof(Message) + " IsUsed", message != null);
-                telemetryOperation?.SetCustomDataKey(nameof(Message) + " Length", message != null ? message.Length : 0);
-                telemetryOperation?.SetCustomDataKey(nameof(Title) + " IsUsed", title != null);
-                telemetryOperation?.SetCustomDataKey(nameof(Title) + " Length", title != null ? title.Length : 0);
+                telemetryOperation?.SetCustomDataKey(nameof(Message) + CredentialsConstants.IsUsed, message != null);
+                telemetryOperation?.SetCustomDataKey(nameof(Message) + CredentialsConstants.Length, message != null ? message.Length : 0);
+                telemetryOperation?.SetCustomDataKey(nameof(Title) + CredentialsConstants.IsUsed, title != null);
+                telemetryOperation?.SetCustomDataKey(nameof(Title) + CredentialsConstants.Length, title != null ? title.Length : 0);
 
                 var res = credPrompt.ShowDialog();
                 if (res != DialogResult.OK) return false;

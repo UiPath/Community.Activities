@@ -70,8 +70,8 @@ namespace UiPath.Credentials.Activities
             SecureString passwordSecureString = PasswordSecureString.Get(context);
             string password = Password.Get(context);
 
-            telemetryOperation?.SetCustomDataKey(nameof(Password) + " IsUsed", !string.IsNullOrWhiteSpace(password));
-            telemetryOperation?.SetCustomDataKey(nameof(PasswordSecureString) + " IsUsed", passwordSecureString != null);
+            telemetryOperation?.SetCustomDataKey(nameof(Password) + CredentialsConstants.IsUsed, !string.IsNullOrWhiteSpace(password));
+            telemetryOperation?.SetCustomDataKey(nameof(PasswordSecureString) + CredentialsConstants.IsUsed, passwordSecureString != null);
             telemetryOperation?.SetCustomDataKey(nameof(CredentialType), CredentialType.ToString() ?? null);
             telemetryOperation?.SetCustomDataKey(nameof(PersistanceType), PersistanceType.ToString() ?? null);
 
