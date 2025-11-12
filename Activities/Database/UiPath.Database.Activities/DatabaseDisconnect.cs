@@ -26,32 +26,26 @@ namespace UiPath.Database.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
+
+            var dbConnection = DatabaseConnection.Get(context);
+            // create the action for doing the actual work
             try
             {
-                var dbConnection = DatabaseConnection.Get(context);
-                // create the action for doing the actual work
-                try
-                {
-                    await Task.Run(() => dbConnection?.Dispose());
-                }
-                catch (Exception e)
-                {
-                    telemetryOperation?.SendWithException(e);
-                    Trace.TraceError($"{e}");
-                }
-
-                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
-                {
-                    //no OutArgument
-                });
+                await Task.Run(() => dbConnection?.Dispose());
                 telemetryOperation?.Send();
-                return result;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                telemetryOperation?.SendWithException(ex);
-                throw;
+                telemetryOperation?.SendWithException(e);
+                Trace.TraceError($"{e}");
             }
+
+            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+            {
+                //no OutArgument
+            });
+                
+            return result;
         }
     }
 }
