@@ -70,48 +70,42 @@ namespace UiPath.Database.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
+
+            var connString = ConnectionString.Get(context);
+            var connSecureString = ConnectionSecureString.Get(context);
+            var connectionStringForFactory = string.Empty;
+            if (connString != null)
+            {
+                connectionStringForFactory = connString;
+            }
+            else if (connSecureString != null)
+            {
+                connectionStringForFactory = new NetworkCredential("", connSecureString).Password;
+            }
+            else
+            {
+                throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+            }
+            var provName = ProviderName.Get(context);
+            DatabaseConnection dbConnection = null;
             try
             {
-                var connString = ConnectionString.Get(context);
-                var connSecureString = ConnectionSecureString.Get(context);
-                var connectionStringForFactory = string.Empty;
-                if (connString != null)
-                {
-                    connectionStringForFactory = connString;
-                }
-                else if (connSecureString != null)
-                {
-                    connectionStringForFactory = new NetworkCredential("", connSecureString).Password;
-                }
-                else
-                {
-                    throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
-                }
-                var provName = ProviderName.Get(context);
-                DatabaseConnection dbConnection = null;
-                try
-                {
-                    dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName));
-                }
-                catch (Exception e)
-                {
-                    telemetryOperation?.SendWithException(e);
-                    Trace.TraceError($"{e}");
-                    throw;
-                }
-
-                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
-                {
-                    DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
-                });
+                dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName));
                 telemetryOperation?.Send();
-                return result;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                telemetryOperation?.SendWithException(ex);
+                telemetryOperation?.SendWithException(e);
+                Trace.TraceError($"{e}");
                 throw;
             }
+
+            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+            {
+                DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
+            });
+                
+            return result;
         }
     }
 }
