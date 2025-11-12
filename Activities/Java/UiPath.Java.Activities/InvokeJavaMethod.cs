@@ -49,44 +49,38 @@ namespace UiPath.Java.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
+
+            IInvoker invoker = JavaScope.GetJavaInvoker(context);
+            var methodName = MethodName.Get(context) ?? throw new ArgumentNullException(Resources.MethodName);
+            JavaObject javaObject = TargetObject.Get(context);
+            string className = TargetType.Get(context);
+
+            if (javaObject == null && string.IsNullOrWhiteSpace(className))
+            {
+                throw new InvalidOperationException(Resources.InvokationObjectException);
+            }
+
+            List<object> parameters = GetParameters(context);
+            var types = GetParameterTypes(context, parameters);
+            JavaObject instance = null;
+
             try
             {
-                IInvoker invoker = JavaScope.GetJavaInvoker(context);
-                var methodName = MethodName.Get(context) ?? throw new ArgumentNullException(Resources.MethodName);
-                JavaObject javaObject = TargetObject.Get(context);
-                string className = TargetType.Get(context);
-
-                if (javaObject == null && string.IsNullOrWhiteSpace(className))
-                {
-                    throw new InvalidOperationException(Resources.InvokationObjectException);
-                }
-
-                List<object> parameters = GetParameters(context);
-                var types = GetParameterTypes(context, parameters);
-                JavaObject instance = null;
-
-                try
-                {
-                    instance = await invoker.InvokeMethod(methodName, className, javaObject, parameters, types, cancellationToken);
-                }
-                catch (Exception e)
-                {
-                    telemetryOperation?.SendWithException(e);
-                    Trace.TraceError($"The method could not be invoked: {e}");
-                    throw new InvalidOperationException(Resources.InvokeMethodException, e);
-                }
-                var result = new Action<AsyncCodeActivityContext> (asyncCodeActivityContext =>
-                {
-                    Result.Set(asyncCodeActivityContext, instance);
-                });
+                instance = await invoker.InvokeMethod(methodName, className, javaObject, parameters, types, cancellationToken);
                 telemetryOperation?.Send();
-                return result; 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                telemetryOperation?.SendWithException(ex);
-                throw;
+                telemetryOperation?.SendWithException(e);
+                Trace.TraceError($"The method could not be invoked: {e}");
+                throw new InvalidOperationException(Resources.InvokeMethodException, e);
             }
+            var result = new Action<AsyncCodeActivityContext> (asyncCodeActivityContext =>
+            {
+                Result.Set(asyncCodeActivityContext, instance);
+            });
+                
+            return result;
         }
     }
 }
