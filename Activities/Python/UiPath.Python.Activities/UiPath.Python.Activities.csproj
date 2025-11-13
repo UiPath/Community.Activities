@@ -43,4 +43,6 @@
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Import Project="..\..\Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems" Label="Shared" />
 </Project>

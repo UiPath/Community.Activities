@@ -6,6 +6,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python.Activities.Properties;
+using UiPath.Shared.Activities;
+
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Python.Activities
 {
@@ -40,10 +45,17 @@ namespace UiPath.Python.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             IEngine pythonEngine = PythonScope.GetPythonEngine(context);
             if (pythonEngine == null)
             {
-                throw new InvalidOperationException(Resources.PythonEngineNotFoundException);
+                var ex = new InvalidOperationException(Resources.PythonEngineNotFoundException);
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
             }
 
             PythonObject pyObject = Instance.Get(context);
@@ -53,18 +65,23 @@ namespace UiPath.Python.Activities
             // safeguard checks
             if (methodName.IsNullOrEmpty())
             {
-                throw new InvalidOperationException(Resources.InvalidMethodNameException);
+                var ex = new InvalidOperationException(Resources.InvalidMethodNameException);
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
             }
 
             PythonObject result = null;
             try
             {
                 result = await pythonEngine.InvokeMethod(pyObject, methodName, parameters, cancellationToken);
+                telemetryOperation?.Send();
             }
             catch (Exception e)
             {
                 Trace.TraceError($"Error invoking Python function: {e}");
-                throw new InvalidOperationException(Resources.InvokeException, e);
+                var ex = new InvalidOperationException(Resources.InvokeException, e);
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
             }
 
             return asyncCodeActivityContext =>

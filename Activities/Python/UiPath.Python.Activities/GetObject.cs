@@ -2,6 +2,10 @@
 using System.Activities;
 using System.Diagnostics;
 using UiPath.Python.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Python.Activities
 {
@@ -25,22 +29,32 @@ namespace UiPath.Python.Activities
 
         protected override void Execute(CodeActivityContext context)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             IEngine pythonEngine = PythonScope.GetPythonEngine(context);
             PythonObject pyObject = PythonObject.Get(context);
             if (null == pyObject)
             {
-                throw new ArgumentNullException(nameof(PythonObject));
+                var ex = new ArgumentNullException(nameof(PythonObject));
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
             }
 
             T result;
             try
             {
                 result = (T)pythonEngine.Convert(pyObject, typeof(T));
+                telemetryOperation?.Send();
             }
             catch (Exception e)
             {
                 Trace.TraceError($"Error casting Python object: {e}");
-                throw new InvalidOperationException(Resources.ConvertException, e);
+                var ex = new InvalidOperationException(Resources.ConvertException, e);
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
             }
 
             Result.Set(context, result);
