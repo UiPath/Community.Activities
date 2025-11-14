@@ -113,87 +113,77 @@ namespace UiPath.Python.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            string path = Path.Get(context);
-            string libraryPath = LibraryPath.Get(context);
-            if (!path.IsNullOrEmpty() && !Directory.Exists(path))
-            {
-                var ex = new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
-
-            if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
-            {
-                var ex = new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
-
-            if (Version != Version.Auto)
-            {
-                Version autodetected = Version.Auto;
-                EngineProvider.Autodetect(path, out autodetected);
-                if (autodetected != Version.Auto && autodetected != Version)
-                {
-                    var ex = new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
-                    telemetryOperation?.SendWithException(ex);
-                    throw ex;
-                }
-            }
-
-            var workingFolder = WorkingFolder.Get(context);
-            if (!workingFolder.IsNullOrEmpty())
-            {
-                var dir = new DirectoryInfo(workingFolder);
-                if (!dir.Exists)
-                {
-                    var ex = new DirectoryNotFoundException(Resources.WorkingFolderPathInvalid);
-                    telemetryOperation?.SendWithException(ex);
-                    throw ex;
-                }
-                workingFolder = dir.FullName; //we need to pass an absolute path to the python host
-            }
-
-            var operationTimeout = OperationTimeout.Get(context);
-            if (operationTimeout == 0)
-            {
-                operationTimeout = 3600; //default to 1h for no values provided.
-            }
-
             try
             {
-                await _pythonEngine.Initialize(workingFolder, cancellationToken, operationTimeout);
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Error initializing Python engine: {e}");
-                Exception cleanupEx = null;
+                string path = Path.Get(context);
+                string libraryPath = LibraryPath.Get(context);
+                if (!path.IsNullOrEmpty() && !Directory.Exists(path))
+                    throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
+
+                if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
+                    throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
+
+                if (Version != Version.Auto)
+                {
+                    Version autodetected = Version.Auto;
+                    EngineProvider.Autodetect(path, out autodetected);
+                    if (autodetected != Version.Auto && autodetected != Version)
+                        throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
+                }
+
+                var workingFolder = WorkingFolder.Get(context);
+                if (!workingFolder.IsNullOrEmpty())
+                {
+                    var dir = new DirectoryInfo(workingFolder);
+                    if (!dir.Exists)
+                        throw new DirectoryNotFoundException(Resources.WorkingFolderPathInvalid);
+
+                    workingFolder = dir.FullName; //we need to pass an absolute path to the python host
+                }
+
+                var operationTimeout = OperationTimeout.Get(context);
+                if (operationTimeout == 0)
+                {
+                    operationTimeout = 3600; //default to 1h for no values provided.
+                }
+
                 try
                 {
-                    Cleanup();
+                    await _pythonEngine.Initialize(workingFolder, cancellationToken, operationTimeout);
                 }
-                catch (Exception cEx)
+                catch (Exception e)
                 {
-                    cleanupEx = cEx;
+                    Trace.TraceError($"Error initializing Python engine: {e}");
+                    Exception cleanupEx = null;
+                    try
+                    {
+                        Cleanup();
+                    }
+                    catch (Exception cEx)
+                    {
+                        cleanupEx = cEx;
+                    }
+
+                    var innerEx = cleanupEx != null ? new AggregateException(e, cleanupEx) : e;
+                    throw new InvalidOperationException(Resources.PythonInitializeException, innerEx);
                 }
 
-                var innerEx = cleanupEx != null ? new AggregateException(e, cleanupEx) : e;
-                var ex = new InvalidOperationException(Resources.PythonInitializeException, innerEx);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
+                cancellationToken.ThrowIfCancellationRequested();
+
+                return ctx =>
+                {
+                    ctx.ScheduleAction(Body, _pythonEngine, OnCompleted, OnFaulted);
+                };
             }
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return ctx =>
+            catch (Exception ex)
             {
-                ctx.ScheduleAction(Body, _pythonEngine, OnCompleted, OnFaulted);
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
