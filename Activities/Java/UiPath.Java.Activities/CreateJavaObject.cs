@@ -35,34 +35,39 @@ namespace UiPath.Java.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var className = TargetType.Get(context);
-            if (string.IsNullOrWhiteSpace(className))
-            {
-                throw new ArgumentNullException(nameof(TargetType));
-            }
-            List<object> parameters = GetParameters(context);
-            var types = GetParameterTypes(context, parameters);
-            JavaObject instance = null;
             try
             {
-                instance = await invoker.InvokeConstructor(className, parameters, types, cancellationToken);
-                telemetryOperation?.Send();
-            }
-            catch (Exception e)
-            {
-                telemetryOperation?.SendWithException(e);
-                Trace.TraceError($"Constructor could not be invoked: {e}");
-                throw new InvalidOperationException(Resources.ConstructorException, e);
-            }
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var className = TargetType.Get(context);
+                if (string.IsNullOrWhiteSpace(className))
+                    throw new ArgumentNullException(nameof(TargetType));
 
-            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                List<object> parameters = GetParameters(context);
+                var types = GetParameterTypes(context, parameters);
+                JavaObject instance = null;
+                try
+                {
+                    instance = await invoker.InvokeConstructor(className, parameters, types, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Constructor could not be invoked: {e}");
+                    throw new InvalidOperationException(Resources.ConstructorException, e);
+                }
+
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    Result.Set(asyncCodeActivityContext, instance);
+                });
+
+                telemetryOperation?.Send();
+                return result;
+            }
+            catch (Exception ex)
             {
-                Result.Set(asyncCodeActivityContext, instance);
-            });
-                
-            return result;
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

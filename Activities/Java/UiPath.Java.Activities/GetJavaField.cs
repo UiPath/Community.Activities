@@ -45,36 +45,40 @@ namespace UiPath.Java.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var fieldName = FieldName.Get(context) ?? throw new ArgumentNullException(Resources.FieldName);
-            var javaObject = TargetObject.Get(context);
-            var className = TargetType.Get(context);
-
-            if (javaObject == null && className == null)
-            {
-                throw new InvalidOperationException(Resources.InvokationObjectException);
-            }
-
-            JavaObject instance;
             try
             {
-                instance = await invoker.InvokeGetField(javaObject, fieldName, className, cancellationToken);
-                telemetryOperation?.Send();
-            }
-            catch (Exception e)
-            {
-                telemetryOperation?.SendWithException(e);
-                Trace.TraceError($"Could not get java field: {e}");
-                throw new InvalidOperationException(Resources.GetFieldException, e);
-            }
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var fieldName = FieldName.Get(context) ?? throw new ArgumentNullException(Resources.FieldName);
+                var javaObject = TargetObject.Get(context);
+                var className = TargetType.Get(context);
 
-            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                if (javaObject == null && className == null)
+                    throw new InvalidOperationException(Resources.InvokationObjectException);
+
+                JavaObject instance;
+                try
+                {
+                    instance = await invoker.InvokeGetField(javaObject, fieldName, className, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Could not get java field: {e}");
+                    throw new InvalidOperationException(Resources.GetFieldException, e);
+                }
+
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    Result.Set(asyncCodeActivityContext, instance);
+                });
+
+                telemetryOperation?.Send();
+                return result;
+            }
+            catch (Exception ex)
             {
-                Result.Set(asyncCodeActivityContext, instance);
-            });
-                
-            return result;
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

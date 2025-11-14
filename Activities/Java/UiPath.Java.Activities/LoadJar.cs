@@ -28,26 +28,32 @@ namespace UiPath.Java.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var jarPath = JarPath.Get(context) ?? throw new ArgumentNullException(Resources.JarPathDisplayName);
             try
             {
-                await invoker.LoadJar(jarPath, cancellationToken);
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var jarPath = JarPath.Get(context) ?? throw new ArgumentNullException(Resources.JarPathDisplayName);
+                try
+                {
+                    await invoker.LoadJar(jarPath, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Jar could not be loaded: {e}");
+                    throw new InvalidOperationException(Resources.LoadJarException, e);
+                }
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    // No OutArgument
+                });
+
                 telemetryOperation?.Send();
+                return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                telemetryOperation?.SendWithException(e);
-                Trace.TraceError($"Jar could not be loaded: {e}");
-                throw new InvalidOperationException(Resources.LoadJarException, e);
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
-            {
-                // No OutArgument
-            });
-                
-            return result;
         }
     }
 }

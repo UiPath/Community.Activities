@@ -118,23 +118,21 @@ namespace UiPath.Java.Activities
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+            telemetryOperation?.SendWithException(propagatedException);
 #endif
             faultContext.CancelChildren();
             Clean().DoNotAwait();
-            telemetryOperation?.SendWithException(propagatedException);
         }
 
         private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            telemetryOperation?.Send();
 #endif
             Clean().DoNotAwait();
-            telemetryOperation?.Send();
         }
 
         protected override void Cancel(NativeActivityContext context)
