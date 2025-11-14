@@ -9,6 +9,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python.Activities.Properties;
 using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Python.Activities
 {
@@ -106,11 +109,18 @@ namespace UiPath.Python.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             string path = Path.Get(context);
             string libraryPath = LibraryPath.Get(context);
             if (!path.IsNullOrEmpty() && !Directory.Exists(path))
             {
-                throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
+                var ex = new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -118,7 +128,23 @@ namespace UiPath.Python.Activities
             _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
 
             if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
-                throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
+            {
+                var ex = new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
+            }
+
+            if (Version != Version.Auto)
+            {
+                Version autodetected = Version.Auto;
+                EngineProvider.Autodetect(path, out autodetected);
+                if (autodetected != Version.Auto && autodetected != Version)
+                {
+                    var ex = new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
+                    telemetryOperation?.SendWithException(ex);
+                    throw ex;
+                }
+            }
 
             var workingFolder = WorkingFolder.Get(context);
             if (!workingFolder.IsNullOrEmpty())
@@ -126,7 +152,9 @@ namespace UiPath.Python.Activities
                 var dir = new DirectoryInfo(workingFolder);
                 if (!dir.Exists)
                 {
-                    throw new DirectoryNotFoundException(Resources.WorkingFolderPathInvalid);
+                    var ex = new DirectoryNotFoundException(Resources.WorkingFolderPathInvalid);
+                    telemetryOperation?.SendWithException(ex);
+                    throw ex;
                 }
                 workingFolder = dir.FullName; //we need to pass an absolute path to the python host
             }
@@ -143,20 +171,21 @@ namespace UiPath.Python.Activities
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error initializing Python engine: {e.ToString()}");
+                Trace.TraceError($"Error initializing Python engine: {e}");
+                Exception cleanupEx = null;
                 try
                 {
                     Cleanup();
                 }
-                catch (Exception) { }
-                if (Version != Version.Auto)
+                catch (Exception cEx)
                 {
-                    Version autodetected = Version.Auto;
-                    EngineProvider.Autodetect(path, out autodetected);
-                    if (autodetected != Version.Auto && autodetected != Version)
-                        throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
+                    cleanupEx = cEx;
                 }
-                throw new InvalidOperationException(Resources.PythonInitializeException, e);
+
+                var innerEx = cleanupEx != null ? new AggregateException(e, cleanupEx) : e;
+                var ex = new InvalidOperationException(Resources.PythonInitializeException, innerEx);
+                telemetryOperation?.SendWithException(ex);
+                throw ex;
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -169,12 +198,20 @@ namespace UiPath.Python.Activities
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+            telemetryOperation?.SendWithException(propagatedException);
+#endif
             faultContext.CancelChildren();
             Cleanup();
         }
 
         private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            telemetryOperation?.Send();
+#endif
             Cleanup();
         }
 

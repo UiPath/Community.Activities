@@ -90,6 +90,7 @@ Global
 		Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{bcba78df-1513-44d3-83b3-37655a7f3887}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{e270608b-ba9e-4972-a18e-34b93e6552b4}*SharedItemsImports = 5
+		Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems*{e270608b-ba9e-4972-a18e-34b93e6552b4}*SharedItemsImports = 5
 		Shared\UiPath.Shared\UiPath.Shared.projitems*{e270608b-ba9e-4972-a18e-34b93e6552b4}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
