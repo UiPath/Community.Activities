@@ -32,11 +32,11 @@ namespace UiPath.Database.Activities
             try
             {
                 await Task.Run(() => dbConnection?.Dispose());
-                telemetryOperation?.Send();
             }
             catch (Exception e)
             {
                 telemetryOperation?.SendWithException(e);
+                telemetryOperation = null;
                 Trace.TraceError($"{e}");
             }
 
@@ -44,7 +44,9 @@ namespace UiPath.Database.Activities
             {
                 //no OutArgument
             });
-                
+
+            //if exception was caught and sent to telemetry, avoid sending again
+            telemetryOperation?.Send();
             return result;
         }
     }

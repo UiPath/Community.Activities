@@ -46,80 +46,91 @@ namespace UiPath.Database.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            string connString = null;
-            SecureString connSecureString = null;
-            string provName = null;
-            string sql = string.Empty;
-            int commandTimeout = TimeoutMS.Get(context);
-            DatabaseConnection existingConnection = null;
-            DBExecuteCommandResult affectedRecords = null;
-            if (commandTimeout < 0)
-            {
-                throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
-            }
-            Dictionary<string, ParameterInfo> parameters = null;
-            var continueOnError = ContinueOnError.Get(context);
             try
             {
-                sql = Sql.Get(context);
-                existingConnection = DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                connSecureString = ConnectionSecureString.Get(context);
-                provName = ProviderName.Get(context);
-
-                if (Parameters != null)
+                string connString = null;
+                SecureString connSecureString = null;
+                string provName = null;
+                string sql = string.Empty;
+                int commandTimeout = TimeoutMS.Get(context);
+                DatabaseConnection existingConnection = null;
+                DBExecuteCommandResult affectedRecords = null;
+                if (commandTimeout < 0)
                 {
-                    parameters = new Dictionary<string, ParameterInfo>();
-                    foreach (var param in Parameters)
+                    throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
+                }
+                Dictionary<string, ParameterInfo> parameters = null;
+                var continueOnError = ContinueOnError.Get(context);
+                try
+                {
+                    sql = Sql.Get(context);
+                    existingConnection = DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    connSecureString = ConnectionSecureString.Get(context);
+                    provName = ProviderName.Get(context);
+
+                    if (Parameters != null)
                     {
-                        parameters.Add(param.Key, new ParameterInfo() { Value = param.Value.Get(context), Direction = param.Value.Direction, Type = param.Value.ArgumentType });
+                        parameters = new Dictionary<string, ParameterInfo>();
+                        foreach (var param in Parameters)
+                        {
+                            parameters.Add(param.Key, new ParameterInfo() { Value = param.Value.Get(context), Direction = param.Value.Direction, Type = param.Value.ArgumentType });
+                        }
+                    }
+                    ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                    // create the action for doing the actual work
+                    affectedRecords = await Task.Run(() =>
+                    {
+                        DBExecuteCommandResult executeResult = new DBExecuteCommandResult();
+                        if (DbConnection == null)
+                        {
+                            DbConnection = new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName);
+                        }
+                        if (DbConnection == null)
+                        {
+                            return executeResult;
+                        }
+                        executeResult = new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
+                        return executeResult;
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // telemetryOperation object is made null in order to avoid double sending.
+                    telemetryOperation?.SendWithException(ex);
+                    telemetryOperation = null;
+                    HandleException(ex, continueOnError);
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection?.Dispose();
                     }
                 }
-                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
-                // create the action for doing the actual work
-                affectedRecords = await Task.Run(() =>
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {
-                    DBExecuteCommandResult executeResult = new DBExecuteCommandResult();
-                    if (DbConnection == null)
+                    AffectedRecords.Set(asyncCodeActivityContext, affectedRecords.Result);
+                    foreach (var param in affectedRecords.ParametersBind)
                     {
-                        DbConnection = new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName);
+                        var currentParam = Parameters[param.Key];
+                        if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                        {
+                            currentParam.Set(asyncCodeActivityContext, param.Value.Value);
+                        }
                     }
-                    if (DbConnection == null)
-                    {
-                        return executeResult;
-                    }
-                    executeResult = new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
-                    return executeResult;
                 });
+
+                //if exception was caught and sent to telemetry, avoid sending again
                 telemetryOperation?.Send();
+                return result;
             }
             catch (Exception ex)
             {
+                // If any other exception occurs, send it to telemetry
                 telemetryOperation?.SendWithException(ex);
-                HandleException(ex, continueOnError);
+                throw;
             }
-            finally
-            {
-                if (existingConnection == null)
-                {
-                    DbConnection?.Dispose();
-                }
-            }
-            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
-            {
-                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords.Result);
-                foreach (var param in affectedRecords.ParametersBind)
-                {
-                    var currentParam = Parameters[param.Key];
-                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
-                    {
-                        currentParam.Set(asyncCodeActivityContext, param.Value.Value);
-                    }
-                }
-            });
-                
-            return result;
         }
 
         private class DBExecuteCommandResult
