@@ -64,10 +64,6 @@ namespace UiPath.Java.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken ct)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
-#if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
-#endif
             try
             {
                 string javaPath = JavaPath.Get(context);
@@ -111,7 +107,10 @@ namespace UiPath.Java.Activities
             }
             catch (Exception ex)
             {
+#if ENABLE_DEFAULT_TELEMETRY
+                ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
                 telemetryOperation?.SendWithException(ex);
+#endif
                 throw;
             }
         }
