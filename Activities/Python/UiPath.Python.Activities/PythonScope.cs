@@ -109,10 +109,6 @@ namespace UiPath.Python.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
-#if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
-#endif
             try
             {
                 string path = Path.Get(context);
@@ -181,7 +177,10 @@ namespace UiPath.Python.Activities
             }
             catch (Exception ex)
             {
+#if ENABLE_DEFAULT_TELEMETRY
+                ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
                 telemetryOperation?.SendWithException(ex);
+#endif
                 throw;
             }
         }
