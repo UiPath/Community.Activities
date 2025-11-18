@@ -33,31 +33,31 @@ namespace UiPath.Python.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            IEngine pythonEngine = PythonScope.GetPythonEngine(context);
-            PythonObject pyObject = PythonObject.Get(context);
-            if (null == pyObject)
-            {
-                var ex = new ArgumentNullException(nameof(PythonObject));
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
-
-            T result;
             try
             {
-                result = (T)pythonEngine.Convert(pyObject, typeof(T));
-                telemetryOperation?.Send();
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Error casting Python object: {e}");
-                var ex = new InvalidOperationException(Resources.ConvertException, e);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
+                IEngine pythonEngine = PythonScope.GetPythonEngine(context);
+                PythonObject pyObject = PythonObject.Get(context) ?? throw new ArgumentNullException(nameof(PythonObject));
 
-            Result.Set(context, result);
+                T result;
+                try
+                {
+                    result = (T)pythonEngine.Convert(pyObject, typeof(T));
+
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Error casting Python object: {e}");
+                    throw new InvalidOperationException(Resources.ConvertException, e);
+                }
+
+                telemetryOperation?.Send();
+                Result.Set(context, result);
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

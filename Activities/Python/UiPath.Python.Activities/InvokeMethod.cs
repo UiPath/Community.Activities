@@ -49,45 +49,40 @@ namespace UiPath.Python.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            IEngine pythonEngine = PythonScope.GetPythonEngine(context);
-            if (pythonEngine == null)
-            {
-                var ex = new InvalidOperationException(Resources.PythonEngineNotFoundException);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
-
-            PythonObject pyObject = Instance.Get(context);
-            string methodName = Name.Get(context);
-            IEnumerable<object> parameters = Parameters.Get(context);
-
-            // safeguard checks
-            if (methodName.IsNullOrEmpty())
-            {
-                var ex = new InvalidOperationException(Resources.InvalidMethodNameException);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
-
-            PythonObject result = null;
             try
             {
-                result = await pythonEngine.InvokeMethod(pyObject, methodName, parameters, cancellationToken);
-                telemetryOperation?.Send();
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Error invoking Python function: {e}");
-                var ex = new InvalidOperationException(Resources.InvokeException, e);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
+                IEngine pythonEngine = PythonScope.GetPythonEngine(context) ?? throw new InvalidOperationException(Resources.PythonEngineNotFoundException);
 
-            return asyncCodeActivityContext =>
+                PythonObject pyObject = Instance.Get(context);
+                string methodName = Name.Get(context);
+                IEnumerable<object> parameters = Parameters.Get(context);
+
+                // safeguard checks
+                if (methodName.IsNullOrEmpty())
+                    throw new InvalidOperationException(Resources.InvalidMethodNameException);
+
+                PythonObject result = null;
+                try
+                {
+                    result = await pythonEngine.InvokeMethod(pyObject, methodName, parameters, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Error invoking Python function: {e}");
+                    throw new InvalidOperationException(Resources.InvokeException, e);
+                }
+
+                telemetryOperation?.Send();
+                return asyncCodeActivityContext =>
+                {
+                    Result.Set(asyncCodeActivityContext, result);
+                };
+            }
+            catch (Exception ex)
             {
-                Result.Set(asyncCodeActivityContext, result);
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

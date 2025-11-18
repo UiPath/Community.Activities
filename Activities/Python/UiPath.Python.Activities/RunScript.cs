@@ -40,49 +40,45 @@ namespace UiPath.Python.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            IEngine pythonEngine = PythonScope.GetPythonEngine(context);
-
-            string scriptFile = ScriptFile.Get(context);
-            string scriptCode = Code.Get(context);
-            //IEnumerable<object> parameters = Parameters.Get(context);
-
-            // safeguard checks
-            if (scriptFile.IsNullOrEmpty() && scriptCode.IsNullOrEmpty())
-            {
-                var ex = new InvalidOperationException(Resources.NoScriptSpecifiedException);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
-            if (!scriptFile.IsNullOrEmpty() && !File.Exists(scriptFile))
-            {
-                var ex = new FileNotFoundException(Resources.ScriptFileNotFoundException, scriptFile);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
-
-            // load script from file if not specified
-            if (scriptCode.IsNullOrEmpty())
-            {
-                scriptCode = File.ReadAllText(ScriptFile.Get(context));
-            }
-
             try
             {
-                await pythonEngine.Execute(scriptCode, cancellationToken);
-                telemetryOperation?.Send();
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Error running Python script: {e}");
-                var ex = new InvalidOperationException(Resources.RunScriptException, e);
-                telemetryOperation?.SendWithException(ex);
-                throw ex;
-            }
+                IEngine pythonEngine = PythonScope.GetPythonEngine(context);
 
-            return (asyncCodeActivityContext) =>
+                string scriptFile = ScriptFile.Get(context);
+                string scriptCode = Code.Get(context);
+                //IEnumerable<object> parameters = Parameters.Get(context);
+
+                // safeguard checks
+                if (scriptFile.IsNullOrEmpty() && scriptCode.IsNullOrEmpty())
+                    throw new InvalidOperationException(Resources.NoScriptSpecifiedException);
+
+                if (!scriptFile.IsNullOrEmpty() && !File.Exists(scriptFile))
+                    throw new FileNotFoundException(Resources.ScriptFileNotFoundException, scriptFile);
+
+                // load script from file if not specified
+                if (scriptCode.IsNullOrEmpty())
+                    scriptCode = File.ReadAllText(ScriptFile.Get(context));
+
+                try
+                {
+                    await pythonEngine.Execute(scriptCode, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Error running Python script: {e}");
+                    throw new InvalidOperationException(Resources.RunScriptException, e);
+                }
+
+                telemetryOperation?.Send();
+                return (asyncCodeActivityContext) =>
+                {
+                };
+            }
+            catch (Exception ex)
             {
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }
