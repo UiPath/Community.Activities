@@ -45,59 +45,71 @@ namespace UiPath.Database.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            DataTable dataTable = null;
-            SecureString connSecureString = null;
-            string connString = null;
-            string provName = null;
-            string tableName = null;
-            DatabaseConnection existingConnection = null;
-            long affectedRecords = 0;
-            IExecutorRuntime executorRuntime = null;
-            var continueOnError = ContinueOnError.Get(context);
             try
             {
-                existingConnection = DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                tableName = TableName.Get(context);
-                dataTable = DataTable.Get(context);
-                executorRuntime = context.GetExtension<IExecutorRuntime>();
-                connSecureString = ConnectionSecureString.Get(context);
-                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
-                // create the action for doing the actual work
-                affectedRecords = await Task.Run(() =>
+                DataTable dataTable = null;
+                SecureString connSecureString = null;
+                string connString = null;
+                string provName = null;
+                string tableName = null;
+                DatabaseConnection existingConnection = null;
+                long affectedRecords = 0;
+                IExecutorRuntime executorRuntime = null;
+                var continueOnError = ContinueOnError.Get(context);
+                try
                 {
-                    DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName);
-                    if (DbConnection == null)
+                    existingConnection = DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    tableName = TableName.Get(context);
+                    dataTable = DataTable.Get(context);
+                    executorRuntime = context.GetExtension<IExecutorRuntime>();
+                    connSecureString = ConnectionSecureString.Get(context);
+                    ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                    // create the action for doing the actual work
+                    affectedRecords = await Task.Run(() =>
                     {
-                        return 0;
-                    }
-                    if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                        return DbConnection.BulkInsertDataTable(tableName, dataTable, executorRuntime);
-                    else
-                        return DbConnection.BulkInsertDataTable(tableName, dataTable);
+                        DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName);
+                        if (DbConnection == null)
+                        {
+                            return 0;
+                        }
+                        if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
+                            return DbConnection.BulkInsertDataTable(tableName, dataTable, executorRuntime);
+                        else
+                            return DbConnection.BulkInsertDataTable(tableName, dataTable);
 
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // telemetryOperation object is made null in order to avoid double sending.
+                    telemetryOperation?.SendWithException(ex);
+                    telemetryOperation = null;
+                    HandleException(ex, continueOnError);
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection?.Dispose();
+                    }
+                }
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
                 });
-            telemetryOperation?.Send();
+
+                //if exception was caught and sent to telemetry, avoid sending again
+                telemetryOperation?.Send();
+                return result;
             }
             catch (Exception ex)
             {
+                // If any other exception occurs, send it to telemetry
                 telemetryOperation?.SendWithException(ex);
-                HandleException(ex, continueOnError);
+                throw;
             }
-            finally
-            {
-                if (existingConnection == null)
-                {
-                    DbConnection?.Dispose();
-                }
-            }
-            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
-            {
-                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
-            });
-            return result;
         }
     }
 }

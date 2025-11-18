@@ -46,88 +46,99 @@ namespace UiPath.Database.Activities
 #if ENABLE_DEFAULT_TELEMETRY
             telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
-
-            var dataTable = DataTable.Get(context);
-            string connString = null;
-            SecureString connSecureString = null;
-            string provName = null;
-            string sql = string.Empty;
-            DatabaseConnection existingConnection = null;
-            DBExecuteQueryResult affectedRecords = null;
-            int commandTimeout = TimeoutMS.Get(context);
-            if (commandTimeout < 0)
-            {
-                throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
-            }
-            Dictionary<string, ParameterInfo> parameters = null;
-            var continueOnError = ContinueOnError.Get(context);
             try
             {
-                existingConnection = DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                sql = Sql.Get(context);
-                connSecureString = ConnectionSecureString.Get(context);
-                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
-                if (Parameters != null)
+                var dataTable = DataTable.Get(context);
+                string connString = null;
+                SecureString connSecureString = null;
+                string provName = null;
+                string sql = string.Empty;
+                DatabaseConnection existingConnection = null;
+                DBExecuteQueryResult affectedRecords = null;
+                int commandTimeout = TimeoutMS.Get(context);
+                if (commandTimeout < 0)
                 {
-                    parameters = new Dictionary<string, ParameterInfo>();
-                    foreach (var param in Parameters)
+                    throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
+                }
+                Dictionary<string, ParameterInfo> parameters = null;
+                var continueOnError = ContinueOnError.Get(context);
+                try
+                {
+                    existingConnection = DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    sql = Sql.Get(context);
+                    connSecureString = ConnectionSecureString.Get(context);
+                    ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                    if (Parameters != null)
                     {
-                        parameters.Add(param.Key, new ParameterInfo()
+                        parameters = new Dictionary<string, ParameterInfo>();
+                        foreach (var param in Parameters)
                         {
-                            Value = param.Value.Get(context),
-                            Direction = param.Value.Direction,
-                            Type = param.Value.ArgumentType
-                        });
+                            parameters.Add(param.Key, new ParameterInfo()
+                            {
+                                Value = param.Value.Get(context),
+                                Direction = param.Value.Direction,
+                                Type = param.Value.ArgumentType
+                            });
+                        }
+                    }
+
+                    // create the action for doing the actual work
+                    affectedRecords = await Task.Run(() =>
+                    {
+                        if (DbConnection == null)
+                        {
+                            DbConnection = new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+                        }
+                        if (DbConnection == null)
+                        {
+                            return null;
+                        }
+                        return new DBExecuteQueryResult(DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType), parameters);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // telemetryOperation object is made null in order to avoid double sending.
+                    telemetryOperation?.SendWithException(ex);
+                    telemetryOperation = null;
+                    HandleException(ex, continueOnError);
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection?.Dispose();
                     }
                 }
 
-                // create the action for doing the actual work
-                affectedRecords = await Task.Run(() =>
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {
-                    if (DbConnection == null)
+                    DataTable dt = affectedRecords?.Result;
+                    if (dt == null) return;
+
+                    DataTable.Set(asyncCodeActivityContext, dt);
+                    foreach (var param in affectedRecords.ParametersBind)
                     {
-                        DbConnection = new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+                        var currentParam = Parameters[param.Key];
+                        if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
+                        {
+                            currentParam.Set(asyncCodeActivityContext, param.Value.Value);
+                        }
                     }
-                    if (DbConnection == null)
-                    {
-                        return null;
-                    }
-                    return new DBExecuteQueryResult(DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType), parameters);
                 });
+
+                //if exception was caught and sent to telemetry, avoid sending again
                 telemetryOperation?.Send();
+                return result;
             }
             catch (Exception ex)
             {
+                // If any other exception occurs, send it to telemetry
                 telemetryOperation?.SendWithException(ex);
-                HandleException(ex, continueOnError);
+                throw;
             }
-            finally
-            {
-                if (existingConnection == null)
-                {
-                    DbConnection?.Dispose();
-                }
-            }
-
-            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
-            {
-                DataTable dt = affectedRecords?.Result;
-                if (dt == null) return;
-
-                DataTable.Set(asyncCodeActivityContext, dt);
-                foreach (var param in affectedRecords.ParametersBind)
-                {
-                    var currentParam = Parameters[param.Key];
-                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
-                    {
-                        currentParam.Set(asyncCodeActivityContext, param.Value.Value);
-                    }
-                }
-            });
-            
-            return result;
         }
 
         private class DBExecuteQueryResult
