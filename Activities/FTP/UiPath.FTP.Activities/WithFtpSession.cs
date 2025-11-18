@@ -182,6 +182,11 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             try
             {
                 string passwordValue = Password.Get(context);
@@ -260,11 +265,7 @@ namespace UiPath.FTP.Activities
             }
             catch (Exception ex)
             {
-#if ENABLE_DEFAULT_TELEMETRY
-                ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
                 telemetryOperation?.SendWithException(ex);
-#endif
-
                 throw;
             }
 
