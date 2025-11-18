@@ -38,14 +38,14 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
-                    telemetryOperation?.SendWithException(e);
-                    Trace.TraceError($"Jar could not be loaded{e}");
+                    Trace.TraceError($"Jar could not be loaded: {e}");
                     throw new InvalidOperationException(Resources.LoadJarException, e);
                 }
                 var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {
                     // No OutArgument
                 });
+
                 telemetryOperation?.Send();
                 return result;
             }

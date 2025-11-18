@@ -53,13 +53,12 @@ namespace UiPath.Java.Activities
             {
                 IInvoker invoker = JavaScope.GetJavaInvoker(context);
                 var methodName = MethodName.Get(context) ?? throw new ArgumentNullException(Resources.MethodName);
+
                 JavaObject javaObject = TargetObject.Get(context);
                 string className = TargetType.Get(context);
 
                 if (javaObject == null && string.IsNullOrWhiteSpace(className))
-                {
                     throw new InvalidOperationException(Resources.InvokationObjectException);
-                }
 
                 List<object> parameters = GetParameters(context);
                 var types = GetParameterTypes(context, parameters);
@@ -71,16 +70,16 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
-                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"The method could not be invoked: {e}");
                     throw new InvalidOperationException(Resources.InvokeMethodException, e);
                 }
-                var result = new Action<AsyncCodeActivityContext> (asyncCodeActivityContext =>
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {
                     Result.Set(asyncCodeActivityContext, instance);
                 });
+
                 telemetryOperation?.Send();
-                return result; 
+                return result;
             }
             catch (Exception ex)
             {

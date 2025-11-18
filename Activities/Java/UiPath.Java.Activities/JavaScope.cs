@@ -64,10 +64,6 @@ namespace UiPath.Java.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken ct)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
-#if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
-#endif
             try
             {
                 string javaPath = JavaPath.Get(context);
@@ -98,7 +94,6 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
-                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"Error initializing Java Invoker: {e}");
                     throw new InvalidOperationException(string.Format(Resources.JavaInitiazeException, e.ToString()));
                 }
@@ -107,24 +102,35 @@ namespace UiPath.Java.Activities
                 {
                     ctx.ScheduleAction(Body, _invoker, OnCompleted, OnFaulted);
                 });
-                telemetryOperation?.Send();
+                
                 return result;
             }
             catch (Exception ex)
             {
+#if ENABLE_DEFAULT_TELEMETRY
+                ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
                 telemetryOperation?.SendWithException(ex);
+#endif
                 throw;
             }
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+            telemetryOperation?.SendWithException(propagatedException);
+#endif
             faultContext.CancelChildren();
             Clean().DoNotAwait();
         }
 
         private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            telemetryOperation?.Send();
+#endif
             Clean().DoNotAwait();
         }
 

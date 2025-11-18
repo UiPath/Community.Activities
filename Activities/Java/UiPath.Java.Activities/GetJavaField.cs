@@ -53,9 +53,7 @@ namespace UiPath.Java.Activities
                 var className = TargetType.Get(context);
 
                 if (javaObject == null && className == null)
-                {
                     throw new InvalidOperationException(Resources.InvokationObjectException);
-                }
 
                 JavaObject instance;
                 try
@@ -64,7 +62,6 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
-                    telemetryOperation?.SendWithException(e);
                     Trace.TraceError($"Could not get java field: {e}");
                     throw new InvalidOperationException(Resources.GetFieldException, e);
                 }
@@ -73,6 +70,7 @@ namespace UiPath.Java.Activities
                 {
                     Result.Set(asyncCodeActivityContext, instance);
                 });
+
                 telemetryOperation?.Send();
                 return result;
             }

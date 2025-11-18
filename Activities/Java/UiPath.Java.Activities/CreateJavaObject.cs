@@ -40,9 +40,8 @@ namespace UiPath.Java.Activities
                 IInvoker invoker = JavaScope.GetJavaInvoker(context);
                 var className = TargetType.Get(context);
                 if (string.IsNullOrWhiteSpace(className))
-                {
                     throw new ArgumentNullException(nameof(TargetType));
-                }
+
                 List<object> parameters = GetParameters(context);
                 var types = GetParameterTypes(context, parameters);
                 JavaObject instance = null;
@@ -52,7 +51,7 @@ namespace UiPath.Java.Activities
                 }
                 catch (Exception e)
                 {
-                    Trace.TraceError($"Constrcutor could not be invoker: {e}");
+                    Trace.TraceError($"Constructor could not be invoked: {e}");
                     throw new InvalidOperationException(Resources.ConstructorException, e);
                 }
 
@@ -60,6 +59,7 @@ namespace UiPath.Java.Activities
                 {
                     Result.Set(asyncCodeActivityContext, instance);
                 });
+
                 telemetryOperation?.Send();
                 return result;
             }
