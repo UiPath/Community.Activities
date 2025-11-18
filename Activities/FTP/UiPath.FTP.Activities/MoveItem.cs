@@ -46,32 +46,24 @@ namespace UiPath.FTP.Activities
             {
                 PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
                 IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
-                try
+                if (ftpSession == null)
                 {
-                    if (ftpSession == null)
-                    {
-                        throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
-                    }
-                    ftpSession.Move(RemotePath.Get(context), NewPath.Get(context), Overwrite);
+                    throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
                 }
-                catch (Exception e)
-                {
-                    telemetryOperation?.SendWithException(e);
-                    if (ContinueOnError.Get(context))
-                    {
-                        Trace.TraceError(e.ToString());
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                ftpSession.Move(RemotePath.Get(context), NewPath.Get(context), Overwrite);
                 telemetryOperation?.Send();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                telemetryOperation?.SendWithException(ex);
-                throw;
+                telemetryOperation?.SendWithException(e);
+                if (ContinueOnError.Get(context))
+                {
+                    Trace.TraceError(e.ToString());
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
     }
