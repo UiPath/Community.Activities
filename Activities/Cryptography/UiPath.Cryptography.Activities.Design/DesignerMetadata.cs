@@ -13,11 +13,6 @@ namespace UiPath.Cryptography.Activities.Design
         {
             AttributeTableBuilder builder = new AttributeTableBuilder();
 
-#if NET461
-            builder.AddCustomAttributes(typeof(HashFile), new DesignerAttribute(typeof(HashFileActivityDesigner)));
-            builder.AddCustomAttributes(typeof(HashText), new DesignerAttribute(typeof(HashTextActivityDesigner)));
-#endif
-
             builder.AddCustomAttributes(typeof(KeyedHashFile), new DesignerAttribute(typeof(KeyedHashFileActivityDesigner))); 
             builder.AddCustomAttributes(typeof(KeyedHashText), new DesignerAttribute(typeof(KeyedHashTextActivityDesigner)));
             builder.AddCustomAttributes(typeof(EncryptFile), new DesignerAttribute(typeof(EncryptFileActivityDesigner)));
@@ -29,10 +24,6 @@ namespace UiPath.Cryptography.Activities.Design
             CategoryAttribute cryptographyCategoryAttribute =
                 new CategoryAttribute($"{Resources.CategorySystem}.{Resources.CategoryCryptography}");
 
-#if NET461
-            builder.AddCustomAttributes(typeof(HashFile), cryptographyCategoryAttribute);
-            builder.AddCustomAttributes(typeof(HashText), cryptographyCategoryAttribute);
-#endif
             builder.AddCustomAttributes(typeof(KeyedHashFile), cryptographyCategoryAttribute);
             builder.AddCustomAttributes(typeof(KeyedHashText), cryptographyCategoryAttribute);
             builder.AddCustomAttributes(typeof(EncryptFile), cryptographyCategoryAttribute);
@@ -42,10 +33,6 @@ namespace UiPath.Cryptography.Activities.Design
 
             var ContinueOnError = new DescriptionAttribute(Resources.ContinueOnError);
 
-#if NET461
-            builder.AddCustomAttributes(typeof(HashFile), nameof(HashFile.ContinueOnError), ContinueOnError);
-            builder.AddCustomAttributes(typeof(HashText), nameof(HashText.ContinueOnError), ContinueOnError);
-#endif
             builder.AddCustomAttributes(typeof(KeyedHashFile), nameof(KeyedHashFile.ContinueOnError), ContinueOnError);
             builder.AddCustomAttributes(typeof(KeyedHashText), nameof(KeyedHashText.ContinueOnError), ContinueOnError);
             builder.AddCustomAttributes(typeof(EncryptFile), nameof(EncryptFile.ContinueOnError), ContinueOnError);

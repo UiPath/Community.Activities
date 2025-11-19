@@ -79,11 +79,6 @@ namespace UiPath.Cryptography.Activities
         {
             base.CacheMetadata(metadata);
 
-            if (!CryptographyHelper.IsFipsCompliant(Algorithm))
-            {
-                var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
-                metadata.AddValidationError(error);
-            }
             if (Algorithm.ToString().StartsWith(nameof(HMAC)))
             {
                 if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)

@@ -1,12 +1,4 @@
-﻿#if NETFRAMEWORK
-
-using Org.BouncyCastle.Crypto.Engines;
-using Org.BouncyCastle.Crypto.Modes;
-using Org.BouncyCastle.Crypto.Parameters;
-
-#endif
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,20 +17,6 @@ namespace UiPath.Cryptography
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
         private const int PBKDF2_SaltSizeBytes = 8; // Value recommended in literature (64 bit key).
         private const int PBKDF2_Iterations = 10000; // Value recommended in literature.
-
-        public static byte[] HashData(HashAlgorithms hashAlgorithm, byte[] inputBytes)
-        {
-            byte[] result;
-
-            using (HashAlgorithm algorithm = GetHashAlgorithm(hashAlgorithm))
-            {
-                result = algorithm.ComputeHash(inputBytes);
-
-                algorithm.Clear();
-            }
-
-            return result;
-        }
 
         public static byte[] HashDataWithKey(KeyedHashAlgorithms keyedHashAlgorithm, byte[] inputBytes, byte[] keyBytes)
         {
@@ -149,38 +127,6 @@ namespace UiPath.Cryptography
             return decrypted;
         }
 
-        public static bool IsFipsCompliant(HashAlgorithms hashAlgorithm)
-        {
-            switch (hashAlgorithm)
-            {
-#if NETFRAMEWORK
-
-                case HashAlgorithms.MD5:
-                case HashAlgorithms.RIPEMD160:
-                    return false;
-#endif
-
-                default:
-                    return true;
-            }
-        }
-
-        public static bool IsFipsCompliant(KeyedHashAlgorithms keyedHashAlgorithm)
-        {
-            switch (keyedHashAlgorithm)
-            {
-#if NETFRAMEWORK
-
-                case KeyedHashAlgorithms.HMACMD5:
-                case KeyedHashAlgorithms.HMACRIPEMD160:
-                    return false;
-#endif
-
-                default:
-                    return true;
-            }
-        }
-
         public static bool IsFipsCompliant(SymmetricAlgorithms symmetricAlgorithm)
         {
             switch (symmetricAlgorithm)
@@ -194,64 +140,20 @@ namespace UiPath.Cryptography
             }
         }
 
-        private static HashAlgorithm GetHashAlgorithm(HashAlgorithms hashAlgorithm)
-        {
-            switch (hashAlgorithm)
-            {
-#if NETFRAMEWORK
-
-                case HashAlgorithms.MD5:
-                    return new MD5Cng();
-
-                case HashAlgorithms.RIPEMD160:
-                    return new RIPEMD160Managed();
-
-                case HashAlgorithms.SHA1:
-                    return new SHA1Cng();
-
-                case HashAlgorithms.SHA256:
-                    return new SHA256Cng();
-
-                case HashAlgorithms.SHA384:
-                    return new SHA384Cng();
-
-                case HashAlgorithms.SHA512:
-                    return new SHA512Cng();
-#endif
-
-                default:
-                    throw new InvalidOperationException(Resources.UnsupportedHashAlgorithmException);
-            }
-        }
-
         private static HashAlgorithm GetKeyedHashAlgorithm(KeyedHashAlgorithms keyedHashAlgorithm)
         {
             switch (keyedHashAlgorithm)
             {
                 case KeyedHashAlgorithms.HMACMD5:
                     return new HMACMD5();
-#if NETFRAMEWORK
-
-                case KeyedHashAlgorithms.HMACRIPEMD160:
-                    return new HMACRIPEMD160();
-#endif
-
                 case KeyedHashAlgorithms.HMACSHA1:
                     return new HMACSHA1();
-
                 case KeyedHashAlgorithms.HMACSHA256:
                     return new HMACSHA256();
-
                 case KeyedHashAlgorithms.HMACSHA384:
                     return new HMACSHA384();
-
                 case KeyedHashAlgorithms.HMACSHA512:
                     return new HMACSHA512();
-
-#if NETFRAMEWORK
-                case KeyedHashAlgorithms.MACTripleDES: // TODO: What about padding mode?
-                    return new MACTripleDES(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
-#endif
                 case KeyedHashAlgorithms.SHA1:
                     return SHA1.Create();
                 case KeyedHashAlgorithms.SHA256:
@@ -324,14 +226,8 @@ namespace UiPath.Cryptography
             {
                 var Key = pbkdf2.GetBytes(32); //256 bit key
 
-#if NETCOREAPP
-
                 var aes = new AesGcm(Key);
                 aes.Encrypt(algorithmIV, inputBytes, encrypted, tag);
-#else
-
-                encrypted = EncryptAesGcmWithBouncyCastle(inputBytes, Key, algorithmIV, out tag);
-#endif
             }
 
             result = CreateAesGcmEncryptionResult(encrypted, salt, tag, algorithmIV);
@@ -347,15 +243,10 @@ namespace UiPath.Cryptography
             using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
             {
                 var Key = pbkdf2.GetBytes(32); //256 bit key
-#if NETCOREAPP
 
                 var aes = new AesGcm(Key);
                 decrypted = new byte[encryptedData.Length];
                 aes.Decrypt(iv, encryptedData, tag, decrypted);
-#else
-
-                decrypted = DecryptAesGcmWithBouncyCastle(encryptedData, iv, tag, Key);
-#endif
             }
 
             return decrypted;
@@ -396,48 +287,5 @@ namespace UiPath.Cryptography
         {
             return key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password);
         }
-
-#if NETFRAMEWORK
-
-        private static byte[] EncryptAesGcmWithBouncyCastle(byte[] plaintext, byte[] key, byte[] nonce, out byte[] tag)
-        {
-            const int tagLenth = 16; // in bytes
-
-            var plaintextBytes = plaintext;
-            var bcCiphertext = new byte[plaintextBytes.Length + tagLenth];
-
-            var cipher = new GcmBlockCipher(new AesEngine());
-            var parameters = new AeadParameters(new KeyParameter(key), tagLenth * 8, nonce);
-            cipher.Init(true, parameters);
-
-            var offset = cipher.ProcessBytes(plaintextBytes, 0, plaintextBytes.Length, bcCiphertext, 0);
-            cipher.DoFinal(bcCiphertext, offset);
-
-            // Bouncy Castle includes the authentication tag in the ciphertext
-            var ciphertext = new byte[plaintextBytes.Length];
-            tag = new byte[tagLenth];
-            Buffer.BlockCopy(bcCiphertext, 0, ciphertext, 0, plaintextBytes.Length);
-            Buffer.BlockCopy(bcCiphertext, plaintextBytes.Length, tag, 0, tagLenth);
-
-            return ciphertext;
-        }
-
-        private static byte[] DecryptAesGcmWithBouncyCastle(byte[] ciphertext, byte[] nonce, byte[] tag, byte[] key)
-        {
-            var plaintextBytes = new byte[ciphertext.Length];
-
-            var cipher = new GcmBlockCipher(new AesEngine());
-            var parameters = new AeadParameters(new KeyParameter(key), tag.Length * 8, nonce);
-            cipher.Init(false, parameters);
-
-            var bcCiphertext = ciphertext.Concat(tag).ToArray();
-
-            var offset = cipher.ProcessBytes(bcCiphertext, 0, bcCiphertext.Length, plaintextBytes, 0);
-            cipher.DoFinal(plaintextBytes, offset);
-
-            return plaintextBytes;
-        }
-
-#endif
     }
 }
