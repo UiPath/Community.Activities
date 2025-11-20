@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Cryptography.build.props" />
   <PropertyGroup>
-    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
     <VersionSuffix></VersionSuffix>

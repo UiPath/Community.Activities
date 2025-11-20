@@ -2,7 +2,7 @@
  <Import Project="..\Cryptography.build.props" />
  <PropertyGroup>
  <PackageId>.noconflict</PackageId>
- <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+ <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
  <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
  </PropertyGroup>
  <ItemGroup>
