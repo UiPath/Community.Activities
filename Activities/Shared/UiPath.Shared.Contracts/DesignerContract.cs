@@ -1,7 +1,4 @@
 ﻿using System;
-#if NETFRAMEWORK
-using System.Activities.Presentation;
-#endif
 using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Shared.Contracts
@@ -11,20 +8,6 @@ namespace UiPath.Shared.Contracts
         private IWorkflowDesignApi _contract;
         private readonly object _contractObj;
 
-#if NETFRAMEWORK
-        private EditingContext _ctx;
-
-        public DesignerContract(EditingContext ctx)
-           : this(ctx, null)
-        {
-        }
-
-        public DesignerContract(EditingContext ctx, string featureName)
-           : base(featureName)
-        {
-            _ctx = ctx;
-        }
-#endif
         public DesignerContract(object api, string featureName) : base(featureName)
         {
             _contractObj = api;
@@ -33,17 +16,11 @@ namespace UiPath.Shared.Contracts
         public DesignerContract With(string featureName)
         {
             var result = new DesignerContract(_contractObj, featureName);
-#if NETFRAMEWORK
-            result._ctx = _ctx;
-#endif
             return result;
         }
 
         protected override object GetContractInstance()
         {
-#if NETFRAMEWORK
-            _contract = _ctx?.Services.GetService<IWorkflowDesignApi>();
-#endif
             _contract = _contract ?? _contractObj as IWorkflowDesignApi;
 
             return _contract;

@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DesignerContract.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DesignerContractExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RuntimeContract.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RuntimeContractWrapper.cs" />
   </ItemGroup>

@@ -54,7 +54,7 @@ namespace System
 
         public static IDisposable DisposeWithReleaseComObject<T>(this T obj, out T outObj)
         {
-#if NET6_0_OR_GREATER && WINDOWS
+#if WINDOWS
             return DisposeWith(obj, (onDispose) => Marshal.ReleaseComObject(obj), out outObj);
 #else
             throw new PlatformNotSupportedException("COM available only on Windows");
