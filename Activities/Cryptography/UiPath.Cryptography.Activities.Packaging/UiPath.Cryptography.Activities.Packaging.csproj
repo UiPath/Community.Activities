@@ -23,12 +23,6 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
-    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.Design\UiPath.Cryptography.Activities.Design.csproj">
-      <PrivateAssets>All</PrivateAssets>
-    </ProjectReference>
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
