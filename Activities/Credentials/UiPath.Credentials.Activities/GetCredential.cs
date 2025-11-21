@@ -1,7 +1,13 @@
 ﻿using CredentialManagement;
+using System;
 using System.Activities;
 using System.ComponentModel;
 using UiPath.Credentials.Activities.Properties;
+using UiPath.Shared.Activities;
+
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Credentials.Activities
 {
@@ -42,12 +48,30 @@ namespace UiPath.Credentials.Activities
 
         protected override bool Execute(CodeActivityContext context)
         {
-            Credential credential = new Credential { Target = Target.Get(context), Type = CredentialType, PersistanceType = PersistanceType };
-            var result = credential.Load();
-            if (!result) return false;
-            Username.Set(context, credential.Username);
-            Password.Set(context, credential.Password);
-            return true;
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+            try
+            {
+                telemetryOperation?.SetCustomDataKey(nameof(CredentialType), CredentialType.ToString() ?? null);
+                telemetryOperation?.SetCustomDataKey(nameof(PersistanceType), PersistanceType.ToString() ?? null);
+
+                Credential credential = new Credential { Target = Target.Get(context), Type = CredentialType, PersistanceType = PersistanceType };
+                var result = credential.Load();
+                if (!result) return false;
+                Username.Set(context, credential.Username);
+                Password.Set(context, credential.Password);
+
+                telemetryOperation?.Send();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

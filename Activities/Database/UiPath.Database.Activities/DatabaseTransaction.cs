@@ -7,8 +7,12 @@ using System.Net;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
+using TelemetryClient.Contracts.Model;
 using UiPath.Database.Activities.Properties;
 using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Database.Activities
 {
@@ -18,6 +22,11 @@ namespace UiPath.Database.Activities
 #endif
     public partial class DatabaseTransaction : AsyncTaskNativeActivity
     {
+        private const string _commit = "Commit";
+        private const string _rollback = "Rollback";
+        private const string _successful = "Successful";
+        private const string _failed = "Failed";
+
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.ConnectionConfiguration))]
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseTransaction_Property_ProviderName_Name))]
@@ -76,36 +85,52 @@ namespace UiPath.Database.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
-            var connString = ConnectionString.Get(context);
-            SecureString connSecureString = null;
-            var provName = ProviderName.Get(context);
-            connSecureString = ConnectionSecureString.Get(context);
-            DatabaseConnection existingConnection = null;
-            existingConnection = ExistingDbConnection.Get(context);
-            DatabaseConnection dbConnection = null;
-
-
-            ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
-            dbConnection = await Task.Run(() => existingConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName));
-            if (UseTransaction)
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+            try
             {
-                dbConnection.BeginTransaction();
-            }
+                var connString = ConnectionString.Get(context);
+                SecureString connSecureString = null;
+                var provName = ProviderName.Get(context);
+                connSecureString = ConnectionSecureString.Get(context);
+                DatabaseConnection existingConnection = null;
+                existingConnection = ExistingDbConnection.Get(context);
+                DatabaseConnection dbConnection = null;
 
-            return (nativeActivityContext) =>
-            {
-                DatabaseConnection.Set(nativeActivityContext, dbConnection);
-                if (Body != null)
+
+                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                dbConnection = await Task.Run(() => existingConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName));
+                if (UseTransaction)
                 {
-                    nativeActivityContext.ScheduleActivity(Body, OnCompletedCallback, OnFaultedCallback);
+                    dbConnection.BeginTransaction();
                 }
 
-            };
-        
+                var result = new Action<NativeActivityContext>(nativeActivityContext =>
+                {
+                    DatabaseConnection.Set(nativeActivityContext, dbConnection);
+                    if (Body != null)
+                    {
+                        nativeActivityContext.ScheduleActivity(Body, OnCompletedCallback, OnFaultedCallback);
+                    }
+                });
+                return result;
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
 
         private void OnCompletedCallback(NativeActivityContext context, ActivityInstance completedInstance)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             DatabaseConnection conn = null;
             Exception ex = null;
             var continueOnError = ContinueOnError.Get(context);
@@ -115,11 +140,15 @@ namespace UiPath.Database.Activities
                 if (UseTransaction && conn.State != System.Data.ConnectionState.Closed)
                 {
                     conn.Commit();
+                    telemetryOperation?.SetCustomDataKey(_commit, _successful);
+                    telemetryOperation?.Send();
                 }
             }
             catch (Exception e)
             {
                 ex = e;
+                telemetryOperation?.SetCustomDataKey(_commit, _failed);
+                telemetryOperation?.SendWithException(e);
             }
             finally
             {
@@ -134,6 +163,11 @@ namespace UiPath.Database.Activities
 
         private void OnFaultedCallback(NativeActivityFaultContext faultContext, Exception exception, ActivityInstance source)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+#endif
+
             faultContext.CancelChildren();
             DatabaseConnection conn = DatabaseConnection.Get(faultContext);
             var continueOnError = ContinueOnError.Get(faultContext);
@@ -145,6 +179,8 @@ namespace UiPath.Database.Activities
                     if (UseTransaction && conn.State != System.Data.ConnectionState.Closed)
                     {
                         conn.Rollback();
+                        telemetryOperation?.SetCustomDataKey(_rollback, _successful);
+                        telemetryOperation?.Send();
                     }
                 }
                 catch (Exception ex)
@@ -153,6 +189,8 @@ namespace UiPath.Database.Activities
                     //we should trace the original exception if present
                     if (primaryException == null)
                         primaryException = ex;
+                    telemetryOperation?.SetCustomDataKey(_rollback, _failed);
+                    telemetryOperation?.SendWithException(ex);
                 }
                 finally
                 {

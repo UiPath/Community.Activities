@@ -12,6 +12,10 @@ using UiPath.Cryptography.Activities.Models;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 #pragma warning disable CS0618 // obsolete encryption algorithm
 
@@ -26,14 +30,7 @@ namespace UiPath.Cryptography.Activities
         public EncryptFile()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
-#if NET461
-            //we only use this on legacy
-            KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
-#endif
-#if NET
-            //for modern and cross projects
             KeyEncodingString = Encoding.UTF8.CodePage.ToString();
-#endif
         }
 
         [RequiredArgument]
@@ -126,7 +123,6 @@ namespace UiPath.Cryptography.Activities
 
                 metadata.AddValidationError(error);
             }
-#if NET
             if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
             {
                 var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
@@ -137,11 +133,15 @@ namespace UiPath.Cryptography.Activities
                 var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                 metadata.AddValidationError(error);
             }
-#endif
         }
 
         protected override void Execute(CodeActivityContext context)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             try
             {
                 var inputFilePath = InputFilePath.Get(context);
@@ -152,7 +152,7 @@ namespace UiPath.Cryptography.Activities
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = KeyEncoding.Get(context);
                 var keyEncodingString = KeyEncodingString.Get(context);
-#if NET
+
                 if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 {
                     throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_Key_Name);
@@ -161,14 +161,7 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_KeySecureString_Name);
                 }
-#endif
 
-#if NET461
-                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
-                {
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-                }
-#endif
                 if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
 
                 if (!File.Exists(inputFilePath) && inputFile == null)
@@ -214,11 +207,12 @@ namespace UiPath.Cryptography.Activities
 
                 // This overwrites the file if it already exists.
                 File.WriteAllBytes(outputFilePath, encrypted);
+                telemetryOperation?.Send();
             }
             catch (Exception ex)
             {
+                telemetryOperation?.SendWithException(ex);
                 Trace.TraceError(ex.ToString());
-
                 if (!ContinueOnError.Get(context)) throw;
             }
         }

@@ -10,6 +10,10 @@ using System.Text;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 #pragma warning disable CS0618 // obsolete encryption algorithm
 
@@ -69,14 +73,7 @@ namespace UiPath.Cryptography.Activities
         public DecryptText()
         {
             Algorithm = SymmetricAlgorithms.AESGCM;
-#if NET461
-            //we only use this on legacy
-            Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
-#endif
-#if NET
-            //for modern and cross projects
             KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
-#endif
 
         }
 
@@ -95,7 +92,6 @@ namespace UiPath.Cryptography.Activities
                 default:
                     break;
             }
-#if NET
             if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
             {
                 var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
@@ -106,13 +102,16 @@ namespace UiPath.Cryptography.Activities
                 var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                 metadata.AddValidationError(error);
             }
-#endif
         }
 
         protected override string Execute(CodeActivityContext context)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+            
             string result = null;
-
             try
             {
                 var input = Input.Get(context);
@@ -123,7 +122,7 @@ namespace UiPath.Cryptography.Activities
 
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
-#if NET
+
                 if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 {
                     throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
@@ -132,14 +131,7 @@ namespace UiPath.Cryptography.Activities
                 {
                     throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
                 }
-#endif
 
-#if NET461
-                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
-                {
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-                }
-#endif
                 if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                     throw new ArgumentNullException(Resources.Encoding);
 
@@ -156,9 +148,11 @@ namespace UiPath.Cryptography.Activities
                 }
 
                 result = keyEncoding.GetString(decrypted);
+                telemetryOperation?.Send();
             }
             catch (Exception ex)
             {
+                telemetryOperation?.SendWithException(ex);
                 Trace.TraceError(ex.ToString());
 
                 if (!ContinueOnError.Get(context))
@@ -166,7 +160,6 @@ namespace UiPath.Cryptography.Activities
                     throw;
                 }
             }
-
             return result;
         }
     }

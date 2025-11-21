@@ -13,36 +13,6 @@ namespace UiPath.Cryptography.Activities.Tests
 {
     public class CryptographyTests
     {
-#if NETFRAMEWORK
-
-        [Theory]
-        [InlineData(HashAlgorithms.MD5)]
-        [InlineData(HashAlgorithms.RIPEMD160)]
-        [InlineData(HashAlgorithms.SHA1)]
-        [InlineData(HashAlgorithms.SHA256)]
-        [InlineData(HashAlgorithms.SHA384)]
-        [InlineData(HashAlgorithms.SHA512)]
-        public void HashAlgorithmsMatch(HashAlgorithms enumValue)
-        {
-            string toHash = "`~1234567890-=qwertyuiop[]\\ASDFGHJKL:\"ZXCVBNM<>?ăîșțâ";
-
-            HashText hash = new HashText
-            {
-                Algorithm = enumValue,
-                Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode))
-            };
-            Dictionary<string, object> arguments = new Dictionary<string, object>();
-            arguments.Add(nameof(HashText.Input), toHash);
-
-            WorkflowInvoker invoker = new WorkflowInvoker(hash);
-            string activityString = (string)invoker.Invoke(arguments)[nameof(hash.Result)];
-
-            byte[] algorithmBytes = CryptographyHelper.HashData(enumValue, Encoding.Unicode.GetBytes(toHash));
-
-            Assert.Equal(activityString, BitConverter.ToString(algorithmBytes).Replace("-", string.Empty));
-        }
-
-#endif
 
         [Theory]
         [InlineData(KeyedHashAlgorithms.HMACMD5)]
@@ -50,10 +20,6 @@ namespace UiPath.Cryptography.Activities.Tests
         [InlineData(KeyedHashAlgorithms.HMACSHA256)]
         [InlineData(KeyedHashAlgorithms.HMACSHA384)]
         [InlineData(KeyedHashAlgorithms.HMACSHA512)]
-#if NETFRAMEWORK
-        [InlineData(KeyedHashAlgorithms.MACTripleDES)]
-        [InlineData(KeyedHashAlgorithms.HMACRIPEMD160)]
-#endif
         public void KeyedHashAlgorithmsMatch(KeyedHashAlgorithms enumValue)
         {
             string toHash = "`~1234567890-=qwertyuiop[]\\ASDFGHJKL:\"ZXCVBNM<>?ăîșțâ";
@@ -155,10 +121,6 @@ namespace UiPath.Cryptography.Activities.Tests
         [InlineData(KeyedHashAlgorithms.HMACSHA256)]
         [InlineData(KeyedHashAlgorithms.HMACSHA384)]
         [InlineData(KeyedHashAlgorithms.HMACSHA512)]
-#if NETFRAMEWORK
-        [InlineData(KeyedHashAlgorithms.MACTripleDES)]
-        [InlineData(KeyedHashAlgorithms.HMACRIPEMD160)]
-#endif
         public void KeyedHashAlgorithmsMatchWithSecureString(KeyedHashAlgorithms enumValue)
         {
             string toHash = "`~1234567890-=qwertyuiop[]\\ASDFGHJKL:\"ZXCVBNM<>?ăîșțâ";

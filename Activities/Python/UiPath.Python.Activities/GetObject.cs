@@ -2,6 +2,10 @@
 using System.Activities;
 using System.Diagnostics;
 using UiPath.Python.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Python.Activities
 {
@@ -25,25 +29,35 @@ namespace UiPath.Python.Activities
 
         protected override void Execute(CodeActivityContext context)
         {
-            IEngine pythonEngine = PythonScope.GetPythonEngine(context);
-            PythonObject pyObject = PythonObject.Get(context);
-            if (null == pyObject)
-            {
-                throw new ArgumentNullException(nameof(PythonObject));
-            }
-
-            T result;
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                result = (T)pythonEngine.Convert(pyObject, typeof(T));
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Error casting Python object: {e}");
-                throw new InvalidOperationException(Resources.ConvertException, e);
-            }
+                IEngine pythonEngine = PythonScope.GetPythonEngine(context);
+                PythonObject pyObject = PythonObject.Get(context) ?? throw new ArgumentNullException(nameof(PythonObject));
 
-            Result.Set(context, result);
+                T result;
+                try
+                {
+                    result = (T)pythonEngine.Convert(pyObject, typeof(T));
+
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Error casting Python object: {e}");
+                    throw new InvalidOperationException(Resources.ConvertException, e);
+                }
+
+                telemetryOperation?.Send();
+                Result.Set(context, result);
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }
