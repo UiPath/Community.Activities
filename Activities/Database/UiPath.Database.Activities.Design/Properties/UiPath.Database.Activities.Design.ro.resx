@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AffectedRecordsDescription" xml:space="preserve">
+    <value>Rezultatul executării comenzii sql. Pentru instrucțiunile UPDATE, INSERT și DELETE, valoarea returnată este numărul de rânduri afectate de comandă. Pentru toate celelalte tipuri de instrucțiuni, valoarea returnată este -1.</value>
+  </data>
+  <data name="CategoryDatabase" xml:space="preserve">
+    <value>Bază de date</value>
+  </data>
+  <data name="CommandTypeDescription" xml:space="preserve">
+    <value>Specifică modul în care este interpretat un șir de comenzi</value>
+  </data>
+  <data name="ConnectionStringDescription" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date</value>
+  </data>
+  <data name="DatabaseConnectDescription" xml:space="preserve">
+    <value>Se conectează la o bază de date.</value>
+  </data>
+  <data name="DatabaseConnectionDescription" xml:space="preserve">
+    <value>Conexiunea bazei de date folosită pentru operațiunile din cadrul acestei activități</value>
+  </data>
+  <data name="DatabaseDisconnectDescription" xml:space="preserve">
+    <value>Închide o conexiune către o bază de date.</value>
+  </data>
+  <data name="DataTableDescription" xml:space="preserve">
+    <value>Ieșirea comenzii sql înfășurată într-un obiect DataTable</value>
+  </data>
+  <data name="DbTransactionDescription" xml:space="preserve">
+    <value>Se conectează la o bază de date și returnează un DatabaseConnection, oferind un domeniu pentru activitățile bazei de date. Dacă UseTransaction este setat true, operațiunile conținute sunt executate într-o singură tranzacție și aplicate la final dacă niciuna dintre ele nu a eșuat. Dacă UseTransaction este setat false, toate operațiunile sunt angajate individual. Când această activitate se încheie, conexiunea cu baza de date este închisă.</value>
+  </data>
+  <data name="DefaultWidth" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="ExecuteNonQueryDescription" xml:space="preserve">
+    <value>Execută o instrucțiune SQL pe o bază de date. Pentru instrucțiunile UPDATE, INSERT și DELETE, valoarea returnată este numărul de rânduri afectate de comandă. Pentru toate celelalte tipuri de instrucțiuni, valoarea returnată este -1.</value>
+  </data>
+  <data name="ExecuteQueryDescription" xml:space="preserve">
+    <value>Execută o interogare pe o bază de date și returnează rezultatul interogării într-un Tabel de date.</value>
+  </data>
+  <data name="ExistingDbConnectionDescription" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă. Dacă această proprietate este setată, proprietățile Șirului de Conexiune și Numelui Furnizorului sunt ignorate</value>
+  </data>
+  <data name="InsertDataTableDescription" xml:space="preserve">
+    <value>Inserează un DataTable compatibil într-un Tabel existent. Returnează numărul de rânduri afectate.</value>
+  </data>
+  <data name="ParametersDescription" xml:space="preserve">
+    <value>Un dicționar de parametri denumiți care sunt legați de comanda sql. Legarea se face prin specificarea instrucțiunii &apos;@parameterName&apos; din comanda sql. La timpul execuției, parametrul Name va fi înlocuit cu valoarea sa din dicționar</value>
+  </data>
+  <data name="ProviderNameDescription" xml:space="preserve">
+    <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date. O listă a furnizorilor de date poate fi găsită la http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
+  </data>
+  <data name="SqlDescription" xml:space="preserve">
+    <value>Furnizează o instrucțiune SQL care corespunde tipului de comandă selectat</value>
+  </data>
+  <data name="TableNameDescription" xml:space="preserve">
+    <value>Tabelul bazei de date țintă</value>
+  </data>
+  <data name="TimeoutMSDescription" xml:space="preserve">
+    <value>Specifică timpul (în milisecunde) pentru a aștepta rularea comenzii sql înainte ca o eroare să fie aruncată. Valoarea implicită este 30000 milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
+  </data>
+  <data name="UseTransactionDescription" xml:space="preserve">
+    <value>Specifică dacă operațiunile bazei de date din această activitate ar trebui să fie învelite într-o tranzacție de bază de date</value>
+  </data>
+  <data name="AffectedRecordsInsertDescription" xml:space="preserve">
+    <value>Numărul de rânduri inserate</value>
+  </data>
+  <data name="ConfigureConnection" xml:space="preserve">
+    <value>Configurează conexiunea...</value>
+  </data>
+  <data name="InserDataTableInputDescription" xml:space="preserve">
+    <value>Obiectul DataTable care va fi inserat în Tabel. Descrierea columnelor DataTable trebuie să corespundă coloanelor din tabelul bazei de date</value>
+  </data>
+  <data name="ConnectionWizard" xml:space="preserve">
+    <value>Vrăjitor de conexiune</value>
+  </data>
+  <data name="DoubleClickToView" xml:space="preserve">
+    <value>Dublu click pentru a vedea</value>
+  </data>
+  <data name="EditConnectionSettings" xml:space="preserve">
+    <value>Editează setările conexiunii</value>
+  </data>
+  <data name="NewDatabaseConnection" xml:space="preserve">
+    <value>Noua conexiune cu baza de date</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parametri</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>DisplayName</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ConnectionString" xml:space="preserve">
+    <value>Șirul de conexiune</value>
+  </data>
+  <data name="DatabaseConnection" xml:space="preserve">
+    <value>Conexiunea cu baza de date</value>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value>Tabel de date</value>
+  </data>
+  <data name="DropActivityHere" xml:space="preserve">
+    <value>Activitate de abandon aici</value>
+  </data>
+  <data name="EditSql" xml:space="preserve">
+    <value>Editare SQL</value>
+  </data>
+  <data name="ExistingDatabaseConnection" xml:space="preserve">
+    <value>Conexiunea existentă cu baza de date</value>
+  </data>
+  <data name="SqlQueryHint" xml:space="preserve">
+    <value>Interogare SQL. Textul trebuie citat</value>
+  </data>
+  <data name="TableNameHint" xml:space="preserve">
+    <value>Numele mesei. Textul trebuie citat</value>
+  </data>
+  <data name="QueryTimeoutMSDescription" xml:space="preserve">
+    <value>Specifică timpul (în milisecunde) pentru a aștepta rularea interogării SQL înainte ca o eroare să fie aruncată (nu include timpul de răspuns pentru recuperarea rezultatului interogării). Valoarea implicită este 30000 milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
+  </data>
+  <data name="CategoryAppIntegration" xml:space="preserve">
+    <value>Integrarea aplicațiilor</value>
+  </data>
+  <data name="CollectionLabel" xml:space="preserve">
+    <value>(Colecție)</value>
+  </data>
+  <data name="ContinueOnError" xml:space="preserve">
+    <value>ContinueOnError Boolean</value>
+  </data>
+  <data name="BulkInsert_DataTable" xml:space="preserve">
+    <value>Tabelul de date de intrare</value>
+  </data>
+  <data name="BulkInsert_DataTable_Description" xml:space="preserve">
+    <value>DataTable sursă pentru elementele ce urmează a fi inserate.</value>
+  </data>
+  <data name="BulkInsert_DataTable_Placeholder" xml:space="preserve">
+    <value>Furnizați variabila DataTable</value>
+  </data>
+  <data name="BulkInsert_TableName" xml:space="preserve">
+    <value>Numele tabelului țintă</value>
+  </data>
+  <data name="BulkInsert_TableName_Description" xml:space="preserve">
+    <value>Numele tabelului bazei de date unde vrei să inserezi elementele.</value>
+  </data>
+  <data name="BulkInsert_TableName_Placeholder" xml:space="preserve">
+    <value>Furnizați numele tabelului bazei de date țintă</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames" xml:space="preserve">
+    <value>Coloane folosite pentru potrivirea rândurilor</value>
+  </data>
+  <data name="BulkUpdate_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Denumiri de coloane folosite pentru potrivirea rândurilor</value>
+  </data>
+  <data name="BulkUpdateDescription" xml:space="preserve">
+    <value>Actualizează un DataTable compatibil într-un tabel existent. Va actualiza toate coloanele care nu fac parte din colecția de nume de coloane folosite ca cheie primară. Returnează numărul de rânduri afectate.</value>
+  </data>
+  <data name="AffectedRecordsUpdateDescription" xml:space="preserve">
+    <value>Numărul de row-uri actualizate</value>
+  </data>
+  <data name="BulkFlagDescription" xml:space="preserve">
+    <value>Dacă este adevărat, va crea un tabel temporar folosind inserția în masă și va actualiza folosind join între tabele, altfel va emite actualizări în masă în batch.</value>
+  </data>
+  <data name="UpdateDataTableInputDescription" xml:space="preserve">
+    <value>Obiectul DataTable care va fi folosit la actualizarea tabelului. Descrierea coloanelor DataTable trebuie să corespundă coloanelor din tabelul bazei de date și să fie un subset al acestora</value>
+  </data>
+  <data name="BulkInsertDescription" xml:space="preserve">
+    <value>Va actualiza un tabel folosind operații Bulk folosind implementarea specifică a driverului de bază de date. Va reveni la Insert Data Table dacă driverul bazei de date nu suportă operațiuni Bulk.</value>
+  </data>
+  <data name="ConnectionSecureStringDescription" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune cu baza de date este Secure String</value>
+  </data>
+  <data name="ActivitySynonymDatabaseConnect" xml:space="preserve">
+    <value>Conectează-te</value>
+  </data>
+  <data name="ActivitySynonymDatabaseDisconnect" xml:space="preserve">
+    <value>Deconectare</value>
+  </data>
+  <data name="ActivitySynonymExecuteNonQuery" xml:space="preserve">
+    <value>Execută non-interogarea</value>
+  </data>
+  <data name="ActivitySynonymExecuteQuery" xml:space="preserve">
+    <value>Execută interogarea</value>
+  </data>
+  <data name="SqlQuery" xml:space="preserve">
+    <value>Interogare SQL</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editare</value>
+  </data>
+  <data name="SqlCommand" xml:space="preserve">
+    <value>Comandă SQL</value>
+  </data>
+  <data name="SqlCommandHint" xml:space="preserve">
+    <value>Comandă SQL. Textul trebuie citat</value>
+  </data>
+</root>

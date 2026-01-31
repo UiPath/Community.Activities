@@ -1,0 +1,788 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Activity_BulkInsert_Property_DataTable_Description" xml:space="preserve">
+    <value>Variabila DataTable care va fi introdusă în Tabel. Numele și descrierea columnelor DataTable trebuie să corespundă celor din tabelul bazei de date.</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabelul de date de intrare</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Furnizați variabila DataTable</value>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Description" xml:space="preserve">
+    <value>Tabelul bazei de date țintă în care urmează să fie inserate datele</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Name" xml:space="preserve">
+    <value>Numele tabelului țintă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Furnizați numele tabelului bazei de date țintă</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă a fost obținută din activitatea Connect to Database.</value>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Folosește ieșirea activității Connect to Database</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Furnizați variabila DataTable</value>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Furnizați numele tabelului bazei de date țintă</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Placeholder" xml:space="preserve">
+    <value>Denumiri de coloane folosite pentru potrivirea rândurilor</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Placeholder" xml:space="preserve">
+    <value>Furnizați variabila DataTable</value>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Placeholder" xml:space="preserve">
+    <value>Furnizați numele tabelului bazei de date țintă</value>
+  </data>
+  <data name="AffectedRecordsDisplayName" xml:space="preserve">
+    <value>DosareAfectate</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandTypeDisplayName" xml:space="preserve">
+    <value>CommandType</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>Comun</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Conexiune</value>
+  </data>
+  <data name="ConnectionConfiguration" xml:space="preserve">
+    <value>Configurarea conexiunii</value>
+  </data>
+  <data name="ConnectionStringDisplayName" xml:space="preserve">
+    <value>ConnectionString</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ContinueOnErrorDisplayName" xml:space="preserve">
+    <value>ContinueOnError</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DatabaseConnectionDisplayName" xml:space="preserve">
+    <value>DatabaseConnection</value>
+    <comment>property name</comment>
+  </data>
+  <data name="DataTableDisplayName" xml:space="preserve">
+    <value>DataTable</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
+    <value>Conexiunea existentă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Intrare</value>
+  </data>
+  <data name="OutputDisplayName" xml:space="preserve">
+    <value>Producție</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ParametersDisplayName" xml:space="preserve">
+    <value>Parametri</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ProviderNameDisplayName" xml:space="preserve">
+    <value>ProviderName</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TableNameDisplayName" xml:space="preserve">
+    <value>Tabel Nume</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TimeoutMSDisplayName" xml:space="preserve">
+    <value>Timeout (milisecunde)</value>
+    <comment>property name</comment>
+  </data>
+  <data name="TimeoutMSException" xml:space="preserve">
+    <value>Valoarea oferită pentru TimeoutMS trebuie să fie &gt;= 0</value>
+  </data>
+  <data name="UseTransactionDisplayName" xml:space="preserve">
+    <value>UseTransaction</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Producție</value>
+  </data>
+  <data name="ColumnNamesDisplayName" xml:space="preserve">
+    <value>NumeColoane</value>
+    <comment>property name</comment>
+  </data>
+  <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
+    <value>Poate fi folosit doar unul dintre câmpurile de șiruri de conexiune.</value>
+  </data>
+  <data name="ConnectionSecureStringDisplayName" xml:space="preserve">
+    <value>SecureConnectionString</value>
+  </data>
+  <data name="BulkUpdateFlag" xml:space="preserve">
+    <value>Actualizare Bulk/Batch</value>
+  </data>
+  <data name="ValidationError_ConnectionMustBeSet" xml:space="preserve">
+    <value>Doar una dintre conexiuni poate fi folosită.</value>
+  </data>
+  <data name="ValidationError_ConnectionMustNotBeNull" xml:space="preserve">
+    <value>Cel puțin una dintre conexiuni trebuie folosită.</value>
+  </data>
+  <data name="ValidationError_ConnectionStringMustNotBeNull" xml:space="preserve">
+    <value>Trebuie folosit cel puțin unul dintre câmpurile de șiruri de conexiune.</value>
+  </data>
+  <data name="ValidationError_ProviderNull" xml:space="preserve">
+    <value>Valoarea pentru activitatea necesară argumentul &quot;NumeFurnizor&quot; nu a fost furnizată</value>
+  </data>
+  <data name="Activity_BulkInsert_Description" xml:space="preserve">
+    <value>Actualizează un tabel de bază de date prin operațiuni Bulk ale driverului specific bazei de date. Revine la Insert Data Table dacă driverul bazei de date nu suportă operațiuni Bulk.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Name" xml:space="preserve">
+    <value>Bulk Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Numărul de rânduri afectate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkInsert_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Rândurile afectate numără</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date furnizat ca SecureString. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Șirul de conexiune securizat</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Șirul de conexiune</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuă pe eroare</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
+    <value>DataTable sursă pentru elementele ce urmează a fi inserate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabel de date</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă. Dacă o astfel de conexiune este asigurată, proprietățile ConnectionString și SecureConnectionString sunt ignorate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexiunea existentă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Description" xml:space="preserve">
+    <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ProviderName_Name" xml:space="preserve">
+    <value>Numele furnizorului</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Description" xml:space="preserve">
+    <value>Actualizează un DataTable compatibil într-un tabel de baze de date existent. Activitatea actualizează, de asemenea, toate coloanele care nu fac parte din colecția de nume de coloane folosită ca cheie primară. Returnează numărul de rânduri afectate.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Name" xml:space="preserve">
+    <value>Actualizare în masă</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Numărul de rânduri afectate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Rândurile afectate numără</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Description" xml:space="preserve">
+    <value>Bifează această căsuță pentru a permite crearea unui tabel temporar folosind inserția Bulk și pentru a actualiza folosind join între tabele. În caz contrar, actualizările în masă sunt emise în loturi.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_BulkUpdateFlag_Name" xml:space="preserve">
+    <value>Actualizare în masă/lot</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Description" xml:space="preserve">
+    <value>Colecția de nume de coloane folosită pentru potrivirea rândurilor. Aceste nume de coloane nu vor fi modificate de activitatea Bulk Update.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ColumnNames_Name" xml:space="preserve">
+    <value>Coloane folosite pentru potrivirea rândurilor</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la bază de date este Secure String.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Șirul de conexiune securizat</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Șirul de conexiune</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Description" xml:space="preserve">
+    <value>Variabila DataTable care va fi folosită pentru a actualiza tabelul bazei de date. Numele și descrierea coloanelor DataTable trebuie să corespundă coloanelor din tabelul bazei de date și să fie un subset al acestora.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabelul de date de intrare</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă. Dacă o astfel de conexiune este asigurată, proprietățile ConnectionString și SecureConnectionString sunt ignorate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexiunea existentă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Description" xml:space="preserve">
+    <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_ProviderName_Name" xml:space="preserve">
+    <value>Numele furnizorului</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Description" xml:space="preserve">
+    <value>Tabelul bazei de date țintă în care datele urmează să fie actualizate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_BulkUpdate_Property_TableName_Name" xml:space="preserve">
+    <value>Numele tabelului țintă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Description" xml:space="preserve">
+    <value>Se conectează la o bază de date folosind un șir standard de conexiune</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
+    <value>Conectează-te la baza de date</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date furnizat ca SecureString. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Șirul de conexiune securizat</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Șirul de conexiune</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>Conexiunea bazei de date folosită pentru operațiunile din cadrul acestei activități.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Conexiunea cu baza de date</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Description" xml:space="preserve">
+    <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Name" xml:space="preserve">
+    <value>Numele furnizorului</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Description" xml:space="preserve">
+    <value>Închide o conexiune la o bază de date</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
+    <value>Deconectare de la bază de date</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>Conexiunea bazei de date este folosită pentru operațiunile din cadrul acestei activități.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Conexiunea existentă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
+    <value>Se conectează la o bază de date și dispune de o secvență care poate efectua mai multe tranzacții cu baza de date. Returnează o variabilă DatabaseConnection, oferind un domeniu pentru activitățile bazei de date.
+Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate într-o singură tranzacție și aplicate la final dacă niciuna dintre ele nu a eșuat. Dacă UseTransaction este setat pe False, toate operațiunile sunt angajate individual. Când această activitate se încheie, conexiunea cu baza de date este închisă.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
+    <value>Începerea tranzacției</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la bază de date este Secure String.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Șirul de conexiune securizat</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Șirul de conexiune</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuă pe eroare</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
+    <value>Variabila de conexiune la baza de date returnată de activitate. Aceasta poate fi folosită ulterior pentru alte operațiuni de bază de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Name" xml:space="preserve">
+    <value>Conexiunea cu baza de date</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>Variabila DatabaseConnection pe care vrei să o folosești pentru a te conecta la o bază de date. Dacă o astfel de conexiune este asigurată, proprietățile ConnectionString și SecureConnectionString sunt ignorate. Poate fi preluat din alte activități Database care au câmpul DatabaseConnection în secțiunea proprietății Output.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Ieșirea conexiunii</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Description" xml:space="preserve">
+    <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_ProviderName_Name" xml:space="preserve">
+    <value>Numele furnizorului</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Description" xml:space="preserve">
+    <value>Specifică dacă operațiunile bazei de date din această activitate ar trebui învelite într-o tranzacție de bază de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseTransaction_Property_UseTransaction_Name" xml:space="preserve">
+    <value>Folosește tranzacția</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Description" xml:space="preserve">
+    <value>Execută o instrucțiune SQL pe o bază de date. Pentru instrucțiunile UPDATE, INSERT și DELETE, valoarea returnată este numărul de rânduri afectate de comandă. Pentru toate celelalte tipuri de instrucțiuni, valoarea returnată este -1.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Name" xml:space="preserve">
+    <value>Run Command</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Rezultatul execuției comenzii SQL. Pentru instrucțiunile UPDATE, INSERT și DELETE, valoarea returnată este numărul de rânduri afectate de comandă. Pentru toate celelalte tipuri de instrucțiuni, valoarea returnată este -1.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Rândurile afectate numără</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Description" xml:space="preserve">
+    <value>Execută o interogare pe o bază de date și returnează rezultatul interogării ca un Tabel de Date</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
+    <value>Rulează interogarea</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
+    <value>Specifică modul în care este interpretat un șir de comenzi</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_CommandType_Name" xml:space="preserve">
+    <value>Tip de comandă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date furnizat ca SecureString. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Șirul de conexiune securizat</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Șirul de conexiune</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuă pe eroare</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
+    <value>Ieșirea comenzii SQL era înfășurată într-o variabilă DataTable.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabel de date</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă a fost obținută din activitățile Connect or Start Transaction. Dacă o astfel de conexiune este asigurată, proprietățile ConnectionString și SecureConnectionString sunt ignorate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexiunea existentă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
+    <value>Un dicționar de parametri denumiți care sunt legați de comanda SQL. Legarea se face prin specificarea instrucțiunii &apos;@parameterName&apos; în comanda SQL. La timpul execuției, parametrul Name va fi înlocuit cu valoarea sa din dicționar.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
+    <value>Parametri</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Description" xml:space="preserve">
+    <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date. Vă rugăm să consultați documentația pentru mai multe exemple.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ProviderName_Name" xml:space="preserve">
+    <value>Numele furnizorului</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Description" xml:space="preserve">
+    <value>O comandă SQL care trebuie executată. Această proprietate trebuie completată conform selecției din proprietatea de tip Comandă</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteNonQuery_Property_Sql_Name" xml:space="preserve">
+    <value>Comandă SQL</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
+    <value>Specifică timpul (în milisecunde) pentru a aștepta rularea comenzii sql înainte ca o eroare să fie aruncată. Valoarea implicită este 30000 milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
+    <value>Timeout</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Description" xml:space="preserve">
+    <value>Inserează un DataTable compatibil într-un tabel de baze de date existent. Returnează numărul de rânduri afectate.</value>
+    <comment>activity description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Name" xml:space="preserve">
+    <value>Insert</value>
+    <comment>activity name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Description" xml:space="preserve">
+    <value>Numărul de rânduri afectate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_AffectedRecords_Name" xml:space="preserve">
+    <value>Rândurile afectate numără</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la bază de date este Secure String.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionSecureString_Name" xml:space="preserve">
+    <value>Șirul de conexiune securizat</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Description" xml:space="preserve">
+    <value>Șirul de conexiune folosit pentru a stabili o conexiune la baza de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ConnectionString_Name" xml:space="preserve">
+    <value>Șirul de conexiune</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuă pe eroare</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
+    <value>Variabila DataTable care va fi introdusă în Tabel. Numele și descrierea columnelor DataTable trebuie să corespundă celor din tabelul bazei de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
+    <value>Tabelul de date de intrare</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă a fost obținută din activitățile Connect or Start Transaction. Dacă o astfel de conexiune este asigurată, proprietățile ConnectionString și SecureConnectionString sunt ignorate.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Name" xml:space="preserve">
+    <value>Conexiunea existentă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Description" xml:space="preserve">
+    <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_ProviderName_Name" xml:space="preserve">
+    <value>Numele furnizorului</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Description" xml:space="preserve">
+    <value>Tabelul bazei de date țintă în care urmează să fie inserate datele</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_InsertDataTable_Property_TableName_Name" xml:space="preserve">
+    <value>Numele tabelului țintă</value>
+    <comment>property name</comment>
+  </data>
+  <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Altele</value>
+    <comment>category name</comment>
+  </data>
+  <data name="Category_Principal" xml:space="preserve">
+    <value>Director</value>
+    <comment>category name</comment>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Producție</value>
+    <comment>category name</comment>
+  </data>
+  <data name="ValidationError_ConnectionNotValid" xml:space="preserve">
+    <value>Conexiunea existentă este invalidă. Vă rugăm să vă asigurați că această legătură poate fi stabilită.</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Description" xml:space="preserve">
+    <value>Comutarea între șirul de conexiune și șirul securizat de conexiune</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
+    <value>ConexiuneInputModeSwitch</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
+    <value>Vă rugăm să furnizați variabila conexiunii de bază de date SecureString</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ConnectionString_Placeholder" xml:space="preserve">
+    <value>Vă rugăm să furnizați șirul de conexiune cu baza de date</value>
+  </data>
+  <data name="Activity_DatabaseConnect_Property_ProviderName_Placeholder" xml:space="preserve">
+    <value>Vă rugăm să furnizați numele furnizorului de baze de date</value>
+  </data>
+  <data name="ConnectionSecureStringNullError" xml:space="preserve">
+    <value>Conexiunea SecureString trebuie folosită</value>
+  </data>
+  <data name="ConnectionStringNullError" xml:space="preserve">
+    <value>Trebuie folosită șirul de conexiune</value>
+  </data>
+  <data name="ConnectionSecureStringMenuAction" xml:space="preserve">
+    <value>De la comutator la șirul de conexiune securizat</value>
+  </data>
+  <data name="ConnectionStringMenuAction" xml:space="preserve">
+    <value>Comutare la șirul de conexiune</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description_CrossPlatform" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă a fost obținută din activitatea Connect to Database.</value>
+  </data>
+  <data name="CommandType_StoredProcedure_FriendlyName" xml:space="preserve">
+    <value>Procedura de stocare</value>
+  </data>
+  <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
+    <value>Folosește ieșirea activității Connect to Database</value>
+  </data>
+  <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
+    <value>Table Direct</value>
+  </data>
+  <data name="CommandType_Text_FriendlyName" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description_Crossplatform" xml:space="preserve">
+    <value>O conexiune de bază de date deja deschisă a fost obținută din activitatea Connect to Database.</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
+    <value>Folosește ieșirea activității Connect to Database</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
+    <value>Furnizează o instrucțiune SQL care corespunde tipului de comandă selectat</value>
+  </data>
+  <data name="Activity_DatabaseExecute_Property_TimeoutMS_Placeholder" xml:space="preserve">
+    <value>Implicit este 30000 milisecunde</value>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Description" xml:space="preserve">
+    <value>O interogare SQL care urmează să fie executată. Această proprietate trebuie completată conform selecției din proprietatea de tip Comandă</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_Sql_Name" xml:space="preserve">
+    <value>Interogare SQL</value>
+    <comment>property name</comment>
+  </data>
+  <data name="CommandType_StoredProcedure_Tooltip" xml:space="preserve">
+    <value>Invocă numele procedurii specificat în comanda SQL.</value>
+  </data>
+  <data name="CommandType_TableDirect_Tooltip" xml:space="preserve">
+    <value>Invocă toate înregistrările dintr-un tabel.</value>
+  </data>
+  <data name="CommandType_Text_Tooltip" xml:space="preserve">
+    <value>Execută comanda SQL.</value>
+  </data>
+  <data name="DatabaseCategory" xml:space="preserve">
+    <value>Bază de date</value>
+  </data>
+</root>
