@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessConnectionUIControl_BrowseFileDefaultExt" xml:space="preserve">
+    <value>MDB</value>
+  </data>
+  <data name="AccessConnectionUIControl_BrowseFileFilter" xml:space="preserve">
+    <value>Microsoft Access Databases (*.mdb;*.accdb)|*.mdb;*.accdb|Toate Fișiere (*.*)|*.*</value>
+  </data>
+  <data name="AccessConnectionUIControl_BrowseFileTitle" xml:space="preserve">
+    <value>Selectează fișierul de bază de date Microsoft Access</value>
+  </data>
+  <data name="AccessConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>Obiectul de proprietăți conexiune trebuie să fie de tip OleDBAccessConnectionProperties.</value>
+  </data>
+  <data name="AdoDotNetConnectionProperties_NoProperties" xml:space="preserve">
+    <value>Nu au fost setate proprietăți de conexiune.</value>
+  </data>
+  <data name="AdvancedProperties" xml:space="preserve">
+    <value>Proprietăți avansate</value>
+  </data>
+  <data name="Advanced_Label" xml:space="preserve">
+    <value>Avansat...</value>
+  </data>
+  <data name="AttachRadio_Label" xml:space="preserve">
+    <value>Atașează un fișier de bază de date:</value>
+  </data>
+  <data name="BrowseButton_Label" xml:space="preserve">
+    <value>Răsfoiește...</value>
+  </data>
+  <data name="BuildButton_Label" xml:space="preserve">
+    <value>Construiește...</value>
+  </data>
+  <data name="ChooseDataSource" xml:space="preserve">
+    <value>Alege sursa de date</value>
+  </data>
+  <data name="ConnectionProperties" xml:space="preserve">
+    <value>Proprietăți de conexiune</value>
+  </data>
+  <data name="ConnectToDb_Label" xml:space="preserve">
+    <value>Conectează-te la o bază de date</value>
+  </data>
+  <data name="ConnStringSpec_Label" xml:space="preserve">
+    <value>Folosește șirul de conexiune:</value>
+  </data>
+  <data name="DatabaseFileBrowseFilter" xml:space="preserve">
+    <value>Microsoft SQL Server Databases (*.mdf)|*.mdf|Toate fișiere (*.*)|*.*</value>
+  </data>
+  <data name="DatabaseRadio_Label" xml:space="preserve">
+    <value>Selectați sau introduceți un nume de bază de date:</value>
+  </data>
+  <data name="DataConnectionDialog_TestConnectionSucceeded" xml:space="preserve">
+    <value>Conexiunea de test a fost reușită.</value>
+  </data>
+  <data name="DataLinks_Label" xml:space="preserve">
+    <value>Legături de date...</value>
+  </data>
+  <data name="DataProvider_Label" xml:space="preserve">
+    <value>Furnizor de date:</value>
+  </data>
+  <data name="DataProvider_Odbc" xml:space="preserve">
+    <value>.NET Framework Data Provider pentru ODBC</value>
+  </data>
+  <data name="DataProvider_Odbc_DataSource_Description" xml:space="preserve">
+    <value>Folosiți această selecție pentru a specifica un nume de utilizator ODBC sau sursă de date de sistem care să se conecteze la un driver ODBC prin .NET Framework Data Provider pentru ODBC.</value>
+  </data>
+  <data name="DataProvider_Odbc_Description" xml:space="preserve">
+    <value>Folosiți acest furnizor de date pentru a vă conecta la sursele de date ODBC.</value>
+  </data>
+  <data name="DataProvider_Odbc_Short" xml:space="preserve">
+    <value>ODBC</value>
+  </data>
+  <data name="DataProvider_OleDB" xml:space="preserve">
+    <value>.NET Framework Data Provider pentru OLE DB</value>
+  </data>
+  <data name="DataProvider_OleDB_AccessDataSource_Description" xml:space="preserve">
+    <value>Folosește această selecție pentru a te conecta la un fișier de bază de date Microsoft Access prin .NET Framework Data Provider pentru OLE DB.</value>
+  </data>
+  <data name="DataProvider_OleDB_Description" xml:space="preserve">
+    <value>Folosiți acest furnizor de date pentru a vă conecta la sursele de date OLE DB.</value>
+  </data>
+  <data name="DataProvider_OleDB_OracleDataSource_Description" xml:space="preserve">
+    <value>Folosește această selecție pentru a te conecta la Oracle 7.3, 8i, 9i sau 10g folosind furnizorul nativ MSDAORA prin .NET Framework Data Provider pentru OLE DB.</value>
+  </data>
+  <data name="DataProvider_OleDB_Short" xml:space="preserve">
+    <value>OLE DB</value>
+  </data>
+  <data name="DataProvider_OleDB_SqlDataSource_Description" xml:space="preserve">
+    <value>Folosiți această selecție pentru a vă conecta la Microsoft SQL Server 2000 sau versiuni ulterioare, folosind furnizorul de date .NET framework pentru OLEDB.</value>
+  </data>
+  <data name="DataProvider_Oracle" xml:space="preserve">
+    <value>Oracle.ManagedDataAccess</value>
+  </data>
+  <data name="DataProvider_Oracle_DataSource_Description" xml:space="preserve">
+    <value>ODP.NET, Managed Driver este un driver .NET Framework 100% nativ pentru Oracle Database. Nu este necesar să fie instalat software client Oracle suplimentar pentru a se conecta la Oracle Database.</value>
+  </data>
+  <data name="DataProvider_Oracle_Description" xml:space="preserve">
+    <value>Oracle Data Provider pentru .NET oferă acces rapid la date de la clienții .NET către bazele de date Oracle. ODP.NET permite aplicațiilor .NET să profite de funcționalitățile avansate Orecle, precum Oracle Real Application Clusters (Oracle RAC) și baza de date XML. Este accesibil prin orice limbaj .NET, inclusiv C#, Visual Basic .NET și C++ .NET.</value>
+  </data>
+  <data name="DataProvider_Oracle_Short" xml:space="preserve">
+    <value>ClientOracleClient</value>
+  </data>
+  <data name="DataProvider_Sql" xml:space="preserve">
+    <value>.NET Framework Data Provider pentru SQL Server</value>
+  </data>
+  <data name="DataProvider_Sql_DataSource_Description" xml:space="preserve">
+    <value>Folosiți această selecție pentru a vă conecta la Microsoft SQL Server 2005 sau versiuni superioare, folosind .NET Framework Data Provider for SQL Server.</value>
+  </data>
+  <data name="DataProvider_Sql_Description" xml:space="preserve">
+    <value>Folosiți acest furnizor de date pentru a vă conecta la Microsoft SQL Server 2005 sau versiuni ulterioare.</value>
+  </data>
+  <data name="DataProvider_Sql_FileDataSource_Description" xml:space="preserve">
+    <value>Folosește această selecție pentru a atașa un fișier de bază de date unei instanțe locale Microsoft SQL Server (inclusiv Microsoft SQL Express) folosind .NET Framework Data Provider for SQL Server.</value>
+  </data>
+  <data name="DataProvider_Sql_Short" xml:space="preserve">
+    <value>SqlClient</value>
+  </data>
+  <data name="DataSourceContent_Label" xml:space="preserve">
+    <value>Detalii</value>
+  </data>
+  <data name="DataSourceDescription_Label" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="DataSourceGroupBox_Label" xml:space="preserve">
+    <value>Specificația sursei de date</value>
+  </data>
+  <data name="DataSourceSpec_Label" xml:space="preserve">
+    <value>Folosește sursa de date a utilizatorului sau a sistemului (doar{0} ):</value>
+  </data>
+  <data name="DataSource_CannotChangeSingleDataProvider" xml:space="preserve">
+    <value>Furnizorul implicit de date nu poate fi schimbat atunci când există un singur furnizor de date disponibil.</value>
+  </data>
+  <data name="DataSource_DataProviderNotFound" xml:space="preserve">
+    <value>Furnizorul de date nu a fost găsit.</value>
+  </data>
+  <data name="DataSource_Label" xml:space="preserve">
+    <value>Sursa datelor:</value>
+  </data>
+  <data name="DataSource_MicrosoftAccess" xml:space="preserve">
+    <value>Fișier de bază de date Microsoft Access</value>
+  </data>
+  <data name="DataSource_MicrosoftOdbcDsn" xml:space="preserve">
+    <value>Sursa de date Microsoft ODBC</value>
+  </data>
+  <data name="DataSource_MicrosoftSqlServer" xml:space="preserve">
+    <value>Microsoft SQL Server</value>
+  </data>
+  <data name="DataSource_MicrosoftSqlServerFile" xml:space="preserve">
+    <value>Fișier de bază de date Microsoft SQL Server</value>
+  </data>
+  <data name="DataSource_UnspecifiedDisplayName" xml:space="preserve">
+    <value>&lt;other&gt;</value>
+  </data>
+  <data name="Error_Label" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="FileName_Label" xml:space="preserve">
+    <value>Nume fișier de bază de date:</value>
+  </data>
+  <data name="LogicalName_Label" xml:space="preserve">
+    <value>Nume logic:</value>
+  </data>
+  <data name="LogonDBGroupBox_Label" xml:space="preserve">
+    <value>Conectează-te la baza de date</value>
+  </data>
+  <data name="LogonGroupBox_Label" xml:space="preserve">
+    <value>Conectează-te la server</value>
+  </data>
+  <data name="OdbcConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>Obiectul de proprietăți de conexiune trebuie să fie de tip OdbcConnectionProperties.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLAllocConnectFailed" xml:space="preserve">
+    <value>Nu am reușit să aloc handle-ul de conexiune ODBC.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLAllocEnvFailed" xml:space="preserve">
+    <value>Nu s-a reușit să se aloce handle-ul de mediu ODBC.</value>
+  </data>
+  <data name="OdbcConnectionUIControl_SQLDriverConnectFailed" xml:space="preserve">
+    <value>Nu am reușit să apelez utilitatea de conexiune a driverelor ODBC.</value>
+  </data>
+  <data name="OleDBConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>Obiectul de proprietăți de conexiune trebuie să fie de tip OleDBConnectionProperties.</value>
+  </data>
+  <data name="OleDBConnectionUIInitialCatalog_Label" xml:space="preserve">
+    <value>Catalogul inițial:</value>
+  </data>
+  <data name="OleDBConnectionUILocationGroup_Label" xml:space="preserve">
+    <value>Introduceți un nume de server sau fișier</value>
+  </data>
+  <data name="OleDBConnectionUILocation_Label" xml:space="preserve">
+    <value>Locație:</value>
+  </data>
+  <data name="OleDBConnectionUISavePassword_Label" xml:space="preserve">
+    <value>Salvează parola</value>
+  </data>
+  <data name="OleDBConnectionUIServer_Label" xml:space="preserve">
+    <value>Nume server sau fișier:</value>
+  </data>
+  <data name="OleDBConnectionUISSPI_Label" xml:space="preserve">
+    <value>Folosiți securitatea integrată</value>
+  </data>
+  <data name="OleDBConnectionUIUserBlankPassword_Label" xml:space="preserve">
+    <value>Parolă goală</value>
+  </data>
+  <data name="OleDBConnectionUIUserPassword_Label" xml:space="preserve">
+    <value>Folosește un nume de utilizator și o parolă specifice</value>
+  </data>
+  <data name="OLEDBProvider_Label" xml:space="preserve">
+    <value>Furnizor OLE DB:</value>
+  </data>
+  <data name="OracleConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>Obiectul de proprietăți de conexiune trebuie să fie de tip OracleConnectionProperties sau OleDBOracleConnectionProperties.</value>
+  </data>
+  <data name="OracleConnectionUIHostname_Label" xml:space="preserve">
+    <value>Gazdă:</value>
+  </data>
+  <data name="OracleConnectionUIPort_Label" xml:space="preserve">
+    <value>Port:</value>
+  </data>
+  <data name="OracleConnectionUIService_Label" xml:space="preserve">
+    <value>Nume serviciu:</value>
+  </data>
+  <data name="OracleConnectionUISID_Label" xml:space="preserve">
+    <value>SID:</value>
+  </data>
+  <data name="Password_Label" xml:space="preserve">
+    <value>Parola:</value>
+  </data>
+  <data name="Refresh_Label" xml:space="preserve">
+    <value>Reîmprospătare</value>
+  </data>
+  <data name="SavePassword_Label" xml:space="preserve">
+    <value>Salvează-mi parola</value>
+  </data>
+  <data name="Server_Label" xml:space="preserve">
+    <value>Numele serverului:</value>
+  </data>
+  <data name="SQLAuthentication_Label" xml:space="preserve">
+    <value>Folosește autentificarea SQL Server</value>
+  </data>
+  <data name="SqlConnectionProperties_CannotTestNonExistentDatabase" xml:space="preserve">
+    <value>Această conexiune nu poate fi testată deoarece baza de date specificată nu există sau nu este vizibilă utilizatorului specificat.</value>
+  </data>
+  <data name="SqlConnectionProperties_MustSpecifyDataSource" xml:space="preserve">
+    <value>Această conexiune nu poate fi testată deoarece nu a fost specificat niciun nume al serverului.</value>
+  </data>
+  <data name="SqlFileConnectionUIControl_InvalidConnectionProperties" xml:space="preserve">
+    <value>Obiectul de proprietăți de conexiune trebuie să fie de tip SqlFileConnectionProperties.</value>
+  </data>
+  <data name="TestConnection_Label" xml:space="preserve">
+    <value>Conexiunea de testare</value>
+  </data>
+  <data name="Username_Label" xml:space="preserve">
+    <value>Nume de utilizator:</value>
+  </data>
+  <data name="WindowsAuthentication_Label" xml:space="preserve">
+    <value>Folosește autentificarea Windows</value>
+  </data>
+</root>
