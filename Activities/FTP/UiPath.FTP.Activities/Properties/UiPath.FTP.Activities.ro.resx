@@ -750,7 +750,7 @@
     <value>Proxy</value>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
-    <value>Trebuie să furnizezi o valoare pentru {{0}}.</value>
+    <value>Trebuie să furnizați o valoare pentru {0}.</value>
     <comment>error message</comment>
   </data>
   <data name="ObsoleteEnumValue" xml:space="preserve">

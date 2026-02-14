@@ -241,7 +241,7 @@
     <value>Specificația sursei de date</value>
   </data>
   <data name="DataSourceSpec_Label" xml:space="preserve">
-    <value>Folosește sursa de date a utilizatorului sau a sistemului (doar{0} ):</value>
+    <value>Folosește sursa de date a utilizatorului sau a sistemului ({0} doar):</value>
   </data>
   <data name="DataSource_CannotChangeSingleDataProvider" xml:space="preserve">
     <value>Furnizorul implicit de date nu poate fi schimbat atunci când există un singur furnizor de date disponibil.</value>

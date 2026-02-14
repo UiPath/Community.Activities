@@ -121,7 +121,7 @@
     <value>Coloanele furnizate în DataTable nu corespund tipurilor de date ale coloanelor din baza de date.</value>
   </data>
   <data name="BulkInsert_ColumnsNamesMustMatch" xml:space="preserve">
-    <value>Coloana necartografiată {{0}} nu a fost găsită în tabelul bazei de date de destinație {{1}}</value>
+    <value>Coloana nemapată {0} nu a fost găsită în tabelul bazei de date de destinație {1}</value>
   </data>
   <data name="BulkInsert_DriverDoesNotSupportBulkInsert" xml:space="preserve">
     <value>Furnizorul configurat nu suportă operațiuni Bulk Insert. Furnizorii care suportă operațiuni Bulk Insert sunt: Microsoft.Data.SqlClient și Oracle.ManagedDataAccess.Client.OracleConnection.</value>
