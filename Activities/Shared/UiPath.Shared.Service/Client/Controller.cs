@@ -40,10 +40,8 @@ namespace UiPath.Shared.Service.Client
         private void StartHostService()
         {
             var isWindows = true;
-#if NETCOREAPP
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 isWindows = false;
-#endif
             string folder = Path.GetDirectoryName(HostLibFile);
             var hostLibFullPath = HostLibFile;
             if (folder.IsNullOrEmpty())

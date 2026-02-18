@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using UiPath.Python.Impl;
 using UiPath.Python.Properties;
-using System.Runtime.InteropServices;
 
 namespace UiPath.Python
 {
@@ -14,8 +15,9 @@ namespace UiPath.Python
     public static class EngineProvider
     {
         private const string PythonHomeEnv = "PYTHONHOME";
-        private const string PythonExe = "python.exe";
-        private const string PythonLinux = "python";
+        private static readonly string[] PythonExeWin = ["python.exe", "python3.exe"];
+        private static readonly string[] PythonLinux = ["python", "python3"];
+        private static readonly string[] PythonBinFolders = ["", "bin"];
         private const string PythonVersionArgument = "--version";
 
         // engines cache
@@ -43,7 +45,7 @@ namespace UiPath.Python
                 }
 
                 // TODO: target&visible are meaningless when running in-process (at least now), maybe it should be split
-                if(inProcess)
+                if (inProcess)
                 {
                     if (!_cache.TryGetValue(version, out engine))
                     {
@@ -62,37 +64,72 @@ namespace UiPath.Python
 
         public static void Autodetect(string path, out Version version)
         {
+            version = Version.Auto;
             Trace.TraceInformation($"Trying to autodetect Python version from path {path}");
-            var pythonExec = PythonExe;
-#if NETCOREAPP
-            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                pythonExec = PythonLinux;
-#endif
-            string pyExe = Path.GetFullPath(Path.Combine(path, pythonExec));
-            if (!File.Exists(pyExe))
+
+            var exes = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? PythonExeWin : PythonLinux;
+            var pythonCandidates = PythonBinFolders.SelectMany(folder => exes, Path.Combine).Select(p => Path.Combine(path, p)).Select(Path.GetFullPath).ToList();
+            var existingFiles = pythonCandidates.Where(File.Exists).ToList();
+
+            if (existingFiles.Count == 0)
             {
-                throw new FileNotFoundException(Resources.PythonExeNotFoundException, pyExe);
+                throw new FileNotFoundException(Resources.PythonExeNotFoundException, string.Join(", ", pythonCandidates));
             }
-            Process process = new Process();
-            process.StartInfo = new ProcessStartInfo()
+
+            Dictionary<string, Exception> errors = new Dictionary<string, Exception>();
+            bool detected = false;
+
+            foreach (var python in existingFiles)
             {
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
-                FileName = pyExe,
-                Arguments = PythonVersionArgument,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true
-            };
-            process.Start();
-            // Now read the value, parse to int and add 1 (from the original script)
-            string ver = process.StandardError.ReadToEnd();
-            if(string.IsNullOrEmpty(ver))
-                ver = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-            version = ver.GetVersionFromStr();
-            Trace.TraceInformation($"Autodetected Python version {version}");
+                if (Autodetect(python, out version, out Exception ex))
+                {
+                    detected = true;
+                    break;
+                }
+                else
+                {
+                    errors[python] = ex;
+                }
+            }
+
+            // if we are here, it means that we found some candidates but all of them failed to be detected, so we throw an aggregate exception with all the details
+            if (!detected)
+            {
+                throw new AggregateException(errors.Where(kv => kv.Value != null).Select(kv => new Exception($"{kv.Key}: {kv.Value.Message}", kv.Value)));
+            }
         }
-        
+
+        private static bool Autodetect(string pythonFullPath, out Version version, out Exception exception)
+        {
+            version = Version.Auto;
+            exception = null;
+            try
+            {
+                Process process = new Process();
+                process.StartInfo = new ProcessStartInfo()
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = pythonFullPath,
+                    Arguments = PythonVersionArgument,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true
+                };
+                process.Start();
+                // Now read the value, parse to int and add 1 (from the original script)
+                string ver = process.StandardError.ReadToEnd();
+                if (string.IsNullOrEmpty(ver))
+                    ver = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                version = ver.GetVersionFromStr();
+                return version != Version.Auto;
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+                return false;
+            }
+        }
     }
 }
