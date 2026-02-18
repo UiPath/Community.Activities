@@ -28,6 +28,7 @@ namespace UiPath.Shared.Service.Client
 
             //Prevent process leak in certain error scenarios
             Proc?.Kill();
+            Proc?.Dispose();
             Proc = null;
         }
 

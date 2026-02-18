@@ -33,7 +33,7 @@ namespace UiPath.Python
                 {
                     // read path from env variable
                     path = Environment.GetEnvironmentVariable(PythonHomeEnv);
-                    Trace.TraceInformation($"Found Pyhton path {path}");
+                    Trace.TraceInformation($"Found Python path {path}");
                 }
                 if (!version.IsValid())
                 {
@@ -68,7 +68,7 @@ namespace UiPath.Python
             Trace.TraceInformation($"Trying to autodetect Python version from path {path}");
 
             var exes = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? PythonExeWin : PythonLinux;
-            var pythonCandidates = PythonBinFolders.SelectMany(folder => exes, Path.Combine).Select(p => Path.Combine(path, p)).Select(Path.GetFullPath).ToList();
+            var pythonCandidates = PythonBinFolders.SelectMany(folder => exes, Path.Combine).Select(p => Path.Combine(path, p)).Distinct().Select(Path.GetFullPath).ToList();
             var existingFiles = pythonCandidates.Where(File.Exists).ToList();
 
             if (existingFiles.Count == 0)
@@ -77,13 +77,13 @@ namespace UiPath.Python
             }
 
             Dictionary<string, Exception> errors = new Dictionary<string, Exception>();
-            bool detected = false;
+            bool versionDetected = false;
 
             foreach (var python in existingFiles)
             {
                 if (Autodetect(python, out version, out Exception ex))
                 {
-                    detected = true;
+                    versionDetected = true;
                     break;
                 }
                 else
@@ -93,7 +93,7 @@ namespace UiPath.Python
             }
 
             // if we are here, it means that we found some candidates but all of them failed to be detected, so we throw an aggregate exception with all the details
-            if (!detected)
+            if (!versionDetected)
             {
                 throw new AggregateException(errors.Where(kv => kv.Value != null).Select(kv => new Exception($"{kv.Key}: {kv.Value.Message}", kv.Value)));
             }
@@ -105,7 +105,7 @@ namespace UiPath.Python
             exception = null;
             try
             {
-                Process process = new Process();
+                using Process process = new Process();
                 process.StartInfo = new ProcessStartInfo()
                 {
                     UseShellExecute = false,
@@ -117,11 +117,12 @@ namespace UiPath.Python
                     RedirectStandardOutput = true
                 };
                 process.Start();
+                process.WaitForExit(3000);
                 // Now read the value, parse to int and add 1 (from the original script)
                 string ver = process.StandardError.ReadToEnd();
                 if (string.IsNullOrEmpty(ver))
                     ver = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
+                
                 version = ver.GetVersionFromStr();
                 return version != Version.Auto;
             }
