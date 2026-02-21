@@ -282,7 +282,7 @@
     <value>Parola certificatului clientului</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Fișiere</value>
@@ -750,7 +750,7 @@
     <value>Proxy</value>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
-    <value>Trebuie să furnizezi o valoare pentru {{0}}.</value>
+    <value>Trebuie să furnizați o valoare pentru {0}.</value>
     <comment>error message</comment>
   </data>
   <data name="ObsoleteEnumValue" xml:space="preserve">

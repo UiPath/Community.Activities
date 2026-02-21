@@ -288,7 +288,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
@@ -481,7 +481,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -569,7 +569,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
@@ -657,7 +657,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">

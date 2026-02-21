@@ -190,7 +190,7 @@
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
-    <value>Eroare la inițializarea Java : {{0}}</value>
+    <value>Eroare la inițializarea Java : {0}</value>
   </data>
   <data name="JavaInvokerNotLoadedException" xml:space="preserve">
     <value>Java invoker nu a fost încărcat.</value>
@@ -249,7 +249,7 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
-    <value>Nu se pot seta atât {{0}}, cât și {{1}}.</value>
+    <value>Nu se pot seta atât {0} cât și {1}.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
     <value>Rezultat</value>
