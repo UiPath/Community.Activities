@@ -132,9 +132,9 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpEncryptDecryptFile_Activity_Works()
         {
-            var tempInputFile = Path.GetTempFileName();
-            var tempEncryptedFile = Path.GetTempFileName();
-            var tempDecryptedFile = Path.GetTempFileName();
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempEncryptedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempDecryptedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
@@ -183,7 +183,7 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpEncryptFile_WithoutPublicKey_Throws()
         {
-            var tempInputFile = Path.GetTempFileName();
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 File.WriteAllText(tempInputFile, "test");
@@ -206,7 +206,7 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpDecryptFile_WithoutPrivateKey_Throws()
         {
-            var tempInputFile = Path.GetTempFileName();
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 File.WriteAllText(tempInputFile, "test");

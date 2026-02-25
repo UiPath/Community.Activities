@@ -134,7 +134,7 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpVerifyPublicKey_InvalidKey_ReturnsFalse()
         {
-            var invalidKeyPath = Path.GetTempFileName();
+            var invalidKeyPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 File.WriteAllText(invalidKeyPath, "This is not a valid PGP key");
@@ -186,8 +186,8 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpSignFile_Activity_Works()
         {
-            var inputFile = Path.GetTempFileName();
-            var outputFile = Path.GetTempFileName();
+            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var outputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
@@ -217,8 +217,8 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpClearSignFile_Activity_Works()
         {
-            var inputFile = Path.GetTempFileName();
-            var outputFile = Path.GetTempFileName();
+            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var outputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
@@ -248,8 +248,8 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpVerifySignature_Activity_Works()
         {
-            var inputFile = Path.GetTempFileName();
-            var signedFile = Path.GetTempFileName();
+            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
@@ -284,8 +284,8 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpVerifyClearSignature_Activity_Works()
         {
-            var inputFile = Path.GetTempFileName();
-            var signedFile = Path.GetTempFileName();
+            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
@@ -333,7 +333,7 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpVerifyPublicKey_Activity_InvalidKey_ReturnsFalse()
         {
-            var invalidKeyPath = Path.GetTempFileName();
+            var invalidKeyPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 File.WriteAllText(invalidKeyPath, "Not a PGP key");
@@ -356,8 +356,8 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpSignFile_And_VerifySignature_Activity_RoundTrip()
         {
-            var inputFile = Path.GetTempFileName();
-            var signedFile = Path.GetTempFileName();
+            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
@@ -396,8 +396,8 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpClearSignFile_And_VerifyClearSignature_Activity_RoundTrip()
         {
-            var inputFile = Path.GetTempFileName();
-            var signedFile = Path.GetTempFileName();
+            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
