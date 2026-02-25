@@ -4,6 +4,8 @@ using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -27,7 +29,7 @@ namespace UiPath.Cryptography.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Algorithm_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Algorithm_Description))]
-        public SymmetricAlgorithms Algorithm { get; set; }
+        public EncryptionAlgorithm Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -67,12 +69,36 @@ namespace UiPath.Cryptography.Activities
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Common))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Result_Description))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFilePath_Description))]
+        public InArgument<string> PrivateKeyFilePath { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Passphrase_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Passphrase_Description))]
+        public InArgument<SecureString> Passphrase { get; set; }
+
+        [DefaultValue(false)]
+        [LocalizedCategory(nameof(Resources.Category_Options_Name))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_VerifySignature_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_VerifySignature_Description))]
+        public bool VerifySignature { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PublicKeyFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PublicKeyFilePath_Description))]
+        public InArgument<string> PublicKeyFilePath { get; set; }
 
         public DecryptText()
         {
-            Algorithm = SymmetricAlgorithms.AESGCM;
+            Algorithm = EncryptionAlgorithm.AESGCM;
             KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
 
         }
@@ -81,16 +107,15 @@ namespace UiPath.Cryptography.Activities
         {
             base.CacheMetadata(metadata);
 
-            switch (Algorithm)
+            if (Algorithm == EncryptionAlgorithm.PGP)
             {
-                case SymmetricAlgorithms.RC2:
-                case SymmetricAlgorithms.Rijndael:
-                    var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
-                    metadata.AddValidationError(error);
-                    break;
+                return;
+            }
 
-                default:
-                    break;
+            if (!CryptographyHelper.IsFipsCompliant(Algorithm))
+            {
+                var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
+                metadata.AddValidationError(error);
             }
             if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
             {
@@ -115,39 +140,54 @@ namespace UiPath.Cryptography.Activities
             try
             {
                 var input = Input.Get(context);
-                var key = Key.Get(context);
-                var keySecureString = KeySecureString.Get(context);
-                var keyEncoding = Encoding.Get(context);
-                var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
 
-                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                if (Algorithm == EncryptionAlgorithm.PGP)
                 {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                    var privateKeyFilePath = PrivateKeyFilePath.Get(context);
+                    var passphrase = Passphrase.Get(context);
+                    var publicKeyFilePath = PublicKeyFilePath.Get(context);
+
+                    result = PgpStreamHelper.WithPgpDecryptStreams(
+                        privateKeyFilePath, passphrase, publicKeyFilePath, VerifySignature,
+                        (privStream, pass, pubStream) =>
+                            CryptographyHelper.PgpDecryptText(input, privStream, pass, pubStream, VerifySignature));
                 }
-                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                else
                 {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                    var key = Key.Get(context);
+                    var keySecureString = KeySecureString.Get(context);
+                    var keyEncoding = Encoding.Get(context);
+                    var keyEncodingString = KeyEncodingString.Get(context);
+
+                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+                    }
+                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                    {
+                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                    }
+
+                    if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
+                        throw new ArgumentNullException(Resources.Encoding);
+
+                    keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+
+                    byte[] decrypted = null;
+                    try
+                    {
+                        decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                    }
+                    catch (CryptographicException ex)
+                    {
+                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+                    }
+
+                    result = keyEncoding.GetString(decrypted);
                 }
-
-                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
-                    throw new ArgumentNullException(Resources.Encoding);
-
-                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
-
-                byte[] decrypted = null;
-                try
-                {
-                    decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
-                }
-                catch (CryptographicException ex)
-                {
-                    throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-                }
-
-                result = keyEncoding.GetString(decrypted);
                 telemetryOperation?.Send();
             }
             catch (Exception ex)

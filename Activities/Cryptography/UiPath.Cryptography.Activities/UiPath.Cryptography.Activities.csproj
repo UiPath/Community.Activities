@@ -26,6 +26,10 @@
  <EmbeddedResource Include="Resources\Icons\Hash_file_with_key.svg" />
  <EmbeddedResource Include="Resources\Icons\Hash_text.svg" />
  <EmbeddedResource Include="Resources\Icons\Hash_text_with_key.svg" />
+ <EmbeddedResource Include="Resources\Icons\PGP_generate_keys.svg" />
+ <EmbeddedResource Include="Resources\Icons\PGP_sign_file.svg" />
+ <EmbeddedResource Include="Resources\Icons\PGP_clear_sign_file.svg" />
+ <EmbeddedResource Include="Resources\Icons\PGP_verify.svg" />
  </ItemGroup>
  <ItemGroup>
  <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.fr.resx">

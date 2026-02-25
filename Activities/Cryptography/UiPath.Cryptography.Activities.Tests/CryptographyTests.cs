@@ -44,13 +44,13 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Theory]
-        [InlineData(SymmetricAlgorithms.AES)]
-        [InlineData(SymmetricAlgorithms.AESGCM)]
-        [InlineData(SymmetricAlgorithms.DES)]
-        [InlineData(SymmetricAlgorithms.RC2)]
-        [InlineData(SymmetricAlgorithms.Rijndael)]
-        [InlineData(SymmetricAlgorithms.TripleDES)]
-        public void SymmetricAlgorithmsEncryptionMatches(SymmetricAlgorithms enumValue)
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.DES)]
+        [InlineData(EncryptionAlgorithm.RC2)]
+        [InlineData(EncryptionAlgorithm.Rijndael)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptionAlgorithmEncryptionMatches(EncryptionAlgorithm enumValue)
         {
             string toProcess = "`~1234567890-=qwertyuiop[]\\ASDFGHJKL:\"ZXCVBNM<>?ăîșțâ";
             string key = "{>@#F09\0";
@@ -74,13 +74,13 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Theory]
-        [InlineData(SymmetricAlgorithms.AES)]
-        [InlineData(SymmetricAlgorithms.AESGCM)]
-        [InlineData(SymmetricAlgorithms.DES)]
-        [InlineData(SymmetricAlgorithms.RC2)]
-        [InlineData(SymmetricAlgorithms.Rijndael)]
-        [InlineData(SymmetricAlgorithms.TripleDES)]
-        public void SymmetricAlgorithmsDecryptionMatches(SymmetricAlgorithms enumValue)
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.DES)]
+        [InlineData(EncryptionAlgorithm.RC2)]
+        [InlineData(EncryptionAlgorithm.Rijndael)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptionAlgorithmDecryptionMatches(EncryptionAlgorithm enumValue)
         {
             string toProcess = "`~1234567890-=qwertyuiop[]\\ASDFGHJKL:\"ZXCVBNM<>?ăîșțâ";
             string key = "{>@#F09\0";
@@ -109,8 +109,8 @@ namespace UiPath.Cryptography.Activities.Tests
         [InlineData("This is just a test", "97dbfca4-7a3c-4fa3-90f3-d17603bbc4b7")]
         public void AesGcmEncryptionMatches(string plainText, string key)
         {
-            var encrypted = CryptographyHelper.EncryptData(SymmetricAlgorithms.AESGCM, Encoding.UTF8.GetBytes(plainText), Encoding.UTF8.GetBytes(key));
-            var decrypted = CryptographyHelper.DecryptData(SymmetricAlgorithms.AESGCM, encrypted, Encoding.UTF8.GetBytes(key));
+            var encrypted = CryptographyHelper.EncryptData(EncryptionAlgorithm.AESGCM, Encoding.UTF8.GetBytes(plainText), Encoding.UTF8.GetBytes(key));
+            var decrypted = CryptographyHelper.DecryptData(EncryptionAlgorithm.AESGCM, encrypted, Encoding.UTF8.GetBytes(key));
             Assert.Equal(Encoding.UTF8.GetString(decrypted), plainText);
         }
 
@@ -147,13 +147,13 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Theory]
-        [InlineData(SymmetricAlgorithms.AES)]
-        [InlineData(SymmetricAlgorithms.AESGCM)]
-        [InlineData(SymmetricAlgorithms.DES)]
-        [InlineData(SymmetricAlgorithms.RC2)]
-        [InlineData(SymmetricAlgorithms.Rijndael)]
-        [InlineData(SymmetricAlgorithms.TripleDES)]
-        public void SymmetricAlgorithmsEncryptionMatchesWithSecureString(SymmetricAlgorithms enumValue)
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.DES)]
+        [InlineData(EncryptionAlgorithm.RC2)]
+        [InlineData(EncryptionAlgorithm.Rijndael)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptionAlgorithmEncryptionMatchesWithSecureString(EncryptionAlgorithm enumValue)
         {
             string toProcess = "`~1234567890-=qwertyuiop[]\\ASDFGHJKL:\"ZXCVBNM<>?ăîșțâ";
             SecureString keySecureString = TestingHelper.StringToSecureString("{>@#F09\0");
@@ -178,13 +178,13 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Theory]
-        [InlineData(SymmetricAlgorithms.AES)]
-        [InlineData(SymmetricAlgorithms.AESGCM)]
-        [InlineData(SymmetricAlgorithms.DES)]
-        [InlineData(SymmetricAlgorithms.RC2)]
-        [InlineData(SymmetricAlgorithms.Rijndael)]
-        [InlineData(SymmetricAlgorithms.TripleDES)]
-        public void SymmetricAlgorithmsDecryptionMatchesWithSecureString(SymmetricAlgorithms enumValue)
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.DES)]
+        [InlineData(EncryptionAlgorithm.RC2)]
+        [InlineData(EncryptionAlgorithm.Rijndael)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptionAlgorithmDecryptionMatchesWithSecureString(EncryptionAlgorithm enumValue)
         {
             string toProcess = "`~1234567890-=qwertyuiop[]\\ASDFGHJKL:\"ZXCVBNM<>?ăîșțâ";
             SecureString keySecureString = TestingHelper.StringToSecureString("{>@#F09\0");

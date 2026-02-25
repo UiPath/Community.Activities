@@ -32,7 +32,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// <summary>
         /// A drop-down which enables you to select the decryption algorithm you want to use.
         /// </summary>
-        public DesignProperty<SymmetricAlgorithms> Algorithm { get; set; } = new DesignProperty<SymmetricAlgorithms>();
+        public DesignProperty<EncryptionAlgorithm> Algorithm { get; set; } = new DesignProperty<EncryptionAlgorithm>();
 
         /// <summary>
         /// The key that you want to use to decrypt the specified file.
@@ -89,6 +89,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         public DesignOutArgument<ILocalResource> DecryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
 
+        public DesignInArgument<string> PrivateKeyFilePath { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<System.Security.SecureString> Passphrase { get; set; } = new DesignInArgument<System.Security.SecureString>();
+        public DesignProperty<bool> VerifySignature { get; set; } = new DesignProperty<bool>();
+        public DesignInArgument<string> PublicKeyFilePath { get; set; } = new DesignInArgument<string>();
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -106,7 +111,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(SymmetricAlgorithms.AES, SymmetricAlgorithms.AESGCM, SymmetricAlgorithms.DES, SymmetricAlgorithms.RC2, SymmetricAlgorithms.Rijndael, SymmetricAlgorithms.TripleDES);
+            Algorithm.DataSource = DataSourceHelper.ForEnum(EncryptionAlgorithm.AES, EncryptionAlgorithm.AESGCM, EncryptionAlgorithm.DES, EncryptionAlgorithm.RC2, EncryptionAlgorithm.Rijndael, EncryptionAlgorithm.TripleDES, EncryptionAlgorithm.PGP);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             Key.IsPrincipal = true;
@@ -152,7 +157,24 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .AddMenuProperty(InputFilePath, FileInputMode.FilePath)
                 .BuildAndInsertMenuActions();
 
-            DecryptedFile.OrderIndex = propertyOrderIndex;
+            DecryptedFile.OrderIndex = propertyOrderIndex++;
+
+            PrivateKeyFilePath.IsPrincipal = false;
+            PrivateKeyFilePath.IsVisible = false;
+            PrivateKeyFilePath.OrderIndex = propertyOrderIndex++;
+
+            Passphrase.IsPrincipal = false;
+            Passphrase.IsVisible = false;
+            Passphrase.OrderIndex = propertyOrderIndex++;
+
+            VerifySignature.IsPrincipal = false;
+            VerifySignature.IsVisible = false;
+            VerifySignature.OrderIndex = propertyOrderIndex++;
+            VerifySignature.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
+            PublicKeyFilePath.IsPrincipal = false;
+            PublicKeyFilePath.IsVisible = false;
+            PublicKeyFilePath.OrderIndex = propertyOrderIndex++;
 
             _backupInputFile = InputFile.Value;
             _backupInputFilePath = InputFilePath.Value;
@@ -164,6 +186,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeRules();
             Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
             Rule(nameof(FileInputModeSwitch), FileInputModeChanged_Action);
+            Rule(nameof(Algorithm), AlgorithmChanged_Action);
+            Rule(nameof(VerifySignature), VerifySignatureChanged_Action);
         }
 
         /// <inheritdoc/>
@@ -172,6 +196,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.ManualRegisterDependencies();
             RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
             RegisterDependency(FileInputModeSwitch, nameof(FileInputModeSwitch.Value), nameof(FileInputModeSwitch));
+            RegisterDependency(Algorithm, nameof(Algorithm.Value), nameof(Algorithm));
+            RegisterDependency(VerifySignature, nameof(VerifySignature.Value), nameof(VerifySignature));
         }
 
         /// <summary>
@@ -179,6 +205,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         private void KeyInputModeChanged_Action()
         {
+            if (Algorithm.Value == EncryptionAlgorithm.PGP) return;
             ResetAllKeyInputMode();
             switch (KeyInputModeSwitch.Value)
             {
@@ -226,6 +253,37 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void AlgorithmChanged_Action()
+        {
+            bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
+
+            // Symmetric properties: hide when PGP
+            Key.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.Key;
+            KeySecureString.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.SecureKey;
+            KeyEncodingString.IsVisible = !isPgp;
+
+            // PGP properties: show when PGP
+            PrivateKeyFilePath.IsVisible = isPgp;
+            PrivateKeyFilePath.IsRequired = isPgp;
+            Passphrase.IsVisible = isPgp;
+            Passphrase.IsRequired = isPgp;
+            VerifySignature.IsVisible = isPgp;
+            PublicKeyFilePath.IsVisible = isPgp && VerifySignature.Value;
+            PublicKeyFilePath.IsRequired = isPgp && VerifySignature.Value;
+
+            if (!isPgp)
+            {
+                KeyInputModeChanged_Action();
+            }
+        }
+
+        private void VerifySignatureChanged_Action()
+        {
+            if (Algorithm.Value != EncryptionAlgorithm.PGP) return;
+            PublicKeyFilePath.IsVisible = VerifySignature.Value;
+            PublicKeyFilePath.IsRequired = VerifySignature.Value;
         }
 
         private void ResetAllKeyInputMode()

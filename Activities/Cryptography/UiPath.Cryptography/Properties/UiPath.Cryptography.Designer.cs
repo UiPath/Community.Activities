@@ -1204,6 +1204,69 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PGP (Pretty Good Privacy).
+        /// </summary>
+        internal static string PGP {
+            get {
+                return ResourceManager.GetString("PGP", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase for the PGP private key is incorrect..
+        /// </summary>
+        internal static string PgpInvalidPassphrase {
+            get {
+                return ResourceManager.GetString("PgpInvalidPassphrase", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The provided private key does not match the encrypted data....
+        /// </summary>
+        internal static string PgpPrivateKeyNotFound {
+            get {
+                return ResourceManager.GetString("PgpPrivateKeyNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to PGP signature verification failed....
+        /// </summary>
+        internal static string PgpSignatureVerificationFailed {
+            get {
+                return ResourceManager.GetString("PgpSignatureVerificationFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Signed File (Binary).
+        /// </summary>
+        internal static string PgpVerifyMode_Signature {
+            get {
+                return ResourceManager.GetString("PgpVerifyMode_Signature", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Clear-Signed File (Text).
+        /// </summary>
+        internal static string PgpVerifyMode_ClearSignature {
+            get {
+                return ResourceManager.GetString("PgpVerifyMode_ClearSignature", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Validate Public Key.
+        /// </summary>
+        internal static string PgpVerifyMode_PublicKey {
+            get {
+                return ResourceManager.GetString("PgpVerifyMode_PublicKey", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Portuguese (DOS).
         /// </summary>
         internal static string Portuguese_DOS {

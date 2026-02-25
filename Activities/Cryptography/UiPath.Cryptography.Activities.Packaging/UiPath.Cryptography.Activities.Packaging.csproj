@@ -57,6 +57,8 @@
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.dll" />
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)PgpCore.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)BouncyCastle.Cryptography.dll" />
 
       <BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Cryptography.resources.dll" TargetPath="fr\UiPath.Cryptography.resources.dll" />
       <BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Cryptography.resources.dll" TargetPath="ja\UiPath.Cryptography.resources.dll" />
