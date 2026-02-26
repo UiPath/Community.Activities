@@ -115,26 +115,18 @@ namespace UiPath.Cryptography.Activities
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_PublicKeyFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_PublicKeyFilePath_Description))]
         public InArgument<string> PublicKeyFilePath { get; set; }
 
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Category_Options_Name))]
-        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_SignData_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_SignData_Description))]
         public bool SignData { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_PrivateKeyFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_PrivateKeyFilePath_Description))]
         public InArgument<string> PrivateKeyFilePath { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_Passphrase_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Passphrase_Description))]
         public InArgument<SecureString> Passphrase { get; set; }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -193,8 +185,6 @@ namespace UiPath.Cryptography.Activities
                     : CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(result.Item3), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
                 WriteEncryptedOutput(context, outputFilePath, encrypted, result);
-
-                File.WriteAllBytes(outputFilePath ?? EncryptedFile.Get(context).LocalPath, encrypted);
 #if ENABLE_DEFAULT_TELEMETRY
                 telemetryOperation.Send();
 #endif

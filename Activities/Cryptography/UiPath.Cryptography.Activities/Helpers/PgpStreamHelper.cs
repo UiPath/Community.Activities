@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Security;
+using UiPath.Cryptography.Activities.Properties;
 
 namespace UiPath.Cryptography.Activities.Helpers
 {
@@ -16,6 +17,8 @@ namespace UiPath.Cryptography.Activities.Helpers
         {
             if (string.IsNullOrWhiteSpace(publicKeyFilePath))
                 throw new ArgumentNullException(nameof(publicKeyFilePath));
+            if (!File.Exists(publicKeyFilePath))
+                throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(publicKeyFilePath));
 
             using (var publicKeyStream = File.OpenRead(publicKeyFilePath))
             {
@@ -27,6 +30,8 @@ namespace UiPath.Cryptography.Activities.Helpers
                     {
                         if (string.IsNullOrWhiteSpace(privateKeyFilePath))
                             throw new ArgumentNullException(nameof(privateKeyFilePath));
+                        if (!File.Exists(privateKeyFilePath))
+                            throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(privateKeyFilePath));
                         if (passphrase == null || passphrase.Length == 0)
                             throw new ArgumentNullException(nameof(passphrase));
                         passphraseString = new NetworkCredential("", passphrase).Password;
@@ -62,6 +67,8 @@ namespace UiPath.Cryptography.Activities.Helpers
         {
             if (string.IsNullOrWhiteSpace(privateKeyFilePath))
                 throw new ArgumentNullException(nameof(privateKeyFilePath));
+            if (!File.Exists(privateKeyFilePath))
+                throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(privateKeyFilePath));
             if (passphrase == null || passphrase.Length == 0)
                 throw new ArgumentNullException(nameof(passphrase));
 
@@ -76,6 +83,8 @@ namespace UiPath.Cryptography.Activities.Helpers
                     {
                         if (string.IsNullOrWhiteSpace(publicKeyFilePath))
                             throw new ArgumentNullException(nameof(publicKeyFilePath));
+                        if (!File.Exists(publicKeyFilePath))
+                            throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(publicKeyFilePath));
                         publicKeyStream = File.OpenRead(publicKeyFilePath);
                     }
 

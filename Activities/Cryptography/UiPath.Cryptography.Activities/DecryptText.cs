@@ -4,7 +4,6 @@ using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -73,26 +72,18 @@ namespace UiPath.Cryptography.Activities
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFilePath_Description))]
         public InArgument<string> PrivateKeyFilePath { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Passphrase_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Passphrase_Description))]
         public InArgument<SecureString> Passphrase { get; set; }
 
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Category_Options_Name))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_VerifySignature_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_VerifySignature_Description))]
         public bool VerifySignature { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PublicKeyFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PublicKeyFilePath_Description))]
         public InArgument<string> PublicKeyFilePath { get; set; }
 
         public DecryptText()

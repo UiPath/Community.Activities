@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -301,23 +302,24 @@ namespace UiPath.Cryptography
 
         #region PGP Methods
 
-        private static Exception TranslatePgpException(Exception ex)
+        private static void ThrowTranslatedPgpException(Exception ex)
         {
             var message = ex.Message ?? string.Empty;
 
             // "Checksum mismatch" → wrong passphrase for private key
             if (message.Contains("Checksum mismatch"))
-                return new InvalidOperationException(Resources.PgpInvalidPassphrase, ex);
+                throw new InvalidOperationException(Resources.PgpInvalidPassphrase, ex);
 
             // "Secret key for message not found." → wrong private key
             if (message.Contains("Secret key for message not found"))
-                return new InvalidOperationException(Resources.PgpPrivateKeyNotFound, ex);
+                throw new InvalidOperationException(Resources.PgpPrivateKeyNotFound, ex);
 
             // "Failed to verify file." → signature verification failed (wrong public key)
             if (message.Contains("Failed to verify"))
-                return new InvalidOperationException(Resources.PgpSignatureVerificationFailed, ex);
+                throw new InvalidOperationException(Resources.PgpSignatureVerificationFailed, ex);
 
-            return ex;
+            // No translation — preserve original stack trace
+            ExceptionDispatchInfo.Capture(ex).Throw();
         }
 
         public static byte[] PgpEncrypt(byte[] inputBytes, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false)
@@ -332,13 +334,13 @@ namespace UiPath.Cryptography
 
         public static void PgpEncryptStream(Stream inputStream, Stream outputStream, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false)
         {
-            var shouldSign = sign && privateKeyStream != null && passphrase != null;
-            var encryptionKeys = shouldSign
-                ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
-                : new EncryptionKeys(publicKeyStream);
-
             try
             {
+                var shouldSign = sign && privateKeyStream != null && !string.IsNullOrEmpty(passphrase);
+                var encryptionKeys = shouldSign
+                    ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
+                    : new EncryptionKeys(publicKeyStream);
+
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     if (shouldSign)
@@ -349,7 +351,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                throw TranslatePgpException(ex);
+                ThrowTranslatedPgpException(ex);
             }
         }
 
@@ -365,13 +367,13 @@ namespace UiPath.Cryptography
 
         public static void PgpDecryptStream(Stream inputStream, Stream outputStream, Stream privateKeyStream, string passphrase, Stream publicKeyStream = null, bool verifySignature = false)
         {
-            var shouldVerify = verifySignature && publicKeyStream != null;
-            var encryptionKeys = shouldVerify
-                ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
-                : new EncryptionKeys(privateKeyStream, passphrase);
-
             try
             {
+                var shouldVerify = verifySignature && publicKeyStream != null;
+                var encryptionKeys = shouldVerify
+                    ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
+                    : new EncryptionKeys(privateKeyStream, passphrase);
+
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     if (shouldVerify)
@@ -382,19 +384,19 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                throw TranslatePgpException(ex);
+                ThrowTranslatedPgpException(ex);
             }
         }
 
         public static string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false)
         {
-            var shouldSign = sign && privateKeyStream != null && passphrase != null;
-            var encryptionKeys = shouldSign
-                ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
-                : new EncryptionKeys(publicKeyStream);
-
             try
             {
+                var shouldSign = sign && privateKeyStream != null && !string.IsNullOrEmpty(passphrase);
+                var encryptionKeys = shouldSign
+                    ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
+                    : new EncryptionKeys(publicKeyStream);
+
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     return shouldSign
@@ -404,19 +406,20 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                throw TranslatePgpException(ex);
+                ThrowTranslatedPgpException(ex);
+                return null; // unreachable
             }
         }
 
         public static string PgpDecryptText(string input, Stream privateKeyStream, string passphrase, Stream publicKeyStream = null, bool verifySignature = false)
         {
-            var shouldVerify = verifySignature && publicKeyStream != null;
-            var encryptionKeys = shouldVerify
-                ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
-                : new EncryptionKeys(privateKeyStream, passphrase);
-
             try
             {
+                var shouldVerify = verifySignature && publicKeyStream != null;
+                var encryptionKeys = shouldVerify
+                    ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
+                    : new EncryptionKeys(privateKeyStream, passphrase);
+
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     return shouldVerify
@@ -426,7 +429,8 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                throw TranslatePgpException(ex);
+                ThrowTranslatedPgpException(ex);
+                return null; // unreachable
             }
         }
 
@@ -445,7 +449,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                throw TranslatePgpException(ex);
+                ThrowTranslatedPgpException(ex);
             }
         }
 
@@ -477,7 +481,8 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                throw TranslatePgpException(ex);
+                ThrowTranslatedPgpException(ex);
+                return null; // unreachable
             }
         }
 

@@ -110,26 +110,18 @@ namespace UiPath.Cryptography.Activities
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Description))]
         public InArgument<string> PrivateKeyFilePath { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Passphrase_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Passphrase_Description))]
         public InArgument<SecureString> Passphrase { get; set; }
 
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Category_Options_Name))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_VerifySignature_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_VerifySignature_Description))]
         public bool VerifySignature { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_PublicKeyFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_PublicKeyFilePath_Description))]
         public InArgument<string> PublicKeyFilePath { get; set; }
 
         public DecryptFile()
@@ -195,8 +187,6 @@ namespace UiPath.Cryptography.Activities
                     : ExecuteSymmetricDecrypt(encrypted, keyEncoding, key, keySecureString);
 
                 WriteDecryptedOutput(context, outputFilePath, decrypted, result);
-
-                File.WriteAllBytes(outputFilePath ?? DecryptedFile.Get(context).LocalPath, decrypted);
 #if ENABLE_DEFAULT_TELEMETRY
                 telemetryOperation.Send();
 #endif
