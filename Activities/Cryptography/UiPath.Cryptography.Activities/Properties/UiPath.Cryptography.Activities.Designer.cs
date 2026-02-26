@@ -61,6 +61,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cryptography.
+        /// </summary>
+        public static string ActivitySynonymCryptography {
+            get {
+                return ResourceManager.GetString("ActivitySynonymCryptography", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Decrypts a file based on a specified key encoding and algorithm..
         /// </summary>
         public static string Activity_DecryptFile_Description {
