@@ -59,7 +59,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .AddMenuProperty(InputFilePath, FileInputMode.FilePath)
                 .BuildAndInsertMenuActions();
 
-            DecryptedFile.OrderIndex = orderIndex++;
+            DecryptedFile.OrderIndex = orderIndex;
 
             _backupInputFile = InputFile.Value;
             _backupInputFilePath = InputFilePath.Value;

@@ -194,7 +194,7 @@ namespace UiPath.Cryptography.Activities
 
                 WriteEncryptedOutput(context, outputFilePath, encrypted, result);
 
-                File.WriteAllBytes(outputFilePath ?? ((ILocalResource)EncryptedFile.Get(context)).LocalPath, encrypted);
+                File.WriteAllBytes(outputFilePath ?? EncryptedFile.Get(context).LocalPath, encrypted);
 #if ENABLE_DEFAULT_TELEMETRY
                 telemetryOperation.Send();
 #endif
@@ -224,7 +224,7 @@ namespace UiPath.Cryptography.Activities
 
             if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_Key_Name);
-            if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+            if ((keySecureString == null || keySecureString.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
                 throw new ArgumentNullException(Resources.Activity_EncryptFile_Property_KeySecureString_Name);
             if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                 throw new ArgumentNullException(Resources.Encoding);

@@ -196,7 +196,7 @@ namespace UiPath.Cryptography.Activities
 
                 WriteDecryptedOutput(context, outputFilePath, decrypted, result);
 
-                File.WriteAllBytes(outputFilePath ?? ((ILocalResource)DecryptedFile.Get(context)).LocalPath, decrypted);
+                File.WriteAllBytes(outputFilePath ?? DecryptedFile.Get(context).LocalPath, decrypted);
 #if ENABLE_DEFAULT_TELEMETRY
                 telemetryOperation.Send();
 #endif
@@ -230,7 +230,7 @@ namespace UiPath.Cryptography.Activities
 
             if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_Key_Name);
-            if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+            if ((keySecureString == null || keySecureString.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
                 throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_KeySecureString_Name);
             if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                 throw new ArgumentNullException(Resources.Encoding);

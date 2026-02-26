@@ -60,7 +60,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .BuildAndInsertMenuActions();
 
             EncryptedFile.IsPrincipal = false;
-            EncryptedFile.OrderIndex = orderIndex++;
+            EncryptedFile.OrderIndex = orderIndex;
 
             _backupInputFile = InputFile.Value;
             _backupInputFilePath = InputFilePath.Value;

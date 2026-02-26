@@ -186,7 +186,7 @@ namespace UiPath.Cryptography.Activities
 
             if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                 throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
-            if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+            if ((keySecureString == null || keySecureString.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
                 throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
             if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                 throw new ArgumentNullException(Resources.Encoding);
