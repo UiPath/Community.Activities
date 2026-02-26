@@ -172,14 +172,10 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
 
             Key.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.Key;
+            Key.IsRequired = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.Key;
             KeySecureString.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.SecureKey;
+            KeySecureString.IsRequired = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.SecureKey;
             KeyEncodingString.IsVisible = !isPgp;
-
-            if (isPgp)
-            {
-                Key.IsRequired = false;
-                KeySecureString.IsRequired = false;
-            }
 
             PublicKeyFilePath.IsVisible = isPgp;
             PublicKeyFilePath.IsRequired = isPgp;
