@@ -135,7 +135,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             PublicKeyFilePath.IsPrincipal = false;
             PublicKeyFilePath.IsVisible = false;
-            PublicKeyFilePath.OrderIndex = propertyOrderIndex++;
+            PublicKeyFilePath.OrderIndex = propertyOrderIndex;
 
             MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
                 .AddMenuProperty(Key, KeyInputMode.Key)

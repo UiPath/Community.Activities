@@ -71,9 +71,8 @@ namespace UiPath.Cryptography.Activities
 
         protected override void Execute(CodeActivityContext context)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
 
             try
@@ -84,13 +83,13 @@ namespace UiPath.Cryptography.Activities
                 var password = Password.Get(context);
 
                 if (string.IsNullOrWhiteSpace(publicKeyFilePath))
-                    throw new ArgumentNullException(nameof(PublicKeyFilePath));
+                    throw new ArgumentNullException(Resources.Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name);
                 if (string.IsNullOrWhiteSpace(privateKeyFilePath))
-                    throw new ArgumentNullException(nameof(PrivateKeyFilePath));
+                    throw new ArgumentNullException(Resources.Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name);
                 if (string.IsNullOrWhiteSpace(username))
-                    throw new ArgumentNullException(nameof(Username));
+                    throw new ArgumentNullException(Resources.Activity_PgpGenerateKeyPair_Property_Username_Name);
                 if (password == null || password.Length == 0)
-                    throw new ArgumentNullException(nameof(Password));
+                    throw new ArgumentNullException(Resources.Activity_PgpGenerateKeyPair_Property_Password_Name);
 
                 if (!Overwrite)
                 {
@@ -118,11 +117,15 @@ namespace UiPath.Cryptography.Activities
                 var privItem = new CryptographyLocalItem(Path.GetFileName(privateKeyFilePath), privateKeyFilePath);
                 PrivateKeyFile.Set(context, privItem);
 
-                telemetryOperation?.Send();
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.Send();
+#endif
             }
             catch (Exception ex)
             {
-                telemetryOperation?.SendWithException(ex);
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.SendWithException(ex);
+#endif
                 Trace.TraceError(ex.ToString());
                 if (!ContinueOnError.Get(context)) throw;
             }

@@ -14,6 +14,7 @@ namespace UiPath.Cryptography.Activities.Tests
         private readonly string _publicKeyPath;
         private readonly string _privateKeyPath;
         private const string Passphrase = "testpassphrase";
+        private bool _disposed;
 
         public PgpTests()
         {
@@ -30,13 +31,24 @@ namespace UiPath.Cryptography.Activities.Tests
             }
         }
 
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            if (File.Exists(_publicKeyPath)) File.Delete(_publicKeyPath);
-            if (File.Exists(_privateKeyPath)) File.Delete(_privateKeyPath);
+            if (_disposed) return;
+            if (disposing)
+            {
+                if (File.Exists(_publicKeyPath)) File.Delete(_publicKeyPath);
+                if (File.Exists(_privateKeyPath)) File.Delete(_privateKeyPath);
+            }
+            _disposed = true;
         }
 
-        private SecureString GetPassphraseSecureString()
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private static SecureString GetPassphraseSecureString()
         {
             return TestingHelper.StringToSecureString(Passphrase);
         }

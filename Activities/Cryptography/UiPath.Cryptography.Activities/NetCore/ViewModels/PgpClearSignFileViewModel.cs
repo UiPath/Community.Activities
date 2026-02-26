@@ -61,7 +61,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Value = false;
 
             ClearSignedFile.IsPrincipal = false;
-            ClearSignedFile.OrderIndex = orderIndex++;
+            ClearSignedFile.OrderIndex = orderIndex;
         }
     }
 }

@@ -152,7 +152,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             Passphrase.IsPrincipal = false;
             Passphrase.IsVisible = false;
-            Passphrase.OrderIndex = propertyOrderIndex++;
+            Passphrase.OrderIndex = propertyOrderIndex;
 
             MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
                 .AddMenuProperty(Key, KeyInputMode.Key)

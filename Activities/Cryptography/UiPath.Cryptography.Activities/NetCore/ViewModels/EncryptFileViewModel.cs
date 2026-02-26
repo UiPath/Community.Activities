@@ -195,7 +195,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             Passphrase.IsPrincipal = false;
             Passphrase.IsVisible = false;
-            Passphrase.OrderIndex = propertyOrderIndex++;
+            Passphrase.OrderIndex = propertyOrderIndex;
 
             _backupInputFile = InputFile.Value;
             _backupInputFilePath = InputFilePath.Value;

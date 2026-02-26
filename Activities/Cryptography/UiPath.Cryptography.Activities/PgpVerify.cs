@@ -45,9 +45,8 @@ namespace UiPath.Cryptography.Activities
 
         protected override bool Execute(CodeActivityContext context)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
 
             try
@@ -55,17 +54,19 @@ namespace UiPath.Cryptography.Activities
                 var publicKeyFilePath = PublicKeyFilePath.Get(context);
 
                 if (string.IsNullOrWhiteSpace(publicKeyFilePath))
-                    throw new ArgumentNullException(nameof(PublicKeyFilePath));
+                    throw new ArgumentNullException(Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name);
 
                 if (Mode == PgpVerifyMode.PublicKey)
                 {
                     if (!File.Exists(publicKeyFilePath))
-                        throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(PublicKeyFilePath));
+                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name);
 
                     using (var publicKeyStream = File.OpenRead(publicKeyFilePath))
                     {
                         var result = CryptographyHelper.PgpVerifyPublicKey(publicKeyStream);
-                        telemetryOperation?.Send();
+#if ENABLE_DEFAULT_TELEMETRY
+                        telemetryOperation.Send();
+#endif
                         return result;
                     }
                 }
@@ -79,7 +80,7 @@ namespace UiPath.Cryptography.Activities
                     var inputBytes = File.ReadAllBytes(inputFilePath);
 
                     if (!File.Exists(publicKeyFilePath))
-                        throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(PublicKeyFilePath));
+                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name);
 
                     using (var publicKeyStream = File.OpenRead(publicKeyFilePath))
                     {
@@ -93,17 +94,21 @@ namespace UiPath.Cryptography.Activities
                                 result = CryptographyHelper.PgpVerifyClear(inputBytes, publicKeyStream);
                                 break;
                             default:
-                                throw new ArgumentOutOfRangeException(nameof(Mode));
+                                throw new ArgumentOutOfRangeException(Resources.Activity_PgpVerify_Property_Mode_Name);
                         }
 
-                        telemetryOperation?.Send();
+#if ENABLE_DEFAULT_TELEMETRY
+                        telemetryOperation.Send();
+#endif
                         return result;
                     }
                 }
             }
             catch (Exception ex)
             {
-                telemetryOperation?.SendWithException(ex);
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.SendWithException(ex);
+#endif
                 Trace.TraceError(ex.ToString());
                 if (!ContinueOnError.Get(context)) throw;
                 return false;

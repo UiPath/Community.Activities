@@ -65,7 +65,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             PublicKeyFile.OrderIndex = orderIndex++;
 
             PrivateKeyFile.IsPrincipal = false;
-            PrivateKeyFile.OrderIndex = orderIndex++;
+            PrivateKeyFile.OrderIndex = orderIndex;
         }
     }
 }

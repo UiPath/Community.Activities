@@ -167,9 +167,8 @@ namespace UiPath.Cryptography.Activities
 
         protected override void Execute(CodeActivityContext context)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
 
             try
@@ -179,105 +178,105 @@ namespace UiPath.Cryptography.Activities
                 var outputFilePath = OutputFilePath.Get(context);
                 var outputFileName = OutputFileName.Get(context);
 
-                // Validate key parameters early for symmetric algorithms (before file checks)
-                string key = null;
-                SecureString keySecureString = null;
-                Encoding keyEncoding = null;
-                string keyEncodingString = null;
-
-                if (Algorithm != EncryptionAlgorithm.PGP)
-                {
-                    key = Key.Get(context);
-                    keySecureString = KeySecureString.Get(context);
-                    keyEncoding = KeyEncoding.Get(context);
-                    keyEncodingString = KeyEncodingString.Get(context);
-
-                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
-                    {
-                        throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_Key_Name);
-                    }
-                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                    {
-                        throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_KeySecureString_Name);
-                    }
-
-                    if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
-
-                    keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
-                }
+                ValidateSymmetricKeyParams(context, out var key, out var keySecureString, out var keyEncoding);
 
                 if (!File.Exists(inputFilePath) && inputFile == null)
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
-
                 if (File.Exists(outputFilePath) && !Overwrite)
                     throw new ArgumentException(Resources.FileAlreadyExistsException, Resources.OutputFilePathDisplayName);
-
                 if (inputFile != null && inputFile.IsFolder)
                     throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
                 var result = FilePathHelpers.GetDefaultFileNameAndLocation(inputFile, inputFilePath, outputFileName, Overwrite, outputFilePath, Decrypted);
-
                 var encrypted = File.ReadAllBytes(result.Item3);
 
-                byte[] decrypted = null;
+                var decrypted = Algorithm == EncryptionAlgorithm.PGP
+                    ? ExecutePgpDecrypt(context, encrypted)
+                    : ExecuteSymmetricDecrypt(encrypted, keyEncoding, key, keySecureString);
 
-                if (Algorithm == EncryptionAlgorithm.PGP)
-                {
-                    var privateKeyFilePath = PrivateKeyFilePath.Get(context);
-                    var passphrase = Passphrase.Get(context);
-                    var publicKeyFilePath = PublicKeyFilePath.Get(context);
+                WriteDecryptedOutput(context, outputFilePath, decrypted, result);
 
-                    decrypted = PgpStreamHelper.WithPgpDecryptStreams(
-                        privateKeyFilePath, passphrase, publicKeyFilePath, VerifySignature,
-                        (privStream, pass, pubStream) =>
-                            CryptographyHelper.PgpDecrypt(encrypted, privStream, pass, pubStream, VerifySignature));
-                }
-                else
-                {
-                    try
-                    {
-                        decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
-                    }
-                    catch (CryptographicException ex)
-                    {
-                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-                    }
-                }
-
-                if (string.IsNullOrEmpty(outputFilePath))
-                {
-                    var item = new CryptographyLocalItem(decrypted, result.Item1, result.Item2);
-
-                    DecryptedFile.Set(context, item);
-
-                    outputFilePath = item.LocalPath;
-                }
-                else
-                {
-                    var directory = Path.GetDirectoryName(outputFilePath);
-
-                    if (!string.IsNullOrEmpty(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
-                    var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
-
-                    DecryptedFile.Set(context, item);
-                }
-
-                File.WriteAllBytes(outputFilePath, decrypted);
-                telemetryOperation?.Send();
+                File.WriteAllBytes(outputFilePath ?? ((ILocalResource)DecryptedFile.Get(context)).LocalPath, decrypted);
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.Send();
+#endif
             }
             catch (Exception ex)
             {
-                telemetryOperation?.SendWithException(ex);
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.SendWithException(ex);
+#endif
                 Trace.TraceError(ex.ToString());
 
                 if (!ContinueOnError.Get(context))
                 {
                     throw;
                 }
+            }
+        }
+
+        private void ValidateSymmetricKeyParams(CodeActivityContext context, out string key, out SecureString keySecureString, out Encoding keyEncoding)
+        {
+            key = null;
+            keySecureString = null;
+            keyEncoding = null;
+
+            if (Algorithm == EncryptionAlgorithm.PGP) return;
+
+            key = Key.Get(context);
+            keySecureString = KeySecureString.Get(context);
+            keyEncoding = KeyEncoding.Get(context);
+            var keyEncodingString = KeyEncodingString.Get(context);
+
+            if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_Key_Name);
+            if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_KeySecureString_Name);
+            if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
+                throw new ArgumentNullException(Resources.Encoding);
+
+            keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+        }
+
+        private byte[] ExecutePgpDecrypt(CodeActivityContext context, byte[] encrypted)
+        {
+            var privateKeyFilePath = PrivateKeyFilePath.Get(context);
+            var passphrase = Passphrase.Get(context);
+            var publicKeyFilePath = PublicKeyFilePath.Get(context);
+
+            return PgpStreamHelper.WithPgpDecryptStreams(
+                privateKeyFilePath, passphrase, publicKeyFilePath, VerifySignature,
+                (privStream, pass, pubStream) =>
+                    CryptographyHelper.PgpDecrypt(encrypted, privStream, pass, pubStream, VerifySignature));
+        }
+
+        private byte[] ExecuteSymmetricDecrypt(byte[] encrypted, Encoding keyEncoding, string key, SecureString keySecureString)
+        {
+            try
+            {
+                return CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+            }
+            catch (CryptographicException ex)
+            {
+                throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+            }
+        }
+
+        private void WriteDecryptedOutput(CodeActivityContext context, string outputFilePath, byte[] decrypted, (string, string, string) result)
+        {
+            if (string.IsNullOrEmpty(outputFilePath))
+            {
+                var item = new CryptographyLocalItem(decrypted, result.Item1, result.Item2);
+                DecryptedFile.Set(context, item);
+            }
+            else
+            {
+                var directory = Path.GetDirectoryName(outputFilePath);
+                if (!string.IsNullOrEmpty(directory))
+                    Directory.CreateDirectory(directory);
+
+                var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
+                DecryptedFile.Set(context, item);
             }
         }
     }

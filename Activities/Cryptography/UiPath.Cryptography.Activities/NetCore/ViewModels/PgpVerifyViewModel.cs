@@ -54,7 +54,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Value = false;
 
             Result.IsPrincipal = false;
-            Result.OrderIndex = orderIndex++;
+            Result.OrderIndex = orderIndex;
         }
 
         protected override void InitializeRules()

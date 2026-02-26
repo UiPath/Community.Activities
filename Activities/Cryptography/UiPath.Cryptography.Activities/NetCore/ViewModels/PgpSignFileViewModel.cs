@@ -61,7 +61,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Value = false;
 
             SignedFile.IsPrincipal = false;
-            SignedFile.OrderIndex = orderIndex++;
+            SignedFile.OrderIndex = orderIndex;
         }
     }
 }
