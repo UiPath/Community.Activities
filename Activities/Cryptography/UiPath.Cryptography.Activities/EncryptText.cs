@@ -5,7 +5,6 @@ using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Activities.Helpers;

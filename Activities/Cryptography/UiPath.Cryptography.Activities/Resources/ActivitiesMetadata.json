@@ -1175,7 +1175,7 @@
           "DisplayNameKey": "Activity_PgpVerify_Property_Result_Name",
           "TooltipKey": "Activity_PgpVerify_Property_Result_Description",
           "IsRequired": false,
-          "IsPrincipal": true,
+          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": "Output",
