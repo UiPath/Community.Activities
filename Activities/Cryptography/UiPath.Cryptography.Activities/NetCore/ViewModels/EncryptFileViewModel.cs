@@ -1,176 +1,58 @@
-﻿using System;
+using System;
 using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Security;
-using UiPath.Cryptography.Activities.Helpers;
-using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
-
-#pragma warning disable CS0618 // obsolete encryption algorithm
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     [ExcludeFromCodeCoverage]
-    public class EncryptFileViewModel : DesignPropertiesViewModel
+    public class EncryptFileViewModel : EncryptCryptoViewModelBase
     {
-        private readonly DataSource<string> _encodingDataSource;
         private InArgument<IResource> _backupInputFile;
         private InArgument<string> _backupInputFilePath;
 
-        /// <summary>
-        /// Basic constructor
-        /// </summary>
-        /// <param name="services"></param>
         public EncryptFileViewModel(IDesignServices services) : base(services)
         {
-            _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
         }
 
-        /// <summary>
-        /// A drop-down which enables you to select the encryption algorithm you want to use.
-        /// </summary>
-        public DesignProperty<EncryptionAlgorithm> Algorithm { get; set; } = new DesignProperty<EncryptionAlgorithm>();
-
-        /// <summary>
-        /// A drop-down which enables you to select the encoding option you want to use.
-        /// </summary>
-        public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
-
-        /// <summary>
-        /// The key that you want to use to encrypt the specified file.
-        /// </summary>
-        public DesignInArgument<string> Key { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// The secure string used to encrypt the input file.
-        /// </summary>
-        public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
-
-        /// <summary>
-        /// Switches Key as string or secure string
-        /// </summary>
-        public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
-
-        /// <summary>
-        /// If a file already exists at the path specified in the Output path field, selecting this check box overwrites it.
-        /// </summary>
-        public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
-
-        /// <summary>
-        /// A drop-down which enables you to select the encryption algorithm you want to use.
-        /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
-
-        /// <summary>
-        /// The file that you want to encrypt.
-        /// </summary>
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
-
-        /// <summary>
-        /// The path to the file that you want to encrypt.
-        /// </summary>
         public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// Switches File as IResource or string
-        /// </summary>
         public DesignProperty<FileInputMode> FileInputModeSwitch { get; set; } = new DesignProperty<FileInputMode>();
-
-        /// <summary>
-        /// The output path to the file that you want to encrypt.
-        /// </summary>
         public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// The file that you want to encrypt.
-        /// </summary>
+        public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
         public DesignOutArgument<ILocalResource> EncryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
-
-        /// <summary>
-        /// A warning about using a deprecated encryption algorithm, due to be removed in the future
-        /// </summary>
-        [NotMappedProperty]
-        public DesignProperty<string> DeprecatedWarning { get; set; } = new DesignProperty<string>();
-
-        public DesignInArgument<string> PublicKeyFilePath { get; set; } = new DesignInArgument<string>();
-        public DesignProperty<bool> SignData { get; set; } = new DesignProperty<bool>();
-        public DesignInArgument<string> PrivateKeyFilePath { get; set; } = new DesignInArgument<string>();
-        public DesignInArgument<System.Security.SecureString> Passphrase { get; set; } = new DesignInArgument<System.Security.SecureString>();
 
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            var propertyOrderIndex = 1;
+            var orderIndex = 1;
 
             InputFile.IsPrincipal = true;
             InputFile.IsVisible = false;
-            InputFile.OrderIndex = propertyOrderIndex++;
+            InputFile.OrderIndex = orderIndex++;
 
             InputFilePath.IsPrincipal = true;
             InputFilePath.IsVisible = true;
-            InputFilePath.OrderIndex = propertyOrderIndex++;
+            InputFilePath.OrderIndex = orderIndex++;
 
             FileInputModeSwitch.IsVisible = false;
 
-            Algorithm.IsPrincipal = true;
-            Algorithm.OrderIndex = propertyOrderIndex++;
-
-            Algorithm.DataSource = DataSourceHelper.ForEnum(EncryptionAlgorithm.AES, EncryptionAlgorithm.AESGCM,
-                EncryptionAlgorithm.DES, EncryptionAlgorithm.RC2, EncryptionAlgorithm.Rijndael,
-                EncryptionAlgorithm.TripleDES, EncryptionAlgorithm.PGP);
-
-            Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-
-            DeprecatedWarning.OrderIndex = propertyOrderIndex++;
-            DeprecatedWarning.Widget = new TextBlockWidget
-            {
-                Level = TextBlockWidgetLevel.Warning,
-                Multiline = true,
-            };
-            DeprecatedWarning.Value = Resources.Activity_Encrypt_Algorithm_Deprecated_Warning;
-
-            Key.IsPrincipal = true;
-            Key.IsVisible = true;
-            Key.OrderIndex = propertyOrderIndex++;
-
-            KeySecureString.IsPrincipal = true;
-            KeySecureString.IsVisible = false;
-            KeySecureString.OrderIndex = propertyOrderIndex++;
-
-            KeyInputModeSwitch.IsVisible = false;
-
-            KeyEncodingString.IsPrincipal = false;
-            KeyEncodingString.IsVisible = true;
-            KeyEncodingString.OrderIndex = propertyOrderIndex++;
-
-            KeyEncodingString.DataSource = _encodingDataSource;
-            KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
-
-            _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+            ConfigureAlgorithmAndKeyProperties(ref orderIndex);
 
             OutputFilePath.IsPrincipal = false;
             OutputFilePath.IsVisible = true;
             OutputFilePath.IsRequired = false;
-            OutputFilePath.OrderIndex = propertyOrderIndex++;
+            OutputFilePath.OrderIndex = orderIndex++;
 
             Overwrite.IsPrincipal = false;
-            Overwrite.OrderIndex = propertyOrderIndex++;
+            Overwrite.OrderIndex = orderIndex++;
             Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
-            ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
-            ContinueOnError.Value = false;
-
-            MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
-                .AddMenuProperty(Key, KeyInputMode.Key)
-                .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
-                .BuildAndInsertMenuActions();
+            ConfigureTailProperties(ref orderIndex);
+            ConfigureKeyInputModeMenuActions();
 
             MenuActionsBuilder<FileInputMode>.WithValueProperty(FileInputModeSwitch)
                 .AddMenuProperty(InputFile, FileInputMode.File)
@@ -178,77 +60,31 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 .BuildAndInsertMenuActions();
 
             EncryptedFile.IsPrincipal = false;
-            EncryptedFile.OrderIndex = propertyOrderIndex++;
-
-            PublicKeyFilePath.IsPrincipal = false;
-            PublicKeyFilePath.IsVisible = false;
-            PublicKeyFilePath.OrderIndex = propertyOrderIndex++;
-
-            SignData.IsPrincipal = false;
-            SignData.IsVisible = false;
-            SignData.OrderIndex = propertyOrderIndex++;
-            SignData.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
-
-            PrivateKeyFilePath.IsPrincipal = false;
-            PrivateKeyFilePath.IsVisible = false;
-            PrivateKeyFilePath.OrderIndex = propertyOrderIndex++;
-
-            Passphrase.IsPrincipal = false;
-            Passphrase.IsVisible = false;
-            Passphrase.OrderIndex = propertyOrderIndex;
+            EncryptedFile.OrderIndex = orderIndex++;
 
             _backupInputFile = InputFile.Value;
             _backupInputFilePath = InputFilePath.Value;
         }
 
-        /// <inheritdoc />
         protected override void InitializeRules()
         {
             base.InitializeRules();
-            Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
             Rule(nameof(FileInputModeSwitch), FileInputModeChanged_Action);
-            Rule(nameof(Algorithm), AlgorithmChanged_Action);
-            Rule(nameof(SignData), SignDataChanged_Action);
         }
 
-        /// <inheritdoc />
         protected override void ManualRegisterDependencies()
         {
             base.ManualRegisterDependencies();
-            RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
             RegisterDependency(FileInputModeSwitch, nameof(FileInputModeSwitch.Value), nameof(FileInputModeSwitch));
-            RegisterDependency(Algorithm, nameof(Algorithm.Value), nameof(Algorithm));
-            RegisterDependency(SignData, nameof(SignData.Value), nameof(SignData));
         }
 
-        /// <summary>
-        /// Key input Mode has changed. Set controls visibility based on selection
-        /// </summary>
-        private void KeyInputModeChanged_Action()
-        {
-            if (Algorithm.Value == EncryptionAlgorithm.PGP) return;
-            ResetAllKeyInputMode();
-            switch (KeyInputModeSwitch.Value)
-            {
-                case KeyInputMode.Key:
-                    Key.IsVisible = true;
-                    Key.IsRequired = true;
-                    break;
-                case KeyInputMode.SecureKey:
-                    KeySecureString.IsVisible = true;
-                    KeySecureString.IsRequired = true;
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        /// <summary>
-        /// File input Mode has changed. Set controls visibility based on selection
-        /// </summary>
         private void FileInputModeChanged_Action()
         {
-            ResetAllInputFile();
+            InputFile.IsRequired = false;
+            InputFile.IsVisible = false;
+            InputFilePath.IsRequired = false;
+            InputFilePath.IsVisible = false;
+
             switch (FileInputModeSwitch.Value)
             {
                 case FileInputMode.File:
@@ -273,81 +109,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
                 default:
                     throw new NotImplementedException();
-            }
-        }
-
-        private void ResetAllKeyInputMode()
-        {
-            Key.IsRequired = false;
-            Key.IsVisible = false;
-            KeySecureString.IsVisible = false;
-            KeySecureString.IsRequired = false;
-        }
-
-        private void ResetAllInputFile()
-        {
-            InputFile.IsRequired = false;
-            InputFile.IsVisible = false;
-            InputFilePath.IsRequired = false;
-            InputFilePath.IsVisible = false;
-        }
-
-        private void AlgorithmChanged_Action()
-        {
-            DeprecatedAlgorithmWarning_Action();
-
-            bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
-
-            Key.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.Key;
-            KeySecureString.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.SecureKey;
-            KeyEncodingString.IsVisible = !isPgp;
-
-            PublicKeyFilePath.IsVisible = isPgp;
-            PublicKeyFilePath.IsRequired = isPgp;
-            SignData.IsVisible = isPgp;
-            PrivateKeyFilePath.IsVisible = isPgp && SignData.Value;
-            PrivateKeyFilePath.IsRequired = isPgp && SignData.Value;
-            Passphrase.IsVisible = isPgp && SignData.Value;
-            Passphrase.IsRequired = isPgp && SignData.Value;
-
-            if (!isPgp)
-            {
-                KeyInputModeChanged_Action();
-            }
-        }
-
-        private void SignDataChanged_Action()
-        {
-            if (Algorithm.Value != EncryptionAlgorithm.PGP) return;
-            PrivateKeyFilePath.IsVisible = SignData.Value;
-            PrivateKeyFilePath.IsRequired = SignData.Value;
-            Passphrase.IsVisible = SignData.Value;
-            Passphrase.IsRequired = SignData.Value;
-        }
-
-        /// <summary>
-        /// Checks if the selected encryption algorithm is obsolete
-        /// </summary>
-        private void DeprecatedAlgorithmWarning_Action()
-        {
-            try
-            {
-                var enumName = typeof(EncryptionAlgorithm).GetEnumName(Algorithm.Value);
-                var field = typeof(EncryptionAlgorithm).GetField(enumName);
-
-                var obsoleteAttribute = field?.GetCustomAttribute<ObsoleteAttribute>();
-                if (obsoleteAttribute != null)
-                {
-                    DeprecatedWarning.IsVisible = true;
-                }
-                else
-                {
-                    DeprecatedWarning.IsVisible= false;
-                }
-            }
-            catch
-            {
-                DeprecatedWarning.IsVisible = false;
             }
         }
     }

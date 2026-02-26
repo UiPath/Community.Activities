@@ -3,56 +3,13 @@ using System.Activities;
 using System.IO;
 using System.Security;
 using System.Text;
-using PgpCore;
 using UiPath.Cryptography.Enums;
 using Xunit;
 
 namespace UiPath.Cryptography.Activities.Tests
 {
-    public class PgpStandaloneTests : IDisposable
+    public class PgpStandaloneTests : PgpTestBase
     {
-        private readonly string _publicKeyPath;
-        private readonly string _privateKeyPath;
-        private const string Passphrase = "testpassphrase";
-        private bool _disposed;
-
-        public PgpStandaloneTests()
-        {
-            _publicKeyPath = Path.Combine(Path.GetTempPath(), $"pgp_standalone_public_{Guid.NewGuid()}.asc");
-            _privateKeyPath = Path.Combine(Path.GetTempPath(), $"pgp_standalone_private_{Guid.NewGuid()}.asc");
-
-            using (var pgp = new PGP())
-            {
-                pgp.GenerateKey(
-                    new FileInfo(_publicKeyPath),
-                    new FileInfo(_privateKeyPath),
-                    "test@test.com",
-                    Passphrase);
-            }
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed) return;
-            if (disposing)
-            {
-                if (File.Exists(_publicKeyPath)) File.Delete(_publicKeyPath);
-                if (File.Exists(_privateKeyPath)) File.Delete(_privateKeyPath);
-            }
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private static SecureString GetPassphraseSecureString()
-        {
-            return TestingHelper.StringToSecureString(Passphrase);
-        }
-
         #region CryptographyHelper Tests
 
         [Fact]
