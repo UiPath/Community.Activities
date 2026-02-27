@@ -1,6 +1,6 @@
 # Local replacement for Activities/stage.start.yml@common
 # Uses path-trigger-based should-run check instead of GitHub API label check.
-# References @common for build, test, sonar, and deploy templates.
+# References @common for build, test, and sonar templates.
 
 parameters:
   projectName: ''
@@ -24,7 +24,7 @@ parameters:
   sdkBuild: false
   requiresLfs: false
   hasQaPackages: true
-  enableCDStages: true
+  enableCDStages: false
   azureSignConnectionName: ""
 
 stages:
@@ -89,93 +89,3 @@ stages:
 
   - ${{ parameters.additionalSonarJobs }}
 
-- ${{ if eq(parameters.enableCDStages, 'true') }}:
-  - stage: DeployAlphaBeta
-    displayName: 'Deploy Alpha/Beta'
-    dependsOn: PublishSonar
-    condition: |
-      and
-      (
-        succeeded(),
-        eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'),
-        or
-        (
-          eq(variables['Build.SourceBranch'], 'refs/heads/develop'),
-          startsWith(variables['Build.SourceBranch'], 'refs/heads/release')
-        )
-      )
-    jobs:
-    - template: Activities/stage.deploy.yml@common
-      parameters:
-        projectName: ${{ parameters.projectName }}
-        tagName: ${{ parameters.tagName }}
-        deploymentName: 'DeployAlphaBeta'
-        deploymentDisplayName: 'MyGet Alpha/Beta'
-        environmentName: 'NuGet-Activities-Alpha'
-        nuGetPushes:
-        - template: Activities/nuget.push.internal.yml@common
-          parameters:
-            feedDisplayName: 'UiPath-Internal'
-            publishVstsFeed: '$(UiPathInternalFeed)'
-
-  - stage: DeployStaging
-    displayName: 'Deploy Staging'
-    dependsOn: PublishSonar
-    condition: |
-      and
-      (
-        succeeded(),
-        eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'),
-        or
-        (
-          eq(variables['Build.SourceBranch'], 'refs/heads/master'),
-          startsWith(variables['Build.SourceBranch'], 'refs/heads/support'),
-          startsWith(variables['Build.SourceBranch'], 'refs/heads/masters')
-        )
-      )
-    jobs:
-    - template: Activities/stage.deploy.yml@common
-      parameters:
-        projectName: ${{ parameters.projectName }}
-        tagName: ${{ parameters.tagName }}
-        deploymentName: 'DeployStaging'
-        deploymentDisplayName: 'MyGet Beta (smoke)'
-        environmentName: 'NuGet-Activities-Staging'
-        nuGetPushes:
-        - template: Activities/nuget.push.internal.yml@common
-          parameters:
-            feedDisplayName: 'UiPath-Internal'
-            publishVstsFeed: '$(UiPathInternalFeed)'
-
-  - stage: DeployStable
-    displayName: 'Deploy Stable'
-    dependsOn: DeployStaging
-    condition: |
-      and
-      (
-        succeeded(),
-        eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'),
-        or
-        (
-          eq(variables['Build.SourceBranch'], 'refs/heads/master'),
-          startsWith(variables['Build.SourceBranch'], 'refs/heads/support'),
-          startsWith(variables['Build.SourceBranch'], 'refs/heads/masters')
-        )
-      )
-    jobs:
-    - template: Activities/stage.deploy.yml@common
-      parameters:
-        projectName: ${{ parameters.projectName }}
-        tagName: ${{ parameters.tagName }}
-        deploymentName: 'DeployProduction'
-        deploymentDisplayName: 'MyGet Stable'
-        environmentName: 'NuGet-Activities-Production'
-        nuGetPushes:
-        - template: Activities/nuget.push.external.yml@common
-          parameters:
-            feedDisplayName: 'Live Stable'
-            publishFeedCredentials: 'MyGet Activities Live Stable Feed'
-        - template: Activities/nuget.push.internal.yml@common
-          parameters:
-            feedDisplayName: 'VSTS backup feed'
-            publishVstsFeed: '$(UiPathBackUpFeed)'
