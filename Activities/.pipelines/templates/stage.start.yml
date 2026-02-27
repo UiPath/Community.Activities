@@ -32,6 +32,7 @@ stages:
   displayName: ${{ format('Build {0} activities', parameters.projectName) }}
   variables:
     Solution: '${{ parameters.solutionPath }}'
+    RunAnalysis: 'false'
   jobs:
   # Local should-run check — no GitHub API token needed
   - template: stage.shouldrun.yml
@@ -81,11 +82,12 @@ stages:
   - Build
   - Test
   - ${{ parameters.sonarDependsOn }}
-  condition: and(not(canceled()), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  variables:
+    RunAnalysis: 'false'
+  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
   jobs:
   - template: Activities/stage.sonar.yml@common
     parameters:
       additionalSonarTasks: ${{ parameters.additionalSonarTasks }}
 
   - ${{ parameters.additionalSonarJobs }}
-

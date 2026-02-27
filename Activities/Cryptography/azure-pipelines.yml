@@ -57,9 +57,9 @@ stages:
       hasQaPackages: false
       preTestRun:
       - task: UseDotNet@2
-        displayName: 'Install .NET 6 runtime'
+        displayName: 'Install .NET 6 SDK'
         inputs:
-          packageType: 'runtime'
+          packageType: 'sdk'
           version: '6.0.x'
 
   - stage: BuildCryptographyRuntimeTests
