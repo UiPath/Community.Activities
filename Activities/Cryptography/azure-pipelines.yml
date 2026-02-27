@@ -46,7 +46,8 @@ variables:
   - template: ..\.pipelines\variables\variables.yml
 
 stages:
-  - template: Activities/stage.start.yml@common
+  # Uses local stage.start.yml instead of @common to avoid GitHub API token dependency
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'Cryptography'
       solutionPath: '$(SolutionsPath)/Activities.Cryptography.sln'
