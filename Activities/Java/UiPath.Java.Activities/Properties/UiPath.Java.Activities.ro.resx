@@ -144,7 +144,7 @@
     <value>Do</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>Nume de câmp</value>
+    <value>FieldName</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
@@ -161,7 +161,7 @@
     <value>Câmpul nu a fost găsit.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Intrare</value>
+    <value>Input</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>Țintă</value>
@@ -190,7 +190,7 @@
     <comment>property name</comment>
   </data>
   <data name="JavaInitiazeException" xml:space="preserve">
-    <value>Eroare la inițializarea Java : {{0}}</value>
+    <value>Eroare la inițializarea Java : {0}</value>
   </data>
   <data name="JavaInvokerNotLoadedException" xml:space="preserve">
     <value>Java invoker nu a fost încărcat.</value>
@@ -241,7 +241,7 @@
     <value>Lista argumentelor specificate în aceeași ordine ca metoda Java. Un argument nu poate fi nul.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parametri</value>
+    <value>Parameters</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
@@ -249,10 +249,10 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
-    <value>Nu se pot seta atât {{0}}, cât și {{1}}.</value>
+    <value>Nu se pot seta atât {0} cât și {1}.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Rezultat</value>
+    <value>Result</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
@@ -263,7 +263,7 @@
     <value>Obiectul java instanțiat va fi invocat. TargetObject și TargetType nu pot fi setate simultan.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>Tip țintă</value>
+    <value>TargetType</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
@@ -288,7 +288,7 @@
     <value>Calea către biblioteca Java este invalidă.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout de inițializare (milisecunde)</value>
+    <value>Init timeout (milliseconds)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">

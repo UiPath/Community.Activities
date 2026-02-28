@@ -141,7 +141,7 @@
     <value>Tipul .NET corespunzător obiectului Python</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Intrare</value>
+    <value>Input</value>
   </data>
   <data name="InstanceDescription" xml:space="preserve">
     <value>Instanță a obiectului Python</value>
@@ -201,7 +201,7 @@
     <value>Calea principală Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Traseu</value>
+    <value>Path</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>Rezultatul invocării scriptului</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>Rezultat</value>
+    <value>Result</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
@@ -245,14 +245,14 @@
     <value>Calea completă către fișierul script Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>Fișier</value>
+    <value>File</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>Fișierul de script specificat nu a fost găsit</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>Țintă</value>
+    <value>Target</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
@@ -294,7 +294,7 @@
     <value>Pentru Linux este calea către Python libpython*.so inclusiv numele bibliotecii. Pentru Windows (versiune&gt;3.9) Calea către Python**.dll inclusiv numele bibliotecii (de obicei este pe calea Python Home). Pentru Windows (versiune&lt;=3.9) Lasă gol.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Calea bibliotecii (Linux sau versiune&gt;3.9)</value>
+    <value>Library path (Linux or version&gt;3.9)</value>
   </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Versiunea Python &gt;= 3.10 nu este suportată pe 32 de biți. </value>

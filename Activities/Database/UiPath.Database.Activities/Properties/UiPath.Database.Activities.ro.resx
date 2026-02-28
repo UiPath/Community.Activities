@@ -161,7 +161,7 @@
     <value>Furnizați numele tabelului bazei de date țintă</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
-    <value>ÎnregistrăriAfectate</value>
+    <value>AffectedRecords</value>
     <comment>property name</comment>
   </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
@@ -194,18 +194,18 @@
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Conexiune existentă</value>
+    <value>Existing Connection</value>
     <comment>property name</comment>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Intrare</value>
+    <value>Input</value>
   </data>
   <data name="OutputDisplayName" xml:space="preserve">
     <value>Output</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parametri</value>
+    <value>Parameters</value>
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
@@ -213,11 +213,11 @@
     <comment>property name</comment>
   </data>
   <data name="TableNameDisplayName" xml:space="preserve">
-    <value>NumeTabel</value>
+    <value>TableName</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout (milisecunde)</value>
+    <value>Timeout (milliseconds)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
@@ -231,7 +231,7 @@
     <value>Output</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>NumeColoane</value>
+    <value>ColumnNames</value>
     <comment>property name</comment>
   </data>
   <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">
@@ -288,7 +288,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_DataTable_Description" xml:space="preserve">
@@ -320,7 +320,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_BulkUpdate_Name" xml:space="preserve">
-    <value>Actualizare în masă</value>
+    <value>Bulk Update</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_AffectedRecords_Description" xml:space="preserve">
@@ -400,7 +400,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseConnect_Name" xml:space="preserve">
-    <value>Conectează-te la baza de date</value>
+    <value>Connect to Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -440,7 +440,7 @@
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Name" xml:space="preserve">
-    <value>Deconectare de la bază de date</value>
+    <value>Disconnect from Database</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -457,7 +457,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
-    <value>Începerea tranzacției</value>
+    <value>Start Transaction</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ConnectionSecureString_Description" xml:space="preserve">
@@ -481,7 +481,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_DatabaseConnection_Description" xml:space="preserve">
@@ -537,7 +537,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>activity description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Name" xml:space="preserve">
-    <value>Rulează interogarea</value>
+    <value>Run Query</value>
     <comment>activity name</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_CommandType_Description" xml:space="preserve">
@@ -569,7 +569,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataTable_Description" xml:space="preserve">
@@ -657,7 +657,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Description" xml:space="preserve">
