@@ -154,7 +154,7 @@
     <value>Calea sursă indică un director, dar calea destinație indică un fișier.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Intrare</value>
+    <value>Input</value>
   </data>
   <data name="LocalPath" xml:space="preserve">
     <value>Cale locală</value>
@@ -275,14 +275,14 @@
     <value>Cu Ftp Session</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Cu sesiunea Ftp</value>
+    <value>With Ftp Session</value>
     <comment>Activity name</comment>
   </data>
   <data name="ClientCertificatePasswordDescription" xml:space="preserve">
     <value>Parola certificatului clientului</value>
   </data>
   <data name="ContinueOnError" xml:space="preserve">
-    <value>Continuă pe eroare</value>
+    <value>Continuă cu eroare</value>
   </data>
   <data name="FilesDescription" xml:space="preserve">
     <value>Fișiere</value>
@@ -325,7 +325,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Șterge fișierul sau folderul</value>
+    <value>Delete File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -341,7 +341,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DirectoryExists_Name" xml:space="preserve">
-    <value>Există un director</value>
+    <value>Directory Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
@@ -365,7 +365,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
-    <value>Enumeră obiecte</value>
+    <value>Enumerate Objects</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
@@ -397,7 +397,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_FileExists_Name" xml:space="preserve">
-    <value>Fișier există</value>
+    <value>File Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
@@ -421,7 +421,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_UploadFiles_Name" xml:space="preserve">
-    <value>Încărcare fișiere</value>
+    <value>Upload Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
@@ -469,7 +469,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Folosește conexiunea FTP</value>
+    <value>Use FTP Connection</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -573,7 +573,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Descarcă fișiere</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -621,7 +621,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Mută fișierul sau folderul</value>
+    <value>Move File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -681,7 +681,7 @@
     <comment>Category name</comment>
   </data>
   <data name="Category_Output_Name" xml:space="preserve">
-    <value>Producție</value>
+    <value>Output</value>
     <comment>Category name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
@@ -750,7 +750,7 @@
     <value>Proxy</value>
   </data>
   <data name="ValidationErrorFormat" xml:space="preserve">
-    <value>Trebuie să furnizezi o valoare pentru {{0}}.</value>
+    <value>Trebuie să furnizați o valoare pentru {0}.</value>
     <comment>error message</comment>
   </data>
   <data name="ObsoleteEnumValue" xml:space="preserve">

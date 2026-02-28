@@ -121,7 +121,7 @@
     <value>Algoritmul selectat nu are o implementare compatibilă cu FIPS. Este posibil să nu funcționeze pe unele mașini.</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Intrare</value>
+    <value>Input</value>
   </data>
   <data name="InputStringDisplayName" xml:space="preserve">
     <value>Text</value>
@@ -171,14 +171,14 @@
     <value>KeySecureString</value>
   </data>
   <data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>Șirul de siguranță al cheii</value>
+    <value>Key Secure String</value>
   </data>
   <data name="Activity_DecryptFile_Description" xml:space="preserve">
     <value>Decriptează un fișier pe baza unei codificări de chei și algoritm specificate.</value>
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_DecryptFile_Name" xml:space="preserve">
-    <value>Fișier de decriptare</value>
+    <value>Decrypt File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
@@ -246,7 +246,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Name" xml:space="preserve">
-    <value>Decriptarea textului</value>
+    <value>Decrypt Text</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DecryptText_Description" xml:space="preserve">
@@ -314,7 +314,7 @@
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_EncryptFile_Name" xml:space="preserve">
-    <value>Fișier de criptare</value>
+    <value>Encrypt File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
@@ -410,7 +410,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EncryptText_Name" xml:space="preserve">
-    <value>Criptează textul</value>
+    <value>Encrypt Text</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
@@ -482,7 +482,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Name" xml:space="preserve">
-    <value>Fișier Hash</value>
+    <value>Hash File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -626,7 +626,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashFile_Name" xml:space="preserve">
-    <value>Fișier Hash (deactivat)</value>
+    <value>Hash File (deprecated)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Description" xml:space="preserve">
@@ -666,7 +666,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_HashText_Name" xml:space="preserve">
-    <value>Hash Text (depreciat)</value>
+    <value>Hash Text (deprecated)</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_HashText_Property_Algorithm_Description" xml:space="preserve">

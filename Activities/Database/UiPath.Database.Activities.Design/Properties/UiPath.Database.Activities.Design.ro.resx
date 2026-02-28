@@ -187,7 +187,7 @@
     <value>Obiectul DataTable care va fi inserat în Tabel. Descrierea coloanelor DataTable trebuie să corespundă coloanelor din tabelul bazei de date</value>
   </data>
   <data name="ConnectionWizard" xml:space="preserve">
-    <value>Vrăjitorul de conexiune</value>
+    <value>Asistentul de conexiune</value>
   </data>
   <data name="DoubleClickToView" xml:space="preserve">
     <value>Faceți dublu clic pentru a vizualiza</value>

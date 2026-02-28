@@ -204,6 +204,6 @@
     <value>Nume de utilizator</value>
   </data>
   <data name="WithFtpSessionDisplayName" xml:space="preserve">
-    <value>Scop FTP</value>
+    <value>FTP Scope</value>
   </data>
 </root>
