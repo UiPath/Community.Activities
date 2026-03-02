@@ -34,6 +34,11 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         public DesignInArgument<int> Port { get; set; }
 
         /// <summary>
+        /// The connection timeout in milliseconds.
+        /// </summary>
+        public DesignInArgument<int> Timeout { get; set; }
+
+        /// <summary>
         /// The username that will be used to connect to the FTP server.
         /// </summary>
         public DesignInArgument<string> Username { get; set; }
@@ -149,6 +154,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             Password.OrderIndex = propertyOrderIndex++;
             SecurePassword.OrderIndex = propertyOrderIndex++;
             Port.OrderIndex = propertyOrderIndex++;
+            Timeout.OrderIndex = propertyOrderIndex++;
             UseAnonymousLogin.OrderIndex = propertyOrderIndex++;
             ContinueOnError.OrderIndex = propertyOrderIndex++;
             AcceptAllCertificates.OrderIndex = propertyOrderIndex++;

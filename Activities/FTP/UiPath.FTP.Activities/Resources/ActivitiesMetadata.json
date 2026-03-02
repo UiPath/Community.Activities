@@ -419,6 +419,14 @@
           "IsVisible": true
         },
         {
+          "Name": "Timeout",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_Timeout_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_Timeout_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true
+        },
+        {
           "Name": "Username",
           "DisplayNameKey": "Activity_WithFtpSession_Property_Username_Name",
           "TooltipKey": "Activity_WithFtpSession_Property_Username_Description",

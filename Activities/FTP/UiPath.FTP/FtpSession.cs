@@ -63,6 +63,15 @@ namespace UiPath.FTP
             {
                 _ftpClient.Port = ftpConfiguration.Port.Value;
             }
+
+            if (ftpConfiguration.Timeout != null)
+            {
+                _ftpClient.Config.ConnectTimeout = ftpConfiguration.Timeout.Value;
+                _ftpClient.Config.ReadTimeout = ftpConfiguration.Timeout.Value;
+                _ftpClient.Config.DataConnectionConnectTimeout = ftpConfiguration.Timeout.Value;
+                _ftpClient.Config.DataConnectionReadTimeout = ftpConfiguration.Timeout.Value;
+            }
+
             if (ftpConfiguration.UseAnonymousLogin == false)
             {
                 _ftpClient.Credentials = new NetworkCredential(ftpConfiguration.Username, ftpConfiguration.Password);

@@ -66,7 +66,17 @@ namespace UiPath.FTP
                 connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpPort, ftpConfiguration.Username, ftpConfiguration.ProxyType.ToMaster(),ftpConfiguration.ProxyServer, proxyPort,ftpConfiguration.ProxyUsername,ftpConfiguration.ProxyPassword, authMethods.ToArray());
             }
 
+            if (ftpConfiguration.Timeout != null)
+            {
+                connectionInfo.Timeout = TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value);
+            }
+
             _sftpClient = new SftpClient(connectionInfo);
+
+            if (ftpConfiguration.Timeout != null)
+            {
+                _sftpClient.OperationTimeout = TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value);
+            }
         }
 
         private IEnumerable<Tuple<string, string>> GetLocalListing(string localPath, string remotePath, bool recursive)

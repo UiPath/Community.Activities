@@ -997,6 +997,24 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The timeout value (in milliseconds) for the FTP connection. If not set, the default timeout of the underlying library is used..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Timeout_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Timeout_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout (milliseconds).
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Timeout_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Timeout_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
         /// </summary>
         public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Description {
