@@ -84,6 +84,7 @@ stages:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        studioLicense: $(StudioLicense)
         packageNameFilter: '*Cryptography*_windows*'
 
   - stage: RunCryptographyRuntimeTestsPortable

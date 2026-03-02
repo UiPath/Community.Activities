@@ -1,5 +1,6 @@
 parameters:
   robotVersion: ''
+  studioLicense: ''
   beforeTestsCustomSteps: []
   afterTestsCustomSteps: []
   environment: {}
@@ -69,7 +70,7 @@ jobs:
       installType: 'machine'
       msiType: 'robot'
       msiVersion: ${{ parameters.robotVersion }}
-      license: "7445-1270-1408-6250"
+      license: ${{ parameters.studioLicense }}
       installComponents: 'Robot'
 
   - powershell: |
