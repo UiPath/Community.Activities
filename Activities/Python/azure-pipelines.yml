@@ -46,7 +46,8 @@ variables:
   - template: ..\.pipelines\variables\variables.yml
 
 stages:
-  - template: Activities/stage.start.yml@common
+  # Uses local stage.start.yml instead of @common to avoid GitHub API token dependency
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'Python'
       solutionPath: '$(SolutionsPath)/Activities.Python.sln'
@@ -54,6 +55,12 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+      preTestRun:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 6 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '6.0.x'
 
   - stage: BuildPythonRuntimeTests
     displayName: 'Build Python Runtime Tests'
@@ -77,6 +84,7 @@ stages:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        studioLicense: $(StudioLicense)
         environment:
           PYTHON_HOME: "C:/hostedtoolcache/windows/Python/3.12.3/x64"
         beforeTestsCustomSteps:

@@ -41,7 +41,8 @@ variables:
   - template: ..\.pipelines\variables\variables.yml
 
 stages:
-  - template: Activities/stage.start.yml@common
+  # Uses local stage.start.yml instead of @common to avoid GitHub API token dependency
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'Java'
       solutionPath: '$(SolutionsPath)/Activities.Java.sln'
@@ -49,4 +50,10 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+      preTestRun:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 6 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '6.0.x'
 

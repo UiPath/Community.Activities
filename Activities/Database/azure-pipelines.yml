@@ -53,7 +53,8 @@ variables:
     value: false
 
 stages:
-  - template: Activities/stage.start.yml@common
+  # Uses local stage.start.yml instead of @common to avoid GitHub API token dependency
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'Database'
       solutionPath: '$(SolutionsPath)/Activities.Database.sln'
@@ -61,6 +62,12 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+      preTestRun:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 6 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '6.0.x'
 
   - stage: CreateAndSetupBYOSAgent
     dependsOn:
@@ -102,6 +109,7 @@ stages:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        studioLicense: $(StudioLicense)
         environment:
           SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
 

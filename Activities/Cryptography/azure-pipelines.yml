@@ -93,7 +93,6 @@ stages:
       parameters:
         robotVersion: $(TestsStudioVersion)
         studioLicense: $(StudioLicense)
-        packageNameFilter: '*Cryptography*_windows*'
 
   - stage: RunCryptographyRuntimeTestsPortable
     displayName: 'Run Cryptography Runtime Tests Portable'
