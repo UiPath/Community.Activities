@@ -51,29 +51,7 @@ stages:
       enableCDStages: false
       hasQaPackages: false
       postBuild:
-      - powershell: |
-          Write-Host "##[section]STUB: Sonar analysis is disabled (RunAnalysis=false)"
-          Write-Host "##[warning]The following stubs are created only to satisfy the 'Copy Sonar files'"
-          Write-Host "##[warning]step in stage.build.yml@common, which always runs (condition: succeeded())."
-          Write-Host "##[warning]These stubs have no effect on analysis — the PublishSonar stage is"
-          Write-Host "##[warning]gated by RunAnalysis=false and will not run."
-
-          $sonarDir = Join-Path "$(Pipeline.Workspace)" ".sonarqube"
-          if (-not (Test-Path $sonarDir)) {
-            New-Item -ItemType Directory -Path $sonarDir | Out-Null
-            Write-Host "##[warning]STUB: Created placeholder .sonarqube dir at $sonarDir"
-          }
-
-          $scannerDir = Join-Path $sonarDir "bin"
-          New-Item -ItemType Directory -Path $scannerDir -Force | Out-Null
-          $stubExe = Join-Path $scannerDir "SonarScanner.MSBuild.exe"
-          if (-not (Test-Path $stubExe)) {
-            New-Item -ItemType File -Path $stubExe -Force | Out-Null
-          }
-          Write-Host "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_EXE]$stubExe"
-          Write-Host "##[warning]STUB: Created empty SonarScanner.MSBuild.exe at $stubExe"
-          Write-Host "##[section]STUB setup complete — 'Copy Sonar files' step will now succeed silently"
-        displayName: 'STUB - Create Sonar placeholders (RunAnalysis=false)'
+      - template: ..\.pipelines\steps\sonar.stub.yml
       preTestRun:
       - task: UseDotNet@2
         displayName: 'Install .NET 6 SDK'

@@ -36,9 +36,6 @@ stages:
   jobs:
   # Local should-run check — no GitHub API token needed
   - template: stage.shouldrun.yml
-    parameters:
-      projectName: ${{ parameters.projectName }}
-      tagName: ${{ parameters.tagName }}
 
   # Build job from common templates (unchanged)
   - template: Activities/stage.build.yml@common
@@ -54,10 +51,13 @@ stages:
       msBuildPack: ${{ parameters.msBuildPack }}
       azureSignConnectionName: ${{ parameters.azureSignConnectionName }}
       preBuild:
-      - ${{ parameters.preBuild }}
+      - ${{ each step in parameters.preBuild }}:
+        - ${{ step }}
       postBuild:
-      - ${{ parameters.postBuild }}
-  - ${{ parameters.additionalBuildJobs }}
+      - ${{ each step in parameters.postBuild }}:
+        - ${{ step }}
+  - ${{ each job in parameters.additionalBuildJobs }}:
+    - ${{ job }}
 
 - stage: Test
   displayName: ${{ format('Run {0} tests', parameters.projectName) }}
@@ -69,19 +69,24 @@ stages:
       poolName: ${{ parameters.testPoolName }}
       runSettingsFile: ${{ parameters.runSettingsFilePath }}
       preTestRun:
-      - ${{ parameters.preTestRun }}
+      - ${{ each step in parameters.preTestRun }}:
+        - ${{ step }}
       postTestRun:
-      - ${{ parameters.postTestRun }}
-  - ${{ parameters.additionalTestJobs }}
+      - ${{ each step in parameters.postTestRun }}:
+        - ${{ step }}
+  - ${{ each job in parameters.additionalTestJobs }}:
+    - ${{ job }}
 
-- ${{ parameters.additionalStages }}
+- ${{ each stage in parameters.additionalStages }}:
+  - ${{ stage }}
 
 - stage: PublishSonar
   displayName: "Perform SonarQube analysis"
   dependsOn:
   - Build
   - Test
-  - ${{ parameters.sonarDependsOn }}
+  - ${{ each stage in parameters.sonarDependsOn }}:
+    - ${{ stage }}
   variables:
     RunAnalysis: 'false'
   condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
@@ -90,4 +95,5 @@ stages:
     parameters:
       additionalSonarTasks: ${{ parameters.additionalSonarTasks }}
 
-  - ${{ parameters.additionalSonarJobs }}
+  - ${{ each job in parameters.additionalSonarJobs }}:
+    - ${{ job }}
