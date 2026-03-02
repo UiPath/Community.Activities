@@ -202,7 +202,12 @@ namespace UiPath.FTP.Activities
 
                 FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
                 ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
-                ftpConfiguration.Timeout = Timeout.Expression == null ? null : (int?)Timeout.Get(context);
+                int? timeout = Timeout.Expression == null ? null : (int?)Timeout.Get(context);
+                if (timeout.HasValue && timeout.Value < 0)
+                {
+                    throw new ArgumentException("Timeout must be greater than or equal to 0.");
+                }
+                ftpConfiguration.Timeout = timeout;
                 ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
                 ftpConfiguration.SslProtocols = SslProtocols;
                 ftpConfiguration.ProxyType = ProxyType;

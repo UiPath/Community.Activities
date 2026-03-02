@@ -19,8 +19,8 @@ namespace UiPath.FTP.Tests
         {
             var config = new FtpConfiguration("localhost")
             {
-                Username = "user",
-                Password = "pass",
+                Username = "testUser",
+                Password = "notUsed",
                 Timeout = 5000
             };
             var session = new SftpSession(config);
@@ -38,8 +38,8 @@ namespace UiPath.FTP.Tests
         {
             var config = new FtpConfiguration("localhost")
             {
-                Username = "user",
-                Password = "pass"
+                Username = "testUser",
+                Password = "notUsed"
             };
             var session = new SftpSession(config);
 
@@ -47,8 +47,15 @@ namespace UiPath.FTP.Tests
             Assert.NotNull(sftpClientField);
             var sftpClient = (SftpClient)sftpClientField.GetValue(session);
 
-            // When no timeout is set, SSH.NET default should be preserved (30 seconds)
-            Assert.Equal(TimeSpan.FromSeconds(30), sftpClient.ConnectionInfo.Timeout);
+            // When no timeout is set, SSH.NET defaults should be preserved
+            var defaultConnectionInfo = new ConnectionInfo(
+                "localhost",
+                "testUser",
+                new PasswordAuthenticationMethod("testUser", "notUsed"));
+            var defaultSftpClient = new SftpClient(defaultConnectionInfo);
+
+            Assert.Equal(defaultConnectionInfo.Timeout, sftpClient.ConnectionInfo.Timeout);
+            Assert.Equal(defaultSftpClient.OperationTimeout, sftpClient.OperationTimeout);
         }
     }
 }

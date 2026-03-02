@@ -66,16 +66,20 @@ namespace UiPath.FTP
                 connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpPort, ftpConfiguration.Username, ftpConfiguration.ProxyType.ToMaster(),ftpConfiguration.ProxyServer, proxyPort,ftpConfiguration.ProxyUsername,ftpConfiguration.ProxyPassword, authMethods.ToArray());
             }
 
-            if (ftpConfiguration.Timeout != null)
+            TimeSpan? timeoutSpan = ftpConfiguration.Timeout != null
+                ? TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value)
+                : null;
+
+            if (timeoutSpan.HasValue)
             {
-                connectionInfo.Timeout = TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value);
+                connectionInfo.Timeout = timeoutSpan.Value;
             }
 
             _sftpClient = new SftpClient(connectionInfo);
 
-            if (ftpConfiguration.Timeout != null)
+            if (timeoutSpan.HasValue)
             {
-                _sftpClient.OperationTimeout = TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value);
+                _sftpClient.OperationTimeout = timeoutSpan.Value;
             }
         }
 

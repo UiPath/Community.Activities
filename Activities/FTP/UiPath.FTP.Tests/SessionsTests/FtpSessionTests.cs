@@ -44,6 +44,9 @@ namespace UiPath.FTP.Tests
             // When no timeout is set, FluentFTP defaults should be preserved
             var defaultClient = new FtpClient();
             Assert.Equal(defaultClient.Config.ConnectTimeout, ftpClient.Config.ConnectTimeout);
+            Assert.Equal(defaultClient.Config.ReadTimeout, ftpClient.Config.ReadTimeout);
+            Assert.Equal(defaultClient.Config.DataConnectionConnectTimeout, ftpClient.Config.DataConnectionConnectTimeout);
+            Assert.Equal(defaultClient.Config.DataConnectionReadTimeout, ftpClient.Config.DataConnectionReadTimeout);
         }
     }
 }

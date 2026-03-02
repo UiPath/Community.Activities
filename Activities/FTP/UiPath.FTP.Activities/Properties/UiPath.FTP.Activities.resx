@@ -541,7 +541,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
-    <value>The timeout value (in milliseconds) for the FTP connection. If not set, the default timeout of the underlying library is used.</value>
+    <value>The timeout value (in milliseconds) for the FTP/SFTP connection. If not set, the default timeout of the underlying library is used.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">

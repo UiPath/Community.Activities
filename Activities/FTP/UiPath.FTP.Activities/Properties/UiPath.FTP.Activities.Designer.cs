@@ -997,7 +997,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The timeout value (in milliseconds) for the FTP connection. If not set, the default timeout of the underlying library is used..
+        ///   Looks up a localized string similar to The timeout value (in milliseconds) for the FTP/SFTP connection. If not set, the default timeout of the underlying library is used..
         /// </summary>
         public static string Activity_WithFtpSession_Property_Timeout_Description {
             get {
