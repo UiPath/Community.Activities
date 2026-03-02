@@ -1267,6 +1267,24 @@ namespace UiPath.Cryptography.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Signing was requested but a private key and passphrase are required to sign....
+        /// </summary>
+        internal static string PgpSigningRequiresPrivateKeyAndPassphrase {
+            get {
+                return ResourceManager.GetString("PgpSigningRequiresPrivateKeyAndPassphrase", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Signature verification was requested but a public key is required to verify....
+        /// </summary>
+        internal static string PgpVerificationRequiresPublicKey {
+            get {
+                return ResourceManager.GetString("PgpVerificationRequiresPublicKey", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Portuguese (DOS).
         /// </summary>
         internal static string Portuguese_DOS {

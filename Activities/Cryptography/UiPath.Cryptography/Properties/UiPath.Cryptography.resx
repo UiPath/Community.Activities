@@ -637,4 +637,10 @@
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>Validate Public Key</value>
   </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>Signing was requested but a private key and passphrase are required to sign. Provide both a private key stream and a passphrase, or set sign to false.</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>Signature verification was requested but a public key is required to verify. Provide a public key stream, or set verifySignature to false.</value>
+  </data>
 </root>

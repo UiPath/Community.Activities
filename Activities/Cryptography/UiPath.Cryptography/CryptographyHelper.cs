@@ -336,14 +336,16 @@ namespace UiPath.Cryptography
         {
             try
             {
-                var shouldSign = sign && privateKeyStream != null && !string.IsNullOrEmpty(passphrase);
-                var encryptionKeys = shouldSign
+                if (sign && (privateKeyStream == null || string.IsNullOrEmpty(passphrase)))
+                    throw new ArgumentException(Properties.UiPath_Cryptography.PgpSigningRequiresPrivateKeyAndPassphrase);
+
+                var encryptionKeys = sign
                     ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
                     : new EncryptionKeys(publicKeyStream);
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
-                    if (shouldSign)
+                    if (sign)
                         pgp.EncryptAndSign(inputStream, outputStream);
                     else
                         pgp.Encrypt(inputStream, outputStream);
@@ -369,14 +371,16 @@ namespace UiPath.Cryptography
         {
             try
             {
-                var shouldVerify = verifySignature && publicKeyStream != null;
-                var encryptionKeys = shouldVerify
+                if (verifySignature && publicKeyStream == null)
+                    throw new ArgumentException(Properties.UiPath_Cryptography.PgpVerificationRequiresPublicKey);
+
+                var encryptionKeys = verifySignature
                     ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
                     : new EncryptionKeys(privateKeyStream, passphrase);
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
-                    if (shouldVerify)
+                    if (verifySignature)
                         pgp.DecryptAndVerify(inputStream, outputStream);
                     else
                         pgp.Decrypt(inputStream, outputStream);
@@ -392,14 +396,16 @@ namespace UiPath.Cryptography
         {
             try
             {
-                var shouldSign = sign && privateKeyStream != null && !string.IsNullOrEmpty(passphrase);
-                var encryptionKeys = shouldSign
+                if (sign && (privateKeyStream == null || string.IsNullOrEmpty(passphrase)))
+                    throw new ArgumentException(Properties.UiPath_Cryptography.PgpSigningRequiresPrivateKeyAndPassphrase);
+
+                var encryptionKeys = sign
                     ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
                     : new EncryptionKeys(publicKeyStream);
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
-                    return shouldSign
+                    return sign
                         ? pgp.EncryptArmoredStringAndSign(input)
                         : pgp.EncryptArmoredString(input);
                 }
@@ -415,14 +421,16 @@ namespace UiPath.Cryptography
         {
             try
             {
-                var shouldVerify = verifySignature && publicKeyStream != null;
-                var encryptionKeys = shouldVerify
+                if (verifySignature && publicKeyStream == null)
+                    throw new ArgumentException(Properties.UiPath_Cryptography.PgpVerificationRequiresPublicKey);
+
+                var encryptionKeys = verifySignature
                     ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
                     : new EncryptionKeys(privateKeyStream, passphrase);
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
-                    return shouldVerify
+                    return verifySignature
                         ? pgp.DecryptArmoredStringAndVerify(input)
                         : pgp.DecryptArmoredString(input);
                 }
