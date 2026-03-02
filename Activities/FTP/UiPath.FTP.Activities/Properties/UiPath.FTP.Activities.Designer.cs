@@ -1267,6 +1267,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timeout must be greater than or equal to 0..
+        /// </summary>
+        public static string InvalidTimeoutException {
+            get {
+                return ResourceManager.GetString("InvalidTimeoutException", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Username cannot be empty..
         /// </summary>
         public static string EmptyUsernameException {

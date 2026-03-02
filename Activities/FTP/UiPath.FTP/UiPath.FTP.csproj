@@ -15,4 +15,8 @@
     <PackageReference Include="SSH.NET" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="UiPath.FTP.Tests" />
+  </ItemGroup>
+
 </Project>

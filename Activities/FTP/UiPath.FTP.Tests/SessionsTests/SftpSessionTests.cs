@@ -1,6 +1,5 @@
-﻿using Renci.SshNet;
+using Renci.SshNet;
 using System;
-using System.Reflection;
 using Xunit;
 
 namespace UiPath.FTP.Tests
@@ -17,17 +16,10 @@ namespace UiPath.FTP.Tests
         [Fact]
         public void SFTP_TimeoutIsApplied()
         {
-            var config = new FtpConfiguration("localhost")
-            {
-                Username = "testUser",
-                Password = "notUsed",
-                Timeout = 5000
-            };
-            var session = new SftpSession(config);
+            var config = CreateTestConfig(timeout: 5000);
+            using var session = new SftpSession(config);
 
-            var sftpClientField = typeof(SftpSession).GetField("_sftpClient", BindingFlags.NonPublic | BindingFlags.Instance);
-            Assert.NotNull(sftpClientField);
-            var sftpClient = (SftpClient)sftpClientField.GetValue(session);
+            var sftpClient = session.Client;
 
             Assert.Equal(TimeSpan.FromMilliseconds(5000), sftpClient.ConnectionInfo.Timeout);
             Assert.Equal(TimeSpan.FromMilliseconds(5000), sftpClient.OperationTimeout);
@@ -36,26 +28,30 @@ namespace UiPath.FTP.Tests
         [Fact]
         public void SFTP_DefaultTimeoutWhenNotSet()
         {
-            var config = new FtpConfiguration("localhost")
-            {
-                Username = "testUser",
-                Password = "notUsed"
-            };
-            var session = new SftpSession(config);
+            var config = CreateTestConfig();
+            using var session = new SftpSession(config);
 
-            var sftpClientField = typeof(SftpSession).GetField("_sftpClient", BindingFlags.NonPublic | BindingFlags.Instance);
-            Assert.NotNull(sftpClientField);
-            var sftpClient = (SftpClient)sftpClientField.GetValue(session);
+            var sftpClient = session.Client;
 
             // When no timeout is set, SSH.NET defaults should be preserved
             var defaultConnectionInfo = new ConnectionInfo(
                 "localhost",
                 "testUser",
-                new PasswordAuthenticationMethod("testUser", "notUsed"));
-            var defaultSftpClient = new SftpClient(defaultConnectionInfo);
+                new PasswordAuthenticationMethod("testUser", "notUsed")); // NOSONAR - dummy test credentials
+            using var defaultSftpClient = new SftpClient(defaultConnectionInfo);
 
             Assert.Equal(defaultConnectionInfo.Timeout, sftpClient.ConnectionInfo.Timeout);
             Assert.Equal(defaultSftpClient.OperationTimeout, sftpClient.OperationTimeout);
+        }
+
+        private static FtpConfiguration CreateTestConfig(int? timeout = null)
+        {
+            return new FtpConfiguration("localhost")
+            {
+                Username = "testUser",
+                Password = "notUsed", // NOSONAR - dummy test credentials, never connect to any server
+                Timeout = timeout
+            };
         }
     }
 }

@@ -19,6 +19,8 @@ namespace UiPath.FTP
     {
         private readonly FtpClient _ftpClient;
 
+        internal FtpClient Client => _ftpClient;
+
         private const int DefaultProxyPort = 3128;
 
         public FtpSession(FtpConfiguration ftpConfiguration, FtpsMode ftpsMode)

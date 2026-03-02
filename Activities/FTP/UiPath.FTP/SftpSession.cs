@@ -14,6 +14,9 @@ namespace UiPath.FTP
     public class SftpSession : IFtpSession
     {
         private readonly SftpClient _sftpClient;
+
+        internal SftpClient Client => _sftpClient;
+
         private const int DefaultFtpPort = 21;
         private const int DefaultProxyPort = 3128;
 

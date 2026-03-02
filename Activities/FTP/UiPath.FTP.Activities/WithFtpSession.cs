@@ -205,7 +205,7 @@ namespace UiPath.FTP.Activities
                 int? timeout = Timeout.Expression == null ? null : (int?)Timeout.Get(context);
                 if (timeout.HasValue && timeout.Value < 0)
                 {
-                    throw new ArgumentException("Timeout must be greater than or equal to 0.");
+                    throw new ArgumentOutOfRangeException(nameof(Timeout), Resources.InvalidTimeoutException);
                 }
                 ftpConfiguration.Timeout = timeout;
                 ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;

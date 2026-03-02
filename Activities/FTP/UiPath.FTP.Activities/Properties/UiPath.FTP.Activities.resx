@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>Username cannot be empty.</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>Timeout must be greater than or equal to 0.</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL protocols</value>
   </data>
