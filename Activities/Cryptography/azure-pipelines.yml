@@ -46,7 +46,8 @@ variables:
   - template: ..\.pipelines\variables\variables.yml
 
 stages:
-  - template: Activities/stage.start.yml@common
+  # Uses local stage.start.yml instead of @common to avoid GitHub API token dependency
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'Cryptography'
       solutionPath: '$(SolutionsPath)/Activities.Cryptography.sln'
@@ -54,6 +55,14 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+      postBuild:
+      - template: ..\.pipelines\steps\sonar.stub.yml
+      preTestRun:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 6 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '6.0.x'
 
   - stage: BuildCryptographyRuntimeTests
     displayName: 'Build Cryptography Runtime Tests'
@@ -77,6 +86,7 @@ stages:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        studioLicense: $(StudioLicense)
 
   - stage: RunCryptographyRuntimeTestsPortable
     displayName: 'Run Cryptography Runtime Tests Portable'
