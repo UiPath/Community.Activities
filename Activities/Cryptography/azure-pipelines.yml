@@ -55,6 +55,14 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+      postBuild:
+      - powershell: |
+          $sonarDir = Join-Path "$(Pipeline.Workspace)" ".sonarqube"
+          if (-not (Test-Path $sonarDir)) {
+            New-Item -ItemType Directory -Path $sonarDir | Out-Null
+            Write-Host "Created placeholder $sonarDir (Sonar analysis is disabled)"
+          }
+        displayName: 'Create .sonarqube directory placeholder'
       preTestRun:
       - task: UseDotNet@2
         displayName: 'Install .NET 6 SDK'
