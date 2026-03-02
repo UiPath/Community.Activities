@@ -302,24 +302,25 @@ namespace UiPath.Cryptography
 
         #region PGP Methods
 
-        private static void ThrowTranslatedPgpException(Exception ex)
+        private static Exception TranslatePgpException(Exception ex)
         {
             var message = ex.Message ?? string.Empty;
 
             // "Checksum mismatch" → wrong passphrase for private key
             if (message.Contains("Checksum mismatch"))
-                throw new InvalidOperationException(Resources.PgpInvalidPassphrase, ex);
+                return new InvalidOperationException(Resources.PgpInvalidPassphrase, ex);
 
             // "Secret key for message not found." → wrong private key
             if (message.Contains("Secret key for message not found"))
-                throw new InvalidOperationException(Resources.PgpPrivateKeyNotFound, ex);
+                return new InvalidOperationException(Resources.PgpPrivateKeyNotFound, ex);
 
             // "Failed to verify file." → signature verification failed (wrong public key)
             if (message.Contains("Failed to verify"))
-                throw new InvalidOperationException(Resources.PgpSignatureVerificationFailed, ex);
+                return new InvalidOperationException(Resources.PgpSignatureVerificationFailed, ex);
 
             // No translation — preserve original stack trace
             ExceptionDispatchInfo.Capture(ex).Throw();
+            return ex; // unreachable — satisfies compiler
         }
 
         public static byte[] PgpEncrypt(byte[] inputBytes, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false)
@@ -353,7 +354,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                ThrowTranslatedPgpException(ex);
+                throw TranslatePgpException(ex);
             }
         }
 
@@ -388,7 +389,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                ThrowTranslatedPgpException(ex);
+                throw TranslatePgpException(ex);
             }
         }
 
@@ -412,8 +413,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                ThrowTranslatedPgpException(ex);
-                return null; // unreachable
+                throw TranslatePgpException(ex);
             }
         }
 
@@ -437,8 +437,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                ThrowTranslatedPgpException(ex);
-                return null; // unreachable
+                throw TranslatePgpException(ex);
             }
         }
 
@@ -457,7 +456,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                ThrowTranslatedPgpException(ex);
+                throw TranslatePgpException(ex);
             }
         }
 
@@ -489,8 +488,7 @@ namespace UiPath.Cryptography
             }
             catch (Exception ex)
             {
-                ThrowTranslatedPgpException(ex);
-                return null; // unreachable
+                throw TranslatePgpException(ex);
             }
         }
 
