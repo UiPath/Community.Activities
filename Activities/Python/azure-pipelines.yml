@@ -110,7 +110,7 @@ stages:
         robotVersion: $(TestsStudioVersion)
         studioLicense: $(StudioLicense)
         environment:
-          PYTHON_HOME: "C:/hostedtoolcache/windows/Python/3.12.3/x64"
+          PYTHON_HOME: $(USEPYTHONVERSION_PYTHONLOCATION)
         beforeTestsCustomSteps:
           - task: UsePythonVersion@0
             displayName: 'Use Python 3.x'
