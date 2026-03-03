@@ -32,6 +32,7 @@
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <PackageReference Include="System.Security.Cryptography.Cng" />
     <PackageReference Include="System.Formats.Asn1" />
+    <PackageReference Include="PgpCore" Version="6.5.3" />
   </ItemGroup>
 
   <ItemGroup>

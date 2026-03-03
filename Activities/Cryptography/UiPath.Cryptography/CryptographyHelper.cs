@@ -184,7 +184,7 @@ namespace UiPath.Cryptography
             switch (algorithm)
             {
                 case EncryptionAlgorithm.AES:
-                    return new AesCryptoServiceProvider(); // kept for backwords compat
+                    return new AesCryptoServiceProvider(); // kept for backwards compat
 
                 case EncryptionAlgorithm.AESGCM:
                     throw new InvalidOperationException(Resources.UnsupportedSymmetricAlgorithmException); //it's implemented separately.
@@ -515,7 +515,9 @@ namespace UiPath.Cryptography
         {
             try
             {
-                using var decoderStream = Org.BouncyCastle.Bcpg.OpenPgp.PgpUtilities.GetDecoderStream(publicKeyStream);
+                // Wrap in a non-closing stream so disposing the decoder doesn't close the caller's stream
+                using var wrapper = new NonClosingStreamWrapper(publicKeyStream);
+                using var decoderStream = Org.BouncyCastle.Bcpg.OpenPgp.PgpUtilities.GetDecoderStream(wrapper);
                 var keyRingBundle = new Org.BouncyCastle.Bcpg.OpenPgp.PgpPublicKeyRingBundle(decoderStream);
                 return keyRingBundle.Count > 0;
             }
@@ -531,6 +533,27 @@ namespace UiPath.Cryptography
         public static byte[] KeyEncoding(Encoding encoding, string key, SecureString keySecureString)
         {
             return key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password);
+        }
+
+        /// <summary>
+        /// Stream wrapper that delegates all operations to an inner stream but suppresses Close/Dispose,
+        /// preventing BouncyCastle's decoder stream from closing a caller-owned stream.
+        /// </summary>
+        private sealed class NonClosingStreamWrapper : Stream
+        {
+            private readonly Stream _inner;
+            public NonClosingStreamWrapper(Stream inner) => _inner = inner;
+            public override bool CanRead => _inner.CanRead;
+            public override bool CanSeek => _inner.CanSeek;
+            public override bool CanWrite => _inner.CanWrite;
+            public override long Length => _inner.Length;
+            public override long Position { get => _inner.Position; set => _inner.Position = value; }
+            public override void Flush() => _inner.Flush();
+            public override int Read(byte[] buffer, int offset, int count) => _inner.Read(buffer, offset, count);
+            public override long Seek(long offset, SeekOrigin origin) => _inner.Seek(offset, origin);
+            public override void SetLength(long value) => _inner.SetLength(value);
+            public override void Write(byte[] buffer, int offset, int count) => _inner.Write(buffer, offset, count);
+            protected override void Dispose(bool disposing) { /* intentionally do not dispose _inner */ }
         }
     }
 }

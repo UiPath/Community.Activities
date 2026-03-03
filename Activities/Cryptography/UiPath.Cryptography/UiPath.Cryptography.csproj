@@ -5,7 +5,6 @@
 		<TargetFrameworks>$(PortableFramework)</TargetFrameworks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
