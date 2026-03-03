@@ -14,7 +14,7 @@
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Security.Cryptography.Cng" />
 		<PackageReference Include="System.Formats.Asn1" />
-		<PackageReference Include="PgpCore" Version="6.5.3" />
+		<PackageReference Include="PgpCore" />
 	</ItemGroup>
 
 	<ItemGroup>

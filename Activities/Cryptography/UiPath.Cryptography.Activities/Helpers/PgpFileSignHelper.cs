@@ -18,6 +18,8 @@ namespace UiPath.Cryptography.Activities.Helpers
             string suffix,
             Func<byte[], Stream, string, byte[]> signFunc)
         {
+            if (string.IsNullOrWhiteSpace(inputFilePath))
+                throw new ArgumentNullException(Resources.InputFilePathDisplayName);
             if (!File.Exists(inputFilePath))
                 throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
             if (string.IsNullOrWhiteSpace(privateKeyFilePath))

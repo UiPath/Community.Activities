@@ -822,8 +822,7 @@
           }
         }
       ]
-    }
-    ,
+    },
     {
       "FullName": "UiPath.Cryptography.Activities.PgpGenerateKeyPair",
       "ShortName": "PgpGenerateKeyPair",
