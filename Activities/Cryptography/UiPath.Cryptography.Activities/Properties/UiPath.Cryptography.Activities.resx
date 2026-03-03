@@ -1260,4 +1260,7 @@
     <value>True if verification succeeded, False otherwise.</value>
     <comment>Property description</comment>
   </data>
+  <data name="ActivitySynonymCryptography" xml:space="preserve">
+    <value>Cryptography</value>
+  </data>
 </root>
