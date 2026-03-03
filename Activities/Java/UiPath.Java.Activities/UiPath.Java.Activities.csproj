@@ -19,6 +19,11 @@
       <Name>UiPath.Java</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.Java.Activities.*.resx">
+      <DependentUpon>UiPath.Java.Activities.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
   <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
   <Import Project="..\..\Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems" Label="Shared" />

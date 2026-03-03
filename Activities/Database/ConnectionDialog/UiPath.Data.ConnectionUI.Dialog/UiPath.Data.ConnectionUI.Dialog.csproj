@@ -36,6 +36,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Update="Properties\UiPath.Data.ConnectionUI.Dialog.*.resx">
+            <DependentUpon>UiPath.Data.ConnectionUI.Dialog.resx</DependentUpon>
+        </EmbeddedResource>
         <EmbeddedResource Update="Properties\UiPath.Data.ConnectionUI.Dialog.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>UiPath.Data.ConnectionUI.Dialog.Designer.cs</LastGenOutput>

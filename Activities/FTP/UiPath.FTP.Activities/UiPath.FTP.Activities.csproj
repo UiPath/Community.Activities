@@ -35,6 +35,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.FTP.Activities.*.resx">
+      <DependentUpon>UiPath.FTP.Activities.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.FTP.Activities.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UiPath.FTP.Activities.Designer.cs</LastGenOutput>

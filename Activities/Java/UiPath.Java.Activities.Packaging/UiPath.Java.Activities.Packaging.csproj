@@ -41,34 +41,18 @@
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.Java.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.Java.Activities.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Java.Activities.resources.dll" TargetPath="de\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Java.Activities.resources.dll" TargetPath="es\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Java.Activities.resources.dll" TargetPath="es-MX\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Java.Activities.resources.dll" TargetPath="fr\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Java.Activities.resources.dll" TargetPath="ja\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Java.Activities.resources.dll" TargetPath="ko\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Java.Activities.resources.dll" TargetPath="pt\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Java.Activities.resources.dll" TargetPath="pt-BR\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Java.Activities.resources.dll" TargetPath="ru\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Java.Activities.resources.dll" TargetPath="tr\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Java.Activities.resources.dll" TargetPath="zh-CN\UiPath.Java.Activities.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Java.Activities.resources.dll" TargetPath="zh-TW\UiPath.Java.Activities.resources.dll" />
+			<JavaActivitiesResources Include="$(OutputPath)**\UiPath.Java.Activities.resources.dll" />
+			<BuildOutputInPackage Include="@(JavaActivitiesResources)">
+				<TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+			</BuildOutputInPackage>
 		</ItemGroup>
 		<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.Java.Activities.Design.dll" />
 
-			<BuildOutputInPackage Include="$(OutputPath)de\UiPath.Java.Activities.Design.resources.dll" TargetPath="de\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es\UiPath.Java.Activities.Design.resources.dll" TargetPath="es\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)es-MX\UiPath.Java.Activities.Design.resources.dll" TargetPath="es-MX\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)fr\UiPath.Java.Activities.Design.resources.dll" TargetPath="fr\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ja\UiPath.Java.Activities.Design.resources.dll" TargetPath="ja\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ko\UiPath.Java.Activities.Design.resources.dll" TargetPath="ko\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt\UiPath.Java.Activities.Design.resources.dll" TargetPath="pt\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)pt-BR\UiPath.Java.Activities.Design.resources.dll" TargetPath="pt-BR\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)ru\UiPath.Java.Activities.Design.resources.dll" TargetPath="ru\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)tr\UiPath.Java.Activities.Design.resources.dll" TargetPath="tr\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-CN\UiPath.Java.Activities.Design.resources.dll" TargetPath="zh-CN\UiPath.Java.Activities.Design.resources.dll" />
-			<BuildOutputInPackage Include="$(OutputPath)zh-TW\UiPath.Java.Activities.Design.resources.dll" TargetPath="zh-TW\UiPath.Java.Activities.Design.resources.dll" />
+			<JavaActivitiesDesignResources Include="$(OutputPath)**\UiPath.Java.Activities.Design.resources.dll" />
+			<BuildOutputInPackage Include="@(JavaActivitiesDesignResources)">
+				<TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+			</BuildOutputInPackage>
 		</ItemGroup>
 
 		<ItemGroup>

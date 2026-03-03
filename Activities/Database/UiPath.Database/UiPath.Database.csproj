@@ -39,18 +39,12 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Update="Properties\UiPath.Database.fr.resx">
-            <DependentUpon>UiPath.Database.resx</DependentUpon>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Database.ja.resx">
+        <EmbeddedResource Update="Properties\UiPath.Database.*.resx">
             <DependentUpon>UiPath.Database.resx</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Update="Properties\UiPath.Database.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>UiPath.Database.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Database.ru.resx">
-            <DependentUpon>UiPath.Database.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
 </Project>
