@@ -55,12 +55,11 @@ namespace UiPath.Cryptography.Activities
 
                 if (string.IsNullOrWhiteSpace(publicKeyFilePath))
                     throw new ArgumentNullException(Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name);
+                if (!File.Exists(publicKeyFilePath))
+                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name);
 
                 if (Mode == PgpVerifyMode.PublicKey)
                 {
-                    if (!File.Exists(publicKeyFilePath))
-                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name);
-
                     using (var publicKeyStream = File.OpenRead(publicKeyFilePath))
                     {
                         var result = CryptographyHelper.PgpVerifyPublicKey(publicKeyStream);
@@ -70,40 +69,35 @@ namespace UiPath.Cryptography.Activities
                         return result;
                     }
                 }
-                else
+
+                var inputFilePath = InputFilePath.Get(context);
+
+                if (string.IsNullOrWhiteSpace(inputFilePath))
+                    throw new ArgumentNullException(Resources.Activity_PgpVerify_Property_InputFilePath_Name);
+                if (!File.Exists(inputFilePath))
+                    throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_InputFilePath_Name);
+
+                var inputBytes = File.ReadAllBytes(inputFilePath);
+
+                using (var publicKeyStream = File.OpenRead(publicKeyFilePath))
                 {
-                    var inputFilePath = InputFilePath.Get(context);
-
-                    if (string.IsNullOrWhiteSpace(inputFilePath))
-                        throw new ArgumentNullException(Resources.Activity_PgpVerify_Property_InputFilePath_Name);
-                    if (!File.Exists(inputFilePath))
-                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_InputFilePath_Name);
-
-                    var inputBytes = File.ReadAllBytes(inputFilePath);
-
-                    if (!File.Exists(publicKeyFilePath))
-                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name);
-
-                    using (var publicKeyStream = File.OpenRead(publicKeyFilePath))
+                    bool result;
+                    switch (Mode)
                     {
-                        bool result;
-                        switch (Mode)
-                        {
-                            case PgpVerifyMode.Signature:
-                                result = CryptographyHelper.PgpVerify(inputBytes, publicKeyStream);
-                                break;
-                            case PgpVerifyMode.ClearSignature:
-                                result = CryptographyHelper.PgpVerifyClear(inputBytes, publicKeyStream);
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException(Resources.Activity_PgpVerify_Property_Mode_Name);
-                        }
+                        case PgpVerifyMode.Signature:
+                            result = CryptographyHelper.PgpVerify(inputBytes, publicKeyStream);
+                            break;
+                        case PgpVerifyMode.ClearSignature:
+                            result = CryptographyHelper.PgpVerifyClear(inputBytes, publicKeyStream);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(Resources.Activity_PgpVerify_Property_Mode_Name);
+                    }
 
 #if ENABLE_DEFAULT_TELEMETRY
-                        telemetryOperation.Send();
+                    telemetryOperation.Send();
 #endif
-                        return result;
-                    }
+                    return result;
                 }
             }
             catch (Exception ex)
