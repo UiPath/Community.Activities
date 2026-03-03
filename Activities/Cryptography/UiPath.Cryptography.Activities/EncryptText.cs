@@ -26,7 +26,7 @@ namespace UiPath.Cryptography.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Algorithm_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Algorithm_Description))]
-        public SymmetricAlgorithms Algorithm { get; set; }
+        public EncryptionAlgorithm Algorithm { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -69,9 +69,33 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_PublicKeyFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_PublicKeyFilePath_Description))]
+        public InArgument<string> PublicKeyFilePath { get; set; }
+
+        [DefaultValue(false)]
+        [LocalizedCategory(nameof(Resources.Category_Options_Name))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_SignData_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_SignData_Description))]
+        public bool SignData { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_PrivateKeyFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_PrivateKeyFilePath_Description))]
+        public InArgument<string> PrivateKeyFilePath { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Passphrase_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Passphrase_Description))]
+        public InArgument<SecureString> Passphrase { get; set; }
+
         public EncryptText()
         {
-            Algorithm = SymmetricAlgorithms.AESGCM;
+            Algorithm = EncryptionAlgorithm.AESGCM;
             KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
         }
 
@@ -79,16 +103,15 @@ namespace UiPath.Cryptography.Activities
         {
             base.CacheMetadata(metadata);
 
-            switch (Algorithm)
+            if (Algorithm == EncryptionAlgorithm.PGP)
             {
-                case SymmetricAlgorithms.RC2:
-                case SymmetricAlgorithms.Rijndael:
-                    var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
-                    metadata.AddValidationError(error);
-                    break;
+                return;
+            }
 
-                default:
-                    break;
+            if (!CryptographyHelper.IsFipsCompliant(Algorithm))
+            {
+                var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
+                metadata.AddValidationError(error);
             }
 
             if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
@@ -106,44 +129,31 @@ namespace UiPath.Cryptography.Activities
 
         protected override string Execute(CodeActivityContext context)
         {
-            ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
-            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
 #endif
 
             string result = null;
             try
             {
                 var input = Input.Get(context);
-                var key = Key.Get(context);
-                var keySecureString = KeySecureString.Get(context);
-                var keyEncoding = Encoding.Get(context);
-                var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (string.IsNullOrWhiteSpace(input))
                     throw new ArgumentNullException(Resources.InputStringDisplayName);
 
-                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
-                {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
-                }
-                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                {
-                    throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
-                }
+                result = Algorithm == EncryptionAlgorithm.PGP
+                    ? ExecutePgpEncrypt(context, input)
+                    : ExecuteSymmetricEncrypt(context, input);
 
-                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
-
-                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
-
-                var encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
-
-                result = Convert.ToBase64String(encrypted);
-                telemetryOperation?.Send();
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.Send();
+#endif
             }
             catch (Exception ex)
             {
-                telemetryOperation?.SendWithException(ex);
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.SendWithException(ex);
+#endif
                 Trace.TraceError(ex.ToString());
                 if (!ContinueOnError.Get(context))
                 {
@@ -151,6 +161,39 @@ namespace UiPath.Cryptography.Activities
                 }
             }
             return result;
+        }
+
+        private string ExecutePgpEncrypt(CodeActivityContext context, string input)
+        {
+            var publicKeyFilePath = PublicKeyFilePath.Get(context);
+            var privateKeyFilePath = PrivateKeyFilePath.Get(context);
+            var passphrase = Passphrase.Get(context);
+
+            return PgpStreamHelper.WithPgpEncryptStreams(
+                publicKeyFilePath, privateKeyFilePath, passphrase, SignData,
+                (pubStream, privStream, pass) =>
+                    CryptographyHelper.PgpEncryptText(input, pubStream, privStream, pass, SignData));
+        }
+
+        private string ExecuteSymmetricEncrypt(CodeActivityContext context, string input)
+        {
+            var key = Key.Get(context);
+            var keySecureString = KeySecureString.Get(context);
+            var keyEncoding = Encoding.Get(context);
+            var keyEncodingString = KeyEncodingString.Get(context);
+
+            if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
+            if ((keySecureString == null || keySecureString.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
+                throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+            if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
+                throw new ArgumentNullException(Resources.Encoding);
+
+            keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+
+            var encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+
+            return Convert.ToBase64String(encrypted);
         }
     }
 }

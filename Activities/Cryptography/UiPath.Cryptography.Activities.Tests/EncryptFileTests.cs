@@ -35,7 +35,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 {
                     InputFilePath = new InArgument<string>(tempInputFile),
                     Key = new InArgument<string>("key"),
-                    Algorithm = SymmetricAlgorithms.AESGCM,
+                    Algorithm = EncryptionAlgorithm.AESGCM,
                     OutputFilePath = new InArgument<string>(tempOutputFile),
                     KeyInputModeSwitch = KeyInputMode.Key,
                     Overwrite = withOutputOverwrite
@@ -45,7 +45,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 {
                     InputFilePath = new InArgument<string>(tempOutputFile),
                     Key = new InArgument<string>("key"),
-                    Algorithm = SymmetricAlgorithms.AESGCM,
+                    Algorithm = EncryptionAlgorithm.AESGCM,
                     OutputFilePath = new InArgument<string>(tempOutputFile2),
                     KeyInputModeSwitch = KeyInputMode.Key,
                     Overwrite = withOutputOverwrite
