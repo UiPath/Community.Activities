@@ -16,9 +16,9 @@ namespace UiPath.Cryptography.Activities.Helpers
             Func<Stream, Stream, string, TResult> operation)
         {
             if (string.IsNullOrWhiteSpace(publicKeyFilePath))
-                throw new ArgumentNullException(nameof(publicKeyFilePath));
+                throw new ArgumentNullException(Resources.PublicKeyFilePathDisplayName);
             if (!File.Exists(publicKeyFilePath))
-                throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(publicKeyFilePath));
+                throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PublicKeyFilePathDisplayName);
 
             using (var publicKeyStream = File.OpenRead(publicKeyFilePath))
             {
@@ -29,11 +29,11 @@ namespace UiPath.Cryptography.Activities.Helpers
                     if (signData)
                     {
                         if (string.IsNullOrWhiteSpace(privateKeyFilePath))
-                            throw new ArgumentNullException(nameof(privateKeyFilePath));
+                            throw new ArgumentNullException(Resources.PrivateKeyFilePathDisplayName);
                         if (!File.Exists(privateKeyFilePath))
-                            throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(privateKeyFilePath));
+                            throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PrivateKeyFilePathDisplayName);
                         if (passphrase == null || passphrase.Length == 0)
-                            throw new ArgumentNullException(nameof(passphrase));
+                            throw new ArgumentNullException(Resources.PassphraseDisplayName);
                         passphraseString = new NetworkCredential("", passphrase).Password;
                         privateKeyStream = File.OpenRead(privateKeyFilePath);
                     }
@@ -66,11 +66,11 @@ namespace UiPath.Cryptography.Activities.Helpers
             Func<Stream, string, Stream, TResult> operation)
         {
             if (string.IsNullOrWhiteSpace(privateKeyFilePath))
-                throw new ArgumentNullException(nameof(privateKeyFilePath));
+                throw new ArgumentNullException(Resources.PrivateKeyFilePathDisplayName);
             if (!File.Exists(privateKeyFilePath))
-                throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(privateKeyFilePath));
+                throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PrivateKeyFilePathDisplayName);
             if (passphrase == null || passphrase.Length == 0)
-                throw new ArgumentNullException(nameof(passphrase));
+                throw new ArgumentNullException(Resources.PassphraseDisplayName);
 
             var passphraseString = new NetworkCredential("", passphrase).Password;
 
@@ -82,9 +82,9 @@ namespace UiPath.Cryptography.Activities.Helpers
                     if (verifySignature)
                     {
                         if (string.IsNullOrWhiteSpace(publicKeyFilePath))
-                            throw new ArgumentNullException(nameof(publicKeyFilePath));
+                            throw new ArgumentNullException(Resources.PublicKeyFilePathDisplayName);
                         if (!File.Exists(publicKeyFilePath))
-                            throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(publicKeyFilePath));
+                            throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PublicKeyFilePathDisplayName);
                         publicKeyStream = File.OpenRead(publicKeyFilePath);
                     }
 

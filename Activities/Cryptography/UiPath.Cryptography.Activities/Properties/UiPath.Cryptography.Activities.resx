@@ -142,6 +142,18 @@
     <value>OutputPath</value>
     <comment>property name</comment>
   </data>
+  <data name="PrivateKeyFilePathDisplayName" xml:space="preserve">
+    <value>PrivateKeyFilePath</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PublicKeyFilePathDisplayName" xml:space="preserve">
+    <value>PublicKeyFilePath</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PassphraseDisplayName" xml:space="preserve">
+    <value>Passphrase</value>
+    <comment>property name</comment>
+  </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
     <value>The file already exists.</value>
   </data>

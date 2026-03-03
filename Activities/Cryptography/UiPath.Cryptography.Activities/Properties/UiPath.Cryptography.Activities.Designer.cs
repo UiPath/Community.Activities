@@ -2696,5 +2696,32 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("OutputFilePathDisplayName", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to PrivateKeyFilePath.
+        /// </summary>
+        public static string PrivateKeyFilePathDisplayName {
+            get {
+                return ResourceManager.GetString("PrivateKeyFilePathDisplayName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to PublicKeyFilePath.
+        /// </summary>
+        public static string PublicKeyFilePathDisplayName {
+            get {
+                return ResourceManager.GetString("PublicKeyFilePathDisplayName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase.
+        /// </summary>
+        public static string PassphraseDisplayName {
+            get {
+                return ResourceManager.GetString("PassphraseDisplayName", resourceCulture);
+            }
+        }
     }
 }

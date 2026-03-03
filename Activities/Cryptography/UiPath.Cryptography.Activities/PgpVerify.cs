@@ -74,8 +74,10 @@ namespace UiPath.Cryptography.Activities
                 {
                     var inputFilePath = InputFilePath.Get(context);
 
+                    if (string.IsNullOrWhiteSpace(inputFilePath))
+                        throw new ArgumentNullException(Resources.Activity_PgpVerify_Property_InputFilePath_Name);
                     if (!File.Exists(inputFilePath))
-                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
+                        throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.Activity_PgpVerify_Property_InputFilePath_Name);
 
                     var inputBytes = File.ReadAllBytes(inputFilePath);
 

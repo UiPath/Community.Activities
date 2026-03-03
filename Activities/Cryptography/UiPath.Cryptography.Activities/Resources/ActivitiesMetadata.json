@@ -1149,6 +1149,7 @@
           "Name": "PublicKeyFilePath",
           "DisplayNameKey": "Activity_PgpVerify_Property_PublicKeyFilePath_Name",
           "TooltipKey": "Activity_PgpVerify_Property_PublicKeyFilePath_Description",
+          "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
           "Category": {

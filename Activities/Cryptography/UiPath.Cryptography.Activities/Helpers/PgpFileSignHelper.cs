@@ -21,11 +21,11 @@ namespace UiPath.Cryptography.Activities.Helpers
             if (!File.Exists(inputFilePath))
                 throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
             if (string.IsNullOrWhiteSpace(privateKeyFilePath))
-                throw new ArgumentNullException(nameof(privateKeyFilePath));
+                throw new ArgumentNullException(Resources.PrivateKeyFilePathDisplayName);
             if (!File.Exists(privateKeyFilePath))
-                throw new ArgumentException(Resources.FileDoesNotExistsException, nameof(privateKeyFilePath));
+                throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PrivateKeyFilePathDisplayName);
             if (passphrase == null || passphrase.Length == 0)
-                throw new ArgumentNullException(nameof(passphrase));
+                throw new ArgumentNullException(Resources.PassphraseDisplayName);
 
             if (string.IsNullOrEmpty(outputFilePath))
             {
