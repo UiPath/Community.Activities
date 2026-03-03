@@ -112,6 +112,12 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_AcceptAllCertificates_Description))]
         public bool AcceptAllCertificates { get; set; }
 
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Server))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_Timeout_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Timeout_Description))]
+        public InArgument<int> Timeout { get; set; }
+
         [LocalizedCategory(nameof(Resources.Common))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Description))]
@@ -196,6 +202,12 @@ namespace UiPath.FTP.Activities
 
                 FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
                 ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
+                int? timeout = Timeout.Expression == null ? null : (int?)Timeout.Get(context);
+                if (timeout.HasValue && timeout.Value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(Timeout), Resources.InvalidTimeoutException);
+                }
+                ftpConfiguration.Timeout = timeout;
                 ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
                 ftpConfiguration.SslProtocols = SslProtocols;
                 ftpConfiguration.ProxyType = ProxyType;
