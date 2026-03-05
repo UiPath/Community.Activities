@@ -48,6 +48,12 @@ namespace UiPath.Java.Service
         /// <param name="javaInvokerPath">Path to the java invoker program</param>
         public void StartJavaProcess(string java, string javaInvokerPath)
         {
+            // TODO: UseShellExecute = true means _javaProcess is a handle to the shell wrapper,
+            // not the actual java.exe. Calling Kill() only kills the shell and orphans the JVM.
+            // This causes JVM leaks on cancel/fault in production (JavaScope.Clean) and caused
+            // test runner hangs in CI (vstest waits for child processes to exit).
+            // Changing to UseShellExecute = false + CreateNoWindow = true would fix this by giving
+            // a direct handle to java.exe, but needs validation across all supported environments.
             // Use ProcessStartInfo class, if you want to see java process console set WindowStyle to Normal
             var startInfo = new ProcessStartInfo
             {

@@ -760,4 +760,21 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>Für die automatische Konfiguration leer lassen</value>
   </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>Das Proxykennwort im SecureString-Format</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Sicheres Proxykennwort</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>Filtert Elemente nach Typ (die ausgewählten Elemente werden eingeschlossen)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>Objekttypen</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>Einzuschließende Objekttypen auswählen</value>
+  </data>
 </root>

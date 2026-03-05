@@ -73,10 +73,8 @@ namespace UiPath.Python.Impl
             _version = version;
             _path = path;
             _libraryPath = libraryPath;
-#if NETCOREAPP
             if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 _isWindows = false;
-#endif
         }
 
         #region IEngine

@@ -2,10 +2,11 @@
 using System.Activities;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
 using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.FTP.Activities
 {
@@ -37,18 +38,24 @@ namespace UiPath.FTP.Activities
 
         protected override void Execute(CodeActivityContext context)
         {
-            PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
-            IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
+                PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
+                IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
                 if (ftpSession == null)
                 {
                     throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
                 }
                 ftpSession.Move(RemotePath.Get(context), NewPath.Get(context), Overwrite);
+                telemetryOperation?.Send();
             }
             catch (Exception e)
             {
+                telemetryOperation?.SendWithException(e);
                 if (ContinueOnError.Get(context))
                 {
                     Trace.TraceError(e.ToString());

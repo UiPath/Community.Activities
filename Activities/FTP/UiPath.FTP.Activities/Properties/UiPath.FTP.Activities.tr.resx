@@ -760,4 +760,21 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>Otomatik yapılandırma için boş bırakın</value>
   </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>Güvenli dize biçiminde proxy parolası</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Proxy Güvenli Parola</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>Öğeleri türe göre filtreler (seçili olan dahil edilir)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>Nesne Türleri</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>Dahil edilecek nesne türlerini seçin</value>
+  </data>
 </root>

@@ -760,4 +760,21 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>자동 구성을 위해 비워두십시오</value>
   </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>보안 문자열 형식의 프록시 암호</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>프록시 보안 암호</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>형식에 따라 항목 필터링(선택한 항목 포함)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>개체 형식</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>포함할 개체 형식 선택</value>
+  </data>
 </root>

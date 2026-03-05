@@ -760,4 +760,21 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>留空以使用自动配置</value>
   </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>安全字符串格式的代理密码</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>代理安全密码</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>按类型筛选项目（包括已选择的项目）</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>对象类型</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>选择要包括的对象类型</value>
+  </data>
 </root>

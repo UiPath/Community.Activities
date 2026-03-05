@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\Cryptography.build.props" />
 
 	<PropertyGroup>
@@ -8,12 +8,13 @@
 	</PropertyGroup>
 
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-	
+
 	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Security.Cryptography.Cng" />
 		<PackageReference Include="System.Formats.Asn1" />
+		<PackageReference Include="PgpCore" />
 	</ItemGroup>
 
 	<ItemGroup>
