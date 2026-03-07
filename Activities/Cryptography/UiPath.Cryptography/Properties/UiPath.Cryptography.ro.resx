@@ -127,10 +127,10 @@
     <value>DES (Depreciat)</value>
   </data>
   <data name="General_FileInput" xml:space="preserve">
-    <value>Comută la introducerea fișierului</value>
+    <value>Comutați la File input</value>
   </data>
   <data name="General_FilePathInput" xml:space="preserve">
-    <value>Comută la introducerea pe calea fișierului</value>
+    <value>Comutați la input de cale fișier</value>
   </data>
   <data name="HMACMD5" xml:space="preserve">
     <value>HMACMD5 (Non-FIPS)</value>
@@ -151,7 +151,7 @@
     <value>HMACSHA512</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Comută la introducerea textului</value>
+    <value>Comutați la input text</value>
   </data>
   <data name="MACTripleDES" xml:space="preserve">
     <value>MACTripleDES</value>
@@ -169,7 +169,7 @@
     <value>RIPEMD160 (Non-FIPS)</value>
   </data>
   <data name="SecureKey" xml:space="preserve">
-    <value>Comută la Intrare securizată</value>
+    <value>Comutați la input securizat</value>
   </data>
   <data name="SHA1" xml:space="preserve">
     <value>SHA1</value>

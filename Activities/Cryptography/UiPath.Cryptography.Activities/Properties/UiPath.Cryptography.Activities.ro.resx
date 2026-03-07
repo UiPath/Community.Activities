@@ -234,11 +234,11 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Nume și locație fișier de ieșire</value>
+    <value>Numele și locația fișierului Output</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
-    <value>Dacă un fișier există deja pe calea specificată în câmpul Output path, selectarea acestei casete îl suprascrie. Dacă nu este bifat, se creează un fișier nou.</value>
+    <value>Dacă un fișier există deja la calea specificată în câmpul Output path, selectarea acestei casete de selectare îl va suprascrie. Dacă nu este bifată, se va crea un fișier nou.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Name" xml:space="preserve">
@@ -270,7 +270,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Codarea folosită pentru a interpreta textul de intrare și cheia specificată în proprietatea Cheii.</value>
+    <value>Codarea utilizată pentru a interpreta input-ul și cheia specificată în proprietatea Key.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -342,7 +342,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Description" xml:space="preserve">
-    <value>Șirul securizat folosit pentru decriptarea fișierului de intrare.</value>
+    <value>Șirul securizat folosit pentru decriptarea fișierului input.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
@@ -350,7 +350,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
-    <value>Șirul securizat folosit pentru decriptarea șirului de intrare.</value>
+    <value>Șirul securizat folosit pentru a decripta input-ul.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
@@ -382,7 +382,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
-    <value>Șirul securizat folosit pentru criptarea fișierului de intrare.</value>
+    <value>Șirul securizat folosit pentru criptarea input-ului fișierului.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
@@ -394,11 +394,11 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Nume și locație fișier de ieșire</value>
+    <value>Numele și locația fișierului Output</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
-    <value>Dacă un fișier există deja pe calea specificată în câmpul Output path, selectarea acestei casete îl suprascrie. Dacă nu este bifat, se creează un fișier nou.</value>
+    <value>Dacă un fișier există deja la calea specificată în câmpul Output path, selectarea acestei casete de selectare îl va suprascrie. Dacă nu este bifată, se va crea un fișier nou.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Name" xml:space="preserve">
@@ -430,7 +430,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Codarea folosită pentru a interpreta textul de intrare și cheia specificată în proprietatea Cheii.</value>
+    <value>Codarea utilizată pentru a interpreta input-ul și cheia specificată în proprietatea Key.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -454,7 +454,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Description" xml:space="preserve">
-    <value>Șirul securizat folosit pentru criptarea șirului de intrare.</value>
+    <value>Șirul securizat folosit pentru criptarea input-ului.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
@@ -598,7 +598,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Description" xml:space="preserve">
-    <value>Șirul securizat folosit pentru hash-ul șirului de intrare.</value>
+    <value>Șirul securizat folosit pentru a genera hash-ul input-ului.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">

@@ -685,10 +685,10 @@
     <comment>Category name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Description" xml:space="preserve">
-    <value>Comutatorul pentru modul de introducere a parolei certificatului</value>
+    <value>Comutatorul pentru modul de input al parolei certificatului</value>
   </data>
   <data name="Activity_WithFtpSession_Property_CertificatePasswordInputModeSwitch_Name" xml:space="preserve">
-    <value>SecurePasswordInputModeSwitch</value>
+    <value>ModComutareIntroducereParolăSecurizată</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description" xml:space="preserve">
     <value>Parola pentru certificatul clientului în format securizat de șir</value>
@@ -697,7 +697,7 @@
     <value>Certificatul clientului: parolă securizată</value>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
-    <value>Comutatorul pentru modul de introducere a parolei</value>
+    <value>Comutatorul pentru modul de input al parolei</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Name" xml:space="preserve">
