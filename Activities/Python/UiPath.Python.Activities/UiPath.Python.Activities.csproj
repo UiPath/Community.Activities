@@ -34,18 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.fr.resx">
-      <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.ja.resx">
+    <EmbeddedResource Update="Properties\UiPath.Python.Activities.*.resx">
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Python.Activities.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UiPath.Python.Activities.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.ru.resx">
-      <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -26,13 +26,7 @@
     <ProjectReference Include="..\UiPath.Python.Activities\UiPath.Python.Activities.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.fr.resx">
-      <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.ja.resx">
-      <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.ru.resx">
+    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.*.resx">
       <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.resx">
