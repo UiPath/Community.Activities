@@ -191,7 +191,7 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Parametri de intrare pentru scriptul Python</value>
+    <value>Input parameters pentru scriptul Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
     <value>InputParameters</value>
@@ -235,10 +235,10 @@
     <value>Invocă activitatea scriptului Python</value>
   </data>
   <data name="RunScriptException" xml:space="preserve">
-    <value>Eroare la rularea scriptului Python</value>
+    <value>Eroare la executarea scriptului Python</value>
   </data>
   <data name="RunScriptNameDisplayName" xml:space="preserve">
-    <value>Rulează un script Python</value>
+    <value>Run Python Script</value>
     <comment>activity name</comment>
   </data>
   <data name="ScriptFileDescription" xml:space="preserve">
@@ -256,7 +256,7 @@
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
-    <value>Specifică platforma de rulare Python</value>
+    <value>Specifică platforma Python runtime</value>
   </data>
   <data name="ValidateParentError" xml:space="preserve">
     <value>Activitatea este valabilă doar în interiorul {0}</value>
@@ -288,7 +288,7 @@
     <value>Timeout</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Timpul permis pentru rularea unui script Python până când este terminat și se aruncă o excepție.</value>
+    <value>Durata de timp permisă pentru executarea unui script Python până când acesta este oprit și se aruncă o excepție.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Pentru Linux este calea către Python libpython*.so inclusiv numele bibliotecii. Pentru Windows (versiune&gt;3.9) Calea către Python**.dll inclusiv numele bibliotecii (de obicei este pe calea Python Home). Pentru Windows (versiune&lt;=3.9) Lasă gol.</value>

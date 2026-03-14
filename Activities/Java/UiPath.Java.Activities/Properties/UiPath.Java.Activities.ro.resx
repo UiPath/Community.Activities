@@ -295,6 +295,6 @@
     <value>Valoarea oferită pentru TimeoutMS trebuie să fie &gt;= 0</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Timpul (în milisecunde) de așteptare pentru conexiunea Java runtime (implicit 15000ms).</value>
+    <value>Durata de timp (în milisecunde) de așteptare pentru conexiunea runtime Java (implicit 15000ms).</value>
   </data>
 </root>

@@ -127,10 +127,10 @@
     <value>DES (Depreciat)</value>
   </data>
   <data name="General_FileInput" xml:space="preserve">
-    <value>Comută la introducerea fișierului</value>
+    <value>Comutați la File input</value>
   </data>
   <data name="General_FilePathInput" xml:space="preserve">
-    <value>Comută la introducerea pe calea fișierului</value>
+    <value>Comutați la input de cale fișier</value>
   </data>
   <data name="HMACMD5" xml:space="preserve">
     <value>HMACMD5 (Non-FIPS)</value>
@@ -151,7 +151,7 @@
     <value>HMACSHA512</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Comută la introducerea textului</value>
+    <value>Comutați la input text</value>
   </data>
   <data name="MACTripleDES" xml:space="preserve">
     <value>MACTripleDES</value>
@@ -169,7 +169,7 @@
     <value>RIPEMD160 (Non-FIPS)</value>
   </data>
   <data name="SecureKey" xml:space="preserve">
-    <value>Comută la Intrare securizată</value>
+    <value>Comutați la input securizat</value>
   </data>
   <data name="SHA1" xml:space="preserve">
     <value>SHA1</value>
@@ -185,6 +185,9 @@
   </data>
   <data name="TripleDES" xml:space="preserve">
     <value>TripleDES</value>
+  </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP (Pretty Good Privacy)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>Algoritmul de hash furnizat nu este acceptat.</value>
@@ -615,5 +618,29 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>Parola pentru cheia privată PGP este incorectă.</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>Cheia privată furnizată nu corespunde datelor criptate. Asigurați-vă că folosiți cheia privată corectă.</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>Verificarea semnăturii PGP a eșuat. Cheia publică nu corespunde semnăturii sau datele au fost modificate.</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>Fișier semnat (binar)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>Fișier semnat clar (text)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>Validați cheia publică</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>Semnarea a fost solicitată, dar este necesară atât o cheie privată, cât și o parolă pentru a semna. Furnizați atât un flux de cheie privată, cât și o parolă, sau setați sign la False.</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>A fost solicitată verificarea semnăturii, dar este necesară o cheie publică pentru a efectua verificarea. Furnizați un flux de cheie publică sau setați verifySignature la False.</value>
   </data>
 </root>

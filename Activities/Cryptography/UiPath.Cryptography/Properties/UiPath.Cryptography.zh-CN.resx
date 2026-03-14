@@ -186,6 +186,9 @@
   <data name="TripleDES" xml:space="preserve">
     <value>TripleDES</value>
   </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP（优良保密协议）</value>
+  </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>不支持给定的散列算法。</value>
   </data>
@@ -615,5 +618,29 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>PGP 私钥的密码短语不正确。</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>提供的私钥与加密数据不匹配。请确保您使用的是正确的私钥。</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>PGP 签名验证失败。公钥与签名不匹配，或者数据已被篡改。</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>签名文件（二进制）</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>明文签名文件（文本）</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>验证公钥</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>已请求签名，但需要私钥和密码短语才能进行签名。请提供私钥流和密码短语，或将 sign 设置为 False。</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>已请求签名验证，但需要公钥才能进行验证。请提供公钥流，或将 verifySignature 设置为 False。</value>
   </data>
 </root>
