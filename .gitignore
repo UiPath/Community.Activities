@@ -12,7 +12,6 @@
 /Activities/OutputTests/
 /Activities/Output/Activities
 /Activities/Tests/DatabaseTests/.local
-/.claude
 /.reviews
 /.agent-status
 /.worktrees
