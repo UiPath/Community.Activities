@@ -428,7 +428,9 @@ def count_coded_workflow_support(root: str) -> int:
             continue
         try:
             data = json.loads(content)
-            count += sum(1 for act in data.get("activities", []) if act.get("codedWorkflowSupport"))
+            # Support both lowercase "activities" and capitalized "Activities" keys
+            acts_list = data.get("activities", data.get("Activities", []))
+            count += sum(1 for act in acts_list if act.get("codedWorkflowSupport"))
         except json.JSONDecodeError:
             pass
     return count

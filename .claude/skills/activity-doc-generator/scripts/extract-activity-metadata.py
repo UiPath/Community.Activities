@@ -106,22 +106,30 @@ def parse_metadata_json(json_paths: list[str]) -> tuple[list[dict], list[str]]:
         if "orderedCategoryDisplayNameKeys" in data:
             category_order = data["orderedCategoryDisplayNameKeys"]
 
-        for act in data.get("activities", []):
-            full_name = act.get("fullName", "")
+        # Support both lowercase "activities" and capitalized "Activities" keys
+        acts_list = data.get("activities", data.get("Activities", []))
+        for act in acts_list:
+            # Helper to get values from either camelCase or PascalCase keys
+            def get_value(obj, camel_key, pascal_key=None):
+                if pascal_key is None:
+                    pascal_key = camel_key[0].upper() + camel_key[1:]
+                return obj.get(camel_key, obj.get(pascal_key, ""))
+            
+            full_name = get_value(act, "fullName", "FullName")
             if not full_name or full_name in seen_names:
                 continue
             seen_names.add(full_name)
             activities.append({
                 "fullName": full_name,
-                "shortName": act.get("shortName", full_name.split(".")[-1]),
-                "displayNameKey": act.get("displayNameKey"),
-                "descriptionKey": act.get("descriptionKey"),
-                "categoryKey": act.get("categoryKey"),
-                "viewModelType": act.get("viewModelType"),
-                "codedWorkflowSupport": act.get("codedWorkflowSupport", False),
-                "browsable": act.get("browsable", True),
-                "mandatoryParentActivityFullName": act.get("mandatoryParentActivityFullName"),
-                "properties": act.get("properties", []),
+                "shortName": get_value(act, "shortName", "ShortName") or full_name.split(".")[-1],
+                "displayNameKey": get_value(act, "displayNameKey", "DisplayNameKey"),
+                "descriptionKey": get_value(act, "descriptionKey", "DescriptionKey"),
+                "categoryKey": get_value(act, "categoryKey", "CategoryKey"),
+                "viewModelType": get_value(act, "viewModelType", "ViewModelType"),
+                "codedWorkflowSupport": act.get("codedWorkflowSupport", act.get("CodedWorkflowSupport", False)),
+                "browsable": act.get("browsable", act.get("Browsable", True)),
+                "mandatoryParentActivityFullName": get_value(act, "mandatoryParentActivityFullName", "MandatoryParentActivityFullName"),
+                "properties": act.get("properties", act.get("Properties", [])),
                 "metadataFile": path,
             })
 
