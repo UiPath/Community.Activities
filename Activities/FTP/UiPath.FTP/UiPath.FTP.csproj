@@ -17,6 +17,9 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="UiPath.FTP.Tests" />
+    <EmbeddedResource Update="Properties\UiPath.FTP.*.resx">
+      <DependentUpon>UiPath.FTP.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

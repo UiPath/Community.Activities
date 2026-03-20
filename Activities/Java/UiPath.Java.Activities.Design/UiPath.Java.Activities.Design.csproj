@@ -31,6 +31,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.Java.Activities.Design.*.resx">
+      <DependentUpon>UiPath.Java.Activities.Design.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Java.Activities.Design.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UiPath.Java.Activities.Design.Designer.cs</LastGenOutput>
