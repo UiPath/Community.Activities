@@ -186,6 +186,9 @@
   <data name="TripleDES" xml:space="preserve">
     <value>TripleDES</value>
   </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP(Pretty Good Privacy)</value>
+  </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>입력된 해시 알고리즘은 지원되지 않습니다.</value>
   </data>
@@ -615,5 +618,29 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>PGP 개인 키의 암호 문구가 올바르지 않습니다.</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>제공된 개인 키가 암호화된 데이터와 일치하지 않습니다. 올바른 개인 키를 사용하고 있는지 확인하십시오.</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>PGP 서명 확인에 실패했습니다. 공개 키가 서명과 일치하지 않거나 데이터가 변조되었습니다.</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>서명된 파일(바이너리)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>일반 텍스트 서명된 파일(텍스트)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>공개 키 유효성 검사</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>서명이 요청되었지만 서명하려면 개인 키와 암호 문구가 필요합니다. 개인 키 스트림과 암호 문구를 모두 제공하거나 서명을 false로 설정합니다.</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>서명 확인이 요청되었지만 확인을 위해 공개 키가 필요합니다. 공개 키 스트림을 제공하거나 verifySignature를 false로 설정합니다.</value>
   </data>
 </root>

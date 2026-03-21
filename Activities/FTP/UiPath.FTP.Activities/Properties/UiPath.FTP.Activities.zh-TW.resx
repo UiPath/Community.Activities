@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>使用者名稱不得為空。</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>逾時值必須大於或等於 0。</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL 通訊協定</value>
   </data>
@@ -539,6 +542,14 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
     <value>選擇用於 FTPS 連線的 SSL 通訊協定</value>
     <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>FTP/SFTP 連線的逾時值 (以毫秒為單位)。如果未設定，則使用基礎元件庫的預設逾時。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>超時(毫秒)</value>
+    <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>SSL 通訊協定</value>

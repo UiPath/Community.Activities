@@ -133,7 +133,7 @@
     <value>Executabilul Python nu a fost găsit</value>
   </data>
   <data name="PythonRuntimeTypeException" xml:space="preserve">
-    <value>Tip/metodă/proprietate Python runtime nu a fost găsită: {0}</value>
+    <value>Tip, metodă sau proprietate Python runtime nu a fost găsită: {0}</value>
   </data>
   <data name="SerializationException" xml:space="preserve">
     <value>Excepție de serializare Python</value>

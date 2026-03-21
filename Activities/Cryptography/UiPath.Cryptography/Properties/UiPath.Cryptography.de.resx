@@ -186,6 +186,9 @@
   <data name="TripleDES" xml:space="preserve">
     <value>TripleDES</value>
   </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP (Pretty Good Privacy)</value>
+  </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>Der bereitgestellte Hash-Algorithmus wird nicht unterstützt.</value>
   </data>
@@ -615,5 +618,29 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>Die Passphrase für den privaten PGP-Schlüssel ist falsch.</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>Der angegebene private Schlüssel stimmt nicht mit den verschlüsselten Daten überein. Stellen Sie sicher, dass Sie den richtigen privaten Schlüssel verwenden.</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>Fehler bei der Überprüfung der PGP-Signatur. Der öffentliche Schlüssel stimmt nicht mit der Signatur überein oder die Daten wurden manipuliert.</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>Signierte Datei (Binär)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>Klarsignierte Datei (Text)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>Öffentlichen Schlüssel validieren</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>Das Signieren wurde angefordert, zum Signieren sind jedoch ein privater Schlüssel und eine Passphrase erforderlich. Geben Sie sowohl einen privaten Schlüsselstream als auch eine Passphrase an oder setzen Sie die Signatur auf „false“.</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>Die Signaturüberprüfung wurde angefordert, zum Überprüfen ist jedoch ein öffentlicher Schlüssel erforderlich. Geben Sie einen öffentlichen Schlüsselstream an oder legen Sie SignaturVerifizieren auf „false“ fest.</value>
   </data>
 </root>

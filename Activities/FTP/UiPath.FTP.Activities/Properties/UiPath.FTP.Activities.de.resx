@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>Der Benutzername darf nicht leer sein.</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>Die Zeitüberschreitung muss größer als oder gleich 0 sein.</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL-Protokolle</value>
   </data>
@@ -539,6 +542,14 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
     <value>Auswählen des SSL-Protokolls, das für die FTPS-Verbindung verwendet werden soll.</value>
     <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>Der Wert der Zeitüberschreitung (in Millisekunden) für die FTP/SFTP-Verbindung. Wenn diese Option nicht festgelegt ist, wird die standardmäßige Zeitüberschreitung der zugrunde liegenden Bibliothek verwendet.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>Timeout (Millisekunden)</value>
+    <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>SSL-Protokolle</value>

@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>用户名不得为空。</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>超时时间必须大于或等于 0。</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL 协议</value>
   </data>
@@ -539,6 +542,14 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
     <value>选择用于 FTPS 连接的 SSL 协议</value>
     <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>FTP/SFTP 连接的超时值（以毫秒为单位）。如果未设置，则使用基础库的默认超时时间。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>超时 (毫秒)</value>
+    <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>SSL 协议</value>
