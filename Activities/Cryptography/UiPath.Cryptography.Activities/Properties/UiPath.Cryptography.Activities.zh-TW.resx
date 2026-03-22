@@ -142,6 +142,18 @@
     <value>輸出路徑</value>
     <comment>property name</comment>
   </data>
+  <data name="PrivateKeyFilePathDisplayName" xml:space="preserve">
+    <value>私密金鑰檔案路徑</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PublicKeyFilePathDisplayName" xml:space="preserve">
+    <value>公開金鑰檔案路徑</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PassphraseDisplayName" xml:space="preserve">
+    <value>密碼</value>
+    <comment>property name</comment>
+  </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
     <value>此檔案已存在。</value>
   </data>
@@ -871,5 +883,384 @@
   </data>
   <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
     <value>所選加密演算法已淘汰，未來版本中將不再支援。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>私密金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>用於解密的 PGP 私密金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>PGP 私密金鑰的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_VerifySignature_Name" xml:space="preserve">
+    <value>驗證簽名</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_VerifySignature_Description" xml:space="preserve">
+    <value>啟用時，使用公開金鑰驗證解密資料的 PGP 簽名。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>公開金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>用於簽名驗證的 PGP 公開金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>私密金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>用於解密的 PGP 私密金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Passphrase_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Passphrase_Description" xml:space="preserve">
+    <value>PGP 私密金鑰的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_VerifySignature_Name" xml:space="preserve">
+    <value>驗證簽名</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_VerifySignature_Description" xml:space="preserve">
+    <value>啟用時，使用公開金鑰驗證解密資料的 PGP 簽名。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>公開金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>用於簽名驗證的 PGP 公開金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>公開金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>用於加密的 PGP 公開金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_SignData_Name" xml:space="preserve">
+    <value>簽署資料</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_SignData_Description" xml:space="preserve">
+    <value>啟用時，使用私密金鑰簽署加密資料。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>私密金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>用於簽署的 PGP 私密金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>用於簽署的 PGP 私密金鑰的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>公開金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>用於加密的 PGP 公開金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_SignData_Name" xml:space="preserve">
+    <value>簽署資料</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_SignData_Description" xml:space="preserve">
+    <value>啟用時，使用私密金鑰簽署加密資料。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>私密金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>用於簽署的 PGP 私密金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Passphrase_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
+    <value>用於簽署的 PGP 私密金鑰的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
+    <value>PGP 產生金鑰</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
+    <value>產生 PGP 公開/私密金鑰組，並將其儲存至指定的檔案路徑。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>公開金鑰輸出路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>用於儲存所產生 PGP 公開金鑰的檔案路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>私密金鑰輸出路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>用於儲存所產生 PGP 私密金鑰的檔案路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
+    <value>使用者名稱</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
+    <value>要與產生的金鑰對相關聯的使用者名稱 (或電子郵件)。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
+    <value>用於保護所產生私密金鑰的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆寫</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果檔案已存在於輸出路徑中，則選取此項會覆寫這些檔案。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>錯誤時繼續</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公開金鑰檔案</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>以檔案資源形式產生的公開金鑰。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私密金鑰檔案</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>以檔案資源形式產生的私密金鑰。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Name" xml:space="preserve">
+    <value>PGP 簽署檔案</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Description" xml:space="preserve">
+    <value>使用私密金鑰建立檔案的 PGP 二進位簽名。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>輸入檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>您要簽署檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>私密金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>用於簽署的 PGP 私密金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>PGP 私密金鑰的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>輸出檔路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>用於儲存已簽署檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆寫</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果檔案已存在於輸出路徑中，則選取此項會覆寫該檔案。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>錯誤時繼續</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_SignedFile_Name" xml:space="preserve">
+    <value>簽署的檔案</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_SignedFile_Description" xml:space="preserve">
+    <value>作為檔案資源的已簽署檔案。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
+    <value>PGP 清除簽署檔案</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
+    <value>使用私密金鑰建立檔案的 PGP 透明文字簽名。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>輸入檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>您要進行透明簽署的檔案路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>私密金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>用於簽署的 PGP 私密金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>密碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>PGP 私密金鑰的密碼。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>輸出檔路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>用於儲存已進行透明簽署檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>覆寫</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>如果檔案已存在於輸出路徑中，則選取此項會覆寫該檔案。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>錯誤時繼續</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+    <value>透明簽署的檔案</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+    <value>透明簽署的檔案作為檔案資源。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Name" xml:space="preserve">
+    <value>PGP 驗證</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Description" xml:space="preserve">
+    <value>驗證 PGP 簽名、清除簽名或驗證公開金鑰檔案。</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Mode_Name" xml:space="preserve">
+    <value>驗證類型</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Mode_Description" xml:space="preserve">
+    <value>選取驗證類型。「簽署的檔案 (二進位)」會驗證二進位簽署的檔案。「透明簽署的檔案 (文字)」會驗證具有嵌入式簽名的文字檔案。「驗證公開金鑰」會檢查檔案是否包含有效的 PGP 公開金鑰。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFilePath_Name" xml:space="preserve">
+    <value>簽署的檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFilePath_Description" xml:space="preserve">
+    <value>要驗證的已簽署檔案的路徑。「簽署的檔案 (二進位)」和「透明簽署的檔案 (文字)」模式為必填項。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>公開金鑰檔案路徑</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>用於驗證的 PGP 公開金鑰檔案的路徑。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>錯誤時繼續</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Result_Name" xml:space="preserve">
+    <value>結果</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Result_Description" xml:space="preserve">
+    <value>如果驗證成功，則傳回 True，否則返回 False。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="ActivitySynonymCryptography" xml:space="preserve">
+    <value>加密</value>
   </data>
 </root>

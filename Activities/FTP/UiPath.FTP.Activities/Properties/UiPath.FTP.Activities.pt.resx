@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>O nome de utilizador não pode estar vazio.</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>O tempo limite tem de ser superior ou igual a 0.</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>Protocolos SSL</value>
   </data>
@@ -539,6 +542,14 @@
   <data name="Activity_WithFtpSession_Property_SslProtocols_Description" xml:space="preserve">
     <value>Selecione o protocolo SSL a utilizar para a ligação FTPS</value>
     <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>O valor de tempo limite (em milissegundos) para a ligação FTP/SFTP. Se não for definido, é utilizado o tempo limite predefinido da biblioteca subjacente.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>Tempo limite (milissegundos)</value>
+    <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>Protocolos SSL</value>
