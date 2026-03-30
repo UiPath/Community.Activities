@@ -14,10 +14,9 @@ Encrypts a string with a key based on a specified key encoding and algorithm.
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `Algorithm` | Algorithm | Property | `EncryptionAlgorithm` | Yes |  |  | A drop-down which enables you to select the encryption algorithm you want to use. |
-| `DeprecatedWarning` | D ep re ca te dW ar ni ng | Property | `object` |  |  |  |  |
 | `Input` | Text | InArgument | `string` | Yes |  |  | The text that you want to encrypt. |
-| `Key` | Key | InArgument | `string` | Yes |  |  | The key that you want to use to encrypt the specified file. |
-| `KeySecureString` | Key Secure String | InArgument | `SecureString` | Yes |  |  | The secure string used to encrypt the input string. |
+| `Key` | Key | InArgument | `string` |  |  |  | The key that you want to use to encrypt the specified file. Provide either `Key` or `KeySecureString`. |
+| `KeySecureString` | Key Secure String | InArgument | `SecureString` |  |  |  | The secure string used to encrypt the input string. Provide either `Key` or `KeySecureString`. |
 | `PublicKeyFilePath` | Public Key File Path | InArgument | `string` |  |  |  | The path to the PGP public key file used for encryption. |
 | `PrivateKeyFilePath` | Private Key File Path | InArgument | `string` |  |  |  | The path to the PGP private key file used for signing. |
 | `Passphrase` | Passphrase | InArgument | `SecureString` |  |  |  | The passphrase for the PGP private key used for signing. |
@@ -34,14 +33,22 @@ Encrypts a string with a key based on a specified key encoding and algorithm.
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `Result` | Encrypted Text | Property | `object` | The encrypted text, stored in a String variable. |
+| `Result` | Encrypted Text | OutArgument | `string` | The encrypted text, stored in a String variable. |
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- Symmetric encryption mode: set `Algorithm` and `Input`, then provide either `Key` or `KeySecureString`.
+- PGP encryption mode: set `Algorithm` to PGP and provide `PublicKeyFilePath`.
+- Signed PGP encryption mode: set `SignData` to `True` and also provide `PrivateKeyFilePath` and `Passphrase`.
 
 ## XAML Example
 
-`xml
-<ui:EncryptText DisplayName="Encrypt Text" />
-`
+```xml
+<ui:EncryptText DisplayName="Encrypt Text"
+				Algorithm="AESGCM"
+				Input="[plainText]"
+				Key="my-secret-key"
+				KeyEncodingString="65001"
+				Result="[encryptedText]" />
+```
+

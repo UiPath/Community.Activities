@@ -40,10 +40,20 @@ Decrypts a file based on a specified key encoding and algorithm.
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- File source: provide either `InputFilePath` or `InputFile`.
+- Symmetric decryption mode: set `Algorithm`, then provide either `Key` or `KeySecureString`.
+- PGP decryption mode: provide `PrivateKeyFilePath` and `Passphrase`; optionally set `VerifySignature` with `PublicKeyFilePath`.
+- Set `OutputFilePath` to control destination; otherwise the activity generates the output name.
 
 ## XAML Example
 
-`xml
-<ui:DecryptFile DisplayName="Decrypt File" />
-`
+```xml
+<ui:DecryptFile DisplayName="Decrypt File"
+				Algorithm="AESGCM"
+				InputFilePath="C:\\temp\\encrypted.bin"
+				Key="my-secret-key"
+				OutputFilePath="C:\\temp\\decrypted.txt"
+				Overwrite="True"
+				DecryptedFile="[decryptedFile]" />
+```
+

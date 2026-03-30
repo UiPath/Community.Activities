@@ -14,11 +14,10 @@ Encrypts a file with a key based on a specified key encoding and algorithm.
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `Algorithm` | Algorithm | Property | `EncryptionAlgorithm` | Yes |  |  | A drop-down which enables you to select the encryption algorithm you want to use. |
-| `DeprecatedWarning` | D ep re ca te dW ar ni ng | Property | `object` |  |  |  |  |
 | `InputFilePath` | File path | InArgument | `string` |  |  |  | The path to the file that you want to encrypt. |
 | `InputFile` | File | InArgument | `IResource` |  |  |  | The file to be encrypted |
-| `Key` | Key | InArgument | `string` | Yes |  |  | The key that you want to use to encrypt the specified file. |
-| `KeySecureString` | Key Secure String | InArgument | `SecureString` | Yes |  |  | The secure string used to encrypt the input file. |
+| `Key` | Key | InArgument | `string` |  |  |  | The key that you want to use to encrypt the specified file. Provide either `Key` or `KeySecureString`. |
+| `KeySecureString` | Key Secure String | InArgument | `SecureString` |  |  |  | The secure string used to encrypt the input file. Provide either `Key` or `KeySecureString`. |
 | `PublicKeyFilePath` | Public Key File Path | InArgument | `string` |  |  |  | The path to the PGP public key file used for encryption. |
 | `PrivateKeyFilePath` | Private Key File Path | InArgument | `string` |  |  |  | The path to the PGP private key file used for signing. |
 | `Passphrase` | Passphrase | InArgument | `SecureString` |  |  |  | The passphrase for the PGP private key used for signing. |
@@ -41,10 +40,20 @@ Encrypts a file with a key based on a specified key encoding and algorithm.
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- File source: provide either `InputFilePath` or `InputFile`.
+- Symmetric encryption mode: set `Algorithm`, then provide either `Key` or `KeySecureString`.
+- PGP encryption mode: provide `PublicKeyFilePath`; for signed encryption also provide `PrivateKeyFilePath`, `Passphrase`, and set `SignData` to `True`.
+- Set `OutputFilePath` and `Overwrite` based on destination behavior.
 
 ## XAML Example
 
-`xml
-<ui:EncryptFile DisplayName="Encrypt File" />
-`
+```xml
+<ui:EncryptFile DisplayName="Encrypt File"
+				Algorithm="AESGCM"
+				InputFilePath="C:\\temp\\plain.txt"
+				Key="my-secret-key"
+				OutputFilePath="C:\\temp\\plain.encrypted"
+				Overwrite="True"
+				EncryptedFile="[encryptedFile]" />
+```
+

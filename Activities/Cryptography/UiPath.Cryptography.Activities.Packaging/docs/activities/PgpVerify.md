@@ -27,14 +27,21 @@ Verifies a PGP signature, clear signature, or validates a public key file.
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `Result` | Result | Property | `object` | True if verification succeeded, False otherwise. |
+| `Result` | Result | OutArgument | `bool` | True if verification succeeded, False otherwise. |
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- `Mode=Signature` or `Mode=ClearSignature`: provide both `InputFilePath` and `PublicKeyFilePath`.
+- `Mode=PublicKey`: provide only `PublicKeyFilePath`; `InputFilePath` is not required.
+- Use `Result` to branch workflow behavior based on verification success.
 
 ## XAML Example
 
-`xml
-<ui:PgpVerify DisplayName="PGP Verify" />
-`
+```xml
+<ui:PgpVerify DisplayName="PGP Verify"
+			  Mode="Signature"
+			  InputFilePath="C:\\temp\\document.sig"
+			  PublicKeyFilePath="C:\\keys\\public.asc"
+			  Result="[isValidSignature]" />
+```
+

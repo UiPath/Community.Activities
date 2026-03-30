@@ -33,10 +33,19 @@ Creates a PGP binary signature of a file using a private key.
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- Required inputs: `InputFilePath`, `PrivateKeyFilePath`, and `Passphrase`.
+- Set `OutputFilePath` to control the signed file destination.
+- Set `Overwrite` to `True` to replace an existing output file.
 
 ## XAML Example
 
-`xml
-<ui:PgpSignFile DisplayName="PGP Sign File" />
-`
+```xml
+<ui:PgpSignFile DisplayName="PGP Sign File"
+				InputFilePath="C:\\temp\\document.txt"
+				PrivateKeyFilePath="C:\\keys\\private.asc"
+				Passphrase="[privateKeyPassphrase]"
+				OutputFilePath="C:\\temp\\document.sig"
+				Overwrite="True"
+				SignedFile="[signedFile]" />
+```
+

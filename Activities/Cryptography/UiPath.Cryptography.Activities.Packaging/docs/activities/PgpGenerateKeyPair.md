@@ -34,10 +34,20 @@ Generates a PGP public/private key pair and saves them to the specified file pat
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- Required inputs: `PublicKeyFilePath`, `PrivateKeyFilePath`, `Username`, and `Password`.
+- Set `Overwrite` to `True` to replace existing key files.
+- Use output arguments `PublicKeyFile` and `PrivateKeyFile` for downstream file operations.
 
 ## XAML Example
 
-`xml
-<ui:PgpGenerateKeyPair DisplayName="PGP Generate Keys" />
-`
+```xml
+<ui:PgpGenerateKeyPair DisplayName="PGP Generate Keys"
+					   PublicKeyFilePath="C:\\keys\\public.asc"
+					   PrivateKeyFilePath="C:\\keys\\private.asc"
+					   Username="automation@uipath.com"
+					   Password="[keyPassphrase]"
+					   Overwrite="True"
+					   PublicKeyFile="[publicKeyFile]"
+					   PrivateKeyFile="[privateKeyFile]" />
+```
+

@@ -15,8 +15,8 @@ Decrypts text based on a specified key encoding and algorithm.
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `Algorithm` | Algorithm | Property | `EncryptionAlgorithm` | Yes |  |  | A drop-down which enables you to select the decryption algorithm you want to use. |
 | `Input` | Text | InArgument | `string` | Yes |  |  | The text that you want to decrypt. |
-| `Key` | Key | InArgument | `string` | Yes |  |  | The key that you want to use to decrypt the specified file. |
-| `KeySecureString` | Key Secure String | InArgument | `SecureString` | Yes |  |  | The secure string used to decrypt the input string. |
+| `Key` | Key | InArgument | `string` |  |  |  | The key that you want to use to decrypt the specified file. Provide either `Key` or `KeySecureString`. |
+| `KeySecureString` | Key Secure String | InArgument | `SecureString` |  |  |  | The secure string used to decrypt the input string. Provide either `Key` or `KeySecureString`. |
 | `PrivateKeyFilePath` | Private Key File Path | InArgument | `string` |  |  |  | The path to the PGP private key file used for decryption. |
 | `Passphrase` | Passphrase | InArgument | `SecureString` |  |  |  | The passphrase for the PGP private key. |
 | `PublicKeyFilePath` | Public Key File Path | InArgument | `string` |  |  |  | The path to the PGP public key file used for signature verification. |
@@ -33,14 +33,22 @@ Decrypts text based on a specified key encoding and algorithm.
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `Result` | Decrypted Text | Property | `object` | The decrypted text, stored in a String variable. |
+| `Result` | Decrypted Text | OutArgument | `string` | The decrypted text, stored in a String variable. |
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- Symmetric decryption mode: set `Algorithm` and `Input`, then provide either `Key` or `KeySecureString`.
+- PGP decryption mode: set `Algorithm` to PGP and provide `PrivateKeyFilePath` and `Passphrase`.
+- Signature verification mode: set `VerifySignature` to `True` and provide `PublicKeyFilePath`.
 
 ## XAML Example
 
-`xml
-<ui:DecryptText DisplayName="Decrypt Text" />
-`
+```xml
+<ui:DecryptText DisplayName="Decrypt Text"
+				Algorithm="AESGCM"
+				Input="[encryptedText]"
+				Key="my-secret-key"
+				KeyEncodingString="65001"
+				Result="[decryptedText]" />
+```
+

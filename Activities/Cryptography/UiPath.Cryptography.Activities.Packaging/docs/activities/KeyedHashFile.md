@@ -30,14 +30,21 @@ Hashes a file with a key using a specified algorithm and returns the hexadecimal
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `Result` | Hash | Property | `object` | The hashed file, stored in a String variable. |
+| `Result` | Hash | OutArgument | `string` | The hashed file, stored in a String variable. |
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- File source: provide either `FilePath` or `InputFile`.
+- HMAC algorithms: provide either `Key` or `KeySecureString`.
+- Non-HMAC algorithms: `Key` and `KeySecureString` are ignored.
 
 ## XAML Example
 
-`xml
-<ui:KeyedHashFile DisplayName="Hash File" />
-`
+```xml
+<ui:KeyedHashFile DisplayName="Hash File"
+				  Algorithm="HMACSHA256"
+				  FilePath="C:\\temp\\input.txt"
+				  Key="my-secret-key"
+				  Result="[fileHash]" />
+```
+

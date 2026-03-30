@@ -29,14 +29,21 @@ Hashes a string with a key using a specified algorithm and returns the hexadecim
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `Result` | Hash | Property | `object` | The hashed text, stored in a String variable. |
+| `Result` | Hash | OutArgument | `string` | The hashed text, stored in a String variable. |
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- HMAC algorithms: provide either `Key` or `KeySecureString`.
+- Non-HMAC algorithms: `Key` and `KeySecureString` are ignored.
+- `KeyEncodingString` is used when `Key` is provided as text.
 
 ## XAML Example
 
-`xml
-<ui:KeyedHashText DisplayName="Hash Text" />
-`
+```xml
+<ui:KeyedHashText DisplayName="Hash Text"
+				  Algorithm="HMACSHA256"
+				  Input="[inputText]"
+				  Key="my-secret-key"
+				  Result="[textHash]" />
+```
+

@@ -33,10 +33,19 @@ Creates a PGP clear-text signature of a file using a private key.
 
 ## Valid Configurations
 
-Set required input properties and choose optional configuration properties based on your chosen algorithm and key source. Some properties are conditionally visible in the designer depending on algorithm or mode.
+- Required inputs: `InputFilePath`, `PrivateKeyFilePath`, and `Passphrase`.
+- Set `OutputFilePath` to control where the clear-signed file is written.
+- Set `Overwrite` to `True` to replace an existing output file.
 
 ## XAML Example
 
-`xml
-<ui:PgpClearSignFile DisplayName="PGP Clear Sign File" />
-`
+```xml
+<ui:PgpClearSignFile DisplayName="PGP Clear Sign File"
+					 InputFilePath="C:\\temp\\message.txt"
+					 PrivateKeyFilePath="C:\\keys\\private.asc"
+					 Passphrase="[privateKeyPassphrase]"
+					 OutputFilePath="C:\\temp\\message.signed.txt"
+					 Overwrite="True"
+					 ClearSignedFile="[clearSignedFile]" />
+```
+
