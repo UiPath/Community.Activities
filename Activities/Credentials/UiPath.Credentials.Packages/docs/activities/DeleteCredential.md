@@ -34,5 +34,5 @@ Removes a stored credential from the Windows Credential Manager by its target na
 
 ## Notes
 
-- If no credential with the specified `Target` exists, the activity returns `false` without throwing an exception.
 - This activity uses the Windows Credential Manager API (via the `CredentialManagement` library) and requires Windows.
+- The behavior when a credential is not found depends on the underlying `CredentialManagement` library. Typically, the activity returns `false` if the credential does not exist, but this behavior is not guaranteed by the code in this package.

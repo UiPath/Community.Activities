@@ -81,6 +81,6 @@ Providing both or neither raises an exception at runtime.
 
 ## Notes
 
-- `Password` and `PasswordSecureString` are mutually exclusive. Providing both throws `ArgumentException`; providing neither throws `ArgumentNullException`.
+- `Password` and `PasswordSecureString` are mutually exclusive. Providing both throws `ArgumentException`; providing neither throws `ArgumentNullException`. Note: empty strings are treated as "provided" only in the mutual-exclusion check (so `Password=""` with `PasswordSecureString=<value>` raises `ArgumentException`), but as "not provided" in the neither-nor check (so `Password=""` with `PasswordSecureString=null` raises `ArgumentNullException`).
 - `CredentialType` accepts only `Generic` or `DomainPassword`. Using another value (e.g., `DomainCertificate`) produces a designer validation error.
 - This activity uses the Windows Credential Manager API (via the `CredentialManagement` library) and requires Windows.
