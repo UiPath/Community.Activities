@@ -13,7 +13,7 @@ Invokes a method on a Python object instance and returns the method result.
 
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
-| `Instance` | Invoke Python Method | InArgument | `PythonObject` |  | null |  | Invoke Python method |
+| `Instance` | Instance | InArgument | `PythonObject` |  | null |  | The Python object instance on which to invoke the method. Leave empty for module-level calls. |
 | `Name` | Name | InArgument | `string` | Yes |  |  | Name of the method to be invoked |
 
 ### Configuration
