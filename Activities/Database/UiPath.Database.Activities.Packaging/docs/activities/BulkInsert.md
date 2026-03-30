@@ -18,11 +18,6 @@ Updates a database table via Bulk operations of the specific database driver. Fa
 | `TableName` | Target table name | InArgument | `string` | Yes |  | Provide the target database table name | The target database table in which the data is to be inserted |
 | `ContinueOnError` | Continue on error | Property | `object` |  |  |  | Specifies if the automation should continue even when the activity throws an error. |
 
-### Input/Output
-
-| Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
-|------|-------------|------|------|----------|---------|-------------|-------------|
-
 ### Output
 
 | Name | Display Name | Kind | Type | Description |

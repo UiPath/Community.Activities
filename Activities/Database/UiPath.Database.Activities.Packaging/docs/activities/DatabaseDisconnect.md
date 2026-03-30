@@ -15,11 +15,6 @@ Closes a connection to a database
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `DatabaseConnection` | Existing connection | InArgument | `DatabaseConnection` | Yes |  | Use the output of the Connect to Database activity | An already opened database connection obtained from the Connect to Database activity. |
 
-### Input/Output
-
-| Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
-|------|-------------|------|------|----------|---------|-------------|-------------|
-
 ### Output
 
 | Name | Display Name | Kind | Type | Description |

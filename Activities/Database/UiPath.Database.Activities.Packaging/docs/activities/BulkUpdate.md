@@ -20,11 +20,6 @@ Updates a compatible DataTable in an existing database table. The activity also 
 | `ColumnNames` | Columns used for matching rows | InArgument | `string[]` | Yes |  | Column names used for row matching | The collection of column names used for row matching. These column names will not be changed by the Bulk Update activity. |
 | `ContinueOnError` | Continue on error | Property | `object` |  |  |  | Specifies if the automation should continue even when the activity throws an error. |
 
-### Input/Output
-
-| Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
-|------|-------------|------|------|----------|---------|-------------|-------------|
-
 ### Output
 
 | Name | Display Name | Kind | Type | Description |
@@ -35,6 +30,6 @@ Updates a compatible DataTable in an existing database table. The activity also 
 
 ```xml
 <Activity mc:Ignorable="sap sap2010" xmlns:db="clr-namespace:UiPath.Database.Activities;assembly=UiPath.Database.Activities">
-  <db:BulkUpdate DisplayName="Bulk Update" ExistingDbConnection="[value]" DataTable="[value]" TableName="[value]" />
+  <db:BulkUpdate DisplayName="Bulk Update" ExistingDbConnection="[value]" DataTable="[value]" TableName="[value]" ColumnNames="[value]" />
 </Activity>
 ```
