@@ -16,8 +16,8 @@ Gets a field value from a Java object instance or from a static Java class field
 | Name | Display Name | Kind | Type | Required | Default | Description |
 |------|-------------|------|------|----------|---------|-------------|
 | `FieldName` | Field Name | InArgument | `string` | Yes |  | Java field name to read. |
-| `TargetObject` | Target Object | InArgument | `JavaObject` | Yes* |  | Java object instance used for instance-field access. |
-| `TargetType` | Target Type | InArgument | `string` | Yes* |  | Java class name used for static-field access. |
+| `TargetObject` | Target Object | InArgument | `JavaObject` | Conditional |  | Java object instance used for instance-field access. |
+| `TargetType` | Target Type | InArgument | `string` | Conditional |  | Java class name used for static-field access. |
 
 ### Output
 

@@ -16,8 +16,8 @@ Invokes a Java method on an instance object or as a static class method, with op
 | Name | Display Name | Kind | Type | Required | Default | Description |
 |------|-------------|------|------|----------|---------|-------------|
 | `MethodName` | Method Name | InArgument | `string` | Yes |  | Java method name to invoke. |
-| `TargetObject` | Target Object | InArgument | `JavaObject` | Yes* |  | Java object instance used for instance method invocation. |
-| `TargetType` | Target Type | InArgument | `string` | Yes* |  | Java class name used for static method invocation. |
+| `TargetObject` | Target Object | InArgument | `JavaObject` | Conditional |  | Java object instance used for instance method invocation. |
+| `TargetType` | Target Type | InArgument | `string` | Conditional |  | Java class name used for static method invocation. |
 | `Parameters` | Parameters | Property | `List<InArgument>` |  | `[]` | Method arguments declared individually. |
 | `ParametersList` | Parameters List | InArgument | `List<object>` |  |  | Method arguments supplied as a single list. |
 
