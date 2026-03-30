@@ -59,6 +59,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 # Add shared utilities to path (relative to this script's location)
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "shared"))
@@ -95,6 +96,12 @@ def parse_metadata_json(json_paths: list[str]) -> tuple[list[dict], list[str]]:
     category_order: list[str] = []
     seen_names: set[str] = set()
 
+    def _get_first(data: dict[str, Any], *keys: str, default: Any = None) -> Any:
+        for key in keys:
+            if key in data:
+                return data[key]
+        return default
+
     for path in json_paths:
         try:
             with open(path, "r", encoding="utf-8-sig") as f:
@@ -103,33 +110,33 @@ def parse_metadata_json(json_paths: list[str]) -> tuple[list[dict], list[str]]:
             print(f"Warning: Could not parse metadata file {path}: {e}", file=sys.stderr)
             continue
 
-        if "orderedCategoryDisplayNameKeys" in data:
-            category_order = data["orderedCategoryDisplayNameKeys"]
+        category_order = _get_first(
+            data,
+            "orderedCategoryDisplayNameKeys",
+            "OrderedCategoryDisplayNameKeys",
+            default=category_order,
+        )
 
-        # Support both lowercase "activities" and capitalized "Activities" keys
-        acts_list = data.get("activities", data.get("Activities", []))
-        for act in acts_list:
-            # Helper to get values from either camelCase or PascalCase keys
-            def get_value(obj, camel_key, pascal_key=None):
-                if pascal_key is None:
-                    pascal_key = camel_key[0].upper() + camel_key[1:]
-                return obj.get(camel_key, obj.get(pascal_key, ""))
-            
-            full_name = get_value(act, "fullName", "FullName")
+        for act in _get_first(data, "activities", "Activities", default=[]):
+            full_name = _get_first(act, "fullName", "FullName", default="")
             if not full_name or full_name in seen_names:
                 continue
             seen_names.add(full_name)
             activities.append({
                 "fullName": full_name,
-                "shortName": get_value(act, "shortName", "ShortName") or full_name.split(".")[-1],
-                "displayNameKey": get_value(act, "displayNameKey", "DisplayNameKey"),
-                "descriptionKey": get_value(act, "descriptionKey", "DescriptionKey"),
-                "categoryKey": get_value(act, "categoryKey", "CategoryKey"),
-                "viewModelType": get_value(act, "viewModelType", "ViewModelType"),
-                "codedWorkflowSupport": act.get("codedWorkflowSupport", act.get("CodedWorkflowSupport", False)),
-                "browsable": act.get("browsable", act.get("Browsable", True)),
-                "mandatoryParentActivityFullName": get_value(act, "mandatoryParentActivityFullName", "MandatoryParentActivityFullName"),
-                "properties": act.get("properties", act.get("Properties", [])),
+                "shortName": _get_first(act, "shortName", "ShortName", default=full_name.split(".")[-1]),
+                "displayNameKey": _get_first(act, "displayNameKey", "DisplayNameKey"),
+                "descriptionKey": _get_first(act, "descriptionKey", "DescriptionKey"),
+                "categoryKey": _get_first(act, "categoryKey", "CategoryKey"),
+                "viewModelType": _get_first(act, "viewModelType", "ViewModelType"),
+                "codedWorkflowSupport": _get_first(act, "codedWorkflowSupport", "CodedWorkflowSupport", default=False),
+                "browsable": _get_first(act, "browsable", "Browsable", default=True),
+                "mandatoryParentActivityFullName": _get_first(
+                    act,
+                    "mandatoryParentActivityFullName",
+                    "MandatoryParentActivityFullName",
+                ),
+                "properties": _get_first(act, "properties", "Properties", default=[]),
                 "metadataFile": path,
             })
 
@@ -175,7 +182,17 @@ RE_PROPERTY = re.compile(
         (?P<plain_type>[A-Za-z_][\w.<>,\[\]\s?]*)
     )\s+
     (?P<name>[A-Za-z_]\w*)\s*
-    \{\s*get;\s*set;\s*\}
+    \{\s*
+        (
+            get;\s*(?:private\s+)?set;
+            |
+            set;\s*(?:private\s+)?get;
+            |
+            get\s*=>[^;]+;\s*set\s*=>[^;]+;
+            |
+            set\s*=>[^;]+;\s*get\s*=>[^;]+;
+        )
+    \s*\}
     (?:\s*=\s*(?P<default>[^;]+))?
     """,
     re.VERBOSE | re.MULTILINE | re.DOTALL,
@@ -201,13 +218,22 @@ _SKIP_PROPERTY_NAMES = frozenset({"Body", "CacheId", "Implementation"})
 _SKIP_TYPE_PREFIXES = ("ActivityAction", "ActivityFunc")
 
 
+def _should_skip_property_name(name: str) -> bool:
+    """Return True for non-user-facing infrastructure property names."""
+    if name in _SKIP_PROPERTY_NAMES:
+        return True
+    if name == "DeprecatedWarning":
+        return True
+    return name.endswith("InputModeSwitch")
+
+
 def extract_activity_properties(content: str) -> list[dict]:
     """Extract public auto-properties from an Activity .cs file."""
     properties = []
 
     for m in RE_PROPERTY.finditer(content):
         name = m.group("name")
-        if name in _SKIP_PROPERTY_NAMES:
+        if _should_skip_property_name(name):
             continue
 
         arg_type = m.group("arg_type")
@@ -418,12 +444,17 @@ def _merge_single_property(
         or resolve_key(prop.get("categoryKey"), resx_map)
     )
 
+    merged_type = prop["type"]
+    vm_type = vm.get("type")
+    if merged_type.lower() == "object" and isinstance(vm_type, str) and vm_type.strip():
+        merged_type = vm_type.strip()
+
     return {
         "name": prop["name"],
         "displayName": display_name,
         "description": description,
         "kind": vm.get("kind") or prop["kind"],
-        "type": prop["type"],
+        "type": merged_type,
         "genericType": prop.get("genericType"),
         "required": vm.get("isRequired") if vm.get("isRequired") is not None else prop["required"],
         "defaultValue": prop.get("defaultValue"),
@@ -472,6 +503,47 @@ def _property_sort_key(prop: dict) -> tuple:
     return (9999, prop["name"])
 
 
+def _normalize_required_flags(merged_props: list[dict]) -> None:
+    """Normalize requiredness for mutually-exclusive property sets.
+
+    This avoids marking both sides of one-of choices as required.
+    """
+    by_name = {p["name"]: p for p in merged_props}
+
+    one_of_pairs = [
+        ("Key", "KeySecureString"),
+        ("ConnectionString", "ConnectionSecureString"),
+        ("Password", "SecurePassword"),
+        ("ProxyPassword", "ProxySecurePassword"),
+        ("ClientCertificatePassword", "ClientCertificateSecurePassword"),
+        ("Code", "ScriptFile"),
+        ("TargetObject", "TargetType"),
+    ]
+
+    for left, right in one_of_pairs:
+        if left in by_name and right in by_name and by_name[left].get("required") and by_name[right].get("required"):
+            by_name[left]["required"] = False
+            by_name[right]["required"] = False
+            group = [left, right]
+            by_name[left]["requiredOneOf"] = group
+            by_name[right]["requiredOneOf"] = group
+
+    by_group: dict[str, list[dict]] = {}
+    for prop in merged_props:
+        group = prop.get("overloadGroup")
+        if group:
+            by_group.setdefault(group, []).append(prop)
+
+    for group_name, group_props in by_group.items():
+        required_props = [p for p in group_props if p.get("required")]
+        if len(required_props) > 1:
+            names = [p["name"] for p in group_props]
+            for prop in required_props:
+                prop["required"] = False
+                prop["requiredOneOf"] = names
+                prop["requiredGroup"] = group_name
+
+
 def merge_activity_data(
     meta_entry: dict,
     activity_props: list[dict],
@@ -493,8 +565,12 @@ def merge_activity_data(
     # Add ViewModel-only properties not found in the activity class
     activity_prop_names = {p["name"] for p in activity_props}
     for name, vm in vm_metadata.items():
+        if _should_skip_property_name(name):
+            continue
         if name not in activity_prop_names and not vm.get("notMapped"):
             merged_props.append(_make_vm_only_property(name, vm, resx_map))
+
+    _normalize_required_flags(merged_props)
 
     merged_props.sort(key=_property_sort_key)
 

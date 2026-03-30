@@ -24,6 +24,7 @@ This is the template for generating per-activity markdown documentation files fo
 
 ## Properties
 
+{{#if inputProperties}}
 ### Input
 
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
@@ -31,7 +32,9 @@ This is the template for generating per-activity markdown documentation files fo
 {{#each inputProperties}}
 | `{{Name}}` | {{DisplayName}} | {{Kind}} | `{{Type}}` | {{Required}} | {{Default}} | {{Placeholder}} | {{Description}} |
 {{/each}}
+{{/if}}
 
+{{#if configProperties}}
 ### Configuration
 
 | Name | Display Name | Type | Default | Description |
@@ -39,7 +42,9 @@ This is the template for generating per-activity markdown documentation files fo
 {{#each configProperties}}
 | `{{Name}}` | {{DisplayName}} | `{{Type}}` | {{Default}} | {{Description}} |
 {{/each}}
+{{/if}}
 
+{{#if outputProperties}}
 ### Output
 
 | Name | Display Name | Kind | Type | Description |
@@ -47,6 +52,7 @@ This is the template for generating per-activity markdown documentation files fo
 {{#each outputProperties}}
 | `{{Name}}` | {{DisplayName}} | {{Kind}} | `{{Type}}` | {{Description}} |
 {{/each}}
+{{/if}}
 
 {{#if validConfigurations}}
 ## Valid Configurations
@@ -143,7 +149,7 @@ Properties the user provides to configure what the activity does:
   - For `InArgument<T>`: the `T` type
   - For plain properties: the property type directly
   - For enum types: `EnumName` (list values in Enum Reference section)
-- **Required**: `Yes` if `[RequiredArgument]` is present or `IsRequired` is set in the ViewModel, otherwise leave empty
+- **Required**: `Yes` if `[RequiredArgument]` is present or `IsRequired` is set in the ViewModel, `Conditional` for one-of/mutually-exclusive inputs, otherwise leave empty
 - **Default**: From `[DefaultValue(x)]`, inline initializer (`= value`), or constructor assignment
 - **Placeholder**: From the ViewModel's `Placeholder` property (resolved via `.resx`). Shows the expected format to the user (e.g., `"hh:mm:ss"`, `"dd/MM/yyyy"`). Include when present — it helps coding agents provide correctly formatted values and avoids unnecessary errors
 - **Description**: From the ViewModel's `Tooltip` property, or `[LocalizedDescription]` on the activity class
