@@ -71,6 +71,22 @@ For each activity in the JSON output, generate a markdown doc using the template
 8. **Behavioral context** — When the activity wraps a well-known library or API (e.g., Excel Interop, Orchestrator REST API, SMTP), briefly note this so the AI agent understands the activity's capabilities and limitations.
 9. **References** (optional) — If an activity has supplementary reference files (detailed examples, extended guidance, complex scenarios) that would bloat the main doc, place them in a `{ActivityClassName}/` subdirectory alongside the `.md` file and add a References section linking to them. Only include when such files exist.
 
+### Phase 3: Validate Generated Docs (Mandatory)
+
+Before presenting docs as complete, run the validator script and fail the generation pass if any errors are reported.
+
+```bash
+python {skillPath}/scripts/validate-activity-docs.py "{docsRoot}" --strict
+```
+
+Validation must fail on:
+- broken or missing fenced XML blocks in XAML examples
+- output rows incorrectly marked as `Property` instead of `OutArgument`/`InOutArgument`
+- mutually exclusive one-of fields both marked `Required: Yes`
+- required input properties missing from XAML example attributes
+- leaked internal/infrastructure properties (`Body`, `*InputModeSwitch`, `DeprecatedWarning`)
+- placeholder empty Input/Output rows (for example, `| `-` | - | - | `-` | - |`)
+
 ---
 
 ## Step-by-Step
@@ -232,3 +248,4 @@ When documenting:
 - [ ] Project settings are documented when present (`[ArgumentSettingAttribute]`)
 - [ ] References section included when supplementary files exist in `{ActivityClassName}/` subdirectory
 - [ ] `overview.md` lists all activities with correct relative links
+- [ ] Validator passes with zero errors (`validate-activity-docs.py --strict`)
