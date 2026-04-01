@@ -45,7 +45,7 @@ namespace UiPath.Python.Tests
                 Version.Python_310,
             };
 
-            Assert.Equal(expected, VersionExtensions.GetSupportedVersion());
+            Assert.Equal(expected, VersionExtensions.GetSupportedVersions());
         }
     }
 }

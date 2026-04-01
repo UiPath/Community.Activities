@@ -398,7 +398,9 @@ namespace UiPath.Python.Impl
                     site.addsitedir(sitePackagesPath);
 
                     // addsitedir appends; move to front so venv packages take priority over base Python.
-                    sys.path.remove(sitePackagesPath);
+                    if ((bool)sys.path.__contains__(sitePackagesPath))
+                        sys.path.remove(sitePackagesPath);
+
                     sys.path.insert(0, sitePackagesPath);
                 }
             }

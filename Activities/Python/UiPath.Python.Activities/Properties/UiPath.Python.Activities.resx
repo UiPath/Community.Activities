@@ -310,6 +310,6 @@
     <value>Installed Python Versions</value>
   </data>
   <data name="InstalledVersionsDescription" xml:space="preserve">
-    <value>Select the python installation to be used for the configuration of the activity</value>
+    <value>Select the Python installation to be used for the configuration of the activity</value>
   </data>
 </root>

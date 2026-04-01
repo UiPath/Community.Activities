@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using UiPath.Python;
 using PythonTargetPlatform = UiPath.Python.TargetPlatform;
 using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
@@ -57,7 +58,7 @@ namespace UiPath.Activities.Python.ViewModels
                 .WithSingleItemConverter(
                     itemToValue: item => item,
                     valueToItem: value => value)
-                .WithData(VersionExtensions.GetSupportedVersion())
+                .WithData(VersionExtensions.GetSupportedVersions())
                 .Build();
 
             Path.DisplayName = Resources.PathNameDisplayName;
@@ -98,12 +99,23 @@ namespace UiPath.Activities.Python.ViewModels
                     valueToItem: value => GetInstalledPythonVersions().FirstOrDefault(v => v.Key == value))
                 .WithData(GetInstalledPythonVersions().ToList())
                 .Build();
+
+            // Pre-select the dropdown entry whose InstallPath/LibraryPath/TargetPlatform match
+            // the values already stored in the workflow, so reopening a configured scope
+            // shows the correct installation without requiring the user to re-pick it.
+            var matchingInstallation = GetInstalledPythonVersions().FirstOrDefault(v =>
+                string.Equals(v.InstallPath, GetLiteralValue(Path.Value), System.StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(v.LibraryPath, GetLiteralValue(LibraryPath.Value), System.StringComparison.OrdinalIgnoreCase) &&
+                (v.TargetPlatform ?? PythonTargetPlatform.x64) == TargetPlatform.Value);
+
+            if (matchingInstallation is not null)
+                InstalledVersions.Value = matchingInstallation.Key;
         }
 
         protected override void InitializeRules()
         {
             base.InitializeRules();
-            Rule(nameof(InstalledVersions), OnInstalledVersionsChanged);
+            Rule(nameof(InstalledVersions), OnInstalledVersionsChanged, false);
         }
 
         protected override void ManualRegisterDependencies()
@@ -135,7 +147,8 @@ namespace UiPath.Activities.Python.ViewModels
 
         private static readonly Regex _launcherLineRegex = new Regex(
             @"(?<major>\d+)\.(?<minor>\d+)(?:[\/\-](?<bits>\d+))?\s+\*?\s*(?<path>[A-Za-z]:\\.+)",
-            RegexOptions.Compiled);
+            RegexOptions.Compiled,
+            matchTimeout: System.TimeSpan.FromSeconds(2));
 
         private static readonly System.Lazy<IReadOnlyList<PythonInstallation>> _installedPythonVersions =
             new System.Lazy<IReadOnlyList<PythonInstallation>>(BuildInstalledPythonVersions);
@@ -144,16 +157,23 @@ namespace UiPath.Activities.Python.ViewModels
 
         private static IReadOnlyList<PythonInstallation> BuildInstalledPythonVersions()
         {
-            var versions = new List<PythonInstallation>();
+            try
+            {
+                var versions = new List<PythonInstallation>();
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                CollectFromPythonLauncher(versions);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    CollectFromPythonLauncher(versions);
 
-            return versions
-                .DistinctBy(v => (v.Version, v.TargetPlatform))
-                .OrderBy(v => v.Version)
-                .ThenBy(v => v.TargetPlatform)
-                .ToList();
+                return versions
+                    .DistinctBy(v => (v.Version, v.TargetPlatform))
+                    .OrderByDescending(v => System.Version.TryParse(v.Version, out var parsed) ? parsed : new System.Version(0, 0))
+                    .ThenBy(v => v.TargetPlatform)
+                    .ToList();
+            }
+            catch
+            {
+                return [];
+            }
         }
 
         private static void CollectFromPythonLauncher(List<PythonInstallation> versions)
@@ -172,9 +192,16 @@ namespace UiPath.Activities.Python.ViewModels
                 if (process is null)
                     return;
 
-                var stdoutTask = process.StandardOutput.ReadToEndAsync();
-                var stderrTask = process.StandardError.ReadToEndAsync();
-                process.WaitForExit(3000);
+                // Synchronous reads on thread-pool threads avoid capturing the UI SynchronizationContext,
+                // which would otherwise deadlock when blocking on .Result from the UI thread.
+                var stdoutTask = Task.Run(() => process.StandardOutput.ReadToEnd());
+                var stderrTask = Task.Run(() => process.StandardError.ReadToEnd());
+
+                if (!Task.WhenAll(stdoutTask, stderrTask).Wait(System.TimeSpan.FromSeconds(3)))
+                {
+                    try { process.Kill(entireProcessTree: true); } catch { }
+                    return;
+                }
 
                 var output = stdoutTask.Result + stderrTask.Result;
                 foreach (var line in output.Split('\n'))
@@ -189,6 +216,11 @@ namespace UiPath.Activities.Python.ViewModels
             }
             catch { }
         }
+
+        /// <summary>Returns the literal string wrapped by a <see cref="System.Activities.InArgument{T}"/>,
+        /// or <see langword="null"/> when the argument holds an expression instead of a constant.</summary>
+        private static string GetLiteralValue(System.Activities.InArgument<string> arg) =>
+            (arg?.Expression as System.Activities.Expressions.Literal<string>)?.Value;
 
         private static PythonInstallation? TryParseLauncherLine(string line)
         {

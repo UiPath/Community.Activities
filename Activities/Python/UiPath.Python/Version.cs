@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -159,7 +160,7 @@ namespace UiPath.Python
             Version.Python_310
         };
 
-        public static Version[] GetSupportedVersion() => _supportedVersions;
+        public static IReadOnlyList<Version> GetSupportedVersions() => _supportedVersions;
     }
 
     public class EnumTypeConverter : EnumConverter
