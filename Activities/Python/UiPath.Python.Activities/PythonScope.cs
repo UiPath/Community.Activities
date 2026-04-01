@@ -103,6 +103,8 @@ namespace UiPath.Python.Activities
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             base.CacheMetadata(metadata);
+            if (Array.IndexOf(VersionExtensions.GetSupportedVersion(), Version) < 0)
+                metadata.AddValidationError(new ValidationError(Resources.ValidationErrorVersionUnsupported, false, nameof(Version)));
             if(Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
                 metadata.AddValidationError(new ValidationError(Resources.ValidationErrorPlatformUnsupported, false, nameof(Version)));
         }
@@ -118,10 +120,18 @@ namespace UiPath.Python.Activities
             {
                 string path = Path.Get(context);
                 string libraryPath = LibraryPath.Get(context);
+                
+                // if the user supplied the full path to the Python executable instead of its folder, extract the folder
+                if (!path.IsNullOrEmpty() && File.Exists(path))
+                    path = System.IO.Path.GetDirectoryName(path);
+
                 if (!path.IsNullOrEmpty() && !Directory.Exists(path))
                     throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
 
                 cancellationToken.ThrowIfCancellationRequested();
+
+                if (Array.IndexOf(VersionExtensions.GetSupportedVersion(), Version) < 0)
+                    throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
 
                 _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
 
@@ -132,6 +142,8 @@ namespace UiPath.Python.Activities
                 {
                     Version autodetected = Version.Auto;
                     EngineProvider.Autodetect(path, out autodetected);
+                    if (autodetected != Version.Auto && Array.IndexOf(VersionExtensions.GetSupportedVersion(), autodetected) < 0)
+                        throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
                     if (autodetected != Version.Auto && autodetected != Version)
                         throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
                 }

@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
     <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
@@ -13,7 +12,7 @@
   <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
 	<ItemGroup>
 		<PackageReference Include="System.Activities.ViewModels" />
-		<PackageReference Include="UiPath.Telemetry.Client" Version="2.6.1" />
+		<PackageReference Include="UiPath.Telemetry.Client"/>
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
 		<PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
@@ -27,9 +26,7 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="UiPath.Activities.Api" />
-    
+  <ItemGroup>    
     <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
   </ItemGroup>
 

@@ -511,6 +511,15 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected Python version is not supported.
+        /// </summary>
+        public static string ValidationErrorVersionUnsupported {
+            get {
+                return ResourceManager.GetString("ValidationErrorVersionUnsupported", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Python version &gt;= 3.10 is not supported on 32 bit. .
         /// </summary>
         public static string ValidationErrorPlatformUnsupported {
@@ -561,6 +570,24 @@ namespace UiPath.Python.Activities.Properties {
         public static string WorkingFolderPathInvalid {
             get {
                 return ResourceManager.GetString("WorkingFolderPathInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Installed Python Versions.
+        /// </summary>
+        public static string InstalledVersionsDisplayName {
+            get {
+                return ResourceManager.GetString("InstalledVersionsDisplayName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Select the python installation to be used for the configuration of the activity.
+        /// </summary>
+        public static string InstalledVersionsDescription {
+            get {
+                return ResourceManager.GetString("InstalledVersionsDescription", resourceCulture);
             }
         }
     }

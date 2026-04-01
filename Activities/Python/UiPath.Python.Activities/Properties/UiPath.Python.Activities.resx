@@ -296,11 +296,20 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>Library path (Linux or version&gt;3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>The selected Python version is not supported.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Python version &gt;= 3.10 is not supported on 32 bit. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>App Invoker.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>Installed Python Versions</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>Select the python installation to be used for the configuration of the activity</value>
   </data>
 </root>

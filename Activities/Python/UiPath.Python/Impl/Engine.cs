@@ -73,7 +73,7 @@ namespace UiPath.Python.Impl
             _version = version;
             _path = path;
             _libraryPath = libraryPath;
-            if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 _isWindows = false;
         }
 
@@ -89,44 +89,55 @@ namespace UiPath.Python.Impl
                 {
                     if (!_initialized)
                     {
-                        ct.ThrowIfCancellationRequested();
-                        Trace.TraceInformation($"Initializing Python runtime using version {_version} and path {_path}");
-                        Stopwatch sw = Stopwatch.StartNew();
-
-                        // needed in oder to find Python dll ??
-                        if (_isWindows)
-                            SetDllDirectory(Path.GetFullPath(_path));
-
-                        // load the dedicated Python.Runtime.XX.dll
-                        string path = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(GetType()).Location).LocalPath);
-                        path = Path.Combine(path, (IntPtr.Size == 8) ? "x64" : "x86");
-                        path = Path.Combine(path, _version.GetAssemblyName());
-                        
-                        Assembly assembly = Assembly.LoadFile(path);
-                        ct.ThrowIfCancellationRequested();
-
-                        InitializeRuntime(assembly);
-                        ct.ThrowIfCancellationRequested();
-
-                        if (_version == Version.Python_310)
+                        try
                         {
-                            if (!string.IsNullOrEmpty(_libraryPath))
-                                _pyRuntime.PythonDLL = _libraryPath;
+                            ct.ThrowIfCancellationRequested();
+                            Trace.TraceInformation($"Initializing Python runtime using version {_version} and path {_path}");
+                            Stopwatch sw = Stopwatch.StartNew();
+
+                            // needed to find the Python dll on Windows
+                            if (_isWindows)
+                                SetDllDirectory(Path.GetFullPath(_path));
+
+                            // load the dedicated Python.Runtime.XX.dll
+                            string path = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(GetType()).Location).LocalPath);
+                            path = Path.Combine(path, (IntPtr.Size == 8) ? "x64" : "x86");
+                            path = Path.Combine(path, _version.GetAssemblyName());
+
+                            Assembly assembly = Assembly.LoadFile(path);
+                            ct.ThrowIfCancellationRequested();
+
+                            InitializeRuntime(assembly);
+                            ct.ThrowIfCancellationRequested();
+
+                            if (_version == Version.Python_310)
+                            {
+                                if (!string.IsNullOrEmpty(_libraryPath))
+                                    _pyRuntime.PythonDLL = _libraryPath;
+                            }
+                            else
+                                _pyEngine.PythonHome = _path;
+
+                            if (_version >= Version.Python_36 && _version <= Version.Python_39)
+                                _pyEngine.Initialize(null, null, null, null);
+                            else
+                                _pyEngine.Initialize(null, null, null);
+
+                            ct.ThrowIfCancellationRequested();
+
+                            PostInitializationVenvSetup();
+
+                            _pythreads = _pyEngine.BeginAllowThreads();
+
+                            sw.Stop();
+                            Trace.TraceInformation($"Engine intialization took {sw.ElapsedMilliseconds} ms");
+                            _initialized = true;
                         }
-                        else
-                            _pyEngine.PythonHome = _path;
-
-                        if (_version >= Version.Python_36 && _version <= Version.Python_39)
-                            _pyEngine.Initialize(null, null, null, null);
-                        else
-                            _pyEngine.Initialize(null, null, null);
-                        ct.ThrowIfCancellationRequested();
-
-                        _pythreads = _pyEngine.BeginAllowThreads();
-
-                        sw.Stop();
-                        Trace.TraceInformation($"Engine intialization took {sw.ElapsedMilliseconds} ms");
-                        _initialized = true;
+                        catch (Exception e)
+                        {
+                            Trace.TraceError($"Python runtime initialization exception: {e}");
+                            throw;
+                        }
                     }
                     else
                     {
@@ -327,6 +338,69 @@ namespace UiPath.Python.Impl
             {
                 var reader = new StreamReader(str);
                 return reader.ReadToEnd();
+            }
+        }
+
+        private static bool IsVenv(string path) => File.Exists(Path.Combine(path, "pyvenv.cfg"));
+
+        private static string GetVenvPath(string venvPath, int maxLevels = 3)
+        {
+            if (string.IsNullOrEmpty(venvPath) || maxLevels == 0)
+                return null;
+            else if (IsVenv(venvPath))
+                return venvPath;
+            else
+                return GetVenvPath(Path.GetDirectoryName(venvPath), maxLevels - 1);
+        }
+
+        private static string GetEnvSitePackagesPath(string venvPath)
+        {
+            string sitePackages;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                sitePackages = Path.Combine(venvPath, "Lib", "site-packages");
+            }
+            else
+            {
+                // On Linux/macOS the layout is lib/pythonX.Y/site-packages
+                var libPath = Path.Combine(venvPath, "lib");
+                var pythonDir = Directory.GetDirectories(libPath, "python*").FirstOrDefault()
+                    ?? throw new DirectoryNotFoundException($"No python* directory found under {libPath}");
+                sitePackages = Path.Combine(pythonDir, "site-packages");
+            }
+            return sitePackages;
+        }
+
+        private void PostInitializationVenvSetup()
+        {
+            if (_version != Version.Python_310)
+                return;
+
+            var venvPath = GetVenvPath(_path);
+            if (!string.IsNullOrWhiteSpace(venvPath))
+            {
+                using (_py.GIL())
+                {
+                    dynamic sys = _py.Import("sys");
+                    dynamic site = _py.Import("site");
+
+                    // Full venv activation: sys.prefix/exec_prefix let packages locate
+                    // their own data files (e.g. scipy, spaCy models) inside the venv.
+                    // sys.base_prefix/base_exec_prefix retain the base Python location
+                    // and are already set correctly by Initialize().
+                    sys.prefix = venvPath;
+                    sys.exec_prefix = venvPath;
+
+                    // addsitedir adds site-packages to sys.path AND processes .pth files.
+                    // .pth processing is required for editable installs (pip install -e)
+                    // and packages that register extra paths via .pth (e.g. scipy, spaCy).
+                    var sitePackagesPath = GetEnvSitePackagesPath(venvPath);
+                    site.addsitedir(sitePackagesPath);
+
+                    // addsitedir appends; move to front so venv packages take priority over base Python.
+                    sys.path.remove(sitePackagesPath);
+                    sys.path.insert(0, sitePackagesPath);
+                }
             }
         }
 
