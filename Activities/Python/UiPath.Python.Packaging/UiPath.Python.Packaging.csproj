@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\Python.build.props" />
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
         <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
@@ -56,7 +55,7 @@
             <TfmSpecificPackageFile Include="$(OutputPath)**\Python.Runtime*.dll">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
-            <TfmSpecificPackageFile Include="$(OutputPath)UiPath.Python.Host*.json">
+            <TfmSpecificPackageFile Include="$(OutputPath)UiPath.Python.Host*.*">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
             <TfmSpecificPackageFile Include="$(OutputPath)**\UiPath.Python.resources.dll">
@@ -88,6 +87,8 @@
 
     <ItemGroup>
         <PackageReference Include="System.Activities.ViewModels" />
+        <PackageReference Include="UiPath.Platform" />
+        <PackageReference Include="UiPath.Telemetry.Client" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
