@@ -296,11 +296,20 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>ライブラリ パス (Linux または 3.9 より後のバージョン)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>選択した Python のバージョンはサポートされていません。</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>v3.10 以上の Python は 32 ビット版ではサポートされていません。 </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>アプリの呼び出し.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>インストールされている Python のバージョン</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>アクティビティの設定に使用する Python のインストールを選択します。</value>
   </data>
 </root>

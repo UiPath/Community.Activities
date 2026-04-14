@@ -226,10 +226,10 @@
     <value>Noua cale la distanță</value>
   </data>
   <data name="DeleteDescription" xml:space="preserve">
-    <value>Șterge</value>
+    <value>Ștergeți</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
-    <value>Șterge</value>
+    <value>Ștergeți</value>
     <comment>Activity name</comment>
   </data>
   <data name="DirectoryExistsDescription" xml:space="preserve">

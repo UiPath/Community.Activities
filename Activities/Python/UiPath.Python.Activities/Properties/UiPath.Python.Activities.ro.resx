@@ -296,11 +296,20 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>Library path (Linux or version&gt;3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>Versiunea Python selectată nu este acceptată.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Versiunea Python &gt;= 3.10 nu este suportată pe 32 de biți. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>App Invoker.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>Versiuni Python instalate</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>Selectați instalarea Python care va fi utilizată pentru configurarea activității</value>
   </data>
 </root>
