@@ -29,6 +29,12 @@ namespace UiPath.Database.Activities
         [LocalizedDescription(nameof(Resources.Activity_ExecuteQuery_Property_DataTable_Description))]
         public OutArgument<DataTable> DataTable { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Output))]
+        [DefaultValue(null)]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteQuery_Property_DataSet_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteQuery_Property_DataSet_Description))]
+        public OutArgument<DataSet> DataSet { get; set; }
+
         public ExecuteQuery()
         {
             CommandType = CommandType.Text;
@@ -95,7 +101,8 @@ namespace UiPath.Database.Activities
                         {
                             return null;
                         }
-                        return new DBExecuteQueryResult(DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType), parameters);
+                        var (resultTable, resultDataSet) = DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType);
+                        return new DBExecuteQueryResult(resultTable, resultDataSet, parameters);
                     });
                 }
                 catch (Exception ex)
@@ -118,7 +125,8 @@ namespace UiPath.Database.Activities
                     DataTable dt = affectedRecords?.Result;
                     if (dt == null) return;
 
-                    DataTable.Set(asyncCodeActivityContext, dt);
+                    DataTable?.Set(asyncCodeActivityContext, dt);
+                    DataSet?.Set(asyncCodeActivityContext, affectedRecords.DataSetResult);
                     foreach (var param in affectedRecords.ParametersBind)
                     {
                         var currentParam = Parameters[param.Key];
@@ -144,17 +152,20 @@ namespace UiPath.Database.Activities
         private class DBExecuteQueryResult
         {
             public DataTable Result { get; }
+            public DataSet DataSetResult { get; }
             public Dictionary<string, ParameterInfo> ParametersBind { get; }
 
             public DBExecuteQueryResult()
             {
                 this.Result = new DataTable();
+                this.DataSetResult = new DataSet();
                 this.ParametersBind = new Dictionary<string, ParameterInfo>();
             }
 
-            public DBExecuteQueryResult(DataTable result, Dictionary<string, ParameterInfo> parametersBind)
+            public DBExecuteQueryResult(DataTable result, DataSet dataSetResult, Dictionary<string, ParameterInfo> parametersBind)
             {
                 this.Result = result;
+                this.DataSetResult = dataSetResult;
                 this.ParametersBind = parametersBind;
             }
         }

@@ -64,13 +64,41 @@ namespace UiPath.Database
             _transaction = _connection.BeginTransaction();
         }
 
-        public virtual DataTable ExecuteQuery(string sql, Dictionary<string, ParameterInfo> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
+        // Caps the number of result sets read from a single ExecuteQuery call.
+        // Prevents unbounded iteration when a command returns an unexpected number of result sets.
+        private const int MaxResultSets = 100;
+
+        public virtual (DataTable ResultTable, DataSet ResultDataSet) ExecuteQuery(string sql, Dictionary<string, ParameterInfo> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
         {
             OpenConnection();
             SetupCommand(sql, parameters, commandTimeout, commandType);
             _command.Transaction = _transaction;
-            DataTable dt = new DataTable();
-            dt.Load(_command.ExecuteReader());
+            DataSet resultDataSet = new DataSet();
+            DataTable resultTable;
+            using (var reader = _command.ExecuteReader())
+            {
+                // First result set: DataTable.Load preserves exact backward-compatible behaviour
+                // (schema inference, PrimaryKey, constraints, LoadOption merging).
+                // Load internally calls reader.NextResult() after consuming the rows, and calls
+                // reader.Close() when NextResult() returns false, so IsClosed is reliable here.
+                var firstTable = new DataTable();
+                firstTable.Load(reader);
+                resultDataSet.Tables.Add(firstTable);
+
+                // Subsequent result sets: manual loop because Load already advanced the reader.
+                // reader.NextResult() is the authoritative termination signal.
+                int resultSetCount = 1;
+                while (!reader.IsClosed && resultSetCount < MaxResultSets)
+                {
+                    resultDataSet.Tables.Add(ReadResultSet(reader));
+                    resultSetCount++;
+
+                    if (!reader.NextResult())
+                        break;
+                }
+
+                resultTable = resultDataSet.Tables[0];
+            }
             foreach (var param in _command.Parameters)
             {
                 var dbParam = param as DbParameter;
@@ -80,7 +108,7 @@ namespace UiPath.Database
                     Direction = WokflowParameterDirectionToDbParameter(dbParam.Direction)
                 };
             }
-            return dt;
+            return (resultTable, resultDataSet);
         }
 
         public virtual int Execute(string sql, Dictionary<string, ParameterInfo> parameters, int commandTimeout, CommandType commandType = CommandType.Text)
@@ -226,6 +254,47 @@ namespace UiPath.Database
                 }
             }
         }
+        // Reads the current result set from reader into a new DataTable.
+        // Deduplicates column names and falls back gracefully for unmapped provider types.
+        // Does NOT call NextResult — the caller owns result-set advancement.
+        private static DataTable ReadResultSet(DbDataReader reader)
+        {
+            var table = new DataTable();
+            var columnNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                string name;
+                try { name = reader.GetName(i); } catch { name = null; }
+                if (string.IsNullOrEmpty(name))
+                    name = $"Column{i}";
+                string uniqueName = name;
+                int suffix = 1;
+                while (!columnNames.Add(uniqueName))
+                    uniqueName = $"{name}{suffix++}";
+
+                Type fieldType;
+                try { fieldType = reader.GetFieldType(i); } catch { fieldType = null; }
+                table.Columns.Add(uniqueName, fieldType ?? typeof(object));
+            }
+
+            var values = new object[reader.FieldCount];
+            table.BeginLoadData();
+            try
+            {
+                while (reader.Read())
+                {
+                    reader.GetValues(values);
+                    table.Rows.Add(values);
+                }
+            }
+            finally
+            {
+                table.EndLoadData();
+            }
+
+            return table;
+        }
+
         private DbProviderFactory GetCurrentFactory()
         {
             if (DbProviderFactories.GetFactory(_connection) == null)

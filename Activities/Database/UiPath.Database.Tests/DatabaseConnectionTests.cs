@@ -93,6 +93,10 @@ namespace UiPath.Database.Tests
             param.SetupAllProperties();
             param.SetReturnsDefault(ParameterDirection.InputOutput);
 
+            dataReader.Setup(r => r.FieldCount).Returns(0);
+            dataReader.Setup(r => r.Read()).Returns(false);
+            dataReader.Setup(r => r.NextResult()).Returns(false);
+
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);
             var parameters = new Dictionary<string, ParameterInfo>() { 
                 { "param1", new ParameterInfo() {Value = "", Direction = ArgumentDirection.Out}
