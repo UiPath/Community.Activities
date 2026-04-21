@@ -54,7 +54,6 @@ namespace UiPath.Database.Activities
 #endif
             try
             {
-                var dataTable = DataTable.Get(context);
                 string connString = null;
                 SecureString connSecureString = null;
                 string provName = null;
