@@ -7,6 +7,7 @@ using System.Data;
 using System.Security;
 using System.Threading.Tasks;
 using UiPath.Database.Activities.NetCore.ViewModels;
+using UiPath.Database.Activities.Properties;
 
 namespace UiPath.Database.Activities
 {
@@ -66,17 +67,24 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         /// </summary>
         public DesignOutArgument<DataTable> DataTable { get; set; } = new DesignOutArgument<DataTable>();
 
+        /// <summary>
+        /// The result of the execution of the sql command as a DataSet.
+        /// </summary>
+        public DesignOutArgument<DataSet> DataSet { get; set; } = new DesignOutArgument<DataSet>();
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
             int propertyOrderIndex = 1;
             int propertyColumnIndex = 1;
 
+            ExistingDbConnection.DisplayName = Resources.Activity_DatabaseExecute_Property_ExistingDbConnection_Name;
             ExistingDbConnection.IsPrincipal = true;
             ExistingDbConnection.IsRequired = true;
             ExistingDbConnection.OrderIndex = propertyOrderIndex++;
             ExistingDbConnection.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
+            CommandType.DisplayName = Resources.Activity_DatabaseExecute_Property_CommandType_Name;
             CommandType.OrderIndex = propertyOrderIndex++;
             CommandType.IsPrincipal = true;
             CommandType.IsRequired = true;
@@ -88,24 +96,36 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
                 .Build();
             CommandType.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
+            Sql.DisplayName = Resources.Activity_ExecuteQuery_Property_Sql_Name;
             Sql.IsPrincipal = true;
             Sql.IsRequired = true;
             Sql.OrderIndex = propertyOrderIndex++;
             Sql.Widget = new DefaultWidget { Type = ViewModelWidgetType.TextComposer };
 
+            Parameters.DisplayName = Resources.Activity_DatabaseExecute_Property_Parameters_Name;
             Parameters.OrderIndex = propertyOrderIndex++;
             Parameters.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dictionary };
 
+            TimeoutMS.DisplayName = Resources.Activity_DatabaseExecute_Property_TimeoutMS_Name;
             TimeoutMS.OrderIndex = propertyOrderIndex;
             TimeoutMS.ColumnOrder = propertyColumnIndex++;
             TimeoutMS.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
 
+            ContinueOnError.DisplayName = Resources.Activity_DatabaseExecute_Property_ContinueOnError_Name;
             ContinueOnError.OrderIndex = propertyOrderIndex++;
             ContinueOnError.ColumnOrder = propertyColumnIndex;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
 
+            DataTable.DisplayName = Resources.Activity_ExecuteQuery_Property_DataTable_Name;
             DataTable.OrderIndex = propertyOrderIndex++;
+            DataTable.Category = Resources.Output;
             DataTable.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+
+            DataSet.DisplayName = Resources.Activity_ExecuteQuery_Property_DataSet_Name;
+            DataSet.OrderIndex = propertyOrderIndex++;
+            DataSet.Category = Resources.Output;
+            DataSet.Tooltip = Resources.Activity_ExecuteQuery_Property_DataSet_Description;
+            DataSet.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
         }
 
         protected override async ValueTask InitializeModelAsync()

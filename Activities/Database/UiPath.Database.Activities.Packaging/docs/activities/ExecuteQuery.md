@@ -2,7 +2,7 @@
 
 `UiPath.Database.Activities.ExecuteQuery`
 
-Executes a query on a database and returns the query result as a Data Table
+Executes a query on a database and returns the query result as a Data Table and optionally as a Data Set containing all result sets
 
 **Package:** `UiPath.Database.Activities`
 **Category:** Database
@@ -24,7 +24,8 @@ Executes a query on a database and returns the query result as a Data Table
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `DataTable` | Data table | OutArgument | `DataTable` | The output of the SQL command wrapped in a DataTable variable. |
+| `DataTable` | Data table | OutArgument | `DataTable` | The output of the SQL command wrapped in a DataTable variable. Contains the first result set. |
+| `DataSet` | Data set | OutArgument | `DataSet` | The output of the SQL command wrapped in a DataSet variable. Contains all result sets returned by the query. |
 
 ## XAML Example
 
