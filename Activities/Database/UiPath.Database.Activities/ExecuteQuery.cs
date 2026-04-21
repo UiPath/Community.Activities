@@ -46,7 +46,7 @@ namespace UiPath.Database.Activities
             throw ex;
         }
 
-        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteInternalAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
             ITelemetryOperationWrapper telemetryOperation = null;
 #if ENABLE_DEFAULT_TELEMETRY
@@ -60,8 +60,8 @@ namespace UiPath.Database.Activities
                 string sql = string.Empty;
                 DatabaseConnection existingConnection = null;
                 DBExecuteQueryResult affectedRecords = null;
-                int commandTimeout = TimeoutMS.Get(context);
-                if (commandTimeout < 0)
+                int? commandTimeout = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
+                if (commandTimeout.HasValue && commandTimeout.Value < 0)
                 {
                     throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
                 }

@@ -283,5 +283,54 @@ namespace UiPath.Database.Tests
 
             Assert.True(executed == true);
         }
+
+        [Fact]
+        public void ExecuteQuery_NullTimeout_NoConnectionTimeout_DefaultsTo30Seconds()
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
+
+            dbConn.ExecuteQuery("SELECT 1", null, null);
+
+            Assert.Equal(30, cmd.Object.CommandTimeout);
+        }
+
+        [Fact]
+        public void ExecuteQuery_NullTimeout_ConnectionTimeoutAlreadySet_KeepsConnectionTimeout()
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 60);
+
+            dbConn.ExecuteQuery("SELECT 1", null, null);
+
+            Assert.Equal(60, cmd.Object.CommandTimeout);
+        }
+
+        [Theory]
+        [InlineData(30000, 30)]
+        [InlineData(60000, 60)]
+        [InlineData(1500,   2)] // ceiling: 1.5s -> 2s
+        public void ExecuteQuery_ExplicitTimeout_ConvertsMillisecondsToSeconds(int timeoutMs, int expectedSeconds)
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
+
+            dbConn.ExecuteQuery("SELECT 1", null, timeoutMs);
+
+            Assert.Equal(expectedSeconds, cmd.Object.CommandTimeout);
+        }
+
+        private (DatabaseConnection, Mock<DbCommand>) CreateMockConnectionForTimeout(int initialCommandTimeout)
+        {
+            var con = new Mock<DbConnection>();
+            var cmd = new Mock<DbCommand>();
+            var dbParameterCollection = new Mock<DbParameterCollection>();
+            var dataReader = new Mock<DbDataReader>();
+
+            con.SetReturnsDefault(cmd.Object);
+            cmd.SetupProperty(c => c.CommandTimeout, initialCommandTimeout);
+            cmd.SetReturnsDefault(dbParameterCollection.Object);
+            cmd.SetReturnsDefault(dataReader.Object);
+            dbParameterCollection.Setup(x => x.GetEnumerator()).Returns(new List<DbParameter>().GetEnumerator());
+
+            return (new DatabaseConnection().Initialize(con.Object), cmd);
+        }
     }
 }
