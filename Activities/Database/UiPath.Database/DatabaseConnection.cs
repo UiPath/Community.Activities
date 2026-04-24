@@ -212,7 +212,7 @@ namespace UiPath.Database
             IBulkOperations bulkOps = BulkOperationsFactory.Create(_connection);
             bulkOps.Connection = _connection;
             bulkOps.TableName = tableName;
-            ValidateDatabaseTableStructure(tableName, dataTable);
+            ValidateDatabaseTableStructure(tableName, dataTable, commandTimeoutMs);
             var countStart = CountRowsInTable(tableName, commandTimeoutMs);
             bulkOps.WriteToServer(dataTable, commandTimeoutMs);
             var countEnd = CountRowsInTable(tableName, commandTimeoutMs);
@@ -305,7 +305,7 @@ namespace UiPath.Database
             return DbProviderFactories.GetFactory(_connection);
         }
 
-        private void ValidateDatabaseTableStructure(string tableName, DataTable dataTable)
+        private void ValidateDatabaseTableStructure(string tableName, DataTable dataTable, int? commandTimeoutMs = null)
         {
             if (_connection == null)
                 return;
@@ -314,6 +314,7 @@ namespace UiPath.Database
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
             dbDA.SelectCommand.CommandText = string.Format("select * from {0}", tableName);
+            ApplyCommandTimeout(dbDA.SelectCommand, commandTimeoutMs);
 
             var ds = new DataSet();
             dbDA.FillSchema(ds, SchemaType.Source);
