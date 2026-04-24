@@ -68,10 +68,10 @@ namespace UiPath.Database
         // Prevents unbounded iteration when a command returns an unexpected number of result sets.
         private const int MaxResultSets = 100;
 
-        public virtual (DataTable ResultTable, DataSet ResultDataSet) ExecuteQuery(string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeout, CommandType commandType = CommandType.Text)
+        public virtual (DataTable ResultTable, DataSet ResultDataSet) ExecuteQuery(string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeoutMs, CommandType commandType = CommandType.Text)
         {
             OpenConnection();
-            SetupCommand(sql, parameters, commandTimeout, commandType);
+            SetupCommand(sql, parameters, commandTimeoutMs, commandType);
             _command.Transaction = _transaction;
             DataSet resultDataSet = new DataSet();
             DataTable resultTable;
@@ -111,10 +111,10 @@ namespace UiPath.Database
             return (resultTable, resultDataSet);
         }
 
-        public virtual int Execute(string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeout, CommandType commandType = CommandType.Text)
+        public virtual int Execute(string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeoutMs, CommandType commandType = CommandType.Text)
         {
             OpenConnection();
-            SetupCommand(sql, parameters, commandTimeout, commandType);
+            SetupCommand(sql, parameters, commandTimeoutMs, commandType);
             _command.Transaction = _transaction;
             var result = _command.ExecuteNonQuery();
             foreach (var param in _command.Parameters)
@@ -130,14 +130,14 @@ namespace UiPath.Database
         }
 
 
-        public virtual int InsertDataTable(string tableName, DataTable dataTable, int? commandTimeout = null)
+        public virtual int InsertDataTable(string tableName, DataTable dataTable, int? commandTimeoutMs = null)
         {
             // the select command text should be different depending on the provider
             // in this iteration we will try both formats for an insert operation, but a proper matching must be implemented
             Exception firstException, secondException;
             try
             {
-                return InsertDataTableInternal(tableName, dataTable, true, commandTimeout);
+                return InsertDataTableInternal(tableName, dataTable, true, commandTimeoutMs);
             }
             catch (Exception e)
             {
@@ -145,7 +145,7 @@ namespace UiPath.Database
             }
             try
             {
-                return InsertDataTableInternal(tableName, dataTable, false, commandTimeout);
+                return InsertDataTableInternal(tableName, dataTable, false, commandTimeoutMs);
             }
             catch (Exception e)
             {
@@ -156,7 +156,7 @@ namespace UiPath.Database
             throw new AggregateException(firstException, secondException);
         }
 
-        private int InsertDataTableInternal(string tableName, DataTable dataTable, bool removeBrackets, int? commandTimeout = null)
+        private int InsertDataTableInternal(string tableName, DataTable dataTable, bool removeBrackets, int? commandTimeoutMs = null)
         {
             DbDataAdapter dbDA = GetCurrentFactory().CreateDataAdapter();
             DbCommandBuilder cmdb = GetCurrentFactory().CreateCommandBuilder();
@@ -166,14 +166,14 @@ namespace UiPath.Database
             dbDA.SelectCommand = _connection.CreateCommand();
             dbDA.SelectCommand.Transaction = _transaction;
             dbDA.SelectCommand.CommandType = CommandType.Text;
-            ApplyCommandTimeout(dbDA.SelectCommand, commandTimeout);
+            ApplyCommandTimeout(dbDA.SelectCommand, commandTimeoutMs);
 
             dbDA.SelectCommand.CommandText = string.Format("select {0} from {1}", GetColumnNames(dataTable, removeBrackets), tableName);
             dbDA.InsertCommand = cmdb.GetInsertCommand();
 
             dbDA.InsertCommand.Connection = _connection;
             dbDA.InsertCommand.Transaction = _transaction;
-            ApplyCommandTimeout(dbDA.InsertCommand, commandTimeout);
+            ApplyCommandTimeout(dbDA.InsertCommand, commandTimeoutMs);
 
             foreach (DataRow row in dataTable.Rows)
             {
@@ -191,10 +191,10 @@ namespace UiPath.Database
             return false;
         }
 
-        public long BulkInsertDataTable(string tableName, DataTable dataTable, int? commandTimeout = null, IExecutorRuntime executorRuntime = null)
+        public long BulkInsertDataTable(string tableName, DataTable dataTable, int? commandTimeoutMs = null, IExecutorRuntime executorRuntime = null)
         {
             if (SupportsBulk())
-                return DoBulkInsert(tableName, dataTable);
+                return DoBulkInsert(tableName, dataTable, commandTimeoutMs);
             else
             {
                 //if no bulk insert possible, fallback to insert data table with warning message
@@ -203,23 +203,23 @@ namespace UiPath.Database
                 {
                     LogWarningMessage(executorRuntime);
                 }
-                return InsertDataTable(tableName, dataTable, commandTimeout);
+                return InsertDataTable(tableName, dataTable, commandTimeoutMs);
             }
         }
 
-        private long DoBulkInsert(string tableName, DataTable dataTable)
+        private long DoBulkInsert(string tableName, DataTable dataTable, int? commandTimeoutMs = null)
         {
             IBulkOperations bulkOps = BulkOperationsFactory.Create(_connection);
             bulkOps.Connection = _connection;
             bulkOps.TableName = tableName;
             ValidateDatabaseTableStructure(tableName, dataTable);
-            var countStart = CountRowsInTable(tableName);
-            bulkOps.WriteToServer(dataTable);
-            var countEnd = CountRowsInTable(tableName);
+            var countStart = CountRowsInTable(tableName, commandTimeoutMs);
+            bulkOps.WriteToServer(dataTable, commandTimeoutMs);
+            var countEnd = CountRowsInTable(tableName, commandTimeoutMs);
             return countEnd - countStart;
         }
 
-        private long CountRowsInTable(string tableName)
+        private long CountRowsInTable(string tableName, int? commandTimeoutMs = null)
         {
             var commandRowCount = _connection.CreateCommand();
             // Perform an initial count on the destination table.
@@ -227,6 +227,7 @@ namespace UiPath.Database
             commandRowCount.Transaction = _transaction;
             commandRowCount.CommandType = CommandType.Text;
             commandRowCount.CommandText = countQuery;
+            ApplyCommandTimeout(commandRowCount, commandTimeoutMs);
 
             return Convert.ToInt32(commandRowCount.ExecuteScalar());
         }
@@ -335,15 +336,15 @@ namespace UiPath.Database
             return tempTableName;
         }
 
-        public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, int? commandTimeout = null, IExecutorRuntime executorRuntime = null)
+        public long BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, int? commandTimeoutMs = null, IExecutorRuntime executorRuntime = null)
         {
             if (bulkBatch && SupportsBulk())
-                return DoBulkUpdate(tableName, dataTable, columnNames, commandTimeout, executorRuntime);
+                return DoBulkUpdate(tableName, dataTable, columnNames, commandTimeoutMs, executorRuntime);
             else
-                return DoBatchUpdate(tableName, dataTable, columnNames, commandTimeout);
+                return DoBatchUpdate(tableName, dataTable, columnNames, commandTimeoutMs);
         }
 
-        private int DoBatchUpdate(string tableName, DataTable dataTable, string[] columnNames, int? commandTimeout = null)
+        private int DoBatchUpdate(string tableName, DataTable dataTable, string[] columnNames, int? commandTimeoutMs = null)
         {
             if (_connection == null)
                 return -1;
@@ -353,7 +354,7 @@ namespace UiPath.Database
                 sqlCommand.Connection = _connection;
                 sqlCommand.Transaction = _transaction;
                 sqlCommand.CommandType = CommandType.Text;
-                ApplyCommandTimeout(sqlCommand, commandTimeout);
+                ApplyCommandTimeout(sqlCommand, commandTimeoutMs);
             }
             var dbSchema = _connection?.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
             string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
@@ -383,7 +384,7 @@ namespace UiPath.Database
             return rows;
         }
 
-        private int DoBulkUpdate(string tableName, DataTable dataTable, string[] columnNames, int? commandTimeout = null, IExecutorRuntime executorRuntime = null)
+        private int DoBulkUpdate(string tableName, DataTable dataTable, string[] columnNames, int? commandTimeoutMs = null, IExecutorRuntime executorRuntime = null)
         {
             if (_connection == null)
                 return -1;
@@ -394,12 +395,12 @@ namespace UiPath.Database
                 sqlCommand.Connection = _connection;
                 sqlCommand.Transaction = _transaction;
                 sqlCommand.CommandType = CommandType.Text;
-                ApplyCommandTimeout(sqlCommand, commandTimeout);
+                ApplyCommandTimeout(sqlCommand, commandTimeoutMs);
             }
             try
             {
                 tblName = CreateTempTableForUpdate(dataTable, tableName, sqlCommand);
-                BulkInsertDataTable(tblName, dataTable, commandTimeout, executorRuntime);
+                BulkInsertDataTable(tblName, dataTable, commandTimeoutMs, executorRuntime);
 
                 sqlCommand.CommandText = string.Format("MERGE INTO {0} t USING (SELECT * FROM {1})s on ({3}) WHEN MATCHED THEN UPDATE SET {2}", tableName, tblName,
                     string.Join(",", dataTable.Columns.Cast<DataColumn>()
@@ -502,7 +503,7 @@ namespace UiPath.Database
             }
         }
 
-        private void SetupCommand(string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeout, CommandType commandType = CommandType.Text)
+        private void SetupCommand(string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeoutMs, CommandType commandType = CommandType.Text)
         {
             if (_connection == null)
             {
@@ -511,7 +512,7 @@ namespace UiPath.Database
 
             _command = _command ?? _connection.CreateCommand();
 
-            ApplyCommandTimeout(_command, commandTimeout);
+            ApplyCommandTimeout(_command, commandTimeoutMs);
 
             _command.CommandType = commandType;
             _command.CommandText = sql;
@@ -539,11 +540,11 @@ namespace UiPath.Database
             }
         }
 
-        private static void ApplyCommandTimeout(DbCommand command, int? commandTimeout)
+        private static void ApplyCommandTimeout(DbCommand command, int? commandTimeoutMs)
         {
-            if (commandTimeout.HasValue)
+            if (commandTimeoutMs.HasValue)
             {
-                var seconds = (int)Math.Ceiling((double)commandTimeout.Value / 1000);
+                var seconds = (int)Math.Ceiling((double)commandTimeoutMs.Value / 1000);
                 if (seconds != 0)
                     command.CommandTimeout = seconds;
             }

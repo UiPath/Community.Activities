@@ -389,7 +389,7 @@ namespace UiPath.Database.Tests
             return (new DatabaseConnection().Initialize(con.Object), cmd);
         }
 
-        private (DatabaseConnection, Mock<DbCommand>) CreateMockConnectionForBatchUpdate(int initialCommandTimeout)
+        private static (DatabaseConnection, Mock<DbCommand>) CreateMockConnectionForBatchUpdate(int initialCommandTimeout)
         {
             var con = new Mock<DbConnection>();
             var cmd = new Mock<DbCommand>();

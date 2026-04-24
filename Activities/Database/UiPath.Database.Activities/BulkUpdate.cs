@@ -70,8 +70,8 @@ namespace UiPath.Database.Activities
                 long affectedRecords = 0;
                 IExecutorRuntime executorRuntime = null;
                 var continueOnError = ContinueOnError.Get(context);
-                int? commandTimeout = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
-                if (commandTimeout.HasValue && commandTimeout.Value < 0)
+                int? commandTimeoutMs = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
+                if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
                 {
                     throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
                 }
@@ -94,9 +94,9 @@ namespace UiPath.Database.Activities
                             return 0;
                         }
                         if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                            return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames, commandTimeout, executorRuntime);
+                            return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames, commandTimeoutMs, executorRuntime);
                         else
-                            return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames, commandTimeout);
+                            return DbConnection.BulkUpdateDataTable(BulkUpdateFlag, tableName, dataTable, columnNames, commandTimeoutMs);
                     });
                 }
                 catch (Exception ex)
