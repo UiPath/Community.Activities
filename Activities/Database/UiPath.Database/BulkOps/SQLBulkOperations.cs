@@ -11,11 +11,17 @@ namespace UiPath.Database.BulkOps
         public string TableName { get; set; }
         public Type BulkCopyType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public void WriteToServer(DataTable dataTable)
+        public void WriteToServer(DataTable dataTable, int? commandTimeoutMs = null)
         {
             // Set up the bulk copy object
             using (SqlBulkCopy bulkCopy = new SqlBulkCopy((SqlConnection)Connection))
             {
+                if (commandTimeoutMs.HasValue)
+                {
+                    var seconds = (int)Math.Ceiling((double)commandTimeoutMs.Value / 1000);
+                    if (seconds != 0)
+                        bulkCopy.BulkCopyTimeout = seconds;
+                }
                 bulkCopy.DestinationTableName = TableName;
                 bulkCopy.WriteToServer(dataTable);
             }

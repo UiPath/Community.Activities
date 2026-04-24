@@ -13,10 +13,11 @@ Inserts a compatible DataTable in an existing database table. Returns the number
 
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
-| `ExistingDbConnection` | Existing connection | Property | `object` | Yes |  | Use the output of the Connect to Database activity | An already opened database connection obtained from the Connect to Database activity. |
+| `ExistingDbConnection` | Existing connection | Property | `DatabaseConnection` | Yes |  | Use the output of the Connect to Database activity | An already opened database connection obtained from the Connect to Database activity. |
 | `DataTable` | Input data table | InArgument | `DataTable` | Yes |  | Provide the DataTable variable | The DataTable variable that will be inserted into the Table. The DataTable columns' name and description must match the ones from the database table. |
 | `TableName` | Target table name | InArgument | `string` | Yes |  | Provide the target database table name | The target database table in which the data is to be inserted |
-| `ContinueOnError` | Continue on error | Property | `object` |  |  |  | Specifies if the automation should continue even when the activity throws an error. |
+| `TimeoutMS` | Timeout | Property | `int` |  |  |  | Specifies the amount of time (in milliseconds) to wait for the command to run before an error is thrown. If not set, the connection-level timeout is used; if no connection-level timeout is configured, defaults to 30 seconds. Must be greater than or equal to 0. |
+| `ContinueOnError` | Continue on error | Property | `bool` |  |  |  | Specifies if the automation should continue even when the activity throws an error. |
 
 ### Output
 

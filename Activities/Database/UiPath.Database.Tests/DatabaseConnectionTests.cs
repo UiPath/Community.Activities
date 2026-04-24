@@ -283,5 +283,140 @@ namespace UiPath.Database.Tests
 
             Assert.True(executed == true);
         }
+
+        [Fact]
+        public void ExecuteQuery_NullTimeout_NoConnectionTimeout_DefaultsTo30Seconds()
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
+
+            dbConn.ExecuteQuery("SELECT 1", null, null);
+
+            Assert.Equal(30, cmd.Object.CommandTimeout);
+        }
+
+        [Fact]
+        public void ExecuteQuery_NullTimeout_ConnectionTimeoutAlreadySet_KeepsConnectionTimeout()
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 60);
+
+            dbConn.ExecuteQuery("SELECT 1", null, null);
+
+            Assert.Equal(60, cmd.Object.CommandTimeout);
+        }
+
+        [Theory]
+        [InlineData(30000, 30)]
+        [InlineData(60000, 60)]
+        [InlineData(1500,   2)] // ceiling: 1.5s -> 2s
+        public void ExecuteQuery_ExplicitTimeout_ConvertsMillisecondsToSeconds(int timeoutMs, int expectedSeconds)
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
+
+            dbConn.ExecuteQuery("SELECT 1", null, timeoutMs);
+
+            Assert.Equal(expectedSeconds, cmd.Object.CommandTimeout);
+        }
+
+        [Fact]
+        public void Execute_NullTimeout_NoConnectionTimeout_DefaultsTo30Seconds()
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
+
+            dbConn.Execute("SELECT 1", new Dictionary<string, ParameterInfo>(), null);
+
+            Assert.Equal(30, cmd.Object.CommandTimeout);
+        }
+
+        [Fact]
+        public void Execute_NullTimeout_ConnectionTimeoutAlreadySet_KeepsConnectionTimeout()
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 60);
+
+            dbConn.Execute("SELECT 1", new Dictionary<string, ParameterInfo>(), null);
+
+            Assert.Equal(60, cmd.Object.CommandTimeout);
+        }
+
+        [Theory]
+        [InlineData(30000, 30)]
+        [InlineData(60000, 60)]
+        [InlineData(1500,   2)] // ceiling: 1.5s -> 2s
+        public void Execute_ExplicitTimeout_ConvertsMillisecondsToSeconds(int timeoutMs, int expectedSeconds)
+        {
+            var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
+
+            dbConn.Execute("SELECT 1", new Dictionary<string, ParameterInfo>(), timeoutMs);
+
+            Assert.Equal(expectedSeconds, cmd.Object.CommandTimeout);
+        }
+
+        [Fact]
+        public void BulkUpdateBatchPath_NullTimeout_NoConnectionTimeout_DefaultsTo30Seconds()
+        {
+            var (dbConn, cmd) = CreateMockConnectionForBatchUpdate(initialCommandTimeout: 0);
+
+            dbConn.BulkUpdateDataTable(false, "TestTable", CreateTwoColumnDataTable(), new[] { "Id" }, null);
+
+            Assert.Equal(30, cmd.Object.CommandTimeout);
+        }
+
+        [Theory]
+        [InlineData(30000, 30)]
+        [InlineData(60000, 60)]
+        [InlineData(1500,   2)] // ceiling: 1.5s -> 2s
+        public void BulkUpdateBatchPath_ExplicitTimeout_ConvertsMillisecondsToSeconds(int timeoutMs, int expectedSeconds)
+        {
+            var (dbConn, cmd) = CreateMockConnectionForBatchUpdate(initialCommandTimeout: 0);
+
+            dbConn.BulkUpdateDataTable(false, "TestTable", CreateTwoColumnDataTable(), new[] { "Id" }, timeoutMs);
+
+            Assert.Equal(expectedSeconds, cmd.Object.CommandTimeout);
+        }
+
+        private (DatabaseConnection, Mock<DbCommand>) CreateMockConnectionForTimeout(int initialCommandTimeout)
+        {
+            var con = new Mock<DbConnection>();
+            var cmd = new Mock<DbCommand>();
+            var dbParameterCollection = new Mock<DbParameterCollection>();
+            var dataReader = new Mock<DbDataReader>();
+
+            con.SetReturnsDefault(cmd.Object);
+            cmd.SetupProperty(c => c.CommandTimeout, initialCommandTimeout);
+            cmd.SetReturnsDefault(dbParameterCollection.Object);
+            cmd.SetReturnsDefault(dataReader.Object);
+            dbParameterCollection.Setup(x => x.GetEnumerator()).Returns(new List<DbParameter>().GetEnumerator());
+
+            return (new DatabaseConnection().Initialize(con.Object), cmd);
+        }
+
+        private static (DatabaseConnection, Mock<DbCommand>) CreateMockConnectionForBatchUpdate(int initialCommandTimeout)
+        {
+            var con = new Mock<DbConnection>();
+            var cmd = new Mock<DbCommand>();
+            var dbParameterCollection = new Mock<DbParameterCollection>();
+            var param = new Mock<DbParameter>();
+            param.SetupAllProperties();
+
+            var schema = new DataTable();
+            schema.Columns.Add(DbMetaDataColumnNames.ParameterMarkerFormat, typeof(string));
+            schema.Columns.Add(DbMetaDataColumnNames.ParameterMarkerPattern, typeof(string));
+            schema.Rows.Add("{0}", "@param");
+
+            con.SetReturnsDefault(cmd.Object);
+            con.Setup(c => c.GetSchema(DbMetaDataCollectionNames.DataSourceInformation)).Returns(schema);
+            cmd.SetupProperty(c => c.CommandTimeout, initialCommandTimeout);
+            cmd.SetReturnsDefault(dbParameterCollection.Object);
+            cmd.SetReturnsDefault(param.Object);
+
+            return (new DatabaseConnection().Initialize(con.Object), cmd);
+        }
+
+        private static DataTable CreateTwoColumnDataTable()
+        {
+            var dataTable = new DataTable();
+            dataTable.Columns.Add("Id", typeof(int));
+            dataTable.Columns.Add("Name", typeof(string));
+            return dataTable;
+        }
     }
 }

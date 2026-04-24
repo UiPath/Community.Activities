@@ -10,7 +10,7 @@ namespace UiPath.Database.BulkOps
         string TableName { get; set; }
         Type BulkCopyType { get; set; }
 
-        void WriteToServer(DataTable dataTable);
+        void WriteToServer(DataTable dataTable, int? commandTimeoutMs = null);
     }
 
     public class BulkOperationsFactory

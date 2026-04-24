@@ -80,7 +80,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Java.Test", "Java\Ui
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{913E6ED1-5915-4C4C-85BE-94E8CEE315FF}"
 	ProjectSection(SolutionItems) = preProject
-		Python\Python.build.props = Python\Python.build.props
+		Python\Directory.build.props = Python\Directory.build.props
+		Python\Directory.build.targets = Python\Directory.build.targets
 	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Service", "Shared\UiPath.Shared.Service\UiPath.Shared.Service.shproj", "{A6A27646-4889-4F95-A0DF-DD78D287388F}"
