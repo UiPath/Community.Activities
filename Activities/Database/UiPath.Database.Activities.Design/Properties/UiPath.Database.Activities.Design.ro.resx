@@ -190,7 +190,7 @@
     <value>Asistentul de conexiune</value>
   </data>
   <data name="DoubleClickToView" xml:space="preserve">
-    <value>Faceți dublu clic pentru a vizualiza</value>
+    <value>Double-click pentru a vizualiza</value>
   </data>
   <data name="EditConnectionSettings" xml:space="preserve">
     <value>Editează setările conexiunii</value>
