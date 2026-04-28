@@ -19,7 +19,7 @@ namespace UiPath.Database.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_Database {
@@ -79,7 +79,7 @@ namespace UiPath.Database.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The provided driver version does not support Bulk Insert operations. Please check the driver..
+        ///   Looks up a localized string similar to The configured provider does not support Bulk Insert operations. Providers that support Bulk Insert operations are: Microsoft.Data.SqlClient and Oracle.ManagedDataAccess.Client.OracleConnection..
         /// </summary>
         public static string BulkInsert_DriverDoesNotSupportBulkInsert {
             get {
@@ -111,6 +111,15 @@ namespace UiPath.Database.Properties {
         public static string ParameterDirectionArgumentException {
             get {
                 return ResourceManager.GetString("ParameterDirectionArgumentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A transaction is already in progress. Commit or roll back the existing transaction before starting a new one..
+        /// </summary>
+        public static string TransactionAlreadyInProgress {
+            get {
+                return ResourceManager.GetString("TransactionAlreadyInProgress", resourceCulture);
             }
         }
     }

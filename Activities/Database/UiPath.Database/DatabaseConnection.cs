@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
+using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -31,7 +32,7 @@ namespace UiPath.Database
         public DatabaseConnection()
         {
             _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-            DbWorkarounds.SNILoadWorkaround(_isWindows);
+            DbWorkarounds.RegisterNativeLibraryResolver();
         }
 
         public DatabaseConnection Initialize(DbConnection connection)
@@ -51,6 +52,8 @@ namespace UiPath.Database
                 _connection = new SqlConnection();
             else if (providerName.Equals(DatabaseConstants.OracleProvider, StringComparison.OrdinalIgnoreCase))
                 _connection = new OracleConnection();
+            else if (providerName.Equals(DatabaseConstants.SQLiteProvider, StringComparison.OrdinalIgnoreCase))
+                _connection = new SqliteConnection();
             else
                 _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
 
@@ -61,6 +64,8 @@ namespace UiPath.Database
 
         public virtual void BeginTransaction()
         {
+            if (_transaction != null)
+                throw new InvalidOperationException(Resources.TransactionAlreadyInProgress);
             _transaction = _connection.BeginTransaction();
         }
 
@@ -158,8 +163,13 @@ namespace UiPath.Database
 
         private int InsertDataTableInternal(string tableName, DataTable dataTable, bool removeBrackets, int? commandTimeoutMs = null)
         {
-            DbDataAdapter dbDA = GetCurrentFactory().CreateDataAdapter();
-            DbCommandBuilder cmdb = GetCurrentFactory().CreateCommandBuilder();
+            var factory = GetCurrentFactory();
+            DbDataAdapter dbDA = factory.CreateDataAdapter();
+            DbCommandBuilder cmdb = factory.CreateCommandBuilder();
+
+            if (dbDA == null || cmdb == null)
+                return InsertDataTableFallback(tableName, dataTable, commandTimeoutMs);
+
             cmdb.DataAdapter = dbDA;
             dbDA.ContinueUpdateOnError = false;
 
@@ -182,6 +192,74 @@ namespace UiPath.Database
             }
 
             return dbDA.Update(dataTable);
+        }
+
+        // Fallback for providers (e.g. SQLite) whose factory returns null for DbDataAdapter/DbCommandBuilder.
+        // Builds a parameterised INSERT statement and executes it row by row.
+        // When no external transaction is active, wraps all inserts in a local transaction to avoid
+        // per-row auto-commits (critical for performance on file-based databases such as SQLite).
+        private int InsertDataTableFallback(string tableName, DataTable dataTable, int? commandTimeoutMs = null)
+        {
+            // Always escape identifiers; reserved words and names with spaces require quoting.
+            string columnNames = GetColumnNames(dataTable, removeBrackets: false);
+            if (string.IsNullOrEmpty(columnNames))
+                return 0;
+
+            string escapedTableName = EscapeDbObject(tableName);
+
+            var paramNames = dataTable.Columns.Cast<DataColumn>()
+                .Select((c, i) => $"@p{i}")
+                .ToArray();
+
+            string sql = string.Format(
+                "INSERT INTO {0} ({1}) VALUES ({2})",
+                escapedTableName,
+                columnNames,
+                string.Join(", ", paramNames));
+
+            bool ownsTransaction = _transaction == null;
+            var localTransaction = ownsTransaction ? _connection.BeginTransaction() : _transaction;
+            try
+            {
+                using var cmd = _connection.CreateCommand();
+                cmd.CommandText = sql;
+                cmd.CommandType = CommandType.Text;
+                cmd.Transaction = localTransaction;
+                ApplyCommandTimeout(cmd, commandTimeoutMs);
+
+                // Create parameters once and reuse them for each row.
+                for (int i = 0; i < dataTable.Columns.Count; i++)
+                {
+                    var p = cmd.CreateParameter();
+                    p.ParameterName = paramNames[i];
+                    p.SourceColumn = dataTable.Columns[i].ColumnName;
+                    cmd.Parameters.Add(p);
+                }
+
+                int rows = 0;
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    for (int i = 0; i < dataTable.Columns.Count; i++)
+                        cmd.Parameters[i].Value = row[i];
+                    rows += cmd.ExecuteNonQuery();
+                }
+
+                if (ownsTransaction)
+                    localTransaction.Commit();
+
+                return rows;
+            }
+            catch
+            {
+                if (ownsTransaction)
+                    localTransaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                if (ownsTransaction)
+                    localTransaction.Dispose();
+            }
         }
 
         public virtual bool SupportsBulk()
@@ -482,11 +560,15 @@ namespace UiPath.Database
         public virtual void Commit()
         {
             _transaction?.Commit();
+            _transaction?.Dispose();
+            _transaction = null;
         }
 
         public virtual void Rollback()
         {
             _transaction?.Rollback();
+            _transaction?.Dispose();
+            _transaction = null;
         }
 
         public virtual void Dispose()

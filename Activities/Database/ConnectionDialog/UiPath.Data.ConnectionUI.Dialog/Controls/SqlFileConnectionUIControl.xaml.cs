@@ -91,7 +91,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         {
             if (!(connectionProperties is SqlFileConnectionProperties))
             {
-                throw new ArgumentException(Res.Resources.SqlFileConnectionUIControl_InvalidConnectionProperties);
+                throw new ArgumentException(Res.Resources.SqlFileConnectionUIControl_InvalidConnectionProperties, nameof(connectionProperties));
             }
             _connectionProperties = connectionProperties;
             UseWindowsAuthentication = true;

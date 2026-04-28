@@ -2,20 +2,56 @@
     <!-- Import first the parent targets -->
     <Import Project="../Directory.build.targets" />
 
+    <PropertyGroup>
+        <!--
+            Pins — last version at which DbWorkarounds native constants were verified.
+
+            Upgrade workflow:
+              1. Update the PackageReference version below.
+              2. Build — the target below will fail and remind you to review
+                 DbWorkarounds.Sni / DbWorkarounds.Sqlite.
+              3. Adjust DbWorkarounds.*.MinVersion in DbWorkarounds.cs if needed.
+              4. Advance the matching pin property to the new version.
+              5. Build again — check passes.
+        -->
+        <_DbWorkarounds_SqlClientNativePin>5.2.1</_DbWorkarounds_SqlClientNativePin>
+        <_DbWorkarounds_SqliteNativePin>8.0.0</_DbWorkarounds_SqliteNativePin>
+    </PropertyGroup>
+
     <ItemGroup>
-        <!-- When upgrading Microsoft.Data.SqlClient please upgrade also the native SNI dll-->
+        <!-- When upgrading Microsoft.Data.SqlClient, follow the workflow above. -->
         <PackageReference Update="Microsoft.Data.SqlClient" Version="5.2.1" />
         <PackageReference Update="System.Data.Common" Version="4.3.0" />
         <PackageReference Update="System.Data.Odbc" Version="8.0.0" />
         <PackageReference Update="System.Data.OleDb" Version="8.0.0" />
+        <!-- When upgrading Microsoft.Data.Sqlite, follow the workflow above. -->
+        <PackageReference Update="Microsoft.Data.Sqlite" Version="8.0.0" />
         <PackageReference Update="Oracle.ManagedDataAccess.Core" Version="23.8.0"/>
         <PackageReference Update="System.Resources.Extensions" Version="8.0.0" />
-		<PackageReference Update="System.Activities.Presentation" Version="6.0.0-20250327.10" />
-		
-		<!-- Studio contract-->
-		<PackageReference Update="UiPath.Activities.Contracts" Version="24.10.1" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Platform" PrivateAssets="All" />
+        <PackageReference Update="System.Activities.Presentation" Version="6.0.0-20250327.10" />
     </ItemGroup>
-    
+
+    <!--
+        Compile-time guard: fail the build when a package upgrade has not yet been
+        reconciled with the DbWorkarounds native-library constants.
+        Follow the upgrade workflow described in the PropertyGroup comment above.
+    -->
+    <!-- Inject the check as an explicit build dependency so a failure fully blocks compilation. -->
+    <PropertyGroup>
+        <BuildDependsOn>CheckDbWorkaroundsNativeVersionPins;$(BuildDependsOn)</BuildDependsOn>
+    </PropertyGroup>
+
+    <Target Name="CheckDbWorkaroundsNativeVersionPins">
+        <ItemGroup>
+            <_SqlClientRef Include="@(PackageReference)" Condition="'%(PackageReference.Identity)' == 'Microsoft.Data.SqlClient'" />
+            <_SqliteRef  Include="@(PackageReference)" Condition="'%(PackageReference.Identity)' == 'Microsoft.Data.Sqlite'" />
+        </ItemGroup>
+        <Error
+            Condition="'@(_SqlClientRef)' != '' and '%(_SqlClientRef.Version)' != '$(_DbWorkarounds_SqlClientNativePin)'"
+            Text="Microsoft.Data.SqlClient was upgraded to %(_SqlClientRef.Version). Check whether the native SNI library version bundled in the new package has changed; if so, update DbWorkarounds.Sni.MinVersion in DbWorkarounds.cs to the new native library version. Then set _DbWorkarounds_SqlClientNativePin = %(_SqlClientRef.Version) in Database\Directory.build.targets." />
+        <Error
+            Condition="'@(_SqliteRef)' != '' and '%(_SqliteRef.Version)' != '$(_DbWorkarounds_SqliteNativePin)'"
+            Text="Microsoft.Data.Sqlite was upgraded to %(_SqliteRef.Version). Check whether the native e_sqlite3 library version bundled in the new package has changed; if so, update DbWorkarounds.Sqlite.MinVersion in DbWorkarounds.cs to the new native library version. Then set _DbWorkarounds_SqliteNativePin = %(_SqliteRef.Version) in Database\Directory.build.targets." />
+    </Target>
+
 </Project>
