@@ -64,10 +64,6 @@
                 <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
             </BuildOutputInPackage>
         </ItemGroup>
-
-        <ItemGroup>
-            <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" TargetPath="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
-        </ItemGroup>
     </Target>
     <Target Name="CleanPackageFiles" BeforeTargets="Build">
         <Message Text="Deleting packages ..." />
@@ -83,6 +79,9 @@
         <PackageReference Include="Oracle.ManagedDataAccess.Core" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
+        <PackageReference Include="Microsoft.Data.Sqlite" />
+        <PackageReference Include="UiPath.Platform" />
+        <PackageReference Include="UiPath.Telemetry.Client" />
 
         <!--Dependencies override to solve FOSSA issues-->
         <PackageReference Include="Azure.Identity" />
