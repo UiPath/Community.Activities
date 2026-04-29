@@ -52,6 +52,7 @@ namespace UiPath.Database.Activities
                 {
                     throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
                 }
+                TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
                 Dictionary<string, ParameterInfo> parameters = null;
                 var continueOnError = ContinueOnError.Get(context);
                 try
@@ -65,7 +66,7 @@ namespace UiPath.Database.Activities
                     parameters = ConnectionHelper.BuildParameters(Parameters, context);
                     ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                     // create the action for doing the actual work
-                    affectedRecords = await Task.Run(() => ExecuteCommand(connString, connSecureString, provName, sql, parameters, commandTimeoutMs));
+                    affectedRecords = await Task.Run(() => ExecuteCommand(connString, connSecureString, provName, sql, parameters, commandTimeout));
                 }
                 catch (Exception ex)
                 {
@@ -99,14 +100,14 @@ namespace UiPath.Database.Activities
             }
         }
 
-        private DBExecuteCommandResult ExecuteCommand(string connString, SecureString connSecureString, string provName, string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeoutMs)
+        private DBExecuteCommandResult ExecuteCommand(string connString, SecureString connSecureString, string provName, string sql, Dictionary<string, ParameterInfo> parameters, TimeSpan? commandTimeout)
         {
             DbConnection = ConnectionHelper.EnsureConnection(DbConnection, connString, connSecureString, provName);
             if (DbConnection == null)
             {
                 return new DBExecuteCommandResult();
             }
-            return new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeoutMs, CommandType), parameters);
+            return new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
         }
 
         private class DBExecuteCommandResult

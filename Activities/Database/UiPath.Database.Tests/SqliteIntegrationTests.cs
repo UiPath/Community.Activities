@@ -46,7 +46,7 @@ namespace UiPath.Database.Tests
             {
                 { "@tableName", new ParameterInfo { Value = TableName } }
             };
-            var (table, _) = _fixture.Connection.ExecuteQuery("SELECT name FROM sqlite_master WHERE type='table' AND name=@tableName", tableParams, 0);
+            var (table, _) = _fixture.Connection.ExecuteQuery("SELECT name FROM sqlite_master WHERE type='table' AND name=@tableName", tableParams, TimeSpan.Zero);
             Assert.Single(table.Rows);
         }
 
@@ -137,7 +137,7 @@ namespace UiPath.Database.Tests
             {
                 { "@name", new ParameterInfo { Value = "Alice" } }
             };
-            var (table, _) = _fixture.Connection.ExecuteQuery("SELECT Age FROM " + TableName + " WHERE Name=@name", verifyParams, 0);
+            var (table, _) = _fixture.Connection.ExecuteQuery("SELECT Age FROM " + TableName + " WHERE Name=@name", verifyParams, TimeSpan.Zero);
             Assert.Equal(99L, table.Rows[0]["Age"]);
         }
 
@@ -201,7 +201,7 @@ namespace UiPath.Database.Tests
 
         private int CountRows()
         {
-            var (table, _) = _fixture.Connection.ExecuteQuery("SELECT COUNT(*) AS Cnt FROM " + TableName, null, 0);
+            var (table, _) = _fixture.Connection.ExecuteQuery("SELECT COUNT(*) AS Cnt FROM " + TableName, null, TimeSpan.Zero);
             return Convert.ToInt32(table.Rows[0]["Cnt"]);
         }
 
@@ -236,7 +236,7 @@ namespace UiPath.Database.Tests
             // out of order or in isolation (test ordering is best-effort, not guaranteed).
             Connection.Execute(
                 "CREATE TABLE IF NOT EXISTS People (Id INTEGER PRIMARY KEY, Name TEXT NOT NULL, Age INTEGER NOT NULL)",
-                new Dictionary<string, ParameterInfo>(), 0);
+                new Dictionary<string, ParameterInfo>(), TimeSpan.Zero);
         }
 
         public void Dispose()

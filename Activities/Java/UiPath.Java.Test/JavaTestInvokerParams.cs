@@ -36,15 +36,17 @@ namespace UiPath.Java.Test
             Ct = Cts.Token;
         }
 
+        // Verifies that a very short timeout (1ms) fails before Java can initialize,
+        // while longer timeouts (15s, 30s) allow the service to start successfully.
         [Theory]
-        [InlineData(200)]
+        [InlineData(1)]
         [InlineData(15000)]
         [InlineData(30000)]
-        public void ConnectToJavaTimeout(int timeout)
+        public void ConnectToJavaTimeout(int timeoutMs)
         {
             var exception = Record.Exception(
-                () => Invoker.StartJavaService(timeout).Wait());
-            if (timeout<10000)
+                () => Invoker.StartJavaService(timeoutMs).Wait(timeoutMs + 10000));
+            if (timeoutMs < 10000)
             {
                 Assert.NotNull(exception);
             }

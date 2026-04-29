@@ -16,9 +16,9 @@ namespace UiPath.Cryptography.Activities.Tests
         [InlineData(true)]
         public void EncryptDecryptFile_HappyPath_Works(bool withOutputOverwrite)
         {
-            var tempInputFile = Path.GetTempFileName();
-            var tempOutputFile = Path.GetTempFileName();
-            var tempOutputFile2 = Path.GetTempFileName();
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempOutputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempOutputFile2 = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {

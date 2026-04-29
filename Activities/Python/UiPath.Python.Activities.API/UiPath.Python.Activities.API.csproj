@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <OutputPath>..\..\Output\Activities\Python\</OutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NoWarn>CS1591</NoWarn>
+    <AssemblyName>UiPath.Python.Activities.API</AssemblyName>
+    <RootNamespace>UiPath.Python.Activities.API</RootNamespace>
+    <PackageId>UiPath.Python.Activities.API.Implementation</PackageId>
+    <IsPackable>false</IsPackable>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api"/>
+    <PackageReference Include="UiPath.Activities.Contracts">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="UiPath.CodedWorkflows"/>
+    <PackageReference Include="UiPath.Platform"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.Python.Activities\UiPath.Python.Activities.csproj" />
+    <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
+  </ItemGroup>
+
+</Project>

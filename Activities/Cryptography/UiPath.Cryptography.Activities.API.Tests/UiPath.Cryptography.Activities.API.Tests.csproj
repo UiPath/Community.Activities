@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Cryptography.build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <OutputPath>..\..\OutputTests\Cryptography\</OutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <UseWindowsForms Condition="'$(TargetFramework)'=='$(WindowsFramework)'">true</UseWindowsForms>
+    <UseWPF Condition="'$(TargetFramework)'=='$(WindowsFramework)'">true</UseWPF>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='$(WindowsFramework)'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.Cryptography.Activities.API\UiPath.Cryptography.Activities.API.csproj" />
+    <ProjectReference Include="..\UiPath.Cryptography.Activities.Tests\UiPath.Cryptography.Activities.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

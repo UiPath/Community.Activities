@@ -12,6 +12,7 @@
         <VersionPrefix Condition="'$(Configuration)' == 'Release'">2.2.0</VersionPrefix>
         <VersionPrefix Condition="'$(Configuration)' == 'Debug'">2.2.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
         <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">2.2.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+        <!--leave empty for ci to replace with pre-release tag-->
         <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 		<DefineConstants>$(DefineConstants);ENABLE_DEFAULT_TELEMETRY</DefineConstants>
     </PropertyGroup>

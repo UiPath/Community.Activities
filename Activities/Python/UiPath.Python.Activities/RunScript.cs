@@ -61,7 +61,7 @@ namespace UiPath.Python.Activities
 
                 try
                 {
-                    await pythonEngine.Execute(scriptCode, cancellationToken);
+                    await RunScriptInternal(pythonEngine, scriptCode, cancellationToken);
                 }
                 catch (Exception e)
                 {
@@ -79,6 +79,11 @@ namespace UiPath.Python.Activities
                 telemetryOperation?.SendWithException(ex);
                 throw;
             }
+        }
+
+        internal static async Task RunScriptInternal(IEngine engine, string code, CancellationToken ct)
+        {
+            await engine.Execute(code, ct);
         }
     }
 }

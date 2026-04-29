@@ -68,7 +68,7 @@ namespace UiPath.Python.Activities
                 PythonObject result = null;
                 try
                 {
-                    result = await pythonEngine.LoadScript(scriptCode, cancellationToken);
+                    result = await LoadScriptInternal(pythonEngine, scriptCode, cancellationToken);
                 }
                 catch (Exception e)
                 {
@@ -87,6 +87,11 @@ namespace UiPath.Python.Activities
                 telemetryOperation?.SendWithException(ex);
                 throw;
             }
+        }
+
+        internal static async Task<PythonObject> LoadScriptInternal(IEngine engine, string code, CancellationToken ct)
+        {
+            return await engine.LoadScript(code, ct);
         }
     }
 }
