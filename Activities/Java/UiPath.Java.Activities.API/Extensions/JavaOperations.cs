@@ -32,7 +32,7 @@ namespace UiPath.Java.Activities.API
         /// <param name="parameters">Optional parameters to pass to the method.</param>
         /// <param name="parameterTypes">Optional explicit parameter types.</param>
         /// <param name="ct">Cancellation token.</param>
-        /// <returns>A <see cref="JavaObject"/> representing the result, or <c>null</c> for void methods.</returns>
+        /// <returns>A <see cref="JavaObject"/> representing the result. For Java <c>void</c> methods, the returned <see cref="JavaObject"/> has <c>IsNull()</c> returning <c>true</c>.</returns>
         public static Task<JavaObject> InvokeMethod(this IJavaScopeHandle javaScope, string methodName, JavaObject targetObject, List<object> parameters = null, List<Type> parameterTypes = null, CancellationToken ct = default)
         {
             ArgumentNullException.ThrowIfNull(javaScope);
@@ -53,7 +53,7 @@ namespace UiPath.Java.Activities.API
         /// <param name="parameters">Optional parameters to pass to the method.</param>
         /// <param name="parameterTypes">Optional explicit parameter types.</param>
         /// <param name="ct">Cancellation token.</param>
-        /// <returns>A <see cref="JavaObject"/> representing the result, or <c>null</c> for void methods.</returns>
+        /// <returns>A <see cref="JavaObject"/> representing the result. For Java <c>void</c> methods, the returned <see cref="JavaObject"/> has <c>IsNull()</c> returning <c>true</c>.</returns>
         public static Task<JavaObject> InvokeStaticMethod(this IJavaScopeHandle javaScope, string methodName, string className, List<object> parameters = null, List<Type> parameterTypes = null, CancellationToken ct = default)
         {
             ArgumentNullException.ThrowIfNull(javaScope);

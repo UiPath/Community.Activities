@@ -224,7 +224,7 @@ Options for configuring an FTP/FTPS/SFTP session. Properties are grouped by conc
 | `UseSftp` | `bool` | `false` | When `true`, uses SFTP (SSH File Transfer Protocol) instead of FTP/FTPS. |
 | `FtpsMode` | `FtpsMode` | `FtpsMode.None` | FTPS security mode. `None` = plain FTP, `Explicit` = STARTTLS on port 21, `Implicit` = TLS from the start on port 990. Ignored when `UseSftp` is `true`. |
 | `SslProtocols` | `FtpSslProtocols` | `FtpSslProtocols.Auto` | SSL/TLS protocol version for FTPS. Relevant only when `FtpsMode` is not `None`. |
-| `AcceptAllCertificates` | `bool` | `false` | When `true`, accepts all server certificates without validation. **⚠️ Use only in development or isolated test environments — this disables protection against man-in-the-middle attacks.** |
+| `AcceptAllCertificates` | `bool` | `false` | When `true`, accepts all server certificates without validation. **Warning: Use only in development or isolated test environments — this disables protection against man-in-the-middle attacks.** |
 
 #### Proxy
 
@@ -242,9 +242,14 @@ Options for configuring an FTP/FTPS/SFTP session. Properties are grouped by conc
 
 **`FtpsMode`**: `None` (plain FTP), `Explicit` (STARTTLS), `Implicit` (TLS from connect)
 
-**`FtpSslProtocols`** (`[Flags]`): `Auto`, `TLS_1_2`
+**`FtpSslProtocols`** (`[Flags]`):
 
-> **Note:** `Auto` lets the OS negotiate the best available protocol and is the recommended value. `TLS_1_0` and `TLS_1_1` are marked `[Obsolete]` — they use weak protocols and should not be used.
+| Value | Notes |
+|-------|-------|
+| `Auto` | Lets the OS negotiate the best available protocol. **Recommended.** |
+| `TLS_1_2` | Require TLS 1.2. |
+| `TLS_1_0` | **`[Obsolete]`** — weak protocol; do not use. |
+| `TLS_1_1` | **`[Obsolete]`** — weak protocol; do not use. |
 
 **`FtpProxyType`**: `None`, `Socks4`, `Socks5`, `Http`
 
@@ -285,7 +290,6 @@ public async void Execute()
     await using var session = await ftp.UseFtpSession(new FtpScopeOptions
     {
         Host = "sftp.example.com",
-        Port = 22,
         UseSftp = true,
         Username = "sftpuser",
         Password = "s3cr3t"

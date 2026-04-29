@@ -86,7 +86,7 @@ Output and input-output parameter values are written back into the `parameters` 
 
 **Parameters:**
 - `sql` (`string`) — SQL query text, stored procedure name, or table name
-- `parameters` (`Dictionary<string, ParameterInfo>`) — Named parameters to bind. Pass an empty dictionary when no parameters are needed. Updated in-place with output/inout values after execution.
+- `parameters` (`Dictionary<string, ParameterInfo>`) — Named parameters to bind. Pass `null` or an empty dictionary when no parameters are needed. Updated in-place with output/inout values after execution.
 - `commandTimeout` (`TimeSpan?`) — Maximum execution time. When `null`, defaults to 30 seconds.
 - `commandType` (`CommandType`) — Interpretation of the `sql` argument. Default: `CommandType.Text`.
 
@@ -100,7 +100,7 @@ Executes a non-query SQL statement (INSERT, UPDATE, DELETE, DDL, or stored proce
 
 **Parameters:**
 - `sql` (`string`) — SQL statement, stored procedure name, or table name
-- `parameters` (`Dictionary<string, ParameterInfo>`) — Named parameters to bind. Pass an empty dictionary when no parameters are needed. Updated in-place with output/inout values after execution.
+- `parameters` (`Dictionary<string, ParameterInfo>`) — Named parameters to bind. Pass `null` or an empty dictionary when no parameters are needed. Updated in-place with output/inout values after execution.
 - `commandTimeout` (`TimeSpan?`) — Maximum execution time. When `null`, defaults to 30 seconds.
 - `commandType` (`CommandType`) — Interpretation of the `sql` argument. Default: `CommandType.Text`.
 

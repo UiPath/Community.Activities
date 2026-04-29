@@ -237,7 +237,12 @@ Encrypts a string using PGP and returns the result as an armored PGP string.
 | String passphrase | `string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false)` |
 | SecureString passphrase | `string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream, SecureString passphrase, bool sign = false)` |
 
-Parameters and behavior are identical to `PgpEncrypt` but accept and return `string` instead of `byte[]`.
+**Parameters:**
+- `input` (`string`) — Plaintext to encrypt
+- `publicKeyStream` (`Stream`) — Stream of the recipient's armored PGP public key
+- `privateKeyStream` (`Stream`) — Stream of the sender's armored PGP private key. Required when `sign` is `true`.
+- `passphrase` — Passphrase protecting the private key. Required when `sign` is `true`.
+- `sign` (`bool`) — When `true`, signs the encrypted data with the private key (default: `false`)
 
 **Returns:** `string` — PGP armored ciphertext.
 
@@ -252,7 +257,12 @@ Decrypts a PGP-encrypted armored string.
 | String passphrase | `string PgpDecryptText(string input, Stream privateKeyStream, string passphrase, Stream publicKeyStream = null, bool verifySignature = false)` |
 | SecureString passphrase | `string PgpDecryptText(string input, Stream privateKeyStream, SecureString passphrase, Stream publicKeyStream = null, bool verifySignature = false)` |
 
-Parameters and behavior are identical to `PgpDecrypt` but accept and return `string`.
+**Parameters:**
+- `input` (`string`) — PGP armored ciphertext
+- `privateKeyStream` (`Stream`) — Stream of the recipient's armored PGP private key
+- `passphrase` — Passphrase protecting the private key
+- `publicKeyStream` (`Stream`) — Stream of the sender's armored PGP public key. Required when `verifySignature` is `true`.
+- `verifySignature` (`bool`) — When `true`, verifies the embedded signature against the public key (default: `false`)
 
 **Returns:** `string` — Decrypted plaintext.
 
@@ -362,10 +372,10 @@ Used by `KeyedHashText`, `KeyedHashFile`.
 | `HMACSHA512` | Keyed HMAC | |
 | `HMACSHA1` | Keyed HMAC | Weaker; prefer SHA256 or higher for new workflows. |
 | `HMACMD5` | Keyed HMAC | Weak; avoid for security-sensitive use cases. |
-| `SHA256` | Unkeyed hash | Produces the same result for any key value. |
-| `SHA384` | Unkeyed hash | |
-| `SHA512` | Unkeyed hash | |
-| `SHA1` | Unkeyed hash | Weak; avoid for security-sensitive use cases. |
+| `SHA256` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. |
+| `SHA384` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. |
+| `SHA512` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. |
+| `SHA1` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. Weak; avoid for security-sensitive use cases. |
 
 ---
 

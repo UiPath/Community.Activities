@@ -49,7 +49,15 @@ namespace UiPath.FTP.Activities.API
                 : new FtpSession(config, options.FtpsMode);
 
             ct.ThrowIfCancellationRequested();
-            await session.OpenAsync(ct);
+            try
+            {
+                await session.OpenAsync(ct);
+            }
+            catch
+            {
+                session.Dispose();
+                throw;
+            }
 
             return new FtpScopeHandle(session);
         }
