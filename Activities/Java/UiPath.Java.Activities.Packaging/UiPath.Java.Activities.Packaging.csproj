@@ -69,6 +69,11 @@
     </ItemGroup>
 	</Target>
 
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+
 	<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
 		<ProjectReference Include="..\..\Java\UiPath.Java.Activities.Design\UiPath.Java.Activities.Design.csproj">
 			<PrivateAssets>All</PrivateAssets>

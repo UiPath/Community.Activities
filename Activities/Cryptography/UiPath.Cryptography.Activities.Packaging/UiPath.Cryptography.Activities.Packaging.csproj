@@ -79,6 +79,11 @@
     </ItemGroup>
   </Target>
 
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+  
   <Target Name="CleanPackageFiles" BeforeTargets="Build">
     <Message Text="Deleting packages ..." />
     <ItemGroup>

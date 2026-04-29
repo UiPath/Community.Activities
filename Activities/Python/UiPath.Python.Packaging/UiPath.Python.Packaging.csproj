@@ -74,6 +74,11 @@
       
     </Target>
 
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\..\Python\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj">
             <PrivateAssets>All</PrivateAssets>
