@@ -15,7 +15,7 @@ namespace UiPath.Database.Activities.API.Tests
         public DatabaseServiceTests()
         {
             _factoryMock = new Mock<IDBConnectionFactory>();
-            _databaseService = new DatabaseService(executorRuntime: null, _factoryMock.Object);
+            _databaseService = new DatabaseService(_factoryMock.Object);
         }
 
         [Fact]

@@ -1,7 +1,6 @@
 using System;
 using UiPath.Database;
 using UiPath.Database.Activities.API.Models;
-using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Database.Activities.API
 {
@@ -9,12 +8,12 @@ namespace UiPath.Database.Activities.API
     {
         private readonly IDBConnectionFactory _connectionFactory;
 
-        public DatabaseService(IExecutorRuntime executorRuntime)
-            : this(executorRuntime, new DBConnectionFactory())
+        public DatabaseService()
+            : this(new DBConnectionFactory())
         {
         }
 
-        internal DatabaseService(IExecutorRuntime executorRuntime, IDBConnectionFactory connectionFactory)
+        internal DatabaseService(IDBConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
         }

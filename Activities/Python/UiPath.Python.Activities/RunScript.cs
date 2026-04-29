@@ -61,7 +61,7 @@ namespace UiPath.Python.Activities
 
                 try
                 {
-                    await RunScriptInternal(pythonEngine, scriptCode, cancellationToken);
+                    await pythonEngine.Execute(scriptCode, cancellationToken);
                 }
                 catch (Exception e)
                 {
@@ -81,9 +81,5 @@ namespace UiPath.Python.Activities
             }
         }
 
-        internal static async Task RunScriptInternal(IEngine engine, string code, CancellationToken ct)
-        {
-            await engine.Execute(code, ct);
+            }
         }
-    }
-}

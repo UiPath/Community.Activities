@@ -19,13 +19,13 @@ namespace UiPath.Python.Activities.API
         /// <param name="pythonScope">The Python scope handle.</param>
         /// <param name="scriptFile">Path to the Python script file to run.</param>
         /// <param name="ct">Cancellation token.</param>
-        public static Task RunScript(this IPythonScopeHandle pythonScope, string scriptFile, CancellationToken ct = default)
+        public static async Task RunScript(this IPythonScopeHandle pythonScope, string scriptFile, CancellationToken ct = default)
         {
             ArgumentNullException.ThrowIfNull(pythonScope);
             if (string.IsNullOrWhiteSpace(scriptFile))
                 throw new ArgumentException("scriptFile must not be null or whitespace.", nameof(scriptFile));
-            var code = File.ReadAllText(scriptFile);
-            return pythonScope.GetEngine().Execute(code, ct);
+            var code = await File.ReadAllTextAsync(scriptFile, ct).ConfigureAwait(false);
+            await pythonScope.GetEngine().Execute(code, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -49,13 +49,13 @@ namespace UiPath.Python.Activities.API
         /// <param name="scriptFile">Path to the Python script file to load.</param>
         /// <param name="ct">Cancellation token.</param>
         /// <returns>A <see cref="PythonObject"/> representing the loaded script.</returns>
-        public static Task<PythonObject> LoadScript(this IPythonScopeHandle pythonScope, string scriptFile, CancellationToken ct = default)
+        public static async Task<PythonObject> LoadScript(this IPythonScopeHandle pythonScope, string scriptFile, CancellationToken ct = default)
         {
             ArgumentNullException.ThrowIfNull(pythonScope);
             if (string.IsNullOrWhiteSpace(scriptFile))
                 throw new ArgumentException("scriptFile must not be null or whitespace.", nameof(scriptFile));
-            var code = File.ReadAllText(scriptFile);
-            return pythonScope.GetEngine().LoadScript(code, ct);
+            var code = await File.ReadAllTextAsync(scriptFile, ct).ConfigureAwait(false);
+            return await pythonScope.GetEngine().LoadScript(code, ct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -105,6 +105,6 @@ namespace UiPath.Python.Activities.API
             return (T)pythonScope.GetEngine().Convert(pythonObject, typeof(T));
         }
 
-        internal static IEngine GetEngine(this IPythonScopeHandle handle) => handle.Engine;
+        internal static IEngine GetEngine(this IPythonScopeHandle handle) => ((PythonScopeHandle)handle).Engine;
     }
 }

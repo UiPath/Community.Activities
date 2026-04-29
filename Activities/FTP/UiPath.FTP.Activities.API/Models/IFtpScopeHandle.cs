@@ -10,8 +10,6 @@ namespace UiPath.FTP.Activities.API.Models
     /// </summary>
     public interface IFtpScopeHandle : IDisposable, IAsyncDisposable
     {
-        /// <summary>The underlying FTP session.</summary>
-        IFtpSession Session { get; }
     }
 
     internal class FtpScopeHandle : IFtpScopeHandle
@@ -34,7 +32,9 @@ namespace UiPath.FTP.Activities.API.Models
 
         public ValueTask DisposeAsync()
         {
-            Dispose();
+            if (Interlocked.Exchange(ref _disposed, 1) == 1)
+                return ValueTask.CompletedTask;
+            Session.Dispose();          // sync today; replace with await session.CloseAsync() when ready
             return ValueTask.CompletedTask;
         }
     }

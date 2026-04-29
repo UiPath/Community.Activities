@@ -64,7 +64,7 @@ namespace UiPath.Python.Activities
                 PythonObject result = null;
                 try
                 {
-                    result = await InvokeMethodInternal(pythonEngine, pyObject, methodName, parameters, cancellationToken);
+                    result = await pythonEngine.InvokeMethod(pyObject, methodName, parameters, cancellationToken);
                 }
                 catch (Exception e)
                 {
@@ -85,9 +85,5 @@ namespace UiPath.Python.Activities
             }
         }
 
-        internal static async Task<PythonObject> InvokeMethodInternal(IEngine engine, PythonObject instance, string methodName, IEnumerable<object> parameters, CancellationToken ct)
-        {
-            return await engine.InvokeMethod(instance, methodName, parameters, ct);
+            }
         }
-    }
-}

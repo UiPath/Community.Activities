@@ -105,6 +105,6 @@ namespace UiPath.FTP.Activities.API
             return ftpScope.GetSession().EnumerateObjectsAsync(remotePath, recursive, ct);
         }
 
-        internal static IFtpSession GetSession(this IFtpScopeHandle handle) => handle.Session;
+        internal static IFtpSession GetSession(this IFtpScopeHandle handle) => ((FtpScopeHandle)handle).Session;
     }
 }

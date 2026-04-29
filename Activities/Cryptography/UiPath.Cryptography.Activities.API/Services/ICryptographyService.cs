@@ -29,11 +29,20 @@ namespace UiPath.Cryptography.Activities.API
     /// <para>
     /// Every method that accepts a <c>string key</c> has a paired overload that accepts
     /// <c>byte[] keyBytes</c> (raw key material) or <c>SecureString key</c>.
-    /// Prefer the <c>byte[]</c> overload when key material is already loaded into memory as bytes;
-    /// prefer the <c>SecureString</c> overload when receiving the key from user input or a secret
-    /// store that surfaces <see cref="SecureString"/>.  The plain-string overload remains for
-    /// compatibility but note that <see langword="string"/> values are immutable and may be interned,
-    /// meaning the secret can linger on the heap until GC.
+    /// Prefer the <c>byte[]</c> overload when key material is already loaded into memory as bytes.
+    /// The <c>SecureString</c> overload is supported for symmetric operations (encrypt, decrypt,
+    /// keyed hash): the key is extracted via unmanaged memory, encoded to bytes, used for the
+    /// cryptographic operation, and then zeroed — no managed <see langword="string"/> is created.
+    /// The plain-string overload remains for compatibility; note that <see langword="string"/>
+    /// values are immutable and may be interned, meaning the secret can linger on the heap until GC.
+    /// </para>
+    /// <para><b>PGP passphrase limitation</b></para>
+    /// <para>
+    /// PGP overloads that accept <c>SecureString passphrase</c> must materialise the passphrase
+    /// to a managed <see langword="string"/> because the underlying BouncyCastle library requires
+    /// a plain string and offers no byte[]-based passphrase API.  The managed string cannot be
+    /// zeroed afterward.  For maximum security with PGP, prefer passing a key ring that does not
+    /// require a passphrase, or accept that the passphrase will briefly exist as a managed string.
     /// </para>
     /// </remarks>
     public interface ICryptographyService
@@ -61,7 +70,7 @@ namespace UiPath.Cryptography.Activities.API
         /// <summary>Decrypts a string using the specified algorithm and raw key bytes.</summary>
         string DecryptText(string input, EncryptionAlgorithm algorithm, byte[] keyBytes, Encoding encoding);
 
-        // ── Symmetric: string key ────────────────────────────────────────────
+        // ── Symmetric file: string key ───────────────────────────────────────
 
         /// <summary>Encrypts a file and writes the result to the output path.</summary>
         void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite);
@@ -69,7 +78,7 @@ namespace UiPath.Cryptography.Activities.API
         /// <summary>Decrypts a file and writes the result to the output path.</summary>
         void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite);
 
-        // ── Symmetric: SecureString key ──────────────────────────────────────
+        // ── Symmetric file: SecureString key ─────────────────────────────────
 
         /// <summary>Encrypts a file and writes the result to the output path using a <see cref="SecureString"/> key.</summary>
         void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite);
@@ -77,7 +86,7 @@ namespace UiPath.Cryptography.Activities.API
         /// <summary>Decrypts a file and writes the result to the output path using a <see cref="SecureString"/> key.</summary>
         void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite);
 
-        // ── Symmetric: byte[] key (raw material — no PBKDF2 string conversion) ──
+        // ── Symmetric file: byte[] key (raw material — no PBKDF2 string conversion) ──
 
         /// <summary>Encrypts a file and writes the result to the output path using raw key bytes.</summary>
         void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, byte[] keyBytes, bool overwrite);

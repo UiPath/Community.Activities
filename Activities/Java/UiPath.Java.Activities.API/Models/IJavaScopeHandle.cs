@@ -10,8 +10,6 @@ namespace UiPath.Java.Activities.API.Models
     /// </summary>
     public interface IJavaScopeHandle : IDisposable, IAsyncDisposable
     {
-        /// <summary>The underlying Java invoker.</summary>
-        IInvoker Invoker { get; }
     }
 
     internal class JavaScopeHandle : IJavaScopeHandle
@@ -27,7 +25,7 @@ namespace UiPath.Java.Activities.API.Models
 
         public void Dispose()
         {
-            DisposeAsyncCore().AsTask().GetAwaiter().GetResult();
+            Task.Run(() => DisposeAsyncCore().AsTask()).GetAwaiter().GetResult();
         }
 
         public async ValueTask DisposeAsync()

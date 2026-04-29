@@ -10,8 +10,6 @@ namespace UiPath.Python.Activities.API.Models
     /// </summary>
     public interface IPythonScopeHandle : IDisposable, IAsyncDisposable
     {
-        /// <summary>The underlying Python engine.</summary>
-        IEngine Engine { get; }
     }
 
     internal class PythonScopeHandle : IPythonScopeHandle
@@ -27,7 +25,7 @@ namespace UiPath.Python.Activities.API.Models
 
         public void Dispose()
         {
-            DisposeAsyncCore().AsTask().GetAwaiter().GetResult();
+            Task.Run(() => DisposeAsyncCore().AsTask()).GetAwaiter().GetResult();
         }
 
         public async ValueTask DisposeAsync()

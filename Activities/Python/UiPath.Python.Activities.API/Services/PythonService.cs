@@ -12,8 +12,17 @@ namespace UiPath.Python.Activities.API
 {
     internal class PythonService : IPythonService
     {
+        private readonly Func<Version, string, string, bool, TargetPlatform, bool, IEngine> _engineFactory;
+
         public PythonService(IExecutorRuntime executorRuntime)
+            : this((version, path, libraryPath, x, target, y) => EngineProvider.Get(version, path, libraryPath, x, target, y))
         {
+        }
+
+        // For testing: allows injecting a fake IEngine without a real Python installation.
+        internal PythonService(Func<Version, string, string, bool, TargetPlatform, bool, IEngine> engineFactory)
+        {
+            _engineFactory = engineFactory;
         }
 
         public async Task<IPythonScopeHandle> UsePythonScope(PythonScopeOptions options, CancellationToken ct = default)
@@ -47,7 +56,7 @@ namespace UiPath.Python.Activities.API
 
             var operationTimeout = (options.OperationTimeout ?? TimeSpan.FromHours(1)).TotalSeconds;
 
-            IEngine engine = EngineProvider.Get(options.Version, path, options.LibraryPath, false, TargetPlatform.x64, false);
+            IEngine engine = _engineFactory(options.Version, path, options.LibraryPath, false, options.Target, false);
 
             try
             {
@@ -62,10 +71,12 @@ namespace UiPath.Python.Activities.API
                 }
                 catch (Exception releaseEx)
                 {
-                    throw new InvalidOperationException("Failed to initialize Python engine.", new AggregateException(e, releaseEx));
+                    // Release failed — record as secondary context so the original exception type is preserved.
+                    e.Data["ReleaseException"] = releaseEx.ToString();
                 }
 
-                throw new InvalidOperationException("Failed to initialize Python engine.", e);
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(e).Throw();
+                throw; // unreachable — satisfies the compiler
             }
 
             return new PythonScopeHandle(engine);

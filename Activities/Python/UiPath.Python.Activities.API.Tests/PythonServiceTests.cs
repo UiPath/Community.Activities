@@ -1,7 +1,9 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Moq;
 using Shouldly;
+using UiPath.Python;
 using UiPath.Python.Activities.API.Models;
 using UiPath.Robot.Activities.Api;
 using Xunit;
@@ -67,6 +69,74 @@ namespace UiPath.Python.Activities.API.Tests
             using var handle = await _pythonService.UsePythonScope(options);
 
             handle.ShouldNotBeNull();
+        }
+    }
+
+    public class PythonServiceCancellationTests
+    {
+        private static PythonService BuildService(IEngine engine)
+        {
+            return new PythonService((_, _, _, _, _, _) => engine);
+        }
+
+        [Fact]
+        public async Task UsePythonScope_PreCancelledToken_ThrowsOperationCanceledException()
+        {
+            var engineMock = new Mock<IEngine>();
+            engineMock
+                .Setup(e => e.Initialize(It.IsAny<string>(), It.IsAny<CancellationToken>(), It.IsAny<double>()))
+                .Returns((string _, CancellationToken ct, double _) =>
+                    Task.FromCanceled(ct));
+
+            var service = BuildService(engineMock.Object);
+            using var cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto };
+            await Should.ThrowAsync<OperationCanceledException>(
+                () => service.UsePythonScope(options, cts.Token));
+        }
+
+        [Fact]
+        public async Task UsePythonScope_InitializeFaults_ThrowsOriginalException()
+        {
+            var expected = new InvalidOperationException("boom");
+            var engineMock = new Mock<IEngine>();
+            engineMock
+                .Setup(e => e.Initialize(It.IsAny<string>(), It.IsAny<CancellationToken>(), It.IsAny<double>()))
+                .ThrowsAsync(expected);
+            engineMock
+                .Setup(e => e.Release())
+                .Returns(Task.CompletedTask);
+
+            var service = BuildService(engineMock.Object);
+            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto };
+
+            var ex = await Should.ThrowAsync<InvalidOperationException>(
+                () => service.UsePythonScope(options));
+            ex.ShouldBeSameAs(expected);
+        }
+
+        [Fact]
+        public async Task UsePythonScope_InitializeFaultsAndReleaseFaults_ThrowsOriginalExceptionWithReleaseContext()
+        {
+            var initEx = new InvalidOperationException("init failed");
+            var releaseEx = new InvalidOperationException("release failed");
+            var engineMock = new Mock<IEngine>();
+            engineMock
+                .Setup(e => e.Initialize(It.IsAny<string>(), It.IsAny<CancellationToken>(), It.IsAny<double>()))
+                .ThrowsAsync(initEx);
+            engineMock
+                .Setup(e => e.Release())
+                .ThrowsAsync(releaseEx);
+
+            var service = BuildService(engineMock.Object);
+            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto };
+
+            var ex = await Should.ThrowAsync<InvalidOperationException>(
+                () => service.UsePythonScope(options));
+            ex.ShouldBeSameAs(initEx);
+            ex.Data["ReleaseException"].ShouldNotBeNull();
         }
     }
 }

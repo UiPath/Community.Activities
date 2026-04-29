@@ -41,7 +41,7 @@ namespace UiPath.Python.Activities
                 T result;
                 try
                 {
-                    result = GetObjectInternal<T>(pythonEngine, pyObject);
+                    result = (T)pythonEngine.Convert(pyObject, typeof(T));
                 }
                 catch (Exception e)
                 {
@@ -59,9 +59,5 @@ namespace UiPath.Python.Activities
             }
         }
 
-        internal static T GetObjectInternal<T>(IEngine engine, PythonObject pyObject)
-        {
-            return (T)engine.Convert(pyObject, typeof(T));
+            }
         }
-    }
-}

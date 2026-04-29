@@ -1,4 +1,5 @@
 using System;
+using System.Security;
 using UiPath.FTP;
 using UiPath.FTP.Enums;
 
@@ -30,6 +31,12 @@ namespace UiPath.FTP.Activities.API.Models
         public string Password { get; set; }
 
         /// <summary>
+        /// Password for authentication as a <see cref="SecureString"/>.
+        /// When set, takes precedence over <see cref="Password"/>.
+        /// </summary>
+        public SecureString PasswordSecure { get; set; }
+
+        /// <summary>
         /// When <c>true</c> the session connects anonymously, ignoring <see cref="Username"/> and <see cref="Password"/>.
         /// </summary>
         public bool UseAnonymousLogin { get; set; }
@@ -59,6 +66,12 @@ namespace UiPath.FTP.Activities.API.Models
         /// Password protecting the client certificate file.
         /// </summary>
         public string ClientCertificatePassword { get; set; }
+
+        /// <summary>
+        /// Password protecting the client certificate file as a <see cref="SecureString"/>.
+        /// When set, takes precedence over <see cref="ClientCertificatePassword"/>.
+        /// </summary>
+        public SecureString ClientCertificatePasswordSecure { get; set; }
 
         /// <summary>
         /// When <c>true</c> all server certificates are accepted without validation.
@@ -97,5 +110,11 @@ namespace UiPath.FTP.Activities.API.Models
         /// Password for proxy authentication.
         /// </summary>
         public string ProxyPassword { get; set; }
+
+        /// <summary>
+        /// Password for proxy authentication as a <see cref="SecureString"/>.
+        /// When set, takes precedence over <see cref="ProxyPassword"/>.
+        /// </summary>
+        public SecureString ProxyPasswordSecure { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Activities.API.Models;
-using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Java.Activities.API
 {
@@ -13,8 +12,17 @@ namespace UiPath.Java.Activities.API
         private const string JavaExeWindows = "java.exe";
         private const string JavaExeLinux = "java";
 
-        public JavaService(IExecutorRuntime executorRuntime)
+        private readonly Func<string, IInvoker> _invokerFactory;
+
+        public JavaService()
+            : this(javaPath => new JavaInvoker(javaPath))
         {
+        }
+
+        // For testing: allows injecting a fake IInvoker without spawning a real JVM.
+        internal JavaService(Func<string, IInvoker> invokerFactory)
+        {
+            _invokerFactory = invokerFactory;
         }
 
         public async Task<IJavaScopeHandle> UseJavaScope(JavaScopeOptions options, CancellationToken ct = default)
@@ -37,7 +45,7 @@ namespace UiPath.Java.Activities.API
 
             ct.ThrowIfCancellationRequested();
 
-            var invoker = new JavaInvoker(string.IsNullOrWhiteSpace(javaPath) ? null : javaPath);
+            var invoker = _invokerFactory(string.IsNullOrWhiteSpace(javaPath) ? null : javaPath);
             try
             {
                 await invoker.StartJavaService(timeout);
@@ -50,10 +58,12 @@ namespace UiPath.Java.Activities.API
                 }
                 catch (Exception releaseEx)
                 {
-                    throw new InvalidOperationException("Failed to start Java service.", new AggregateException(e, releaseEx));
+                    // Release failed — record as secondary context so the original exception type is preserved.
+                    e.Data["ReleaseException"] = releaseEx.ToString();
                 }
 
-                throw new InvalidOperationException("Failed to start Java service.", e);
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(e).Throw();
+                throw; // unreachable — satisfies the compiler
             }
 
             return new JavaScopeHandle(invoker);

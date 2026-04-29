@@ -134,7 +134,7 @@ namespace UiPath.Java.Activities.API
             return javaObject.Convert<T>();
         }
 
-        internal static IInvoker GetInvoker(this IJavaScopeHandle handle) => handle.Invoker;
+        internal static IInvoker GetInvoker(this IJavaScopeHandle handle) => ((JavaScopeHandle)handle).Invoker;
 
         private static List<Type> ResolveTypes(List<object> parameters)
         {

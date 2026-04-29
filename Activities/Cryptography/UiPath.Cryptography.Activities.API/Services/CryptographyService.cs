@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Net;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Enums;
@@ -80,25 +80,61 @@ namespace UiPath.Cryptography.Activities.API
         public string EncryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)
         {
             ArgumentNullException.ThrowIfNull(key);
-            return EncryptText(input, algorithm, SecureStringToString(key), encoding);
+            ArgumentNullException.ThrowIfNull(encoding);
+            byte[] keyBytes = SecureStringToBytes(key, encoding);
+            try
+            {
+                return EncryptText(input, algorithm, keyBytes, encoding);
+            }
+            finally
+            {
+                Array.Clear(keyBytes, 0, keyBytes.Length);
+            }
         }
 
         public string DecryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)
         {
             ArgumentNullException.ThrowIfNull(key);
-            return DecryptText(input, algorithm, SecureStringToString(key), encoding);
+            ArgumentNullException.ThrowIfNull(encoding);
+            byte[] keyBytes = SecureStringToBytes(key, encoding);
+            try
+            {
+                return DecryptText(input, algorithm, keyBytes, encoding);
+            }
+            finally
+            {
+                Array.Clear(keyBytes, 0, keyBytes.Length);
+            }
         }
 
         public void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite)
         {
             ArgumentNullException.ThrowIfNull(key);
-            EncryptFile(inputFilePath, outputFilePath, algorithm, SecureStringToString(key), encoding, overwrite);
+            ArgumentNullException.ThrowIfNull(encoding);
+            byte[] keyBytes = SecureStringToBytes(key, encoding);
+            try
+            {
+                EncryptFile(inputFilePath, outputFilePath, algorithm, keyBytes, overwrite);
+            }
+            finally
+            {
+                Array.Clear(keyBytes, 0, keyBytes.Length);
+            }
         }
 
         public void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite)
         {
             ArgumentNullException.ThrowIfNull(key);
-            DecryptFile(inputFilePath, outputFilePath, algorithm, SecureStringToString(key), encoding, overwrite);
+            ArgumentNullException.ThrowIfNull(encoding);
+            byte[] keyBytes = SecureStringToBytes(key, encoding);
+            try
+            {
+                DecryptFile(inputFilePath, outputFilePath, algorithm, keyBytes, overwrite);
+            }
+            finally
+            {
+                Array.Clear(keyBytes, 0, keyBytes.Length);
+            }
         }
 
         // ── Symmetric: byte[] key ─────────────────────────────────────────────
@@ -195,13 +231,31 @@ namespace UiPath.Cryptography.Activities.API
         public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)
         {
             ArgumentNullException.ThrowIfNull(key);
-            return KeyedHashText(input, algorithm, SecureStringToString(key), encoding);
+            ArgumentNullException.ThrowIfNull(encoding);
+            byte[] keyBytes = SecureStringToBytes(key, encoding);
+            try
+            {
+                return KeyedHashText(input, algorithm, keyBytes, encoding);
+            }
+            finally
+            {
+                Array.Clear(keyBytes, 0, keyBytes.Length);
+            }
         }
 
         public string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)
         {
             ArgumentNullException.ThrowIfNull(key);
-            return KeyedHashFile(filePath, algorithm, SecureStringToString(key), encoding);
+            ArgumentNullException.ThrowIfNull(encoding);
+            byte[] keyBytes = SecureStringToBytes(key, encoding);
+            try
+            {
+                return KeyedHashFile(filePath, algorithm, keyBytes);
+            }
+            finally
+            {
+                Array.Clear(keyBytes, 0, keyBytes.Length);
+            }
         }
 
         // ── Keyed hash: byte[] key ────────────────────────────────────────────
@@ -281,41 +335,45 @@ namespace UiPath.Cryptography.Activities.API
         }
 
         // ── PGP: SecureString passphrase ──────────────────────────────────────
+        // BouncyCastle's PGP API requires a plain string passphrase. The SecureString
+        // is materialised to a managed string for the duration of the call and cannot
+        // be zeroed afterward because strings are immutable in .NET.
+        // This is a known limitation documented on ICryptographyService.
 
         public byte[] PgpEncrypt(byte[] inputBytes, Stream publicKeyStream, Stream privateKeyStream, SecureString passphrase, bool sign = false)
         {
             ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpEncrypt(inputBytes, publicKeyStream, privateKeyStream, SecureStringToString(passphrase), sign);
+            return PgpEncrypt(inputBytes, publicKeyStream, privateKeyStream, SecureStringToManagedString(passphrase), sign);
         }
 
         public byte[] PgpDecrypt(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase, Stream publicKeyStream = null, bool verifySignature = false)
         {
             ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpDecrypt(inputBytes, privateKeyStream, SecureStringToString(passphrase), publicKeyStream, verifySignature);
+            return PgpDecrypt(inputBytes, privateKeyStream, SecureStringToManagedString(passphrase), publicKeyStream, verifySignature);
         }
 
         public string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream, SecureString passphrase, bool sign = false)
         {
             ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpEncryptText(input, publicKeyStream, privateKeyStream, SecureStringToString(passphrase), sign);
+            return PgpEncryptText(input, publicKeyStream, privateKeyStream, SecureStringToManagedString(passphrase), sign);
         }
 
         public string PgpDecryptText(string input, Stream privateKeyStream, SecureString passphrase, Stream publicKeyStream = null, bool verifySignature = false)
         {
             ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpDecryptText(input, privateKeyStream, SecureStringToString(passphrase), publicKeyStream, verifySignature);
+            return PgpDecryptText(input, privateKeyStream, SecureStringToManagedString(passphrase), publicKeyStream, verifySignature);
         }
 
         public byte[] PgpSignFile(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase)
         {
             ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpSignFile(inputBytes, privateKeyStream, SecureStringToString(passphrase));
+            return PgpSignFile(inputBytes, privateKeyStream, SecureStringToManagedString(passphrase));
         }
 
         public byte[] PgpClearSignFile(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase)
         {
             ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpClearSignFile(inputBytes, privateKeyStream, SecureStringToString(passphrase));
+            return PgpClearSignFile(inputBytes, privateKeyStream, SecureStringToManagedString(passphrase));
         }
 
         // ── PGP: verify / key-gen ─────────────────────────────────────────────
@@ -348,10 +406,45 @@ namespace UiPath.Cryptography.Activities.API
 
         // ── Private helpers ───────────────────────────────────────────────────
 
-        // Extracts the plain-text value from a SecureString at the call boundary.
-        // The string is short-lived: it is used immediately to construct key bytes
-        // or pass to the underlying BouncyCastle API and then discarded.
-        private static string SecureStringToString(SecureString value)
-            => new NetworkCredential(string.Empty, value).Password;
+        // Extracts the SecureString content via unmanaged memory, encodes it with the
+        // caller-supplied Encoding, then zeros both the unmanaged buffer and the char[]
+        // before returning. No managed string is ever created.
+        private static byte[] SecureStringToBytes(SecureString value, Encoding encoding)
+        {
+            IntPtr ptr = IntPtr.Zero;
+            char[] chars = null;
+            try
+            {
+                ptr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                int length = value.Length;
+                chars = new char[length];
+                Marshal.Copy(ptr, chars, 0, length);
+                return encoding.GetBytes(chars);
+            }
+            finally
+            {
+                if (ptr != IntPtr.Zero)
+                    Marshal.ZeroFreeGlobalAllocUnicode(ptr);
+                if (chars != null)
+                    Array.Clear(chars, 0, chars.Length);
+            }
+        }
+
+        // Used only by PGP overloads: BouncyCastle requires a plain string passphrase
+        // and offers no byte[]-based API. The managed string cannot be zeroed afterward.
+        private static string SecureStringToManagedString(SecureString value)
+        {
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                ptr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                return Marshal.PtrToStringUni(ptr);
+            }
+            finally
+            {
+                if (ptr != IntPtr.Zero)
+                    Marshal.ZeroFreeGlobalAllocUnicode(ptr);
+            }
+        }
     }
 }

@@ -174,6 +174,7 @@ Options for configuring a Python scope passed to `UsePythonScope`.
 | `Version` | `Version` | `Version.Auto` | Python version to use. `Auto` detects the installed version automatically. |
 | `WorkingFolder` | `string` | — | Working directory for the Python process. Relative imports in scripts resolve from this path. |
 | `OperationTimeout` | `TimeSpan?` | `null` (1 hour) | Maximum time to wait for Python operations to complete. When `null`, defaults to 1 hour. |
+| `Target` | `TargetPlatform` | `TargetPlatform.x64` | CPU architecture of the Python engine. Set to `TargetPlatform.x86` only when using a 32-bit Python installation (e.g., legacy native-DLL bindings that require a 32-bit host). |
 
 ---
 
@@ -193,6 +194,19 @@ Specifies which Python version to initialize the scope with.
 | `Python_310` | Python 3.10 and above |
 
 > **Note:** Python 2.7 and Python 3.3–3.5 values exist in the enum for serialization compatibility but are not supported and will raise a validation error at runtime if used.
+
+---
+
+### `TargetPlatform`
+
+Specifies the CPU architecture for the Python engine host process.
+
+| Value | Description |
+|-------|-------------|
+| `x64` | 64-bit Python (default). Use with any standard 64-bit Python installation. |
+| `x86` | 32-bit Python. Use only when your Python installation is 32-bit, typically required for legacy native extensions (`.pyd`/`.dll`) that were built for a 32-bit host. |
+
+> **Note:** The `Target` value must match the bitness of the Python installation pointed to by `Path`. Mismatching architecture (e.g., `x64` engine with a 32-bit Python DLL) will cause an engine initialization failure.
 
 ---
 
