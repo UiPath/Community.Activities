@@ -96,7 +96,6 @@ namespace UiPath.Data.ConnectionUI.Dialog.Dialogs
         public DataConnectionSourceDialog()
         {
             InitializeComponent();
-            Database.DbWorkarounds.SNILoadWorkaround();
             DataConnectionConfiguration config = new DataConnectionConfiguration();
             _dataSources = config.DataSources; 
         }

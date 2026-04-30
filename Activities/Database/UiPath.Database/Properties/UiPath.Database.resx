@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>The provided ParameterDirection argument does not have a coresponding ArgumentDirection value</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>A transaction is already in progress. Commit or roll back the existing transaction before starting a new one.</value>
+  </data>
 </root>

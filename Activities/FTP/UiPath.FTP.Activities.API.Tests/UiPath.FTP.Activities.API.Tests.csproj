@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+    <OutputPath>..\..\OutputTests\FTP\</OutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <UseWindowsForms Condition="'$(TargetFramework)'=='$(WindowsFramework)'">true</UseWindowsForms>
+    <UseWPF Condition="'$(TargetFramework)'=='$(WindowsFramework)'">true</UseWPF>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='$(WindowsFramework)'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.FTP.Activities.API\UiPath.FTP.Activities.API.csproj" />
+    <ProjectReference Include="..\UiPath.FTP.Tests\UiPath.FTP.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

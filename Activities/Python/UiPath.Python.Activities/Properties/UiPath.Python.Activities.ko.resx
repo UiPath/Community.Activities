@@ -296,11 +296,20 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>라이브러리 경로(Linux 또는 버전&gt; 3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>선택한 Python 버전은 지원되지 않습니다.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>3.10 이상인 Python 버전은 32비트에서 지원되지 않습니다. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>앱 호출자.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>설치된 Python 버전</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>액티비티 구성에 사용할 Python 설치 버전을 선택합니다</value>
   </data>
 </root>

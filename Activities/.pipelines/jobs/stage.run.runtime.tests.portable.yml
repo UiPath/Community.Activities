@@ -16,6 +16,9 @@ jobs:
     clean: outputs | resources | all
 
   steps:
+  - checkout: self
+    fetchDepth: 1
+
   - task: UniversalPackages@0
     displayName: "Download TestRunner"
     inputs:

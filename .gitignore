@@ -12,3 +12,7 @@
 /Activities/OutputTests/
 /Activities/Output/Activities
 /Activities/Tests/DatabaseTests/.local
+/.reviews
+/.agent-status
+/.worktrees
+/.tmp/

@@ -11,7 +11,7 @@ using UiPath.Shared.Activities;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    public partial class WithFtpSessionViewModel : DesignPropertiesViewModel
+    internal class WithFtpSessionViewModel : BaseFtpViewModel
     {
         /// <summary>
         /// Basic constructor
@@ -20,6 +20,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         public WithFtpSessionViewModel(IDesignServices services) : base(services)
         {
             InitializeFtpsModeDataSource();
+            InitializeProxyModeDataSource();
         }
 
         /// <summary>
@@ -31,6 +32,11 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// The port of the FTP server that you want to connect to.
         /// </summary>
         public DesignInArgument<int> Port { get; set; }
+
+        /// <summary>
+        /// The connection timeout in milliseconds.
+        /// </summary>
+        public DesignInArgument<int> Timeout { get; set; }
 
         /// <summary>
         /// The username that will be used to connect to the FTP server.
@@ -98,11 +104,6 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         public DesignProperty<bool> AcceptAllCertificates { get; set; }
 
         /// <summary>
-        /// Specifies if the automation should continue even when the activity throws an error.
-        /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; }
-
-        /// <summary>
         /// The type of proxy used
         /// </summary>
         public DesignProperty<FtpProxyType> ProxyType { get; set; }
@@ -139,6 +140,8 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
 
         private static DataSource<FtpSslProtocols> _sslProtocolsDataSource;
 
+        private static IDataSource _proxyTypeDataSource;
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -151,6 +154,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             Password.OrderIndex = propertyOrderIndex++;
             SecurePassword.OrderIndex = propertyOrderIndex++;
             Port.OrderIndex = propertyOrderIndex++;
+            Timeout.OrderIndex = propertyOrderIndex++;
             UseAnonymousLogin.OrderIndex = propertyOrderIndex++;
             ContinueOnError.OrderIndex = propertyOrderIndex++;
             AcceptAllCertificates.OrderIndex = propertyOrderIndex++;
@@ -166,6 +170,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             UseSftp.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
             SslProtocols.DataSource = _sslProtocolsDataSource;
+            ProxyType.DataSource = _proxyTypeDataSource;
 
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(PasswordInputModeSwitch)
               .AddMenuProperty(Password, PasswordInputMode.Password)
@@ -321,6 +326,11 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
                 .Build();
         }
 
+        private static void InitializeProxyModeDataSource()
+        {
+            _proxyTypeDataSource ??= ProxyTypeHelper.GetProxyTypeDataSource();   
+        }
+
         private static List<FtpSslProtocols> Decompose(FtpSslProtocols value)
         {
             var bits = EnumExtensions<FtpSslProtocols>.Decompose(value);
@@ -361,4 +371,27 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         }
 
     }
+
+    internal static class ProxyTypeHelper
+    {
+        internal static IDataSource GetProxyTypeDataSource()
+        => DataSourceBuilder<FtpProxyType>
+            .WithId(t => t.ToString())
+            .WithLabel(GetLocalizedFtpObjectTypeDisplayName)
+            .WithData(GetOrderedProxyTypeList())
+            .Build();
+
+        internal static IReadOnlyList<FtpProxyType> GetOrderedProxyTypeList()
+        => new List<FtpProxyType>()
+        {
+            FtpProxyType.None,
+            FtpProxyType.Socks4,
+            FtpProxyType.Socks5,
+            FtpProxyType.Http,
+        };
+
+        internal static string GetLocalizedFtpObjectTypeDisplayName(FtpProxyType type)
+        => LocalizedEnum.GetLocalizedValue(typeof(FtpProxyType), type).Name;   
+    }
+
 }

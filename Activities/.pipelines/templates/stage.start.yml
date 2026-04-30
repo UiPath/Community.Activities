@@ -1,0 +1,99 @@
+# Local replacement for Activities/stage.start.yml@common
+# Uses path-trigger-based should-run check instead of GitHub API label check.
+# References @common for build, test, and sonar templates.
+
+parameters:
+  projectName: ''
+  tagName: ''
+  solutionPath: ''
+  buildPoolName: ''
+  testPoolName: ''
+  sonarKeyPrefix: ''
+  runSettingsFilePath: '$(RunSettingsFilePath)'
+  preBuild: []
+  postBuild: []
+  additionalBuildJobs: []
+  preTestRun: []
+  postTestRun: []
+  additionalStages: []
+  additionalTestJobs: []
+  additionalSonarJobs: []
+  additionalSonarTasks: []
+  sonarDependsOn: []
+  msBuildPack: false
+  sdkBuild: false
+  requiresLfs: false
+  hasQaPackages: true
+  enableCDStages: false
+  azureSignConnectionName: ""
+
+stages:
+- stage: Build
+  displayName: ${{ format('Build {0} activities', parameters.projectName) }}
+  variables:
+    Solution: '${{ parameters.solutionPath }}'
+    RunAnalysis: 'false'
+  jobs:
+  # Local should-run check — no GitHub API token needed
+  - template: stage.shouldrun.yml
+
+  # Build job from common templates (unchanged)
+  - template: Activities/stage.build.yml@common
+    parameters:
+      projectName: ${{ parameters.projectName }}
+      solutionPath: ${{ parameters.solutionPath }}
+      poolName: ${{ parameters.buildPoolName }}
+      tagName: ${{ parameters.tagName }}
+      sonarKeyPrefix: ${{ parameters.sonarKeyPrefix }}
+      sdkBuild: ${{ parameters.sdkBuild }}
+      requiresLfs: ${{ parameters.requiresLfs }}
+      hasQaPackages: ${{ parameters.hasQaPackages }}
+      msBuildPack: ${{ parameters.msBuildPack }}
+      azureSignConnectionName: ${{ parameters.azureSignConnectionName }}
+      preBuild:
+      - ${{ each step in parameters.preBuild }}:
+        - ${{ step }}
+      postBuild:
+      - ${{ each step in parameters.postBuild }}:
+        - ${{ step }}
+  - ${{ each job in parameters.additionalBuildJobs }}:
+    - ${{ job }}
+
+- stage: Test
+  displayName: ${{ format('Run {0} tests', parameters.projectName) }}
+  dependsOn: Build
+  condition: and(succeeded(), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  jobs:
+  - template: Activities/stage.test.yml@common
+    parameters:
+      poolName: ${{ parameters.testPoolName }}
+      runSettingsFile: ${{ parameters.runSettingsFilePath }}
+      preTestRun:
+      - ${{ each step in parameters.preTestRun }}:
+        - ${{ step }}
+      postTestRun:
+      - ${{ each step in parameters.postTestRun }}:
+        - ${{ step }}
+  - ${{ each job in parameters.additionalTestJobs }}:
+    - ${{ job }}
+
+- ${{ each stage in parameters.additionalStages }}:
+  - ${{ stage }}
+
+- stage: PublishSonar
+  displayName: "Perform SonarQube analysis"
+  dependsOn:
+  - Build
+  - Test
+  - ${{ each stage in parameters.sonarDependsOn }}:
+    - ${{ stage }}
+  variables:
+    RunAnalysis: 'false'
+  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  jobs:
+  - template: Activities/stage.sonar.yml@common
+    parameters:
+      additionalSonarTasks: ${{ parameters.additionalSonarTasks }}
+
+  - ${{ each job in parameters.additionalSonarJobs }}:
+    - ${{ job }}

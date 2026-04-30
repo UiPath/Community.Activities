@@ -22,6 +22,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         private static DataProvider _oleDBDataProvider;
         private static DataProvider _odbcDataProvider;
         private static DataProvider _oracleManagedDataAcessProvider;
+        private static DataProvider _sqliteDataProvider;
 
         #region Public Properties
         public string Name
@@ -196,6 +197,36 @@ namespace UiPath.Data.ConnectionUI.Dialog
             }
         }
 
+        public static DataProvider SqliteDataProvider
+        {
+            get
+            {
+                if (_sqliteDataProvider == null)
+                {
+                    Dictionary<string, string> descriptions = new Dictionary<string, string>
+                    {
+                        { DataSource.SqliteDataSource.Name, Resources.DataProvider_Sqlite_DataSource_Description }
+                    };
+
+                    Dictionary<string, Type> uiControls = new Dictionary<string, Type>
+                    {
+                        { string.Empty, typeof(Controls.SqliteConnectionUIControl) }
+                    };
+
+                    _sqliteDataProvider = new DataProvider(
+                        DatabaseConstants.SQLiteProvider,
+                        Resources.DataProvider_Sqlite,
+                        Resources.DataProvider_Sqlite_Short,
+                        Resources.DataProvider_Sqlite_Description,
+                        typeof(Microsoft.Data.Sqlite.SqliteConnection),
+                        descriptions,
+                        uiControls,
+                        typeof(SqliteConnectionProperties));
+                }
+                return _sqliteDataProvider;
+            }
+        }
+
         #endregion
 
         public DataProvider(string name, string displayName, string shortDisplayName, string description, Type targetConnectionType)
@@ -285,7 +316,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         {
             string key = null;
             if (_connectionPropertiesTypes != null &&
-                ((dataSource != null && dataSource.Name!=null && _connectionPropertiesTypes.ContainsKey(key = dataSource.Name)) ||
+                ((dataSource != null && dataSource.Name != null && _connectionPropertiesTypes.ContainsKey(key = dataSource.Name)) ||
                 _connectionPropertiesTypes.ContainsKey(key = string.Empty)))
             {
                 return Activator.CreateInstance(_connectionPropertiesTypes[key]) as IDataConnectionProperties;

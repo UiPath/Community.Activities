@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
@@ -12,3 +13,4 @@ using System.Windows.Markup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM.
 
 [assembly: Guid("e9137637-b657-4c22-85a5-2e30adf82566")]
+

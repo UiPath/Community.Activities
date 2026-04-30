@@ -19,6 +19,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
         private static DataSource _sqlFileDataSource;
         private static DataSource _odbcDataSource;
         private static DataSource _oracleManagedDataAccessaSource;
+        private static DataSource _sqliteDataSource;
         private static DataSource _unspecifiedDataSource;
 
         public const string MicrosoftSqlServerFileName = "MicrosoftSqlServerFile";
@@ -91,6 +92,19 @@ namespace UiPath.Data.ConnectionUI.Dialog
             }
         }
 
+        public static DataSource SqliteDataSource
+        {
+            get
+            {
+                if (_sqliteDataSource == null)
+                {
+                    _sqliteDataSource = new DataSource("SQLite", Resources.DataSource_SQLite);
+                    _sqliteDataSource.Providers.Add(DataProvider.SqliteDataProvider);
+                }
+                return _sqliteDataSource;
+            }
+        }
+
         public static DataSource UnspecifiedDataSource
         {
             get
@@ -102,6 +116,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     _unspecifiedDataSource.Providers.Add(DataProvider.OleDBDataProvider);
                     _unspecifiedDataSource.Providers.Add(DataProvider.SqlDataProvider);
                     _unspecifiedDataSource.Providers.Add(DataProvider.OracleManagedDataAccessProvider);
+                    _unspecifiedDataSource.Providers.Add(DataProvider.SqliteDataProvider);
                 }
                 return _unspecifiedDataSource;
             }

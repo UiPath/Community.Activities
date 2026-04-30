@@ -16,9 +16,9 @@ namespace UiPath.Cryptography.Activities.Tests
         [InlineData(true)]
         public void EncryptDecryptFile_HappyPath_Works(bool withOutputOverwrite)
         {
-            var tempInputFile = Path.GetTempFileName();
-            var tempOutputFile = Path.GetTempFileName();
-            var tempOutputFile2 = Path.GetTempFileName();
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempOutputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempOutputFile2 = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             try
             {
@@ -35,7 +35,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 {
                     InputFilePath = new InArgument<string>(tempInputFile),
                     Key = new InArgument<string>("key"),
-                    Algorithm = SymmetricAlgorithms.AESGCM,
+                    Algorithm = EncryptionAlgorithm.AESGCM,
                     OutputFilePath = new InArgument<string>(tempOutputFile),
                     KeyInputModeSwitch = KeyInputMode.Key,
                     Overwrite = withOutputOverwrite
@@ -45,7 +45,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 {
                     InputFilePath = new InArgument<string>(tempOutputFile),
                     Key = new InArgument<string>("key"),
-                    Algorithm = SymmetricAlgorithms.AESGCM,
+                    Algorithm = EncryptionAlgorithm.AESGCM,
                     OutputFilePath = new InArgument<string>(tempOutputFile2),
                     KeyInputModeSwitch = KeyInputMode.Key,
                     Overwrite = withOutputOverwrite
