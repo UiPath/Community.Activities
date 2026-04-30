@@ -1,37 +1,55 @@
-Guidelines for contribuing to this repository
+Guidelines for contributing to this repository
 ================
 
-### Anatomy of an Activity pack
+### Anatomy of an Activity Pack
 
-   * API
-   * API.Activities
-   * API.Activities.Design
-  
-    API should be the name of the service this pack integrates with (e.g. Excel, Sharepoint, Mail)
-    API is not necessary if the activities use standard .NET types
-    API.Activities.Design is not necessary if designers do not exist but design specific attributes should be placed in a separate file (DesignerMetadata.cs)
+Each activity category follows this layout:
 
+```
+{Category}/
+├── {Category}.build.props                    # Version and metadata for this pack
+├── UiPath.{Category}/                        # Core library (helpers, enums)
+├── UiPath.{Category}.Activities/             # Activity classes (runtime logic)
+│   ├── NetCore/ViewModels/                   # ViewModel classes (design-time UI)
+│   ├── Properties/                           # .resx localization files
+│   └── Resources/
+│       ├── Icons/                            # SVG icons
+│       └── ActivitiesMetadata.json           # Links activities ↔ ViewModels
+├── UiPath.{Category}.Activities.Tests/       # xUnit tests
+└── UiPath.{Category}.Activities.Packaging/   # NuGet package definition
+```
 
-### Assembly and Package Info
+Every activity has three parts: **Activity** (runtime logic) → **ViewModel** (design-time UI) → **Metadata JSON** (wiring and display). Property names on the ViewModel must exactly match the Activity’s property names.
 
-   * GlobalAssemblyInfo.cs should be used
-   * Public namespaces should specify an **XmlnsDefinitionAttribute** that is usually **http://schemas.company.com/workflow/activities**
-   * NuSpec file should have the approximately same structure as the others
+### Building and Testing
 
-   
-### Testing and deploying
+```bash
+# Build the full solution
+dotnet build Activities/Community.Activities.sln
 
-  * To pack the packages run nuget.exe with the desired project
+# Build a specific activity pack
+dotnet build Activities/Activities.Cryptography.sln
 
-### Non-breaking changes:
+# Run tests for an activity pack
+dotnet test Activities/Activities.Cryptography.sln
+
+# Build a NuGet package
+dotnet build Activities/Cryptography/UiPath.Cryptography.Activities.Packaging/UiPath.Cryptography.Activities.Packaging.csproj
+```
+
+### Development Guide
+
+For in-depth guidance on activity code, ViewModels, widgets, rules, validation, metadata, localization, testing, and complete examples, see the [Activity Development Guide](.claude/activity-development-guide/index.md).
+
+### Non-breaking changes
 
 * Minor version is increased every time a change in the public interface is made (e.g. a public property is added to an activity, a new activity is added)
 * Major version is increased when the package suffers major changes (e.g. some activities become obsolete, the behaviour and the interface change)
 * Any new property should specify a **DefaultValue** attribute. This will decrease the potential damage for forward compatibility
-* Any obsolete property should specify the **Obsolete** attribute, Browsable(false) attribute and  DesignerSerializationVisibilityAttribute if its value is no longer needed. Marking the property as obsolete should not change the behaviour for any of input provided.
+* Any obsolete property should specify the **Obsolete** attribute, Browsable(false) attribute and DesignerSerializationVisibilityAttribute if its value is no longer needed. Marking the property as obsolete should not change the behaviour for any of input provided.
 
 
-### Breaking changes:
+### Breaking changes
 
 *(Inspired by https://github.com/dotnet/corefx/blob/master/Documentation/coding-guidelines/breaking-changes.md)*
 
@@ -65,7 +83,7 @@ Examples:
 These require judgment: how predictable, obvious, consistent was the behavior?
 
 #### Bucket 3: Unlikely Grey Area
-*Change of behavior that customers could have depended on, but probably wouldn't.*
+*Change of behavior that customers could have depended on, but probably wouldn’t.*
 
 Examples:
 * Correcting behavior in a subtle corner case
@@ -75,6 +93,6 @@ As with type 2 changes, these require judgment: what is reasonable and what’s 
 
 #### What This Means for Contributors
 * All buckets (1, 2, and 3) breaking changes require talking to the repo owners first.
-* If you're not sure which bucket applies to a given change, contact us as well.
-* It doesn't matter if the old behavior is "wrong", we still need to think the implications through.
-* If a change is deemed too breaking, we can help identify alternatives such as introducing a new API and depricating the old one.
+* If you’re not sure which bucket applies to a given change, contact us as well.
+* It doesn’t matter if the old behavior is "wrong", we still need to think the implications through.
+* If a change is deemed too breaking, we can help identify alternatives such as introducing a new API and deprecating the old one.

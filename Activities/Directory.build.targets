@@ -2,15 +2,23 @@
 	<PropertyGroup>
 		<!-- Make sure that we don't overlook assembly version conflicts -->
 		<MSBuildWarningsAsErrors>MSB3277</MSBuildWarningsAsErrors>
+		<!-- Enable telemetry for Community Activities -->
+		<DefineConstants>$(DefineConstants);ENABLE_DEFAULT_TELEMETRY</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20240320-03" />
-		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20240320-03" />
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    When you upgrade the dependencies
+    Make sure to update also UiPath.Excamples.Activities and the project template!!!
+    https://github.com/UiPath/Community.Activities/blob/develop/Activities/Examples/
+    https://github.com/UiPath/Community.Activities/tree/develop/Activities/Templates/UiPath.Activities.Template
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+		<PackageReference Update="UiPath.Workflow" Version="6.0.0-20240401-07" />
+		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20240401-07" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="6.0.0-20220318.2" />
-		<PackageReference Update="System.Activities.Metadata" Version="6.0.0-20220831.1" PrivateAssets="All"/>
-		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20250519.7"/>
-		<PackageReference Update="System.Activities" Version="5.0.0-20210615-01" />
+		<PackageReference Update="System.Activities.Metadata" Version="6.0.0-20240517.13" PrivateAssets="All"/>
+		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20250625.2"/>
+		<PackageReference Update="System.Activities" Version="5.0.0-20210730-02" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
@@ -18,17 +26,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Update="UiPath.Robot.Api" Version="24.10.5" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Activities.Api" Version="24.10.5" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Activities.Contracts" Version="24.10.5" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Telemetry.Client" Version="2.1.3" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Platform" Version="24.10.3"/>
+    <!-- See above, please upgrade in all places-->
+		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Telemetry.Client" Version="2.9.1" />
+		<PackageReference Update="UiPath.Platform" Version="25.12.1"/>
+		<PackageReference Update="UiPath.CodedWorkflows" Version="24.10.2"/>
 
 		<PackageReference Update="System.Drawing.Common" Version="6.0.0" />
 		<PackageReference Update="System.Text.RegularExpressions" Version="4.3.1" />
 		<PackageReference Update="System.Formats.Asn1" Version="8.0.1" />
+		<PackageReference Update="PgpCore" Version="6.5.3" />
 
 		<PackageReference Update="Azure.Identity" Version="1.13.1" />
+
+		<!-- Studio contract-->
+		<PackageReference Update="UiPath.Activities.Contracts" Version="24.10.1" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Activities.Api" PrivateAssets="All" />
 	</ItemGroup>
 
 	<PropertyGroup>

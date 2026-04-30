@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+  <Import Project="..\Cryptography.build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NoWarn>CS1591</NoWarn>
+    <AssemblyName>UiPath.Cryptography.Activities.API</AssemblyName>
+    <RootNamespace>UiPath.Cryptography.Activities.API</RootNamespace>
+    <PackageId>UiPath.Cryptography.Activities.API.Implementation</PackageId>
+    <IsPackable>false</IsPackable>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api"/>
+    <PackageReference Include="UiPath.Activities.Contracts">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="UiPath.CodedWorkflows"/>
+    <PackageReference Include="UiPath.Platform"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />
+    <ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
+  </ItemGroup>
+
+</Project>

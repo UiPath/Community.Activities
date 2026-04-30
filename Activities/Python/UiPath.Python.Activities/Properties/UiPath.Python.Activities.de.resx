@@ -296,11 +296,20 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>Bibliothekspfad (Linux oder Version &gt; 3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>Die ausgewählte Python-Version wird nicht unterstützt.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Eine Python-Version &gt;= 3.10 wird unter 32 Bit nicht unterstützt. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>App-Aufrufer.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>Installierte Python-Versionen</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>Python-Installation auswählen, die für die Konfiguration der Aktivität verwendet werden soll</value>
   </data>
 </root>

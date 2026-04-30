@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>ユーザー名を入力してください。</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>タイムアウト値は 0 以上である必要があります。</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL プロトコル</value>
   </data>
@@ -540,6 +543,14 @@
     <value>FTPS 接続に使用する SSL プロトコルを選択します。</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>FTP/SFTP 接続のタイムアウト値 (ミリ秒単位) です。設定しない場合は、基になるライブラリの既定のタイムアウトが使用されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>タイムアウト (ミリ秒)</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>SSL プロトコル</value>
     <comment>Property name</comment>
@@ -759,5 +770,22 @@
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>自動設定の場合は空のままにします。</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>Secure String 型のプロキシ パスワードです。</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>セキュリティで保護されたプロキシのパスワード</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>種類に基づいて項目をフィルター処理します (選択した種類が含まれる)。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>オブジェクトの種類</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>含めるオブジェクトの種類を選択します。</value>
   </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Statements;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,6 +10,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using UiPath.Database.Activities.Properties;
+using UiPath.Shared.Activities;
+
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Database.Activities
 {
@@ -60,39 +66,45 @@ namespace UiPath.Database.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            var connString = ConnectionString.Get(context);
-            var connSecureString = ConnectionSecureString.Get(context);
-            var connectionStringForFactory = string.Empty;
-            if (connString != null)
-            {
-                connectionStringForFactory = connString;
-            }
-            else if (connSecureString != null)
-            {
-                connectionStringForFactory = new NetworkCredential("", connSecureString).Password;
-            }
-            else
-            {
-                throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
-            }
-            var provName = ProviderName.Get(context);
-            DatabaseConnection dbConnection = null;
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName));
+                var connString = ConnectionString.Get(context);
+                var connSecureString = ConnectionSecureString.Get(context);
+                var connectionStringForFactory = string.Empty;
+                if (connString != null)
+                {
+                    connectionStringForFactory = connString;
+                }
+                else if (connSecureString != null)
+                {
+                    connectionStringForFactory = new NetworkCredential("", connSecureString).Password;
+                }
+                else
+                {
+                    throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+                }
+                var provName = ProviderName.Get(context);
+
+                var dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName));
+
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
+                });
+
+                telemetryOperation?.Send();
+                return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Trace.TraceError($"{e}");
+                telemetryOperation?.SendWithException(ex);
+                Trace.TraceError($"{ex}");
                 throw;
             }
-
-            return asyncCodeActivityContext =>
-            {
-                DatabaseConnection.Set(asyncCodeActivityContext, dbConnection);
-            };
-
         }
-
     }
 }

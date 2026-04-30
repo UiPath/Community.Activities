@@ -23,11 +23,21 @@ namespace UiPath.Shared.Service.Client
                 _disposed = true;
             }
 
-            Pipe?.Dispose();
+            try
+            {
+                Pipe?.Dispose();
+                if (Proc != null)
+                {
+                    if (!HostProcessHasExited())
+                        Proc.Kill();
+                    Proc.Dispose();
+                }
+            }
+            catch
+            {
+                //ignore exceptions on dispose, we don't care if the process is already killed or if the pipe is already closed
+            }
             Pipe = null;
-
-            //Prevent process leak in certain error scenarios
-            Proc?.Kill();
             Proc = null;
         }
 

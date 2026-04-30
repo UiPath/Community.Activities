@@ -1,9 +1,8 @@
 ﻿using System.Activities.DesignViewModels;
-using System.Activities.ViewModels;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    public partial class FileExistsViewModel : DesignPropertiesViewModel
+    internal class FileExistsViewModel : BaseFtpViewModel
     {
         /// <summary>
         /// Basic constructor

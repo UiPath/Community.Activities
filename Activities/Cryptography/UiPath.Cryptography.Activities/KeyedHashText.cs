@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Activities;
-using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,6 +9,11 @@ using System.Text;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
+using UiPath.Shared.Activities;
+
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Cryptography.Activities
 {
@@ -68,28 +72,15 @@ namespace UiPath.Cryptography.Activities
         public KeyedHashText()
         {
             Algorithm = KeyedHashAlgorithms.HMACSHA256;
-#if NET461
-            //we only use this on legacy
-            Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
-#endif
-#if NET
-            //for modern and cross projects
             KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
-#endif
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             base.CacheMetadata(metadata);
 
-            if (!CryptographyHelper.IsFipsCompliant(Algorithm))
-            {
-                var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
-                metadata.AddValidationError(error);
-            }
             if (Algorithm.ToString().StartsWith(nameof(HMAC)))
             {
-#if NET
                 if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
                 {
                     var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
@@ -100,19 +91,16 @@ namespace UiPath.Cryptography.Activities
                     var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
                     metadata.AddValidationError(error);
                 }
-#endif
             }
-#if NET461
-            if (Algorithm == KeyedHashAlgorithms.MACTripleDES)
-            {
-                var keySizeWarning = new ValidationError(Resources.MacTripleDesKeySizeWarning, true, nameof(Algorithm));
-                metadata.AddValidationError(keySizeWarning);
-            }
-#endif
         }
 
         protected override string Execute(CodeActivityContext context)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             string result = null;
 
             try
@@ -128,7 +116,6 @@ namespace UiPath.Cryptography.Activities
 
                 if (Algorithm.ToString().StartsWith(nameof(HMAC)))
                 {
-#if NET
                     if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
                     {
                         throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
@@ -137,14 +124,6 @@ namespace UiPath.Cryptography.Activities
                     {
                         throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
                     }
-#endif
-
-#if NET461
-                    if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
-                    {
-                        throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-                    }
-#endif
                 }
 
                 if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
@@ -153,10 +132,12 @@ namespace UiPath.Cryptography.Activities
 
                 var hashed = CryptographyHelper.HashDataWithKey(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
 
+                telemetryOperation?.Send();
                 result = BitConverter.ToString(hashed).Replace("-", string.Empty);
             }
             catch (Exception ex)
             {
+                telemetryOperation?.SendWithException(ex);
                 Trace.TraceError(ex.ToString());
 
                 if (!ContinueOnError.Get(context))

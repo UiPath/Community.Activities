@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
@@ -12,3 +13,5 @@ using System.Windows.Markup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM.
 
 [assembly: Guid("89957abf-8a15-484a-94ba-6565969046ad")]
+
+[assembly: InternalsVisibleTo("UiPath.Java.Activities.API.Tests")]

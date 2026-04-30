@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <PackageId>.noconflict</PackageId>
     <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
@@ -11,9 +10,18 @@
   </PropertyGroup>-->
   <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
   <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-  <ItemGroup>
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
+  <Import Project="..\..\Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\UiPath.Shared.Contracts\UiPath.Shared.Contracts.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\UiPath.Shared.Contracts.Private\UiPath.Shared.Contracts.Private.projitems" Label="Shared" />
+  
+	<ItemGroup>
+		<PackageReference Include="System.Activities.ViewModels" />
+		<PackageReference Include="UiPath.Telemetry.Client"/>
+		<PackageReference Include="UiPath.Workflow" />
+		<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
+		<PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
+		<PackageReference Include="UiPath.Platform" />
+	</ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\UiPath.Python.Activities.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -22,25 +30,18 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="UiPath.Activities.Api" />
-    <PackageReference Include="UiPath.Activities.Contracts" />
+  <ItemGroup>    
     <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.fr.resx">
-      <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.ja.resx">
+    <EmbeddedResource Update="Properties\UiPath.Python.Activities.*.resx">
       <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Python.Activities.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UiPath.Python.Activities.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.ru.resx">
-      <DependentUpon>UiPath.Python.Activities.resx</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
+
 </Project>

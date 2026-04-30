@@ -3,6 +3,7 @@ using Oracle.ManagedDataAccess.Client;
 using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.OleDb;
+using Microsoft.Data.Sqlite;
 
 namespace UiPath.Database
 {
@@ -11,6 +12,8 @@ namespace UiPath.Database
         private static bool _sqlNetAllowedLogonVersionClientSet;
         public static void RegisterFactories(bool isWindows)
         {
+            DbWorkarounds.RegisterNativeLibraryResolver();
+
             DbProviderFactories.RegisterFactory(DatabaseConstants.SqlServerProvider, SqlClientFactory.Instance);
 
             //OLEDB driver is Windows propietary - there is no support for other OS
@@ -19,6 +22,7 @@ namespace UiPath.Database
 
             DbProviderFactories.RegisterFactory(DatabaseConstants.OdbcProvider, OdbcFactory.Instance);
             DbProviderFactories.RegisterFactory(DatabaseConstants.OracleProvider, OracleClientFactory.Instance);
+            DbProviderFactories.RegisterFactory(DatabaseConstants.SQLiteProvider, SqliteFactory.Instance);
 
             SetSqlNetAllowedLogonVersionClientSetForOracle();
         }

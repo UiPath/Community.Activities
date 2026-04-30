@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>El nombre de usuario no puede estar vacío.</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>El tiempo de espera debe ser mayor o igual que 0.</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>Protocolos SSL</value>
   </data>
@@ -540,6 +543,14 @@
     <value>Seleccione el protocolo SSL que se utilizará para la conexión FTPS</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>El valor de tiempo de espera (en milisegundos) para la conexión FTP/SFTP. Si no se establece, se utiliza el tiempo de espera predeterminado de la biblioteca subyacente.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>Tiempo de espera (milisegundos)</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>Protocolos SSL</value>
     <comment>Property name</comment>
@@ -759,5 +770,22 @@
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>Dejar vacío para la configuración automática</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>La contraseña de proxy en formato de cadena segura</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Contraseña segura de proxy</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>Filtra elementos según el tipo (se incluirá lo que se seleccione)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>Tipos de objeto</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>Seleccione los tipos de objetos que desea incluir</value>
   </data>
 </root>

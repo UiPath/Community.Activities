@@ -7,6 +7,10 @@ using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Database.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Database.Activities
 {
@@ -36,52 +40,77 @@ namespace UiPath.Database.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            DataTable dataTable = null;
-            string connString = null;
-            SecureString connSecureString = null;
-            string provName = null;
-            string tableName = null;
-            DatabaseConnection existingConnection = null;
-            int affectedRecords = 0;
-            var continueOnError = ContinueOnError.Get(context);
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                existingConnection = DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                tableName = TableName.Get(context);
-                dataTable = DataTable.Get(context);
-
-                connSecureString = ConnectionSecureString.Get(context);
-                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
-                // create the action for doing the actual work
-                affectedRecords = await Task.Run(() =>
+                DataTable dataTable = null;
+                string connString = null;
+                SecureString connSecureString = null;
+                string provName = null;
+                string tableName = null;
+                DatabaseConnection existingConnection = null;
+                int affectedRecords = 0;
+                var continueOnError = ContinueOnError.Get(context);
+                int? commandTimeoutMs = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
+                if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
                 {
-                    DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-                    if (DbConnection == null)
+                    throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
+                }
+                TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
+                try
+                {
+                    existingConnection = DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    tableName = TableName.Get(context);
+                    dataTable = DataTable.Get(context);
+
+                    connSecureString = ConnectionSecureString.Get(context);
+                    ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                    // create the action for doing the actual work
+                    affectedRecords = await Task.Run(() =>
                     {
-                        return 0;
+                        DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
+                        if (DbConnection == null)
+                        {
+                            return 0;
+                        }
+                        return DbConnection.InsertDataTable(tableName, dataTable, commandTimeout);
+                    });
+
+                }
+                catch (Exception ex)
+                {
+                    // telemetryOperation object is made null in order to avoid double sending.
+                    telemetryOperation?.SendWithException(ex);
+                    telemetryOperation = null;
+                    HandleException(ex, continueOnError);
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection?.Dispose();
                     }
-                    return DbConnection.InsertDataTable(tableName, dataTable);
+                }
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
                 });
 
+                //if exception was caught and sent to telemetry, avoid sending again
+                telemetryOperation?.Send();
+                return result;
             }
             catch (Exception ex)
             {
-                HandleException(ex, continueOnError);
+                // If any other exception occurs, send it to telemetry
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-            finally
-            {
-                if (existingConnection == null)
-                {
-                    DbConnection?.Dispose();
-                }
-            }
-
-            return asyncCodeActivityContext =>
-            {
-                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
-            };
         }
     }
 }

@@ -4,6 +4,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Database.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Database.Activities
 {
@@ -18,6 +22,11 @@ namespace UiPath.Database.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             var dbConnection = DatabaseConnection.Get(context);
             // create the action for doing the actual work
             try
@@ -26,13 +35,19 @@ namespace UiPath.Database.Activities
             }
             catch (Exception e)
             {
+                telemetryOperation?.SendWithException(e);
+                telemetryOperation = null;
                 Trace.TraceError($"{e}");
             }
 
-            return asyncCodeActivityContext =>
+            var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
             {
                 //no OutArgument
-            };
+            });
+
+            //if exception was caught and sent to telemetry, avoid sending again
+            telemetryOperation?.Send();
+            return result;
         }
     }
 }

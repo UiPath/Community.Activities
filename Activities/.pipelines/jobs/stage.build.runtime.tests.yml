@@ -17,7 +17,10 @@ jobs:
   workspace:
     clean: outputs | resources | all
 
-  steps:     
+  steps:
+  - checkout: self
+    fetchDepth: 1
+
   - template: Testing/Automation/install.studio.steps.template.yml@automationTests
     parameters:
       installType: 'machine'

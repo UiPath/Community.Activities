@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <OutputPath>..\..\OutputTests\Python\</OutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api" />
+    <PackageReference Include="UiPath.Workflow" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.Python.Activities.API\UiPath.Python.Activities.API.csproj" />
+    <ProjectReference Include="..\UiPath.Python.Tests\UiPath.Python.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

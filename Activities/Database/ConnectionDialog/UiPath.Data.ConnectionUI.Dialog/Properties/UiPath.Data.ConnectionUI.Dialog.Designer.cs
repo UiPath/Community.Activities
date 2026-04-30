@@ -19,7 +19,7 @@ namespace UiPath.Data.ConnectionUI.Dialog.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_Data_ConnectionUI_Dialog {
@@ -403,6 +403,42 @@ namespace UiPath.Data.ConnectionUI.Dialog.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Microsoft.Data.Sqlite.
+        /// </summary>
+        public static string DataProvider_Sqlite {
+            get {
+                return ResourceManager.GetString("DataProvider_Sqlite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use this selection to connect to a SQLite database file using Microsoft.Data.Sqlite..
+        /// </summary>
+        public static string DataProvider_Sqlite_DataSource_Description {
+            get {
+                return ResourceManager.GetString("DataProvider_Sqlite_DataSource_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microsoft.Data.Sqlite is a lightweight ADO.NET provider for SQLite databases. No additional client software is required..
+        /// </summary>
+        public static string DataProvider_Sqlite_Description {
+            get {
+                return ResourceManager.GetString("DataProvider_Sqlite_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQLite.
+        /// </summary>
+        public static string DataProvider_Sqlite_Short {
+            get {
+                return ResourceManager.GetString("DataProvider_Sqlite_Short", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The default data provider cannot be changed when there is only one data provider available..
         /// </summary>
         public static string DataSource_CannotChangeSingleDataProvider {
@@ -462,6 +498,15 @@ namespace UiPath.Data.ConnectionUI.Dialog.Properties {
         public static string DataSource_MicrosoftSqlServerFile {
             get {
                 return ResourceManager.GetString("DataSource_MicrosoftSqlServerFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQLite.
+        /// </summary>
+        public static string DataSource_SQLite {
+            get {
+                return ResourceManager.GetString("DataSource_SQLite", resourceCulture);
             }
         }
         
@@ -795,6 +840,15 @@ namespace UiPath.Data.ConnectionUI.Dialog.Properties {
         public static string SqlFileConnectionUIControl_InvalidConnectionProperties {
             get {
                 return ResourceManager.GetString("SqlFileConnectionUIControl_InvalidConnectionProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQLite Databases (*.db;*.sqlite;*.sqlite3)|*.db;*.sqlite;*.sqlite3|All Files (*.*)|*.*.
+        /// </summary>
+        public static string SqliteFileBrowseFilter {
+            get {
+                return ResourceManager.GetString("SqliteFileBrowseFilter", resourceCulture);
             }
         }
         
