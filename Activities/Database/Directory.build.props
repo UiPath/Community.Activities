@@ -13,6 +13,7 @@
         <VersionPrefix Condition="'$(Configuration)' == 'Debug'">2.1.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
         <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">2.1.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
         <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+		<DefineConstants>$(DefineConstants);ENABLE_DEFAULT_TELEMETRY</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="'$(IsTestProject)' != 'true'">
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>

@@ -7,4 +7,10 @@
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <PackageReference Include="UiPath.Workflow" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.Java.*.resx">
+      <DependentUpon>UiPath.Java.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

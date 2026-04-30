@@ -17,6 +17,9 @@ namespace UiPath.Database
         //Data provider for ODBC data sources
         public const string OdbcProvider = "System.Data.Odbc";
 
+        //SQLite Data Provider
+        public const string SQLiteProvider = "Microsoft.Data.Sqlite";
+
         #endregion
 
         #region OleDbProviders

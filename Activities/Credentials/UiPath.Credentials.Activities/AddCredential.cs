@@ -1,13 +1,15 @@
 ﻿using CredentialManagement;
 using System.Activities;
-using System.ComponentModel;
 using System;
 using System.Activities.Validation;
-using System.Diagnostics;
-using System.IO;
 using UiPath.Credentials.Activities.Properties;
 using System.Security;
 using System.Net;
+using UiPath.Shared.Activities;
+
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Credentials.Activities
 {
@@ -60,20 +62,41 @@ namespace UiPath.Credentials.Activities
 
         protected override bool Execute(CodeActivityContext context)
         {
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             SecureString passwordSecureString = PasswordSecureString.Get(context);
             string password = Password.Get(context);
 
-            if (string.IsNullOrWhiteSpace(password) && passwordSecureString == null)
-            {
-                throw new ArgumentNullException(Resources.PasswordAndSecureStringNull);
-            }
-            if (password != null && passwordSecureString != null)
-            {
-                throw new ArgumentException(Resources.PasswordAndSecureStringNotNull);
-            }
+            telemetryOperation?.SetCustomDataKey(nameof(Password) + CredentialsConstants.IsUsed, !string.IsNullOrWhiteSpace(password));
+            telemetryOperation?.SetCustomDataKey(nameof(PasswordSecureString) + CredentialsConstants.IsUsed, passwordSecureString != null);
+            telemetryOperation?.SetCustomDataKey(nameof(CredentialType), CredentialType.ToString() ?? null);
+            telemetryOperation?.SetCustomDataKey(nameof(PersistanceType), PersistanceType.ToString() ?? null);
 
-            Credential credential = new Credential { Target = Target.Get(context), Username = Username.Get(context), Password = password != null ? password : new NetworkCredential("", passwordSecureString).Password, Type = CredentialType, PersistanceType = PersistanceType };
-            return credential.Save();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(password) && passwordSecureString == null)
+                {
+                    throw new ArgumentNullException(Resources.PasswordAndSecureStringNull);
+                }
+                if (password != null && passwordSecureString != null)
+                {
+                    throw new ArgumentException(Resources.PasswordAndSecureStringNotNull);
+                }
+
+                Credential credential = new Credential { Target = Target.Get(context), Username = Username.Get(context), Password = password != null ? password : new NetworkCredential("", passwordSecureString).Password, Type = CredentialType, PersistanceType = PersistanceType };
+
+                telemetryOperation?.Send();
+
+                return credential.Save();
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

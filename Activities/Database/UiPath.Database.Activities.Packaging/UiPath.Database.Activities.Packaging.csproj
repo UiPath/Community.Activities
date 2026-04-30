@@ -65,10 +65,19 @@
             </BuildOutputInPackage>
         </ItemGroup>
 
-        <ItemGroup>
-            <BuildOutputInPackage Include="$(OutputPath)runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" TargetPath="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+        <!--Coded workflow API files-->
+        <ItemGroup Label="AddCodedWorkflowAPI">
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.API.dll" />
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.API.xml" />
         </ItemGroup>
+
     </Target>
+
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+  
     <Target Name="CleanPackageFiles" BeforeTargets="Build">
         <Message Text="Deleting packages ..." />
         <ItemGroup>
@@ -83,6 +92,10 @@
         <PackageReference Include="Oracle.ManagedDataAccess.Core" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
+        <PackageReference Include="Microsoft.Data.Sqlite" />
+        <PackageReference Include="UiPath.Platform" />
+        <PackageReference Include="UiPath.Telemetry.Client" />
+        <PackageReference Include="UiPath.CodedWorkflows" />
 
         <!--Dependencies override to solve FOSSA issues-->
         <PackageReference Include="Azure.Identity" />
@@ -92,9 +105,15 @@
         <ProjectReference Include="..\..\Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
+        <ProjectReference Include="..\..\Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
+    <ItemGroup>
         <ProjectReference Include="..\..\Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
+        <ProjectReference Include="..\..\Database\UiPath.Database.Activities.API\UiPath.Database.Activities.API.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
     </ItemGroup>

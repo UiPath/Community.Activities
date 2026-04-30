@@ -1,6 +1,4 @@
-﻿#if NET
-using System.Activities.DesignViewModels;
-#endif
+﻿using System.Activities.DesignViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,7 +12,6 @@ namespace UiPath.Cryptography.Activities.Helpers
 {
     public sealed class EncodingHelpers
     {
-#if NET
         private EncodingHelpers()
         {
         }
@@ -77,8 +74,6 @@ namespace UiPath.Cryptography.Activities.Helpers
 
             return exceptionDictionary.GetValueOrDefault(codePage, codePage * 10);
         }
-
-#endif
         public static string GetCodePageName(CodePages value)
         {
             try

@@ -142,6 +142,18 @@
     <value>RutaDeSalida</value>
     <comment>property name</comment>
   </data>
+  <data name="PrivateKeyFilePathDisplayName" xml:space="preserve">
+    <value>RutaDeArchivoDeClavePrivada</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PublicKeyFilePathDisplayName" xml:space="preserve">
+    <value>RutaDeArchivoDeClavePública</value>
+    <comment>property name</comment>
+  </data>
+  <data name="PassphraseDisplayName" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>property name</comment>
+  </data>
   <data name="FileAlreadyExistsException" xml:space="preserve">
     <value>El archivo ya existe.</value>
   </data>
@@ -871,5 +883,384 @@
   </data>
   <data name="Activity_Encrypt_Algorithm_Deprecated_Warning" xml:space="preserve">
     <value>El algoritmo de cifrado seleccionado está obsoleto y ya no será compatible en versiones futuras.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave privada PGP utilizada para el descifrado.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>La frase de contraseña para la clave privada PGP.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_VerifySignature_Name" xml:space="preserve">
+    <value>Verificar firma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_VerifySignature_Description" xml:space="preserve">
+    <value>Cuando está habilitado, verifica la firma PGP de los datos descifrados utilizando la clave pública.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave pública</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave pública PGP utilizado para la verificación de firmas.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave privada PGP utilizada para el descifrado.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Passphrase_Name" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Passphrase_Description" xml:space="preserve">
+    <value>La frase de contraseña para la clave privada PGP.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_VerifySignature_Name" xml:space="preserve">
+    <value>Verificar firma</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_VerifySignature_Description" xml:space="preserve">
+    <value>Cuando está habilitado, verifica la firma PGP de los datos descifrados utilizando la clave pública.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave pública</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave pública PGP utilizado para la verificación de firmas.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave pública</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave pública PGP utilizada para el cifrado.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_SignData_Name" xml:space="preserve">
+    <value>Firmar datos</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_SignData_Description" xml:space="preserve">
+    <value>Cuando está habilitado, firma los datos cifrados con la clave privada.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave privada PGP utilizada para la firma.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>La frase de contraseña para la clave privada de PGP utilizada para firmar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave pública</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave pública PGP utilizada para el cifrado.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_SignData_Name" xml:space="preserve">
+    <value>Firmar datos</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_SignData_Description" xml:space="preserve">
+    <value>Cuando está habilitado, firma los datos cifrados con la clave privada.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave privada PGP utilizada para la firma.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Passphrase_Name" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
+    <value>La frase de contraseña para la clave privada de PGP utilizada para firmar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
+    <value>PGP Generate Keys</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
+    <value>Genera un par de claves públicas y privadas PGP y las guarda en las rutas de archivo especificadas.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de salida de clave pública</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta del archivo donde se guardará la clave pública PGP generada.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de salida de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta del archivo donde se guardará la clave privada PGP generada.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
+    <value>Nombre de usuario</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
+    <value>El nombre de usuario (o correo electrónico) que se asociará con el par de claves generado.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
+    <value>La frase de contraseña para proteger la clave privada generada.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
+    <value>Sobrescribir</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
+    <value>Si los archivos ya existen en las rutas de salida, al seleccionar esta opción se sobrescribirán.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar con el error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica si la automatización debe continuar incluso cuando la actividad arroja un error.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>Archivo de clave pública</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>La clave pública generada como recurso de archivo.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Archivo de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>La clave privada generada como recurso de archivo.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Name" xml:space="preserve">
+    <value>PGP Sign File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Description" xml:space="preserve">
+    <value>Crea una firma binaria PGP de un archivo utilizando una clave privada.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>Ruta del archivo de entrada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo que desea firmar.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave privada PGP utilizada para la firma.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>La frase de contraseña para la clave privada PGP.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>Ruta del archivo de salida</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>La ruta donde se guardará el archivo firmado.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>Sobrescribir</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>Si un archivo ya existe en la ruta de salida, al seleccionar esta opción se sobrescribirá.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar con el error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica si la automatización debe continuar incluso cuando la actividad arroja un error.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_SignedFile_Name" xml:space="preserve">
+    <value>Archivo firmado</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_SignedFile_Description" xml:space="preserve">
+    <value>El archivo firmado como recurso de archivo.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
+    <value>PGP Clear Sign File</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
+    <value>Crea una firma de texto claro PGP de un archivo utilizando una clave privada.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>Ruta del archivo de entrada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo que desea firmar con texto claro.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave privada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave privada PGP utilizada para la firma.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
+    <value>Frase de contraseña</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>La frase de contraseña para la clave privada PGP.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>Ruta del archivo de salida</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>La ruta donde se guardará el archivo con firma clara.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
+    <value>Sobrescribir</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
+    <value>Si un archivo ya existe en la ruta de salida, al seleccionar esta opción se sobrescribirá.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar con el error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica si la automatización debe continuar incluso cuando la actividad arroja un error.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+    <value>Archivo con firma clara</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+    <value>El archivo con firma clara como un recurso de archivo.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Name" xml:space="preserve">
+    <value>PGP Verify</value>
+    <comment>Activity name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Description" xml:space="preserve">
+    <value>Verifica una firma PGP, una firma clara o valida un archivo de clave pública.</value>
+    <comment>Activity description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Mode_Name" xml:space="preserve">
+    <value>TipoDeVerificación</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Mode_Description" xml:space="preserve">
+    <value>Seleccione el tipo de verificación. &apos;Archivo firmado (binario)&apos; verifica un archivo firmado binario. &apos;Archivo con firma clara (texto)&apos; verifica un archivo de texto con una firma incrustada. &apos;Validar clave pública&apos; comprueba que un archivo contenga una clave pública PGP válida.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo firmada</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo firmado para verificar. Se requiere para los modos &apos;Archivo firmado (binario)&apos; y &apos;Archivo con firma clara (texto)&apos;.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>Ruta de archivo de clave pública</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Description" xml:space="preserve">
+    <value>La ruta al archivo de clave pública PGP utilizado para la verificación.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Continuar con el error</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_ContinueOnError_Description" xml:space="preserve">
+    <value>Especifica si la automatización debe continuar incluso cuando la actividad arroja un error.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Result_Name" xml:space="preserve">
+    <value>Resultado</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_Result_Description" xml:space="preserve">
+    <value>Verdadero si la verificación se realizó correctamente, Falso en caso contrario.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="ActivitySynonymCryptography" xml:space="preserve">
+    <value>Criptografía</value>
   </data>
 </root>

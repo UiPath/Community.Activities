@@ -296,11 +296,20 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>Ruta de la biblioteca (Linux o versión &gt;3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>La versión de Python seleccionada no es compatible.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Las versiones de Python &gt;= 3.10 no son compatibles en 32 bit. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>Aplicación Solicitante.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>Versiones de Python instaladas</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>Seleccione la instalación de Python que se utilizará para la configuración de la actividad</value>
   </data>
 </root>

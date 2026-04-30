@@ -296,11 +296,20 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>元件庫路徑 (適用於 Linux 或版本 &gt; 3.9 的 Windows)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>不支援所選的 Python 版本。</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>32 位元上不支援 3.10 及以上的 Python 版本。 </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>應用程式叫用器.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>已安裝的 Python 版本</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>選取要用於配置活動的 Python 安裝</value>
   </data>
 </root>

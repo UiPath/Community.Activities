@@ -4,6 +4,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Java.Activities
 {
@@ -37,31 +41,44 @@ namespace UiPath.Java.Activities
         public OutArgument<JavaObject> Result { get; set; }
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var fieldName = FieldName.Get(context) ?? throw new ArgumentNullException(Resources.FieldName);
-            var javaObject = TargetObject.Get(context);
-            var className = TargetType.Get(context);
-
-            if (javaObject == null && className == null)
-            {
-                throw new InvalidOperationException(Resources.InvokationObjectException);
-            }
-
-            JavaObject instance;
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                instance = await invoker.InvokeGetField(javaObject, fieldName, className, cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Could not get java field: {e}");
-                throw new InvalidOperationException(Resources.GetFieldException, e);
-            }
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var fieldName = FieldName.Get(context) ?? throw new ArgumentNullException(Resources.FieldName);
+                var javaObject = TargetObject.Get(context);
+                var className = TargetType.Get(context);
 
-            return asyncCodeActivityContext =>
+                if (javaObject == null && className == null)
+                    throw new InvalidOperationException(Resources.InvokationObjectException);
+
+                JavaObject instance;
+                try
+                {
+                    instance = await invoker.InvokeGetField(javaObject, fieldName, className, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Could not get java field: {e}");
+                    throw new InvalidOperationException(Resources.GetFieldException, e);
+                }
+
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    Result.Set(asyncCodeActivityContext, instance);
+                });
+
+                telemetryOperation?.Send();
+                return result;
+            }
+            catch (Exception ex)
             {
-                Result.Set(asyncCodeActivityContext, instance);
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

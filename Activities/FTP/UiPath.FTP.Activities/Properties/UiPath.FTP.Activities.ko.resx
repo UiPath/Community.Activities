@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>사용자 이름은 비워 둘 수 없습니다.</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>시간 제한은 0보다 크거나 같아야 합니다.</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL 프로토콜</value>
   </data>
@@ -540,6 +543,14 @@
     <value>FTPS 연결에 사용할 SSL 프로토콜을 선택합니다.</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>FTP/SFTP 연결 시간 제한 값(밀리초)입니다. 설정하지 않으면 기본 라이브러리의 기본 시간 제한이 사용됩니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>시간 제한(밀리초)</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>SSL 프로토콜</value>
     <comment>Property name</comment>
@@ -761,9 +772,20 @@
     <value>자동 구성을 위해 비워두십시오</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
-    <value>The proxy password in secure string format</value>
+    <value>보안 문자열 형식의 프록시 암호</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
-    <value>Proxy Secure Password</value>
+    <value>프록시 보안 암호</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>형식에 따라 항목 필터링(선택한 항목 포함)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>개체 형식</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>포함할 개체 형식 선택</value>
   </data>
 </root>

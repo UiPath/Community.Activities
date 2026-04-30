@@ -10,6 +10,9 @@ using UiPath.FTP.Enums;
 using System.Security;
 using System.Net;
 using System.Activities.Validation;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.FTP.Activities
 {
@@ -109,6 +112,12 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_AcceptAllCertificates_Description))]
         public bool AcceptAllCertificates { get; set; }
 
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Server))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_Timeout_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Timeout_Description))]
+        public InArgument<int> Timeout { get; set; }
+
         [LocalizedCategory(nameof(Resources.Common))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Description))]
@@ -179,89 +188,110 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
-            string passwordValue = Password.Get(context);
-            SecureString securePasswordValue = SecurePassword.Get(context);
-            string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
-            SecureString clientCertificateSecurePasswordValue = ClientCertificateSecurePassword.Get(context);
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
 
-            FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
-            ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
-            ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
-            ftpConfiguration.SslProtocols = SslProtocols;
-            ftpConfiguration.ProxyType = ProxyType;
-
-            if (PasswordInputModeSwitch == PasswordInputMode.Password)
+            try
             {
-                ftpConfiguration.Password = passwordValue;
-            }
-            else
-            {
-                ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
-            }
+                string passwordValue = Password.Get(context);
+                SecureString securePasswordValue = SecurePassword.Get(context);
+                string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
+                SecureString clientCertificateSecurePasswordValue = ClientCertificateSecurePassword.Get(context);
 
-            if (ftpConfiguration.ProxyType != FtpProxyType.None)
-            {
-                ftpConfiguration.ProxyServer = ProxyServer.Get(context);
-                ftpConfiguration.ProxyPort = ProxyPort.Expression == null ? null : (int?)ProxyPort.Get(context);
-                ftpConfiguration.ProxyUsername = ProxyUser.Get(context);
+                FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
+                ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
+                int? timeout = Timeout.Expression == null ? null : (int?)Timeout.Get(context);
+                if (timeout.HasValue && timeout.Value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(Timeout), Resources.InvalidTimeoutException);
+                }
+                ftpConfiguration.Timeout = timeout;
+                ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
+                ftpConfiguration.SslProtocols = SslProtocols;
+                ftpConfiguration.ProxyType = ProxyType;
 
-                if (ProxyPasswordInputModeSwitch == PasswordInputMode.Password)
-                    ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
+                if (PasswordInputModeSwitch == PasswordInputMode.Password)
+                {
+                    ftpConfiguration.Password = passwordValue;
+                }
                 else
-                    ftpConfiguration.ProxyPassword = new NetworkCredential(string.Empty, ProxySecurePassword.Get(context)).Password;
-            }
-
-            ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
-            ftpConfiguration.ClientCertificatePassword = clientCertificatePasswordValue;
-            if (ftpConfiguration.ClientCertificatePassword == null)
-            {
-                ftpConfiguration.ClientCertificatePassword = new NetworkCredential("", clientCertificateSecurePasswordValue).Password;
-            }
-
-            ftpConfiguration.AcceptAllCertificates = AcceptAllCertificates;
-
-            if (ftpConfiguration.UseAnonymousLogin == false)
-            {
-                ftpConfiguration.Username = Username.Get(context);
-                if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
                 {
-                    throw new ArgumentNullException(Resources.EmptyUsernameException);
+                    ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
                 }
 
-                if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
+                if (ftpConfiguration.ProxyType != FtpProxyType.None)
                 {
-                    throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
+                    ftpConfiguration.ProxyServer = ProxyServer.Get(context);
+                    ftpConfiguration.ProxyPort = ProxyPort.Expression == null ? null : (int?)ProxyPort.Get(context);
+                    ftpConfiguration.ProxyUsername = ProxyUser.Get(context);
+
+                    if (ProxyPasswordInputModeSwitch == PasswordInputMode.Password)
+                        ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
+                    else
+                        ftpConfiguration.ProxyPassword = new NetworkCredential(string.Empty, ProxySecurePassword.Get(context)).Password;
                 }
-            }
 
-            IFtpSession ftpSession = _setFtpSession;
-            if (UseSftp)
-            {
-                ftpSession ??= new SftpSession(ftpConfiguration);
-            }
-            else
-            {
-                ftpSession ??= new FtpSession(ftpConfiguration, FtpsMode);
-            }
-
-            await ftpSession.OpenAsync(cancellationToken);
-
-            return (nativeActivityContext) =>
-            {
-                if (Body != null)
+                ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
+                ftpConfiguration.ClientCertificatePassword = clientCertificatePasswordValue;
+                if (ftpConfiguration.ClientCertificatePassword == null)
                 {
-                    _ftpSession = ftpSession;
-                    nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
+                    ftpConfiguration.ClientCertificatePassword = new NetworkCredential("", clientCertificateSecurePasswordValue).Password;
                 }
-            };
+
+                ftpConfiguration.AcceptAllCertificates = AcceptAllCertificates;
+
+                if (ftpConfiguration.UseAnonymousLogin == false)
+                {
+                    ftpConfiguration.Username = Username.Get(context);
+                    if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
+                    {
+                        throw new ArgumentNullException(Resources.EmptyUsernameException);
+                    }
+
+                    if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
+                    {
+                        throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
+                    }
+                }
+
+                IFtpSession ftpSession = _setFtpSession;
+
+                if (UseSftp)
+                    ftpSession ??= new SftpSession(ftpConfiguration);
+                else
+                    ftpSession ??= new FtpSession(ftpConfiguration, FtpsMode);
+
+                await ftpSession.OpenAsync(cancellationToken);
+
+                var result = new Action<NativeActivityContext>(nativeActivityContext =>
+                {
+                    if (Body != null)
+                    {
+                        _ftpSession = ftpSession;
+                        nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
+                    }
+                });
+                return result;
+            }
+            catch (Exception ex)
+            {
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
+
         }
 
         private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            telemetryOperation?.Send();
+#endif
+
             if (_ftpSession == null)
-            {
                 throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
-            }
 
             _ftpSession.Close();
             _ftpSession.Dispose();
@@ -269,6 +299,11 @@ namespace UiPath.FTP.Activities
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+            telemetryOperation?.SendWithException(propagatedException);
+#endif
+
             _ftpSession?.Close();
             _ftpSession?.Dispose();
         }

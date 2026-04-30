@@ -14,6 +14,9 @@ namespace UiPath.FTP
     public class SftpSession : IFtpSession
     {
         private readonly SftpClient _sftpClient;
+
+        internal SftpClient Client => _sftpClient;
+
         private const int DefaultFtpPort = 21;
         private const int DefaultProxyPort = 3128;
 
@@ -66,7 +69,21 @@ namespace UiPath.FTP
                 connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpPort, ftpConfiguration.Username, ftpConfiguration.ProxyType.ToMaster(),ftpConfiguration.ProxyServer, proxyPort,ftpConfiguration.ProxyUsername,ftpConfiguration.ProxyPassword, authMethods.ToArray());
             }
 
+            TimeSpan? timeoutSpan = ftpConfiguration.Timeout != null
+                ? TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value)
+                : null;
+
+            if (timeoutSpan.HasValue)
+            {
+                connectionInfo.Timeout = timeoutSpan.Value;
+            }
+
             _sftpClient = new SftpClient(connectionInfo);
+
+            if (timeoutSpan.HasValue)
+            {
+                _sftpClient.OperationTimeout = timeoutSpan.Value;
+            }
         }
 
         private IEnumerable<Tuple<string, string>> GetLocalListing(string localPath, string remotePath, bool recursive)
