@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Moq;
 using Shouldly;
 using UiPath.Python;
+using UiPath.Python.Activities.API;
 using UiPath.Python.Activities.API.Models;
-using UiPath.Robot.Activities.Api;
 using Xunit;
 
 namespace UiPath.Python.Activities.API.Tests
@@ -16,8 +16,7 @@ namespace UiPath.Python.Activities.API.Tests
 
         public PythonServiceTests()
         {
-            var executorRuntime = new Mock<IExecutorRuntime>();
-            _pythonService = new PythonService(executorRuntime.Object);
+            _pythonService = new PythonService();
         }
 
         [Fact]

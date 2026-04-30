@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python;
 using UiPath.Python.Activities.API.Models;
-using UiPath.Robot.Activities.Api;
 
 namespace UiPath.Python.Activities.API
 {
@@ -14,7 +13,7 @@ namespace UiPath.Python.Activities.API
     {
         private readonly Func<Version, string, string, bool, TargetPlatform, bool, IEngine> _engineFactory;
 
-        public PythonService(IExecutorRuntime executorRuntime)
+        public PythonService()
             : this((version, path, libraryPath, x, target, y) => EngineProvider.Get(version, path, libraryPath, x, target, y))
         {
         }

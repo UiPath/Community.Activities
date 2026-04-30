@@ -81,5 +81,5 @@ namespace UiPath.Python.Activities
             }
         }
 
-            }
-        }
+    }
+}
