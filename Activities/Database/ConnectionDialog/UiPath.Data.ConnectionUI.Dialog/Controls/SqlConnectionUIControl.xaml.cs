@@ -120,10 +120,9 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
             dlg.Filter = Res.Resources.DatabaseFileBrowseFilter;
 
             // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
+            bool? result = dlg.ShowDialog();
 
-            // Get the selected file name and display in a TextBox
-            if (result == true)
+            if (result is true)
             {
                 // Open document
                 string filename = dlg.FileName;

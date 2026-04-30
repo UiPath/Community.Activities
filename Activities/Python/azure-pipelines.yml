@@ -46,7 +46,8 @@ variables:
   - template: ..\.pipelines\variables\variables.yml
 
 stages:
-  - template: Activities/stage.start.yml@common
+  # Uses local stage.start.yml instead of @common to avoid GitHub API token dependency
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'Python'
       solutionPath: '$(SolutionsPath)/Activities.Python.sln'
@@ -54,6 +55,26 @@ stages:
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
+      postBuild:
+      - powershell: |
+          $sonarDir = Join-Path "$(Pipeline.Workspace)" ".sonarqube"
+          if (-not (Test-Path $sonarDir)) {
+            New-Item -ItemType Directory -Path $sonarDir | Out-Null
+          }
+          $scannerDir = Join-Path $sonarDir "bin"
+          New-Item -ItemType Directory -Path $scannerDir -Force | Out-Null
+          $stubExe = Join-Path $scannerDir "SonarScanner.MSBuild.exe"
+          if (-not (Test-Path $stubExe)) {
+            New-Item -ItemType File -Path $stubExe -Force | Out-Null
+          }
+          Write-Host "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_EXE]$stubExe"
+        displayName: 'Create Sonar placeholders (analysis disabled)'
+      preTestRun:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 6 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '6.0.x'
 
   - stage: BuildPythonRuntimeTests
     displayName: 'Build Python Runtime Tests'
@@ -77,8 +98,9 @@ stages:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        studioLicense: $(StudioLicense)
         environment:
-          PYTHON_HOME: "C:/hostedtoolcache/windows/Python/3.12.3/x64"
+          PYTHON_HOME: $(USEPYTHONVERSION_PYTHONLOCATION)
         beforeTestsCustomSteps:
           - task: UsePythonVersion@0
             displayName: 'Use Python 3.x'

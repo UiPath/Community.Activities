@@ -46,6 +46,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 { DataSource.SqlFileDataSource.Name, DataSource.SqlFileDataSource },
                 { DataSource.OdbcDataSource.Name, DataSource.OdbcDataSource },
                 { DataSource.OracleManagedDataAccessSource.Name, DataSource.OracleManagedDataAccessSource },
+                { DataSource.SqliteDataSource.Name, DataSource.SqliteDataSource },
                 { DataSource.UnspecifiedDataSource.DisplayName, DataSource.UnspecifiedDataSource }
             };
 
@@ -54,7 +55,8 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 { DataProvider.SqlDataProvider.Name, DataProvider.SqlDataProvider },
                 { DataProvider.OleDBDataProvider.Name, DataProvider.OleDBDataProvider },
                 { DataProvider.OdbcDataProvider.Name, DataProvider.OdbcDataProvider },
-                { DataProvider.OracleManagedDataAccessProvider.Name, DataProvider.OracleManagedDataAccessProvider }
+                { DataProvider.OracleManagedDataAccessProvider.Name, DataProvider.OracleManagedDataAccessProvider },
+                { DataProvider.SqliteDataProvider.Name, DataProvider.SqliteDataProvider }
             };
         }
     }

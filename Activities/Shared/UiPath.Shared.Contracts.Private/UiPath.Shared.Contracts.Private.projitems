@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>bf6397b9-12c9-49a2-811e-4272a2f46c12</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>UiPath.Shared.Contracts.Private</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)LegacyDesignerContract.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PrivateContractExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PrivateRuntimeContract.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RuntimeContractExtensions.cs" />
+  </ItemGroup>
+</Project>

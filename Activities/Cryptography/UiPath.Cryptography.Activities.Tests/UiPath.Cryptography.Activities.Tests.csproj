@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
 		<ProjectGuid>{32563B0E-C9B0-468F-85CC-04BB4802FE37}</ProjectGuid>
-		<TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
+		<TargetFrameworks>$(PortableFramework)</TargetFrameworks>
 		<AssemblyTitle>UiPath.Cryptography.Activities.Tests</AssemblyTitle>
 		<Product>UiPath.Cryptography.Activities.Tests</Product>
 		<Copyright>Copyright ©  2018</Copyright>
@@ -12,7 +12,11 @@
 	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
-		<PackageReference Include="System.Activities.Core.Presentation" />
+		<PackageReference Include="UiPath.Platform" />
+		<PackageReference Include="UiPath.Telemetry.Client" />
+		<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
+		<PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
+		<PackageReference Include="PgpCore" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />

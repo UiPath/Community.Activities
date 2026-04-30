@@ -141,10 +141,8 @@ namespace UiPath.Python.Host
         private bool IsWindows()
         {
             bool isWindows = true;
-#if NETCOREAPP
             if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 isWindows = false;
-#endif
             return isWindows;
         }
         private void WaitForPipeDrain(NamedPipeServerStream pipe)

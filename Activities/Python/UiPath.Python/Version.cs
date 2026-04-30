@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -49,6 +50,22 @@ namespace UiPath.Python
         //Unknown = -1,
         [LocalizedDescription(nameof(Resources.Activity_PythonScope_Property_Auto_Description))]
         Auto,
+
+        //Unsupported versions — hidden from the UI. Using them raises a validation error.
+        //Kept as enum values to avoid breaking serialized workflows that reference them.
+        [Description("Python 2.7")]
+        Python_27,
+
+        [Description("Python 3.3")]
+        Python_33,
+
+        [Description("Python 3.4")]
+        Python_34,
+
+        [Description("Python 3.5")]
+        Python_35,
+        //End of unsupported versions
+
         [Version(3, 6, "Python.Runtime.36.dll")]
         [Description("Python 3.6")]
         Python_36,
@@ -132,6 +149,18 @@ namespace UiPath.Python
 
             return (attributes.Length > 0) ? attributes[0].Description : version.ToString();
         }
+
+        private static readonly Version[] _supportedVersions =
+        {
+            Version.Auto,
+            Version.Python_36,
+            Version.Python_37,
+            Version.Python_38,
+            Version.Python_39,
+            Version.Python_310
+        };
+
+        public static IReadOnlyList<Version> GetSupportedVersions() => _supportedVersions;
     }
 
     public class EnumTypeConverter : EnumConverter

@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-    <Import Project="..\Python.build.props" />
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
         <OutputPath>..\..\Output\Activities\Python\</OutputPath>
@@ -14,18 +13,12 @@
         <PackageReference Include="UiPath.Workflow" />
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Update="Properties\UiPath.Python.fr.resx">
-            <DependentUpon>UiPath.Python.resx</DependentUpon>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Python.ja.resx">
+        <EmbeddedResource Update="Properties\UiPath.Python.*.resx">
             <DependentUpon>UiPath.Python.resx</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Update="Properties\UiPath.Python.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>UiPath.Python.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Python.ru.resx">
-            <DependentUpon>UiPath.Python.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>

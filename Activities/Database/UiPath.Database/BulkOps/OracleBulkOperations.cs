@@ -11,11 +11,15 @@ namespace UiPath.Database.BulkOps
         public string TableName { get; set; }
         public Type BulkCopyType { get; set; }
 
-        public void WriteToServer(DataTable dataTable)
+        public void WriteToServer(DataTable dataTable, TimeSpan? commandTimeout = null)
         {
-
-            //dynamic bulkCopy = Activator.CreateInstance(BulkCopyType, new object[] { Connection });
             OracleBulkCopy bulkCopy = new OracleBulkCopy((OracleConnection)Connection);
+            if (commandTimeout.HasValue)
+            {
+                var seconds = (int)Math.Ceiling(commandTimeout.Value.TotalSeconds);
+                if (seconds != 0)
+                    bulkCopy.BulkCopyTimeout = seconds;
+            }
             bulkCopy.DestinationTableName = TableName;
             bulkCopy.WriteToServer(dataTable);
         }

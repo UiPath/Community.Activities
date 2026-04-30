@@ -21,6 +21,7 @@ namespace UiPath.FTP
         public int? ProxyPort { get; set; }
         public string ProxyUsername { get; set; }
         public string ProxyPassword { get; set; }
+        public int? Timeout { get; set; }
 
         public FtpConfiguration(string host)
         {

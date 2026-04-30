@@ -1,10 +1,8 @@
 ﻿using System.Activities.DesignViewModels;
-using System.Activities.ViewModels;
-using UiPath.FTP.Activities.Properties;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    public partial class DeleteViewModel : DesignPropertiesViewModel
+    internal class DeleteViewModel : BaseFtpViewModel
     {
         /// <summary>
         /// Basic constructor

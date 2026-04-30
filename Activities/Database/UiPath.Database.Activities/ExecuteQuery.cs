@@ -3,11 +3,14 @@ using System.Activities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Net;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Database.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Database.Activities
 {
@@ -25,111 +28,116 @@ namespace UiPath.Database.Activities
         [LocalizedDescription(nameof(Resources.Activity_ExecuteQuery_Property_DataTable_Description))]
         public OutArgument<DataTable> DataTable { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Output))]
+        [DefaultValue(null)]
+        [LocalizedDisplayName(nameof(Resources.Activity_ExecuteQuery_Property_DataSet_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_ExecuteQuery_Property_DataSet_Description))]
+        public OutArgument<DataSet> DataSet { get; set; }
+
         public ExecuteQuery()
         {
             CommandType = CommandType.Text;
         }
 
-        private void HandleException(Exception ex, bool continueOnError)
+        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            if (continueOnError) return;
-            throw ex;
-        }
-
-        protected async override Task<Action<AsyncCodeActivityContext>> ExecuteInternalAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
-        {
-            var dataTable = DataTable.Get(context);
-            string connString = null;
-            SecureString connSecureString = null;
-            string provName = null;
-            string sql = string.Empty;
-            DatabaseConnection existingConnection = null;
-            DBExecuteQueryResult affectedRecords = null;
-            int commandTimeout = TimeoutMS.Get(context);
-            if (commandTimeout < 0)
-            {
-                throw new ArgumentException(Resources.TimeoutMSException, "TimeoutMS");
-            }
-            Dictionary<string, ParameterInfo> parameters = null;
-            var continueOnError = ContinueOnError.Get(context);
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                existingConnection = DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                sql = Sql.Get(context);
-                connSecureString = ConnectionSecureString.Get(context);
-                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
-                if (Parameters != null)
+                string connString = null;
+                SecureString connSecureString = null;
+                string provName = null;
+                string sql = string.Empty;
+                DatabaseConnection existingConnection = null;
+                DBExecuteQueryResult affectedRecords = null;
+                int? commandTimeoutMs = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
+                if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
                 {
-                    parameters = new Dictionary<string, ParameterInfo>();
-                    foreach (var param in Parameters)
+                    throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
+                }
+                TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
+                Dictionary<string, ParameterInfo> parameters = null;
+                var continueOnError = ContinueOnError.Get(context);
+                try
+                {
+                    existingConnection = DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    sql = Sql.Get(context);
+                    connSecureString = ConnectionSecureString.Get(context);
+                    ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                    parameters = ConnectionHelper.BuildParameters(Parameters, context);
+
+                    // create the action for doing the actual work
+                    affectedRecords = await Task.Run(() => ExecuteQueryCommand(connString, connSecureString, provName, sql, parameters, commandTimeout));
+                }
+                catch (Exception ex)
+                {
+                    // telemetryOperation object is made null in order to avoid double sending.
+                    telemetryOperation?.SendWithException(ex);
+                    telemetryOperation = null;
+                    ConnectionHelper.HandleException(ex, continueOnError);
+                }
+                finally
+                {
+                    if (existingConnection == null)
                     {
-                        parameters.Add(param.Key, new ParameterInfo() { 
-                            Value = param.Value.Get(context), 
-                            Direction = param.Value.Direction,
-                            Type = param.Value.ArgumentType});
+                        DbConnection?.Dispose();
                     }
                 }
 
-                // create the action for doing the actual work
-                affectedRecords = await Task.Run(() =>
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {
-                    if (DbConnection == null)
-                    {
-                        DbConnection = new DatabaseConnection().Initialize(connString != null ? connString : new NetworkCredential("", connSecureString).Password, provName);
-                    }
-                    if (DbConnection == null)
-                    {
-                        return null;
-                    }
-                    return new DBExecuteQueryResult(DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType), parameters);
+                    if (affectedRecords == null) return;
+
+                    DataTable?.Set(asyncCodeActivityContext, affectedRecords.Result);
+                    DataSet?.Set(asyncCodeActivityContext, affectedRecords.DataSetResult);
+                    ConnectionHelper.SetOutputParameters(asyncCodeActivityContext, Parameters, affectedRecords.ParametersBind);
                 });
 
+                //if exception was caught and sent to telemetry, avoid sending again
+                telemetryOperation?.Send();
+                return result;
             }
             catch (Exception ex)
             {
-                HandleException(ex, continueOnError);
+                // If any other exception occurs, send it to telemetry
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-            finally
+        }
+
+        private DBExecuteQueryResult ExecuteQueryCommand(string connString, SecureString connSecureString, string provName, string sql, Dictionary<string, ParameterInfo> parameters, TimeSpan? commandTimeout)
+        {
+            DbConnection = ConnectionHelper.EnsureConnection(DbConnection, connString, connSecureString, provName);
+            if (DbConnection == null)
             {
-                if (existingConnection == null)
-                {
-                    DbConnection?.Dispose();
-                }
+                return null;
             }
-
-            return asyncCodeActivityContext =>
-            {
-                DataTable dt = affectedRecords?.Result;
-                if (dt == null) return;
-
-                DataTable.Set(asyncCodeActivityContext, dt);
-                foreach (var param in affectedRecords.ParametersBind)
-                {
-                    var currentParam = Parameters[param.Key];
-                    if (currentParam.Direction == ArgumentDirection.Out || currentParam.Direction == ArgumentDirection.InOut)
-                    {
-                        currentParam.Set(asyncCodeActivityContext, param.Value.Value);
-                    }
-                }
-            };
+            var (resultTable, resultDataSet) = DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType);
+            return new DBExecuteQueryResult(resultTable, resultDataSet, parameters);
         }
 
         private class DBExecuteQueryResult
         {
             public DataTable Result { get; }
+            public DataSet DataSetResult { get; }
             public Dictionary<string, ParameterInfo> ParametersBind { get; }
 
             public DBExecuteQueryResult()
             {
                 this.Result = new DataTable();
+                this.DataSetResult = new DataSet();
                 this.ParametersBind = new Dictionary<string, ParameterInfo>();
             }
 
-            public DBExecuteQueryResult(DataTable result, Dictionary<string, ParameterInfo> parametersBind)
+            public DBExecuteQueryResult(DataTable result, DataSet dataSetResult, Dictionary<string, ParameterInfo> parametersBind)
             {
                 this.Result = result;
+                this.DataSetResult = dataSetResult;
                 this.ParametersBind = parametersBind;
             }
         }

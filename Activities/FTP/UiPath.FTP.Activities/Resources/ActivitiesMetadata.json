@@ -18,6 +18,17 @@
           "Category": {
             "DisplayNameKey": "Input"
           }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Category_Others_Name"
+          }
         }
       ],
       "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DeleteViewModel"
@@ -38,6 +49,17 @@
           "IsVisible": true,
           "Category": {
             "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Category_Others_Name"
           }
         },
         {
@@ -115,6 +137,17 @@
           "Category": {
             "DisplayNameKey": "Category_Others_Name"
           }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Category_Others_Name"
+          }
         }
       ],
       "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DownloadFilesViewModel"
@@ -141,6 +174,29 @@
           "Name": "Recursive",
           "DisplayNameKey": "Activity_EnumerateObjects_Property_Recursive_Name",
           "TooltipKey": "Activity_EnumerateObjects_Property_Recursive_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Category_Others_Name"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Category_Others_Name"
+          }
+        },
+        {
+          "Name": "Filter",
+          "DisplayNameKey": "Activity_EnumerateObjects_Property_Filter_Name",
+          "TooltipKey": "Activity_EnumerateObjects_Property_Filter_Description",
+          "placeholderKey": "Activity_EnumerateObjects_Property_Filter_Placeholder",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -178,6 +234,17 @@
           "IsVisible": true,
           "Category": {
             "DisplayNameKey": "Category_Principal_Name"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Category_Others_Name"
           }
         },
         {
@@ -309,6 +376,17 @@
           "Category": {
             "DisplayNameKey": "Category_Others_Name"
           }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Category_Others_Name"
+          }
         }
       ],
       "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.UploadFilesViewModel"
@@ -336,6 +414,14 @@
           "Name": "Port",
           "DisplayNameKey": "Activity_WithFtpSession_Property_Port_Name",
           "TooltipKey": "Activity_WithFtpSession_Property_Port_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true
+        },
+        {
+          "Name": "Timeout",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_Timeout_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_Timeout_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true
@@ -523,26 +609,34 @@
           }
         },
         {
-            "Name": "ProxyPassword",
-            "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyPassword_Name",
-            "TooltipKey": "Activity_WithFtpSession_Property_ProxyPassword_Description",
-            "IsRequired": false,
-            "IsPrincipal": false,
-            "IsVisible": true,
-            "Category": {
-                "DisplayNameKey": "Proxy"
-            }
+          "Name": "ProxyPassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxyPassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxyPassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
         },
         {
-            "Name": "ProxySecurePassword",
-            "DisplayNameKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Name",
-            "TooltipKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Description",
-            "IsRequired": false,
-            "IsPrincipal": false,
-            "IsVisible": false,
-            "Category": {
-                "DisplayNameKey": "Proxy"
-            }
+          "Name": "ProxySecurePassword",
+          "DisplayNameKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Name",
+          "TooltipKey": "Activity_WithFtpSession_Property_ProxySecurePassword_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
+        },
+        {
+          "Name": "ProxyPasswordInputModeSwitch",
+          "IsRequired": false,
+          "IsVisible": false,
+          "Category": {
+            "DisplayNameKey": "Proxy"
+          }
         }
       ],
       "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.WithFtpSessionViewModel"

@@ -14,8 +14,6 @@ namespace UiPath.Database.Activities
 {
     public abstract class DatabaseExecute : AsyncTaskCodeActivity
     {
-        private const int _defaultTimeout = 30000;
-
         protected DatabaseConnection DbConnection = null;
 
         [DefaultValue(null)]
@@ -61,17 +59,6 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseExecute_Property_TimeoutMS_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseExecute_Property_TimeoutMS_Description))]
         public InArgument<int> TimeoutMS { get; set; }
-
-        protected sealed override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
-        {
-            if(TimeoutMS.Expression is null)
-            {
-                TimeoutMS.Set(context, _defaultTimeout);
-            }
-
-            return ExecuteInternalAsync(context, cancellationToken);
-        }
-        protected abstract Task<Action<AsyncCodeActivityContext>> ExecuteInternalAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken);
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {

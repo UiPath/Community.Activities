@@ -186,6 +186,9 @@
   <data name="TripleDES" xml:space="preserve">
     <value>TripleDES</value>
   </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP (Pretty Good Privacy)</value>
+  </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>No se admite el algoritmo hash proporcionado.</value>
   </data>
@@ -615,5 +618,29 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>La frase de contraseña para la clave privada PGP es incorrecta.</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>La clave privada proporcionada no coincide con los datos cifrados. Asegúrese de estar utilizando la clave privada correcta.</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>Se produjo un error en la verificación de la firma PGP. La clave pública no coincide con la firma o se han alterado los datos.</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>Archivo firmado (binario)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>Archivo con firma clara (texto)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>Validar clave pública</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>Se solicitó la firma, pero se requieren una clave privada y una frase de contraseña para firmar. Proporcione un flujo de clave privada y una frase de contraseña, o establezca Firmar en falso.</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>Se solicitó la verificación de la firma, pero se requiere una clave pública para verificar. Proporcione un flujo de clave pública o establezca verificarFirma en falso.</value>
   </data>
 </root>

@@ -1088,6 +1088,24 @@ namespace UiPath.Database.Activities.Properties {
                 return ResourceManager.GetString("Activity_ExecuteQuery_Property_DataTable_Name", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The output of the SQL command wrapped in a DataSet variable.
+        /// </summary>
+        public static string Activity_ExecuteQuery_Property_DataSet_Description {
+            get {
+                return ResourceManager.GetString("Activity_ExecuteQuery_Property_DataSet_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Data set.
+        /// </summary>
+        public static string Activity_ExecuteQuery_Property_DataSet_Name {
+            get {
+                return ResourceManager.GetString("Activity_ExecuteQuery_Property_DataSet_Name", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to An SQL query to be executed. This property must be completed according to the selection from the Command type property.

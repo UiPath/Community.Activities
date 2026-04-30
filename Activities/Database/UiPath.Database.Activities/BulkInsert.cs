@@ -8,6 +8,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Database.Activities.Properties;
 using UiPath.Robot.Activities.Api;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Database.Activities
 {
@@ -37,56 +41,81 @@ namespace UiPath.Database.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            DataTable dataTable = null;
-            SecureString connSecureString = null;
-            string connString = null;
-            string provName = null;
-            string tableName = null;
-            DatabaseConnection existingConnection = null;
-            long affectedRecords = 0;
-            IExecutorRuntime executorRuntime = null;
-            var continueOnError = ContinueOnError.Get(context);
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                existingConnection = DbConnection = ExistingDbConnection.Get(context);
-                connString = ConnectionString.Get(context);
-                provName = ProviderName.Get(context);
-                tableName = TableName.Get(context);
-                dataTable = DataTable.Get(context);
-                executorRuntime = context.GetExtension<IExecutorRuntime>();
-                connSecureString = ConnectionSecureString.Get(context);
-                ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
-                // create the action for doing the actual work
-                affectedRecords = await Task.Run(() =>
-            {
-                DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName);
-                if (DbConnection == null)
+                DataTable dataTable = null;
+                SecureString connSecureString = null;
+                string connString = null;
+                string provName = null;
+                string tableName = null;
+                DatabaseConnection existingConnection = null;
+                long affectedRecords = 0;
+                IExecutorRuntime executorRuntime = null;
+                var continueOnError = ContinueOnError.Get(context);
+                int? commandTimeoutMs = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
+                if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
                 {
-                    return 0;
+                    throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
                 }
-                if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                    return DbConnection.BulkInsertDataTable(tableName, dataTable, executorRuntime);
-                else
-                    return DbConnection.BulkInsertDataTable(tableName, dataTable);
-            });
+                TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
+                try
+                {
+                    existingConnection = DbConnection = ExistingDbConnection.Get(context);
+                    connString = ConnectionString.Get(context);
+                    provName = ProviderName.Get(context);
+                    tableName = TableName.Get(context);
+                    dataTable = DataTable.Get(context);
+                    executorRuntime = context.GetExtension<IExecutorRuntime>();
+                    connSecureString = ConnectionSecureString.Get(context);
+                    ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
+                    // create the action for doing the actual work
+                    affectedRecords = await Task.Run(() =>
+                    {
+                        DbConnection = DbConnection ?? new DatabaseConnection().Initialize(connString ?? new NetworkCredential("", connSecureString).Password, provName);
+                        if (DbConnection == null)
+                        {
+                            return 0;
+                        }
+                        if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
+                            return DbConnection.BulkInsertDataTable(tableName, dataTable, commandTimeout, executorRuntime);
+                        else
+                            return DbConnection.BulkInsertDataTable(tableName, dataTable, commandTimeout);
 
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // telemetryOperation object is made null in order to avoid double sending.
+                    telemetryOperation?.SendWithException(ex);
+                    telemetryOperation = null;
+                    HandleException(ex, continueOnError);
+                }
+                finally
+                {
+                    if (existingConnection == null)
+                    {
+                        DbConnection?.Dispose();
+                    }
+                }
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
+                });
+
+                //if exception was caught and sent to telemetry, avoid sending again
+                telemetryOperation?.Send();
+                return result;
             }
             catch (Exception ex)
             {
-                HandleException(ex, continueOnError);
+                // If any other exception occurs, send it to telemetry
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-            finally
-            {
-                if (existingConnection == null)
-                {
-                    DbConnection?.Dispose();
-                }
-            }
-
-            return asyncCodeActivityContext =>
-            {
-                AffectedRecords.Set(asyncCodeActivityContext, affectedRecords);
-            };
         }
     }
 }

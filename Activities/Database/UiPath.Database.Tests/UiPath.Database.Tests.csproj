@@ -20,6 +20,9 @@
 
   <ItemGroup>
     <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
+    <PackageReference Include="UiPath.Telemetry.Client" />
+    <PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
+    <PackageReference Include="UiPath.Platform" />
   </ItemGroup>
 	
   <ItemGroup>
@@ -34,5 +37,10 @@
 	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="Oracle.ManagedDataAccess.Core" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Copied to the test output so DbWorkaroundsVersionTests can read managed package versions. -->
+		<Content Include="..\Directory.build.targets" CopyToOutputDirectory="Always" Link="Database.Directory.build.targets" />
 	</ItemGroup>
 </Project>

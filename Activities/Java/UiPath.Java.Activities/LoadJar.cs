@@ -4,6 +4,11 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
+
 
 namespace UiPath.Java.Activities
 {
@@ -19,23 +24,36 @@ namespace UiPath.Java.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var jarPath = JarPath.Get(context) ?? throw new ArgumentNullException(Resources.JarPathDisplayName);
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                await invoker.LoadJar(jarPath, cancellationToken);
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var jarPath = JarPath.Get(context) ?? throw new ArgumentNullException(Resources.JarPathDisplayName);
+                try
+                {
+                    await invoker.LoadJar(jarPath, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Jar could not be loaded: {e}");
+                    throw new InvalidOperationException(Resources.LoadJarException, e);
+                }
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    // No OutArgument
+                });
+
+                telemetryOperation?.Send();
+                return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Trace.TraceError($"Jar could not be loaded{e}");
-                throw new InvalidOperationException(Resources.LoadJarException, e);
+                telemetryOperation?.SendWithException(ex);
+                throw;
             }
-
-            return asyncCodeActivityContext =>
-            {
-
-            };
-
         }
     }
 }

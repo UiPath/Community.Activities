@@ -186,6 +186,9 @@
   <data name="TripleDES" xml:space="preserve">
     <value>三重 DES</value>
   </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP (優良保密協定)</value>
+  </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>不支援所提供的雜湊演算法。</value>
   </data>
@@ -615,5 +618,29 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>PGP 私密金鑰的密碼不正確。</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>提供的私密金鑰與加密資料不相符。請確認您使用的私密金鑰正確無誤。</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>PGP 簽名驗證失敗。公開金鑰與簽名不相符，或資料已遭篡改。</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>簽署的檔案 (二進位)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>透明簽署的檔案 (文字)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>驗證公開金鑰</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>已請求簽署，但需要私密金鑰和密碼才能簽署。請同時提供私密金鑰串流和密碼，或將簽署設定為 False。</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>已請求簽名驗證，但需要公開金鑰才能驗證。請提供公開金鑰串流，或將驗證簽名設定為 False。</value>
   </data>
 </root>
