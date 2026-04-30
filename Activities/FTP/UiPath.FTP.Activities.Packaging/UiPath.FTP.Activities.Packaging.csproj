@@ -34,6 +34,8 @@
     <PackageReference Include="FluentFTP" />
     <PackageReference Include="SSH.NET" />
     <PackageReference Include="UiPath.Telemetry.Client" />
+    <PackageReference Include="UiPath.Platform" />
+    <PackageReference Include="UiPath.CodedWorkflows" />
   </ItemGroup>
 
 	<Target Name="AddDlls">
@@ -60,7 +62,19 @@
 		<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
 		</ItemGroup>
+
+    <!--Coded workflow API files-->
+    <ItemGroup Label="AddCodedWorkflowAPI">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.API.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.API.xml" />
+    </ItemGroup>
+    
 	</Target>
+
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
   
 	<Target Name="CleanPackageFiles" BeforeTargets="Build">
 		<Message Text="Deleting packages ..." />
@@ -77,6 +91,9 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.API\UiPath.FTP.Activities.API.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
   </ItemGroup>

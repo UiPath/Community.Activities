@@ -56,6 +56,12 @@ namespace UiPath.Database.Activities
                 long affectedRecords = 0;
                 IExecutorRuntime executorRuntime = null;
                 var continueOnError = ContinueOnError.Get(context);
+                int? commandTimeoutMs = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
+                if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
+                {
+                    throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
+                }
+                TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
                 try
                 {
                     existingConnection = DbConnection = ExistingDbConnection.Get(context);
@@ -75,9 +81,9 @@ namespace UiPath.Database.Activities
                             return 0;
                         }
                         if (executorRuntime != null && executorRuntime.HasFeature(ExecutorFeatureKeys.LogMessage))
-                            return DbConnection.BulkInsertDataTable(tableName, dataTable, executorRuntime);
+                            return DbConnection.BulkInsertDataTable(tableName, dataTable, commandTimeout, executorRuntime);
                         else
-                            return DbConnection.BulkInsertDataTable(tableName, dataTable);
+                            return DbConnection.BulkInsertDataTable(tableName, dataTable, commandTimeout);
 
                     });
                 }

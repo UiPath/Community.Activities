@@ -122,7 +122,7 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Name" xml:space="preserve">
-    <value>Tabelul de date de intrare</value>
+    <value>Input data table</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkInsert_Property_DataTable_Placeholder" xml:space="preserve">
@@ -143,7 +143,7 @@
     <value>O conexiune de bază de date deja deschisă a fost obținută din activitatea Connect to Database.</value>
   </data>
   <data name="Activity_DatabaseRowActivity_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
-    <value>Folosește ieșirea activității Connect to Database</value>
+    <value>Folosiți output-ul activității Connect to Database</value>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Placeholder" xml:space="preserve">
     <value>Furnizați variabila DataTable</value>
@@ -368,7 +368,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_DataTable_Name" xml:space="preserve">
-    <value>Tabelul de date de intrare</value>
+    <value>Input data table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_BulkUpdate_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -452,8 +452,8 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Description" xml:space="preserve">
-    <value>Se conectează la o bază de date și dispune de o secvență care poate efectua mai multe tranzacții cu baza de date. Returnează o variabilă DatabaseConnection, oferind un domeniu pentru activitățile bazei de date.
-Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate într-o singură tranzacție și aplicate la final dacă niciuna dintre ele nu a eșuat. Dacă UseTransaction este setat pe False, toate operațiunile sunt angajate individual. Când această activitate se încheie, conexiunea cu baza de date este închisă.</value>
+    <value>Se conectează la o bază de date și include un Sequence care poate efectua mai multe tranzacții cu baza de date. Returnează o variabilă DatabaseConnection, oferind un domeniu de aplicare pentru activitățile de bază de date.
+Dacă UseTransaction este setat la True, operațiunile conținute sunt executate într-o singură tranzacție și sunt aplicate la final dacă niciuna dintre ele nu a eșuat. Dacă UseTransaction este setat la False, toate operațiunile sunt confirmate individual. Când această activitate se încheie, conexiunea la baza de date este închisă.</value>
     <comment>activity description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Name" xml:space="preserve">
@@ -493,7 +493,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Description" xml:space="preserve">
-    <value>Variabila DatabaseConnection pe care vrei să o folosești pentru a te conecta la o bază de date. Dacă o astfel de conexiune este asigurată, proprietățile ConnectionString și SecureConnectionString sunt ignorate. Poate fi preluat din alte activități Database care au câmpul DatabaseConnection în secțiunea proprietății Output.</value>
+    <value>Variabila DatabaseConnection pe care doriți să o utilizați pentru conectarea la o bază de date. Dacă este furnizată o astfel de conexiune, proprietățile ConnectionString și SecureConnectionString sunt ignorate. Poate fi preluată din alte activități Database care au câmpul DatabaseConnection în secțiunea de proprietăți Output.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseTransaction_Property_ExistingDbConnection_Name" xml:space="preserve">
@@ -589,7 +589,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_Parameters_Description" xml:space="preserve">
-    <value>Un dicționar de parametri denumiți care sunt legați de comanda SQL. Legarea se face prin specificarea instrucțiunii &apos;@parameterName&apos; în comanda SQL. La timpul execuției, parametrul Name va fi înlocuit cu valoarea sa din dicționar.</value>
+    <value>Un dicționar de parametri denumiți care sunt asociați comenzii SQL. Asocierea se face prin specificarea instrucțiunii &apos;@parameterName&apos; în comanda SQL. La runtime, parameterName va fi înlocuit cu valoarea sa din dicționar.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_Parameters_Name" xml:space="preserve">
@@ -613,7 +613,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_TimeoutMS_Description" xml:space="preserve">
-    <value>Specifică timpul (în milisecunde) pentru a aștepta rularea comenzii sql înainte ca o eroare să fie aruncată. Valoarea implicită este 30000 milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
+    <value>Specifică perioada de timp (în milisecunde) pentru care se așteaptă executarea comenzii sql înainte de a fi generată o eroare. Valoarea implicită este 30000 de milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_TimeoutMS_Name" xml:space="preserve">
@@ -665,7 +665,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <comment>property description</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_DataTable_Name" xml:space="preserve">
-    <value>Tabelul de date de intrare</value>
+    <value>Input data table</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_InsertDataTable_Property_ExistingDbConnection_Description" xml:space="preserve">
@@ -715,7 +715,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <value>Comutarea între șirul de conexiune și șirul securizat de conexiune</value>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionInputModeSwitch_Name" xml:space="preserve">
-    <value>ConexiuneInputModeSwitch</value>
+    <value>ConnectionInputModeSwitch</value>
   </data>
   <data name="Activity_DatabaseConnect_Property_ConnectionSecureString_Placeholder" xml:space="preserve">
     <value>Vă rugăm să furnizați variabila conexiunii de bază de date SecureString</value>
@@ -745,7 +745,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <value>Procedura de stocare</value>
   </data>
   <data name="Activity_DatabaseDisconnect_Property_DatabaseConnection_Placeholder" xml:space="preserve">
-    <value>Folosește ieșirea activității Connect to Database</value>
+    <value>Folosiți output-ul activității Connect to Database</value>
   </data>
   <data name="CommandType_TableDirect_FriendlyName" xml:space="preserve">
     <value>Table Direct</value>
@@ -757,7 +757,7 @@ Dacă UseTransaction este setat pe True, operațiunile conținute sunt executate
     <value>O conexiune de bază de date deja deschisă a fost obținută din activitatea Connect to Database.</value>
   </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Placeholder" xml:space="preserve">
-    <value>Folosește ieșirea activității Connect to Database</value>
+    <value>Folosiți output-ul activității Connect to Database</value>
   </data>
   <data name="Activity_DatabaseExecute_Property_Sql_Placeholder" xml:space="preserve">
     <value>Furnizează o instrucțiune SQL care corespunde tipului de comandă selectat</value>

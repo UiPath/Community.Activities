@@ -32,13 +32,7 @@
  <EmbeddedResource Include="Resources\Icons\PGP_verify.svg" />
  </ItemGroup>
  <ItemGroup>
- <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.fr.resx">
- <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
- </EmbeddedResource>
- <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.ja.resx">
- <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
- </EmbeddedResource>
- <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.ru.resx">
+ <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.*.resx">
  <DependentUpon>UiPath.Cryptography.Activities.resx</DependentUpon>
  </EmbeddedResource>
  <EmbeddedResource Update="Properties\UiPath.Cryptography.Activities.resx">

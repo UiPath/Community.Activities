@@ -11,25 +11,17 @@
     <ItemGroup>
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
+        <PackageReference Include="Microsoft.Data.Sqlite" />
         <PackageReference Include="UiPath.Workflow" />
         <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+        <PackageReference Include="Microsoft.Data.SqlClient" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Data.SqlClient" />
         <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
-
         <!--Dependencies override to solve FOSSA issues-->
         <PackageReference Include="System.Formats.Asn1" />
         <PackageReference Include="Azure.Identity" />
-    </ItemGroup>
-    <ItemGroup>
-        <None Remove="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Properties\UiPath.Database.Designer.cs">
@@ -39,18 +31,12 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Update="Properties\UiPath.Database.fr.resx">
-            <DependentUpon>UiPath.Database.resx</DependentUpon>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Database.ja.resx">
+        <EmbeddedResource Update="Properties\UiPath.Database.*.resx">
             <DependentUpon>UiPath.Database.resx</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Update="Properties\UiPath.Database.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>UiPath.Database.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Database.ru.resx">
-            <DependentUpon>UiPath.Database.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
 </Project>

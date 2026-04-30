@@ -17,7 +17,7 @@ namespace UiPath.Python
         private const string PythonHomeEnv = "PYTHONHOME";
         private static readonly string[] PythonExeWin = ["python.exe", "python3.exe"];
         private static readonly string[] PythonLinux = ["python", "python3"];
-        private static readonly string[] PythonBinFolders = ["", "bin"];
+        private static readonly string[] PythonBinFolders = ["", "bin", "Scripts"];
         private const string PythonVersionArgument = "--version";
 
         // engines cache

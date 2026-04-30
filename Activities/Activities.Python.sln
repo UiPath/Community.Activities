@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Host32", "Pyt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Tests", "Python\UiPath.Python.Tests\UiPath.Python.Tests.csproj", "{9E913818-9270-4570-A8F4-80812EBFA09E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Activities.API", "Python\UiPath.Python.Activities.API\UiPath.Python.Activities.API.csproj", "{BAB1B1A5-5FBB-4FD2-9BF3-CCDFDA3559B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Activities.API.Tests", "Python\UiPath.Python.Activities.API.Tests\UiPath.Python.Activities.API.Tests.csproj", "{73EAD17A-EE4C-417D-B9A1-8B520AB12F21}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Python.Packaging", "Python\UiPath.Python.Packaging\UiPath.Python.Packaging.csproj", "{949AC18E-A23D-4E0A-8217-E771F4AAE867}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Service", "Shared\UiPath.Shared.Service\UiPath.Shared.Service.shproj", "{A6A27646-4889-4F95-A0DF-DD78D287388F}"
@@ -25,7 +29,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Directory.build.props = Directory.build.props
 		Directory.build.targets = Directory.build.targets
-		Python\Python.build.props = Python\Python.build.props
 	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared", "Shared\UiPath.Shared\UiPath.Shared.shproj", "{2E040804-8ED9-4FB8-BB8A-4A38479E2A9E}"
@@ -33,6 +36,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Python.Activities.ViewModels", "Python\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj", "{5EF1F67E-C7E0-4118-9F7F-E3FA5A1FDE1D}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Telemetry", "Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.shproj", "{58B0D9DA-673E-4E61-9497-FEA04E51A90E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{560A3E71-807C-4BF0-A002-90CECC7FE4BE}"
+	ProjectSection(SolutionItems) = preProject
+		Python\Directory.build.props = Python\Directory.build.props
+		Python\Directory.build.targets = Python\Directory.build.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +69,14 @@ Global
 		{9E913818-9270-4570-A8F4-80812EBFA09E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E913818-9270-4570-A8F4-80812EBFA09E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E913818-9270-4570-A8F4-80812EBFA09E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAB1B1A5-5FBB-4FD2-9BF3-CCDFDA3559B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB1B1A5-5FBB-4FD2-9BF3-CCDFDA3559B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB1B1A5-5FBB-4FD2-9BF3-CCDFDA3559B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB1B1A5-5FBB-4FD2-9BF3-CCDFDA3559B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73EAD17A-EE4C-417D-B9A1-8B520AB12F21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73EAD17A-EE4C-417D-B9A1-8B520AB12F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73EAD17A-EE4C-417D-B9A1-8B520AB12F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73EAD17A-EE4C-417D-B9A1-8B520AB12F21}.Release|Any CPU.Build.0 = Release|Any CPU
 		{949AC18E-A23D-4E0A-8217-E771F4AAE867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{949AC18E-A23D-4E0A-8217-E771F4AAE867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{949AC18E-A23D-4E0A-8217-E771F4AAE867}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +92,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{560A3E71-807C-4BF0-A002-90CECC7FE4BE} = {29811D5E-843A-4697-8C4F-660A29A97F7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5AC55779-EA32-41AD-BAAD-1808F8A412CB}

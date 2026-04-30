@@ -127,19 +127,19 @@
     <value>Calea către fișierul care va fi decriptat de această activitate.</value>
   </data>
   <data name="DecryptFileKeyDescription" xml:space="preserve">
-    <value>Cheia utilizată pentru decriptarea fișierului de intrare.</value>
+    <value>Cheia utilizată pentru decriptarea input-ului.</value>
   </data>
   <data name="DecryptFileOutputPathDescription" xml:space="preserve">
     <value>Calea unde fișierul decriptat va fi salvat.</value>
   </data>
   <data name="DecryptTextEncodingDescription" xml:space="preserve">
-    <value>Codificarea utilizată pentru a interpreta șirul de intrare și cheia.</value>
+    <value>Codificarea utilizată pentru a interpreta input-ul și cheia.</value>
   </data>
   <data name="DecryptTextInputDescription" xml:space="preserve">
     <value>Șirul care va fi decriptat de această activitate.</value>
   </data>
   <data name="DecryptTextKeyDescription" xml:space="preserve">
-    <value>Cheia utilizată pentru decriptarea șirului de intrare.</value>
+    <value>Cheia utilizată pentru decriptarea input-ului.</value>
   </data>
   <data name="DecryptTextResultDescription" xml:space="preserve">
     <value>Șirul decriptat.</value>
@@ -148,7 +148,7 @@
     <value>Codificare</value>
   </data>
   <data name="EncodingDescription" xml:space="preserve">
-    <value>Codificarea folosită pentru a interpreta șirul de intrare.</value>
+    <value>Codificarea utilizată pentru a interpreta input-ul.</value>
   </data>
   <data name="EncryptFileEncodingDescription" xml:space="preserve">
     <value>Codificarea utilizată pentru a interpreta cheia.</value>
@@ -157,22 +157,22 @@
     <value>Calea către fișierul care va fi criptat de această activitate.</value>
   </data>
   <data name="EncryptFileKeyDescription" xml:space="preserve">
-    <value>Cheia utilizată pentru criptarea fișierului de intrare.</value>
+    <value>Cheia utilizată pentru criptarea input-ului fișierului.</value>
   </data>
   <data name="EncryptFileOutputPathDescription" xml:space="preserve">
     <value>Calea unde fișierul criptat va fi salvat.</value>
   </data>
   <data name="EncryptTextEncodingDescription" xml:space="preserve">
-    <value>Codificarea utilizată pentru a interpreta șirul de intrare și cheia.</value>
+    <value>Codificarea utilizată pentru a interpreta input-ul și cheia.</value>
   </data>
   <data name="EncryptTextInputDescription" xml:space="preserve">
     <value>Șirul care va fi criptat de această activitate.</value>
   </data>
   <data name="EncryptTextKeyDescription" xml:space="preserve">
-    <value>Cheia utilizată pentru a cripta șirul de intrare.</value>
+    <value>Cheia utilizată pentru a cripta input-ul.</value>
   </data>
   <data name="EncryptTextResultDescription" xml:space="preserve">
-    <value>Reprezentarea șirului de caractere în baza 64 a șirului de intrare criptat.</value>
+    <value>Reprezentarea sub formă de șir base64 a input-ului criptat.</value>
   </data>
   <data name="FilePath" xml:space="preserve">
     <value>Calea fișierului</value>
@@ -191,10 +191,10 @@
     <value>Șirul care va fi hasat de această activitate.</value>
   </data>
   <data name="HashTextResultDescription" xml:space="preserve">
-    <value>Reprezentarea șirului hexazecimal a șirului de intrare hashat.</value>
+    <value>Reprezentarea sub formă de șir hexazecimal a șirului de input hashat.</value>
   </data>
   <data name="InputFilePath" xml:space="preserve">
-    <value>Calea de intrare</value>
+    <value>Input path</value>
     <comment>property name</comment>
   </data>
   <data name="InputString" xml:space="preserve">
@@ -205,7 +205,7 @@
     <value>Cheie</value>
   </data>
   <data name="KeyedHashEncodingDescription" xml:space="preserve">
-    <value>Codificarea utilizată pentru a interpreta șirul de intrare și cheia.</value>
+    <value>Codificarea utilizată pentru a interpreta input-ul și cheia.</value>
   </data>
   <data name="KeyedHashFileEncodingDescription" xml:space="preserve">
     <value>Codificarea utilizată pentru a interpreta cheia.</value>
@@ -217,13 +217,13 @@
     <value>Reprezentarea șirului hexazecimal al fișierului hasat.</value>
   </data>
   <data name="KeyedHashKeyDescription" xml:space="preserve">
-    <value>Cheia utilizată pentru a hasha șirul de intrare.</value>
+    <value>Cheia utilizată pentru a genera hash-ul șirului de input.</value>
   </data>
   <data name="KeyEncoding" xml:space="preserve">
     <value>Codificarea cheilor</value>
   </data>
   <data name="OutputFilePath" xml:space="preserve">
-    <value>Calea de ieșire</value>
+    <value>Calea către Output</value>
     <comment>property name</comment>
   </data>
   <data name="Overwrite" xml:space="preserve">

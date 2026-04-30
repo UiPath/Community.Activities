@@ -160,7 +160,7 @@
     <value>Inserează un DataTable compatibil într-un tabel existent. Returnează numărul de rânduri afectate.</value>
   </data>
   <data name="ParametersDescription" xml:space="preserve">
-    <value>Un dicționar de parametri denumiți care sunt legați de comanda sql. Legarea se face prin specificarea instrucțiunii &apos;@parameterName&apos; din comanda sql. La timpul execuției, parameterName va fi înlocuit cu valoarea sa din dicționar.</value>
+    <value>Un dicționar de parametri denumiți care sunt asociați comenzii SQL. Asocierea se face prin specificarea instrucțiunii &apos;@parameterName&apos; în comanda SQL. La runtime, parameterName va fi înlocuit cu valoarea sa din dicționar.</value>
   </data>
   <data name="ProviderNameDescription" xml:space="preserve">
     <value>Numele furnizorului de baze de date folosit pentru accesarea bazei de date. O listă a furnizorilor de date poate fi găsită la http://msdn.microsoft.com/en-us/library/a6cd7c08(v=vs.100).aspx</value>
@@ -172,7 +172,7 @@
     <value>Tabelul țintă al bazei de date</value>
   </data>
   <data name="TimeoutMSDescription" xml:space="preserve">
-    <value>Specifică timpul (în milisecunde) de așteptare pentru rularea comenzii sql înainte ca o eroare să fie generată. Valoarea implicită este 30000 milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
+    <value>Specifică perioada de timp (în milisecunde) pentru care se așteaptă executarea comenzii sql înainte de a genera o eroare. Valoarea implicită este 30000 de milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
   </data>
   <data name="UseTransactionDescription" xml:space="preserve">
     <value>Specifică dacă operațiunile bazei de date din această activitate ar trebui să fie încapsulate într-o tranzacție de bază de date</value>
@@ -190,7 +190,7 @@
     <value>Asistentul de conexiune</value>
   </data>
   <data name="DoubleClickToView" xml:space="preserve">
-    <value>Faceți dublu clic pentru a vizualiza</value>
+    <value>Double-click pentru a vizualiza</value>
   </data>
   <data name="EditConnectionSettings" xml:space="preserve">
     <value>Editează setările conexiunii</value>
@@ -230,7 +230,7 @@
     <value>Numele tabelului. Textul trebuie citat</value>
   </data>
   <data name="QueryTimeoutMSDescription" xml:space="preserve">
-    <value>Specifică durata (în milisecunde) de așteptare pentru rularea interogării SQL înainte ca o eroare să fie generată (nu include timpul de răspuns pentru recuperarea rezultatului interogării). Valoarea implicită este de 30000 milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
+    <value>Specifică durata de timp (în milisecunde) de așteptare pentru ca interogarea SQL să fie executată înainte de a fi generată o eroare (nu include timpul de răspuns pentru recuperarea rezultatului interogării). Valoarea implicită este 30000 de milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
     <value>Integrarea aplicațiilor</value>
@@ -242,7 +242,7 @@
     <value>ContinueOnError Boolean</value>
   </data>
   <data name="BulkInsert_DataTable" xml:space="preserve">
-    <value>Tabelul de date de intrare</value>
+    <value>Input data table</value>
   </data>
   <data name="BulkInsert_DataTable_Description" xml:space="preserve">
     <value>DataTable sursă pentru elementele care urmează a fi inserate.</value>

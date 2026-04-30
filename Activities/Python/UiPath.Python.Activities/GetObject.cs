@@ -42,7 +42,6 @@ namespace UiPath.Python.Activities
                 try
                 {
                     result = (T)pythonEngine.Convert(pyObject, typeof(T));
-
                 }
                 catch (Exception e)
                 {
@@ -59,5 +58,6 @@ namespace UiPath.Python.Activities
                 throw;
             }
         }
+
     }
 }

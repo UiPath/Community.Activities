@@ -22,7 +22,9 @@ namespace UiPath.Shared.Service.Client
 
         internal bool Visible { get; set; } = true;
 
-        internal string HostLibFile { get; set; }
+        internal string PythonHostLibFile { get; set; }
+        
+        internal string PythonHostExeFile { get; set; }
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
 
@@ -42,8 +44,12 @@ namespace UiPath.Shared.Service.Client
             var isWindows = true;
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 isWindows = false;
-            string folder = Path.GetDirectoryName(HostLibFile);
-            var hostLibFullPath = HostLibFile;
+
+            bool isExeMode = !PythonHostExeFile.IsNullOrEmpty();
+            string hostFile = isExeMode ? PythonHostExeFile : PythonHostLibFile;
+
+            string folder = Path.GetDirectoryName(hostFile);
+            var hostFullPath = hostFile;
             if (folder.IsNullOrEmpty())
             {
                 if (isWindows)
@@ -51,23 +57,24 @@ namespace UiPath.Shared.Service.Client
                 else
                     folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
 
-                hostLibFullPath = Path.Combine(folder, HostLibFile);
+                hostFullPath = Path.Combine(folder, hostFile);
             }
 
-            if (!File.Exists(hostLibFullPath))
-                throw new Exception($"Process path not found: {hostLibFullPath}");
+            if (!File.Exists(hostFullPath))
+                throw new Exception($"Process path not found: {hostFullPath}");
 
-            // start the host process using dotnet
+            // start the host process: directly via exe on x86, or via dotnet for the managed lib
             ProcessStartInfo psi = new ProcessStartInfo()
             {
                 UseShellExecute = false,
-                FileName = "dotnet",
+                FileName = isExeMode ? hostFullPath : "dotnet",
                 WorkingDirectory = folder,
                 WindowStyle = Visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true
             };
-            psi.ArgumentList.Add(hostLibFullPath);
+            if (!isExeMode)
+                psi.ArgumentList.Add(hostFullPath);
 
             PythonWrapper.Proc = Process.Start(psi);
 

@@ -186,6 +186,9 @@
   <data name="TripleDES" xml:space="preserve">
     <value>TripleDES</value>
   </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP (Oldukça İyi Gizlilik)</value>
+  </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>Sağlanan karma algoritması desteklenmiyor.</value>
   </data>
@@ -615,5 +618,29 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>PGP özel anahtarının parolası yanlış.</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>Sağlanan özel anahtar şifrelenmiş verilerle eşleşmiyor. Doğru özel anahtarı kullandığınızdan emin olun.</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>PGP imza doğrulaması başarısız oldu. Genel anahtar imzayla eşleşmiyor veya veriler değiştirilmiş.</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>İmzalanan Dosya (İkili)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>Açık İmzalı Dosya (Metin)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>Genel Anahtarı Doğrula</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>İmzalama istendi, ancak imzalamak için özel anahtar ve parola gerekiyor. Hem özel bir anahtar akışı hem de bir parola sağlayın ya da işareti yanlış olarak ayarlayın.</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>İmza doğrulaması istendi, ancak doğrulamak için bir genel anahtar gerekiyor. Genel bir anahtar akışı sağlayın veya İmzayıDoğrula&apos;yı yanlış olarak ayarlayın.</value>
   </data>
 </root>

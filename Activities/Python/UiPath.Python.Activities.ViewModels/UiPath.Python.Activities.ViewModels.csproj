@@ -1,6 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-    <Import Project="..\Python.build.props" />
-
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
         <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>

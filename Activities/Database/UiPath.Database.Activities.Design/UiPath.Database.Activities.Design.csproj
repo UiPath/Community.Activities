@@ -25,13 +25,7 @@
     <PackageReference Include="UiPath.Activities.Api" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.fr.resx">
-      <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.ja.resx">
-      <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.ru.resx">
+    <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.*.resx">
       <DependentUpon>UiPath.Database.Activities.Design.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Database.Activities.Design.resx">
