@@ -65,7 +65,19 @@
             <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Activities*.dll" />
             <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Packaging.dll" />
         </ItemGroup>
+
+        <!--Coded workflow API files-->
+        <ItemGroup Label="AddCodedWorkflowAPI">
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.API.dll" />
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.API.xml" />
+        </ItemGroup>
+      
     </Target>
+
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\Python\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj">
@@ -83,12 +95,16 @@
         <ProjectReference Include="..\..\Python\UiPath.Python.Host\UiPath.Python.Host.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
+      <ProjectReference Include="..\..\Python\UiPath.Python.Activities.API\UiPath.Python.Activities.API.csproj">
+        <PrivateAssets>All</PrivateAssets>
+      </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="System.Activities.ViewModels" />
         <PackageReference Include="UiPath.Platform" />
         <PackageReference Include="UiPath.Telemetry.Client" />
+        <PackageReference Include="UiPath.CodedWorkflows" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">

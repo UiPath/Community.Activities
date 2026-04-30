@@ -102,7 +102,7 @@ namespace UiPath.Database.Tests
                 { "param1", new ParameterInfo() {Value = "", Direction = ArgumentDirection.Out}
                 }
             };
-            databaseConnection.ExecuteQuery("TestProcedure", parameters, 0);
+            databaseConnection.ExecuteQuery("TestProcedure", parameters, TimeSpan.Zero);
             if (provider.Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
                 Assert.True(param.Object.Size == 1000000);
             if (!provider.ToLower().Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
@@ -136,7 +136,7 @@ namespace UiPath.Database.Tests
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);
             var parameters = new Dictionary<string, ParameterInfo>();
 
-            var (resultTable, resultDataSet) = databaseConnection.ExecuteQuery("SELECT 1", parameters, 0);
+            var (resultTable, resultDataSet) = databaseConnection.ExecuteQuery("SELECT 1", parameters, TimeSpan.Zero);
 
             Assert.NotNull(resultDataSet);
             Assert.Single(resultDataSet.Tables);
@@ -199,7 +199,7 @@ namespace UiPath.Database.Tests
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);
             var parameters = new Dictionary<string, ParameterInfo>();
 
-            var (resultTable, resultDataSet) = databaseConnection.ExecuteQuery("SELECT 1; SELECT 2", parameters, 0);
+            var (resultTable, resultDataSet) = databaseConnection.ExecuteQuery("SELECT 1; SELECT 2", parameters, TimeSpan.Zero);
 
             Assert.NotNull(resultDataSet);
             Assert.Equal(2, resultDataSet.Tables.Count);
@@ -248,7 +248,7 @@ namespace UiPath.Database.Tests
             var databaseConnection = new DatabaseConnection().Initialize(con.Object);
             var parameters = new Dictionary<string, ParameterInfo>();
 
-            var (_, resultDataSet) = databaseConnection.ExecuteQuery("SELECT 1; SELECT 2", parameters, 0);
+            var (_, resultDataSet) = databaseConnection.ExecuteQuery("SELECT 1; SELECT 2", parameters, TimeSpan.Zero);
 
             Assert.Equal(2, resultDataSet.Tables.Count);
             var secondTable = resultDataSet.Tables[1];
@@ -312,7 +312,7 @@ namespace UiPath.Database.Tests
         {
             var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
 
-            dbConn.ExecuteQuery("SELECT 1", null, timeoutMs);
+            dbConn.ExecuteQuery("SELECT 1", null, TimeSpan.FromMilliseconds(timeoutMs));
 
             Assert.Equal(expectedSeconds, cmd.Object.CommandTimeout);
         }
@@ -345,7 +345,7 @@ namespace UiPath.Database.Tests
         {
             var (dbConn, cmd) = CreateMockConnectionForTimeout(initialCommandTimeout: 0);
 
-            dbConn.Execute("SELECT 1", new Dictionary<string, ParameterInfo>(), timeoutMs);
+            dbConn.Execute("SELECT 1", new Dictionary<string, ParameterInfo>(), TimeSpan.FromMilliseconds(timeoutMs));
 
             Assert.Equal(expectedSeconds, cmd.Object.CommandTimeout);
         }
@@ -368,7 +368,7 @@ namespace UiPath.Database.Tests
         {
             var (dbConn, cmd) = CreateMockConnectionForBatchUpdate(initialCommandTimeout: 0);
 
-            dbConn.BulkUpdateDataTable(false, "TestTable", CreateTwoColumnDataTable(), new[] { "Id" }, timeoutMs);
+            dbConn.BulkUpdateDataTable(false, "TestTable", CreateTwoColumnDataTable(), new[] { "Id" }, TimeSpan.FromMilliseconds(timeoutMs));
 
             Assert.Equal(expectedSeconds, cmd.Object.CommandTimeout);
         }

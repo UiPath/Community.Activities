@@ -58,6 +58,7 @@ namespace UiPath.Database.Activities
                 {
                     throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
                 }
+                TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
                 Dictionary<string, ParameterInfo> parameters = null;
                 var continueOnError = ContinueOnError.Get(context);
                 try
@@ -71,7 +72,7 @@ namespace UiPath.Database.Activities
                     parameters = ConnectionHelper.BuildParameters(Parameters, context);
 
                     // create the action for doing the actual work
-                    affectedRecords = await Task.Run(() => ExecuteQueryCommand(connString, connSecureString, provName, sql, parameters, commandTimeoutMs));
+                    affectedRecords = await Task.Run(() => ExecuteQueryCommand(connString, connSecureString, provName, sql, parameters, commandTimeout));
                 }
                 catch (Exception ex)
                 {
@@ -109,14 +110,14 @@ namespace UiPath.Database.Activities
             }
         }
 
-        private DBExecuteQueryResult ExecuteQueryCommand(string connString, SecureString connSecureString, string provName, string sql, Dictionary<string, ParameterInfo> parameters, int? commandTimeoutMs)
+        private DBExecuteQueryResult ExecuteQueryCommand(string connString, SecureString connSecureString, string provName, string sql, Dictionary<string, ParameterInfo> parameters, TimeSpan? commandTimeout)
         {
             DbConnection = ConnectionHelper.EnsureConnection(DbConnection, connString, connSecureString, provName);
             if (DbConnection == null)
             {
                 return null;
             }
-            var (resultTable, resultDataSet) = DbConnection.ExecuteQuery(sql, parameters, commandTimeoutMs, CommandType);
+            var (resultTable, resultDataSet) = DbConnection.ExecuteQuery(sql, parameters, commandTimeout, CommandType);
             return new DBExecuteQueryResult(resultTable, resultDataSet, parameters);
         }
 

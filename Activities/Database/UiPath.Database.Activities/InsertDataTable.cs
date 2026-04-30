@@ -59,6 +59,7 @@ namespace UiPath.Database.Activities
                 {
                     throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
                 }
+                TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
                 try
                 {
                     existingConnection = DbConnection = ExistingDbConnection.Get(context);
@@ -77,7 +78,7 @@ namespace UiPath.Database.Activities
                         {
                             return 0;
                         }
-                        return DbConnection.InsertDataTable(tableName, dataTable, commandTimeoutMs);
+                        return DbConnection.InsertDataTable(tableName, dataTable, commandTimeout);
                     });
 
                 }

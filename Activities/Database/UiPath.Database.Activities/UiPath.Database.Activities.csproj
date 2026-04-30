@@ -27,7 +27,6 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="System.Resources.Extensions" />
-        <PackageReference Include="UiPath.Activities.Api" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Properties\UiPath.Database.Activities.Designer.cs">

@@ -21,9 +21,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="UiPath.Java.Activities.Design.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\UiPath.Java.Activities.Design.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

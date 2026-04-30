@@ -27,6 +27,9 @@
     <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>
+    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.API\UiPath.Cryptography.Activities.API.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
@@ -37,10 +40,9 @@
 
   <ItemGroup>
     <PackageReference Include="System.Activities.ViewModels" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="UiPath.Platform" />
+    <PackageReference Include="UiPath.Telemetry.Client" />
+    <PackageReference Include="UiPath.CodedWorkflows" />
   </ItemGroup>
 
   <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
@@ -69,8 +71,19 @@
         <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
       </BuildOutputInPackage>
     </ItemGroup>
+
+    <!--Coded workflow API files-->
+    <ItemGroup Label="AddCodedWorkflowAPI">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.API.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.API.xml" />
+    </ItemGroup>
   </Target>
 
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+  
   <Target Name="CleanPackageFiles" BeforeTargets="Build">
     <Message Text="Deleting packages ..." />
     <ItemGroup>

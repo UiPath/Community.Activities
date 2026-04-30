@@ -25,6 +25,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Telemetry", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UiPath.Shared.Contracts", "Shared\UiPath.Shared.Contracts\UiPath.Shared.Contracts.shproj", "{EF796DFB-540B-402E-8993-1D1D29A6D1D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities.API", "Cryptography\UiPath.Cryptography.Activities.API\UiPath.Cryptography.Activities.API.csproj", "{D0DFB91E-9DD4-56F2-9830-56CEAC92742A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities.API.Tests", "Cryptography\UiPath.Cryptography.Activities.API.Tests\UiPath.Cryptography.Activities.API.Tests.csproj", "{EC6A03A6-26B9-4A64-DA6F-A354B54CDF1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1076731A-DBFD-4E86-A1DF-EA8EBA7569C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0DFB91E-9DD4-56F2-9830-56CEAC92742A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0DFB91E-9DD4-56F2-9830-56CEAC92742A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0DFB91E-9DD4-56F2-9830-56CEAC92742A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0DFB91E-9DD4-56F2-9830-56CEAC92742A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6A03A6-26B9-4A64-DA6F-A354B54CDF1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6A03A6-26B9-4A64-DA6F-A354B54CDF1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6A03A6-26B9-4A64-DA6F-A354B54CDF1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6A03A6-26B9-4A64-DA6F-A354B54CDF1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
