@@ -16,59 +16,89 @@ namespace UiPath.Cryptography.Activities.API.Tests
         #region EncryptText / DecryptText
 
         [Fact]
-        public void EncryptText_NullInput_Throws()
+        public void EncryptText_NullOptions_Throws()
         {
             Should.Throw<ArgumentNullException>(() =>
-                _service.EncryptText(null, EncryptionAlgorithm.AES, "key", Encoding.UTF8));
+                _service.EncryptText(null));
         }
 
         [Fact]
-        public void EncryptText_NullEncoding_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, "key", null));
-        }
-
-        [Fact]
-        public void EncryptText_EmptyKey_Throws()
+        public void EncryptText_NoInputData_Throws()
         {
             Should.Throw<ArgumentException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, string.Empty, Encoding.UTF8));
+                _service.EncryptText(new CryptoOptions { Key = "key", Encoding = Encoding.UTF8 }));
         }
 
         [Fact]
-        public void DecryptText_NullInput_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.DecryptText(null, EncryptionAlgorithm.AES, "key", Encoding.UTF8));
-        }
-
-        [Fact]
-        public void DecryptText_NullEncoding_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.DecryptText("aGVsbG8=", EncryptionAlgorithm.AES, "key", null));
-        }
-
-        [Fact]
-        public void DecryptText_EmptyKey_Throws()
+        public void EncryptText_NoKeyMaterial_Throws()
         {
             Should.Throw<ArgumentException>(() =>
-                _service.DecryptText("aGVsbG8=", EncryptionAlgorithm.AES, string.Empty, Encoding.UTF8));
+                _service.EncryptText(new CryptoOptions { Input = "hello", Encoding = Encoding.UTF8 }));
+        }
+
+        [Fact]
+        public void DecryptText_NullOptions_Throws()
+        {
+            Should.Throw<ArgumentNullException>(() =>
+                _service.DecryptText(null));
         }
 
         [Theory]
         [InlineData(EncryptionAlgorithm.AES)]
         [InlineData(EncryptionAlgorithm.TripleDES)]
-        public void EncryptText_ThenDecryptText_ReturnsOriginal(EncryptionAlgorithm algorithm)
+        public void EncryptText_ThenDecryptText_StringKey_ReturnsOriginal(EncryptionAlgorithm algorithm)
         {
-            string original = "Hello, coded workflows!";
-            string key = "mySecretKey";
+            const string original = "Hello, coded workflows!";
+            var encryptOptions = new CryptoOptions { Input = original, Key = "mySecretKey", Algorithm = algorithm, Encoding = Encoding.UTF8 };
 
-            string encrypted = _service.EncryptText(original, algorithm, key, Encoding.UTF8);
-            string decrypted = _service.DecryptText(encrypted, algorithm, key, Encoding.UTF8);
+            string ciphertext = _service.EncryptText(encryptOptions);
+            string plaintext = _service.DecryptText(new CryptoOptions { Input = ciphertext, Key = "mySecretKey", Algorithm = algorithm, Encoding = Encoding.UTF8 });
 
-            decrypted.ShouldBe(original);
+            plaintext.ShouldBe(original);
+        }
+
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptText_ThenDecryptText_SecureStringKey_ReturnsOriginal(EncryptionAlgorithm algorithm)
+        {
+            const string original = "Hello, SecureString!";
+            var encryptOptions = new CryptoOptions { Input = original, KeySecure = ToSecureString("mySecretKey"), Algorithm = algorithm, Encoding = Encoding.UTF8 };
+
+            string ciphertext = _service.EncryptText(encryptOptions);
+            string plaintext = _service.DecryptText(new CryptoOptions { Input = ciphertext, KeySecure = ToSecureString("mySecretKey"), Algorithm = algorithm, Encoding = Encoding.UTF8 });
+
+            plaintext.ShouldBe(original);
+        }
+
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptText_ThenDecryptText_RawKeyBytes_ReturnsOriginal(EncryptionAlgorithm algorithm)
+        {
+            const string original = "Hello, byte[] key!";
+            byte[] keyBytes = Encoding.UTF8.GetBytes("myRawKeyBytes!!");
+            var encryptOptions = new CryptoOptions { Input = original, KeyRaw = keyBytes, Algorithm = algorithm, Encoding = Encoding.UTF8 };
+
+            string ciphertext = _service.EncryptText(encryptOptions);
+            string plaintext = _service.DecryptText(new CryptoOptions { Input = ciphertext, KeyRaw = keyBytes, Algorithm = algorithm, Encoding = Encoding.UTF8 });
+
+            plaintext.ShouldBe(original);
+        }
+
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptText_ThenDecryptText_InputRaw_ReturnsOriginal(EncryptionAlgorithm algorithm)
+        {
+            const string original = "Hello, raw input!";
+            byte[] rawInput = Encoding.UTF8.GetBytes(original);
+            byte[] keyBytes = Encoding.UTF8.GetBytes("myRawKeyBytes!!");
+
+            string ciphertext = _service.EncryptText(new CryptoOptions { InputRaw = rawInput, KeyRaw = keyBytes, Algorithm = algorithm, Encoding = Encoding.UTF8 });
+            string plaintext = _service.DecryptText(new CryptoOptions { Input = ciphertext, KeyRaw = keyBytes, Algorithm = algorithm, Encoding = Encoding.UTF8 });
+
+            plaintext.ShouldBe(original);
         }
 
         #endregion
@@ -76,30 +106,16 @@ namespace UiPath.Cryptography.Activities.API.Tests
         #region KeyedHashText
 
         [Fact]
-        public void KeyedHashText_NullInput_Throws()
+        public void KeyedHashText_NullOptions_Throws()
         {
             Should.Throw<ArgumentNullException>(() =>
-                _service.KeyedHashText(null, KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8));
-        }
-
-        [Fact]
-        public void KeyedHashText_NullEncoding_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, "key", null));
-        }
-
-        [Fact]
-        public void KeyedHashText_EmptyKey_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, string.Empty, Encoding.UTF8));
+                _service.KeyedHashText(null));
         }
 
         [Fact]
         public void KeyedHashText_ReturnsHexString()
         {
-            string result = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
+            string result = _service.KeyedHashText(new CryptoOptions { Input = "hello", Key = "key", KeyedHashAlgorithm = KeyedHashAlgorithms.HMACSHA256, Encoding = Encoding.UTF8 });
 
             result.ShouldNotBeNull();
             result.ShouldMatch("^[0-9A-F]+$");
@@ -108,8 +124,10 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [Fact]
         public void KeyedHashText_SameInputAndKey_ReturnsSameHash()
         {
-            string hash1 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
-            string hash2 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
+            var options = new CryptoOptions { Input = "hello", Key = "key", KeyedHashAlgorithm = KeyedHashAlgorithms.HMACSHA256, Encoding = Encoding.UTF8 };
+
+            string hash1 = _service.KeyedHashText(options);
+            string hash2 = _service.KeyedHashText(options);
 
             hash1.ShouldBe(hash2);
         }
@@ -117,10 +135,22 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [Fact]
         public void KeyedHashText_DifferentKeys_ReturnsDifferentHash()
         {
-            string hash1 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key1", Encoding.UTF8);
-            string hash2 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key2", Encoding.UTF8);
+            string hash1 = _service.KeyedHashText(new CryptoOptions { Input = "hello", Key = "key1", KeyedHashAlgorithm = KeyedHashAlgorithms.HMACSHA256, Encoding = Encoding.UTF8 });
+            string hash2 = _service.KeyedHashText(new CryptoOptions { Input = "hello", Key = "key2", KeyedHashAlgorithm = KeyedHashAlgorithms.HMACSHA256, Encoding = Encoding.UTF8 });
 
             hash1.ShouldNotBe(hash2);
+        }
+
+        [Fact]
+        public void KeyedHashText_SecureStringKey_MatchesStringKeyHash()
+        {
+            const string input = "hello";
+            const string keyStr = "myHmacKey";
+
+            string hashFromString = _service.KeyedHashText(new CryptoOptions { Input = input, Key = keyStr, KeyedHashAlgorithm = KeyedHashAlgorithms.HMACSHA256, Encoding = Encoding.UTF8 });
+            string hashFromSecure = _service.KeyedHashText(new CryptoOptions { Input = input, KeySecure = ToSecureString(keyStr), KeyedHashAlgorithm = KeyedHashAlgorithms.HMACSHA256, Encoding = Encoding.UTF8 });
+
+            hashFromSecure.ShouldBe(hashFromString);
         }
 
         #endregion
@@ -128,24 +158,24 @@ namespace UiPath.Cryptography.Activities.API.Tests
         #region EncryptFile / DecryptFile
 
         [Fact]
-        public void EncryptFile_NullInputPath_Throws()
+        public void EncryptFile_NullInputFilePath_Throws()
         {
             Should.Throw<ArgumentException>(() =>
-                _service.EncryptFile(null, "out.bin", EncryptionAlgorithm.AES, "key", Encoding.UTF8, true));
+                _service.EncryptFile(new CryptoOptions { OutputFile = "out.bin", Key = "key", Overwrite = true }));
         }
 
         [Fact]
-        public void EncryptFile_NullOutputPath_Throws()
+        public void EncryptFile_NullOutputFile_Throws()
         {
             Should.Throw<ArgumentException>(() =>
-                _service.EncryptFile("in.txt", null, EncryptionAlgorithm.AES, "key", Encoding.UTF8, true));
+                _service.EncryptFile(new CryptoOptions { Input = "in.txt", Key = "key", Overwrite = true }));
         }
 
         [Fact]
-        public void DecryptFile_NullInputPath_Throws()
+        public void DecryptFile_NullInputFilePath_Throws()
         {
             Should.Throw<ArgumentException>(() =>
-                _service.DecryptFile(null, "out.txt", EncryptionAlgorithm.AES, "key", Encoding.UTF8, true));
+                _service.DecryptFile(new CryptoOptions { OutputFile = "out.txt", Key = "key", Overwrite = true }));
         }
 
         [Fact]
@@ -157,10 +187,10 @@ namespace UiPath.Cryptography.Activities.API.Tests
             try
             {
                 File.WriteAllText(inputPath, "test content");
-                File.WriteAllText(outputPath, "existing output"); // output must exist to trigger the guard
+                File.WriteAllText(outputPath, "existing output");
 
                 Should.Throw<InvalidOperationException>(() =>
-                    _service.EncryptFile(inputPath, outputPath, EncryptionAlgorithm.AES, "key", Encoding.UTF8, overwrite: false));
+                    _service.EncryptFile(new CryptoOptions { Input = inputPath, OutputFile = outputPath, Key = "key", Overwrite = false }));
             }
             finally
             {
@@ -170,9 +200,9 @@ namespace UiPath.Cryptography.Activities.API.Tests
         }
 
         [Fact]
-        public void EncryptFile_ThenDecryptFile_ReturnsOriginalContent()
+        public void EncryptFile_ThenDecryptFile_StringKey_ReturnsOriginalContent()
         {
-            string original = "Coded workflow file encryption test";
+            const string original = "Coded workflow file encryption test";
             string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string encryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string decryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -181,148 +211,8 @@ namespace UiPath.Cryptography.Activities.API.Tests
             {
                 File.WriteAllText(inputPath, original, Encoding.UTF8);
 
-                _service.EncryptFile(inputPath, encryptedPath, EncryptionAlgorithm.AES, "testKey", Encoding.UTF8, overwrite: true);
-                _service.DecryptFile(encryptedPath, decryptedPath, EncryptionAlgorithm.AES, "testKey", Encoding.UTF8, overwrite: true);
-
-                string result = File.ReadAllText(decryptedPath, Encoding.UTF8);
-                result.ShouldBe(original);
-            }
-            finally
-            {
-                File.Delete(inputPath);
-                File.Delete(encryptedPath);
-                File.Delete(decryptedPath);
-            }
-        }
-
-        #endregion
-
-        #region PGP guard clauses
-
-        [Fact]
-        public void PgpEncrypt_NullInputBytes_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpEncrypt(null, Stream.Null));
-        }
-
-        [Fact]
-        public void PgpEncrypt_NullPublicKeyStream_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpEncrypt(new byte[1], null));
-        }
-
-        [Fact]
-        public void PgpDecrypt_NullInputBytes_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpDecrypt(null, Stream.Null, "pass"));
-        }
-
-        [Fact]
-        public void PgpDecrypt_NullPrivateKeyStream_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpDecrypt(new byte[1], null, "pass"));
-        }
-
-        [Fact]
-        public void PgpEncryptText_NullInput_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpEncryptText(null, Stream.Null));
-        }
-
-        [Fact]
-        public void PgpDecryptText_NullInput_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpDecryptText(null, Stream.Null, "pass"));
-        }
-
-        [Fact]
-        public void PgpSignFile_NullInputBytes_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpSignFile(null, Stream.Null, "pass"));
-        }
-
-        [Fact]
-        public void PgpClearSignFile_NullInputBytes_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpClearSignFile(null, Stream.Null, "pass"));
-        }
-
-        [Fact]
-        public void PgpVerify_NullInputBytes_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpVerify(null, Stream.Null));
-        }
-
-        [Fact]
-        public void PgpVerifyClear_NullInputBytes_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpVerifyClear(null, Stream.Null));
-        }
-
-        [Fact]
-        public void PgpGenerateKeyPair_NullPublicKeyPath_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.PgpGenerateKeyPair(null, "private.asc", "user", "pass"));
-        }
-
-        [Fact]
-        public void PgpGenerateKeyPair_NullPrivateKeyPath_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.PgpGenerateKeyPair("public.asc", null, "user", "pass"));
-        }
-
-        #endregion
-
-        #region SecureString key overloads
-
-        [Theory]
-        [InlineData(EncryptionAlgorithm.AES)]
-        [InlineData(EncryptionAlgorithm.TripleDES)]
-        public void EncryptText_SecureStringKey_ThenDecryptText_SecureStringKey_ReturnsOriginal(EncryptionAlgorithm algorithm)
-        {
-            string original = "Hello, SecureString!";
-            SecureString key = ToSecureString("mySecretKey");
-
-            string encrypted = _service.EncryptText(original, algorithm, key, Encoding.UTF8);
-            string decrypted = _service.DecryptText(encrypted, algorithm, key, Encoding.UTF8);
-
-            decrypted.ShouldBe(original);
-        }
-
-        [Fact]
-        public void EncryptText_SecureStringKey_NullKey_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, (SecureString)null, Encoding.UTF8));
-        }
-
-        [Fact]
-        public void EncryptFile_SecureStringKey_ThenDecryptFile_ReturnsOriginalContent()
-        {
-            string original = "SecureString file encryption test";
-            string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            string encryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            string decryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            SecureString key = ToSecureString("secureFileKey");
-
-            try
-            {
-                File.WriteAllText(inputPath, original, Encoding.UTF8);
-
-                _service.EncryptFile(inputPath, encryptedPath, EncryptionAlgorithm.AES, key, Encoding.UTF8, overwrite: true);
-                _service.DecryptFile(encryptedPath, decryptedPath, EncryptionAlgorithm.AES, key, Encoding.UTF8, overwrite: true);
+                _service.EncryptFile(new CryptoOptions { Input = inputPath, OutputFile = encryptedPath, Key = "testKey", Algorithm = EncryptionAlgorithm.AES, Encoding = Encoding.UTF8, Overwrite = true });
+                _service.DecryptFile(new CryptoOptions { Input = encryptedPath, OutputFile = decryptedPath, Key = "testKey", Algorithm = EncryptionAlgorithm.AES, Encoding = Encoding.UTF8, Overwrite = true });
 
                 File.ReadAllText(decryptedPath, Encoding.UTF8).ShouldBe(original);
             }
@@ -335,75 +225,34 @@ namespace UiPath.Cryptography.Activities.API.Tests
         }
 
         [Fact]
-        public void KeyedHashText_SecureStringKey_MatchesStringKeyHash()
+        public void EncryptFile_ThenDecryptFile_SecureStringKey_ReturnsOriginalContent()
         {
-            const string input = "hello";
-            const string keyStr = "myHmacKey";
-            SecureString keySecure = ToSecureString(keyStr);
+            const string original = "SecureString file encryption test";
+            string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            string encryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            string decryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-            string hashFromString = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, keyStr, Encoding.UTF8);
-            string hashFromSecure = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, keySecure, Encoding.UTF8);
+            try
+            {
+                File.WriteAllText(inputPath, original, Encoding.UTF8);
 
-            hashFromSecure.ShouldBe(hashFromString);
+                _service.EncryptFile(new CryptoOptions { Input = inputPath, OutputFile = encryptedPath, KeySecure = ToSecureString("secureFileKey"), Algorithm = EncryptionAlgorithm.AES, Encoding = Encoding.UTF8, Overwrite = true });
+                _service.DecryptFile(new CryptoOptions { Input = encryptedPath, OutputFile = decryptedPath, KeySecure = ToSecureString("secureFileKey"), Algorithm = EncryptionAlgorithm.AES, Encoding = Encoding.UTF8, Overwrite = true });
+
+                File.ReadAllText(decryptedPath, Encoding.UTF8).ShouldBe(original);
+            }
+            finally
+            {
+                File.Delete(inputPath);
+                File.Delete(encryptedPath);
+                File.Delete(decryptedPath);
+            }
         }
 
         [Fact]
-        public void KeyedHashText_SecureStringKey_NullKey_Throws()
+        public void EncryptFile_ThenDecryptFile_RawKeyBytes_ReturnsOriginalContent()
         {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, (SecureString)null, Encoding.UTF8));
-        }
-
-        [Fact]
-        public void PgpEncrypt_SecureStringPassphrase_NullPassphrase_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpEncrypt(new byte[1], Stream.Null, Stream.Null, (SecureString)null));
-        }
-
-        [Fact]
-        public void PgpDecrypt_SecureStringPassphrase_NullPassphrase_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.PgpDecrypt(new byte[1], Stream.Null, (SecureString)null));
-        }
-
-        #endregion
-
-        #region byte[] key overloads
-
-        [Theory]
-        [InlineData(EncryptionAlgorithm.AES)]
-        [InlineData(EncryptionAlgorithm.TripleDES)]
-        public void EncryptText_ByteArrayKey_ThenDecryptText_ByteArrayKey_ReturnsOriginal(EncryptionAlgorithm algorithm)
-        {
-            string original = "Hello, byte[] key!";
-            byte[] keyBytes = Encoding.UTF8.GetBytes("myRawKeyBytes!!");
-
-            string encrypted = _service.EncryptText(original, algorithm, keyBytes, Encoding.UTF8);
-            string decrypted = _service.DecryptText(encrypted, algorithm, keyBytes, Encoding.UTF8);
-
-            decrypted.ShouldBe(original);
-        }
-
-        [Fact]
-        public void EncryptText_ByteArrayKey_NullKeyBytes_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, (byte[])null, Encoding.UTF8));
-        }
-
-        [Fact]
-        public void EncryptText_ByteArrayKey_EmptyKeyBytes_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, Array.Empty<byte>(), Encoding.UTF8));
-        }
-
-        [Fact]
-        public void EncryptFile_ByteArrayKey_ThenDecryptFile_ReturnsOriginalContent()
-        {
-            string original = "byte[] key file encryption test";
+            const string original = "byte[] key file encryption test";
             string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string encryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string decryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -413,8 +262,8 @@ namespace UiPath.Cryptography.Activities.API.Tests
             {
                 File.WriteAllText(inputPath, original, Encoding.UTF8);
 
-                _service.EncryptFile(inputPath, encryptedPath, EncryptionAlgorithm.AES, keyBytes, overwrite: true);
-                _service.DecryptFile(encryptedPath, decryptedPath, EncryptionAlgorithm.AES, keyBytes, overwrite: true);
+                _service.EncryptFile(new CryptoOptions { Input = inputPath, OutputFile = encryptedPath, KeyRaw = keyBytes, Algorithm = EncryptionAlgorithm.AES, Overwrite = true });
+                _service.DecryptFile(new CryptoOptions { Input = encryptedPath, OutputFile = decryptedPath, KeyRaw = keyBytes, Algorithm = EncryptionAlgorithm.AES, Overwrite = true });
 
                 File.ReadAllText(decryptedPath, Encoding.UTF8).ShouldBe(original);
             }
@@ -424,41 +273,6 @@ namespace UiPath.Cryptography.Activities.API.Tests
                 File.Delete(encryptedPath);
                 File.Delete(decryptedPath);
             }
-        }
-
-        [Fact]
-        public void EncryptFile_ByteArrayKey_NullKeyBytes_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptFile("in.txt", "out.bin", EncryptionAlgorithm.AES, (byte[])null, overwrite: true));
-        }
-
-        [Fact]
-        public void KeyedHashText_ByteArrayKey_MatchesEquivalentStringKeyHash()
-        {
-            const string input = "hello";
-            byte[] keyBytes = Encoding.UTF8.GetBytes("hmacKey");
-
-            string hashFromBytes = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, keyBytes, Encoding.UTF8);
-            string hashFromString = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, "hmacKey", Encoding.UTF8);
-
-            // Both must be valid hex and the same — the byte[] overload skips the PBKDF2 path,
-            // but KeyEncoding(encoding, key, null) == encoding.GetBytes(key) for ASCII keys, so they match.
-            hashFromBytes.ShouldBe(hashFromString);
-        }
-
-        [Fact]
-        public void KeyedHashText_ByteArrayKey_NullKeyBytes_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, (byte[])null, Encoding.UTF8));
-        }
-
-        [Fact]
-        public void KeyedHashFile_ByteArrayKey_NullKeyBytes_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.KeyedHashFile("file.txt", KeyedHashAlgorithms.HMACSHA256, (byte[])null));
         }
 
         #endregion
