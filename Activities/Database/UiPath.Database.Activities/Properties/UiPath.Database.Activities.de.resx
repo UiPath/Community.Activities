@@ -580,6 +580,14 @@ Wenn „TransaktionVerwenden“ auf „true“ gesetzt ist, werden die enthalten
     <value>Datentabelle</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>Die Ausgabe des SQL-Befehls, eingeschlossen in eine DataSet-Variable.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>Dataset</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Eine bereits geöffnete Datenbankverbindung, die von den Transaktionsktivitäten „Connect“ oder „Start“ abgerufen wurde. Wenn eine solche Verbindung bereitgestellt ist, werden die Verbindungszeichenfolge- und SichereVerbindungszeichenfolge-Eigenschaften ignoriert.</value>
     <comment>property description</comment>

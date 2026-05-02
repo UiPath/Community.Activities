@@ -579,6 +579,14 @@
     <value>資料表</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>包含在資料集變數中的 SQL 命令輸出。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>資料集</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>從 Connect 或 Start Transaction 活動獲得且已開啟的資料庫連線。如果提供此連線，則系統將忽略 ConnectionString 和 SecureConnectionString 屬性。</value>
     <comment>property description</comment>

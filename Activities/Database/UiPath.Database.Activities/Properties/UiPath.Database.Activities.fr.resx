@@ -579,6 +579,14 @@
     <value>Table de données</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>Le résultat de la commande SQL encapsulé dans une variable JeuDonnées.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>JeuDonnées</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Une connexion à une base de données déjà ouverte obtenue à partir des activités Connecter ou Démarrer une transaction. Si une telle connexion est fournie, les propriétés ChaîneConnexion et SecureConnectionString sont ignorées.</value>
     <comment>property description</comment>
