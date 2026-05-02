@@ -580,6 +580,14 @@ Se UseTransaction for definido como Verdadeiro, as operações contidas são exe
     <value>Tabela de dados</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>O resultado do comando SQL encapsulado numa variável DataSet.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>Conjunto de dados</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Uma ligação de base de dados já aberta obtida a partir das atividades Connect ou Start Transaction. Se essa ligação for fornecida, as propriedades StringLigação e StringLigaçãoSegura serão ignoradas.</value>
     <comment>property description</comment>

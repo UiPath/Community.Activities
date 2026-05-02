@@ -580,6 +580,14 @@ Si UseTransaction se establece como verdadero, las operaciones contenidas se eje
     <value>Tabla de datos</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>El resultado del comando SQL empaquetado en una variable DataSet.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>Conjunto de datos</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Una conexión de base de datos ya abierta obtenida de las actividades Conectar o Iniciar transacción. Si se proporciona dicha conexión, se omiten las propiedades CadenaDeConexión y CadenaDeConexiónSegura.</value>
     <comment>property description</comment>

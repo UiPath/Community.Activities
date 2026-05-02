@@ -580,6 +580,14 @@ UseTransaction doğru olarak ayarlanırsa içerdiği işlemler tek bir işlemle 
     <value>Veri tablosu</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>Bir VeriTablosu değişkenine sarılmış SQL komutunun çıkışı.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>Veri Kümesi</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Connect veya Start Transaction etkinliklerinden elde edilen, zaten açık olan bir veritabanı bağlantısı. Böyle bir bağlantı sağlanırsa BağlantıDizesi ve GüvenliBağlantıDizesi özellikleri yoksayılır.</value>
     <comment>property description</comment>

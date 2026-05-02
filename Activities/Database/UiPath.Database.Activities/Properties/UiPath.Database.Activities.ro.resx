@@ -580,6 +580,14 @@ Dacă UseTransaction este setat la True, operațiunile conținute sunt executate
     <value>Tabel de date</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>The output of the SQL command wrapped in a DataSet variable.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>Data set</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>O conexiune de bază de date deja deschisă a fost obținută din activitățile Connect or Start Transaction. Dacă o astfel de conexiune este asigurată, proprietățile ConnectionString și SecureConnectionString sunt ignorate.</value>
     <comment>property description</comment>
