@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>Argumentul ParameterDirection oferit nu are o valoare ArgumentDirection corespunzătoare</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>O tranzacție este deja în curs. Confirmați sau anulați tranzacția existentă înainte de a începe una nouă.</value>
+  </data>
 </root>

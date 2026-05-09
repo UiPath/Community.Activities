@@ -205,7 +205,7 @@
     <comment>property name</comment>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Parametri</value>
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
@@ -581,11 +581,11 @@ Dacă UseTransaction este setat la True, operațiunile conținute sunt executate
     <comment>property name</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
-    <value>The output of the SQL command wrapped in a DataSet variable.</value>
+    <value>Ieșirea comenzii SQL încapsulată într-o variabilă DataSet.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
-    <value>Data set</value>
+    <value>Set de date</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">

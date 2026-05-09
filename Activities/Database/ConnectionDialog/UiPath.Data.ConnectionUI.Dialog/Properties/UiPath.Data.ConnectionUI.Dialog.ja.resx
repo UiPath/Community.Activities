@@ -216,6 +216,21 @@
   <data name="DataProvider_Oracle_Short" xml:space="preserve">
     <value>OracleClient</value>
   </data>
+  <data name="DataProvider_Sqlite" xml:space="preserve">
+    <value>Microsoft.Data.Sqlite</value>
+  </data>
+  <data name="DataProvider_Sqlite_DataSource_Description" xml:space="preserve">
+    <value>Microsoft.Data.Sqlite を使用して SQLite データベース ファイルに接続するには、この選択を使用します。</value>
+  </data>
+  <data name="DataProvider_Sqlite_Description" xml:space="preserve">
+    <value>Microsoft.Data.Sqlite は、SQLite データベース用の軽量 ADO.NET プロバイダーです。他のクライアント ソフトウェアは必要ありません。</value>
+  </data>
+  <data name="DataProvider_Sqlite_Short" xml:space="preserve">
+    <value>SQLite</value>
+  </data>
+  <data name="DataSource_SQLite" xml:space="preserve">
+    <value>SQLite</value>
+  </data>
   <data name="DataProvider_Sql" xml:space="preserve">
     <value>.NET Framework SQL Server 用データ プロバイダー</value>
   </data>
@@ -371,5 +386,8 @@
   </data>
   <data name="WindowsAuthentication_Label" xml:space="preserve">
     <value>Windows 認証を使用</value>
+  </data>
+  <data name="SqliteFileBrowseFilter" xml:space="preserve">
+    <value>SQLite データベース (*.db;*.sqlite;*.sqlite3)|*.db;*.sqlite;*.sqlite3|すべてのファイル (*.*)|*.*</value>
   </data>
 </root>
