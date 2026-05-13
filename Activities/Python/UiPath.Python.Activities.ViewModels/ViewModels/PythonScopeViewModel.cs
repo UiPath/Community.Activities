@@ -91,7 +91,7 @@ namespace UiPath.Activities.Python.ViewModels
             InstalledVersions.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             //If no python installations are detected, show a disabled dropdown with a message indicating that no installations were found, instead of showing an empty dropdown which might be confusing.
-            if (GetInstalledPythonVersions().Any())
+            if (!GetInstalledPythonVersions().Any())
             {
                 InstalledVersions.Placeholder = Resources.NoPythonInstallations;
                 InstalledVersions.IsReadOnly = true;
