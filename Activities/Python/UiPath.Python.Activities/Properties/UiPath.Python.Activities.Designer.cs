@@ -295,6 +295,15 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Python installations were detected.
+        /// </summary>
+        public static string NoPythonInstallations {
+            get {
+                return ResourceManager.GetString("NoPythonInstallations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No code/script specified.
         /// </summary>
         public static string NoScriptSpecifiedException {

@@ -89,7 +89,16 @@ namespace UiPath.Activities.Python.ViewModels
             InstalledVersions.DisplayName = Resources.InstalledVersionsDisplayName;
             InstalledVersions.Tooltip = Resources.InstalledVersionsDescription;
             InstalledVersions.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-            InstalledVersions.DataSource = DataSourceBuilder<PythonInstallation>
+
+            //If no python installations are detected, show a disabled dropdown with a message indicating that no installations were found, instead of showing an empty dropdown which might be confusing.
+            if (!GetInstalledPythonVersions().Any())
+            {
+                InstalledVersions.Placeholder = Resources.NoPythonInstallations;
+                InstalledVersions.IsReadOnly = true;
+            }
+            else
+            {
+                InstalledVersions.DataSource = DataSourceBuilder<PythonInstallation>
                 .WithId(v => v.Key)
                 .WithLabel(v => v.TargetPlatform is { } platform
                     ? $"{v.Version} ({platform}) - {v.InstallPath}"
@@ -100,16 +109,17 @@ namespace UiPath.Activities.Python.ViewModels
                 .WithData(GetInstalledPythonVersions().ToList())
                 .Build();
 
-            // Pre-select the dropdown entry whose InstallPath/LibraryPath/TargetPlatform match
-            // the values already stored in the workflow, so reopening a configured scope
-            // shows the correct installation without requiring the user to re-pick it.
-            var matchingInstallation = GetInstalledPythonVersions().FirstOrDefault(v =>
-                string.Equals(v.InstallPath, GetLiteralValue(Path.Value), System.StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(v.LibraryPath, GetLiteralValue(LibraryPath.Value), System.StringComparison.OrdinalIgnoreCase) &&
-                (v.TargetPlatform ?? PythonTargetPlatform.x64) == TargetPlatform.Value);
+                // Pre-select the dropdown entry whose InstallPath/LibraryPath/TargetPlatform match
+                // the values already stored in the workflow, so reopening a configured scope
+                // shows the correct installation without requiring the user to re-pick it.
+                var matchingInstallation = GetInstalledPythonVersions().FirstOrDefault(v =>
+                    string.Equals(v.InstallPath, GetLiteralValue(Path.Value), System.StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(v.LibraryPath, GetLiteralValue(LibraryPath.Value), System.StringComparison.OrdinalIgnoreCase) &&
+                    (v.TargetPlatform ?? PythonTargetPlatform.x64) == TargetPlatform.Value);
 
-            if (matchingInstallation is not null)
-                InstalledVersions.Value = matchingInstallation.Key;
+                if (matchingInstallation is not null)
+                    InstalledVersions.Value = matchingInstallation.Key;
+            }
         }
 
         protected override void InitializeRules()
