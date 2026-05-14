@@ -22,7 +22,9 @@ namespace UiPath.Java
 
         private const string _defaultJava = "java";
 
-        private const string _pipePrefix = "dotnet_java_pipe_";
+        private const string _pipePrefix = "djp_";
+
+        private static int _pipeIdx = 0;
 
         private static readonly string _defaultJavaInvokerPath = GetPathToJavaProgram();
 
@@ -168,7 +170,9 @@ namespace UiPath.Java
 
         private static string GetNewPipeName()
         {
-            return _pipePrefix + Guid.NewGuid();
+            //Generate a shorter pipe name to avoid hitting limitations regarding to pipe name max length,
+            //The new name is composed by a fixed prefix, the current process id and a number to avoid conflicts with other instances of the invoker.
+            return $"{_pipePrefix}_{Environment.ProcessId}_{Interlocked.Increment(ref _pipeIdx)}";
         }
 
         private static string GetPathToJavaProgram()

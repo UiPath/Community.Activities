@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <Import Project="..\Java.build.props" />
 
   <PropertyGroup>
@@ -10,7 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="UiPath.Workflow"/>
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="UiPath.Activities.Api" />
+    <PackageReference Include="System.Activities.Metadata" />
+  </ItemGroup>
+
+  <ItemGroup>
    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+   <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
    <EmbeddedResource Include="Resources\Icons\*.svg" />
   </ItemGroup>
 

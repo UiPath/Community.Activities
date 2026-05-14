@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UiPath.Java.Activities {
+namespace UiPath.Java.Activities.Properties {
     using System;
     
     
@@ -19,10 +19,10 @@ namespace UiPath.Java.Activities {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UiPath_Java_Activities {
+    public class UiPath_Java_Activities {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace UiPath.Java.Activities {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UiPath.Java.Activities.Properties.UiPath.Java.Activities", typeof(UiPath_Java_Activities).Assembly);
@@ -51,7 +51,7 @@ namespace UiPath.Java.Activities {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Constructor could not be called..
         /// </summary>
-        internal static string ConstructorException {
+        public static string ConstructorException {
             get {
                 return ResourceManager.GetString("ConstructorException", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Could not convert .
         /// </summary>
-        internal static string ConvertException {
+        public static string ConvertException {
             get {
                 return ResourceManager.GetString("ConvertException", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Convert a java object to the specified .net type. If the cast was not possible throws exception..
         /// </summary>
-        internal static string ConvertJavaObjectDescription {
+        public static string ConvertJavaObjectDescription {
             get {
                 return ResourceManager.GetString("ConvertJavaObjectDescription", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Convert Java Object.
         /// </summary>
-        internal static string ConvertJavaObjectDisplayName {
+        public static string ConvertJavaObjectDisplayName {
             get {
                 return ResourceManager.GetString("ConvertJavaObjectDisplayName", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The java object converted to .net..
         /// </summary>
-        internal static string ConvertJavaObjectResultDescription {
+        public static string ConvertJavaObjectResultDescription {
             get {
                 return ResourceManager.GetString("ConvertJavaObjectResultDescription", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Invokes the constructor on the specified class..
         /// </summary>
-        internal static string CreateJavaObjectDescription {
+        public static string CreateJavaObjectDescription {
             get {
                 return ResourceManager.GetString("CreateJavaObjectDescription", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Create Java Object.
         /// </summary>
-        internal static string CreateJavaObjectDisplayName {
+        public static string CreateJavaObjectDisplayName {
             get {
                 return ResourceManager.GetString("CreateJavaObjectDisplayName", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Do.
         /// </summary>
-        internal static string Do {
+        public static string Do {
             get {
                 return ResourceManager.GetString("Do", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Field Name.
         /// </summary>
-        internal static string FieldName {
+        public static string FieldName {
             get {
                 return ResourceManager.GetString("FieldName", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The name of the field the activity will return as a java object..
         /// </summary>
-        internal static string FieldNameDescription {
+        public static string FieldNameDescription {
             get {
                 return ResourceManager.GetString("FieldNameDescription", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to FieldName.
         /// </summary>
-        internal static string FieldNameDisplayName {
+        public static string FieldNameDisplayName {
             get {
                 return ResourceManager.GetString("FieldNameDisplayName", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Returns a public field from a java object..
         /// </summary>
-        internal static string GetFieldDescritption {
+        public static string GetFieldDescritption {
             get {
                 return ResourceManager.GetString("GetFieldDescritption", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Get Field.
         /// </summary>
-        internal static string GetFieldDisplayName {
+        public static string GetFieldDisplayName {
             get {
                 return ResourceManager.GetString("GetFieldDisplayName", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Field not found..
         /// </summary>
-        internal static string GetFieldException {
+        public static string GetFieldException {
             get {
                 return ResourceManager.GetString("GetFieldException", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Input.
         /// </summary>
-        internal static string Input {
+        public static string Input {
             get {
                 return ResourceManager.GetString("Input", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The path to java library is invalid..
         /// </summary>
-        internal static string InvalidJavaPath {
+        public static string InvalidJavaPath {
             get {
                 return ResourceManager.GetString("InvalidJavaPath", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The Target Object and Target Type are both empty. At least one of them has to be set..
         /// </summary>
-        internal static string InvokationObjectException {
+        public static string InvokationObjectException {
             get {
                 return ResourceManager.GetString("InvokationObjectException", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Invoke Java Method.
         /// </summary>
-        internal static string InvokeJavaMethodDescription {
+        public static string InvokeJavaMethodDescription {
             get {
                 return ResourceManager.GetString("InvokeJavaMethodDescription", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Invoke Java Method.
         /// </summary>
-        internal static string InvokeJavaMethodDisplayName {
+        public static string InvokeJavaMethodDisplayName {
             get {
                 return ResourceManager.GetString("InvokeJavaMethodDisplayName", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to A reference to an object loaded in Java..
         /// </summary>
-        internal static string InvokeJavaResultDescription {
+        public static string InvokeJavaResultDescription {
             get {
                 return ResourceManager.GetString("InvokeJavaResultDescription", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The method could not be invoked..
         /// </summary>
-        internal static string InvokeMethodException {
+        public static string InvokeMethodException {
             get {
                 return ResourceManager.GetString("InvokeMethodException", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Path to the jar that will be loaded..
         /// </summary>
-        internal static string JarPathDescription {
+        public static string JarPathDescription {
             get {
                 return ResourceManager.GetString("JarPathDescription", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to JarPath.
         /// </summary>
-        internal static string JarPathDisplayName {
+        public static string JarPathDisplayName {
             get {
                 return ResourceManager.GetString("JarPathDisplayName", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Error intializing Java : {0}.
         /// </summary>
-        internal static string JavaInitiazeException {
+        public static string JavaInitiazeException {
             get {
                 return ResourceManager.GetString("JavaInitiazeException", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Java invoker was not loaded..
         /// </summary>
-        internal static string JavaInvokerNotLoadedException {
+        public static string JavaInvokerNotLoadedException {
             get {
                 return ResourceManager.GetString("JavaInvokerNotLoadedException", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to JavaObject.
         /// </summary>
-        internal static string JavaObject {
+        public static string JavaObject {
             get {
                 return ResourceManager.GetString("JavaObject", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to A reference to an object loaded in Java..
         /// </summary>
-        internal static string JavaObjectDescription {
+        public static string JavaObjectDescription {
             get {
                 return ResourceManager.GetString("JavaObjectDescription", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to JavaObject.
         /// </summary>
-        internal static string JavaObjectDisplayName {
+        public static string JavaObjectDisplayName {
             get {
                 return ResourceManager.GetString("JavaObjectDisplayName", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Path to java.exe.
         /// </summary>
-        internal static string JavaPathDescription {
+        public static string JavaPathDescription {
             get {
                 return ResourceManager.GetString("JavaPathDescription", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to JavaLibraryPath.
         /// </summary>
-        internal static string JavaPathDisplayName {
+        public static string JavaPathDisplayName {
             get {
                 return ResourceManager.GetString("JavaPathDisplayName", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Java Activities Container.
         /// </summary>
-        internal static string JavaScopeDescription {
+        public static string JavaScopeDescription {
             get {
                 return ResourceManager.GetString("JavaScopeDescription", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Java Scope.
         /// </summary>
-        internal static string JavaScopeNameDisplayName {
+        public static string JavaScopeNameDisplayName {
             get {
                 return ResourceManager.GetString("JavaScopeNameDisplayName", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Loads a jar in the current java scope..
         /// </summary>
-        internal static string LoadJarDescription {
+        public static string LoadJarDescription {
             get {
                 return ResourceManager.GetString("LoadJarDescription", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Load Jar.
         /// </summary>
-        internal static string LoadJarDisplayName {
+        public static string LoadJarDisplayName {
             get {
                 return ResourceManager.GetString("LoadJarDisplayName", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Jar could not be loaded..
         /// </summary>
-        internal static string LoadJarException {
+        public static string LoadJarException {
             get {
                 return ResourceManager.GetString("LoadJarException", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Method Name.
         /// </summary>
-        internal static string MethodName {
+        public static string MethodName {
             get {
                 return ResourceManager.GetString("MethodName", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The name of the method that will be executed in Java..
         /// </summary>
-        internal static string MethodNameDescription {
+        public static string MethodNameDescription {
             get {
                 return ResourceManager.GetString("MethodNameDescription", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to MethodName.
         /// </summary>
-        internal static string MethodNameDisplayName {
+        public static string MethodNameDisplayName {
             get {
                 return ResourceManager.GetString("MethodNameDisplayName", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        internal static string Output {
+        public static string Output {
             get {
                 return ResourceManager.GetString("Output", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
-        internal static string OutputDisplayName {
+        public static string OutputDisplayName {
             get {
                 return ResourceManager.GetString("OutputDisplayName", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The list of the arguments specified in the same order as the java method. An argument can not be null..
         /// </summary>
-        internal static string ParametersDescription {
+        public static string ParametersDescription {
             get {
                 return ResourceManager.GetString("ParametersDescription", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Parameters.
         /// </summary>
-        internal static string ParametersDisplayName {
+        public static string ParametersDisplayName {
             get {
                 return ResourceManager.GetString("ParametersDisplayName", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to ParametersList.
         /// </summary>
-        internal static string ParametersListDisplayName {
+        public static string ParametersListDisplayName {
             get {
                 return ResourceManager.GetString("ParametersListDisplayName", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Can not set both {0} and {1}..
         /// </summary>
-        internal static string ParametersSetException {
+        public static string ParametersSetException {
             get {
                 return ResourceManager.GetString("ParametersSetException", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Result.
         /// </summary>
-        internal static string ResultDisplayName {
+        public static string ResultDisplayName {
             get {
                 return ResourceManager.GetString("ResultDisplayName", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Target.
         /// </summary>
-        internal static string Target {
+        public static string Target {
             get {
                 return ResourceManager.GetString("Target", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The java object instace the method will be invoked. TargetObject and TargetType can not be set at the same time..
         /// </summary>
-        internal static string TargetObjectDescription {
+        public static string TargetObjectDescription {
             get {
                 return ResourceManager.GetString("TargetObjectDescription", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to TargetObject.
         /// </summary>
-        internal static string TargetObjectDisplayName {
+        public static string TargetObjectDisplayName {
             get {
                 return ResourceManager.GetString("TargetObjectDisplayName", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The name of the java class..
         /// </summary>
-        internal static string TargetTypeDescription {
+        public static string TargetTypeDescription {
             get {
                 return ResourceManager.GetString("TargetTypeDescription", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to TargetType.
         /// </summary>
-        internal static string TargetTypeDisplayName {
+        public static string TargetTypeDisplayName {
             get {
                 return ResourceManager.GetString("TargetTypeDisplayName", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The amount of time (in miliseconds) to wait for the Java runtime connection (default 15000ms)..
         /// </summary>
-        internal static string TimeoutMSDescription {
+        public static string TimeoutMSDescription {
             get {
                 return ResourceManager.GetString("TimeoutMSDescription", resourceCulture);
             }
@@ -522,7 +522,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Init timeout (milliseconds).
         /// </summary>
-        internal static string TimeoutMSDisplayName {
+        public static string TimeoutMSDisplayName {
             get {
                 return ResourceManager.GetString("TimeoutMSDisplayName", resourceCulture);
             }
@@ -531,7 +531,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to The value provided for TimeoutMS must be &gt;= 0.
         /// </summary>
-        internal static string TimeoutMSException {
+        public static string TimeoutMSException {
             get {
                 return ResourceManager.GetString("TimeoutMSException", resourceCulture);
             }
@@ -540,7 +540,7 @@ namespace UiPath.Java.Activities {
         /// <summary>
         ///   Looks up a localized string similar to Activity is valid only inside {0}.
         /// </summary>
-        internal static string ValidateParentError {
+        public static string ValidateParentError {
             get {
                 return ResourceManager.GetString("ValidateParentError", resourceCulture);
             }
