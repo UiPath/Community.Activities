@@ -59,7 +59,7 @@ jobs:
   - task: DownloadPipelineArtifact@2
     displayName: "Download Packages"
     inputs:
-      artifact: "Packages"
+      artifact: "RuntimeTestsPackages"
       path: "$(IntegrationTestStudioPackPath)"
 
   - ${{ each step in parameters.beforeTestsCustomSteps }}:

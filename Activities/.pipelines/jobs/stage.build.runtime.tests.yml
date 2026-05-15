@@ -113,5 +113,5 @@ jobs:
     displayName: "Publish packed tests"
     inputs:
       PathToPublish: "$(IntegrationTestStudioPackPath)"
-      ArtifactName: "Packages"
+      ArtifactName: "RuntimeTestsPackages"
       ArtifactType: "Container"
