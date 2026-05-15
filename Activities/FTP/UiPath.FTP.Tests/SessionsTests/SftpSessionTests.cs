@@ -12,6 +12,8 @@ namespace UiPath.FTP.Tests
 {
     public class SftpSessionTests
     {
+        private const string TestUsername = "testUser"; // NOSONAR - dummy test credentials
+
         [Fact]
         public void SFTP_TestConnect()
         {
@@ -42,8 +44,8 @@ namespace UiPath.FTP.Tests
             // When no timeout is set, SSH.NET defaults should be preserved
             var defaultConnectionInfo = new ConnectionInfo(
                 "localhost",
-                "testUser",
-                new PasswordAuthenticationMethod("testUser", "notUsed")); // NOSONAR - dummy test credentials
+                TestUsername,
+                new PasswordAuthenticationMethod(TestUsername, "notUsed")); // NOSONAR - dummy test credentials
             using var defaultSftpClient = new SftpClient(defaultConnectionInfo);
 
             Assert.Equal(defaultConnectionInfo.Timeout, sftpClient.ConnectionInfo.Timeout);
@@ -51,14 +53,25 @@ namespace UiPath.FTP.Tests
         }
 
         [Fact]
-        public void SFTP_KeyboardInteractiveMethod_IsAlwaysRegistered()
+        public void SFTP_KeyboardInteractiveMethod_IsRegistered_WhenPasswordIsConfigured()
         {
-            var config = CreateTestConfig();
+            var config = CreateTestConfig(password: "s3cr3t"); // NOSONAR - dummy test credentials
             using var session = new SftpSession(config);
 
-            var authMethods = session.Client.ConnectionInfo.AuthenticationMethods;
+            Assert.Contains(
+                session.Client.ConnectionInfo.AuthenticationMethods,
+                m => m is KeyboardInteractiveAuthenticationMethod);
+        }
 
-            Assert.Contains(authMethods, m => m is KeyboardInteractiveAuthenticationMethod);
+        [Fact]
+        public void SFTP_KeyboardInteractiveMethod_IsNotRegistered_WhenPasswordIsNullOrEmpty()
+        {
+            // With no password and no certificate, no auth methods are added and the
+            // constructor throws. This confirms kbi is not registered as a fallback
+            // when there is no password to respond with.
+            var config = new FtpConfiguration("localhost") { Username = TestUsername, Password = null };
+
+            Assert.Throws<ArgumentNullException>(() => new SftpSession(config));
         }
 
         [Fact]
@@ -94,26 +107,6 @@ namespace UiPath.FTP.Tests
             Assert.Null(prompt.Response);
         }
 
-        [Fact]
-        public void SFTP_KeyboardInteractiveMethod_RespondsWithEmptyStringWhenPasswordIsNull()
-        {
-            var config = new FtpConfiguration("localhost")
-            {
-                Username = "testUser",
-                Password = null
-            };
-            using var session = new SftpSession(config);
-
-            var kbiMethod = session.Client.ConnectionInfo.AuthenticationMethods
-                .OfType<KeyboardInteractiveAuthenticationMethod>()
-                .Single();
-
-            var prompt = new AuthenticationPrompt(0, false, "Password: ");
-            RaiseAuthenticationPrompt(kbiMethod, new[] { prompt });
-
-            Assert.Equal(string.Empty, prompt.Response);
-        }
-
         // --- SafeExists / SshException swallowing ---
 
         [Fact]
@@ -139,6 +132,31 @@ namespace UiPath.FTP.Tests
 
             Assert.False(result);
         }
+
+        [Fact]
+        public async Task SFTP_DirectoryExistsAsync_ReturnsFalse_WhenClientExistsThrowsSftpPathNotFoundException()
+        {
+            using var session = new SftpSessionWithFakeExists(
+                CreateTestConfig(),
+                () => throw new SftpPathNotFoundException("No such file"));
+
+            bool result = await ((IFtpSession)session).DirectoryExistsAsync("/some/path", CancellationToken.None);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task SFTP_FileExistsAsync_ReturnsFalse_WhenClientExistsThrowsSftpPathNotFoundException()
+        {
+            using var session = new SftpSessionWithFakeExists(
+                CreateTestConfig(),
+                () => throw new SftpPathNotFoundException("No such file"));
+
+            bool result = await ((IFtpSession)session).FileExistsAsync("/some/file.txt", CancellationToken.None);
+
+            Assert.False(result);
+        }
+
 
         [Fact]
         public async Task SFTP_DirectoryExistsAsync_Rethrows_WhenClientExistsThrowsSshConnectionException()
@@ -206,18 +224,19 @@ namespace UiPath.FTP.Tests
         /// Fires the <see cref="KeyboardInteractiveAuthenticationMethod.AuthenticationPrompt"/> event
         /// by invoking its backing delegate directly. SSH.NET does not expose a raise method, so
         /// reflection is used here purely as a test seam.
+        /// The backing field is located by type rather than by name so that SSH.NET version upgrades
+        /// that rename the field do not silently break the lookup.
         /// </summary>
         private static void RaiseAuthenticationPrompt(
             KeyboardInteractiveAuthenticationMethod method,
             IEnumerable<AuthenticationPrompt> prompts)
         {
-            var eventArgs = new AuthenticationPromptEventArgs("testUser", string.Empty, string.Empty, prompts.ToList().AsReadOnly());
+            var eventArgs = new AuthenticationPromptEventArgs(TestUsername, string.Empty, string.Empty, prompts.ToList().AsReadOnly());
 
             var field = typeof(KeyboardInteractiveAuthenticationMethod)
-                .GetField("AuthenticationPrompt", BindingFlags.Instance | BindingFlags.NonPublic)
-                ?? typeof(KeyboardInteractiveAuthenticationMethod)
-                    .GetField("_authenticationPrompt", BindingFlags.Instance | BindingFlags.NonPublic);
-            Assert.NotNull(field); // SSH.NET renamed the backing field; update the lookup above.
+                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                .FirstOrDefault(f => f.FieldType == typeof(EventHandler<AuthenticationPromptEventArgs>));
+            Assert.NotNull(field); // SSH.NET no longer uses EventHandler<AuthenticationPromptEventArgs> for this event; update the test seam.
 
             var handler = field.GetValue(method) as EventHandler<AuthenticationPromptEventArgs>;
             Assert.NotNull(handler); // SftpSession did not subscribe to AuthenticationPrompt.
@@ -228,7 +247,7 @@ namespace UiPath.FTP.Tests
         {
             return new FtpConfiguration("localhost")
             {
-                Username = "testUser",
+                Username = TestUsername,
                 Password = password, // NOSONAR - dummy test credentials, never connect to any server
                 Timeout = timeout
             };

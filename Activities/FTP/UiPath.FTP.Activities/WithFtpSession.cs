@@ -250,8 +250,7 @@ namespace UiPath.FTP.Activities
                         throw new ArgumentNullException(Resources.EmptyUsernameException);
                     }
 
-                    if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath)
-                        && !UseSftp)
+                    if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
                     {
                         throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
                     }

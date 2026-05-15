@@ -46,23 +46,27 @@ namespace UiPath.FTP
                 authMethods.Add(new PrivateKeyAuthenticationMethod(ftpConfiguration.Username, keyFiles));
             }
 
-            // Always register keyboard-interactive so that servers which advertise only
-            // keyboard-interactive (OpenSSH with ChallengeResponseAuthentication/PAM) can
-            // authenticate using the configured password. The handler responds with the
-            // password for every non-echo prompt; echo prompts are left empty because the
-            // SSH username is already supplied at the transport layer.
-            var kbiMethod = new KeyboardInteractiveAuthenticationMethod(ftpConfiguration.Username);
-            kbiMethod.AuthenticationPrompt += (sender, e) =>
+            // Register keyboard-interactive when a password is configured, mirroring the
+            // PasswordAuthenticationMethod guard above. Servers that advertise only kbi
+            // (OpenSSH with ChallengeResponseAuthentication/PAM) can then authenticate
+            // using the configured password. Skipping kbi when there is no password avoids
+            // a redundant failed auth round-trip on certificate-only connections.
+            if (!String.IsNullOrEmpty(ftpConfiguration.Password))
             {
-                foreach (var prompt in e.Prompts)
+                var kbiMethod = new KeyboardInteractiveAuthenticationMethod(ftpConfiguration.Username);
+                var kbiPassword = ftpConfiguration.Password;
+                kbiMethod.AuthenticationPrompt += (sender, e) =>
                 {
-                    if (!prompt.IsEchoed)
+                    foreach (var prompt in e.Prompts)
                     {
-                        prompt.Response = ftpConfiguration.Password ?? string.Empty;
+                        if (!prompt.IsEchoed)
+                        {
+                            prompt.Response = kbiPassword;
+                        }
                     }
-                }
-            };
-            authMethods.Add(kbiMethod);
+                };
+                authMethods.Add(kbiMethod);
+            }
 
             //Throw an error if we ended up with no authentication method
             if (authMethods.Count == 0)
@@ -337,7 +341,7 @@ namespace UiPath.FTP
             {
                 return ClientExists(path);
             }
-            catch (SshException ex) when (ex.GetType() == typeof(SshException))
+            catch (SshException ex) when (ex is SftpPathNotFoundException || ex.GetType() == typeof(SshException))
             {
                 Trace.TraceWarning(
                     "SftpSession.SafeExists: bare SshException treated as 'not found' for path '{0}': {1}",
