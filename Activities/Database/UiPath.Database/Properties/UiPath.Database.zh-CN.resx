@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>提供的 ParameterDirection 参数没有对应的 ArgumentDirection 值</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>已存在进行中的事务。请在开始新事务之前提交或回滚现有事务。</value>
+  </data>
 </root>

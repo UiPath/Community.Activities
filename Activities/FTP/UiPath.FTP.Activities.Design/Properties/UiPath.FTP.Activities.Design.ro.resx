@@ -130,7 +130,7 @@
     <value>Domeniul sesiunii FTP</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integrarea aplicațiilor</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">
