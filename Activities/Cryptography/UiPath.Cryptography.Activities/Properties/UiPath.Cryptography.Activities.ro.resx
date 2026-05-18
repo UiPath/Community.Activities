@@ -1013,7 +1013,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
-    <value>Generați chei PGP</value>
+    <value>PGP Generate Keys</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
@@ -1085,7 +1085,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Name" xml:space="preserve">
-    <value>Semnați fișierul PGP</value>
+    <value>PGP Sign File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_PgpSignFile_Description" xml:space="preserve">
@@ -1149,7 +1149,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
-    <value>Fișier PGP Clear Sign</value>
+    <value>PGP Clear Sign File</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
@@ -1213,7 +1213,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Name" xml:space="preserve">
-    <value>Verificare PGP</value>
+    <value>PGP Verify</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_PgpVerify_Description" xml:space="preserve">

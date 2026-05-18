@@ -241,7 +241,7 @@
     <value>Lista argumentelor specificate în aceeași ordine ca metoda Java. Un argument nu poate fi nul.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Parametri</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
@@ -252,7 +252,7 @@
     <value>Nu se pot seta atât {0} cât și {1}.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Rezultat</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
