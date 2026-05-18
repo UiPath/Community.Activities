@@ -42,8 +42,7 @@ namespace UiPath.Java.Activities
                 if (string.IsNullOrWhiteSpace(className))
                     throw new ArgumentNullException(nameof(TargetType));
 
-                List<object> parameters = GetParameters(context);
-                var types = GetParameterTypes(context, parameters);
+                var (parameters, types) = GetParametersAndTypes(context);
                 JavaObject instance = null;
                 try
                 {

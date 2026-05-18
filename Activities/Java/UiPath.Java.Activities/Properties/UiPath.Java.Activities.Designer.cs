@@ -446,7 +446,19 @@ namespace UiPath.Java.Activities.Properties {
                 return ResourceManager.GetString("ParametersListDisplayName", resourceCulture);
             }
         }
-        
+
+        public static string MenuAction_UseStaticNames {
+            get {
+                return ResourceManager.GetString("MenuAction_UseStaticNames", resourceCulture);
+            }
+        }
+
+        public static string MenuAction_UseAnExpression {
+            get {
+                return ResourceManager.GetString("MenuAction_UseAnExpression", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Can not set both {0} and {1}..
         /// </summary>

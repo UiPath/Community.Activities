@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="UiPath.Workflow"/>
+    <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="System.Activities.ViewModels" />
     <PackageReference Include="UiPath.Activities.Api" />
     <PackageReference Include="System.Activities.Metadata" />
@@ -23,9 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
-     <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
-       <PrivateAssets>All</PrivateAssets>
-       </ProjectReference>
+    <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Import Project="..\..\Shared\UiPath.Shared.ViewModels\UiPath.Shared.ViewModels.projitems" />
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>
