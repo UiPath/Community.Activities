@@ -19,7 +19,7 @@ namespace UiPath.Activities.Java.ViewModels
             base.InitializeModel();
 
             var orderIndex = 0;
-            JarPath.OrderIndex = orderIndex++;
+            JarPath.OrderIndex = orderIndex;
 
             JarPath.DisplayName = Resources.JarPathDisplayName;
             JarPath.Tooltip = Resources.JarPathDescription;

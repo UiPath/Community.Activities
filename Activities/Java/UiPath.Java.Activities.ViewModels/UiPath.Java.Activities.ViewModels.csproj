@@ -30,8 +30,4 @@
 
   <Import Project="..\..\Shared\UiPath.Shared.ViewModels\UiPath.Shared.ViewModels.projitems" />
 
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
-
 </Project>

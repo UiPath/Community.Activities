@@ -28,7 +28,7 @@ namespace UiPath.Activities.Java.ViewModels
         {
             base.InitializeModel();
 
-            _parametersToggle = new DesignPropertyToggle<DesignProperty<List<InArgument>>, DesignInArgument<List<object>>>(Parameters, ParametersList);
+            _parametersToggle = new DesignPropertyToggle<DesignProperty<List<InArgument>>, DesignInArgument<List<object>>>(Parameters, ParametersList, setIsRequiredWhenVisible: false);
             _parametersToggle.Initialize(showFirst: ParametersList.Value == null);
 
             PersistValuesChangedDuringInit();
@@ -37,7 +37,7 @@ namespace UiPath.Activities.Java.ViewModels
             TargetType.OrderIndex = orderIndex++;
             Parameters.OrderIndex = orderIndex++;
             ParametersList.OrderIndex = orderIndex++;
-            Result.OrderIndex = orderIndex++;
+            Result.OrderIndex = orderIndex;
 
             TargetType.DisplayName = Resources.TargetTypeDisplayName;
             TargetType.Tooltip = Resources.TargetTypeDescription;

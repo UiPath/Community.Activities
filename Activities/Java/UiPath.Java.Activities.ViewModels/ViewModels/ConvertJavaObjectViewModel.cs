@@ -22,7 +22,7 @@ namespace UiPath.Activities.Java.ViewModels
 
             var orderIndex = 0;
             JavaObject.OrderIndex = orderIndex++;
-            Result.OrderIndex = orderIndex++;
+            Result.OrderIndex = orderIndex;
 
             JavaObject.DisplayName = Resources.JavaObjectDisplayName;
             JavaObject.Tooltip = Resources.JavaObjectDescription;

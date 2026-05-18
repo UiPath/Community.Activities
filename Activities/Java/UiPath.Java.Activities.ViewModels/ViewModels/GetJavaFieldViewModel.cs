@@ -26,7 +26,7 @@ namespace UiPath.Activities.Java.ViewModels
             FieldName.OrderIndex = orderIndex++;
             TargetObject.OrderIndex = orderIndex++;
             TargetType.OrderIndex = orderIndex++;
-            Result.OrderIndex = orderIndex++;
+            Result.OrderIndex = orderIndex;
 
             FieldName.DisplayName = Resources.FieldNameDisplayName;
             FieldName.Tooltip = Resources.FieldNameDescription;

@@ -10,6 +10,8 @@ namespace UiPath.Activities.Java.ViewModels
     /// </summary>
     class JavaScopeViewModel : DesignPropertiesViewModel
     {
+        // Intentionally storing the IWorkflowDesignApi for potential future use, even though it's not currently used in this ViewModel.
+        // Actually this is a workaround to force the loading of the assembly (there is a known limitation https://uipath.atlassian.net/browse/STUD-73622)
         private readonly IWorkflowDesignApi _workflowDesignApi;
         public DesignInArgument<string> JavaPath { get; set; }
         public DesignInArgument<int> TimeoutMS { get; set; }
@@ -17,8 +19,7 @@ namespace UiPath.Activities.Java.ViewModels
 
         public JavaScopeViewModel(IDesignServices services) : base(services)
         {
-            // Intentionally storing the IWorkflowDesignApi for potential future use, even though it's not currently used in this ViewModel.
-            // Actually this is a workaround to force the loading of the assembly (there is a known limitation https://uipath.atlassian.net/browse/STUD-73622)
+            //Store the value, see https://uipath.atlassian.net/browse/STUD-73622
             _workflowDesignApi = services.GetService<IWorkflowDesignApi>();
         }
 
@@ -29,7 +30,7 @@ namespace UiPath.Activities.Java.ViewModels
             var orderIndex = 0;
             Body.OrderIndex = orderIndex++;
             JavaPath.OrderIndex = orderIndex++;
-            TimeoutMS.OrderIndex = orderIndex++;
+            TimeoutMS.OrderIndex = orderIndex;
 
             JavaPath.DisplayName = Resources.JavaPathDisplayName;
             JavaPath.Tooltip = Resources.JavaPathDescription;
