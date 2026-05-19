@@ -1,4 +1,4 @@
-﻿using System.Activities.DesignViewModels;
+using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,6 +32,10 @@ namespace UiPath.Activities.Python.ViewModels
 
         public DesignInArgument<double> OperationTimeout { get; set; }
 
+        public DesignInArgument<int> ScriptDataSizeLimitMB { get; set; }
+
+        public DesignProperty<bool> LogTraces { get; set; }
+
         [NotMappedProperty]
         public DesignProperty<string> InstalledVersions { get; set; }
 
@@ -47,6 +51,8 @@ namespace UiPath.Activities.Python.ViewModels
             TargetPlatform.OrderIndex = orderIndex++;
             WorkingFolder.OrderIndex = orderIndex++;
             OperationTimeout.OrderIndex = orderIndex++;
+            ScriptDataSizeLimitMB.OrderIndex = orderIndex++;
+            LogTraces.OrderIndex = orderIndex;
 
             Version.DisplayName = Resources.VersionNameDisplayName;
             Version.Tooltip = Resources.VersionDescription;
@@ -84,6 +90,15 @@ namespace UiPath.Activities.Python.ViewModels
             OperationTimeout.DisplayName = Resources.OperationTimeout;
             OperationTimeout.Tooltip = Resources.OperationTimeoutDescription;
             OperationTimeout.Category = Resources.Input;
+
+            ScriptDataSizeLimitMB.DisplayName = Resources.ScriptDataSizeLimitDisplayName;
+            ScriptDataSizeLimitMB.Tooltip = Resources.ScriptDataSizeLimitDescription;
+            ScriptDataSizeLimitMB.Category = Resources.Input;
+
+            LogTraces.DisplayName = Resources.LogTracesDisplayName;
+            LogTraces.Tooltip = Resources.LogTracesDescription;
+            LogTraces.Category = Resources.Input;
+            LogTraces.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
             InstalledVersions.IsPrincipal = true;
             InstalledVersions.DisplayName = Resources.InstalledVersionsDisplayName;

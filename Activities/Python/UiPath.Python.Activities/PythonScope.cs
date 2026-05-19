@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Statements;
 using System.Activities.Validation;
 using System.ComponentModel;
@@ -75,6 +76,18 @@ namespace UiPath.Python.Activities
 
         #endregion TODO: decide if these will be exposed
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.ScriptDataSizeLimitDisplayName))]
+        [LocalizedDescription(nameof(Resources.ScriptDataSizeLimitDescription))]
+        [DefaultValue(null)]
+        public InArgument<int> ScriptDataSizeLimitMB { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.LogTracesDisplayName))]
+        [LocalizedDescription(nameof(Resources.LogTracesDescription))]
+        [DefaultValue(false)]
+        public bool LogTraces { get; set; } = false;
+
         private const string PythonEngineSessionProperty = "PythonEngineSessionProperty";
         private IEngine _pythonEngine = null;
 
@@ -106,8 +119,10 @@ namespace UiPath.Python.Activities
             base.CacheMetadata(metadata);
             if (!VersionExtensions.GetSupportedVersions().Contains(Version))
                 metadata.AddValidationError(new ValidationError(Resources.ValidationErrorVersionUnsupported, false, nameof(Version)));
-            if(Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
+            if (Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
                 metadata.AddValidationError(new ValidationError(Resources.ValidationErrorPlatformUnsupported, false, nameof(Version)));
+            if (ScriptDataSizeLimitMB?.Expression is Literal<int> literal && literal.Value < 1)
+                metadata.AddValidationError(new ValidationError(Resources.ValidationErrorScriptDataSizeLimitInvalid, false, nameof(ScriptDataSizeLimitMB)));
         }
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
@@ -134,7 +149,11 @@ namespace UiPath.Python.Activities
                 if (!VersionExtensions.GetSupportedVersions().Contains(Version))
                     throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
 
-                _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
+                int payloadThresholdMB = ScriptDataSizeLimitMB?.Expression != null ? ScriptDataSizeLimitMB.Get(context) : EngineProvider.DefaultPayloadThresholdMB;
+                if (payloadThresholdMB < 1)
+                    throw new ArgumentException(Resources.ValidationErrorScriptDataSizeLimitInvalid, nameof(ScriptDataSizeLimitMB));
+
+                _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole, LogTraces, payloadThresholdMB);
 
                 if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
                     throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);

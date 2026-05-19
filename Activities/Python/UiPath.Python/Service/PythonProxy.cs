@@ -25,12 +25,17 @@ namespace UiPath.Python.Service
         private HostWrapper PythonHostWrapper { get; set; }
         private double Timeout { get; set; }
         private CancellationToken Token { get; set; }
+        private long PayloadThresholdBytes { get; set; }
 
-        internal PythonProxy(HostWrapper hostWrapper, double timeout, CancellationToken cancellationToken)
+        private const long MinPayloadThresholdBytes = 1L * 1024 * 1024; // 1 MB
+
+        internal PythonProxy(HostWrapper hostWrapper, double timeout, CancellationToken cancellationToken, int payloadThresholdMB)
         {
             PythonHostWrapper = hostWrapper;
             Timeout = timeout;
             Token = cancellationToken;
+            long requestedBytes = (long)payloadThresholdMB * 1024 * 1024;
+            PayloadThresholdBytes = Math.Max(requestedBytes, MinPayloadThresholdBytes);
         }
 
         #region Service methods
@@ -225,6 +230,15 @@ namespace UiPath.Python.Service
 
         private void SendRequest(PythonRequest request, CancellationToken ct)
         {
+            var payload = request.Serialize();
+            long payloadBytes = _utf8Encoding.GetByteCount(payload);
+            if (payloadBytes > PayloadThresholdBytes)
+            {
+                double actualMB = payloadBytes / (1024.0 * 1024.0);
+                double thresholdMB = PayloadThresholdBytes / (1024.0 * 1024.0);
+                throw new InvalidOperationException(string.Format(UiPath_Python.PayloadThresholdExceeded, actualMB.ToString("F1"), thresholdMB.ToString("F1")));
+            }
+
             try
             {
                 using (var streamWriter = new StreamWriter(PythonHostWrapper.Pipe, _utf8Encoding, _defaultBufferSize,
@@ -232,16 +246,15 @@ namespace UiPath.Python.Service
                 { AutoFlush = true })
                 {
                     Trace.TraceInformation("Sending information to Python.");
-                    streamWriter.WriteLine(request.Serialize());
+                    streamWriter.WriteLine(payload);
                 }
                 ct.ThrowIfCancellationRequested();
                 WaitForPipeDrain();
             }
-            catch
+            catch (Exception ex)
             {
-                //ignore exception here
-                //the exception will be thrown later
-                //if we rethrow the exception, we might get generic error here
+                Trace.TraceError($"PythonProxy send error: {ex.GetType().Name} — {ex.Message}");
+                throw;
             }
 
             ct.ThrowIfCancellationRequested();
@@ -250,7 +263,7 @@ namespace UiPath.Python.Service
 
         private PythonResponse ReadResponse(PythonRequest request, CancellationToken ct)
         {
-            PythonResponse response = null;
+            PythonResponse response;
             try
             {
                 using (var streamReader = new StreamReader(PythonHostWrapper.Pipe, _utf8Encoding, false, _defaultBufferSize,
@@ -259,9 +272,10 @@ namespace UiPath.Python.Service
                     response = PythonResponse.Deserialize(streamReader.ReadLine());
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                //ignore exception, see above
+                Trace.TraceError($"PythonProxy receive error: {ex.GetType().Name} — {ex.Message}");
+                throw;
             }
 
             ct.ThrowIfCancellationRequested();

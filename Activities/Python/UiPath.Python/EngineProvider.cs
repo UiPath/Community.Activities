@@ -14,6 +14,8 @@ namespace UiPath.Python
     /// </summary>
     public static class EngineProvider
     {
+        public const int DefaultPayloadThresholdMB = 25;
+
         private const string PythonHomeEnv = "PYTHONHOME";
         private static readonly string[] PythonExeWin = ["python.exe", "python3.exe"];
         private static readonly string[] PythonLinux = ["python", "python3"];
@@ -24,7 +26,7 @@ namespace UiPath.Python
         private static object _lock = new object();
         private static Dictionary<Version, IEngine> _cache = new Dictionary<Version, IEngine>();
 
-        public static IEngine Get(Version version, string path, string libraryPath, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
+        public static IEngine Get(Version version, string path, string libraryPath, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false, bool logTrace = false, int payloadThresholdMB = DefaultPayloadThresholdMB)
         {
             IEngine engine = null;
             lock (_lock)
@@ -56,7 +58,7 @@ namespace UiPath.Python
                 else
                 {
                     // TODO: do we need caching when running as service (out of process)?
-                    engine = new OutOfProcessEngine(version, path, libraryPath, target, visible);
+                    engine = new OutOfProcessEngine(version, path, libraryPath, target, visible, logTrace, payloadThresholdMB);
                 }
             }
             return engine;

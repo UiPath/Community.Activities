@@ -78,6 +78,37 @@ namespace UiPath.Shared.Service.Client
 
             PythonWrapper.Proc = Process.Start(psi);
 
+            PythonWrapper.Proc.OutputDataReceived += (s, e) =>
+            {
+                if (e.Data == null) return;
+                if (PythonWrapper.Initialized)
+                {
+                    if (PythonWrapper.LogTrace)
+                        Trace.TraceInformation($"[python.stdout] {e.Data}");
+                }
+                else
+                {
+                    PythonWrapper.AppendStdout(e.Data);
+                }
+            };
+            PythonWrapper.Proc.ErrorDataReceived += (s, e) =>
+            {
+                if (e.Data == null) return;
+                if (PythonWrapper.Initialized)
+                {
+                    if (PythonWrapper.LogTrace)
+                        Trace.TraceWarning($"[python.stderr] {e.Data}");
+                }
+                else
+                {
+                    PythonWrapper.AppendStderr(e.Data);
+                }
+            };
+            PythonWrapper.Proc.BeginOutputReadLine();
+            PythonWrapper.Proc.BeginErrorReadLine();
+            // Note: event handlers must be subscribed before BeginOutputReadLine/BeginErrorReadLine,
+            // but both require the process to already be started — subscriptions cannot move before Process.Start.
+
             Retry(ServiceReady, StartTimeout, RetryInterval);
 
             // wait for service to become available
@@ -92,7 +123,13 @@ namespace UiPath.Shared.Service.Client
                 PythonWrapper.Pipe ??= new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
 
                 TryConnectPipeClient();
-                return PythonWrapper.Pipe.IsConnected;
+
+                if (PythonWrapper.Pipe.IsConnected)
+                {
+                    PythonWrapper.Initialized = true;
+                    return true;
+                }
+                return false;
             }
 
             void TryConnectPipeClient()

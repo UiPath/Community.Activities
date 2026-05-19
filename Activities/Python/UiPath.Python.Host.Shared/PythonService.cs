@@ -8,6 +8,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using UiPath.Python.Service;
 using UiPath.Shared.Service;
 using System.Data;
@@ -33,7 +34,24 @@ namespace UiPath.Python.Host
 
         internal NamedPipeServerStream pipeServer { get; set; }
 
-        internal async void RunServer()
+        internal async Task RunServer(CancellationToken ct = default)
+        {
+            try
+            {
+                await RunServerCore(ct);
+            }
+            catch (OperationCanceledException) when (ct.IsCancellationRequested)
+            {
+                //expected on shutdown
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"PythonService.RunServer terminated unexpectedly: {ex}");
+                throw;
+            }
+        }
+
+        private async Task RunServerCore(CancellationToken ct)
         {
             PythonResponse response = new PythonResponse
             {
@@ -55,7 +73,7 @@ namespace UiPath.Python.Host
                 {
                     try
                     {
-                        var request = PythonRequest.Deserialize(await streamReader.ReadLineAsync());
+                        var request = PythonRequest.Deserialize(await streamReader.ReadLineAsync().WaitAsync(ct));
 
                         switch (request.RequestType)
                         {

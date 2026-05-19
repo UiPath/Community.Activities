@@ -140,5 +140,14 @@ namespace UiPath.Python.Properties {
                 return ResourceManager.GetString("UnsupportedVersionException", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The serialized Python argument exceeds the allowed payload threshold.
+        /// </summary>
+        public static string PayloadThresholdExceeded {
+            get {
+                return ResourceManager.GetString("PayloadThresholdExceeded", resourceCulture);
+            }
+        }
     }
 }
