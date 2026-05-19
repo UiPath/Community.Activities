@@ -1465,7 +1465,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password.
+        ///   Looks up a localized string similar to No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password.
         /// </summary>
         public static string NoValidAuthenticationMethod {
             get {
