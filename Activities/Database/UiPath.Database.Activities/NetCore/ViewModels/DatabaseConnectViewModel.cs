@@ -3,7 +3,7 @@ using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Security;
 using UiPath.Database.Activities.NetCore.ViewModels;
-using UiPath.Database.Activities.NetCore.ViewModels.Helpers;
+using UiPath.Shared.ViewModels.Helpers;
 using UiPath.Database.Activities.Properties;
 using UiPath.Database;
 
@@ -54,10 +54,15 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         /// </summary>
         public DesignOutArgument<DatabaseConnection> DatabaseConnection { get; set; } = new DesignOutArgument<DatabaseConnection>();
 
+        private DesignPropertyToggle<DesignInArgument<string>, DesignInArgument<SecureString>> _connectionToggle;
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            InitializeConnectionFields();
+
+            _connectionToggle = new DesignPropertyToggle<DesignInArgument<string>, DesignInArgument<SecureString>>(ConnectionString, ConnectionSecureString);
+            _connectionToggle.Initialize(showFirst: ConnectionSecureString.Value == null);
+
             PersistValuesChangedDuringInit();
 
             int propertyOrderIndex = 1;
@@ -89,28 +94,16 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             var useConnectionStringMenuAction = new MenuAction
             {
                 DisplayName = Resources.ConnectionStringMenuAction,
-                Handler = (_) => DesignPropertyHelpers.ToggleDesignProperties(ConnectionString, ConnectionSecureString)
+                Handler = (_) => _connectionToggle.ShowFirst()
             };
             var useConnectionSecureStringMenuAction = new MenuAction
             {
                 DisplayName = Resources.ConnectionSecureStringMenuAction,
-                Handler = (_) => DesignPropertyHelpers.ToggleDesignProperties(ConnectionSecureString, ConnectionString)
+                Handler = (_) => _connectionToggle.ShowSecond()
             };
 
             ConnectionString.AddMenuAction(useConnectionSecureStringMenuAction);
             ConnectionSecureString.AddMenuAction(useConnectionStringMenuAction);
-        }
-
-        private void InitializeConnectionFields()
-        {
-            if(ConnectionSecureString.Value != null)
-            {
-                DesignPropertyHelpers.ToggleDesignProperties(ConnectionSecureString, ConnectionString);
-            }
-            else
-            {
-                DesignPropertyHelpers.ToggleDesignProperties(ConnectionString, ConnectionSecureString);
-            }
         }
     }
 }
