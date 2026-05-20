@@ -129,6 +129,21 @@
   <data name="InstantiationException" xml:space="preserve">
     <value>Python instantiation exception</value>
   </data>
+  <data name="LoadException" xml:space="preserve">
+    <value>Python load script exception</value>
+  </data>
+  <data name="InvocationException" xml:space="preserve">
+    <value>Python method invocation exception</value>
+  </data>
+  <data name="ConversionException" xml:space="preserve">
+    <value>Python object conversion exception</value>
+  </data>
+  <data name="ExecutionException" xml:space="preserve">
+    <value>Python code execution exception</value>
+  </data>
+  <data name="RequestException" xml:space="preserve">
+    <value>Python request processing exception</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Python exe was not found</value>
   </data>

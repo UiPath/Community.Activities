@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -23,7 +23,7 @@ namespace UiPath.Shared.Service.Client
         internal bool Visible { get; set; } = true;
 
         internal string PythonHostLibFile { get; set; }
-        
+
         internal string PythonHostExeFile { get; set; }
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
@@ -41,30 +41,42 @@ namespace UiPath.Shared.Service.Client
 
         private void StartHostService()
         {
-            var isWindows = true;
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                isWindows = false;
-
             bool isExeMode = !PythonHostExeFile.IsNullOrEmpty();
             string hostFile = isExeMode ? PythonHostExeFile : PythonHostLibFile;
-
-            string folder = Path.GetDirectoryName(hostFile);
-            var hostFullPath = hostFile;
-            if (folder.IsNullOrEmpty())
-            {
-                if (isWindows)
-                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\", "\\bin\\");
-                else
-                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
-
-                hostFullPath = Path.Combine(folder, hostFile);
-            }
+            var (folder, hostFullPath) = ResolveHostFullPath(hostFile);
 
             if (!File.Exists(hostFullPath))
                 throw new Exception($"Process path not found: {hostFullPath}");
 
+            PythonWrapper.Proc = Process.Start(CreateProcessStartInfo(hostFullPath, folder, isExeMode));
+
+            // Note: event handlers must be subscribed before BeginOutputReadLine/BeginErrorReadLine,
+            // but both require the process to already be started — subscriptions cannot move before Process.Start.
+            PythonWrapper.Proc.OutputDataReceived += (_, e) => RelayHostOutput(e.Data, isStderr: false);
+            PythonWrapper.Proc.ErrorDataReceived += (_, e) => RelayHostOutput(e.Data, isStderr: true);
+            PythonWrapper.Proc.BeginOutputReadLine();
+            PythonWrapper.Proc.BeginErrorReadLine();
+
+            Retry(IsServiceReady, StartTimeout, RetryInterval);
+        }
+
+        private static (string folder, string hostFullPath) ResolveHostFullPath(string hostFile)
+        {
+            var folder = Path.GetDirectoryName(hostFile);
+            if (!folder.IsNullOrEmpty())
+                return (folder, hostFile);
+
+            var assemblyDir = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location);
+            var resolvedFolder = IsWindows()
+                ? assemblyDir.Replace("\\lib\\", "\\bin\\")
+                : assemblyDir.Replace("/lib/", "/bin/");
+            return (resolvedFolder, Path.Combine(resolvedFolder, hostFile));
+        }
+
+        private ProcessStartInfo CreateProcessStartInfo(string hostFullPath, string folder, bool isExeMode)
+        {
             // start the host process: directly via exe on x86, or via dotnet for the managed lib
-            ProcessStartInfo psi = new ProcessStartInfo()
+            var psi = new ProcessStartInfo
             {
                 UseShellExecute = false,
                 FileName = isExeMode ? hostFullPath : "dotnet",
@@ -75,76 +87,64 @@ namespace UiPath.Shared.Service.Client
             };
             if (!isExeMode)
                 psi.ArgumentList.Add(hostFullPath);
+            return psi;
+        }
 
-            PythonWrapper.Proc = Process.Start(psi);
+        private void RelayHostOutput(string data, bool isStderr)
+        {
+            if (data == null)
+                return;
 
-            PythonWrapper.Proc.OutputDataReceived += (s, e) =>
-            {
-                if (e.Data == null) return;
-                if (PythonWrapper.Initialized)
-                {
-                    if (PythonWrapper.LogTrace)
-                        Trace.TraceInformation($"[python.stdout] {e.Data}");
-                }
-                else
-                {
-                    PythonWrapper.AppendStdout(e.Data);
-                }
-            };
-            PythonWrapper.Proc.ErrorDataReceived += (s, e) =>
-            {
-                if (e.Data == null) return;
-                if (PythonWrapper.Initialized)
-                {
-                    if (PythonWrapper.LogTrace)
-                        Trace.TraceWarning($"[python.stderr] {e.Data}");
-                }
-                else
-                {
-                    PythonWrapper.AppendStderr(e.Data);
-                }
-            };
-            PythonWrapper.Proc.BeginOutputReadLine();
-            PythonWrapper.Proc.BeginErrorReadLine();
-            // Note: event handlers must be subscribed before BeginOutputReadLine/BeginErrorReadLine,
-            // but both require the process to already be started — subscriptions cannot move before Process.Start.
+            // Always buffer so ThrowIfProcessHasExited can surface the latest lines from the
+            // host, regardless of whether the crash happens during startup or steady-state.
+            if (isStderr)
+                PythonWrapper.AppendStderr(data);
+            else
+                PythonWrapper.AppendStdout(data);
 
-            Retry(ServiceReady, StartTimeout, RetryInterval);
+            // Trace-forward only after the service is initialized and tracing is enabled.
+            if (!PythonWrapper.Initialized || !PythonWrapper.LogTrace)
+                return;
 
-            // wait for service to become available
-            bool ServiceReady()
-            {
-                PythonWrapper.ThrowIfProcessHasExited();
+            if (isStderr)
+                Trace.TraceWarning($"[python.stderr] {data}");
+            else
+                Trace.TraceInformation($"[python.stdout] {data}");
+        }
 
-                //for some edge case - check if the process has the id set               
-                if (!PythonWrapper.GetHostProcessId(out var processId))
-                    return false;
+        // wait for service to become available
+        private bool IsServiceReady()
+        {
+            PythonWrapper.ThrowIfProcessHasExited();
 
-                PythonWrapper.Pipe ??= new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
-
-                TryConnectPipeClient();
-
-                if (PythonWrapper.Pipe.IsConnected)
-                {
-                    PythonWrapper.Initialized = true;
-                    return true;
-                }
+            //for some edge case - check if the process has the id set
+            if (!PythonWrapper.GetHostProcessId(out var processId))
                 return false;
-            }
 
-            void TryConnectPipeClient()
+            PythonWrapper.Pipe ??= new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
+            TryConnectPipeClient();
+
+            if (!PythonWrapper.Pipe.IsConnected)
+                return false;
+
+            PythonWrapper.Initialized = true;
+            return true;
+        }
+
+        private void TryConnectPipeClient()
+        {
+            try
             {
-                try
-                {
-                    PythonWrapper.Pipe.Connect(PipeConnectionTimeoutMs);
-                }
-                catch
-                {
-                    //In case of exception we are going to retry to connect next time
-                    //On timeout, if failure persists exception will be thrown
-                }
+                PythonWrapper.Pipe.Connect(PipeConnectionTimeoutMs);
+            }
+            catch
+            {
+                //In case of exception we are going to retry to connect next time
+                //On timeout, if failure persists exception will be thrown
             }
         }
+
+        private static bool IsWindows() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         private static void Retry(Func<bool> checkFunction, TimeSpan timeout, TimeSpan retryInterval)
         {

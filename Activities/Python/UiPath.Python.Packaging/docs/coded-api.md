@@ -175,6 +175,8 @@ Options for configuring a Python scope passed to `UsePythonScope`.
 | `WorkingFolder` | `string` | — | Working directory for the Python process. Relative imports in scripts resolve from this path. |
 | `OperationTimeout` | `TimeSpan?` | `null` (1 hour) | Maximum time to wait for Python operations to complete. When `null`, defaults to 1 hour. |
 | `Target` | `TargetPlatform` | `TargetPlatform.x64` | CPU architecture of the Python engine. Set to `TargetPlatform.x86` only when using a 32-bit Python installation (e.g., legacy native-DLL bindings that require a 32-bit host). |
+| `LogTraces` | `bool` | `false` | When `true`, stdout/stderr from the Python host process is written to a per-host diagnostic log file under `%LOCALAPPDATA%\UiPath\Logs\python`. Output is NOT forwarded to Orchestrator — intended for local diagnosis only. |
+| `ScriptDataSizeLimitMB` | `int?` | `null` (25 MB) | Maximum request payload size in megabytes sent to the Python host. When `null`, defaults to the engine default (25 MB). Must be at least 1 if specified. |
 
 ---
 

@@ -322,12 +322,12 @@
     <value>Maximum size in MB of the data passed to the Python script as method arguments. If the size of the arguments exceeds this limit, an error is raised. Minimum accepted value is 1 MB. Leave empty to use the default (25 MB).</value>
   </data>
   <data name="LogTracesDisplayName" xml:space="preserve">
-    <value>Log Python Traces</value>
+    <value>Log Python Output to File (Diagnostic)</value>
   </data>
   <data name="LogTracesDescription" xml:space="preserve">
-    <value>When enabled, stdout and stderr output from the Python host process are forwarded to Robot tracing after the scope is initialized.</value>
+    <value>When enabled, stdout and stderr output from the Python host process is written to a per-host log file at %LOCALAPPDATA%\UiPath\Logs\python. The output is NOT forwarded to Orchestrator. Intended for local diagnosis only — leave disabled in production to avoid creating log files.</value>
   </data>
   <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
-    <value>Script Data Size Limit (MB) must be at least 1 (1 MB minimum).</value>
+    <value>Script Data Size Limit (MB) must be at least {0}.</value>
   </data>
 </root>

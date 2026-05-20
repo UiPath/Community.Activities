@@ -121,8 +121,8 @@ namespace UiPath.Python.Activities
                 metadata.AddValidationError(new ValidationError(Resources.ValidationErrorVersionUnsupported, false, nameof(Version)));
             if (Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
                 metadata.AddValidationError(new ValidationError(Resources.ValidationErrorPlatformUnsupported, false, nameof(Version)));
-            if (ScriptDataSizeLimitMB?.Expression is Literal<int> literal && literal.Value < 1)
-                metadata.AddValidationError(new ValidationError(Resources.ValidationErrorScriptDataSizeLimitInvalid, false, nameof(ScriptDataSizeLimitMB)));
+            if (ScriptDataSizeLimitMB?.Expression is Literal<int> literal && literal.Value < EngineProvider.MinPayloadThresholdMB)
+                metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorScriptDataSizeLimitInvalid, EngineProvider.MinPayloadThresholdMB), false, nameof(ScriptDataSizeLimitMB)));
         }
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
@@ -150,8 +150,8 @@ namespace UiPath.Python.Activities
                     throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
 
                 int payloadThresholdMB = ScriptDataSizeLimitMB?.Expression != null ? ScriptDataSizeLimitMB.Get(context) : EngineProvider.DefaultPayloadThresholdMB;
-                if (payloadThresholdMB < 1)
-                    throw new ArgumentException(Resources.ValidationErrorScriptDataSizeLimitInvalid, nameof(ScriptDataSizeLimitMB));
+                if (payloadThresholdMB < EngineProvider.MinPayloadThresholdMB)
+                    throw new ArgumentException(string.Format(Resources.ValidationErrorScriptDataSizeLimitInvalid, EngineProvider.MinPayloadThresholdMB));
 
                 _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole, LogTraces, payloadThresholdMB);
 

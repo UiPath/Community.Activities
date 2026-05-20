@@ -11,15 +11,16 @@ namespace UiPath.Python.Activities.API
 {
     internal class PythonService : IPythonService
     {
-        private readonly Func<Version, string, string, bool, TargetPlatform, bool, IEngine> _engineFactory;
+        private readonly Func<Version, string, string, bool, TargetPlatform, bool, bool, int, IEngine> _engineFactory;
 
         public PythonService()
-            : this((version, path, libraryPath, x, target, y) => EngineProvider.Get(version, path, libraryPath, x, target, y))
+            : this((version, path, libraryPath, inProcess, target, visible, logTrace, payloadThresholdMB) =>
+                EngineProvider.Get(version, path, libraryPath, inProcess, target, visible, logTrace, payloadThresholdMB))
         {
         }
 
         // For testing: allows injecting a fake IEngine without a real Python installation.
-        internal PythonService(Func<Version, string, string, bool, TargetPlatform, bool, IEngine> engineFactory)
+        internal PythonService(Func<Version, string, string, bool, TargetPlatform, bool, bool, int, IEngine> engineFactory)
         {
             _engineFactory = engineFactory;
         }
@@ -43,6 +44,9 @@ namespace UiPath.Python.Activities.API
             if (options.OperationTimeout.HasValue && options.OperationTimeout.Value < TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(options), "OperationTimeout must be non-negative.");
 
+            if (options.ScriptDataSizeLimitMB.HasValue && options.ScriptDataSizeLimitMB.Value < EngineProvider.MinPayloadThresholdMB)
+                throw new ArgumentOutOfRangeException(nameof(options), $"ScriptDataSizeLimitMB must be at least {EngineProvider.MinPayloadThresholdMB}.");
+
             string workingFolder = options.WorkingFolder;
             if (!string.IsNullOrWhiteSpace(workingFolder))
             {
@@ -55,7 +59,8 @@ namespace UiPath.Python.Activities.API
 
             var operationTimeout = (options.OperationTimeout ?? TimeSpan.FromHours(1)).TotalSeconds;
 
-            IEngine engine = _engineFactory(options.Version, path, options.LibraryPath, false, options.Target, false);
+            int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;
+            IEngine engine = _engineFactory(options.Version, path, options.LibraryPath, false, options.Target, false, options.LogTraces, payloadThresholdMB);
 
             try
             {

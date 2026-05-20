@@ -19,8 +19,8 @@ namespace UiPath.Python.Impl
         private TargetPlatform _target;
 
         private bool _visible;
-        private bool _logTrace;
-        private int _payloadThresholdMB;
+        private readonly bool _logTrace;
+        private readonly int _payloadThresholdMB;
 
         #region Runtime info
 
@@ -61,8 +61,10 @@ namespace UiPath.Python.Impl
                 Visible = _visible
             };
 
-            _provider.Create();
+            // Set LogTrace before Create() so the diagnostic file (if enabled) captures
+            // host startup output too, not just lines after the service is ready.
             _provider.PythonWrapper.LogTrace = _logTrace;
+            _provider.Create();
             _proxy = new PythonProxy(_provider.PythonWrapper, timeout, ct, _payloadThresholdMB);
             _proxy.Initialize(_path, _libraryPath, _version, workingFolder);
 

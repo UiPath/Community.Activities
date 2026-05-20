@@ -17,12 +17,21 @@ namespace UiPath.Python.Host
             AppDomain.CurrentDomain.ProcessExit += Application_ApplicationExit;
 
             _service = new PythonService();
-            _ = _service.RunServer(_cts.Token);
+            var serverTask = _service.RunServer(_cts.Token);
 
-            //Console.ReadLine can throw under some unknown circumstances
-            //Simulate waiting for key by sleeping forever
-            //https://forum.uipath.com/t/python-scope-throws-an-error-on-the-latest-uipath-python-activities-1-9-0-and-net8/2752619/6
-            Thread.Sleep(Timeout.Infinite);
+            try
+            {
+                // Block until the server stops. If RunServer throws an unexpected exception it will
+                // propagate here and terminate the host process, which is preferable to leaving a
+                // live-but-non-serving process that the client stays connected to indefinitely.
+                serverTask.GetAwaiter().GetResult();
+            }
+            finally
+            {
+                // Unhook before disposing so a late ProcessExit callback can't touch a disposed CTS.
+                AppDomain.CurrentDomain.ProcessExit -= Application_ApplicationExit;
+                _cts.Dispose();
+            }
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e)

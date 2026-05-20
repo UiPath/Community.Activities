@@ -95,7 +95,52 @@ namespace UiPath.Python.Properties {
                 return ResourceManager.GetString("InstantiationException", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Python load script exception.
+        /// </summary>
+        public static string LoadException {
+            get {
+                return ResourceManager.GetString("LoadException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Python method invocation exception.
+        /// </summary>
+        public static string InvocationException {
+            get {
+                return ResourceManager.GetString("InvocationException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Python object conversion exception.
+        /// </summary>
+        public static string ConversionException {
+            get {
+                return ResourceManager.GetString("ConversionException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Python code execution exception.
+        /// </summary>
+        public static string ExecutionException {
+            get {
+                return ResourceManager.GetString("ExecutionException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Python request processing exception.
+        /// </summary>
+        public static string RequestException {
+            get {
+                return ResourceManager.GetString("RequestException", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Python exe was not found.
         /// </summary>

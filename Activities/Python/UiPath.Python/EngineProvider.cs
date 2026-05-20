@@ -15,6 +15,7 @@ namespace UiPath.Python
     public static class EngineProvider
     {
         public const int DefaultPayloadThresholdMB = 25;
+        public const int MinPayloadThresholdMB = 1;
 
         private const string PythonHomeEnv = "PYTHONHOME";
         private static readonly string[] PythonExeWin = ["python.exe", "python3.exe"];

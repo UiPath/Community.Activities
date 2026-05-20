@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Pipes;
 using System.Diagnostics;
 using System.Threading;
@@ -8,7 +9,7 @@ namespace UiPath.Shared.Service.Client
 {
     internal class HostWrapper : IDisposable
     {
-        private const int MaxBufferedLines = 100;
+        private const int MaxBufferedLines = 512;
 
         private bool _disposed;
 
@@ -16,6 +17,7 @@ namespace UiPath.Shared.Service.Client
 
         private readonly object _outputLock = new object();
         private readonly object _errorLock = new object();
+        private readonly object _logFileLock = new object();
 
         private readonly Queue<string> _stdoutBuffer = new Queue<string>(MaxBufferedLines + 1);
         private readonly Queue<string> _stderrBuffer = new Queue<string>(MaxBufferedLines + 1);
@@ -23,8 +25,12 @@ namespace UiPath.Shared.Service.Client
         private int _logTrace = 0;
         private int _initialized = 0;
 
+        private StreamWriter _logFile;
+        private bool _logFileOpenAttempted;
+
         /// <summary>
-        /// When true, output and error lines received after initialization are forwarded to Trace.
+        /// When true, stdout/stderr lines are written to a per-host diagnostic log file in the
+        /// local UiPath logs folder. Intended for diagnosis only — does NOT flow to Orchestrator.
         /// </summary>
         internal bool LogTrace
         {
@@ -34,7 +40,6 @@ namespace UiPath.Shared.Service.Client
 
         /// <summary>
         /// Set to true by Controller once the service is ready.
-        /// Switches event handlers from buffering mode to trace-logging mode.
         /// </summary>
         internal bool Initialized
         {
@@ -54,6 +59,7 @@ namespace UiPath.Shared.Service.Client
                 if (_stdoutBuffer.Count > MaxBufferedLines)
                     _stdoutBuffer.Dequeue();
             }
+            TryAppendToLogFile("stdout", line);
         }
 
         internal void AppendStderr(string line)
@@ -64,6 +70,7 @@ namespace UiPath.Shared.Service.Client
                 if (_stderrBuffer.Count > MaxBufferedLines)
                     _stderrBuffer.Dequeue();
             }
+            TryAppendToLogFile("stderr", line);
         }
 
         public void Dispose()
@@ -100,6 +107,13 @@ namespace UiPath.Shared.Service.Client
                 _stdoutBuffer.Clear();
             lock (_errorLock)
                 _stderrBuffer.Clear();
+
+            lock (_logFileLock)
+            {
+                try { _logFile?.Dispose(); }
+                catch { /* best-effort */ }
+                _logFile = null;
+            }
         }
 
         internal bool HostProcessHasExited()
@@ -146,8 +160,81 @@ namespace UiPath.Shared.Service.Client
                 lock (_errorLock)
                     error = string.Join(Environment.NewLine, _stderrBuffer);
 
-                throw new Exception($"Host process has exited!\n latest output: {output} \n latest error: {error} \n");
+                throw new InvalidOperationException($"Host process has exited!\n latest output: {output} \n latest error: {error} \n");
             }
+        }
+
+        // Opens the diagnostic log file on first call when LogTrace is enabled and the host
+        // PID is known. Subsequent calls reuse the same writer. On any IO failure the writer
+        // is disposed and file logging is permanently disabled for this host's lifetime —
+        // we don't want a logging issue to take the scope down.
+        private void TryAppendToLogFile(string stream, string line)
+        {
+            if (!LogTrace) return;
+
+            lock (_logFileLock)
+            {
+                if (_logFile == null)
+                {
+                    if (_logFileOpenAttempted) return;
+                    _logFileOpenAttempted = true;
+                    _logFile = OpenDiagnosticLogFile();
+                    if (_logFile == null) return;
+                }
+
+                try
+                {
+                    _logFile.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [{stream}] {line}");
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceWarning($"Disabling Python host diagnostic log after write failure: {ex.Message}");
+                    try { _logFile.Dispose(); } catch { /* best-effort */ }
+                    _logFile = null;
+                }
+            }
+        }
+
+        private StreamWriter OpenDiagnosticLogFile()
+        {
+            try
+            {
+                var pid = Proc?.Id ?? 0;
+                if (pid == 0)
+                {
+                    // host PID not assigned yet — try again on the next line
+                    _logFileOpenAttempted = false;
+                    return null;
+                }
+
+                var dir = ResolveUiPathLogsFolder();
+                Directory.CreateDirectory(dir);
+
+                var path = Path.Combine(dir, $"python-host-{DateTime.Now:yyyy-MM-ddTHHmmss}-{pid}.log");
+                return new StreamWriter(path, append: false) { AutoFlush = true };
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceWarning($"Could not open Python host diagnostic log: {ex.Message}");
+                return null;
+            }
+        }
+
+        // Test/integration hook: when set, this folder is used as the base. Tests should set
+        // this in initialization and reset to null on teardown. The "python" subfolder is
+        // still appended on top.
+        internal static string LogsFolderOverride { get; set; }
+
+        // Resolves the folder where Python host diagnostic logs are written: the standard
+        // Studio/Robot log folder + "python" subfolder. Base folder is LogsFolderOverride
+        // when set, otherwise %LOCALAPPDATA%\UiPath\Logs.
+        private static string ResolveUiPathLogsFolder()
+        {
+            var baseFolder = LogsFolderOverride
+                          ?? Path.Combine(
+                                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                 "UiPath", "Logs");
+            return Path.Combine(baseFolder, "python");
         }
     }
 }
