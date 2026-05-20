@@ -227,7 +227,7 @@ namespace UiPath.Shared.Service.Client
 
         // Resolves the folder where Python host diagnostic logs are written: the standard
         // Studio/Robot log folder + "python" subfolder. Base folder is LogsFolderOverride
-        // when set, otherwise %LOCALAPPDATA%\UiPath\Logs.
+        // when set, otherwise Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)\UiPath\Logs.
         private static string ResolveUiPathLogsFolder()
         {
             var baseFolder = LogsFolderOverride

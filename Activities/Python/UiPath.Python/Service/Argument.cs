@@ -71,7 +71,7 @@ namespace UiPath.Python.Service
             {
                 return WrapDictionary(dict);
             }
-            if (obj is IEnumerable enumerable && !(obj is string))
+            if (obj is IEnumerable enumerable && !(obj is string) && TryGetEnumerableElementType(type, out _))
             {
                 return WrapEnumerable(enumerable);
             }
