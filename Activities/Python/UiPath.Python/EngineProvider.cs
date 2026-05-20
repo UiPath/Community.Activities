@@ -65,6 +65,35 @@ namespace UiPath.Python
             return engine;
         }
 
+        /// <summary>
+        /// Resolves the version the engine will actually run with. Calls <see cref="Autodetect"/>
+        /// at most once.
+        /// <para>
+        /// When <paramref name="selected"/> is non-Auto, autodetect runs to give callers a value
+        /// to verify the user's choice against; any failure (e.g. no Python exe at
+        /// <paramref name="path"/>) is propagated.
+        /// </para>
+        /// <para>
+        /// When <paramref name="selected"/> is Auto, autodetect is best-effort; failures leave
+        /// <paramref name="autodetected"/> as <see cref="Version.Auto"/> and the caller's checks
+        /// should no-op.
+        /// </para>
+        /// </summary>
+        public static Version ResolveEffectiveVersion(Version selected, string path, out Version autodetected)
+        {
+            autodetected = Version.Auto;
+            if (string.IsNullOrWhiteSpace(path)) return selected;
+            try
+            {
+                Autodetect(path, out autodetected);
+            }
+            catch
+            {
+                if (selected != Version.Auto) throw;
+            }
+            return selected != Version.Auto ? selected : autodetected;
+        }
+
         public static void Autodetect(string path, out Version version)
         {
             version = Version.Auto;

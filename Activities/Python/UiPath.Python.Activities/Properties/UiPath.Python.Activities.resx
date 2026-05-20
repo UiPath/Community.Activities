@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>The specified Python path is not valid: {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Error invoking Python method</value>
   </data>

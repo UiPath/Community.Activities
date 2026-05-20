@@ -194,6 +194,15 @@ namespace UiPath.Python.Activities.Properties {
                 return ResourceManager.GetString("InvalidPathException", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}.
+        /// </summary>
+        public static string InvalidLibraryPathException {
+            get {
+                return ResourceManager.GetString("InvalidLibraryPathException", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Selected version {0} is different from the version found {1}.

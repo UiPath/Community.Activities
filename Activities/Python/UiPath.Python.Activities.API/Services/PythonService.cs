@@ -59,6 +59,29 @@ namespace UiPath.Python.Activities.API
 
             var operationTimeout = (options.OperationTimeout ?? TimeSpan.FromHours(1)).TotalSeconds;
 
+            // Resolve the version the engine will actually run with, before initializing it,
+            // so version mismatches and the Python 3.10 library-path requirement can be
+            // reported with clear errors instead of opaque native-load failures.
+            var effectiveVersion = EngineProvider.ResolveEffectiveVersion(options.Version, path, out var autodetected);
+
+            if (options.Version != Version.Auto && autodetected != Version.Auto)
+            {
+                if (!VersionExtensions.GetSupportedVersions().Contains(autodetected))
+                    throw new InvalidOperationException($"Python version '{autodetected}' is not supported.");
+                if (autodetected != options.Version)
+                    throw new InvalidOperationException(
+                        $"Python version mismatch: expected '{options.Version.ToFriendlyString()}' but found '{autodetected.ToFriendlyString()}' at path '{path}'.");
+            }
+
+            // Python 3.10 requires an explicit library file (python**.dll on Windows,
+            // libpython*.so on Linux).
+            if (effectiveVersion == Version.Python_310 &&
+                (string.IsNullOrWhiteSpace(options.LibraryPath) || !File.Exists(options.LibraryPath)))
+            {
+                throw new FileNotFoundException(
+                    $"The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {options.LibraryPath}");
+            }
+
             int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;
             IEngine engine = _engineFactory(options.Version, path, options.LibraryPath, false, options.Target, false, options.LogTraces, payloadThresholdMB);
 

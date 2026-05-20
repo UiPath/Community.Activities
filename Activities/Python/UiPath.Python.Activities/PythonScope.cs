@@ -153,20 +153,28 @@ namespace UiPath.Python.Activities
                 if (payloadThresholdMB < EngineProvider.MinPayloadThresholdMB)
                     throw new ArgumentException(string.Format(Resources.ValidationErrorScriptDataSizeLimitInvalid, EngineProvider.MinPayloadThresholdMB));
 
+                // Resolve the version the engine will actually run with, before initializing
+                // it, so version mismatches and the Python 3.10 library-path requirement can
+                // be reported with clear errors instead of opaque native-load failures.
+                var effectiveVersion = EngineProvider.ResolveEffectiveVersion(Version, path, out var autodetected);
+
+                if (Version != Version.Auto && autodetected != Version.Auto)
+                {
+                    if (!VersionExtensions.GetSupportedVersions().Contains(autodetected))
+                        throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
+                    if (autodetected != Version)
+                        throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
+                }
+
+                // Python 3.10 requires an explicit library file (python**.dll on Windows,
+                // libpython*.so on Linux).
+                if (effectiveVersion == Version.Python_310 && (libraryPath.IsNullOrEmpty() || !File.Exists(libraryPath)))
+                    throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, libraryPath));
+
                 _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole, LogTraces, payloadThresholdMB);
 
                 if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
                     throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
-
-                if (Version != Version.Auto)
-                {
-                    Version autodetected = Version.Auto;
-                    EngineProvider.Autodetect(path, out autodetected);
-                    if (autodetected != Version.Auto && !VersionExtensions.GetSupportedVersions().Contains(autodetected))
-                        throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
-                    if (autodetected != Version.Auto && autodetected != Version)
-                        throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
-                }
 
                 var workingFolder = WorkingFolder.Get(context);
                 if (!workingFolder.IsNullOrEmpty())
