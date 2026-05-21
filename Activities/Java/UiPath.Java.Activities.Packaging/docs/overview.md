@@ -19,4 +19,4 @@ Reference documentation for Java XAML activities in the Java package.
 
 ## Platform
 
-All activities in this package are Windows only.
+All activities in this package are cross-platform.

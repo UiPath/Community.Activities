@@ -7,7 +7,7 @@ Gets a field value from a Java object instance or from a static Java class field
 **Package:** `UiPath.Java.Activities`
 **Category:** Java
 **Required Scope:** `UiPath.Java.Activities.JavaScope`
-**Platform:** Windows only
+**Platform:** Cross-platform
 
 ## Properties
 
