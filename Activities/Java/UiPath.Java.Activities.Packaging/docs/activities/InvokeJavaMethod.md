@@ -7,7 +7,7 @@ Invokes a Java method on an instance object or as a static class method, with op
 **Package:** `UiPath.Java.Activities`
 **Category:** Java
 **Required Scope:** `UiPath.Java.Activities.JavaScope`
-**Platform:** Windows only
+**Platform:** Cross-platform
 
 ## Properties
 
