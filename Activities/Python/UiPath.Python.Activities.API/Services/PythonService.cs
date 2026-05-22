@@ -83,7 +83,7 @@ namespace UiPath.Python.Activities.API
             }
 
             int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;
-            IEngine engine = _engineFactory(options.Version, path, options.LibraryPath, false, options.Target, false, options.LogTraces, payloadThresholdMB);
+            IEngine engine = _engineFactory(effectiveVersion, path, options.LibraryPath, false, options.Target, false, options.LogTraces, payloadThresholdMB);
 
             try
             {

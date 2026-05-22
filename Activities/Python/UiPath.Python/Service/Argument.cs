@@ -25,6 +25,11 @@ namespace UiPath.Python.Service
 
         public object Unwrap()
         {
+            if (_wrappedValue == null)
+            {
+                return null;
+            }
+
             Type type = Type.GetType(_typeName);
             Debug.Assert(null != type);
 
@@ -137,7 +142,15 @@ namespace UiPath.Python.Service
 
         private static object ChangeTypeOrNull(object value, Type targetType)
         {
-            return value == null ? null : Convert.ChangeType(value, targetType);
+            if (value == null)
+            {
+                return null;
+            }
+            if (targetType == typeof(object) || targetType.IsAssignableFrom(value.GetType()))
+            {
+                return value;
+            }
+            return Convert.ChangeType(value, targetType);
         }
 
         private static bool TryGetEnumerableElementType(Type type, out Type elementType)

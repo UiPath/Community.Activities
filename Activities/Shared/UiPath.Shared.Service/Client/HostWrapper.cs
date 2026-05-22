@@ -266,7 +266,7 @@ namespace UiPath.Shared.Service.Client
         }
 
         // Test/integration hook: when set, this folder is used as the base.
-        // this in initialization and reset to null on teardown. The "python" subfolder is
+        // Set this during initialization and reset it to null on teardown. The "python" subfolder is
         // still appended on top.
         internal static string LogsFolderOverride { get; set; }
 
