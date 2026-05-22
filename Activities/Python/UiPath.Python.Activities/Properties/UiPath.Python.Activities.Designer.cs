@@ -286,7 +286,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When enabled, stdout and stderr output from the Python host process is written to a per-host log file under the folder resolved by Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), in the UiPath\Logs\python subdirectory. The output is NOT forwarded to Orchestrator. Intended for local diagnosis only — leave disabled in production to avoid creating log files..
+        ///   Looks up a localized string similar to When enabled, stdout and stderr output from the Python host process is written to a per-host log file under the folder resolved by Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), in the UiPath\Logs\python subdirectory. Each log file is capped at 50 MB; once the cap is reached, no further output is written to that file. At most 128 log files are kept — the oldest are automatically deleted when a new file is created. The output is NOT forwarded to Orchestrator. Intended for local di [rest of string was truncated]&quot;;.
         /// </summary>
         public static string LogTracesDescription {
             get {

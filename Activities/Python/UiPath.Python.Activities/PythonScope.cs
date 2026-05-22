@@ -171,10 +171,10 @@ namespace UiPath.Python.Activities
                 if (effectiveVersion == Version.Python_310 && (libraryPath.IsNullOrEmpty() || !File.Exists(libraryPath)))
                     throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, libraryPath));
 
-                _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole, LogTraces, payloadThresholdMB);
-
-                if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
+                if (effectiveVersion == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
                     throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
+
+                _pythonEngine = EngineProvider.Get(effectiveVersion, path, libraryPath, !Isolated, TargetPlatform, ShowConsole, LogTraces, payloadThresholdMB);
 
                 var workingFolder = WorkingFolder.Get(context);
                 if (!workingFolder.IsNullOrEmpty())

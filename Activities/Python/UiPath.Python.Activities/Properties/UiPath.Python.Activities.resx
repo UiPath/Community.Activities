@@ -328,7 +328,7 @@
     <value>Log Python Output to File (Diagnostic)</value>
   </data>
   <data name="LogTracesDescription" xml:space="preserve">
-    <value>When enabled, stdout and stderr output from the Python host process is written to a per-host log file under the folder resolved by Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), in the UiPath\Logs\python subdirectory. The output is NOT forwarded to Orchestrator. Intended for local diagnosis only — leave disabled in production to avoid creating log files.</value>
+    <value>When enabled, stdout and stderr output from the Python host process is written to a per-host log file under the folder resolved by Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), in the UiPath\Logs\python subdirectory. Each log file is capped at 50 MB; once the cap is reached, no further output is written to that file. At most 128 log files are kept — the oldest are automatically deleted when a new file is created. The output is NOT forwarded to Orchestrator. Intended for local diagnosis only — leave disabled in production to avoid accumulating log files.</value>
   </data>
   <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
     <value>Script Data Size Limit (MB) must be at least {0}.</value>

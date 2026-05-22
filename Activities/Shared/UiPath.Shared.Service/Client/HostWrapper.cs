@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 
 namespace UiPath.Shared.Service.Client
@@ -10,6 +11,10 @@ namespace UiPath.Shared.Service.Client
     internal class HostWrapper : IDisposable
     {
         private const int MaxBufferedLines = 512;
+        private const long LogFileSizeCapBytes = 50 * 1024 * 1024; // 50 MB
+        private const int MaxLogFileCount = 128;
+
+        private static readonly object _logFileCleanupLock = new object();
 
         private bool _disposed;
 
@@ -184,6 +189,14 @@ namespace UiPath.Shared.Service.Client
 
                 try
                 {
+                    if (_logFile.BaseStream.Position >= LogFileSizeCapBytes)
+                    {
+                        Trace.TraceInformation("Python host diagnostic log reached size cap; disabling further writes.");
+                        try { _logFile.Dispose(); } catch { /* best-effort */ }
+                        _logFile = null;
+                        return;
+                    }
+
                     _logFile.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [{stream}] {line}");
                 }
                 catch (Exception ex)
@@ -209,6 +222,7 @@ namespace UiPath.Shared.Service.Client
 
                 var dir = ResolveUiPathLogsFolder();
                 Directory.CreateDirectory(dir);
+                EnforceLogFileRetention(dir);
 
                 var path = Path.Combine(dir, $"python-host-{DateTime.Now:yyyy-MM-ddTHHmmss}-{pid}.log");
                 return new StreamWriter(path, append: false) { AutoFlush = true };
@@ -220,7 +234,38 @@ namespace UiPath.Shared.Service.Client
             }
         }
 
-        // Test/integration hook: when set, this folder is used as the base. Tests should set
+        // Deletes the oldest python-host-*.log files beyond MaxLogFileCount.
+        // Uses a static lock so concurrent sessions don't race destructively — worst case
+        // two sessions each open one new file while the other is sweeping, which is benign.
+        private static void EnforceLogFileRetention(string dir)
+        {
+            lock (_logFileCleanupLock)
+            {
+                try
+                {
+                    var files = new DirectoryInfo(dir)
+                        .GetFiles("python-host-*.log");
+
+                    // Timestamp prefix makes lexicographic name sort equivalent to age sort.
+                    Array.Sort(files, (a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
+
+                    for (int i = 0; i < files.Length - MaxLogFileCount; i++)
+                    {
+                        try { files[i].Delete(); }
+                        catch (Exception ex)
+                        {
+                            Trace.TraceWarning($"Could not delete old Python host log '{files[i].Name}': {ex.Message}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceWarning($"Could not enforce Python host log retention: {ex.Message}");
+                }
+            }
+        }
+
+        // Test/integration hook: when set, this folder is used as the base.
         // this in initialization and reset to null on teardown. The "python" subfolder is
         // still appended on top.
         internal static string LogsFolderOverride { get; set; }

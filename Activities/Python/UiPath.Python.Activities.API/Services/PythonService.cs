@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python;
 using UiPath.Python.Activities.API.Models;
+using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
 namespace UiPath.Python.Activities.API
 {
@@ -39,7 +40,7 @@ namespace UiPath.Python.Activities.API
                 throw new DirectoryNotFoundException($"Python path not found: {path}");
 
             if (!VersionExtensions.GetSupportedVersions().Contains(options.Version))
-                throw new InvalidOperationException($"Python version '{options.Version}' is not supported.");
+                throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
 
             if (options.OperationTimeout.HasValue && options.OperationTimeout.Value < TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(options), "OperationTimeout must be non-negative.");
@@ -67,10 +68,10 @@ namespace UiPath.Python.Activities.API
             if (options.Version != Version.Auto && autodetected != Version.Auto)
             {
                 if (!VersionExtensions.GetSupportedVersions().Contains(autodetected))
-                    throw new InvalidOperationException($"Python version '{autodetected}' is not supported.");
+                    throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
                 if (autodetected != options.Version)
                     throw new InvalidOperationException(
-                        $"Python version mismatch: expected '{options.Version.ToFriendlyString()}' but found '{autodetected.ToFriendlyString()}' at path '{path}'.");
+                        string.Format(Resources.InvalidVersionException, options.Version.ToFriendlyString(), autodetected.ToFriendlyString()));
             }
 
             // Python 3.10 requires an explicit library file (python**.dll on Windows,
@@ -78,8 +79,7 @@ namespace UiPath.Python.Activities.API
             if (effectiveVersion == Version.Python_310 &&
                 (string.IsNullOrWhiteSpace(options.LibraryPath) || !File.Exists(options.LibraryPath)))
             {
-                throw new FileNotFoundException(
-                    $"The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {options.LibraryPath}");
+                throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, options.LibraryPath));
             }
 
             int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;

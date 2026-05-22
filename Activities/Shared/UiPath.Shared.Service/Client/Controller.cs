@@ -50,8 +50,8 @@ namespace UiPath.Shared.Service.Client
 
             PythonWrapper.Proc = Process.Start(CreateProcessStartInfo(hostFullPath, folder, isExeMode));
 
-            // Note: event handlers must be subscribed before BeginOutputReadLine/BeginErrorReadLine,
-            // but both require the process to already be started — subscriptions cannot move before Process.Start.
+            // Subscribe before BeginOutputReadLine/BeginErrorReadLine — these handlers drive the
+            // diagnostic log and the post-mortem buffer surfaced by ThrowIfProcessHasExited.
             PythonWrapper.Proc.OutputDataReceived += (_, e) => RelayHostOutput(e.Data, isStderr: false);
             PythonWrapper.Proc.ErrorDataReceived += (_, e) => RelayHostOutput(e.Data, isStderr: true);
             PythonWrapper.Proc.BeginOutputReadLine();
