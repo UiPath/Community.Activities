@@ -43,7 +43,7 @@ namespace UiPath.Python.Service
                 return UnwrapArray(type, (Array)_wrappedValue);
             }
 
-            if (_wrappedValue is Array array)
+            if (!type.IsArray && _wrappedValue is Array array)
             {
                 if (TryGetDictionaryKeyValueTypes(type, out Type keyType, out Type valueType))
                 {
@@ -51,12 +51,12 @@ namespace UiPath.Python.Service
                 }
                 if (TryGetEnumerableElementType(type, out Type elementType))
                 {
-                    return UnwrapList(array, elementType);
+                    return UnwrapEnumerable(type, array, elementType);
                 }
             }
 
             // fix for Json serialize issue (ex: byte -> int)
-            if (type != _wrappedValue.GetType())
+            if (!type.IsArray && type != _wrappedValue.GetType())
             {
                 _wrappedValue = Convert.ChangeType(_wrappedValue, type);
             }
@@ -130,14 +130,69 @@ namespace UiPath.Python.Service
             return typedDict;
         }
 
-        private static IList UnwrapList(Array items, Type elementType)
+        private static object UnwrapEnumerable(Type targetType, Array items, Type elementType)
         {
-            var typedList = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType));
+            Type listOfT = typeof(List<>).MakeGenericType(elementType);
+
+            if (targetType.IsInterface || targetType == listOfT)
+            {
+                return BuildTypedList(items, elementType, listOfT);
+            }
+
+            Type ienumerableOfT = typeof(IEnumerable<>).MakeGenericType(elementType);
+
+            // Stack<T> enumerates top-first, but Stack<T>(IEnumerable<T>) preserves iteration
+            // order — round-tripping through it would invert Pop ordering. Reverse so the
+            // rebuilt Stack pops elements in the same order as the original.
+            if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Stack<>))
+            {
+                var reversed = (IList)Activator.CreateInstance(listOfT);
+                for (int i = items.Length - 1; i >= 0; i--)
+                {
+                    reversed.Add(ChangeTypeOrNull(items.GetValue(i), elementType));
+                }
+                var stackCtor = targetType.GetConstructor(new[] { ienumerableOfT });
+                if (stackCtor != null)
+                {
+                    return stackCtor.Invoke(new object[] { reversed });
+                }
+            }
+
+            var ctorIenum = targetType.GetConstructor(new[] { ienumerableOfT });
+            if (ctorIenum != null)
+            {
+                return ctorIenum.Invoke(new object[] { BuildTypedList(items, elementType, listOfT) });
+            }
+
+            Type icollectionOfT = typeof(ICollection<>).MakeGenericType(elementType);
+            if (icollectionOfT.IsAssignableFrom(targetType) && targetType.GetConstructor(Type.EmptyTypes) != null)
+            {
+                var instance = Activator.CreateInstance(targetType);
+                var addMethod = icollectionOfT.GetMethod("Add");
+                foreach (var item in items)
+                {
+                    addMethod.Invoke(instance, new[] { ChangeTypeOrNull(item, elementType) });
+                }
+                return instance;
+            }
+
+            var ctorIList = targetType.GetConstructor(new[] { typeof(IList<>).MakeGenericType(elementType) });
+            if (ctorIList != null)
+            {
+                return ctorIList.Invoke(new object[] { BuildTypedList(items, elementType, listOfT) });
+            }
+
+            return BuildTypedList(items, elementType, listOfT);
+        }
+
+        private static IList BuildTypedList(Array items, Type elementType, Type listOfT)
+        {
+            var list = (IList)Activator.CreateInstance(listOfT);
             foreach (var item in items)
             {
-                typedList.Add(ChangeTypeOrNull(item, elementType));
+                list.Add(ChangeTypeOrNull(item, elementType));
             }
-            return typedList;
+            return list;
         }
 
         private static object ChangeTypeOrNull(object value, Type targetType)

@@ -82,6 +82,13 @@ namespace UiPath.Python
         public static Version ResolveEffectiveVersion(Version selected, string path, out Version autodetected)
         {
             autodetected = Version.Auto;
+
+            // Mirror the PYTHONHOME fallback that Get() applies so that callers relying on the
+            // environment variable still get a concrete effectiveVersion for validation (e.g.,
+            // the Python 3.10 library-path requirement).
+            if (string.IsNullOrWhiteSpace(path))
+                path = Environment.GetEnvironmentVariable(PythonHomeEnv);
+
             if (string.IsNullOrWhiteSpace(path)) return selected;
             try
             {
