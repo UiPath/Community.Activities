@@ -178,6 +178,15 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}.
+        /// </summary>
+        public static string InvalidLibraryPathException {
+            get {
+                return ResourceManager.GetString("InvalidLibraryPathException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid method name.
         /// </summary>
         public static string InvalidMethodNameException {
@@ -273,6 +282,24 @@ namespace UiPath.Python.Activities.Properties {
         public static string LoadScriptNameDisplayName {
             get {
                 return ResourceManager.GetString("LoadScriptNameDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, stdout and stderr output from the Python host process is written to a per-host log file under the folder resolved by Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), in the UiPath\Logs\python subdirectory. Each log file is capped at 50 MB; once the cap is reached, no further output is written to that file. At most 128 log files are kept — the oldest are automatically deleted when a new file is created. The output is NOT forwarded to Orchestrator. Intended for local di [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LogTracesDescription {
+            get {
+                return ResourceManager.GetString("LogTracesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Python Output to File (Diagnostic).
+        /// </summary>
+        public static string LogTracesDisplayName {
+            get {
+                return ResourceManager.GetString("LogTracesDisplayName", resourceCulture);
             }
         }
         
@@ -484,6 +511,24 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum size in MB of the data passed to the Python script as method arguments. If the size of the arguments exceeds this limit, an error is raised. Minimum accepted value is 1 MB. Leave empty to use the default (25 MB)..
+        /// </summary>
+        public static string ScriptDataSizeLimitDescription {
+            get {
+                return ResourceManager.GetString("ScriptDataSizeLimitDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Data Size Limit (MB).
+        /// </summary>
+        public static string ScriptDataSizeLimitDisplayName {
+            get {
+                return ResourceManager.GetString("ScriptDataSizeLimitDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full path to Python script file.
         /// </summary>
         public static string ScriptFileDescription {
@@ -543,6 +588,15 @@ namespace UiPath.Python.Activities.Properties {
         public static string ValidationErrorPlatformUnsupported {
             get {
                 return ResourceManager.GetString("ValidationErrorPlatformUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Data Size Limit (MB) must be at least {0}..
+        /// </summary>
+        public static string ValidationErrorScriptDataSizeLimitInvalid {
+            get {
+                return ResourceManager.GetString("ValidationErrorScriptDataSizeLimitInvalid", resourceCulture);
             }
         }
         

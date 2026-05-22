@@ -14,6 +14,9 @@ namespace UiPath.Python
     /// </summary>
     public static class EngineProvider
     {
+        public const int DefaultPayloadThresholdMB = 25;
+        public const int MinPayloadThresholdMB = 1;
+
         private const string PythonHomeEnv = "PYTHONHOME";
         private static readonly string[] PythonExeWin = ["python.exe", "python3.exe"];
         private static readonly string[] PythonLinux = ["python", "python3"];
@@ -24,7 +27,7 @@ namespace UiPath.Python
         private static object _lock = new object();
         private static Dictionary<Version, IEngine> _cache = new Dictionary<Version, IEngine>();
 
-        public static IEngine Get(Version version, string path, string libraryPath, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false)
+        public static IEngine Get(Version version, string path, string libraryPath, bool inProcess = true, TargetPlatform target = TargetPlatform.x86, bool visible = false, bool logTrace = false, int payloadThresholdMB = DefaultPayloadThresholdMB)
         {
             IEngine engine = null;
             lock (_lock)
@@ -56,10 +59,46 @@ namespace UiPath.Python
                 else
                 {
                     // TODO: do we need caching when running as service (out of process)?
-                    engine = new OutOfProcessEngine(version, path, libraryPath, target, visible);
+                    engine = new OutOfProcessEngine(version, path, libraryPath, target, visible, logTrace, payloadThresholdMB);
                 }
             }
             return engine;
+        }
+
+        /// <summary>
+        /// Resolves the version the engine will actually run with. Calls <see cref="Autodetect"/>
+        /// at most once.
+        /// <para>
+        /// When <paramref name="selected"/> is non-Auto, autodetect runs to give callers a value
+        /// to verify the user's choice against; any failure (e.g. no Python exe at
+        /// <paramref name="path"/>) is propagated.
+        /// </para>
+        /// <para>
+        /// When <paramref name="selected"/> is Auto, autodetect is best-effort; failures leave
+        /// <paramref name="autodetected"/> as <see cref="Version.Auto"/> and the caller's checks
+        /// should no-op.
+        /// </para>
+        /// </summary>
+        public static Version ResolveEffectiveVersion(Version selected, string path, out Version autodetected)
+        {
+            autodetected = Version.Auto;
+
+            // Mirror the PYTHONHOME fallback that Get() applies so that callers relying on the
+            // environment variable still get a concrete effectiveVersion for validation (e.g.,
+            // the Python 3.10 library-path requirement).
+            if (string.IsNullOrWhiteSpace(path))
+                path = Environment.GetEnvironmentVariable(PythonHomeEnv);
+
+            if (string.IsNullOrWhiteSpace(path)) return selected;
+            try
+            {
+                Autodetect(path, out autodetected);
+            }
+            catch
+            {
+                if (selected != Version.Auto) throw;
+            }
+            return selected != Version.Auto ? selected : autodetected;
         }
 
         public static void Autodetect(string path, out Version version)
