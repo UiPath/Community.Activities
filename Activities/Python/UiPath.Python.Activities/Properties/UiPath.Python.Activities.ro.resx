@@ -194,14 +194,14 @@
     <value>Input parameters pentru scriptul Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>InputParameters</value>
+    <value>Parametri de intrare</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Calea principală Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>Cale</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -228,7 +228,7 @@
     <value>Rezultatul invocării scriptului</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Rezultat</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
@@ -245,14 +245,14 @@
     <value>Calea completă către fișierul script Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>File</value>
+    <value>Fișier</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>Fișierul de script specificat nu a fost găsit</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>Target</value>
+    <value>Țintă</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
@@ -311,5 +311,8 @@
   </data>
   <data name="InstalledVersionsDescription" xml:space="preserve">
     <value>Selectați instalarea Python care va fi utilizată pentru configurarea activității</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>Nu au fost detectate instalări de Python</value>
   </data>
 </root>

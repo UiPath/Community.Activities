@@ -220,7 +220,7 @@
     <value>Chemin d’accès vers une clé privée au format #1 PEM</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Aucune méthode d’authentification valide trouvée : vous devez fournir un fichier de clé privée (et éventuellement une phrase secrète) ou mot de passe</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>Nouveau nom du chemin d’accès distant</value>

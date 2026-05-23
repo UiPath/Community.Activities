@@ -220,7 +220,7 @@
     <value>PKCS #1 PEM 格式的私密金鑰路徑</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>找不到有效的驗證方法: 您必須提供私密金鑰檔案 (可選擇提供密碼) 或密碼</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>新遠端路徑</value>

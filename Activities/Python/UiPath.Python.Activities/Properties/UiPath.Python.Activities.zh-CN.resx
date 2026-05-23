@@ -312,4 +312,7 @@
   <data name="InstalledVersionsDescription" xml:space="preserve">
     <value>选择用于配置活动的 Python 安装</value>
   </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>未检测到 Python 安装</value>
+  </data>
 </root>

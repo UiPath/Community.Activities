@@ -161,11 +161,11 @@
     <value>Furnizați numele tabelului bazei de date țintă</value>
   </data>
   <data name="AffectedRecordsDisplayName" xml:space="preserve">
-    <value>AffectedRecords</value>
+    <value>Înregistrări afectate</value>
     <comment>property name</comment>
   </data>
   <data name="CommandTypeDisplayName" xml:space="preserve">
-    <value>CommandType</value>
+    <value>Tip comandă</value>
     <comment>property name</comment>
   </data>
   <data name="Common" xml:space="preserve">
@@ -178,11 +178,11 @@
     <value>Configurare conexiune</value>
   </data>
   <data name="ConnectionStringDisplayName" xml:space="preserve">
-    <value>ConnectionString</value>
+    <value>Șir de conexiune</value>
     <comment>property name</comment>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>Continuați la eroare</value>
     <comment>property name</comment>
   </data>
   <data name="DatabaseConnectionDisplayName" xml:space="preserve">
@@ -190,11 +190,11 @@
     <comment>property name</comment>
   </data>
   <data name="DataTableDisplayName" xml:space="preserve">
-    <value>DataTable</value>
+    <value>Tabel de date</value>
     <comment>property name</comment>
   </data>
   <data name="ExistingDbConnectionDisplayName" xml:space="preserve">
-    <value>Existing Connection</value>
+    <value>Conexiune existentă</value>
     <comment>property name</comment>
   </data>
   <data name="Input" xml:space="preserve">
@@ -209,15 +209,15 @@
     <comment>property name</comment>
   </data>
   <data name="ProviderNameDisplayName" xml:space="preserve">
-    <value>ProviderName</value>
+    <value>Nume furnizor</value>
     <comment>property name</comment>
   </data>
   <data name="TableNameDisplayName" xml:space="preserve">
-    <value>TableName</value>
+    <value>Nume tabel</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Timeout (milliseconds)</value>
+    <value>Expirare (milisecunde)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">
@@ -231,7 +231,7 @@
     <value>Output</value>
   </data>
   <data name="ColumnNamesDisplayName" xml:space="preserve">
-    <value>ColumnNames</value>
+    <value>Nume coloane</value>
     <comment>property name</comment>
   </data>
   <data name="ValidationError_ConnectionStringMustBeSet" xml:space="preserve">

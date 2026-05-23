@@ -248,6 +248,12 @@
     <value>ListaDeParâmetros</value>
     <comment>property name</comment>
   </data>
+  <data name="MenuAction_UseStaticNames" xml:space="preserve">
+    <value>Use static names</value>
+  </data>
+  <data name="MenuAction_UseAnExpression" xml:space="preserve">
+    <value>Use an expression</value>
+  </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>Não é possível definir {0} e {1}.</value>
   </data>
