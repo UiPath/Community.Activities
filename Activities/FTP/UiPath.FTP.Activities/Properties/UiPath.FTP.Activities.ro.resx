@@ -220,7 +220,7 @@
     <value>Calea către cheia privată în format PEM PKCS #1</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Nu s-a găsit nicio metodă validă de autentificare: Trebuie să furnizezi fie fișierul cu cheie privată (și, opțional, parola), fie parola</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>Noua cale la distanță</value>

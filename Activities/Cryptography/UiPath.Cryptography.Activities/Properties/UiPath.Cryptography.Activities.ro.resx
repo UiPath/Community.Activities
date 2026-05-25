@@ -131,23 +131,23 @@
     <value>Fișierul nu există.</value>
   </data>
   <data name="FilePathDisplayName" xml:space="preserve">
-    <value>FilePath</value>
+    <value>Cale fișier</value>
     <comment>property name</comment>
   </data>
   <data name="InputFilePathDisplayName" xml:space="preserve">
-    <value>InputPath</value>
+    <value>Calea fișierului de intrare</value>
     <comment>property name</comment>
   </data>
   <data name="OutputFilePathDisplayName" xml:space="preserve">
-    <value>OutputPath</value>
+    <value>Calea de ieșire</value>
     <comment>property name</comment>
   </data>
   <data name="PrivateKeyFilePathDisplayName" xml:space="preserve">
-    <value>PrivateKeyFilePath</value>
+    <value>Calea fișierului cheii private</value>
     <comment>property name</comment>
   </data>
   <data name="PublicKeyFilePathDisplayName" xml:space="preserve">
-    <value>PublicKeyFilePath</value>
+    <value>Calea fișierului cheii publice</value>
     <comment>property name</comment>
   </data>
   <data name="PassphraseDisplayName" xml:space="preserve">
@@ -173,7 +173,7 @@
     <value>Comun</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
-    <value>ContinueOnError</value>
+    <value>Continuați la eroare</value>
     <comment>property name</comment>
   </data>
   <data name="MacTripleDesKeySizeWarning" xml:space="preserve">

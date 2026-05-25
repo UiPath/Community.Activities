@@ -312,4 +312,7 @@
   <data name="InstalledVersionsDescription" xml:space="preserve">
     <value>Selecione a instalação do Python a ser usada para a configuração da atividade</value>
   </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>Nenhuma instalação do Python foi detectada</value>
+  </data>
 </root>

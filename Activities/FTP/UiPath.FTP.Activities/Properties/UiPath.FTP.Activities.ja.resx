@@ -220,7 +220,7 @@
     <value>PKCS #1 PEM 形式の秘密キーへのパスです。</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>有効な認証方法が見つかりません: 秘密キー ファイル (必要に応じてパスフレーズも含む) またはパスワードのいずれかを入力する必要があります。</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>新しいリモート パス</value>

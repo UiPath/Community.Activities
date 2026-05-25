@@ -312,4 +312,7 @@
   <data name="InstalledVersionsDescription" xml:space="preserve">
     <value>액티비티 구성에 사용할 Python 설치 버전을 선택합니다</value>
   </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>Python 설치가 감지되지 않았습니다</value>
+  </data>
 </root>

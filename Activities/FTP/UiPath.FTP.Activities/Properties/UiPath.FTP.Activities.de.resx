@@ -220,7 +220,7 @@
     <value>Pfad zum privaten Schlüssel im PKCS #1 PEM-Format</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Keine gültige Authentifizierungsmethode gefunden: Sie müssen entweder eine private Schlüsseldatei (und optional eine Passphrase) oder ein Kennwort angeben.</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>Neuer Remotepfad</value>

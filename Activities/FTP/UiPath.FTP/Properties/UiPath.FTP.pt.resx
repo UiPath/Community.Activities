@@ -130,7 +130,7 @@
     <value>Foi encontrado um tipo de objeto não suportado.</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Nenhum método de autenticação válido encontrado: tem de fornecer um ficheiro de Chave Privada (e, opcionalmente, uma frase de acesso) ou uma Palavra-passe</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>O diretório de destino já existe</value>

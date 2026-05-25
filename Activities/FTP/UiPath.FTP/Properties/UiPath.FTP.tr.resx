@@ -130,7 +130,7 @@
     <value>Desteklenmeyen nesne türüyle karşılaşıldı.</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Geçerli kimlik doğrulama yöntemi bulunamadı: Özel Anahtar dosyası (ve isteğe bağlı olarak parola) veya Parola sağlamanız gerekir</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Hedef dizin zaten var</value>
