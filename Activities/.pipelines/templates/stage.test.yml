@@ -30,7 +30,7 @@ jobs:
       downloadPath: "$(Build.SourcesDirectory)"
     condition: and(succeeded(), eq(variables['RunTests'], 'true'))
 
-  - task: BuildProcessCleaner@0
+  - task: BuildProcessCleaner@0.9147.15998
 
   - task: VisualStudioTestPlatformInstaller@1
     displayName: "VSTest Platform Installer"

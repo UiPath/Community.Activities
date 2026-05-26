@@ -39,7 +39,7 @@ jobs:
       parameters:
         condition: eq(variables['RunAnalysis'], 'true')
 
-    - task: PatchSonarQubeTask@0
+    - task: PatchSonarQubeTask@0.7921.14273
       displayName: "Patch SonarQube files for the local folder"
       inputs:
         originalRepoPath: $(OriginalSourcesPath)
