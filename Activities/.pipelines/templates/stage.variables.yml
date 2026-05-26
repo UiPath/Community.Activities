@@ -1,5 +1,5 @@
 variables:
-  VSVersion: "16.0"
+  VSVersion: "17.0"
   BuildPlatform: "Any CPU"
   BuildConfiguration: "Release"
   vmImage: "windows-latest"

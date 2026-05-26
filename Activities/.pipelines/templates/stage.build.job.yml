@@ -87,7 +87,7 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: "Use NuGet >=5.3.0"
 
-- task: NuGetAuthenticate@0
+- task: NuGetAuthenticate@1
 
 - ${{ if eq(parameters.sdkBuild, 'true') }}:
   - task: UseDotNet@2
