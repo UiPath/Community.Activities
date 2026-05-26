@@ -1,0 +1,159 @@
+parameters:
+- name: DownloadUrl
+  displayName: Download Msi Url
+  type: string
+  default: null
+
+- name: MsiType
+  displayName: Msi Type. One of studio/robot(default studio)
+  type: string
+  default: studio
+  values:
+  - studio
+  - robot
+
+- name: MsiVersion
+  displayName: Msi Version
+  type: string
+  default: '22.10.5'
+
+- name: InstallType
+  displayName: Msi Installation Type. One of machine/user(default machine)
+  type: string
+  default: machine
+  values:
+  - machine
+  - user
+
+- name: InstallComponents
+  displayName: Comma separated list of strings representing Msi individual components
+  type: string
+  default: 'DesktopFeature,Studio,Robot,WindowsRdpExtension,ChromeExtension'
+
+- name: CustomNugetFeeds
+  displayName: Comma separated list of strings representing custom nuget feeds
+  type: string
+  default: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+
+- name: License
+  displayName: Msi License Code
+  type: string
+  default: ''
+
+steps:
+- powershell: |
+    $tempPath = "c:\temp"
+    $uipathProductPath = "C:\Program Files\UiPath\Studio"
+    $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Studio"
+    $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Studio"
+    $productName = "Studio"
+
+    if ('${{ parameters.MsiType }}' -eq 'robot')
+    {
+      $uipathProductPath = "C:\Program Files\UiPath\Robot"
+      $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Robot"
+      $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Robot"
+      $productName = "RobotSlim"
+    }
+
+    $args = "/q /l*vx installation.log ADDLOCAL=`"${{ parameters.InstallComponents }}`" CUSTOM_NUGET_FEEDS=`"${{ parameters.CustomNugetFeeds }}`""
+
+    if ((Test-Path $tempPath))
+    {
+      Write-Host "Remove old install"
+      Remove-Item $tempPath -Force -Recurse
+    }
+
+    Write-Host "Create $tempPath"
+    New-Item $tempPath -ItemType Directory
+    Set-Location -Path $tempPath -PassThru
+
+    $downloadUrl = 'https://download.uipath.com/versions/${{ parameters.MsiVersion }}/UiPathStudio.msi'
+    if ('${{ parameters.MsiType }}' -eq 'robot')
+    {
+      $downloadUrl = 'https://download.uipath.com/versions/${{ parameters.MsiVersion }}/UiPathRobot.msi'
+    }
+
+    if ('${{ parameters.DownloadUrl }}' -ne 'null')
+    {
+      $downloadUrl = '${{ parameters.DownloadUrl }}'
+    }
+
+    $installPath = $uipathProductPath
+    if (!(Test-Path $uipathProductPath) -and !(Test-Path $uipathx86ProductPath) -and  !(Test-Path $uipathx86ProductPath))
+    {
+      Write-Host "Download $productName msi from $downloadUrl"
+      $stopwatch = [System.Diagnostics.Stopwatch]::new()
+      $stopwatch.Start()
+      Invoke-WebRequest "$downloadUrl" -OutFile product.msi
+      $stopwatch.Stop()
+      $elapsedSeconds = $stopwatch.Elapsed.TotalSeconds
+      Write-Host "Download ended in $elapsedSeconds seconds"
+      Get-ChildItem
+
+      if ("${{parameters.InstallType}}" -eq 'user')
+      {
+        $args = $args + " MSIINSTALLPERUSER=1"
+        $installPath = $uipathx86ProductPath
+      }
+      Write-Host "Start installing"
+      $stopwatch.Reset()
+      $stopwatch.Start()
+      $process = Start-Process -FilePath "msiexec" -ArgumentList "/i product.msi $args" -PassThru
+      Wait-Process -InputObject $process
+      $stopwatch.Stop()
+      $elapsedSeconds = $stopwatch.Elapsed.TotalSeconds
+      if ($process.ExitCode -ne 0)
+      {
+        Write-Host "$_ exited with status code $($process.ExitCode) after $elapsedSeconds seconds"
+        throw "Error"
+      }
+      Write-Host "$productName Installed in $elapsedSeconds seconds"
+
+      if ("${{ parameters.InstallComponents }}".Contains("ChromeExtension"))
+      {
+        Write-Host "Add registry entry to support Chrome Testing UiPath Extension"
+        $chromeExtension=(Get-ItemPropertyValue -Path HKLM:\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist -Name "1")
+        if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Chromium") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Chromium" -force -ea SilentlyContinue };
+        if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Chromium\ExtensionInstallForcelist") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Chromium\ExtensionInstallForcelist" -force -ea SilentlyContinue };
+        New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'DeveloperToolsAvailability' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
+        New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium\ExtensionInstallForcelist' -Name '1' -Value $chromeExtension -PropertyType String -Force -ea SilentlyContinue;
+      }
+
+      Write-Host "Logging installed nuget feeds"
+      Get-Content "$installPath\NuGet.config"
+    }
+    else
+    {
+      Write-Host "$productName Already Installed"
+    }
+  displayName: "Install ${{ parameters.MsiType }}"
+
+- ${{ if ne(parameters.License, '') }}:
+  - powershell: |
+      $uipathProductPath = "C:\Program Files\UiPath\Studio"
+      $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Studio"
+      $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Studio"
+
+      if ('${{ parameters.MsiType }}' -eq 'robot')
+      {
+        $uipathProductPath = "C:\Program Files\UiPath\Robot"
+        $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Robot"
+        $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Robot"
+      }
+
+      if ("${{parameters.InstallType}}" -eq 'machine')
+      {
+        if (Test-Path $uipathProductPath)
+        {
+          $installPath = $uipathProductPath
+        }
+        else
+        {
+          $installPath = $uipathx86ProductPath
+        }
+      }
+
+      & "$installPath\UiPath.LicenseTool.exe" activate -l "${{ parameters.License }}"
+    displayName: "License ${{ parameters.MsiType }}"
+    failOnStderr: true

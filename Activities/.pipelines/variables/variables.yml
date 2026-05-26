@@ -7,4 +7,5 @@ variables:
   ToolsPath: "$(Build.SourcesDirectory)\\Activities\\Tools"
   TestRunnerVersion: "1.594.543"
   TestsStudioVersion: "24.10.8"
+  RunAnalysis: 'true'
   

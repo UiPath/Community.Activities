@@ -21,7 +21,7 @@ jobs:
   - checkout: self
     fetchDepth: 1
 
-  - template: Testing/Automation/install.studio.steps.template.yml@automationTests
+  - template: ../templates/Testing/Automation/install.studio.steps.template.yml
     parameters:
       installType: 'machine'
       studioVersion: ${{ parameters.robotVersion }}

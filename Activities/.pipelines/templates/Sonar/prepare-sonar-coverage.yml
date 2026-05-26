@@ -1,0 +1,80 @@
+parameters:
+  projectKey: ''
+  serviceConnectionName: ''
+  useMergedReport: false
+  condition: succeeded()
+  exclusions: '**/*.js,**/*AssemblyInfo.cs,**/*.css,**/*.scss,**/*.stub.ts,**/*.stubs.ts,**/*.spec.ts'
+  testExclusions: ''
+  coverageExclusions: '**/test/**,**/*.js,**/*polyfills.ts,**/*.spec.ts,**/*.stub.ts,**/*.stubs.ts'
+  runsettingsFile: ''
+  lcovReportPath: CodeCoverage/lcov.info
+  configFile: ''
+  logLevel: 'Info'
+  verbose: 'false'
+  cleanup: true
+
+steps:
+- ${{ if eq(parameters.cleanup, true) }}:
+  - template: clean-sonar-coverage.yml
+    parameters:
+      condition: ${{ parameters.condition }}
+
+- ${{ if ne(parameters.configFile, '') }}:
+  - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+    displayName: 'Prepare analysis on SonarCloud'
+    condition: ${{ parameters.condition }}
+    inputs:
+        SonarCloud: ${{ parameters.serviceConnectionName }}
+        organization: ui
+        scannerMode: CLI
+        configMode: 'file'
+        configFile: ${{ parameters.configFile }}
+
+- ${{ if eq(parameters.configFile, '') }}:
+  - template: add-runsettings-coverage-exclusions-to-Sonar-parameter.yml
+    parameters:
+      condition: ${{ parameters.condition }}
+      coverageExclusions: ${{ parameters.coverageExclusions }}
+      runsettingsFile: ${{ parameters.runsettingsFile }}
+
+  - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+    displayName: 'Prepare analysis on SonarCloud'
+    condition: ${{ parameters.condition }}
+    inputs:
+      SonarCloud: ${{ parameters.serviceConnectionName }}
+      organization: ui
+      projectKey: ${{ parameters.projectKey }}
+      projectName: ${{ parameters.projectKey }}
+      ${{ if eq(parameters.useMergedReport, true) }}:
+        extraProperties: |
+          # Additional properties that will be passed to the scanner,
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.coveragexml,**/*.coveragexml
+          sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/**/*.opencover.xml,**/*.opencover.xml
+          sonar.javascript.lcov.reportPaths=${{ parameters.lcovReportPath }}
+          sonar.exclusions=${{ parameters.exclusions }}
+          sonar.test.exclusions=${{ parameters.testExclusions }}
+          sonar.coverage.exclusions=$(CoverageExclusions)
+          sonar.coverageReportPaths=SonarQube.xml
+          sonar.c.file.suffixes=-
+          sonar.cpp.file.suffixes=-
+          sonar.objc.file.suffixes=-
+          sonar.verbose=${{ parameters.verbose }}
+          sonar.log.level=${{ parameters.logLevel }}
+      ${{ if ne(parameters.useMergedReport, true) }}:
+        extraProperties: |
+          # Additional properties that will be passed to the scanner,
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)/**/*.coveragexml,**/*.coveragexml
+          sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/**/*.opencover.xml,**/*.opencover.xml
+          sonar.javascript.lcov.reportPaths=${{ parameters.lcovReportPath }}
+          sonar.exclusions=${{ parameters.exclusions }}
+          sonar.test.exclusions=${{ parameters.testExclusions }}
+          sonar.coverage.exclusions=$(CoverageExclusions)
+          sonar.c.file.suffixes=-
+          sonar.cpp.file.suffixes=-
+          sonar.objc.file.suffixes=-
+          sonar.verbose=${{ parameters.verbose }}
+          sonar.log.level=${{ parameters.logLevel }}

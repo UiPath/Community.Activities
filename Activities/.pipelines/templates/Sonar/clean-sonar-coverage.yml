@@ -1,0 +1,11 @@
+parameters:
+  condition: succeeded()
+
+steps:
+- powershell: Remove-Item $(Pipeline.Workspace)\\.sonarqube -Force -Recurse -ErrorAction SilentlyContinue
+  displayName: "Cleanup .sonarqube folder - Windows"
+  condition: and(contains(variables['Agent.OS'], 'Windows'), ${{ parameters.condition }})
+
+- script: rm -rf $(Pipeline.Workspace)/.sonarqube
+  displayName: "Cleanup .sonarqube folder - Linux"
+  condition: and(not(contains(variables['Agent.OS'], 'Windows')), ${{ parameters.condition }})

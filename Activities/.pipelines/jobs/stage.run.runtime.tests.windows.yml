@@ -66,7 +66,7 @@ jobs:
     - ${{ step }}
 
   # install robot
-  - template: Testing/Automation/install.msi.steps.template.yml@automationTests
+  - template: ../templates/Testing/Automation/install.msi.steps.template.yml
     parameters:
       installType: 'machine'
       msiType: 'robot'

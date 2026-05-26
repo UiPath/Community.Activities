@@ -1,0 +1,69 @@
+parameters:
+  poolName: ''
+  tagName: ''
+  projectName: ''
+  solutionPath: ''
+  preBuild: []
+  postBuild: []
+  sonarKeyPrefix: ''
+  sonarServiceConnection: ''
+  msBuildPack: false
+  sdkBuild: false
+  requiresLfs: false
+  hasQaPackages: true
+  azureSignConnectionName: ""
+
+jobs:
+- job: BuildAndPublishArtifacts
+  displayName: 'Build & Publish Artifacts'
+  timeoutInMinutes: 90
+  pool:
+    ${{ if eq(parameters.poolName, '') }}:
+      vmImage: $(vmImage)
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+    demands:
+      - npm
+      - msbuild
+      - visualstudio
+  dependsOn: DetermineShouldRun
+  condition: eq(dependencies.DetermineShouldRun.outputs['SetRunVariable.BuildShouldRun'], 'true')
+
+  variables:
+  - template: stage.variables.yml
+
+  steps:
+  - template: stage.build.job.yml
+    parameters:
+      projectName: "${{ parameters.projectName }}"
+      tagName: "${{ parameters.tagName }}"
+      sdkBuild: ${{ parameters.sdkBuild }}
+      requiresLfs: ${{ parameters.requiresLfs }}
+      msBuildPack: ${{ parameters.msBuildPack }}
+      azureSignConnectionName: ${{ parameters.azureSignConnectionName }}
+      preBuild:
+        - ${{ parameters.preBuild }}
+
+        - template: Sonar/prepare-sonar-coverage.yml
+          parameters:
+            projectKey: '${{ parameters.sonarKeyPrefix }}-${{ parameters.projectName }}'
+            serviceConnectionName: ${{ parameters.sonarServiceConnection }}
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'))
+      postBuild:
+        - ${{ parameters.postBuild }}
+
+        - template: stage.build.job.publish.yml
+          parameters:
+            hasQaPackages: ${{ parameters.hasQaPackages }}
+
+        - template: Sonar/upload-sonar-build-output.yml
+          parameters:
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'))
+
+        - template: Sonar/uninstall-sonar-targets.yml
+
+  - powershell: |
+      Write-Output "##vso[task.setvariable variable=SourceBranchCommitId;isOutput=true]$env:SourceBranchCommitId"
+      Write-Output "##vso[task.setvariable variable=TargetBranchCommitId;isOutput=true]$env:TargetBranchCommitId"
+    name: setBranchCommitVariables
+    displayName: "Set branch commit variables on the build"

@@ -1,0 +1,86 @@
+parameters:
+  - name: azureDevOpsToken
+    default: ''
+  - name: noOfAgents
+    type: number
+    default: 1
+  - name: poolName
+    type: string
+    default: ''
+  - name: capabilities #JSON serialized string e.g. "{'task-tst': 'task-tst-$(Build.BuildId)',  'Agent.OS': 'Windows_NT'}"
+    type: string
+    default: ''
+
+steps:
+
+- task: PowerShell@2
+  displayName: Wait for agent
+  inputs:
+    pwsh: true
+    targetType: 'inline'
+    script: |
+      $poolName = "${{ parameters.poolName }}"
+      $capabilities =  "${{ parameters.capabilities }} "
+      $noOfAgents = "${{ parameters.noOfAgents }}"
+      $accessToken = $env:SYSTEM_ACCESSTOKEN
+      $organization = $env:SYSTEM_COLLECTIONURI.TrimEnd('/')
+      $delayTimeoutSeconds = 20
+      $retryTimeoutMinutes = 20
+
+      $capabilityMap = $capabilities | ConvertFrom-Json -AsHashtable
+      Write-Host 'Searching for $noOfAgents agents with  capabilities:'
+      foreach ($capKey in $capabilityMap.Keys) {
+          Write-Host "$capKey : $($capabilitymap[$capKey])"
+      }
+
+      Write-Output "$accessToken" | az devops login --org $organization
+      $pool = (az pipelines pool list --pool-name $poolName --org $organization | ConvertFrom-Json)
+
+      if (-not $pool) {
+          throw "no pool with name $poolName found"
+      }
+      Write-Host "Found pool with id $($pool.id)"
+
+      $startDate = Get-Date
+      $counter = 0
+      Write-Host "Process started at $startDate"
+      do {
+          $foundAgents = [System.Collections.Generic.List[PSObject]]::new()
+          $counter++
+          Write-Host "Try: $counter"
+          $agents = (az pipelines agent list --pool-id $($pool.id) --org $organization  --include-capabilities true | ConvertFrom-Json -AsHashtable)
+
+
+          Write-Host "Verifying only online agents ..."
+          $agents | % {
+              $agent = $_
+
+              if ($agent.status -eq "online") {
+                  Write-Host "Checking $($_.name)..."
+                  $agentCapabilities = $_.systemCapabilities
+                  $match = $true
+                  foreach ($capKey in $capabilityMap.Keys) {
+                      if (-not ($agentCapabilities["$capKey"] -and ($($agentCapabilities[$capKey]) -eq $($capabilitymap[$capKey])))) {
+                          $match = $false
+                          break;
+                      }
+                  }
+                  if ($match) {
+                      Write-Host "Agent $($agent.name) has required capabilities. Adding to list.."
+                      $foundAgents.Add($($agent.name))
+                      if($foundAgents.count -ge $noOfAgents) {
+                          Write-Host "Found $($foundAgents.length) agents that match the capabilities"
+                          Write-Host "$foundAgents"
+                          Exit;
+                      }
+                  }
+              }
+          }
+          Write-Host "Found $($foundAgents.count); Needed $noOfAgents;... sleeping $delayTimeoutSeconds"
+          Start-Sleep -Seconds $delayTimeoutSeconds
+      } while ($startDate.AddMinutes($retryTimeoutMinutes) -gt (Get-Date))
+
+      Write-Error "Not found $noOfAgents agents with capability $capabilityKey having value $capabilityValue"
+
+  env:
+     SYSTEM_ACCESSTOKEN: ${{ parameters.azureDevOpsToken }}
