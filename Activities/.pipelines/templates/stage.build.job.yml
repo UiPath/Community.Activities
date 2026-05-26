@@ -59,7 +59,9 @@ steps:
   displayName: "Tag build with PR target branch"
   inputs:
     scriptType: "inlineScript"
-    inlineScript: "Write-Host \"##vso[build.addbuildtag]TargetBranch=$(System.PullRequest.TargetBranch)\""
+    inlineScript: "Write-Host \"##vso[build.addbuildtag]TargetBranch=$env:TARGET_BRANCH\""
+  env:
+    TARGET_BRANCH: $(System.PullRequest.TargetBranch)
   condition: ne(variables['System.PullRequest.TargetBranch'], '')
 
 - task: PowerShell@1
@@ -70,9 +72,11 @@ steps:
   condition: ne(variables['PrereleaseTag'], 'final')
 
 - powershell: |
-    Write-Host "##vso[build.addbuildtag]ActivityPackage=${{ coalesce(parameters.tagName, parameters.projectName) }}"
-    Write-Host "##vso[task.setvariable variable=AffectedActivities;]${{ coalesce(parameters.tagName, parameters.projectName) }}"
+    Write-Host "##vso[build.addbuildtag]ActivityPackage=$env:PACKAGE_TAG"
+    Write-Host "##vso[task.setvariable variable=AffectedActivities;]$env:PACKAGE_TAG"
   displayName: "Tag build with activity package tag"
+  env:
+    PACKAGE_TAG: ${{ coalesce(parameters.tagName, parameters.projectName) }}
 
 - task: PowerShell@1
   displayName: "Patch .nuspec files with prerelease tag"

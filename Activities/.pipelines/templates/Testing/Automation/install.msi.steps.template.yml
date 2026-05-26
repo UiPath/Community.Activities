@@ -48,7 +48,7 @@ steps:
     $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Studio"
     $productName = "Studio"
 
-    if ('${{ parameters.MsiType }}' -eq 'robot')
+    if ($env:MSI_TYPE -eq 'robot')
     {
       $uipathProductPath = "C:\Program Files\UiPath\Robot"
       $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Robot"
@@ -56,7 +56,7 @@ steps:
       $productName = "RobotSlim"
     }
 
-    $args = "/q /l*vx installation.log ADDLOCAL=`"${{ parameters.InstallComponents }}`" CUSTOM_NUGET_FEEDS=`"${{ parameters.CustomNugetFeeds }}`""
+    $msiArgs = "/q /l*vx installation.log ADDLOCAL=`"$env:INSTALL_COMPONENTS`" CUSTOM_NUGET_FEEDS=`"$env:CUSTOM_NUGET_FEEDS`""
 
     if ((Test-Path $tempPath))
     {
@@ -68,15 +68,15 @@ steps:
     New-Item $tempPath -ItemType Directory
     Set-Location -Path $tempPath -PassThru
 
-    $downloadUrl = 'https://download.uipath.com/versions/${{ parameters.MsiVersion }}/UiPathStudio.msi'
-    if ('${{ parameters.MsiType }}' -eq 'robot')
+    $downloadUrl = "https://download.uipath.com/versions/$env:MSI_VERSION/UiPathStudio.msi"
+    if ($env:MSI_TYPE -eq 'robot')
     {
-      $downloadUrl = 'https://download.uipath.com/versions/${{ parameters.MsiVersion }}/UiPathRobot.msi'
+      $downloadUrl = "https://download.uipath.com/versions/$env:MSI_VERSION/UiPathRobot.msi"
     }
 
-    if ('${{ parameters.DownloadUrl }}' -ne 'null')
+    if ($env:DOWNLOAD_URL -and $env:DOWNLOAD_URL -ne 'null')
     {
-      $downloadUrl = '${{ parameters.DownloadUrl }}'
+      $downloadUrl = $env:DOWNLOAD_URL
     }
 
     $installPath = $uipathProductPath
@@ -91,15 +91,15 @@ steps:
       Write-Host "Download ended in $elapsedSeconds seconds"
       Get-ChildItem
 
-      if ("${{parameters.InstallType}}" -eq 'user')
+      if ($env:INSTALL_TYPE -eq 'user')
       {
-        $args = $args + " MSIINSTALLPERUSER=1"
+        $msiArgs = $msiArgs + " MSIINSTALLPERUSER=1"
         $installPath = $uipathx86ProductPath
       }
       Write-Host "Start installing"
       $stopwatch.Reset()
       $stopwatch.Start()
-      $process = Start-Process -FilePath "msiexec" -ArgumentList "/i product.msi $args" -PassThru
+      $process = Start-Process -FilePath "msiexec" -ArgumentList "/i product.msi $msiArgs" -PassThru
       Wait-Process -InputObject $process
       $stopwatch.Stop()
       $elapsedSeconds = $stopwatch.Elapsed.TotalSeconds
@@ -110,7 +110,7 @@ steps:
       }
       Write-Host "$productName Installed in $elapsedSeconds seconds"
 
-      if ("${{ parameters.InstallComponents }}".Contains("ChromeExtension"))
+      if ($env:INSTALL_COMPONENTS -and $env:INSTALL_COMPONENTS.Contains("ChromeExtension"))
       {
         Write-Host "Add registry entry to support Chrome Testing UiPath Extension"
         $chromeExtension=(Get-ItemPropertyValue -Path HKLM:\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist -Name "1")
@@ -128,6 +128,13 @@ steps:
       Write-Host "$productName Already Installed"
     }
   displayName: "Install ${{ parameters.MsiType }}"
+  env:
+    MSI_TYPE: ${{ parameters.MsiType }}
+    MSI_VERSION: ${{ parameters.MsiVersion }}
+    DOWNLOAD_URL: ${{ parameters.DownloadUrl }}
+    INSTALL_TYPE: ${{ parameters.InstallType }}
+    INSTALL_COMPONENTS: ${{ parameters.InstallComponents }}
+    CUSTOM_NUGET_FEEDS: ${{ parameters.CustomNugetFeeds }}
 
 - ${{ if ne(parameters.License, '') }}:
   - powershell: |
@@ -135,14 +142,14 @@ steps:
       $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Studio"
       $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Studio"
 
-      if ('${{ parameters.MsiType }}' -eq 'robot')
+      if ($env:MSI_TYPE -eq 'robot')
       {
         $uipathProductPath = "C:\Program Files\UiPath\Robot"
         $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Robot"
         $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Robot"
       }
 
-      if ("${{parameters.InstallType}}" -eq 'machine')
+      if ($env:INSTALL_TYPE -eq 'machine')
       {
         if (Test-Path $uipathProductPath)
         {
@@ -154,6 +161,10 @@ steps:
         }
       }
 
-      & "$installPath\UiPath.LicenseTool.exe" activate -l "${{ parameters.License }}"
+      & "$installPath\UiPath.LicenseTool.exe" activate -l "$env:LICENSE"
     displayName: "License ${{ parameters.MsiType }}"
     failOnStderr: true
+    env:
+      MSI_TYPE: ${{ parameters.MsiType }}
+      INSTALL_TYPE: ${{ parameters.InstallType }}
+      LICENSE: ${{ parameters.License }}

@@ -19,9 +19,9 @@ steps:
     pwsh: true
     targetType: 'inline'
     script: |
-      $poolName = "${{ parameters.poolName }}"
-      $capabilities =  "${{ parameters.capabilities }} "
-      $noOfAgents = "${{ parameters.noOfAgents }}"
+      $poolName = $env:POOL_NAME
+      $capabilities = "$env:CAPABILITIES "
+      $noOfAgents = $env:NO_OF_AGENTS
       $accessToken = $env:SYSTEM_ACCESSTOKEN
       $organization = $env:SYSTEM_COLLECTIONURI.TrimEnd('/')
       $delayTimeoutSeconds = 20
@@ -83,4 +83,7 @@ steps:
       Write-Error "Not found $noOfAgents agents with capability $capabilityKey having value $capabilityValue"
 
   env:
-     SYSTEM_ACCESSTOKEN: ${{ parameters.azureDevOpsToken }}
+    SYSTEM_ACCESSTOKEN: ${{ parameters.azureDevOpsToken }}
+    POOL_NAME: ${{ parameters.poolName }}
+    CAPABILITIES: ${{ parameters.capabilities }}
+    NO_OF_AGENTS: ${{ parameters.noOfAgents }}
