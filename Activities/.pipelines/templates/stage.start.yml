@@ -88,7 +88,10 @@ stages:
   - Test
   - ${{ each stage in parameters.sonarDependsOn }}:
     - ${{ stage }}
-  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'))
+  # Sonar runs only on non-PR triggers until SonarCloud's main branch is renamed
+  # from master (stale, 6 years) to develop. See SONARCLOUD_ADMIN_CHECKLIST.md.
+  # Remove the Build.Reason clause to restore PR decoration after the rename.
+  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
   jobs:
   - template: stage.sonar.yml
     parameters:
