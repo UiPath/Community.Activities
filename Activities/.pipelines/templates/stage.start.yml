@@ -88,10 +88,7 @@ stages:
   - Test
   - ${{ each stage in parameters.sonarDependsOn }}:
     - ${{ stage }}
-  # Sonar runs only on non-PR triggers (push to develop/masters/release/support).
-  # PR analysis is skipped because the SonarCloud project is NOT_BOUND to GitHub;
-  # remove the Build.Reason clause to restore PR decoration once the binding is set up.
-  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'))
   jobs:
   - template: stage.sonar.yml
     parameters:

@@ -48,7 +48,7 @@ jobs:
           parameters:
             projectKey: ${{ parameters.sonarProjectKey }}
             serviceConnectionName: ${{ parameters.sonarServiceConnection }}
-            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'))
       postBuild:
         - ${{ parameters.postBuild }}
 
@@ -58,7 +58,7 @@ jobs:
 
         - template: Sonar/upload-sonar-build-output.yml
           parameters:
-            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'))
 
         - template: Sonar/uninstall-sonar-targets.yml
 
