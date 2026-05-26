@@ -1,83 +1,87 @@
 # SonarCloud admin checklist — restore PR decoration on Community.Activities
 
-**Audience:** SonarCloud admin for the `ui` org (whoever has `Administer` permission on the `Community.Activities` project).
+**Audience:** SonarCloud admin for the `ui` org (whoever has `Administer` permission on the `UiPath_Community.Activities` project).
 
-**Context:** The CI pipelines have been hardened and vendored locally (PR #559). Sonar currently runs only on pushes to protected branches (`develop`, `masters/*`, `release/*`, `support/*`) — PR decoration is disabled because the SonarCloud project's main branch is still pinned to `master`, which no longer exists in the GitHub repo. This causes `Create analysis` to fail on PR builds (`Detected project binding: NOT_BOUND`).
+**Context:** The CI pipelines have been hardened and vendored locally (PR #559). Sonar currently runs only on pushes to protected branches (`develop`, `masters/*`, `release/*`, `support/*`) — PR decoration is disabled because of a stale Sonar branch model, not a missing binding.
 
-After the steps below, Sonar PR decoration can be re-enabled with a single one-line YAML change.
+## What we already verified (no admin action needed for these)
 
----
+- ✅ **Project key is `UiPath_Community.Activities`** (in org `ui`). Confirmed by URL: `https://sonarcloud.io/summary/new_code?id=UiPath_Community.Activities&pullRequest=559`. Pipelines now point at this key.
+- ✅ **Project binding is healthy.** Last Sonar scan log shows `Detected project binding: BOUND` against `UiPath_Community.Activities`. The GitHub ALM link is intact — no need to reconnect the SonarCloud GitHub App or re-grant SAML access.
+- ✅ **Token and org slug are correct.** `prepare-sonar-coverage.yml` uses `organization: ui` and the token authenticates. Project lookup, settings, and branch config all load successfully.
 
-## ☐ Step 1 — Rename the main branch from `master` to `develop`
+## What's actually blocking PR decoration
 
-SonarCloud → `Community.Activities` project → **Administration → Branches & Pull Requests**.
+PR builds fail at `INFO: Create analysis` even though everything before it succeeds. The narrow cause is the **stale main branch**: SonarCloud's main branch is still `master` (last analyzed ~6 years ago), and the project's loaded extensions (`architecture`, `a3s`, `sca`) cannot construct a coherent analysis for a PR targeting `develop` against that stale baseline.
+
+The optimistic test (commit `2be7a4d`, reverted in `d4e3bd3`) confirmed this empirically — once the project key was right and the binding was BOUND, the `Create analysis` step still failed in the same place.
+
+## What you need to do
+
+The critical step is **Step 1** (main branch rename). Steps 2 and 3 are nice-to-haves.
+
+### ☐ Step 1 — Rename the main branch from `master` to `develop` (CRITICAL)
+
+SonarCloud → `UiPath_Community.Activities` project → **Administration → Branches & Pull Requests**.
 
 - Find the row marked as the main branch (currently `master`).
-- Use the **Rename** action (preserves all history, trends, hotspot decisions, quality-gate baselines).
+- Use the **Rename** action — preserves all history, trends, hotspot decisions, quality-gate baselines.
 - New name: `develop`.
 
-If rename isn't offered: delete `master` and let a fresh `develop` analysis become the new main branch. History is lost; do this only if rename is genuinely unavailable.
+If rename isn't offered: delete `master` and let a fresh `develop` analysis become the new main branch. History is lost — only do this if rename is genuinely unavailable.
 
-**Verify:** main branch in the Branches tab is `develop`. The project Overview still shows recent activity.
+**Verify:** main branch in the Branches tab is `develop`.
 
-## ☐ Step 2 — Configure long-lived branch pattern
+### ☐ Step 2 — Configure long-lived branch pattern (nice-to-have)
 
-Same page (**Administration → Branches & Pull Requests**), find the **Long-lived branches pattern** setting.
+Same page, find **Long-lived branches pattern** (or "Reference branches" in newer UI).
 
 - Set to: `masters/.*|release/.*|support/.*`
 - Save.
 
-**Verify:** when the next `masters/Python` or `release/*` build pushes analysis to Sonar, the branch shows up under "Long-lived branches" rather than being treated as a short-lived feature branch.
+This makes `masters/Python`, `release/Cryptography/*`, etc. show up as long-lived branches with their own quality-gate state, rather than being treated as throwaway feature branches.
 
-## ☐ Step 3 — Re-establish the GitHub ALM binding
+### ☐ Step 3 — Trigger a baseline analysis on `develop`
 
-SonarCloud → `Community.Activities` project → **Administration → DevOps Platform Settings**.
+The first analysis on the renamed main branch creates the baseline that PR analyses compare against.
 
-- Confirm the binding shows **GitHub** + **UiPath/Community.Activities**.
-- If status is broken / re-auth needed, click **Reconnect** or remove the binding and re-add. May require re-installing the SonarCloud GitHub App on the UiPath org under SAML approval.
+- Push any commit to `develop` (or queue a manual `develop` build of any pack — e.g., Credentials is the simplest with no runtime tests).
+- Watch the build — `PublishSonar` stage should complete cleanly.
+- Verify on SonarCloud: `UiPath_Community.Activities` → Overview → "Last analysis" timestamp is recent and the branch dropdown shows `develop`.
 
-**Verify on GitHub:** https://github.com/organizations/UiPath/settings/installations → SonarCloud → "Configure" → confirms repo access to `Community.Activities` is granted and SAML-authorized.
+If this fails with a Sonar error, **do not proceed to Step 4** — investigate first. Most likely: Step 1's rename didn't take effect, or there's a long-lived-branch pattern conflict.
 
-## ☐ Step 4 — Confirm baseline analysis exists on `develop`
+### ☐ Step 4 — Hand back to dev team for the one-line revert
 
-The first successful analysis on the new main branch creates the quality baseline that PR analyses compare against.
-
-- Trigger any CI pipeline on `develop` (push a no-op commit, or queue a manual `develop` build of any pack).
-- Watch the build — the `PublishSonar` stage should run and complete successfully.
-- After it completes: SonarCloud → `Community.Activities` → Overview → confirm "Last analysis" is recent and on branch `develop`.
-
-If this step fails with a Sonar error, **do not proceed to Step 5** — investigate first. Likely causes: the rename in Step 1 didn't take effect, or the binding in Step 3 isn't fully wired.
-
-## ☐ Step 5 — Re-enable Sonar on PR builds
-
-Once Steps 1–4 are green, hand back to the dev team to ship the one-line code change that brings back PR decoration:
-
-In `Activities/.pipelines/templates/stage.start.yml` (PublishSonar stage condition) and `Activities/.pipelines/templates/stage.build.yml` (two condition parameters for `Sonar/prepare-sonar-coverage.yml` and `Sonar/upload-sonar-build-output.yml`):
-
-Remove the trailing clause `, ne(variables['Build.Reason'], 'PullRequest')` from each `condition:` expression.
-
-A `git grep` will find all three places quickly:
+Once Steps 1–3 are verified, dev team runs:
 
 ```
 git grep "ne(variables\['Build.Reason'\], 'PullRequest')" Activities/
 ```
 
-Commit and PR. The next PR build should complete the full Sonar flow: Build with scanner prep → Test → PublishSonar with merge-commit reconstruction + analyze + publish + PR decoration on GitHub.
+Finds 3 hits. Remove `, ne(variables['Build.Reason'], 'PullRequest')` from each. Commit, push, open PR (or push to existing feature branch).
 
----
+The next PR build should complete the full Sonar flow: Build with scanner prep → Test → PublishSonar with merge-commit reconstruction + analyze + publish + PR decoration on GitHub.
 
-## Quality gate sanity check (do this after Step 5)
+## Quality-gate sanity check (after Step 4)
 
 - Open one of the next PR builds. PR comment from SonarCloud should appear with quality-gate status + coverage delta + new-code findings.
-- Open SonarCloud → `Community.Activities` → check that the PR shows up under "Pull Requests" with its quality-gate status.
+- SonarCloud → `UiPath_Community.Activities` → **Pull Requests** tab → PR shows up with its quality-gate status.
 
-If decoration is missing but the analysis succeeded, check the SonarCloud project's GitHub App is still installed and the binding from Step 3 is still active.
+## Important caveat — first PR analyses may show a backlog
 
----
+Once Sonar resumes, the first develop analysis after 3 months of inactivity (Sonar was disabled on 2026-02-27 by commit `2584bed`) will create the new baseline. Subsequent PRs analyze "new code since baseline."
+
+You may want to set the **"New Code" definition** before merging the first PR after restoration, to avoid surfacing ~3 months of accumulated drift as "new code":
+
+- Project → **Administration → New Code** → set to **"Specific date"** with a date just before the first restored analysis.
+
+Without this, the first few PRs may fail their quality gate purely because the new-code definition catches too much.
 
 ## Related context
 
-- PR that introduced the current vendored pipeline state: #559
-- Commit that disabled PR-time Sonar (workaround that this checklist undoes): `1ba42f2`
+- PR with the vendored pipelines + this checklist: #559
+- Commit that disabled PR-time Sonar (the workaround Step 4 undoes): `d4e3bd3` (re-applied after `1ba42f2` was reverted by `2be7a4d` and re-reverted by `d4e3bd3`)
+- Commit that fixed the project key from `Community.Activities` to `UiPath_Community.Activities`: `baf6a73`
 - Original Sonar disable that started this saga: `2584bed` (2026-02-27)
-- The Sonar tasks themselves use SonarSource's V1 (Node 10 EOL). Bumping to V2 is a separate follow-up — not blocking on these steps.
+- The SonarCloud tasks use SonarSource's V1 (Node 10 EOL warning). Bumping to V2 is a separate follow-up — not blocking these steps.
