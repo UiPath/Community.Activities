@@ -8,7 +8,7 @@ parameters:
   solutionPath: ''
   buildPoolName: ''
   testPoolName: ''
-  sonarProjectKey: 'Community.Activities'
+  sonarProjectKey: 'UiPath_Community.Activities'
   sonarServiceConnection: 'SonarCloudActivities'
   runSettingsFilePath: '$(RunSettingsFilePath)'
   preBuild: []
