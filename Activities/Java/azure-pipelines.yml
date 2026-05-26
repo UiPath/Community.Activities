@@ -37,7 +37,6 @@ stages:
     parameters:
       projectName: 'Java'
       solutionPath: '$(SolutionsPath)/Activities.Java.sln'
-      sonarKeyPrefix: 'CommunityActivities'
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false

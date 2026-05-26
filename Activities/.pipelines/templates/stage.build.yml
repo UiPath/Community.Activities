@@ -5,7 +5,7 @@ parameters:
   solutionPath: ''
   preBuild: []
   postBuild: []
-  sonarKeyPrefix: ''
+  sonarProjectKey: ''
   sonarServiceConnection: ''
   msBuildPack: false
   sdkBuild: false
@@ -46,7 +46,7 @@ jobs:
 
         - template: Sonar/prepare-sonar-coverage.yml
           parameters:
-            projectKey: '${{ parameters.sonarKeyPrefix }}-${{ parameters.projectName }}'
+            projectKey: ${{ parameters.sonarProjectKey }}
             serviceConnectionName: ${{ parameters.sonarServiceConnection }}
             condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
       postBuild:

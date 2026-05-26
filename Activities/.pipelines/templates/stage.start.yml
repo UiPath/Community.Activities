@@ -8,7 +8,7 @@ parameters:
   solutionPath: ''
   buildPoolName: ''
   testPoolName: ''
-  sonarKeyPrefix: ''
+  sonarProjectKey: 'Community.Activities'
   sonarServiceConnection: 'SonarCloudActivities'
   runSettingsFilePath: '$(RunSettingsFilePath)'
   preBuild: []
@@ -44,7 +44,7 @@ stages:
       solutionPath: ${{ parameters.solutionPath }}
       poolName: ${{ parameters.buildPoolName }}
       tagName: ${{ parameters.tagName }}
-      sonarKeyPrefix: ${{ parameters.sonarKeyPrefix }}
+      sonarProjectKey: ${{ parameters.sonarProjectKey }}
       sonarServiceConnection: ${{ parameters.sonarServiceConnection }}
       sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}

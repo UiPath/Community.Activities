@@ -37,7 +37,6 @@ stages:
     parameters:
       projectName: 'Cryptography'
       solutionPath: '$(SolutionsPath)/Activities.Cryptography.sln'
-      sonarKeyPrefix: 'CommunityActivities'
       sdkBuild: false
       enableCDStages: false
       hasQaPackages: false
