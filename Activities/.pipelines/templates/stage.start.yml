@@ -68,7 +68,7 @@ stages:
   - template: stage.test.yml
     parameters:
       poolName: ${{ parameters.testPoolName }}
-      runSettingsFile: ${{ parameters.runSettingsFilePath }}
+      runSettingsFilePath: ${{ parameters.runSettingsFilePath }}
       preTestRun:
       - ${{ each step in parameters.preTestRun }}:
         - ${{ step }}

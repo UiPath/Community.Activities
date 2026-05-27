@@ -58,6 +58,6 @@ steps:
   displayName: "Publish instrumented activities dlls artifact"
   inputs:
     PathtoPublish: "$(InstrumentedDllsPath)"
-    ArtifactName: "$(InstrumentedDllsArtifact)"
+    ArtifactName: "$(InstrumentedDllsArtifactName)"
     ArtifactType: "Container"
   condition: and(succeeded(), eq(variables['CoverageBuild'], 'true'))

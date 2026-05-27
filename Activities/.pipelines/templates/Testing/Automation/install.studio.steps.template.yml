@@ -22,10 +22,12 @@ parameters:
   type: string
   default: 'DesktopFeature,Studio,Robot,WindowsRdpExtension,ChromeExtension'
 
+# Note: StudioCustomNugetFeeds maps to the MSI installer's CUSTOM_NUGET_FEEDS argument.
+# This parameter only adds or updates the existing list of feeds. Initial list of feeds for
+# UiPath Studio 23.4 includes:
+#   Local,./Packages;Official,https://pkgs.dev.azure.com/uipath/Public.Feeds/_packaging/UiPath-Official/nuget/v3/index.json;Connect,https://gallery.uipath.com/api/v3/index.json
 - name: StudioCustomNugetFeeds
-  displayName: Semicolon separated list of name,value pairs representing custom nuget feeds. Command line parameter name CUSTOM_NUGET_FEEDS
-    This parameter only adds or updates the existing list of feeds. Initial list of feeds for UiPath Studio 23.4 includes
-    Local,./Packages;Official,https://pkgs.dev.azure.com/uipath/Public.Feeds/_packaging/UiPath-Official/nuget/v3/index.json;Connect,https://gallery.uipath.com/api/v3/index.json
+  displayName: Semicolon separated list of name,value pairs representing custom nuget feeds (CUSTOM_NUGET_FEEDS)
   type: string
   default: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
 
