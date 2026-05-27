@@ -160,6 +160,11 @@ steps:
           $installPath = $uipathx86ProductPath
         }
       }
+      else
+      {
+        # user-scope install: license tool lives under the per-user install path
+        $installPath = $uipathx86ProductPath
+      }
 
       & "$installPath\UiPath.LicenseTool.exe" activate -l "$env:LICENSE"
     displayName: "License ${{ parameters.MsiType }}"

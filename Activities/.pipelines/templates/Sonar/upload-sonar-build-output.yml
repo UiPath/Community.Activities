@@ -77,7 +77,7 @@ steps:
       Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MODE;isOutput=true]$env:SONARQUBE_SCANNER_MODE"
       Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_PARAMS;isOutput=true]$env:SONARQUBE_SCANNER_PARAMS"
       Write-Output "##vso[task.setvariable variable=SONARQUBE_ENDPOINT;isOutput=true]$env:sonarQubeEndpoint"
-      Write-Host "Endoint value - $env:sonarQubeEndpoint"
+      Write-Host "Endpoint value - $env:sonarQubeEndpoint"
   name: setSonarVariables
   displayName: "Set SonarQube variables on the build"
   condition: ${{ parameters.condition }}

@@ -23,10 +23,10 @@ jobs:
 
   - template: ../templates/Testing/Automation/install.studio.steps.template.yml
     parameters:
-      installType: 'machine'
-      studioVersion: ${{ parameters.robotVersion }}
-      license: $(studioLicense)
-      studioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+      InstallType: 'machine'
+      StudioVersion: ${{ parameters.robotVersion }}
+      License: $(studioLicense)
+      StudioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
 
   - powershell: |
       echo "##vso[task.setvariable variable=studioPackagesPath]$env:ProgramFiles/UiPath/Studio/Packages"
