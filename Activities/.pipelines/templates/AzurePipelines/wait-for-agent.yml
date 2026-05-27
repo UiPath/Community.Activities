@@ -80,7 +80,7 @@ steps:
           Start-Sleep -Seconds $delayTimeoutSeconds
       } while ($startDate.AddMinutes($retryTimeoutMinutes) -gt (Get-Date))
 
-      Write-Error "Not found $noOfAgents agents with capability $capabilityKey having value $capabilityValue"
+      Write-Error "Not found $noOfAgents matching agents in pool '$poolName' after $retryTimeoutMinutes minutes"
 
   env:
     SYSTEM_ACCESSTOKEN: ${{ parameters.azureDevOpsToken }}
