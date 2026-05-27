@@ -6,8 +6,6 @@ parameters:
   msBuildPack: false
   sdkBuild: false
   requiresLfs: false
-  signOutputs: true
-  azureSignConnectionName: ""
 
 steps:
 - checkout: self
@@ -52,6 +50,7 @@ steps:
     New-Item $qaOutPath -ItemType Directory
   env:
     ArtifactsOutputPath: $(ArtifactsOutputPath)
+    ExplorerStandaloneOutputPath: $(ExplorerStandaloneOutputPath)
     QAArtifactsOutputPath: $(QAArtifactsOutputPath)
   displayName: "Clean artifacts path"
 

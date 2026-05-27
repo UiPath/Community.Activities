@@ -13,5 +13,6 @@ variables:
   InstrumentedDllsArtifactName: "InstrumentedDlls"
   PrereleaseTag: ""
   Build.Repository.Clean: true
+  CleanGit: true
   SystemAccessToken: $(System.AccessToken)
   PlatformVersion: "19.10.2"

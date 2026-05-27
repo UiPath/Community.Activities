@@ -11,7 +11,6 @@ parameters:
   sdkBuild: false
   requiresLfs: false
   hasQaPackages: true
-  azureSignConnectionName: ""
 
 jobs:
 - job: BuildAndPublishArtifacts
@@ -40,7 +39,6 @@ jobs:
       sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}
       msBuildPack: ${{ parameters.msBuildPack }}
-      azureSignConnectionName: ${{ parameters.azureSignConnectionName }}
       preBuild:
         - ${{ parameters.preBuild }}
 

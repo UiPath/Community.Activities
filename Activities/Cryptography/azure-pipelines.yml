@@ -38,7 +38,6 @@ stages:
       projectName: 'Cryptography'
       solutionPath: '$(SolutionsPath)/Activities.Cryptography.sln'
       sdkBuild: false
-      enableCDStages: false
       hasQaPackages: false
       preTestRun:
       - task: UseDotNet@2

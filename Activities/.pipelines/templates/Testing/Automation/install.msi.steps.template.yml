@@ -44,14 +44,12 @@ steps:
 - powershell: |
     $tempPath = "c:\temp"
     $uipathProductPath = "C:\Program Files\UiPath\Studio"
-    $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Studio"
     $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Studio"
     $productName = "Studio"
 
     if ($env:MSI_TYPE -eq 'robot')
     {
       $uipathProductPath = "C:\Program Files\UiPath\Robot"
-      $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Robot"
       $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Robot"
       $productName = "RobotSlim"
     }
@@ -80,7 +78,7 @@ steps:
     }
 
     $installPath = $uipathProductPath
-    if (!(Test-Path $uipathProductPath) -and !(Test-Path $uipathx86ProductPath) -and  !(Test-Path $uipathx86ProductPath))
+    if (!(Test-Path $uipathProductPath) -and !(Test-Path $uipathx86ProductPath))
     {
       Write-Host "Download $productName msi from $downloadUrl"
       $stopwatch = [System.Diagnostics.Stopwatch]::new()
@@ -139,13 +137,11 @@ steps:
 - ${{ if ne(parameters.License, '') }}:
   - powershell: |
       $uipathProductPath = "C:\Program Files\UiPath\Studio"
-      $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Studio"
       $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Studio"
 
       if ($env:MSI_TYPE -eq 'robot')
       {
         $uipathProductPath = "C:\Program Files\UiPath\Robot"
-        $uipathx86ProductPath = "C:\Program Files(x86)\UiPath\Robot"
         $uipathx86ProductPath = "$env:LOCALAPPDATA\Programs\UiPath\Robot"
       }
 
