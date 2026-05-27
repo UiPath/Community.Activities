@@ -87,7 +87,11 @@ stages:
     - ${{ stage }}
   # Sonar runs only on non-PR triggers until SonarCloud's main branch is renamed
   # from master (stale, 6 years) to develop. See SONARCLOUD_ADMIN_CHECKLIST.md.
-  # Remove the Build.Reason clause to restore PR decoration after the rename.
+  # When restoring PR decoration after the rename: remove ONLY the
+  # `ne(variables['Build.Reason'], 'PullRequest')` clause. The IsFork clause must
+  # stay — it's the guard that keeps fork PRs out (where AzDO strips secrets and
+  # Sonar would fail anyway). The same pair appears on the prepare/upload
+  # condition parameters in stage.build.yml.
   condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
   jobs:
   - template: stage.sonar.yml

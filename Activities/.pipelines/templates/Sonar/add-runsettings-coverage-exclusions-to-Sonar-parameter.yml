@@ -12,10 +12,11 @@ steps:
         if([string]::IsNullOrEmpty($XmlFilename)) {
           $RunsettingsFiles = Get-ChildItem -Depth "3" -Filter "*.runsettings"
 
-          if($RunsettingsFiles.Count -gt -0) {
+          $RunsettingsFilesFound = ""
+          if($RunsettingsFiles.Count -gt 0) {
             $RunsettingsFilesFound = "Possible runsettings file(s) found: $RunsettingsFiles"
           }
-           Write-Warning ".runsettings file is not specified, no exclusions added. $RunsettingsFilesFound"
+          Write-Warning ".runsettings file is not specified, no exclusions added. $RunsettingsFilesFound"
         }
         else {
           Write-Host "Parsing $XmlFileName"

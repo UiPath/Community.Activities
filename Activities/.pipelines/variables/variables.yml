@@ -8,4 +8,3 @@ variables:
   TestRunnerVersion: "1.594.543"
   TestsStudioVersion: "24.10.8"
   RunAnalysis: 'true'
-  

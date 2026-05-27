@@ -61,7 +61,21 @@ jobs:
         - template: Sonar/uninstall-sonar-targets.yml
 
   - powershell: |
-      Write-Output "##vso[task.setvariable variable=SourceBranchCommitId;isOutput=true]$env:SourceBranchCommitId"
-      Write-Output "##vso[task.setvariable variable=TargetBranchCommitId;isOutput=true]$env:TargetBranchCommitId"
+      # On PR builds, AzDO checks out refs/pull/N/merge — HEAD is the merge commit,
+      # HEAD^1 is the target-branch tip, HEAD^2 is the source-branch tip. These output
+      # variables are consumed by stage.sonar.yml's Checkout-BuildBranch step to
+      # reconstruct the PR merge for Sonar PR analysis. The previous version of this
+      # step read `$env:SourceBranchCommitId`/`$env:TargetBranchCommitId` which were
+      # never set anywhere in-repo — they always resolved to empty, silently disabling
+      # the merge reconstruction (a Sonar PR-decoration bug latent behind the
+      # Build.Reason guard). Derive from git instead.
+      $sourceCommit = ""
+      $targetCommit = ""
+      if ($env:BUILD_REASON -eq 'PullRequest') {
+        $sourceCommit = (git rev-parse HEAD^2).Trim()
+        $targetCommit = (git rev-parse HEAD^1).Trim()
+      }
+      Write-Output "##vso[task.setvariable variable=SourceBranchCommitId;isOutput=true]$sourceCommit"
+      Write-Output "##vso[task.setvariable variable=TargetBranchCommitId;isOutput=true]$targetCommit"
     name: setBranchCommitVariables
     displayName: "Set branch commit variables on the build"

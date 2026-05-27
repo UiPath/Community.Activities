@@ -30,6 +30,10 @@ jobs:
       downloadPath: "$(Build.SourcesDirectory)"
     condition: and(succeeded(), eq(variables['RunTests'], 'true'))
 
+  # Exact-patch pin clears SonarCloud's "use complete version number" hotspot.
+  # Must be bumped in lockstep with the installed extension version on AzDO —
+  # otherwise the pipeline fails to compile with "A task is missing"
+  # (see commit b587daa for the prior occurrence with SonarCloudAnalyze).
   - task: BuildProcessCleaner@0.9147.15998
 
   - task: VisualStudioTestPlatformInstaller@1

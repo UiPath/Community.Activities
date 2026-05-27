@@ -39,6 +39,10 @@ jobs:
       parameters:
         condition: eq(variables['RunAnalysis'], 'true')
 
+    # Exact-patch pin clears SonarCloud's "use complete version number" hotspot
+    # (azurepipelines:S7637-family). Must be bumped in lockstep with the installed
+    # extension version on AzDO — otherwise the pipeline fails to compile with
+    # "A task is missing" (see commit b587daa for the prior occurrence).
     - task: PatchSonarQubeTask@0.7921.14273
       displayName: "Patch SonarQube files for the local folder"
       inputs:
