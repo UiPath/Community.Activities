@@ -1,6 +1,7 @@
 parameters:
   projectKey: ''
   serviceConnectionName: ''
+  organization: ''
   useMergedReport: false
   condition: succeeded()
   exclusions: '**/*.js,**/*AssemblyInfo.cs,**/*.css,**/*.scss,**/*.stub.ts,**/*.stubs.ts,**/*.spec.ts'
@@ -25,7 +26,7 @@ steps:
     condition: ${{ parameters.condition }}
     inputs:
         SonarCloud: ${{ parameters.serviceConnectionName }}
-        organization: ui
+        organization: ${{ parameters.organization }}
         scannerMode: CLI
         configMode: 'file'
         configFile: ${{ parameters.configFile }}
@@ -42,7 +43,7 @@ steps:
     condition: ${{ parameters.condition }}
     inputs:
       SonarCloud: ${{ parameters.serviceConnectionName }}
-      organization: ui
+      organization: ${{ parameters.organization }}
       projectKey: ${{ parameters.projectKey }}
       projectName: ${{ parameters.projectKey }}
       ${{ if eq(parameters.useMergedReport, true) }}:

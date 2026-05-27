@@ -10,6 +10,7 @@ parameters:
   testPoolName: ''
   sonarProjectKey: 'UiPath_Community.Activities'
   sonarServiceConnection: 'SonarCloudActivities'
+  sonarOrganization: 'ui'
   runSettingsFilePath: '$(RunSettingsFilePath)'
   preBuild: []
   postBuild: []
@@ -44,6 +45,7 @@ stages:
       tagName: ${{ parameters.tagName }}
       sonarProjectKey: ${{ parameters.sonarProjectKey }}
       sonarServiceConnection: ${{ parameters.sonarServiceConnection }}
+      sonarOrganization: ${{ parameters.sonarOrganization }}
       sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}
       hasQaPackages: ${{ parameters.hasQaPackages }}

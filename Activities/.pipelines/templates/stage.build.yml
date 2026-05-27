@@ -7,6 +7,7 @@ parameters:
   postBuild: []
   sonarProjectKey: ''
   sonarServiceConnection: ''
+  sonarOrganization: ''
   msBuildPack: false
   sdkBuild: false
   requiresLfs: false
@@ -46,6 +47,7 @@ jobs:
           parameters:
             projectKey: ${{ parameters.sonarProjectKey }}
             serviceConnectionName: ${{ parameters.sonarServiceConnection }}
+            organization: ${{ parameters.sonarOrganization }}
             condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
       postBuild:
         - ${{ parameters.postBuild }}
