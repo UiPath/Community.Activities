@@ -14,7 +14,7 @@ Container activity that initializes and manages the Python runtime session for c
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `LibraryPath` | Library path (Linux or version>3.9) | InArgument | `string` |  | null |  | For Linux is the path to Python libpython*.so library including library name. For Windows (Version>3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version<=3.9) leave empty. |
-| `OperationTimeout` | Timeout | InArgument | `double` |  | 3600 |  | The amount of time to allow a Python script to run until it is terminated and an exception is thrown. |
+| `OperationTimeout` | Timeout | InArgument | `double` |  | 3600 |  | The amount of time in seconds to allow a Python script to run until it is terminated and an exception is thrown. |
 | `Path` | Path | InArgument | `string` |  | null |  | Python home path |
 | `WorkingFolder` | WorkingFolder | InArgument | `string` |  | null |  | Used to specify the working folder of the scripts executing under the current scope |
 | `ScriptDataSizeLimitMB` | Script Data Size Limit (MB) | InArgument | `int` |  | null |  | Maximum size in MB of the data passed to the Python script as method arguments. If the size of the arguments exceeds this limit, an error is raised. Minimum accepted value is 1 MB. Leave empty to use the runtime default (25 MB). |
