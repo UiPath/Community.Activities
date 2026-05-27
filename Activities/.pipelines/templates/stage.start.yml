@@ -87,14 +87,17 @@ stages:
   - Test
   - ${{ each stage in parameters.sonarDependsOn }}:
     - ${{ stage }}
-  # Sonar runs only on non-PR triggers until SonarCloud's main branch is renamed
-  # from master (stale, 6 years) to develop. See SONARCLOUD_ADMIN_CHECKLIST.md.
+  # Sonar runs only on develop and release/* pushes — never on masters/* or
+  # support/* (the two startsWith exclusions below), and not on PR triggers until
+  # SonarCloud's main branch is renamed from master (stale, 6 years) to develop.
+  # See SONARCLOUD_ADMIN_CHECKLIST.md.
   # When restoring PR decoration after the rename: remove ONLY the
-  # `ne(variables['Build.Reason'], 'PullRequest')` clause. The IsFork clause must
-  # stay — it's the guard that keeps fork PRs out (where AzDO strips secrets and
-  # Sonar would fail anyway). The same pair appears on the prepare/upload
+  # `ne(variables['Build.Reason'], 'PullRequest')` clause. Keep the IsFork clause
+  # (guards out fork PRs, where AzDO strips secrets and Sonar would fail anyway)
+  # and the masters/support exclusions (PR builds use refs/pull/* so the
+  # exclusions don't block them). The same guards appear on the prepare/upload
   # condition parameters in stage.build.yml.
-  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
   jobs:
   - template: stage.sonar.yml
     parameters:
