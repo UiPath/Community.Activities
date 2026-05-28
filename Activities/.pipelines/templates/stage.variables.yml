@@ -1,0 +1,18 @@
+variables:
+  VSVersion: "17.0"
+  BuildPlatform: "Any CPU"
+  BuildConfiguration: "Release"
+  vmImage: "windows-latest"
+  OutputDirectory: "$(Build.SourcesDirectory)\\Activities\\Output\\"
+  ArtifactsOutputPath: "$(Build.SourcesDirectory)\\Output\\Packages"
+  ExplorerStandaloneOutputPath: "$(Build.SourcesDirectory)\\Output\\ExplorerStandalone"
+  QAArtifactsOutputPath: "$(Build.SourcesDirectory)\\Output\\TestPackages"
+  InstrumentedDllsPath: "$(Build.SourcesDirectory)\\Output\\InstrumentedDlls"
+  ArtifactName: "Packages"
+  QAArtifactName: "TestPackages"
+  InstrumentedDllsArtifactName: "InstrumentedDlls"
+  PrereleaseTag: ""
+  Build.Repository.Clean: true
+  CleanGit: true
+  SystemAccessToken: $(System.AccessToken)
+  PlatformVersion: "19.10.2"
