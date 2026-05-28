@@ -22,12 +22,6 @@ jobs:
       inputs:
         scriptName: "$(ToolsPath)/Checkout-BuildBranch.ps1"
 
-    - powershell: |
-        Write-Host "Variables for current build:"
-        Get-ChildItem ENV:* | ForEach-Object { Write-Host "$($_.Name)=$($_.Value)" }
-      displayName: "Print variables"
-      continueOnError: true
-
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Coverage Artifacts'
       inputs:
