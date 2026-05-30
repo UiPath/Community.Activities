@@ -127,7 +127,7 @@
     <value>Convertiți un obiect Java în tipul .net specificat. Dacă conversia nu este posibilă, aruncă o excepție.</value>
   </data>
   <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
-    <value>Convertește obiect Java</value>
+    <value>Convert Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
@@ -137,7 +137,7 @@
     <value>Invocă constructorul clasei specificate.</value>
   </data>
   <data name="CreateJavaObjectDisplayName" xml:space="preserve">
-    <value>Creează obiect Java</value>
+    <value>Create Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="Do" xml:space="preserve">
@@ -173,7 +173,7 @@
     <value>Invocare metodă Java</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Invocare metodă Java</value>
+    <value>Invoke Java Method</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
@@ -220,7 +220,7 @@
     <value>Încarcă un jar în scopul Java curent.</value>
   </data>
   <data name="LoadJarDisplayName" xml:space="preserve">
-    <value>Încărcare Jar</value>
+    <value>Load Jar</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarException" xml:space="preserve">
@@ -249,10 +249,10 @@
     <comment>property name</comment>
   </data>
   <data name="MenuAction_UseStaticNames" xml:space="preserve">
-    <value>Use static names</value>
+    <value>Folosește nume statice</value>
   </data>
   <data name="MenuAction_UseAnExpression" xml:space="preserve">
-    <value>Use an expression</value>
+    <value>Folosiți o expresie</value>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>Nu se pot seta atât {0} cât și {1}.</value>

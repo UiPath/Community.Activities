@@ -130,7 +130,7 @@
     <value>Nicht unterstützter Objekttyp gefunden.</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
+    <value>Keine gültige Authentifizierungsmethode gefunden: Sie müssen entweder eine private Schlüsseldatei (und optional eine Passphrase) oder ein Kennwort angeben.</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Das Zielverzeichnis ist bereits vorhanden.</value>

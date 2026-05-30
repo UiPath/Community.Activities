@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -155,6 +155,9 @@
   </data>
   <data name="InvalidPathException" xml:space="preserve">
     <value>La ruta de Python especificada no es válida: {0}</value>
+  </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>La ruta de la biblioteca Python especificada no es válida (se requiere una ruta de archivo a python**.dll / libpython*.so para Python 3.10): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Error al invocar el método Python</value>
@@ -314,5 +317,20 @@
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
     <value>No se detectaron instalaciones de Python</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>Límite de tamaño de datos del script (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>Tamaño máximo en MB de los datos pasados al script de Python como argumentos del método. Si el tamaño de los argumentos supera este límite, se produce un error. El valor mínimo aceptado es de 1 MB. Déjelo vacío para usar el valor predeterminado (25 MB).</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Registrar la salida de Python en un archivo (diagnóstico)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>Cuando está habilitada la opción, la salida stdout y stderr del proceso de host de Python se escribe en un archivo de registro por host en la carpeta resuelta por Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), en el subdirectorio UiPath\Logs\python. Cada archivo de registro tiene un límite de 50 MB; una vez que se alcanza el límite, no se escriben más salidas en ese archivo. Se conservan como máximo 128 archivos de registro. Los más antiguos se eliminan automáticamente cuando se crea un archivo nuevo. La salida NO se reenvía a UiPath Orchestrator. Destinado solo al diagnóstico local: deje la opción deshabilitada en producción para evitar la acumulación de archivos de registro.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>El límite de tamaño de datos del script (MB) debe ser de al menos {0}.</value>
   </data>
 </root>

@@ -249,10 +249,10 @@
     <comment>property name</comment>
   </data>
   <data name="MenuAction_UseStaticNames" xml:space="preserve">
-    <value>Use static names</value>
+    <value>Usar nombres estáticos</value>
   </data>
   <data name="MenuAction_UseAnExpression" xml:space="preserve">
-    <value>Use an expression</value>
+    <value>Utilice una expresión</value>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>No se pueden establecer tanto {0} como {1}.</value>

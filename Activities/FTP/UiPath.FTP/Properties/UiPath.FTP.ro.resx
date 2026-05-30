@@ -130,7 +130,7 @@
     <value>Tip de obiect nesuportat întâlnit.</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
+    <value>Nu a fost găsită nicio metodă de autentificare validă: trebuie să furnizați fie fișierul Private Key (și, opțional, fraza de acces), fie parola</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Directorul de destinație există deja</value>

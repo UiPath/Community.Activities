@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -155,6 +155,9 @@
   </data>
   <data name="InvalidPathException" xml:space="preserve">
     <value>指定した Python のパスは無効です: {0}</value>
+  </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>指定した Python のライブラリ パスは無効です (Python 3.10 の python**.dll / libpython*.so へのファイル パスが必要です): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python メソッドの呼びし中にエラーが発生しました。</value>
@@ -314,5 +317,20 @@
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
     <value>Python のインストールが検出されませんでした。</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>スクリプトのデータ サイズ制限 (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>メソッドの引数として Python スクリプトに渡されるデータの最大サイズです (MB 単位)。引数のサイズがこの制限を超えると、エラーが発生します。最小許容値は 1 MB です。既定値 (25 MB) を使用するには、空のままにします。</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Python の出力をファイルにログ記録 (診断)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>有効化すると、Python のホスト プロセスからの stdout と stderr 出力が、UiPath\Logs\python サブディレクトリ内の Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) によって解決されるフォルダーの下にあるホストごとのログ ファイルに書き込まれます。各ログ ファイルの上限は 50 MB です。上限に達すると、そのファイルにそれ以上の出力は書き込まれません。最大 128 個のログ ファイルが保持され、最も古いファイルは新しいファイルが作成されると自動的に削除されます。出力は Orchestrator に転送されません。ローカル診断のみを目的としており、ログ ファイルが蓄積されないように、本番環境では無効のままにしてください。</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>スクリプトのデータ サイズ制限 (MB) は {0} 以上である必要があります。</value>
   </data>
 </root>

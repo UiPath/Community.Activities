@@ -233,7 +233,7 @@
     <value>Gibt die Zeitspanne (in Millisekunden) an, in der auf die Ausführung der SQL-Abfrage gewartet wird, bevor ein Fehler ausgelöst wird (die Antwortzeit für das Abrufen des Abfrageergebnisses wird nicht eingeschlossen). Der Standardwert ist 30000 Millisekunden (30 Sekunden) und muss größer oder gleich 0 sein.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>App-Integration</value>
+    <value>App Integration</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Aufzählung)</value>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -155,6 +155,9 @@
   </data>
   <data name="InvalidPathException" xml:space="preserve">
     <value>Der angegebene Python-Pfad ist ungültig: {0}</value>
+  </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>Der angegebene Python-Bibliothekspfad ist ungültig (für Python 3.10 ist ein Dateipfad zu python**.dll / libpython*.so erforderlich): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Fehler beim Aufrufen der Python-Methode</value>
@@ -314,5 +317,20 @@
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
     <value>Es wurden keine Python-Installationen erkannt</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>Größenbegrenzung für Skriptdaten (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>Maximale Größe in MB der Daten, die als Methodenargumente an das Python-Skript übergeben werden. Wenn die Größe der Argumente diese Grenze überschreitet, wird ein Fehler ausgelöst. Der kleinste zulässige Wert beträgt 1 MB. Lassen Sie das Feld leer, um den Standardwert (25 MB) zu verwenden.</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Python-Ausgabe in Datei protokollieren (Diagnose)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>Wenn diese Option aktiviert ist, werden die stdout- und stderr-Ausgaben des Python-Hostprozesses in eine host-spezifische Protokolldatei geschrieben, die sich im Unterverzeichnis „UiPath\Logs\python“ des Ordners befindet, der von Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) aufgelöst wird. Jede Protokolldatei ist auf 50 MB begrenzt; sobald diese Grenze erreicht ist, werden keine weiteren Ausgaben in diese Datei geschrieben. Es werden maximal 128 Protokolldateien beibehalten – die ältesten werden automatisch gelöscht, wenn eine neue Datei erstellt wird. Die Ausgabe wird NICHT an Orchestrator weitergeleitet. Nur für die lokale Diagnose vorgesehen – lassen Sie diese Option in der Produktion deaktiviert, um eine Anhäufung von Protokolldateien zu vermeiden.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>Die Größenbegrenzung für Skriptdaten (MB) muss mindestens {0} sein.</value>
   </data>
 </root>

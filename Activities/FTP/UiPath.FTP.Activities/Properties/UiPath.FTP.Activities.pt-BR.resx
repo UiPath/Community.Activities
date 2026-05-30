@@ -220,7 +220,7 @@
     <value>Caminho para a Chave privada no formato PKCS #1 PEM</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
+    <value>Nenhum método de autenticação válido encontrado: você precisa fornecer o arquivo de chave privada (e a frase secreta opcionalmente) ou a senha</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>Novo caminho remoto</value>
@@ -328,7 +328,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete File/Folder</value>
+    <value>Delete File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -472,7 +472,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Use FTP connection</value>
+    <value>Use FTP Connection</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -584,7 +584,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Faz o download de arquivos</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -632,7 +632,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move File/Folder</value>
+    <value>Move File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">

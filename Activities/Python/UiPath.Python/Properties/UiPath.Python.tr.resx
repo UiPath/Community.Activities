@@ -129,6 +129,21 @@
   <data name="InstantiationException" xml:space="preserve">
     <value>Python örnekleme özel durumu</value>
   </data>
+  <data name="LoadException" xml:space="preserve">
+    <value>Python yükleme komut dosyası özel durumu</value>
+  </data>
+  <data name="InvocationException" xml:space="preserve">
+    <value>Python yöntem çağırma özel durumu</value>
+  </data>
+  <data name="ConversionException" xml:space="preserve">
+    <value>Python nesnesi dönüştürme özel durumu</value>
+  </data>
+  <data name="ExecutionException" xml:space="preserve">
+    <value>Python kod yürütme özel durumu</value>
+  </data>
+  <data name="RequestException" xml:space="preserve">
+    <value>Python isteği işleme özel durumu</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Python exe bulunamadı</value>
   </data>
@@ -143,5 +158,8 @@
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Python sürümü {0} desteklenmiyor. Desteklenen sürümler şunlardır: {1}</value>
+  </data>
+  <data name="PayloadThresholdExceeded" xml:space="preserve">
+    <value>Python komut dosyası veri boyutu ({0} MB) yapılandırılan sınırı ({1} MB) aşıyor. Büyük verileri yöntem bağımsız değişkeni yerine bir dosya yolu üzerinden iletin veya Komut Dosyası Veri Boyutu Sınırı özelliğini artırın.</value>
   </data>
 </root>

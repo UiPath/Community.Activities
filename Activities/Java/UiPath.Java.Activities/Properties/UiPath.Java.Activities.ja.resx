@@ -249,10 +249,10 @@
     <comment>property name</comment>
   </data>
   <data name="MenuAction_UseStaticNames" xml:space="preserve">
-    <value>Use static names</value>
+    <value>静的な名前を使用</value>
   </data>
   <data name="MenuAction_UseAnExpression" xml:space="preserve">
-    <value>Use an expression</value>
+    <value>式を使用</value>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>{0} と {1} は同時に設定できません。</value>

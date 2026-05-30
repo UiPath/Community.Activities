@@ -220,7 +220,7 @@
     <value>Ruta de acceso a la clave privada en formato PKCS #1 PEM</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
+    <value>No se encontró ningún método de autenticación válido: debe suministrar un archivo de clave privada (y, opcionalmente, una frase de contraseña) o una contraseña</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>Nueva ruta de acceso remota</value>
@@ -243,14 +243,14 @@
     <value>Descargar archivos</value>
   </data>
   <data name="DownloadFilesDisplayName" xml:space="preserve">
-    <value>Descargar archivos</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="EnumerateObjectsDescription" xml:space="preserve">
     <value>Enumerar objetos</value>
   </data>
   <data name="EnumerateObjectsDisplayName" xml:space="preserve">
-    <value>Enumerar objetos</value>
+    <value>Enumerate Objects</value>
     <comment>Activity name</comment>
   </data>
   <data name="FileExistsDescription" xml:space="preserve">
@@ -264,14 +264,14 @@
     <value>Mover elemento</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Mover elemento</value>
+    <value>Move Item</value>
     <comment>Activity name</comment>
   </data>
   <data name="UploadFilesDescription" xml:space="preserve">
     <value>Cargar archivos</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Subir archivos</value>
+    <value>Upload Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="WithFtpSessionDescription" xml:space="preserve">
@@ -328,7 +328,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Eliminar archivo/carpeta</value>
+    <value>Delete File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -472,7 +472,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Use FTP connection</value>
+    <value>Use FTP Connection</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -584,7 +584,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Descargar archivos</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
