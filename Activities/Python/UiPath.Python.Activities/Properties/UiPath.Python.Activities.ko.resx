@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -155,6 +155,9 @@
   </data>
   <data name="InvalidPathException" xml:space="preserve">
     <value>지정된 Python 경로가 잘못됨: {0}</value>
+  </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>지정된 Python 라이브러리 경로가 유효하지 않습니다(Python 3.10에는 python**.dll / libpython*.so 파일 경로가 필요함): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python 메서드 호출 중 오류</value>
@@ -314,5 +317,20 @@
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
     <value>Python 설치가 감지되지 않았습니다</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>스크립트 데이터 크기 제한(MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>Python 스크립트에 메서드 인수로 전달되는 데이터의 최대 크기(MB)입니다. 인수의 크기가 이 제한을 초과하면 오류가 발생합니다. 최소 허용 값은 1MB입니다. 기본값(25MB)을 사용하려면 비워 두십시오.</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Python 출력을 파일에 기록(진단)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>활성화하면 Python 호스트 프로세스의 stdout 및 stderr 출력이 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)로 확인된 폴더 아래의 UiPath\Logs\python 하위 디렉터리에 있는 호스트별 로그 파일에 기록됩니다. 각 로그 파일의 최대 크기는 50MB이며, 이 제한에 도달하면 더 이상 해당 파일에 출력이 기록되지 않습니다. 최대 128개의 로그 파일이 유지되며, 새 파일이 생성될 때 가장 오래된 파일은 자동으로 삭제됩니다. 출력은 Orchestrator로 전달되지 않습니다. 로컬 진단 용도로만 사용되며, 로그 파일 누적을 방지하려면 프로덕션 환경에서는 비활성화 상태로 두십시오.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>스크립트 데이터 크기 제한(MB)은 {0} 이상이어야 합니다.</value>
   </data>
 </root>

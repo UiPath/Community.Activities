@@ -143,29 +143,29 @@
     <value>ContinueOnError</value>
   </data>
   <data name="DeleteDisplayName" xml:space="preserve">
-    <value>Ștergeți</value>
+    <value>Delete</value>
     <comment>Activity name</comment>
   </data>
   <data name="DirectoryExistsDescription" xml:space="preserve">
     <value>Există directorul</value>
   </data>
   <data name="DirectoryExistsDisplayName" xml:space="preserve">
-    <value>Există directorul</value>
+    <value>Directory Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="DownloadFilesDisplayName" xml:space="preserve">
-    <value>Descarcă fișiere</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="EnumerateObjectsDisplayName" xml:space="preserve">
-    <value>Enumerare obiecte</value>
+    <value>Enumerate Objects</value>
     <comment>Activity name</comment>
   </data>
   <data name="FileExistsDescription" xml:space="preserve">
     <value>Fișierul există</value>
   </data>
   <data name="FileExistsDisplayName" xml:space="preserve">
-    <value>Fișierul există</value>
+    <value>File Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="FilesDescription" xml:space="preserve">
@@ -178,7 +178,7 @@
     <value>LocalPath</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Mutare element</value>
+    <value>Move Item</value>
     <comment>Activity name</comment>
   </data>
   <data name="MoveItemNewPathDescription" xml:space="preserve">
@@ -194,7 +194,7 @@
     <value>Fișier sau folder de șters</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Încărcare fișiere</value>
+    <value>Upload Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">

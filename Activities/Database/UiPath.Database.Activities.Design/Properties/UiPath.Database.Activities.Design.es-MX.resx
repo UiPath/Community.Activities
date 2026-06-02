@@ -233,7 +233,7 @@
     <value>Especifica la cantidad de tiempo (en milisegundos) que se debe esperar para que se ejecute la consulta sql antes de que se produzca un error (no incluye el tiempo de respuesta para la recuperación de resultados de la consulta). El valor predeterminado es 30,000 milisegundos (30 segundos) y debe ser mayor que 0 o igual a ese valor.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integración de aplicaciones</value>
+    <value>App Integration</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Colección)</value>

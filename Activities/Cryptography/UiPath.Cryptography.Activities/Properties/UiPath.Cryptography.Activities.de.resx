@@ -1013,7 +1013,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
-    <value>Generierte PGP-Schlüssel</value>
+    <value>PGP Generate Keys</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">

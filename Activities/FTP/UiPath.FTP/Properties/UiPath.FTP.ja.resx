@@ -130,7 +130,7 @@
     <value>サポートされていないオブジェクトの種類が検出されました。</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
+    <value>有効な認証方法が見つかりません: 秘密キー ファイル (必要に応じてパスフレーズも含む) またはパスワードのいずれかを入力する必要があります。</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>宛先ディレクトリはすでに存在します。</value>

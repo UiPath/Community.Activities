@@ -130,7 +130,7 @@
     <value>Scope der FTP-Sitzung</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>App-Integration</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">
