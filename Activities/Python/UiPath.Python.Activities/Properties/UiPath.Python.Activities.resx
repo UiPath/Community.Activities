@@ -291,7 +291,7 @@
     <value>Timeout</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>The amount of time to allow a Python script to run until it is terminated and an exception is thrown.</value>
+    <value>The amount of time in seconds to allow a Python script to run until it is terminated and an exception is thrown.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty.</value>

@@ -349,7 +349,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The amount of time to allow a Python script to run until it is terminated and an exception is thrown..
+        ///   Looks up a localized string similar to The amount of time in seconds to allow a Python script to run until it is terminated and an exception is thrown..
         /// </summary>
         public static string OperationTimeoutDescription {
             get {
