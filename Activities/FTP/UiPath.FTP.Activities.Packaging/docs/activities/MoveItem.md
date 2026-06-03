@@ -25,6 +25,8 @@ Moves an item on an FTP server to a different remote path. This activity only wo
 
 ## XAML Example
 
+Requires the FTP namespace (`xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"`, see [overview](../overview.md#xaml-namespace)) and must run inside a [`WithFtpSession`](WithFtpSession.md) scope.
+
 ```xml
 <ftp:MoveItem DisplayName="Move File or Folder" RemotePath="/remote/source/file.txt" NewPath="/remote/destination/file.txt" />
 ```

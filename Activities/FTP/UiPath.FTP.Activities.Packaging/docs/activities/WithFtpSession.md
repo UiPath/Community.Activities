@@ -42,6 +42,29 @@ Connects to FTP server and provides a scope for other FTP activities.
 
 ## XAML Example
 
+Declare the FTP namespace on the root `<Activity>` (see [overview](../overview.md#xaml-namespace)) — use the schema URI, not `clr-namespace:`:
+
 ```xml
-<ftp:WithFtpSession DisplayName="Use FTP Connection" Host="ftp.example.com" Username="[ftpUser]" Password="[ftpPass]" />
+xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"
 ```
+
+`WithFtpSession` is a **scope**. Its `Body` is an `ActivityAction<IFtpSession>` whose delegate argument is named `FtpSession`; child FTP activities go inside the body's `Sequence`. For SFTP set `UseSftp="True"`.
+
+```xml
+<ftp:WithFtpSession DisplayName="Use FTP Connection"
+                    Host="[ftpHost]" Username="[ftpUser]" Password="[ftpPass]"
+                    UseSftp="True" Port="22">
+  <ftp:WithFtpSession.Body>
+    <ActivityAction x:TypeArguments="ftp:IFtpSession">
+      <ActivityAction.Argument>
+        <DelegateInArgument x:TypeArguments="ftp:IFtpSession" Name="FtpSession" />
+      </ActivityAction.Argument>
+      <Sequence DisplayName="Do">
+        <!-- child FTP activities here, e.g. ftp:EnumerateObjects -->
+      </Sequence>
+    </ActivityAction>
+  </ftp:WithFtpSession.Body>
+</ftp:WithFtpSession>
+```
+
+> Expressions above use VB syntax (`[ftpHost]`). In a C# project, bind non-literal inputs with `<CSharpValue>` child elements instead of bracket attributes.

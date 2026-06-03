@@ -29,6 +29,8 @@ Checks whether a certain file exists in the specified FTP directory. This activi
 
 ## XAML Example
 
+Requires the FTP namespace (`xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"`, see [overview](../overview.md#xaml-namespace)) and must run inside a [`WithFtpSession`](WithFtpSession.md) scope.
+
 ```xml
 <ftp:FileExists DisplayName="File Exists" RemotePath="/remote/path/file.txt" Exists="[fileExists]" />
 ```
