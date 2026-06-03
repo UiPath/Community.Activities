@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>Sağlanan ParameterDirection bağımsız değişkeninin karşılık gelen bir ArgumentDirection değeri yok</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>Bir işlem zaten devam ediyor. Yeni bir işlem başlatmadan önce var olan işlemi tamamlayın veya geri alın.</value>
+  </data>
 </root>

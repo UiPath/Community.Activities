@@ -7,7 +7,7 @@ Loads a Java archive file into the active Java runtime so classes can be instant
 **Package:** `UiPath.Java.Activities`
 **Category:** Java
 **Required Scope:** `UiPath.Java.Activities.JavaScope`
-**Platform:** Windows only
+**Platform:** Cross-platform
 
 ## Properties
 

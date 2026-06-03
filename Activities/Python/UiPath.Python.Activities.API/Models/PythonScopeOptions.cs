@@ -42,5 +42,24 @@ namespace UiPath.Python.Activities.API.Models
         /// Default is <see cref="TargetPlatform.x64"/>.
         /// </summary>
         public TargetPlatform Target { get; set; } = TargetPlatform.x64;
+
+        /// <summary>
+        /// When enabled, stdout and stderr output from the Python host process is written to a
+        /// per-host log file under the folder resolved by
+        /// <c>Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)</c>,
+        /// in the <c>UiPath\Logs\python</c> subdirectory. Each log file is capped at 50 MB;
+        /// once the cap is reached, no further output is written to that file. At most 128 log
+        /// files are kept — the oldest are automatically deleted when a new file is created.
+        /// The output is NOT forwarded to Orchestrator. Intended for local diagnosis only —
+        /// leave disabled in production to avoid accumulating log files.
+        /// </summary>
+        public bool LogTraces { get; set; }
+
+        /// <summary>
+        /// Maximum size in megabytes of the request payload sent to the Python host process.
+        /// When <c>null</c>, defaults to the engine default (<see cref="EngineProvider.DefaultPayloadThresholdMB"/>).
+        /// Must be at least <see cref="EngineProvider.MinPayloadThresholdMB"/>.
+        /// </summary>
+        public int? ScriptDataSizeLimitMB { get; set; }
     }
 }

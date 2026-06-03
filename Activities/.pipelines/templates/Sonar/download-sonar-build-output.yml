@@ -1,0 +1,71 @@
+parameters:
+  artifactName: "SonarQube-Temp"
+  cleanup: true
+  condition: succeeded()
+
+steps:
+- ${{ if eq(parameters.cleanup, true) }}:
+  - template: clean-sonar-coverage.yml
+    parameters:
+      condition: ${{ parameters.condition }}
+
+- task: DownloadBuildArtifacts@0
+  displayName: "Download SonarQube artifact from current build"
+  inputs:
+    artifactName: ${{ parameters.artifactName }}
+    downloadPath: $(Build.SourcesDirectory)
+  condition: ${{ parameters.condition }}
+
+
+- task: ExtractFiles@1
+  displayName: "Extract artifact files"
+  inputs:
+    archiveFilePatterns: "$(Build.SourcesDirectory)/${{ parameters.artifactName }}/${{ parameters.artifactName }}.zip"
+    destinationFolder: "$(Build.SourcesDirectory)/SonarTemp"
+    cleanDestinationFolder: true
+  condition: ${{ parameters.condition }}
+
+- powershell: |
+    $sonarQubeDir = $env:SonarQubeDir
+    $srcDir = $env:SrcDir
+    $artifactName = $env:ArtifactName
+
+    if (Test-Path $sonarQubeDir) {
+      Remove-Item -Force -Recurse -Path $sonarQubeDir
+    }
+
+    New-Item -ItemType directory -Path $sonarQubeDir
+    Move-Item "$srcDir/SonarTemp/.sonarqube/*" -Destination $sonarQubeDir -Force
+    Copy-Item "$srcDir/SonarTemp/metadata/*" $srcDir -Force -Recurse
+
+    Remove-Item "$srcDir/$artifactName" -Force -Recurse
+  env:
+    ArtifactName: ${{ parameters.artifactName }}
+    SrcDir: $(Build.SourcesDirectory)
+    SonarQubeDir: "$(Pipeline.Workspace)/.sonarqube"
+  displayName: 'Move artifact files to sources'
+  condition: ${{ parameters.condition }}
+
+- powershell: |
+    $srcDir = $env:SrcDir
+
+    if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe") {
+      Write-Host "Found scanner of type classic-sonar-scanner-msbuild"
+
+      $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe"
+      Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_EXE]$scannerPath"
+    } else {
+        if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll") {
+        Write-Host "Found scanner of type dotnet-sonar-scanner-msbuild"
+
+        $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll"
+        Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_DLL]$scannerPath"
+      }
+      else {
+        Write-Error "The sonar scanner executable was not found inside the temp package"
+      }
+    }
+  env:
+    SrcDir: $(Build.SourcesDirectory)
+  displayName: 'Set SonarQube Scanner Path'
+  condition: ${{ parameters.condition }}

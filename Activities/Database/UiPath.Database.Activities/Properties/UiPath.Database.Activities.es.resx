@@ -580,6 +580,14 @@ Si UtilizarTransacción se establece en Verdadero, las operaciones contenidas se
     <value>Tabla de datos</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>La salida del comando SQL rodeado por una variable ConjuntoDeDatos.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>ConjuntoDeDatos</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Ya hay una conexión de base de datos abierta que se ha recibido de actividades Conectar o Iniciar transacción. Si se proporciona dicha conexión, se omiten las propiedades CadenaDeConexión y CadenaDeConexiónSegura.</value>
     <comment>property description</comment>

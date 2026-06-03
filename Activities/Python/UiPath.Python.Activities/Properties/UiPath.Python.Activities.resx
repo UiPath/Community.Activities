@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>The specified Python path is not valid: {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Error invoking Python method</value>
   </data>
@@ -288,7 +291,7 @@
     <value>Timeout</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>The amount of time to allow a Python script to run until it is terminated and an exception is thrown.</value>
+    <value>The amount of time in seconds to allow a Python script to run until it is terminated and an exception is thrown.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty.</value>
@@ -311,5 +314,23 @@
   </data>
   <data name="InstalledVersionsDescription" xml:space="preserve">
     <value>Select the Python installation to be used for the configuration of the activity</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>No Python installations were detected</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>Script Data Size Limit (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>Maximum size in MB of the data passed to the Python script as method arguments. If the size of the arguments exceeds this limit, an error is raised. Minimum accepted value is 1 MB. Leave empty to use the default (25 MB).</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Log Python Output to File (Diagnostic)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>When enabled, stdout and stderr output from the Python host process is written to a per-host log file under the folder resolved by Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), in the UiPath\Logs\python subdirectory. Each log file is capped at 50 MB; once the cap is reached, no further output is written to that file. At most 128 log files are kept — the oldest are automatically deleted when a new file is created. The output is NOT forwarded to Orchestrator. Intended for local diagnosis only — leave disabled in production to avoid accumulating log files.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>Script Data Size Limit (MB) must be at least {0}.</value>
   </data>
 </root>

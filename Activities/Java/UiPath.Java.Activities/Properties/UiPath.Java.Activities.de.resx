@@ -248,6 +248,12 @@
     <value>Parameterliste</value>
     <comment>property name</comment>
   </data>
+  <data name="MenuAction_UseStaticNames" xml:space="preserve">
+    <value>Statische Namen verwenden</value>
+  </data>
+  <data name="MenuAction_UseAnExpression" xml:space="preserve">
+    <value>Einen Ausdruck verwenden</value>
+  </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>{0} und {1} können nicht gleichzeitig festgelegt sein.</value>
   </data>

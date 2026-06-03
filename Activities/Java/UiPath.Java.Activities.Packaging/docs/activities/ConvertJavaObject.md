@@ -7,7 +7,7 @@ Converts a Java object handle obtained from Java activities into a strongly type
 **Package:** `UiPath.Java.Activities`
 **Category:** Java
 **Required Scope:** `UiPath.Java.Activities.JavaScope`
-**Platform:** Windows only
+**Platform:** Cross-platform
 
 ## Properties
 

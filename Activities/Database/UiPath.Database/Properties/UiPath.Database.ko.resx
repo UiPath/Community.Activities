@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>입력한 ParameterDirection 인수에 해당하는 ArgumentDirection 값이 없습니다.</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>트랜잭션이 이미 진행 중입니다. 새 트랜잭션을 시작하기 전에 기존 트랜잭션을 커밋하거나 롤백합니다.</value>
+  </data>
 </root>

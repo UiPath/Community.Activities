@@ -127,7 +127,7 @@
     <value>Convertiți un obiect Java în tipul .net specificat. Dacă conversia nu este posibilă, aruncă o excepție.</value>
   </data>
   <data name="ConvertJavaObjectDisplayName" xml:space="preserve">
-    <value>Convertește obiect Java</value>
+    <value>Convert Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="ConvertJavaObjectResultDescription" xml:space="preserve">
@@ -137,14 +137,14 @@
     <value>Invocă constructorul clasei specificate.</value>
   </data>
   <data name="CreateJavaObjectDisplayName" xml:space="preserve">
-    <value>Creează obiect Java</value>
+    <value>Create Java Object</value>
     <comment>activity name</comment>
   </data>
   <data name="Do" xml:space="preserve">
     <value>Do</value>
   </data>
   <data name="FieldNameDisplayName" xml:space="preserve">
-    <value>FieldName</value>
+    <value>Nume câmp</value>
     <comment>property name</comment>
   </data>
   <data name="FieldNameDescription" xml:space="preserve">
@@ -173,7 +173,7 @@
     <value>Invocare metodă Java</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Invocare metodă Java</value>
+    <value>Invoke Java Method</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
@@ -220,7 +220,7 @@
     <value>Încarcă un jar în scopul Java curent.</value>
   </data>
   <data name="LoadJarDisplayName" xml:space="preserve">
-    <value>Încărcare Jar</value>
+    <value>Load Jar</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadJarException" xml:space="preserve">
@@ -241,18 +241,24 @@
     <value>Lista argumentelor specificate în aceeași ordine ca metoda Java. Un argument nu poate fi nul.</value>
   </data>
   <data name="ParametersDisplayName" xml:space="preserve">
-    <value>Parameters</value>
+    <value>Parametri</value>
     <comment>property name</comment>
   </data>
   <data name="ParametersListDisplayName" xml:space="preserve">
-    <value>ParametersList</value>
+    <value>Lista de parametri</value>
     <comment>property name</comment>
+  </data>
+  <data name="MenuAction_UseStaticNames" xml:space="preserve">
+    <value>Folosește nume statice</value>
+  </data>
+  <data name="MenuAction_UseAnExpression" xml:space="preserve">
+    <value>Folosiți o expresie</value>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>Nu se pot seta atât {0} cât și {1}.</value>
   </data>
   <data name="ResultDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Rezultat</value>
     <comment>property name</comment>
   </data>
   <data name="TargetObjectDisplayName" xml:space="preserve">
@@ -263,7 +269,7 @@
     <value>Obiectul java instanțiat va fi invocat. TargetObject și TargetType nu pot fi setate simultan.</value>
   </data>
   <data name="TargetTypeDisplayName" xml:space="preserve">
-    <value>TargetType</value>
+    <value>Tip de țintă</value>
     <comment>property name</comment>
   </data>
   <data name="TargetTypeDescription" xml:space="preserve">
@@ -288,7 +294,7 @@
     <value>Calea către biblioteca Java este invalidă.</value>
   </data>
   <data name="TimeoutMSDisplayName" xml:space="preserve">
-    <value>Init timeout (milliseconds)</value>
+    <value>Timeout de inițializare (milisecunde)</value>
     <comment>property name</comment>
   </data>
   <data name="TimeoutMSException" xml:space="preserve">

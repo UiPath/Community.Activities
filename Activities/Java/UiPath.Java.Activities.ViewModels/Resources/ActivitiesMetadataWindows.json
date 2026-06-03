@@ -1,44 +1,54 @@
 {
-  "additionalTypeCacheInfo": {
-    "legacyDesignerActivities": [
-      {
-        "fullName": "UiPath.Java.Activities.ConvertJavaObject",
-        "displayNameKey": "ConvertJavaObjectDisplayName",
-        "descriptionKey": "ConvertJavaObjectDescription",
-        "iconKey": "JavaIcon.svg"
-      },
-      {
-        "fullName": "UiPath.Java.Activities.CreateJavaObject",
-        "displayNameKey": "CreateJavaObjectDisplayName",
-        "descriptionKey": "CreateJavaObjectDescription",
-        "iconKey": "JavaIcon.svg"
-      },
-      {
-        "fullName": "UiPath.Java.Activities.GetJavaField",
-        "displayNameKey": "GetFieldDisplayName",
-        "descriptionKey": "GetFieldDescritption",
-        "iconKey": "JavaIcon.svg"
-      },
-      {
-        "fullName": "UiPath.Java.Activities.InvokeJavaMethod",
-        "displayNameKey": "InvokeJavaMethodDisplayName",
-        "descriptionKey": "InvokeJavaMethodDescription",
-        "iconKey": "JavaIcon.svg"
-      },
-      {
-        "fullName": "UiPath.Java.Activities.JavaScope",
-        "displayNameKey": "JavaScopeNameDisplayName",
-        "descriptionKey": "JavaScopeDescription",
-        "iconKey": "JavaIcon.svg"
-      },
-      {
-        "fullName": "UiPath.Java.Activities.LoadJar",
-        "displayNameKey": "LoadJarDisplayName",
-        "descriptionKey": "LoadJarDescription",
-        "iconKey": "JavaIcon.svg"
-      }
-    ]
-  },
+  "activities": [
+    {
+      "fullName": "UiPath.Java.Activities.ConvertJavaObject`1",
+      "shortName": "ConvertJavaObject",
+      "displayNameKey": "ConvertJavaObjectDisplayName",
+      "descriptionKey": "ConvertJavaObjectDescription",
+      "iconKey": "JavaIcon.svg",
+      "viewModelType": "UiPath.Activities.Java.ViewModels.ConvertJavaObjectViewModel`1"
+    },
+    {
+      "fullName": "UiPath.Java.Activities.JavaScope",
+      "shortName": "JavaScope",
+      "displayNameKey": "JavaScopeNameDisplayName",
+      "descriptionKey": "JavaScopeDescription",
+      "iconKey": "JavaIcon.svg",
+      "viewModelType": "UiPath.Activities.Java.ViewModels.JavaScopeViewModel"
+    },
+    {
+      "fullName": "UiPath.Java.Activities.LoadJar",
+      "shortName": "LoadJar",
+      "displayNameKey": "LoadJarDisplayName",
+      "descriptionKey": "LoadJarDescription",
+      "iconKey": "JavaIcon.svg",
+      "viewModelType": "UiPath.Activities.Java.ViewModels.LoadJarViewModel"
+    },
+    {
+      "fullName": "UiPath.Java.Activities.InvokeJavaMethod",
+      "shortName": "InvokeJavaMethod",
+      "displayNameKey": "InvokeJavaMethodDisplayName",
+      "descriptionKey": "InvokeJavaMethodDescription",
+      "iconKey": "JavaIcon.svg",
+      "viewModelType": "UiPath.Activities.Java.ViewModels.InvokeJavaMethodViewModel"
+    },
+    {
+      "fullName": "UiPath.Java.Activities.CreateJavaObject",
+      "shortName": "CreateJavaObject",
+      "displayNameKey": "CreateJavaObjectDisplayName",
+      "descriptionKey": "CreateJavaObjectDescription",
+      "iconKey": "JavaIcon.svg",
+      "viewModelType": "UiPath.Activities.Java.ViewModels.CreateJavaObjectViewModel"
+    },
+    {
+      "fullName": "UiPath.Java.Activities.GetJavaField",
+      "shortName": "GetJavaField",
+      "displayNameKey": "GetFieldDisplayName",
+      "descriptionKey": "GetFieldDescritption",
+      "iconKey": "JavaIcon.svg",
+      "viewModelType": "UiPath.Activities.Java.ViewModels.GetJavaFieldViewModel"
+    }
+  ],
   "defaultActivityNameBackgroundColor": "#00489D",
   "defaultActivityColor": "#00489D",
   "defaultActivityIconKey": "JavaIcon.svg",
