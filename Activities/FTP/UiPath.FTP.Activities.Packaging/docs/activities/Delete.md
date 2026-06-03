@@ -23,6 +23,8 @@ Removes a specified file from an FTP server. This activity only works if it is p
 
 ## XAML Example
 
+Requires the FTP namespace (`xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"`, see [overview](../overview.md#xaml-namespace)) and must run inside a [`WithFtpSession`](WithFtpSession.md) scope.
+
 ```xml
 <ftp:Delete DisplayName="Delete File or Folder" RemotePath="/remote/path/file.txt" />
 ```
