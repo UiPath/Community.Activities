@@ -130,7 +130,7 @@
     <value>Unsupported object type encountered.</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password</value>
+    <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>The destination directory already exists</value>

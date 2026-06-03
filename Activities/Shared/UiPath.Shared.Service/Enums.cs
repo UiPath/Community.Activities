@@ -18,14 +18,13 @@
 
     internal enum ResultState
     {
+        Successful,
         InstantiationException,
-        IllegalArguments,
-        UnknownException,
-        ScriptNotLoaded,
-        ScriptNotFound,
-        ScriptAlreadyLoaded,
-        FieldNotFound,
-        Successful
+        LoadException,
+        InvocationException,
+        ConversionException,
+        ExecutionException,
+        RequestException
     }
 
     #endregion Result State

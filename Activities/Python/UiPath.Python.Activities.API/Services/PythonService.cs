@@ -6,20 +6,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python;
 using UiPath.Python.Activities.API.Models;
+using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
 namespace UiPath.Python.Activities.API
 {
     internal class PythonService : IPythonService
     {
-        private readonly Func<Version, string, string, bool, TargetPlatform, bool, IEngine> _engineFactory;
+        private readonly Func<Version, string, string, bool, TargetPlatform, bool, bool, int, IEngine> _engineFactory;
 
         public PythonService()
-            : this((version, path, libraryPath, x, target, y) => EngineProvider.Get(version, path, libraryPath, x, target, y))
+            : this((version, path, libraryPath, inProcess, target, visible, logTrace, payloadThresholdMB) =>
+                EngineProvider.Get(version, path, libraryPath, inProcess, target, visible, logTrace, payloadThresholdMB))
         {
         }
 
         // For testing: allows injecting a fake IEngine without a real Python installation.
-        internal PythonService(Func<Version, string, string, bool, TargetPlatform, bool, IEngine> engineFactory)
+        internal PythonService(Func<Version, string, string, bool, TargetPlatform, bool, bool, int, IEngine> engineFactory)
         {
             _engineFactory = engineFactory;
         }
@@ -38,10 +40,13 @@ namespace UiPath.Python.Activities.API
                 throw new DirectoryNotFoundException($"Python path not found: {path}");
 
             if (!VersionExtensions.GetSupportedVersions().Contains(options.Version))
-                throw new InvalidOperationException($"Python version '{options.Version}' is not supported.");
+                throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
 
             if (options.OperationTimeout.HasValue && options.OperationTimeout.Value < TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(options), "OperationTimeout must be non-negative.");
+
+            if (options.ScriptDataSizeLimitMB.HasValue && options.ScriptDataSizeLimitMB.Value < EngineProvider.MinPayloadThresholdMB)
+                throw new ArgumentOutOfRangeException(nameof(options), $"ScriptDataSizeLimitMB must be at least {EngineProvider.MinPayloadThresholdMB}.");
 
             string workingFolder = options.WorkingFolder;
             if (!string.IsNullOrWhiteSpace(workingFolder))
@@ -55,7 +60,30 @@ namespace UiPath.Python.Activities.API
 
             var operationTimeout = (options.OperationTimeout ?? TimeSpan.FromHours(1)).TotalSeconds;
 
-            IEngine engine = _engineFactory(options.Version, path, options.LibraryPath, false, options.Target, false);
+            // Resolve the version the engine will actually run with, before initializing it,
+            // so version mismatches and the Python 3.10 library-path requirement can be
+            // reported with clear errors instead of opaque native-load failures.
+            var effectiveVersion = EngineProvider.ResolveEffectiveVersion(options.Version, path, out var autodetected);
+
+            if (options.Version != Version.Auto && autodetected != Version.Auto)
+            {
+                if (!VersionExtensions.GetSupportedVersions().Contains(autodetected))
+                    throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
+                if (autodetected != options.Version)
+                    throw new InvalidOperationException(
+                        string.Format(Resources.InvalidVersionException, options.Version.ToFriendlyString(), autodetected.ToFriendlyString()));
+            }
+
+            // Python 3.10 requires an explicit library file (python**.dll on Windows,
+            // libpython*.so on Linux).
+            if (effectiveVersion == Version.Python_310 &&
+                (string.IsNullOrWhiteSpace(options.LibraryPath) || !File.Exists(options.LibraryPath)))
+            {
+                throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, options.LibraryPath));
+            }
+
+            int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;
+            IEngine engine = _engineFactory(effectiveVersion, path, options.LibraryPath, false, options.Target, false, options.LogTraces, payloadThresholdMB);
 
             try
             {

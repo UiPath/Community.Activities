@@ -101,6 +101,21 @@ namespace UiPath.Shared.Service
                     case (ResultState.InstantiationException):
                         excetpionMessageBuilder.AppendLine(UiPath_Python.InstantiationException);
                         break;
+                    case (ResultState.LoadException):
+                        excetpionMessageBuilder.AppendLine(UiPath_Python.LoadException);
+                        break;
+                    case (ResultState.InvocationException):
+                        excetpionMessageBuilder.AppendLine(UiPath_Python.InvocationException);
+                        break;
+                    case (ResultState.ConversionException):
+                        excetpionMessageBuilder.AppendLine(UiPath_Python.ConversionException);
+                        break;
+                    case (ResultState.ExecutionException):
+                        excetpionMessageBuilder.AppendLine(UiPath_Python.ExecutionException);
+                        break;
+                    case (ResultState.RequestException):
+                        excetpionMessageBuilder.AppendLine(UiPath_Python.RequestException);
+                        break;
                 }
                 if (ExecutionErrors?.Count > 0)
                 {

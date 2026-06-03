@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>L’argument ParameterDirection ne dispose pas d’une valeur ArgumentDirection correspondante</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>Une transaction est déjà en cours. Validez ou annulez la transaction existante avant d’en lancer une nouvelle.</value>
+  </data>
 </root>

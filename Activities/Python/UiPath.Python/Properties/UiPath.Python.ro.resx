@@ -129,6 +129,21 @@
   <data name="InstantiationException" xml:space="preserve">
     <value>Excepție de instanțiere Python</value>
   </data>
+  <data name="LoadException" xml:space="preserve">
+    <value>Excepție la încărcarea scriptului Python</value>
+  </data>
+  <data name="InvocationException" xml:space="preserve">
+    <value>Excepție la invocarea metodei Python</value>
+  </data>
+  <data name="ConversionException" xml:space="preserve">
+    <value>Excepție de conversie a obiectului Python</value>
+  </data>
+  <data name="ExecutionException" xml:space="preserve">
+    <value>Excepție la executarea codului Python</value>
+  </data>
+  <data name="RequestException" xml:space="preserve">
+    <value>Excepție la procesarea cererii Python</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Executabilul Python nu a fost găsit</value>
   </data>
@@ -143,5 +158,8 @@
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Versiunea Python {0} nu este acceptată. Versiunile acceptate sunt: {1}</value>
+  </data>
+  <data name="PayloadThresholdExceeded" xml:space="preserve">
+    <value>Dimensiunea datelor scriptului Python ({0} MB) depășește limita configurată ({1} MB). Transmiteți datele mari printr-o cale de fișier în loc să le transmiteți ca argument al metodei sau măriți valoarea proprietății Limită dimensiune date script.</value>
   </data>
 </root>

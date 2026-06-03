@@ -1,0 +1,88 @@
+parameters:
+  condition: succeeded()
+  coverageExclusions: ''
+  runsettingsFile: ''
+
+steps:
+- powershell: |
+    $CoverageExclusions = $env:EXCLUDE
+    $XmlFilename = $env:RUNSETTINGSFILE
+
+    try {
+        if([string]::IsNullOrEmpty($XmlFilename)) {
+          $RunsettingsFiles = Get-ChildItem -Depth "3" -Filter "*.runsettings"
+
+          $RunsettingsFilesFound = ""
+          if($RunsettingsFiles.Count -gt 0) {
+            $RunsettingsFilesFound = "Possible runsettings file(s) found: $RunsettingsFiles"
+          }
+          Write-Warning ".runsettings file is not specified, no exclusions added. $RunsettingsFilesFound"
+        }
+        else {
+          Write-Host "Parsing $XmlFileName"
+          [xml]$Xml = Get-Content $XmlFilename
+          $ExcludeNodes = $null
+          $WildcardsList = [System.Collections.ArrayList]@()
+
+          $CodeCoverageNodes = $Xml.GetElementsByTagName('DataCollector').GetElementsByTagName('Configuration').GetElementsByTagName('CodeCoverage')
+
+          if(($ModulePaths = $CodeCoverageNodes.GetElementsByTagName('ModulePaths')) -ne $null) {
+            $ExcludeNodes += $ModulePaths.GetElementsByTagName('Exclude')
+          }
+          if(($SourcesNodes = $CodeCoverageNodes.GetElementsByTagName('Sources')) -ne $null) {
+            $ExcludeNodes += $SourcesNodes.GetElementsByTagName('Exclude')
+          }
+
+          foreach($ExclusionPath in $ExcludeNodes.ChildNodes) {
+
+            if($ExclusionPath.'#text') {
+
+              $CoverageExpression = $ExclusionPath.'#text'
+
+              $Patterns = [regex] '(\$)|(\^)|(\.\*)|(\\\.)|(\\\\)|(\\\))|(\\\()'
+              $Matches = $Patterns.Match($CoverageExpression, 0)
+              while($Matches.Success -eq $true) {
+                Switch ($matches.Value) {
+                  '\\' {$Symbol = '\'}
+                  '\.' {$Symbol = '.'}
+                  '.*' {$Symbol = '*'}
+                  '\(' {$Symbol = '('}
+                  '\)' {$Symbol = ')'}
+                  '$'  {$Symbol = '' }
+                  '^'  {$Symbol = '' }
+                }
+                $CoverageExpression = $CoverageExpression.remove($Matches.Index,$Matches.Length).insert($Matches.Index,$Symbol)
+                if($Matches.Index -lt $CoverageExpression.length) {
+                  $Matches = $Patterns.Match($CoverageExpression, $Matches.Index + 1)
+                }
+                else {
+                  break
+                }
+              }
+
+              # wildcards take into account directory levels, so we need to make sure it excludes all files from all levels
+              if ($CoverageExpression.EndsWith("\*")) {
+                $CoverageExpression = $CoverageExpression + "*\*"
+              }
+
+              [void]$WildcardsList.Add($CoverageExpression)
+              Write-Host "Transforming  $($ExclusionPath.'#text') to $CoverageExpression and adding to exclusion variable"
+            }
+          }
+
+          if(![string]::IsNullOrEmpty($CoverageExclusions)) {
+            $CoverageExclusions += ','
+          }
+          $CoverageExclusions += $WildcardsList -join ","
+        }
+    } catch {
+        Write-Warning $_.Exception.Message
+    }
+
+    Write-Output "##vso[task.setvariable variable=CoverageExclusions;]$CoverageExclusions"
+    Write-Host $CoverageExclusions
+  displayName: "Set exclusion Sonar parameter"
+  condition: ${{ parameters.condition }}
+  env:
+    EXCLUDE: ${{ parameters.coverageExclusions }}
+    RUNSETTINGSFILE: ${{ parameters.runsettingsFile }}

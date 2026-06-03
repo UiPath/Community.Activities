@@ -130,7 +130,7 @@
     <value>Tipo de objeto não compatível encontrado.</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Nenhum método de autenticação válido encontrado: você precisa fornecer o arquivo de Chave Privada (e opcionalmente passphare) ou Senha</value>
+    <value>Nenhum método de autenticação válido encontrado: você precisa fornecer o arquivo de chave privada (e a frase secreta opcionalmente) ou a senha</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>O diretório de destino já existe</value>

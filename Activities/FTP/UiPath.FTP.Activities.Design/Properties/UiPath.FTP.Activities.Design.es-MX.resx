@@ -130,7 +130,7 @@
     <value>Ámbito de sesión FTP</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integración de aplicaciones</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">
@@ -154,11 +154,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="DownloadFilesDisplayName" xml:space="preserve">
-    <value>Descargar archivos</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="EnumerateObjectsDisplayName" xml:space="preserve">
-    <value>Enumerar objetos</value>
+    <value>Enumerate Objects</value>
     <comment>Activity name</comment>
   </data>
   <data name="FileExistsDescription" xml:space="preserve">
@@ -178,7 +178,7 @@
     <value>LocalPath</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Mover elemento</value>
+    <value>Move Item</value>
     <comment>Activity name</comment>
   </data>
   <data name="MoveItemNewPathDescription" xml:space="preserve">
@@ -194,7 +194,7 @@
     <value>Archivo o carpeta a eliminar</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Subir archivos</value>
+    <value>Upload Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="UseAnonymousLoginDescription" xml:space="preserve">

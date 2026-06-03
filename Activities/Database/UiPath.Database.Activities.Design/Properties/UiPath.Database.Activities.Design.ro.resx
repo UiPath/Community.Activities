@@ -233,7 +233,7 @@
     <value>Specifică durata de timp (în milisecunde) de așteptare pentru ca interogarea SQL să fie executată înainte de a fi generată o eroare (nu include timpul de răspuns pentru recuperarea rezultatului interogării). Valoarea implicită este 30000 de milisecunde (30 de secunde) și trebuie să fie mai mare sau egală cu 0.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integrarea aplicațiilor</value>
+    <value>App Integration</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(Colecție)</value>

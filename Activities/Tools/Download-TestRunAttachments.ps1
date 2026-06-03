@@ -3,7 +3,6 @@ param(
     [string]$project,
     [Parameter(Mandatory = $true)]
     [string] $buildId,
-    [Parameter(Mandatory = $true)]
     [string] $accessToken,
     [string] $organization = "UiPath",
     [Parameter(Mandatory = $true)]
@@ -12,6 +11,16 @@ param(
 function Main {
 
     New-item -ItemType Directory -Path $outputPath -Force
+
+    # Prefer the env-var pathway (set by the caller's env: block) — keeps the
+    # token off the command line and out of agent process listings. Falls back
+    # to the -accessToken parameter for backward compatibility.
+    if ([string]::IsNullOrEmpty($accessToken)) {
+        $accessToken = $env:SYSTEM_ACCESSTOKEN
+    }
+    if ([string]::IsNullOrEmpty($accessToken)) {
+        throw "Access token is required: pass via env (SYSTEM_ACCESSTOKEN) or -accessToken parameter."
+    }
 
     $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f "", $accessToken)))
 
