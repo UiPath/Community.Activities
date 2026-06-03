@@ -173,7 +173,7 @@
     <value>Invoquer la méthode Java</value>
   </data>
   <data name="InvokeJavaMethodDisplayName" xml:space="preserve">
-    <value>Invoquer la méthode Java</value>
+    <value>Invoke Java Method</value>
     <comment>activity name</comment>
   </data>
   <data name="InvokeJavaResultDescription" xml:space="preserve">
@@ -247,6 +247,12 @@
   <data name="ParametersListDisplayName" xml:space="preserve">
     <value>ListeParamètres</value>
     <comment>property name</comment>
+  </data>
+  <data name="MenuAction_UseStaticNames" xml:space="preserve">
+    <value>Utiliser des noms statiques</value>
+  </data>
+  <data name="MenuAction_UseAnExpression" xml:space="preserve">
+    <value>Utiliser une expression</value>
   </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>Impossible de définir {0} et {1}.</value>

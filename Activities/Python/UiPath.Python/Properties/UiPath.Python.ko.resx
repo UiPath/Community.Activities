@@ -129,6 +129,21 @@
   <data name="InstantiationException" xml:space="preserve">
     <value>Python 인스턴스화 예외</value>
   </data>
+  <data name="LoadException" xml:space="preserve">
+    <value>Python 로드 스크립트 예외</value>
+  </data>
+  <data name="InvocationException" xml:space="preserve">
+    <value>Python 메서드 호출 예외</value>
+  </data>
+  <data name="ConversionException" xml:space="preserve">
+    <value>Python 개체 변환 예외</value>
+  </data>
+  <data name="ExecutionException" xml:space="preserve">
+    <value>Python 코드 실행 예외</value>
+  </data>
+  <data name="RequestException" xml:space="preserve">
+    <value>Python 요청 처리 예외</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Python exe를 찾을 수 없음</value>
   </data>
@@ -143,5 +158,8 @@
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Python 버전 {0}은(는) 지원되지 않습니다. 지원되는 버전: {1}</value>
+  </data>
+  <data name="PayloadThresholdExceeded" xml:space="preserve">
+    <value>Python 스크립트 데이터 크기({0}MB)가 구성된 제한({1}MB)을 초과합니다. 대용량 데이터는 메서드 인수 대신 파일 경로를 통해 전달하거나 스크립트 데이터 크기 제한 속성을 늘리십시오.</value>
   </data>
 </root>

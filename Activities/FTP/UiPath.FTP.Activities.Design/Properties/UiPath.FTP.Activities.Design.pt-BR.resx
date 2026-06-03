@@ -130,7 +130,7 @@
     <value>Escopo da sessão do FTP</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>Integração do Aplicativo</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">

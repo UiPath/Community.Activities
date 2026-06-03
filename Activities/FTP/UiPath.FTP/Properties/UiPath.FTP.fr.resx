@@ -130,7 +130,7 @@
     <value>Type d’objet non pris en charge rencontré.</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Aucune méthode d’authentification valide trouvée : vous devez fournir un fichier de clé privée (et éventuellement une phrase secrète) ou mot de passe</value>
+    <value>Aucune méthode d’authentification valide trouvée : vous devez fournir un fichier de clé privée (et éventuellement une phrase secrète) ou un mot de passe</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>Le fichier de destination existe déjà.</value>

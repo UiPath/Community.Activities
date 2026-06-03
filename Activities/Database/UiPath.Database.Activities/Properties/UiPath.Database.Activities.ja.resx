@@ -580,6 +580,14 @@
     <value>データ テーブル</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>DataSet 型変数にラップされた SQL コマンドの出力です。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>データ セット</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>[接続] または [トランザクションを開始] アクティビティから取得する、すでに開かれているデータベース接続です。このプロパティを指定すると、[接続文字列] と [セキュリティで保護された接続文字列] プロパティは無視されます。</value>
     <comment>property description</comment>

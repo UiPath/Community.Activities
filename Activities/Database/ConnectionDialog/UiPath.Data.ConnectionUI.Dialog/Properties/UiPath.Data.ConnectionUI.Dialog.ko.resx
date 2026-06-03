@@ -216,6 +216,21 @@
   <data name="DataProvider_Oracle_Short" xml:space="preserve">
     <value>OracleClient</value>
   </data>
+  <data name="DataProvider_Sqlite" xml:space="preserve">
+    <value>Microsoft.Data.Sqlite</value>
+  </data>
+  <data name="DataProvider_Sqlite_DataSource_Description" xml:space="preserve">
+    <value>Microsoft.Data.Sqite를 사용하여 SQLite 데이터베이스 파일에 연결하려면 이 옵션을 선택하십시오.</value>
+  </data>
+  <data name="DataProvider_Sqlite_Description" xml:space="preserve">
+    <value>Microsoft.Data.Sqite는 SQLite 데이터베이스를 위한 경량 ADO.NET 공급자입니다. 추가 클라이언트 소프트웨어가 필요하지 않습니다.</value>
+  </data>
+  <data name="DataProvider_Sqlite_Short" xml:space="preserve">
+    <value>SQLite</value>
+  </data>
+  <data name="DataSource_SQLite" xml:space="preserve">
+    <value>SQLite</value>
+  </data>
   <data name="DataProvider_Sql" xml:space="preserve">
     <value>.NET Framework Data Provider for SQL Server</value>
   </data>
@@ -371,5 +386,8 @@
   </data>
   <data name="WindowsAuthentication_Label" xml:space="preserve">
     <value>Windows 인증 사용</value>
+  </data>
+  <data name="SqliteFileBrowseFilter" xml:space="preserve">
+    <value>SQLite 데이터베이스(*.db;*.sqlite;*.sqlite3)|*.db;*.sqlite;*.sqlite3|모든 파일(*.*)|*.*</value>
   </data>
 </root>

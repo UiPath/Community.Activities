@@ -6,7 +6,7 @@ Starts and manages a Java runtime bridge used by all Java child activities.
 
 **Package:** `UiPath.Java.Activities`
 **Category:** Java
-**Platform:** Windows only
+**Platform:** Cross-platform
 
 ## Properties
 

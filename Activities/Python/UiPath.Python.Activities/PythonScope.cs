@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Statements;
 using System.Activities.Validation;
 using System.ComponentModel;
@@ -75,6 +76,18 @@ namespace UiPath.Python.Activities
 
         #endregion TODO: decide if these will be exposed
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.ScriptDataSizeLimitDisplayName))]
+        [LocalizedDescription(nameof(Resources.ScriptDataSizeLimitDescription))]
+        [DefaultValue(null)]
+        public InArgument<int> ScriptDataSizeLimitMB { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.LogTracesDisplayName))]
+        [LocalizedDescription(nameof(Resources.LogTracesDescription))]
+        [DefaultValue(false)]
+        public bool LogTraces { get; set; } = false;
+
         private const string PythonEngineSessionProperty = "PythonEngineSessionProperty";
         private IEngine _pythonEngine = null;
 
@@ -106,8 +119,10 @@ namespace UiPath.Python.Activities
             base.CacheMetadata(metadata);
             if (!VersionExtensions.GetSupportedVersions().Contains(Version))
                 metadata.AddValidationError(new ValidationError(Resources.ValidationErrorVersionUnsupported, false, nameof(Version)));
-            if(Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
+            if (Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
                 metadata.AddValidationError(new ValidationError(Resources.ValidationErrorPlatformUnsupported, false, nameof(Version)));
+            if (ScriptDataSizeLimitMB?.Expression is Literal<int> literal && literal.Value < EngineProvider.MinPayloadThresholdMB)
+                metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorScriptDataSizeLimitInvalid, EngineProvider.MinPayloadThresholdMB), false, nameof(ScriptDataSizeLimitMB)));
         }
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
@@ -134,20 +149,32 @@ namespace UiPath.Python.Activities
                 if (!VersionExtensions.GetSupportedVersions().Contains(Version))
                     throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
 
-                _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
+                int payloadThresholdMB = ScriptDataSizeLimitMB?.Expression != null ? ScriptDataSizeLimitMB.Get(context) : EngineProvider.DefaultPayloadThresholdMB;
+                if (payloadThresholdMB < EngineProvider.MinPayloadThresholdMB)
+                    throw new ArgumentException(string.Format(Resources.ValidationErrorScriptDataSizeLimitInvalid, EngineProvider.MinPayloadThresholdMB));
 
-                if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
-                    throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
+                // Resolve the version the engine will actually run with, before initializing
+                // it, so version mismatches and the Python 3.10 library-path requirement can
+                // be reported with clear errors instead of opaque native-load failures.
+                var effectiveVersion = EngineProvider.ResolveEffectiveVersion(Version, path, out var autodetected);
 
-                if (Version != Version.Auto)
+                if (Version != Version.Auto && autodetected != Version.Auto)
                 {
-                    Version autodetected = Version.Auto;
-                    EngineProvider.Autodetect(path, out autodetected);
-                    if (autodetected != Version.Auto && !VersionExtensions.GetSupportedVersions().Contains(autodetected))
+                    if (!VersionExtensions.GetSupportedVersions().Contains(autodetected))
                         throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
-                    if (autodetected != Version.Auto && autodetected != Version)
+                    if (autodetected != Version)
                         throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
                 }
+
+                // Python 3.10 requires an explicit library file (python**.dll on Windows,
+                // libpython*.so on Linux).
+                if (effectiveVersion == Version.Python_310 && (libraryPath.IsNullOrEmpty() || !File.Exists(libraryPath)))
+                    throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, libraryPath));
+
+                if (effectiveVersion == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
+                    throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
+
+                _pythonEngine = EngineProvider.Get(effectiveVersion, path, libraryPath, !Isolated, TargetPlatform, ShowConsole, LogTraces, payloadThresholdMB);
 
                 var workingFolder = WorkingFolder.Get(context);
                 if (!workingFolder.IsNullOrEmpty())

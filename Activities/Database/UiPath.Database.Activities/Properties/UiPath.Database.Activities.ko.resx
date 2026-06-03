@@ -580,6 +580,14 @@ UseTransaction가 True로 설정되면 포함된 작업이 단일 트랜잭션�
     <value>데이터 테이블</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>데이터 집합 변수에 래핑된 SQL 명령의 출력입니다.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>데이터 집합</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Connect 또는 Start Transaction 액티비티에서 가져온 이미 열린 데이터베이스 연결입니다. 이러한 연결이 제공되면 연결 문자열 및 보안 연결 문자열 속성이 무시됩니다.</value>
     <comment>property description</comment>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -23,7 +23,7 @@ namespace UiPath.Shared.Service.Client
         internal bool Visible { get; set; } = true;
 
         internal string PythonHostLibFile { get; set; }
-        
+
         internal string PythonHostExeFile { get; set; }
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
@@ -41,30 +41,49 @@ namespace UiPath.Shared.Service.Client
 
         private void StartHostService()
         {
-            var isWindows = true;
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                isWindows = false;
-
             bool isExeMode = !PythonHostExeFile.IsNullOrEmpty();
             string hostFile = isExeMode ? PythonHostExeFile : PythonHostLibFile;
-
-            string folder = Path.GetDirectoryName(hostFile);
-            var hostFullPath = hostFile;
-            if (folder.IsNullOrEmpty())
-            {
-                if (isWindows)
-                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("\\lib\\", "\\bin\\");
-                else
-                    folder = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location).Replace("/lib/", "/bin/");
-
-                hostFullPath = Path.Combine(folder, hostFile);
-            }
+            var (folder, hostFullPath) = ResolveHostFullPath(hostFile);
 
             if (!File.Exists(hostFullPath))
                 throw new Exception($"Process path not found: {hostFullPath}");
 
+            PythonWrapper.Proc = Process.Start(CreateProcessStartInfo(hostFullPath, folder, isExeMode));
+
+            // Eagerly create the diagnostic log file (when LogTrace is enabled) so that even
+            // hosts that crash before emitting any stdout/stderr leave a record on disk.
+            // Use GetHostProcessId to safely read the PID — Process.Id can throw if the host
+            // already exited or the OS handle isn't fully populated yet.
+            PythonWrapper.GetHostProcessId(out var startupPid);
+            PythonWrapper.AppendDiagnostic($"Host process started (pid={(startupPid > 0 ? startupPid.ToString() : "unknown")}, exe='{hostFullPath}', mode={(isExeMode ? "exe" : "dll")}).");
+
+            // Subscribe before BeginOutputReadLine/BeginErrorReadLine — these handlers drive the
+            // diagnostic log and the post-mortem buffer surfaced by ThrowIfProcessHasExited.
+            PythonWrapper.Proc.OutputDataReceived += (_, e) => RelayHostOutput(e.Data, isStderr: false);
+            PythonWrapper.Proc.ErrorDataReceived += (_, e) => RelayHostOutput(e.Data, isStderr: true);
+            PythonWrapper.Proc.BeginOutputReadLine();
+            PythonWrapper.Proc.BeginErrorReadLine();
+
+            Retry(IsServiceReady, StartTimeout, RetryInterval);
+        }
+
+        private static (string folder, string hostFullPath) ResolveHostFullPath(string hostFile)
+        {
+            var folder = Path.GetDirectoryName(hostFile);
+            if (!folder.IsNullOrEmpty())
+                return (folder, hostFile);
+
+            var assemblyDir = Path.GetDirectoryName(Assembly.GetAssembly(typeof(T)).Location);
+            var resolvedFolder = IsWindows()
+                ? assemblyDir.Replace("\\lib\\", "\\bin\\")
+                : assemblyDir.Replace("/lib/", "/bin/");
+            return (resolvedFolder, Path.Combine(resolvedFolder, hostFile));
+        }
+
+        private ProcessStartInfo CreateProcessStartInfo(string hostFullPath, string folder, bool isExeMode)
+        {
             // start the host process: directly via exe on x86, or via dotnet for the managed lib
-            ProcessStartInfo psi = new ProcessStartInfo()
+            var psi = new ProcessStartInfo
             {
                 UseShellExecute = false,
                 FileName = isExeMode ? hostFullPath : "dotnet",
@@ -73,41 +92,71 @@ namespace UiPath.Shared.Service.Client
                 RedirectStandardError = true,
                 RedirectStandardOutput = true
             };
+            // Force CPython stdio to be unbuffered. When stdout/stderr are redirected (as here),
+            // CPython switches to block-buffering by default, so a script's print() output may
+            // never reach the host until the buffer fills or the interpreter exits — and on
+            // forced shutdown (Process.Kill) any buffered output is lost.
+            psi.EnvironmentVariables["PYTHONUNBUFFERED"] = "1";
             if (!isExeMode)
                 psi.ArgumentList.Add(hostFullPath);
+            return psi;
+        }
 
-            PythonWrapper.Proc = Process.Start(psi);
+        private void RelayHostOutput(string data, bool isStderr)
+        {
+            if (data == null)
+                return;
 
-            Retry(ServiceReady, StartTimeout, RetryInterval);
+            // Always buffer so ThrowIfProcessHasExited can surface the latest lines from the
+            // host, regardless of whether the crash happens during startup or steady-state.
+            if (isStderr)
+                PythonWrapper.AppendStderr(data);
+            else
+                PythonWrapper.AppendStdout(data);
 
-            // wait for service to become available
-            bool ServiceReady()
+            // Trace-forward only after the service is initialized and tracing is enabled.
+            if (!PythonWrapper.Initialized || !PythonWrapper.LogTrace)
+                return;
+
+            if (isStderr)
+                Trace.TraceWarning($"[python.stderr] {data}");
+            else
+                Trace.TraceInformation($"[python.stdout] {data}");
+        }
+
+        // wait for service to become available
+        private bool IsServiceReady()
+        {
+            PythonWrapper.ThrowIfProcessHasExited();
+
+            //for some edge case - check if the process has the id set
+            if (!PythonWrapper.GetHostProcessId(out var processId))
+                return false;
+
+            PythonWrapper.Pipe ??= new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
+            TryConnectPipeClient();
+
+            if (!PythonWrapper.Pipe.IsConnected)
+                return false;
+
+            PythonWrapper.Initialized = true;
+            return true;
+        }
+
+        private void TryConnectPipeClient()
+        {
+            try
             {
-                PythonWrapper.ThrowIfProcessHasExited();
-
-                //for some edge case - check if the process has the id set               
-                if (!PythonWrapper.GetHostProcessId(out var processId))
-                    return false;
-
-                PythonWrapper.Pipe ??= new NamedPipeClientStream(".", processId.ToString(), PipeDirection.InOut, PipeOptions.Asynchronous);
-
-                TryConnectPipeClient();
-                return PythonWrapper.Pipe.IsConnected;
+                PythonWrapper.Pipe.Connect(PipeConnectionTimeoutMs);
             }
-
-            void TryConnectPipeClient()
+            catch
             {
-                try
-                {
-                    PythonWrapper.Pipe.Connect(PipeConnectionTimeoutMs);
-                }
-                catch
-                {
-                    //In case of exception we are going to retry to connect next time
-                    //On timeout, if failure persists exception will be thrown
-                }
+                //In case of exception we are going to retry to connect next time
+                //On timeout, if failure persists exception will be thrown
             }
         }
+
+        private static bool IsWindows() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         private static void Retry(Func<bool> checkFunction, TimeSpan timeout, TimeSpan retryInterval)
         {

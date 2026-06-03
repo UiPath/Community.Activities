@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -134,7 +134,7 @@
     <value>Obține tipul .NET dintr-un PythonObject</value>
   </data>
   <data name="GetObjectNameDisplayName" xml:space="preserve">
-    <value>Obține obiect Python</value>
+    <value>Get Python Object</value>
     <comment>activity name</comment>
   </data>
   <data name="GetObjectResultDescription" xml:space="preserve">
@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>Calea Python specificată nu este validă: {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>Calea specificată către biblioteca Python nu este validă (pentru Python 3.10 este necesară o cale de fișier către python**.dll / libpython*.so): {0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Eroare la invocarea metodei Python</value>
   </data>
@@ -163,7 +166,7 @@
     <value>Invocare metodă Python</value>
   </data>
   <data name="InvokeMethodNameDisplayName" xml:space="preserve">
-    <value>Invocare metodă Python</value>
+    <value>Invoke Python Method</value>
     <comment>activity name</comment>
   </data>
   <data name="LoadScriptDescription" xml:space="preserve">
@@ -194,14 +197,14 @@
     <value>Input parameters pentru scriptul Python</value>
   </data>
   <data name="ParametersNameDisplayName" xml:space="preserve">
-    <value>InputParameters</value>
+    <value>Parametri de intrare</value>
     <comment>property name</comment>
   </data>
   <data name="PathDescription" xml:space="preserve">
     <value>Calea principală Python</value>
   </data>
   <data name="PathNameDisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>Cale</value>
     <comment>property name</comment>
   </data>
   <data name="PythonEngineNotFoundException" xml:space="preserve">
@@ -228,7 +231,7 @@
     <value>Rezultatul invocării scriptului</value>
   </data>
   <data name="ResultNameDisplayName" xml:space="preserve">
-    <value>Result</value>
+    <value>Rezultat</value>
     <comment>property name</comment>
   </data>
   <data name="RunScriptDescription" xml:space="preserve">
@@ -245,14 +248,14 @@
     <value>Calea completă către fișierul script Python</value>
   </data>
   <data name="ScriptFileNameDisplayName" xml:space="preserve">
-    <value>File</value>
+    <value>Fișier</value>
     <comment>property name</comment>
   </data>
   <data name="ScriptFileNotFoundException" xml:space="preserve">
     <value>Fișierul de script specificat nu a fost găsit</value>
   </data>
   <data name="TargetPlatformDisplayName" xml:space="preserve">
-    <value>Target</value>
+    <value>Țintă</value>
     <comment>property name</comment>
   </data>
   <data name="TargetPlatformDescription" xml:space="preserve">
@@ -311,5 +314,23 @@
   </data>
   <data name="InstalledVersionsDescription" xml:space="preserve">
     <value>Selectați instalarea Python care va fi utilizată pentru configurarea activității</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>Nu au fost detectate instalări de Python</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>Limită pentru dimensiunea datelor scriptului (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>Dimensiunea maximă, în MB, a datelor transmise scriptului Python ca argumente ale metodei. Dacă dimensiunea argumentelor depășește această limită, este generată o eroare. Valoarea minimă acceptată este 1 MB. Lăsați necompletat pentru a utiliza valoarea implicită (25 MB).</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Înregistrați ieșirea Python într-un fișier (Diagnostic)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>Când este activată, ieșirea stdout și stderr din procesul gazdă Python este scrisă într-un fișier jurnal per gazdă din folderul rezolvat de Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), în subdirectorul UiPath\Logs\python. Fiecare fișier jurnal este limitat la 50 MB; după atingerea limitei, în fișierul respectiv nu se mai scrie nicio ieșire. Sunt păstrate cel mult 128 de fișiere jurnal — cele mai vechi sunt șterse automat când este creat un fișier nou. Ieșirea NU este redirecționată către Orchestrator. Este destinată doar pentru diagnosticare locală — lăsați opțiunea dezactivată în producție pentru a evita acumularea fișierelor jurnal.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>Limita dimensiunii datelor scriptului (MB) trebuie să fie de cel puțin {0}.</value>
   </data>
 </root>
