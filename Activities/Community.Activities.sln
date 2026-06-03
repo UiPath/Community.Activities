@@ -629,6 +629,7 @@ Global
 		Shared\UiPath.Shared.Contracts.Private\UiPath.Shared.Contracts.Private.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Contracts\UiPath.Shared.Contracts.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
+		Shared\UiPath.Shared.ViewModels\UiPath.Shared.ViewModels.projitems*{e6d45fa7-57a7-4136-99c6-6ee89851f4cd}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems*{f6a198c8-1940-4cae-a0d3-d4e707f3b0a3}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Contracts.Private\UiPath.Shared.Contracts.Private.projitems*{f6a198c8-1940-4cae-a0d3-d4e707f3b0a3}*SharedItemsImports = 5
 		Shared\UiPath.Shared.Contracts\UiPath.Shared.Contracts.projitems*{f6a198c8-1940-4cae-a0d3-d4e707f3b0a3}*SharedItemsImports = 5

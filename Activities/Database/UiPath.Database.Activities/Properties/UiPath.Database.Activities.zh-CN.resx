@@ -580,6 +580,14 @@
     <value>数据表</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>SQL 命令的输出包装在 DataSet 变量中。</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>数据集</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>从“连接”或“启动事务”活动获得且已打开的数据库连接。如果提供了此连接，则系统将忽略“连接字符串”和“安全连接字符串”属性。</value>
     <comment>property description</comment>

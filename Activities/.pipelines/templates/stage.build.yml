@@ -1,0 +1,83 @@
+parameters:
+  poolName: ''
+  tagName: ''
+  projectName: ''
+  solutionPath: ''
+  preBuild: []
+  postBuild: []
+  sonarProjectKey: ''
+  sonarServiceConnection: ''
+  sonarOrganization: ''
+  msBuildPack: false
+  sdkBuild: false
+  requiresLfs: false
+  hasQaPackages: true
+
+jobs:
+- job: BuildAndPublishArtifacts
+  displayName: 'Build & Publish Artifacts'
+  timeoutInMinutes: 90
+  pool:
+    ${{ if eq(parameters.poolName, '') }}:
+      vmImage: $(vmImage)
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+    demands:
+      - npm
+      - msbuild
+      - visualstudio
+  dependsOn: DetermineShouldRun
+  condition: eq(dependencies.DetermineShouldRun.outputs['SetRunVariable.BuildShouldRun'], 'true')
+
+  variables:
+  - template: stage.variables.yml
+
+  steps:
+  - template: stage.build.job.yml
+    parameters:
+      projectName: "${{ parameters.projectName }}"
+      tagName: "${{ parameters.tagName }}"
+      sdkBuild: ${{ parameters.sdkBuild }}
+      requiresLfs: ${{ parameters.requiresLfs }}
+      msBuildPack: ${{ parameters.msBuildPack }}
+      preBuild:
+        - ${{ parameters.preBuild }}
+
+        - template: Sonar/prepare-sonar-coverage.yml
+          parameters:
+            projectKey: ${{ parameters.sonarProjectKey }}
+            serviceConnectionName: ${{ parameters.sonarServiceConnection }}
+            organization: ${{ parameters.sonarOrganization }}
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+      postBuild:
+        - ${{ parameters.postBuild }}
+
+        - template: stage.build.job.publish.yml
+          parameters:
+            hasQaPackages: ${{ parameters.hasQaPackages }}
+
+        - template: Sonar/upload-sonar-build-output.yml
+          parameters:
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+
+        - template: Sonar/uninstall-sonar-targets.yml
+
+  - powershell: |
+      # On PR builds, AzDO checks out refs/pull/N/merge — HEAD is the merge commit,
+      # HEAD^1 is the target-branch tip, HEAD^2 is the source-branch tip. These output
+      # variables are consumed by stage.sonar.yml's Checkout-BuildBranch step to
+      # reconstruct the PR merge for Sonar PR analysis. The previous version of this
+      # step read `$env:SourceBranchCommitId`/`$env:TargetBranchCommitId` which were
+      # never set anywhere in-repo — they always resolved to empty, silently disabling
+      # the merge reconstruction (a Sonar PR-decoration bug latent behind the
+      # Build.Reason guard). Derive from git instead.
+      $sourceCommit = ""
+      $targetCommit = ""
+      if ($env:BUILD_REASON -eq 'PullRequest') {
+        $sourceCommit = (git rev-parse HEAD^2).Trim()
+        $targetCommit = (git rev-parse HEAD^1).Trim()
+      }
+      Write-Output "##vso[task.setvariable variable=SourceBranchCommitId;isOutput=true]$sourceCommit"
+      Write-Output "##vso[task.setvariable variable=TargetBranchCommitId;isOutput=true]$targetCommit"
+    name: setBranchCommitVariables
+    displayName: "Set branch commit variables on the build"

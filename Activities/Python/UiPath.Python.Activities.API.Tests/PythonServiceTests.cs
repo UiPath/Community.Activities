@@ -75,7 +75,7 @@ namespace UiPath.Python.Activities.API.Tests
     {
         private static PythonService BuildService(IEngine engine)
         {
-            return new PythonService((_, _, _, _, _, _) => engine);
+            return new PythonService((_, _, _, _, _, _, _, _) => engine);
         }
 
         [Fact]

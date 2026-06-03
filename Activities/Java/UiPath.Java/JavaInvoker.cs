@@ -22,7 +22,9 @@ namespace UiPath.Java
 
         private const string _defaultJava = "java";
 
-        private const string _pipePrefix = "dotnet_java_pipe_";
+        private const string _pipePrefix = "djp_";
+
+        private static int _pipeIdx = 0;
 
         private static readonly string _defaultJavaInvokerPath = GetPathToJavaProgram();
 
@@ -168,7 +170,12 @@ namespace UiPath.Java
 
         private static string GetNewPipeName()
         {
-            return _pipePrefix + Guid.NewGuid();
+            // "djp_" is a shortened form of "dotnet_java_pipe_". The prefix is kept short intentionally:
+            // on Linux, Unix domain socket paths are limited to ~108 characters (UNIX_PATH_MAX / sun_path),
+            // so a long prefix combined with a PID and counter could exceed the limit.
+            // Format: djp_{ProcessId}_{incrementing index} — the index avoids conflicts between
+            // multiple JavaInvoker instances within the same process.
+            return $"{_pipePrefix}{Environment.ProcessId}_{Interlocked.Increment(ref _pipeIdx)}";
         }
 
         private static string GetPathToJavaProgram()

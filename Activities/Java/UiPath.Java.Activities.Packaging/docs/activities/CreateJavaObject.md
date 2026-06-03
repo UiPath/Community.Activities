@@ -7,7 +7,7 @@ Creates a Java object by calling a constructor on the specified target type.
 **Package:** `UiPath.Java.Activities`
 **Category:** Java
 **Required Scope:** `UiPath.Java.Activities.JavaScope`
-**Platform:** Windows only
+**Platform:** Cross-platform
 
 ## Properties
 
