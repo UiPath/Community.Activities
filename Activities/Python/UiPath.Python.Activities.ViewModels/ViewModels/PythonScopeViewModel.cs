@@ -1,4 +1,4 @@
-﻿using System.Activities.DesignViewModels;
+using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,6 +32,10 @@ namespace UiPath.Activities.Python.ViewModels
 
         public DesignInArgument<double> OperationTimeout { get; set; }
 
+        public DesignInArgument<int> ScriptDataSizeLimitMB { get; set; }
+
+        public DesignProperty<bool> LogTraces { get; set; }
+
         [NotMappedProperty]
         public DesignProperty<string> InstalledVersions { get; set; }
 
@@ -47,6 +51,8 @@ namespace UiPath.Activities.Python.ViewModels
             TargetPlatform.OrderIndex = orderIndex++;
             WorkingFolder.OrderIndex = orderIndex++;
             OperationTimeout.OrderIndex = orderIndex++;
+            ScriptDataSizeLimitMB.OrderIndex = orderIndex++;
+            LogTraces.OrderIndex = orderIndex;
 
             Version.DisplayName = Resources.VersionNameDisplayName;
             Version.Tooltip = Resources.VersionDescription;
@@ -85,11 +91,29 @@ namespace UiPath.Activities.Python.ViewModels
             OperationTimeout.Tooltip = Resources.OperationTimeoutDescription;
             OperationTimeout.Category = Resources.Input;
 
+            ScriptDataSizeLimitMB.DisplayName = Resources.ScriptDataSizeLimitDisplayName;
+            ScriptDataSizeLimitMB.Tooltip = Resources.ScriptDataSizeLimitDescription;
+            ScriptDataSizeLimitMB.Category = Resources.Input;
+
+            LogTraces.DisplayName = Resources.LogTracesDisplayName;
+            LogTraces.Tooltip = Resources.LogTracesDescription;
+            LogTraces.Category = Resources.Input;
+            LogTraces.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
             InstalledVersions.IsPrincipal = true;
             InstalledVersions.DisplayName = Resources.InstalledVersionsDisplayName;
             InstalledVersions.Tooltip = Resources.InstalledVersionsDescription;
             InstalledVersions.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-            InstalledVersions.DataSource = DataSourceBuilder<PythonInstallation>
+
+            //If no python installations are detected, show a disabled dropdown with a message indicating that no installations were found, instead of showing an empty dropdown which might be confusing.
+            if (!GetInstalledPythonVersions().Any())
+            {
+                InstalledVersions.Placeholder = Resources.NoPythonInstallations;
+                InstalledVersions.IsReadOnly = true;
+            }
+            else
+            {
+                InstalledVersions.DataSource = DataSourceBuilder<PythonInstallation>
                 .WithId(v => v.Key)
                 .WithLabel(v => v.TargetPlatform is { } platform
                     ? $"{v.Version} ({platform}) - {v.InstallPath}"
@@ -100,16 +124,17 @@ namespace UiPath.Activities.Python.ViewModels
                 .WithData(GetInstalledPythonVersions().ToList())
                 .Build();
 
-            // Pre-select the dropdown entry whose InstallPath/LibraryPath/TargetPlatform match
-            // the values already stored in the workflow, so reopening a configured scope
-            // shows the correct installation without requiring the user to re-pick it.
-            var matchingInstallation = GetInstalledPythonVersions().FirstOrDefault(v =>
-                string.Equals(v.InstallPath, GetLiteralValue(Path.Value), System.StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(v.LibraryPath, GetLiteralValue(LibraryPath.Value), System.StringComparison.OrdinalIgnoreCase) &&
-                (v.TargetPlatform ?? PythonTargetPlatform.x64) == TargetPlatform.Value);
+                // Pre-select the dropdown entry whose InstallPath/LibraryPath/TargetPlatform match
+                // the values already stored in the workflow, so reopening a configured scope
+                // shows the correct installation without requiring the user to re-pick it.
+                var matchingInstallation = GetInstalledPythonVersions().FirstOrDefault(v =>
+                    string.Equals(v.InstallPath, GetLiteralValue(Path.Value), System.StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(v.LibraryPath, GetLiteralValue(LibraryPath.Value), System.StringComparison.OrdinalIgnoreCase) &&
+                    (v.TargetPlatform ?? PythonTargetPlatform.x64) == TargetPlatform.Value);
 
-            if (matchingInstallation is not null)
-                InstalledVersions.Value = matchingInstallation.Key;
+                if (matchingInstallation is not null)
+                    InstalledVersions.Value = matchingInstallation.Key;
+            }
         }
 
         protected override void InitializeRules()

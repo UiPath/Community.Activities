@@ -1,0 +1,9 @@
+steps:
+- powershell: |
+    $path = $env:LOCALAPPDATA + "\Microsoft\MSBuild"
+
+    if (Test-Path $path) {
+      Remove-Item -Path $path -Include "SonarQube.Integration.ImportBefore.targets" -Recurse -Force
+    }
+  displayName: "Uninstall SonarQube targets from MsBuild"
+  condition: always()

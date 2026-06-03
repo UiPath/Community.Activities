@@ -248,6 +248,12 @@
     <value>參數清單</value>
     <comment>property name</comment>
   </data>
+  <data name="MenuAction_UseStaticNames" xml:space="preserve">
+    <value>使用靜態名稱</value>
+  </data>
+  <data name="MenuAction_UseAnExpression" xml:space="preserve">
+    <value>使用運算式</value>
+  </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>無法同時設定 &quot;{0}&quot; 和 &quot;{1}&quot;。</value>
   </data>

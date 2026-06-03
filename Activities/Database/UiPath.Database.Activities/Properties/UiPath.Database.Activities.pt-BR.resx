@@ -580,6 +580,14 @@ Se UseTransaction estiver definido como Verdadeiro, as operações contidas ser�
     <value>Tabela de dados</value>
     <comment>property name</comment>
   </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Description" xml:space="preserve">
+    <value>A saída do comando SQL envolvido em uma variável ConjuntoDeDados.</value>
+    <comment>property description</comment>
+  </data>
+  <data name="Activity_ExecuteQuery_Property_DataSet_Name" xml:space="preserve">
+    <value>Conjunto de Dados</value>
+    <comment>property name</comment>
+  </data>
   <data name="Activity_DatabaseExecute_Property_ExistingDbConnection_Description" xml:space="preserve">
     <value>Uma conexão de banco de dados já aberta obtida das atividades Connect ou Start Transaction. Se uma conexão assim estiver disponível, as propriedades StringDeConexão e StringDeConexãoSegura serão ignoradas.</value>
     <comment>property description</comment>

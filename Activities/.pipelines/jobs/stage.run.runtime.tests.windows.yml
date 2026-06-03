@@ -59,20 +59,20 @@ jobs:
   - task: DownloadPipelineArtifact@2
     displayName: "Download Packages"
     inputs:
-      artifact: "Packages"
+      artifact: "RuntimeTestsPackages"
       path: "$(IntegrationTestStudioPackPath)"
 
   - ${{ each step in parameters.beforeTestsCustomSteps }}:
     - ${{ step }}
 
   # install robot
-  - template: Testing/Automation/install.msi.steps.template.yml@automationTests
+  - template: ../templates/Testing/Automation/install.msi.steps.template.yml
     parameters:
-      installType: 'machine'
-      msiType: 'robot'
-      msiVersion: ${{ parameters.robotVersion }}
-      license: ${{ parameters.studioLicense }}
-      installComponents: 'Robot'
+      InstallType: 'machine'
+      MsiType: 'robot'
+      MsiVersion: ${{ parameters.robotVersion }}
+      License: ${{ parameters.studioLicense }}
+      InstallComponents: 'Robot'
 
   - powershell: |
       & "C:/Program Files/UiPath/Robot/UiRobot.exe" trace --enableLowLevel

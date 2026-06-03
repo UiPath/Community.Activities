@@ -233,7 +233,7 @@
     <value>오류가 throw되기 전에 SQL 쿼리가 실행하기 위해 대기해야 하는 시간(밀리초)을 지정합니다(쿼리 결과를 검색하기 위한 응답 시간 제외). 기본값은 30000밀리초(30초)이며 이 값은 0 이상이어야 합니다.</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>앱 통합</value>
+    <value>App Integration</value>
   </data>
   <data name="CollectionLabel" xml:space="preserve">
     <value>(컬렉션)</value>
