@@ -27,6 +27,8 @@ Uploads a file to an FTP server. This activity only works if it is placed inside
 
 ## XAML Example
 
+Requires the FTP namespace (`xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"`, see [overview](../overview.md#xaml-namespace)) and must run inside a [`WithFtpSession`](WithFtpSession.md) scope.
+
 ```xml
 <ftp:UploadFiles DisplayName="Upload Files" LocalPath="C:\\local\\files" RemotePath="/remote/destination" />
 ```

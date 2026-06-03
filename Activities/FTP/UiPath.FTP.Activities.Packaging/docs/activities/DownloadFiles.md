@@ -27,6 +27,8 @@ Downloads the specified files from an FTP server to the specified local folder. 
 
 ## XAML Example
 
+Requires the FTP namespace (`xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"`, see [overview](../overview.md#xaml-namespace)) and must run inside a [`WithFtpSession`](WithFtpSession.md) scope.
+
 ```xml
 <ftp:DownloadFiles DisplayName="Download Files" RemotePath="/remote/files/*" LocalPath="C:\\local\\downloads" />
 ```
