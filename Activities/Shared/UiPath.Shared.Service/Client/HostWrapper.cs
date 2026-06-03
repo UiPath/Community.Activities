@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 
 namespace UiPath.Shared.Service.Client
@@ -77,6 +76,13 @@ namespace UiPath.Shared.Service.Client
             }
             TryAppendToLogFile("stderr", line);
         }
+
+        /// <summary>
+        /// Writes a host-side diagnostic line to the log file (not stdout/stderr from the host process).
+        /// Used to capture lifecycle events (start, exit, kill) so the log file always exists
+        /// once LogTrace is enabled, even if the host produces no output.
+        /// </summary>
+        internal void AppendDiagnostic(string line) => TryAppendToLogFile("host", line);
 
         public void Dispose()
         {
@@ -169,8 +175,8 @@ namespace UiPath.Shared.Service.Client
             }
         }
 
-        // Opens the diagnostic log file on first call when LogTrace is enabled and the host
-        // PID is known. Subsequent calls reuse the same writer. On any IO failure the writer
+        // Opens the diagnostic log file on first call when LogTrace is enabled.
+        // Subsequent calls reuse the same writer. On any IO failure the writer
         // is disposed and file logging is permanently disabled for this host's lifetime —
         // we don't want a logging issue to take the scope down.
         private void TryAppendToLogFile(string stream, string line)
@@ -212,19 +218,12 @@ namespace UiPath.Shared.Service.Client
         {
             try
             {
-                var pid = Proc?.Id ?? 0;
-                if (pid == 0)
-                {
-                    // host PID not assigned yet — try again on the next line
-                    _logFileOpenAttempted = false;
-                    return null;
-                }
-
                 var dir = ResolveUiPathLogsFolder();
                 Directory.CreateDirectory(dir);
                 EnforceLogFileRetention(dir);
 
-                var path = Path.Combine(dir, $"python-host-{DateTime.Now:yyyy-MM-ddTHHmmss}-{pid}.log");
+                var rnd = $"r{Random.Shared.Next(0, 10_000):D4}";
+                var path = Path.Combine(dir, $"python-host-{DateTime.Now:yyyy-MM-ddTHHmmss}-{rnd}.log");
                 return new StreamWriter(path, append: false) { AutoFlush = true };
             }
             catch (Exception ex)
