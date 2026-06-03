@@ -50,6 +50,13 @@ namespace UiPath.Shared.Service.Client
 
             PythonWrapper.Proc = Process.Start(CreateProcessStartInfo(hostFullPath, folder, isExeMode));
 
+            // Eagerly create the diagnostic log file (when LogTrace is enabled) so that even
+            // hosts that crash before emitting any stdout/stderr leave a record on disk.
+            // Use GetHostProcessId to safely read the PID — Process.Id can throw if the host
+            // already exited or the OS handle isn't fully populated yet.
+            PythonWrapper.GetHostProcessId(out var startupPid);
+            PythonWrapper.AppendDiagnostic($"Host process started (pid={(startupPid > 0 ? startupPid.ToString() : "unknown")}, exe='{hostFullPath}', mode={(isExeMode ? "exe" : "dll")}).");
+
             // Subscribe before BeginOutputReadLine/BeginErrorReadLine — these handlers drive the
             // diagnostic log and the post-mortem buffer surfaced by ThrowIfProcessHasExited.
             PythonWrapper.Proc.OutputDataReceived += (_, e) => RelayHostOutput(e.Data, isStderr: false);
@@ -85,6 +92,11 @@ namespace UiPath.Shared.Service.Client
                 RedirectStandardError = true,
                 RedirectStandardOutput = true
             };
+            // Force CPython stdio to be unbuffered. When stdout/stderr are redirected (as here),
+            // CPython switches to block-buffering by default, so a script's print() output may
+            // never reach the host until the buffer fills or the interpreter exits — and on
+            // forced shutdown (Process.Kill) any buffered output is lost.
+            psi.EnvironmentVariables["PYTHONUNBUFFERED"] = "1";
             if (!isExeMode)
                 psi.ArgumentList.Add(hostFullPath);
             return psi;
