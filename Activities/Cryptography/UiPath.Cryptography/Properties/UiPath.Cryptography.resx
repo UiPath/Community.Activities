@@ -207,6 +207,9 @@
   <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
     <value>Decryption failed. UiPath wire format is Base64(salt | IV | ciphertext); this commonly indicates the input was produced by a different tool, or that the key/encoding does not match the one used to encrypt.</value>
   </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later).</value>
+  </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
     <value>System default</value>

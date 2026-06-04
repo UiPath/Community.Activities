@@ -258,7 +258,7 @@
         {
           "Name": "KeyEncodingString",
           "DisplayNameKey": "Activity_DecryptText_Property_KeyEncodingString_Name",
-          "TooltipKey": "Activity_DecryptFile_Property_KeyEncodingString_Description",
+          "TooltipKey": "Activity_DecryptText_Property_KeyEncodingString_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,

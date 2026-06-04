@@ -332,6 +332,24 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.Contains("UiPath wire format", ex.Message);
         }
 
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.ChaCha20Poly1305)]
+        public void AeadDecrypt_InputTooShort_ThrowsWithWireFormatHint(EncryptionAlgorithm algorithm)
+        {
+            var key = Encoding.UTF8.GetBytes("any-key");
+            // AEAD wire format = 8-byte salt + 12-byte IV + ciphertext + 16-byte tag (min 36 bytes).
+            // A 4-byte input is too short and used to produce an OverflowException from negative-length arithmetic
+            // in InitializeDecryptAead; the guard makes it surface the same wire-format hint as the non-AEAD path.
+            var shortInput = new byte[4];
+
+            var ex = Assert.Throws<CryptographicException>(
+                () => CryptographyHelper.DecryptData(algorithm, shortInput, key));
+
+            Assert.Contains("too short", ex.Message);
+            Assert.Contains("UiPath wire format", ex.Message);
+        }
+
         [Fact]
         public void SymmetricDecrypt_PaddingFailure_ThrowsWithExternalToolHint()
         {

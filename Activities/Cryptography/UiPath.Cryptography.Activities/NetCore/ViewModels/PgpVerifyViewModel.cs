@@ -1,8 +1,7 @@
-using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
@@ -21,13 +20,27 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     [ExcludeFromCodeCoverage]
     public class PgpVerifyViewModel : DesignPropertiesViewModel
     {
-        private InArgument<IResource> _persistedInputFile;
-        private InArgument<string> _persistedInputFilePath;
-        private InArgument<IResource> _persistedPublicKeyFile;
-        private InArgument<string> _persistedPublicKeyFilePath;
+        private readonly PairedInputToggle<string, IResource> _inputFileToggle;
+        private readonly PairedInputToggle<string, IResource> _publicKeyFileToggle;
 
         public PgpVerifyViewModel(IDesignServices services) : base(services)
         {
+            _inputFileToggle = new PairedInputToggle<string, IResource>(
+                InputFilePath, InputFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                SwitchGuard = () => Mode.Value == PgpVerifyMode.PublicKey,
+                AfterSwitch = ApplyInputFileVisibility,
+            };
+
+            _publicKeyFileToggle = new PairedInputToggle<string, IResource>(
+                PublicKeyFilePath, PublicKeyFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                AfterSwitch = ApplyPublicKeyVisibility,
+            };
         }
 
         public DesignProperty<PgpVerifyMode> Mode { get; set; } = new DesignProperty<PgpVerifyMode>();
@@ -79,107 +92,30 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Result.OrderIndex = orderIndex;
             Result.Category = Resources.Output;
 
-            ConfigureInputFileMenuActions();
-            ConfigurePublicKeyFileMenuActions();
+            _inputFileToggle.ConfigureMenuActions();
+            ApplyInputFileVisibility();
+
+            _publicKeyFileToggle.ConfigureMenuActions();
+            ApplyPublicKeyVisibility();
         }
 
-        private void ConfigureInputFileMenuActions()
+        private void ApplyInputFileVisibility()
         {
-            var useFileMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFile,
-                IsMain = true,
-                Handler = SwitchToInputFile,
-            };
-            var useFilePathMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFilePath,
-                IsMain = true,
-                Handler = SwitchToInputFilePath,
-            };
-            InputFilePath.AddMenuAction(useFileMenuAction);
-            InputFile.AddMenuAction(useFilePathMenuAction);
-
-            bool useFile = InputFile.HasValue && !InputFilePath.HasValue;
+            bool useResource = _inputFileToggle.UseSecondary;
             bool needsInput = Mode.Value != PgpVerifyMode.PublicKey;
-            InputFile.IsVisible = useFile && needsInput;
-            InputFile.IsRequired = useFile && needsInput;
-            InputFilePath.IsVisible = !useFile && needsInput;
-            InputFilePath.IsRequired = !useFile && needsInput;
+            InputFile.IsVisible = useResource && needsInput;
+            InputFile.IsRequired = useResource && needsInput;
+            InputFilePath.IsVisible = !useResource && needsInput;
+            InputFilePath.IsRequired = !useResource && needsInput;
         }
 
-        private void ConfigurePublicKeyFileMenuActions()
+        private void ApplyPublicKeyVisibility()
         {
-            var useFileMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFile,
-                IsMain = true,
-                Handler = SwitchToPublicKeyFile,
-            };
-            var useFilePathMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFilePath,
-                IsMain = true,
-                Handler = SwitchToPublicKeyFilePath,
-            };
-            PublicKeyFilePath.AddMenuAction(useFileMenuAction);
-            PublicKeyFile.AddMenuAction(useFilePathMenuAction);
-
-            bool useFile = PublicKeyFile.HasValue && !PublicKeyFilePath.HasValue;
-            PublicKeyFile.IsVisible = useFile;
-            PublicKeyFile.IsRequired = useFile;
-            PublicKeyFilePath.IsVisible = !useFile;
-            PublicKeyFilePath.IsRequired = !useFile;
-        }
-
-        private Task SwitchToInputFile(MenuAction _)
-        {
-            if (Mode.Value == PgpVerifyMode.PublicKey) return Task.CompletedTask;
-            if (InputFilePath.Value != null) _persistedInputFilePath = InputFilePath.Value;
-            InputFilePath.Value = null;
-            InputFile.Value = _persistedInputFile;
-            InputFile.IsVisible = true;
-            InputFile.IsRequired = true;
-            InputFilePath.IsVisible = false;
-            InputFilePath.IsRequired = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToInputFilePath(MenuAction _)
-        {
-            if (Mode.Value == PgpVerifyMode.PublicKey) return Task.CompletedTask;
-            if (InputFile.Value != null) _persistedInputFile = InputFile.Value;
-            InputFile.Value = null;
-            InputFilePath.Value = _persistedInputFilePath;
-            InputFilePath.IsVisible = true;
-            InputFilePath.IsRequired = true;
-            InputFile.IsVisible = false;
-            InputFile.IsRequired = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToPublicKeyFile(MenuAction _)
-        {
-            if (PublicKeyFilePath.Value != null) _persistedPublicKeyFilePath = PublicKeyFilePath.Value;
-            PublicKeyFilePath.Value = null;
-            PublicKeyFile.Value = _persistedPublicKeyFile;
-            PublicKeyFile.IsVisible = true;
-            PublicKeyFile.IsRequired = true;
-            PublicKeyFilePath.IsVisible = false;
-            PublicKeyFilePath.IsRequired = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToPublicKeyFilePath(MenuAction _)
-        {
-            if (PublicKeyFile.Value != null) _persistedPublicKeyFile = PublicKeyFile.Value;
-            PublicKeyFile.Value = null;
-            PublicKeyFilePath.Value = _persistedPublicKeyFilePath;
-            PublicKeyFilePath.IsVisible = true;
-            PublicKeyFilePath.IsRequired = true;
-            PublicKeyFile.IsVisible = false;
-            PublicKeyFile.IsRequired = false;
-            return Task.CompletedTask;
+            bool useResource = _publicKeyFileToggle.UseSecondary;
+            PublicKeyFile.IsVisible = useResource;
+            PublicKeyFile.IsRequired = useResource;
+            PublicKeyFilePath.IsVisible = !useResource;
+            PublicKeyFilePath.IsRequired = !useResource;
         }
 
         protected override void InitializeRules()
@@ -196,12 +132,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
         private void ModeChanged_Action()
         {
-            bool needsInput = Mode.Value != PgpVerifyMode.PublicKey;
-            bool useFile = InputFile.HasValue && !InputFilePath.HasValue;
-            InputFile.IsVisible = needsInput && useFile;
-            InputFile.IsRequired = needsInput && useFile;
-            InputFilePath.IsVisible = needsInput && !useFile;
-            InputFilePath.IsRequired = needsInput && !useFile;
+            ApplyInputFileVisibility();
         }
     }
 }

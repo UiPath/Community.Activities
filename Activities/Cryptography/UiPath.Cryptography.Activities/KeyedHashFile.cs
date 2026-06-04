@@ -48,6 +48,10 @@ namespace UiPath.Cryptography.Activities
         public InArgument<string> Key { get; set; }
 
         [Browsable(false)]
+        [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active file input mode. The activity now infers the mode from which side is bound.")]
+        public FileInputMode FileInputModeSwitch { get; set; }
+
+        [Browsable(false)]
         [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active key input mode. The activity now infers the mode from which side is bound.")]
         public KeyInputMode KeyInputModeSwitch { get; set; }
 

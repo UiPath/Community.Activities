@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
@@ -17,15 +16,28 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     public class KeyedHashFileViewModel : DesignPropertiesViewModel
     {
         private readonly DataSource<string> _encodingDataSource;
-        private InArgument<IResource> _persistedInputFile;
-        private InArgument<string> _persistedInputFilePath;
-        private InArgument<string> _persistedKey;
-        private InArgument<SecureString> _persistedKeySecureString;
-        private bool _useSecureKey;
+        private readonly PairedInputToggle<string, SecureString> _keyToggle;
+        private readonly PairedInputToggle<string, IResource> _inputFileToggle;
 
         public KeyedHashFileViewModel(IDesignServices services) : base(services)
         {
             _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
+
+            _keyToggle = new PairedInputToggle<string, SecureString>(
+                Key, KeySecureString,
+                Resources.MenuAction_UseKey,
+                Resources.MenuAction_UseSecureKey)
+            {
+                AfterSwitch = ApplyKeyInputModeVisibility,
+            };
+
+            _inputFileToggle = new PairedInputToggle<string, IResource>(
+                FilePath, InputFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                AfterSwitch = ApplyInputFileVisibility,
+            };
         }
 
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
@@ -86,106 +98,30 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
 
-            ConfigureKeyInputModeMenuActions();
-            ConfigureInputFileMenuActions();
-        }
-
-        private void ConfigureKeyInputModeMenuActions()
-        {
-            var useKeyMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseKey,
-                IsMain = true,
-                Handler = SwitchToKey,
-            };
-            var useSecureKeyMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseSecureKey,
-                IsMain = true,
-                Handler = SwitchToKeySecureString,
-            };
-            KeySecureString.AddMenuAction(useKeyMenuAction);
-            Key.AddMenuAction(useSecureKeyMenuAction);
-
-            _useSecureKey = KeySecureString.HasValue && !Key.HasValue;
+            _keyToggle.ConfigureMenuActions();
             ApplyKeyInputModeVisibility();
-        }
 
-        private void ConfigureInputFileMenuActions()
-        {
-            var useFileMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFile,
-                IsMain = true,
-                Handler = SwitchToInputFile,
-            };
-            var useFilePathMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFilePath,
-                IsMain = true,
-                Handler = SwitchToInputFilePath,
-            };
-            FilePath.AddMenuAction(useFileMenuAction);
-            InputFile.AddMenuAction(useFilePathMenuAction);
-
-            bool useFile = InputFile.HasValue && !FilePath.HasValue;
-            InputFile.IsVisible = useFile;
-            InputFile.IsRequired = useFile;
-            FilePath.IsVisible = !useFile;
-            FilePath.IsRequired = !useFile;
+            _inputFileToggle.ConfigureMenuActions();
+            ApplyInputFileVisibility();
         }
 
         private void ApplyKeyInputModeVisibility()
         {
             bool isHmac = Algorithm.Value.ToString().StartsWith(nameof(HMAC));
-            Key.IsVisible = isHmac && !_useSecureKey;
-            Key.IsRequired = isHmac && !_useSecureKey;
-            KeySecureString.IsVisible = isHmac && _useSecureKey;
-            KeySecureString.IsRequired = isHmac && _useSecureKey;
+            bool useSecure = _keyToggle.UseSecondary;
+            Key.IsVisible = isHmac && !useSecure;
+            Key.IsRequired = isHmac && !useSecure;
+            KeySecureString.IsVisible = isHmac && useSecure;
+            KeySecureString.IsRequired = isHmac && useSecure;
         }
 
-        private Task SwitchToKey(MenuAction _)
+        private void ApplyInputFileVisibility()
         {
-            if (KeySecureString.Value != null) _persistedKeySecureString = KeySecureString.Value;
-            KeySecureString.Value = null;
-            Key.Value = _persistedKey;
-            _useSecureKey = false;
-            ApplyKeyInputModeVisibility();
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToKeySecureString(MenuAction _)
-        {
-            if (Key.Value != null) _persistedKey = Key.Value;
-            Key.Value = null;
-            KeySecureString.Value = _persistedKeySecureString;
-            _useSecureKey = true;
-            ApplyKeyInputModeVisibility();
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToInputFile(MenuAction _)
-        {
-            if (FilePath.Value != null) _persistedInputFilePath = FilePath.Value;
-            FilePath.Value = null;
-            InputFile.Value = _persistedInputFile;
-            InputFile.IsVisible = true;
-            InputFile.IsRequired = true;
-            FilePath.IsVisible = false;
-            FilePath.IsRequired = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToInputFilePath(MenuAction _)
-        {
-            if (InputFile.Value != null) _persistedInputFile = InputFile.Value;
-            InputFile.Value = null;
-            FilePath.Value = _persistedInputFilePath;
-            FilePath.IsVisible = true;
-            FilePath.IsRequired = true;
-            InputFile.IsVisible = false;
-            InputFile.IsRequired = false;
-            return Task.CompletedTask;
+            bool useResource = _inputFileToggle.UseSecondary;
+            InputFile.IsVisible = useResource;
+            InputFile.IsRequired = useResource;
+            FilePath.IsVisible = !useResource;
+            FilePath.IsRequired = !useResource;
         }
 
         protected override void InitializeRules()

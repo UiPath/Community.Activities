@@ -32,8 +32,6 @@ namespace UiPath.Cryptography
     /// internal: it may change, gain or lose methods, or be removed without notice in any
     /// minor release.
     /// </remarks>
-    [Obsolete("CryptographyHelper is an internal implementation detail. Use UiPath.Cryptography.Activities.API.ICryptographyService for coded workflows, or the activities for XAML. This class may change or be removed without notice.", error: false)]
-    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class CryptographyHelper
     {
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
@@ -229,23 +227,23 @@ namespace UiPath.Cryptography
             switch (algorithm)
             {
                 case EncryptionAlgorithm.AES:
-                    return new AesCryptoServiceProvider(); // kept for backwards compat
+                    return new AesCryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.AESGCM:
                 case EncryptionAlgorithm.ChaCha20Poly1305:
                     throw new InvalidOperationException(Resources.UnsupportedSymmetricAlgorithmException); //implemented separately as AEAD.
 
                 case EncryptionAlgorithm.DES:
-                    return new DESCryptoServiceProvider();
+                    return new DESCryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.RC2:
-                    return new RC2CryptoServiceProvider();
+                    return new RC2CryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.Rijndael:
-                    return new RijndaelManaged();
+                    return new RijndaelManaged(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.TripleDES:
-                    return new TripleDESCryptoServiceProvider(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
+                    return new TripleDESCryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.PGP:
                     // PGP is asymmetric and handled separately; this case is unreachable in production
@@ -307,6 +305,10 @@ namespace UiPath.Cryptography
 
         private static byte[] DecryptAead(byte[] inputBytes, byte[] key, AeadDecryptCore decryptCore)
         {
+            const int aeadMinimumInputLength = PBKDF2_SaltSizeBytes + AeadIvSizeBytes + AeadTagSizeBytes;
+            if (inputBytes == null || inputBytes.Length < aeadMinimumInputLength)
+                throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, aeadMinimumInputLength));
+
             InitializeDecryptAead(inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData);
             byte[] decrypted = new byte[encryptedData.Length];
 
@@ -322,28 +324,32 @@ namespace UiPath.Cryptography
         private static byte[] EncryptAesGcm(byte[] inputBytes, byte[] key) =>
             EncryptAead(inputBytes, key, (k, iv, plain, cipher, tag) =>
             {
-                var aes = new AesGcm(k);
+                using var aes = new AesGcm(k);
                 aes.Encrypt(iv, plain, cipher, tag);
             });
 
         private static byte[] DecryptAesGcm(byte[] inputBytes, byte[] key) =>
             DecryptAead(inputBytes, key, (k, iv, cipher, tag, plain) =>
             {
-                var aes = new AesGcm(k);
+                using var aes = new AesGcm(k);
                 aes.Decrypt(iv, cipher, tag, plain);
             });
 
         private static byte[] EncryptChaCha20Poly1305(byte[] inputBytes, byte[] key) =>
             EncryptAead(inputBytes, key, (k, iv, plain, cipher, tag) =>
             {
-                var chacha = new ChaCha20Poly1305(k);
+                if (!ChaCha20Poly1305.IsSupported)
+                    throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                using var chacha = new ChaCha20Poly1305(k);
                 chacha.Encrypt(iv, plain, cipher, tag);
             });
 
         private static byte[] DecryptChaCha20Poly1305(byte[] inputBytes, byte[] key) =>
             DecryptAead(inputBytes, key, (k, iv, cipher, tag, plain) =>
             {
-                var chacha = new ChaCha20Poly1305(k);
+                if (!ChaCha20Poly1305.IsSupported)
+                    throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                using var chacha = new ChaCha20Poly1305(k);
                 chacha.Decrypt(iv, cipher, tag, plain);
             });
 
@@ -637,6 +643,7 @@ namespace UiPath.Cryptography
                 using (var inputStream = new MemoryStream(inputBytes))
                 using (var outputStream = new MemoryStream())
                 {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
                     signAction(pgp, inputStream, outputStream);
                     return outputStream.ToArray();
                 }

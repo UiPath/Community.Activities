@@ -4,7 +4,6 @@ using System.Activities.ViewModels;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Activities.Properties;
@@ -36,13 +35,19 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     public partial class KeyedHashTextViewModel : DesignPropertiesViewModel
     {
         private readonly DataSource<string> _encodingDataSource;
-        private InArgument<string> _persistedKey;
-        private InArgument<SecureString> _persistedKeySecureString;
-        private bool _useSecureKey;
+        private readonly PairedInputToggle<string, SecureString> _keyToggle;
 
         public KeyedHashTextViewModel(IDesignServices services) : base(services)
         {
             _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
+
+            _keyToggle = new PairedInputToggle<string, SecureString>(
+                Key, KeySecureString,
+                Resources.MenuAction_UseKey,
+                Resources.MenuAction_UseSecureKey)
+            {
+                AfterSwitch = ApplyKeyInputModeVisibility,
+            };
         }
 
         public DesignProperty<KeyedHashAlgorithms> Algorithm { get; set; } = new DesignProperty<KeyedHashAlgorithms>();
@@ -98,57 +103,18 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
 
-            ConfigureKeyInputModeMenuActions();
-        }
-
-        private void ConfigureKeyInputModeMenuActions()
-        {
-            var useKeyMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseKey,
-                IsMain = true,
-                Handler = SwitchToKey,
-            };
-            var useSecureKeyMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseSecureKey,
-                IsMain = true,
-                Handler = SwitchToKeySecureString,
-            };
-            KeySecureString.AddMenuAction(useKeyMenuAction);
-            Key.AddMenuAction(useSecureKeyMenuAction);
-
-            _useSecureKey = KeySecureString.HasValue && !Key.HasValue;
+            _keyToggle.ConfigureMenuActions();
             ApplyKeyInputModeVisibility();
         }
 
         private void ApplyKeyInputModeVisibility()
         {
             bool isHmac = Algorithm.Value.ToString().StartsWith(nameof(HMAC));
-            Key.IsVisible = isHmac && !_useSecureKey;
-            Key.IsRequired = isHmac && !_useSecureKey;
-            KeySecureString.IsVisible = isHmac && _useSecureKey;
-            KeySecureString.IsRequired = isHmac && _useSecureKey;
-        }
-
-        private Task SwitchToKey(MenuAction _)
-        {
-            if (KeySecureString.Value != null) _persistedKeySecureString = KeySecureString.Value;
-            KeySecureString.Value = null;
-            Key.Value = _persistedKey;
-            _useSecureKey = false;
-            ApplyKeyInputModeVisibility();
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToKeySecureString(MenuAction _)
-        {
-            if (Key.Value != null) _persistedKey = Key.Value;
-            Key.Value = null;
-            KeySecureString.Value = _persistedKeySecureString;
-            _useSecureKey = true;
-            ApplyKeyInputModeVisibility();
-            return Task.CompletedTask;
+            bool useSecure = _keyToggle.UseSecondary;
+            Key.IsVisible = isHmac && !useSecure;
+            Key.IsRequired = isHmac && !useSecure;
+            KeySecureString.IsVisible = isHmac && useSecure;
+            KeySecureString.IsRequired = isHmac && useSecure;
         }
 
         protected override void InitializeRules()

@@ -2,7 +2,7 @@
 
 `UiPath.Cryptography.Activities`
 
-Provides coded workflow operations for symmetric encryption/decryption of text and files, keyed hashing, and PGP encryption, signing, verification, and key generation.
+Provides coded workflow operations for symmetric encryption/decryption, keyed hashing, and PGP encryption, decryption, signing, clearsigning, verification, and key generation.
 
 **Service accessor:** `cryptography` (type `ICryptographyService`)
 **Required package:** `"UiPath.Cryptography.Activities": "*"` in project.json dependencies
@@ -29,34 +29,59 @@ The `cryptography` service exposes all operations as **direct method calls** —
 var ciphertext = cryptography.EncryptText("secret", EncryptionAlgorithm.AESGCM, "mykey", Encoding.UTF8);
 ```
 
-The API is organized into three families:
+### Bytes / Text / File matrix
 
-| Family | Methods | Input/Output |
-|--------|---------|-------------|
-| **Symmetric** | `EncryptText`, `DecryptText`, `EncryptFile`, `DecryptFile` | Text ↔ Base64 string; File ↔ File |
-| **Keyed hash** | `KeyedHashText`, `KeyedHashFile` | Text or File → hex string |
-| **PGP** | `PgpEncrypt`, `PgpDecrypt`, `PgpEncryptText`, `PgpDecryptText`, `PgpSignFile`, `PgpClearSignFile`, `PgpVerify`, `PgpVerifyClear`, `PgpGenerateKeyPair` | Bytes ↔ Bytes; String ↔ String |
+Every logical operation exposes three input/output forms — pick the one that matches the data you already have:
 
-### Key material overloads
+| Form | Suffix | Input → Output | When to use |
+|------|--------|---------------|-------------|
+| **Bytes** | (base) | `byte[]` → `byte[]` | Binary or already-loaded data |
+| **Text**  | `...Text` | `string` → `string` (Base64 / ASCII-armored) | Data arriving as text (HTTP, config, env) |
+| **File**  | `...File` | file path → file path | Data lives on disk |
 
-Every symmetric and keyed-hash method has three overloads that accept different key formats. Choose the one that matches how your key is stored:
+### Key material overloads (symmetric + keyed hash)
 
-| Overload | Parameter type | When to use |
-|----------|---------------|-------------|
-| String key | `string key` | Simple passwords or keys already held as strings. Note: string values are immutable and may linger on the heap until GC. |
-| SecureString key | `SecureString key` | Keys sourced from user input or secret stores that surface `SecureString`. |
-| Raw bytes | `byte[] keyBytes` | Keys already loaded as raw bytes (most efficient; avoids string encoding round-trip). |
+Every symmetric and keyed-hash method has three overloads that accept different key formats:
+
+| Overload | Parameter | When to use |
+|----------|-----------|-------------|
+| String key | `string key, Encoding encoding` | Simple passwords or strings. Note: `string` is immutable and may linger on the heap. |
+| SecureString key | `SecureString key, Encoding encoding` | Keys sourced from user input or secret stores. Material is zeroed after use. |
+| Raw bytes | `byte[] keyBytes` | Keys already loaded as bytes — no encoding parameter needed. |
+
+### PGP key material
+
+PGP methods accept public and private keys as `byte[]`. The underlying parser auto-detects both ASCII-armored (`-----BEGIN PGP …-----`) and binary OpenPGP encodings. For armored text already held in a string, convert with `Encoding.UTF8.GetBytes(armored)` at the call site.
 
 ### Symmetric encryption — IV / salt strategy
 
-All symmetric encrypt methods are **non-deterministic**: a fresh random 8-byte salt (PBKDF2) and IV/nonce are generated on every call and prepended to the ciphertext. Encrypting the same plaintext twice always produces different ciphertext. The matching Decrypt method reconstructs the salt and IV from the same prefix automatically — the output of Encrypt can always be fed directly to Decrypt without supplying IV separately.
+All symmetric encrypt methods are **non-deterministic**: a fresh random 8-byte salt (PBKDF2) and IV/nonce are generated on every call and prepended to the ciphertext. Encrypting the same plaintext twice always produces different ciphertext. The matching decrypt method reconstructs the salt and IV from the same prefix automatically.
 
-- **CBC-family** (`TripleDES`): PKCS7 padding, CBC mode, random IV.
-- **AES-GCM** (`AESGCM`): random 96-bit nonce, 128-bit authentication tag — authenticated encryption (AEAD). **Recommended algorithm for new workflows.**
+- **CBC-family** (`AES`, `Rijndael`, `DES`, `TripleDES`, `RC2`): PKCS7 padding, CBC mode, random IV.
+- **AES-GCM** (`AESGCM`) — AEAD with random 96-bit nonce and 128-bit auth tag. **Recommended for new workflows.**
+- **ChaCha20-Poly1305** (`ChaCha20Poly1305`) — AEAD alternative to AES-GCM.
+
+### PGP passphrase limitation
+
+PGP overloads that accept `SecureString passphrase` must materialise the passphrase to a managed `string` because the underlying BouncyCastle library requires a plain string and offers no `byte[]`-based passphrase API. The managed string cannot be zeroed afterward. For maximum security with PGP, prefer key rings that do not require a passphrase, or accept that the passphrase briefly exists as a managed string.
 
 ---
 
-## Symmetric Text Encryption
+## Symmetric Encryption
+
+### `byte[] EncryptBytes(...)`
+
+Encrypts arbitrary bytes and returns the ciphertext as `byte[]` (salt + IV/nonce prepended).
+
+| Overload | Signature |
+|----------|-----------|
+| String key | `byte[] EncryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, string key, Encoding encoding)` |
+| SecureString key | `byte[] EncryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)` |
+| Raw bytes | `byte[] EncryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, byte[] keyBytes)` |
+
+**Returns:** `byte[]` — ciphertext with salt and IV/nonce prepended.
+
+---
 
 ### `string EncryptText(...)`
 
@@ -68,19 +93,43 @@ Encrypts a string and returns the ciphertext as a Base64-encoded string.
 | SecureString key | `string EncryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)` |
 | Raw bytes | `string EncryptText(string input, EncryptionAlgorithm algorithm, byte[] keyBytes, Encoding encoding)` |
 
-**Parameters:**
-- `input` (`string`) — Plaintext to encrypt
-- `algorithm` (`EncryptionAlgorithm`) — Encryption algorithm
-- `key` / `keyBytes` — Key material in the chosen format
-- `encoding` (`Encoding`) — Encoding used to convert the input string and string key to bytes (e.g., `Encoding.UTF8`)
+**Returns:** `string` — Base64-encoded ciphertext.
 
-**Returns:** `string` — Base64-encoded ciphertext (salt + IV/nonce prepended).
+---
+
+### `void EncryptFile(...)`
+
+Reads a file, encrypts it, and writes the result to an output path.
+
+| Overload | Signature |
+|----------|-----------|
+| String key | `void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite = false)` |
+| SecureString key | `void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite = false)` |
+| Raw bytes | `void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, byte[] keyBytes, bool overwrite = false)` |
+
+**Returns:** `void` — output file is written to `outputFilePath`.
+
+---
+
+## Symmetric Decryption
+
+### `byte[] DecryptBytes(...)`
+
+Decrypts ciphertext produced by `EncryptBytes` and returns the original bytes.
+
+| Overload | Signature |
+|----------|-----------|
+| String key | `byte[] DecryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, string key, Encoding encoding)` |
+| SecureString key | `byte[] DecryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)` |
+| Raw bytes | `byte[] DecryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, byte[] keyBytes)` |
+
+**Returns:** `byte[]` — plaintext bytes.
 
 ---
 
 ### `string DecryptText(...)`
 
-Decrypts a Base64-encoded ciphertext produced by `EncryptText` and returns the original plaintext.
+Decrypts a Base64-encoded ciphertext produced by `EncryptText`.
 
 | Overload | Signature |
 |----------|-----------|
@@ -88,65 +137,41 @@ Decrypts a Base64-encoded ciphertext produced by `EncryptText` and returns the o
 | SecureString key | `string DecryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)` |
 | Raw bytes | `string DecryptText(string input, EncryptionAlgorithm algorithm, byte[] keyBytes, Encoding encoding)` |
 
-**Parameters:**
-- `input` (`string`) — Base64-encoded ciphertext produced by `EncryptText`
-- `algorithm` (`EncryptionAlgorithm`) — Must match the algorithm used to encrypt
-- `key` / `keyBytes` — Must match the key used to encrypt
-- `encoding` (`Encoding`) — Must match the encoding used to encrypt
-
-**Returns:** `string` — Original plaintext.
-
----
-
-## Symmetric File Encryption
-
-### `void EncryptFile(...)`
-
-Reads a file, encrypts it, and writes the result to an output path.
-
-| Overload | Key parameter |
-|----------|--------------|
-| String key | `string key, Encoding encoding` |
-| SecureString key | `SecureString key, Encoding encoding` |
-| Raw bytes | `byte[] keyBytes` (no `encoding` parameter) |
-
-**Common parameters (all overloads):**
-- `inputFilePath` (`string`) — Path to the source file
-- `outputFilePath` (`string`) — Path where the encrypted file is written
-- `algorithm` (`EncryptionAlgorithm`) — Encryption algorithm
-- `overwrite` (`bool`) — When `true`, overwrites an existing output file
-
-**Returns:** `void`
+**Returns:** `string` — original plaintext.
 
 ---
 
 ### `void DecryptFile(...)`
 
-Reads an encrypted file produced by `EncryptFile`, decrypts it, and writes the plaintext to an output path.
+Reads an encrypted file produced by `EncryptFile` and writes the plaintext to an output path.
 
-| Overload | Key parameter |
-|----------|--------------|
-| String key | `string key, Encoding encoding` |
-| SecureString key | `SecureString key, Encoding encoding` |
-| Raw bytes | `byte[] keyBytes` (no `encoding` parameter) |
+| Overload | Signature |
+|----------|-----------|
+| String key | `void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite = false)` |
+| SecureString key | `void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite = false)` |
+| Raw bytes | `void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, byte[] keyBytes, bool overwrite = false)` |
 
-**Common parameters (all overloads):**
-- `inputFilePath` (`string`) — Path to the encrypted file
-- `outputFilePath` (`string`) — Path where the decrypted file is written
-- `algorithm` (`EncryptionAlgorithm`) — Must match the algorithm used to encrypt
-- `overwrite` (`bool`) — When `true`, overwrites an existing output file
-
-**Returns:** `void`
+**Returns:** `void` — output file is written to `outputFilePath`.
 
 ---
 
 ## Keyed Hashing
 
-Keyed hash methods compute an HMAC or plain hash and return the result as a lowercase hex string. The result is one-way — there is no corresponding "unhash" operation.
+Keyed hash methods compute an HMAC (or plain hash for non-HMAC algorithms) and return the result as a lowercase hex string. One-way — no corresponding "unhash" operation.
+
+### `string KeyedHashBytes(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String key | `string KeyedHashBytes(byte[] inputBytes, KeyedHashAlgorithms algorithm, string key, Encoding encoding)` |
+| SecureString key | `string KeyedHashBytes(byte[] inputBytes, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)` |
+| Raw bytes | `string KeyedHashBytes(byte[] inputBytes, KeyedHashAlgorithms algorithm, byte[] keyBytes)` |
+
+**Returns:** `string` — lowercase hex-encoded hash digest.
+
+---
 
 ### `string KeyedHashText(...)`
-
-Computes a keyed hash of a string.
 
 | Overload | Signature |
 |----------|-----------|
@@ -154,192 +179,226 @@ Computes a keyed hash of a string.
 | SecureString key | `string KeyedHashText(string input, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)` |
 | Raw bytes | `string KeyedHashText(string input, KeyedHashAlgorithms algorithm, byte[] keyBytes, Encoding encoding)` |
 
-**Parameters:**
-- `input` (`string`) — Text to hash
-- `algorithm` (`KeyedHashAlgorithms`) — Hash algorithm
-- `key` / `keyBytes` — Key material (used as the HMAC key; ignored for non-keyed SHA variants)
-- `encoding` (`Encoding`) — Encoding used to convert the input and string key to bytes
-
-**Returns:** `string` — Lowercase hex-encoded hash digest.
+**Returns:** `string` — lowercase hex-encoded hash digest.
 
 ---
 
 ### `string KeyedHashFile(...)`
 
-Computes a keyed hash of a file.
-
 | Overload | Signature |
 |----------|-----------|
 | String key | `string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, string key, Encoding encoding)` |
 | SecureString key | `string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)` |
-| Raw bytes | `string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, byte[] keyBytes)` — **no `encoding` parameter** |
+| Raw bytes | `string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, byte[] keyBytes)` |
 
-**Parameters:**
-- `filePath` (`string`) — Path to the file to hash
-- `algorithm` (`KeyedHashAlgorithms`) — Hash algorithm
-- `key` / `keyBytes` — Key material
-- `encoding` (`Encoding`) — Encoding for the string key (string and SecureString overloads only)
-
-**Returns:** `string` — Lowercase hex-encoded hash digest.
+**Returns:** `string` — lowercase hex-encoded hash digest.
 
 ---
 
 ## PGP Encryption
 
-PGP methods operate on raw `byte[]` or `string`. Keys are supplied as open `Stream` objects pointing to the armored PGP key file.
+PGP encrypt methods accept the recipient's public key as `byte[]` (armored or binary). When `sign: true`, the sender's private key and passphrase are also required so the encrypted payload is signed.
 
-### `byte[] PgpEncrypt(...)`
+### `byte[] PgpEncryptBytes(...)`
 
-Encrypts bytes using the recipient's public key. Optionally signs the data with the sender's private key.
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `byte[] PgpEncryptBytes(byte[] inputBytes, byte[] publicKey, byte[] privateKey = null, string passphrase = null, bool sign = false)` |
+| SecureString passphrase | `byte[] PgpEncryptBytes(byte[] inputBytes, byte[] publicKey, byte[] privateKey, SecureString passphrase, bool sign = false)` |
 
-| Overload | Passphrase type |
-|----------|----------------|
-| String passphrase | `byte[] PgpEncrypt(byte[] inputBytes, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false)` |
-| SecureString passphrase | `byte[] PgpEncrypt(byte[] inputBytes, Stream publicKeyStream, Stream privateKeyStream, SecureString passphrase, bool sign = false)` |
-
-**Parameters:**
-- `inputBytes` (`byte[]`) — Data to encrypt
-- `publicKeyStream` (`Stream`) — Stream of the recipient's armored PGP public key
-- `privateKeyStream` (`Stream`) — Stream of the sender's armored PGP private key. Required when `sign` is `true`.
-- `passphrase` — Passphrase protecting the private key. Required when `sign` is `true`.
-- `sign` (`bool`) — When `true`, signs the encrypted data with the private key (default: `false`)
-
-**Returns:** `byte[]` — PGP-encrypted (and optionally signed) data.
-
----
-
-### `byte[] PgpDecrypt(...)`
-
-Decrypts PGP-encrypted bytes using the recipient's private key. Optionally verifies the sender's signature.
-
-| Overload | Passphrase type |
-|----------|----------------|
-| String passphrase | `byte[] PgpDecrypt(byte[] inputBytes, Stream privateKeyStream, string passphrase, Stream publicKeyStream = null, bool verifySignature = false)` |
-| SecureString passphrase | `byte[] PgpDecrypt(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase, Stream publicKeyStream = null, bool verifySignature = false)` |
-
-**Parameters:**
-- `inputBytes` (`byte[]`) — PGP-encrypted data
-- `privateKeyStream` (`Stream`) — Stream of the recipient's armored PGP private key
-- `passphrase` — Passphrase protecting the private key
-- `publicKeyStream` (`Stream`) — Stream of the sender's armored PGP public key. Required when `verifySignature` is `true`.
-- `verifySignature` (`bool`) — When `true`, verifies the embedded signature against the public key (default: `false`)
-
-**Returns:** `byte[]` — Decrypted plaintext bytes.
+**Returns:** `byte[]` — PGP-encrypted (and optionally signed) payload.
 
 ---
 
 ### `string PgpEncryptText(...)`
 
-Encrypts a string using PGP and returns the result as an armored PGP string.
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `string PgpEncryptText(string input, byte[] publicKey, byte[] privateKey = null, string passphrase = null, bool sign = false)` |
+| SecureString passphrase | `string PgpEncryptText(string input, byte[] publicKey, byte[] privateKey, SecureString passphrase, bool sign = false)` |
 
-| Overload | Passphrase type |
-|----------|----------------|
-| String passphrase | `string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream = null, string passphrase = null, bool sign = false)` |
-| SecureString passphrase | `string PgpEncryptText(string input, Stream publicKeyStream, Stream privateKeyStream, SecureString passphrase, bool sign = false)` |
+**Returns:** `string` — ASCII-armored PGP ciphertext.
 
-**Parameters:**
-- `input` (`string`) — Plaintext to encrypt
-- `publicKeyStream` (`Stream`) — Stream of the recipient's armored PGP public key
-- `privateKeyStream` (`Stream`) — Stream of the sender's armored PGP private key. Required when `sign` is `true`.
-- `passphrase` — Passphrase protecting the private key. Required when `sign` is `true`.
-- `sign` (`bool`) — When `true`, signs the encrypted data with the private key (default: `false`)
+---
 
-**Returns:** `string` — PGP armored ciphertext.
+### `void PgpEncryptFile(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `void PgpEncryptFile(string inputFilePath, string outputFilePath, byte[] publicKey, byte[] privateKey = null, string passphrase = null, bool sign = false, bool overwrite = false)` |
+| SecureString passphrase | `void PgpEncryptFile(string inputFilePath, string outputFilePath, byte[] publicKey, byte[] privateKey, SecureString passphrase, bool sign = false, bool overwrite = false)` |
+
+**Returns:** `void` — output file is written to `outputFilePath`.
+
+---
+
+## PGP Decryption
+
+PGP decrypt methods accept the recipient's private key + passphrase. When `verifySignature: true`, the sender's public key is also required to verify the embedded signature.
+
+### `byte[] PgpDecryptBytes(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `byte[] PgpDecryptBytes(byte[] inputBytes, byte[] privateKey, string passphrase, byte[] publicKey = null, bool verifySignature = false)` |
+| SecureString passphrase | `byte[] PgpDecryptBytes(byte[] inputBytes, byte[] privateKey, SecureString passphrase, byte[] publicKey = null, bool verifySignature = false)` |
+
+**Returns:** `byte[]` — decrypted plaintext bytes.
 
 ---
 
 ### `string PgpDecryptText(...)`
 
-Decrypts a PGP-encrypted armored string.
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `string PgpDecryptText(string input, byte[] privateKey, string passphrase, byte[] publicKey = null, bool verifySignature = false)` |
+| SecureString passphrase | `string PgpDecryptText(string input, byte[] privateKey, SecureString passphrase, byte[] publicKey = null, bool verifySignature = false)` |
 
-| Overload | Passphrase type |
-|----------|----------------|
-| String passphrase | `string PgpDecryptText(string input, Stream privateKeyStream, string passphrase, Stream publicKeyStream = null, bool verifySignature = false)` |
-| SecureString passphrase | `string PgpDecryptText(string input, Stream privateKeyStream, SecureString passphrase, Stream publicKeyStream = null, bool verifySignature = false)` |
-
-**Parameters:**
-- `input` (`string`) — PGP armored ciphertext
-- `privateKeyStream` (`Stream`) — Stream of the recipient's armored PGP private key
-- `passphrase` — Passphrase protecting the private key
-- `publicKeyStream` (`Stream`) — Stream of the sender's armored PGP public key. Required when `verifySignature` is `true`.
-- `verifySignature` (`bool`) — When `true`, verifies the embedded signature against the public key (default: `false`)
-
-**Returns:** `string` — Decrypted plaintext.
+**Returns:** `string` — decrypted plaintext.
 
 ---
 
-## PGP Signing
+### `void PgpDecryptFile(...)`
 
-### `byte[] PgpSignFile(...)`
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `void PgpDecryptFile(string inputFilePath, string outputFilePath, byte[] privateKey, string passphrase, byte[] publicKey = null, bool verifySignature = false, bool overwrite = false)` |
+| SecureString passphrase | `void PgpDecryptFile(string inputFilePath, string outputFilePath, byte[] privateKey, SecureString passphrase, byte[] publicKey = null, bool verifySignature = false, bool overwrite = false)` |
 
-Signs bytes with a PGP private key and returns a binary PGP signature packet embedding the original data.
-
-| Overload | Passphrase type |
-|----------|----------------|
-| String passphrase | `byte[] PgpSignFile(byte[] inputBytes, Stream privateKeyStream, string passphrase)` |
-| SecureString passphrase | `byte[] PgpSignFile(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase)` |
-
-**Parameters:**
-- `inputBytes` (`byte[]`) — Data to sign
-- `privateKeyStream` (`Stream`) — Stream of the signer's armored PGP private key
-- `passphrase` — Passphrase protecting the private key
-
-**Returns:** `byte[]` — Signed PGP data. Verify with `PgpVerify`.
+**Returns:** `void` — output file is written to `outputFilePath`.
 
 ---
 
-### `byte[] PgpClearSignFile(...)`
+## PGP Signing (binary signature)
 
-Creates a PGP clear-text signature: the original data remains readable in plain text with the signature appended.
+Produces a detached or embedded binary signature. Verify with `PgpVerify*`.
 
-| Overload | Passphrase type |
-|----------|----------------|
-| String passphrase | `byte[] PgpClearSignFile(byte[] inputBytes, Stream privateKeyStream, string passphrase)` |
-| SecureString passphrase | `byte[] PgpClearSignFile(byte[] inputBytes, Stream privateKeyStream, SecureString passphrase)` |
+### `byte[] PgpSignBytes(...)`
 
-**Parameters:** Same as `PgpSignFile`.
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `byte[] PgpSignBytes(byte[] inputBytes, byte[] privateKey, string passphrase)` |
+| SecureString passphrase | `byte[] PgpSignBytes(byte[] inputBytes, byte[] privateKey, SecureString passphrase)` |
 
-**Returns:** `byte[]` — Clear-signed PGP document. Verify with `PgpVerifyClear`.
+**Returns:** `byte[]` — signed payload.
+
+---
+
+### `string PgpSignText(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `string PgpSignText(string input, byte[] privateKey, string passphrase)` |
+| SecureString passphrase | `string PgpSignText(string input, byte[] privateKey, SecureString passphrase)` |
+
+**Returns:** `string` — ASCII-armored signed payload.
+
+---
+
+### `void PgpSignFile(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `void PgpSignFile(string inputFilePath, string outputFilePath, byte[] privateKey, string passphrase, bool overwrite = false)` |
+| SecureString passphrase | `void PgpSignFile(string inputFilePath, string outputFilePath, byte[] privateKey, SecureString passphrase, bool overwrite = false)` |
+
+**Returns:** `void` — signed output file is written to `outputFilePath`.
+
+---
+
+## PGP Clearsigning
+
+Clearsignatures keep the original content human-readable with the signature appended. Verify with `PgpVerifyClear*`.
+
+### `byte[] PgpClearsignBytes(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `byte[] PgpClearsignBytes(byte[] inputBytes, byte[] privateKey, string passphrase)` |
+| SecureString passphrase | `byte[] PgpClearsignBytes(byte[] inputBytes, byte[] privateKey, SecureString passphrase)` |
+
+**Returns:** `byte[]` — clearsigned payload.
+
+---
+
+### `string PgpClearsignText(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `string PgpClearsignText(string input, byte[] privateKey, string passphrase)` |
+| SecureString passphrase | `string PgpClearsignText(string input, byte[] privateKey, SecureString passphrase)` |
+
+**Returns:** `string` — ASCII-armored clearsigned text.
+
+---
+
+### `void PgpClearsignFile(...)`
+
+| Overload | Signature |
+|----------|-----------|
+| String passphrase | `void PgpClearsignFile(string inputFilePath, string outputFilePath, byte[] privateKey, string passphrase, bool overwrite = false)` |
+| SecureString passphrase | `void PgpClearsignFile(string inputFilePath, string outputFilePath, byte[] privateKey, SecureString passphrase, bool overwrite = false)` |
+
+**Returns:** `void` — clearsigned output file is written to `outputFilePath`.
 
 ---
 
 ## PGP Verification
 
-### `bool PgpVerify(byte[] inputBytes, Stream publicKeyStream)`
+### Binary signatures
 
-Verifies a PGP binary signature (produced by `PgpSignFile` or by `PgpEncrypt` with `sign: true`) against a public key.
+Verify payloads produced by `PgpSign*` (or `PgpEncrypt*` with `sign: true`).
 
-**Parameters:**
-- `inputBytes` (`byte[]`) — Signed PGP data
-- `publicKeyStream` (`Stream`) — Stream of the signer's armored PGP public key
+| Method | Signature |
+|--------|-----------|
+| Bytes | `bool PgpVerifyBytes(byte[] inputBytes, byte[] publicKey)` |
+| Text  | `bool PgpVerifyText(string input, byte[] publicKey)` |
+| File  | `bool PgpVerifyFile(string inputFilePath, byte[] publicKey)` |
 
-**Returns:** `bool` — `true` if the signature is valid; `false` otherwise.
-
----
-
-### `bool PgpVerifyClear(byte[] inputBytes, Stream publicKeyStream)`
-
-Verifies a PGP clear-text signature (produced by `PgpClearSignFile`) against a public key.
-
-**Parameters:**
-- `inputBytes` (`byte[]`) — Clear-signed PGP document
-- `publicKeyStream` (`Stream`) — Stream of the signer's armored PGP public key
-
-**Returns:** `bool` — `true` if the signature is valid; `false` otherwise.
+**Returns:** `bool` — `true` when the signature is valid; `false` otherwise.
 
 ---
 
-## PGP Key Generation
+### Clearsignatures
 
-### `void PgpGenerateKeyPair(string publicKeyPath, string privateKeyPath, string username, string password)`
+Verify payloads produced by `PgpClearsign*`.
 
-Generates a new PGP key pair and writes the armored public and private keys to the specified file paths.
+| Method | Signature |
+|--------|-----------|
+| Bytes | `bool PgpVerifyClearBytes(byte[] inputBytes, byte[] publicKey)` |
+| Text  | `bool PgpVerifyClearText(string input, byte[] publicKey)` |
+| File  | `bool PgpVerifyClearFile(string inputFilePath, byte[] publicKey)` |
+
+**Returns:** `bool` — `true` when the clearsignature is valid; `false` otherwise.
+
+---
+
+### Public-key well-formedness
+
+Confirms that the supplied material is a well-formed OpenPGP public key. Mirrors the `PgpVerify` activity's `Mode = PublicKey`.
+
+| Method | Signature |
+|--------|-----------|
+| Bytes | `bool PgpVerifyPublicKeyBytes(byte[] publicKey)` |
+| Text  | `bool PgpVerifyPublicKeyText(string publicKey)` |
+| File  | `bool PgpVerifyPublicKeyFile(string publicKeyFilePath)` |
+
+**Returns:** `bool` — `true` when the input parses as a valid OpenPGP public key.
+
+---
+
+## PGP Key-Pair Generation
+
+### `void PgpGenerateKeys(string publicKeyPath, string privateKeyPath, string userId, string passphrase, RsaKeySize keySize = RsaKeySize.Rsa4096)`
+
+Generates an OpenPGP RSA key pair and writes both keys to the specified paths.
 
 **Parameters:**
-- `publicKeyPath` (`string`) — File path where the armored public key is written
-- `privateKeyPath` (`string`) — File path where the armored private key is written
-- `username` (`string`) — Identity string embedded in the key (e.g., `"Alice <alice@example.com>"`)
-- `password` (`string`) — Passphrase protecting the private key
+- `publicKeyPath` (`string`) — Path where the ASCII-armored public key is written.
+- `privateKeyPath` (`string`) — Path where the ASCII-armored private key is written.
+- `userId` (`string`) — OpenPGP User ID; conventionally an RFC 2822 mailbox such as `Alice Doe <alice@example.com>`.
+- `passphrase` (`string`) — Passphrase that protects the generated private key.
+- `keySize` (`RsaKeySize`) — RSA key size. Default `Rsa4096`. `Rsa3072` and `Rsa2048` are accepted for interop with legacy systems.
 
 **Returns:** `void`
 
@@ -349,33 +408,44 @@ Generates a new PGP key pair and writes the armored public and private keys to t
 
 ### `EncryptionAlgorithm`
 
-Used by `EncryptText`, `DecryptText`, `EncryptFile`, `DecryptFile`.
+Used by `EncryptBytes`/`EncryptText`/`EncryptFile` and `DecryptBytes`/`DecryptText`/`DecryptFile`.
 
 | Value | Notes |
 |-------|-------|
 | `AESGCM` | AES-GCM with 96-bit nonce and 128-bit auth tag. AEAD — **recommended for new workflows.** |
-| `TripleDES` | 3DES in CBC mode with PKCS7 padding. Supported but weaker than AES-GCM. |
-| `AES` | AES in CBC mode. **`[Obsolete]` — no longer considered safe; prefer `AESGCM`.** |
-| `DES` | DES in CBC mode. **`[Obsolete]` — no longer safe.** |
-| `RC2` | RC2 in CBC mode. **`[Obsolete]` — no longer safe.** |
-| `Rijndael` | Rijndael in CBC mode. **`[Obsolete]` — no longer safe; prefer `AESGCM`.** |
-| `PGP` | Reserved for PGP. Use the dedicated `PgpEncrypt`/`PgpDecrypt` methods instead. |
+| `ChaCha20Poly1305` | ChaCha20-Poly1305 AEAD. Non-FIPS. Alternative to AES-GCM. |
+| `AES` | AES in CBC mode. |
+| `Rijndael` | Rijndael in CBC mode. |
+| `DES` | DES in CBC mode. **`[Obsolete]` — weak; avoid.** |
+| `TripleDES` | 3DES in CBC mode. **`[Obsolete]` — weak; avoid.** |
+| `RC2` | RC2 in CBC mode. **`[Obsolete]` — weak; avoid.** |
+| `PGP` | Reserved. Use the dedicated `PgpEncrypt*`/`PgpDecrypt*` methods instead. |
 
 ### `KeyedHashAlgorithms`
 
-Used by `KeyedHashText`, `KeyedHashFile`.
+Used by `KeyedHashBytes`/`KeyedHashText`/`KeyedHashFile`.
 
 | Value | Type | Notes |
 |-------|------|-------|
 | `HMACSHA256` | Keyed HMAC | Recommended for MAC/integrity verification. |
 | `HMACSHA384` | Keyed HMAC | |
 | `HMACSHA512` | Keyed HMAC | |
-| `HMACSHA1` | Keyed HMAC | Weaker; prefer SHA256 or higher for new workflows. |
+| `HMACSHA1` | Keyed HMAC | Weaker; prefer SHA256 or higher. |
 | `HMACMD5` | Keyed HMAC | Weak; avoid for security-sensitive use cases. |
 | `SHA256` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. |
-| `SHA384` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. |
-| `SHA512` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. |
-| `SHA1` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. Weak; avoid for security-sensitive use cases. |
+| `SHA384` | Unkeyed hash | Key is ignored. |
+| `SHA512` | Unkeyed hash | Key is ignored. |
+| `SHA1` | Unkeyed hash | Key is ignored. Weak; avoid for security-sensitive use cases. |
+
+### `RsaKeySize`
+
+Used by `PgpGenerateKeys`.
+
+| Value | Bits |
+|-------|------|
+| `Rsa2048` | 2048 |
+| `Rsa3072` | 3072 |
+| `Rsa4096` | 4096 (default) |
 
 ---
 
@@ -457,10 +527,9 @@ public void Execute()
 public void Execute()
 {
     byte[] inputBytes = Encoding.UTF8.GetBytes("Confidential message");
+    byte[] publicKey  = File.ReadAllBytes(@"C:\Keys\recipient_public.asc");
 
-    using var publicKeyStream = File.OpenRead(@"C:\Keys\recipient_public.asc");
-
-    byte[] encrypted = cryptography.PgpEncrypt(inputBytes, publicKeyStream);
+    byte[] encrypted = cryptography.PgpEncryptBytes(inputBytes, publicKey);
     File.WriteAllBytes(@"C:\Output\message.pgp", encrypted);
 }
 ```
@@ -471,29 +540,28 @@ public void Execute()
 [Workflow]
 public void Execute()
 {
-    byte[] inputBytes = Encoding.UTF8.GetBytes("Signed and encrypted message");
-
-    using var recipientPublicKey = File.OpenRead(@"C:\Keys\recipient_public.asc");
-    using var senderPrivateKey   = File.OpenRead(@"C:\Keys\sender_private.asc");
+    byte[] inputBytes        = Encoding.UTF8.GetBytes("Signed and encrypted message");
+    byte[] recipientPublic   = File.ReadAllBytes(@"C:\Keys\recipient_public.asc");
+    byte[] senderPrivate     = File.ReadAllBytes(@"C:\Keys\sender_private.asc");
 
     // Encrypt and sign
-    byte[] encrypted = cryptography.PgpEncrypt(
+    byte[] encrypted = cryptography.PgpEncryptBytes(
         inputBytes,
-        publicKeyStream:  recipientPublicKey,
-        privateKeyStream: senderPrivateKey,
-        passphrase:       "senderPassphrase",
-        sign:             true);
+        publicKey:  recipientPublic,
+        privateKey: senderPrivate,
+        passphrase: "senderPassphrase",
+        sign:       true);
 
     // Decrypt and verify signature
-    using var recipientPrivateKey = File.OpenRead(@"C:\Keys\recipient_private.asc");
-    using var senderPublicKey     = File.OpenRead(@"C:\Keys\sender_public.asc");
+    byte[] recipientPrivate = File.ReadAllBytes(@"C:\Keys\recipient_private.asc");
+    byte[] senderPublic     = File.ReadAllBytes(@"C:\Keys\sender_public.asc");
 
-    byte[] decrypted = cryptography.PgpDecrypt(
+    byte[] decrypted = cryptography.PgpDecryptBytes(
         encrypted,
-        privateKeyStream:  recipientPrivateKey,
-        passphrase:        "recipientPassphrase",
-        publicKeyStream:   senderPublicKey,
-        verifySignature:   true);
+        privateKey:      recipientPrivate,
+        passphrase:      "recipientPassphrase",
+        publicKey:       senderPublic,
+        verifySignature: true);
 
     Log(Encoding.UTF8.GetString(decrypted));
 }
@@ -505,12 +573,31 @@ public void Execute()
 [Workflow]
 public void Execute()
 {
-    cryptography.PgpGenerateKeyPair(
+    cryptography.PgpGenerateKeys(
         publicKeyPath:  @"C:\Keys\my_public.asc",
         privateKeyPath: @"C:\Keys\my_private.asc",
-        username:       "Alice <alice@example.com>",
-        password:       "StrongPassphrase!");
+        userId:         "Alice <alice@example.com>",
+        passphrase:     "StrongPassphrase!",
+        keySize:        RsaKeySize.Rsa4096);
 
     Log("Key pair generated.");
+}
+```
+
+### Validate an inbound public key before storing it
+
+```csharp
+[Workflow]
+public void Execute()
+{
+    // armored public key arriving as text from an HTTP response or config
+    string armoredPublicKey = LoadFromInbox();
+
+    if (!cryptography.PgpVerifyPublicKeyText(armoredPublicKey))
+    {
+        throw new InvalidOperationException("Supplied content is not a valid OpenPGP public key.");
+    }
+
+    File.WriteAllText(@"C:\Keys\trusted_public.asc", armoredPublicKey);
 }
 ```

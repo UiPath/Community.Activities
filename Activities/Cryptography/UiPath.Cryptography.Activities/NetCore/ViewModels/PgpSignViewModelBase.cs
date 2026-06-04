@@ -3,7 +3,7 @@ using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Security;
-using System.Threading.Tasks;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Platform.ResourceHandling;
 
@@ -12,13 +12,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     [ExcludeFromCodeCoverage]
     public abstract class PgpSignViewModelBase : DesignPropertiesViewModel
     {
-        private InArgument<IResource> _persistedInputFile;
-        private InArgument<string> _persistedInputFilePath;
-        private InArgument<IResource> _persistedPrivateKeyFile;
-        private InArgument<string> _persistedPrivateKeyFilePath;
-        private InArgument<string> _persistedPassphrase;
-        private InArgument<SecureString> _persistedPassphraseSecureString;
-        private bool _useSecurePassphrase;
+        private readonly PairedInputToggle<string, IResource> _inputFileToggle;
+        private readonly PairedInputToggle<string, IResource> _privateKeyFileToggle;
+        private readonly PairedInputToggle<string, SecureString> _passphraseToggle;
 
         public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
@@ -32,6 +28,29 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
         protected PgpSignViewModelBase(IDesignServices services) : base(services)
         {
+            _inputFileToggle = new PairedInputToggle<string, IResource>(
+                InputFilePath, InputFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                AfterSwitch = ApplyInputFileVisibility,
+            };
+
+            _privateKeyFileToggle = new PairedInputToggle<string, IResource>(
+                PrivateKeyFilePath, PrivateKeyFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                AfterSwitch = ApplyPrivateKeyFileVisibility,
+            };
+
+            _passphraseToggle = new PairedInputToggle<string, SecureString>(
+                Passphrase, PassphraseSecureString,
+                Resources.MenuAction_UsePassphrase,
+                Resources.MenuAction_UseSecurePassphrase)
+            {
+                AfterSwitch = ApplyPassphraseVisibility,
+            };
         }
 
         protected override void InitializeModel()
@@ -82,159 +101,45 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
             ContinueOnError.Value = false;
 
-            ConfigureInputFileMenuActions();
-            ConfigurePrivateKeyFileMenuActions();
-            ConfigurePassphraseInputModeMenuActions();
+            _inputFileToggle.ConfigureMenuActions();
+            ApplyInputFileVisibility();
+
+            _privateKeyFileToggle.ConfigureMenuActions();
+            ApplyPrivateKeyFileVisibility();
+
+            _passphraseToggle.ConfigureMenuActions();
+            ApplyPassphraseVisibility();
 
             InitializeOutputProperty(orderIndex);
         }
 
-        private void ConfigurePassphraseInputModeMenuActions()
-        {
-            var usePassphraseMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UsePassphrase,
-                IsMain = true,
-                Handler = SwitchToPassphrase,
-            };
-            var useSecurePassphraseMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseSecurePassphrase,
-                IsMain = true,
-                Handler = SwitchToPassphraseSecureString,
-            };
-            PassphraseSecureString.AddMenuAction(usePassphraseMenuAction);
-            Passphrase.AddMenuAction(useSecurePassphraseMenuAction);
-
-            _useSecurePassphrase = PassphraseSecureString.HasValue && !Passphrase.HasValue;
-            Passphrase.IsVisible = !_useSecurePassphrase;
-            Passphrase.IsRequired = !_useSecurePassphrase;
-            PassphraseSecureString.IsVisible = _useSecurePassphrase;
-            PassphraseSecureString.IsRequired = _useSecurePassphrase;
-        }
-
-        private Task SwitchToPassphrase(MenuAction _)
-        {
-            if (PassphraseSecureString.Value != null) _persistedPassphraseSecureString = PassphraseSecureString.Value;
-            PassphraseSecureString.Value = null;
-            Passphrase.Value = _persistedPassphrase;
-            Passphrase.IsVisible = true;
-            Passphrase.IsRequired = true;
-            PassphraseSecureString.IsVisible = false;
-            PassphraseSecureString.IsRequired = false;
-            _useSecurePassphrase = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToPassphraseSecureString(MenuAction _)
-        {
-            if (Passphrase.Value != null) _persistedPassphrase = Passphrase.Value;
-            Passphrase.Value = null;
-            PassphraseSecureString.Value = _persistedPassphraseSecureString;
-            PassphraseSecureString.IsVisible = true;
-            PassphraseSecureString.IsRequired = true;
-            Passphrase.IsVisible = false;
-            Passphrase.IsRequired = false;
-            _useSecurePassphrase = true;
-            return Task.CompletedTask;
-        }
-
         protected abstract void InitializeOutputProperty(int orderIndex);
 
-        private void ConfigureInputFileMenuActions()
+        private void ApplyInputFileVisibility()
         {
-            var useFileMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFile,
-                IsMain = true,
-                Handler = SwitchToInputFile,
-            };
-            var useFilePathMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFilePath,
-                IsMain = true,
-                Handler = SwitchToInputFilePath,
-            };
-            InputFilePath.AddMenuAction(useFileMenuAction);
-            InputFile.AddMenuAction(useFilePathMenuAction);
-
-            bool useFile = InputFile.HasValue && !InputFilePath.HasValue;
-            InputFile.IsVisible = useFile;
-            InputFile.IsRequired = useFile;
-            InputFilePath.IsVisible = !useFile;
-            InputFilePath.IsRequired = !useFile;
+            bool useResource = _inputFileToggle.UseSecondary;
+            InputFile.IsVisible = useResource;
+            InputFile.IsRequired = useResource;
+            InputFilePath.IsVisible = !useResource;
+            InputFilePath.IsRequired = !useResource;
         }
 
-        private void ConfigurePrivateKeyFileMenuActions()
+        private void ApplyPrivateKeyFileVisibility()
         {
-            var useFileMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFile,
-                IsMain = true,
-                Handler = SwitchToPrivateKeyFile,
-            };
-            var useFilePathMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFilePath,
-                IsMain = true,
-                Handler = SwitchToPrivateKeyFilePath,
-            };
-            PrivateKeyFilePath.AddMenuAction(useFileMenuAction);
-            PrivateKeyFile.AddMenuAction(useFilePathMenuAction);
-
-            bool useFile = PrivateKeyFile.HasValue && !PrivateKeyFilePath.HasValue;
-            PrivateKeyFile.IsVisible = useFile;
-            PrivateKeyFile.IsRequired = useFile;
-            PrivateKeyFilePath.IsVisible = !useFile;
-            PrivateKeyFilePath.IsRequired = !useFile;
+            bool useResource = _privateKeyFileToggle.UseSecondary;
+            PrivateKeyFile.IsVisible = useResource;
+            PrivateKeyFile.IsRequired = useResource;
+            PrivateKeyFilePath.IsVisible = !useResource;
+            PrivateKeyFilePath.IsRequired = !useResource;
         }
 
-        private Task SwitchToInputFile(MenuAction _)
+        private void ApplyPassphraseVisibility()
         {
-            if (InputFilePath.Value != null) _persistedInputFilePath = InputFilePath.Value;
-            InputFilePath.Value = null;
-            InputFile.Value = _persistedInputFile;
-            InputFile.IsVisible = true;
-            InputFile.IsRequired = true;
-            InputFilePath.IsVisible = false;
-            InputFilePath.IsRequired = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToInputFilePath(MenuAction _)
-        {
-            if (InputFile.Value != null) _persistedInputFile = InputFile.Value;
-            InputFile.Value = null;
-            InputFilePath.Value = _persistedInputFilePath;
-            InputFilePath.IsVisible = true;
-            InputFilePath.IsRequired = true;
-            InputFile.IsVisible = false;
-            InputFile.IsRequired = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToPrivateKeyFile(MenuAction _)
-        {
-            if (PrivateKeyFilePath.Value != null) _persistedPrivateKeyFilePath = PrivateKeyFilePath.Value;
-            PrivateKeyFilePath.Value = null;
-            PrivateKeyFile.Value = _persistedPrivateKeyFile;
-            PrivateKeyFile.IsVisible = true;
-            PrivateKeyFile.IsRequired = true;
-            PrivateKeyFilePath.IsVisible = false;
-            PrivateKeyFilePath.IsRequired = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToPrivateKeyFilePath(MenuAction _)
-        {
-            if (PrivateKeyFile.Value != null) _persistedPrivateKeyFile = PrivateKeyFile.Value;
-            PrivateKeyFile.Value = null;
-            PrivateKeyFilePath.Value = _persistedPrivateKeyFilePath;
-            PrivateKeyFilePath.IsVisible = true;
-            PrivateKeyFilePath.IsRequired = true;
-            PrivateKeyFile.IsVisible = false;
-            PrivateKeyFile.IsRequired = false;
-            return Task.CompletedTask;
+            bool useSecure = _passphraseToggle.UseSecondary;
+            Passphrase.IsVisible = !useSecure;
+            Passphrase.IsRequired = !useSecure;
+            PassphraseSecureString.IsVisible = useSecure;
+            PassphraseSecureString.IsRequired = useSecure;
         }
     }
 }

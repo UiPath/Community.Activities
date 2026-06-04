@@ -14,6 +14,7 @@
     <PackageId>UiPath.Cryptography.Activities</PackageId>
     <PackageTitle>UiPath.Cryptography.Activities</PackageTitle>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
     <PackageProjectUrl>https://docs.uipath.com/activities/docs/about-the-cryptography-activities-pack</PackageProjectUrl>
     <PackageTags>UiPathActivities</PackageTags>
     <Description>UiPath Cryptography Activities Pack</Description>

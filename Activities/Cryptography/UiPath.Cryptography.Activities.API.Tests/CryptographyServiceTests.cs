@@ -117,6 +117,18 @@ namespace UiPath.Cryptography.Activities.API.Tests
             Should.Throw<ArgumentException>(() => _service.EncryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, Array.Empty<byte>()));
         }
 
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.ChaCha20Poly1305)]
+        public void DecryptBytes_AeadShortInput_Throws(EncryptionAlgorithm algorithm)
+        {
+            // Below the 36-byte AEAD floor (salt 8 + IV 12 + tag 16) the new guard surfaces
+            // the wire-format hint instead of an OverflowException from negative-length arithmetic.
+            byte[] shortInput = new byte[4];
+            Should.Throw<System.Security.Cryptography.CryptographicException>(
+                () => _service.DecryptBytes(shortInput, algorithm, "anyKey", Encoding.UTF8));
+        }
+
         [Fact]
         public void Encrypt_NullSecureStringKey_Throws()
         {

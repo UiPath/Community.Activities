@@ -4,7 +4,6 @@ using System.Activities.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Security;
-using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
@@ -22,16 +21,38 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     public abstract class DecryptCryptoViewModelBase : DesignPropertiesViewModel
     {
         private readonly DataSource<string> _encodingDataSource;
-        private InArgument<string> _persistedKey;
-        private InArgument<SecureString> _persistedKeySecureString;
-        private bool _useSecureKey;
-        private InArgument<string> _persistedPassphrase;
-        private InArgument<SecureString> _persistedPassphraseSecureString;
-        private bool _useSecurePassphrase;
+        private readonly PairedInputToggle<string, SecureString> _keyToggle;
+        private readonly PairedInputToggle<string, SecureString> _passphraseToggle;
+        private readonly PairedInputToggle<string, IResource> _publicKeyFileToggle;
 
         protected DecryptCryptoViewModelBase(IDesignServices services) : base(services)
         {
             _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
+
+            _keyToggle = new PairedInputToggle<string, SecureString>(
+                Key, KeySecureString,
+                Resources.MenuAction_UseKey,
+                Resources.MenuAction_UseSecureKey)
+            {
+                SwitchGuard = () => Algorithm.Value == EncryptionAlgorithm.PGP,
+                AfterSwitch = ApplyKeyInputVisibility,
+            };
+
+            _passphraseToggle = new PairedInputToggle<string, SecureString>(
+                Passphrase, PassphraseSecureString,
+                Resources.MenuAction_UsePassphrase,
+                Resources.MenuAction_UseSecurePassphrase)
+            {
+                AfterSwitch = ApplyPassphraseVisibility,
+            };
+
+            _publicKeyFileToggle = new PairedInputToggle<string, IResource>(
+                PublicKeyFilePath, PublicKeyFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                AfterSwitch = ApplyPublicKeyVisibility,
+            };
         }
 
         public DesignProperty<EncryptionAlgorithm> Algorithm { get; set; } = new DesignProperty<EncryptionAlgorithm>();
@@ -46,9 +67,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<bool> VerifySignature { get; set; } = new DesignProperty<bool>();
         public DesignInArgument<string> PublicKeyFilePath { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<IResource> PublicKeyFile { get; set; } = new DesignInArgument<IResource>();
-        private InArgument<string> _persistedPublicKeyFilePath;
-        private InArgument<IResource> _persistedPublicKeyFile;
-        private bool _usePublicKeyResource;
 
         /// <summary>
         /// Configures Algorithm dropdown, Key, KeySecureString, and KeyEncodingString properties.
@@ -139,59 +157,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
         /// <summary>
         /// Registers Main-menu actions to toggle between PublicKeyFilePath (string) and PublicKeyFile (IResource).
-        /// Initial visibility derives from whichever side has a persisted value.
         /// </summary>
-        protected void ConfigurePublicKeyFileMenuActions()
-        {
-            var useFilePathMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFilePath,
-                IsMain = true,
-                Handler = SwitchToPublicKeyFilePath,
-            };
-            var useFileMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseFile,
-                IsMain = true,
-                Handler = SwitchToPublicKeyFile,
-            };
-            PublicKeyFile.AddMenuAction(useFilePathMenuAction);
-            PublicKeyFilePath.AddMenuAction(useFileMenuAction);
-
-            _usePublicKeyResource = PublicKeyFile.HasValue && !PublicKeyFilePath.HasValue;
-        }
-
-        private Task SwitchToPublicKeyFilePath(MenuAction _)
-        {
-            if (PublicKeyFile.Value != null) _persistedPublicKeyFile = PublicKeyFile.Value;
-            PublicKeyFile.Value = null;
-            PublicKeyFilePath.Value = _persistedPublicKeyFilePath;
-            _usePublicKeyResource = false;
-            ApplyPublicKeyVisibility();
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToPublicKeyFile(MenuAction _)
-        {
-            if (PublicKeyFilePath.Value != null) _persistedPublicKeyFilePath = PublicKeyFilePath.Value;
-            PublicKeyFilePath.Value = null;
-            PublicKeyFile.Value = _persistedPublicKeyFile;
-            _usePublicKeyResource = true;
-            ApplyPublicKeyVisibility();
-            return Task.CompletedTask;
-        }
-
-        private void ApplyPublicKeyVisibility()
-        {
-            // PublicKey* is only relevant when Algorithm == PGP AND VerifySignature is true.
-            bool show = Algorithm.Value == EncryptionAlgorithm.PGP && VerifySignature.Value;
-            PublicKeyFilePath.IsVisible = show && !_usePublicKeyResource;
-            PublicKeyFilePath.IsRequired = show && !_usePublicKeyResource;
-            PublicKeyFilePath.IsPrincipal = show;
-            PublicKeyFile.IsVisible = show && _usePublicKeyResource;
-            PublicKeyFile.IsRequired = show && _usePublicKeyResource;
-            PublicKeyFile.IsPrincipal = show;
-        }
+        protected void ConfigurePublicKeyFileMenuActions() => _publicKeyFileToggle.ConfigureMenuActions();
 
         /// <summary>
         /// Registers Main-menu actions to toggle between Key (string) and KeySecureString (SecureString),
@@ -199,109 +166,48 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         protected void ConfigureKeyInputModeMenuActions()
         {
-            var useKeyMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseKey,
-                IsMain = true,
-                Handler = SwitchToKey,
-            };
-            var useSecureKeyMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseSecureKey,
-                IsMain = true,
-                Handler = SwitchToKeySecureString,
-            };
-            KeySecureString.AddMenuAction(useKeyMenuAction);
-            Key.AddMenuAction(useSecureKeyMenuAction);
-
-            _useSecureKey = KeySecureString.HasValue && !Key.HasValue;
-            Key.IsVisible = !_useSecureKey;
-            Key.IsRequired = !_useSecureKey;
-            KeySecureString.IsVisible = _useSecureKey;
-            KeySecureString.IsRequired = _useSecureKey;
-        }
-
-        private Task SwitchToKey(MenuAction _)
-        {
-            if (Algorithm.Value == EncryptionAlgorithm.PGP) return Task.CompletedTask;
-            if (KeySecureString.Value != null) _persistedKeySecureString = KeySecureString.Value;
-            KeySecureString.Value = null;
-            Key.Value = _persistedKey;
-            Key.IsVisible = true;
-            Key.IsRequired = true;
-            KeySecureString.IsVisible = false;
-            KeySecureString.IsRequired = false;
-            _useSecureKey = false;
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToKeySecureString(MenuAction _)
-        {
-            if (Algorithm.Value == EncryptionAlgorithm.PGP) return Task.CompletedTask;
-            if (Key.Value != null) _persistedKey = Key.Value;
-            Key.Value = null;
-            KeySecureString.Value = _persistedKeySecureString;
-            KeySecureString.IsVisible = true;
-            KeySecureString.IsRequired = true;
-            Key.IsVisible = false;
-            Key.IsRequired = false;
-            _useSecureKey = true;
-            return Task.CompletedTask;
+            _keyToggle.ConfigureMenuActions();
+            ApplyKeyInputVisibility();
         }
 
         /// <summary>
-        /// Registers Main-menu actions to toggle between Passphrase (string) and PassphraseSecureString (SecureString),
-        /// and sets initial visibility based on which side has a persisted value.
+        /// Registers Main-menu actions to toggle between Passphrase (string) and PassphraseSecureString (SecureString).
+        /// Final visibility is set by AlgorithmChanged_Action.
         /// </summary>
-        protected void ConfigurePassphraseInputModeMenuActions()
-        {
-            var usePassphraseMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UsePassphrase,
-                IsMain = true,
-                Handler = SwitchToPassphrase,
-            };
-            var useSecurePassphraseMenuAction = new MenuAction
-            {
-                DisplayName = Resources.MenuAction_UseSecurePassphrase,
-                IsMain = true,
-                Handler = SwitchToPassphraseSecureString,
-            };
-            PassphraseSecureString.AddMenuAction(usePassphraseMenuAction);
-            Passphrase.AddMenuAction(useSecurePassphraseMenuAction);
+        protected void ConfigurePassphraseInputModeMenuActions() => _passphraseToggle.ConfigureMenuActions();
 
-            _useSecurePassphrase = PassphraseSecureString.HasValue && !Passphrase.HasValue;
-            // Final visibility is set by AlgorithmChanged_Action.
+        private void ApplyKeyInputVisibility()
+        {
+            bool useSecure = _keyToggle.UseSecondary;
+            bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
+            Key.IsVisible = !isPgp && !useSecure;
+            Key.IsRequired = !isPgp && !useSecure;
+            KeySecureString.IsVisible = !isPgp && useSecure;
+            KeySecureString.IsRequired = !isPgp && useSecure;
         }
 
-        private Task SwitchToPassphrase(MenuAction _)
+        private void ApplyPublicKeyVisibility()
         {
-            if (PassphraseSecureString.Value != null) _persistedPassphraseSecureString = PassphraseSecureString.Value;
-            PassphraseSecureString.Value = null;
-            Passphrase.Value = _persistedPassphrase;
-            _useSecurePassphrase = false;
-            ApplyPassphraseVisibility();
-            return Task.CompletedTask;
-        }
-
-        private Task SwitchToPassphraseSecureString(MenuAction _)
-        {
-            if (Passphrase.Value != null) _persistedPassphrase = Passphrase.Value;
-            Passphrase.Value = null;
-            PassphraseSecureString.Value = _persistedPassphraseSecureString;
-            _useSecurePassphrase = true;
-            ApplyPassphraseVisibility();
-            return Task.CompletedTask;
+            // PublicKey* is only relevant when Algorithm == PGP AND VerifySignature is true.
+            bool show = Algorithm.Value == EncryptionAlgorithm.PGP && VerifySignature.Value;
+            bool useResource = _publicKeyFileToggle.UseSecondary;
+            PublicKeyFilePath.IsVisible = show && !useResource;
+            PublicKeyFilePath.IsRequired = show && !useResource;
+            PublicKeyFilePath.IsPrincipal = show;
+            PublicKeyFile.IsVisible = show && useResource;
+            PublicKeyFile.IsRequired = show && useResource;
+            PublicKeyFile.IsPrincipal = show;
         }
 
         private void ApplyPassphraseVisibility()
         {
             bool active = Algorithm.Value == EncryptionAlgorithm.PGP;
-            Passphrase.IsVisible = active && !_useSecurePassphrase;
-            Passphrase.IsRequired = active && !_useSecurePassphrase;
+            bool useSecure = _passphraseToggle.UseSecondary;
+            Passphrase.IsVisible = active && !useSecure;
+            Passphrase.IsRequired = active && !useSecure;
             Passphrase.IsPrincipal = active;
-            PassphraseSecureString.IsVisible = active && _useSecurePassphrase;
-            PassphraseSecureString.IsRequired = active && _useSecurePassphrase;
+            PassphraseSecureString.IsVisible = active && useSecure;
+            PassphraseSecureString.IsRequired = active && useSecure;
             PassphraseSecureString.IsPrincipal = active;
         }
 
@@ -322,13 +228,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         private void AlgorithmChanged_Action()
         {
             bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
-
-            Key.IsVisible = !isPgp && !_useSecureKey;
-            Key.IsRequired = !isPgp && !_useSecureKey;
-            KeySecureString.IsVisible = !isPgp && _useSecureKey;
-            KeySecureString.IsRequired = !isPgp && _useSecureKey;
             KeyEncodingString.IsVisible = !isPgp;
 
+            ApplyKeyInputVisibility();
             PrivateKeyFilePath.IsVisible = isPgp;
             PrivateKeyFilePath.IsRequired = isPgp;
             PrivateKeyFilePath.IsPrincipal = isPgp;
