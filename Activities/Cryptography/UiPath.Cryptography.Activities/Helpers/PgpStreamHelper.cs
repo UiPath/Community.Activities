@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using System.Net;
-using System.Security;
 using UiPath.Cryptography.Activities.Properties;
 
 namespace UiPath.Cryptography.Activities.Helpers
@@ -11,7 +9,7 @@ namespace UiPath.Cryptography.Activities.Helpers
         internal static TResult WithPgpEncryptStreams<TResult>(
             string publicKeyFilePath,
             string privateKeyFilePath,
-            SecureString passphrase,
+            string passphrase,
             bool signData,
             Func<Stream, Stream, string, TResult> operation)
         {
@@ -32,9 +30,9 @@ namespace UiPath.Cryptography.Activities.Helpers
                             throw new ArgumentNullException(Resources.PrivateKeyFilePathDisplayName);
                         if (!File.Exists(privateKeyFilePath))
                             throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PrivateKeyFilePathDisplayName);
-                        if (passphrase == null || passphrase.Length == 0)
+                        if (string.IsNullOrWhiteSpace(passphrase))
                             throw new ArgumentNullException(Resources.PassphraseDisplayName);
-                        passphraseString = new NetworkCredential("", passphrase).Password;
+                        passphraseString = passphrase;
                         privateKeyStream = File.OpenRead(privateKeyFilePath);
                     }
 
@@ -50,7 +48,7 @@ namespace UiPath.Cryptography.Activities.Helpers
         internal static void WithPgpEncryptStreams(
             string publicKeyFilePath,
             string privateKeyFilePath,
-            SecureString passphrase,
+            string passphrase,
             bool signData,
             Action<Stream, Stream, string> operation)
         {
@@ -60,7 +58,7 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         internal static TResult WithPgpDecryptStreams<TResult>(
             string privateKeyFilePath,
-            SecureString passphrase,
+            string passphrase,
             string publicKeyFilePath,
             bool verifySignature,
             Func<Stream, string, Stream, TResult> operation)
@@ -69,10 +67,8 @@ namespace UiPath.Cryptography.Activities.Helpers
                 throw new ArgumentNullException(Resources.PrivateKeyFilePathDisplayName);
             if (!File.Exists(privateKeyFilePath))
                 throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PrivateKeyFilePathDisplayName);
-            if (passphrase == null || passphrase.Length == 0)
+            if (string.IsNullOrWhiteSpace(passphrase))
                 throw new ArgumentNullException(Resources.PassphraseDisplayName);
-
-            var passphraseString = new NetworkCredential("", passphrase).Password;
 
             using (var privateKeyStream = File.OpenRead(privateKeyFilePath))
             {
@@ -88,7 +84,7 @@ namespace UiPath.Cryptography.Activities.Helpers
                         publicKeyStream = File.OpenRead(publicKeyFilePath);
                     }
 
-                    return operation(privateKeyStream, passphraseString, publicKeyStream);
+                    return operation(privateKeyStream, passphrase, publicKeyStream);
                 }
                 finally
                 {
@@ -98,7 +94,7 @@ namespace UiPath.Cryptography.Activities.Helpers
         }
         internal static void WithPgpDecryptStreams(
             string privateKeyFilePath,
-            SecureString passphrase,
+            string passphrase,
             string publicKeyFilePath,
             bool verifySignature,
             Action<Stream, string, Stream> operation)

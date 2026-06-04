@@ -1,26 +1,65 @@
 using System;
 using System.Activities;
+using System.Activities.Validation;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using UiPath.Cryptography.Enums;
+using UiPath.Platform.ResourceHandling;
 using Xunit;
+
+#pragma warning disable CS0618 // tests intentionally set the obsolete *InputModeSwitch properties to exercise legacy behavior.
 
 namespace UiPath.Cryptography.Activities.Tests
 {
+    /// <summary>
+    /// Test implementation of ILocalResource for unit testing
+    /// </summary>
+    public class TestLocalResource : ILocalResource
+    {
+        private readonly string _localPath;
+
+        public TestLocalResource(string localPath)
+        {
+            if (!File.Exists(localPath))
+                throw new FileNotFoundException($"File not found: {localPath}");
+            _localPath = localPath;
+        }
+
+        public DateTime? CreationDate => new FileInfo(_localPath).CreationTime;
+        public string FullName => _localPath;
+        public string IconUri => string.Empty;
+        public string ID => Guid.NewGuid().ToString();
+        public bool IsFolder => false;
+        public bool IsResolved => true;
+        public DateTime? LastModifiedDate => new FileInfo(_localPath).LastWriteTime;
+        public string LocalPath => _localPath;
+        public Dictionary<string, string> Metadata => new Dictionary<string, string>();
+        public string MimeType => string.Empty;
+
+        public Task ResolveAsync(bool force = false, CancellationToken ct = new CancellationToken())
+        {
+            return Task.CompletedTask;
+        }
+    }
+
     public class PgpStandaloneTests : PgpTestBase
     {
         #region CryptographyHelper Tests
 
         [Fact]
-        public void PgpGenerateKeyPair_CreatesFiles()
+        public void PgpGenerateKeys_CreatesFiles()
         {
             var pubPath = Path.Combine(Path.GetTempPath(), $"pgp_gen_pub_{Guid.NewGuid()}.asc");
             var privPath = Path.Combine(Path.GetTempPath(), $"pgp_gen_priv_{Guid.NewGuid()}.asc");
 
             try
             {
-                CryptographyHelper.PgpGenerateKeyPair(pubPath, privPath, "gentest@test.com", "genpassword");
+                CryptographyHelper.PgpGenerateKeys(pubPath, privPath, "gentest@test.com", "genpassword");
 
                 Assert.True(File.Exists(pubPath));
                 Assert.True(File.Exists(privPath));
@@ -29,6 +68,67 @@ namespace UiPath.Cryptography.Activities.Tests
                 using (var pubStream = File.OpenRead(pubPath))
                 {
                     Assert.True(CryptographyHelper.PgpVerifyPublicKey(pubStream));
+                }
+            }
+            finally
+            {
+                if (File.Exists(pubPath)) File.Delete(pubPath);
+                if (File.Exists(privPath)) File.Delete(privPath);
+            }
+        }
+
+        [Theory]
+        [InlineData(RsaKeySize.Rsa2048)]
+        [InlineData(RsaKeySize.Rsa3072)]
+        [InlineData(RsaKeySize.Rsa4096)]
+        public void PgpGenerateKeys_WithKeySize_CreatesValidKey(RsaKeySize keySize)
+        {
+            var pubPath = Path.Combine(Path.GetTempPath(), $"pgp_gen_pub_{keySize}_{Guid.NewGuid()}.asc");
+            var privPath = Path.Combine(Path.GetTempPath(), $"pgp_gen_priv_{keySize}_{Guid.NewGuid()}.asc");
+
+            try
+            {
+                CryptographyHelper.PgpGenerateKeys(pubPath, privPath, $"gentest{(int)keySize}@test.com", "genpassword", keySize);
+
+                Assert.True(File.Exists(pubPath), $"Public key file not created for {keySize}");
+                Assert.True(File.Exists(privPath), $"Private key file not created for {keySize}");
+
+                using (var pubStream = File.OpenRead(pubPath))
+                {
+                    Assert.True(CryptographyHelper.PgpVerifyPublicKey(pubStream), $"Generated public key invalid for {keySize}");
+                }
+            }
+            finally
+            {
+                if (File.Exists(pubPath)) File.Delete(pubPath);
+                if (File.Exists(privPath)) File.Delete(privPath);
+            }
+        }
+
+        [Fact]
+        public void PgpGenerateKeys_Activity_WithoutKeySize_DefaultsTo4096()
+        {
+            var pubPath = Path.Combine(Path.GetTempPath(), $"pgp_act_default_pub_{Guid.NewGuid()}.asc");
+            var privPath = Path.Combine(Path.GetTempPath(), $"pgp_act_default_priv_{Guid.NewGuid()}.asc");
+
+            try
+            {
+                var activity = new PgpGenerateKeys
+                {
+                    PublicKeyFilePath = new InArgument<string>(pubPath),
+                    PrivateKeyFilePath = new InArgument<string>(privPath),
+                    UserId = new InArgument<string>("backcompat@test.com"),
+                    Passphrase = new InArgument<string>(Passphrase)
+                };
+
+                WorkflowInvoker.Invoke(activity);
+
+                Assert.True(File.Exists(pubPath), "Public key file not created with default KeySize");
+                Assert.True(File.Exists(privPath), "Private key file not created with default KeySize");
+
+                using (var pubStream = File.OpenRead(pubPath))
+                {
+                    Assert.True(CryptographyHelper.PgpVerifyPublicKey(pubStream), "Generated key with default size is invalid");
                 }
             }
             finally
@@ -61,7 +161,7 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpClearSign_And_VerifyClear_RoundTrip()
         {
-            var plainBytes = Encoding.UTF8.GetBytes("Hello PGP clear signing!");
+            var plainBytes = Encoding.UTF8.GetBytes("Hello PGP clearsigning!");
 
             using (var privateKeyStream = File.OpenRead(_privateKeyPath))
             {
@@ -125,19 +225,19 @@ namespace UiPath.Cryptography.Activities.Tests
         #region Activity Integration Tests
 
         [Fact]
-        public void PgpGenerateKeyPair_Activity_Works()
+        public void PgpGenerateKeys_Activity_Works()
         {
             var pubPath = Path.Combine(Path.GetTempPath(), $"pgp_act_pub_{Guid.NewGuid()}.asc");
             var privPath = Path.Combine(Path.GetTempPath(), $"pgp_act_priv_{Guid.NewGuid()}.asc");
 
             try
             {
-                var activity = new PgpGenerateKeyPair
+                var activity = new PgpGenerateKeys
                 {
                     PublicKeyFilePath = new InArgument<string>(pubPath),
                     PrivateKeyFilePath = new InArgument<string>(privPath),
-                    Username = new InArgument<string>("acttest@test.com"),
-                    Password = new InArgument<SecureString>((_) => GetPassphraseSecureString())
+                    UserId = new InArgument<string>("acttest@test.com"),
+                    Passphrase = new InArgument<string>(Passphrase)
                 };
 
                 WorkflowInvoker.Invoke(activity);
@@ -153,136 +253,129 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
-        public void PgpSignFile_Activity_Works()
+        public void PgpSignFile_Activity_WithStringPaths_Works()
         {
-            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            var outputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_sign_in_{Guid.NewGuid()}.txt");
+            var outputPath = Path.Combine(Path.GetTempPath(), $"pgp_sign_out_{Guid.NewGuid()}.txt.signed");
 
             try
             {
-                File.WriteAllText(inputFile, "Data to sign");
+                File.WriteAllText(inputPath, "Hello PGP sign-file");
 
                 var activity = new PgpSignFile
                 {
-                    InputFilePath = new InArgument<string>(inputFile),
+                    InputFilePath = new InArgument<string>(inputPath),
                     PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
-                    Passphrase = new InArgument<SecureString>((_) => GetPassphraseSecureString()),
-                    OutputFilePath = new InArgument<string>(outputFile),
-                    Overwrite = true
+                    Passphrase = new InArgument<string>(Passphrase),
+                    OutputFilePath = new InArgument<string>(outputPath),
+                    Overwrite = true,
                 };
 
                 WorkflowInvoker.Invoke(activity);
 
-                Assert.True(File.Exists(outputFile));
-                Assert.True(new FileInfo(outputFile).Length > 0);
-            }
-            finally
-            {
-                File.Delete(inputFile);
-                File.Delete(outputFile);
-            }
-        }
-
-        [Fact]
-        public void PgpClearSignFile_Activity_Works()
-        {
-            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            var outputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-
-            try
-            {
-                File.WriteAllText(inputFile, "Data to clear-sign");
-
-                var activity = new PgpClearSignFile
+                Assert.True(File.Exists(outputPath), "Signed file not created");
+                using (var signed = File.OpenRead(outputPath))
+                using (var publicKey = File.OpenRead(_publicKeyPath))
                 {
-                    InputFilePath = new InArgument<string>(inputFile),
-                    PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
-                    Passphrase = new InArgument<SecureString>((_) => GetPassphraseSecureString()),
-                    OutputFilePath = new InArgument<string>(outputFile),
-                    Overwrite = true
-                };
-
-                WorkflowInvoker.Invoke(activity);
-
-                Assert.True(File.Exists(outputFile));
-                Assert.True(new FileInfo(outputFile).Length > 0);
-            }
-            finally
-            {
-                File.Delete(inputFile);
-                File.Delete(outputFile);
-            }
-        }
-
-        [Fact]
-        public void PgpVerifySignature_Activity_Works()
-        {
-            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-
-            try
-            {
-                File.WriteAllText(inputFile, "Data to verify");
-
-                // First sign the file
-                var inputBytes = File.ReadAllBytes(inputFile);
-                using (var privateKeyStream = File.OpenRead(_privateKeyPath))
-                {
-                    var signed = CryptographyHelper.PgpSign(inputBytes, privateKeyStream, Passphrase);
-                    File.WriteAllBytes(signedFile, signed);
+                    Assert.True(CryptographyHelper.PgpVerify(File.ReadAllBytes(outputPath), publicKey));
                 }
+            }
+            finally
+            {
+                if (File.Exists(inputPath)) File.Delete(inputPath);
+                if (File.Exists(outputPath)) File.Delete(outputPath);
+            }
+        }
 
-                // Now verify using the activity
+        [Fact]
+        public void PgpClearsignFile_Activity_WithStringPaths_Works()
+        {
+            var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_clearsign_in_{Guid.NewGuid()}.txt");
+            var outputPath = Path.Combine(Path.GetTempPath(), $"pgp_clearsign_out_{Guid.NewGuid()}.txt.asc");
+
+            try
+            {
+                File.WriteAllText(inputPath, "Hello PGP clearsign");
+
+                var activity = new PgpClearsignFile
+                {
+                    InputFilePath = new InArgument<string>(inputPath),
+                    PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                    Passphrase = new InArgument<string>(Passphrase),
+                    OutputFilePath = new InArgument<string>(outputPath),
+                    Overwrite = true,
+                };
+
+                WorkflowInvoker.Invoke(activity);
+
+                Assert.True(File.Exists(outputPath), "Clearsigned file not created");
+                using (var publicKey = File.OpenRead(_publicKeyPath))
+                {
+                    Assert.True(CryptographyHelper.PgpVerifyClear(File.ReadAllBytes(outputPath), publicKey));
+                }
+            }
+            finally
+            {
+                if (File.Exists(inputPath)) File.Delete(inputPath);
+                if (File.Exists(outputPath)) File.Delete(outputPath);
+            }
+        }
+
+        [Fact]
+        public void PgpVerifySignature_Activity_WithStringPaths_Works()
+        {
+            var plainBytes = Encoding.UTF8.GetBytes("Hello PGP verify-activity");
+            var signedPath = Path.Combine(Path.GetTempPath(), $"pgp_verify_signed_{Guid.NewGuid()}.dat");
+
+            try
+            {
+                byte[] signedBytes;
+                using (var priv = File.OpenRead(_privateKeyPath))
+                    signedBytes = CryptographyHelper.PgpSign(plainBytes, priv, Passphrase);
+                File.WriteAllBytes(signedPath, signedBytes);
+
                 var activity = new PgpVerify
                 {
                     Mode = PgpVerifyMode.Signature,
-                    InputFilePath = new InArgument<string>(signedFile),
-                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath)
+                    InputFilePath = new InArgument<string>(signedPath),
+                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
                 };
 
                 var result = WorkflowInvoker.Invoke(activity);
-                Assert.True(result);
+                Assert.True((bool)result["Result"]);
             }
             finally
             {
-                File.Delete(inputFile);
-                File.Delete(signedFile);
+                if (File.Exists(signedPath)) File.Delete(signedPath);
             }
         }
 
         [Fact]
-        public void PgpVerifyClearSignature_Activity_Works()
+        public void PgpVerifyClearSignature_Activity_WithStringPaths_Works()
         {
-            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var plainBytes = Encoding.UTF8.GetBytes("Hello PGP verify-clear-activity");
+            var signedPath = Path.Combine(Path.GetTempPath(), $"pgp_verify_clearsigned_{Guid.NewGuid()}.asc");
 
             try
             {
-                File.WriteAllText(inputFile, "Data to verify clear");
+                byte[] signedBytes;
+                using (var priv = File.OpenRead(_privateKeyPath))
+                    signedBytes = CryptographyHelper.PgpClearSign(plainBytes, priv, Passphrase);
+                File.WriteAllBytes(signedPath, signedBytes);
 
-                // First clear-sign the file
-                var inputBytes = File.ReadAllBytes(inputFile);
-                using (var privateKeyStream = File.OpenRead(_privateKeyPath))
-                {
-                    var signed = CryptographyHelper.PgpClearSign(inputBytes, privateKeyStream, Passphrase);
-                    File.WriteAllBytes(signedFile, signed);
-                }
-
-                // Now verify using the activity
                 var activity = new PgpVerify
                 {
                     Mode = PgpVerifyMode.ClearSignature,
-                    InputFilePath = new InArgument<string>(signedFile),
-                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath)
+                    InputFilePath = new InArgument<string>(signedPath),
+                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
                 };
 
                 var result = WorkflowInvoker.Invoke(activity);
-                Assert.True(result);
+                Assert.True((bool)result["Result"]);
             }
             finally
             {
-                File.Delete(inputFile);
-                File.Delete(signedFile);
+                if (File.Exists(signedPath)) File.Delete(signedPath);
             }
         }
 
@@ -296,7 +389,8 @@ namespace UiPath.Cryptography.Activities.Tests
             };
 
             var result = WorkflowInvoker.Invoke(activity);
-            Assert.True(result);
+            var isValid = (bool)result["Result"];
+            Assert.True(isValid);
         }
 
         [Fact]
@@ -314,7 +408,8 @@ namespace UiPath.Cryptography.Activities.Tests
                 };
 
                 var result = WorkflowInvoker.Invoke(activity);
-                Assert.False(result);
+                var isValid = (bool)result["Result"];
+                Assert.False(isValid);
             }
             finally
             {
@@ -325,83 +420,254 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void PgpSignFile_And_VerifySignature_Activity_RoundTrip()
         {
-            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_rt_in_{Guid.NewGuid()}.txt");
+            var signedPath = Path.Combine(Path.GetTempPath(), $"pgp_rt_signed_{Guid.NewGuid()}.dat");
 
             try
             {
-                File.WriteAllText(inputFile, "Round trip test data");
+                File.WriteAllText(inputPath, "Round-trip payload");
 
-                // Sign
-                var signActivity = new PgpSignFile
+                WorkflowInvoker.Invoke(new PgpSignFile
                 {
-                    InputFilePath = new InArgument<string>(inputFile),
+                    InputFilePath = new InArgument<string>(inputPath),
                     PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
-                    Passphrase = new InArgument<SecureString>((_) => GetPassphraseSecureString()),
-                    OutputFilePath = new InArgument<string>(signedFile),
-                    Overwrite = true
-                };
+                    Passphrase = new InArgument<string>(Passphrase),
+                    OutputFilePath = new InArgument<string>(signedPath),
+                    Overwrite = true,
+                });
 
-                WorkflowInvoker.Invoke(signActivity);
-
-                // Verify
-                var verifyActivity = new PgpVerify
+                var result = WorkflowInvoker.Invoke(new PgpVerify
                 {
                     Mode = PgpVerifyMode.Signature,
-                    InputFilePath = new InArgument<string>(signedFile),
-                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath)
-                };
+                    InputFilePath = new InArgument<string>(signedPath),
+                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
+                });
 
-                var result = WorkflowInvoker.Invoke(verifyActivity);
-                Assert.True(result);
+                Assert.True((bool)result["Result"]);
             }
             finally
             {
-                File.Delete(inputFile);
-                File.Delete(signedFile);
+                if (File.Exists(inputPath)) File.Delete(inputPath);
+                if (File.Exists(signedPath)) File.Delete(signedPath);
             }
         }
 
         [Fact]
-        public void PgpClearSignFile_And_VerifyClearSignature_Activity_RoundTrip()
+        public void PgpClearsignFile_And_VerifyClearSignature_Activity_RoundTrip()
         {
-            var inputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            var signedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_rtc_in_{Guid.NewGuid()}.txt");
+            var signedPath = Path.Combine(Path.GetTempPath(), $"pgp_rtc_signed_{Guid.NewGuid()}.asc");
 
             try
             {
-                File.WriteAllText(inputFile, "Clear round trip test data");
+                File.WriteAllText(inputPath, "Round-trip clearsign payload");
 
-                // Clear-sign
-                var signActivity = new PgpClearSignFile
+                WorkflowInvoker.Invoke(new PgpClearsignFile
                 {
-                    InputFilePath = new InArgument<string>(inputFile),
+                    InputFilePath = new InArgument<string>(inputPath),
                     PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
-                    Passphrase = new InArgument<SecureString>((_) => GetPassphraseSecureString()),
-                    OutputFilePath = new InArgument<string>(signedFile),
-                    Overwrite = true
-                };
+                    Passphrase = new InArgument<string>(Passphrase),
+                    OutputFilePath = new InArgument<string>(signedPath),
+                    Overwrite = true,
+                });
 
-                WorkflowInvoker.Invoke(signActivity);
-
-                // Verify
-                var verifyActivity = new PgpVerify
+                var result = WorkflowInvoker.Invoke(new PgpVerify
                 {
                     Mode = PgpVerifyMode.ClearSignature,
-                    InputFilePath = new InArgument<string>(signedFile),
-                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath)
-                };
+                    InputFilePath = new InArgument<string>(signedPath),
+                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
+                });
 
-                var result = WorkflowInvoker.Invoke(verifyActivity);
-                Assert.True(result);
+                Assert.True((bool)result["Result"]);
             }
             finally
             {
-                File.Delete(inputFile);
-                File.Delete(signedFile);
+                if (File.Exists(inputPath)) File.Delete(inputPath);
+                if (File.Exists(signedPath)) File.Delete(signedPath);
             }
+        }
+
+        [Fact]
+        public void PgpFullPipeline_Activities_EndToEnd_Works()
+        {
+            // Mirrors the customer workflow: generate keys, sign, clearsign, verify (signature / clear / public-key).
+            var dir = Path.Combine(Path.GetTempPath(), $"pgp_pipeline_{Guid.NewGuid()}");
+            var pubPath = Path.Combine(dir, "public.key");
+            var privPath = Path.Combine(dir, "private.key");
+            var inputPath = Path.Combine(dir, "input.txt");
+            var signedPath = Path.Combine(dir, "signed.file");
+            var clearSignedPath = Path.Combine(dir, "signed.text");
+            const string passphrase = "123abc4d";
+
+            try
+            {
+                Directory.CreateDirectory(dir);
+                File.WriteAllText(inputPath, "Customer pipeline payload");
+
+                WorkflowInvoker.Invoke(new PgpGenerateKeys
+                {
+                    PublicKeyFilePath = new InArgument<string>(pubPath),
+                    PrivateKeyFilePath = new InArgument<string>(privPath),
+                    UserId = new InArgument<string>("A P <ap@example.com>"),
+                    Passphrase = new InArgument<string>(passphrase),
+                    Overwrite = true,
+                });
+
+                WorkflowInvoker.Invoke(new PgpSignFile
+                {
+                    InputFilePath = new InArgument<string>(inputPath),
+                    PrivateKeyFilePath = new InArgument<string>(privPath),
+                    Passphrase = new InArgument<string>(passphrase),
+                    OutputFilePath = new InArgument<string>(signedPath),
+                    Overwrite = true,
+                });
+
+                WorkflowInvoker.Invoke(new PgpClearsignFile
+                {
+                    InputFilePath = new InArgument<string>(signedPath),
+                    PrivateKeyFilePath = new InArgument<string>(privPath),
+                    Passphrase = new InArgument<string>(passphrase),
+                    OutputFilePath = new InArgument<string>(clearSignedPath),
+                    Overwrite = true,
+                });
+
+                var sigResult = WorkflowInvoker.Invoke(new PgpVerify
+                {
+                    Mode = PgpVerifyMode.Signature,
+                    InputFilePath = new InArgument<string>(signedPath),
+                    PublicKeyFilePath = new InArgument<string>(pubPath),
+                });
+                Assert.True((bool)sigResult["Result"], "Signature verification failed");
+
+                var clearResult = WorkflowInvoker.Invoke(new PgpVerify
+                {
+                    Mode = PgpVerifyMode.ClearSignature,
+                    InputFilePath = new InArgument<string>(clearSignedPath),
+                    PublicKeyFilePath = new InArgument<string>(pubPath),
+                });
+                Assert.True((bool)clearResult["Result"], "Clearsignature verification failed");
+
+                var pubResult = WorkflowInvoker.Invoke(new PgpVerify
+                {
+                    Mode = PgpVerifyMode.PublicKey,
+                    PublicKeyFilePath = new InArgument<string>(pubPath),
+                });
+                Assert.True((bool)pubResult["Result"], "Public-key verification failed");
+            }
+            finally
+            {
+                if (Directory.Exists(dir)) Directory.Delete(dir, recursive: true);
+            }
+        }
+
+        #endregion
+
+        #region Runtime Switch-Strict Tests
+
+        [Fact]
+        public void PgpSignFile_FilePathMode_EmptyInputFilePath_ThrowsAtRuntime()
+        {
+            var activity = new PgpSignFile
+            {
+                InputFilePath = new InArgument<string>(""),
+                PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                Passphrase = new InArgument<string>(Passphrase),
+                OutputFilePath = new InArgument<string>("ignored"),
+            };
+            var ex = Assert.Throws<ArgumentNullException>(() => WorkflowInvoker.Invoke(activity));
+            Assert.Equal(nameof(PgpSignFile.InputFilePath), ex.ParamName);
+        }
+
+        [Fact]
+        public void PgpSignFile_FilePathMode_EmptyPrivateKeyFilePath_ThrowsAtRuntime()
+        {
+            var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_sse_{Guid.NewGuid()}.txt");
+            try
+            {
+                File.WriteAllText(inputPath, "x");
+
+                var activity = new PgpSignFile
+                {
+                    InputFilePath = new InArgument<string>(inputPath),
+                    PrivateKeyFilePath = new InArgument<string>(""),
+                    Passphrase = new InArgument<string>(Passphrase),
+                    OutputFilePath = new InArgument<string>("ignored"),
+                };
+                var ex = Assert.Throws<ArgumentNullException>(() => WorkflowInvoker.Invoke(activity));
+                Assert.Equal(nameof(PgpSignFile.PrivateKeyFilePath), ex.ParamName);
+            }
+            finally
+            {
+                if (File.Exists(inputPath)) File.Delete(inputPath);
+            }
+        }
+
+        [Fact]
+        public void PgpClearsignFile_FilePathMode_EmptyInputFilePath_ThrowsAtRuntime()
+        {
+            var activity = new PgpClearsignFile
+            {
+                InputFilePath = new InArgument<string>(""),
+                PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                Passphrase = new InArgument<string>(Passphrase),
+                OutputFilePath = new InArgument<string>("ignored"),
+            };
+            var ex = Assert.Throws<ArgumentNullException>(() => WorkflowInvoker.Invoke(activity));
+            Assert.Equal(nameof(PgpClearsignFile.InputFilePath), ex.ParamName);
+        }
+
+        [Fact]
+        public void PgpVerify_FilePathMode_EmptyInputFilePath_ThrowsAtRuntime()
+        {
+            var activity = new PgpVerify
+            {
+                Mode = PgpVerifyMode.Signature,
+                InputFilePath = new InArgument<string>(""),
+                PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
+            };
+            var ex = Assert.Throws<ArgumentNullException>(() => WorkflowInvoker.Invoke(activity));
+            Assert.Equal(nameof(PgpVerify.InputFilePath), ex.ParamName);
+        }
+
+        [Fact]
+        public void PgpVerify_FilePathMode_EmptyPublicKeyFilePath_ThrowsAtRuntime()
+        {
+            var activity = new PgpVerify
+            {
+                Mode = PgpVerifyMode.PublicKey,
+                PublicKeyFilePath = new InArgument<string>(""),
+            };
+            var ex = Assert.Throws<ArgumentNullException>(() => WorkflowInvoker.Invoke(activity));
+            Assert.Equal(nameof(PgpVerify.PublicKeyFilePath), ex.ParamName);
+        }
+
+        #endregion
+
+        #region IResource Tests
+
+        [Fact]
+        public void PgpSignFile_Has_IResource_Properties()
+        {
+            Assert.NotNull(typeof(PgpSignFile).GetProperty(nameof(PgpSignFile.InputFile)));
+            Assert.NotNull(typeof(PgpSignFile).GetProperty(nameof(PgpSignFile.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void PgpClearsignFile_Has_IResource_Properties()
+        {
+            Assert.NotNull(typeof(PgpClearsignFile).GetProperty(nameof(PgpClearsignFile.InputFile)));
+            Assert.NotNull(typeof(PgpClearsignFile).GetProperty(nameof(PgpClearsignFile.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void PgpVerify_Has_IResource_Properties()
+        {
+            Assert.NotNull(typeof(PgpVerify).GetProperty(nameof(PgpVerify.InputFile)));
+            Assert.NotNull(typeof(PgpVerify).GetProperty(nameof(PgpVerify.PublicKeyFile)));
         }
 
         #endregion
     }
 }
+
+#pragma warning restore CS0618

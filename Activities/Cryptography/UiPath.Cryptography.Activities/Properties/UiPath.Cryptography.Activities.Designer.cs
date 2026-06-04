@@ -61,15 +61,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cryptography.
-        /// </summary>
-        public static string ActivitySynonymCryptography {
-            get {
-                return ResourceManager.GetString("ActivitySynonymCryptography", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Decrypts a file based on a specified key encoding and algorithm..
         /// </summary>
         public static string Activity_DecryptFile_Description {
@@ -88,7 +79,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A drop-down which enables you to select the decryption algorithm you want to use..
+        ///   Looks up a localized string similar to A drop-down which enables you to select the decryption algorithm you want to use. The input must be in the UiPath wire format Base64(salt | IV | ciphertext); ciphertext produced by external tools is not directly compatible — see the activity documentation for the wire-format specification..
         /// </summary>
         public static string Activity_DecryptFile_Property_Algorithm_Description {
             get {
@@ -115,7 +106,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_DecryptFile_Property_ContinueOnError_Name {
             get {
@@ -133,7 +124,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decrypted File.
+        ///   Looks up a localized string similar to Decrypted file.
         /// </summary>
         public static string Activity_DecryptFile_Property_DecryptedFile_Name {
             get {
@@ -223,7 +214,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_DecryptFile_Property_KeyEncoding_Name {
             get {
@@ -241,7 +232,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_DecryptFile_Property_KeyEncodingString_Name {
             get {
@@ -277,7 +268,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key secure string.
         /// </summary>
         public static string Activity_DecryptFile_Property_KeySecureString_Name {
             get {
@@ -285,78 +276,6 @@ namespace UiPath.Cryptography.Activities.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to The passphrase for the PGP private key..
-        /// </summary>
-        public static string Activity_DecryptFile_Property_Passphrase_Description {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_Passphrase_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Passphrase.
-        /// </summary>
-        public static string Activity_DecryptFile_Property_Passphrase_Name {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_Passphrase_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP private key file used for decryption..
-        /// </summary>
-        public static string Activity_DecryptFile_Property_PrivateKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_PrivateKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Private Key File Path.
-        /// </summary>
-        public static string Activity_DecryptFile_Property_PrivateKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_PrivateKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP public key file used for signature verification..
-        /// </summary>
-        public static string Activity_DecryptFile_Property_PublicKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_PublicKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Public Key File Path.
-        /// </summary>
-        public static string Activity_DecryptFile_Property_PublicKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_PublicKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to When enabled, verifies the PGP signature of the decrypted data using the public key..
-        /// </summary>
-        public static string Activity_DecryptFile_Property_VerifySignature_Description {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_VerifySignature_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Verify Signature.
-        /// </summary>
-        public static string Activity_DecryptFile_Property_VerifySignature_Name {
-            get {
-                return ResourceManager.GetString("Activity_DecryptFile_Property_VerifySignature_Name", resourceCulture);
-            }
-        }
-
         /// <summary>
         ///   Looks up a localized string similar to The file name you want to use to save the decrypted file..
         /// </summary>
@@ -367,7 +286,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decrypted Filename.
+        ///   Looks up a localized string similar to Decrypted file name.
         /// </summary>
         public static string Activity_DecryptFile_Property_OutputFileName_Name {
             get {
@@ -376,7 +295,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path where you want to save the decrypted file..
+        ///   Looks up a localized string similar to The full path, including the file name and extension, where the decrypted file will be saved. When left empty, the file is written next to the input file using the name &quot;&lt;input-name&gt;_Decrypted&lt;input-extension&gt;&quot;..
         /// </summary>
         public static string Activity_DecryptFile_Property_OutputFilePath_Description {
             get {
@@ -385,7 +304,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output file name and location.
+        ///   Looks up a localized string similar to Output file path.
         /// </summary>
         public static string Activity_DecryptFile_Property_OutputFilePath_Name {
             get {
@@ -412,6 +331,114 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The passphrase that unlocks your own private key for decryption..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_Passphrase_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_Passphrase_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_Passphrase_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_Passphrase_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase, as a secure string, that unlocks your own private key for decryption..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PassphraseSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PassphraseSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase (secure).
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PassphraseSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PassphraseSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to your own PGP private key file, used to decrypt the message..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PrivateKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PrivateKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file path.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PrivateKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PrivateKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The sender&apos;s PGP public key, supplied as a file resource. Used to verify the signature. When set, takes precedence over the file-path variant..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PublicKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PublicKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PublicKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PublicKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the sender&apos;s PGP public key file, used to verify the signature. Required only when Verify signature is enabled..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PublicKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PublicKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file path.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PublicKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PublicKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, verifies the PGP signature of the decrypted data using the public key..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_VerifySignature_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_VerifySignature_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify signature.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_VerifySignature_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_VerifySignature_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decrypts text based on a specified key encoding and algorithm..
         /// </summary>
         public static string Activity_DecryptText_Description {
@@ -430,7 +457,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A drop-down which enables you to select the decryption algorithm you want to use..
+        ///   Looks up a localized string similar to A drop-down which enables you to select the decryption algorithm you want to use. The input must be in the UiPath wire format Base64(salt | IV | ciphertext); ciphertext produced by external tools is not directly compatible — see the activity documentation for the wire-format specification..
         /// </summary>
         public static string Activity_DecryptText_Property_Algorithm_Description {
             get {
@@ -457,7 +484,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_DecryptText_Property_ContinueOnError_Name {
             get {
@@ -529,7 +556,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_DecryptText_Property_KeyEncodingString_Name {
             get {
@@ -565,7 +592,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key secure string.
         /// </summary>
         public static string Activity_DecryptText_Property_KeySecureString_Name {
             get {
@@ -574,14 +601,14 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The passphrase for the PGP private key..
+        ///   Looks up a localized string similar to The passphrase that unlocks your own private key for decryption..
         /// </summary>
         public static string Activity_DecryptText_Property_Passphrase_Description {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_Passphrase_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Passphrase.
         /// </summary>
@@ -590,61 +617,79 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_DecryptText_Property_Passphrase_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP private key file used for decryption..
+        ///   Looks up a localized string similar to The passphrase, as a secure string, that unlocks your own private key for decryption..
+        /// </summary>
+        public static string Activity_DecryptText_Property_PassphraseSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PassphraseSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase (secure).
+        /// </summary>
+        public static string Activity_DecryptText_Property_PassphraseSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PassphraseSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to your own PGP private key file, used to decrypt the message..
         /// </summary>
         public static string Activity_DecryptText_Property_PrivateKeyFilePath_Description {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_PrivateKeyFilePath_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Private Key File Path.
+        ///   Looks up a localized string similar to Private key file path.
         /// </summary>
         public static string Activity_DecryptText_Property_PrivateKeyFilePath_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_PrivateKeyFilePath_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP public key file used for signature verification..
+        ///   Looks up a localized string similar to The sender&apos;s PGP public key, supplied as a file resource. Used to verify the signature. When set, takes precedence over the file-path variant..
+        /// </summary>
+        public static string Activity_DecryptText_Property_PublicKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PublicKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file.
+        /// </summary>
+        public static string Activity_DecryptText_Property_PublicKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PublicKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the sender&apos;s PGP public key file, used to verify the signature. Required only when Verify signature is enabled..
         /// </summary>
         public static string Activity_DecryptText_Property_PublicKeyFilePath_Description {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_PublicKeyFilePath_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Public Key File Path.
+        ///   Looks up a localized string similar to Public key file path.
         /// </summary>
         public static string Activity_DecryptText_Property_PublicKeyFilePath_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_PublicKeyFilePath_Name", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to When enabled, verifies the PGP signature of the decrypted data using the public key..
-        /// </summary>
-        public static string Activity_DecryptText_Property_VerifySignature_Description {
-            get {
-                return ResourceManager.GetString("Activity_DecryptText_Property_VerifySignature_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Verify Signature.
-        /// </summary>
-        public static string Activity_DecryptText_Property_VerifySignature_Name {
-            get {
-                return ResourceManager.GetString("Activity_DecryptText_Property_VerifySignature_Name", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The decrypted text, stored in a String variable..
         /// </summary>
@@ -655,11 +700,29 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decrypted Text.
+        ///   Looks up a localized string similar to Decrypted text.
         /// </summary>
         public static string Activity_DecryptText_Property_Result_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_Result_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, verifies the PGP signature of the decrypted data using the public key..
+        /// </summary>
+        public static string Activity_DecryptText_Property_VerifySignature_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_VerifySignature_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify signature.
+        /// </summary>
+        public static string Activity_DecryptText_Property_VerifySignature_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_VerifySignature_Name", resourceCulture);
             }
         }
         
@@ -691,7 +754,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A drop-down which enables you to select the encryption algorithm you want to use..
+        ///   Looks up a localized string similar to A drop-down which enables you to select the encryption algorithm you want to use. Ciphertext uses a UiPath-specific wire format Base64(salt | IV | ciphertext) and is not directly interoperable with external tools — see the activity documentation for the wire-format specification..
         /// </summary>
         public static string Activity_EncryptFile_Property_Algorithm_Description {
             get {
@@ -718,7 +781,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_EncryptFile_Property_ContinueOnError_Name {
             get {
@@ -736,7 +799,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encrypted File.
+        ///   Looks up a localized string similar to Encrypted file.
         /// </summary>
         public static string Activity_EncryptFile_Property_EncryptedFile_Name {
             get {
@@ -826,7 +889,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_EncryptFile_Property_KeyEncoding_Name {
             get {
@@ -844,7 +907,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_EncryptFile_Property_KeyEncodingString_Name {
             get {
@@ -880,7 +943,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key secure string.
         /// </summary>
         public static string Activity_EncryptFile_Property_KeySecureString_Name {
             get {
@@ -888,78 +951,6 @@ namespace UiPath.Cryptography.Activities.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to The passphrase for the PGP private key used for signing..
-        /// </summary>
-        public static string Activity_EncryptFile_Property_Passphrase_Description {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_Passphrase_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Passphrase.
-        /// </summary>
-        public static string Activity_EncryptFile_Property_Passphrase_Name {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_Passphrase_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP private key file used for signing..
-        /// </summary>
-        public static string Activity_EncryptFile_Property_PrivateKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_PrivateKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Private Key File Path.
-        /// </summary>
-        public static string Activity_EncryptFile_Property_PrivateKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_PrivateKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP public key file used for encryption..
-        /// </summary>
-        public static string Activity_EncryptFile_Property_PublicKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_PublicKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Public Key File Path.
-        /// </summary>
-        public static string Activity_EncryptFile_Property_PublicKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_PublicKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to When enabled, signs the encrypted data using the private key..
-        /// </summary>
-        public static string Activity_EncryptFile_Property_SignData_Description {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_SignData_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Sign Data.
-        /// </summary>
-        public static string Activity_EncryptFile_Property_SignData_Name {
-            get {
-                return ResourceManager.GetString("Activity_EncryptFile_Property_SignData_Name", resourceCulture);
-            }
-        }
-
         /// <summary>
         ///   Looks up a localized string similar to The file name you want to use to save the encrypted file..
         /// </summary>
@@ -970,7 +961,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encrypted Filename.
+        ///   Looks up a localized string similar to Encrypted file name.
         /// </summary>
         public static string Activity_EncryptFile_Property_OutputFileName_Name {
             get {
@@ -979,7 +970,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path where you want to save the encrypted file..
+        ///   Looks up a localized string similar to The full path, including the file name and extension, where the encrypted file will be saved. When left empty, the file is written next to the input file using the name &quot;&lt;input-name&gt;_Encrypted&lt;input-extension&gt;&quot;..
         /// </summary>
         public static string Activity_EncryptFile_Property_OutputFilePath_Description {
             get {
@@ -988,7 +979,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output file name and location.
+        ///   Looks up a localized string similar to Output file path.
         /// </summary>
         public static string Activity_EncryptFile_Property_OutputFilePath_Name {
             get {
@@ -1015,6 +1006,114 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The passphrase that unlocks your own private key for signing..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_Passphrase_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_Passphrase_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_Passphrase_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_Passphrase_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase, as a secure string, that unlocks your own private key for signing..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PassphraseSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PassphraseSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase (secure).
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PassphraseSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PassphraseSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to your own PGP private key file, used to sign the encrypted output. Required only when Sign data is enabled..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PrivateKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PrivateKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file path.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PrivateKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PrivateKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The recipient&apos;s PGP public key, supplied as a file resource (e.g. from the project resources or Storage Bucket). When set, takes precedence over the file-path variant..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PublicKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PublicKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PublicKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PublicKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the recipient&apos;s PGP public key file. The recipient is the person who will be able to decrypt the output..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PublicKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PublicKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file path.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PublicKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PublicKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, signs the encrypted data using the private key..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_SignData_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_SignData_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign data.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_SignData_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_SignData_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encrypts a string with a key based on a specified key encoding and algorithm..
         /// </summary>
         public static string Activity_EncryptText_Description {
@@ -1033,7 +1132,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A drop-down which enables you to select the encryption algorithm you want to use..
+        ///   Looks up a localized string similar to A drop-down which enables you to select the encryption algorithm you want to use. Ciphertext uses a UiPath-specific wire format Base64(salt | IV | ciphertext) and is not directly interoperable with external tools — see the activity documentation for the wire-format specification..
         /// </summary>
         public static string Activity_EncryptText_Property_Algorithm_Description {
             get {
@@ -1060,7 +1159,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_EncryptText_Property_ContinueOnError_Name {
             get {
@@ -1132,7 +1231,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_EncryptText_Property_KeyEncodingString_Name {
             get {
@@ -1168,7 +1267,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key secure string.
         /// </summary>
         public static string Activity_EncryptText_Property_KeySecureString_Name {
             get {
@@ -1177,14 +1276,14 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The passphrase for the PGP private key used for signing..
+        ///   Looks up a localized string similar to The passphrase that unlocks your own private key for signing..
         /// </summary>
         public static string Activity_EncryptText_Property_Passphrase_Description {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_Passphrase_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Passphrase.
         /// </summary>
@@ -1193,61 +1292,79 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_EncryptText_Property_Passphrase_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP private key file used for signing..
+        ///   Looks up a localized string similar to The passphrase, as a secure string, that unlocks your own private key for signing..
+        /// </summary>
+        public static string Activity_EncryptText_Property_PassphraseSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PassphraseSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase (secure).
+        /// </summary>
+        public static string Activity_EncryptText_Property_PassphraseSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PassphraseSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to your own PGP private key file, used to sign the encrypted output. Required only when Sign data is enabled..
         /// </summary>
         public static string Activity_EncryptText_Property_PrivateKeyFilePath_Description {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_PrivateKeyFilePath_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Private Key File Path.
+        ///   Looks up a localized string similar to Private key file path.
         /// </summary>
         public static string Activity_EncryptText_Property_PrivateKeyFilePath_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_PrivateKeyFilePath_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP public key file used for encryption..
+        ///   Looks up a localized string similar to The recipient&apos;s PGP public key, supplied as a file resource (e.g. from the project resources or Storage Bucket). When set, takes precedence over the file-path variant..
+        /// </summary>
+        public static string Activity_EncryptText_Property_PublicKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PublicKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file.
+        /// </summary>
+        public static string Activity_EncryptText_Property_PublicKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PublicKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the recipient&apos;s PGP public key file. The recipient is the person who will be able to decrypt the output..
         /// </summary>
         public static string Activity_EncryptText_Property_PublicKeyFilePath_Description {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_PublicKeyFilePath_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Public Key File Path.
+        ///   Looks up a localized string similar to Public key file path.
         /// </summary>
         public static string Activity_EncryptText_Property_PublicKeyFilePath_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_PublicKeyFilePath_Name", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to When enabled, signs the encrypted data using the private key..
-        /// </summary>
-        public static string Activity_EncryptText_Property_SignData_Description {
-            get {
-                return ResourceManager.GetString("Activity_EncryptText_Property_SignData_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Sign Data.
-        /// </summary>
-        public static string Activity_EncryptText_Property_SignData_Name {
-            get {
-                return ResourceManager.GetString("Activity_EncryptText_Property_SignData_Name", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The encrypted text, stored in a String variable..
         /// </summary>
@@ -1258,11 +1375,29 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encrypted Text.
+        ///   Looks up a localized string similar to Encrypted text.
         /// </summary>
         public static string Activity_EncryptText_Property_Result_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_Result_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, signs the encrypted data using the private key..
+        /// </summary>
+        public static string Activity_EncryptText_Property_SignData_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_SignData_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign data.
+        /// </summary>
+        public static string Activity_EncryptText_Property_SignData_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_SignData_Name", resourceCulture);
             }
         }
         
@@ -1294,7 +1429,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algortithm.
+        ///   Looks up a localized string similar to Algorithm.
         /// </summary>
         public static string Activity_HashFile_Property_Algorithm_Name {
             get {
@@ -1312,7 +1447,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_HashFile_Property_ContinueOnError_Name {
             get {
@@ -1348,7 +1483,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Path.
+        ///   Looks up a localized string similar to File path.
         /// </summary>
         public static string Activity_HashFile_Property_FilePath_Name {
             get {
@@ -1420,7 +1555,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_HashText_Property_ContinueOnError_Name {
             get {
@@ -1528,7 +1663,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_KeyedHashFile_Property_ContinueOnError_Name {
             get {
@@ -1551,24 +1686,6 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_KeyedHashFile_Property_Encoding_Name {
             get {
                 return ResourceManager.GetString("Activity_KeyedHashFile_Property_Encoding_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The switch between File Path and Resource.
-        /// </summary>
-        public static string Activity_KeyedHashFile_Property_FileInputModeSwitch_Description {
-            get {
-                return ResourceManager.GetString("Activity_KeyedHashFile_Property_FileInputModeSwitch_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FileInputModeSwitch.
-        /// </summary>
-        public static string Activity_KeyedHashFile_Property_FileInputModeSwitch_Name {
-            get {
-                return ResourceManager.GetString("Activity_KeyedHashFile_Property_FileInputModeSwitch_Name", resourceCulture);
             }
         }
         
@@ -1645,7 +1762,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_KeyedHashFile_Property_KeyEncodingString_Name {
             get {
@@ -1681,7 +1798,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key secure string.
         /// </summary>
         public static string Activity_KeyedHashFile_Property_KeySecureString_Name {
             get {
@@ -1762,7 +1879,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_KeyedHashText_Property_ContinueOnError_Name {
             get {
@@ -1843,7 +1960,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Encoding.
+        ///   Looks up a localized string similar to Key encoding.
         /// </summary>
         public static string Activity_KeyedHashText_Property_KeyEncodingString_Name {
             get {
@@ -1879,7 +1996,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key secure string.
         /// </summary>
         public static string Activity_KeyedHashText_Property_KeySecureString_Name {
             get {
@@ -1913,322 +2030,430 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_KeyedHashText_Property_Result_Name", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to PGP Clear Sign File.
-        /// </summary>
-        public static string Activity_PgpClearSignFile_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Name", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Creates a PGP clear-text signature of a file using a private key..
         /// </summary>
-        public static string Activity_PgpClearSignFile_Description {
+        public static string Activity_PgpClearsignFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Input File Path.
+        ///   Looks up a localized string similar to PGP Clearsign File.
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_InputFilePath_Name {
+        public static string Activity_PgpClearsignFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_InputFilePath_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The path to the file that you want to clear-sign..
+        ///   Looks up a localized string similar to The clearsigned file as a file resource..
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_InputFilePath_Description {
+        public static string Activity_PgpClearsignFile_Property_ClearSignedFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_InputFilePath_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ClearSignedFile_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Private Key File Path.
+        ///   Looks up a localized string similar to Clearsigned file.
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name {
+        public static string Activity_PgpClearsignFile_Property_ClearSignedFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ClearSignedFile_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP private key file used for signing..
+        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description {
+        public static string Activity_PgpClearsignFile_Property_ContinueOnError_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ContinueOnError_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Passphrase.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_Passphrase_Name {
+        public static string Activity_PgpClearsignFile_Property_ContinueOnError_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Passphrase_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ContinueOnError_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The passphrase for the PGP private key..
+        ///   Looks up a localized string similar to The resource representing the file to be signed..
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_Passphrase_Description {
+        public static string Activity_PgpClearsignFile_Property_InputFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Passphrase_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFile_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Output File Path.
+        ///   Looks up a localized string similar to Input file.
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_OutputFilePath_Name {
+        public static string Activity_PgpClearsignFile_Property_InputFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_OutputFilePath_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFile_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The path where the clear-signed file will be saved..
+        ///   Looks up a localized string similar to The path to the file that you want to clearsign..
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_OutputFilePath_Description {
+        public static string Activity_PgpClearsignFile_Property_InputFilePath_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_OutputFilePath_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFilePath_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Overwrite.
+        ///   Looks up a localized string similar to Input file path.
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_Overwrite_Name {
+        public static string Activity_PgpClearsignFile_Property_InputFilePath_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Overwrite_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFilePath_Name", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full path, including the file name and extension, where the clearsigned file will be saved..
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_OutputFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_OutputFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output file path.
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_OutputFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_OutputFilePath_Name", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to If a file already exists at the output path, selecting this overwrites it..
         /// </summary>
-        public static string Activity_PgpClearSignFile_Property_Overwrite_Description {
+        public static string Activity_PgpClearsignFile_Property_Overwrite_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Overwrite_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Overwrite_Description", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
-        /// </summary>
-        public static string Activity_PgpClearSignFile_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ContinueOnError_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
-        /// </summary>
-        public static string Activity_PgpClearSignFile_Property_ContinueOnError_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ContinueOnError_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Clear-Signed File.
-        /// </summary>
-        public static string Activity_PgpClearSignFile_Property_ClearSignedFile_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ClearSignedFile_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The clear-signed file as a file resource..
-        /// </summary>
-        public static string Activity_PgpClearSignFile_Property_ClearSignedFile_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ClearSignedFile_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to PGP Generate Keys.
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Generates a PGP public/private key pair and saves them to the specified file paths..
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Public Key Output Path.
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The file path where the generated PGP public key will be saved..
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Private Key Output Path.
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The file path where the generated PGP private key will be saved..
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Username.
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_Username_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_Username_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The username (or email) to associate with the generated key pair..
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_Username_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_Username_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Passphrase.
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_Password_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_Password_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The passphrase to protect the generated private key..
-        /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_Password_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_Password_Description", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Overwrite.
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_Overwrite_Name {
+        public static string Activity_PgpClearsignFile_Property_Overwrite_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_Overwrite_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Overwrite_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to If files already exist at the output paths, selecting this overwrites them..
+        ///   Looks up a localized string similar to The passphrase that unlocks your own private key for signing..
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_Overwrite_Description {
+        public static string Activity_PgpClearsignFile_Property_Passphrase_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_Overwrite_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Passphrase_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Passphrase.
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name {
+        public static string Activity_PgpClearsignFile_Property_Passphrase_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Passphrase_Name", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase, as a secure string, that unlocks your own private key for signing..
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_PassphraseSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PassphraseSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase (secure).
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_PassphraseSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PassphraseSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your own PGP private key, supplied as a file resource. Used to clearsign the data..
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_PrivateKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file.
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_PrivateKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to your own PGP private key file, used to clearsign the data..
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file path.
+        /// </summary>
+        public static string Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generates a PGP public/private key pair and saves them to the specified file paths..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PGP Generate Keys.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Name", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description {
+        public static string Activity_PgpGenerateKeys_Property_ContinueOnError_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_ContinueOnError_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Public Key File.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name {
+        public static string Activity_PgpGenerateKeys_Property_ContinueOnError_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_ContinueOnError_Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The generated public key as a file resource..
+        ///   Looks up a localized string similar to The RSA key size in bits for the generated PGP key pair. Supported sizes are 2048-bit, 3072-bit, and 4096-bit. Defaults to 4096-bit for enterprise-grade security..
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description {
+        public static string Activity_PgpGenerateKeys_Property_KeySize_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_KeySize_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Private Key File.
+        ///   Looks up a localized string similar to Key size.
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name {
+        public static string Activity_PgpGenerateKeys_Property_KeySize_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_KeySize_Name", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If files already exist at the output paths, selecting this overwrites them..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_Overwrite_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_Overwrite_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_Overwrite_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_Overwrite_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase, as a secure string, to protect the generated private key..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PassphraseSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PassphraseSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase (secure).
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PassphraseSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PassphraseSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase to protect the generated private key..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_Password_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_Password_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_Password_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_Password_Name", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to The generated private key as a file resource..
         /// </summary>
-        public static string Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description {
+        public static string Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to PGP Sign File.
+        ///   Looks up a localized string similar to The resource containing the private key.
         /// </summary>
-        public static string Activity_PgpSignFile_Name {
+        public static string Activity_PgpGenerateKeys_Property_PrivateKeyFile_Hint {
             get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PrivateKeyFile_Hint", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file path where the generated PGP private key will be saved..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key output path.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The generated public key as a file resource..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PublicKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PublicKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The resource containing the public key.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PublicKeyFile_Hint {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PublicKeyFile_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PublicKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PublicKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file path where the generated PGP public key will be saved..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key output path.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenPGP User ID for the generated public key. Conventionally an RFC 2822 mailbox in the form &quot;Name &lt;email@example.com&gt;&quot; (e.g. &quot;Alice Doe &lt;alice@example.com&gt;&quot;). Any UTF-8 string is accepted, but the mailbox form is what most PGP tools and key servers expect..
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_UserId_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_UserId_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Name &lt;your.email@example.com&gt;.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_UserId_Hint {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_UserId_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User ID.
+        /// </summary>
+        public static string Activity_PgpGenerateKeys_Property_UserId_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpGenerateKeys_Property_UserId_Name", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Creates a PGP binary signature of a file using a private key..
         /// </summary>
@@ -2237,106 +2462,16 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_PgpSignFile_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Input File Path.
+        ///   Looks up a localized string similar to PGP Sign File.
         /// </summary>
-        public static string Activity_PgpSignFile_Property_InputFilePath_Name {
+        public static string Activity_PgpSignFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_InputFilePath_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpSignFile_Name", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the file that you want to sign..
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_InputFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_InputFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Private Key File Path.
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_PrivateKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_PrivateKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP private key file used for signing..
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_PrivateKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_PrivateKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Passphrase.
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_Passphrase_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_Passphrase_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The passphrase for the PGP private key..
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_Passphrase_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_Passphrase_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Output File Path.
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_OutputFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_OutputFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path where the signed file will be saved..
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_OutputFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_OutputFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Overwrite.
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_Overwrite_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_Overwrite_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to If a file already exists at the output path, selecting this overwrites it..
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_Overwrite_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_Overwrite_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
-        /// </summary>
-        public static string Activity_PgpSignFile_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_ContinueOnError_Name", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
         /// </summary>
@@ -2345,16 +2480,160 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_PgpSignFile_Property_ContinueOnError_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Signed File.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
-        public static string Activity_PgpSignFile_Property_SignedFile_Name {
+        public static string Activity_PgpSignFile_Property_ContinueOnError_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpSignFile_Property_SignedFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_ContinueOnError_Name", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file resource that you want to sign..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_InputFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_InputFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input file.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_InputFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_InputFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the file that you want to sign..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_InputFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_InputFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input file path.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_InputFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_InputFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full path, including the file name and extension, where the signed file will be saved..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_OutputFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_OutputFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output file path.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_OutputFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_OutputFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If a file already exists at the output path, selecting this overwrites it..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_Overwrite_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_Overwrite_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwrite.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_Overwrite_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_Overwrite_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase that unlocks your own private key for signing..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_Passphrase_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_Passphrase_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_Passphrase_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_Passphrase_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase, as a secure string, that unlocks your own private key for signing..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_PassphraseSecureString_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_PassphraseSecureString_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase (secure).
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_PassphraseSecureString_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_PassphraseSecureString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your own PGP private key, supplied as a file resource (e.g. from the project resources or Storage Bucket). Used to sign the data..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_PrivateKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_PrivateKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_PrivateKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_PrivateKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to your own PGP private key file, used to sign the data..
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_PrivateKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_PrivateKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file path.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_PrivateKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_PrivateKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to The signed file as a file resource..
         /// </summary>
@@ -2363,7 +2642,25 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_PgpSignFile_Property_SignedFile_Description", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signed file.
+        /// </summary>
+        public static string Activity_PgpSignFile_Property_SignedFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpSignFile_Property_SignedFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifies a PGP signature, clearsignature, or validates a public key file..
+        /// </summary>
+        public static string Activity_PgpVerify_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Description", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to PGP Verify.
         /// </summary>
@@ -2372,79 +2669,7 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_PgpVerify_Name", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Verifies a PGP signature, clear signature, or validates a public key file..
-        /// </summary>
-        public static string Activity_PgpVerify_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Verification Type.
-        /// </summary>
-        public static string Activity_PgpVerify_Property_Mode_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_Mode_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Select the type of verification....
-        /// </summary>
-        public static string Activity_PgpVerify_Property_Mode_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_Mode_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Signed File Path.
-        /// </summary>
-        public static string Activity_PgpVerify_Property_InputFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_InputFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the signed file to verify....
-        /// </summary>
-        public static string Activity_PgpVerify_Property_InputFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_InputFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Public Key File Path.
-        /// </summary>
-        public static string Activity_PgpVerify_Property_PublicKeyFilePath_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_PublicKeyFilePath_Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The path to the PGP public key file used for verification..
-        /// </summary>
-        public static string Activity_PgpVerify_Property_PublicKeyFilePath_Description {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_PublicKeyFilePath_Description", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
-        /// </summary>
-        public static string Activity_PgpVerify_Property_ContinueOnError_Name {
-            get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_ContinueOnError_Name", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
         /// </summary>
@@ -2453,16 +2678,106 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_PgpVerify_Property_ContinueOnError_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Result.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
-        public static string Activity_PgpVerify_Property_Result_Name {
+        public static string Activity_PgpVerify_Property_ContinueOnError_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpVerify_Property_Result_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpVerify_Property_ContinueOnError_Name", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file resource that contains the signed content to verify. Required for &apos;Signed File (Binary)&apos; and &apos;Clearsigned File (Text)&apos; modes..
+        /// </summary>
+        public static string Activity_PgpVerify_Property_InputFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_InputFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signed file.
+        /// </summary>
+        public static string Activity_PgpVerify_Property_InputFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_InputFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the signed file to verify. Required for &apos;Signed File (Binary)&apos; and &apos;Clearsigned File (Text)&apos; modes..
+        /// </summary>
+        public static string Activity_PgpVerify_Property_InputFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_InputFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signed file path.
+        /// </summary>
+        public static string Activity_PgpVerify_Property_InputFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_InputFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the type of verification. &apos;Signed File (Binary)&apos; verifies a binary-signed file. &apos;Clearsigned File (Text)&apos; verifies a text file with an embedded signature. &apos;Validate Public Key&apos; checks that a file contains a valid PGP public key..
+        /// </summary>
+        public static string Activity_PgpVerify_Property_Mode_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_Mode_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification type.
+        /// </summary>
+        public static string Activity_PgpVerify_Property_Mode_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_Mode_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The signer&apos;s PGP public key, supplied as a file resource. Used to verify the signature..
+        /// </summary>
+        public static string Activity_PgpVerify_Property_PublicKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_PublicKeyFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file.
+        /// </summary>
+        public static string Activity_PgpVerify_Property_PublicKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_PublicKeyFile_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path to the signer&apos;s PGP public key file. This is the public key of whoever produced the signature..
+        /// </summary>
+        public static string Activity_PgpVerify_Property_PublicKeyFilePath_Description {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_PublicKeyFilePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public key file path.
+        /// </summary>
+        public static string Activity_PgpVerify_Property_PublicKeyFilePath_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_PublicKeyFilePath_Name", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to True if verification succeeded, False otherwise..
         /// </summary>
@@ -2471,7 +2786,25 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_PgpVerify_Property_Result_Description", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string Activity_PgpVerify_Property_Result_Name {
+            get {
+                return ResourceManager.GetString("Activity_PgpVerify_Property_Result_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cryptography.
+        /// </summary>
+        public static string ActivitySynonymCryptography {
+            get {
+                return ResourceManager.GetString("ActivitySynonymCryptography", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
@@ -2662,7 +2995,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Key Secure String.
+        ///   Looks up a localized string similar to Key secure string.
         /// </summary>
         public static string KeySecureStringDisplayName {
             get {
@@ -2689,6 +3022,60 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use file.
+        /// </summary>
+        public static string MenuAction_UseFile {
+            get {
+                return ResourceManager.GetString("MenuAction_UseFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use file path.
+        /// </summary>
+        public static string MenuAction_UseFilePath {
+            get {
+                return ResourceManager.GetString("MenuAction_UseFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use key.
+        /// </summary>
+        public static string MenuAction_UseKey {
+            get {
+                return ResourceManager.GetString("MenuAction_UseKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use passphrase.
+        /// </summary>
+        public static string MenuAction_UsePassphrase {
+            get {
+                return ResourceManager.GetString("MenuAction_UsePassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use secure key.
+        /// </summary>
+        public static string MenuAction_UseSecureKey {
+            get {
+                return ResourceManager.GetString("MenuAction_UseSecureKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use secure passphrase.
+        /// </summary>
+        public static string MenuAction_UseSecurePassphrase {
+            get {
+                return ResourceManager.GetString("MenuAction_UseSecurePassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
         public static string Output {
@@ -2705,7 +3092,34 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("OutputFilePathDisplayName", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase.
+        /// </summary>
+        public static string PassphraseDisplayName {
+            get {
+                return ResourceManager.GetString("PassphraseDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value for a required activity argument &apos;Passphrase&apos; was not supplied.
+        /// </summary>
+        public static string PassphraseNullError {
+            get {
+                return ResourceManager.GetString("PassphraseNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The secure-string passphrase must not be null.
+        /// </summary>
+        public static string PassphraseSecureStringNullError {
+            get {
+                return ResourceManager.GetString("PassphraseSecureStringNullError", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to PrivateKeyFilePath.
         /// </summary>
@@ -2714,7 +3128,7 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("PrivateKeyFilePathDisplayName", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to PublicKeyFilePath.
         /// </summary>
@@ -2723,13 +3137,31 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("PublicKeyFilePathDisplayName", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Passphrase.
+        ///   Looks up a localized string similar to 2048-bit RSA.
         /// </summary>
-        public static string PassphraseDisplayName {
+        public static string RsaKeySize_Rsa2048 {
             get {
-                return ResourceManager.GetString("PassphraseDisplayName", resourceCulture);
+                return ResourceManager.GetString("RsaKeySize_Rsa2048", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3072-bit RSA.
+        /// </summary>
+        public static string RsaKeySize_Rsa3072 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa3072", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4096-bit RSA.
+        /// </summary>
+        public static string RsaKeySize_Rsa4096 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa4096", resourceCulture);
             }
         }
     }

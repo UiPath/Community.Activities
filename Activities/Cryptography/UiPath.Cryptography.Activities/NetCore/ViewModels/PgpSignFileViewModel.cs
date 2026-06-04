@@ -2,6 +2,7 @@ using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
+using UiPath.Cryptography.Activities.Properties;
 using UiPath.Platform.ResourceHandling;
 
 namespace UiPath.Cryptography.Activities
@@ -27,6 +28,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             SignedFile.IsPrincipal = false;
             SignedFile.OrderIndex = orderIndex;
+            SignedFile.Category = Resources.Output;
         }
     }
 }

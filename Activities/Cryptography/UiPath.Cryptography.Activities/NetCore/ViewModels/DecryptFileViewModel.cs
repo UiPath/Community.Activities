@@ -1,8 +1,9 @@
-using System;
 using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
 
@@ -11,8 +12,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     [ExcludeFromCodeCoverage]
     public class DecryptFileViewModel : DecryptCryptoViewModelBase
     {
-        private InArgument<IResource> _backupInputFile;
-        private InArgument<string> _backupInputFilePath;
+        private InArgument<IResource> _persistedInputFile;
+        private InArgument<string> _persistedInputFilePath;
 
         public DecryptFileViewModel(IDesignServices services) : base(services)
         {
@@ -20,7 +21,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
         public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
-        public DesignProperty<FileInputMode> FileInputModeSwitch { get; set; } = new DesignProperty<FileInputMode>();
         public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
         public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
         public DesignOutArgument<ILocalResource> DecryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
@@ -31,14 +31,13 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             var orderIndex = 1;
 
             InputFile.IsPrincipal = true;
-            InputFile.IsVisible = false;
-            InputFile.OrderIndex = orderIndex++;
+            InputFile.OrderIndex = orderIndex;
+            InputFile.Category = Resources.Input;
 
             InputFilePath.IsPrincipal = true;
-            InputFilePath.IsVisible = true;
-            InputFilePath.OrderIndex = orderIndex++;
-
-            FileInputModeSwitch.IsVisible = false;
+            InputFilePath.OrderIndex = orderIndex;
+            InputFilePath.Category = Resources.Input;
+            orderIndex++;
 
             ConfigureAlgorithmAndKeyProperties(ref orderIndex);
 
@@ -46,69 +45,70 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             OutputFilePath.IsVisible = true;
             OutputFilePath.IsRequired = false;
             OutputFilePath.OrderIndex = orderIndex++;
+            OutputFilePath.Category = Resources.Input;
 
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = orderIndex++;
+            Overwrite.Category = Resources.Category_Options_Name;
             Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
             ConfigureTailProperties(ref orderIndex);
             ConfigureKeyInputModeMenuActions();
+            ConfigurePublicKeyFileMenuActions();
+            ConfigureInputFileMenuActions();
+            ConfigurePassphraseInputModeMenuActions();
 
-            MenuActionsBuilder<FileInputMode>.WithValueProperty(FileInputModeSwitch)
-                .AddMenuProperty(InputFile, FileInputMode.File)
-                .AddMenuProperty(InputFilePath, FileInputMode.FilePath)
-                .BuildAndInsertMenuActions();
-
+            DecryptedFile.IsPrincipal = false;
             DecryptedFile.OrderIndex = orderIndex;
-
-            _backupInputFile = InputFile.Value;
-            _backupInputFilePath = InputFilePath.Value;
+            DecryptedFile.Category = Resources.Output;
         }
 
-        protected override void InitializeRules()
+        private void ConfigureInputFileMenuActions()
         {
-            base.InitializeRules();
-            Rule(nameof(FileInputModeSwitch), FileInputModeChanged_Action);
-        }
-
-        protected override void ManualRegisterDependencies()
-        {
-            base.ManualRegisterDependencies();
-            RegisterDependency(FileInputModeSwitch, nameof(FileInputModeSwitch.Value), nameof(FileInputModeSwitch));
-        }
-
-        private void FileInputModeChanged_Action()
-        {
-            InputFile.IsRequired = false;
-            InputFile.IsVisible = false;
-            InputFilePath.IsRequired = false;
-            InputFilePath.IsVisible = false;
-
-            switch (FileInputModeSwitch.Value)
+            var useFileMenuAction = new MenuAction
             {
-                case FileInputMode.File:
-                    _backupInputFilePath = InputFilePath.Value;
-                    InputFilePath.Value = null;
+                DisplayName = Resources.MenuAction_UseFile,
+                IsMain = true,
+                Handler = SwitchToInputFile,
+            };
+            var useFilePathMenuAction = new MenuAction
+            {
+                DisplayName = Resources.MenuAction_UseFilePath,
+                IsMain = true,
+                Handler = SwitchToInputFilePath,
+            };
+            InputFilePath.AddMenuAction(useFileMenuAction);
+            InputFile.AddMenuAction(useFilePathMenuAction);
 
-                    InputFile.IsRequired = true;
-                    InputFile.IsVisible = true;
-                    InputFile.Value = _backupInputFile;
+            bool useFile = InputFile.HasValue && !InputFilePath.HasValue;
+            InputFile.IsVisible = useFile;
+            InputFile.IsRequired = useFile;
+            InputFilePath.IsVisible = !useFile;
+            InputFilePath.IsRequired = !useFile;
+        }
 
-                    break;
+        private Task SwitchToInputFile(MenuAction _)
+        {
+            if (InputFilePath.Value != null) _persistedInputFilePath = InputFilePath.Value;
+            InputFilePath.Value = null;
+            InputFile.Value = _persistedInputFile;
+            InputFile.IsVisible = true;
+            InputFile.IsRequired = true;
+            InputFilePath.IsVisible = false;
+            InputFilePath.IsRequired = false;
+            return Task.CompletedTask;
+        }
 
-                case FileInputMode.FilePath:
-                    _backupInputFile = InputFile.Value;
-                    InputFile.Value = null;
-
-                    InputFilePath.IsVisible = true;
-                    InputFilePath.IsRequired = true;
-                    InputFilePath.Value = _backupInputFilePath;
-
-                    break;
-
-                default:
-                    throw new NotImplementedException();
-            }
+        private Task SwitchToInputFilePath(MenuAction _)
+        {
+            if (InputFile.Value != null) _persistedInputFile = InputFile.Value;
+            InputFile.Value = null;
+            InputFilePath.Value = _persistedInputFilePath;
+            InputFilePath.IsVisible = true;
+            InputFilePath.IsRequired = true;
+            InputFile.IsVisible = false;
+            InputFile.IsRequired = false;
+            return Task.CompletedTask;
         }
     }
 }

@@ -2,12 +2,13 @@ using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
+using UiPath.Cryptography.Activities.Properties;
 using UiPath.Platform.ResourceHandling;
 
 namespace UiPath.Cryptography.Activities
 {
-    [ViewModelClass(typeof(PgpClearSignFileViewModel))]
-    public partial class PgpClearSignFile
+    [ViewModelClass(typeof(PgpClearsignFileViewModel))]
+    public partial class PgpClearsignFile
     {
     }
 }
@@ -15,9 +16,9 @@ namespace UiPath.Cryptography.Activities
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     [ExcludeFromCodeCoverage]
-    public class PgpClearSignFileViewModel : PgpSignViewModelBase
+    public class PgpClearsignFileViewModel : PgpSignViewModelBase
     {
-        public PgpClearSignFileViewModel(IDesignServices services) : base(services)
+        public PgpClearsignFileViewModel(IDesignServices services) : base(services)
         {
         }
 
@@ -27,6 +28,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             ClearSignedFile.IsPrincipal = false;
             ClearSignedFile.OrderIndex = orderIndex;
+            ClearSignedFile.Category = Resources.Output;
         }
     }
 }

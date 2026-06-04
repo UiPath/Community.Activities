@@ -1,6 +1,7 @@
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
+using UiPath.Cryptography.Activities.Properties;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -31,14 +32,18 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             Input.IsPrincipal = true;
             Input.OrderIndex = orderIndex++;
+            Input.Category = Resources.Input;
 
             ConfigureAlgorithmAndKeyProperties(ref orderIndex);
 
             Result.IsPrincipal = false;
             Result.OrderIndex = orderIndex++;
+            Result.Category = Resources.Output;
 
             ConfigureTailProperties(ref orderIndex);
             ConfigureKeyInputModeMenuActions();
+            ConfigurePublicKeyFileMenuActions();
+            ConfigurePassphraseInputModeMenuActions();
         }
     }
 }

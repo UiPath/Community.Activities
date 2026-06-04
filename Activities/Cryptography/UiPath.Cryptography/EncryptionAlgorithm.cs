@@ -24,10 +24,14 @@ namespace UiPath.Cryptography
         [LocalizedDescription(nameof(Resources.Rijndael))]
         Rijndael,
 
+        [Obsolete("No longer safe")]
         [LocalizedDescription(nameof(Resources.TripleDES))]
         TripleDES,
 
         [LocalizedDescription(nameof(Resources.PGP))]
-        PGP
+        PGP,
+
+        [LocalizedDescription(nameof(Resources.ChaCha20Poly1305))]
+        ChaCha20Poly1305
     }
 }

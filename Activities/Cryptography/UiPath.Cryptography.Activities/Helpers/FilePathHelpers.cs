@@ -47,7 +47,20 @@ namespace UiPath.Cryptography.Activities.Helpers
                         Resources.OutputFilePathDisplayName);
                 }
             }
-            else 
+            else if (string.IsNullOrEmpty(outputFilePath))
+            {
+                // OutputFileName provided but OutputFilePath not — write to the input's directory using the given name.
+                fileName = outputFileName;
+                var directory = Path.GetDirectoryName(inputFilePath);
+                filePath = string.IsNullOrEmpty(directory) ? outputFileName : Path.Combine(directory, outputFileName);
+
+                if (!overwrite && File.Exists(filePath))
+                {
+                    throw new ArgumentException(Resources.FileAlreadyExistsException,
+                        Resources.OutputFilePathDisplayName);
+                }
+            }
+            else
             {
                 fileName = outputFileName;
             }
