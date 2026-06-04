@@ -17,6 +17,7 @@ namespace UiPath.Cryptography.Activities.Helpers
     /// (e.g. don't switch when Algorithm != PGP) and <see cref="AfterSwitch"/>
     /// for visibility recomputation.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal sealed class PairedInputToggle<TPrimary, TSecondary>
         where TPrimary : class
         where TSecondary : class
