@@ -2,6 +2,7 @@
 using System.Activities;
 using System.Activities.Expressions;
 using System.Collections.Generic;
+using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -365,6 +366,131 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.Contains("UiPath wire format", ex.Message);
             Assert.Contains("different tool", ex.Message);
             Assert.NotNull(ex.InnerException);
+        }
+
+        // ── IsFipsCompliant — pins the FIPS-compliance map per algorithm.
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AES,              true)]
+        [InlineData(EncryptionAlgorithm.AESGCM,           true)]
+        [InlineData(EncryptionAlgorithm.DES,              true)]
+        [InlineData(EncryptionAlgorithm.TripleDES,        true)]
+        [InlineData(EncryptionAlgorithm.RC2,              false)]
+        [InlineData(EncryptionAlgorithm.Rijndael,         false)]
+        [InlineData(EncryptionAlgorithm.ChaCha20Poly1305, false)]
+        [InlineData(EncryptionAlgorithm.PGP,              false)]
+        public void IsFipsCompliant_ReturnsExpected(EncryptionAlgorithm algorithm, bool expected)
+        {
+            Assert.Equal(expected, CryptographyHelper.IsFipsCompliant(algorithm));
+        }
+
+        // ── EncodingHelpers.KeyEncodingOrString — three branches: numeric string, named string, null string.
+        [Fact]
+        public void KeyEncodingOrString_NumericCodePageString_ReturnsThatEncoding()
+        {
+            var result = EncodingHelpers.KeyEncodingOrString(Encoding.ASCII, "65001"); // UTF-8 code page
+            Assert.Equal(Encoding.UTF8.CodePage, result.CodePage);
+        }
+
+        [Fact]
+        public void KeyEncodingOrString_NamedEncodingString_ReturnsThatEncoding()
+        {
+            var result = EncodingHelpers.KeyEncodingOrString(null, "utf-8");
+            Assert.Equal(Encoding.UTF8.CodePage, result.CodePage);
+        }
+
+        [Fact]
+        public void KeyEncodingOrString_NullString_FallsBackToFirstArg()
+        {
+            var result = EncodingHelpers.KeyEncodingOrString(Encoding.ASCII, null);
+            Assert.Same(Encoding.ASCII, result);
+        }
+
+        // ── EncodingHelpers.GetCodePageName — catch path returns "" for unknown CodePages values.
+        [Fact]
+        public void GetCodePageName_UnknownValue_ReturnsEmpty()
+        {
+            // An enum value outside the declared set causes GetEnumName -> null, which makes
+            // typeof(CodePages).GetField(null) throw; the catch returns string.Empty.
+            var result = EncodingHelpers.GetCodePageName((CodePages)int.MaxValue);
+            Assert.Equal(string.Empty, result);
+        }
+
+        // ── FilePathHelpers.GetDefaultFileNameAndLocation — exercises the branches that the
+        // activity Execute paths transitively rely on, without spinning up WorkflowInvoker.
+        [Fact]
+        public void GetDefaultFileNameAndLocation_NoOutputPath_DerivesFromInputAndSuffix()
+        {
+            var dir = Path.GetTempPath();
+            var input = Path.Combine(dir, $"flh_{Guid.NewGuid():N}.txt");
+            try
+            {
+                var (fileName, filePath, returnedInputPath) =
+                    FilePathHelpers.GetDefaultFileNameAndLocation(null, input, outputFileName: null, overwrite: false, outputFilePath: null, suffix: "_enc");
+
+                Assert.Equal(Path.GetFileNameWithoutExtension(input) + "_enc.txt", fileName);
+                Assert.Equal(Path.Combine(dir, fileName), filePath);
+                Assert.Equal(input, returnedInputPath);
+            }
+            finally
+            {
+                if (File.Exists(input)) File.Delete(input);
+            }
+        }
+
+        [Fact]
+        public void GetDefaultFileNameAndLocation_BareFilename_KeepsFileNameAsPath()
+        {
+            // No directory component -> filePath collapses to just the file name.
+            var (fileName, filePath, _) =
+                FilePathHelpers.GetDefaultFileNameAndLocation(null, "file.txt", outputFileName: null, overwrite: false, outputFilePath: null, suffix: "_x");
+
+            Assert.Equal("file_x.txt", fileName);
+            Assert.Equal("file_x.txt", filePath);
+        }
+
+        [Fact]
+        public void GetDefaultFileNameAndLocation_DerivedPathAlreadyExists_ThrowsWhenNotOverwriting()
+        {
+            // The derived path collides with an existing file and overwrite is false → ArgumentException.
+            var dir = Path.GetTempPath();
+            var input = Path.Combine(dir, $"flh_{Guid.NewGuid():N}.bin");
+            // The helper derives "<basename>_enc.bin" alongside the input. Pre-create it to provoke the guard.
+            var collision = Path.Combine(dir, Path.GetFileNameWithoutExtension(input) + "_enc.bin");
+            File.WriteAllText(input, "in");
+            File.WriteAllText(collision, "preexisting");
+            try
+            {
+                Assert.Throws<ArgumentException>(() =>
+                    FilePathHelpers.GetDefaultFileNameAndLocation(null, input, outputFileName: null, overwrite: false, outputFilePath: null, suffix: "_enc"));
+            }
+            finally
+            {
+                if (File.Exists(input)) File.Delete(input);
+                if (File.Exists(collision)) File.Delete(collision);
+            }
+        }
+
+        [Fact]
+        public void GetDefaultFileNameAndLocation_OutputFileNameOnly_WritesIntoInputDir()
+        {
+            var dir = Path.GetTempPath();
+            var input = Path.Combine(dir, $"flh_{Guid.NewGuid():N}.txt");
+            var (fileName, filePath, _) =
+                FilePathHelpers.GetDefaultFileNameAndLocation(null, input, outputFileName: "out.bin", overwrite: false, outputFilePath: null, suffix: "_enc");
+
+            Assert.Equal("out.bin", fileName);
+            Assert.Equal(Path.Combine(dir, "out.bin"), filePath);
+        }
+
+        [Fact]
+        public void GetDefaultFileNameAndLocation_OutputFilePathProvided_ShortCircuits()
+        {
+            // When outputFilePath is set the helper just propagates the requested fileName; filePath is left empty.
+            var (fileName, filePath, _) =
+                FilePathHelpers.GetDefaultFileNameAndLocation(null, "in.txt", outputFileName: "explicit.out", overwrite: false, outputFilePath: @"C:\some\path.out", suffix: "_enc");
+
+            Assert.Equal("explicit.out", fileName);
+            Assert.Equal(string.Empty, filePath);
         }
     }
 }

@@ -41,7 +41,7 @@ Hashes a file using the specified algorithm and returns the hexadecimal hash str
 
 ### Enum Reference
 
-**`KeyedHashAlgorithms`**: `HMACMD5`, `HMACSHA1`, `HMACSHA256` *(default)*, `HMACSHA384`, `HMACSHA512`, `SHA1`, `SHA256`, `SHA384`, `SHA512`.
+**`KeyedHashAlgorithms`**: `HMACSHA256` *(default)*, `HMACSHA384`, `HMACSHA512`, `SHA256`, `SHA384`, `SHA512`, `HMACMD5` *(deprecated)*, `HMACSHA1` *(deprecated)*, `SHA1` *(deprecated)*.
 
 ## XAML Example
 

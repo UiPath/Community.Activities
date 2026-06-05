@@ -430,12 +430,12 @@ Used by `KeyedHashBytes`/`KeyedHashText`/`KeyedHashFile`.
 | `HMACSHA256` | Keyed HMAC | Recommended for MAC/integrity verification. |
 | `HMACSHA384` | Keyed HMAC | |
 | `HMACSHA512` | Keyed HMAC | |
-| `HMACSHA1` | Keyed HMAC | Weaker; prefer SHA256 or higher. |
-| `HMACMD5` | Keyed HMAC | Weak; avoid for security-sensitive use cases. |
 | `SHA256` | Unkeyed hash | Key is ignored — equivalent to a plain SHA hash. |
 | `SHA384` | Unkeyed hash | Key is ignored. |
 | `SHA512` | Unkeyed hash | Key is ignored. |
-| `SHA1` | Unkeyed hash | Key is ignored. Weak; avoid for security-sensitive use cases. |
+| `HMACSHA1` | Keyed HMAC | **`[Obsolete]` — SHA-1 is deprecated by NIST; prefer SHA256 or higher.** |
+| `HMACMD5` | Keyed HMAC | **`[Obsolete]` — MD5 is broken; avoid for any security-sensitive use.** |
+| `SHA1` | Unkeyed hash | **`[Obsolete]` — collision attacks demonstrated; do not use.** |
 
 ### `RsaKeySize`
 

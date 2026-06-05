@@ -10,6 +10,8 @@ using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
 
+#pragma warning disable CS0618 // obsolete keyed-hash algorithms (HMACMD5, HMACSHA1, SHA1) remain referenced for backwards compatibility
+
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     [ExcludeFromCodeCoverage]
@@ -66,7 +68,18 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.Category = Resources.Input;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
+            Algorithm.DataSource = DataSourceHelper.ForEnum(
+                // Usable (alphabetical):
+                KeyedHashAlgorithms.HMACSHA256,
+                KeyedHashAlgorithms.HMACSHA384,
+                KeyedHashAlgorithms.HMACSHA512,
+                KeyedHashAlgorithms.SHA256,
+                KeyedHashAlgorithms.SHA384,
+                KeyedHashAlgorithms.SHA512,
+                // Deprecated (alphabetical):
+                KeyedHashAlgorithms.HMACMD5,
+                KeyedHashAlgorithms.HMACSHA1,
+                KeyedHashAlgorithms.SHA1);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             Key.IsPrincipal = true;

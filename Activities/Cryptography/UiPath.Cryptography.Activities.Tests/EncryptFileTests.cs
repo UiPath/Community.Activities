@@ -172,6 +172,48 @@ namespace UiPath.Cryptography.Activities.Tests
                 if (File.Exists(expectedOutputPath)) File.Delete(expectedOutputPath);
             }
         }
+
+        [Fact]
+        public void EncryptFile_BadInput_WithContinueOnError_SwallowsException()
+        {
+            // Reference a non-existent input file so Execute throws ArgumentException;
+            // ContinueOnError=true should swallow it and return normally.
+            var missingInput = Path.Combine(Path.GetTempPath(), $"missing_{Guid.NewGuid():N}.txt");
+            var output = Path.Combine(Path.GetTempPath(), $"out_{Guid.NewGuid():N}.bin");
+
+            var activity = new EncryptFile
+            {
+                InputFilePath = new InArgument<string>(missingInput),
+                OutputFilePath = new InArgument<string>(output),
+                Key = new InArgument<string>("key"),
+                Algorithm = EncryptionAlgorithm.AESGCM,
+                KeyInputModeSwitch = KeyInputMode.Key,
+                ContinueOnError = new InArgument<bool>(true),
+            };
+
+            Should.NotThrow(() => WorkflowInvoker.Invoke(activity));
+            File.Exists(output).ShouldBeFalse("no output should have been written when the input is missing");
+        }
+
+        [Fact]
+        public void DecryptFile_BadInput_WithContinueOnError_SwallowsException()
+        {
+            var missingInput = Path.Combine(Path.GetTempPath(), $"missing_{Guid.NewGuid():N}.enc");
+            var output = Path.Combine(Path.GetTempPath(), $"out_{Guid.NewGuid():N}.txt");
+
+            var activity = new DecryptFile
+            {
+                InputFilePath = new InArgument<string>(missingInput),
+                OutputFilePath = new InArgument<string>(output),
+                Key = new InArgument<string>("key"),
+                Algorithm = EncryptionAlgorithm.AESGCM,
+                KeyInputModeSwitch = KeyInputMode.Key,
+                ContinueOnError = new InArgument<bool>(true),
+            };
+
+            Should.NotThrow(() => WorkflowInvoker.Invoke(activity));
+            File.Exists(output).ShouldBeFalse("no output should have been written when the input is missing");
+        }
     }
 }
 

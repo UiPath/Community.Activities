@@ -232,6 +232,16 @@ namespace UiPath.Cryptography.Activities.API.Tests
                 _service.EncryptText("input", EncryptionAlgorithm.AES, Array.Empty<byte>(), Encoding.UTF8));
         }
 
+        [Fact]
+        public void DecryptText_NullOrEmptyByteArrayKey_Throws()
+        {
+            // Mirrors EncryptText_NullOrEmptyByteArrayKey_Throws — decrypt guards were missing from the suite.
+            Should.Throw<ArgumentException>(() =>
+                _service.DecryptText("ZmFrZQ==", EncryptionAlgorithm.AES, (byte[])null, Encoding.UTF8));
+            Should.Throw<ArgumentException>(() =>
+                _service.DecryptText("ZmFrZQ==", EncryptionAlgorithm.AES, Array.Empty<byte>(), Encoding.UTF8));
+        }
+
         // ═══════════════════════════════════════════════════════════════════════
         // Symmetric Encrypt / Decrypt — File form
         // ═══════════════════════════════════════════════════════════════════════
