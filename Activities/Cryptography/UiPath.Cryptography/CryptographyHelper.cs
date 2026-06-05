@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -222,6 +223,10 @@ namespace UiPath.Cryptography
             }
         }
 
+        [SuppressMessage("Security", "CA5350:Do not use Weak Cryptographic Algorithms",
+            Justification = "DES/TripleDES/RC2 and Rijndael are exposed only via the [Obsolete] members of EncryptionAlgorithm so that workflows authored before this guidance landed continue to roundtrip. AEAD (AES-GCM / ChaCha20-Poly1305) is the recommended path for new workflows.")]
+        [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms",
+            Justification = "Same backward-compatibility rationale as CA5350: DES/TripleDES selection is opt-in via the [Obsolete] enum value, not the default.")]
         private static SymmetricAlgorithm GetSymmetricAlgorithmProvider(EncryptionAlgorithm algorithm)
         {
             switch (algorithm)
