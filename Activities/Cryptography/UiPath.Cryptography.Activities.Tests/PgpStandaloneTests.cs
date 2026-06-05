@@ -1,52 +1,18 @@
 using System;
 using System.Activities;
 using System.Activities.Validation;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Org.BouncyCastle.Bcpg;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using UiPath.Cryptography.Enums;
-using UiPath.Platform.ResourceHandling;
 using Xunit;
 
 #pragma warning disable CS0618 // tests intentionally set the obsolete *InputModeSwitch properties to exercise legacy behavior.
 
 namespace UiPath.Cryptography.Activities.Tests
 {
-    /// <summary>
-    /// Test implementation of ILocalResource for unit testing
-    /// </summary>
-    public class TestLocalResource : ILocalResource
-    {
-        private readonly string _localPath;
-
-        public TestLocalResource(string localPath)
-        {
-            if (!File.Exists(localPath))
-                throw new FileNotFoundException($"File not found: {localPath}");
-            _localPath = localPath;
-        }
-
-        public DateTime? CreationDate => new FileInfo(_localPath).CreationTime;
-        public string FullName => _localPath;
-        public string IconUri => string.Empty;
-        public string ID => Guid.NewGuid().ToString();
-        public bool IsFolder => false;
-        public bool IsResolved => true;
-        public DateTime? LastModifiedDate => new FileInfo(_localPath).LastWriteTime;
-        public string LocalPath => _localPath;
-        public Dictionary<string, string> Metadata => new Dictionary<string, string>();
-        public string MimeType => string.Empty;
-
-        public Task ResolveAsync(bool force = false, CancellationToken ct = new CancellationToken())
-        {
-            return Task.CompletedTask;
-        }
-    }
-
     public class PgpStandaloneTests : PgpTestBase
     {
         #region CryptographyHelper Tests
@@ -96,6 +62,16 @@ namespace UiPath.Cryptography.Activities.Tests
                 using (var pubStream = File.OpenRead(pubPath))
                 {
                     Assert.True(CryptographyHelper.PgpVerifyPublicKey(pubStream), $"Generated public key invalid for {keySize}");
+                }
+
+                // Prove the requested key size actually took effect by parsing the public key
+                // and asserting the RSA modulus bit-length matches the requested RsaKeySize.
+                using (var pubStream = File.OpenRead(pubPath))
+                using (var decoded = PgpUtilities.GetDecoderStream(pubStream))
+                {
+                    var ring = new PgpPublicKeyRingBundle(decoded).GetKeyRings().Cast<PgpPublicKeyRing>().First();
+                    var masterKey = ring.GetPublicKeys().Cast<PgpPublicKey>().First(k => k.IsMasterKey);
+                    Assert.Equal((int)keySize, masterKey.BitStrength);
                 }
             }
             finally
@@ -154,6 +130,38 @@ namespace UiPath.Cryptography.Activities.Tests
                 {
                     var isValid = CryptographyHelper.PgpVerify(signed, publicKeyStream);
                     Assert.True(isValid);
+                }
+            }
+        }
+
+        [Fact]
+        public void PgpSign_DefaultsToSha256()
+        {
+            // Binary PGP signing must default to SHA-256 (CryptographyHelper.ExecutePgpSignOperation
+            // sets pgp.HashAlgorithmTag = Sha256 before signing). Older PGP libraries default to
+            // SHA-1 which is now considered weak. Parse the produced packet stream and assert.
+            var plainBytes = Encoding.UTF8.GetBytes("hash-algo probe");
+
+            using (var privateKeyStream = File.OpenRead(_privateKeyPath))
+            {
+                var signed = CryptographyHelper.PgpSign(plainBytes, privateKeyStream, Passphrase);
+
+                using (var input = new MemoryStream(signed))
+                using (var decoded = PgpUtilities.GetDecoderStream(input))
+                {
+                    var factory = new PgpObjectFactory(decoded);
+                    PgpObject pgpObject;
+                    HashAlgorithmTag? hashAlgo = null;
+                    while ((pgpObject = factory.NextPgpObject()) != null)
+                    {
+                        if (pgpObject is PgpOnePassSignatureList onePassList && onePassList.Count > 0)
+                        {
+                            hashAlgo = onePassList[0].HashAlgorithm;
+                            break;
+                        }
+                    }
+                    Assert.NotNull(hashAlgo);
+                    Assert.Equal(HashAlgorithmTag.Sha256, hashAlgo.Value);
                 }
             }
         }

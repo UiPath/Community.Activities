@@ -148,7 +148,12 @@ namespace UiPath.Cryptography.Activities
 
             if (!CryptographyHelper.IsFipsCompliant(Algorithm))
             {
-                metadata.AddValidationError(new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm)));
+                metadata.AddValidationError(new ValidationError(Resources.FipsComplianceWarning, isWarning: true, nameof(Algorithm)));
+            }
+
+            if (Algorithm == EncryptionAlgorithm.ChaCha20Poly1305 && !System.Security.Cryptography.ChaCha20Poly1305.IsSupported)
+            {
+                metadata.AddValidationError(new ValidationError(Resources.ChaCha20Poly1305NotSupported, isWarning: true, nameof(Algorithm)));
             }
         }
 

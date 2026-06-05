@@ -10,9 +10,7 @@ using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
 using UiPath.Shared.Activities;
-#if ENABLE_DEFAULT_TELEMETRY
 using UiPath.Shared.Telemetry.Services;
-#endif
 
 #pragma warning disable CS0618 // CryptographyHelper is intentionally marked Obsolete to discourage external use; in-package consumers are expected.
 
@@ -67,12 +65,12 @@ namespace UiPath.Cryptography.Activities
             CancellationToken cancellationToken)
         {
             var continueOnError = ContinueOnError.Get(context);
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-#if ENABLE_DEFAULT_TELEMETRY
-                var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
-#endif
-
                 var publicKeyPath = await PgpFileResolver.ResolveAsync(
                     PublicKeyFilePath.Get(context), PublicKeyFile.Get(context),
                     nameof(PublicKeyFilePath), Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name,
@@ -87,9 +85,7 @@ namespace UiPath.Cryptography.Activities
                     using (var publicKeyStream = File.OpenRead(publicKeyPath))
                     {
                         result = CryptographyHelper.PgpVerifyPublicKey(publicKeyStream);
-#if ENABLE_DEFAULT_TELEMETRY
-                        telemetryOperation.Send();
-#endif
+                        telemetryOperation?.Send();
                     }
                 }
                 else
@@ -117,16 +113,17 @@ namespace UiPath.Cryptography.Activities
                                 throw new ArgumentOutOfRangeException(Resources.Activity_PgpVerify_Property_Mode_Name);
                         }
 
-#if ENABLE_DEFAULT_TELEMETRY
-                        telemetryOperation.Send();
-#endif
+                        telemetryOperation?.Send();
                     }
                 }
 
                 return ctx => ctx.SetValue(Result, result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                telemetryOperation?.SendWithException(ex);
+                Trace.TraceError(ex.ToString());
+
                 if (!continueOnError)
                     throw;
 

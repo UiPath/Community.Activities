@@ -120,6 +120,9 @@
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>The selected algorithm does not have a FIPS compliant implementation. This might not work on some machines.</value>
   </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later).</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>

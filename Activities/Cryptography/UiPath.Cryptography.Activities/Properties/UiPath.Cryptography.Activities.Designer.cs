@@ -2912,7 +2912,16 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("FipsComplianceWarning", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later)..
+        /// </summary>
+        public static string ChaCha20Poly1305NotSupported {
+            get {
+                return ResourceManager.GetString("ChaCha20Poly1305NotSupported", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to A cryptographic operation has failed. Please make sure you use the same algorithm and key for both encryption and decryption operations..
         /// </summary>
