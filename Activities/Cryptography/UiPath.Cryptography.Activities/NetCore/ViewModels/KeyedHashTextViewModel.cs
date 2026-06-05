@@ -1,4 +1,4 @@
-﻿using System;
+using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
@@ -6,12 +6,15 @@ using System.Security;
 using System.Security.Cryptography;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
+using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
+
+#pragma warning disable CS0618 // obsolete keyed-hash algorithms (HMACMD5, HMACSHA1, SHA1) remain referenced for backwards compatibility
 
 namespace UiPath.Cryptography.Activities
 {
     /// <summary>
-    /// Hashes a string with a key using a specified algorithm and returns 
+    /// Hashes a string with a key using a specified algorithm and returns
     /// the hexadecimal string representation of the resulting hash.
     /// </summary>
     [ViewModelClass(typeof(KeyedHashTextViewModel))]
@@ -20,7 +23,7 @@ namespace UiPath.Cryptography.Activities
     }
 
     /// <summary>
-    /// Hashes a string with a key using a specified algorithm and returns 
+    /// Hashes a string with a key using a specified algorithm and returns
     /// the hexadecimal string representation of the resulting hash.
     /// </summary>
     [ViewModelClass(typeof(KeyedHashTextViewModel))]
@@ -34,54 +37,27 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     public partial class KeyedHashTextViewModel : DesignPropertiesViewModel
     {
         private readonly DataSource<string> _encodingDataSource;
+        private readonly PairedInputToggle<string, SecureString> _keyToggle;
 
-        /// <summary>
-        /// Basic constructor
-        /// </summary>
-        /// <param name="services"></param>
         public KeyedHashTextViewModel(IDesignServices services) : base(services)
         {
             _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
+
+            _keyToggle = new PairedInputToggle<string, SecureString>(
+                Key, KeySecureString,
+                Resources.MenuAction_UseKey,
+                Resources.MenuAction_UseSecureKey)
+            {
+                AfterSwitch = ApplyKeyInputModeVisibility,
+            };
         }
 
-        /// <summary>
-        /// A drop-down which enables you to select the keyed hashing algorithm you want to use.
-        /// </summary>
         public DesignProperty<KeyedHashAlgorithms> Algorithm { get; set; } = new DesignProperty<KeyedHashAlgorithms>();
-
-        /// <summary>
-        /// The text that you want to hash.
-        /// </summary>
         public DesignInArgument<string> Input { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// The key that you want to use to hash the specified file.
-        /// </summary>
         public DesignInArgument<string> Key { get; set; } = new DesignInArgument<string>();
-
-        /// <summary>
-        /// A drop-down which enables you to select the encoding option you want to use.
-        /// </summary>
         public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
-
-        /// <summary>
-        /// The secure string used to hash the input string.
-        /// </summary>
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
-
-        /// <summary>
-        /// Switches Key as string or secure string  
-        /// </summary>
-        public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
-
-        /// <summary>
-        /// The hashed text, stored in a String variable.
-        /// </summary>
         public DesignOutArgument<string> Result { get; set; } = new DesignOutArgument<string>();
-
-        /// <summary>
-        /// Specifies if the automation should continue even when the activity throws an error.
-        /// </summary>
         public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
 
         protected override void InitializeModel()
@@ -92,25 +68,38 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Input.IsPrincipal = true;
             Input.IsRequired = true;
             Input.OrderIndex = propertyOrderIndex++;
+            Input.Category = Resources.Input;
 
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
-            Algorithm.DataSource = DataSourceHelper.ForEnum(KeyedHashAlgorithms.HMACMD5, KeyedHashAlgorithms.HMACSHA1, KeyedHashAlgorithms.HMACSHA256, KeyedHashAlgorithms.HMACSHA384, KeyedHashAlgorithms.HMACSHA512, KeyedHashAlgorithms.SHA1, KeyedHashAlgorithms.SHA256, KeyedHashAlgorithms.SHA384, KeyedHashAlgorithms.SHA512);
+            Algorithm.Category = Resources.Input;
+            Algorithm.DataSource = DataSourceHelper.ForEnum(
+                // Usable (alphabetical):
+                KeyedHashAlgorithms.HMACSHA256,
+                KeyedHashAlgorithms.HMACSHA384,
+                KeyedHashAlgorithms.HMACSHA512,
+                KeyedHashAlgorithms.SHA256,
+                KeyedHashAlgorithms.SHA384,
+                KeyedHashAlgorithms.SHA512,
+                // Deprecated (alphabetical):
+                KeyedHashAlgorithms.HMACMD5,
+                KeyedHashAlgorithms.HMACSHA1,
+                KeyedHashAlgorithms.SHA1);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             Key.IsPrincipal = true;
-            Key.IsVisible = true;
-            Key.OrderIndex = propertyOrderIndex++;
+            Key.OrderIndex = propertyOrderIndex;
+            Key.Category = Resources.Input;
 
             KeySecureString.IsPrincipal = true;
-            KeySecureString.IsVisible = false;
-            KeySecureString.OrderIndex = propertyOrderIndex++;
-
-            KeyInputModeSwitch.IsVisible = false;
+            KeySecureString.OrderIndex = propertyOrderIndex;
+            KeySecureString.Category = Resources.Input;
+            propertyOrderIndex++;
 
             KeyEncodingString.IsPrincipal = false;
             KeyEncodingString.IsVisible = true;
             KeyEncodingString.OrderIndex = propertyOrderIndex++;
+            KeyEncodingString.Category = Resources.Input;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
@@ -119,91 +108,37 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
+            Result.Category = Resources.Output;
 
             ContinueOnError.IsPrincipal = false;
             ContinueOnError.OrderIndex = propertyOrderIndex;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean, Metadata = new Dictionary<string, string>() };
+            ContinueOnError.Category = Resources.Category_Options_Name;
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
 
-            MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
-               .AddMenuProperty(Key, KeyInputMode.Key)
-               .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
-               .BuildAndInsertMenuActions();
+            _keyToggle.ConfigureMenuActions();
+            ApplyKeyInputModeVisibility();
         }
-        /// <inheritdoc/>
+
+        private void ApplyKeyInputModeVisibility()
+        {
+            bool isHmac = Algorithm.Value.ToString().StartsWith(nameof(HMAC));
+            bool useSecure = _keyToggle.UseSecondary;
+            Key.IsVisible = isHmac && !useSecure;
+            Key.IsRequired = isHmac && !useSecure;
+            KeySecureString.IsVisible = isHmac && useSecure;
+            KeySecureString.IsRequired = isHmac && useSecure;
+        }
+
         protected override void InitializeRules()
         {
             base.InitializeRules();
-            Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
             Rule(nameof(Algorithm), AlgorithmChanged_Action);
         }
 
-        /// <inheritdoc/>
-        protected override void ManualRegisterDependencies()
-        {
-            base.ManualRegisterDependencies();
-            RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
-        }
-
-        /// <summary>
-        /// Key input Mode has changed. Set controls visibility based on selection
-        /// </summary>
-        private void KeyInputModeChanged_Action()
-        {
-            ResetAllKeyInputMode();
-            switch (KeyInputModeSwitch.Value)
-            {
-                case KeyInputMode.Key:
-                    Key.IsRequired = true;
-                    Key.IsVisible = true;
-                    break;
-                case KeyInputMode.SecureKey:
-                    KeySecureString.IsVisible = true;
-                    KeySecureString.IsRequired = true;
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private void ResetAllKeyInputMode()
-        {
-            Key.IsRequired = false;
-            Key.IsVisible = false;
-            KeySecureString.IsVisible = false;
-            KeySecureString.IsRequired = false;
-        }
-
-        /// <summary>
-        /// Algorithm has changed. Set controls visibility based on selection
-        /// </summary>
         private void AlgorithmChanged_Action()
         {
-            switch (Algorithm.Value.ToString().StartsWith(nameof(HMAC)))
-            {
-                case true:
-                    if (KeyInputModeSwitch.Value == KeyInputMode.Key)
-                    {
-                        Key.IsVisible = true;
-                        Key.IsRequired = true;
-                        KeySecureString.IsVisible = false;
-                    }
-                    else
-                    {
-                        Key.IsVisible = false;
-                        KeySecureString.IsRequired = true;
-                        KeySecureString.IsVisible = true;
-                    }
-                    break;
-                case false:
-                    Key.IsRequired = false;
-                    Key.IsVisible = false;
-                    KeySecureString.IsVisible = false;
-                    KeySecureString.IsRequired = false;
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+            ApplyKeyInputModeVisibility();
         }
     }
 }

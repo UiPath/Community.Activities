@@ -1012,75 +1012,75 @@
     <value>Fraza de acces pentru cheia privată PGP utilizată pentru semnare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
-    <value>PGP Generate Keys</value>
+  <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
+    <value>Generați chei PGP</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">
     <value>Generează o pereche de chei publice/private PGP și le salvează la căile de fișier specificate.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name" xml:space="preserve">
     <value>Calea Output pentru cheia publică</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description" xml:space="preserve">
     <value>Calea fișierului în care va fi salvată cheia publică PGP generată.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Calea de Output pentru cheia privată</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Calea fișierului în care va fi salvată cheia privată PGP generată.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Username_Name" xml:space="preserve">
     <value>Nume de utilizator</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Username_Description" xml:space="preserve">
     <value>Numele de utilizator (sau adresa de email) care va fi asociat cu perechea de chei generată.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Password_Name" xml:space="preserve">
     <value>Parolă de acces</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Password_Description" xml:space="preserve">
     <value>Fraza de acces pentru protejarea cheii private generate.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Name" xml:space="preserve">
     <value>Suprascriere</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Description" xml:space="preserve">
     <value>Dacă fișierele există deja la output, selectarea acestei opțiuni le va suprascrie.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continuare la eroare</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Fișier cheie publică</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>Cheia publică generată ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>Fișier cheie privată</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>Cheia privată generată ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
@@ -1148,67 +1148,67 @@
     <value>Fișierul semnat ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
-    <value>PGP Clear Sign File</value>
+  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+    <value>Fișier PGP Clearsign</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
     <value>Creează o semnătură PGP în text clar pentru un fișier utilizând o cheie privată.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>Calea fișierului Input</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Calea către fișierul pe care doriți să îl semnați cu semnătură clară.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Calea fișierului cheii private</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Calea către fișierul cheie privată PGP folosit pentru semnare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parolă de acces</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>Fraza de acces pentru cheia privată PGP.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Calea fișierului de ieșire</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>Calea unde va fi salvat fișierul semnat clar.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Suprascriere</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Dacă există deja un fișier la calea de output, selectarea acestei opțiuni îl va suprascrie.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continuare la eroare</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>Fișier semnat clar</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Fișierul semnat clar ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
@@ -1225,7 +1225,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_Mode_Description" xml:space="preserve">
-    <value>Selectați tipul de verificare. &apos;Signed File (Binary)&apos; verifică un fișier semnat binar. &apos;Clear-Signed File (Text)&apos; verifică un fișier text cu semnătură încorporată. &apos;Validate Public Key&apos; verifică dacă un fișier conține o cheie publică PGP validă.</value>
+    <value>Selectați tipul de verificare. &apos;Signed File (Binary)&apos; verifică un fișier semnat binar. &apos;Clearsigned File (Text)&apos; verifică un fișier text cu semnătură încorporată. &apos;Validate Public Key&apos; verifică dacă un fișier conține o cheie publică PGP validă.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Name" xml:space="preserve">
@@ -1233,7 +1233,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Description" xml:space="preserve">
-    <value>Calea către fișierul semnat care trebuie verificat. Este necesară pentru modurile „Signed File (Binary)” și „Clear-Signed File (Text)”.</value>
+    <value>Calea către fișierul semnat care trebuie verificat. Este necesară pentru modurile „Signed File (Binary)” și „Clearsigned File (Text)”.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Name" xml:space="preserve">

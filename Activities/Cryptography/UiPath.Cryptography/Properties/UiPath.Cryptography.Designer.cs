@@ -196,6 +196,24 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ChaCha20-Poly1305 (Non-FIPS).
+        /// </summary>
+        internal static string ChaCha20Poly1305 {
+            get {
+                return ResourceManager.GetString("ChaCha20Poly1305", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later)..
+        /// </summary>
+        internal static string ChaCha20Poly1305NotSupported {
+            get {
+                return ResourceManager.GetString("ChaCha20Poly1305NotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chinese Simplified (EUC).
         /// </summary>
         internal static string ChineseSimplified_EUC {
@@ -367,7 +385,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DES  (Deprecated).
+        ///   Looks up a localized string similar to DES (Deprecated).
         /// </summary>
         internal static string DES {
             get {
@@ -1204,14 +1222,14 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PGP (Pretty Good Privacy).
+        ///   Looks up a localized string similar to PGP - Pretty Good Privacy (Non-FIPS).
         /// </summary>
         internal static string PGP {
             get {
                 return ResourceManager.GetString("PGP", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The passphrase for the PGP private key is incorrect..
         /// </summary>
@@ -1220,43 +1238,52 @@ namespace UiPath.Cryptography.Properties {
                 return ResourceManager.GetString("PgpInvalidPassphrase", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to The provided private key does not match the encrypted data....
+        ///   Looks up a localized string similar to The provided private key does not match the encrypted data. Ensure you are using the correct private key..
         /// </summary>
         internal static string PgpPrivateKeyNotFound {
             get {
                 return ResourceManager.GetString("PgpPrivateKeyNotFound", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to PGP signature verification failed....
+        ///   Looks up a localized string similar to PGP signature verification failed. The public key does not match the signature, or the data has been tampered with..
         /// </summary>
         internal static string PgpSignatureVerificationFailed {
             get {
                 return ResourceManager.GetString("PgpSignatureVerificationFailed", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Signed File (Binary).
+        ///   Looks up a localized string similar to Signing was requested but a private key and passphrase are required to sign. Provide both a private key stream and a passphrase, or set sign to false..
         /// </summary>
-        internal static string PgpVerifyMode_Signature {
+        internal static string PgpSigningRequiresPrivateKeyAndPassphrase {
             get {
-                return ResourceManager.GetString("PgpVerifyMode_Signature", resourceCulture);
+                return ResourceManager.GetString("PgpSigningRequiresPrivateKeyAndPassphrase", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Clear-Signed File (Text).
+        ///   Looks up a localized string similar to Signature verification was requested but a public key is required to verify. Provide a public key stream, or set verifySignature to false..
+        /// </summary>
+        internal static string PgpVerificationRequiresPublicKey {
+            get {
+                return ResourceManager.GetString("PgpVerificationRequiresPublicKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clearsigned File (Text).
         /// </summary>
         internal static string PgpVerifyMode_ClearSignature {
             get {
                 return ResourceManager.GetString("PgpVerifyMode_ClearSignature", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Validate Public Key.
         /// </summary>
@@ -1265,25 +1292,16 @@ namespace UiPath.Cryptography.Properties {
                 return ResourceManager.GetString("PgpVerifyMode_PublicKey", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Signing was requested but a private key and passphrase are required to sign....
+        ///   Looks up a localized string similar to Signed File (Binary).
         /// </summary>
-        internal static string PgpSigningRequiresPrivateKeyAndPassphrase {
+        internal static string PgpVerifyMode_Signature {
             get {
-                return ResourceManager.GetString("PgpSigningRequiresPrivateKeyAndPassphrase", resourceCulture);
+                return ResourceManager.GetString("PgpVerifyMode_Signature", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Signature verification was requested but a public key is required to verify....
-        /// </summary>
-        internal static string PgpVerificationRequiresPublicKey {
-            get {
-                return ResourceManager.GetString("PgpVerificationRequiresPublicKey", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Portuguese (DOS).
         /// </summary>
@@ -1326,6 +1344,33 @@ namespace UiPath.Cryptography.Properties {
         internal static string Romanian_Mac {
             get {
                 return ResourceManager.GetString("Romanian_Mac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2048-bit.
+        /// </summary>
+        internal static string RsaKeySize_Rsa2048 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa2048", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3072-bit.
+        /// </summary>
+        internal static string RsaKeySize_Rsa3072 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa3072", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4096-bit.
+        /// </summary>
+        internal static string RsaKeySize_Rsa4096 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa4096", resourceCulture);
             }
         }
         
@@ -1384,6 +1429,24 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided ciphertext is too short to be in UiPath wire format. UiPath ciphertext layout is Base64(salt | IV | ciphertext) and must be at least {0} bytes for this algorithm. Ciphertext produced by external tools is not directly compatible — see the activity documentation for the wire-format specification..
+        /// </summary>
+        internal static string SymmetricDecrypt_InputTooShort {
+            get {
+                return ResourceManager.GetString("SymmetricDecrypt_InputTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decryption failed. UiPath wire format is Base64(salt | IV | ciphertext); this commonly indicates the input was produced by a different tool, or that the key/encoding does not match the one used to encrypt..
+        /// </summary>
+        internal static string SymmetricDecrypt_PaddingHint {
+            get {
+                return ResourceManager.GetString("SymmetricDecrypt_PaddingHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to T.61.
         /// </summary>
         internal static string T61 {
@@ -1429,7 +1492,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TripleDES.
+        ///   Looks up a localized string similar to TripleDES (Deprecated).
         /// </summary>
         internal static string TripleDES {
             get {

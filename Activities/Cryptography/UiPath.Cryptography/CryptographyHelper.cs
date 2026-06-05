@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,13 +10,29 @@ using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using Org.BouncyCastle.Bcpg;
 using PgpCore;
+using UiPath.Cryptography.Enums;
 using UiPath.Cryptography.Properties;
 
 #pragma warning disable CS0618 // obsolete encryption algorithm
 
 namespace UiPath.Cryptography
 {
+    /// <summary>
+    /// Internal implementation helper. <b>Not a contract.</b>
+    /// External callers should use the activity surface or
+    /// <c>UiPath.Cryptography.Activities.API.ICryptographyService</c> instead — those provide
+    /// argument validation, the paired File/Text/Bytes overloads, and a stable API.
+    /// </summary>
+    /// <remarks>
+    /// This class is <c>public</c> only because it crosses assembly boundaries inside the
+    /// package (the activities and the coded-workflow service consume it). It cannot be
+    /// internalised via <c>InternalsVisibleTo</c> because the friend assemblies share a
+    /// project with this one and would collide on duplicated types. Treat it as if it were
+    /// internal: it may change, gain or lose methods, or be removed without notice in any
+    /// minor release.
+    /// </remarks>
     public static class CryptographyHelper
     {
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
@@ -31,7 +49,7 @@ namespace UiPath.Cryptography
                 {
                     hashAlgorithm.Key = keyBytes;
                 }
-                
+
                 result = algorithm.ComputeHash(inputBytes);
 
                 algorithm.Clear();
@@ -50,6 +68,10 @@ namespace UiPath.Cryptography
             if (algorithm == EncryptionAlgorithm.AESGCM)
             {
                 return EncryptAesGcm(inputBytes, key);
+            }
+            else if (algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+            {
+                return EncryptChaCha20Poly1305(inputBytes, key);
             }
             else
             {
@@ -99,12 +121,22 @@ namespace UiPath.Cryptography
             {
                 return DecryptAesGcm(inputBytes, key);
             }
+            else if (algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+            {
+                return DecryptChaCha20Poly1305(inputBytes, key);
+            }
             else
             {
                 using (SymmetricAlgorithm symmetricAlgorithm = GetSymmetricAlgorithmProvider(algorithm))
                 {
                     byte[] salt = new byte[PBKDF2_SaltSizeBytes];
                     byte[] iv = new byte[symmetricAlgorithm.IV.Length];
+
+                    int minimumInputLength = salt.Length + iv.Length;
+                    if (inputBytes.Length < minimumInputLength)
+                    {
+                        throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, minimumInputLength));
+                    }
 
                     byte[] encryptedData = new byte[inputBytes.Length - salt.Length - iv.Length];
 
@@ -126,7 +158,14 @@ namespace UiPath.Cryptography
                         {
                             using (CryptoStream cryptoStream = new CryptoStream(encryptedStream, cryptoTransform, CryptoStreamMode.Read))
                             {
-                                decrypted = cryptoStream.ReadToEnd();
+                                try
+                                {
+                                    decrypted = cryptoStream.ReadToEnd();
+                                }
+                                catch (CryptographicException ex)
+                                {
+                                    throw new CryptographicException(Resources.SymmetricDecrypt_PaddingHint, ex);
+                                }
                             }
                         }
                     }
@@ -142,10 +181,15 @@ namespace UiPath.Cryptography
             {
                 case EncryptionAlgorithm.RC2:
                 case EncryptionAlgorithm.Rijndael:
+                case EncryptionAlgorithm.ChaCha20Poly1305: // FIPS 140-3 added it (2023) but not yet broadly validated
                     return false;
 
                 case EncryptionAlgorithm.PGP:
-                    return true; // PGP uses its own key management; FIPS check is not applicable
+                    // PGP runs through PgpCore + BouncyCastle (the open-source edition, not BC-FIPS),
+                    // which is not a CMVP-validated cryptographic module. The algorithms we configure
+                    // (RSA, SHA-256, AES-256) are FIPS-approved, but FIPS 140 validates the *module*,
+                    // not the algorithm choice — so this path is not FIPS-compliant.
+                    return false;
 
                 default:
                     return true;
@@ -179,27 +223,32 @@ namespace UiPath.Cryptography
             }
         }
 
+        [SuppressMessage("Security", "CA5350:Do not use Weak Cryptographic Algorithms",
+            Justification = "DES/TripleDES/RC2 and Rijndael are exposed only via the [Obsolete] members of EncryptionAlgorithm so that workflows authored before this guidance landed continue to roundtrip. AEAD (AES-GCM / ChaCha20-Poly1305) is the recommended path for new workflows.")]
+        [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms",
+            Justification = "Same backward-compatibility rationale as CA5350: DES/TripleDES selection is opt-in via the [Obsolete] enum value, not the default.")]
         private static SymmetricAlgorithm GetSymmetricAlgorithmProvider(EncryptionAlgorithm algorithm)
         {
             switch (algorithm)
             {
                 case EncryptionAlgorithm.AES:
-                    return new AesCryptoServiceProvider(); // kept for backwards compat
+                    return new AesCryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.AESGCM:
-                    throw new InvalidOperationException(Resources.UnsupportedSymmetricAlgorithmException); //it's implemented separately.
+                case EncryptionAlgorithm.ChaCha20Poly1305:
+                    throw new InvalidOperationException(Resources.UnsupportedSymmetricAlgorithmException); //implemented separately as AEAD.
 
                 case EncryptionAlgorithm.DES:
-                    return new DESCryptoServiceProvider();
+                    return new DESCryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.RC2:
-                    return new RC2CryptoServiceProvider();
+                    return new RC2CryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.Rijndael:
-                    return new RijndaelManaged();
+                    return new RijndaelManaged(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.TripleDES:
-                    return new TripleDESCryptoServiceProvider(); // TODO: Use TripleDESCng after upgrading to .NET Framework 4.6.2
+                    return new TripleDESCryptoServiceProvider(); // kept for backwards compatibility
 
                 case EncryptionAlgorithm.PGP:
                     // PGP is asymmetric and handled separately; this case is unreachable in production
@@ -233,52 +282,92 @@ namespace UiPath.Cryptography
             return keySizes.ToArray();
         }
 
-        private static byte[] EncryptAesGcm(byte[] inputBytes, byte[] key)
+        // AEAD primitives (AES-GCM, ChaCha20-Poly1305) share an identical wire layout:
+        // salt | iv(12) | ciphertext | tag(16). The only thing that varies is the cipher
+        // instance; everything else — PBKDF2 key derivation, IV generation, byte packing —
+        // is shared via these two helpers below.
+
+        private const int AeadIvSizeBytes = 12;
+        private const int AeadTagSizeBytes = 16;
+        private const int AeadKeySizeBytes = 32; // 256-bit key
+
+        private delegate void AeadEncryptCore(byte[] key, byte[] iv, byte[] plain, byte[] cipher, byte[] tag);
+        private delegate void AeadDecryptCore(byte[] key, byte[] iv, byte[] cipher, byte[] tag, byte[] plain);
+
+        private static byte[] EncryptAead(byte[] inputBytes, byte[] key, AeadEncryptCore encryptCore)
         {
-            byte[] result;
+            InitializeAeadEncryption(out byte[] salt, out byte[] tag, out byte[] algorithmIV);
             byte[] encrypted = new byte[inputBytes.Length];
-            InitializeAesGcmEncryption(out byte[] salt, out byte[] tag, out byte[] algorithmIV);
 
             using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
             {
-                var Key = pbkdf2.GetBytes(32); //256 bit key
-
-                var aes = new AesGcm(Key);
-                aes.Encrypt(algorithmIV, inputBytes, encrypted, tag);
+                var derivedKey = pbkdf2.GetBytes(AeadKeySizeBytes);
+                encryptCore(derivedKey, algorithmIV, inputBytes, encrypted, tag);
             }
 
-            result = CreateAesGcmEncryptionResult(encrypted, salt, tag, algorithmIV);
-
-            return result;
+            return CreateAeadEncryptionResult(encrypted, salt, tag, algorithmIV);
         }
 
-        private static byte[] DecryptAesGcm(byte[] inputBytes, byte[] key)
+        private static byte[] DecryptAead(byte[] inputBytes, byte[] key, AeadDecryptCore decryptCore)
         {
-            byte[] decrypted;
-            InitializeDecryptAesGcm(inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData);
+            const int aeadMinimumInputLength = PBKDF2_SaltSizeBytes + AeadIvSizeBytes + AeadTagSizeBytes;
+            if (inputBytes == null || inputBytes.Length < aeadMinimumInputLength)
+                throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, aeadMinimumInputLength));
+
+            InitializeDecryptAead(inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData);
+            byte[] decrypted = new byte[encryptedData.Length];
 
             using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
             {
-                var Key = pbkdf2.GetBytes(32); //256 bit key
-
-                var aes = new AesGcm(Key);
-                decrypted = new byte[encryptedData.Length];
-                aes.Decrypt(iv, encryptedData, tag, decrypted);
+                var derivedKey = pbkdf2.GetBytes(AeadKeySizeBytes);
+                decryptCore(derivedKey, iv, encryptedData, tag, decrypted);
             }
 
             return decrypted;
         }
 
-        private static void InitializeAesGcmEncryption(out byte[] salt, out byte[] tag, out byte[] algorithmIV)
+        private static byte[] EncryptAesGcm(byte[] inputBytes, byte[] key) =>
+            EncryptAead(inputBytes, key, (k, iv, plain, cipher, tag) =>
+            {
+                using var aes = new AesGcm(k);
+                aes.Encrypt(iv, plain, cipher, tag);
+            });
+
+        private static byte[] DecryptAesGcm(byte[] inputBytes, byte[] key) =>
+            DecryptAead(inputBytes, key, (k, iv, cipher, tag, plain) =>
+            {
+                using var aes = new AesGcm(k);
+                aes.Decrypt(iv, cipher, tag, plain);
+            });
+
+        private static byte[] EncryptChaCha20Poly1305(byte[] inputBytes, byte[] key) =>
+            EncryptAead(inputBytes, key, (k, iv, plain, cipher, tag) =>
+            {
+                if (!ChaCha20Poly1305.IsSupported)
+                    throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                using var chacha = new ChaCha20Poly1305(k);
+                chacha.Encrypt(iv, plain, cipher, tag);
+            });
+
+        private static byte[] DecryptChaCha20Poly1305(byte[] inputBytes, byte[] key) =>
+            DecryptAead(inputBytes, key, (k, iv, cipher, tag, plain) =>
+            {
+                if (!ChaCha20Poly1305.IsSupported)
+                    throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                using var chacha = new ChaCha20Poly1305(k);
+                chacha.Decrypt(iv, cipher, tag, plain);
+            });
+
+        private static void InitializeAeadEncryption(out byte[] salt, out byte[] tag, out byte[] algorithmIV)
         {
             salt = new byte[PBKDF2_SaltSizeBytes];
-            tag = new byte[16];
-            algorithmIV = new byte[12];
+            tag = new byte[AeadTagSizeBytes];
+            algorithmIV = new byte[AeadIvSizeBytes];
             _rng.GetBytes(salt);
             _rng.GetBytes(algorithmIV);
         }
 
-        private static byte[] CreateAesGcmEncryptionResult(byte[] encrypted, byte[] salt, byte[] tag, byte[] algorithmIV)
+        private static byte[] CreateAeadEncryptionResult(byte[] encrypted, byte[] salt, byte[] tag, byte[] algorithmIV)
         {
             byte[] result = new byte[salt.Length + algorithmIV.Length + encrypted.Length + tag.Length];
             Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
@@ -288,11 +377,11 @@ namespace UiPath.Cryptography
             return result;
         }
 
-        private static void InitializeDecryptAesGcm(byte[] inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData)
+        private static void InitializeDecryptAead(byte[] inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData)
         {
             salt = new byte[PBKDF2_SaltSizeBytes];
-            iv = new byte[12];
-            tag = new byte[16];
+            iv = new byte[AeadIvSizeBytes];
+            tag = new byte[AeadTagSizeBytes];
             encryptedData = new byte[inputBytes.Length - salt.Length - iv.Length - tag.Length];
             Buffer.BlockCopy(inputBytes, 0, salt, 0, salt.Length);
             Buffer.BlockCopy(inputBytes, salt.Length, iv, 0, iv.Length);
@@ -346,6 +435,8 @@ namespace UiPath.Cryptography
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
                     if (sign)
                         pgp.EncryptAndSign(inputStream, outputStream);
                     else
@@ -381,6 +472,8 @@ namespace UiPath.Cryptography
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
                     if (verifySignature)
                         pgp.DecryptAndVerify(inputStream, outputStream);
                     else
@@ -406,6 +499,8 @@ namespace UiPath.Cryptography
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
                     return sign
                         ? pgp.EncryptArmoredStringAndSign(input)
                         : pgp.EncryptArmoredString(input);
@@ -430,6 +525,8 @@ namespace UiPath.Cryptography
 
                 using (var pgp = new PGP(encryptionKeys))
                 {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
                     return verifySignature
                         ? pgp.DecryptArmoredStringAndVerify(input)
                         : pgp.DecryptArmoredString(input);
@@ -441,7 +538,7 @@ namespace UiPath.Cryptography
             }
         }
 
-        public static void PgpGenerateKeyPair(string publicKeyPath, string privateKeyPath, string username, string password)
+        public static void PgpGenerateKeys(string publicKeyPath, string privateKeyPath, string username, string password, RsaKeySize keySize = RsaKeySize.Rsa4096)
         {
             try
             {
@@ -451,7 +548,8 @@ namespace UiPath.Cryptography
                         new FileInfo(publicKeyPath),
                         new FileInfo(privateKeyPath),
                         username,
-                        password);
+                        password,
+                        (int)keySize);
                 }
             }
             catch (Exception ex)
@@ -466,11 +564,79 @@ namespace UiPath.Cryptography
         public static byte[] PgpClearSign(byte[] inputBytes, Stream privateKeyStream, string passphrase)
             => ExecutePgpSignOperation(inputBytes, privateKeyStream, passphrase, (pgp, input, output) => pgp.ClearSign(input, output));
 
+        public static string PgpSignText(string input, Stream privateKeyStream, string passphrase)
+        {
+            try
+            {
+                var encryptionKeys = new EncryptionKeys(privateKeyStream, passphrase);
+                using (var pgp = new PGP(encryptionKeys))
+                {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    return pgp.SignArmoredString(input);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw TranslatePgpException(ex);
+            }
+        }
+
+        public static string PgpClearSignText(string input, Stream privateKeyStream, string passphrase)
+        {
+            try
+            {
+                var encryptionKeys = new EncryptionKeys(privateKeyStream, passphrase);
+                using (var pgp = new PGP(encryptionKeys))
+                {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    return pgp.ClearSignArmoredString(input);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw TranslatePgpException(ex);
+            }
+        }
+
         public static bool PgpVerify(byte[] inputBytes, Stream publicKeyStream)
             => ExecutePgpVerifyOperation(inputBytes, publicKeyStream, (pgp, input) => pgp.Verify(input));
 
         public static bool PgpVerifyClear(byte[] inputBytes, Stream publicKeyStream)
             => ExecutePgpVerifyOperation(inputBytes, publicKeyStream, (pgp, input) => pgp.VerifyClear(input));
+
+        public static bool PgpVerifyText(string input, Stream publicKeyStream)
+        {
+            try
+            {
+                var encryptionKeys = new EncryptionKeys(publicKeyStream);
+                using (var pgp = new PGP(encryptionKeys))
+                {
+                    return pgp.VerifyArmoredString(input);
+                }
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
+            {
+                Trace.TraceWarning("PGP verify-text operation failed: {0}", ex);
+                return false;
+            }
+        }
+
+        public static bool PgpVerifyClearText(string input, Stream publicKeyStream)
+        {
+            try
+            {
+                var encryptionKeys = new EncryptionKeys(publicKeyStream);
+                using (var pgp = new PGP(encryptionKeys))
+                {
+                    return pgp.VerifyClearArmoredString(input);
+                }
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
+            {
+                Trace.TraceWarning("PGP verify-clear-text operation failed: {0}", ex);
+                return false;
+            }
+        }
 
         private static byte[] ExecutePgpSignOperation(byte[] inputBytes, Stream privateKeyStream, string passphrase,
             Action<PGP, Stream, Stream> signAction)
@@ -482,6 +648,7 @@ namespace UiPath.Cryptography
                 using (var inputStream = new MemoryStream(inputBytes))
                 using (var outputStream = new MemoryStream())
                 {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
                     signAction(pgp, inputStream, outputStream);
                     return outputStream.ToArray();
                 }

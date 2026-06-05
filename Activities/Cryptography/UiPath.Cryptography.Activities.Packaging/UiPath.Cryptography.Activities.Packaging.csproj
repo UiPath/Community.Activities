@@ -13,8 +13,9 @@
   <PropertyGroup>
     <PackageId>UiPath.Cryptography.Activities</PackageId>
     <PackageTitle>UiPath.Cryptography.Activities</PackageTitle>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
-    <PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-cryptography-activities-pack</PackageLicenseUrl>
+    <PackageProjectUrl>https://docs.uipath.com/activities/docs/about-the-cryptography-activities-pack</PackageProjectUrl>
     <PackageTags>UiPathActivities</PackageTags>
     <Description>UiPath Cryptography Activities Pack</Description>
     <Authors>UiPath</Authors>
@@ -22,6 +23,10 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj">

@@ -1,4 +1,5 @@
 using System;
+using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Security;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
+using UiPath.Platform.ResourceHandling;
 
 #pragma warning disable CS0618 // obsolete encryption algorithm
 
@@ -21,16 +23,43 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
     public abstract class EncryptCryptoViewModelBase : DesignPropertiesViewModel
     {
         private readonly DataSource<string> _encodingDataSource;
+        private readonly PairedInputToggle<string, SecureString> _keyToggle;
+        private readonly PairedInputToggle<string, SecureString> _passphraseToggle;
+        private readonly PairedInputToggle<string, IResource> _publicKeyFileToggle;
 
         protected EncryptCryptoViewModelBase(IDesignServices services) : base(services)
         {
             _encodingDataSource = EncodingHelpers.ConfigureEncodingDataSource();
+
+            _keyToggle = new PairedInputToggle<string, SecureString>(
+                Key, KeySecureString,
+                Resources.MenuAction_UseKey,
+                Resources.MenuAction_UseSecureKey)
+            {
+                SwitchGuard = () => Algorithm.Value == EncryptionAlgorithm.PGP,
+                AfterSwitch = ApplyKeyInputVisibility,
+            };
+
+            _passphraseToggle = new PairedInputToggle<string, SecureString>(
+                Passphrase, PassphraseSecureString,
+                Resources.MenuAction_UsePassphrase,
+                Resources.MenuAction_UseSecurePassphrase)
+            {
+                AfterSwitch = ApplyPassphraseVisibility,
+            };
+
+            _publicKeyFileToggle = new PairedInputToggle<string, IResource>(
+                PublicKeyFilePath, PublicKeyFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                AfterSwitch = ApplyPublicKeyVisibility,
+            };
         }
 
         public DesignProperty<EncryptionAlgorithm> Algorithm { get; set; } = new DesignProperty<EncryptionAlgorithm>();
         public DesignInArgument<string> Key { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<SecureString> KeySecureString { get; set; } = new DesignInArgument<SecureString>();
-        public DesignProperty<KeyInputMode> KeyInputModeSwitch { get; set; } = new DesignProperty<KeyInputMode>();
         public DesignInArgument<string> KeyEncodingString { get; set; } = new() { Name = nameof(KeyEncodingString) };
         public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
 
@@ -38,26 +67,36 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<string> DeprecatedWarning { get; set; } = new DesignProperty<string>();
 
         public DesignInArgument<string> PublicKeyFilePath { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<IResource> PublicKeyFile { get; set; } = new DesignInArgument<IResource>();
         public DesignProperty<bool> SignData { get; set; } = new DesignProperty<bool>();
         public DesignInArgument<string> PrivateKeyFilePath { get; set; } = new DesignInArgument<string>();
-        public DesignInArgument<SecureString> Passphrase { get; set; } = new DesignInArgument<SecureString>();
+        public DesignInArgument<string> Passphrase { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<SecureString> PassphraseSecureString { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
         /// Configures Algorithm dropdown, DeprecatedWarning, Key, KeySecureString,
-        /// KeyInputModeSwitch, and KeyEncodingString properties.
+        /// and KeyEncodingString properties.
         /// </summary>
         protected void ConfigureAlgorithmAndKeyProperties(ref int orderIndex)
         {
             Algorithm.IsPrincipal = true;
             Algorithm.OrderIndex = orderIndex++;
+            Algorithm.Category = Resources.Input;
             Algorithm.DataSource = DataSourceHelper.ForEnum(
-                EncryptionAlgorithm.AES, EncryptionAlgorithm.AESGCM,
-                EncryptionAlgorithm.DES, EncryptionAlgorithm.RC2,
-                EncryptionAlgorithm.Rijndael, EncryptionAlgorithm.TripleDES,
-                EncryptionAlgorithm.PGP);
+                // Usable (alphabetical):
+                EncryptionAlgorithm.AESGCM,
+                EncryptionAlgorithm.ChaCha20Poly1305,
+                EncryptionAlgorithm.PGP,
+                // Deprecated (alphabetical):
+                EncryptionAlgorithm.AES,
+                EncryptionAlgorithm.DES,
+                EncryptionAlgorithm.RC2,
+                EncryptionAlgorithm.Rijndael,
+                EncryptionAlgorithm.TripleDES);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
             DeprecatedWarning.OrderIndex = orderIndex++;
+            DeprecatedWarning.Category = Resources.Input;
             DeprecatedWarning.Widget = new TextBlockWidget
             {
                 Level = TextBlockWidgetLevel.Warning,
@@ -66,18 +105,18 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             DeprecatedWarning.Value = Resources.Activity_Encrypt_Algorithm_Deprecated_Warning;
 
             Key.IsPrincipal = true;
-            Key.IsVisible = true;
-            Key.OrderIndex = orderIndex++;
+            Key.OrderIndex = orderIndex;
+            Key.Category = Resources.Input;
 
             KeySecureString.IsPrincipal = true;
-            KeySecureString.IsVisible = false;
-            KeySecureString.OrderIndex = orderIndex++;
-
-            KeyInputModeSwitch.IsVisible = false;
+            KeySecureString.OrderIndex = orderIndex;
+            KeySecureString.Category = Resources.Input;
+            orderIndex++;
 
             KeyEncodingString.IsPrincipal = false;
             KeyEncodingString.IsVisible = true;
             KeyEncodingString.OrderIndex = orderIndex++;
+            KeyEncodingString.Category = Resources.Input;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
@@ -93,42 +132,102 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             ContinueOnError.IsPrincipal = false;
             ContinueOnError.OrderIndex = orderIndex++;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+            ContinueOnError.Category = Resources.Category_Options_Name;
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
             ContinueOnError.Value = false;
 
             PublicKeyFilePath.IsPrincipal = false;
             PublicKeyFilePath.IsVisible = false;
-            PublicKeyFilePath.OrderIndex = orderIndex++;
+            PublicKeyFilePath.OrderIndex = orderIndex;
+            PublicKeyFilePath.Category = Resources.Input;
+
+            PublicKeyFile.IsPrincipal = false;
+            PublicKeyFile.IsVisible = false;
+            PublicKeyFile.OrderIndex = orderIndex;
+            PublicKeyFile.Category = Resources.Input;
+            orderIndex++;
 
             SignData.IsPrincipal = false;
             SignData.IsVisible = false;
             SignData.OrderIndex = orderIndex++;
+            SignData.Category = Resources.Category_Options_Name;
             SignData.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
             PrivateKeyFilePath.IsPrincipal = false;
             PrivateKeyFilePath.IsVisible = false;
             PrivateKeyFilePath.OrderIndex = orderIndex++;
+            PrivateKeyFilePath.Category = Resources.Input;
 
             Passphrase.IsPrincipal = false;
             Passphrase.IsVisible = false;
-            Passphrase.OrderIndex = orderIndex++;
+            Passphrase.OrderIndex = orderIndex;
+            Passphrase.Category = Resources.Input;
+
+            PassphraseSecureString.IsPrincipal = false;
+            PassphraseSecureString.IsVisible = false;
+            PassphraseSecureString.OrderIndex = orderIndex;
+            PassphraseSecureString.Category = Resources.Input;
+            orderIndex++;
         }
 
         /// <summary>
-        /// Configures the Key/SecureKey toggle menu action.
+        /// Registers Main-menu actions to toggle between PublicKeyFilePath (string) and PublicKeyFile (IResource).
+        /// </summary>
+        protected void ConfigurePublicKeyFileMenuActions() => _publicKeyFileToggle.ConfigureMenuActions();
+
+        /// <summary>
+        /// Registers Main-menu actions to toggle between Key (string) and KeySecureString (SecureString),
+        /// and sets initial visibility based on which side has a persisted value.
         /// </summary>
         protected void ConfigureKeyInputModeMenuActions()
         {
-            MenuActionsBuilder<KeyInputMode>.WithValueProperty(KeyInputModeSwitch)
-                .AddMenuProperty(Key, KeyInputMode.Key)
-                .AddMenuProperty(KeySecureString, KeyInputMode.SecureKey)
-                .BuildAndInsertMenuActions();
+            _keyToggle.ConfigureMenuActions();
+            ApplyKeyInputVisibility();
+        }
+
+        /// <summary>
+        /// Registers Main-menu actions to toggle between Passphrase (string) and PassphraseSecureString (SecureString).
+        /// Final visibility is set by AlgorithmChanged_Action / SignDataChanged_Action.
+        /// </summary>
+        protected void ConfigurePassphraseInputModeMenuActions() => _passphraseToggle.ConfigureMenuActions();
+
+        private void ApplyKeyInputVisibility()
+        {
+            bool useSecure = _keyToggle.UseSecondary;
+            bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
+            Key.IsVisible = !isPgp && !useSecure;
+            Key.IsRequired = !isPgp && !useSecure;
+            KeySecureString.IsVisible = !isPgp && useSecure;
+            KeySecureString.IsRequired = !isPgp && useSecure;
+        }
+
+        private void ApplyPublicKeyVisibility()
+        {
+            bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
+            bool useResource = _publicKeyFileToggle.UseSecondary;
+            PublicKeyFilePath.IsVisible = isPgp && !useResource;
+            PublicKeyFilePath.IsRequired = isPgp && !useResource;
+            PublicKeyFile.IsVisible = isPgp && useResource;
+            PublicKeyFile.IsRequired = isPgp && useResource;
+            PublicKeyFilePath.IsPrincipal = isPgp;
+            PublicKeyFile.IsPrincipal = isPgp;
+        }
+
+        private void ApplyPassphraseVisibility()
+        {
+            bool active = Algorithm.Value == EncryptionAlgorithm.PGP && SignData.Value;
+            bool useSecure = _passphraseToggle.UseSecondary;
+            Passphrase.IsVisible = active && !useSecure;
+            Passphrase.IsRequired = active && !useSecure;
+            Passphrase.IsPrincipal = active;
+            PassphraseSecureString.IsVisible = active && useSecure;
+            PassphraseSecureString.IsRequired = active && useSecure;
+            PassphraseSecureString.IsPrincipal = active;
         }
 
         protected override void InitializeRules()
         {
             base.InitializeRules();
-            Rule(nameof(KeyInputModeSwitch), KeyInputModeChanged_Action);
             Rule(nameof(Algorithm), AlgorithmChanged_Action);
             Rule(nameof(SignData), SignDataChanged_Action);
         }
@@ -136,33 +235,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected override void ManualRegisterDependencies()
         {
             base.ManualRegisterDependencies();
-            RegisterDependency(KeyInputModeSwitch, nameof(KeyInputModeSwitch.Value), nameof(KeyInputModeSwitch));
             RegisterDependency(Algorithm, nameof(Algorithm.Value), nameof(Algorithm));
             RegisterDependency(SignData, nameof(SignData.Value), nameof(SignData));
-        }
-
-        private void KeyInputModeChanged_Action()
-        {
-            if (Algorithm.Value == EncryptionAlgorithm.PGP) return;
-
-            Key.IsRequired = false;
-            Key.IsVisible = false;
-            KeySecureString.IsVisible = false;
-            KeySecureString.IsRequired = false;
-
-            switch (KeyInputModeSwitch.Value)
-            {
-                case KeyInputMode.Key:
-                    Key.IsVisible = true;
-                    Key.IsRequired = true;
-                    break;
-                case KeyInputMode.SecureKey:
-                    KeySecureString.IsVisible = true;
-                    KeySecureString.IsRequired = true;
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
         }
 
         private void AlgorithmChanged_Action()
@@ -170,25 +244,16 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             UpdateDeprecatedAlgorithmWarning();
 
             bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
-
-            Key.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.Key;
-            Key.IsRequired = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.Key;
-            KeySecureString.IsVisible = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.SecureKey;
-            KeySecureString.IsRequired = !isPgp && KeyInputModeSwitch.Value == KeyInputMode.SecureKey;
             KeyEncodingString.IsVisible = !isPgp;
 
-            PublicKeyFilePath.IsVisible = isPgp;
-            PublicKeyFilePath.IsRequired = isPgp;
+            ApplyKeyInputVisibility();
+            ApplyPublicKeyVisibility();
             SignData.IsVisible = isPgp;
+            SignData.IsPrincipal = isPgp;
             PrivateKeyFilePath.IsVisible = isPgp && SignData.Value;
             PrivateKeyFilePath.IsRequired = isPgp && SignData.Value;
-            Passphrase.IsVisible = isPgp && SignData.Value;
-            Passphrase.IsRequired = isPgp && SignData.Value;
-
-            if (!isPgp)
-            {
-                KeyInputModeChanged_Action();
-            }
+            PrivateKeyFilePath.IsPrincipal = isPgp && SignData.Value;
+            ApplyPassphraseVisibility();
         }
 
         private void UpdateDeprecatedAlgorithmWarning()
@@ -212,8 +277,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             PrivateKeyFilePath.IsVisible = SignData.Value;
             PrivateKeyFilePath.IsRequired = SignData.Value;
-            Passphrase.IsVisible = SignData.Value;
-            Passphrase.IsRequired = SignData.Value;
+            PrivateKeyFilePath.IsPrincipal = SignData.Value;
+            ApplyPassphraseVisibility();
         }
     }
 }

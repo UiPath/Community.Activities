@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Security;
 using PgpCore;
+using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities.Tests
 {
@@ -12,7 +13,7 @@ namespace UiPath.Cryptography.Activities.Tests
         protected const string Passphrase = "testpassphrase";
         private bool _disposed;
 
-        protected PgpTestBase()
+        protected PgpTestBase(RsaKeySize keySize = RsaKeySize.Rsa4096)
         {
             var prefix = GetType().Name;
             _publicKeyPath = Path.Combine(Path.GetTempPath(), $"{prefix}_public_{Guid.NewGuid()}.asc");
@@ -24,7 +25,8 @@ namespace UiPath.Cryptography.Activities.Tests
                     new FileInfo(_publicKeyPath),
                     new FileInfo(_privateKeyPath),
                     "test@test.com",
-                    Passphrase);
+                    Passphrase,
+                    (int)keySize);
             }
         }
 

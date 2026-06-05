@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Activities;
-using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -17,6 +16,8 @@ using UiPath.Shared.Activities;
 using UiPath.Shared.Telemetry.Services;
 #endif
 
+#pragma warning disable CS0618 // CryptographyHelper is intentionally marked Obsolete to discourage external use; in-package consumers are expected.
+
 namespace UiPath.Cryptography.Activities
 {
     [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Name))]
@@ -29,12 +30,17 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Algorithm_Description))]
         public KeyedHashAlgorithms Algorithm { get; set; }
 
-        [RequiredArgument]
-        [OverloadGroup(nameof(FilePath))]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_FilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_FilePath_Description))]
         public InArgument<string> FilePath { get; set; }
+
+        [Browsable(false)]
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Description))]
+        public InArgument<IResource> InputFile { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Key_Name))]
@@ -42,9 +48,11 @@ namespace UiPath.Cryptography.Activities
         public InArgument<string> Key { get; set; }
 
         [Browsable(false)]
-        [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_Key_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_Key_Description))]
+        [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active file input mode. The activity now infers the mode from which side is bound.")]
+        public FileInputMode FileInputModeSwitch { get; set; }
+
+        [Browsable(false)]
+        [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active key input mode. The activity now infers the mode from which side is bound.")]
         public KeyInputMode KeyInputModeSwitch { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
@@ -67,50 +75,15 @@ namespace UiPath.Cryptography.Activities
         public new OutArgument<string> Result { get => base.Result; set => base.Result = value; }
 
         [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedCategory(nameof(Resources.Category_Options_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_ContinueOnError_Name))]
         [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
-
-        [Browsable(false)]
-        [RequiredArgument]
-        [OverloadGroup(nameof(InputFile))]
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_InputFile_Description))]
-        public InArgument<IResource> InputFile { get; set; }
-
-        [Browsable(false)]
-        [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_KeyedHashFile_Property_FileInputModeSwitch_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_KeyedHashFile_Property_FileInputModeSwitch_Description))]
-        public FileInputMode FileInputModeSwitch { get; set; }
 
         public KeyedHashFile()
         {
             Algorithm = KeyedHashAlgorithms.HMACSHA256;
             KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
-
-        }
-
-        protected override void CacheMetadata(CodeActivityMetadata metadata)
-        {
-            base.CacheMetadata(metadata);
-
-            if (Algorithm.ToString().StartsWith(nameof(HMAC)))
-            {
-                if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
-                {
-                    var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
-                    metadata.AddValidationError(error);
-                }
-                if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                {
-                    var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
-                    metadata.AddValidationError(error);
-                }
-            }
         }
 
         protected override string Execute(CodeActivityContext context)
@@ -125,21 +98,19 @@ namespace UiPath.Cryptography.Activities
             try
             {
                 var filePath = FilePath.Get(context);
+                var inputFile = InputFile.Get(context);
                 var key = Key.Get(context);
                 var keySecureString = KeySecureString.Get(context);
                 var keyEncoding = Encoding.Get(context);
-                var inputFile = InputFile.Get(context);
                 var keyEncodingString = KeyEncodingString.Get(context);
 
                 if (Algorithm.ToString().StartsWith(nameof(HMAC)))
                 {
-                    if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
+                    if (string.IsNullOrWhiteSpace(key))
                     {
-                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_Key_Name);
-                    }
-                    if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                    {
-                        throw new ArgumentNullException(Resources.Activity_KeyedHashText_Property_KeySecureString_Name);
+                        if (keySecureString == null || keySecureString.Length == 0)
+                            throw new ArgumentNullException(nameof(Key), Resources.Activity_KeyedHashFile_Property_Key_Name);
+                        key = null; // ensure helper falls back to SecureString
                     }
                 }
 
@@ -147,17 +118,13 @@ namespace UiPath.Cryptography.Activities
 
                 if (!File.Exists(filePath) && inputFile == null)
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.FilePathDisplayName);
-
                 if (inputFile != null && inputFile.IsFolder)
                     throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
-                if (inputFile != null && !inputFile.IsFolder)
+                if (string.IsNullOrEmpty(filePath) && inputFile != null)
                 {
-                    // Get local file
                     var localFile = inputFile.ToLocalResource();
-                    //Run Sync
                     Task.Run(async () => await localFile.ResolveAsync()).GetAwaiter().GetResult();
-
                     filePath = localFile.LocalPath;
                 }
 

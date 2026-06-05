@@ -35,7 +35,8 @@
 		<PackageReference Update="System.Drawing.Common" Version="6.0.0" />
 		<PackageReference Update="System.Text.RegularExpressions" Version="4.3.1" />
 		<PackageReference Update="System.Formats.Asn1" Version="8.0.1" />
-		<PackageReference Update="PgpCore" Version="6.5.3" />
+		<PackageReference Update="PgpCore" Version="7.0.0" />
+		<PackageReference Update="Newtonsoft.Json" Version="13.0.3" />
 
 		<PackageReference Update="Azure.Identity" Version="1.13.1" />
 

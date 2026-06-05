@@ -1,12 +1,15 @@
-﻿using UiPath.Cryptography.Properties;
+﻿using System;
+using UiPath.Cryptography.Properties;
 
 namespace UiPath.Cryptography
 {
     public enum KeyedHashAlgorithms
     {
+        [Obsolete("No longer safe")]
         [LocalizedDescription(nameof(Resources.HMACMD5))]
         HMACMD5,
 
+        [Obsolete("No longer safe")]
         [LocalizedDescription(nameof(Resources.HMACSHA1))]
         HMACSHA1,
 
@@ -19,6 +22,7 @@ namespace UiPath.Cryptography
         [LocalizedDescription(nameof(Resources.HMACSHA512))]
         HMACSHA512,
 
+        [Obsolete("No longer safe")]
         [LocalizedDescription(nameof(Resources.SHA1))]
         SHA1,
 

@@ -68,7 +68,7 @@ def _check_file(path: Path) -> list[Finding]:
     if not text.endswith("\n"):
         findings.append(Finding(path, "Missing trailing newline at end of file"))
 
-    if "`xml" in text:
+    if re.search(r"(?<!`)`xml", text):
         findings.append(Finding(path, "Found invalid single-backtick XML code fence (`xml)"))
 
     if text.count("```") % 2 != 0:
