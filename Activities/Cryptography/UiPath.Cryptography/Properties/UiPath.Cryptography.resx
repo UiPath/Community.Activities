@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -644,7 +644,7 @@
     <value>Signed File (Binary)</value>
   </data>
   <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
-    <value>Clearsigned File (Text)</value>
+    <value>ClearSigned File (Text)</value>
   </data>
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>Validate Public Key</value>
@@ -663,5 +663,49 @@
   </data>
   <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
     <value>Signature verification was requested but a public key is required to verify. Provide a public key stream, or set verifySignature to false.</value>
+  </data>
+  <data name="SymmetricWireFormat_Classic" xml:space="preserve">
+    <value>UiPath (Classic)</value>
+  </data>
+  <data name="SymmetricWireFormat_Owasp2026" xml:space="preserve">
+    <value>UiPath (OWASP 2026)</value>
+  </data>
+  <data name="SymmetricWireFormat_Raw" xml:space="preserve">
+    <value>Raw (caller-supplied key and IV)</value>
+  </data>
+  <data name="SymmetricWireFormat_OpenSslEnc" xml:space="preserve">
+    <value>OpenSSL enc (Salted__ + PBKDF2-SHA256)</value>
+  </data>
+  <data name="KeyBytesFormat_Encoded" xml:space="preserve">
+    <value>Encoded (text password via Encoding)</value>
+  </data>
+  <data name="KeyBytesFormat_Hex" xml:space="preserve">
+    <value>Hex</value>
+  </data>
+  <data name="KeyBytesFormat_Base64" xml:space="preserve">
+    <value>Base64</value>
+  </data>
+  <data name="OpenSslEnc_MissingMagic" xml:space="preserve">
+    <value>The ciphertext does not start with the openssl 'Salted__' magic prefix. Confirm the producer used 'openssl enc -salt' and the output was not stripped or transcoded.</value>
+  </data>
+
+  <!-- Validation messages for cross-property constraints (see SymmetricInteropHelper.ValidateInteropSettings). -->
+  <data name="Validation_RawKeyFormat_EncodedNotAllowed" xml:space="preserve">
+    <value>Key bytes format = Encoded is not allowed with wire format = Raw. Supply a literal raw key as Hex or Base64.</value>
+  </data>
+  <data name="Validation_RawKey_LengthMismatch" xml:space="preserve">
+    <value>Raw key length is {0} bytes, which is not a legal key size for the chosen algorithm. Expected one of: {1} bytes.</value>
+  </data>
+  <data name="Validation_PasswordFormat_NonEncodedNotAllowed" xml:space="preserve">
+    <value>Key bytes format = Hex or Base64 is only valid with wire format = Raw. The Classic, Owasp2026, and OpenSslEnc formats use the Key string as a password (Encoded).</value>
+  </data>
+  <data name="Validation_Iv_OnlyForRaw" xml:space="preserve">
+    <value>IV may only be set when wire format = Raw. The other formats embed the IV in the ciphertext stream.</value>
+  </data>
+  <data name="Validation_KdfIterations_NotForClassicOrRaw" xml:space="preserve">
+    <value>KDF iterations may only be set for wire format = Owasp2026 or OpenSslEnc. Classic is frozen at 10,000 iterations and Raw does not run a KDF.</value>
+  </data>
+  <data name="Validation_KdfIterations_BelowMinimum" xml:space="preserve">
+    <value>KDF iterations = {0} is below the {1}-iteration minimum (NIST SP 800-132 floor). OWASP currently recommends 1,300,000 for PBKDF2-SHA1 and 600,000 for PBKDF2-SHA256.</value>
   </data>
 </root>

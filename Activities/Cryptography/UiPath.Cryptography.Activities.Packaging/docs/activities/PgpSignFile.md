@@ -45,5 +45,5 @@ Creates a PGP binary signature of a file using a private key. The signed output 
 ## Notes
 
 - `Passphrase` ↔ `PassphraseSecureString` are paired via a designer menu action: only one side is active at a time.
-- Produces a binary OpenPGP signature. For a text-friendly armored signature that embeds the plaintext, use `PgpClearsignFile` instead.
+- Produces a binary OpenPGP signature. For a text-friendly armored signature that embeds the plaintext, use `PgpClearSignFile` instead.
 - This activity has no `OutArgument` — the signed bytes are written to the file at `OutputFilePath`.

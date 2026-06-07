@@ -77,6 +77,30 @@ namespace UiPath.Cryptography.Activities
         public InArgument<string> KeyEncodingString { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_Format_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Format_Description))]
+        [DefaultValue(SymmetricWireFormat.Classic)]
+        public SymmetricWireFormat Format { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_KeyFormat_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_KeyFormat_Description))]
+        [DefaultValue(KeyBytesFormat.Encoded)]
+        public KeyBytesFormat KeyFormat { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_Iv_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_Iv_Description))]
+        public InArgument<string> Iv { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_KdfIterations_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_KdfIterations_Description))]
+        public InArgument<int> KdfIterations { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptFile_Property_OutputFilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptFile_Property_OutputFilePath_Description))]
         public InArgument<string> OutputFilePath { get; set; }
@@ -155,6 +179,11 @@ namespace UiPath.Cryptography.Activities
             {
                 metadata.AddValidationError(new ValidationError(Resources.ChaCha20Poly1305NotSupported, isWarning: true, nameof(Algorithm)));
             }
+
+            if (Iv != null)
+            {
+                metadata.AddValidationError(new ValidationError(Resources.Iv_NonceReuseWarning, isWarning: true, nameof(Iv)));
+            }
         }
 
         protected override void Execute(CodeActivityContext context)
@@ -183,7 +212,7 @@ namespace UiPath.Cryptography.Activities
 
                 var encrypted = Algorithm == EncryptionAlgorithm.PGP
                     ? ExecutePgpEncrypt(context, result.Item3)
-                    : CryptographyHelper.EncryptData(Algorithm, File.ReadAllBytes(result.Item3), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                    : ExecuteSymmetricEncrypt(context, File.ReadAllBytes(result.Item3), keyEncoding, key, keySecureString);
 
                 WriteEncryptedOutput(context, outputFilePath, encrypted, result);
 #if ENABLE_DEFAULT_TELEMETRY
@@ -223,6 +252,22 @@ namespace UiPath.Cryptography.Activities
                 throw new ArgumentNullException(Resources.Encoding);
 
             keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+        }
+
+        private byte[] ExecuteSymmetricEncrypt(CodeActivityContext context, byte[] inputBytes, Encoding keyEncoding, string key, SecureString keySecureString)
+        {
+            var ivString = Iv?.Get(context);
+            var iterations = KdfIterations?.Get(context) ?? 0;
+
+            SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, null);
+
+            byte[] keyOrPasswordBytes = SymmetricInteropHelper.ParseKeyOrIv(key, keySecureString, KeyFormat, keyEncoding);
+            byte[] ivBytes = SymmetricInteropHelper.ParseKeyOrIv(ivString, null, KeyFormat, keyEncoding);
+
+            if (Format == SymmetricWireFormat.Raw)
+                SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, keyOrPasswordBytes?.Length);
+
+            return SymmetricInteropHelper.DispatchEncrypt(Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, inputBytes);
         }
 
         private byte[] ExecutePgpEncrypt(CodeActivityContext context, string inputPath)

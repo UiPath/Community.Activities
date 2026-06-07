@@ -1087,6 +1087,33 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base64.
+        /// </summary>
+        internal static string KeyBytesFormat_Base64 {
+            get {
+                return ResourceManager.GetString("KeyBytesFormat_Base64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoded (text password via Encoding).
+        /// </summary>
+        internal static string KeyBytesFormat_Encoded {
+            get {
+                return ResourceManager.GetString("KeyBytesFormat_Encoded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hex.
+        /// </summary>
+        internal static string KeyBytesFormat_Hex {
+            get {
+                return ResourceManager.GetString("KeyBytesFormat_Hex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Korean.
         /// </summary>
         internal static string Korean {
@@ -1222,6 +1249,15 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The ciphertext does not start with the openssl &apos;Salted__&apos; magic prefix. Confirm the producer used &apos;openssl enc -salt&apos; and the output was not stripped or transcoded..
+        /// </summary>
+        internal static string OpenSslEnc_MissingMagic {
+            get {
+                return ResourceManager.GetString("OpenSslEnc_MissingMagic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PGP - Pretty Good Privacy (Non-FIPS).
         /// </summary>
         internal static string PGP {
@@ -1276,7 +1312,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clearsigned File (Text).
+        ///   Looks up a localized string similar to ClearSigned File (Text).
         /// </summary>
         internal static string PgpVerifyMode_ClearSignature {
             get {
@@ -1443,6 +1479,42 @@ namespace UiPath.Cryptography.Properties {
         internal static string SymmetricDecrypt_PaddingHint {
             get {
                 return ResourceManager.GetString("SymmetricDecrypt_PaddingHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UiPath (Classic).
+        /// </summary>
+        internal static string SymmetricWireFormat_Classic {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_Classic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenSSL enc (Salted__ + PBKDF2-SHA256).
+        /// </summary>
+        internal static string SymmetricWireFormat_OpenSslEnc {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_OpenSslEnc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UiPath (OWASP 2026).
+        /// </summary>
+        internal static string SymmetricWireFormat_Owasp2026 {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_Owasp2026", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raw (caller-supplied key and IV).
+        /// </summary>
+        internal static string SymmetricWireFormat_Raw {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_Raw", resourceCulture);
             }
         }
         
@@ -1695,6 +1767,60 @@ namespace UiPath.Cryptography.Properties {
         internal static string WesternEuropean_Windows {
             get {
                 return ResourceManager.GetString("WesternEuropean_Windows", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format = Encoded is not allowed with wire format = Raw. Supply a literal raw key as Hex or Base64..
+        /// </summary>
+        internal static string Validation_RawKeyFormat_EncodedNotAllowed {
+            get {
+                return ResourceManager.GetString("Validation_RawKeyFormat_EncodedNotAllowed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Raw key length is {0} bytes, which is not a legal key size for the chosen algorithm. Expected one of: {1} bytes..
+        /// </summary>
+        internal static string Validation_RawKey_LengthMismatch {
+            get {
+                return ResourceManager.GetString("Validation_RawKey_LengthMismatch", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format = Hex or Base64 is only valid with wire format = Raw. The Classic, Owasp2026, and OpenSslEnc formats use the Key string as a password (Encoded)..
+        /// </summary>
+        internal static string Validation_PasswordFormat_NonEncodedNotAllowed {
+            get {
+                return ResourceManager.GetString("Validation_PasswordFormat_NonEncodedNotAllowed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IV may only be set when wire format = Raw. The other formats embed the IV in the ciphertext stream..
+        /// </summary>
+        internal static string Validation_Iv_OnlyForRaw {
+            get {
+                return ResourceManager.GetString("Validation_Iv_OnlyForRaw", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations may only be set for wire format = Owasp2026 or OpenSslEnc. Classic is frozen at 10,000 iterations and Raw does not run a KDF..
+        /// </summary>
+        internal static string Validation_KdfIterations_NotForClassicOrRaw {
+            get {
+                return ResourceManager.GetString("Validation_KdfIterations_NotForClassicOrRaw", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations = {0} is below the {1}-iteration minimum (NIST SP 800-132 floor). OWASP currently recommends 1,300,000 for PBKDF2-SHA1 and 600,000 for PBKDF2-SHA256..
+        /// </summary>
+        internal static string Validation_KdfIterations_BelowMinimum {
+            get {
+                return ResourceManager.GetString("Validation_KdfIterations_BelowMinimum", resourceCulture);
             }
         }
     }

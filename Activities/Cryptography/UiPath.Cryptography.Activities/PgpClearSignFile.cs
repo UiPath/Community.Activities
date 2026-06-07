@@ -18,70 +18,70 @@ using UiPath.Shared.Telemetry.Services;
 
 namespace UiPath.Cryptography.Activities
 {
-    [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Name))]
-    [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Description))]
-    public partial class PgpClearsignFile : UiPath.Shared.Activities.AsyncTaskCodeActivity
+    [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Name))]
+    [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Description))]
+    public partial class PgpClearSignFile : UiPath.Shared.Activities.AsyncTaskCodeActivity
     {
         private const string ClearSigned = "_ClearSigned";
 
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_InputFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_InputFilePath_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_InputFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_InputFilePath_Description))]
         public InArgument<string> InputFilePath { get; set; }
 
         [Browsable(false)]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_InputFile_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_InputFile_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_InputFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_InputFile_Description))]
         public InArgument<IResource> InputFile { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description))]
         public InArgument<string> PrivateKeyFilePath { get; set; }
 
         [Browsable(false)]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_PrivateKeyFile_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_PrivateKeyFile_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_PrivateKeyFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_PrivateKeyFile_Description))]
         public InArgument<IResource> PrivateKeyFile { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_Passphrase_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_Passphrase_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_Passphrase_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_Passphrase_Description))]
         public InArgument<string> Passphrase { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_PassphraseSecureString_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_PassphraseSecureString_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_PassphraseSecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_PassphraseSecureString_Description))]
         public InArgument<SecureString> PassphraseSecureString { get; set; }
 
         [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Category_Options_Name))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_OutputFilePath_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_OutputFilePath_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_OutputFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_OutputFilePath_Description))]
         public InArgument<string> OutputFilePath { get; set; }
 
         [DefaultValue(false)]
         [LocalizedCategory(nameof(Resources.Category_Options_Name))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_Overwrite_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_Overwrite_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_Overwrite_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_Overwrite_Description))]
         public bool Overwrite { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Category_Options_Name))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_ContinueOnError_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
 
         [Browsable(false)]
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Output))]
-        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearsignFile_Property_ClearSignedFile_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_PgpClearsignFile_Property_ClearSignedFile_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpClearSignFile_Property_ClearSignedFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpClearSignFile_Property_ClearSignedFile_Description))]
         public OutArgument<ILocalResource> ClearSignedFile { get; set; }
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(
@@ -93,17 +93,17 @@ namespace UiPath.Cryptography.Activities
             {
                 var inputPath = await PgpFileResolver.ResolveAsync(
                     InputFilePath.Get(context), InputFile.Get(context),
-                    nameof(InputFilePath), Resources.Activity_PgpClearsignFile_Property_InputFilePath_Name,
+                    nameof(InputFilePath), Resources.Activity_PgpClearSignFile_Property_InputFilePath_Name,
                     cancellationToken);
 
                 var privateKeyPath = await PgpFileResolver.ResolveAsync(
                     PrivateKeyFilePath.Get(context), PrivateKeyFile.Get(context),
-                    nameof(PrivateKeyFilePath), Resources.Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name,
+                    nameof(PrivateKeyFilePath), Resources.Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name,
                     cancellationToken);
 
                 var passphraseString = PgpFileResolver.ResolvePassphrase(
                     Passphrase.Get(context), PassphraseSecureString.Get(context),
-                    nameof(Passphrase), Resources.Activity_PgpClearsignFile_Property_Passphrase_Name);
+                    nameof(Passphrase), Resources.Activity_PgpClearSignFile_Property_Passphrase_Name);
 
                 var outputPath = OutputFilePath.Get(context);
 

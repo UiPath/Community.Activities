@@ -151,6 +151,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input byte layout and key-derivation strategy. Must match the format that produced the ciphertext..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_Format_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_Format_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wire format.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_Format_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_Format_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be decrypted.
         /// </summary>
         public static string Activity_DecryptFile_Property_InputFile_Description {
@@ -183,6 +201,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_DecryptFile_Property_InputFilePath_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptFile_Property_InputFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PBKDF2 iteration count used to derive the key. Must match the value used at encryption time..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_KdfIterations_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_KdfIterations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_KdfIterations_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_KdfIterations_Name", resourceCulture);
             }
         }
         
@@ -237,6 +273,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_DecryptFile_Property_KeyEncodingString_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptFile_Property_KeyEncodingString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How the Key string converts to bytes..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_KeyFormat_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_KeyFormat_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_KeyFormat_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_KeyFormat_Name", resourceCulture);
             }
         }
         
@@ -511,6 +565,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input byte layout and key-derivation strategy. Must match the format that produced the ciphertext. See docs/symmetric-wire-format.md..
+        /// </summary>
+        public static string Activity_DecryptText_Property_Format_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_Format_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wire format.
+        /// </summary>
+        public static string Activity_DecryptText_Property_Format_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_Format_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The text that you want to decrypt..
         /// </summary>
         public static string Activity_DecryptText_Property_Input_Description {
@@ -525,6 +597,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_DecryptText_Property_Input_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_Input_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PBKDF2 iteration count used to derive the key. Must match the value used at encryption time. 0 (default) selects the OWASP-recommended default for the chosen format..
+        /// </summary>
+        public static string Activity_DecryptText_Property_KdfIterations_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_KdfIterations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations.
+        /// </summary>
+        public static string Activity_DecryptText_Property_KdfIterations_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_KdfIterations_Name", resourceCulture);
             }
         }
         
@@ -561,6 +651,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_DecryptText_Property_KeyEncodingString_Name {
             get {
                 return ResourceManager.GetString("Activity_DecryptText_Property_KeyEncodingString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How the Key string converts to bytes. Encoded = password text via Encoding. Hex/Base64 = literal raw bytes (required for Raw format)..
+        /// </summary>
+        public static string Activity_DecryptText_Property_KeyFormat_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_KeyFormat_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format.
+        /// </summary>
+        public static string Activity_DecryptText_Property_KeyFormat_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_KeyFormat_Name", resourceCulture);
             }
         }
         
@@ -826,6 +934,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output byte layout and key-derivation strategy. See docs/symmetric-wire-format.md..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_Format_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_Format_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wire format.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_Format_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_Format_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be encrypted.
         /// </summary>
         public static string Activity_EncryptFile_Property_InputFile_Description {
@@ -858,6 +984,42 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptFile_Property_InputFilePath_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptFile_Property_InputFilePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional initialization vector for Raw format. If empty, a random IV is generated. Interpreted via Key bytes format (Hex or Base64)..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_Iv_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_Iv_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IV (Raw only).
+        /// </summary>
+        public static string Activity_EncryptFile_Property_Iv_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_Iv_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PBKDF2 iteration count for Owasp2026 and OpenSslEnc formats. 0 (default) selects the value the format ships with. Minimum 1,000 when set..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_KdfIterations_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_KdfIterations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_KdfIterations_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_KdfIterations_Name", resourceCulture);
             }
         }
         
@@ -912,6 +1074,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptFile_Property_KeyEncodingString_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptFile_Property_KeyEncodingString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How the Key (and Iv, for Raw format) strings convert to bytes..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_KeyFormat_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_KeyFormat_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_KeyFormat_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_KeyFormat_Name", resourceCulture);
             }
         }
         
@@ -1186,6 +1366,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output byte layout and key-derivation strategy. See docs/symmetric-wire-format.md..
+        /// </summary>
+        public static string Activity_EncryptText_Property_Format_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_Format_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wire format.
+        /// </summary>
+        public static string Activity_EncryptText_Property_Format_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_Format_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The text that you want to encrypt..
         /// </summary>
         public static string Activity_EncryptText_Property_Input_Description {
@@ -1200,6 +1398,42 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptText_Property_Input_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_Input_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional initialization vector for Raw format. If empty, a random IV is generated. Interpreted via Key bytes format (Hex or Base64). Must match the algorithm&apos;s IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2)..
+        /// </summary>
+        public static string Activity_EncryptText_Property_Iv_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_Iv_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IV (Raw only).
+        /// </summary>
+        public static string Activity_EncryptText_Property_Iv_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_Iv_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PBKDF2 iteration count, used only for Owasp2026 and OpenSslEnc formats. 0 (default) selects the value the format ships with: 1,300,000 for Owasp2026 (PBKDF2-HMAC-SHA1), 600,000 for OpenSslEnc (PBKDF2-HMAC-SHA256). Minimum 1,000 when set explicitly. Note: the iteration count is not stored in the wire format — encrypt and decrypt sides must use matching values..
+        /// </summary>
+        public static string Activity_EncryptText_Property_KdfIterations_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_KdfIterations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations.
+        /// </summary>
+        public static string Activity_EncryptText_Property_KdfIterations_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_KdfIterations_Name", resourceCulture);
             }
         }
         
@@ -1236,6 +1470,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptText_Property_KeyEncodingString_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_KeyEncodingString_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How the Key (and Iv, for Raw format) strings convert to bytes. Encoded (default) = password text via Encoding. Hex/Base64 = literal raw bytes (required for Raw format)..
+        /// </summary>
+        public static string Activity_EncryptText_Property_KeyFormat_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_KeyFormat_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format.
+        /// </summary>
+        public static string Activity_EncryptText_Property_KeyFormat_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_KeyFormat_Name", resourceCulture);
             }
         }
         
@@ -2034,198 +2286,198 @@ namespace UiPath.Cryptography.Activities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Creates a PGP clear-text signature of a file using a private key..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Description {
+        public static string Activity_PgpClearSignFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PGP Clearsign File.
+        ///   Looks up a localized string similar to PGP ClearSign File.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Name {
+        public static string Activity_PgpClearSignFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The clearsigned file as a file resource..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_ClearSignedFile_Description {
+        public static string Activity_PgpClearSignFile_Property_ClearSignedFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ClearSignedFile_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ClearSignedFile_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clearsigned file.
+        ///   Looks up a localized string similar to ClearSigned file.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_ClearSignedFile_Name {
+        public static string Activity_PgpClearSignFile_Property_ClearSignedFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ClearSignedFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ClearSignedFile_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specifies if the automation should continue even when the activity throws an error..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_ContinueOnError_Description {
+        public static string Activity_PgpClearSignFile_Property_ContinueOnError_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ContinueOnError_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ContinueOnError_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Continue on error.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_ContinueOnError_Name {
+        public static string Activity_PgpClearSignFile_Property_ContinueOnError_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_ContinueOnError_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_ContinueOnError_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The resource representing the file to be signed..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_InputFile_Description {
+        public static string Activity_PgpClearSignFile_Property_InputFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFile_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_InputFile_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Input file.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_InputFile_Name {
+        public static string Activity_PgpClearSignFile_Property_InputFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_InputFile_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The path to the file that you want to clearsign..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_InputFilePath_Description {
+        public static string Activity_PgpClearSignFile_Property_InputFilePath_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFilePath_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_InputFilePath_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Input file path.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_InputFilePath_Name {
+        public static string Activity_PgpClearSignFile_Property_InputFilePath_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_InputFilePath_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_InputFilePath_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The full path, including the file name and extension, where the clearsigned file will be saved..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_OutputFilePath_Description {
+        public static string Activity_PgpClearSignFile_Property_OutputFilePath_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_OutputFilePath_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_OutputFilePath_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Output file path.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_OutputFilePath_Name {
+        public static string Activity_PgpClearSignFile_Property_OutputFilePath_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_OutputFilePath_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_OutputFilePath_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to If a file already exists at the output path, selecting this overwrites it..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_Overwrite_Description {
+        public static string Activity_PgpClearSignFile_Property_Overwrite_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Overwrite_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Overwrite_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Overwrite.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_Overwrite_Name {
+        public static string Activity_PgpClearSignFile_Property_Overwrite_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Overwrite_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Overwrite_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The passphrase that unlocks your own private key for signing..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_Passphrase_Description {
+        public static string Activity_PgpClearSignFile_Property_Passphrase_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Passphrase_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Passphrase_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Passphrase.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_Passphrase_Name {
+        public static string Activity_PgpClearSignFile_Property_Passphrase_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_Passphrase_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_Passphrase_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The passphrase, as a secure string, that unlocks your own private key for signing..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_PassphraseSecureString_Description {
+        public static string Activity_PgpClearSignFile_Property_PassphraseSecureString_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PassphraseSecureString_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PassphraseSecureString_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Passphrase (secure).
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_PassphraseSecureString_Name {
+        public static string Activity_PgpClearSignFile_Property_PassphraseSecureString_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PassphraseSecureString_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PassphraseSecureString_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Your own PGP private key, supplied as a file resource. Used to clearsign the data..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_PrivateKeyFile_Description {
+        public static string Activity_PgpClearSignFile_Property_PrivateKeyFile_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFile_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PrivateKeyFile_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Private key file.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_PrivateKeyFile_Name {
+        public static string Activity_PgpClearSignFile_Property_PrivateKeyFile_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFile_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PrivateKeyFile_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The path to your own PGP private key file, used to clearsign the data..
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description {
+        public static string Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Private key file path.
         /// </summary>
-        public static string Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name {
+        public static string Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name {
             get {
-                return ResourceManager.GetString("Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name", resourceCulture);
+                return ResourceManager.GetString("Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name", resourceCulture);
             }
         }
         
@@ -2689,7 +2941,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file resource that contains the signed content to verify. Required for &apos;Signed File (Binary)&apos; and &apos;Clearsigned File (Text)&apos; modes..
+        ///   Looks up a localized string similar to The file resource that contains the signed content to verify. Required for &apos;Signed File (Binary)&apos; and &apos;ClearSigned File (Text)&apos; modes..
         /// </summary>
         public static string Activity_PgpVerify_Property_InputFile_Description {
             get {
@@ -2707,7 +2959,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path to the signed file to verify. Required for &apos;Signed File (Binary)&apos; and &apos;Clearsigned File (Text)&apos; modes..
+        ///   Looks up a localized string similar to The path to the signed file to verify. Required for &apos;Signed File (Binary)&apos; and &apos;ClearSigned File (Text)&apos; modes..
         /// </summary>
         public static string Activity_PgpVerify_Property_InputFilePath_Description {
             get {
@@ -2725,7 +2977,7 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select the type of verification. &apos;Signed File (Binary)&apos; verifies a binary-signed file. &apos;Clearsigned File (Text)&apos; verifies a text file with an embedded signature. &apos;Validate Public Key&apos; checks that a file contains a valid PGP public key..
+        ///   Looks up a localized string similar to Select the type of verification. &apos;Signed File (Binary)&apos; verifies a binary-signed file. &apos;ClearSigned File (Text)&apos; verifies a text file with an embedded signature. &apos;Validate Public Key&apos; checks that a file contains a valid PGP public key..
         /// </summary>
         public static string Activity_PgpVerify_Property_Mode_Description {
             get {
@@ -2833,6 +3085,24 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later)..
+        /// </summary>
+        public static string ChaCha20Poly1305NotSupported {
+            get {
+                return ResourceManager.GetString("ChaCha20Poly1305NotSupported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An explicit IV is supplied. Reusing the same (Key, IV) pair across encryptions destroys confidentiality and lets an attacker recover the AEAD authentication key and forge messages. Ensure each (Key, IV) pair is used at most once, or leave IV empty.
+        /// </summary>
+        public static string Iv_NonceReuseWarning {
+            get {
+                return ResourceManager.GetString("Iv_NonceReuseWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Common.
         /// </summary>
         public static string Common {
@@ -2912,16 +3182,7 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("FipsComplianceWarning", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later)..
-        /// </summary>
-        public static string ChaCha20Poly1305NotSupported {
-            get {
-                return ResourceManager.GetString("ChaCha20Poly1305NotSupported", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to A cryptographic operation has failed. Please make sure you use the same algorithm and key for both encryption and decryption operations..
         /// </summary>
@@ -3172,6 +3433,13 @@ namespace UiPath.Cryptography.Activities.Properties {
             get {
                 return ResourceManager.GetString("RsaKeySize_Rsa4096", resourceCulture);
             }
+        }
+        
+        public static string Activity_KdfIterations_DisplayName_Pbkdf2Sha1 {
+            get { return ResourceManager.GetString("Activity_KdfIterations_DisplayName_Pbkdf2Sha1", resourceCulture); }
+        }
+        public static string Activity_KdfIterations_DisplayName_Pbkdf2Sha256 {
+            get { return ResourceManager.GetString("Activity_KdfIterations_DisplayName_Pbkdf2Sha256", resourceCulture); }
         }
     }
 }

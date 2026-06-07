@@ -7,8 +7,8 @@ using UiPath.Platform.ResourceHandling;
 
 namespace UiPath.Cryptography.Activities
 {
-    [ViewModelClass(typeof(PgpClearsignFileViewModel))]
-    public partial class PgpClearsignFile
+    [ViewModelClass(typeof(PgpClearSignFileViewModel))]
+    public partial class PgpClearSignFile
     {
     }
 }
@@ -16,9 +16,9 @@ namespace UiPath.Cryptography.Activities
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
     [ExcludeFromCodeCoverage]
-    public class PgpClearsignFileViewModel : PgpSignViewModelBase
+    public class PgpClearSignFileViewModel : PgpSignViewModelBase
     {
-        public PgpClearsignFileViewModel(IDesignServices services) : base(services)
+        public PgpClearSignFileViewModel(IDesignServices services) : base(services)
         {
         }
 

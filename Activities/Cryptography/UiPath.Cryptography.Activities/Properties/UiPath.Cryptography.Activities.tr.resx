@@ -1148,67 +1148,67 @@
     <value>Dosya kaynağı olarak imzalanan dosya.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>PGP Şeffaf İmza Dosyası</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>Özel anahtar kullanarak bir dosyanın PGP açık metin imzasını oluşturur.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>Giriş Dosyası Yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Şifresini çözmek istediğiniz dosyanın yolu.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Özel Anahtar Dosyasının Yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>İmzalamak için kullanılan PGP özel anahtar dosyasının yolu.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>PGP özel anahtarının parolası.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Çıkış Dosyası Yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>Şifresi çözülen dosyanın kaydedileceği yol.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Üzerine Yaz</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Çıkış yolunda bir dosya zaten varsa bu seçildiğinde dosyanın üzerine yazılır.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Hata Olduğunda Devam Et</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>Açık İmzalı Dosya</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Dosya kaynağı olarak açık imzalı dosya.</value>
     <comment>Property description</comment>
   </data>

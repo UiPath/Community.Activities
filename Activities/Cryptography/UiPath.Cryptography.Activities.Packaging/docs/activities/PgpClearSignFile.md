@@ -1,6 +1,6 @@
-# PGP Clearsign File
+# PGP ClearSign File
 
-`UiPath.Cryptography.Activities.PgpClearsignFile`
+`UiPath.Cryptography.Activities.PgpClearSignFile`
 
 Creates a PGP clear-text signature of a file using a private key. The clearsigned output contains the original plaintext wrapped between `-----BEGIN PGP SIGNED MESSAGE-----` and `-----END PGP SIGNATURE-----` markers, so it is human-readable and tamper-evident.
 
@@ -34,7 +34,7 @@ Creates a PGP clear-text signature of a file using a private key. The clearsigne
 ## XAML Example
 
 ```xml
-<ui:PgpClearsignFile DisplayName="PGP Clearsign File"
+<ui:PgpClearSignFile DisplayName="PGP ClearSign File"
                      InputFilePath="C:\temp\notice.txt"
                      PrivateKeyFilePath="C:\keys\private.asc"
                      Passphrase="[keyPassphrase]"

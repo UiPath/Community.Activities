@@ -1148,67 +1148,67 @@
     <value>Le fichier signé, sous forme de ressource fichier.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
-    <value>PGP Clearsign File</value>
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
+    <value>PGP ClearSign File</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>Crée une signature PGP d’un fichier en texte clair à l’aide d’une clé privée.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>Input File Path</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Le chemin d’accès au fichier que vous souhaitez signer en texte clair.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Private Key File Path</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Le chemin d’accès au fichier de la clé PGP privée utilisée pour la signature.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Passphrase</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>La phrase de passe de la clé PGP privée.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Chemin du fichier de sortie</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>Chemin d’accès d’enregistrement du fichier signé en texte clair.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Écraser</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Si un fichier figure déjà au chemin d’accès cible, cette option l’écrase.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continuer sur erreur</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Précise si l’automatisation doit se poursuivre même si l’activité génère une erreur.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
-    <value>Clearsigned File</value>
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+    <value>ClearSigned File</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Le fichier signé en texte clair, sous forme de ressource fichier.</value>
     <comment>Property description</comment>
   </data>

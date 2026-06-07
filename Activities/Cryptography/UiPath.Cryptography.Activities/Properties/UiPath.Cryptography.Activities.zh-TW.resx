@@ -1148,67 +1148,67 @@
     <value>作為檔案資源的已簽署檔案。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>PGP 清除簽署檔案</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>使用私密金鑰建立檔案的 PGP 透明文字簽名。</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>輸入檔案路徑</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>您要進行透明簽署的檔案路徑。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>私密金鑰檔案路徑</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>用於簽署的 PGP 私密金鑰檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>密碼</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>PGP 私密金鑰的密碼。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>輸出檔路徑</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>用於儲存已進行透明簽署檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>覆寫</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>如果檔案已存在於輸出路徑中，則選取此項會覆寫該檔案。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>透明簽署的檔案</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>透明簽署的檔案作為檔案資源。</value>
     <comment>Property description</comment>
   </data>

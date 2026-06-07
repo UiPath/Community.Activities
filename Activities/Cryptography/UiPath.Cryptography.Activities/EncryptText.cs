@@ -57,6 +57,30 @@ namespace UiPath.Cryptography.Activities
         [Browsable(false)]
         public InArgument<string> KeyEncodingString { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Format_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Format_Description))]
+        [DefaultValue(SymmetricWireFormat.Classic)]
+        public SymmetricWireFormat Format { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_KeyFormat_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_KeyFormat_Description))]
+        [DefaultValue(KeyBytesFormat.Encoded)]
+        public KeyBytesFormat KeyFormat { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Iv_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Iv_Description))]
+        public InArgument<string> Iv { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_KdfIterations_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_KdfIterations_Description))]
+        public InArgument<int> KdfIterations { get; set; }
+
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Result_Description))]
@@ -123,6 +147,11 @@ namespace UiPath.Cryptography.Activities
             if (Algorithm == EncryptionAlgorithm.ChaCha20Poly1305 && !System.Security.Cryptography.ChaCha20Poly1305.IsSupported)
             {
                 metadata.AddValidationError(new ValidationError(Resources.ChaCha20Poly1305NotSupported, isWarning: true, nameof(Algorithm)));
+            }
+
+            if (Iv != null)
+            {
+                metadata.AddValidationError(new ValidationError(Resources.Iv_NonceReuseWarning, isWarning: true, nameof(Iv)));
             }
         }
 
@@ -199,19 +228,30 @@ namespace UiPath.Cryptography.Activities
             var keySecureString = KeySecureString.Get(context);
             var keyEncoding = Encoding.Get(context);
             var keyEncodingString = KeyEncodingString.Get(context);
+            var ivString = Iv?.Get(context);
+            var iterations = KdfIterations?.Get(context) ?? 0;
+
+            SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, null);
 
             if (string.IsNullOrWhiteSpace(key))
             {
                 if (keySecureString == null || keySecureString.Length == 0)
                     throw new ArgumentNullException(nameof(Key), Resources.Activity_EncryptText_Property_Key_Name);
-                key = null; // ensure helper falls back to SecureString
+                key = null;
             }
             if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                 throw new ArgumentNullException(Resources.Encoding);
 
             keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-            var encrypted = CryptographyHelper.EncryptData(Algorithm, keyEncoding.GetBytes(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+            byte[] keyOrPasswordBytes = SymmetricInteropHelper.ParseKeyOrIv(key, keySecureString, KeyFormat, keyEncoding);
+            byte[] ivBytes = SymmetricInteropHelper.ParseKeyOrIv(ivString, null, KeyFormat, keyEncoding);
+
+            if (Format == SymmetricWireFormat.Raw)
+                SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, keyOrPasswordBytes?.Length);
+
+            byte[] encrypted = SymmetricInteropHelper.DispatchEncrypt(
+                Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, keyEncoding.GetBytes(input));
 
             return Convert.ToBase64String(encrypted);
         }

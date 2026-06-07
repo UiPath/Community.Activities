@@ -46,6 +46,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             orderIndex++;
 
             ConfigureAlgorithmAndKeyProperties(ref orderIndex);
+            ConfigureInteropProperties(ref orderIndex);
 
             OutputFilePath.IsPrincipal = false;
             OutputFilePath.IsVisible = true;

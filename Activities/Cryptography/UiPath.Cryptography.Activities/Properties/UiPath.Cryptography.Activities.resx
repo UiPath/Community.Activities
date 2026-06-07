@@ -123,6 +123,9 @@
   <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
     <value>ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later).</value>
   </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>An explicit IV is supplied. Reusing the same (Key, IV) pair across encryptions destroys confidentiality and — under AEAD modes (AES-GCM, ChaCha20-Poly1305) — additionally lets an attacker recover the authentication key and forge arbitrary messages under that key. Ensure each (Key, IV) pair is used at most once, or leave IV empty so a fresh random IV is generated per call.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>
@@ -351,7 +354,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>The key that you want to use to decrypt the specified file.</value>
+    <value>The key that you want to use to decrypt the specified text.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
@@ -519,7 +522,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>The key that you want to use to encrypt the specified file.</value>
+    <value>The key that you want to use to encrypt the specified text.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
@@ -1277,91 +1280,91 @@
     <value>The signed file as a file resource.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
-    <value>PGP Clearsign File</value>
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
+    <value>PGP ClearSign File</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>Creates a PGP clear-text signature of a file using a private key.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>Input file path</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>The path to the file that you want to clearsign.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
     <value>Input file</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
     <value>The resource representing the file to be signed.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Private key file path</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>The path to your own PGP private key file, used to clearsign the data.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>Private key file</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>Your own PGP private key, supplied as a file resource. Used to clearsign the data.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Passphrase</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
     <value>Passphrase (secure)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
     <value>The passphrase, as a secure string, that unlocks your own private key for signing.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>The passphrase that unlocks your own private key for signing.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Output file path</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>The full path, including the file name and extension, where the clearsigned file will be saved.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Overwrite</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>If a file already exists at the output path, selecting this overwrites it.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continue on error</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Specifies if the automation should continue even when the activity throws an error.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
-    <value>Clearsigned file</value>
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+    <value>ClearSigned file</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>The clearsigned file as a file resource.</value>
     <comment>Property description</comment>
   </data>
@@ -1378,7 +1381,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_Mode_Description" xml:space="preserve">
-    <value>Select the type of verification. 'Signed File (Binary)' verifies a binary-signed file. 'Clearsigned File (Text)' verifies a text file with an embedded signature. 'Validate Public Key' checks that a file contains a valid PGP public key.</value>
+    <value>Select the type of verification. 'Signed File (Binary)' verifies a binary-signed file. 'ClearSigned File (Text)' verifies a text file with an embedded signature. 'Validate Public Key' checks that a file contains a valid PGP public key.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Name" xml:space="preserve">
@@ -1386,7 +1389,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Description" xml:space="preserve">
-    <value>The path to the signed file to verify. Required for 'Signed File (Binary)' and 'Clearsigned File (Text)' modes.</value>
+    <value>The path to the signed file to verify. Required for 'Signed File (Binary)' and 'ClearSigned File (Text)' modes.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Name" xml:space="preserve">
@@ -1402,7 +1405,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFile_Description" xml:space="preserve">
-    <value>The file resource that contains the signed content to verify. Required for 'Signed File (Binary)' and 'Clearsigned File (Text)' modes.</value>
+    <value>The file resource that contains the signed content to verify. Required for 'Signed File (Binary)' and 'ClearSigned File (Text)' modes.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFile_Name" xml:space="preserve">
@@ -1441,4 +1444,133 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096-bit RSA</value>
   </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>Wire format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>Output byte layout and key-derivation strategy. See docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Key bytes format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Encoding of the Key (and IV) string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF iterations</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 iteration count, used only for Owasp2026 and OpenSslEnc formats. Pre-filled with the value the format ships with: 1,300,000 for Owasp2026 (PBKDF2-HMAC-SHA1), 600,000 for OpenSslEnc (PBKDF2-HMAC-SHA256). Override only when you need to interop with a peer using a different count. Minimum 1,000. The iteration count is not stored in the wire format — encrypt and decrypt sides must use matching values.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>Wire format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>Input byte layout and key-derivation strategy. Must match the format that produced the ciphertext. See docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Key bytes format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Encoding of the Key string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF iterations</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 iteration count used to derive the key. Must match the value used at encryption time. Pre-filled with the value the chosen format ships with; override to match the producer if it used a different count.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Wire format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Output byte layout and key-derivation strategy. See docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Key bytes format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Encoding of the Key (and IV) string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF iterations</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 iteration count, used only for Owasp2026 and OpenSslEnc formats. Pre-filled with the value the format ships with: 1,300,000 for Owasp2026 (PBKDF2-HMAC-SHA1), 600,000 for OpenSslEnc (PBKDF2-HMAC-SHA256). Override only when you need to interop with a peer using a different count. Minimum 1,000. The iteration count is not stored in the wire format — encrypt and decrypt sides must use matching values.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Wire format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Input byte layout and key-derivation strategy. Must match the format that produced the ciphertext. See docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Key bytes format</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Encoding of the Key string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF iterations</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 iteration count used to derive the key. Must match the value used at encryption time. Pre-filled with the value the chosen format ships with; override to match the producer if it used a different count.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>KDF iterations (PBKDF2-HMAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>KDF iterations (PBKDF2-HMAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>

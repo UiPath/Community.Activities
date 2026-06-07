@@ -1148,67 +1148,67 @@
     <value>Fișierul semnat ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
-    <value>Fișier PGP Clearsign</value>
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
+    <value>Fișier PGP ClearSign</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>Creează o semnătură PGP în text clar pentru un fișier utilizând o cheie privată.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>Calea fișierului Input</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Calea către fișierul pe care doriți să îl semnați cu semnătură clară.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Calea fișierului cheii private</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Calea către fișierul cheie privată PGP folosit pentru semnare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parolă de acces</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>Fraza de acces pentru cheia privată PGP.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Calea fișierului de ieșire</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>Calea unde va fi salvat fișierul semnat clar.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Suprascriere</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Dacă există deja un fișier la calea de output, selectarea acestei opțiuni îl va suprascrie.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continuare la eroare</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>Fișier semnat clar</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Fișierul semnat clar ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
@@ -1225,7 +1225,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_Mode_Description" xml:space="preserve">
-    <value>Selectați tipul de verificare. &apos;Signed File (Binary)&apos; verifică un fișier semnat binar. &apos;Clearsigned File (Text)&apos; verifică un fișier text cu semnătură încorporată. &apos;Validate Public Key&apos; verifică dacă un fișier conține o cheie publică PGP validă.</value>
+    <value>Selectați tipul de verificare. &apos;Signed File (Binary)&apos; verifică un fișier semnat binar. &apos;ClearSigned File (Text)&apos; verifică un fișier text cu semnătură încorporată. &apos;Validate Public Key&apos; verifică dacă un fișier conține o cheie publică PGP validă.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Name" xml:space="preserve">
@@ -1233,7 +1233,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Description" xml:space="preserve">
-    <value>Calea către fișierul semnat care trebuie verificat. Este necesară pentru modurile „Signed File (Binary)” și „Clearsigned File (Text)”.</value>
+    <value>Calea către fișierul semnat care trebuie verificat. Este necesară pentru modurile „Signed File (Binary)” și „ClearSigned File (Text)”.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Name" xml:space="preserve">

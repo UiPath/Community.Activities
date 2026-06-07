@@ -34,7 +34,7 @@ Verifies a PGP signature, a clearsignature, or the structural validity of a publ
 `Mode = Signature` (binary-signed file, produced by `PgpSignFile`):
 - Provide `InputFilePath` and `PublicKeyFilePath` (signer's public key).
 
-`Mode = ClearSignature` (clear-text signed file, produced by `PgpClearsignFile`):
+`Mode = ClearSignature` (clear-text signed file, produced by `PgpClearSignFile`):
 - Provide `InputFilePath` and `PublicKeyFilePath`.
 
 `Mode = PublicKey` (validate that a file is a well-formed public key):

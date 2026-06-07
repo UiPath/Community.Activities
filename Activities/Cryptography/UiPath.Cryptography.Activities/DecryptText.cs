@@ -58,6 +58,24 @@ namespace UiPath.Cryptography.Activities
         [Browsable(false)]
         public InArgument<string> KeyEncodingString { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Format_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Format_Description))]
+        [DefaultValue(SymmetricWireFormat.Classic)]
+        public SymmetricWireFormat Format { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_KeyFormat_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KeyFormat_Description))]
+        [DefaultValue(KeyBytesFormat.Encoded)]
+        public KeyBytesFormat KeyFormat { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_KdfIterations_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KdfIterations_Description))]
+        public InArgument<int> KdfIterations { get; set; }
+
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Result_Description))]
@@ -198,22 +216,31 @@ namespace UiPath.Cryptography.Activities
             var keySecureString = KeySecureString.Get(context);
             var keyEncoding = Encoding.Get(context);
             var keyEncodingString = KeyEncodingString.Get(context);
+            var iterations = KdfIterations?.Get(context) ?? 0;
+
+            SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString: null, iterations, null);
 
             if (string.IsNullOrWhiteSpace(key))
             {
                 if (keySecureString == null || keySecureString.Length == 0)
                     throw new ArgumentNullException(nameof(Key), Resources.Activity_DecryptText_Property_Key_Name);
-                key = null; // ensure helper falls back to SecureString
+                key = null;
             }
             if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
                 throw new ArgumentNullException(Resources.Encoding);
 
             keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
+            byte[] keyOrPasswordBytes = SymmetricInteropHelper.ParseKeyOrIv(key, keySecureString, KeyFormat, keyEncoding);
+
+            if (Format == SymmetricWireFormat.Raw)
+                SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString: null, iterations, keyOrPasswordBytes?.Length);
+
             byte[] decrypted;
             try
             {
-                decrypted = CryptographyHelper.DecryptData(Algorithm, Convert.FromBase64String(input), CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
+                decrypted = SymmetricInteropHelper.DispatchDecrypt(
+                    Algorithm, Format, iterations, keyOrPasswordBytes, Convert.FromBase64String(input));
             }
             catch (CryptographicException ex)
             {
