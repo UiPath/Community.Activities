@@ -1012,75 +1012,75 @@
     <value>서명에 사용되는 PGP 개인 키의 암호 문구입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
     <value>PGP Generate Keys</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
     <value>PGP 공개/개인 키 쌍을 생성하고 지정된 파일 경로에 저장합니다.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
     <value>공개 키 출력 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
     <value>생성된 PGP 공개 키가 저장되는 파일 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>개인 키 출력 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>생성된 PGP 개인 키가 저장되는 파일 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Username_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
     <value>사용자 이름</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Username_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
     <value>생성된 키 쌍과 연결할 사용자 이름(또는 이메일)입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Password_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
     <value>암호 문구</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Password_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
     <value>생성된 개인 키를 보호하기 위한 암호 문구입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
     <value>덮어쓰기</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
     <value>출력 경로에 파일이 이미 존재하는 경우 이 옵션을 선택하면 파일을 덮어씁니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
     <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
     <value>액티비티 패널에 오류가 발생해도 자동화를 계속 진행할지 지정합니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>공개 키 파일</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>파일 리소스로 생성된 공개 키입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>개인 키 파일</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>파일 리소스로 생성된 개인 키입니다.</value>
     <comment>Property description</comment>
   </data>
@@ -1148,67 +1148,67 @@
     <value>파일 리소스로서의 서명된 파일입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
-    <value>PGP Clearsign File</value>
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
+    <value>PGP Clear Sign File</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>개인 키를 사용하여 파일의 PGP 일반 텍스트 서명을 생성합니다.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>입력 파일 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>일반 텍스트 서명을 할 파일의 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>개인 키 파일 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>서명에 사용되는 PGP 개인 키 파일의 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>암호 문구</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>PGP 개인 키의 암호 문구입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>출력 파일 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>일반 텍스트 서명된 파일이 저장되는 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>덮어쓰기</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>출력 경로에 파일이 이미 존재하는 경우 이 옵션을 선택하면 파일을 덮어씁니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>오류 발생시 계속 진행</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>액티비티 패널에 오류가 발생해도 자동화를 계속 진행할지 지정합니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>일반 텍스트 서명된 파일</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>파일 리소스로서의 일반 텍스트 서명된 파일입니다.</value>
     <comment>Property description</comment>
   </data>
