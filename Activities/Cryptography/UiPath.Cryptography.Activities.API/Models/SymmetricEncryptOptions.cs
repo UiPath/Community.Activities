@@ -1,43 +1,42 @@
 namespace UiPath.Cryptography.Activities.API
 {
     /// <summary>
-    /// Optional knobs for symmetric encrypt operations. Default-constructed value
-    /// produces <see cref="SymmetricWireFormat.Classic"/> output with auto-generated IV
-    /// and the format's recommended KDF iterations.
+    /// Options for symmetric encrypt operations. Bundles the key, wire format, and any
+    /// format-specific knobs (IV for <see cref="SymmetricWireFormat.Raw"/>, KDF iterations
+    /// for <see cref="SymmetricWireFormat.Owasp2026"/> / <see cref="SymmetricWireFormat.OpenSslEnc"/>).
+    /// Construct via a format factory; the factory's key parameter type enforces the
+    /// (key kind × wire format) pairing at compile time.
     /// </summary>
-    public sealed class SymmetricEncryptOptions
+    public sealed class SymmetricEncryptOptions : CryptoOptions
     {
-        /// <summary>
-        /// Wire format to produce. Defaults to <see cref="SymmetricWireFormat.Classic"/>
-        /// — the byte-stable UiPath layout PBKDF2-HMAC-SHA1 @ 10 000 iterations.
-        /// </summary>
-        public SymmetricWireFormat Format { get; private init; } = SymmetricWireFormat.Classic;
+        private SymmetricEncryptOptions() { }
 
         /// <summary>
         /// Explicit initialization vector for <see cref="SymmetricWireFormat.Raw"/>.
-        /// Null (default) means generate a random IV. Must be null for all non-Raw formats.
+        /// Null (default) means generate a random IV. Set only by the
+        /// <see cref="Raw(RawKey, byte[])"/> factory.
         /// </summary>
-        public byte[] Iv { get; private init; }
+        public byte[] IV { get; private init; }
 
-        /// <summary>
-        /// PBKDF2 iteration count override for <see cref="SymmetricWireFormat.Owasp2026"/>
-        /// and <see cref="SymmetricWireFormat.OpenSslEnc"/>. Zero (default) uses the
-        /// format's OWASP-recommended value. Must be zero for Classic and Raw.
-        /// </summary>
-        public int KdfIterations { get; private init; }
+        /// <summary>Produces <see cref="SymmetricWireFormat.Classic"/> output — UiPath's frozen, byte-stable layout (PBKDF2-HMAC-SHA1 @ 10 000 iter).</summary>
+        public static SymmetricEncryptOptions Classic(PasswordKey key) =>
+            new() { Key = key, Format = SymmetricWireFormat.Classic };
 
-        /// <summary>Produces <see cref="SymmetricWireFormat.Classic"/> output (UiPath's frozen, byte-stable layout).</summary>
-        public static SymmetricEncryptOptions Classic() =>
-            new() { Format = SymmetricWireFormat.Classic };
-
-        /// <summary>Produces <see cref="SymmetricWireFormat.Owasp2026"/> output (Classic layout, OWASP-recommended PBKDF2-HMAC-SHA1 iterations).</summary>
-        /// <param name="kdfIterations">Optional override. Zero uses 1,300,000 (OWASP 2026 recommendation).</param>
-        public static SymmetricEncryptOptions Owasp2026(int kdfIterations = 0) =>
-            new() { Format = SymmetricWireFormat.Owasp2026, KdfIterations = kdfIterations };
+        /// <summary>Produces <see cref="SymmetricWireFormat.Owasp2026"/> output (Classic wire layout, PBKDF2-HMAC-SHA1).</summary>
+        /// <param name="key">Password material; PBKDF2 stretches it to the cipher key.</param>
+        /// <param name="kdfIterations">
+        /// PBKDF2 iteration count. Defaults to <c>1_300_000</c> — the OWASP 2026 recommendation
+        /// for PBKDF2-HMAC-SHA1. The literal is part of the year-snapshot contract: if OWASP
+        /// revises the recommendation, this package adds a new <see cref="SymmetricWireFormat"/>
+        /// entry (e.g. <c>Owasp2030</c>) rather than changing this default.
+        /// </param>
+        public static SymmetricEncryptOptions Owasp2026(PasswordKey key, int kdfIterations = 1_300_000) =>
+            new() { Key = key, Format = SymmetricWireFormat.Owasp2026, KdfIterations = kdfIterations };
 
         /// <summary>
         /// Produces <see cref="SymmetricWireFormat.Raw"/> output (caller-supplied key + IV, no KDF).
         /// </summary>
+        /// <param name="key">Literal cipher key of the algorithm's required size (e.g. 32 bytes for AES-256).</param>
         /// <param name="iv">
         /// Optional explicit IV. Null (the default) lets the cipher generate one.
         /// <para>
@@ -49,12 +48,19 @@ namespace UiPath.Cryptography.Activities.API
         /// third-party protocol mandates it, and ensure your producer guarantees uniqueness.
         /// </para>
         /// </param>
-        public static SymmetricEncryptOptions Raw(byte[] iv = null) =>
-            new() { Format = SymmetricWireFormat.Raw, Iv = iv };
+        public static SymmetricEncryptOptions Raw(RawKey key, byte[] iv = null) =>
+            new() { Key = key, Format = SymmetricWireFormat.Raw, IV = iv };
 
         /// <summary>Produces <see cref="SymmetricWireFormat.OpenSslEnc"/> output (<c>openssl enc</c>-compatible, PBKDF2-HMAC-SHA256).</summary>
-        /// <param name="kdfIterations">Optional override. Zero uses 600,000 (OWASP 2026 recommendation for SHA-256).</param>
-        public static SymmetricEncryptOptions OpenSslEnc(int kdfIterations = 0) =>
-            new() { Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations };
+        /// <param name="key">Password material; PBKDF2-SHA256 stretches it to key+IV.</param>
+        /// <param name="kdfIterations">
+        /// PBKDF2 iteration count. Defaults to <c>600_000</c> — the OWASP 2026 recommendation
+        /// for PBKDF2-HMAC-SHA256. (Note: <c>openssl enc</c>'s own default is 10 000 for
+        /// back-compat; the OWASP-aligned default produces stronger output but is still
+        /// decryptable by <c>openssl enc -pbkdf2 -iter 600000 -md sha256</c>.) Pass <c>10_000</c>
+        /// to match the openssl back-compat default explicitly.
+        /// </param>
+        public static SymmetricEncryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000) =>
+            new() { Key = key, Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations };
     }
 }

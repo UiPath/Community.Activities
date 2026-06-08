@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -45,9 +44,6 @@ namespace UiPath.Cryptography
         // constants, so existing workflows keep producing byte-stable output.
         private const int OwaspIterations_Sha1 = 1_300_000;
         private const int OwaspIterations_Sha256 = 600_000;
-
-        // NIST SP 800-132 effective minimum. Anything below is meaningless against modern attackers.
-        private const int MinKdfIterations = 1000;
 
         // "Salted__" magic prefix used by openssl enc.
         private static readonly byte[] OpenSslMagic = new byte[] { 0x53, 0x61, 0x6C, 0x74, 0x65, 0x64, 0x5F, 0x5F };

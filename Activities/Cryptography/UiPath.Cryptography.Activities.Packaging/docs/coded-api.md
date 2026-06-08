@@ -26,8 +26,8 @@ UiPath.Cryptography.Enums
 The `cryptography` service exposes all operations as **direct method calls** — there is no connection, handle, or scope to open. Call methods on the service accessor directly:
 
 ```csharp
-var key = CryptoKey.FromPassword("mykey", Encoding.UTF8);
-var ciphertext = cryptography.EncryptText("secret", EncryptionAlgorithm.AESGCM, key);
+var key = PasswordKey.FromPassword("mykey", Encoding.UTF8);
+var ciphertext = cryptography.EncryptText("secret", EncryptionAlgorithm.AESGCM, SymmetricEncryptOptions.Classic(key));
 ```
 
 ### Bytes / Text / File matrix
@@ -40,30 +40,41 @@ Every logical operation exposes three input/output forms — pick the one that m
 | **Text**  | `...Text` | `string` → `string` (Base64 / ASCII-armored) | Data arriving as text (HTTP, config, env) |
 | **File**  | `...File` | file path → file path | Data lives on disk |
 
-### Key material — `CryptoKey`
+### Key material — `PasswordKey` and `RawKey`
 
-Every symmetric and keyed-hash method takes a `CryptoKey`. Construct one via a factory method depending on what you have:
+Symmetric and keyed-hash operations take key material as one of two concrete `CryptoKey` subtypes. The class you pick determines which wire formats the key can be used with — and the type system enforces that at compile time via the format factories below.
+
+**`PasswordKey`** — password material to be PBKDF2-stretched into a cipher key. Used with the `Classic`, `Owasp2026`, and `OpenSslEnc` wire formats.
 
 | Factory | Purpose |
 |---------|---------|
-| `CryptoKey.FromPassword(string password, Encoding encoding)` | Password / passphrase as a `string`. PBKDF2 derives the cipher key. |
-| `CryptoKey.FromPassword(SecureString password, Encoding encoding)` | Same as above, sourced from a secret store or user input. |
-| `CryptoKey.FromRawBytes(byte[] keyBytes)` | A literal cipher key already loaded as bytes. Use with `SymmetricWireFormat.Raw`. |
-| `CryptoKey.FromHexString(string hex)` | A literal cipher key encoded as hex. Use with `SymmetricWireFormat.Raw`. |
-| `CryptoKey.FromBase64String(string base64)` | A literal cipher key encoded as Base64. Use with `SymmetricWireFormat.Raw`. |
+| `PasswordKey.FromPassword(string password, Encoding encoding)` | Password / passphrase as a `string`. |
+| `PasswordKey.FromPassword(SecureString password, Encoding encoding)` | Same, sourced from a secret store or user input. |
 
-`FromPassword` is required for the password-based formats (`Classic`, `Owasp2026`, `OpenSslEnc`). `FromRawBytes` / `FromHexString` / `FromBase64String` are required for `Raw`. The service rejects the wrong combination with an `ArgumentException`.
+`PasswordKey` stores the password internally as a `SecureString` (the `string` factory copies the input characters into one) and materialises the cipher-key bytes **just-in-time** on each encrypt/decrypt operation — the bytes live only on the operation's stack frame, never pinned to the `PasswordKey` instance. The intermediate unmanaged Unicode buffer and `char[]` are zeroed after each materialisation. `PasswordKey` is `IDisposable`: calling `Dispose()` eagerly zeroes the protected SecureString buffer and nulls the stored reference, and subsequent `KeyBytes` access throws `ObjectDisposedException` — recommended for long-lived workflows.
+
+**`RawKey`** — a literal cipher key of the algorithm's exact required length (e.g. 32 bytes for AES-256). Used with the `Raw` wire format. No KDF. `IDisposable`: calling `Dispose()` zeroes the held key bytes in place and subsequent `KeyBytes` access throws `ObjectDisposedException`, so a stale reference cannot silently encrypt with an all-zero key.
+
+| Factory | Purpose |
+|---------|---------|
+| `RawKey.FromBytes(byte[] keyBytes)` | A key already loaded as bytes. |
+| `RawKey.FromHex(string hex)` | A key encoded as hex. |
+| `RawKey.FromBase64(string base64)` | A key encoded as Base64. |
+
+Keyed-hash methods accept either subtype (they take `CryptoKey` directly — no wire-format axis).
 
 ### Symmetric wire format — `SymmetricEncryptOptions` / `SymmetricDecryptOptions`
 
-All symmetric methods default to `SymmetricWireFormat.Classic` — the byte-stable UiPath layout (`salt(8) ‖ IV ‖ ct [‖ tag(16)]`, PBKDF2-HMAC-SHA1 @ 10 000 iterations). Pass an options instance to opt into a different format:
+The options object bundles the key, wire format, and any format-specific knobs (IV for `Raw`, KDF iterations for `Owasp2026` / `OpenSslEnc`). Construct via a format factory — the factory's key-parameter type enforces the (key kind × wire format) pairing at compile time, so a `PasswordKey` cannot be passed to `Raw(...)` and a `RawKey` cannot be passed to `Classic(...)` etc.
 
-| Factory | Format | Notes |
-|---------|--------|-------|
-| `SymmetricEncryptOptions.Classic()` / `SymmetricDecryptOptions.Classic()` | `Classic` | Default. Frozen wire format for back-compat. |
-| `SymmetricEncryptOptions.Owasp2026(int kdfIterations = 0)` | `Owasp2026` | Same wire layout as Classic; caller-controlled iter count (default: 1 300 000). |
-| `SymmetricEncryptOptions.Raw(byte[] iv = null)` / `SymmetricDecryptOptions.Raw()` | `Raw` | Caller-supplied key + IV. Third-party interop. |
-| `SymmetricEncryptOptions.OpenSslEnc(int kdfIterations = 0)` | `OpenSslEnc` | `openssl enc`-compatible (`Salted__` magic + PBKDF2-HMAC-SHA256). Default iter: 600 000. |
+| Factory | Format | Key type accepted | Notes |
+|---------|--------|------------------|-------|
+| `SymmetricEncryptOptions.Classic(PasswordKey key)` / `SymmetricDecryptOptions.Classic(PasswordKey key)` | `Classic` | `PasswordKey` | Default. Frozen wire format for back-compat (PBKDF2-HMAC-SHA1 @ 10 000 iter). |
+| `SymmetricEncryptOptions.Owasp2026(PasswordKey key, int kdfIterations = 1_300_000)` | `Owasp2026` | `PasswordKey` | Same wire layout as Classic with PBKDF2-HMAC-SHA1 at OWASP 2026's recommended iteration count. |
+| `SymmetricEncryptOptions.Raw(RawKey key, byte[] iv = null)` / `SymmetricDecryptOptions.Raw(RawKey key)` | `Raw` | `RawKey` | Caller-supplied key + IV. Third-party interop. |
+| `SymmetricEncryptOptions.OpenSslEnc(PasswordKey key, int kdfIterations = 600_000)` | `OpenSslEnc` | `PasswordKey` | `openssl enc`-compatible (`Salted__` magic + PBKDF2-HMAC-SHA256). |
+
+The decrypt factories take the same shape (no `IV` on the decrypt side — the IV is read from the ciphertext stream automatically).
 
 See [`docs/symmetric-wire-format.md`](../../docs/symmetric-wire-format.md) for the full byte layouts and third-party interop reference.
 
@@ -75,7 +86,7 @@ All symmetric encrypt methods are **non-deterministic by default**: a fresh rand
 - **AES-GCM** (`AESGCM`) — AEAD with random 96-bit nonce and 128-bit auth tag. **Recommended for new workflows.**
 - **ChaCha20-Poly1305** (`ChaCha20Poly1305`) — AEAD alternative to AES-GCM.
 
-For `Raw`, you may supply an explicit IV via `SymmetricEncryptOptions.Raw(iv)`; pass `null` (the factory default) to let the cipher generate one.
+For `Raw`, you may supply an explicit IV via `SymmetricEncryptOptions.Raw(key, iv)`; pass `null` (the factory default) to let the cipher generate one.
 
 ### PGP key material — `PgpPublicKey` / `PgpPrivateKey` / `PgpKeyPair`
 
@@ -102,19 +113,19 @@ Passing a `PgpPrivateKey` to an encrypt method implies signing; passing a `PgpPu
 
 ## Symmetric Encryption
 
-### `byte[] EncryptBytes(byte[] input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricEncryptOptions options = null)`
+### `byte[] EncryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)`
 
-Encrypts arbitrary bytes. With the default `options`, produces a `Classic` blob (salt + IV + ct prepended).
+Encrypts arbitrary bytes. The `options` parameter carries the key + wire format; construct via a `SymmetricEncryptOptions.<Format>(key, ...)` factory.
 
 **Returns:** `byte[]` — ciphertext per the chosen wire format.
 
-### `string EncryptText(string input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricEncryptOptions options = null)`
+### `string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)`
 
 Encrypts a string and returns the result as Base64-encoded ciphertext. **The input is always transcoded with UTF-8** — there is no encoding parameter. For non-UTF-8 text, transcode at the call site and use `EncryptBytes`.
 
 **Returns:** `string` — Base64-encoded ciphertext.
 
-### `void EncryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricEncryptOptions options = null, bool overwrite = false)`
+### `void EncryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options, bool overwrite = false)`
 
 Reads a file, encrypts it, and writes the result. Throws `InvalidOperationException` if `outputPath` exists and `overwrite` is false.
 
@@ -122,17 +133,17 @@ Reads a file, encrypts it, and writes the result. Throws `InvalidOperationExcept
 
 ## Symmetric Decryption
 
-### `byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricDecryptOptions options = null)`
+### `byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)`
 
 Decrypts ciphertext produced by `EncryptBytes`. `options.Format` must match the format used at encrypt time.
 
 **Returns:** `byte[]` — plaintext bytes.
 
-### `string DecryptText(string input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricDecryptOptions options = null)`
+### `string DecryptText(string input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)`
 
 Decrypts a Base64-encoded ciphertext produced by `EncryptText` and returns the plaintext. **The plaintext bytes are always decoded with UTF-8** — there is no encoding parameter. For non-UTF-8 text, use `DecryptBytes` and decode at the call site.
 
-### `void DecryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricDecryptOptions options = null, bool overwrite = false)`
+### `void DecryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options, bool overwrite = false)`
 
 Reads an encrypted file and writes the plaintext. Throws `InvalidOperationException` if `outputPath` exists and `overwrite` is false.
 
@@ -304,12 +315,12 @@ Used by `PgpGenerateKeys`.
 [Workflow]
 public void Execute()
 {
-    var key = CryptoKey.FromPassword("MySecretKey123!", Encoding.UTF8);
+    var key = PasswordKey.FromPassword("MySecretKey123!", Encoding.UTF8);
 
-    var ciphertext = cryptography.EncryptText("Sensitive data", EncryptionAlgorithm.AESGCM, key);
+    var ciphertext = cryptography.EncryptText("Sensitive data", EncryptionAlgorithm.AESGCM, SymmetricEncryptOptions.Classic(key));
     Log($"Encrypted: {ciphertext}");
 
-    var plaintext = cryptography.DecryptText(ciphertext, EncryptionAlgorithm.AESGCM, key);
+    var plaintext = cryptography.DecryptText(ciphertext, EncryptionAlgorithm.AESGCM, SymmetricDecryptOptions.Classic(key));
     Log($"Decrypted: {plaintext}");
 }
 ```
@@ -321,23 +332,21 @@ public void Execute()
 public void Execute()
 {
     // 32 bytes → AES-256
-    byte[] rawKey = Convert.FromBase64String("your-base64-encoded-32-byte-key==");
-    byte[] iv     = Convert.FromHexString("a3f1b2c4d5e6f70819a0b1c2d3e4f506");
+    byte[] rawKeyBytes = Convert.FromBase64String("your-base64-encoded-32-byte-key==");
+    byte[] iv          = Convert.FromHexString("a3f1b2c4d5e6f70819a0b1c2d3e4f506");
 
-    var key = CryptoKey.FromRawBytes(rawKey);
+    var key = RawKey.FromBytes(rawKeyBytes);
 
     byte[] cipher = cryptography.EncryptBytes(
         Encoding.UTF8.GetBytes("payload"),
         EncryptionAlgorithm.AESGCM,
-        key,
-        SymmetricEncryptOptions.Raw(iv));
+        SymmetricEncryptOptions.Raw(key, iv));
 
     // Decrypt — IV is read from the ciphertext stream prefix; no need to pass it again.
     byte[] plain = cryptography.DecryptBytes(
         cipher,
         EncryptionAlgorithm.AESGCM,
-        key,
-        SymmetricDecryptOptions.Raw());
+        SymmetricDecryptOptions.Raw(key));
 }
 ```
 
@@ -348,14 +357,13 @@ public void Execute()
 public void Execute()
 {
     // openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -md sha256 -salt -k password -in plain.txt -out cipher.bin
-    var key = CryptoKey.FromPassword("password", Encoding.UTF8);
+    var key = PasswordKey.FromPassword("password", Encoding.UTF8);
 
     cryptography.DecryptFile(
         inputPath:  @"C:\Documents\cipher.bin",
         outputPath: @"C:\Documents\plain.txt",
         algorithm:  EncryptionAlgorithm.AES,
-        key:        key,
-        options:    SymmetricDecryptOptions.OpenSslEnc(),
+        options:    SymmetricDecryptOptions.OpenSslEnc(key),
         overwrite:  true);
 }
 ```
@@ -366,21 +374,19 @@ public void Execute()
 [Workflow]
 public void Execute()
 {
-    var key = CryptoKey.FromPassword("MySecretKey", Encoding.UTF8);
+    var key = PasswordKey.FromPassword("MySecretKey", Encoding.UTF8);
 
-    // Owasp2026() with default kdfIterations = 0 uses the OWASP recommendation (1,300,000).
+    // Owasp2026(key) defaults to kdfIterations = 1_300_000 (the OWASP 2026 recommendation, inlined in the factory signature).
     var ciphertext = cryptography.EncryptBytes(
         Encoding.UTF8.GetBytes("payload"),
         EncryptionAlgorithm.AESGCM,
-        key,
-        SymmetricEncryptOptions.Owasp2026());
+        SymmetricEncryptOptions.Owasp2026(key));
 
     // Decrypt must use the same iteration count — Owasp2026 does not store it in the wire format.
     byte[] plain = cryptography.DecryptBytes(
         ciphertext,
         EncryptionAlgorithm.AESGCM,
-        key,
-        SymmetricDecryptOptions.Owasp2026());
+        SymmetricDecryptOptions.Owasp2026(key));
 }
 ```
 
@@ -391,8 +397,9 @@ public void Execute()
 public void Execute()
 {
     byte[] hmacKey = Convert.FromBase64String("your-base64-hmac-key==");
-    var key = CryptoKey.FromRawBytes(hmacKey);
+    var key = RawKey.FromBytes(hmacKey);
 
+    // Keyed-hash methods take a CryptoKey directly — no options object (no wire-format axis).
     var digest = cryptography.KeyedHashText("payload to verify", KeyedHashAlgorithms.HMACSHA256, key);
     Log($"HMAC-SHA256: {digest}");
 }

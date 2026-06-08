@@ -13,49 +13,47 @@ namespace UiPath.Cryptography.Activities.API
     {
         // ── Symmetric ─────────────────────────────────────────────────────────
 
-        public byte[] EncryptBytes(byte[] input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricEncryptOptions options = null)
+        public byte[] EncryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(key);
-            options ??= new SymmetricEncryptOptions();
-            ValidateSymmetricEncrypt(algorithm, key, options);
-            return SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, key.KeyBytes, options.Iv, input);
+            ArgumentNullException.ThrowIfNull(options);
+            ValidateSymmetric(algorithm, options, options.IV);
+            return SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, options.Key.KeyBytes, options.IV, input);
         }
 
-        public byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricDecryptOptions options = null)
+        public byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(key);
-            options ??= new SymmetricDecryptOptions();
-            ValidateSymmetricDecrypt(algorithm, key, options);
-            return SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, key.KeyBytes, input);
+            ArgumentNullException.ThrowIfNull(options);
+            ValidateSymmetric(algorithm, options, iv: null);
+            return SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, options.Key.KeyBytes, input);
         }
 
-        public string EncryptText(string input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricEncryptOptions options = null)
+        public string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            byte[] cipher = EncryptBytes(Encoding.UTF8.GetBytes(input), algorithm, key, options);
+            byte[] cipher = EncryptBytes(Encoding.UTF8.GetBytes(input), algorithm, options);
             return Convert.ToBase64String(cipher);
         }
 
-        public string DecryptText(string input, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricDecryptOptions options = null)
+        public string DecryptText(string input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            byte[] plain = DecryptBytes(Convert.FromBase64String(input), algorithm, key, options);
+            byte[] plain = DecryptBytes(Convert.FromBase64String(input), algorithm, options);
             return Encoding.UTF8.GetString(plain);
         }
 
-        public void EncryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricEncryptOptions options = null, bool overwrite = false)
+        public void EncryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options, bool overwrite = false)
         {
             ThrowIfFilePathMissing(inputPath, nameof(inputPath));
-            byte[] cipher = EncryptBytes(File.ReadAllBytes(inputPath), algorithm, key, options);
+            byte[] cipher = EncryptBytes(File.ReadAllBytes(inputPath), algorithm, options);
             WriteFile(outputPath, cipher, overwrite);
         }
 
-        public void DecryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, CryptoKey key, SymmetricDecryptOptions options = null, bool overwrite = false)
+        public void DecryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options, bool overwrite = false)
         {
             ThrowIfFilePathMissing(inputPath, nameof(inputPath));
-            byte[] plain = DecryptBytes(File.ReadAllBytes(inputPath), algorithm, key, options);
+            byte[] plain = DecryptBytes(File.ReadAllBytes(inputPath), algorithm, options);
             WriteFile(outputPath, plain, overwrite);
         }
 
@@ -298,17 +296,16 @@ namespace UiPath.Cryptography.Activities.API
 
         // ── Private helpers ───────────────────────────────────────────────────
 
-        private static void ValidateSymmetricEncrypt(EncryptionAlgorithm algorithm, CryptoKey key, SymmetricEncryptOptions options)
+        // Defence-in-depth runtime validation. The (key kind × wire format) pairing is already
+        // enforced at compile time by the typed factory parameters on SymmetricEncryptOptions /
+        // SymmetricDecryptOptions; this still catches KDF-iteration-out-of-bounds, raw-key
+        // length mismatch, and (encrypt) IV-on-non-Raw-format. iv is null for decrypt.
+        private static void ValidateSymmetric(EncryptionAlgorithm algorithm, CryptoOptions options, byte[] iv)
         {
-            string ivSentinel = options.Iv != null && options.Iv.Length > 0 ? "set" : null;
+            CryptoKey key = options.Key ?? throw new ArgumentException("Options must carry a key (construct via a format factory).", nameof(options));
+            string ivSentinel = iv != null && iv.Length > 0 ? "set" : null;
             int? rawKeyLength = key.IsRawKey ? key.KeyBytes.Length : (int?)null;
-            SymmetricInteropHelper.ValidateInteropSettings(algorithm, options.Format, key.AsKeyBytesFormat(), ivSentinel, options.KdfIterations, rawKeyLength);
-        }
-
-        private static void ValidateSymmetricDecrypt(EncryptionAlgorithm algorithm, CryptoKey key, SymmetricDecryptOptions options)
-        {
-            int? rawKeyLength = key.IsRawKey ? key.KeyBytes.Length : (int?)null;
-            SymmetricInteropHelper.ValidateInteropSettings(algorithm, options.Format, key.AsKeyBytesFormat(), ivString: null, options.KdfIterations, rawKeyLength);
+            SymmetricInteropHelper.ValidateInteropSettings(algorithm, options.Format, key.BytesFormat, ivSentinel, options.KdfIterations, rawKeyLength);
         }
 
         private static string ComputeHashHex(KeyedHashAlgorithms algorithm, byte[] inputBytes, byte[] keyBytes)
