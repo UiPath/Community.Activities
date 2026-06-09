@@ -74,14 +74,15 @@ jobs:
         echo "Robot container not found." > "$DST/no-logs.txt"
         exit 0
       fi
-      if docker exec "$CID" test -d /home/robotuser/.local/share/UiPath/Logs; then
-        if docker cp "$CID:/home/robotuser/.local/share/UiPath/Logs/." "$DST"; then
-          echo "Copied robot logs from container to $DST"
+      if docker cp "$CID:/home/robotuser/.local/share/UiPath/Logs/." "$DST"; then
+        if [ -z "$(find "$DST" -type f -print -quit)" ]; then
+          echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST succeeded but staged no files (the container log directory was empty)." > "$DST/no-logs.txt"
+          echo "Container log directory was empty; wrote placeholder."
         else
-          echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST failed." > "$DST/no-logs.txt"
+          echo "Copied robot logs from container to $DST"
         fi
       else
-        echo "Robot log directory /home/robotuser/.local/share/UiPath/Logs does not exist in the container." > "$DST/no-logs.txt"
+        echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST failed (the log directory may not exist in the container, or docker cp failed for another reason)." > "$DST/no-logs.txt"
       fi
     displayName: 'Stage robot logs'
     condition: always()

@@ -99,6 +99,9 @@ jobs:
         if ($copyErrors) {
           "Copy-Item from $src to $dst encountered errors: $($copyErrors -join '; ')" | Out-File "$dst\no-logs.txt"
           Write-Host "Copy-Item from $src to $dst encountered errors; wrote details to no-logs.txt."
+        } elseif ((Get-ChildItem -Path $dst -Recurse -File | Measure-Object).Count -eq 0) {
+          "Source directory $src exists but contains no files; nothing was staged." | Out-File "$dst\no-logs.txt"
+          Write-Host "Source directory $src was empty; wrote placeholder."
         } else {
           Write-Host "Copied robot logs from $src to $dst"
         }
