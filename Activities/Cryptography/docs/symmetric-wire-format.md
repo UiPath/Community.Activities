@@ -378,7 +378,7 @@ as `InvalidOperationException` with a localized message):
 | `Format ∈ {Classic, Owasp2026, OpenSslEnc}` + `KeyFormat ≠ Encoded` | Password-based formats use Encoding.   |
 | `Iv` set + `Format ≠ Raw`                                        | Other formats embed IV in the stream.  |
 | `KdfIterations ≠ 0` + `Format ∈ {Classic, Raw}`                  | Classic's iteration count is fixed; Raw has no KDF. |
-| `0 < KdfIterations < 1000`                                       | Below NIST floor.                      |
+| `KdfIterations < 0`, or `0 < KdfIterations < 1000`               | Below NIST floor. Only `0` (the sentinel for "use the format's shipped value") is accepted under the floor. |
 | `Format = Raw` + raw key length not legal for the algorithm      | E.g. AES needs 16/24/32 bytes.         |
 
 ## Obsolete algorithms
