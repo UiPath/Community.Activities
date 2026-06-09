@@ -194,12 +194,34 @@ namespace UiPath.Cryptography.Activities.API.Tests
             {
                 File.WriteAllBytes(signedPath, signedBytes);
 
-                // gpg --verify exits 0 on a good signature; throws on non-zero.
-                GpgCli.Run(_gpg.HomeDir,
-                    "--batch --pinentry-mode loopback",
-                    $"--passphrase {PgpKeyFixture.Passphrase}",
-                    "--verify",
-                    $"\"{GpgCli.NormalisePath(signedPath)}\"");
+                // gpg --verify exits 0 on a valid signature, non-zero on bad/missing.
+                // GpgCli.Run throws on non-zero; the explicit Should.NotThrow makes the
+                // assertion visible to readers and stays correct if Run's error-handling
+                // contract ever changes (e.g. to log-and-continue).
+                Should.NotThrow(() =>
+                    GpgCli.Run(_gpg.HomeDir,
+                        "--batch --pinentry-mode loopback",
+                        $"--passphrase {PgpKeyFixture.Passphrase}",
+                        "--verify",
+                        $"\"{GpgCli.NormalisePath(signedPath)}\""));
+
+                // Negative side of the same assertion: tamper the signed bytes and confirm
+                // gpg rejects them. Without this, a future GpgCli.Run that silently
+                // swallowed non-zero exits would still pass the positive test above.
+                byte[] tampered = (byte[])signedBytes.Clone();
+                tampered[tampered.Length / 2] ^= 0x01;
+                string tamperedPath = NewTempPath();
+                try
+                {
+                    File.WriteAllBytes(tamperedPath, tampered);
+                    Should.Throw<InvalidOperationException>(() =>
+                        GpgCli.Run(_gpg.HomeDir,
+                            "--batch --pinentry-mode loopback",
+                            $"--passphrase {PgpKeyFixture.Passphrase}",
+                            "--verify",
+                            $"\"{GpgCli.NormalisePath(tamperedPath)}\""));
+                }
+                finally { Cleanup(tamperedPath); }
             }
             finally { Cleanup(signedPath); }
         }
@@ -226,11 +248,31 @@ namespace UiPath.Cryptography.Activities.API.Tests
                 // ("gpg: no signed data" / "can't hash datafile: No data").
                 File.WriteAllText(signedPath, clearSigned, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
 
-                GpgCli.Run(_gpg.HomeDir,
-                    "--batch --pinentry-mode loopback",
-                    $"--passphrase {PgpKeyFixture.Passphrase}",
-                    "--verify",
-                    $"\"{GpgCli.NormalisePath(signedPath)}\"");
+                // gpg --verify exits 0 on a valid cleartext signature; GpgCli.Run throws on
+                // non-zero. Should.NotThrow makes the assertion explicit.
+                Should.NotThrow(() =>
+                    GpgCli.Run(_gpg.HomeDir,
+                        "--batch --pinentry-mode loopback",
+                        $"--passphrase {PgpKeyFixture.Passphrase}",
+                        "--verify",
+                        $"\"{GpgCli.NormalisePath(signedPath)}\""));
+
+                // Tamper the plaintext line of the clearsigned message — the signature
+                // covers it, so gpg must reject. Without this negative case, a future
+                // GpgCli.Run that swallowed errors would still pass the positive test.
+                string tampered = clearSigned.Replace(Plaintext, Plaintext + "x");
+                string tamperedPath = NewTempPath();
+                try
+                {
+                    File.WriteAllText(tamperedPath, tampered, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+                    Should.Throw<InvalidOperationException>(() =>
+                        GpgCli.Run(_gpg.HomeDir,
+                            "--batch --pinentry-mode loopback",
+                            $"--passphrase {PgpKeyFixture.Passphrase}",
+                            "--verify",
+                            $"\"{GpgCli.NormalisePath(tamperedPath)}\""));
+                }
+                finally { Cleanup(tamperedPath); }
             }
             finally { Cleanup(signedPath); }
         }

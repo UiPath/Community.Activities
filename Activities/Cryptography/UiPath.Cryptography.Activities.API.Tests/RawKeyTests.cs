@@ -54,7 +54,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         {
             RawKey key = RawKey.FromBytes(new byte[32]);
             key.Dispose();
-            key.Dispose();
+            Should.NotThrow(() => key.Dispose());
         }
 
         // RawKey.KeyBytes returns a reference to the instance's own storage, NOT a fresh copy.

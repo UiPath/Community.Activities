@@ -106,7 +106,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         {
             PasswordKey key = PasswordKey.FromPassword("idempotent", Encoding.UTF8);
             key.Dispose();
-            key.Dispose(); // second call must not throw
+            Should.NotThrow(() => key.Dispose());
         }
 
         // ReleaseMaterialisedBytes zeroes the buffer so the freshly-allocated password bytes
