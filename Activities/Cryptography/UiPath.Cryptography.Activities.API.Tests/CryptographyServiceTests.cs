@@ -59,7 +59,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         // Symmetric Encrypt / Decrypt — Bytes form, PasswordKey + RawKey
         // ═══════════════════════════════════════════════════════════════════════
 
-        public static TheoryData<EncryptionAlgorithm, string> AlgorithmsForPasswordKey = new()
+        public static TheoryData<EncryptionAlgorithm, string> AlgorithmsForPasswordKey { get; } = new()
         {
             { EncryptionAlgorithm.AES, "string" },
             { EncryptionAlgorithm.AES, "secure" },
