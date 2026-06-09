@@ -1012,75 +1012,75 @@
     <value>La contraseña para la clave privada PGP utilizada para firmar.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
     <value>Generar claves PGP</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
     <value>Genera claves públicas/privadas PGP y las guarda en las rutas de archivo especificadas.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
     <value>Ruta de salida de clave pública</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
     <value>La ruta del archivo donde se guardará la clave pública PGP generada.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Ruta de salida de clave privada</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>La ruta del archivo donde se guardará la clave privada PGP generada.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Username_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
     <value>Nombre de usuario</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Username_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
     <value>El nombre de usuario (o correo electrónico) con el que asociar las claves generadas.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Password_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
     <value>Contraseña</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Password_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
     <value>La contraseña para proteger la clave privada generada.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
     <value>Sobrescribir</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
     <value>Si los archivos ya existen en las rutas de salida, seleccionar esta opción los sobrescribirá.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continuar en caso de error</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Especifique si la automatización debe continuar aunque la actividad arroje un error.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Archivo de clave pública</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>La clave pública generada como recurso de archivo.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>Archivo de clave privada</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>La clave privada generada como recurso de archivo.</value>
     <comment>Property description</comment>
   </data>

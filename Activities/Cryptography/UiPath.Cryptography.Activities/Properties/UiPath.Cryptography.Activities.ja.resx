@@ -1012,75 +1012,75 @@
     <value>署名に使用される PGP 秘密キーのパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
     <value>PGP キーを生成</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
     <value>PGP 公開キーと秘密キーのペアを生成し、指定したファイル パスに保存します。(PGP Generate Keys)</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
     <value>公開キーの出力パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
     <value>生成される PGP 公開キーの保存先ファイル パスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>秘密キーの出力パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>生成される PGP 秘密キーの保存先ファイル パスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Username_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
     <value>ユーザー名</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Username_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
     <value>生成されるキーのペアに関連付けるユーザー名 (またはメール アドレス) です。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Password_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Password_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
     <value>生成される秘密キーを保護するためのパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
     <value>上書き</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
     <value>これを選択すると、出力パスにすでにファイルが存在する場合は上書きされます。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
     <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開キー ファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>ファイル リソースとして生成される公開キーです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>秘密キー ファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>ファイル リソースとして生成される秘密キーです。</value>
     <comment>Property description</comment>
   </data>
@@ -1153,7 +1153,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
-    <value>秘密キーを使用して、ファイルの PGP クリア テキスト署名を作成します。(PGP ClearSign File)</value>
+    <value>秘密キーを使用して、ファイルの PGP クリア テキスト署名を作成します。(PGP Clear Sign File)</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
