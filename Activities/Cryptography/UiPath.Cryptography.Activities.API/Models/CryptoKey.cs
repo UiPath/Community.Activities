@@ -24,5 +24,14 @@ namespace UiPath.Cryptography.Activities.API
         internal abstract bool IsRawKey { get; }
 
         internal abstract KeyBytesFormat BytesFormat { get; }
+
+        /// <summary>
+        /// Release a buffer that <see cref="KeyBytes"/> handed out for a single operation. Default
+        /// is a no-op: <see cref="RawKey"/> returns its instance-owned storage, and clearing it
+        /// per call would corrupt the key. <see cref="PasswordKey"/> overrides this to zero the
+        /// returned buffer eagerly, so freshly-materialised password bytes do not linger on the
+        /// managed heap between operations.
+        /// </summary>
+        internal virtual void ReleaseMaterialisedBytes(byte[] bytes) { }
     }
 }

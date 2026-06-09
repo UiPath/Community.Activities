@@ -109,6 +109,45 @@ namespace UiPath.Cryptography.Activities.API.Tests
             key.Dispose(); // second call must not throw
         }
 
+        // ReleaseMaterialisedBytes zeroes the buffer so the freshly-allocated password bytes
+        // do not linger on the managed heap. Pinned to guard against a future refactor that
+        // accidentally removes the override (which would silently reintroduce the heap-residency bug).
+        [Fact]
+        public void ReleaseMaterialisedBytes_ZeroesTheBuffer()
+        {
+            PasswordKey key = PasswordKey.FromPassword("doesn't matter", Encoding.UTF8);
+            byte[] buffer = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            key.ReleaseMaterialisedBytes(buffer);
+
+            buffer.ShouldBe(new byte[8]);
+        }
+
+        [Fact]
+        public void ReleaseMaterialisedBytes_NullOrEmpty_NoThrow()
+        {
+            PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.NotThrow(() => key.ReleaseMaterialisedBytes(null));
+            Should.NotThrow(() => key.ReleaseMaterialisedBytes(Array.Empty<byte>()));
+        }
+
+        // Per-call clearing in the service must not destroy the PasswordKey instance's own
+        // state — many service calls under the same key must keep working. Pins that the
+        // try/finally clearing in CryptographyService only touches the per-call buffer.
+        [Fact]
+        public void Service_ClearsPerCall_KeyInstanceSurvives_ManyOperations()
+        {
+            PasswordKey key = PasswordKey.FromPassword("survive-many-calls", Encoding.UTF8);
+            byte[] plain = Encoding.UTF8.GetBytes("payload");
+
+            for (int i = 0; i < 5; i++)
+            {
+                byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AESGCM, SymmetricEncryptOptions.Classic(key));
+                byte[] roundTrip = _service.DecryptBytes(cipher, EncryptionAlgorithm.AESGCM, SymmetricDecryptOptions.Classic(key));
+                roundTrip.ShouldBe(plain);
+            }
+        }
+
         private static SecureString ToSecureString(string value)
         {
             var ss = new SecureString();

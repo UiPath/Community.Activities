@@ -57,6 +57,24 @@ namespace UiPath.Cryptography.Activities.API.Tests
             key.Dispose();
         }
 
+        // RawKey.KeyBytes returns a reference to the instance's own storage, NOT a fresh copy.
+        // ReleaseMaterialisedBytes must therefore inherit the base CryptoKey no-op — clearing
+        // the buffer per call would zero the key itself and break subsequent operations.
+        [Fact]
+        public void ReleaseMaterialisedBytes_IsNoOp_DoesNotCorruptInstance()
+        {
+            byte[] original = new byte[32];
+            for (int i = 0; i < 32; i++) original[i] = (byte)(i + 1);
+            RawKey key = RawKey.FromBytes(original);
+
+            byte[] viewBefore = key.KeyBytes;
+            key.ReleaseMaterialisedBytes(viewBefore);
+            byte[] viewAfter = key.KeyBytes;
+
+            // Both views point at the live storage and the storage is unchanged after the call.
+            viewAfter.ShouldBe(original);
+        }
+
         // ───────────────────────────────────────────────────────────────────────
         // Hex parsing tolerance — FromHex delegates to CryptographyHelper.ParseKeyBytes,
         // which strips "0x" prefix and whitespace/colons/dashes per the helper's contract.

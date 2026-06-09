@@ -18,7 +18,15 @@ namespace UiPath.Cryptography.Activities.API
             ArgumentNullException.ThrowIfNull(input);
             ArgumentNullException.ThrowIfNull(options);
             ValidateSymmetric(algorithm, options, options.IV);
-            return SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, options.Key.KeyBytes, options.IV, input);
+            byte[] keyBytes = options.Key.KeyBytes;
+            try
+            {
+                return SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, keyBytes, options.IV, input);
+            }
+            finally
+            {
+                options.Key.ReleaseMaterialisedBytes(keyBytes);
+            }
         }
 
         public byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)
@@ -26,7 +34,15 @@ namespace UiPath.Cryptography.Activities.API
             ArgumentNullException.ThrowIfNull(input);
             ArgumentNullException.ThrowIfNull(options);
             ValidateSymmetric(algorithm, options, iv: null);
-            return SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, options.Key.KeyBytes, input);
+            byte[] keyBytes = options.Key.KeyBytes;
+            try
+            {
+                return SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, keyBytes, input);
+            }
+            finally
+            {
+                options.Key.ReleaseMaterialisedBytes(keyBytes);
+            }
         }
 
         public string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)
@@ -63,21 +79,27 @@ namespace UiPath.Cryptography.Activities.API
         {
             ArgumentNullException.ThrowIfNull(input);
             ArgumentNullException.ThrowIfNull(key);
-            return ComputeHashHex(algorithm, input, key.KeyBytes);
+            byte[] keyBytes = key.KeyBytes;
+            try { return ComputeHashHex(algorithm, input, keyBytes); }
+            finally { key.ReleaseMaterialisedBytes(keyBytes); }
         }
 
         public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key)
         {
             ArgumentNullException.ThrowIfNull(input);
             ArgumentNullException.ThrowIfNull(key);
-            return ComputeHashHex(algorithm, Encoding.UTF8.GetBytes(input), key.KeyBytes);
+            byte[] keyBytes = key.KeyBytes;
+            try { return ComputeHashHex(algorithm, Encoding.UTF8.GetBytes(input), keyBytes); }
+            finally { key.ReleaseMaterialisedBytes(keyBytes); }
         }
 
         public string KeyedHashFile(string inputPath, KeyedHashAlgorithms algorithm, CryptoKey key)
         {
             ThrowIfFilePathMissing(inputPath, nameof(inputPath));
             ArgumentNullException.ThrowIfNull(key);
-            return ComputeHashHex(algorithm, File.ReadAllBytes(inputPath), key.KeyBytes);
+            byte[] keyBytes = key.KeyBytes;
+            try { return ComputeHashHex(algorithm, File.ReadAllBytes(inputPath), keyBytes); }
+            finally { key.ReleaseMaterialisedBytes(keyBytes); }
         }
 
         // ── PGP encrypt ───────────────────────────────────────────────────────

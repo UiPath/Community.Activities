@@ -41,7 +41,9 @@ namespace UiPath.Cryptography
 
             if (kdfIterations != 0 && (format == SymmetricWireFormat.Classic || format == SymmetricWireFormat.Raw))
                 throw new ArgumentException(Resources.Validation_KdfIterations_NotForClassicOrRaw);
-            if (kdfIterations > 0 && kdfIterations < MinKdfIterations)
+            // Negative iterations were silently swallowed by the dispatch (treated as "use default") —
+            // only zero means "default". Anything below the minimum (including negatives) is invalid.
+            if (kdfIterations < 0 || (kdfIterations > 0 && kdfIterations < MinKdfIterations))
                 throw new ArgumentException(string.Format(Resources.Validation_KdfIterations_BelowMinimum, kdfIterations, MinKdfIterations));
 
             if (format == SymmetricWireFormat.Raw && rawKeyLengthBytes.HasValue)

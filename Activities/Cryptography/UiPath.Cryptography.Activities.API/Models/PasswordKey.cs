@@ -46,6 +46,15 @@ namespace UiPath.Cryptography.Activities.API
         internal override byte[] KeyBytes
             => MaterialisePasswordBytes(_password ?? throw new ObjectDisposedException(nameof(PasswordKey)), _encoding);
 
+        // Each KeyBytes access returns a freshly-allocated buffer (see MaterialisePasswordBytes).
+        // After the caller has fed it into PBKDF2 / HMAC, zero it eagerly so the password
+        // bytes do not survive on the managed heap until the next GC pass.
+        internal override void ReleaseMaterialisedBytes(byte[] bytes)
+        {
+            if (bytes != null && bytes.Length > 0)
+                Array.Clear(bytes, 0, bytes.Length);
+        }
+
         public void Dispose()
         {
             if (_password != null)

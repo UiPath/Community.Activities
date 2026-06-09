@@ -72,10 +72,14 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         // Boundary on MinKdfIterations (1000) — 999 throws, 1000 passes, 1001 passes.
+        // Negative iterations also throw (only 0 means "use the recommended default"; without this,
+        // a caller passing -1 would silently bypass the floor and run at the default iter count).
         [Theory]
         [InlineData(999, true)]
         [InlineData(1_000, false)]
         [InlineData(1_001, false)]
+        [InlineData(-1, true)]
+        [InlineData(int.MinValue, true)]
         public void Validate_KdfIterations_AtFloor(int iterations, bool shouldThrow)
         {
             Action act = () => SymmetricInteropHelper.ValidateInteropSettings(
