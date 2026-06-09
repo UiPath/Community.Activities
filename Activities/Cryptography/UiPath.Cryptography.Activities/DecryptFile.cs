@@ -296,6 +296,10 @@ namespace UiPath.Cryptography.Activities
             {
                 throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
             }
+            finally
+            {
+                SymmetricInteropHelper.ClearKeyBytes(keyOrPasswordBytes);
+            }
         }
 
         private void WriteDecryptedOutput(CodeActivityContext context, string outputFilePath, byte[] decrypted, (string, string, string) result)

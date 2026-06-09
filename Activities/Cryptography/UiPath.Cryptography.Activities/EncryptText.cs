@@ -250,10 +250,17 @@ namespace UiPath.Cryptography.Activities
             if (Format == SymmetricWireFormat.Raw)
                 SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, keyOrPasswordBytes?.Length);
 
-            byte[] encrypted = SymmetricInteropHelper.DispatchEncrypt(
-                Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, keyEncoding.GetBytes(input));
+            try
+            {
+                byte[] encrypted = SymmetricInteropHelper.DispatchEncrypt(
+                    Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, keyEncoding.GetBytes(input));
 
-            return Convert.ToBase64String(encrypted);
+                return Convert.ToBase64String(encrypted);
+            }
+            finally
+            {
+                SymmetricInteropHelper.ClearKeyBytes(keyOrPasswordBytes);
+            }
         }
     }
 }

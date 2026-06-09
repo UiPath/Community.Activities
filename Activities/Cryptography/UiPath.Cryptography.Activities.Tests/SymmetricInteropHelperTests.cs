@@ -240,6 +240,27 @@ namespace UiPath.Cryptography.Activities.Tests
             decrypted.ShouldBe(plain);
         }
 
+        // ────────────────────────────────────────────────────────────────────────
+        // ClearKeyBytes — used by the activity layer to scrub freshly-materialised
+        // key buffers (from ParseKeyOrIv) after Dispatch returns, so password/raw-key
+        // material does not linger on the managed heap.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void ClearKeyBytes_ZeroesTheBuffer()
+        {
+            byte[] buffer = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+            SymmetricInteropHelper.ClearKeyBytes(buffer);
+            buffer.ShouldBe(new byte[16]);
+        }
+
+        [Fact]
+        public void ClearKeyBytes_NullOrEmpty_NoThrow()
+        {
+            Should.NotThrow(() => SymmetricInteropHelper.ClearKeyBytes(null));
+            Should.NotThrow(() => SymmetricInteropHelper.ClearKeyBytes(Array.Empty<byte>()));
+        }
+
         [Fact]
         public void Dispatch_UnknownFormat_Throws()
         {

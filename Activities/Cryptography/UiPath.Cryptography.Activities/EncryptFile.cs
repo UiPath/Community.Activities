@@ -267,7 +267,14 @@ namespace UiPath.Cryptography.Activities
             if (Format == SymmetricWireFormat.Raw)
                 SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, keyOrPasswordBytes?.Length);
 
-            return SymmetricInteropHelper.DispatchEncrypt(Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, inputBytes);
+            try
+            {
+                return SymmetricInteropHelper.DispatchEncrypt(Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, inputBytes);
+            }
+            finally
+            {
+                SymmetricInteropHelper.ClearKeyBytes(keyOrPasswordBytes);
+            }
         }
 
         private byte[] ExecutePgpEncrypt(CodeActivityContext context, string inputPath)

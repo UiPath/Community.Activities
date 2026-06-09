@@ -77,6 +77,18 @@ namespace UiPath.Cryptography
             return CryptographyHelper.ParseKeyBytes(raw, null, format, null);
         }
 
+        /// <summary>
+        /// Zero a freshly-materialised key buffer in place. Call in a <c>finally</c> after the
+        /// dispatcher returns so the secret bytes (raw cipher key, or password material
+        /// materialised from a SecureString) do not survive on the managed heap until GC.
+        /// Safe to call with <c>null</c> or an empty array.
+        /// </summary>
+        public static void ClearKeyBytes(byte[] bytes)
+        {
+            if (bytes != null && bytes.Length > 0)
+                Array.Clear(bytes, 0, bytes.Length);
+        }
+
         public static byte[] DispatchEncrypt(
             EncryptionAlgorithm algorithm,
             SymmetricWireFormat format,
