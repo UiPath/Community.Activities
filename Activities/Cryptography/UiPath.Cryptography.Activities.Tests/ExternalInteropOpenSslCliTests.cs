@@ -124,6 +124,7 @@ namespace UiPath.Cryptography.Activities.Tests
 
         private static class OpenSslCli
         {
+#pragma warning disable CA1031 // Probe is a yes/no detector; any failure (missing exe, IO denied) means "openssl unavailable, skip the CLI tests".
             public static bool Probe()
             {
                 try
@@ -145,6 +146,7 @@ namespace UiPath.Cryptography.Activities.Tests
                     return false;
                 }
             }
+#pragma warning restore CA1031
 
             public static void Run(params string[] args)
             {
@@ -159,7 +161,9 @@ namespace UiPath.Cryptography.Activities.Tests
                 if (p == null) throw new InvalidOperationException("Could not start openssl");
                 if (!p.WaitForExit(10_000))
                 {
+#pragma warning disable CA1031 // Best-effort kill of a hung child; any failure is swallowed before re-throwing the timeout.
                     try { p.Kill(); } catch { }
+#pragma warning restore CA1031
                     throw new TimeoutException("openssl did not exit within 10s");
                 }
                 if (p.ExitCode != 0)

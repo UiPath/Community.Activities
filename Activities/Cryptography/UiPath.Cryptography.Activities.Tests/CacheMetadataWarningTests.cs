@@ -1,3 +1,4 @@
+using System;
 using System.Activities;
 using System.Activities.Validation;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new EncryptText { Algorithm = algorithm };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("FIPS")).ShouldBeTrue(
+            warnings.Any(w => w.Message.Contains("FIPS", StringComparison.Ordinal)).ShouldBeTrue(
                 $"expected a FIPS warning for {algorithm}, got: {Format(warnings)}");
         }
 
@@ -42,7 +43,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new EncryptText { Algorithm = algorithm };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("FIPS")).ShouldBeFalse(
+            warnings.Any(w => w.Message.Contains("FIPS", StringComparison.Ordinal)).ShouldBeFalse(
                 $"did not expect FIPS warning for {algorithm}, got: {Format(warnings)}");
         }
 
@@ -58,7 +59,7 @@ namespace UiPath.Cryptography.Activities.Tests
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair") || w.Message.Contains("explicit IV")).ShouldBeTrue(
+            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("explicit IV", StringComparison.Ordinal)).ShouldBeTrue(
                 $"expected an IV nonce-reuse warning, got: {Format(warnings)}");
         }
 
@@ -68,7 +69,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new EncryptText { Algorithm = EncryptionAlgorithm.AESGCM };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair") || w.Message.Contains("nonce")).ShouldBeFalse(
+            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("nonce", StringComparison.Ordinal)).ShouldBeFalse(
                 $"did not expect IV nonce-reuse warning, got: {Format(warnings)}");
         }
 
@@ -80,7 +81,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new EncryptFile { Algorithm = EncryptionAlgorithm.RC2 };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("FIPS")).ShouldBeTrue();
+            warnings.Any(w => w.Message.Contains("FIPS", StringComparison.Ordinal)).ShouldBeTrue();
         }
 
         [Fact]
@@ -93,7 +94,7 @@ namespace UiPath.Cryptography.Activities.Tests
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair") || w.Message.Contains("explicit IV")).ShouldBeTrue();
+            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("explicit IV", StringComparison.Ordinal)).ShouldBeTrue();
         }
 
         // DecryptText/DecryptFile emit FIPS + ChaCha warnings but NOT the IV warning
@@ -105,7 +106,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new DecryptText { Algorithm = EncryptionAlgorithm.RC2 };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("FIPS")).ShouldBeTrue();
+            warnings.Any(w => w.Message.Contains("FIPS", StringComparison.Ordinal)).ShouldBeTrue();
         }
 
         // ────────────────────────────────────────────────────────────────────────

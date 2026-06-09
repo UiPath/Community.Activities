@@ -26,6 +26,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         public bool SecretKeyImported { get; private set; }
         public string LastImportError { get; private set; }
 
+#pragma warning disable CA1031 // Fixture: per-step broad catches let imports degrade gracefully (LastImportError records the failure and dependent tests no-op). Any specific exception type from gpg/IO is treated the same way.
         public GpgIsolatedHomedir()
         {
             Keys = new PgpKeyFixture();
@@ -65,23 +66,26 @@ namespace UiPath.Cryptography.Activities.API.Tests
             try
             {
                 string secrets = GpgCli.RunCapture(HomeDir, "--with-colons --list-secret-keys");
-                SecretKeyImported = secrets.Contains("sec:");
+                SecretKeyImported = secrets.Contains("sec:", StringComparison.Ordinal);
             }
             catch { SecretKeyImported = false; }
         }
+#pragma warning restore CA1031
 
+#pragma warning disable CA1031 // Allow broad catch — IDisposable.Dispose must never throw; cleanup is best-effort.
         public void Dispose()
         {
             try { Keys.Dispose(); } catch { }
             try { if (Directory.Exists(HomeDir)) Directory.Delete(HomeDir, recursive: true); } catch { }
         }
+#pragma warning restore CA1031
 
         private static string ExtractFirstFingerprint(string colons)
         {
             // gpg --with-colons emits records like "fpr:::::::::ABCDEF1234567890:" — the 10th colon-delimited field is the fingerprint.
             foreach (string line in colons.Split('\n'))
             {
-                if (!line.StartsWith("fpr:")) continue;
+                if (!line.StartsWith("fpr:", StringComparison.Ordinal)) continue;
                 string[] parts = line.Split(':');
                 if (parts.Length >= 10 && !string.IsNullOrEmpty(parts[9])) return parts[9];
             }
@@ -260,7 +264,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
                 // Tamper the plaintext line of the clearsigned message — the signature
                 // covers it, so gpg must reject. Without this negative case, a future
                 // GpgCli.Run that swallowed errors would still pass the positive test.
-                string tampered = clearSigned.Replace(Plaintext, Plaintext + "x");
+                string tampered = clearSigned.Replace(Plaintext, Plaintext + "x", StringComparison.Ordinal);
                 string tamperedPath = NewTempPath();
                 try
                 {
@@ -294,6 +298,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
     {
         public static bool Probe()
         {
+#pragma warning disable CA1031 // Allow broad catch — Probe is a yes/no availability check; any failure (missing exe, permission denied, etc.) means "gpg unavailable".
             try
             {
                 var psi = MakeStartInfo("gpg", "--version");
@@ -306,6 +311,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
             {
                 return false;
             }
+#pragma warning restore CA1031
         }
 
         public static void Run(string homeDir, params string[] args)
@@ -315,7 +321,9 @@ namespace UiPath.Cryptography.Activities.API.Tests
                 ?? throw new InvalidOperationException("Could not start gpg");
             if (!p.WaitForExit(20_000))
             {
+#pragma warning disable CA1031 // Best-effort kill of a hung child process; any failure (already exited, denied) is swallowed before re-throwing the original timeout.
                 try { p.Kill(); } catch { }
+#pragma warning restore CA1031
                 throw new TimeoutException("gpg did not exit within 20s");
             }
             if (p.ExitCode != 0)
@@ -333,7 +341,9 @@ namespace UiPath.Cryptography.Activities.API.Tests
             string stdout = p.StandardOutput.ReadToEnd();
             if (!p.WaitForExit(20_000))
             {
+#pragma warning disable CA1031 // Best-effort kill of a hung child process; any failure is swallowed before re-throwing the timeout.
                 try { p.Kill(); } catch { }
+#pragma warning restore CA1031
                 throw new TimeoutException("gpg did not exit within 20s");
             }
             if (p.ExitCode != 0)
@@ -368,6 +378,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         // "C:/..." fails, use cygpath conversion.
         private static readonly Lazy<bool> _useCygPath = new(DetectCygPathRequirement);
 
+#pragma warning disable CA1031 // Probe is a yes/no detector: any failure (gpg missing, IO denied) means "fall back to cygpath form".
         private static bool DetectCygPathRequirement()
         {
             if (!OperatingSystem.IsWindows()) return false;
@@ -388,6 +399,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
             catch { return true; }
             finally { try { Directory.Delete(probe, recursive: true); } catch { } }
         }
+#pragma warning restore CA1031
 
         public static string NormalisePath(string p)
         {

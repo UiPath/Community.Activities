@@ -21,8 +21,10 @@ namespace UiPath.Cryptography.Activities.API.Tests
         public PgpKeyPair KeyPair { get; }
         public PgpPublicKey PublicKey => KeyPair.PublicKey;
         public PgpPrivateKey PrivateKey => KeyPair.PrivateKey;
+#pragma warning disable CA1819 // Test fixture: returning byte[] directly is intentional — tests feed these straight into File.WriteAllBytes / PgpPublicKey.FromBytes.
         public byte[] PublicKeyBytes { get; }
         public byte[] PrivateKeyBytes { get; }
+#pragma warning restore CA1819
         public string PublicKeyArmored { get; }
         public string PublicKeyPath { get; }
 
@@ -95,8 +97,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         public void Encrypt_Decrypt_RawKey_Hex_RoundTrip(EncryptionAlgorithm algorithm)
         {
             byte[] plain = Encoding.UTF8.GetBytes("Raw round-trip");
-            byte[] rawKey = new byte[32]; // AES-256
-            new Random(42).NextBytes(rawKey);
+            byte[] rawKey = MakeDeterministicKey(32, offset: 42); // AES-256, deterministic non-RNG seed
             RawKey key = RawKey.FromHex(Convert.ToHexString(rawKey));
             byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Raw(key));
             byte[] decrypted = _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Raw(key));
@@ -108,8 +109,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         public void Encrypt_Decrypt_RawKey_Base64_RoundTrip(EncryptionAlgorithm algorithm)
         {
             byte[] plain = Encoding.UTF8.GetBytes("Base64 raw round-trip");
-            byte[] rawKey = new byte[32];
-            new Random(7).NextBytes(rawKey);
+            byte[] rawKey = MakeDeterministicKey(32, offset: 7);
             RawKey key = RawKey.FromBase64(Convert.ToBase64String(rawKey));
             byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Raw(key));
             byte[] decrypted = _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Raw(key));
@@ -121,8 +121,7 @@ namespace UiPath.Cryptography.Activities.API.Tests
         public void Encrypt_Decrypt_RawKey_Bytes_RoundTrip(EncryptionAlgorithm algorithm)
         {
             byte[] plain = Encoding.UTF8.GetBytes("FromBytes round-trip");
-            byte[] rawKey = new byte[32];
-            new Random(11).NextBytes(rawKey);
+            byte[] rawKey = MakeDeterministicKey(32, offset: 11);
             RawKey key = RawKey.FromBytes(rawKey);
             byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Raw(key));
             byte[] decrypted = _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Raw(key));
@@ -133,10 +132,8 @@ namespace UiPath.Cryptography.Activities.API.Tests
         public void Encrypt_Decrypt_RawKey_ExplicitIv_RoundTrip()
         {
             byte[] plain = Encoding.UTF8.GetBytes("Explicit IV roundtrip");
-            byte[] rawKey = new byte[32];
-            byte[] iv = new byte[16];
-            new Random(99).NextBytes(rawKey);
-            new Random(33).NextBytes(iv);
+            byte[] rawKey = MakeDeterministicKey(32, offset: 99);
+            byte[] iv = MakeDeterministicKey(16, offset: 33);
             RawKey key = RawKey.FromBytes(rawKey);
             byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Raw(key, iv));
 
@@ -821,6 +818,16 @@ namespace UiPath.Cryptography.Activities.API.Tests
                 ss.AppendChar(c);
             ss.MakeReadOnly();
             return ss;
+        }
+
+        // Build a deterministic test key buffer without invoking a (CA5394-flagged) RNG —
+        // tests need stable bytes, not actual randomness. The offset parameter lets different
+        // test cases pick different byte sequences so they don't collide on a single key.
+        private static byte[] MakeDeterministicKey(int sizeBytes, int offset)
+        {
+            byte[] bytes = new byte[sizeBytes];
+            for (int i = 0; i < sizeBytes; i++) bytes[i] = (byte)(offset + i);
+            return bytes;
         }
     }
 #pragma warning restore CS0618
