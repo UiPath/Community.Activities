@@ -75,8 +75,11 @@ jobs:
         exit 0
       fi
       if docker exec "$CID" test -d /home/robotuser/.local/share/UiPath/Logs; then
-        docker cp "$CID:/home/robotuser/.local/share/UiPath/Logs/." "$DST"
-        echo "Copied robot logs from container to $DST"
+        if docker cp "$CID:/home/robotuser/.local/share/UiPath/Logs/." "$DST"; then
+          echo "Copied robot logs from container to $DST"
+        else
+          echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST failed." > "$DST/no-logs.txt"
+        fi
       else
         echo "Robot log directory /home/robotuser/.local/share/UiPath/Logs does not exist in the container." > "$DST/no-logs.txt"
       fi

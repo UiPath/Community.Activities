@@ -95,8 +95,13 @@ jobs:
       $dst = "$(System.ArtifactsDirectory)\RobotLogs"
       New-Item -ItemType Directory -Force -Path $dst | Out-Null
       if (Test-Path $src) {
-        Copy-Item -Path "$src\*" -Destination $dst -Recurse -Force -ErrorAction Continue
-        Write-Host "Copied robot logs from $src to $dst"
+        Copy-Item -Path "$src\*" -Destination $dst -Recurse -Force -ErrorAction Continue -ErrorVariable copyErrors
+        if ($copyErrors) {
+          "Copy-Item from $src to $dst encountered errors: $($copyErrors -join '; ')" | Out-File "$dst\no-logs.txt"
+          Write-Host "Copy-Item from $src to $dst encountered errors; wrote details to no-logs.txt."
+        } else {
+          Write-Host "Copied robot logs from $src to $dst"
+        }
       } else {
         "Robot log directory $src does not exist on this agent run." | Out-File "$dst\no-logs.txt"
         Write-Host "No robot logs found at $src; wrote placeholder."
