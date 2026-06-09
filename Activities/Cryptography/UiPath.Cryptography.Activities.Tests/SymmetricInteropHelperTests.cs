@@ -1,0 +1,260 @@
+using System;
+using System.Net;
+using System.Security;
+using System.Text;
+using Shouldly;
+using UiPath.Cryptography.Enums;
+using Xunit;
+
+#pragma warning disable CS0618 // obsolete algorithms reachable via opt-in formats
+
+namespace UiPath.Cryptography.Activities.Tests
+{
+    /// <summary>
+    /// Direct unit coverage for <see cref="SymmetricInteropHelper"/>. Today the helper
+    /// is exercised only indirectly through EncryptText/DecryptText activities; testing
+    /// it head-on pins every cross-property invariant and routing decision with a clear
+    /// failure message.
+    /// </summary>
+    public class SymmetricInteropHelperTests
+    {
+        // ────────────────────────────────────────────────────────────────────────
+        // ValidateInteropSettings — cross-property invariants
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void Validate_Raw_WithEncodedKeyFormat_Throws()
+        {
+            Should.Throw<ArgumentException>(() =>
+                SymmetricInteropHelper.ValidateInteropSettings(
+                    EncryptionAlgorithm.AES, SymmetricWireFormat.Raw, KeyBytesFormat.Encoded,
+                    ivString: null, kdfIterations: 0, rawKeyLengthBytes: null));
+        }
+
+        [Theory]
+        [InlineData(SymmetricWireFormat.Classic, KeyBytesFormat.Hex)]
+        [InlineData(SymmetricWireFormat.Classic, KeyBytesFormat.Base64)]
+        [InlineData(SymmetricWireFormat.Owasp2026, KeyBytesFormat.Hex)]
+        [InlineData(SymmetricWireFormat.Owasp2026, KeyBytesFormat.Base64)]
+        [InlineData(SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Hex)]
+        [InlineData(SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Base64)]
+        public void Validate_NonRaw_WithHexOrBase64_Throws(SymmetricWireFormat format, KeyBytesFormat keyFormat)
+        {
+            Should.Throw<ArgumentException>(() =>
+                SymmetricInteropHelper.ValidateInteropSettings(
+                    EncryptionAlgorithm.AES, format, keyFormat,
+                    ivString: null, kdfIterations: 0, rawKeyLengthBytes: null));
+        }
+
+        [Theory]
+        [InlineData(SymmetricWireFormat.Classic)]
+        [InlineData(SymmetricWireFormat.Owasp2026)]
+        [InlineData(SymmetricWireFormat.OpenSslEnc)]
+        public void Validate_NonRaw_WithIv_Throws(SymmetricWireFormat format)
+        {
+            Should.Throw<ArgumentException>(() =>
+                SymmetricInteropHelper.ValidateInteropSettings(
+                    EncryptionAlgorithm.AES, format, KeyBytesFormat.Encoded,
+                    ivString: "AABBCCDDEEFF00112233445566778899", kdfIterations: 0, rawKeyLengthBytes: null));
+        }
+
+        [Theory]
+        [InlineData(SymmetricWireFormat.Classic)]
+        [InlineData(SymmetricWireFormat.Raw)]
+        public void Validate_KdfIterations_OnClassicOrRaw_Throws(SymmetricWireFormat format)
+        {
+            // Use a key-format that's legal for the chosen wire format so we only trip the iter rule.
+            KeyBytesFormat kf = format == SymmetricWireFormat.Raw ? KeyBytesFormat.Hex : KeyBytesFormat.Encoded;
+            Should.Throw<ArgumentException>(() =>
+                SymmetricInteropHelper.ValidateInteropSettings(
+                    EncryptionAlgorithm.AES, format, kf,
+                    ivString: null, kdfIterations: 100_000, rawKeyLengthBytes: null));
+        }
+
+        // Boundary on MinKdfIterations (1000) — 999 throws, 1000 passes, 1001 passes.
+        [Theory]
+        [InlineData(999, true)]
+        [InlineData(1_000, false)]
+        [InlineData(1_001, false)]
+        public void Validate_KdfIterations_AtFloor(int iterations, bool shouldThrow)
+        {
+            Action act = () => SymmetricInteropHelper.ValidateInteropSettings(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Owasp2026, KeyBytesFormat.Encoded,
+                ivString: null, kdfIterations: iterations, rawKeyLengthBytes: null);
+
+            if (shouldThrow) Should.Throw<ArgumentException>(act);
+            else Should.NotThrow(act);
+        }
+
+        [Fact]
+        public void Validate_Raw_WithWrongKeyLength_ThrowsWithLegalSizesInMessage()
+        {
+            // AES legal raw sizes: 16, 24, 32. Supply 10 (illegal).
+            var ex = Should.Throw<ArgumentException>(() =>
+                SymmetricInteropHelper.ValidateInteropSettings(
+                    EncryptionAlgorithm.AES, SymmetricWireFormat.Raw, KeyBytesFormat.Hex,
+                    ivString: null, kdfIterations: 0, rawKeyLengthBytes: 10));
+
+            // The user can self-serve if the message names the legal sizes.
+            ex.Message.ShouldContain("16");
+            ex.Message.ShouldContain("24");
+            ex.Message.ShouldContain("32");
+        }
+
+        // Happy path: a fully-valid setting tuple does not throw.
+        [Theory]
+        [InlineData(SymmetricWireFormat.Classic, KeyBytesFormat.Encoded, 0, null)]
+        [InlineData(SymmetricWireFormat.Owasp2026, KeyBytesFormat.Encoded, 1_300_000, null)]
+        [InlineData(SymmetricWireFormat.Raw, KeyBytesFormat.Hex, 0, 32)]
+        [InlineData(SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded, 600_000, null)]
+        public void Validate_ValidSettings_DoNotThrow(SymmetricWireFormat format, KeyBytesFormat keyFormat, int kdfIterations, int? rawKeyLengthBytes)
+        {
+            Should.NotThrow(() =>
+                SymmetricInteropHelper.ValidateInteropSettings(
+                    EncryptionAlgorithm.AES, format, keyFormat,
+                    ivString: null, kdfIterations: kdfIterations, rawKeyLengthBytes: rawKeyLengthBytes));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // ParseKeyOrIv — value/SecureString/format combinations
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void ParseKeyOrIv_BothEmpty_ReturnsNull()
+        {
+            byte[] result = SymmetricInteropHelper.ParseKeyOrIv(value: null, secureValue: null, KeyBytesFormat.Encoded, Encoding.UTF8);
+            result.ShouldBeNull();
+
+            byte[] result2 = SymmetricInteropHelper.ParseKeyOrIv(value: string.Empty, secureValue: new SecureString(), KeyBytesFormat.Encoded, Encoding.UTF8);
+            result2.ShouldBeNull();
+        }
+
+        [Fact]
+        public void ParseKeyOrIv_PlainStringEncoded_ReturnsEncodingBytes()
+        {
+            byte[] result = SymmetricInteropHelper.ParseKeyOrIv("ăîș", secureValue: null, KeyBytesFormat.Encoded, Encoding.UTF8);
+            result.ShouldBe(Encoding.UTF8.GetBytes("ăîș"));
+        }
+
+        [Fact]
+        public void ParseKeyOrIv_SecureStringEncoded_ReturnsEncodingBytes()
+        {
+            byte[] result = SymmetricInteropHelper.ParseKeyOrIv(value: null, secureValue: ToSecureString("ăîș"), KeyBytesFormat.Encoded, Encoding.UTF8);
+            result.ShouldBe(Encoding.UTF8.GetBytes("ăîș"));
+        }
+
+        [Fact]
+        public void ParseKeyOrIv_PlainStringHex_ProducesBytes()
+        {
+            byte[] result = SymmetricInteropHelper.ParseKeyOrIv("0102FF", secureValue: null, KeyBytesFormat.Hex, encoding: null);
+            result.ShouldBe(new byte[] { 0x01, 0x02, 0xFF });
+        }
+
+        // Hex via SecureString routes through the NetworkCredential trick on line 74 of
+        // SymmetricInteropHelper. Pins that this path produces the same bytes as plain hex.
+        [Fact]
+        public void ParseKeyOrIv_SecureStringHex_MatchesPlainHex()
+        {
+            byte[] viaPlain = SymmetricInteropHelper.ParseKeyOrIv("DEADBEEF", secureValue: null, KeyBytesFormat.Hex, encoding: null);
+            byte[] viaSecure = SymmetricInteropHelper.ParseKeyOrIv(value: null, secureValue: ToSecureString("DEADBEEF"), KeyBytesFormat.Hex, encoding: null);
+            viaSecure.ShouldBe(viaPlain);
+        }
+
+        [Fact]
+        public void ParseKeyOrIv_PlainStringBase64_ProducesBytes()
+        {
+            byte[] expected = new byte[] { 1, 2, 3, 4, 5 };
+            byte[] result = SymmetricInteropHelper.ParseKeyOrIv(Convert.ToBase64String(expected), secureValue: null, KeyBytesFormat.Base64, encoding: null);
+            result.ShouldBe(expected);
+        }
+
+        // Precedence: if both plain and secure are populated, plain wins (line 72/74 of helper).
+        // Pinning this so a future refactor doesn't silently swap the precedence.
+        [Fact]
+        public void ParseKeyOrIv_BothSet_PlainStringWins()
+        {
+            byte[] result = SymmetricInteropHelper.ParseKeyOrIv("0102", secureValue: ToSecureString("FFFF"), KeyBytesFormat.Hex, encoding: null);
+            result.ShouldBe(new byte[] { 0x01, 0x02 });
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // DispatchEncrypt / DispatchDecrypt — each switch arm round-trips, and
+        // iter=0 picks the recommended default.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Theory]
+        [InlineData(SymmetricWireFormat.Classic, 0)]
+        [InlineData(SymmetricWireFormat.Owasp2026, 50_000)]
+        [InlineData(SymmetricWireFormat.OpenSslEnc, 50_000)]
+        public void Dispatch_PasswordBased_RoundTrips(SymmetricWireFormat format, int iterations)
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("dispatch round-trip");
+            byte[] password = Encoding.UTF8.GetBytes("dispatch-pwd");
+
+            byte[] cipher = SymmetricInteropHelper.DispatchEncrypt(EncryptionAlgorithm.AES, format, iterations, password, ivBytes: null, plain);
+            byte[] decrypted = SymmetricInteropHelper.DispatchDecrypt(EncryptionAlgorithm.AES, format, iterations, password, cipher);
+
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void Dispatch_Raw_RoundTrips()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("dispatch raw round-trip");
+            byte[] key = new byte[32];
+            for (int i = 0; i < 32; i++) key[i] = (byte)(i + 1);
+
+            byte[] cipher = SymmetricInteropHelper.DispatchEncrypt(EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Raw, kdfIterations: 0, key, ivBytes: null, plain);
+            byte[] decrypted = SymmetricInteropHelper.DispatchDecrypt(EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Raw, kdfIterations: 0, key, cipher);
+
+            decrypted.ShouldBe(plain);
+        }
+
+        // Encrypt with Owasp2026 + iter=0 (dispatch picks default 1_300_000) → decrypt
+        // explicitly with 1_300_000 succeeds. Pins the default-fallback wiring.
+        [Fact]
+        public void Dispatch_Owasp2026_IterZero_PicksRecommendedDefault()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("default-iter check");
+            byte[] password = Encoding.UTF8.GetBytes("dispatch-pwd");
+
+            byte[] cipher = SymmetricInteropHelper.DispatchEncrypt(EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Owasp2026, kdfIterations: 0, password, ivBytes: null, plain);
+            byte[] decrypted = SymmetricInteropHelper.DispatchDecrypt(EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Owasp2026, kdfIterations: 1_300_000, password, cipher);
+
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void Dispatch_OpenSslEnc_IterZero_PicksRecommendedDefault()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("default-iter check");
+            byte[] password = Encoding.UTF8.GetBytes("dispatch-pwd");
+
+            byte[] cipher = SymmetricInteropHelper.DispatchEncrypt(EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, kdfIterations: 0, password, ivBytes: null, plain);
+            byte[] decrypted = SymmetricInteropHelper.DispatchDecrypt(EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, kdfIterations: 600_000, password, cipher);
+
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void Dispatch_UnknownFormat_Throws()
+        {
+            // Cast to an out-of-range enum value to force the default branch.
+            const SymmetricWireFormat invalid = (SymmetricWireFormat)999;
+            byte[] plain = Encoding.UTF8.GetBytes("x");
+            byte[] password = Encoding.UTF8.GetBytes("p");
+
+            Should.Throw<ArgumentOutOfRangeException>(() =>
+                SymmetricInteropHelper.DispatchEncrypt(EncryptionAlgorithm.AES, invalid, kdfIterations: 0, password, ivBytes: null, plain));
+
+            Should.Throw<ArgumentOutOfRangeException>(() =>
+                SymmetricInteropHelper.DispatchDecrypt(EncryptionAlgorithm.AES, invalid, kdfIterations: 0, password, new byte[64]));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+
+        private static SecureString ToSecureString(string s) => new NetworkCredential(string.Empty, s).SecurePassword;
+    }
+}
+
+#pragma warning restore CS0618
