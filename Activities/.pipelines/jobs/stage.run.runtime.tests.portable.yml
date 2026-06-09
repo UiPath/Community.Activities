@@ -69,7 +69,7 @@ jobs:
       cd $(Build.SourcesDirectory)/Activities/.pipelines/docker
       DST="$(System.ArtifactsDirectory)/RobotLogs"
       mkdir -p "$DST"
-      CID=$(docker-compose ps -q robot)
+      CID=$(docker-compose ps -a -q robot)
       if [ -z "$CID" ]; then
         echo "Robot container not found." > "$DST/no-logs.txt"
         exit 0
