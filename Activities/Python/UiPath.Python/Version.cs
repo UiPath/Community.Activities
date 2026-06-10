@@ -153,14 +153,27 @@ namespace UiPath.Python
         private static readonly Version[] _supportedVersions =
         {
             Version.Auto,
-            Version.Python_36,
-            Version.Python_37,
-            Version.Python_38,
-            Version.Python_39,
             Version.Python_310
         };
 
+        [Obsolete("No longer used. With the direct pythonnet integration the supported runtime is " +
+            "validated from the actual Python installation (see EngineProvider.ValidateInstallation); " +
+            "this enum-based list is retained only for backward compatibility.")]
         public static IReadOnlyList<Version> GetSupportedVersions() => _supportedVersions;
+
+        // Supported CPython minor versions for the direct pythonnet integration.
+        private static readonly (int Major, int Minor)[] _supportedRuntimeVersions =
+        {
+            (3, 10), (3, 11), (3, 12), (3, 13), (3, 14)
+        };
+
+        /// <summary>Returns true when the given major.minor combination is a supported runtime version.</summary>
+        internal static bool IsRuntimeVersionSupported(int major, int minor)
+            => Array.Exists(_supportedRuntimeVersions, v => v.Major == major && v.Minor == minor);
+
+        /// <summary>Returns a human-readable list of supported versions, e.g. "3.10, 3.11, 3.12, 3.13, 3.14".</summary>
+        internal static string GetSupportedRuntimeVersionsDisplay()
+            => string.Join(", ", Array.ConvertAll(_supportedRuntimeVersions, v => $"{v.Major}.{v.Minor}"));
     }
 
     public class EnumTypeConverter : EnumConverter

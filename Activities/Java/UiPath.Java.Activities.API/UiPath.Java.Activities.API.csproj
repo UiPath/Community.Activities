@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\Java.build.props" />
 
   <PropertyGroup>
     <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>

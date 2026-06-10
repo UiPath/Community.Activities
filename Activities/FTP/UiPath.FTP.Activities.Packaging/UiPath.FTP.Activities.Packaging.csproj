@@ -7,8 +7,7 @@
 	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
 	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
 	<PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
-	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-  </PropertyGroup>
+	</PropertyGroup>
 
   <PropertyGroup>
     <PackageId>UiPath.FTP.Activities</PackageId>
@@ -39,11 +38,6 @@
   </ItemGroup>
 
 	<Target Name="AddDlls">
-		<!-- PDBs for debug-->
-		<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.pdb" />
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.pdb" />
-		</ItemGroup>
 		<ItemGroup>
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.dll" />

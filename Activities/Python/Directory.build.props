@@ -4,6 +4,7 @@
     
     <PropertyGroup>
         <Product>Python</Product>
+        <Description>UiPath Python Activities Pack</Description>
         <Authors>UiPath</Authors>
         <Company>UiPath</Company>
         <Copyright>© UiPath</Copyright>

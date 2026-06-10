@@ -6,6 +6,7 @@ using Shouldly;
 using UiPath.Python;
 using UiPath.Python.Activities.API;
 using UiPath.Python.Activities.API.Models;
+using UiPath.Python.Tests;
 using Xunit;
 
 namespace UiPath.Python.Activities.API.Tests
@@ -34,15 +35,6 @@ namespace UiPath.Python.Activities.API.Tests
         }
 
         [Fact]
-        public async Task UsePythonScope_UnsupportedVersion_Throws()
-        {
-            var options = new PythonScopeOptions { Version = (UiPath.Python.Version)999 };
-
-            var ex = await Should.ThrowAsync<InvalidOperationException>(() => _pythonService.UsePythonScope(options));
-            ex.Message.ShouldContain("not supported");
-        }
-
-        [Fact]
         public async Task UsePythonScope_NonExistentWorkingFolder_Throws()
         {
             var options = new PythonScopeOptions { WorkingFolder = @"C:\this\working\folder\does\not\exist" };
@@ -58,12 +50,17 @@ namespace UiPath.Python.Activities.API.Tests
             await Should.ThrowAsync<ArgumentOutOfRangeException>(() => _pythonService.UsePythonScope(options));
         }
 
-        // Skip: requires a real Python installation on the machine.
-        // Run manually to verify end-to-end engine initialization.
-        [Fact(Skip = "Requires a real Python installation")]
+        private static readonly string RuntimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath();
+        private static readonly string LibraryPath = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(RuntimePath);
+
+        [Fact]
         public async Task UsePythonScope_ValidOptions_ReturnsHandle()
         {
-            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto };
+            var options = new PythonScopeOptions
+            {
+                Path = RuntimePath,
+                LibraryPath = LibraryPath
+            };
 
             using var handle = await _pythonService.UsePythonScope(options);
 
@@ -73,6 +70,8 @@ namespace UiPath.Python.Activities.API.Tests
 
     public class PythonServiceCancellationTests
     {
+        private static readonly string _libraryPath = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath());
+
         private static PythonService BuildService(IEngine engine)
         {
             return new PythonService((_, _, _, _, _, _, _, _) => engine);
@@ -91,7 +90,7 @@ namespace UiPath.Python.Activities.API.Tests
             using var cts = new CancellationTokenSource();
             cts.Cancel();
 
-            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto };
+            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto, LibraryPath = _libraryPath };
             await Should.ThrowAsync<OperationCanceledException>(
                 () => service.UsePythonScope(options, cts.Token));
         }
@@ -109,7 +108,7 @@ namespace UiPath.Python.Activities.API.Tests
                 .Returns(Task.CompletedTask);
 
             var service = BuildService(engineMock.Object);
-            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto };
+            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto, LibraryPath = _libraryPath };
 
             var ex = await Should.ThrowAsync<InvalidOperationException>(
                 () => service.UsePythonScope(options));
@@ -130,7 +129,7 @@ namespace UiPath.Python.Activities.API.Tests
                 .ThrowsAsync(releaseEx);
 
             var service = BuildService(engineMock.Object);
-            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto };
+            var options = new PythonScopeOptions { Version = UiPath.Python.Version.Auto, LibraryPath = _libraryPath };
 
             var ex = await Should.ThrowAsync<InvalidOperationException>(
                 () => service.UsePythonScope(options));

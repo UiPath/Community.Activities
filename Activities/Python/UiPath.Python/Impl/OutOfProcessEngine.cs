@@ -12,11 +12,9 @@ namespace UiPath.Python.Impl
     internal class OutOfProcessEngine : IEngine
     {
         private const string ServiceDll_x64 = "UiPath.Python.Host.dll";
-        private const string ServiceExe_x86 = "UiPath.Python.Host32.exe";
 
         private PythonProxy _proxy;
         private Controller<IPythonService> _provider;
-        private TargetPlatform _target;
 
         private bool _visible;
         private readonly bool _logTrace;
@@ -35,7 +33,6 @@ namespace UiPath.Python.Impl
             _version = version;
             _path = path;
             _libraryPath = libraryPath;
-            _target = target;
             _visible = visible;
             _logTrace = logTrace;
             _payloadThresholdMB = payloadThresholdMB;
@@ -56,8 +53,7 @@ namespace UiPath.Python.Impl
             // TODO: expose visible as a property?
             _provider = new Controller<IPythonService>()
             {
-                PythonHostLibFile = TargetPlatform.x64 == _target ? ServiceDll_x64 : null,
-                PythonHostExeFile = TargetPlatform.x86 == _target ? ServiceExe_x86 : null,
+                PythonHostLibFile = ServiceDll_x64,
                 Visible = _visible
             };
 

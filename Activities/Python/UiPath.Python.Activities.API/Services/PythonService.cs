@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python;
@@ -39,9 +38,6 @@ namespace UiPath.Python.Activities.API
             if (!string.IsNullOrWhiteSpace(path) && !Directory.Exists(path))
                 throw new DirectoryNotFoundException($"Python path not found: {path}");
 
-            if (!VersionExtensions.GetSupportedVersions().Contains(options.Version))
-                throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
-
             if (options.OperationTimeout.HasValue && options.OperationTimeout.Value < TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(options), "OperationTimeout must be non-negative.");
 
@@ -60,30 +56,15 @@ namespace UiPath.Python.Activities.API
 
             var operationTimeout = (options.OperationTimeout ?? TimeSpan.FromHours(1)).TotalSeconds;
 
-            // Resolve the version the engine will actually run with, before initializing it,
-            // so version mismatches and the Python 3.10 library-path requirement can be
-            // reported with clear errors instead of opaque native-load failures.
-            var effectiveVersion = EngineProvider.ResolveEffectiveVersion(options.Version, path, out var autodetected);
-
-            if (options.Version != Version.Auto && autodetected != Version.Auto)
-            {
-                if (!VersionExtensions.GetSupportedVersions().Contains(autodetected))
-                    throw new InvalidOperationException(Resources.ValidationErrorVersionUnsupported);
-                if (autodetected != options.Version)
-                    throw new InvalidOperationException(
-                        string.Format(Resources.InvalidVersionException, options.Version.ToFriendlyString(), autodetected.ToFriendlyString()));
-            }
-
-            // Python 3.10 requires an explicit library file (python**.dll on Windows,
-            // libpython*.so on Linux).
-            if (effectiveVersion == Version.Python_310 &&
-                (string.IsNullOrWhiteSpace(options.LibraryPath) || !File.Exists(options.LibraryPath)))
-            {
+            // LibraryPath is always required — pythonnet uses it to locate the versioned Python DLL.
+            // Path is optional; when omitted the PYTHONHOME environment variable is used.
+            if (string.IsNullOrWhiteSpace(options.LibraryPath) || !File.Exists(options.LibraryPath))
                 throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, options.LibraryPath));
-            }
+
+            EngineProvider.ValidateInstallation(path, options.LibraryPath);
 
             int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;
-            IEngine engine = _engineFactory(effectiveVersion, path, options.LibraryPath, false, options.Target, false, options.LogTraces, payloadThresholdMB);
+            IEngine engine = _engineFactory(Version.Auto, path, options.LibraryPath, false, TargetPlatform.x64, false, options.LogTraces, payloadThresholdMB);
 
             try
             {

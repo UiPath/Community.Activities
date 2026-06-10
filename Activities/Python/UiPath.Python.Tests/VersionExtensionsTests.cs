@@ -38,14 +38,14 @@ namespace UiPath.Python.Tests
             var expected = new[]
             {
                 Version.Auto,
-                Version.Python_36,
-                Version.Python_37,
-                Version.Python_38,
-                Version.Python_39,
                 Version.Python_310,
             };
 
+            // GetSupportedVersions is obsolete but retained for backward compatibility; assert it
+            // still returns the documented value.
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.Equal(expected, VersionExtensions.GetSupportedVersions());
+#pragma warning restore CS0618
         }
     }
 }

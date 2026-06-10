@@ -1,10 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
     <UseWPF>true</UseWPF>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />

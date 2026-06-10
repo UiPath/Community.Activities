@@ -1,6 +1,10 @@
 <Project>
+  <!-- Import first the parent targets -->
+  <Import Project="../Directory.build.props" />
+  
   <PropertyGroup>
     <Product>Cryptography</Product>
+    <Description>UiPath Cryptography Activities Pack</Description>
     <Authors>UiPath</Authors>
     <Company>UiPath</Company>
     <Copyright>© UiPath</Copyright>
@@ -9,6 +13,7 @@
     <VersionPrefix Condition="'$(Configuration)' == 'Release'">2.2.0</VersionPrefix>
     <VersionPrefix Condition="'$(Configuration)' == 'Debug'">2.2.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
     <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">2.2.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+    <!--leave empty for ci to replace with pre-release tag-->
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsTestProject)' != 'true'">
