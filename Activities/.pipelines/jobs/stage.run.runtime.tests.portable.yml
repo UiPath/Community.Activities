@@ -82,7 +82,7 @@ jobs:
           echo "Copied robot logs from container to $DST"
         fi
       else
-        echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST failed (the log directory may not exist in the container, or docker cp failed for another reason)." > "$DST/no-logs.txt"
+        echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST failed (the log directory may not exist in the container, or docker cp failed for another reason)." > "$DST/staging-errors.txt"
       fi
     displayName: 'Stage robot logs'
     condition: always()
