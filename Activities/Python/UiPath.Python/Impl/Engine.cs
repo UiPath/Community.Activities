@@ -258,9 +258,11 @@ namespace UiPath.Python.Impl
 
         private string GetInitializationScript()
         {
+            const string resourceName = "UiPath.Python.Scripts.Init.py";
             var asm = typeof(Engine).Assembly;
-            using var str = asm.GetManifestResourceStream("UiPath.Python.Scripts.Init.py");
-            var reader = new StreamReader(str);
+            using var resourceStream = asm.GetManifestResourceStream(resourceName)
+                ?? throw new InvalidOperationException($"Embedded resource '{resourceName}' was not found in assembly '{asm.FullName}'.");
+            using var reader = new StreamReader(resourceStream);
             return reader.ReadToEnd();
         }
 
