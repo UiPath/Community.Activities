@@ -1,10 +1,9 @@
-﻿using Nito.KitchenSink.Dynamic;
+﻿using Python.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -20,51 +19,14 @@ namespace UiPath.Python.Impl
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetDllDirectory(string lpPathName);
 
-        #region Python Runtime
-
-        /// <summary>
-        /// see:
-        /// https://github.com/pythonnet/pythonnet/blob/master/src/runtime/pythonengine.cs
-        /// https://github.com/pythonnet/pythonnet/blob/master/src/runtime/pyobject.cs
-        /// </summary>
-        private const string PythonEngineTypeName = "Python.Runtime.PythonEngine";
-        private const string PythonRuntimeTypeName = "Python.Runtime.Runtime";
-
-        private const string PythonObjectTypeName = "Python.Runtime.PyObject";
-        private const string PythonModuleTypeName = "Python.Runtime.PyModule";
-        private const string PyTypeName = "Python.Runtime.Py";
-        private const string ConverterExtensionTypeName = "Python.Runtime.ConverterExtension";
-
-        private dynamic _pyEngine = null;
-        private dynamic _pyRuntime = null;
-        private dynamic _pyObject = null;
-        private dynamic _pyModule = null;
-        private dynamic _py = null;
-        private dynamic _pyConverterExtension = null;
-        private object _pythreads;
-
-        // TODO: find a nicer way for method invocation
-        private const string PythonObjectInvokeMethodName = "InvokeMethod";
-
-        private const string ToPythonMethodName = "ToPython";
-
-        private Type _pyObjType = null;
-        private MethodInfo _toPythonMethod = null;
-        private MethodInfo _pyObjInvokeMethod = null;
-        private bool _isWindows = true;
-        #endregion Python Runtime
-
-        #region Caching
-
-        private bool _initialized = false;
-
-        #endregion Caching
+        private readonly bool _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        private bool _initialized;
 
         #region Runtime info
 
-        private Version _version;
-        private string _path;
-        private string _libraryPath;
+        private readonly Version _version;
+        private readonly string _path;
+        private readonly string _libraryPath;
 
         #endregion Runtime info
 
@@ -73,13 +35,11 @@ namespace UiPath.Python.Impl
             _version = version;
             _path = path;
             _libraryPath = libraryPath;
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                _isWindows = false;
         }
 
         #region IEngine
 
-        public Version Version { get { return _version; } }
+        public Version Version => _version;
 
         public async Task Initialize(string workingFolder, CancellationToken ct, double timeout)
         {
@@ -95,39 +55,21 @@ namespace UiPath.Python.Impl
                             Trace.TraceInformation($"Initializing Python runtime using version {_version} and path {_path}");
                             Stopwatch sw = Stopwatch.StartNew();
 
-                            // needed to find the Python dll on Windows
-                            if (_isWindows)
+                            if (_isWindows && !_path.IsNullOrEmpty())
                                 SetDllDirectory(Path.GetFullPath(_path));
 
-                            // load the dedicated Python.Runtime.XX.dll
-                            string path = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(GetType()).Location).LocalPath);
-                            path = Path.Combine(path, (IntPtr.Size == 8) ? "x64" : "x86");
-                            path = Path.Combine(path, _version.GetAssemblyName());
+                            if (!_libraryPath.IsNullOrEmpty())
+                                Runtime.PythonDLL = _libraryPath;
 
-                            Assembly assembly = Assembly.LoadFile(path);
-                            ct.ThrowIfCancellationRequested();
+                            if (!_path.IsNullOrEmpty())
+                                PythonEngine.PythonHome = _path;
 
-                            InitializeRuntime(assembly);
-                            ct.ThrowIfCancellationRequested();
-
-                            if (_version == Version.Python_310)
-                            {
-                                if (!string.IsNullOrEmpty(_libraryPath))
-                                    _pyRuntime.PythonDLL = _libraryPath;
-                            }
-                            else
-                                _pyEngine.PythonHome = _path;
-
-                            if (_version >= Version.Python_36 && _version <= Version.Python_39)
-                                _pyEngine.Initialize(null, null, null, null);
-                            else
-                                _pyEngine.Initialize(null, null, null);
+                            PythonEngine.Initialize();
 
                             ct.ThrowIfCancellationRequested();
 
                             PostInitializationVenvSetup();
-
-                            _pythreads = _pyEngine.BeginAllowThreads();
+                            PythonEngine.BeginAllowThreads();
 
                             sw.Stop();
                             Trace.TraceInformation($"Engine intialization took {sw.ElapsedMilliseconds} ms");
@@ -144,6 +86,7 @@ namespace UiPath.Python.Impl
                         Trace.TraceInformation($"Using cached Python runtime version {_version} and path {_path}");
                     }
                 }
+
                 if (!workingFolder.IsNullOrEmpty())
                 {
                     var code = GetInitializationScript();
@@ -157,8 +100,12 @@ namespace UiPath.Python.Impl
         {
             lock (this)
             {
-                _pyEngine.Shutdown();
-                // TODO: release resources if using app domains; also clear the cache
+                if (_initialized)
+                {
+                    PythonEngine.Shutdown();
+                    _initialized = false;
+                }
+
                 return Task.FromResult(true);
             }
         }
@@ -168,25 +115,19 @@ namespace UiPath.Python.Impl
             ct.ThrowIfCancellationRequested();
             return RunSTA(() =>
             {
-                using (_py.GIL())
+                using (Py.GIL())
                 {
-                    Trace.TraceInformation($"Trying to load Python script");
-                    object module = null;
+                    Trace.TraceInformation("Trying to load Python script");
                     Stopwatch sw = Stopwatch.StartNew();
                     try
                     {
-                        // using a Guid for "name" import
-                        if (Version == Version.Python_310)
-                            module = _pyModule.FromString(GetModuleName(code), code);
-                        else
-                            module = _pyEngine.ModuleFromString(GetModuleName(code), code);
-                        var result = new PythonObject(module);
-                        return result;
+                        var module = PyModule.FromString(GetModuleName(code), code);
+                        return new PythonObject(module);
                     }
-                    catch (TargetInvocationException e)
+                    catch (Exception e)
                     {
                         Trace.TraceError($"Python LoadScript exception: {e}");
-                        ExceptionDispatchInfo.Capture(e.InnerException ?? e).Throw();
+                        ExceptionDispatchInfo.Capture(e).Throw();
                         return null;
                     }
                     finally
@@ -203,32 +144,31 @@ namespace UiPath.Python.Impl
             cancellationToken.ThrowIfCancellationRequested();
             return Task.Run(() =>
             {
-                using (_py.GIL())
+                using (Py.GIL())
                 {
-                    args = args ?? Enumerable.Empty<object>();
-                    object[] paramsObj = args.Select((obj) => _toPythonMethod.Invoke(null, new object[] { obj })).ToArray();
-                    Array paramsPy = Array.CreateInstance(_pyObjType, paramsObj.Length);
-                    Array.Copy(paramsObj, paramsPy, paramsObj.Length);
-                    Trace.TraceInformation($"Trying to execute Python method");
-                    object result = null;
+                    args ??= Enumerable.Empty<object>();
+                    var paramsPy = args.Select(ConverterExtension.ToPython).ToArray();
+                    Trace.TraceInformation("Trying to execute Python method");
                     Stopwatch sw = Stopwatch.StartNew();
                     try
                     {
-                        result = _pyObjInvokeMethod.Invoke(instance.PyObject, new object[] { method, paramsPy });
+                        var pyInstance = (PyObject)instance.PyObject;
+                        var result = pyInstance.InvokeMethod(method, paramsPy);
+                        return new PythonObject(result);
                     }
-                    catch (TargetInvocationException e)
+                    catch (Exception e)
                     {
                         Trace.TraceError($"Python InvokeMethod exception: {e}");
-                        ExceptionDispatchInfo.Capture(e.InnerException ?? e).Throw();
+                        ExceptionDispatchInfo.Capture(e).Throw();
+                        return null;
                     }
                     finally
                     {
                         sw.Stop();
                         Trace.TraceInformation($"Method execution took {sw.ElapsedMilliseconds} ms");
                     }
-                    return new PythonObject(result);
                 }
-            });
+            }, cancellationToken);
         }
 
         public Task Execute(string code, CancellationToken cancellationToken)
@@ -236,18 +176,18 @@ namespace UiPath.Python.Impl
             cancellationToken.ThrowIfCancellationRequested();
             return RunSTA(() =>
             {
-                using (_py.GIL())
+                using (Py.GIL())
                 {
-                    Trace.TraceInformation($"Trying to execute Python script");
+                    Trace.TraceInformation("Trying to execute Python script");
                     Stopwatch sw = Stopwatch.StartNew();
                     try
                     {
-                        _pyEngine.Exec(code, null, null);
+                        PythonEngine.Exec(code);
                     }
-                    catch (TargetInvocationException e)
+                    catch (Exception e)
                     {
                         Trace.TraceError($"Python Execute exception: {e}");
-                        ExceptionDispatchInfo.Capture(e.InnerException ?? e).Throw();
+                        ExceptionDispatchInfo.Capture(e).Throw();
                     }
                     finally
                     {
@@ -256,14 +196,13 @@ namespace UiPath.Python.Impl
                     }
                 }
 
-                // used as placeholder
                 return true;
             });
         }
 
         public object Convert(PythonObject obj, Type t)
         {
-            using (_py.GIL())
+            using (Py.GIL())
             {
                 Trace.TraceInformation($"Trying to convert Python object to type {t}");
                 return obj.AsManagedType(t);
@@ -272,22 +211,6 @@ namespace UiPath.Python.Impl
 
         #endregion IEngine
 
-        private void InitializeRuntime(Assembly assembly)
-        {
-            _pyEngine = DynamicStaticTypeMembers.Create(assembly.GetType(PythonEngineTypeName));
-            _pyRuntime = DynamicStaticTypeMembers.Create(assembly.GetType(PythonRuntimeTypeName));
-            _pyObject = DynamicStaticTypeMembers.Create(assembly.GetType(PythonObjectTypeName));
-            _py = DynamicStaticTypeMembers.Create(assembly.GetType(PyTypeName));
-            if (Version == Version.Python_310)
-                _pyModule = DynamicStaticTypeMembers.Create(assembly.GetType(PythonModuleTypeName));
-            _pyConverterExtension = DynamicStaticTypeMembers.Create(assembly.GetType(ConverterExtensionTypeName));
-
-            // TODO: find a nicer way
-            _pyObjType = assembly.GetType(PythonObjectTypeName);
-            _pyObjInvokeMethod = _pyObjType.GetMethod(PythonObjectInvokeMethodName, new Type[] { typeof(string), _pyObjType.MakeArrayType() });
-            _toPythonMethod = assembly.GetType(ConverterExtensionTypeName).GetMethod(ToPythonMethodName);
-        }
-
         public void Dispose()
         {
             // see Release method, for the moment the runtime is cached
@@ -295,7 +218,7 @@ namespace UiPath.Python.Impl
 
         #region script name caching
 
-        private Dictionary<string, string> _cachedModules = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _cachedModules = new Dictionary<string, string>();
 
         /// <summary>
         /// gets the module name based on the script content hash
@@ -305,20 +228,22 @@ namespace UiPath.Python.Impl
         private string GetModuleName(string script)
         {
             string hash = Hash(script);
-            string moduleName = null;
-            if (_cachedModules.TryGetValue(hash, out moduleName))
+            if (_cachedModules.TryGetValue(hash, out string moduleName))
             {
                 return moduleName;
             }
+
             lock (this)
             {
                 if (_cachedModules.TryGetValue(hash, out moduleName))
                 {
                     return moduleName;
                 }
+
                 moduleName = Guid.NewGuid().ToString();
                 _cachedModules.Add(hash, moduleName);
             }
+
             return moduleName;
         }
 
@@ -333,12 +258,12 @@ namespace UiPath.Python.Impl
 
         private string GetInitializationScript()
         {
+            const string resourceName = "UiPath.Python.Scripts.Init.py";
             var asm = typeof(Engine).Assembly;
-            using (var str = asm.GetManifestResourceStream("UiPath.Python.Scripts.Init.py"))
-            {
-                var reader = new StreamReader(str);
-                return reader.ReadToEnd();
-            }
+            using var resourceStream = asm.GetManifestResourceStream(resourceName)
+                ?? throw new InvalidOperationException($"Embedded resource '{resourceName}' was not found in assembly '{asm.FullName}'.");
+            using var reader = new StreamReader(resourceStream);
+            return reader.ReadToEnd();
         }
 
         private static bool IsVenv(string path) => File.Exists(Path.Combine(path, "pyvenv.cfg"));
@@ -362,12 +287,12 @@ namespace UiPath.Python.Impl
             }
             else
             {
-                // On Linux/macOS the layout is lib/pythonX.Y/site-packages
                 var libPath = Path.Combine(venvPath, "lib");
                 var pythonDir = Directory.GetDirectories(libPath, "python*").FirstOrDefault()
                     ?? throw new DirectoryNotFoundException($"No python* directory found under {libPath}");
                 sitePackages = Path.Combine(pythonDir, "site-packages");
             }
+
             return sitePackages;
         }
 
@@ -379,25 +304,17 @@ namespace UiPath.Python.Impl
             var venvPath = GetVenvPath(_path);
             if (!string.IsNullOrWhiteSpace(venvPath))
             {
-                using (_py.GIL())
+                using (Py.GIL())
                 {
-                    dynamic sys = _py.Import("sys");
-                    dynamic site = _py.Import("site");
+                    dynamic sys = Py.Import("sys");
+                    dynamic site = Py.Import("site");
 
-                    // Full venv activation: sys.prefix/exec_prefix let packages locate
-                    // their own data files (e.g. scipy, spaCy models) inside the venv.
-                    // sys.base_prefix/base_exec_prefix retain the base Python location
-                    // and are already set correctly by Initialize().
                     sys.prefix = venvPath;
                     sys.exec_prefix = venvPath;
 
-                    // addsitedir adds site-packages to sys.path AND processes .pth files.
-                    // .pth processing is required for editable installs (pip install -e)
-                    // and packages that register extra paths via .pth (e.g. scipy, spaCy).
                     var sitePackagesPath = GetEnvSitePackagesPath(venvPath);
                     site.addsitedir(sitePackagesPath);
 
-                    // addsitedir appends; move to front so venv packages take priority over base Python.
                     if ((bool)sys.path.__contains__(sitePackagesPath))
                         sys.path.remove(sitePackagesPath);
 

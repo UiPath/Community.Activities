@@ -2,15 +2,15 @@
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
         <OutputPath>..\..\Output\Activities\Python\</OutputPath>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
     <!--<PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
   </PropertyGroup>-->
     <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-    <Import Project="..\..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
+    <Import Project="..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
     <ItemGroup>
         <PackageReference Include="UiPath.Workflow" />
+        <PackageReference Include="pythonnet" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Update="Properties\UiPath.Python.*.resx">

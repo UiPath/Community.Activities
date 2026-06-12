@@ -9,7 +9,6 @@
         <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
         <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
         <PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
-        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -35,11 +34,6 @@
     </Target>
 
     <Target Name="AddDlls">
-        <!-- PDBs for debug-->
-        <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.pdb" />
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.pdb" />
-        </ItemGroup>
         <ItemGroup Label="AddActivitiesDlls">
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
@@ -119,6 +113,6 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
-        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
+        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" IgnoreStandardErrorWarningFormat="true" />
     </Target>
 </Project>

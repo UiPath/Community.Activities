@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Cryptography.build.props" />
   <PropertyGroup>
     <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Cryptography.Activit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8DF338E4-6EDA-4B06-A2F1-91428261F2FC}"
 	ProjectSection(SolutionItems) = preProject
-		Cryptography\Cryptography.build.props = Cryptography\Cryptography.build.props
+		Directory.build.props = Directory.build.props
 		Directory.build.targets = Directory.build.targets
 	EndProjectSection
 EndProject
@@ -28,6 +28,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities.API", "Cryptography\UiPath.Cryptography.Activities.API\UiPath.Cryptography.Activities.API.csproj", "{D0DFB91E-9DD4-56F2-9830-56CEAC92742A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Cryptography.Activities.API.Tests", "Cryptography\UiPath.Cryptography.Activities.API.Tests\UiPath.Cryptography.Activities.API.Tests.csproj", "{EC6A03A6-26B9-4A64-DA6F-A354B54CDF1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptography", "Cryptography", "{915E47E9-EDDD-4D3C-B409-50072F37EAC0}"
+	ProjectSection(SolutionItems) = preProject
+		Cryptography\Directory.build.props = Cryptography\Directory.build.props
+		Cryptography\Directory.build.targets = Cryptography\Directory.build.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +68,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{915E47E9-EDDD-4D3C-B409-50072F37EAC0} = {8DF338E4-6EDA-4B06-A2F1-91428261F2FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5AC55779-EA32-41AD-BAAD-1808F8A412CB}

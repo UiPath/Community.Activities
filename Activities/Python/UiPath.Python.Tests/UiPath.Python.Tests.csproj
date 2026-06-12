@@ -28,22 +28,19 @@
   </ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\..\Shared\UiPath.TestUtils\UiPath.TestUtils.csproj" />
-    <ProjectReference Include="..\UiPath.Python.Host32\UiPath.Python.Host32.csproj" />
-    <ProjectReference Include="..\UiPath.Python.Host\UiPath.Python.Host.csproj" />
-    <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
-  </ItemGroup>
+		<ProjectReference Include="..\..\Shared\UiPath.TestUtils\UiPath.TestUtils.csproj" />
+		<ProjectReference Include="..\UiPath.Python.Host\UiPath.Python.Host.csproj" />
+		<ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
+	</ItemGroup>
   <ItemGroup>
     <None Include="..\..\xunit.runner.json">
       <Link>xunit.runner.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-      xcopy "$(SolutionDir)Python\3rdparty\*" "$(TargetDir)x86\" /Y
-      xcopy "$(SolutionDir)Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y
-    </PostBuildEvent>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\3rdparty\python-3.14.5-embed-amd64.zip">
+      <Link>EmbeddedPython\python-3.14.5-embed-amd64.zip</Link>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

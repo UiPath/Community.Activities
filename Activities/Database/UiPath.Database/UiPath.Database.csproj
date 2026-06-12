@@ -1,8 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
         <OutputPath>..\..\Output\Activities\Database\</OutputPath>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <PreserveCompilationContext>true</PreserveCompilationContext>
         <Platforms>AnyCPU;x86;x64</Platforms>
