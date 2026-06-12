@@ -69,12 +69,12 @@ The options object bundles the key, wire format, and any format-specific knobs (
 
 | Factory | Format | Key type accepted | Notes |
 |---------|--------|------------------|-------|
-| `SymmetricEncryptOptions.Classic(PasswordKey key)` / `SymmetricDecryptOptions.Classic(PasswordKey key)` | `Classic` | `PasswordKey` | Default. Frozen wire format for back-compat (PBKDF2-HMAC-SHA1 @ 10 000 iter). |
-| `SymmetricEncryptOptions.Owasp2026(PasswordKey key, int kdfIterations = 1_300_000)` | `Owasp2026` | `PasswordKey` | Same wire layout as Classic with PBKDF2-HMAC-SHA1 at OWASP 2026's recommended iteration count. |
-| `SymmetricEncryptOptions.Raw(RawKey key, byte[] iv = null)` / `SymmetricDecryptOptions.Raw(RawKey key)` | `Raw` | `RawKey` | Caller-supplied key + IV. Third-party interop. |
-| `SymmetricEncryptOptions.OpenSslEnc(PasswordKey key, int kdfIterations = 600_000)` | `OpenSslEnc` | `PasswordKey` | `openssl enc`-compatible (`Salted__` magic + PBKDF2-HMAC-SHA256). |
+| `SymmetricEncryptOptions.Classic(PasswordKey key, Encoding encoding = null)` / `SymmetricDecryptOptions.Classic(PasswordKey key, Encoding encoding = null)` | `Classic` | `PasswordKey` | Default. Frozen wire format for back-compat (PBKDF2-HMAC-SHA1 @ 10 000 iter). |
+| `SymmetricEncryptOptions.Owasp2026(PasswordKey key, int kdfIterations = 1_300_000, Encoding encoding = null)` | `Owasp2026` | `PasswordKey` | Same wire layout as Classic with PBKDF2-HMAC-SHA1 at OWASP 2026's recommended iteration count. |
+| `SymmetricEncryptOptions.Raw(RawKey key, byte[] iv = null, Encoding encoding = null)` / `SymmetricDecryptOptions.Raw(RawKey key, Encoding encoding = null)` | `Raw` | `RawKey` | Caller-supplied key + IV. Third-party interop. |
+| `SymmetricEncryptOptions.OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null)` | `OpenSslEnc` | `PasswordKey` | `openssl enc`-compatible (`Salted__` magic + PBKDF2-HMAC-SHA256). |
 
-The decrypt factories take the same shape (no `IV` on the decrypt side — the IV is read from the ciphertext stream automatically).
+The decrypt factories take the same shape (no `IV` on the decrypt side — the IV is read from the ciphertext stream automatically). The optional `encoding:` parameter sets `TextEncoding` on the options (defaults to UTF-8) and is only consulted by `EncryptText` / `DecryptText`.
 
 See [`docs/symmetric-wire-format.md`](../../docs/symmetric-wire-format.md) for the full byte layouts and third-party interop reference.
 
@@ -111,6 +111,48 @@ Passing a `PgpPrivateKey` to an encrypt method implies signing; passing a `PgpPu
 
 ---
 
+## Migrating from the prior coded API
+
+The coded API surface introduced in the prior release has been **consolidated** in this version. The old call shapes — separate `string` / `SecureString` / `byte[]` key overloads with an `Encoding` parameter, plus a path-based `PgpGenerateKeys` — are replaced by a single options-based shape per operation so that the (key kind × wire format) pairing is enforced at compile time. There are **no `[Obsolete]` shims**: code written against the prior API must be updated to compile against this package.
+
+### One-to-one replacement
+
+| Before | After |
+|--------|-------|
+| `EncryptBytes(input, algo, string key, Encoding enc)` | `EncryptBytes(input, algo, SymmetricEncryptOptions.Classic(PasswordKey.FromPassword(key, enc)))` |
+| `EncryptBytes(input, algo, SecureString key, Encoding enc)` | `EncryptBytes(input, algo, SymmetricEncryptOptions.Classic(PasswordKey.FromPassword(key, enc)))` |
+| `EncryptBytes(input, algo, byte[] keyBytes)` | `EncryptBytes(input, algo, SymmetricEncryptOptions.Raw(RawKey.FromBytes(keyBytes)))` |
+| `EncryptText(input, algo, key, enc)` | `EncryptText(input, algo, SymmetricEncryptOptions.Classic(PasswordKey.FromPassword(key, enc), enc))` *(see encoding note)* |
+| `EncryptFile(in, out, algo, key, enc, overwrite)` | `EncryptFile(in, out, algo, SymmetricEncryptOptions.Classic(PasswordKey.FromPassword(key, enc)), overwrite)` |
+| `DecryptBytes` / `DecryptText` / `DecryptFile` | Same shape — `SymmetricDecryptOptions.<Format>(...)` |
+| `KeyedHashBytes(input, algo, string key, Encoding enc)` | `KeyedHashBytes(input, algo, PasswordKey.FromPassword(key, enc))` |
+| `KeyedHashBytes(input, algo, byte[] keyBytes)` | `KeyedHashBytes(input, algo, RawKey.FromBytes(keyBytes))` |
+| `PgpGenerateKeys(publicKeyPath, privateKeyPath, userId, passphrase, keySize)` *(path-based)* | `var pair = PgpGenerateKeys(userId, passphrase, keySize); pair.PublicKey.Save(publicKeyPath); pair.PrivateKey.Save(privateKeyPath);` |
+
+### Plaintext encoding for `EncryptText` / `DecryptText`
+
+The old text APIs took the plaintext `Encoding` as a positional parameter. In the new shape, **the same encoding is carried on the options object** via the optional trailing `encoding:` parameter on every format factory, and defaults to `Encoding.UTF8` when omitted:
+
+```csharp
+// Old
+cryptography.EncryptText(input, algo, key, Encoding.Latin1);
+
+// New
+var pwKey = PasswordKey.FromPassword(key, Encoding.UTF8);  // password bytes encoding
+cryptography.EncryptText(input, algo, SymmetricEncryptOptions.Classic(pwKey, Encoding.Latin1));
+//                                                                    plaintext encoding ↑
+```
+
+The encoding on the options is ignored by `EncryptBytes` / `DecryptBytes` / `EncryptFile` / `DecryptFile` — for those, transcode at the call site if needed.
+
+### Behaviours to be aware of
+
+- **Default text encoding is UTF-8.** Code that didn't pass an encoding to the old text APIs will continue to behave identically if the old call also used UTF-8. Calls that relied on the prior default of UTF-8 need no migration changes beyond the options refactor.
+- **No silent compile-by-renaming.** Because every key/options type is new, code referencing the old overloads fails to compile rather than silently picking up a different overload. The mapping above gives the one-to-one replacement for each.
+- **Path-based `PgpGenerateKeys` returns a key pair, not files.** The old overload wrote files as a side effect. The new overload returns an in-memory `PgpKeyPair`; call `.Save(path)` on each half to persist.
+
+---
+
 ## Symmetric Encryption
 
 ### `byte[] EncryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)`
@@ -121,7 +163,7 @@ Encrypts arbitrary bytes. The `options` parameter carries the key + wire format;
 
 ### `string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)`
 
-Encrypts a string and returns the result as Base64-encoded ciphertext. **The input is always transcoded with UTF-8** — there is no encoding parameter. For non-UTF-8 text, transcode at the call site and use `EncryptBytes`.
+Encrypts a string and returns the result as Base64-encoded ciphertext. The plaintext encoding is read from `options.TextEncoding` — defaulting to UTF-8 when the factory's optional `encoding:` parameter is omitted. Pass a different encoding to the format factory (`Classic(key, Encoding.Latin1)`, etc.) when migrating ciphertext produced by non-UTF-8 callers of the prior API.
 
 **Returns:** `string` — Base64-encoded ciphertext.
 
@@ -141,7 +183,7 @@ Decrypts ciphertext produced by `EncryptBytes`. `options.Format` must match the 
 
 ### `string DecryptText(string input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)`
 
-Decrypts a Base64-encoded ciphertext produced by `EncryptText` and returns the plaintext. **The plaintext bytes are always decoded with UTF-8** — there is no encoding parameter. For non-UTF-8 text, use `DecryptBytes` and decode at the call site.
+Decrypts a Base64-encoded ciphertext produced by `EncryptText` and returns the plaintext. The plaintext encoding is read from `options.TextEncoding` — defaulting to UTF-8 when the factory's optional `encoding:` parameter is omitted, and must match the encoding used at encrypt time.
 
 ### `void DecryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options, bool overwrite = false)`
 
