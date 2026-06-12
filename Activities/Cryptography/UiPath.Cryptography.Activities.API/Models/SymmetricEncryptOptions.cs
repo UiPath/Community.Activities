@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace UiPath.Cryptography.Activities.API
 {
     /// <summary>
@@ -14,13 +16,15 @@ namespace UiPath.Cryptography.Activities.API
         /// <summary>
         /// Explicit initialization vector for <see cref="SymmetricWireFormat.Raw"/>.
         /// Null (default) means generate a random IV. Set only by the
-        /// <see cref="Raw(RawKey, byte[])"/> factory.
+        /// <see cref="Raw(RawKey, byte[], Encoding)"/> factory.
         /// </summary>
         public byte[] IV { get; private init; }
 
         /// <summary>Produces <see cref="SymmetricWireFormat.Classic"/> output — UiPath's frozen, byte-stable layout (PBKDF2-HMAC-SHA1 @ 10 000 iter).</summary>
-        public static SymmetricEncryptOptions Classic(PasswordKey key) =>
-            new() { Key = key, Format = SymmetricWireFormat.Classic };
+        /// <param name="key">Password material; PBKDF2 stretches it to the cipher key.</param>
+        /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
+        public static SymmetricEncryptOptions Classic(PasswordKey key, Encoding encoding = null) =>
+            new() { Key = key, Format = SymmetricWireFormat.Classic, TextEncoding = encoding ?? Encoding.UTF8 };
 
         /// <summary>Produces <see cref="SymmetricWireFormat.Owasp2026"/> output (Classic wire layout, PBKDF2-HMAC-SHA1).</summary>
         /// <param name="key">Password material; PBKDF2 stretches it to the cipher key.</param>
@@ -30,8 +34,9 @@ namespace UiPath.Cryptography.Activities.API
         /// revises the recommendation, this package adds a new <see cref="SymmetricWireFormat"/>
         /// entry (e.g. <c>Owasp2030</c>) rather than changing this default.
         /// </param>
-        public static SymmetricEncryptOptions Owasp2026(PasswordKey key, int kdfIterations = 1_300_000) =>
-            new() { Key = key, Format = SymmetricWireFormat.Owasp2026, KdfIterations = kdfIterations };
+        /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
+        public static SymmetricEncryptOptions Owasp2026(PasswordKey key, int kdfIterations = 1_300_000, Encoding encoding = null) =>
+            new() { Key = key, Format = SymmetricWireFormat.Owasp2026, KdfIterations = kdfIterations, TextEncoding = encoding ?? Encoding.UTF8 };
 
         /// <summary>
         /// Produces <see cref="SymmetricWireFormat.Raw"/> output (caller-supplied key + IV, no KDF).
@@ -48,8 +53,9 @@ namespace UiPath.Cryptography.Activities.API
         /// third-party protocol mandates it, and ensure your producer guarantees uniqueness.
         /// </para>
         /// </param>
-        public static SymmetricEncryptOptions Raw(RawKey key, byte[] iv = null) =>
-            new() { Key = key, Format = SymmetricWireFormat.Raw, IV = iv };
+        /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
+        public static SymmetricEncryptOptions Raw(RawKey key, byte[] iv = null, Encoding encoding = null) =>
+            new() { Key = key, Format = SymmetricWireFormat.Raw, IV = iv, TextEncoding = encoding ?? Encoding.UTF8 };
 
         /// <summary>Produces <see cref="SymmetricWireFormat.OpenSslEnc"/> output (<c>openssl enc</c>-compatible, PBKDF2-HMAC-SHA256).</summary>
         /// <param name="key">Password material; PBKDF2-SHA256 stretches it to key+IV.</param>
@@ -60,7 +66,8 @@ namespace UiPath.Cryptography.Activities.API
         /// decryptable by <c>openssl enc -pbkdf2 -iter 600000 -md sha256</c>.) Pass <c>10_000</c>
         /// to match the openssl back-compat default explicitly.
         /// </param>
-        public static SymmetricEncryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000) =>
-            new() { Key = key, Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations };
+        /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
+        public static SymmetricEncryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null) =>
+            new() { Key = key, Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations, TextEncoding = encoding ?? Encoding.UTF8 };
     }
 }

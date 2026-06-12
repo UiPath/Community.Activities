@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Security;
 using System.Text;
 using Shouldly;
@@ -129,6 +130,34 @@ namespace UiPath.Cryptography.Activities.API.Tests
             PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
             Should.NotThrow(() => key.ReleaseMaterialisedBytes(null));
             Should.NotThrow(() => key.ReleaseMaterialisedBytes(Array.Empty<byte>()));
+        }
+
+        // The whole point of UseKeyBytes is that a throwing callback still triggers release.
+        // Capture the materialised buffer from inside the lambda and assert it's zeroed after
+        // the throw propagates out — the regression we'd see if the finally were ever dropped.
+        [Fact]
+        public void UseKeyBytes_FuncThrows_StillReleasesBytes()
+        {
+            PasswordKey key = PasswordKey.FromPassword("password-to-clear", Encoding.UTF8);
+            byte[] capturedBuffer = null;
+
+            Should.Throw<InvalidOperationException>(() =>
+                key.UseKeyBytes<int>(bytes =>
+                {
+                    capturedBuffer = bytes;
+                    bytes.Any(b => b != 0).ShouldBeTrue("buffer should hold password bytes before the throw");
+                    throw new InvalidOperationException("forced failure inside dispatch");
+                }));
+
+            capturedBuffer.ShouldNotBeNull();
+            capturedBuffer.ShouldBe(new byte[capturedBuffer.Length]);
+        }
+
+        [Fact]
+        public void UseKeyBytes_NullFunc_Throws()
+        {
+            PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.Throw<ArgumentNullException>(() => key.UseKeyBytes<int>(null));
         }
 
         // Per-call clearing in the service must not destroy the PasswordKey instance's own

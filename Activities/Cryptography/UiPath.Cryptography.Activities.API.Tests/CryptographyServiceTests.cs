@@ -356,6 +356,38 @@ namespace UiPath.Cryptography.Activities.API.Tests
             Should.Throw<ArgumentNullException>(() => _service.DecryptText(null, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key)));
         }
 
+        // Non-UTF-8 encoding flows through the options object end-to-end. Use UTF-16LE so the
+        // input characters (including em-dash and Latin accents) all have a faithful representation
+        // and the ciphertext bytes are structurally different from the UTF-8 path.
+        [Fact]
+        public void EncryptText_DecryptText_NonUtf8Encoding_RoundTrip()
+        {
+            string original = "café — éàü";
+            PasswordKey key = PasswordKey.FromPassword("mySecretKey", Encoding.UTF8);
+            Encoding utf16 = Encoding.Unicode;
+
+            string utf16Cipher = _service.EncryptText(original, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key, utf16));
+            string utf16Decrypted = _service.DecryptText(utf16Cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key, utf16));
+            utf16Decrypted.ShouldBe(original);
+
+            // Decrypting UTF-16 ciphertext as UTF-8 produces garbage (or mojibake) — proving the
+            // option actually drives the decode side, not a hidden UTF-8 default.
+            string utf8Decrypted = _service.DecryptText(utf16Cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key));
+            utf8Decrypted.ShouldNotBe(original);
+        }
+
+        [Fact]
+        public void EncryptText_NullOptions_Throws()
+        {
+            Should.Throw<ArgumentNullException>(() => _service.EncryptText("hi", EncryptionAlgorithm.AES, options: null));
+        }
+
+        [Fact]
+        public void DecryptText_NullOptions_Throws()
+        {
+            Should.Throw<ArgumentNullException>(() => _service.DecryptText("AAAA", EncryptionAlgorithm.AES, options: null));
+        }
+
         // ═══════════════════════════════════════════════════════════════════════
         // Symmetric Encrypt / Decrypt — File form
         // ═══════════════════════════════════════════════════════════════════════

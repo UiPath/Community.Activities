@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace UiPath.Cryptography.Activities.API
 {
     /// <summary>
@@ -22,5 +24,13 @@ namespace UiPath.Cryptography.Activities.API
         /// Zero for Classic and Raw.
         /// </summary>
         public int KdfIterations { get; private protected init; }
+
+        /// <summary>
+        /// Text encoding used by <c>EncryptText</c> / <c>DecryptText</c> to transcode the plaintext
+        /// to/from bytes. Defaults to <see cref="Encoding.UTF8"/>; pass a different encoding to
+        /// the format factory when migrating ciphertext produced by non-UTF-8 callers of the prior
+        /// coded API. Ignored by <c>EncryptBytes</c> / <c>DecryptBytes</c> / <c>EncryptFile</c> / <c>DecryptFile</c>.
+        /// </summary>
+        public Encoding TextEncoding { get; private protected init; } = Encoding.UTF8;
     }
 }

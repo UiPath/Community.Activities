@@ -1,3 +1,5 @@
+using System;
+
 namespace UiPath.Cryptography.Activities.API
 {
     /// <summary>
@@ -33,5 +35,16 @@ namespace UiPath.Cryptography.Activities.API
         /// managed heap between operations.
         /// </summary>
         internal virtual void ReleaseMaterialisedBytes(byte[] bytes) { }
+
+        // Scoped accessor: materialises KeyBytes, invokes 'use', and guarantees release even on throw.
+        // Existence prevents a future call site from forgetting the try/finally and silently leaking
+        // password bytes — the cleanup is owned here, not at every call site.
+        internal T UseKeyBytes<T>(Func<byte[], T> use)
+        {
+            ArgumentNullException.ThrowIfNull(use);
+            byte[] bytes = KeyBytes;
+            try { return use(bytes); }
+            finally { ReleaseMaterialisedBytes(bytes); }
+        }
     }
 }
