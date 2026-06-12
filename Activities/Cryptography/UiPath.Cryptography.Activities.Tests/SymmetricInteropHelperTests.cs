@@ -277,6 +277,80 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         // ────────────────────────────────────────────────────────────────────────
+        // RunSymmetricWithKeyLifecycle — the security-critical invariant the helper exists for
+        // ────────────────────────────────────────────────────────────────────────
+
+        // The whole reason the helper owns the key-zeroing finally is so a future per-activity
+        // fix can't silently drop it for one of the four activities. Capture the parsed key buffer
+        // from inside the dispatch lambda and assert the bytes are zeroed after the throw escapes —
+        // exactly what would regress if the finally were ever removed from the helper.
+        [Fact]
+        public void RunSymmetricWithKeyLifecycle_DispatchThrows_KeyBytesCleared()
+        {
+            byte[] capturedKeyBytes = null;
+
+            Should.Throw<InvalidOperationException>(() =>
+                SymmetricInteropHelper.RunSymmetricWithKeyLifecycle<int>(
+                    EncryptionAlgorithm.AES,
+                    SymmetricWireFormat.Classic,
+                    KeyBytesFormat.Encoded,
+                    Encoding.UTF8,
+                    keyString: "key-to-be-cleared",
+                    keySecureString: null,
+                    ivString: null,
+                    kdfIterations: 0,
+                    needsIv: true,
+                    dispatch: (k, _) =>
+                    {
+                        capturedKeyBytes = k;
+                        // Sanity: the buffer holds material before we throw.
+                        bool hasContent = false;
+                        for (int i = 0; i < k.Length; i++) if (k[i] != 0) { hasContent = true; break; }
+                        hasContent.ShouldBeTrue("key buffer should contain bytes before the throw");
+                        throw new InvalidOperationException("forced failure inside dispatch");
+                    }));
+
+            capturedKeyBytes.ShouldNotBeNull();
+            capturedKeyBytes.ShouldBe(new byte[capturedKeyBytes.Length]);
+        }
+
+        // Happy path: the helper round-trips end-to-end, so call sites can rely on it instead of
+        // re-implementing validate → parse → dispatch → clear inline.
+        [Fact]
+        public void RunSymmetricWithKeyLifecycle_HappyPath_EncryptThenDecrypt_RoundTrip()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("payload");
+            string key = "shared-password";
+
+            byte[] cipher = SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Classic, KeyBytesFormat.Encoded, Encoding.UTF8,
+                keyString: key, keySecureString: null,
+                ivString: null, kdfIterations: 0, needsIv: true,
+                dispatch: (k, iv) => SymmetricInteropHelper.DispatchEncrypt(
+                    EncryptionAlgorithm.AES, SymmetricWireFormat.Classic, 0, k, iv, plain));
+
+            byte[] roundTripped = SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Classic, KeyBytesFormat.Encoded, Encoding.UTF8,
+                keyString: key, keySecureString: null,
+                ivString: null, kdfIterations: 0, needsIv: false,
+                dispatch: (k, _) => SymmetricInteropHelper.DispatchDecrypt(
+                    EncryptionAlgorithm.AES, SymmetricWireFormat.Classic, 0, k, cipher));
+
+            roundTripped.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void RunSymmetricWithKeyLifecycle_NullDispatch_Throws()
+        {
+            Should.Throw<ArgumentNullException>(() =>
+                SymmetricInteropHelper.RunSymmetricWithKeyLifecycle<int>(
+                    EncryptionAlgorithm.AES, SymmetricWireFormat.Classic, KeyBytesFormat.Encoded, Encoding.UTF8,
+                    keyString: "k", keySecureString: null,
+                    ivString: null, kdfIterations: 0, needsIv: false,
+                    dispatch: null));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
 
         private static SecureString ToSecureString(string s) => new NetworkCredential(string.Empty, s).SecurePassword;
     }

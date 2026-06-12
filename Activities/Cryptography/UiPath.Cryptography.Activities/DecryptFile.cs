@@ -281,25 +281,21 @@ namespace UiPath.Cryptography.Activities
         {
             var iterations = KdfIterations?.Get(context) ?? 0;
 
-            SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString: null, iterations, null);
-
-            byte[] keyOrPasswordBytes = SymmetricInteropHelper.ParseKeyOrIv(key, keySecureString, KeyFormat, keyEncoding);
-
-            if (Format == SymmetricWireFormat.Raw)
-                SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString: null, iterations, keyOrPasswordBytes?.Length);
-
-            try
-            {
-                return SymmetricInteropHelper.DispatchDecrypt(Algorithm, Format, iterations, keyOrPasswordBytes, encrypted);
-            }
-            catch (CryptographicException ex)
-            {
-                throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-            }
-            finally
-            {
-                SymmetricInteropHelper.ClearKeyBytes(keyOrPasswordBytes);
-            }
+            return SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                Algorithm, Format, KeyFormat, keyEncoding,
+                keyString: key, keySecureString: keySecureString,
+                ivString: null, kdfIterations: iterations, needsIv: false,
+                dispatch: (k, _) =>
+                {
+                    try
+                    {
+                        return SymmetricInteropHelper.DispatchDecrypt(Algorithm, Format, iterations, k, encrypted);
+                    }
+                    catch (CryptographicException ex)
+                    {
+                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+                    }
+                });
         }
 
         private void WriteDecryptedOutput(CodeActivityContext context, string outputFilePath, byte[] decrypted, (string, string, string) result)

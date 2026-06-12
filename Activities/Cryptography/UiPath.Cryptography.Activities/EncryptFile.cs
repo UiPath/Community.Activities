@@ -259,22 +259,12 @@ namespace UiPath.Cryptography.Activities
             var ivString = Iv?.Get(context);
             var iterations = KdfIterations?.Get(context) ?? 0;
 
-            SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, null);
-
-            byte[] keyOrPasswordBytes = SymmetricInteropHelper.ParseKeyOrIv(key, keySecureString, KeyFormat, keyEncoding);
-            byte[] ivBytes = SymmetricInteropHelper.ParseKeyOrIv(ivString, null, KeyFormat, keyEncoding);
-
-            if (Format == SymmetricWireFormat.Raw)
-                SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, keyOrPasswordBytes?.Length);
-
-            try
-            {
-                return SymmetricInteropHelper.DispatchEncrypt(Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, inputBytes);
-            }
-            finally
-            {
-                SymmetricInteropHelper.ClearKeyBytes(keyOrPasswordBytes);
-            }
+            return SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                Algorithm, Format, KeyFormat, keyEncoding,
+                keyString: key, keySecureString: keySecureString,
+                ivString: ivString, kdfIterations: iterations, needsIv: true,
+                dispatch: (k, iv) => SymmetricInteropHelper.DispatchEncrypt(
+                    Algorithm, Format, iterations, k, iv, inputBytes));
         }
 
         private byte[] ExecutePgpEncrypt(CodeActivityContext context, string inputPath)

@@ -231,8 +231,6 @@ namespace UiPath.Cryptography.Activities
             var ivString = Iv?.Get(context);
             var iterations = KdfIterations?.Get(context) ?? 0;
 
-            SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, null);
-
             if (string.IsNullOrWhiteSpace(key))
             {
                 if (keySecureString == null || keySecureString.Length == 0)
@@ -244,23 +242,14 @@ namespace UiPath.Cryptography.Activities
 
             keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-            byte[] keyOrPasswordBytes = SymmetricInteropHelper.ParseKeyOrIv(key, keySecureString, KeyFormat, keyEncoding);
-            byte[] ivBytes = SymmetricInteropHelper.ParseKeyOrIv(ivString, null, KeyFormat, keyEncoding);
+            byte[] encrypted = SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                Algorithm, Format, KeyFormat, keyEncoding,
+                keyString: key, keySecureString: keySecureString,
+                ivString: ivString, kdfIterations: iterations, needsIv: true,
+                dispatch: (k, iv) => SymmetricInteropHelper.DispatchEncrypt(
+                    Algorithm, Format, iterations, k, iv, keyEncoding.GetBytes(input)));
 
-            if (Format == SymmetricWireFormat.Raw)
-                SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString, iterations, keyOrPasswordBytes?.Length);
-
-            try
-            {
-                byte[] encrypted = SymmetricInteropHelper.DispatchEncrypt(
-                    Algorithm, Format, iterations, keyOrPasswordBytes, ivBytes, keyEncoding.GetBytes(input));
-
-                return Convert.ToBase64String(encrypted);
-            }
-            finally
-            {
-                SymmetricInteropHelper.ClearKeyBytes(keyOrPasswordBytes);
-            }
+            return Convert.ToBase64String(encrypted);
         }
     }
 }

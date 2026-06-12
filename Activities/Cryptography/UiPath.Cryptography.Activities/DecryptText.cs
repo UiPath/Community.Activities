@@ -218,8 +218,6 @@ namespace UiPath.Cryptography.Activities
             var keyEncodingString = KeyEncodingString.Get(context);
             var iterations = KdfIterations?.Get(context) ?? 0;
 
-            SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString: null, iterations, null);
-
             if (string.IsNullOrWhiteSpace(key))
             {
                 if (keySecureString == null || keySecureString.Length == 0)
@@ -231,25 +229,22 @@ namespace UiPath.Cryptography.Activities
 
             keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-            byte[] keyOrPasswordBytes = SymmetricInteropHelper.ParseKeyOrIv(key, keySecureString, KeyFormat, keyEncoding);
-
-            if (Format == SymmetricWireFormat.Raw)
-                SymmetricInteropHelper.ValidateInteropSettings(Algorithm, Format, KeyFormat, ivString: null, iterations, keyOrPasswordBytes?.Length);
-
-            byte[] decrypted;
-            try
-            {
-                decrypted = SymmetricInteropHelper.DispatchDecrypt(
-                    Algorithm, Format, iterations, keyOrPasswordBytes, Convert.FromBase64String(input));
-            }
-            catch (CryptographicException ex)
-            {
-                throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-            }
-            finally
-            {
-                SymmetricInteropHelper.ClearKeyBytes(keyOrPasswordBytes);
-            }
+            byte[] decrypted = SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                Algorithm, Format, KeyFormat, keyEncoding,
+                keyString: key, keySecureString: keySecureString,
+                ivString: null, kdfIterations: iterations, needsIv: false,
+                dispatch: (k, _) =>
+                {
+                    try
+                    {
+                        return SymmetricInteropHelper.DispatchDecrypt(
+                            Algorithm, Format, iterations, k, Convert.FromBase64String(input));
+                    }
+                    catch (CryptographicException ex)
+                    {
+                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+                    }
+                });
 
             return keyEncoding.GetString(decrypted);
         }

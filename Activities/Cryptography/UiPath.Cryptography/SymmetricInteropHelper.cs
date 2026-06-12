@@ -118,6 +118,47 @@ namespace UiPath.Cryptography
             }
         }
 
+        // Owns the full validate → parse key/IV → re-validate(Raw) → dispatch → finally{ClearKeyBytes}
+        // lifecycle for symmetric encrypt/decrypt. The four XAML activities (EncryptText, DecryptText,
+        // EncryptFile, DecryptFile) all need this exact sequence; centralising it means the key-zeroing
+        // finally lives in one place and cannot be silently dropped by a future fix that touches only
+        // three of the four activities. Callers pass already-resolved settings + payload via the
+        // dispatch lambda (which is where per-activity error wrapping lives, e.g. Decrypt* wrapping
+        // CryptographicException in InvalidOperationException).
+        public static TOut RunSymmetricWithKeyLifecycle<TOut>(
+            EncryptionAlgorithm algorithm,
+            SymmetricWireFormat format,
+            KeyBytesFormat keyFormat,
+            Encoding keyEncoding,
+            string keyString,
+            SecureString keySecureString,
+            string ivString,
+            int kdfIterations,
+            bool needsIv,
+            Func<byte[], byte[], TOut> dispatch)
+        {
+            if (dispatch == null) throw new ArgumentNullException(nameof(dispatch));
+
+            ValidateInteropSettings(algorithm, format, keyFormat, ivString, kdfIterations, null);
+
+            byte[] keyOrPasswordBytes = ParseKeyOrIv(keyString, keySecureString, keyFormat, keyEncoding);
+            byte[] ivBytes = needsIv
+                ? ParseKeyOrIv(ivString, null, keyFormat, keyEncoding)
+                : null;
+
+            if (format == SymmetricWireFormat.Raw)
+                ValidateInteropSettings(algorithm, format, keyFormat, ivString, kdfIterations, keyOrPasswordBytes?.Length);
+
+            try
+            {
+                return dispatch(keyOrPasswordBytes, ivBytes);
+            }
+            finally
+            {
+                ClearKeyBytes(keyOrPasswordBytes);
+            }
+        }
+
         public static byte[] DispatchDecrypt(
             EncryptionAlgorithm algorithm,
             SymmetricWireFormat format,
