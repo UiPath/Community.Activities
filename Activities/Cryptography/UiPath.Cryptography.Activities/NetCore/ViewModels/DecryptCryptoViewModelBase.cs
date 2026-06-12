@@ -114,9 +114,10 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         }
 
         /// <summary>
-        /// Configures the third-party-compatibility properties (Format, KeyFormat, Iv, KdfIterations).
+        /// Configures the third-party-compatibility properties (Format, KeyFormat, KdfIterations).
         /// Format is visible by default; the others are hidden until <see cref="ApplyInteropVisibility"/>
-        /// reveals them based on Format/Algorithm.
+        /// reveals them based on Format/Algorithm. Decrypt has no IV property — the IV is read from
+        /// the ciphertext stream at decrypt time.
         /// </summary>
         protected void ConfigureInteropProperties(ref int orderIndex)
         {
