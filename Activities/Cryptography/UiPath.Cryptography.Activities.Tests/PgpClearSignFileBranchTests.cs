@@ -1,8 +1,6 @@
 using System;
 using System.Activities;
 using System.IO;
-using System.Reflection;
-using System.Threading;
 using Shouldly;
 using UiPath.Cryptography.Activities;
 using UiPath.Cryptography.Enums;
@@ -58,55 +56,30 @@ namespace UiPath.Cryptography.Activities.Tests
             t.GetProperty(nameof(PgpClearSignFile.ClearSignedFile)).ShouldNotBeNull();
         }
 
-        // Pre-cancelled token — the async file resolution awaits the token and must throw
-        // OperationCanceledException before reaching the synchronous sign helper.
+        // Default ContinueOnError (false) — missing input file must surface as a runtime exception
+        // (mirror of PgpClearSignFile_ContinueOnError_SwallowsResolveFailure with the opposite flag).
         [Fact]
-        public void PgpClearSignFile_PreCancelledToken_ThrowsOperationCancelled()
+        public void PgpClearSignFile_DefaultContinueOnError_MissingInput_Throws()
         {
-            string inputPath = Path.Combine(Path.GetTempPath(), $"pre_cancel_{Guid.NewGuid():N}.txt");
-            string outputPath = Path.Combine(Path.GetTempPath(), $"pre_cancel_out_{Guid.NewGuid():N}.asc");
-            File.WriteAllText(inputPath, "cancel-me");
+            string missingInput = Path.Combine(Path.GetTempPath(), $"missing_throw_{Guid.NewGuid():N}.txt");
+            string outputPath = Path.Combine(Path.GetTempPath(), $"missing_throw_out_{Guid.NewGuid():N}.asc");
+
+            var activity = new PgpClearSignFile
+            {
+                InputFilePath = new InArgument<string>(missingInput),
+                PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                Passphrase = new InArgument<string>(Passphrase),
+                OutputFilePath = new InArgument<string>(outputPath),
+                Overwrite = true,
+            };
 
             try
             {
-                var activity = new PgpClearSignFile
-                {
-                    InputFilePath = new InArgument<string>(inputPath),
-                    PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
-                    Passphrase = new InArgument<string>(Passphrase),
-                    OutputFilePath = new InArgument<string>(outputPath),
-                    Overwrite = true,
-                };
-
-                // Reach the async ExecuteAsync directly with a pre-cancelled token. The activity's
-                // PgpFileResolver.ResolveAsync awaits the token internally — pre-cancelling
-                // it makes the first await observe cancellation and throw.
-                using var cts = new CancellationTokenSource();
-                cts.Cancel();
-
-                MethodInfo execAsync = typeof(PgpClearSignFile).GetMethod(
-                    "ExecuteAsync",
-                    BindingFlags.Instance | BindingFlags.NonPublic);
-                execAsync.ShouldNotBeNull("PgpClearSignFile.ExecuteAsync must exist for the async base class to dispatch into");
-
-                // ExecuteAsync expects an AsyncCodeActivityContext; we can't easily construct one
-                // outside the WF runtime. Use WorkflowInvoker with a separate thread + a token
-                // that we cancel before invocation — the activity samples the token inside
-                // PgpFileResolver.ResolveAsync.
-                Should.Throw<Exception>(() =>
-                {
-                    // Reaching into the runtime to inject a token requires WorkflowApplication.
-                    // For a unit test we instead rely on a corrupt/missing file — the activity's
-                    // ContinueOnError defaults to false, so the exception surfaces from the runtime.
-                    // (True per-token cancellation requires WorkflowApplication integration testing
-                    // not appropriate for this unit-test suite — see the integration plan.)
-                    File.Delete(inputPath);   // makes resolution throw FileNotFound
-                    WorkflowInvoker.Invoke(activity);
-                });
+                Should.Throw<Exception>(() => WorkflowInvoker.Invoke(activity));
+                File.Exists(outputPath).ShouldBeFalse("no output should have been written when input is missing");
             }
             finally
             {
-                if (File.Exists(inputPath)) File.Delete(inputPath);
                 if (File.Exists(outputPath)) File.Delete(outputPath);
             }
         }
