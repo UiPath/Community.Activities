@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305 (FIPS değil)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (Kullanımdan Kaldırıldı)</value>
   </data>
@@ -184,10 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>TripleDES (Kullanım Dışı)</value>
   </data>
   <data name="PGP" xml:space="preserve">
-    <value>PGP (Oldukça İyi Gizlilik)</value>
+    <value>PGP - Oldukça İyi Gizlilik (FIPS Olmayan)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>Sağlanan karma algoritması desteklenmiyor.</value>
@@ -197,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>Sağlanan simetrik algoritma desteklenmiyor.</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>Sağlanan şifreli metin UiPath aktarma biçiminde olamayacak kadar kısa. UiPath şifreli metin düzeni Base64(tuz | IV | ciphertext)&apos;dir ve bu algoritma için en az {0} bayt olmalıdır. Harici araçlar tarafından üretilen şifreli metin doğrudan uyumlu değildir. İletim biçimi belirtimi için etkinlik belgelerine bakın.</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>Şifre çözme işlemi başarısız oldu. UiPath bağlantı biçimi Base64(tuz | IV | şifreli metin); bu genellikle girişin farklı bir araç tarafından üretildiğini veya anahtarın/kodlamanın şifrelemek için kullanılanla eşleşmediğini belirtir.</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 bu platformda desteklenmiyor. Bunun yerine AES-GCM kullanın veya ChaCha20-Poly1305 (OpenSSL&apos;li Linux veya Windows 10 1809/Server 2019 veya üzeri) sağlayan bir platformda çalıştırın.</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -632,10 +644,19 @@
     <value>İmzalanan Dosya (İkili)</value>
   </data>
   <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
-    <value>Açık İmzalı Dosya (Metin)</value>
+    <value>Clearsigned Dosyası (Metin)</value>
   </data>
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>Genel Anahtarı Doğrula</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 bit</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 bit</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 bit</value>
   </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>İmzalama istendi, ancak imzalamak için özel anahtar ve parola gerekiyor. Hem özel bir anahtar akışı hem de bir parola sağlayın ya da işareti yanlış olarak ayarlayın.</value>

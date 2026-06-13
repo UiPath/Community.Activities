@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305 (非 FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (非推奨)</value>
   </data>
@@ -184,10 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>TripleDES (非推奨)</value>
   </data>
   <data name="PGP" xml:space="preserve">
-    <value>PGP (Pretty Good Privacy)</value>
+    <value>PGP - Pretty Good Privacy (非 FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>指定したハッシュ アルゴリズムはサポートされていません。</value>
@@ -197,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>指定した対称アルゴリズムはサポートされていません。</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>指定された暗号文が短すぎて UiPath ワイヤー形式にすることができません。UiPath の暗号文のレイアウトは Base64 (salt | IV | 暗号文) であり、このアルゴリズムでは少なくとも {0} バイトである必要があります。外部ツールによって生成された暗号文は直接対応していません。ワイヤー形式の仕様については、アクティビティの製品ドキュメントをご覧ください。</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>復号に失敗しました。UiPath のワイヤー形式は Base64 (salt | IV | 暗号文) です。これは通常、入力が別のツールによって生成されたか、キー/エンコードが暗号化に使用されたものと一致しないことを示します。</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 は、このプラットフォームではサポートされていません。代わりに AES-GCM を使用するか、ChaCha20-Poly1305 を提供するプラットフォーム (OpenSSL がある Linux、または Windows 10 1809 / Server 2019 以降) で実行してください。</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -636,6 +648,15 @@
   </data>
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>公開キーを検証</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 ビット</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 ビット</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 ビット</value>
   </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>署名が要求されましたが、署名には秘密キーとパスフレーズが必要です。秘密キー ストリームとパスフレーズの両方を指定するか、[署名] を false に設定してください。</value>

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -120,6 +120,9 @@
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>選択したアルゴリズムは FIPS に準拠していません。これは、一部のマシン上では動作しない可能性があります。</value>
   </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 は、このプラットフォームではサポートされていません。代わりに AES-GCM を使用するか、ChaCha20-Poly1305 を提供するプラットフォーム (OpenSSL がある Linux、または Windows 10 1809 / Server 2019 以降) で実行してください。</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>入力</value>
   </data>
@@ -172,6 +175,48 @@
   <data name="Common" xml:space="preserve">
     <value>共通</value>
   </data>
+  <data name="MenuAction_UseFile" xml:space="preserve">
+    <value>ファイルを使用</value>
+  </data>
+  <data name="MenuAction_UseFilePath" xml:space="preserve">
+    <value>ファイル パスを使用</value>
+  </data>
+  <data name="MenuAction_UseKey" xml:space="preserve">
+    <value>キーを使用</value>
+  </data>
+  <data name="MenuAction_UseSecureKey" xml:space="preserve">
+    <value>セキュリティで保護されたキーを使用</value>
+  </data>
+  <data name="MenuAction_UsePassphrase" xml:space="preserve">
+    <value>パスフレーズを使用</value>
+  </data>
+  <data name="MenuAction_UseSecurePassphrase" xml:space="preserve">
+    <value>セキュリティで保護されたパスフレーズを使用</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公開キー ファイル</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供される、受信者の PGP 公開キーです。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公開キー ファイル</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして提供される、送信者の PGP 公開キーです。署名の検証に使用されます。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公開キー ファイル</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供される、受信者の PGP 公開キーです。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公開キー ファイル</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして提供される、送信者の PGP 公開キーです。署名の検証に使用されます。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
     <comment>property name</comment>
@@ -194,7 +239,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>使用する復号アルゴリズムをドロップダウン リストから選択します。</value>
+    <value>使用する復号アルゴリズムをドロップダウン リストから選択します。入力は UiPath ワイヤー形式 Base64 (salt | IV | 暗号文) である必要があります。外部ツールによって生成された暗号文は直接対応していません。ワイヤー形式の仕様については、アクティビティの製品ドキュメントをご覧ください。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
@@ -242,11 +287,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>復号するファイルの保存先のパスです。</value>
+    <value>復号後のファイルの保存先のフル パス (ファイル名と拡張子を含む) です。空白のままにすると、ファイルは入力ファイルの横に「&lt;input-name&gt;_Decrypted&lt;input-extension&gt;」という名前で書き込まれます。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>出力ファイル名と場所</value>
+    <value>出力ファイル パス</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -266,7 +311,7 @@
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>使用する復号アルゴリズムをドロップダウン リストから選択します。</value>
+    <value>使用する復号アルゴリズムをドロップダウン リストから選択します。入力は UiPath ワイヤー形式 Base64 (salt | IV | 暗号文) である必要があります。外部ツールによって生成された暗号文は直接対応していません。ワイヤー形式の仕様については、アクティビティの製品ドキュメントをご覧ください。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
@@ -330,7 +375,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>使用する暗号化アルゴリズムをドロップダウン リストから選択します。</value>
+    <value>使用する暗号化アルゴリズムをドロップダウン リストから選択します。暗号文は UiPath 固有のワイヤー形式 Base64 (salt | IV | 暗号文) を使用し、外部ツールとの直接の相互運用性はありません。ワイヤー形式の仕様については、アクティビティの製品ドキュメントをご覧ください。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
@@ -402,11 +447,11 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>暗号化するファイルの保存先のパスです。</value>
+    <value>暗号化後のファイルの保存先のフル パス (ファイル名と拡張子を含む) です。空白のままにすると、ファイルは入力ファイルの横に「&lt;input-name&gt;_Encrypted&lt;input-extension&gt;」という名前で書き込まれます。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>出力ファイル名と場所</value>
+    <value>出力ファイル パス</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -426,7 +471,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>使用する暗号化アルゴリズムをドロップダウン リストから選択します。</value>
+    <value>使用する暗号化アルゴリズムをドロップダウン リストから選択します。暗号文は UiPath 固有のワイヤー形式 Base64 (salt | IV | 暗号文) を使用し、外部ツールとの直接の相互運用性はありません。ワイヤー形式の仕様については、アクティビティの製品ドキュメントをご覧ください。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
@@ -857,6 +902,12 @@
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>[キー (SecureString)] を null にすることはできません。</value>
   </data>
+  <data name="PassphraseNullError" xml:space="preserve">
+    <value>アクティビティの必須の引数「パスフレーズ」の値が指定されていません。</value>
+  </data>
+  <data name="PassphraseSecureStringNullError" xml:space="preserve">
+    <value>セキュリティで保護された文字列のパスフレーズを null にすることはできません。</value>
+  </data>
   <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
     <value>ファイル パスとリソースを切り替えます。</value>
   </data>
@@ -867,12 +918,6 @@
     <value>ファイル パスとリソースを切り替えます。</value>
   </data>
   <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
-    <value>ファイルの入力モードの切り替え</value>
-  </data>
-  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
-    <value>ファイル パスとリソースを切り替えます。</value>
-  </data>
-  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>ファイルの入力モードの切り替え</value>
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
@@ -889,15 +934,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>復号に使用される PGP 秘密キー ファイルへのパスです。</value>
+    <value>メッセージの復号に使用される、独自の PGP 秘密キー ファイルへのパスです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Passphrase_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>パスフレーズ (セキュリティ保護あり)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>セキュリティで保護された文字列としてのパスフレーズです。復号のための独自の秘密キーのロックを解除します。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_DecryptFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 秘密キーのパスフレーズです。</value>
+    <value>復号のための独自の秘密キーのロックを解除するパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_VerifySignature_Name" xml:space="preserve">
@@ -913,7 +966,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>署名の検証に使用される PGP 公開キー ファイルへのパスです。</value>
+    <value>署名の検証に使用される、送信者の PGP 公開キー ファイルへのパスです。[署名を検証] が有効化されている場合にのみ必須です。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
@@ -921,15 +974,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>復号に使用される PGP 秘密キー ファイルへのパスです。</value>
+    <value>メッセージの復号に使用される、独自の PGP 秘密キー ファイルへのパスです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Passphrase_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>パスフレーズ (セキュリティ保護あり)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>セキュリティで保護された文字列としてのパスフレーズです。復号のための独自の秘密キーのロックを解除します。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 秘密キーのパスフレーズです。</value>
+    <value>復号のための独自の秘密キーのロックを解除するパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_VerifySignature_Name" xml:space="preserve">
@@ -945,7 +1006,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>署名の検証に使用される PGP 公開キー ファイルへのパスです。</value>
+    <value>署名の検証に使用される、送信者の PGP 公開キー ファイルへのパスです。[署名を検証] が有効化されている場合にのみ必須です。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
@@ -953,7 +1014,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>暗号化に使用される PGP 公開キー ファイルへのパスです。</value>
+    <value>受信者の PGP 公開キー ファイルへのパスです。受信者は、出力を復号できるユーザーです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_SignData_Name" xml:space="preserve">
@@ -969,15 +1030,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>署名に使用される PGP 秘密キー ファイルへのパスです。</value>
+    <value>暗号化された出力の署名に使用される、独自の PGP 秘密キー ファイルへのパスです。[データに署名] が有効化されている場合にのみ必須です。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Passphrase_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>パスフレーズ (セキュリティ保護あり)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>セキュリティで保護された文字列としてのパスフレーズです。署名のための独自の秘密キーのロックを解除します。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_EncryptFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>署名に使用される PGP 秘密キーのパスフレーズです。</value>
+    <value>署名のための独自の秘密キーのロックを解除するパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
@@ -985,7 +1054,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>暗号化に使用される PGP 公開キー ファイルへのパスです。</value>
+    <value>受信者の PGP 公開キー ファイルへのパスです。受信者は、出力を復号できるユーザーです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_SignData_Name" xml:space="preserve">
@@ -1001,88 +1070,124 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>署名に使用される PGP 秘密キー ファイルへのパスです。</value>
+    <value>暗号化された出力の署名に使用される、独自の PGP 秘密キー ファイルへのパスです。[データに署名] が有効化されている場合にのみ必須です。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Passphrase_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
-    <value>署名に使用される PGP 秘密キーのパスフレーズです。</value>
+  <data name="Activity_EncryptText_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>パスフレーズ (セキュリティ保護あり)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>セキュリティで保護された文字列としてのパスフレーズです。署名のための独自の秘密キーのロックを解除します。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
+  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
+    <value>署名のための独自の秘密キーのロックを解除するパスフレーズです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
     <value>PGP キーを生成</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">
     <value>PGP 公開キーと秘密キーのペアを生成し、指定したファイル パスに保存します。(PGP Generate Keys)</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name" xml:space="preserve">
     <value>公開キーの出力パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description" xml:space="preserve">
     <value>生成される PGP 公開キーの保存先ファイル パスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>秘密キーの出力パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>生成される PGP 秘密キーの保存先ファイル パスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
-    <value>ユーザー名</value>
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Name" xml:space="preserve">
+    <value>ユーザー ID</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
-    <value>生成されるキーのペアに関連付けるユーザー名 (またはメール アドレス) です。</value>
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Description" xml:space="preserve">
+    <value>生成される公開キーの OpenPGP のユーザー ID です。一般的には「名前 &lt;email@example.com&gt;」という形式の RFC 2822 のメールボックスです (例: アリス ドウ &lt;alice@example.com&gt;)。任意の UTF-8 文字列を使用できますが、ほとんどの PGP ツールやキー サーバーで期待される値はメールボックス形式です。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Hint" xml:space="preserve">
+    <value>あなたの名前 &lt;your.email@example.com&gt;</value>
+    <comment>Property placeholder hint shown inside the empty input</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_Password_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Password_Description" xml:space="preserve">
     <value>生成される秘密キーを保護するためのパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>パスフレーズ (セキュリティ保護あり)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>生成される秘密キーを保護するための、セキュリティで保護された文字列としてのパスフレーズです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Name" xml:space="preserve">
     <value>上書き</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Description" xml:space="preserve">
     <value>これを選択すると、出力パスにすでにファイルが存在する場合は上書きされます。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_KeySize_Name" xml:space="preserve">
+    <value>キーのサイズ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_KeySize_Description" xml:space="preserve">
+    <value>生成される PGP キー ペアの RSA キー サイズ (ビット単位) です。サポートされているサイズは、2048 ビット、3072 ビット、4096 ビットです。エンタープライズ レベルのセキュリティのため、既定値は 4096 ビットです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Name" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Description" xml:space="preserve">
     <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開キー ファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>ファイル リソースとして生成される公開キーです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>秘密キー ファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>ファイル リソースとして生成される秘密キーです。</value>
     <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Hint" xml:space="preserve">
+    <value>公開キーを含むリソースです。</value>
+    <comment>Property hint</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Hint" xml:space="preserve">
+    <value>秘密キーを含むリソースです。</value>
+    <comment>Property hint</comment>
   </data>
   <data name="Activity_PgpSignFile_Name" xml:space="preserve">
     <value>PGP ファイルに署名</value>
@@ -1100,20 +1205,44 @@
     <value>署名するファイルへのパスです。</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_PgpSignFile_Property_InputFile_Name" xml:space="preserve">
+    <value>入力ファイル</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_InputFile_Description" xml:space="preserve">
+    <value>署名するファイル リソースです。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>秘密キー ファイル パス</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>署名に使用される PGP 秘密キー ファイルへのパスです。</value>
+    <value>データの署名に使用される、独自の PGP 秘密キー ファイルへのパスです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>秘密キー ファイル</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供されるユーザー独自の PGP 秘密キーです。データの署名に使用されます。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_PgpSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>パスフレーズ (セキュリティ保護あり)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>セキュリティで保護された文字列としてのパスフレーズです。署名のための独自の秘密キーのロックを解除します。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_PgpSignFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 秘密キーのパスフレーズです。</value>
+    <value>署名のための独自の秘密キーのロックを解除するパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_OutputFilePath_Name" xml:space="preserve">
@@ -1121,7 +1250,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>署名済みファイルの保存先のパスです。</value>
+    <value>署名されたファイルの保存先のフル パス (ファイル名と拡張子を含む) です。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_Overwrite_Name" xml:space="preserve">
@@ -1148,67 +1277,91 @@
     <value>ファイル リソースとしての署名済みファイルです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
     <value>PGP ファイルにクリア署名</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
     <value>秘密キーを使用して、ファイルの PGP クリア テキスト署名を作成します。(PGP Clear Sign File)</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>入力ファイル パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>クリア署名するファイルへのパスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+    <value>入力ファイル</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+    <value>署名するファイルを表すリソースです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>秘密キー ファイル パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>署名に使用される PGP 秘密キー ファイルへのパスです。</value>
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>データのクリア署名に使用される、独自の PGP 秘密キー ファイルへのパスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>秘密キー ファイル</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして提供される独自の PGP 秘密キーです。データにクリア署名するために使用されます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 秘密キーのパスフレーズです。</value>
+  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>パスフレーズ (セキュリティ保護あり)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>セキュリティで保護された文字列としてのパスフレーズです。署名のための独自の秘密キーのロックを解除します。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>署名のための独自の秘密キーのロックを解除するパスフレーズです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>出力ファイル パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>クリア署名済みファイルの保存先のパスです</value>
+  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>クリア署名済みファイルの保存先のフル パス (ファイル名と拡張子を含む) です。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>上書き</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>これを選択すると、出力パスにファイルがすでに存在する場合は上書きされます。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>クリア署名済みファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>ファイル リソースとしてのクリア署名済みファイルです。</value>
     <comment>Property description</comment>
   </data>
@@ -1225,7 +1378,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_Mode_Description" xml:space="preserve">
-    <value>検証の種類を選択します。「署名済みファイル (バイナリ)」は、バイナリ署名されたファイルを検証します。「クリア署名済みファイル (テキスト)」は、署名が埋め込まれたテキスト ファイルを検証します。「公開鍵を検証」は、ファイルに有効な PGP 公開キーが含まれているかどうかを確認します。</value>
+    <value>検証の種類を選択します。「署名済みファイル (バイナリ)」は、バイナリ署名されたファイルを検証します。「クリア署名済みファイル (テキスト)」は、署名が埋め込まれたテキスト ファイルを検証します。「公開キーを検証」は、ファイルに有効な PGP 公開キーが含まれているかどうかを確認します。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Name" xml:space="preserve">
@@ -1241,7 +1394,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>検証に使用される PGP 公開キー ファイルへのパスです。</value>
+    <value>署名者の PGP 公開キー ファイルへのパスです。これは、署名した人の公開キーです。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFile_Name" xml:space="preserve">
+    <value>署名済みファイル</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFile_Description" xml:space="preserve">
+    <value>検証する署名済みコンテンツを含むファイル リソースです。「署名済みファイル (バイナリ)」モードおよび「クリア署名済みファイル (テキスト)」モードの場合は必須です。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公開キー ファイル</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして提供される署名者の PGP 公開キーです。署名の検証に使用されます。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_ContinueOnError_Name" xml:space="preserve">
@@ -1262,5 +1431,14 @@
   </data>
   <data name="ActivitySynonymCryptography" xml:space="preserve">
     <value>暗号化</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 ビット RSA</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 ビット RSA</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 ビット RSA</value>
   </data>
 </root>

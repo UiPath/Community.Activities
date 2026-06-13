@@ -291,7 +291,7 @@
     <value>超时</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>在遭到终止及引发异常前，允许 Python 脚本运行的时长。</value>
+    <value>允许 Python 脚本运行的时间（秒），超时后将终止脚本并抛出异常。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>对于 Linux，是 Python libpython*.so 库的路径，包含库名称。对于 Windows (版本 &gt; 3.9)，是 python**.dll 的路径，包括库名称 (通常位于 Python 主页路径)。对于 Windows (版本 &lt;= 3.9)，留空。</value>

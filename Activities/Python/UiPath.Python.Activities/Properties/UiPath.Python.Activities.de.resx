@@ -291,7 +291,7 @@
     <value>Timeout</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Die Zeit, die ein Python-Skript ausgeführt werden kann, bis es beendet und eine Ausnahme ausgelöst wird.</value>
+    <value>Die Zeit in Sekunden, die ein Python-Skript ausgeführt werden kann, bis es beendet und eine Ausnahme ausgelöst wird.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Für Linux ist der Pfad zur Python-Bibliothek „libpython*.so“ einschließlich des Bibliotheksnamens anzugeben. Für Windows (Version &gt; 3.9) ist der Pfad zu „python**.dll“ einschließlich des Bibliotheksnamens (steht normalerweise im Python-Startpfad) anzugeben. Für Windows (Version &lt;= 3.9) leer lassen.</value>
