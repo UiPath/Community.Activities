@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 
 namespace UiPath.Cryptography.Activities.API
@@ -54,8 +55,26 @@ namespace UiPath.Cryptography.Activities.API
         /// </para>
         /// </param>
         /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
-        public static SymmetricEncryptOptions Raw(RawKey key, byte[] iv = null, Encoding encoding = null) =>
-            new() { Key = key, Format = SymmetricWireFormat.Raw, IV = iv, TextEncoding = encoding ?? Encoding.UTF8 };
+        public static SymmetricEncryptOptions Raw(RawKey key, byte[] iv = null, Encoding encoding = null)
+        {
+            // Defensive copy: matches RawKey.FromBytes / PgpPublicKey.FromBytes / PgpPrivateKey.FromBytes.
+            // Without this, a caller mutating their own iv buffer between encryptions reusing the
+            // same options instance would silently change the IV — see the regression test
+            // SymmetricEncryptOptions_Raw_DefensiveCopiesIv_CallerMutationDoesNotAffectEncryption.
+            byte[] ivCopy = null;
+            if (iv != null && iv.Length > 0)
+            {
+                ivCopy = new byte[iv.Length];
+                Buffer.BlockCopy(iv, 0, ivCopy, 0, iv.Length);
+            }
+            return new SymmetricEncryptOptions
+            {
+                Key = key,
+                Format = SymmetricWireFormat.Raw,
+                IV = ivCopy,
+                TextEncoding = encoding ?? Encoding.UTF8,
+            };
+        }
 
         /// <summary>Produces <see cref="SymmetricWireFormat.OpenSslEnc"/> output (<c>openssl enc</c>-compatible, PBKDF2-HMAC-SHA256).</summary>
         /// <param name="key">Password material; PBKDF2-SHA256 stretches it to key+IV.</param>

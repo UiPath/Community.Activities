@@ -147,6 +147,30 @@ namespace UiPath.Cryptography.Activities.API.Tests
             decrypted.ShouldBe(plain);
         }
 
+        // Reusing a SymmetricEncryptOptions across calls must not be silently affected by the
+        // caller mutating its original IV buffer. Mirrors the RawKey.FromBytes defensive-copy
+        // contract (RawKeyTests.FromBytes_DefensiveCopy_CallerMutationDoesNotAffectInstance).
+        [Fact]
+        public void SymmetricEncryptOptions_Raw_DefensiveCopiesIv_CallerMutationDoesNotAffectEncryption()
+        {
+            byte[] sourceIv = MakeDeterministicKey(16, offset: 71);
+            byte[] rawKey = MakeDeterministicKey(32, offset: 7);
+            RawKey key = RawKey.FromBytes(rawKey);
+
+            SymmetricEncryptOptions options = SymmetricEncryptOptions.Raw(key, sourceIv);
+            byte[] cipher1 = _service.EncryptBytes(Encoding.UTF8.GetBytes("payload"), EncryptionAlgorithm.AES, options);
+
+            // Mutating the caller's buffer after the options object is constructed must NOT
+            // change the IV used by subsequent encryptions reusing the same options — the factory
+            // defensively copies. If the factory ever regresses to ref-storage, this clear would
+            // zero the stored IV and the next cipher would differ.
+            Array.Clear(sourceIv, 0, sourceIv.Length);
+
+            byte[] cipher2 = _service.EncryptBytes(Encoding.UTF8.GetBytes("payload"), EncryptionAlgorithm.AES, options);
+
+            cipher2.ShouldBe(cipher1);
+        }
+
         [Fact]
         public void Encrypt_Decrypt_Owasp2026_RoundTrip()
         {
