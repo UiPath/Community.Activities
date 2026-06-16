@@ -1,4 +1,5 @@
 using System.Security;
+using System.Text;
 using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities.API
@@ -113,10 +114,12 @@ namespace UiPath.Cryptography.Activities.API
         string KeyedHashBytes(byte[] input, KeyedHashAlgorithms algorithm, CryptoKey key);
 
         /// <summary>
-        /// Computes a keyed hash over the UTF-8 bytes of <paramref name="input"/> and returns
-        /// the digest as an uppercase hex string.
+        /// Computes a keyed hash over the bytes of <paramref name="input"/> in the specified
+        /// <paramref name="encoding"/> (default <see cref="Encoding.UTF8"/>) and returns the
+        /// digest as an uppercase hex string. Pass a non-UTF-8 encoding to match digests
+        /// produced by the prior API when the caller passed a non-UTF-8 encoding.
         /// </summary>
-        string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key);
+        string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key, Encoding encoding = null);
 
         /// <summary>
         /// Reads the file at <paramref name="inputPath"/> and computes a keyed hash over its

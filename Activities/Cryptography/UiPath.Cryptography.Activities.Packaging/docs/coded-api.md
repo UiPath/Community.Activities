@@ -127,6 +127,8 @@ The coded API surface introduced in the prior release has been **consolidated** 
 | `DecryptBytes` / `DecryptText` / `DecryptFile` | Same shape — `SymmetricDecryptOptions.<Format>(...)` |
 | `KeyedHashBytes(input, algo, string key, Encoding enc)` | `KeyedHashBytes(input, algo, PasswordKey.FromPassword(key, enc))` |
 | `KeyedHashBytes(input, algo, byte[] keyBytes)` | `KeyedHashBytes(input, algo, RawKey.FromBytes(keyBytes))` |
+| `KeyedHashText(input, algo, string key, Encoding enc)` | `KeyedHashText(input, algo, PasswordKey.FromPassword(key, enc), enc)` *(see encoding note — the old `enc` covered both password and input bytes; in the new API the password encoding goes on `PasswordKey.FromPassword`, and the same encoding is also passed as the trailing parameter to drive input transcoding)* |
+| `KeyedHashFile(inputPath, algo, string key, Encoding enc)` | `KeyedHashFile(inputPath, algo, PasswordKey.FromPassword(key, enc))` *(the old `enc` only ever applied to the password — file contents are hashed byte-for-byte)* |
 | `PgpGenerateKeys(publicKeyPath, privateKeyPath, userId, passphrase, keySize)` *(path-based)* | `var pair = PgpGenerateKeys(userId, passphrase, keySize); pair.PublicKey.Save(publicKeyPath); pair.PrivateKey.Save(privateKeyPath);` |
 
 ### Plaintext encoding for `EncryptText` / `DecryptText`
@@ -144,6 +146,8 @@ cryptography.EncryptText(input, algo, SymmetricEncryptOptions.Classic(pwKey, Enc
 ```
 
 The encoding on the options is ignored by `EncryptBytes` / `DecryptBytes` / `EncryptFile` / `DecryptFile` — for those, transcode at the call site if needed.
+
+`KeyedHashText` follows the same default (UTF-8) and exposes an analogous optional trailing `encoding:` parameter directly on the method (keyed-hash methods take no options object). Non-UTF-8 callers of the prior `KeyedHashText(input, algo, key, enc)` overload should pass the same `enc` to the new signature to reproduce identical digests. `KeyedHashBytes` operates on raw bytes and `KeyedHashFile` hashes file content byte-for-byte — neither needs an encoding.
 
 ### Behaviours to be aware of
 
@@ -196,10 +200,12 @@ Reads an encrypted file and writes the plaintext. Throws `InvalidOperationExcept
 Keyed-hash methods compute an HMAC (or plain hash for non-HMAC algorithms) and return the result as an uppercase hex string. One-way — no inverse operation.
 
 ### `string KeyedHashBytes(byte[] input, KeyedHashAlgorithms algorithm, CryptoKey key)`
-### `string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key)`
+### `string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key, Encoding encoding = null)`
 ### `string KeyedHashFile(string inputPath, KeyedHashAlgorithms algorithm, CryptoKey key)`
 
 **Returns:** `string` — uppercase hex-encoded hash digest.
+
+The optional `encoding` parameter on `KeyedHashText` controls how the input string is transcoded to bytes before hashing (defaults to UTF-8). Pass a non-UTF-8 encoding to match digests produced by the prior API when the caller passed a non-UTF-8 encoding for the input. `KeyedHashBytes` operates on raw bytes, and `KeyedHashFile` hashes the file contents byte-for-byte — neither has an encoding axis.
 
 ---
 

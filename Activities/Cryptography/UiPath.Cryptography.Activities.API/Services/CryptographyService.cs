@@ -70,11 +70,12 @@ namespace UiPath.Cryptography.Activities.API
             return key.UseKeyBytes(keyBytes => ComputeHashHex(algorithm, input, keyBytes));
         }
 
-        public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key)
+        public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key, Encoding encoding = null)
         {
             ArgumentNullException.ThrowIfNull(input);
             ArgumentNullException.ThrowIfNull(key);
-            return key.UseKeyBytes(keyBytes => ComputeHashHex(algorithm, Encoding.UTF8.GetBytes(input), keyBytes));
+            Encoding textEncoding = encoding ?? Encoding.UTF8;
+            return key.UseKeyBytes(keyBytes => ComputeHashHex(algorithm, textEncoding.GetBytes(input), keyBytes));
         }
 
         public string KeyedHashFile(string inputPath, KeyedHashAlgorithms algorithm, CryptoKey key)

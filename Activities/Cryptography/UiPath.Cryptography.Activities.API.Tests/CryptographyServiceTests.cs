@@ -412,6 +412,26 @@ namespace UiPath.Cryptography.Activities.API.Tests
             Should.Throw<ArgumentNullException>(() => _service.DecryptText("AAAA", EncryptionAlgorithm.AES, options: null));
         }
 
+        // KeyedHashText now flows the caller's encoding to the input bytes. Compute the same
+        // text under UTF-8 and UTF-16; the two digests must differ — proving the encoding
+        // actually drives the bytes hashed, not a hidden hard-coded default.
+        [Fact]
+        public void KeyedHashText_NonUtf8Encoding_ProducesDifferentDigestThanUtf8()
+        {
+            const string input = "café — éàü";
+            PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+
+            string utf8 = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, key);
+            string utf16 = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, key, Encoding.Unicode);
+
+            utf16.ShouldNotBe(utf8);
+
+            // The UTF-8 call without an explicit encoding must match the explicit UTF-8 call —
+            // pins the default and lets callers migrating from the prior API confirm parity.
+            string utf8Explicit = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, key, Encoding.UTF8);
+            utf8Explicit.ShouldBe(utf8);
+        }
+
         // ═══════════════════════════════════════════════════════════════════════
         // Symmetric Encrypt / Decrypt — File form
         // ═══════════════════════════════════════════════════════════════════════
