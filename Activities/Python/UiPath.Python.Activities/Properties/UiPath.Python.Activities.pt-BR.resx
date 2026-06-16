@@ -291,7 +291,7 @@
     <value>Tempo limite</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>A quantidade de tempo para permitir que um script em Python seja executado até que seja encerrado e uma exceção seja gerada.</value>
+    <value>A quantidade de tempo em segundos para permitir a execução de um script Python até que ele seja encerrado e uma exceção seja gerada.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Para Linux, é o caminho para biblioteca Python libpython*.so incluindo o nome da biblioteca. Para Windows (versão &gt; 3.9), caminho para biblioteca python**.dll incluindo o nome da biblioteca (geralmente está no caminho inicial Python). Para Windows (versão &lt;= 3.9) deixe em branco.</value>

@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305 (Nicht-FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (veraltet)</value>
   </data>
@@ -184,10 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>TripleDES (veraltet)</value>
   </data>
   <data name="PGP" xml:space="preserve">
-    <value>PGP (Pretty Good Privacy)</value>
+    <value>PGP - Pretty Good Privacy (Nicht-FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>Der bereitgestellte Hash-Algorithmus wird nicht unterstützt.</value>
@@ -197,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>Der bereitgestellte symmetrische Algorithmus wird nicht unterstützt.</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>Der bereitgestellte Geheimtext ist zu kurz für das UiPath-Wire-Format. Das Layour für UiPath-Geheimtext lautet Base64(salt | IV | ciphertext) und muss für diesen Algorithmus mindestens {0} Bytes umfassen. Von externen Tools erzeugter Geheimtext ist nicht direkt kompatibel – die Spezifikation des Wire-Formats finden Sie in der Dokumentation zur Aktivität.</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>Entschlüsselung fehlgeschlagen. Das UiPath-Wire-Format lautet Base64(salt | IV | ciphertext); dies deutet in der Regel darauf hin, dass die Eingabe von einem anderen Tool erzeugt wurde oder dass der Schlüssel/die Codierung nicht mit dem/der zur Verschlüsselung verwendeten übereinstimmt.</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 wird auf dieser Plattform nicht unterstützt. Verwenden Sie stattdessen AES-GCM oder führen auf einer Plattform aus, die ChaCha20-Poly1305 unterstützt (Linux mit OpenSSL oder Windows 10 1809 / Server 2019 oder höher).</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -632,10 +644,19 @@
     <value>Signierte Datei (Binär)</value>
   </data>
   <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
-    <value>Klarsignierte Datei (Text)</value>
+    <value>Datei mit Klartextsignatur (Text)</value>
   </data>
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>Öffentlichen Schlüssel validieren</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048-Bit</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072-Bit</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096-Bit</value>
   </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>Das Signieren wurde angefordert, zum Signieren sind jedoch ein privater Schlüssel und eine Passphrase erforderlich. Geben Sie sowohl einen privaten Schlüsselstream als auch eine Passphrase an oder setzen Sie die Signatur auf „false“.</value>

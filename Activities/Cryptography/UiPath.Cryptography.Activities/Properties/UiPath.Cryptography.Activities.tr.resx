@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -120,6 +120,9 @@
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>Seçili algoritmanın FIPS uyumlu bir uygulaması yok. Bu, bazı makinelerde çalışmayabilir.</value>
   </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 bu platformda desteklenmiyor. Bunun yerine AES-GCM kullanın veya ChaCha20-Poly1305 (OpenSSL&apos;li Linux veya Windows 10 1809/Server 2019 veya üzeri) sağlayan bir platformda çalıştırın.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Giriş</value>
   </data>
@@ -172,6 +175,48 @@
   <data name="Common" xml:space="preserve">
     <value>Ortak</value>
   </data>
+  <data name="MenuAction_UseFile" xml:space="preserve">
+    <value>Dosya kullan</value>
+  </data>
+  <data name="MenuAction_UseFilePath" xml:space="preserve">
+    <value>Dosya yolunu kullan</value>
+  </data>
+  <data name="MenuAction_UseKey" xml:space="preserve">
+    <value>Anahtar kullan</value>
+  </data>
+  <data name="MenuAction_UseSecureKey" xml:space="preserve">
+    <value>Güvenli anahtar kullan</value>
+  </data>
+  <data name="MenuAction_UsePassphrase" xml:space="preserve">
+    <value>Parola kullan</value>
+  </data>
+  <data name="MenuAction_UseSecurePassphrase" xml:space="preserve">
+    <value>Güvenli parola kullan</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>Genel anahtar dosyası</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>Alıcının dosya kaynağı olarak sağlanan PGP genel anahtarı (örneğin, proje kaynaklarından veya Depolama Kutusundan). Ayarlandığında dosya yolu varyantına göre öncelikli olur.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>Genel anahtar dosyası</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>Gönderenin, dosya kaynağı olarak sağlanan PGP genel anahtarı. İmzayı doğrulamak için kullanılır. Ayarlandığında dosya yolu varyantına göre öncelikli olur.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>Genel anahtar dosyası</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>Alıcının dosya kaynağı olarak sağlanan PGP genel anahtarı (örneğin, proje kaynaklarından veya Depolama Kutusundan). Ayarlandığında dosya yolu varyantına göre öncelikli olur.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>Genel anahtar dosyası</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>Gönderenin, dosya kaynağı olarak sağlanan PGP genel anahtarı. İmzayı doğrulamak için kullanılır. Ayarlandığında, dosya yolu varyantına göre öncelikli olur.</value>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>HataOlduğundaDevamEt</value>
     <comment>property name</comment>
@@ -183,7 +228,7 @@
     <value>KeySecureString</value>
   </data>
   <data name="KeySecureStringDisplayName" xml:space="preserve">
-    <value>Güvenli Dize Anahtarı</value>
+    <value>Güvenli dize anahtarı</value>
   </data>
   <data name="Activity_DecryptFile_Description" xml:space="preserve">
     <value>Belirtilen bir anahtar kodlamasına ve algoritmaya göre bir dosyanın şifresini çözer.</value>
@@ -194,7 +239,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü. Giriş, UiPath bağlantı biçiminde olmalıdır Base64(tuz | IV | şifreli metin); harici araçlar tarafından üretilen şifreli metin doğrudan uyumlu değil. İletim biçimi belirtimi için etkinlik belgelerine bakın.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
@@ -206,7 +251,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFilePath_Description" xml:space="preserve">
@@ -222,7 +267,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -230,7 +275,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Key_Description" xml:space="preserve">
@@ -242,11 +287,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>Şifresi çözülen dosyayı kaydetmek istediğiniz yol.</value>
+    <value>Dosya adı ve uzantı dahil olmak üzere, şifresi çözülen dosyanın kaydedileceği tam yol. Boş bırakıldığında dosya giriş dosyasının yanına yazılır ve &quot;&lt;input-name&gt;_Decrypted&lt;input-extension&gt;&quot;.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Çıkış dosyası adı ve konumu</value>
+    <value>Çıkış dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -266,7 +311,7 @@
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü. Giriş, UiPath bağlantı biçiminde olmalıdır Base64(tuz | IV | şifreli metin); harici araçlar tarafından üretilen şifreli metin doğrudan uyumlu değil. İletim biçimi belirtimi için etkinlik belgelerine bakın.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
@@ -278,7 +323,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
@@ -294,7 +339,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -318,7 +363,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Result_Name" xml:space="preserve">
-    <value>Şifresi Çözülmüş Metin</value>
+    <value>Şifresi çözülmüş metin</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Description" xml:space="preserve">
@@ -330,7 +375,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü. Şifreli metin, UiPath&apos;e özgü bir iletim biçimi Base64(tuz | IV | ciphertext) kullanır ve doğrudan harici araçlarla birlikte çalışamaz — İletim biçimi belirtimi için etkinlik belgelerine bakın.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
@@ -358,7 +403,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Anahtar Güvenli Dizesi</value>
+    <value>Anahtar güvenli dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Description" xml:space="preserve">
@@ -366,7 +411,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Anahtar Güvenli Dizesi</value>
+    <value>Anahtar güvenli dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -374,7 +419,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncodingString_Description" xml:space="preserve">
@@ -382,7 +427,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncodingString_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Description" xml:space="preserve">
@@ -390,7 +435,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyEncoding_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Description" xml:space="preserve">
@@ -398,15 +443,15 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Anahtar Güvenli Dizesi</value>
+    <value>Anahtar güvenli dizesi</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>Şifresi çözülen dosyayı kaydetmek istediğiniz yol.</value>
+    <value>Şifrelenmiş dosyanın kaydedileceği dosya adı ve uzantı dahil olmak üzere tam yol. Boş bırakıldığında, dosya giriş dosyasının yanına yazılır ve &quot;&lt;input-name&gt;_Şifrelendi&lt;input-extension&gt;&quot;.</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Çıkış dosyası adı ve konumu</value>
+    <value>Çıkış dosyasının yolu</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -426,7 +471,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>Kullanmak istediğiniz şifreleme algoritmasını seçmenize olanak veren bir açılır menü.</value>
+    <value>Kullanmak istediğiniz şifre çözme algoritmasını seçmenize olanak veren bir açılır menü. Şifreli metin, UiPath&apos;e özgü bir iletim biçimi Base64(tuz | IV | ciphertext) kullanır ve doğrudan harici araçlarla birlikte çalışamaz — İletim biçimi belirtimi için etkinlik belgelerine bakın.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
@@ -438,7 +483,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
@@ -454,7 +499,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -470,7 +515,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Anahtar Güvenli Dizesi</value>
+    <value>Anahtar güvenli dizesi</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
@@ -486,7 +531,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Result_Name" xml:space="preserve">
-    <value>Şifreli Metin</value>
+    <value>Şifreli metin</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Description" xml:space="preserve">
@@ -510,7 +555,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Encoding_Description" xml:space="preserve">
@@ -526,7 +571,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeyEncodingString_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_FilePath_Description" xml:space="preserve">
@@ -542,7 +587,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Anahtar Güvenli Dizesi</value>
+    <value>Anahtar güvenli dizesi</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_Key_Description" xml:space="preserve">
@@ -582,7 +627,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Encoding_Description" xml:space="preserve">
@@ -598,7 +643,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeyEncodingString_Name" xml:space="preserve">
-    <value>Anahtar Kodlama</value>
+    <value>Anahtar kodlama</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Input_Description" xml:space="preserve">
@@ -614,7 +659,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_KeySecureString_Name" xml:space="preserve">
-    <value>Anahtar Güvenli Dizesi</value>
+    <value>Anahtar güvenli dizesi</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_KeyedHashText_Property_Key_Description" xml:space="preserve">
@@ -646,7 +691,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_Algorithm_Name" xml:space="preserve">
-    <value>Algortitma</value>
+    <value>Algoritma</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -654,7 +699,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Description" xml:space="preserve">
@@ -662,7 +707,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashFile_Property_FilePath_Name" xml:space="preserve">
-    <value>Dosya Yolu</value>
+    <value>Dosya yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashFile_Property_Result_Description" xml:space="preserve">
@@ -694,7 +739,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_HashText_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_HashText_Property_Encoding_Description" xml:space="preserve">
@@ -770,7 +815,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
-    <value>Şifrelenmiş Dosya</value>
+    <value>Encrypted file</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
@@ -786,7 +831,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
-    <value>Şifresi Çözülmüş Dosya</value>
+    <value>Decrypted file</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
@@ -818,7 +863,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFileName_Name" xml:space="preserve">
-    <value>Şifrelenmiş Dosya Adı</value>
+    <value>Şifrelenmiş dosya adı</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFileName_Description" xml:space="preserve">
@@ -826,7 +871,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFileName_Name" xml:space="preserve">
-    <value>Şifresi Çözülmüş Dosya Adı</value>
+    <value>Şifresi çözülmüş dosya adı</value>
     <comment>property name</comment>
   </data>
   <data name="Category_Options_Name" xml:space="preserve">
@@ -857,6 +902,12 @@
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>Anahtar Güvenli Dizesi null olmamalıdır</value>
   </data>
+  <data name="PassphraseNullError" xml:space="preserve">
+    <value>Gerekli bir etkinlik bağımsız değişkeni olan &quot;Değer&quot; için değer sağlanmamış.</value>
+  </data>
+  <data name="PassphraseSecureStringNullError" xml:space="preserve">
+    <value>Güvenli dize parolası null olmamalıdır</value>
+  </data>
   <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
     <value>Dosya Yolu ve Kaynak arasındaki geçiş</value>
   </data>
@@ -869,12 +920,6 @@
   <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>DosyaGirişModuAnahtarı</value>
   </data>
-  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
-    <value>Dosya Yolu ve Kaynak arasındaki geçiş</value>
-  </data>
-  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
-    <value>DosyaGirişModuAnahtarı</value>
-  </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
     <value>Dosya Yolu ve Kaynak arasındaki geçiş</value>
   </data>
@@ -885,23 +930,31 @@
     <value>Seçilen şifreleme algoritması kullanım dışı ve artık gelecekteki sürümlerde desteklenmeyecek.</value>
   </data>
   <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
-    <value>Özel Anahtar Dosyasının Yolu</value>
+    <value>Özel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>Şifre çözme için kullanılan PGP özel anahtar dosyasının yolu.</value>
+    <value>İletinin şifresini çözmek için kullanılan kendi PGP özel anahtar dosyanızın yolu.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Parola (güvenli)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>Şifre çözmek için kendi özel anahtarınızın kilidini açan güvenli bir dize olarak parola.</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_DecryptFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP özel anahtarının parolası.</value>
+    <value>Şifre çözmek için kendi özel anahtarınızın kilidini açan parola.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_VerifySignature_Name" xml:space="preserve">
-    <value>İmzayı Doğrula</value>
+    <value>İmzayı doğrula</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_VerifySignature_Description" xml:space="preserve">
@@ -909,31 +962,39 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
-    <value>Genel Anahtar Dosya Yolu</value>
+    <value>Genel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>İmza doğrulaması için kullanılan PGP genel anahtar dosyasının yolu.</value>
+    <value>İmzayı doğrulamak için kullanılan, gönderenin PGP genel anahtar dosyasının yolu. Yalnızca İmzayı doğrula etkinleştirildiğinde gereklidir.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
-    <value>Özel Anahtar Dosyasının Yolu</value>
+    <value>Özel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>Şifre çözme için kullanılan PGP özel anahtar dosyasının yolu.</value>
+    <value>İletinin şifresini çözmek için kullanılan kendi PGP özel anahtar dosyanızın yolu.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Parola (güvenli)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>Şifre çözmek için kendi özel anahtarınızın kilidini açan güvenli bir dize olarak parola.</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP özel anahtarının parolası.</value>
+    <value>Şifre çözmek için kendi özel anahtarınızın kilidini açan parola.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_VerifySignature_Name" xml:space="preserve">
-    <value>İmzayı Doğrula</value>
+    <value>İmzayı doğrula</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_VerifySignature_Description" xml:space="preserve">
@@ -941,23 +1002,23 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
-    <value>Genel Anahtar Dosya Yolu</value>
+    <value>Genel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>İmza doğrulaması için kullanılan PGP genel anahtar dosyasının yolu.</value>
+    <value>İmzayı doğrulamak için kullanılan, gönderenin PGP genel anahtar dosyasının yolu. Yalnızca İmzayı doğrula etkinleştirildiğinde gereklidir.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
-    <value>Genel Anahtar Dosya Yolu</value>
+    <value>Genel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>Şifreleme için kullanılan PGP genel anahtar dosyasının yolu.</value>
+    <value>Alıcının PGP genel anahtar dosyasının yolu. Alıcı, çıkışın şifresini çözebilecek kişidir.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_SignData_Name" xml:space="preserve">
-    <value>Verileri İmzala</value>
+    <value>Verileri imzala</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_SignData_Description" xml:space="preserve">
@@ -965,31 +1026,39 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
-    <value>Özel Anahtar Dosyasının Yolu</value>
+    <value>Özel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>İmzalamak için kullanılan PGP özel anahtar dosyasının yolu.</value>
+    <value>Şifrelenmiş çıkışı imzalamak için kullanılan kendi PGP özel anahtar dosyanızın yolu. Yalnızca İmza verileri etkinleştirildiğinde gereklidir.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Parola (güvenli)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>İmza için kendi özel anahtarınızın kilidini açan güvenli bir dize olarak parola.</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_EncryptFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>İmzalamak için kullanılan PGP özel anahtarının parolası.</value>
+    <value>İmzalamanız için kendi özel anahtarınızın kilidini açan parola.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
-    <value>Genel Anahtar Dosya Yolu</value>
+    <value>Genel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>Şifreleme için kullanılan PGP genel anahtar dosyasının yolu.</value>
+    <value>Alıcının PGP genel anahtar dosyasının yolu. Alıcı, çıkışın şifresini çözebilecek kişidir.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_SignData_Name" xml:space="preserve">
-    <value>Verileri İmzala</value>
+    <value>Verileri imzala</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_SignData_Description" xml:space="preserve">
@@ -997,92 +1066,128 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
-    <value>Özel Anahtar Dosyasının Yolu</value>
+    <value>Özel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>İmzalamak için kullanılan PGP özel anahtar dosyasının yolu.</value>
+    <value>Şifrelenmiş çıkışı imzalamak için kullanılan kendi PGP özel anahtar dosyanızın yolu. Yalnızca İmza verileri etkinleştirildiğinde gereklidir.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
-    <value>İmzalamak için kullanılan PGP özel anahtarının parolası.</value>
+  <data name="Activity_EncryptText_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Parola (güvenli)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>İmza için kendi özel anahtarınızın kilidini açan güvenli bir dize olarak parola.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
+  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
+    <value>İmzalamanız için kendi özel anahtarınızın kilidini açan parola.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
     <value>PGP Generate Keys</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">
     <value>Bir PGP genel/özel anahtar çifti oluşturur ve bunları belirtilen dosya yollarına kaydeder.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
-    <value>Genel Anahtar Çıkış Yolu</value>
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name" xml:space="preserve">
+    <value>Genel anahtar çıkış yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description" xml:space="preserve">
     <value>Oluşturulan PGP genel anahtarının kaydedileceği dosya yolu.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
-    <value>Özel Anahtar Çıkış Yolu</value>
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Özel anahtar çıkış yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Oluşturulan PGP özel anahtarının kaydedileceği dosya yolu.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
-    <value>Kullanıcı adı</value>
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Name" xml:space="preserve">
+    <value>Kullanıcı Kimliği</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
-    <value>Oluşturulan anahtar çifti ile ilişkilendirilecek kullanıcı adı (veya e-posta).</value>
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Description" xml:space="preserve">
+    <value>Oluşturulan genel anahtar için OpenPGP Kullanıcı Kimliği. Geleneksel olarak &quot;Ad&lt;e-posta@example.com&gt;&quot; biçiminde bir RFC 2822 posta kutusu (örneğin, &quot;Alice Doe &lt;alice@example.com&gt;&quot;) ile paylaşın. Herhangi bir UTF-8 dizesi kabul edilir, ancak çoğu PGP aracı ve anahtar sunucusunun beklediği şey posta kutusu formudur.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Hint" xml:space="preserve">
+    <value>Adınız &lt;e-posta@example.com&gt;</value>
+    <comment>Property placeholder hint shown inside the empty input</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_Password_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Password_Description" xml:space="preserve">
     <value>Oluşturulan özel anahtarı korumak için kullanılan parola.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Parola (güvenli)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>Oluşturulan özel anahtarı korumak için güvenli bir dize olarak parola.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Name" xml:space="preserve">
     <value>Üzerine Yaz</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Description" xml:space="preserve">
     <value>Çıkış yollarında dosyalar zaten varsa bu öğe seçildiğinde bunların üzerine yazılır.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+  <data name="Activity_PgpGenerateKeys_Property_KeySize_Name" xml:space="preserve">
+    <value>Anahtar boyutu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_KeySize_Description" xml:space="preserve">
+    <value>Oluşturulan PGP anahtar çifti için bit olarak RSA anahtar boyutu. Desteklenen boyutlar 2048 bit, 3072 bit ve 4096 bittir. Kurumsal düzeyde güvenlik için varsayılan olarak 4.096 bittir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Hata olduğunda devam et</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
-    <value>Genel Anahtar Dosyası</value>
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>Genel anahtar dosyası</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>Dosya kaynağı olarak oluşturulan genel anahtar.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
-    <value>Özel Anahtar Dosyası</value>
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Özel anahtar dosyası</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>Dosya kaynağı olarak oluşturulan özel anahtar.</value>
     <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Hint" xml:space="preserve">
+    <value>Genel anahtarı içeren kaynak</value>
+    <comment>Property hint</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Hint" xml:space="preserve">
+    <value>Özel anahtarı içeren kaynak</value>
+    <comment>Property hint</comment>
   </data>
   <data name="Activity_PgpSignFile_Name" xml:space="preserve">
     <value>PGP Sign File</value>
@@ -1093,35 +1198,59 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Giriş Dosyası Yolu</value>
+    <value>Giriş dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Şifresini çözmek istediğiniz dosyanın yolu.</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_PgpSignFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Giriş dosyası</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_InputFile_Description" xml:space="preserve">
+    <value>İmzalamak istediğiniz dosya kaynağı.</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
-    <value>Özel Anahtar Dosyasının Yolu</value>
+    <value>Özel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>İmzalamak için kullanılan PGP özel anahtar dosyasının yolu.</value>
+    <value>Verileri imzalamak için kullanılan kendi PGP özel anahtar dosyanızın yolu.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Özel anahtar dosyası</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Dosya kaynağı olarak sağlanan kendi PGP özel anahtarınız (örneğin, proje kaynaklarından veya Depolama Kutusundan). Verileri imzalamak için kullanılır.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_PgpSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Parola (güvenli)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>İmza için kendi özel anahtarınızın kilidini açan güvenli bir dize olarak parola.</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_PgpSignFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP özel anahtarının parolası.</value>
+    <value>İmzalamanız için kendi özel anahtarınızın kilidini açan parola.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Çıkış Dosyası Yolu</value>
+    <value>Çıkış dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>Şifresi çözülen dosyanın kaydedileceği yol.</value>
+    <value>Dosya adı ve uzantı dahil olmak üzere, imzalanan dosyanın kaydedileceği tam yol.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_Overwrite_Name" xml:space="preserve">
@@ -1133,7 +1262,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_ContinueOnError_Description" xml:space="preserve">
@@ -1148,67 +1277,91 @@
     <value>Dosya kaynağı olarak imzalanan dosya.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
-    <value>PGP Clear Sign File</value>
+  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+    <value>PGP Şeffaf İmza Dosyası</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
     <value>Özel anahtar kullanarak bir dosyanın PGP açık metin imzasını oluşturur.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Giriş Dosyası Yolu</value>
+  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>Giriş dosyası yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Şifresini çözmek istediğiniz dosyanın yolu.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
-    <value>Özel Anahtar Dosyasının Yolu</value>
+  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+    <value>Giriş dosyası</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>İmzalamak için kullanılan PGP özel anahtar dosyasının yolu.</value>
+  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+    <value>İmzalanacak dosyayı temsil eden kaynak.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+    <value>Özel anahtar dosyasının yolu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+    <value>Verileri temizlemek için kullanılan kendi PGP özel anahtar dosyanızın yolu.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Özel anahtar dosyası</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Dosya kaynağı olarak sağlanan kendi PGP özel anahtarınız. Verilerin imzasını temizlemek için kullanılır.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP özel anahtarının parolası.</value>
-    <comment>Property description</comment>
-  </data>
-  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>Çıkış Dosyası Yolu</value>
+  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Parola (güvenli)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>Şifresi çözülen dosyanın kaydedileceği yol.</value>
+  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>İmza için kendi özel anahtarınızın kilidini açan güvenli bir dize olarak parola.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>İmzalamanız için kendi özel anahtarınızın kilidini açan parola.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+    <value>Çıkış dosyasının yolu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+    <value>Temiz imzalı dosyanın kaydedileceği dosya adı ve uzantı dahil olmak üzere tam yol.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Üzerine Yaz</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Çıkış yolunda bir dosya zaten varsa bu seçildiğinde dosyanın üzerine yazılır.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
-    <value>Açık İmzalı Dosya</value>
+  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+    <value>Clearsigned dosyası</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Dosya kaynağı olarak açık imzalı dosya.</value>
     <comment>Property description</comment>
   </data>
@@ -1229,7 +1382,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Name" xml:space="preserve">
-    <value>İmzalanan Dosya Yolu</value>
+    <value>İmzalanan dosyanın yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_InputFilePath_Description" xml:space="preserve">
@@ -1237,15 +1390,31 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Name" xml:space="preserve">
-    <value>Genel Anahtar Dosya Yolu</value>
+    <value>Genel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>Doğrulama için kullanılan PGP genel anahtar dosyasının yolu.</value>
+    <value>İmzalayanın PGP genel anahtar dosyasının yolu. Bu, imzayı üreten kişinin genel anahtarıdır.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFile_Name" xml:space="preserve">
+    <value>İmzalanan dosya</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFile_Description" xml:space="preserve">
+    <value>Doğrulanacak imzalı içeriği içeren dosya kaynağı. &apos;İmzalı Dosya (İkili)&apos; ve &apos;Net İmzalı Dosya (Metin)&apos; modları için gereklidir.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>Genel anahtar dosyası</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>İmzalayanın PGP genel anahtarı, dosya kaynağı olarak sağlanan. İmzayı doğrulamak için kullanılır.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Hata Olduğunda Devam Et</value>
+    <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_ContinueOnError_Description" xml:space="preserve">
@@ -1262,5 +1431,14 @@
   </data>
   <data name="ActivitySynonymCryptography" xml:space="preserve">
     <value>Şifreleme</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 bit RSA</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 bit RSA</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 bit RSA</value>
   </data>
 </root>

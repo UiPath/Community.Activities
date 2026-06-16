@@ -291,7 +291,7 @@
     <value>Timeout</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Durata de timp permisă pentru executarea unui script Python până când acesta este oprit și se aruncă o excepție.</value>
+    <value>Durata, în secunde, permisă pentru rularea unui script Python până când acesta este oprit și este generată o excepție.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Pentru Linux este calea către Python libpython*.so inclusiv numele bibliotecii. Pentru Windows (versiune&gt;3.9) Calea către Python**.dll inclusiv numele bibliotecii (de obicei este pe calea Python Home). Pentru Windows (versiune&lt;=3.9) Lasă gol.</value>

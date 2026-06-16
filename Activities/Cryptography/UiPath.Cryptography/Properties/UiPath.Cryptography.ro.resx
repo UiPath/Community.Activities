@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305 (Non-FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (Depreciat)</value>
   </data>
@@ -184,10 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>TripleDES (Învechit)</value>
   </data>
   <data name="PGP" xml:space="preserve">
-    <value>PGP (Pretty Good Privacy)</value>
+    <value>PGP - Pretty Good Privacy (Non-FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>Algoritmul de hash furnizat nu este acceptat.</value>
@@ -197,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>Algoritmul simetric furnizat nu este suportat.</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>Textul cifrat furnizat este prea scurt pentru a fi în formatul wire UiPath. Structura textului cifrat UiPath este Base64(salt | IV | ciphertext) și trebuie să aibă cel puțin {0} octeți pentru acest algoritm. Textul cifrat produs de instrumente externe nu este compatibil direct — consultați documentația activității pentru specificația formatului wire.</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>Decriptarea a eșuat. Formatul wire UiPath este Base64(salt | IV | ciphertext); acest lucru indică de obicei faptul că intrarea a fost produsă de un alt instrument sau că cheia/codificarea nu corespunde cu cea utilizată pentru criptare.</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 nu este acceptat pe această platformă. Utilizați în schimb AES-GCM sau rulați pe o platformă care oferă ChaCha20-Poly1305 (Linux cu OpenSSL sau Windows 10 1809 / Server 2019 ori o versiune ulterioară).</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -636,6 +648,15 @@
   </data>
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>Validați cheia publică</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>pe 2048 de biți</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 de biți</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096-bit</value>
   </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>Semnarea a fost solicitată, dar este necesară atât o cheie privată, cât și o parolă pentru a semna. Furnizați atât un flux de cheie privată, cât și o parolă, sau setați sign la False.</value>

@@ -291,7 +291,7 @@
     <value>시간 제한</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간입니다.</value>
+    <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간(초)입니다.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Linux의 경우 Python libpython*.so 라이브러리(라이브러리 이름 포함). Windows(버전&gt;3.9)의 경우 python**.dll 라이브러리 이름 포함(일반적으로 Python 홈 경로에 있음). Windows(버전&lt;=3.9)의 경우 비워 둡니다.</value>

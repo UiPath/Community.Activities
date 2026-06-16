@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305(비 FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES(사용되지 않음)</value>
   </data>
@@ -184,10 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>ThreeDES(사용되지 않음)</value>
   </data>
   <data name="PGP" xml:space="preserve">
-    <value>PGP(Pretty Good Privacy)</value>
+    <value>PGP - Pretty Good Privacy(비 FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>입력된 해시 알고리즘은 지원되지 않습니다.</value>
@@ -197,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>입력된 대칭 알고리즘은 지원되지 않습니다.</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>제공된 암호문이 너무 짧아 UiPath 와이어 형식으로 사용할 수 없습니다. UiPath 암호문 레이아웃은 Base64(salt | IV | ciphertext)이며 이 알고리즘의 경우 {0}바이트 이상이어야 합니다. 외부 도구로 생성된 암호문은 직접 호환되지 않습니다 — 와이어 형식 사양은 해당 액티비티 문서를 참조하십시오.</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>복호화에 실패했습니다. UiPath 와이어 형식은 Base64(salt | IV | ciphertext)입니다. 이는 일반적으로 입력이 다른 도구에 의해 생성되었거나, 키/인코딩이 암호화에 사용된 것과 일치하지 않음을 나타냅니다.</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305는 이 플랫폼에서 지원되지 않습니다. 대신 AES-GCM을 사용하거나, ChaCha20-Poly1305를 제공하는 플랫폼(OpenSSL이 설치된 Linux, 또는 Windows 10 1809 / Server 2019 이상)에서 실행하십시오.</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -632,10 +644,19 @@
     <value>서명된 파일(바이너리)</value>
   </data>
   <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
-    <value>일반 텍스트 서명된 파일(텍스트)</value>
+    <value>클리어사인된 파일(텍스트)</value>
   </data>
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>공개 키 유효성 검사</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048비트</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072비트</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096비트</value>
   </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>서명이 요청되었지만 서명하려면 개인 키와 암호 문구가 필요합니다. 개인 키 스트림과 암호 문구를 모두 제공하거나 서명을 false로 설정합니다.</value>

@@ -291,7 +291,7 @@
     <value>逾時</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>在遭到終止及擲回例外狀況之前，允許 Python 指令碼執行的時間長度。</value>
+    <value>在遭到終止及擲回例外狀況之前，允許 Python 指令碼執行的時間長度 (以秒為單位)。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>對於 Linux，是 Python libpython*.so 元件庫的路徑，包含元件庫名稱。對於 Windows (版本 &gt; 3.9)，是 python**.dll 的路徑，包括元件庫名稱 (通常位於 Python 主目錄路徑)。對於 Windows (版本 &lt;= 3.9)，留空。</value>
