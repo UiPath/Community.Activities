@@ -1,0 +1,579 @@
+using System;
+using System.Activities;
+using System.Activities.Expressions;
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using Xunit;
+
+#pragma warning disable CS0618 // obsolete algorithms reachable via opt-in formats
+
+namespace UiPath.Cryptography.Activities.Tests
+{
+    /// <summary>
+    /// Bidirectional external-tool interop tests using BCL-only counterpart implementations
+    /// of each wire format. Goal: prove that what UiPath produces, an external tool can read,
+    /// and vice-versa — without depending on an external CLI being present on the CI agent.
+    ///
+    /// Each format ships with a <c>Bcl*</c> static helper that emits / parses the same
+    /// byte layout described in <c>docs/symmetric-wire-format.md</c>, using ONLY
+    /// <see cref="Aes"/>, <see cref="AesGcm"/>, and <see cref="Rfc2898DeriveBytes"/>. The
+    /// helpers consult the spec, never the production helper code, so a regression in
+    /// CryptographyHelper that silently changed the wire format would surface here.
+    /// </summary>
+    public class ExternalInteropInProcessTests
+    {
+        private const string Plaintext = "External-tool interop: round-trip me. 0123456789 ăîșțâ €";
+        private const string Password = "interop-test-password-{!@#}";
+
+        // ────────────────────────────────────────────────────────────────────────
+        // OpenSslEnc — AES-256-CBC, bidirectional, AGAINST a BCL counterpart that
+        // mirrors `openssl enc -aes-256-cbc -pbkdf2 -iter <N>`. This is the headline
+        // interop format and the whole reason the OpenSslEnc enum exists.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Theory]
+        [InlineData(600_000)]
+        [InlineData(50_000)]
+        public void OpenSslEnc_AesCbc_ExternalToInternal(int iterations)
+        {
+            byte[] plainBytes = Encoding.UTF8.GetBytes(Plaintext);
+            byte[] externalBlob = BclOpenSslEnc.EncryptAesCbc(plainBytes, Password, iterations);
+
+            string decrypted = RunDecryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, input: Convert.ToBase64String(externalBlob),
+                inputEncoding: Encoding.UTF8, iterations: iterations);
+
+            Assert.Equal(Plaintext, decrypted);
+        }
+
+        [Theory]
+        [InlineData(600_000)]
+        [InlineData(50_000)]
+        public void OpenSslEnc_AesCbc_InternalToExternal(int iterations)
+        {
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8, iterations: iterations);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations);
+
+            Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // OpenSslEnc — AES-GCM, bidirectional. This is a UiPath extension of the
+        // OpenSSL layout (the magic prefix + PBKDF2-SHA256 derivation, but with AEAD
+        // ciphertext + trailing tag). Both halves must agree because the only
+        // canonical consumer of this hybrid is "another copy of UiPath".
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void OpenSslEnc_AesGcm_ExternalToInternal()
+        {
+            byte[] plainBytes = Encoding.UTF8.GetBytes(Plaintext);
+            byte[] externalBlob = BclOpenSslEnc.EncryptAesGcm(plainBytes, Password, 600_000);
+
+            string decrypted = RunDecryptText(
+                EncryptionAlgorithm.AESGCM, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, input: Convert.ToBase64String(externalBlob),
+                inputEncoding: Encoding.UTF8);
+
+            Assert.Equal(Plaintext, decrypted);
+        }
+
+        [Fact]
+        public void OpenSslEnc_AesGcm_InternalToExternal()
+        {
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AESGCM, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclOpenSslEnc.DecryptAesGcm(blob, Password, 600_000);
+
+            Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // Classic — UiPath's frozen wire format. The Classic format is NOT a public
+        // standard so there's no canonical external tool, but the round-trip via an
+        // independent BCL implementation still proves the layout is stable: a future
+        // refactor that quietly reorders salt/IV/ciphertext would break the BCL counterpart.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void Classic_AesCbc_ExternalToInternal()
+        {
+            byte[] plainBytes = Encoding.UTF8.GetBytes(Plaintext);
+            byte[] externalBlob = BclClassic.EncryptAesCbc(plainBytes, Password, iterations: 10_000);
+
+            string decrypted = RunDecryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Classic, KeyBytesFormat.Encoded,
+                password: Password, input: Convert.ToBase64String(externalBlob),
+                inputEncoding: Encoding.UTF8);
+
+            Assert.Equal(Plaintext, decrypted);
+        }
+
+        [Fact]
+        public void Classic_AesCbc_InternalToExternal()
+        {
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Classic, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclClassic.DecryptAesCbc(blob, Password, iterations: 10_000);
+
+            Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        [Fact]
+        public void Classic_AesGcm_ExternalToInternal()
+        {
+            byte[] plainBytes = Encoding.UTF8.GetBytes(Plaintext);
+            byte[] externalBlob = BclClassic.EncryptAesGcm(plainBytes, Password, iterations: 10_000);
+
+            string decrypted = RunDecryptText(
+                EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Classic, KeyBytesFormat.Encoded,
+                password: Password, input: Convert.ToBase64String(externalBlob),
+                inputEncoding: Encoding.UTF8);
+
+            Assert.Equal(Plaintext, decrypted);
+        }
+
+        [Fact]
+        public void Classic_AesGcm_InternalToExternal()
+        {
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Classic, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclClassic.DecryptAesGcm(blob, Password, iterations: 10_000);
+
+            Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // Raw — bidirectional with caller-supplied key and IV. The existing
+        // SymmetricInteropTests covers one direction for AES and AES-GCM; here we
+        // add the reverse for AES-GCM (BCL produces, activity consumes) and pin the
+        // CBC byte layout (IV ‖ ct, no padding tricks).
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void Raw_AesGcm_InternalToExternal()
+        {
+            byte[] keyBytes = new byte[32];
+            RandomNumberGenerator.Fill(keyBytes);
+            string hexKey = Convert.ToHexString(keyBytes);
+
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Raw, KeyBytesFormat.Hex,
+                key: hexKey, inputEncoding: Encoding.UTF8);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclRaw.DecryptAesGcm(blob, keyBytes);
+
+            Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        [Fact]
+        public void Raw_AesCbc_InternalToExternal_ExplicitIv()
+        {
+            byte[] keyBytes = new byte[32];
+            byte[] ivBytes = new byte[16];
+            RandomNumberGenerator.Fill(keyBytes);
+            RandomNumberGenerator.Fill(ivBytes);
+
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Raw, KeyBytesFormat.Hex,
+                key: Convert.ToHexString(keyBytes),
+                iv: Convert.ToHexString(ivBytes),
+                inputEncoding: Encoding.UTF8);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclRaw.DecryptAesCbc(blob, keyBytes);
+
+            Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        [Fact]
+        public void Raw_AesGcm_ExternalToInternal()
+        {
+            byte[] keyBytes = new byte[32];
+            RandomNumberGenerator.Fill(keyBytes);
+            byte[] plainBytes = Encoding.UTF8.GetBytes(Plaintext);
+
+            byte[] externalBlob = BclRaw.EncryptAesGcm(plainBytes, keyBytes);
+
+            string decrypted = RunDecryptText(
+                EncryptionAlgorithm.AESGCM, SymmetricWireFormat.Raw, KeyBytesFormat.Hex,
+                key: Convert.ToHexString(keyBytes),
+                input: Convert.ToBase64String(externalBlob),
+                inputEncoding: Encoding.UTF8);
+
+            Assert.Equal(Plaintext, decrypted);
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // BCL counterpart implementations — strictly from the wire-format spec.
+        // DO NOT call into CryptographyHelper here; the value of these tests is
+        // that they are an independent implementation.
+        // ────────────────────────────────────────────────────────────────────────
+
+        private static class BclOpenSslEnc
+        {
+            // "Salted__" — same prefix `openssl enc` writes.
+            private static readonly byte[] Magic = Encoding.ASCII.GetBytes("Salted__");
+            private const int SaltSize = 8;
+            private const int AesCbcKeySize = 32;
+            private const int AesCbcIvSize = 16;
+            private const int AeadKeySize = 32;
+            private const int AeadIvSize = 12;
+            private const int AeadTagSize = 16;
+
+            public static byte[] EncryptAesCbc(byte[] plain, string password, int iterations)
+            {
+                byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, AesCbcKeySize, AesCbcIvSize);
+
+                byte[] cipher;
+                using (var aes = Aes.Create())
+                {
+                    aes.Key = key;
+                    aes.IV = iv;
+                    aes.Mode = CipherMode.CBC;
+                    aes.Padding = PaddingMode.PKCS7;
+                    using var ms = new MemoryStream();
+                    using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                        cs.Write(plain, 0, plain.Length);
+                    cipher = ms.ToArray();
+                }
+
+                return Concat(Magic, salt, cipher);
+            }
+
+            public static byte[] DecryptAesCbc(byte[] blob, string password, int iterations)
+            {
+                AssertMagicPrefix(blob);
+                byte[] salt = blob.AsSpan(Magic.Length, SaltSize).ToArray();
+                byte[] cipher = blob.AsSpan(Magic.Length + SaltSize).ToArray();
+
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, AesCbcKeySize, AesCbcIvSize);
+
+                using var aes = Aes.Create();
+                aes.Key = key;
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+
+                using var inMs = new MemoryStream(cipher);
+                using var cs = new CryptoStream(inMs, aes.CreateDecryptor(), CryptoStreamMode.Read);
+                using var outMs = new MemoryStream();
+                cs.CopyTo(outMs);
+                return outMs.ToArray();
+            }
+
+            public static byte[] EncryptAesGcm(byte[] plain, string password, int iterations)
+            {
+                byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, AeadKeySize, AeadIvSize);
+
+                byte[] cipher = new byte[plain.Length];
+                byte[] tag = new byte[AeadTagSize];
+                using (var aesGcm = new AesGcm(key))
+                    aesGcm.Encrypt(iv, plain, cipher, tag);
+
+                return Concat(Magic, salt, cipher, tag);
+            }
+
+            public static byte[] DecryptAesGcm(byte[] blob, string password, int iterations)
+            {
+                AssertMagicPrefix(blob);
+                byte[] salt = blob.AsSpan(Magic.Length, SaltSize).ToArray();
+                int cipherStart = Magic.Length + SaltSize;
+                int cipherLen = blob.Length - cipherStart - AeadTagSize;
+                byte[] cipher = blob.AsSpan(cipherStart, cipherLen).ToArray();
+                byte[] tag = blob.AsSpan(cipherStart + cipherLen, AeadTagSize).ToArray();
+
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, AeadKeySize, AeadIvSize);
+
+                byte[] plain = new byte[cipherLen];
+                using var aesGcm = new AesGcm(key);
+                aesGcm.Decrypt(iv, cipher, tag, plain);
+                return plain;
+            }
+
+            private static (byte[] key, byte[] iv) DeriveKeyAndIv(byte[] password, byte[] salt, int iterations, int keySize, int ivSize)
+            {
+                using var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
+                byte[] derived = pbkdf2.GetBytes(keySize + ivSize);
+                byte[] key = derived.AsSpan(0, keySize).ToArray();
+                byte[] iv = derived.AsSpan(keySize, ivSize).ToArray();
+                return (key, iv);
+            }
+
+            private static void AssertMagicPrefix(byte[] blob)
+            {
+                if (blob.Length < Magic.Length || !blob.AsSpan(0, Magic.Length).SequenceEqual(Magic))
+                    throw new CryptographicException("Missing 'Salted__' magic prefix.");
+            }
+        }
+
+        private static class BclClassic
+        {
+            // Classic wire layout: salt(8) ‖ IV ‖ ciphertext [‖ tag(16)]. PBKDF2-HMAC-SHA1.
+            // The IV is fresh-random per encryption (NOT derived from the password).
+            private const int SaltSize = 8;
+            private const int AesCbcKeySize = 32;
+            private const int AesCbcIvSize = 16;
+            private const int AeadKeySize = 32;
+            private const int AeadIvSize = 12;
+            private const int AeadTagSize = 16;
+
+            public static byte[] EncryptAesCbc(byte[] plain, string password, int iterations)
+            {
+                byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] key = DeriveKey(passwordBytes, salt, iterations, AesCbcKeySize);
+
+                byte[] iv = RandomNumberGenerator.GetBytes(AesCbcIvSize);
+                byte[] cipher;
+                using (var aes = Aes.Create())
+                {
+                    aes.Key = key;
+                    aes.IV = iv;
+                    aes.Mode = CipherMode.CBC;
+                    aes.Padding = PaddingMode.PKCS7;
+                    using var ms = new MemoryStream();
+                    using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                        cs.Write(plain, 0, plain.Length);
+                    cipher = ms.ToArray();
+                }
+
+                return Concat(salt, iv, cipher);
+            }
+
+            public static byte[] DecryptAesCbc(byte[] blob, string password, int iterations)
+            {
+                byte[] salt = blob.AsSpan(0, SaltSize).ToArray();
+                byte[] iv = blob.AsSpan(SaltSize, AesCbcIvSize).ToArray();
+                byte[] cipher = blob.AsSpan(SaltSize + AesCbcIvSize).ToArray();
+
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] key = DeriveKey(passwordBytes, salt, iterations, AesCbcKeySize);
+
+                using var aes = Aes.Create();
+                aes.Key = key;
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+
+                using var inMs = new MemoryStream(cipher);
+                using var cs = new CryptoStream(inMs, aes.CreateDecryptor(), CryptoStreamMode.Read);
+                using var outMs = new MemoryStream();
+                cs.CopyTo(outMs);
+                return outMs.ToArray();
+            }
+
+            public static byte[] EncryptAesGcm(byte[] plain, string password, int iterations)
+            {
+                byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] key = DeriveKey(passwordBytes, salt, iterations, AeadKeySize);
+
+                byte[] iv = RandomNumberGenerator.GetBytes(AeadIvSize);
+                byte[] cipher = new byte[plain.Length];
+                byte[] tag = new byte[AeadTagSize];
+                using (var aesGcm = new AesGcm(key))
+                    aesGcm.Encrypt(iv, plain, cipher, tag);
+
+                return Concat(salt, iv, cipher, tag);
+            }
+
+            public static byte[] DecryptAesGcm(byte[] blob, string password, int iterations)
+            {
+                byte[] salt = blob.AsSpan(0, SaltSize).ToArray();
+                byte[] iv = blob.AsSpan(SaltSize, AeadIvSize).ToArray();
+                int cipherStart = SaltSize + AeadIvSize;
+                int cipherLen = blob.Length - cipherStart - AeadTagSize;
+                byte[] cipher = blob.AsSpan(cipherStart, cipherLen).ToArray();
+                byte[] tag = blob.AsSpan(cipherStart + cipherLen, AeadTagSize).ToArray();
+
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] key = DeriveKey(passwordBytes, salt, iterations, AeadKeySize);
+
+                byte[] plain = new byte[cipherLen];
+                using var aesGcm = new AesGcm(key);
+                aesGcm.Decrypt(iv, cipher, tag, plain);
+                return plain;
+            }
+
+            private static byte[] DeriveKey(byte[] password, byte[] salt, int iterations, int keySize)
+            {
+                using var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA1);
+                return pbkdf2.GetBytes(keySize);
+            }
+        }
+
+        private static class BclRaw
+        {
+            // Raw wire layout: IV ‖ ciphertext [‖ tag(16) for AEAD]. No KDF — caller-supplied raw key.
+            private const int AesCbcIvSize = 16;
+            private const int AeadIvSize = 12;
+            private const int AeadTagSize = 16;
+
+            public static byte[] EncryptAesGcm(byte[] plain, byte[] key)
+            {
+                byte[] iv = RandomNumberGenerator.GetBytes(AeadIvSize);
+                byte[] cipher = new byte[plain.Length];
+                byte[] tag = new byte[AeadTagSize];
+                using (var aesGcm = new AesGcm(key))
+                    aesGcm.Encrypt(iv, plain, cipher, tag);
+
+                return Concat(iv, cipher, tag);
+            }
+
+            public static byte[] DecryptAesGcm(byte[] blob, byte[] key)
+            {
+                byte[] iv = blob.AsSpan(0, AeadIvSize).ToArray();
+                int cipherLen = blob.Length - AeadIvSize - AeadTagSize;
+                byte[] cipher = blob.AsSpan(AeadIvSize, cipherLen).ToArray();
+                byte[] tag = blob.AsSpan(AeadIvSize + cipherLen, AeadTagSize).ToArray();
+
+                byte[] plain = new byte[cipherLen];
+                using var aesGcm = new AesGcm(key);
+                aesGcm.Decrypt(iv, cipher, tag, plain);
+                return plain;
+            }
+
+            public static byte[] DecryptAesCbc(byte[] blob, byte[] key)
+            {
+                byte[] iv = blob.AsSpan(0, AesCbcIvSize).ToArray();
+                byte[] cipher = blob.AsSpan(AesCbcIvSize).ToArray();
+
+                using var aes = Aes.Create();
+                aes.Key = key;
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+
+                using var inMs = new MemoryStream(cipher);
+                using var cs = new CryptoStream(inMs, aes.CreateDecryptor(), CryptoStreamMode.Read);
+                using var outMs = new MemoryStream();
+                cs.CopyTo(outMs);
+                return outMs.ToArray();
+            }
+        }
+
+        private static byte[] Concat(params byte[][] arrays)
+        {
+            int len = 0;
+            foreach (byte[] a in arrays) len += a.Length;
+            byte[] result = new byte[len];
+            int offset = 0;
+            foreach (byte[] a in arrays)
+            {
+                Buffer.BlockCopy(a, 0, result, offset, a.Length);
+                offset += a.Length;
+            }
+            return result;
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // Activity-surface helpers — match the pattern used in SymmetricInteropTests.
+        // ────────────────────────────────────────────────────────────────────────
+
+        private static InArgument<Encoding> MakeEncodingArg(Encoding e)
+        {
+            if (e == Encoding.UTF8) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.UTF8));
+            if (e == Encoding.Unicode || e == null) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.Unicode));
+            throw new ArgumentException($"Test helper only supports UTF-8 and Unicode; got {e.WebName}");
+        }
+
+        private static string RunEncryptText(
+            EncryptionAlgorithm algorithm,
+            SymmetricWireFormat format,
+            KeyBytesFormat keyFormat,
+            string password = null,
+            string key = null,
+            string iv = null,
+            int iterations = 0,
+            Encoding inputEncoding = null)
+        {
+            var activity = new EncryptText
+            {
+                Algorithm = algorithm,
+                Format = format,
+                KeyFormat = keyFormat,
+                Encoding = MakeEncodingArg(inputEncoding),
+                KeyEncodingString = null,
+            };
+
+            var args = new Dictionary<string, object>
+            {
+                [nameof(EncryptText.Input)] = Plaintext,
+                [nameof(EncryptText.Key)] = key ?? password,
+            };
+            if (!string.IsNullOrEmpty(iv)) args[nameof(EncryptText.Iv)] = iv;
+            if (iterations != 0) args[nameof(EncryptText.KdfIterations)] = iterations;
+
+            try
+            {
+                var invoker = new WorkflowInvoker(activity);
+                return (string)invoker.Invoke(args)[nameof(activity.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+        }
+
+        private static string RunDecryptText(
+            EncryptionAlgorithm algorithm,
+            SymmetricWireFormat format,
+            KeyBytesFormat keyFormat,
+            string input,
+            string password = null,
+            string key = null,
+            int iterations = 0,
+            Encoding inputEncoding = null)
+        {
+            var activity = new DecryptText
+            {
+                Algorithm = algorithm,
+                Format = format,
+                KeyFormat = keyFormat,
+                Encoding = MakeEncodingArg(inputEncoding),
+                KeyEncodingString = null,
+            };
+
+            var args = new Dictionary<string, object>
+            {
+                [nameof(DecryptText.Input)] = input,
+                [nameof(DecryptText.Key)] = key ?? password,
+            };
+            if (iterations != 0) args[nameof(DecryptText.KdfIterations)] = iterations;
+
+            try
+            {
+                var invoker = new WorkflowInvoker(activity);
+                return (string)invoker.Invoke(args)[nameof(activity.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+        }
+    }
+}

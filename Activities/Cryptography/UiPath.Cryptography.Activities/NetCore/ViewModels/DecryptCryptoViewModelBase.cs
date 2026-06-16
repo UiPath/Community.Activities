@@ -68,6 +68,10 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<string> PublicKeyFilePath { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<IResource> PublicKeyFile { get; set; } = new DesignInArgument<IResource>();
 
+        public DesignProperty<SymmetricWireFormat> Format { get; set; } = new DesignProperty<SymmetricWireFormat>();
+        public DesignProperty<KeyBytesFormat> KeyFormat { get; set; } = new DesignProperty<KeyBytesFormat>();
+        public DesignInArgument<int> KdfIterations { get; set; } = new DesignInArgument<int>();
+
         /// <summary>
         /// Configures Algorithm dropdown, Key, KeySecureString, and KeyEncodingString properties.
         /// </summary>
@@ -107,6 +111,43 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
 
             _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
+        }
+
+        /// <summary>
+        /// Configures the third-party-compatibility properties (Format, KeyFormat, KdfIterations).
+        /// Format is visible by default; the others are hidden until <see cref="ApplyInteropVisibility"/>
+        /// reveals them based on Format/Algorithm. Decrypt has no IV property — the IV is read from
+        /// the ciphertext stream at decrypt time.
+        /// </summary>
+        protected void ConfigureInteropProperties(ref int orderIndex)
+        {
+            Format.IsPrincipal = false;
+            Format.IsVisible = true;
+            Format.OrderIndex = orderIndex++;
+            Format.Category = Resources.Input;
+            Format.DataSource = DataSourceHelper.ForEnum(
+                SymmetricWireFormat.Classic,
+                SymmetricWireFormat.Owasp2026,
+                SymmetricWireFormat.Raw,
+                SymmetricWireFormat.OpenSslEnc);
+            Format.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
+            KeyFormat.IsPrincipal = false;
+            KeyFormat.IsVisible = false;
+            KeyFormat.OrderIndex = orderIndex++;
+            KeyFormat.Category = Resources.Input;
+            // Encoded is intentionally omitted — the dropdown is visible only when Format = Raw,
+            // and Raw rejects Encoded at runtime. FormatChanged_Action keeps the underlying value
+            // in sync (Hex when Raw, Encoded otherwise) so non-Raw runtime validation stays clean.
+            KeyFormat.DataSource = DataSourceHelper.ForEnum(
+                KeyBytesFormat.Hex,
+                KeyBytesFormat.Base64);
+            KeyFormat.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
+            KdfIterations.IsPrincipal = false;
+            KdfIterations.IsVisible = false;
+            KdfIterations.OrderIndex = orderIndex++;
+            KdfIterations.Category = Resources.Input;
         }
 
         /// <summary>
@@ -216,6 +257,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.InitializeRules();
             Rule(nameof(Algorithm), AlgorithmChanged_Action);
             Rule(nameof(VerifySignature), VerifySignatureChanged_Action);
+            Rule(nameof(Format), FormatChanged_Action);
         }
 
         protected override void ManualRegisterDependencies()
@@ -223,6 +265,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             base.ManualRegisterDependencies();
             RegisterDependency(Algorithm, nameof(Algorithm.Value), nameof(Algorithm));
             RegisterDependency(VerifySignature, nameof(VerifySignature.Value), nameof(VerifySignature));
+            RegisterDependency(Format, nameof(Format.Value), nameof(Format));
         }
 
         private void AlgorithmChanged_Action()
@@ -238,6 +281,42 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             VerifySignature.IsVisible = isPgp;
             VerifySignature.IsPrincipal = isPgp;
             ApplyPublicKeyVisibility();
+            ApplyInteropVisibility();
+        }
+
+        private void FormatChanged_Action()
+        {
+            ApplyInteropVisibility();
+            // Snap KdfIterations to a concrete value whenever Format changes — avoids the user seeing 0
+            // and having to look up what the format ships with. Customizations made before the format
+            // change are discarded by design (they were tied to the previous format's KDF anyway).
+            KdfIterations.Value = KdfIterations.IsVisible
+                ? CryptographyHelper.GetRecommendedIterations(Format.Value)
+                : 0;
+            // Snap KeyFormat: Hex when Raw (so the dropdown lands on a valid option),
+            // Encoded otherwise (so non-Raw runtime validation passes).
+            KeyFormat.Value = Format.Value == SymmetricWireFormat.Raw
+                ? KeyBytesFormat.Hex
+                : KeyBytesFormat.Encoded;
+        }
+
+        private void ApplyInteropVisibility()
+        {
+            bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
+            bool isRaw = Format.Value == SymmetricWireFormat.Raw;
+            bool isOwasp2026OrOpenSsl = Format.Value == SymmetricWireFormat.Owasp2026 || Format.Value == SymmetricWireFormat.OpenSslEnc;
+
+            Format.IsVisible = !isPgp;
+            KeyFormat.IsVisible = !isPgp && isRaw;
+            KdfIterations.IsVisible = !isPgp && isOwasp2026OrOpenSsl;
+
+            // Surface the underlying KDF in the visible label so the iteration count's effect is unambiguous.
+            if (KdfIterations.IsVisible)
+            {
+                KdfIterations.DisplayName = Format.Value == SymmetricWireFormat.Owasp2026
+                    ? Resources.Activity_KdfIterations_DisplayName_Pbkdf2Sha1
+                    : Resources.Activity_KdfIterations_DisplayName_Pbkdf2Sha256;
+            }
         }
 
         private void VerifySignatureChanged_Action()

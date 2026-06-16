@@ -35,6 +35,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Input.Category = Resources.Input;
 
             ConfigureAlgorithmAndKeyProperties(ref orderIndex);
+            ConfigureInteropProperties(ref orderIndex);
 
             Result.IsPrincipal = false;
             Result.OrderIndex = orderIndex++;

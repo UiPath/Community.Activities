@@ -90,6 +90,42 @@
           }
         },
         {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_DecryptFile_Property_Format_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_DecryptFile_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_DecryptFile_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_DecryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_DecryptFile_Property_Overwrite_Description",
@@ -265,6 +301,42 @@
           "Category": {
             "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_DecryptText_Property_Format_Name",
+          "TooltipKey": "Activity_DecryptText_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_DecryptText_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_DecryptText_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_DecryptText_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_DecryptText_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
           }
         },
         {
@@ -463,6 +535,54 @@
           }
         },
         {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Format_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_EncryptFile_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Iv",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Iv_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Iv_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_EncryptFile_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_EncryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Overwrite_Description",
@@ -643,6 +763,54 @@
           "Category": {
             "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_EncryptText_Property_Format_Name",
+          "TooltipKey": "Activity_EncryptText_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_EncryptText_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_EncryptText_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Iv",
+          "DisplayNameKey": "Activity_EncryptText_Property_Iv_Name",
+          "TooltipKey": "Activity_EncryptText_Property_Iv_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_EncryptText_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_EncryptText_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
           }
         },
         {
@@ -1189,18 +1357,18 @@
       ]
     },
     {
-      "FullName": "UiPath.Cryptography.Activities.PgpClearsignFile",
-      "ShortName": "PgpClearsignFile",
-      "DisplayNameKey": "Activity_PgpClearsignFile_Name",
+      "FullName": "UiPath.Cryptography.Activities.PgpClearSignFile",
+      "ShortName": "PgpClearSignFile",
+      "DisplayNameKey": "Activity_PgpClearSignFile_Name",
       "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
-      "DescriptionKey": "Activity_PgpClearsignFile_Description",
+      "DescriptionKey": "Activity_PgpClearSignFile_Description",
       "IconKey": "PGP_clear_sign_file.svg",
-      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpClearsignFileViewModel",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpClearSignFileViewModel",
       "Properties": [
         {
           "Name": "InputFilePath",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_InputFilePath_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_InputFilePath_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_InputFilePath_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_InputFilePath_Description",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -1211,8 +1379,8 @@
         },
         {
           "Name": "InputFile",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_InputFile_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_InputFile_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_InputFile_Description",
           "IsPrincipal": true,
           "IsVisible": false,
           "Category": {
@@ -1222,8 +1390,8 @@
         },
         {
           "Name": "PrivateKeyFilePath",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -1234,8 +1402,8 @@
         },
         {
           "Name": "PrivateKeyFile",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_PrivateKeyFile_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_PrivateKeyFile_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_PrivateKeyFile_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_PrivateKeyFile_Description",
           "IsPrincipal": true,
           "IsVisible": false,
           "Category": {
@@ -1245,8 +1413,8 @@
         },
         {
           "Name": "Passphrase",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_Passphrase_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_Passphrase_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_Passphrase_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_Passphrase_Description",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -1257,8 +1425,8 @@
         },
         {
           "Name": "PassphraseSecureString",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_PassphraseSecureString_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_PassphraseSecureString_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_PassphraseSecureString_Description",
           "IsRequired": true,
           "IsPrincipal": true,
           "IsVisible": true,
@@ -1269,8 +1437,8 @@
         },
         {
           "Name": "OutputFilePath",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_OutputFilePath_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_OutputFilePath_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_OutputFilePath_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_OutputFilePath_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -1281,8 +1449,8 @@
         },
         {
           "Name": "Overwrite",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_Overwrite_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_Overwrite_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_Overwrite_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_Overwrite_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -1293,8 +1461,8 @@
         },
         {
           "Name": "ContinueOnError",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_ContinueOnError_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_ContinueOnError_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_ContinueOnError_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
@@ -1305,8 +1473,8 @@
         },
         {
           "Name": "ClearSignedFile",
-          "DisplayNameKey": "Activity_PgpClearsignFile_Property_ClearSignedFile_Name",
-          "TooltipKey": "Activity_PgpClearsignFile_Property_ClearSignedFile_Description",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_ClearSignedFile_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_ClearSignedFile_Description",
           "IsRequired": false,
           "IsVisible": true,
           "Category": {

@@ -296,7 +296,7 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
-        public void PgpClearsignFile_Activity_WithStringPaths_Works()
+        public void PgpClearSignFile_Activity_WithStringPaths_Works()
         {
             var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_clearsign_in_{Guid.NewGuid()}.txt");
             var outputPath = Path.Combine(Path.GetTempPath(), $"pgp_clearsign_out_{Guid.NewGuid()}.txt.asc");
@@ -305,7 +305,7 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 File.WriteAllText(inputPath, "Hello PGP clearsign");
 
-                var activity = new PgpClearsignFile
+                var activity = new PgpClearSignFile
                 {
                     InputFilePath = new InArgument<string>(inputPath),
                     PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
@@ -316,7 +316,7 @@ namespace UiPath.Cryptography.Activities.Tests
 
                 WorkflowInvoker.Invoke(activity);
 
-                Assert.True(File.Exists(outputPath), "Clearsigned file not created");
+                Assert.True(File.Exists(outputPath), "ClearSigned file not created");
                 using (var publicKey = File.OpenRead(_publicKeyPath))
                 {
                     Assert.True(CryptographyHelper.PgpVerifyClear(File.ReadAllBytes(outputPath), publicKey));
@@ -461,7 +461,7 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
-        public void PgpClearsignFile_And_VerifyClearSignature_Activity_RoundTrip()
+        public void PgpClearSignFile_And_VerifyClearSignature_Activity_RoundTrip()
         {
             var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_rtc_in_{Guid.NewGuid()}.txt");
             var signedPath = Path.Combine(Path.GetTempPath(), $"pgp_rtc_signed_{Guid.NewGuid()}.asc");
@@ -470,7 +470,7 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 File.WriteAllText(inputPath, "Round-trip clearsign payload");
 
-                WorkflowInvoker.Invoke(new PgpClearsignFile
+                WorkflowInvoker.Invoke(new PgpClearSignFile
                 {
                     InputFilePath = new InArgument<string>(inputPath),
                     PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
@@ -530,7 +530,7 @@ namespace UiPath.Cryptography.Activities.Tests
                     Overwrite = true,
                 });
 
-                WorkflowInvoker.Invoke(new PgpClearsignFile
+                WorkflowInvoker.Invoke(new PgpClearSignFile
                 {
                     InputFilePath = new InArgument<string>(signedPath),
                     PrivateKeyFilePath = new InArgument<string>(privPath),
@@ -553,7 +553,7 @@ namespace UiPath.Cryptography.Activities.Tests
                     InputFilePath = new InArgument<string>(clearSignedPath),
                     PublicKeyFilePath = new InArgument<string>(pubPath),
                 });
-                Assert.True((bool)clearResult["Result"], "Clearsignature verification failed");
+                Assert.True((bool)clearResult["Result"], "ClearSignature verification failed");
 
                 var pubResult = WorkflowInvoker.Invoke(new PgpVerify
                 {
@@ -611,9 +611,9 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
-        public void PgpClearsignFile_FilePathMode_EmptyInputFilePath_ThrowsAtRuntime()
+        public void PgpClearSignFile_FilePathMode_EmptyInputFilePath_ThrowsAtRuntime()
         {
-            var activity = new PgpClearsignFile
+            var activity = new PgpClearSignFile
             {
                 InputFilePath = new InArgument<string>(""),
                 PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
@@ -621,7 +621,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 OutputFilePath = new InArgument<string>("ignored"),
             };
             var ex = Assert.Throws<ArgumentNullException>(() => WorkflowInvoker.Invoke(activity));
-            Assert.Equal(nameof(PgpClearsignFile.InputFilePath), ex.ParamName);
+            Assert.Equal(nameof(PgpClearSignFile.InputFilePath), ex.ParamName);
         }
 
         [Fact]
@@ -661,10 +661,10 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
-        public void PgpClearsignFile_Has_IResource_Properties()
+        public void PgpClearSignFile_Has_IResource_Properties()
         {
-            Assert.NotNull(typeof(PgpClearsignFile).GetProperty(nameof(PgpClearsignFile.InputFile)));
-            Assert.NotNull(typeof(PgpClearsignFile).GetProperty(nameof(PgpClearsignFile.PrivateKeyFile)));
+            Assert.NotNull(typeof(PgpClearSignFile).GetProperty(nameof(PgpClearSignFile.InputFile)));
+            Assert.NotNull(typeof(PgpClearSignFile).GetProperty(nameof(PgpClearSignFile.PrivateKeyFile)));
         }
 
         [Fact]

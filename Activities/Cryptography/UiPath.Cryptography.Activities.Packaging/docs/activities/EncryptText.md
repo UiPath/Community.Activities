@@ -18,6 +18,10 @@ Encrypts a text string using a symmetric algorithm, or using PGP with a recipien
 | `Key` | Key | InArgument | `string` | Conditional |  | The key used to encrypt the input. Provide either `Key` or `KeySecureString`. Symmetric algorithms only. |
 | `KeySecureString` | Key secure string | InArgument | `SecureString` | Conditional |  | Secure-string variant of the key. Symmetric algorithms only. |
 | `Encoding` | Encoding | InArgument | `Encoding` |  |  | The encoding used to interpret the input text and the key. Symmetric algorithms only. |
+| `Format` | Wire format | Property | `SymmetricWireFormat` |  | `Classic` | The symmetric ciphertext layout. `Classic` (default) is UiPath's byte-stable layout; `Owasp2026` uses the same layout with stronger KDF iterations; `Raw` is caller-supplied key + IV for third-party interop; `OpenSslEnc` produces `openssl enc`-compatible output. Symmetric algorithms only. |
+| `KeyFormat` | Key bytes format | Property | `KeyBytesFormat` |  | `Encoded` | How the `Key` string is interpreted. `Hex` or `Base64` are required when `Format = Raw`; otherwise the key is treated as a password. Symmetric algorithms only. |
+| `Iv` | IV | InArgument | `string` | Conditional |  | Initialization vector when `Format = Raw`. Interpreted per `KeyFormat`. Optional — leave empty to let the cipher generate one. Rejected for all other formats. |
+| `KdfIterations` | KDF iterations | InArgument | `int` |  | `0` | PBKDF2 iteration count. `0` uses the format's OWASP-recommended default (1 300 000 for `Owasp2026`, 600 000 for `OpenSslEnc`). Rejected for `Classic` and `Raw`. |
 | `PublicKeyFilePath` | Public key file path | InArgument | `string` | Conditional |  | Path to the recipient's PGP public key file. Required when `Algorithm = PGP`. |
 | `PrivateKeyFilePath` | Private key file path | InArgument | `string` | Conditional |  | Path to your PGP private key file. Required only when `SignData = True`. |
 | `Passphrase` | Passphrase | InArgument | `string` | Conditional |  | Passphrase that unlocks the private key (signing). Provide either `Passphrase` or `PassphraseSecureString`. PGP-sign only. |
@@ -41,26 +45,56 @@ Encrypts a text string using a symmetric algorithm, or using PGP with a recipien
 **Symmetric mode** (`AESGCM`, `ChaCha20Poly1305`, `AES`, `TripleDES`, `DES`, `RC2`, `Rijndael`):
 - Provide `Input`, `Algorithm`, and exactly one of `Key` / `KeySecureString`.
 - `Encoding` defaults to UTF-8.
+- `Format` defaults to `Classic` — existing workflows that omit this property produce the same byte-stable output as before.
+- For `Owasp2026` or `OpenSslEnc`: `KeyFormat` stays `Encoded`; optionally set `KdfIterations`.
+- For `Raw`: set `KeyFormat = Hex` or `Base64` and supply a literal cipher key. `Iv` is optional. `KdfIterations` is rejected.
 
 **PGP encrypt only** (`Algorithm = PGP`, `SignData = False`):
-- Provide `Input` and `PublicKeyFilePath` (recipient).
+- Provide `Input` and `PublicKeyFilePath` (recipient). Symmetric `Format` / `KeyFormat` / `Iv` / `KdfIterations` are ignored.
 
 **PGP encrypt + sign** (`Algorithm = PGP`, `SignData = True`):
 - Provide `Input`, `PublicKeyFilePath`, `PrivateKeyFilePath`, and exactly one of `Passphrase` / `PassphraseSecureString`.
 
-The symmetric format is UiPath-specific (`salt(8) || IV || ciphertext [|| tag]`, PBKDF2-HMAC-SHA1 @ 10 000 iterations) — see `docs/symmetric-wire-format.md`.
+The default symmetric format (`Classic`) is UiPath-specific (`salt(8) || IV || ciphertext [|| tag]`, PBKDF2-HMAC-SHA1 @ 10 000 iterations). Use `Raw` or `OpenSslEnc` for interop with `openssl enc`, Java `javax.crypto`, Python `cryptography`, browser tools, etc. See `docs/symmetric-wire-format.md` for byte layouts, decoder examples, and the per-format validation matrix.
 
 ### Enum Reference
 
 **`EncryptionAlgorithm`**: `AESGCM`, `ChaCha20Poly1305`, `PGP`, `AES` *(deprecated)*, `DES` *(deprecated)*, `RC2` *(deprecated)*, `Rijndael` *(deprecated)*, `TripleDES` *(deprecated)*.
 
+**`SymmetricWireFormat`**: `Classic` (default), `Owasp2026`, `Raw`, `OpenSslEnc`.
+
+**`KeyBytesFormat`**: `Encoded` (default — string is a password), `Hex`, `Base64`. The activity's dropdown only surfaces `Hex` / `Base64` because `Encoded` is the implicit non-Raw choice.
+
 ## XAML Example
 
-Symmetric encrypt (AES-GCM):
+Symmetric encrypt — Classic (default):
 
 ```xml
 <ui:EncryptText DisplayName="Encrypt Text"
                 Algorithm="AESGCM"
+                Input="hello world"
+                Key="[passphrase]"
+                Result="[ciphertextBase64]" />
+```
+
+Symmetric encrypt — `Raw` with caller-supplied key (third-party interop):
+
+```xml
+<ui:EncryptText DisplayName="Encrypt Text (Raw)"
+                Algorithm="AESGCM"
+                Format="Raw"
+                Input="hello world"
+                Key="a3f1b2c4d5e6f70819a0b1c2d3e4f5061718293a4b5c6d7e8f90a1b2c3d4e5f6"
+                KeyFormat="Hex"
+                Result="[ciphertextBase64]" />
+```
+
+Symmetric encrypt — `OpenSslEnc` (decryptable by `openssl enc -d -pbkdf2 -iter 600000 -md sha256`):
+
+```xml
+<ui:EncryptText DisplayName="Encrypt Text (openssl)"
+                Algorithm="AES"
+                Format="OpenSslEnc"
                 Input="hello world"
                 Key="[passphrase]"
                 Result="[ciphertextBase64]" />

@@ -28,7 +28,7 @@ Hashes a file using the specified algorithm and returns the hexadecimal hash str
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `Result` | Hash | OutArgument | `string` | The hash, as a lower-case hexadecimal string. |
+| `Result` | Hash | OutArgument | `string` | The hash, as an upper-case hexadecimal string. |
 
 ## Valid Configurations
 

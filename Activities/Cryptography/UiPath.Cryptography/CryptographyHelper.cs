@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -37,7 +36,17 @@ namespace UiPath.Cryptography
     {
         private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
         private const int PBKDF2_SaltSizeBytes = 8; // Value recommended in literature (64 bit key).
-        private const int PBKDF2_Iterations = 10000; // Value recommended in literature.
+        private const int PBKDF2_Iterations = 10000; // Frozen baseline for SymmetricWireFormat.Classic.
+
+        // OWASP-recommended PBKDF2 iteration counts as of 2026. Used as defaults for the
+        // Owasp2026 and OpenSslEnc formats. Snapshot semantics: when OWASP revises these,
+        // we add a new SymmetricWireFormat entry (e.g. Owasp2030) rather than mutating these
+        // constants, so existing workflows keep producing byte-stable output.
+        private const int OwaspIterations_Sha1 = 1_300_000;
+        private const int OwaspIterations_Sha256 = 600_000;
+
+        // "Salted__" magic prefix used by openssl enc.
+        private static readonly byte[] OpenSslMagic = new byte[] { 0x53, 0x61, 0x6C, 0x74, 0x65, 0x64, 0x5F, 0x5F };
 
         public static byte[] HashDataWithKey(KeyedHashAlgorithms keyedHashAlgorithm, byte[] inputBytes, byte[] keyBytes)
         {
@@ -58,120 +67,111 @@ namespace UiPath.Cryptography
             return result;
         }
 
+        // Public entry — Classic format (frozen at PBKDF2_Iterations = 10000, PBKDF2-HMAC-SHA1).
+        // Wire layout: salt(8) || IV || ciphertext, or salt(8) || IV(12) || ciphertext || tag(16) for AEAD.
         public static byte[] EncryptData(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] key)
+            => EncryptDataCore(algorithm, inputBytes, key, PBKDF2_Iterations);
+
+        public static byte[] DecryptData(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] key)
+            => DecryptDataCore(algorithm, inputBytes, key, PBKDF2_Iterations);
+
+        // Public entry — UiPath layout with caller-supplied PBKDF2-HMAC-SHA1 iteration count.
+        // Used by SymmetricWireFormat.Owasp2026 (default 1,300,000) and any future year-versioned
+        // snapshots that share the Classic wire layout. Output is byte-identical to Classic when iterations match.
+        public static byte[] EncryptDataWithIterations(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
+            => EncryptDataCore(algorithm, inputBytes, passwordBytes, iterations);
+
+        public static byte[] DecryptDataWithIterations(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
+            => DecryptDataCore(algorithm, inputBytes, passwordBytes, iterations);
+
+        private static byte[] EncryptDataCore(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
         {
             if (algorithm == EncryptionAlgorithm.PGP)
                 throw new ArgumentException("Use PGP-specific methods for PGP encryption.", nameof(algorithm));
 
-            byte[] result;
-
             if (algorithm == EncryptionAlgorithm.AESGCM)
+                return EncryptAesGcm(inputBytes, passwordBytes, iterations);
+            if (algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+                return EncryptChaCha20Poly1305(inputBytes, passwordBytes, iterations);
+
+            byte[] result;
+            using (SymmetricAlgorithm symmetricAlgorithm = GetSymmetricAlgorithmProvider(algorithm))
             {
-                return EncryptAesGcm(inputBytes, key);
-            }
-            else if (algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
-            {
-                return EncryptChaCha20Poly1305(inputBytes, key);
-            }
-            else
-            {
-                using (SymmetricAlgorithm symmetricAlgorithm = GetSymmetricAlgorithmProvider(algorithm))
+                byte[] encrypted;
+                byte[] salt = new byte[PBKDF2_SaltSizeBytes];
+                int maxKeySize = GetLegalKeySizes(symmetricAlgorithm).Max();
+
+                _rng.GetBytes(salt);
+                using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(passwordBytes, salt, iterations))
                 {
-                    byte[] encrypted;
-                    byte[] salt = new byte[PBKDF2_SaltSizeBytes];
-                    int maxKeySize = GetLegalKeySizes(symmetricAlgorithm).Max();
-
-                    _rng.GetBytes(salt);
-                    using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
-                    {
-                        symmetricAlgorithm.Key = pbkdf2.GetBytes(maxKeySize);
-                    }
-
-                    using (ICryptoTransform cryptoTransform = symmetricAlgorithm.CreateEncryptor())
-                    {
-                        using (MemoryStream inputStream = new MemoryStream(inputBytes), transformedStream = new MemoryStream())
-                        {
-                            using (CryptoStream cryptoStream = new CryptoStream(inputStream, cryptoTransform, CryptoStreamMode.Read))
-                            {
-                                cryptoStream.CopyTo(transformedStream);
-                            }
-
-                            encrypted = transformedStream.ToArray();
-                        }
-                    }
-
-                    result = new byte[salt.Length + symmetricAlgorithm.IV.Length + encrypted.Length];
-                    Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
-                    Buffer.BlockCopy(symmetricAlgorithm.IV, 0, result, salt.Length, symmetricAlgorithm.IV.Length);
-                    Buffer.BlockCopy(encrypted, 0, result, salt.Length + symmetricAlgorithm.IV.Length, encrypted.Length);
+                    symmetricAlgorithm.Key = pbkdf2.GetBytes(maxKeySize);
                 }
 
-                return result;
+                using (ICryptoTransform cryptoTransform = symmetricAlgorithm.CreateEncryptor())
+                using (MemoryStream inputStream = new MemoryStream(inputBytes), transformedStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(inputStream, cryptoTransform, CryptoStreamMode.Read))
+                    {
+                        cryptoStream.CopyTo(transformedStream);
+                    }
+                    encrypted = transformedStream.ToArray();
+                }
+
+                result = new byte[salt.Length + symmetricAlgorithm.IV.Length + encrypted.Length];
+                Buffer.BlockCopy(salt, 0, result, 0, salt.Length);
+                Buffer.BlockCopy(symmetricAlgorithm.IV, 0, result, salt.Length, symmetricAlgorithm.IV.Length);
+                Buffer.BlockCopy(encrypted, 0, result, salt.Length + symmetricAlgorithm.IV.Length, encrypted.Length);
             }
+            return result;
         }
 
-        public static byte[] DecryptData(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] key)
+        private static byte[] DecryptDataCore(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
         {
             if (algorithm == EncryptionAlgorithm.PGP)
                 throw new ArgumentException("Use PGP-specific methods for PGP decryption.", nameof(algorithm));
 
-            byte[] decrypted;
-
             if (algorithm == EncryptionAlgorithm.AESGCM)
+                return DecryptAesGcm(inputBytes, passwordBytes, iterations);
+            if (algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+                return DecryptChaCha20Poly1305(inputBytes, passwordBytes, iterations);
+
+            byte[] decrypted;
+            using (SymmetricAlgorithm symmetricAlgorithm = GetSymmetricAlgorithmProvider(algorithm))
             {
-                return DecryptAesGcm(inputBytes, key);
-            }
-            else if (algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
-            {
-                return DecryptChaCha20Poly1305(inputBytes, key);
-            }
-            else
-            {
-                using (SymmetricAlgorithm symmetricAlgorithm = GetSymmetricAlgorithmProvider(algorithm))
+                byte[] salt = new byte[PBKDF2_SaltSizeBytes];
+                byte[] iv = new byte[symmetricAlgorithm.IV.Length];
+
+                int minimumInputLength = salt.Length + iv.Length;
+                if (inputBytes.Length < minimumInputLength)
+                    throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, minimumInputLength));
+
+                byte[] encryptedData = new byte[inputBytes.Length - salt.Length - iv.Length];
+                int maxKeySize = GetLegalKeySizes(symmetricAlgorithm).Max();
+
+                Buffer.BlockCopy(inputBytes, 0, salt, 0, salt.Length);
+                Buffer.BlockCopy(inputBytes, salt.Length, iv, 0, iv.Length);
+                Buffer.BlockCopy(inputBytes, salt.Length + iv.Length, encryptedData, 0, encryptedData.Length);
+
+                symmetricAlgorithm.IV = iv;
+                using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(passwordBytes, salt, iterations))
                 {
-                    byte[] salt = new byte[PBKDF2_SaltSizeBytes];
-                    byte[] iv = new byte[symmetricAlgorithm.IV.Length];
+                    symmetricAlgorithm.Key = pbkdf2.GetBytes(maxKeySize);
+                }
 
-                    int minimumInputLength = salt.Length + iv.Length;
-                    if (inputBytes.Length < minimumInputLength)
+                using (ICryptoTransform cryptoTransform = symmetricAlgorithm.CreateDecryptor())
+                using (MemoryStream encryptedStream = new MemoryStream(encryptedData))
+                using (CryptoStream cryptoStream = new CryptoStream(encryptedStream, cryptoTransform, CryptoStreamMode.Read))
+                {
+                    try
                     {
-                        throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, minimumInputLength));
+                        decrypted = cryptoStream.ReadToEnd();
                     }
-
-                    byte[] encryptedData = new byte[inputBytes.Length - salt.Length - iv.Length];
-
-                    int maxKeySize = GetLegalKeySizes(symmetricAlgorithm).Max();
-
-                    Buffer.BlockCopy(inputBytes, 0, salt, 0, salt.Length);
-                    Buffer.BlockCopy(inputBytes, salt.Length, iv, 0, iv.Length);
-                    Buffer.BlockCopy(inputBytes, salt.Length + iv.Length, encryptedData, 0, encryptedData.Length);
-
-                    symmetricAlgorithm.IV = iv;
-                    using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
+                    catch (CryptographicException ex)
                     {
-                        symmetricAlgorithm.Key = pbkdf2.GetBytes(maxKeySize);
-                    }
-
-                    using (ICryptoTransform cryptoTransform = symmetricAlgorithm.CreateDecryptor())
-                    {
-                        using (MemoryStream encryptedStream = new MemoryStream(encryptedData))
-                        {
-                            using (CryptoStream cryptoStream = new CryptoStream(encryptedStream, cryptoTransform, CryptoStreamMode.Read))
-                            {
-                                try
-                                {
-                                    decrypted = cryptoStream.ReadToEnd();
-                                }
-                                catch (CryptographicException ex)
-                                {
-                                    throw new CryptographicException(Resources.SymmetricDecrypt_PaddingHint, ex);
-                                }
-                            }
-                        }
+                        throw new CryptographicException(Resources.SymmetricDecrypt_PaddingHint, ex);
                     }
                 }
             }
-
             return decrypted;
         }
 
@@ -294,12 +294,12 @@ namespace UiPath.Cryptography
         private delegate void AeadEncryptCore(byte[] key, byte[] iv, byte[] plain, byte[] cipher, byte[] tag);
         private delegate void AeadDecryptCore(byte[] key, byte[] iv, byte[] cipher, byte[] tag, byte[] plain);
 
-        private static byte[] EncryptAead(byte[] inputBytes, byte[] key, AeadEncryptCore encryptCore)
+        private static byte[] EncryptAead(byte[] inputBytes, byte[] key, int iterations, AeadEncryptCore encryptCore)
         {
             InitializeAeadEncryption(out byte[] salt, out byte[] tag, out byte[] algorithmIV);
             byte[] encrypted = new byte[inputBytes.Length];
 
-            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
+            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, iterations))
             {
                 var derivedKey = pbkdf2.GetBytes(AeadKeySizeBytes);
                 encryptCore(derivedKey, algorithmIV, inputBytes, encrypted, tag);
@@ -308,7 +308,7 @@ namespace UiPath.Cryptography
             return CreateAeadEncryptionResult(encrypted, salt, tag, algorithmIV);
         }
 
-        private static byte[] DecryptAead(byte[] inputBytes, byte[] key, AeadDecryptCore decryptCore)
+        private static byte[] DecryptAead(byte[] inputBytes, byte[] key, int iterations, AeadDecryptCore decryptCore)
         {
             const int aeadMinimumInputLength = PBKDF2_SaltSizeBytes + AeadIvSizeBytes + AeadTagSizeBytes;
             if (inputBytes == null || inputBytes.Length < aeadMinimumInputLength)
@@ -317,7 +317,7 @@ namespace UiPath.Cryptography
             InitializeDecryptAead(inputBytes, out byte[] salt, out byte[] iv, out byte[] tag, out byte[] encryptedData);
             byte[] decrypted = new byte[encryptedData.Length];
 
-            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, PBKDF2_Iterations))
+            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(key, salt, iterations))
             {
                 var derivedKey = pbkdf2.GetBytes(AeadKeySizeBytes);
                 decryptCore(derivedKey, iv, encryptedData, tag, decrypted);
@@ -326,22 +326,22 @@ namespace UiPath.Cryptography
             return decrypted;
         }
 
-        private static byte[] EncryptAesGcm(byte[] inputBytes, byte[] key) =>
-            EncryptAead(inputBytes, key, (k, iv, plain, cipher, tag) =>
+        private static byte[] EncryptAesGcm(byte[] inputBytes, byte[] key, int iterations) =>
+            EncryptAead(inputBytes, key, iterations, (k, iv, plain, cipher, tag) =>
             {
                 using var aes = new AesGcm(k);
                 aes.Encrypt(iv, plain, cipher, tag);
             });
 
-        private static byte[] DecryptAesGcm(byte[] inputBytes, byte[] key) =>
-            DecryptAead(inputBytes, key, (k, iv, cipher, tag, plain) =>
+        private static byte[] DecryptAesGcm(byte[] inputBytes, byte[] key, int iterations) =>
+            DecryptAead(inputBytes, key, iterations, (k, iv, cipher, tag, plain) =>
             {
                 using var aes = new AesGcm(k);
                 aes.Decrypt(iv, cipher, tag, plain);
             });
 
-        private static byte[] EncryptChaCha20Poly1305(byte[] inputBytes, byte[] key) =>
-            EncryptAead(inputBytes, key, (k, iv, plain, cipher, tag) =>
+        private static byte[] EncryptChaCha20Poly1305(byte[] inputBytes, byte[] key, int iterations) =>
+            EncryptAead(inputBytes, key, iterations, (k, iv, plain, cipher, tag) =>
             {
                 if (!ChaCha20Poly1305.IsSupported)
                     throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
@@ -349,8 +349,8 @@ namespace UiPath.Cryptography
                 chacha.Encrypt(iv, plain, cipher, tag);
             });
 
-        private static byte[] DecryptChaCha20Poly1305(byte[] inputBytes, byte[] key) =>
-            DecryptAead(inputBytes, key, (k, iv, cipher, tag, plain) =>
+        private static byte[] DecryptChaCha20Poly1305(byte[] inputBytes, byte[] key, int iterations) =>
+            DecryptAead(inputBytes, key, iterations, (k, iv, cipher, tag, plain) =>
             {
                 if (!ChaCha20Poly1305.IsSupported)
                     throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
@@ -388,6 +388,333 @@ namespace UiPath.Cryptography
             Buffer.BlockCopy(inputBytes, salt.Length + iv.Length, encryptedData, 0, encryptedData.Length);
             Buffer.BlockCopy(inputBytes, salt.Length + iv.Length + encryptedData.Length, tag, 0, tag.Length);
         }
+
+        #region Third-party-compatible formats (Raw, OpenSslEnc)
+
+        /// <summary>
+        /// Returns the OWASP-recommended PBKDF2 iteration count for the given format.
+        /// Throws for formats that do not run a KDF (Classic uses a fixed 10 000; Raw skips the KDF entirely).
+        /// </summary>
+        public static int GetRecommendedIterations(SymmetricWireFormat format) => format switch
+        {
+            SymmetricWireFormat.Owasp2026 => OwaspIterations_Sha1,
+            SymmetricWireFormat.OpenSslEnc => OwaspIterations_Sha256,
+            _ => throw new ArgumentException(
+                $"GetRecommendedIterations is undefined for {format}: Classic is frozen at 10 000 iterations and Raw skips the KDF.",
+                nameof(format))
+        };
+
+        /// <summary>
+        /// Legal key sizes (in bytes) for the algorithm when supplied as a raw key.
+        /// AEAD algorithms accept only 32-byte (256-bit) keys; non-AEAD algorithms forward to the underlying SymmetricAlgorithm.
+        /// </summary>
+        public static int[] GetRawKeySizes(EncryptionAlgorithm algorithm)
+        {
+            if (algorithm == EncryptionAlgorithm.AESGCM || algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+                return new[] { AeadKeySizeBytes };
+            using var symmetricAlgorithm = GetSymmetricAlgorithmProvider(algorithm);
+            return GetLegalKeySizes(symmetricAlgorithm);
+        }
+
+        /// <summary>
+        /// IV size (in bytes) for the algorithm. AEAD algorithms always use 12-byte IVs;
+        /// non-AEAD algorithms use the SymmetricAlgorithm's natural block size.
+        /// </summary>
+        public static int GetIvSize(EncryptionAlgorithm algorithm)
+        {
+            if (algorithm == EncryptionAlgorithm.AESGCM || algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+                return AeadIvSizeBytes;
+            using var symmetricAlgorithm = GetSymmetricAlgorithmProvider(algorithm);
+            return symmetricAlgorithm.IV.Length;
+        }
+
+        /// <summary>
+        /// Raw-key encrypt: caller supplies the literal cipher key bytes and (optionally) the IV.
+        /// Output layout: <c>IV || ciphertext</c> for non-AEAD; <c>IV(12) || ciphertext || tag(16)</c> for AEAD.
+        /// If <paramref name="iv"/> is <c>null</c>, a fresh random IV is generated.
+        /// </summary>
+        public static byte[] EncryptDataRaw(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] keyBytes, byte[] iv)
+        {
+            if (algorithm == EncryptionAlgorithm.PGP)
+                throw new ArgumentException("Use PGP-specific methods for PGP encryption.", nameof(algorithm));
+
+            if (algorithm == EncryptionAlgorithm.AESGCM || algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+            {
+                byte[] effectiveIv = iv;
+                if (effectiveIv == null)
+                {
+                    effectiveIv = new byte[AeadIvSizeBytes];
+                    _rng.GetBytes(effectiveIv);
+                }
+                if (effectiveIv.Length != AeadIvSizeBytes)
+                    throw new ArgumentException($"AEAD IV must be exactly {AeadIvSizeBytes} bytes; got {effectiveIv.Length}.", nameof(iv));
+
+                byte[] cipherText = new byte[inputBytes.Length];
+                byte[] tag = new byte[AeadTagSizeBytes];
+
+                if (algorithm == EncryptionAlgorithm.AESGCM)
+                {
+                    using var aes = new AesGcm(keyBytes);
+                    aes.Encrypt(effectiveIv, inputBytes, cipherText, tag);
+                }
+                else
+                {
+                    if (!ChaCha20Poly1305.IsSupported)
+                        throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                    using var chacha = new ChaCha20Poly1305(keyBytes);
+                    chacha.Encrypt(effectiveIv, inputBytes, cipherText, tag);
+                }
+
+                byte[] result = new byte[effectiveIv.Length + cipherText.Length + tag.Length];
+                Buffer.BlockCopy(effectiveIv, 0, result, 0, effectiveIv.Length);
+                Buffer.BlockCopy(cipherText, 0, result, effectiveIv.Length, cipherText.Length);
+                Buffer.BlockCopy(tag, 0, result, effectiveIv.Length + cipherText.Length, tag.Length);
+                return result;
+            }
+
+            using var symmetric = GetSymmetricAlgorithmProvider(algorithm);
+            symmetric.Key = keyBytes;
+            if (iv != null)
+            {
+                if (iv.Length != symmetric.IV.Length)
+                    throw new ArgumentException($"IV for {algorithm} must be {symmetric.IV.Length} bytes; got {iv.Length}.", nameof(iv));
+                symmetric.IV = iv;
+            }
+
+            byte[] encrypted;
+            using (ICryptoTransform transform = symmetric.CreateEncryptor())
+            using (MemoryStream inputStream = new MemoryStream(inputBytes), outStream = new MemoryStream())
+            {
+                using (CryptoStream cryptoStream = new CryptoStream(inputStream, transform, CryptoStreamMode.Read))
+                    cryptoStream.CopyTo(outStream);
+                encrypted = outStream.ToArray();
+            }
+
+            byte[] rawResult = new byte[symmetric.IV.Length + encrypted.Length];
+            Buffer.BlockCopy(symmetric.IV, 0, rawResult, 0, symmetric.IV.Length);
+            Buffer.BlockCopy(encrypted, 0, rawResult, symmetric.IV.Length, encrypted.Length);
+            return rawResult;
+        }
+
+        /// <summary>
+        /// Raw-key decrypt: parses <c>IV || ciphertext [|| tag]</c>, using the caller-supplied raw key.
+        /// </summary>
+        public static byte[] DecryptDataRaw(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] keyBytes)
+        {
+            if (algorithm == EncryptionAlgorithm.PGP)
+                throw new ArgumentException("Use PGP-specific methods for PGP decryption.", nameof(algorithm));
+
+            if (algorithm == EncryptionAlgorithm.AESGCM || algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+            {
+                int minLen = AeadIvSizeBytes + AeadTagSizeBytes;
+                if (inputBytes == null || inputBytes.Length < minLen)
+                    throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, minLen));
+
+                byte[] iv = new byte[AeadIvSizeBytes];
+                byte[] tag = new byte[AeadTagSizeBytes];
+                byte[] cipher = new byte[inputBytes.Length - iv.Length - tag.Length];
+                Buffer.BlockCopy(inputBytes, 0, iv, 0, iv.Length);
+                Buffer.BlockCopy(inputBytes, iv.Length, cipher, 0, cipher.Length);
+                Buffer.BlockCopy(inputBytes, iv.Length + cipher.Length, tag, 0, tag.Length);
+
+                byte[] plain = new byte[cipher.Length];
+                if (algorithm == EncryptionAlgorithm.AESGCM)
+                {
+                    using var aes = new AesGcm(keyBytes);
+                    aes.Decrypt(iv, cipher, tag, plain);
+                }
+                else
+                {
+                    if (!ChaCha20Poly1305.IsSupported)
+                        throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                    using var chacha = new ChaCha20Poly1305(keyBytes);
+                    chacha.Decrypt(iv, cipher, tag, plain);
+                }
+                return plain;
+            }
+
+            using var symmetric = GetSymmetricAlgorithmProvider(algorithm);
+            int ivLen = symmetric.IV.Length;
+            if (inputBytes == null || inputBytes.Length < ivLen)
+                throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, ivLen));
+
+            byte[] symIv = new byte[ivLen];
+            byte[] symCipher = new byte[inputBytes.Length - ivLen];
+            Buffer.BlockCopy(inputBytes, 0, symIv, 0, ivLen);
+            Buffer.BlockCopy(inputBytes, ivLen, symCipher, 0, symCipher.Length);
+
+            symmetric.IV = symIv;
+            symmetric.Key = keyBytes;
+
+            byte[] decrypted;
+            using (ICryptoTransform transform = symmetric.CreateDecryptor())
+            using (MemoryStream encStream = new MemoryStream(symCipher))
+            using (CryptoStream cryptoStream = new CryptoStream(encStream, transform, CryptoStreamMode.Read))
+            {
+                try
+                {
+                    decrypted = cryptoStream.ReadToEnd();
+                }
+                catch (CryptographicException ex)
+                {
+                    throw new CryptographicException(Resources.SymmetricDecrypt_PaddingHint, ex);
+                }
+            }
+            return decrypted;
+        }
+
+        /// <summary>
+        /// OpenSSL <c>enc</c>-compatible encrypt: layout <c>Salted__(8) || salt(8) || ciphertext [|| tag]</c>,
+        /// key (and IV, for non-AEAD and AEAD alike) derived via PBKDF2-HMAC-SHA256.
+        /// AEAD layout is a UiPath extension — see <c>docs/symmetric-wire-format.md</c>.
+        /// </summary>
+        public static byte[] EncryptDataOpenSslEnc(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
+        {
+            if (algorithm == EncryptionAlgorithm.PGP)
+                throw new ArgumentException("Use PGP-specific methods for PGP encryption.", nameof(algorithm));
+
+            byte[] salt = new byte[PBKDF2_SaltSizeBytes];
+            _rng.GetBytes(salt);
+
+            if (algorithm == EncryptionAlgorithm.AESGCM || algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+            {
+                var (aeadKey, aeadIv) = DeriveOpenSslKeyAndIv(passwordBytes, salt, iterations, AeadKeySizeBytes, AeadIvSizeBytes);
+                byte[] cipher = new byte[inputBytes.Length];
+                byte[] tag = new byte[AeadTagSizeBytes];
+
+                if (algorithm == EncryptionAlgorithm.AESGCM)
+                {
+                    using var aes = new AesGcm(aeadKey);
+                    aes.Encrypt(aeadIv, inputBytes, cipher, tag);
+                }
+                else
+                {
+                    if (!ChaCha20Poly1305.IsSupported)
+                        throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                    using var chacha = new ChaCha20Poly1305(aeadKey);
+                    chacha.Encrypt(aeadIv, inputBytes, cipher, tag);
+                }
+
+                byte[] aeadResult = new byte[OpenSslMagic.Length + salt.Length + cipher.Length + tag.Length];
+                Buffer.BlockCopy(OpenSslMagic, 0, aeadResult, 0, OpenSslMagic.Length);
+                Buffer.BlockCopy(salt, 0, aeadResult, OpenSslMagic.Length, salt.Length);
+                Buffer.BlockCopy(cipher, 0, aeadResult, OpenSslMagic.Length + salt.Length, cipher.Length);
+                Buffer.BlockCopy(tag, 0, aeadResult, OpenSslMagic.Length + salt.Length + cipher.Length, tag.Length);
+                return aeadResult;
+            }
+
+            using var symmetric = GetSymmetricAlgorithmProvider(algorithm);
+            int symKeySize = GetLegalKeySizes(symmetric).Max();
+            int symIvSize = symmetric.IV.Length;
+            var (symKey, symIv) = DeriveOpenSslKeyAndIv(passwordBytes, salt, iterations, symKeySize, symIvSize);
+            symmetric.Key = symKey;
+            symmetric.IV = symIv;
+
+            byte[] encrypted;
+            using (ICryptoTransform transform = symmetric.CreateEncryptor())
+            using (MemoryStream inputStream = new MemoryStream(inputBytes), outStream = new MemoryStream())
+            {
+                using (CryptoStream cryptoStream = new CryptoStream(inputStream, transform, CryptoStreamMode.Read))
+                    cryptoStream.CopyTo(outStream);
+                encrypted = outStream.ToArray();
+            }
+
+            byte[] result = new byte[OpenSslMagic.Length + salt.Length + encrypted.Length];
+            Buffer.BlockCopy(OpenSslMagic, 0, result, 0, OpenSslMagic.Length);
+            Buffer.BlockCopy(salt, 0, result, OpenSslMagic.Length, salt.Length);
+            Buffer.BlockCopy(encrypted, 0, result, OpenSslMagic.Length + salt.Length, encrypted.Length);
+            return result;
+        }
+
+        /// <summary>
+        /// OpenSSL <c>enc</c>-compatible decrypt: parses <c>Salted__(8) || salt(8) || ciphertext [|| tag]</c>.
+        /// </summary>
+        public static byte[] DecryptDataOpenSslEnc(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
+        {
+            if (algorithm == EncryptionAlgorithm.PGP)
+                throw new ArgumentException("Use PGP-specific methods for PGP decryption.", nameof(algorithm));
+
+            int prefixLen = OpenSslMagic.Length + PBKDF2_SaltSizeBytes;
+            if (inputBytes == null || inputBytes.Length < prefixLen)
+                throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, prefixLen));
+
+            for (int i = 0; i < OpenSslMagic.Length; i++)
+            {
+                if (inputBytes[i] != OpenSslMagic[i])
+                    throw new CryptographicException(Resources.OpenSslEnc_MissingMagic);
+            }
+
+            byte[] salt = new byte[PBKDF2_SaltSizeBytes];
+            Buffer.BlockCopy(inputBytes, OpenSslMagic.Length, salt, 0, PBKDF2_SaltSizeBytes);
+
+            if (algorithm == EncryptionAlgorithm.AESGCM || algorithm == EncryptionAlgorithm.ChaCha20Poly1305)
+            {
+                int minAead = prefixLen + AeadTagSizeBytes;
+                if (inputBytes.Length < minAead)
+                    throw new CryptographicException(string.Format(Resources.SymmetricDecrypt_InputTooShort, minAead));
+
+                var (aeadKey, aeadIv) = DeriveOpenSslKeyAndIv(passwordBytes, salt, iterations, AeadKeySizeBytes, AeadIvSizeBytes);
+                int cipherLen = inputBytes.Length - prefixLen - AeadTagSizeBytes;
+                byte[] cipher = new byte[cipherLen];
+                byte[] tag = new byte[AeadTagSizeBytes];
+                byte[] plain = new byte[cipherLen];
+                Buffer.BlockCopy(inputBytes, prefixLen, cipher, 0, cipherLen);
+                Buffer.BlockCopy(inputBytes, prefixLen + cipherLen, tag, 0, AeadTagSizeBytes);
+
+                if (algorithm == EncryptionAlgorithm.AESGCM)
+                {
+                    using var aes = new AesGcm(aeadKey);
+                    aes.Decrypt(aeadIv, cipher, tag, plain);
+                }
+                else
+                {
+                    if (!ChaCha20Poly1305.IsSupported)
+                        throw new PlatformNotSupportedException(Resources.ChaCha20Poly1305NotSupported);
+                    using var chacha = new ChaCha20Poly1305(aeadKey);
+                    chacha.Decrypt(aeadIv, cipher, tag, plain);
+                }
+                return plain;
+            }
+
+            using var symmetric = GetSymmetricAlgorithmProvider(algorithm);
+            int symKeySize = GetLegalKeySizes(symmetric).Max();
+            int symIvSize = symmetric.IV.Length;
+            var (symKey, symIv) = DeriveOpenSslKeyAndIv(passwordBytes, salt, iterations, symKeySize, symIvSize);
+            symmetric.Key = symKey;
+            symmetric.IV = symIv;
+
+            byte[] encrypted = new byte[inputBytes.Length - prefixLen];
+            Buffer.BlockCopy(inputBytes, prefixLen, encrypted, 0, encrypted.Length);
+
+            byte[] decrypted;
+            using (ICryptoTransform transform = symmetric.CreateDecryptor())
+            using (MemoryStream encStream = new MemoryStream(encrypted))
+            using (CryptoStream cryptoStream = new CryptoStream(encStream, transform, CryptoStreamMode.Read))
+            {
+                try
+                {
+                    decrypted = cryptoStream.ReadToEnd();
+                }
+                catch (CryptographicException ex)
+                {
+                    throw new CryptographicException(Resources.SymmetricDecrypt_PaddingHint, ex);
+                }
+            }
+            return decrypted;
+        }
+
+        private static (byte[] key, byte[] iv) DeriveOpenSslKeyAndIv(byte[] password, byte[] salt, int iterations, int keySize, int ivSize)
+        {
+            using var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
+            byte[] derived = pbkdf2.GetBytes(keySize + ivSize);
+            byte[] key = new byte[keySize];
+            byte[] iv = new byte[ivSize];
+            Buffer.BlockCopy(derived, 0, key, 0, keySize);
+            Buffer.BlockCopy(derived, keySize, iv, 0, ivSize);
+            return (key, iv);
+        }
+
+        #endregion
 
         #region PGP Methods
 
@@ -700,6 +1027,62 @@ namespace UiPath.Cryptography
         public static byte[] KeyEncoding(Encoding encoding, string key, SecureString keySecureString)
         {
             return key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password);
+        }
+
+        /// <summary>
+        /// Parse a key (or IV) string per the chosen <see cref="KeyBytesFormat"/>. <c>Encoded</c>
+        /// reuses the existing password-via-Encoding path; <c>Hex</c> and <c>Base64</c> are required
+        /// when supplying a literal raw key (Format = Raw).
+        /// </summary>
+        public static byte[] ParseKeyBytes(string keyString, SecureString keySecureString, KeyBytesFormat format, Encoding encoding)
+        {
+            switch (format)
+            {
+                case KeyBytesFormat.Encoded:
+                    if (encoding == null)
+                        throw new ArgumentNullException(nameof(encoding), "Encoding is required when KeyFormat = Encoded.");
+                    return KeyEncoding(encoding, keyString, keySecureString);
+
+                case KeyBytesFormat.Hex:
+                {
+                    string raw = keyString ?? (keySecureString != null ? new NetworkCredential(string.Empty, keySecureString).Password : null);
+                    if (string.IsNullOrEmpty(raw))
+                        throw new ArgumentException("Hex key/IV string is empty.");
+                    return FromHexString(raw);
+                }
+
+                case KeyBytesFormat.Base64:
+                {
+                    string raw = keyString ?? (keySecureString != null ? new NetworkCredential(string.Empty, keySecureString).Password : null);
+                    if (string.IsNullOrEmpty(raw))
+                        throw new ArgumentException("Base64 key/IV string is empty.");
+                    return Convert.FromBase64String(raw);
+                }
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(format), format, "Unknown KeyBytesFormat.");
+            }
+        }
+
+        private static byte[] FromHexString(string hex)
+        {
+            // Tolerate "0x" prefix and any embedded whitespace/colons typical of hex dumps.
+            var cleaned = new StringBuilder(hex.Length);
+            int start = (hex.Length >= 2 && hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X')) ? 2 : 0;
+            for (int i = start; i < hex.Length; i++)
+            {
+                char c = hex[i];
+                if (c == ' ' || c == ':' || c == '-' || c == '\t' || c == '\r' || c == '\n') continue;
+                cleaned.Append(c);
+            }
+            if ((cleaned.Length & 1) != 0)
+                throw new ArgumentException("Hex string has an odd number of digits.");
+            byte[] bytes = new byte[cleaned.Length / 2];
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                bytes[i] = byte.Parse(cleaned.ToString(i * 2, 2), System.Globalization.NumberStyles.HexNumber);
+            }
+            return bytes;
         }
 
         /// <summary>

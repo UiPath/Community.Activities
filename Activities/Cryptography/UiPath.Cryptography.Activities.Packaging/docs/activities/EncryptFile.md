@@ -18,6 +18,10 @@ Encrypts a file using a symmetric algorithm and key, or using PGP with a recipie
 | `Key` | Key | InArgument | `string` | Conditional |  | The key used to encrypt the file. Provide either `Key` or `KeySecureString`. Symmetric algorithms only. |
 | `KeySecureString` | Key secure string | InArgument | `SecureString` | Conditional |  | Secure-string variant of the key. Symmetric algorithms only. |
 | `KeyEncoding` | Key encoding | InArgument | `Encoding` |  |  | The encoding used to interpret the key. Symmetric algorithms only. |
+| `Format` | Wire format | Property | `SymmetricWireFormat` |  | `Classic` | The symmetric ciphertext layout. `Classic` (default) is UiPath's byte-stable layout; `Owasp2026` uses the same layout with stronger KDF iterations; `Raw` is caller-supplied key + IV for third-party interop; `OpenSslEnc` produces `openssl enc`-compatible output. Symmetric algorithms only. |
+| `KeyFormat` | Key bytes format | Property | `KeyBytesFormat` |  | `Encoded` | How the `Key` string is interpreted. `Hex` or `Base64` are required when `Format = Raw`. Symmetric algorithms only. |
+| `Iv` | IV | InArgument | `string` | Conditional |  | Initialization vector when `Format = Raw`. Interpreted per `KeyFormat`. Optional — leave empty to let the cipher generate one. Rejected for all other formats. |
+| `KdfIterations` | KDF iterations | InArgument | `int` |  | `0` | PBKDF2 iteration count. `0` uses the format's OWASP-recommended default (1 300 000 for `Owasp2026`, 600 000 for `OpenSslEnc`). Rejected for `Classic` and `Raw`. |
 | `OutputFilePath` | Output file path | InArgument | `string` |  |  | The full path where the encrypted file will be saved. When empty, the file is written next to the input file using the name `<input-name>_Encrypted<input-extension>`. |
 | `OutputFileName` | Encrypted file name | InArgument | `string` |  |  | The file name to use for the encrypted file. Honored when `OutputFilePath` is empty. |
 | `PublicKeyFilePath` | Public key file path | InArgument | `string` | Conditional |  | Path to the recipient's PGP public key file. Required when `Algorithm = PGP`. |
@@ -40,24 +44,31 @@ The activity has two modes selected by `Algorithm`:
 **Symmetric mode** (`AESGCM`, `ChaCha20Poly1305`, `AES`, `TripleDES`, `DES`, `RC2`, `Rijndael`):
 - Provide `InputFilePath`, `Algorithm`, and exactly one of `Key` / `KeySecureString`.
 - `KeyEncoding` defaults to UTF-8.
+- `Format` defaults to `Classic` — existing workflows that omit this property produce the same byte-stable output as before.
+- For `Owasp2026` or `OpenSslEnc`: `KeyFormat` stays `Encoded`; optionally set `KdfIterations`.
+- For `Raw`: set `KeyFormat = Hex` or `Base64` and supply a literal cipher key. `Iv` is optional. `KdfIterations` is rejected.
 - PGP properties (`PublicKeyFilePath`, `PrivateKeyFilePath`, `Passphrase`, `SignData`) are ignored.
 
 **PGP encrypt only** (`Algorithm = PGP`, `SignData = False`):
 - Provide `InputFilePath` and `PublicKeyFilePath` (recipient).
-- Symmetric properties are ignored.
+- Symmetric properties (including `Format`, `KeyFormat`, `Iv`, `KdfIterations`) are ignored.
 
 **PGP encrypt + sign** (`Algorithm = PGP`, `SignData = True`):
 - Provide `InputFilePath`, `PublicKeyFilePath`, `PrivateKeyFilePath`, and exactly one of `Passphrase` / `PassphraseSecureString`.
 
-The symmetric ciphertext format produced by this activity is UiPath-specific (`salt(8) || IV || ciphertext [|| tag]`, PBKDF2-HMAC-SHA1 @ 10 000 iterations). See `docs/symmetric-wire-format.md` — it is not directly compatible with `openssl enc` or other standard tools.
+The default symmetric format (`Classic`) is UiPath-specific (`salt(8) || IV || ciphertext [|| tag]`, PBKDF2-HMAC-SHA1 @ 10 000 iterations). Use `Raw` or `OpenSslEnc` for interop with `openssl enc`, Java `javax.crypto`, Python `cryptography`, browser tools, etc. See `docs/symmetric-wire-format.md` for byte layouts, decoder examples, and the per-format validation matrix.
 
 ### Enum Reference
 
 **`EncryptionAlgorithm`**: `AESGCM`, `ChaCha20Poly1305`, `PGP`, `AES` *(deprecated)*, `DES` *(deprecated)*, `RC2` *(deprecated)*, `Rijndael` *(deprecated)*, `TripleDES` *(deprecated)*.
 
+**`SymmetricWireFormat`**: `Classic` (default), `Owasp2026`, `Raw`, `OpenSslEnc`.
+
+**`KeyBytesFormat`**: `Encoded` (default — string is a password), `Hex`, `Base64`. The activity's dropdown only surfaces `Hex` / `Base64` because `Encoded` is the implicit non-Raw choice.
+
 ## XAML Example
 
-Symmetric encrypt (AES-GCM):
+Symmetric encrypt — Classic (default):
 
 ```xml
 <ui:EncryptFile DisplayName="Encrypt File"
@@ -65,6 +76,18 @@ Symmetric encrypt (AES-GCM):
                 InputFilePath="C:\temp\plain.txt"
                 Key="[passphrase]"
                 OutputFilePath="C:\temp\plain.txt.encrypted"
+                Overwrite="True" />
+```
+
+Symmetric encrypt — `OpenSslEnc` (decryptable by `openssl enc -d -pbkdf2 -iter 600000 -md sha256`):
+
+```xml
+<ui:EncryptFile DisplayName="Encrypt File (openssl)"
+                Algorithm="AES"
+                Format="OpenSslEnc"
+                InputFilePath="C:\temp\plain.txt"
+                Key="[passphrase]"
+                OutputFilePath="C:\temp\plain.txt.enc"
                 Overwrite="True" />
 ```
 

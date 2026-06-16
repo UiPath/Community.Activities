@@ -11,36 +11,38 @@ namespace UiPath.Cryptography.Activities.API.Tests
 {
     /// <summary>
     /// xUnit class fixture: generates a single PGP key pair (RSA-2048 for test speed) once
-    /// per test class and exposes the bytes + paths so PGP roundtrip tests don't pay the
-    /// multi-second key-generation cost per case.
+    /// per test class and exposes the keys + their armored bytes so PGP roundtrip tests don't
+    /// pay the multi-second key-generation cost per case.
     /// </summary>
     public sealed class PgpKeyFixture : IDisposable
     {
         public const string Passphrase = "fixture-pass";
 
-        public byte[] PublicKey { get; }
-        public byte[] PrivateKey { get; }
+        public PgpKeyPair KeyPair { get; }
+        public PgpPublicKey PublicKey => KeyPair.PublicKey;
+        public PgpPrivateKey PrivateKey => KeyPair.PrivateKey;
+#pragma warning disable CA1819 // Test fixture: returning byte[] directly is intentional — tests feed these straight into File.WriteAllBytes / PgpPublicKey.FromBytes.
+        public byte[] PublicKeyBytes { get; }
+        public byte[] PrivateKeyBytes { get; }
+#pragma warning restore CA1819
         public string PublicKeyArmored { get; }
-        public string PrivateKeyArmored { get; }
         public string PublicKeyPath { get; }
-        public string PrivateKeyPath { get; }
 
         public PgpKeyFixture()
         {
             var service = new CryptographyService();
-            PublicKeyPath = Path.Combine(Path.GetTempPath(), $"cryptosvc_pub_{Guid.NewGuid()}.asc");
-            PrivateKeyPath = Path.Combine(Path.GetTempPath(), $"cryptosvc_priv_{Guid.NewGuid()}.asc");
-            service.PgpGenerateKeys(PublicKeyPath, PrivateKeyPath, "Service Tester <svc@test.com>", Passphrase, RsaKeySize.Rsa2048);
-            PublicKey = File.ReadAllBytes(PublicKeyPath);
-            PrivateKey = File.ReadAllBytes(PrivateKeyPath);
-            PublicKeyArmored = Encoding.UTF8.GetString(PublicKey);
-            PrivateKeyArmored = Encoding.UTF8.GetString(PrivateKey);
+            KeyPair = service.PgpGenerateKeys("Service Tester <svc@test.com>", Passphrase, RsaKeySize.Rsa2048);
+            PublicKeyBytes = PublicKey.ToBytes();
+            PrivateKeyBytes = PrivateKey.ToBytes();
+            PublicKeyArmored = Encoding.UTF8.GetString(PublicKeyBytes);
+            PublicKeyPath = Path.Combine(Path.GetTempPath(), $"cryptosvc_pub_{Guid.NewGuid():N}.asc");
+            PublicKey.Save(PublicKeyPath, overwrite: true);
         }
 
         public void Dispose()
         {
+            PrivateKey.Dispose();
             if (File.Exists(PublicKeyPath)) File.Delete(PublicKeyPath);
-            if (File.Exists(PrivateKeyPath)) File.Delete(PrivateKeyPath);
         }
     }
 
@@ -56,65 +58,261 @@ namespace UiPath.Cryptography.Activities.API.Tests
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // Symmetric Encrypt / Decrypt — Bytes form
+        // Symmetric Encrypt / Decrypt — Bytes form, PasswordKey + RawKey
         // ═══════════════════════════════════════════════════════════════════════
 
+        public static TheoryData<EncryptionAlgorithm, string> AlgorithmsForPasswordKey { get; } = new()
+        {
+            { EncryptionAlgorithm.AES, "string" },
+            { EncryptionAlgorithm.AES, "secure" },
+            { EncryptionAlgorithm.AESGCM, "string" },
+            { EncryptionAlgorithm.AESGCM, "secure" },
+        };
+
         [Theory]
-        [InlineData(EncryptionAlgorithm.AES)]
-        [InlineData(EncryptionAlgorithm.AESGCM)]
-        public void Encrypt_Decrypt_StringKey_RoundTrip(EncryptionAlgorithm algorithm)
+        [MemberData(nameof(AlgorithmsForPasswordKey))]
+        public void Encrypt_Decrypt_PasswordKey_RoundTrip(EncryptionAlgorithm algorithm, string keyKind)
         {
             byte[] plain = Encoding.UTF8.GetBytes("Hello bytes form!");
-            byte[] cipher = _service.EncryptBytes(plain, algorithm, "myKey", Encoding.UTF8);
-            byte[] decrypted = _service.DecryptBytes(cipher, algorithm, "myKey", Encoding.UTF8);
+            PasswordKey key = NewPasswordKey("myKey", keyKind);
+
+            // Encrypt twice — pins that:
+            //   (a) cipher != plain (encryption actually happened, not a no-op)
+            //   (b) cipher1 != cipher2 (fresh salt/IV per call — pins the IV/salt randomness)
+            // Without these pins, a no-op `EncryptBytes` that returned its input would still
+            // pass every round-trip test in this file.
+            byte[] cipher1 = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Classic(key));
+            byte[] cipher2 = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Classic(key));
+            cipher1.ShouldNotBe(plain);
+            cipher2.ShouldNotBe(plain);
+            cipher1.ShouldNotBe(cipher2);
+
+            byte[] decrypted = _service.DecryptBytes(cipher1, algorithm, SymmetricDecryptOptions.Classic(key));
             decrypted.ShouldBe(plain);
         }
 
         [Theory]
         [InlineData(EncryptionAlgorithm.AES)]
         [InlineData(EncryptionAlgorithm.AESGCM)]
-        public void Encrypt_Decrypt_SecureStringKey_RoundTrip(EncryptionAlgorithm algorithm)
+        public void Encrypt_Decrypt_RawKey_Hex_RoundTrip(EncryptionAlgorithm algorithm)
         {
-            byte[] plain = Encoding.UTF8.GetBytes("Hello secure bytes!");
-            SecureString key = ToSecureString("mySecureKey");
-            byte[] cipher = _service.EncryptBytes(plain, algorithm, key, Encoding.UTF8);
-            byte[] decrypted = _service.DecryptBytes(cipher, algorithm, key, Encoding.UTF8);
+            byte[] plain = Encoding.UTF8.GetBytes("Raw round-trip");
+            byte[] rawKey = MakeDeterministicKey(32, offset: 42); // AES-256, deterministic non-RNG seed
+            RawKey key = RawKey.FromHex(Convert.ToHexString(rawKey));
+            byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Raw(key));
+            byte[] decrypted = _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Raw(key));
             decrypted.ShouldBe(plain);
         }
 
         [Theory]
         [InlineData(EncryptionAlgorithm.AES)]
-        [InlineData(EncryptionAlgorithm.AESGCM)]
-        public void Encrypt_Decrypt_ByteArrayKey_RoundTrip(EncryptionAlgorithm algorithm)
+        public void Encrypt_Decrypt_RawKey_Base64_RoundTrip(EncryptionAlgorithm algorithm)
         {
-            byte[] plain = Encoding.UTF8.GetBytes("Hello raw key bytes!");
-            byte[] key = Encoding.UTF8.GetBytes("rawKeyBytes!");
-            byte[] cipher = _service.EncryptBytes(plain, algorithm, key);
-            byte[] decrypted = _service.DecryptBytes(cipher, algorithm, key);
+            byte[] plain = Encoding.UTF8.GetBytes("Base64 raw round-trip");
+            byte[] rawKey = MakeDeterministicKey(32, offset: 7);
+            RawKey key = RawKey.FromBase64(Convert.ToBase64String(rawKey));
+            byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Raw(key));
+            byte[] decrypted = _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Raw(key));
             decrypted.ShouldBe(plain);
+        }
+
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AES)]
+        public void Encrypt_Decrypt_RawKey_Bytes_RoundTrip(EncryptionAlgorithm algorithm)
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("FromBytes round-trip");
+            byte[] rawKey = MakeDeterministicKey(32, offset: 11);
+            RawKey key = RawKey.FromBytes(rawKey);
+            byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Raw(key));
+            byte[] decrypted = _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Raw(key));
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void Encrypt_Decrypt_RawKey_ExplicitIv_RoundTrip()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("Explicit IV roundtrip");
+            byte[] rawKey = MakeDeterministicKey(32, offset: 99);
+            byte[] iv = MakeDeterministicKey(16, offset: 33);
+            RawKey key = RawKey.FromBytes(rawKey);
+            byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Raw(key, iv));
+
+            // Raw wire layout: IV ‖ ct [‖ tag]. Pin that the supplied IV is the one written —
+            // without this, a regression that ignored `options.IV` and generated a fresh random
+            // IV would still round-trip (decrypt reads IV from the stream prefix).
+            cipher.Length.ShouldBeGreaterThanOrEqualTo(iv.Length);
+            cipher.AsSpan(0, iv.Length).ToArray().ShouldBe(iv);
+
+            byte[] decrypted = _service.DecryptBytes(cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Raw(key));
+            decrypted.ShouldBe(plain);
+        }
+
+        // Reusing a SymmetricEncryptOptions across calls must not be silently affected by the
+        // caller mutating its original IV buffer. Mirrors the RawKey.FromBytes defensive-copy
+        // contract (RawKeyTests.FromBytes_DefensiveCopy_CallerMutationDoesNotAffectInstance).
+        [Fact]
+        public void SymmetricEncryptOptions_Raw_DefensiveCopiesIv_CallerMutationDoesNotAffectEncryption()
+        {
+            byte[] sourceIv = MakeDeterministicKey(16, offset: 71);
+            byte[] rawKey = MakeDeterministicKey(32, offset: 7);
+            RawKey key = RawKey.FromBytes(rawKey);
+
+            SymmetricEncryptOptions options = SymmetricEncryptOptions.Raw(key, sourceIv);
+            byte[] cipher1 = _service.EncryptBytes(Encoding.UTF8.GetBytes("payload"), EncryptionAlgorithm.AES, options);
+
+            // Mutating the caller's buffer after the options object is constructed must NOT
+            // change the IV used by subsequent encryptions reusing the same options — the factory
+            // defensively copies. If the factory ever regresses to ref-storage, this clear would
+            // zero the stored IV and the next cipher would differ.
+            Array.Clear(sourceIv, 0, sourceIv.Length);
+
+            byte[] cipher2 = _service.EncryptBytes(Encoding.UTF8.GetBytes("payload"), EncryptionAlgorithm.AES, options);
+
+            cipher2.ShouldBe(cipher1);
+        }
+
+        [Fact]
+        public void Encrypt_Decrypt_Owasp2026_RoundTrip()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("OWASP roundtrip");
+            PasswordKey key = PasswordKey.FromPassword("myKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Owasp2026(key));
+            byte[] decrypted = _service.DecryptBytes(cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Owasp2026(key));
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void Encrypt_Decrypt_Owasp2026_ExplicitKdfIterations_RoundTrip()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("OWASP custom iters");
+            PasswordKey key = PasswordKey.FromPassword("myKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Owasp2026(key, kdfIterations: 50_000));
+            byte[] decrypted = _service.DecryptBytes(cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Owasp2026(key, kdfIterations: 50_000));
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void Encrypt_Decrypt_OpenSslEnc_RoundTrip()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("openssl roundtrip");
+            PasswordKey key = PasswordKey.FromPassword("myKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AES, SymmetricEncryptOptions.OpenSslEnc(key));
+            byte[] decrypted = _service.DecryptBytes(cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.OpenSslEnc(key));
+            decrypted.ShouldBe(plain);
+        }
+
+        // Classic and Owasp2026 share the same wire layout (salt ‖ IV ‖ ct, PBKDF2-HMAC-SHA1).
+        // Only the iter source differs — Classic is frozen at 10 000, Owasp2026 is caller-controlled.
+        // Encrypting with Owasp2026(10_000) must produce a blob the Classic decrypt can read,
+        // and vice versa — proves the dispatch routes through compatible code paths.
+        [Fact]
+        public void Encrypt_Owasp2026_10000Iter_DecryptableBy_Classic()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("cross-format wire compat");
+            PasswordKey key = PasswordKey.FromPassword("crossKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Owasp2026(key, kdfIterations: 10_000));
+            byte[] decrypted = _service.DecryptBytes(cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key));
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void Encrypt_Classic_DecryptableBy_Owasp2026_10000Iter()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("cross-format wire compat reverse");
+            PasswordKey key = PasswordKey.FromPassword("crossKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key));
+            byte[] decrypted = _service.DecryptBytes(cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Owasp2026(key, kdfIterations: 10_000));
+            decrypted.ShouldBe(plain);
+        }
+
+        // The iteration count is NOT carried in the ciphertext — encrypt and decrypt must use
+        // matching values. AEAD makes this deterministic: wrong key (from wrong iter) fails the
+        // tag check rather than silently producing garbage. Documents the cross-version-decrypt
+        // warning in docs/symmetric-wire-format.md.
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.ChaCha20Poly1305)]
+        public void Decrypt_Owasp2026_MismatchedKdfIterations_Throws(EncryptionAlgorithm algorithm)
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("iter mismatch");
+            PasswordKey key = PasswordKey.FromPassword("myKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Owasp2026(key, kdfIterations: 50_000));
+            Should.Throw<System.Security.Cryptography.CryptographicException>(
+                () => _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Owasp2026(key, kdfIterations: 60_000)));
+        }
+
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.ChaCha20Poly1305)]
+        public void Decrypt_OpenSslEnc_MismatchedKdfIterations_Throws(EncryptionAlgorithm algorithm)
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("openssl iter mismatch");
+            PasswordKey key = PasswordKey.FromPassword("myKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.OpenSslEnc(key, kdfIterations: 50_000));
+            Should.Throw<System.Security.Cryptography.CryptographicException>(
+                () => _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.OpenSslEnc(key, kdfIterations: 60_000)));
+        }
+
+        // AEAD ciphertext carries an authentication tag covering salt + IV + ct. Flipping any
+        // bit must surface as a CryptographicException rather than silently returning garbage.
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.ChaCha20Poly1305)]
+        public void Decrypt_AeadTamperedCiphertext_Throws(EncryptionAlgorithm algorithm)
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("aead tamper test — must fail");
+            PasswordKey key = PasswordKey.FromPassword("aeadKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Classic(key));
+            cipher[cipher.Length / 2] ^= 0x01; // flip a bit mid-stream
+            Should.Throw<System.Security.Cryptography.CryptographicException>(
+                () => _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Classic(key)));
+        }
+
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AESGCM)]
+        [InlineData(EncryptionAlgorithm.ChaCha20Poly1305)]
+        public void Decrypt_AeadTamperedTag_Throws(EncryptionAlgorithm algorithm)
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("aead tag tamper");
+            PasswordKey key = PasswordKey.FromPassword("aeadKey", Encoding.UTF8);
+            byte[] cipher = _service.EncryptBytes(plain, algorithm, SymmetricEncryptOptions.Classic(key));
+
+            // Classic AEAD wire layout: salt(8) ‖ IV(12) ‖ ct ‖ tag(16). Pin the assumption
+            // that the last byte is part of the tag — without this, a future wire-layout tweak
+            // (or a degenerate short ciphertext) could silently move the flip target out of
+            // the tag region and the test would pass for an unrelated reason.
+            const int salt = 8, iv = 12, tag = 16;
+            cipher.Length.ShouldBeGreaterThanOrEqualTo(salt + iv + plain.Length + tag);
+
+            cipher[^1] ^= 0x01; // flip a bit in the trailing auth tag
+            Should.Throw<System.Security.Cryptography.CryptographicException>(
+                () => _service.DecryptBytes(cipher, algorithm, SymmetricDecryptOptions.Classic(key)));
         }
 
         [Fact]
         public void Encrypt_NullInputBytes_Throws()
         {
-            Should.Throw<ArgumentNullException>(() => _service.EncryptBytes(null, EncryptionAlgorithm.AES, "k", Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.EncryptBytes(null, EncryptionAlgorithm.AES, ToSecureString("k"), Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.EncryptBytes(null, EncryptionAlgorithm.AES, Encoding.UTF8.GetBytes("k")));
+            PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.Throw<ArgumentNullException>(() => _service.EncryptBytes(null, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key)));
         }
 
         [Fact]
         public void Decrypt_NullInputBytes_Throws()
         {
-            Should.Throw<ArgumentNullException>(() => _service.DecryptBytes(null, EncryptionAlgorithm.AES, "k", Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.DecryptBytes(null, EncryptionAlgorithm.AES, ToSecureString("k"), Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.DecryptBytes(null, EncryptionAlgorithm.AES, Encoding.UTF8.GetBytes("k")));
+            PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.Throw<ArgumentNullException>(() => _service.DecryptBytes(null, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key)));
         }
 
         [Fact]
-        public void Encrypt_EmptyKey_Throws()
+        public void Encrypt_NullOptions_Throws()
         {
-            Should.Throw<ArgumentException>(() => _service.EncryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, string.Empty, Encoding.UTF8));
-            Should.Throw<ArgumentException>(() => _service.EncryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, Array.Empty<byte>()));
+            Should.Throw<ArgumentNullException>(() => _service.EncryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, (SymmetricEncryptOptions)null));
+        }
+
+        [Fact]
+        public void Decrypt_NullOptions_Throws()
+        {
+            Should.Throw<ArgumentNullException>(() => _service.DecryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, (SymmetricDecryptOptions)null));
         }
 
         [Theory]
@@ -122,124 +320,116 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [InlineData(EncryptionAlgorithm.ChaCha20Poly1305)]
         public void DecryptBytes_AeadShortInput_Throws(EncryptionAlgorithm algorithm)
         {
-            // Below the 36-byte AEAD floor (salt 8 + IV 12 + tag 16) the new guard surfaces
-            // the wire-format hint instead of an OverflowException from negative-length arithmetic.
             byte[] shortInput = new byte[4];
+            PasswordKey key = PasswordKey.FromPassword("anyKey", Encoding.UTF8);
             Should.Throw<System.Security.Cryptography.CryptographicException>(
-                () => _service.DecryptBytes(shortInput, algorithm, "anyKey", Encoding.UTF8));
+                () => _service.DecryptBytes(shortInput, algorithm, SymmetricDecryptOptions.Classic(key)));
+        }
+
+        // Note: the runtime cases `Encrypt_RawFormat_WithPasswordKey_Throws` and
+        // `Encrypt_NonRawFormat_WithRawKey_Throws` from the previous design are now
+        // unreachable — the (key kind × wire format) pairing is enforced at compile time by
+        // the typed factory parameters on SymmetricEncryptOptions / SymmetricDecryptOptions
+        // (e.g. `Classic(PasswordKey)`, `Raw(RawKey)`). The runtime validator in
+        // SymmetricInteropHelper still runs as defence-in-depth but is no longer reachable
+        // from valid C# call sites.
+
+        [Fact]
+        public void Encrypt_Owasp2026_KdfIterationsBelowFloor_Throws()
+        {
+            PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.Throw<ArgumentException>(() =>
+                _service.EncryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Owasp2026(key, kdfIterations: 500)));
         }
 
         [Fact]
-        public void Encrypt_NullSecureStringKey_Throws()
+        public void Encrypt_Raw_WrongKeyLength_Throws()
         {
-            Should.Throw<ArgumentNullException>(() => _service.EncryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, (SecureString)null, Encoding.UTF8));
+            RawKey shortKey = RawKey.FromBytes(new byte[7]); // not a legal AES key size
+            Should.Throw<ArgumentException>(() =>
+                _service.EncryptBytes(new byte[] { 1 }, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Raw(shortKey)));
         }
 
         // ═══════════════════════════════════════════════════════════════════════
         // Symmetric Encrypt / Decrypt — Text form
         // ═══════════════════════════════════════════════════════════════════════
 
+        [Theory]
+        [InlineData(EncryptionAlgorithm.AES)]
+        [InlineData(EncryptionAlgorithm.TripleDES)]
+        public void EncryptText_ThenDecryptText_RoundTrip(EncryptionAlgorithm algorithm)
+        {
+            string original = "Hello, coded workflows!";
+            PasswordKey key = PasswordKey.FromPassword("mySecretKey", Encoding.UTF8);
+            string encrypted = _service.EncryptText(original, algorithm, SymmetricEncryptOptions.Classic(key));
+            string decrypted = _service.DecryptText(encrypted, algorithm, SymmetricDecryptOptions.Classic(key));
+            decrypted.ShouldBe(original);
+        }
+
         [Fact]
         public void EncryptText_NullInput_Throws()
         {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.EncryptText(null, EncryptionAlgorithm.AES, "key", Encoding.UTF8));
-        }
-
-        [Fact]
-        public void EncryptText_NullEncoding_Throws()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, "key", null));
-        }
-
-        [Fact]
-        public void EncryptText_EmptyKey_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, string.Empty, Encoding.UTF8));
+            PasswordKey key = PasswordKey.FromPassword("key", Encoding.UTF8);
+            Should.Throw<ArgumentNullException>(() => _service.EncryptText(null, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key)));
         }
 
         [Fact]
         public void DecryptText_NullInput_Throws()
         {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.DecryptText(null, EncryptionAlgorithm.AES, "key", Encoding.UTF8));
+            PasswordKey key = PasswordKey.FromPassword("key", Encoding.UTF8);
+            Should.Throw<ArgumentNullException>(() => _service.DecryptText(null, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key)));
+        }
+
+        // Non-UTF-8 encoding flows through the options object end-to-end. Use UTF-16LE so the
+        // input characters (including em-dash and Latin accents) all have a faithful representation
+        // and the ciphertext bytes are structurally different from the UTF-8 path.
+        [Fact]
+        public void EncryptText_DecryptText_NonUtf8Encoding_RoundTrip()
+        {
+            string original = "café — éàü";
+            PasswordKey key = PasswordKey.FromPassword("mySecretKey", Encoding.UTF8);
+            Encoding utf16 = Encoding.Unicode;
+
+            string utf16Cipher = _service.EncryptText(original, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key, utf16));
+            string utf16Decrypted = _service.DecryptText(utf16Cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key, utf16));
+            utf16Decrypted.ShouldBe(original);
+
+            // Decrypting UTF-16 ciphertext as UTF-8 produces garbage (or mojibake) — proving the
+            // option actually drives the decode side, not a hidden UTF-8 default.
+            string utf8Decrypted = _service.DecryptText(utf16Cipher, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key));
+            utf8Decrypted.ShouldNotBe(original);
         }
 
         [Fact]
-        public void DecryptText_NullEncoding_Throws()
+        public void EncryptText_NullOptions_Throws()
         {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.DecryptText("aGVsbG8=", EncryptionAlgorithm.AES, "key", null));
+            Should.Throw<ArgumentNullException>(() => _service.EncryptText("hi", EncryptionAlgorithm.AES, options: null));
         }
 
         [Fact]
-        public void DecryptText_EmptyKey_Throws()
+        public void DecryptText_NullOptions_Throws()
         {
-            Should.Throw<ArgumentException>(() =>
-                _service.DecryptText("aGVsbG8=", EncryptionAlgorithm.AES, string.Empty, Encoding.UTF8));
+            Should.Throw<ArgumentNullException>(() => _service.DecryptText("AAAA", EncryptionAlgorithm.AES, options: null));
         }
 
-        [Theory]
-        [InlineData(EncryptionAlgorithm.AES)]
-        [InlineData(EncryptionAlgorithm.TripleDES)]
-        public void EncryptText_ThenDecryptText_StringKey_ReturnsOriginal(EncryptionAlgorithm algorithm)
-        {
-            string original = "Hello, coded workflows!";
-            string encrypted = _service.EncryptText(original, algorithm, "mySecretKey", Encoding.UTF8);
-            string decrypted = _service.DecryptText(encrypted, algorithm, "mySecretKey", Encoding.UTF8);
-            decrypted.ShouldBe(original);
-        }
-
-        [Theory]
-        [InlineData(EncryptionAlgorithm.AES)]
-        [InlineData(EncryptionAlgorithm.TripleDES)]
-        public void EncryptText_ThenDecryptText_SecureStringKey_ReturnsOriginal(EncryptionAlgorithm algorithm)
-        {
-            string original = "Hello, SecureString!";
-            SecureString key = ToSecureString("mySecretKey");
-            string encrypted = _service.EncryptText(original, algorithm, key, Encoding.UTF8);
-            string decrypted = _service.DecryptText(encrypted, algorithm, key, Encoding.UTF8);
-            decrypted.ShouldBe(original);
-        }
-
-        [Theory]
-        [InlineData(EncryptionAlgorithm.AES)]
-        [InlineData(EncryptionAlgorithm.TripleDES)]
-        public void EncryptText_ThenDecryptText_ByteArrayKey_ReturnsOriginal(EncryptionAlgorithm algorithm)
-        {
-            string original = "Hello, byte[] key!";
-            byte[] keyBytes = Encoding.UTF8.GetBytes("myRawKeyBytes!!");
-            string encrypted = _service.EncryptText(original, algorithm, keyBytes, Encoding.UTF8);
-            string decrypted = _service.DecryptText(encrypted, algorithm, keyBytes, Encoding.UTF8);
-            decrypted.ShouldBe(original);
-        }
-
+        // KeyedHashText now flows the caller's encoding to the input bytes. Compute the same
+        // text under UTF-8 and UTF-16; the two digests must differ — proving the encoding
+        // actually drives the bytes hashed, not a hidden hard-coded default.
         [Fact]
-        public void EncryptText_NullSecureStringKey_Throws()
+        public void KeyedHashText_NonUtf8Encoding_ProducesDifferentDigestThanUtf8()
         {
-            Should.Throw<ArgumentNullException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, (SecureString)null, Encoding.UTF8));
-        }
+            const string input = "café — éàü";
+            PasswordKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
 
-        [Fact]
-        public void EncryptText_NullOrEmptyByteArrayKey_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, (byte[])null, Encoding.UTF8));
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptText("input", EncryptionAlgorithm.AES, Array.Empty<byte>(), Encoding.UTF8));
-        }
+            string utf8 = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, key);
+            string utf16 = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, key, Encoding.Unicode);
 
-        [Fact]
-        public void DecryptText_NullOrEmptyByteArrayKey_Throws()
-        {
-            // Mirrors EncryptText_NullOrEmptyByteArrayKey_Throws — decrypt guards were missing from the suite.
-            Should.Throw<ArgumentException>(() =>
-                _service.DecryptText("ZmFrZQ==", EncryptionAlgorithm.AES, (byte[])null, Encoding.UTF8));
-            Should.Throw<ArgumentException>(() =>
-                _service.DecryptText("ZmFrZQ==", EncryptionAlgorithm.AES, Array.Empty<byte>(), Encoding.UTF8));
+            utf16.ShouldNotBe(utf8);
+
+            // The UTF-8 call without an explicit encoding must match the explicit UTF-8 call —
+            // pins the default and lets callers migrating from the prior API confirm parity.
+            string utf8Explicit = _service.KeyedHashText(input, KeyedHashAlgorithms.HMACSHA256, key, Encoding.UTF8);
+            utf8Explicit.ShouldBe(utf8);
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -249,29 +439,17 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [Fact]
         public void EncryptFile_NullInputPath_Throws()
         {
+            PasswordKey key = PasswordKey.FromPassword("key", Encoding.UTF8);
             Should.Throw<ArgumentException>(() =>
-                _service.EncryptFile(null, "out.bin", EncryptionAlgorithm.AES, "key", Encoding.UTF8, true));
-        }
-
-        [Fact]
-        public void EncryptFile_NullOutputPath_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptFile("in.txt", null, EncryptionAlgorithm.AES, "key", Encoding.UTF8, true));
+                _service.EncryptFile(null, "out.bin", EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key), overwrite: true));
         }
 
         [Fact]
         public void DecryptFile_NullInputPath_Throws()
         {
+            PasswordKey key = PasswordKey.FromPassword("key", Encoding.UTF8);
             Should.Throw<ArgumentException>(() =>
-                _service.DecryptFile(null, "out.txt", EncryptionAlgorithm.AES, "key", Encoding.UTF8, true));
-        }
-
-        [Fact]
-        public void EncryptFile_NullOrEmptyByteArrayKey_Throws()
-        {
-            Should.Throw<ArgumentException>(() =>
-                _service.EncryptFile("in.txt", "out.bin", EncryptionAlgorithm.AES, (byte[])null, overwrite: true));
+                _service.DecryptFile(null, "out.txt", EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key), overwrite: true));
         }
 
         [Fact]
@@ -283,8 +461,9 @@ namespace UiPath.Cryptography.Activities.API.Tests
             {
                 File.WriteAllText(inputPath, "test content");
                 File.WriteAllText(outputPath, "existing output");
+                PasswordKey key = PasswordKey.FromPassword("key", Encoding.UTF8);
                 Should.Throw<InvalidOperationException>(() =>
-                    _service.EncryptFile(inputPath, outputPath, EncryptionAlgorithm.AES, "key", Encoding.UTF8, overwrite: false));
+                    _service.EncryptFile(inputPath, outputPath, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key), overwrite: false));
             }
             finally
             {
@@ -296,33 +475,18 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [Theory]
         [InlineData("string")]
         [InlineData("secure")]
-        [InlineData("bytes")]
-        public void EncryptFile_ThenDecryptFile_AllKeyForms_RoundTrip(string keyForm)
+        public void EncryptFile_ThenDecryptFile_RoundTrip(string keyKind)
         {
-            string original = "File round-trip — " + keyForm;
+            string original = "File round-trip — " + keyKind;
             string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string encryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string decryptedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 File.WriteAllText(inputPath, original, Encoding.UTF8);
-                switch (keyForm)
-                {
-                    case "string":
-                        _service.EncryptFile(inputPath, encryptedPath, EncryptionAlgorithm.AES, "testKey", Encoding.UTF8, overwrite: true);
-                        _service.DecryptFile(encryptedPath, decryptedPath, EncryptionAlgorithm.AES, "testKey", Encoding.UTF8, overwrite: true);
-                        break;
-                    case "secure":
-                        var ss = ToSecureString("testKey");
-                        _service.EncryptFile(inputPath, encryptedPath, EncryptionAlgorithm.AES, ss, Encoding.UTF8, overwrite: true);
-                        _service.DecryptFile(encryptedPath, decryptedPath, EncryptionAlgorithm.AES, ss, Encoding.UTF8, overwrite: true);
-                        break;
-                    case "bytes":
-                        byte[] kb = Encoding.UTF8.GetBytes("testKey");
-                        _service.EncryptFile(inputPath, encryptedPath, EncryptionAlgorithm.AES, kb, overwrite: true);
-                        _service.DecryptFile(encryptedPath, decryptedPath, EncryptionAlgorithm.AES, kb, overwrite: true);
-                        break;
-                }
+                PasswordKey key = NewPasswordKey("testKey", keyKind);
+                _service.EncryptFile(inputPath, encryptedPath, EncryptionAlgorithm.AES, SymmetricEncryptOptions.Classic(key), overwrite: true);
+                _service.DecryptFile(encryptedPath, decryptedPath, EncryptionAlgorithm.AES, SymmetricDecryptOptions.Classic(key), overwrite: true);
                 File.ReadAllText(decryptedPath, Encoding.UTF8).ShouldBe(original);
             }
             finally
@@ -334,105 +498,66 @@ namespace UiPath.Cryptography.Activities.API.Tests
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // Keyed Hash — Bytes / Text / File
+        // Keyed Hash — Bytes / Text / File (takes CryptoKey directly, no options)
         // ═══════════════════════════════════════════════════════════════════════
 
-        [Fact]
-        public void KeyedHashBytes_StringKey_DeterministicAndHex()
+        [Theory]
+        [InlineData("string")]
+        [InlineData("secure")]
+        public void KeyedHashBytes_DeterministicAndHex(string keyKind)
         {
             byte[] input = Encoding.UTF8.GetBytes("hello");
-            string hash1 = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
-            string hash2 = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
+            CryptoKey k1 = NewPasswordKey("key", keyKind);
+            CryptoKey k2 = NewPasswordKey("key", keyKind);
+            string hash1 = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, k1);
+            string hash2 = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, k2);
             hash1.ShouldBe(hash2);
             hash1.ShouldMatch("^[0-9A-F]+$");
         }
 
         [Fact]
-        public void KeyedHashBytes_SecureStringKey_MatchesStringKey()
+        public void KeyedHashBytes_SecureMatchesString()
         {
             byte[] input = Encoding.UTF8.GetBytes("hello");
-            string fromString = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, "k", Encoding.UTF8);
-            string fromSecure = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, ToSecureString("k"), Encoding.UTF8);
+            string fromString = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, PasswordKey.FromPassword("k", Encoding.UTF8));
+            string fromSecure = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, PasswordKey.FromPassword(ToSecureString("k"), Encoding.UTF8));
             fromSecure.ShouldBe(fromString);
-        }
-
-        [Fact]
-        public void KeyedHashBytes_ByteArrayKey_Works()
-        {
-            byte[] input = Encoding.UTF8.GetBytes("hello");
-            byte[] key = Encoding.UTF8.GetBytes("k");
-            string hash = _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, key);
-            hash.ShouldMatch("^[0-9A-F]+$");
         }
 
         [Fact]
         public void KeyedHashBytes_Guards()
         {
-            byte[] input = Encoding.UTF8.GetBytes("x");
-            Should.Throw<ArgumentNullException>(() => _service.KeyedHashBytes(null, KeyedHashAlgorithms.HMACSHA256, "k", Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.KeyedHashBytes(null, KeyedHashAlgorithms.HMACSHA256, ToSecureString("k"), Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.KeyedHashBytes(null, KeyedHashAlgorithms.HMACSHA256, Encoding.UTF8.GetBytes("k")));
-            Should.Throw<ArgumentException>(() => _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, string.Empty, Encoding.UTF8));
-            Should.Throw<ArgumentException>(() => _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, (byte[])null));
-            Should.Throw<ArgumentNullException>(() => _service.KeyedHashBytes(input, KeyedHashAlgorithms.HMACSHA256, (SecureString)null, Encoding.UTF8));
+            CryptoKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.Throw<ArgumentNullException>(() => _service.KeyedHashBytes(null, KeyedHashAlgorithms.HMACSHA256, key));
+            Should.Throw<ArgumentNullException>(() => _service.KeyedHashBytes(new byte[] { 1 }, KeyedHashAlgorithms.HMACSHA256, null));
         }
 
         [Fact]
         public void KeyedHashText_Guards()
         {
-            Should.Throw<ArgumentNullException>(() => _service.KeyedHashText(null, KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, "key", null));
-            Should.Throw<ArgumentException>(() => _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, string.Empty, Encoding.UTF8));
-            Should.Throw<ArgumentNullException>(() => _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, (SecureString)null, Encoding.UTF8));
-            Should.Throw<ArgumentException>(() => _service.KeyedHashText("input", KeyedHashAlgorithms.HMACSHA256, (byte[])null, Encoding.UTF8));
-        }
-
-        [Fact]
-        public void KeyedHashText_StringKey_DeterministicHex()
-        {
-            string h1 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
-            string h2 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
-            h1.ShouldBe(h2);
-            h1.ShouldMatch("^[0-9A-F]+$");
+            CryptoKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.Throw<ArgumentNullException>(() => _service.KeyedHashText(null, KeyedHashAlgorithms.HMACSHA256, key));
+            Should.Throw<ArgumentNullException>(() => _service.KeyedHashText("x", KeyedHashAlgorithms.HMACSHA256, null));
         }
 
         [Fact]
         public void KeyedHashText_DifferentKeys_DifferentHash()
         {
-            string h1 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "k1", Encoding.UTF8);
-            string h2 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "k2", Encoding.UTF8);
+            string h1 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, PasswordKey.FromPassword("k1", Encoding.UTF8));
+            string h2 = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, PasswordKey.FromPassword("k2", Encoding.UTF8));
             h1.ShouldNotBe(h2);
         }
 
         [Fact]
-        public void KeyedHashText_ByteArrayKey_MatchesStringKey()
-        {
-            byte[] kb = Encoding.UTF8.GetBytes("hmacKey");
-            string fromBytes = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, kb, Encoding.UTF8);
-            string fromString = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "hmacKey", Encoding.UTF8);
-            fromBytes.ShouldBe(fromString);
-        }
-
-        [Theory]
-        [InlineData("string")]
-        [InlineData("secure")]
-        [InlineData("bytes")]
-        public void KeyedHashFile_AllKeyForms_RoundTrip(string keyForm)
+        public void KeyedHashFile_RoundTrip()
         {
             string filePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
-                // File.WriteAllBytes (not WriteAllText) — WriteAllText with Encoding.UTF8 prepends a BOM,
-                // which would make the file content differ from Encoding.UTF8.GetBytes("hello") and break the equality assertion.
                 File.WriteAllBytes(filePath, Encoding.UTF8.GetBytes("hello"));
-                string hashFromFile = keyForm switch
-                {
-                    "string" => _service.KeyedHashFile(filePath, KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8),
-                    "secure" => _service.KeyedHashFile(filePath, KeyedHashAlgorithms.HMACSHA256, ToSecureString("key"), Encoding.UTF8),
-                    "bytes"  => _service.KeyedHashFile(filePath, KeyedHashAlgorithms.HMACSHA256, Encoding.UTF8.GetBytes("key")),
-                    _ => throw new InvalidOperationException(),
-                };
-                string hashFromText = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8);
+                CryptoKey key = PasswordKey.FromPassword("key", Encoding.UTF8);
+                string hashFromFile = _service.KeyedHashFile(filePath, KeyedHashAlgorithms.HMACSHA256, key);
+                string hashFromText = _service.KeyedHashText("hello", KeyedHashAlgorithms.HMACSHA256, key);
                 hashFromFile.ShouldBe(hashFromText);
             }
             finally
@@ -444,63 +569,45 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [Fact]
         public void KeyedHashFile_Guards()
         {
-            Should.Throw<ArgumentException>(() => _service.KeyedHashFile(null, KeyedHashAlgorithms.HMACSHA256, "key", Encoding.UTF8));
-            Should.Throw<ArgumentException>(() => _service.KeyedHashFile("file.txt", KeyedHashAlgorithms.HMACSHA256, (byte[])null));
+            CryptoKey key = PasswordKey.FromPassword("k", Encoding.UTF8);
+            Should.Throw<ArgumentException>(() => _service.KeyedHashFile(null, KeyedHashAlgorithms.HMACSHA256, key));
+            Should.Throw<ArgumentNullException>(() => _service.KeyedHashFile("file.txt", KeyedHashAlgorithms.HMACSHA256, null));
         }
 
         // ═══════════════════════════════════════════════════════════════════════
         // PGP Encrypt / Decrypt — Bytes / Text / File
         // ═══════════════════════════════════════════════════════════════════════
 
-        [Theory]
-        [InlineData(false)] // string passphrase
-        [InlineData(true)]  // SecureString passphrase
-        public void PgpEncrypt_Decrypt_Bytes_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpEncrypt_Decrypt_Bytes_RoundTrip()
         {
             byte[] plain = Encoding.UTF8.GetBytes("PGP bytes round-trip");
-            byte[] cipher;
-            byte[] decrypted;
-            if (useSecure)
-            {
-                var ss = ToSecureString(PgpKeyFixture.Passphrase);
-                cipher = _service.PgpEncryptBytes(plain, _keys.PublicKey, _keys.PrivateKey, ss);
-                decrypted = _service.PgpDecryptBytes(cipher, _keys.PrivateKey, ss);
-            }
-            else
-            {
-                cipher = _service.PgpEncryptBytes(plain, _keys.PublicKey);
-                decrypted = _service.PgpDecryptBytes(cipher, _keys.PrivateKey, PgpKeyFixture.Passphrase);
-            }
+            byte[] cipher = _service.PgpEncryptBytes(plain, _keys.PublicKey);
+            byte[] decrypted = _service.PgpDecryptBytes(cipher, _keys.PrivateKey);
             decrypted.ShouldBe(plain);
         }
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpEncrypt_Decrypt_Text_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpEncrypt_Decrypt_Bytes_SignedAndVerified_RoundTrip()
+        {
+            byte[] plain = Encoding.UTF8.GetBytes("Signed PGP roundtrip");
+            byte[] cipher = _service.PgpEncryptBytes(plain, _keys.PublicKey, signer: _keys.PrivateKey);
+            byte[] decrypted = _service.PgpDecryptBytes(cipher, _keys.PrivateKey, verifier: _keys.PublicKey);
+            decrypted.ShouldBe(plain);
+        }
+
+        [Fact]
+        public void PgpEncrypt_Decrypt_Text_RoundTrip()
         {
             const string plain = "PGP text round-trip";
-            string cipher;
-            string decrypted;
-            if (useSecure)
-            {
-                var ss = ToSecureString(PgpKeyFixture.Passphrase);
-                cipher = _service.PgpEncryptText(plain, _keys.PublicKey, _keys.PrivateKey, ss);
-                decrypted = _service.PgpDecryptText(cipher, _keys.PrivateKey, ss);
-            }
-            else
-            {
-                cipher = _service.PgpEncryptText(plain, _keys.PublicKey);
-                decrypted = _service.PgpDecryptText(cipher, _keys.PrivateKey, PgpKeyFixture.Passphrase);
-            }
+            string cipher = _service.PgpEncryptText(plain, _keys.PublicKey);
             cipher.ShouldStartWith("-----BEGIN PGP MESSAGE-----");
+            string decrypted = _service.PgpDecryptText(cipher, _keys.PrivateKey);
             decrypted.ShouldBe(plain);
         }
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpEncryptFile_DecryptFile_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpEncryptFile_DecryptFile_RoundTrip()
         {
             const string original = "PGP file round-trip";
             string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -509,17 +616,8 @@ namespace UiPath.Cryptography.Activities.API.Tests
             try
             {
                 File.WriteAllText(inputPath, original, Encoding.UTF8);
-                if (useSecure)
-                {
-                    var ss = ToSecureString(PgpKeyFixture.Passphrase);
-                    _service.PgpEncryptFile(inputPath, encryptedPath, _keys.PublicKey, null, ss, sign: false, overwrite: true);
-                    _service.PgpDecryptFile(encryptedPath, decryptedPath, _keys.PrivateKey, ss, null, verifySignature: false, overwrite: true);
-                }
-                else
-                {
-                    _service.PgpEncryptFile(inputPath, encryptedPath, _keys.PublicKey, null, (string)null, sign: false, overwrite: true);
-                    _service.PgpDecryptFile(encryptedPath, decryptedPath, _keys.PrivateKey, PgpKeyFixture.Passphrase, null, verifySignature: false, overwrite: true);
-                }
+                _service.PgpEncryptFile(inputPath, encryptedPath, _keys.PublicKey, overwrite: true);
+                _service.PgpDecryptFile(encryptedPath, decryptedPath, _keys.PrivateKey, overwrite: true);
                 File.ReadAllText(decryptedPath, Encoding.UTF8).ShouldBe(original);
             }
             finally
@@ -533,73 +631,54 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [Fact]
         public void PgpEncrypt_Guards()
         {
-            Should.Throw<ArgumentNullException>(() => _service.PgpEncryptBytes(null, Array.Empty<byte>()));
-            Should.Throw<ArgumentException>(() => _service.PgpEncryptBytes(new byte[] { 1 }, (byte[])null));
-            Should.Throw<ArgumentNullException>(() => _service.PgpEncryptBytes(new byte[] { 1 }, Array.Empty<byte>(), Array.Empty<byte>(), (SecureString)null));
+            Should.Throw<ArgumentNullException>(() => _service.PgpEncryptBytes(null, _keys.PublicKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpEncryptBytes(new byte[] { 1 }, null));
         }
 
         [Fact]
         public void PgpDecrypt_Guards()
         {
-            Should.Throw<ArgumentNullException>(() => _service.PgpDecryptBytes(null, Array.Empty<byte>(), "pass"));
-            Should.Throw<ArgumentException>(() => _service.PgpDecryptBytes(new byte[] { 1 }, (byte[])null, "pass"));
-            Should.Throw<ArgumentNullException>(() => _service.PgpDecryptBytes(new byte[] { 1 }, Array.Empty<byte>(), (SecureString)null));
+            Should.Throw<ArgumentNullException>(() => _service.PgpDecryptBytes(null, _keys.PrivateKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpDecryptBytes(new byte[] { 1 }, null));
         }
 
         [Fact]
         public void PgpEncryptText_DecryptText_NullInput_Throws()
         {
-            Should.Throw<ArgumentNullException>(() => _service.PgpEncryptText(null, Array.Empty<byte>()));
-            Should.Throw<ArgumentNullException>(() => _service.PgpDecryptText(null, Array.Empty<byte>(), "pass"));
+            Should.Throw<ArgumentNullException>(() => _service.PgpEncryptText(null, _keys.PublicKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpDecryptText(null, _keys.PrivateKey));
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PGP Sign / Clearsign + Verify — Bytes / Text / File
+        // PGP Sign / ClearSign + Verify — Bytes / Text / File
         // ═══════════════════════════════════════════════════════════════════════
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpSign_Bytes_Then_PgpVerify_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpSign_Bytes_Then_PgpVerify_RoundTrip()
         {
             byte[] plain = Encoding.UTF8.GetBytes("Sign me");
-            byte[] signed = useSecure
-                ? _service.PgpSignBytes(plain, _keys.PrivateKey, ToSecureString(PgpKeyFixture.Passphrase))
-                : _service.PgpSignBytes(plain, _keys.PrivateKey, PgpKeyFixture.Passphrase);
+            byte[] signed = _service.PgpSignBytes(plain, _keys.PrivateKey);
             _service.PgpVerifyBytes(signed, _keys.PublicKey).ShouldBeTrue();
         }
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpSignText_Then_PgpVerifyText_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpSignText_Then_PgpVerifyText_RoundTrip()
         {
             const string plain = "Sign-me-text";
-            string signed = useSecure
-                ? _service.PgpSignText(plain, _keys.PrivateKey, ToSecureString(PgpKeyFixture.Passphrase))
-                : _service.PgpSignText(plain, _keys.PrivateKey, PgpKeyFixture.Passphrase);
+            string signed = _service.PgpSignText(plain, _keys.PrivateKey);
             signed.ShouldStartWith("-----BEGIN PGP MESSAGE-----");
             _service.PgpVerifyText(signed, _keys.PublicKey).ShouldBeTrue();
         }
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpSignFile_Then_PgpVerifyFile_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpSignFile_Then_PgpVerifyFile_RoundTrip()
         {
             string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string signedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 File.WriteAllText(inputPath, "Sign-me-file", Encoding.UTF8);
-                if (useSecure)
-                {
-                    _service.PgpSignFile(inputPath, signedPath, _keys.PrivateKey, ToSecureString(PgpKeyFixture.Passphrase), overwrite: true);
-                }
-                else
-                {
-                    _service.PgpSignFile(inputPath, signedPath, _keys.PrivateKey, PgpKeyFixture.Passphrase, overwrite: true);
-                }
+                _service.PgpSignFile(inputPath, signedPath, _keys.PrivateKey, overwrite: true);
                 _service.PgpVerifyFile(signedPath, _keys.PublicKey).ShouldBeTrue();
             }
             finally
@@ -609,50 +688,33 @@ namespace UiPath.Cryptography.Activities.API.Tests
             }
         }
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpClearsign_Bytes_Then_PgpVerifyClear_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpClearSign_Bytes_Then_PgpVerifyClearSigned_RoundTrip()
         {
-            byte[] plain = Encoding.UTF8.GetBytes("Clearsign me");
-            byte[] signed = useSecure
-                ? _service.PgpClearsignBytes(plain, _keys.PrivateKey, ToSecureString(PgpKeyFixture.Passphrase))
-                : _service.PgpClearsignBytes(plain, _keys.PrivateKey, PgpKeyFixture.Passphrase);
-            _service.PgpVerifyClearBytes(signed, _keys.PublicKey).ShouldBeTrue();
+            byte[] plain = Encoding.UTF8.GetBytes("ClearSign me");
+            byte[] signed = _service.PgpClearSignBytes(plain, _keys.PrivateKey);
+            _service.PgpVerifyClearSignedBytes(signed, _keys.PublicKey).ShouldBeTrue();
         }
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpClearsignText_Then_PgpVerifyClearText_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpClearSignText_Then_PgpVerifyClearSignedText_RoundTrip()
         {
-            const string plain = "Clearsign-me-text";
-            string signed = useSecure
-                ? _service.PgpClearsignText(plain, _keys.PrivateKey, ToSecureString(PgpKeyFixture.Passphrase))
-                : _service.PgpClearsignText(plain, _keys.PrivateKey, PgpKeyFixture.Passphrase);
+            const string plain = "ClearSign-me-text";
+            string signed = _service.PgpClearSignText(plain, _keys.PrivateKey);
             signed.ShouldStartWith("-----BEGIN PGP SIGNED MESSAGE-----");
-            _service.PgpVerifyClearText(signed, _keys.PublicKey).ShouldBeTrue();
+            _service.PgpVerifyClearSignedText(signed, _keys.PublicKey).ShouldBeTrue();
         }
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void PgpClearsignFile_Then_PgpVerifyClearFile_RoundTrip(bool useSecure)
+        [Fact]
+        public void PgpClearSignFile_Then_PgpVerifyClearSignedFile_RoundTrip()
         {
             string inputPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             string signedPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
-                File.WriteAllText(inputPath, "Clearsign-me-file", Encoding.UTF8);
-                if (useSecure)
-                {
-                    _service.PgpClearsignFile(inputPath, signedPath, _keys.PrivateKey, ToSecureString(PgpKeyFixture.Passphrase), overwrite: true);
-                }
-                else
-                {
-                    _service.PgpClearsignFile(inputPath, signedPath, _keys.PrivateKey, PgpKeyFixture.Passphrase, overwrite: true);
-                }
-                _service.PgpVerifyClearFile(signedPath, _keys.PublicKey).ShouldBeTrue();
+                File.WriteAllText(inputPath, "ClearSign-me-file", Encoding.UTF8);
+                _service.PgpClearSignFile(inputPath, signedPath, _keys.PrivateKey, overwrite: true);
+                _service.PgpVerifyClearSignedFile(signedPath, _keys.PublicKey).ShouldBeTrue();
             }
             finally
             {
@@ -662,10 +724,12 @@ namespace UiPath.Cryptography.Activities.API.Tests
         }
 
         [Fact]
-        public void PgpSign_Clearsign_Guards()
+        public void PgpSign_ClearSign_Guards()
         {
-            Should.Throw<ArgumentNullException>(() => _service.PgpSignBytes(null, Array.Empty<byte>(), "pass"));
-            Should.Throw<ArgumentNullException>(() => _service.PgpClearsignBytes(null, Array.Empty<byte>(), "pass"));
+            Should.Throw<ArgumentNullException>(() => _service.PgpSignBytes(null, _keys.PrivateKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpClearSignBytes(null, _keys.PrivateKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpSignBytes(new byte[] { 1 }, null));
+            Should.Throw<ArgumentNullException>(() => _service.PgpClearSignBytes(new byte[] { 1 }, null));
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -675,128 +739,153 @@ namespace UiPath.Cryptography.Activities.API.Tests
         [Fact]
         public void PgpVerify_Guards()
         {
-            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyBytes(null, Array.Empty<byte>()));
-            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyClearBytes(null, Array.Empty<byte>()));
-            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyText(null, Array.Empty<byte>()));
-            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyClearText(null, Array.Empty<byte>()));
+            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyBytes(null, _keys.PublicKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyClearSignedBytes(null, _keys.PublicKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyText(null, _keys.PublicKey));
+            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyClearSignedText(null, _keys.PublicKey));
             Should.Throw<ArgumentException>(() => _service.PgpVerifyFile(null, _keys.PublicKey));
-            Should.Throw<ArgumentException>(() => _service.PgpVerifyClearFile(null, _keys.PublicKey));
+            Should.Throw<ArgumentException>(() => _service.PgpVerifyClearSignedFile(null, _keys.PublicKey));
         }
 
         [Fact]
         public void PgpVerify_TamperedBytes_ReturnsFalse()
         {
             byte[] plain = Encoding.UTF8.GetBytes("tamper test");
-            byte[] signed = _service.PgpSignBytes(plain, _keys.PrivateKey, PgpKeyFixture.Passphrase);
-            signed[signed.Length / 2] ^= 0x01; // flip a bit
+            byte[] signed = _service.PgpSignBytes(plain, _keys.PrivateKey);
+            signed[signed.Length / 2] ^= 0x01;
             _service.PgpVerifyBytes(signed, _keys.PublicKey).ShouldBeFalse();
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PGP VerifyPublicKey — Bytes / Text / File
+        // PGP VerifyPublicKey
         // ═══════════════════════════════════════════════════════════════════════
 
         [Fact]
-        public void PgpVerifyPublicKey_Bytes_ValidKey_ReturnsTrue()
+        public void PgpVerifyPublicKey_FromFixture_ReturnsTrue()
         {
-            _service.PgpVerifyPublicKeyBytes(_keys.PublicKey).ShouldBeTrue();
+            _service.PgpVerifyPublicKey(_keys.PublicKey).ShouldBeTrue();
         }
 
         [Fact]
-        public void PgpVerifyPublicKey_Text_ValidKey_ReturnsTrue()
+        public void PgpVerifyPublicKey_LoadedFromFile_ReturnsTrue()
         {
-            _service.PgpVerifyPublicKeyText(_keys.PublicKeyArmored).ShouldBeTrue();
-        }
-
-        [Fact]
-        public void PgpVerifyPublicKey_File_ValidKey_ReturnsTrue()
-        {
-            _service.PgpVerifyPublicKeyFile(_keys.PublicKeyPath).ShouldBeTrue();
+            PgpPublicKey loaded = PgpPublicKey.FromFilePath(_keys.PublicKeyPath);
+            _service.PgpVerifyPublicKey(loaded).ShouldBeTrue();
         }
 
         [Fact]
         public void PgpVerifyPublicKey_GarbageBytes_ReturnsFalse()
         {
-            _service.PgpVerifyPublicKeyBytes(Encoding.UTF8.GetBytes("not a key")).ShouldBeFalse();
+            PgpPublicKey junk = PgpPublicKey.FromBytes(Encoding.UTF8.GetBytes("not a key"));
+            _service.PgpVerifyPublicKey(junk).ShouldBeFalse();
         }
 
         [Fact]
-        public void PgpVerifyPublicKey_GarbageText_ReturnsFalse()
+        public void PgpVerifyPublicKey_NullKey_Throws()
         {
-            _service.PgpVerifyPublicKeyText("not a key").ShouldBeFalse();
-        }
-
-        [Fact]
-        public void PgpVerifyPublicKey_Guards()
-        {
-            Should.Throw<ArgumentException>(() => _service.PgpVerifyPublicKeyBytes((byte[])null));
-            Should.Throw<ArgumentException>(() => _service.PgpVerifyPublicKeyText(null));
-            Should.Throw<ArgumentException>(() => _service.PgpVerifyPublicKeyText(string.Empty));
-            Should.Throw<ArgumentException>(() => _service.PgpVerifyPublicKeyFile(null));
+            Should.Throw<ArgumentNullException>(() => _service.PgpVerifyPublicKey(null));
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PGP Generate Keys — 4-arg + 5-arg roundtrips
+        // PGP Generate Keys
         // ═══════════════════════════════════════════════════════════════════════
 
         [Fact]
         public void PgpGenerateKeys_Guards()
         {
-            Should.Throw<ArgumentException>(() => _service.PgpGenerateKeys(null, "private.asc", "user", "pass"));
-            Should.Throw<ArgumentException>(() => _service.PgpGenerateKeys("public.asc", null, "user", "pass"));
-            Should.Throw<ArgumentException>(() => _service.PgpGenerateKeys(null, "private.asc", "user", "pass", RsaKeySize.Rsa2048));
+            Should.Throw<ArgumentException>(() => _service.PgpGenerateKeys(null, "pass"));
+            Should.Throw<ArgumentException>(() => _service.PgpGenerateKeys(string.Empty, "pass"));
+            Should.Throw<ArgumentNullException>(() => _service.PgpGenerateKeys("user", (SecureString)null));
         }
 
         [Fact]
-        public void PgpGenerateKeys_4Arg_ProducesUsableKeyPair()
+        public void PgpGenerateKeys_StringPassphrase_ProducesUsableKeyPair()
         {
-            string pubPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            string privPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            try
-            {
-                _service.PgpGenerateKeys(pubPath, privPath, "Gen Test <gen@test.com>", "gen-pass");
-                byte[] pub = File.ReadAllBytes(pubPath);
-                byte[] priv = File.ReadAllBytes(privPath);
-                _service.PgpVerifyPublicKeyBytes(pub).ShouldBeTrue();
-                byte[] cipher = _service.PgpEncryptBytes(Encoding.UTF8.GetBytes("ok"), pub);
-                byte[] plain = _service.PgpDecryptBytes(cipher, priv, "gen-pass");
-                Encoding.UTF8.GetString(plain).ShouldBe("ok");
-            }
-            finally
-            {
-                if (File.Exists(pubPath)) File.Delete(pubPath);
-                if (File.Exists(privPath)) File.Delete(privPath);
-            }
+            PgpKeyPair pair = _service.PgpGenerateKeys("Gen Test <gen@test.com>", "gen-pass", RsaKeySize.Rsa2048);
+            _service.PgpVerifyPublicKey(pair.PublicKey).ShouldBeTrue();
+            byte[] cipher = _service.PgpEncryptBytes(Encoding.UTF8.GetBytes("ok"), pair.PublicKey);
+            byte[] plain = _service.PgpDecryptBytes(cipher, pair.PrivateKey);
+            Encoding.UTF8.GetString(plain).ShouldBe("ok");
         }
 
-        [Theory]
-        [InlineData(RsaKeySize.Rsa2048)]
-        [InlineData(RsaKeySize.Rsa3072)]
-        public void PgpGenerateKeys_5Arg_RespectsKeySize(RsaKeySize size)
+        [Fact]
+        public void PgpGenerateKeys_SecureStringPassphrase_ProducesUsableKeyPair()
         {
-            string pubPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            string privPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            try
-            {
-                _service.PgpGenerateKeys(pubPath, privPath, "Sized <s@t.com>", "sized-pass", size);
-                _service.PgpVerifyPublicKeyFile(pubPath).ShouldBeTrue();
-                // Cross-check by completing an encrypt/decrypt round-trip.
-                byte[] pub = File.ReadAllBytes(pubPath);
-                byte[] priv = File.ReadAllBytes(privPath);
-                byte[] cipher = _service.PgpEncryptBytes(Encoding.UTF8.GetBytes("rt"), pub);
-                byte[] plain = _service.PgpDecryptBytes(cipher, priv, "sized-pass");
-                Encoding.UTF8.GetString(plain).ShouldBe("rt");
-            }
-            finally
-            {
-                if (File.Exists(pubPath)) File.Delete(pubPath);
-                if (File.Exists(privPath)) File.Delete(privPath);
-            }
+            PgpKeyPair pair = _service.PgpGenerateKeys("Sec Gen <gen@test.com>", ToSecureString("sec-pass"), RsaKeySize.Rsa2048);
+            _service.PgpVerifyPublicKey(pair.PublicKey).ShouldBeTrue();
+            byte[] cipher = _service.PgpEncryptBytes(Encoding.UTF8.GetBytes("sec"), pair.PublicKey);
+            byte[] plain = _service.PgpDecryptBytes(cipher, pair.PrivateKey);
+            Encoding.UTF8.GetString(plain).ShouldBe("sec");
+        }
+
+        [Fact]
+        public void PgpGenerateKeys_Deconstruct_YieldsBothHalves()
+        {
+            PgpKeyPair pair = _service.PgpGenerateKeys("Decon <d@t.com>", "decon-pass", RsaKeySize.Rsa2048);
+            (PgpPublicKey pub, PgpPrivateKey priv) = pair;
+            pub.ShouldNotBeNull();
+            priv.ShouldNotBeNull();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // Model-type guards
+        // ═══════════════════════════════════════════════════════════════════════
+
+        [Fact]
+        public void PasswordKey_From_GuardsEmptyOrNull()
+        {
+            Should.Throw<ArgumentException>(() => PasswordKey.FromPassword((string)null, Encoding.UTF8));
+            Should.Throw<ArgumentException>(() => PasswordKey.FromPassword(string.Empty, Encoding.UTF8));
+            Should.Throw<ArgumentNullException>(() => PasswordKey.FromPassword("k", null));
+            Should.Throw<ArgumentNullException>(() => PasswordKey.FromPassword((SecureString)null, Encoding.UTF8));
+        }
+
+        [Fact]
+        public void RawKey_FromBytes_GuardsEmptyOrNull()
+        {
+            Should.Throw<ArgumentException>(() => RawKey.FromBytes(null));
+            Should.Throw<ArgumentException>(() => RawKey.FromBytes(Array.Empty<byte>()));
+        }
+
+        [Fact]
+        public void RawKey_FromHex_GuardsEmptyOrNull()
+        {
+            Should.Throw<ArgumentException>(() => RawKey.FromHex(null));
+            Should.Throw<ArgumentException>(() => RawKey.FromHex(string.Empty));
+        }
+
+        [Fact]
+        public void RawKey_FromBase64_GuardsEmptyOrNull()
+        {
+            Should.Throw<ArgumentException>(() => RawKey.FromBase64(null));
+            Should.Throw<ArgumentException>(() => RawKey.FromBase64(string.Empty));
+        }
+
+        [Fact]
+        public void PgpPublicKey_FromBytes_GuardsEmptyOrNull()
+        {
+            Should.Throw<ArgumentException>(() => PgpPublicKey.FromBytes(null));
+            Should.Throw<ArgumentException>(() => PgpPublicKey.FromBytes(Array.Empty<byte>()));
+        }
+
+        [Fact]
+        public void PgpPrivateKey_FromBytes_GuardsEmptyOrNull()
+        {
+            Should.Throw<ArgumentException>(() => PgpPrivateKey.FromBytes(null, "pass"));
+            Should.Throw<ArgumentException>(() => PgpPrivateKey.FromBytes(Array.Empty<byte>(), "pass"));
+            Should.Throw<ArgumentNullException>(() => PgpPrivateKey.FromBytes(new byte[] { 1 }, (SecureString)null));
         }
 
         // ───────────────────────────────────────────────────────────────────────
         // helpers
         // ───────────────────────────────────────────────────────────────────────
+
+        private static PasswordKey NewPasswordKey(string value, string keyKind) => keyKind switch
+        {
+            "string" => PasswordKey.FromPassword(value, Encoding.UTF8),
+            "secure" => PasswordKey.FromPassword(ToSecureString(value), Encoding.UTF8),
+            _ => throw new ArgumentOutOfRangeException(nameof(keyKind)),
+        };
 
         private static SecureString ToSecureString(string value)
         {
@@ -805,6 +894,16 @@ namespace UiPath.Cryptography.Activities.API.Tests
                 ss.AppendChar(c);
             ss.MakeReadOnly();
             return ss;
+        }
+
+        // Build a deterministic test key buffer without invoking a (CA5394-flagged) RNG —
+        // tests need stable bytes, not actual randomness. The offset parameter lets different
+        // test cases pick different byte sequences so they don't collide on a single key.
+        private static byte[] MakeDeterministicKey(int sizeBytes, int offset)
+        {
+            byte[] bytes = new byte[sizeBytes];
+            for (int i = 0; i < sizeBytes; i++) bytes[i] = (byte)(offset + i);
+            return bytes;
         }
     }
 #pragma warning restore CS0618

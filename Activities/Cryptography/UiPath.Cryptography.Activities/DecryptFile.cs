@@ -67,6 +67,24 @@ namespace UiPath.Cryptography.Activities
         [Browsable(false)]
         public InArgument<string> KeyEncodingString { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Format_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Format_Description))]
+        [DefaultValue(SymmetricWireFormat.Classic)]
+        public SymmetricWireFormat Format { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KeyFormat_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeyFormat_Description))]
+        [DefaultValue(KeyBytesFormat.Encoded)]
+        public KeyBytesFormat KeyFormat { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KdfIterations_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KdfIterations_Description))]
+        public InArgument<int> KdfIterations { get; set; }
+
         [Browsable(false)]
         [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active file input mode. The activity now infers the mode from which side is bound.")]
         public FileInputMode FileInputModeSwitch { get; set; }
@@ -185,7 +203,7 @@ namespace UiPath.Cryptography.Activities
 
                 var decrypted = Algorithm == EncryptionAlgorithm.PGP
                     ? ExecutePgpDecrypt(context, encrypted)
-                    : ExecuteSymmetricDecrypt(encrypted, keyEncoding, key, keySecureString);
+                    : ExecuteSymmetricDecrypt(context, encrypted, keyEncoding, key, keySecureString);
 
                 WriteDecryptedOutput(context, outputFilePath, decrypted, result);
 #if ENABLE_DEFAULT_TELEMETRY
@@ -259,16 +277,25 @@ namespace UiPath.Cryptography.Activities
                     CryptographyHelper.PgpDecrypt(encrypted, privStream, pass, pubStream, VerifySignature));
         }
 
-        private byte[] ExecuteSymmetricDecrypt(byte[] encrypted, Encoding keyEncoding, string key, SecureString keySecureString)
+        private byte[] ExecuteSymmetricDecrypt(CodeActivityContext context, byte[] encrypted, Encoding keyEncoding, string key, SecureString keySecureString)
         {
-            try
-            {
-                return CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
-            }
-            catch (CryptographicException ex)
-            {
-                throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-            }
+            var iterations = KdfIterations?.Get(context) ?? 0;
+
+            return SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                Algorithm, Format, KeyFormat, keyEncoding,
+                keyString: key, keySecureString: keySecureString,
+                ivString: null, kdfIterations: iterations, needsIv: false,
+                dispatch: (k, _) =>
+                {
+                    try
+                    {
+                        return SymmetricInteropHelper.DispatchDecrypt(Algorithm, Format, iterations, k, encrypted);
+                    }
+                    catch (CryptographicException ex)
+                    {
+                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+                    }
+                });
         }
 
         private void WriteDecryptedOutput(CodeActivityContext context, string outputFilePath, byte[] decrypted, (string, string, string) result)

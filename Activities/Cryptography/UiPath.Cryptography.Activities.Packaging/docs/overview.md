@@ -16,5 +16,5 @@
 | [Hash Text](activities/KeyedHashText.md) | Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash |
 | [PGP Generate Keys](activities/PgpGenerateKeys.md) | Generates a PGP public/private key pair and saves them to the specified file paths |
 | [PGP Sign File](activities/PgpSignFile.md) | Creates a PGP binary signature of a file using a private key |
-| [PGP Clearsign File](activities/PgpClearsignFile.md) | Creates a PGP clear-text signature of a file using a private key |
+| [PGP ClearSign File](activities/PgpClearSignFile.md) | Creates a PGP clear-text signature of a file using a private key |
 | [PGP Verify](activities/PgpVerify.md) | Verifies a PGP signature, clearsignature, or validates a public key file |

@@ -11,663 +11,312 @@ namespace UiPath.Cryptography.Activities.API
 {
     internal class CryptographyService : ICryptographyService
     {
-        // ── Symmetric encrypt ────────────────────────────────────────────────
+        // ── Symmetric ─────────────────────────────────────────────────────────
 
-        public byte[] EncryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, string key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            return CryptographyHelper.EncryptData(algorithm, inputBytes, keyBytes);
-        }
-
-        public byte[] EncryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                return EncryptBytes(inputBytes, algorithm, keyBytes);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
-        }
-
-        public byte[] EncryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, byte[] keyBytes)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-            return CryptographyHelper.EncryptData(algorithm, inputBytes, keyBytes);
-        }
-
-
-        public string EncryptText(string input, EncryptionAlgorithm algorithm, string key, Encoding encoding)
+        public byte[] EncryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            byte[] inputBytes = encoding.GetBytes(input);
-            byte[] encryptedBytes = CryptographyHelper.EncryptData(algorithm, inputBytes, keyBytes);
-            return Convert.ToBase64String(encryptedBytes);
+            ArgumentNullException.ThrowIfNull(options);
+            ValidateSymmetric(algorithm, options, options.IV);
+            return options.Key.UseKeyBytes(keyBytes =>
+                SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, keyBytes, options.IV, input));
         }
 
-        public string EncryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                return EncryptText(input, algorithm, keyBytes, encoding);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
-        }
-
-        public string EncryptText(string input, EncryptionAlgorithm algorithm, byte[] keyBytes, Encoding encoding)
+        public byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(encoding);
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-
-            byte[] inputBytes = encoding.GetBytes(input);
-            byte[] encryptedBytes = CryptographyHelper.EncryptData(algorithm, inputBytes, keyBytes);
-            return Convert.ToBase64String(encryptedBytes);
+            ArgumentNullException.ThrowIfNull(options);
+            ValidateSymmetric(algorithm, options, iv: null);
+            return options.Key.UseKeyBytes(keyBytes =>
+                SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, keyBytes, input));
         }
 
-
-        public void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite = false)
-        {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            ThrowIfFilePathMissing(outputFilePath, nameof(outputFilePath));
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            byte[] encryptedBytes = CryptographyHelper.EncryptData(algorithm, inputBytes, keyBytes);
-            WriteFile(outputFilePath, encryptedBytes, overwrite);
-        }
-
-        public void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite = false)
-        {
-            ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                EncryptFile(inputFilePath, outputFilePath, algorithm, keyBytes, overwrite);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
-        }
-
-        public void EncryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, byte[] keyBytes, bool overwrite = false)
-        {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            ThrowIfFilePathMissing(outputFilePath, nameof(outputFilePath));
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            byte[] encryptedBytes = CryptographyHelper.EncryptData(algorithm, inputBytes, keyBytes);
-            WriteFile(outputFilePath, encryptedBytes, overwrite);
-        }
-
-        // ── Symmetric decrypt ────────────────────────────────────────────────
-
-        public byte[] DecryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, string key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            return CryptographyHelper.DecryptData(algorithm, inputBytes, keyBytes);
-        }
-
-        public byte[] DecryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                return DecryptBytes(inputBytes, algorithm, keyBytes);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
-        }
-
-        public byte[] DecryptBytes(byte[] inputBytes, EncryptionAlgorithm algorithm, byte[] keyBytes)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-            return CryptographyHelper.DecryptData(algorithm, inputBytes, keyBytes);
-        }
-
-
-        public string DecryptText(string input, EncryptionAlgorithm algorithm, string key, Encoding encoding)
+        public string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            byte[] inputBytes = Convert.FromBase64String(input);
-            byte[] decryptedBytes = CryptographyHelper.DecryptData(algorithm, inputBytes, keyBytes);
-            return encoding.GetString(decryptedBytes);
+            ArgumentNullException.ThrowIfNull(options);
+            byte[] cipher = EncryptBytes(options.TextEncoding.GetBytes(input), algorithm, options);
+            return Convert.ToBase64String(cipher);
         }
 
-        public string DecryptText(string input, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                return DecryptText(input, algorithm, keyBytes, encoding);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
-        }
-
-        public string DecryptText(string input, EncryptionAlgorithm algorithm, byte[] keyBytes, Encoding encoding)
+        public string DecryptText(string input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(encoding);
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-
-            byte[] inputBytes = Convert.FromBase64String(input);
-            byte[] decryptedBytes = CryptographyHelper.DecryptData(algorithm, inputBytes, keyBytes);
-            return encoding.GetString(decryptedBytes);
+            ArgumentNullException.ThrowIfNull(options);
+            byte[] plain = DecryptBytes(Convert.FromBase64String(input), algorithm, options);
+            return options.TextEncoding.GetString(plain);
         }
 
-
-        public void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, string key, Encoding encoding, bool overwrite = false)
+        public void EncryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options, bool overwrite = false)
         {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            ThrowIfFilePathMissing(outputFilePath, nameof(outputFilePath));
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            byte[] decryptedBytes = CryptographyHelper.DecryptData(algorithm, inputBytes, keyBytes);
-            WriteFile(outputFilePath, decryptedBytes, overwrite);
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            byte[] cipher = EncryptBytes(File.ReadAllBytes(inputPath), algorithm, options);
+            WriteFile(outputPath, cipher, overwrite);
         }
 
-        public void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, SecureString key, Encoding encoding, bool overwrite = false)
+        public void DecryptFile(string inputPath, string outputPath, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options, bool overwrite = false)
         {
-            ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                DecryptFile(inputFilePath, outputFilePath, algorithm, keyBytes, overwrite);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
-        }
-
-        public void DecryptFile(string inputFilePath, string outputFilePath, EncryptionAlgorithm algorithm, byte[] keyBytes, bool overwrite = false)
-        {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            ThrowIfFilePathMissing(outputFilePath, nameof(outputFilePath));
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            byte[] decryptedBytes = CryptographyHelper.DecryptData(algorithm, inputBytes, keyBytes);
-            WriteFile(outputFilePath, decryptedBytes, overwrite);
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            byte[] plain = DecryptBytes(File.ReadAllBytes(inputPath), algorithm, options);
+            WriteFile(outputPath, plain, overwrite);
         }
 
         // ── Keyed hash ────────────────────────────────────────────────────────
 
-        public string KeyedHashBytes(byte[] inputBytes, KeyedHashAlgorithms algorithm, string key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            return ComputeHashHex(algorithm, inputBytes, keyBytes);
-        }
-
-        public string KeyedHashBytes(byte[] inputBytes, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)
-        {
-            ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                return KeyedHashBytes(inputBytes, algorithm, keyBytes);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
-        }
-
-        public string KeyedHashBytes(byte[] inputBytes, KeyedHashAlgorithms algorithm, byte[] keyBytes)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-            return ComputeHashHex(algorithm, inputBytes, keyBytes);
-        }
-
-
-        public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, string key, Encoding encoding)
+        public string KeyedHashBytes(byte[] input, KeyedHashAlgorithms algorithm, CryptoKey key)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            byte[] inputBytes = encoding.GetBytes(input);
-            return ComputeHashHex(algorithm, inputBytes, keyBytes);
-        }
-
-        public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)
-        {
             ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                return KeyedHashText(input, algorithm, keyBytes, encoding);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
+            return key.UseKeyBytes(keyBytes => ComputeHashHex(algorithm, input, keyBytes));
         }
 
-        public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, byte[] keyBytes, Encoding encoding)
+        public string KeyedHashText(string input, KeyedHashAlgorithms algorithm, CryptoKey key, Encoding encoding = null)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ArgumentNullException.ThrowIfNull(encoding);
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-
-            byte[] inputBytes = encoding.GetBytes(input);
-            return ComputeHashHex(algorithm, inputBytes, keyBytes);
-        }
-
-
-        public string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, string key, Encoding encoding)
-        {
-            ThrowIfFilePathMissing(filePath, nameof(filePath));
-            ArgumentNullException.ThrowIfNull(encoding);
-            if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Key must not be null or empty.", nameof(key));
-
-            byte[] keyBytes = CryptographyHelper.KeyEncoding(encoding, key, null);
-            byte[] inputBytes = File.ReadAllBytes(filePath);
-            return ComputeHashHex(algorithm, inputBytes, keyBytes);
-        }
-
-        public string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, SecureString key, Encoding encoding)
-        {
             ArgumentNullException.ThrowIfNull(key);
-            ArgumentNullException.ThrowIfNull(encoding);
-            byte[] keyBytes = SecureStringToBytes(key, encoding);
-            try
-            {
-                return KeyedHashFile(filePath, algorithm, keyBytes);
-            }
-            finally
-            {
-                Array.Clear(keyBytes, 0, keyBytes.Length);
-            }
+            Encoding textEncoding = encoding ?? Encoding.UTF8;
+            return key.UseKeyBytes(keyBytes => ComputeHashHex(algorithm, textEncoding.GetBytes(input), keyBytes));
         }
 
-        public string KeyedHashFile(string filePath, KeyedHashAlgorithms algorithm, byte[] keyBytes)
+        public string KeyedHashFile(string inputPath, KeyedHashAlgorithms algorithm, CryptoKey key)
         {
-            ThrowIfFilePathMissing(filePath, nameof(filePath));
-            ThrowIfKeyMissing(keyBytes, nameof(keyBytes));
-
-            byte[] inputBytes = File.ReadAllBytes(filePath);
-            return ComputeHashHex(algorithm, inputBytes, keyBytes);
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            ArgumentNullException.ThrowIfNull(key);
+            return key.UseKeyBytes(keyBytes => ComputeHashHex(algorithm, File.ReadAllBytes(inputPath), keyBytes));
         }
 
         // ── PGP encrypt ───────────────────────────────────────────────────────
-        // SecureString-passphrase overloads materialise to a managed string for the
-        // duration of the call. BouncyCastle requires a plain string passphrase and
-        // offers no byte[]-based API; the managed string cannot be zeroed afterward.
 
-        public byte[] PgpEncryptBytes(byte[] inputBytes, byte[] publicKey, byte[] privateKey = null, string passphrase = null, bool sign = false)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(publicKey, nameof(publicKey));
-
-            using var pubStream = new MemoryStream(publicKey, writable: false);
-            using var privStream = ToReadOnlyStream(privateKey);
-            return CryptographyHelper.PgpEncrypt(inputBytes, pubStream, privStream, passphrase, sign);
-        }
-
-        public byte[] PgpEncryptBytes(byte[] inputBytes, byte[] publicKey, byte[] privateKey, SecureString passphrase, bool sign = false)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpEncryptBytes(inputBytes, publicKey, privateKey, SecureStringToManagedString(passphrase), sign);
-        }
-
-
-        public string PgpEncryptText(string input, byte[] publicKey, byte[] privateKey = null, string passphrase = null, bool sign = false)
+        public byte[] PgpEncryptBytes(byte[] input, PgpPublicKey recipient, PgpPrivateKey signer = null)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ThrowIfKeyMissing(publicKey, nameof(publicKey));
+            ArgumentNullException.ThrowIfNull(recipient);
 
-            using var pubStream = new MemoryStream(publicKey, writable: false);
-            using var privStream = ToReadOnlyStream(privateKey);
-            return CryptographyHelper.PgpEncryptText(input, pubStream, privStream, passphrase, sign);
+            using var pubStream = recipient.OpenStream();
+            if (signer is null)
+                return CryptographyHelper.PgpEncrypt(input, pubStream, null, null, sign: false);
+
+            var (privStream, passphrase) = signer.Open();
+            using (privStream)
+                return CryptographyHelper.PgpEncrypt(input, pubStream, privStream, passphrase, sign: true);
         }
 
-        public string PgpEncryptText(string input, byte[] publicKey, byte[] privateKey, SecureString passphrase, bool sign = false)
+        public string PgpEncryptText(string input, PgpPublicKey recipient, PgpPrivateKey signer = null)
         {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpEncryptText(input, publicKey, privateKey, SecureStringToManagedString(passphrase), sign);
+            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(recipient);
+
+            using var pubStream = recipient.OpenStream();
+            if (signer is null)
+                return CryptographyHelper.PgpEncryptText(input, pubStream, null, null, sign: false);
+
+            var (privStream, passphrase) = signer.Open();
+            using (privStream)
+                return CryptographyHelper.PgpEncryptText(input, pubStream, privStream, passphrase, sign: true);
         }
 
-
-        public void PgpEncryptFile(string inputFilePath, string outputFilePath, byte[] publicKey, byte[] privateKey = null, string passphrase = null, bool sign = false, bool overwrite = false)
+        public void PgpEncryptFile(string inputPath, string outputPath, PgpPublicKey recipient, PgpPrivateKey signer = null, bool overwrite = false)
         {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            byte[] encrypted = PgpEncryptBytes(inputBytes, publicKey, privateKey, passphrase, sign);
-            WriteFile(outputFilePath, encrypted, overwrite);
-        }
-
-        public void PgpEncryptFile(string inputFilePath, string outputFilePath, byte[] publicKey, byte[] privateKey, SecureString passphrase, bool sign = false, bool overwrite = false)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            PgpEncryptFile(inputFilePath, outputFilePath, publicKey, privateKey, SecureStringToManagedString(passphrase), sign, overwrite);
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            byte[] encrypted = PgpEncryptBytes(File.ReadAllBytes(inputPath), recipient, signer);
+            WriteFile(outputPath, encrypted, overwrite);
         }
 
         // ── PGP decrypt ───────────────────────────────────────────────────────
 
-        public byte[] PgpDecryptBytes(byte[] inputBytes, byte[] privateKey, string passphrase, byte[] publicKey = null, bool verifySignature = false)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(privateKey, nameof(privateKey));
-
-            using var privStream = new MemoryStream(privateKey, writable: false);
-            using var pubStream = ToReadOnlyStream(publicKey);
-            return CryptographyHelper.PgpDecrypt(inputBytes, privStream, passphrase, pubStream, verifySignature);
-        }
-
-        public byte[] PgpDecryptBytes(byte[] inputBytes, byte[] privateKey, SecureString passphrase, byte[] publicKey = null, bool verifySignature = false)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpDecryptBytes(inputBytes, privateKey, SecureStringToManagedString(passphrase), publicKey, verifySignature);
-        }
-
-
-        public string PgpDecryptText(string input, byte[] privateKey, string passphrase, byte[] publicKey = null, bool verifySignature = false)
+        public byte[] PgpDecryptBytes(byte[] input, PgpPrivateKey recipient, PgpPublicKey verifier = null)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ThrowIfKeyMissing(privateKey, nameof(privateKey));
+            ArgumentNullException.ThrowIfNull(recipient);
 
-            using var privStream = new MemoryStream(privateKey, writable: false);
-            using var pubStream = ToReadOnlyStream(publicKey);
-            return CryptographyHelper.PgpDecryptText(input, privStream, passphrase, pubStream, verifySignature);
+            var (privStream, passphrase) = recipient.Open();
+            using (privStream)
+            using (Stream pubStream = verifier?.OpenStream())
+                return CryptographyHelper.PgpDecrypt(input, privStream, passphrase, pubStream, verifySignature: verifier != null);
         }
 
-        public string PgpDecryptText(string input, byte[] privateKey, SecureString passphrase, byte[] publicKey = null, bool verifySignature = false)
+        public string PgpDecryptText(string input, PgpPrivateKey recipient, PgpPublicKey verifier = null)
         {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpDecryptText(input, privateKey, SecureStringToManagedString(passphrase), publicKey, verifySignature);
+            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(recipient);
+
+            var (privStream, passphrase) = recipient.Open();
+            using (privStream)
+            using (Stream pubStream = verifier?.OpenStream())
+                return CryptographyHelper.PgpDecryptText(input, privStream, passphrase, pubStream, verifySignature: verifier != null);
         }
 
-
-        public void PgpDecryptFile(string inputFilePath, string outputFilePath, byte[] privateKey, string passphrase, byte[] publicKey = null, bool verifySignature = false, bool overwrite = false)
+        public void PgpDecryptFile(string inputPath, string outputPath, PgpPrivateKey recipient, PgpPublicKey verifier = null, bool overwrite = false)
         {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            byte[] decrypted = PgpDecryptBytes(inputBytes, privateKey, passphrase, publicKey, verifySignature);
-            WriteFile(outputFilePath, decrypted, overwrite);
-        }
-
-        public void PgpDecryptFile(string inputFilePath, string outputFilePath, byte[] privateKey, SecureString passphrase, byte[] publicKey = null, bool verifySignature = false, bool overwrite = false)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            PgpDecryptFile(inputFilePath, outputFilePath, privateKey, SecureStringToManagedString(passphrase), publicKey, verifySignature, overwrite);
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            byte[] decrypted = PgpDecryptBytes(File.ReadAllBytes(inputPath), recipient, verifier);
+            WriteFile(outputPath, decrypted, overwrite);
         }
 
         // ── PGP sign ──────────────────────────────────────────────────────────
 
-        public byte[] PgpSignBytes(byte[] inputBytes, byte[] privateKey, string passphrase)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(privateKey, nameof(privateKey));
-
-            using var privStream = new MemoryStream(privateKey, writable: false);
-            return CryptographyHelper.PgpSign(inputBytes, privStream, passphrase);
-        }
-
-        public byte[] PgpSignBytes(byte[] inputBytes, byte[] privateKey, SecureString passphrase)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpSignBytes(inputBytes, privateKey, SecureStringToManagedString(passphrase));
-        }
-
-
-        public string PgpSignText(string input, byte[] privateKey, string passphrase)
+        public byte[] PgpSignBytes(byte[] input, PgpPrivateKey signer)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ThrowIfKeyMissing(privateKey, nameof(privateKey));
+            ArgumentNullException.ThrowIfNull(signer);
 
-            using var privStream = new MemoryStream(privateKey, writable: false);
-            return CryptographyHelper.PgpSignText(input, privStream, passphrase);
+            var (privStream, passphrase) = signer.Open();
+            using (privStream)
+                return CryptographyHelper.PgpSign(input, privStream, passphrase);
         }
 
-        public string PgpSignText(string input, byte[] privateKey, SecureString passphrase)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpSignText(input, privateKey, SecureStringToManagedString(passphrase));
-        }
-
-
-        public void PgpSignFile(string inputFilePath, string outputFilePath, byte[] privateKey, string passphrase, bool overwrite = false)
-        {
-            byte[] signed = PgpSignBytesFromFile(inputFilePath, privateKey, passphrase, sign: true);
-            WriteFile(outputFilePath, signed, overwrite);
-        }
-
-        public void PgpSignFile(string inputFilePath, string outputFilePath, byte[] privateKey, SecureString passphrase, bool overwrite = false)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            PgpSignFile(inputFilePath, outputFilePath, privateKey, SecureStringToManagedString(passphrase), overwrite);
-        }
-
-        // ── PGP clearsign ─────────────────────────────────────────────────────
-
-        public byte[] PgpClearsignBytes(byte[] inputBytes, byte[] privateKey, string passphrase)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(privateKey, nameof(privateKey));
-
-            using var privStream = new MemoryStream(privateKey, writable: false);
-            return CryptographyHelper.PgpClearSign(inputBytes, privStream, passphrase);
-        }
-
-        public byte[] PgpClearsignBytes(byte[] inputBytes, byte[] privateKey, SecureString passphrase)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpClearsignBytes(inputBytes, privateKey, SecureStringToManagedString(passphrase));
-        }
-
-
-        public string PgpClearsignText(string input, byte[] privateKey, string passphrase)
+        public string PgpSignText(string input, PgpPrivateKey signer)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ThrowIfKeyMissing(privateKey, nameof(privateKey));
+            ArgumentNullException.ThrowIfNull(signer);
 
-            using var privStream = new MemoryStream(privateKey, writable: false);
-            return CryptographyHelper.PgpClearSignText(input, privStream, passphrase);
+            var (privStream, passphrase) = signer.Open();
+            using (privStream)
+                return CryptographyHelper.PgpSignText(input, privStream, passphrase);
         }
 
-        public string PgpClearsignText(string input, byte[] privateKey, SecureString passphrase)
+        public void PgpSignFile(string inputPath, string outputPath, PgpPrivateKey signer, bool overwrite = false)
         {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            return PgpClearsignText(input, privateKey, SecureStringToManagedString(passphrase));
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            byte[] signed = PgpSignBytes(File.ReadAllBytes(inputPath), signer);
+            WriteFile(outputPath, signed, overwrite);
         }
 
+        // ── PGP clear-sign ────────────────────────────────────────────────────
 
-        public void PgpClearsignFile(string inputFilePath, string outputFilePath, byte[] privateKey, string passphrase, bool overwrite = false)
-        {
-            byte[] signed = PgpSignBytesFromFile(inputFilePath, privateKey, passphrase, sign: false);
-            WriteFile(outputFilePath, signed, overwrite);
-        }
-
-        public void PgpClearsignFile(string inputFilePath, string outputFilePath, byte[] privateKey, SecureString passphrase, bool overwrite = false)
-        {
-            ArgumentNullException.ThrowIfNull(passphrase);
-            PgpClearsignFile(inputFilePath, outputFilePath, privateKey, SecureStringToManagedString(passphrase), overwrite);
-        }
-
-        // ── PGP verify (binary signature) ─────────────────────────────────────
-
-        public bool PgpVerifyBytes(byte[] inputBytes, byte[] publicKey)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(publicKey, nameof(publicKey));
-
-            using var pubStream = new MemoryStream(publicKey, writable: false);
-            return CryptographyHelper.PgpVerify(inputBytes, pubStream);
-        }
-
-
-        public bool PgpVerifyText(string input, byte[] publicKey)
+        public byte[] PgpClearSignBytes(byte[] input, PgpPrivateKey signer)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ThrowIfKeyMissing(publicKey, nameof(publicKey));
+            ArgumentNullException.ThrowIfNull(signer);
 
-            using var pubStream = new MemoryStream(publicKey, writable: false);
+            var (privStream, passphrase) = signer.Open();
+            using (privStream)
+                return CryptographyHelper.PgpClearSign(input, privStream, passphrase);
+        }
+
+        public string PgpClearSignText(string input, PgpPrivateKey signer)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(signer);
+
+            var (privStream, passphrase) = signer.Open();
+            using (privStream)
+                return CryptographyHelper.PgpClearSignText(input, privStream, passphrase);
+        }
+
+        public void PgpClearSignFile(string inputPath, string outputPath, PgpPrivateKey signer, bool overwrite = false)
+        {
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            byte[] signed = PgpClearSignBytes(File.ReadAllBytes(inputPath), signer);
+            WriteFile(outputPath, signed, overwrite);
+        }
+
+        // ── PGP verify (binary) ───────────────────────────────────────────────
+
+        public bool PgpVerifyBytes(byte[] input, PgpPublicKey verifier)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(verifier);
+
+            using var pubStream = verifier.OpenStream();
+            return CryptographyHelper.PgpVerify(input, pubStream);
+        }
+
+        public bool PgpVerifyText(string input, PgpPublicKey verifier)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(verifier);
+
+            using var pubStream = verifier.OpenStream();
             return CryptographyHelper.PgpVerifyText(input, pubStream);
         }
 
-
-        public bool PgpVerifyFile(string inputFilePath, byte[] publicKey)
+        public bool PgpVerifyFile(string inputPath, PgpPublicKey verifier)
         {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            return PgpVerifyBytes(inputBytes, publicKey);
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            return PgpVerifyBytes(File.ReadAllBytes(inputPath), verifier);
         }
 
         // ── PGP verify (clearsignature) ───────────────────────────────────────
 
-        public bool PgpVerifyClearBytes(byte[] inputBytes, byte[] publicKey)
-        {
-            ArgumentNullException.ThrowIfNull(inputBytes);
-            ThrowIfKeyMissing(publicKey, nameof(publicKey));
-
-            using var pubStream = new MemoryStream(publicKey, writable: false);
-            return CryptographyHelper.PgpVerifyClear(inputBytes, pubStream);
-        }
-
-
-        public bool PgpVerifyClearText(string input, byte[] publicKey)
+        public bool PgpVerifyClearSignedBytes(byte[] input, PgpPublicKey verifier)
         {
             ArgumentNullException.ThrowIfNull(input);
-            ThrowIfKeyMissing(publicKey, nameof(publicKey));
+            ArgumentNullException.ThrowIfNull(verifier);
 
-            using var pubStream = new MemoryStream(publicKey, writable: false);
+            using var pubStream = verifier.OpenStream();
+            return CryptographyHelper.PgpVerifyClear(input, pubStream);
+        }
+
+        public bool PgpVerifyClearSignedText(string input, PgpPublicKey verifier)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNull(verifier);
+
+            using var pubStream = verifier.OpenStream();
             return CryptographyHelper.PgpVerifyClearText(input, pubStream);
         }
 
-
-        public bool PgpVerifyClearFile(string inputFilePath, byte[] publicKey)
+        public bool PgpVerifyClearSignedFile(string inputPath, PgpPublicKey verifier)
         {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            return PgpVerifyClearBytes(inputBytes, publicKey);
+            ThrowIfFilePathMissing(inputPath, nameof(inputPath));
+            return PgpVerifyClearSignedBytes(File.ReadAllBytes(inputPath), verifier);
         }
 
-        // ── PGP verify (public key well-formedness) ───────────────────────────
+        // ── PGP key generation + public-key verification ──────────────────────
 
-        public bool PgpVerifyPublicKeyBytes(byte[] publicKey)
+        public PgpKeyPair PgpGenerateKeys(string userId, string passphrase, RsaKeySize keySize = RsaKeySize.Rsa4096)
         {
-            ThrowIfKeyMissing(publicKey, nameof(publicKey));
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentException("User ID must not be null or empty.", nameof(userId));
 
-            using var pubStream = new MemoryStream(publicKey, writable: false);
-            return CryptographyHelper.PgpVerifyPublicKey(pubStream);
+            string pubPath = Path.Combine(Path.GetTempPath(), $"crypto_pgp_pub_{Guid.NewGuid():N}.asc");
+            string privPath = Path.Combine(Path.GetTempPath(), $"crypto_pgp_priv_{Guid.NewGuid():N}.asc");
+            try
+            {
+                CryptographyHelper.PgpGenerateKeys(pubPath, privPath, userId, passphrase, keySize);
+                byte[] pubBytes = File.ReadAllBytes(pubPath);
+                byte[] privBytes = File.ReadAllBytes(privPath);
+                return new PgpKeyPair(PgpPublicKey.FromBytes(pubBytes), PgpPrivateKey.FromBytes(privBytes, passphrase));
+            }
+            finally
+            {
+                TryDelete(pubPath);
+                TryDelete(privPath);
+            }
         }
 
-
-        public bool PgpVerifyPublicKeyText(string publicKey)
+        public PgpKeyPair PgpGenerateKeys(string userId, SecureString passphrase, RsaKeySize keySize = RsaKeySize.Rsa4096)
         {
-            if (string.IsNullOrEmpty(publicKey))
-                throw new ArgumentException("Public key must not be null or empty.", nameof(publicKey));
-
-            byte[] keyBytes = Encoding.UTF8.GetBytes(publicKey);
-            return PgpVerifyPublicKeyBytes(keyBytes);
+            ArgumentNullException.ThrowIfNull(passphrase);
+            return PgpGenerateKeys(userId, SecureStringToManagedString(passphrase), keySize);
         }
 
-
-        public bool PgpVerifyPublicKeyFile(string publicKeyFilePath)
+        public bool PgpVerifyPublicKey(PgpPublicKey key)
         {
-            ThrowIfFilePathMissing(publicKeyFilePath, nameof(publicKeyFilePath));
-            byte[] keyBytes = File.ReadAllBytes(publicKeyFilePath);
-            return PgpVerifyPublicKeyBytes(keyBytes);
-        }
-
-        // ── PGP key generation ───────────────────────────────────────────────
-
-        public void PgpGenerateKeys(string publicKeyPath, string privateKeyPath, string userId, string passphrase, RsaKeySize keySize = RsaKeySize.Rsa4096)
-        {
-            ThrowIfFilePathMissing(publicKeyPath, nameof(publicKeyPath));
-            ThrowIfFilePathMissing(privateKeyPath, nameof(privateKeyPath));
-
-            CryptographyHelper.PgpGenerateKeys(publicKeyPath, privateKeyPath, userId, passphrase, keySize);
+            ArgumentNullException.ThrowIfNull(key);
+            using var stream = key.OpenStream();
+            return CryptographyHelper.PgpVerifyPublicKey(stream);
         }
 
         // ── Private helpers ───────────────────────────────────────────────────
+
+        // Defence-in-depth runtime validation. The (key kind × wire format) pairing is already
+        // enforced at compile time by the typed factory parameters on SymmetricEncryptOptions /
+        // SymmetricDecryptOptions; this still catches KDF-iteration-out-of-bounds, raw-key
+        // length mismatch, and (encrypt) IV-on-non-Raw-format. iv is null for decrypt.
+        private static void ValidateSymmetric(EncryptionAlgorithm algorithm, CryptoOptions options, byte[] iv)
+        {
+            CryptoKey key = options.Key ?? throw new ArgumentException("Options must carry a key (construct via a format factory).", nameof(options));
+            string ivSentinel = iv != null && iv.Length > 0 ? "set" : null;
+            int? rawKeyLength = key.IsRawKey ? key.KeyBytes.Length : (int?)null;
+            SymmetricInteropHelper.ValidateInteropSettings(algorithm, options.Format, key.BytesFormat, ivSentinel, options.KdfIterations, rawKeyLength);
+        }
 
         private static string ComputeHashHex(KeyedHashAlgorithms algorithm, byte[] inputBytes, byte[] keyBytes)
         {
             byte[] hashBytes = CryptographyHelper.HashDataWithKey(algorithm, inputBytes, keyBytes);
             return BitConverter.ToString(hashBytes).Replace("-", string.Empty);
-        }
-
-        private static byte[] PgpSignBytesFromFile(string inputFilePath, byte[] privateKey, string passphrase, bool sign)
-        {
-            ThrowIfFilePathMissing(inputFilePath, nameof(inputFilePath));
-            ThrowIfKeyMissing(privateKey, nameof(privateKey));
-
-            byte[] inputBytes = File.ReadAllBytes(inputFilePath);
-            using var privStream = new MemoryStream(privateKey, writable: false);
-            return sign
-                ? CryptographyHelper.PgpSign(inputBytes, privStream, passphrase)
-                : CryptographyHelper.PgpClearSign(inputBytes, privStream, passphrase);
-        }
-
-        private static void ThrowIfKeyMissing(byte[] keyBytes, string paramName)
-        {
-            if (keyBytes is null || keyBytes.Length == 0)
-                throw new ArgumentException("Key bytes must not be null or empty.", paramName);
         }
 
         private static void ThrowIfFilePathMissing(string path, string paramName)
@@ -676,43 +325,20 @@ namespace UiPath.Cryptography.Activities.API
                 throw new ArgumentException("File path must not be null or empty.", paramName);
         }
 
-        private static MemoryStream ToReadOnlyStream(byte[] bytes) =>
-            bytes is { Length: > 0 } ? new MemoryStream(bytes, writable: false) : null;
-
-        private static void WriteFile(string outputFilePath, byte[] bytes, bool overwrite = false)
+        private static void WriteFile(string outputPath, byte[] bytes, bool overwrite)
         {
-            ThrowIfFilePathMissing(outputFilePath, nameof(outputFilePath));
-            if (!overwrite && File.Exists(outputFilePath))
-                throw new InvalidOperationException($"Output file already exists: {outputFilePath}");
-            File.WriteAllBytes(outputFilePath, bytes);
+            ThrowIfFilePathMissing(outputPath, nameof(outputPath));
+            if (!overwrite && File.Exists(outputPath))
+                throw new InvalidOperationException($"Output file already exists: {outputPath}");
+            File.WriteAllBytes(outputPath, bytes);
         }
 
-        // Extracts the SecureString content via unmanaged memory, encodes it with the
-        // caller-supplied Encoding, then zeros both the unmanaged buffer and the char[]
-        // before returning. No managed string is ever created.
-        private static byte[] SecureStringToBytes(SecureString value, Encoding encoding)
+        private static void TryDelete(string path)
         {
-            IntPtr ptr = IntPtr.Zero;
-            char[] chars = null;
-            try
-            {
-                ptr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                int length = value.Length;
-                chars = new char[length];
-                Marshal.Copy(ptr, chars, 0, length);
-                return encoding.GetBytes(chars);
-            }
-            finally
-            {
-                if (ptr != IntPtr.Zero)
-                    Marshal.ZeroFreeGlobalAllocUnicode(ptr);
-                if (chars != null)
-                    Array.Clear(chars, 0, chars.Length);
-            }
+            try { if (File.Exists(path)) File.Delete(path); }
+            catch { /* best-effort cleanup */ }
         }
 
-        // Used only by PGP overloads: BouncyCastle requires a plain string passphrase
-        // and offers no byte[]-based API. The managed string cannot be zeroed afterward.
         private static string SecureStringToManagedString(SecureString value)
         {
             IntPtr ptr = IntPtr.Zero;
