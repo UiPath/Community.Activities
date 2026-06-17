@@ -1409,7 +1409,34 @@ namespace UiPath.Cryptography.Properties {
                 return ResourceManager.GetString("RsaKeySize_Rsa4096", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to 128-bit.
+        /// </summary>
+        internal static string AesKeySize_Aes128 {
+            get {
+                return ResourceManager.GetString("AesKeySize_Aes128", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 192-bit.
+        /// </summary>
+        internal static string AesKeySize_Aes192 {
+            get {
+                return ResourceManager.GetString("AesKeySize_Aes192", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 256-bit.
+        /// </summary>
+        internal static string AesKeySize_Aes256 {
+            get {
+                return ResourceManager.GetString("AesKeySize_Aes256", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Toggle to Secure input.
         /// </summary>

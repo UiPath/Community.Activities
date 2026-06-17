@@ -19,7 +19,7 @@ namespace UiPath.Cryptography.Activities.API
             ArgumentNullException.ThrowIfNull(options);
             ValidateSymmetric(algorithm, options, options.IV);
             return options.Key.UseKeyBytes(keyBytes =>
-                SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, keyBytes, options.IV, input));
+                SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, keyBytes, options.IV, input, options.AesKeySize));
         }
 
         public byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options)
@@ -28,7 +28,7 @@ namespace UiPath.Cryptography.Activities.API
             ArgumentNullException.ThrowIfNull(options);
             ValidateSymmetric(algorithm, options, iv: null);
             return options.Key.UseKeyBytes(keyBytes =>
-                SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, keyBytes, input));
+                SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, keyBytes, input, options.AesKeySize));
         }
 
         public string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options)

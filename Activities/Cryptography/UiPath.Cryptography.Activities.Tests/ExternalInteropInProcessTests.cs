@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using UiPath.Cryptography.Enums;
 using Xunit;
 
 #pragma warning disable CS0618 // obsolete algorithms reachable via opt-in formats
@@ -34,32 +35,36 @@ namespace UiPath.Cryptography.Activities.Tests
         // ────────────────────────────────────────────────────────────────────────
 
         [Theory]
-        [InlineData(600_000)]
-        [InlineData(50_000)]
-        public void OpenSslEnc_AesCbc_ExternalToInternal(int iterations)
+        [InlineData(600_000, AesKeySize.Aes128)]
+        [InlineData(600_000, AesKeySize.Aes192)]
+        [InlineData(600_000, AesKeySize.Aes256)]
+        [InlineData(50_000, AesKeySize.Aes256)]
+        public void OpenSslEnc_AesCbc_ExternalToInternal(int iterations, AesKeySize aesKeySize)
         {
             byte[] plainBytes = Encoding.UTF8.GetBytes(Plaintext);
-            byte[] externalBlob = BclOpenSslEnc.EncryptAesCbc(plainBytes, Password, iterations);
+            byte[] externalBlob = BclOpenSslEnc.EncryptAesCbc(plainBytes, Password, iterations, (int)aesKeySize / 8);
 
             string decrypted = RunDecryptText(
                 EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
                 password: Password, input: Convert.ToBase64String(externalBlob),
-                inputEncoding: Encoding.UTF8, iterations: iterations);
+                inputEncoding: Encoding.UTF8, iterations: iterations, aesKeySize: aesKeySize);
 
             Assert.Equal(Plaintext, decrypted);
         }
 
         [Theory]
-        [InlineData(600_000)]
-        [InlineData(50_000)]
-        public void OpenSslEnc_AesCbc_InternalToExternal(int iterations)
+        [InlineData(600_000, AesKeySize.Aes128)]
+        [InlineData(600_000, AesKeySize.Aes192)]
+        [InlineData(600_000, AesKeySize.Aes256)]
+        [InlineData(50_000, AesKeySize.Aes256)]
+        public void OpenSslEnc_AesCbc_InternalToExternal(int iterations, AesKeySize aesKeySize)
         {
             string encryptedBase64 = RunEncryptText(
                 EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
-                password: Password, inputEncoding: Encoding.UTF8, iterations: iterations);
+                password: Password, inputEncoding: Encoding.UTF8, iterations: iterations, aesKeySize: aesKeySize);
 
             byte[] blob = Convert.FromBase64String(encryptedBase64);
-            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations);
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, (int)aesKeySize / 8);
 
             Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
         }
@@ -238,11 +243,11 @@ namespace UiPath.Cryptography.Activities.Tests
             private const int AeadIvSize = 12;
             private const int AeadTagSize = 16;
 
-            public static byte[] EncryptAesCbc(byte[] plain, string password, int iterations)
+            public static byte[] EncryptAesCbc(byte[] plain, string password, int iterations, int keySizeBytes = AesCbcKeySize)
             {
                 byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
                 byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, AesCbcKeySize, AesCbcIvSize);
+                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, keySizeBytes, AesCbcIvSize);
 
                 byte[] cipher;
                 using (var aes = Aes.Create())
@@ -260,14 +265,14 @@ namespace UiPath.Cryptography.Activities.Tests
                 return Concat(Magic, salt, cipher);
             }
 
-            public static byte[] DecryptAesCbc(byte[] blob, string password, int iterations)
+            public static byte[] DecryptAesCbc(byte[] blob, string password, int iterations, int keySizeBytes = AesCbcKeySize)
             {
                 AssertMagicPrefix(blob);
                 byte[] salt = blob.AsSpan(Magic.Length, SaltSize).ToArray();
                 byte[] cipher = blob.AsSpan(Magic.Length + SaltSize).ToArray();
 
                 byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, AesCbcKeySize, AesCbcIvSize);
+                (byte[] key, byte[] iv) = DeriveKeyAndIv(passwordBytes, salt, iterations, keySizeBytes, AesCbcIvSize);
 
                 using var aes = Aes.Create();
                 aes.Key = key;
@@ -509,7 +514,8 @@ namespace UiPath.Cryptography.Activities.Tests
             string key = null,
             string iv = null,
             int iterations = 0,
-            Encoding inputEncoding = null)
+            Encoding inputEncoding = null,
+            AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new EncryptText
             {
@@ -518,6 +524,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyFormat = keyFormat,
                 Encoding = MakeEncodingArg(inputEncoding),
                 KeyEncodingString = null,
+                AesKeySize = aesKeySize,
             };
 
             var args = new Dictionary<string, object>
@@ -547,7 +554,8 @@ namespace UiPath.Cryptography.Activities.Tests
             string password = null,
             string key = null,
             int iterations = 0,
-            Encoding inputEncoding = null)
+            Encoding inputEncoding = null,
+            AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new DecryptText
             {
@@ -556,6 +564,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyFormat = keyFormat,
                 Encoding = MakeEncodingArg(inputEncoding),
                 KeyEncodingString = null,
+                AesKeySize = aesKeySize,
             };
 
             var args = new Dictionary<string, object>

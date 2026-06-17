@@ -568,7 +568,7 @@ namespace UiPath.Cryptography
         /// key (and IV, for non-AEAD and AEAD alike) derived via PBKDF2-HMAC-SHA256.
         /// AEAD layout is a UiPath extension — see <c>docs/symmetric-wire-format.md</c>.
         /// </summary>
-        public static byte[] EncryptDataOpenSslEnc(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
+        public static byte[] EncryptDataOpenSslEnc(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations, AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             if (algorithm == EncryptionAlgorithm.PGP)
                 throw new ArgumentException("Use PGP-specific methods for PGP encryption.", nameof(algorithm));
@@ -604,7 +604,9 @@ namespace UiPath.Cryptography
             }
 
             using var symmetric = GetSymmetricAlgorithmProvider(algorithm);
-            int symKeySize = GetLegalKeySizes(symmetric).Max();
+            int symKeySize = (algorithm == EncryptionAlgorithm.AES)
+                ? (int)aesKeySize / 8
+                : GetLegalKeySizes(symmetric).Max();
             int symIvSize = symmetric.IV.Length;
             var (symKey, symIv) = DeriveOpenSslKeyAndIv(passwordBytes, salt, iterations, symKeySize, symIvSize);
             symmetric.Key = symKey;
@@ -629,7 +631,7 @@ namespace UiPath.Cryptography
         /// <summary>
         /// OpenSSL <c>enc</c>-compatible decrypt: parses <c>Salted__(8) || salt(8) || ciphertext [|| tag]</c>.
         /// </summary>
-        public static byte[] DecryptDataOpenSslEnc(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations)
+        public static byte[] DecryptDataOpenSslEnc(EncryptionAlgorithm algorithm, byte[] inputBytes, byte[] passwordBytes, int iterations, AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             if (algorithm == EncryptionAlgorithm.PGP)
                 throw new ArgumentException("Use PGP-specific methods for PGP decryption.", nameof(algorithm));
@@ -677,7 +679,9 @@ namespace UiPath.Cryptography
             }
 
             using var symmetric = GetSymmetricAlgorithmProvider(algorithm);
-            int symKeySize = GetLegalKeySizes(symmetric).Max();
+            int symKeySize = (algorithm == EncryptionAlgorithm.AES)
+                ? (int)aesKeySize / 8
+                : GetLegalKeySizes(symmetric).Max();
             int symIvSize = symmetric.IV.Length;
             var (symKey, symIv) = DeriveOpenSslKeyAndIv(passwordBytes, salt, iterations, symKeySize, symIvSize);
             symmetric.Key = symKey;

@@ -126,6 +126,18 @@
           }
         },
         {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_DecryptFile_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_AesKeySize_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_DecryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_DecryptFile_Property_Overwrite_Description",
@@ -331,6 +343,18 @@
           "Name": "KdfIterations",
           "DisplayNameKey": "Activity_DecryptText_Property_KdfIterations_Name",
           "TooltipKey": "Activity_DecryptText_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_DecryptText_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_DecryptText_Property_AesKeySize_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": false,
@@ -583,6 +607,18 @@
           }
         },
         {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_EncryptFile_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_AesKeySize_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_EncryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Overwrite_Description",
@@ -805,6 +841,18 @@
           "Name": "KdfIterations",
           "DisplayNameKey": "Activity_EncryptText_Property_KdfIterations_Name",
           "TooltipKey": "Activity_EncryptText_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_EncryptText_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_EncryptText_Property_AesKeySize_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": false,

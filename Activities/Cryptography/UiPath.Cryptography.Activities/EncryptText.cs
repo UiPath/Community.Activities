@@ -81,6 +81,12 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_KdfIterations_Description))]
         public InArgument<int> KdfIterations { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_AesKeySize_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_AesKeySize_Description))]
+        [DefaultValue(AesKeySize.Aes256)]
+        public AesKeySize AesKeySize { get; set; } = AesKeySize.Aes256;
+
         [LocalizedCategory(nameof(Resources.Output))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Result_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Result_Description))]
@@ -247,7 +253,7 @@ namespace UiPath.Cryptography.Activities
                 keyString: key, keySecureString: keySecureString,
                 ivString: ivString, kdfIterations: iterations, needsIv: true,
                 dispatch: (k, iv) => SymmetricInteropHelper.DispatchEncrypt(
-                    Algorithm, Format, iterations, k, iv, keyEncoding.GetBytes(input)));
+                    Algorithm, Format, iterations, k, iv, keyEncoding.GetBytes(input), AesKeySize));
 
             return Convert.ToBase64String(encrypted);
         }

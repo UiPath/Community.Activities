@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using UiPath.Cryptography.Enums;
 
 namespace UiPath.Cryptography.Activities.API
 {
@@ -20,6 +21,15 @@ namespace UiPath.Cryptography.Activities.API
         /// <see cref="Raw(RawKey, byte[], Encoding)"/> factory.
         /// </summary>
         public byte[] IV { get; private init; }
+
+        /// <summary>
+        /// AES key size for <see cref="SymmetricWireFormat.OpenSslEnc"/>. Applies only when
+        /// the algorithm is AES; ignored by every other algorithm and every other wire format.
+        /// Default <see cref="AesKeySize.Aes256"/> matches today's hardcoded behaviour, so
+        /// existing AES-256 callers are unaffected. Set only by the
+        /// <see cref="OpenSslEnc(PasswordKey, int, Encoding, AesKeySize)"/> factory.
+        /// </summary>
+        public AesKeySize AesKeySize { get; private init; } = AesKeySize.Aes256;
 
         /// <summary>Produces <see cref="SymmetricWireFormat.Classic"/> output — UiPath's frozen, byte-stable layout (PBKDF2-HMAC-SHA1 @ 10 000 iter).</summary>
         /// <param name="key">Password material; PBKDF2 stretches it to the cipher key.</param>
@@ -86,7 +96,13 @@ namespace UiPath.Cryptography.Activities.API
         /// to match the openssl back-compat default explicitly.
         /// </param>
         /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
-        public static SymmetricEncryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null) =>
-            new() { Key = key, Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations, TextEncoding = encoding ?? Encoding.UTF8 };
+        /// <param name="aesKeySize">
+        /// AES key size — <see cref="AesKeySize.Aes128"/>, <see cref="AesKeySize.Aes192"/>, or
+        /// <see cref="AesKeySize.Aes256"/> (default). Set to match the peer's
+        /// <c>openssl enc -aes-128-cbc</c> / <c>-aes-192-cbc</c> / <c>-aes-256-cbc</c> choice.
+        /// Ignored when the algorithm is not AES.
+        /// </param>
+        public static SymmetricEncryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null, AesKeySize aesKeySize = AesKeySize.Aes256) =>
+            new() { Key = key, Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations, AesKeySize = aesKeySize, TextEncoding = encoding ?? Encoding.UTF8 };
     }
 }
