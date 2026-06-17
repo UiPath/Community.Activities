@@ -10,6 +10,7 @@ using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using AesKeySizeEnum = UiPath.Cryptography.Enums.AesKeySize;
 
 #pragma warning disable CS0618 // obsolete encryption algorithm
 
@@ -175,11 +176,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             AesKeySize.OrderIndex = orderIndex++;
             AesKeySize.Category = Resources.Input;
             AesKeySize.DataSource = DataSourceHelper.ForEnum(
-                Enums.AesKeySize.Aes128,
-                Enums.AesKeySize.Aes192,
-                Enums.AesKeySize.Aes256);
+                AesKeySizeEnum.Aes128,
+                AesKeySizeEnum.Aes192,
+                AesKeySizeEnum.Aes256);
             AesKeySize.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
-            AesKeySize.Value = Enums.AesKeySize.Aes256;
+            AesKeySize.Value = AesKeySizeEnum.Aes256;
         }
 
         /// <summary>
