@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Security;
 using System.Text;
+using UiPath.Cryptography.Enums;
 using UiPath.Cryptography.Properties;
 
 #pragma warning disable CS0618 // obsolete encryption algorithms reachable via opt-in formats
@@ -95,7 +96,8 @@ namespace UiPath.Cryptography
             int kdfIterations,
             byte[] keyOrPasswordBytes,
             byte[] ivBytes,
-            byte[] inputBytes)
+            byte[] inputBytes,
+            AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             switch (format)
             {
@@ -111,7 +113,7 @@ namespace UiPath.Cryptography
                 case SymmetricWireFormat.OpenSslEnc:
                 {
                     int iter = kdfIterations > 0 ? kdfIterations : CryptographyHelper.GetRecommendedIterations(SymmetricWireFormat.OpenSslEnc);
-                    return CryptographyHelper.EncryptDataOpenSslEnc(algorithm, inputBytes, keyOrPasswordBytes, iter);
+                    return CryptographyHelper.EncryptDataOpenSslEnc(algorithm, inputBytes, keyOrPasswordBytes, iter, aesKeySize);
                 }
                 default:
                     throw new ArgumentOutOfRangeException(nameof(format), format, "Unknown SymmetricWireFormat");
@@ -164,7 +166,8 @@ namespace UiPath.Cryptography
             SymmetricWireFormat format,
             int kdfIterations,
             byte[] keyOrPasswordBytes,
-            byte[] inputBytes)
+            byte[] inputBytes,
+            AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             switch (format)
             {
@@ -180,7 +183,7 @@ namespace UiPath.Cryptography
                 case SymmetricWireFormat.OpenSslEnc:
                 {
                     int iter = kdfIterations > 0 ? kdfIterations : CryptographyHelper.GetRecommendedIterations(SymmetricWireFormat.OpenSslEnc);
-                    return CryptographyHelper.DecryptDataOpenSslEnc(algorithm, inputBytes, keyOrPasswordBytes, iter);
+                    return CryptographyHelper.DecryptDataOpenSslEnc(algorithm, inputBytes, keyOrPasswordBytes, iter, aesKeySize);
                 }
                 default:
                     throw new ArgumentOutOfRangeException(nameof(format), format, "Unknown SymmetricWireFormat");

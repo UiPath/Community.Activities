@@ -13,7 +13,7 @@ formats:
 | `Classic`     | PBKDF2-HMAC-SHA1 @ **10 000**    | Password (Encoding bytes) | `salt(8) ‖ IV ‖ ct [‖ tag]`                              | None — UiPath-specific, backward-compat.   |
 | `Owasp2026`   | PBKDF2-HMAC-SHA1 @ caller-set    | Password (Encoding bytes) | `salt(8) ‖ IV ‖ ct [‖ tag]` (same as Classic)            | None — UiPath layout with OWASP 2026 KDF.  |
 | `Raw`         | none                             | Raw bytes (Hex or Base64) | `IV ‖ ct [‖ tag]`                                        | Yes — e.g. `openssl enc -K <hex> -iv <hex>`, Python `cryptography`, Java `javax.crypto`. |
-| `OpenSslEnc`  | PBKDF2-HMAC-SHA256 @ caller-set  | Password (Encoding bytes) | `Salted__(8) ‖ salt(8) ‖ ct [‖ tag]`                     | Yes — `openssl enc -pbkdf2 -iter <N> -md sha256 -salt -k <pw>`. |
+| `OpenSslEnc`  | PBKDF2-HMAC-SHA256 @ caller-set  | Password (Encoding bytes) | `Salted__(8) ‖ salt(8) ‖ ct [‖ tag]`                     | Yes — `openssl enc -pbkdf2 -iter <N> -md sha256 -salt -k <pw>` (AES-128 / AES-192 / AES-256 selectable via `AesKeySize`). |
 
 **Default is `Classic`.** Existing workflows with no `Format` property set
 behave byte-identically to every prior release of this package. Tracked in
@@ -304,6 +304,18 @@ stream; both key and IV come from the KDF.
 > `KdfIterations` to match `<N>`. Unlike `Owasp2026`, this format's default
 > is *not* pinned to a year by name — future releases may revise the
 > default. Pin `KdfIterations` explicitly if cross-version stability matters.
+
+### AES key size — OpenSslEnc
+
+Under `Algorithm = AES`, the AES key size is configurable via the `AesKeySize`
+property — `Aes128` / `Aes192` / `Aes256`, default `Aes256`. The PBKDF2 output
+length adjusts accordingly (`keySize + IvSize` bytes), so the activity
+round-trips with `openssl enc -aes-128-cbc` / `-aes-192-cbc` / `-aes-256-cbc`
+respectively. Must match the key size the peer (producer or consumer) uses.
+Ignored when `Algorithm` is not AES, and ignored for non-`OpenSslEnc` formats.
+AEAD modes (AESGCM, ChaCha20Poly1305) under `OpenSslEnc` continue to derive a
+fixed 32-byte key — those modes are UiPath-to-UiPath only, with no `openssl enc`
+counterpart.
 
 ### openssl interop
 

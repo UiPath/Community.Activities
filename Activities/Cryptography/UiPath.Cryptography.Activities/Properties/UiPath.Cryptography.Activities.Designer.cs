@@ -221,7 +221,25 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_DecryptFile_Property_KdfIterations_Name", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_AesKeySize_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_AesKeySize_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_AesKeySize_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_AesKeySize_Name", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The key that you want to use to decrypt the specified file..
         /// </summary>
@@ -617,7 +635,25 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_DecryptText_Property_KdfIterations_Name", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc.
+        /// </summary>
+        public static string Activity_DecryptText_Property_AesKeySize_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_AesKeySize_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size.
+        /// </summary>
+        public static string Activity_DecryptText_Property_AesKeySize_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_AesKeySize_Name", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The key that you want to use to decrypt the specified file..
         /// </summary>
@@ -1022,7 +1058,25 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_EncryptFile_Property_KdfIterations_Name", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_AesKeySize_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_AesKeySize_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_AesKeySize_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_AesKeySize_Name", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The key that you want to use to encrypt the specified file..
         /// </summary>
@@ -1436,7 +1490,25 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_EncryptText_Property_KdfIterations_Name", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc.
+        /// </summary>
+        public static string Activity_EncryptText_Property_AesKeySize_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_AesKeySize_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to AES key size.
+        /// </summary>
+        public static string Activity_EncryptText_Property_AesKeySize_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_AesKeySize_Name", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The key that you want to use to encrypt the specified file..
         /// </summary>

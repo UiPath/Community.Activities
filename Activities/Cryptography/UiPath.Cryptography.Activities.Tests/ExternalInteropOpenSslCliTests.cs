@@ -32,14 +32,12 @@ namespace UiPath.Cryptography.Activities.Tests
         // openssl enc → UiPath DecryptText
         // ────────────────────────────────────────────────────────────────────────
 
-        // NOTE: UiPath's OpenSslEnc format derives the maximum legal key size for the algorithm
-        // (AES → 256-bit / 32 bytes), so only aes-256-cbc rounds-trips with the activity surface.
-        // openssl-side aes-128-cbc would require a key-size knob on the activity that doesn't
-        // exist today — this is a known limitation, not a test gap.
         [Theory]
-        [InlineData("aes-256-cbc", 600_000)]
-        [InlineData("aes-256-cbc", 50_000)]
-        public void OpenSslCli_Encrypts_UiPathDecrypts(string opensslAlgorithm, int iterations)
+        [InlineData("aes-128-cbc", 600_000, AesKeySize.Aes128)]
+        [InlineData("aes-192-cbc", 600_000, AesKeySize.Aes192)]
+        [InlineData("aes-256-cbc", 600_000, AesKeySize.Aes256)]
+        [InlineData("aes-256-cbc", 50_000, AesKeySize.Aes256)]
+        public void OpenSslCli_Encrypts_UiPathDecrypts(string opensslAlgorithm, int iterations, AesKeySize aesKeySize)
         {
             if (!OpenSslAvailable) return; // no-op when openssl is missing
 
@@ -67,7 +65,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 string decrypted = RunDecryptText(
                     EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
                     password: Password, input: base64,
-                    inputEncoding: Encoding.UTF8, iterations: iterations);
+                    inputEncoding: Encoding.UTF8, iterations: iterations, aesKeySize: aesKeySize);
 
                 decrypted.ShouldBe(Plaintext);
             }
@@ -82,9 +80,11 @@ namespace UiPath.Cryptography.Activities.Tests
         // ────────────────────────────────────────────────────────────────────────
 
         [Theory]
-        [InlineData("aes-256-cbc", 600_000)]
-        [InlineData("aes-256-cbc", 50_000)]
-        public void UiPathEncrypts_OpenSslCli_Decrypts(string opensslAlgorithm, int iterations)
+        [InlineData("aes-128-cbc", 600_000, AesKeySize.Aes128)]
+        [InlineData("aes-192-cbc", 600_000, AesKeySize.Aes192)]
+        [InlineData("aes-256-cbc", 600_000, AesKeySize.Aes256)]
+        [InlineData("aes-256-cbc", 50_000, AesKeySize.Aes256)]
+        public void UiPathEncrypts_OpenSslCli_Decrypts(string opensslAlgorithm, int iterations, AesKeySize aesKeySize)
         {
             if (!OpenSslAvailable) return;
 
@@ -94,7 +94,7 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 string encrypted = RunEncryptText(
                     EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
-                    password: Password, iterations: iterations, inputEncoding: Encoding.UTF8);
+                    password: Password, iterations: iterations, inputEncoding: Encoding.UTF8, aesKeySize: aesKeySize);
 
                 File.WriteAllBytes(cipherPath, Convert.FromBase64String(encrypted));
 
@@ -186,7 +186,7 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         private static string RunEncryptText(EncryptionAlgorithm algorithm, SymmetricWireFormat format, KeyBytesFormat keyFormat,
-            string password = null, int iterations = 0, Encoding inputEncoding = null)
+            string password = null, int iterations = 0, Encoding inputEncoding = null, AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new EncryptText
             {
@@ -195,6 +195,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyFormat = keyFormat,
                 Encoding = MakeEncodingArg(inputEncoding),
                 KeyEncodingString = null,
+                AesKeySize = aesKeySize,
             };
             var args = new Dictionary<string, object>
             {
@@ -207,7 +208,7 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         private static string RunDecryptText(EncryptionAlgorithm algorithm, SymmetricWireFormat format, KeyBytesFormat keyFormat,
-            string input, string password = null, int iterations = 0, Encoding inputEncoding = null)
+            string input, string password = null, int iterations = 0, Encoding inputEncoding = null, AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new DecryptText
             {
@@ -216,6 +217,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyFormat = keyFormat,
                 Encoding = MakeEncodingArg(inputEncoding),
                 KeyEncodingString = null,
+                AesKeySize = aesKeySize,
             };
             var args = new Dictionary<string, object>
             {

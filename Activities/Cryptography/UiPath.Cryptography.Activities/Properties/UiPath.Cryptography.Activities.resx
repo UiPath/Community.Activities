@@ -1478,6 +1478,14 @@
     <value>PBKDF2 iteration count, used only for Owasp2026 and OpenSslEnc formats. Pre-filled with the value the format ships with: 1,300,000 for Owasp2026 (PBKDF2-HMAC-SHA1), 600,000 for OpenSslEnc (PBKDF2-HMAC-SHA256). Override only when you need to interop with a peer using a different count. Minimum 1,000. The iteration count is not stored in the wire format — encrypt and decrypt sides must use matching values.</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES key size</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the peer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) uses. Default: 256-bit.</value>
+    <comment>Property description</comment>
+  </data>
 
   <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
     <value>Wire format</value>
@@ -1501,6 +1509,14 @@
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
     <value>PBKDF2 iteration count used to derive the key. Must match the value used at encryption time. Pre-filled with the value the chosen format ships with; override to match the producer if it used a different count.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES key size</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the producer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) used. Default: 256-bit.</value>
     <comment>Property description</comment>
   </data>
 
@@ -1536,6 +1552,14 @@
     <value>PBKDF2 iteration count, used only for Owasp2026 and OpenSslEnc formats. Pre-filled with the value the format ships with: 1,300,000 for Owasp2026 (PBKDF2-HMAC-SHA1), 600,000 for OpenSslEnc (PBKDF2-HMAC-SHA256). Override only when you need to interop with a peer using a different count. Minimum 1,000. The iteration count is not stored in the wire format — encrypt and decrypt sides must use matching values.</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES key size</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the peer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) uses. Default: 256-bit.</value>
+    <comment>Property description</comment>
+  </data>
 
   <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
     <value>Wire format</value>
@@ -1559,6 +1583,14 @@
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
     <value>PBKDF2 iteration count used to derive the key. Must match the value used at encryption time. Pre-filled with the value the chosen format ships with; override to match the producer if it used a different count.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES key size</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the producer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) used. Default: 256-bit.</value>
     <comment>Property description</comment>
   </data>
 

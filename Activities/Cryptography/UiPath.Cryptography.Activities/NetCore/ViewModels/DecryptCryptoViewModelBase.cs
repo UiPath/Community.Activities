@@ -71,6 +71,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignProperty<SymmetricWireFormat> Format { get; set; } = new DesignProperty<SymmetricWireFormat>();
         public DesignProperty<KeyBytesFormat> KeyFormat { get; set; } = new DesignProperty<KeyBytesFormat>();
         public DesignInArgument<int> KdfIterations { get; set; } = new DesignInArgument<int>();
+        public DesignProperty<AesKeySize> AesKeySize { get; set; } = new DesignProperty<AesKeySize>();
 
         /// <summary>
         /// Configures Algorithm dropdown, Key, KeySecureString, and KeyEncodingString properties.
@@ -148,6 +149,17 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KdfIterations.IsVisible = false;
             KdfIterations.OrderIndex = orderIndex++;
             KdfIterations.Category = Resources.Input;
+
+            AesKeySize.IsPrincipal = false;
+            AesKeySize.IsVisible = false;
+            AesKeySize.OrderIndex = orderIndex++;
+            AesKeySize.Category = Resources.Input;
+            AesKeySize.DataSource = DataSourceHelper.ForEnum(
+                Enums.AesKeySize.Aes128,
+                Enums.AesKeySize.Aes192,
+                Enums.AesKeySize.Aes256);
+            AesKeySize.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+            AesKeySize.Value = Enums.AesKeySize.Aes256;
         }
 
         /// <summary>
@@ -305,10 +317,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             bool isPgp = Algorithm.Value == EncryptionAlgorithm.PGP;
             bool isRaw = Format.Value == SymmetricWireFormat.Raw;
             bool isOwasp2026OrOpenSsl = Format.Value == SymmetricWireFormat.Owasp2026 || Format.Value == SymmetricWireFormat.OpenSslEnc;
+            bool isOpenSslAes = Format.Value == SymmetricWireFormat.OpenSslEnc && Algorithm.Value == EncryptionAlgorithm.AES;
 
             Format.IsVisible = !isPgp;
             KeyFormat.IsVisible = !isPgp && isRaw;
             KdfIterations.IsVisible = !isPgp && isOwasp2026OrOpenSsl;
+            AesKeySize.IsVisible = !isPgp && isOpenSslAes;
 
             // Surface the underlying KDF in the visible label so the iteration count's effect is unambiguous.
             if (KdfIterations.IsVisible)

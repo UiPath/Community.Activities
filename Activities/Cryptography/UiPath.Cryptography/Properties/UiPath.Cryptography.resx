@@ -658,6 +658,15 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096-bit</value>
   </data>
+  <data name="AesKeySize_Aes128" xml:space="preserve">
+    <value>128-bit</value>
+  </data>
+  <data name="AesKeySize_Aes192" xml:space="preserve">
+    <value>192-bit</value>
+  </data>
+  <data name="AesKeySize_Aes256" xml:space="preserve">
+    <value>256-bit</value>
+  </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>Signing was requested but a private key and passphrase are required to sign. Provide both a private key stream and a passphrase, or set sign to false.</value>
   </data>

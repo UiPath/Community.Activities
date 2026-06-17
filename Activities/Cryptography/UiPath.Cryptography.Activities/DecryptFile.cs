@@ -85,6 +85,12 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KdfIterations_Description))]
         public InArgument<int> KdfIterations { get; set; }
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_AesKeySize_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_AesKeySize_Description))]
+        [DefaultValue(AesKeySize.Aes256)]
+        public AesKeySize AesKeySize { get; set; } = AesKeySize.Aes256;
+
         [Browsable(false)]
         [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active file input mode. The activity now infers the mode from which side is bound.")]
         public FileInputMode FileInputModeSwitch { get; set; }
@@ -289,7 +295,7 @@ namespace UiPath.Cryptography.Activities
                 {
                     try
                     {
-                        return SymmetricInteropHelper.DispatchDecrypt(Algorithm, Format, iterations, k, encrypted);
+                        return SymmetricInteropHelper.DispatchDecrypt(Algorithm, Format, iterations, k, encrypted, AesKeySize);
                     }
                     catch (CryptographicException ex)
                     {
