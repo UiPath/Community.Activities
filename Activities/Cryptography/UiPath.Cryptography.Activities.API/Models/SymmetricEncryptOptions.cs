@@ -27,7 +27,7 @@ namespace UiPath.Cryptography.Activities.API
         /// the algorithm is AES; ignored by every other algorithm and every other wire format.
         /// Default <see cref="AesKeySize.Aes256"/> matches today's hardcoded behaviour, so
         /// existing AES-256 callers are unaffected. Set only by the
-        /// <see cref="OpenSslEnc(PasswordKey, int, AesKeySize, Encoding)"/> factory.
+        /// <see cref="OpenSslEnc(PasswordKey, int, Encoding, AesKeySize)"/> factory.
         /// </summary>
         public AesKeySize AesKeySize { get; private init; } = AesKeySize.Aes256;
 
@@ -95,14 +95,14 @@ namespace UiPath.Cryptography.Activities.API
         /// decryptable by <c>openssl enc -pbkdf2 -iter 600000 -md sha256</c>.) Pass <c>10_000</c>
         /// to match the openssl back-compat default explicitly.
         /// </param>
+        /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
         /// <param name="aesKeySize">
         /// AES key size — <see cref="AesKeySize.Aes128"/>, <see cref="AesKeySize.Aes192"/>, or
         /// <see cref="AesKeySize.Aes256"/> (default). Set to match the peer's
         /// <c>openssl enc -aes-128-cbc</c> / <c>-aes-192-cbc</c> / <c>-aes-256-cbc</c> choice.
         /// Ignored when the algorithm is not AES.
         /// </param>
-        /// <param name="encoding">Plaintext encoding for <c>EncryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>EncryptBytes</c> / <c>EncryptFile</c>.</param>
-        public static SymmetricEncryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, AesKeySize aesKeySize = AesKeySize.Aes256, Encoding encoding = null) =>
+        public static SymmetricEncryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null, AesKeySize aesKeySize = AesKeySize.Aes256) =>
             new() { Key = key, Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations, AesKeySize = aesKeySize, TextEncoding = encoding ?? Encoding.UTF8 };
     }
 }

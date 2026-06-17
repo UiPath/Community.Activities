@@ -1483,7 +1483,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
-    <value>AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the peer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) uses. Default: 256-bit.</value>
+    <value>AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the peer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) uses. The selected key size is not stored in the wire format — encrypt and decrypt sides must use matching values. Default: 256-bit.</value>
     <comment>Property description</comment>
   </data>
 
@@ -1516,7 +1516,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
-    <value>AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the producer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) used. Default: 256-bit.</value>
+    <value>AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the producer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) used. The selected key size is not stored in the wire format — encrypt and decrypt sides must use matching values. Default: 256-bit.</value>
     <comment>Property description</comment>
   </data>
 
@@ -1557,7 +1557,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
-    <value>AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the peer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) uses. Default: 256-bit.</value>
+    <value>AES key size in bits. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the peer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) uses. The selected key size is not stored in the wire format — encrypt and decrypt sides must use matching values. Default: 256-bit.</value>
     <comment>Property description</comment>
   </data>
 
@@ -1590,7 +1590,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
-    <value>AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the producer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) used. Default: 256-bit.</value>
+    <value>AES key size in bits used to encrypt the input. Applies only when Algorithm = AES and Format = OpenSslEnc; ignored otherwise. Must match the key size the producer (e.g. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) used. The selected key size is not stored in the wire format — encrypt and decrypt sides must use matching values. Default: 256-bit.</value>
     <comment>Property description</comment>
   </data>
 

@@ -72,7 +72,7 @@ The options object bundles the key, wire format, and any format-specific knobs (
 | `SymmetricEncryptOptions.Classic(PasswordKey key, Encoding encoding = null)` / `SymmetricDecryptOptions.Classic(PasswordKey key, Encoding encoding = null)` | `Classic` | `PasswordKey` | Default. Frozen wire format for back-compat (PBKDF2-HMAC-SHA1 @ 10 000 iter). |
 | `SymmetricEncryptOptions.Owasp2026(PasswordKey key, int kdfIterations = 1_300_000, Encoding encoding = null)` | `Owasp2026` | `PasswordKey` | Same wire layout as Classic with PBKDF2-HMAC-SHA1 at OWASP 2026's recommended iteration count. |
 | `SymmetricEncryptOptions.Raw(RawKey key, byte[] iv = null, Encoding encoding = null)` / `SymmetricDecryptOptions.Raw(RawKey key, Encoding encoding = null)` | `Raw` | `RawKey` | Caller-supplied key + IV. Third-party interop. |
-| `SymmetricEncryptOptions.OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null)` | `OpenSslEnc` | `PasswordKey` | `openssl enc`-compatible (`Salted__` magic + PBKDF2-HMAC-SHA256). |
+| `SymmetricEncryptOptions.OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null, AesKeySize aesKeySize = AesKeySize.Aes256)` | `OpenSslEnc` | `PasswordKey` | `openssl enc`-compatible (`Salted__` magic + PBKDF2-HMAC-SHA256). `aesKeySize` selects AES-128 / -192 / -256 to match the peer's `openssl enc -aes-N-cbc`. |
 
 The decrypt factories take the same shape (no `IV` on the decrypt side — the IV is read from the ciphertext stream automatically). The optional `encoding:` parameter sets `TextEncoding` on the options (defaults to UTF-8) and is only consulted by `EncryptText` / `DecryptText`.
 

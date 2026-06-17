@@ -18,7 +18,7 @@ namespace UiPath.Cryptography.Activities.API
         /// key size used at encrypt time (e.g. the <c>openssl enc -aes-128-cbc</c> producer).
         /// Applies only when the algorithm is AES; ignored otherwise. Default
         /// <see cref="AesKeySize.Aes256"/> matches today's hardcoded behaviour. Set only by
-        /// the <see cref="OpenSslEnc(PasswordKey, int, AesKeySize, Encoding)"/> factory.
+        /// the <see cref="OpenSslEnc(PasswordKey, int, Encoding, AesKeySize)"/> factory.
         /// </summary>
         public AesKeySize AesKeySize { get; private init; } = AesKeySize.Aes256;
 
@@ -52,13 +52,13 @@ namespace UiPath.Cryptography.Activities.API
         /// Pass <c>10_000</c> when reading output produced by <c>openssl enc -pbkdf2</c> without an explicit
         /// <c>-iter</c> flag (openssl's back-compat default).
         /// </param>
+        /// <param name="encoding">Plaintext encoding for <c>DecryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>DecryptBytes</c> / <c>DecryptFile</c>.</param>
         /// <param name="aesKeySize">
         /// AES key size — must match the value used at encrypt time (e.g.
         /// <c>openssl enc -aes-128-cbc</c> ↔ <see cref="AesKeySize.Aes128"/>). Ignored when the
         /// algorithm is not AES. Default <see cref="AesKeySize.Aes256"/>.
         /// </param>
-        /// <param name="encoding">Plaintext encoding for <c>DecryptText</c>. Null defaults to <see cref="Encoding.UTF8"/>; ignored by <c>DecryptBytes</c> / <c>DecryptFile</c>.</param>
-        public static SymmetricDecryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, AesKeySize aesKeySize = AesKeySize.Aes256, Encoding encoding = null) =>
+        public static SymmetricDecryptOptions OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null, AesKeySize aesKeySize = AesKeySize.Aes256) =>
             new() { Key = key, Format = SymmetricWireFormat.OpenSslEnc, KdfIterations = kdfIterations, AesKeySize = aesKeySize, TextEncoding = encoding ?? Encoding.UTF8 };
     }
 }
