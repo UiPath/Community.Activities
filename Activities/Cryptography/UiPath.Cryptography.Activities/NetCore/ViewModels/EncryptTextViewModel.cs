@@ -23,6 +23,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         }
 
         public DesignInArgument<string> Input { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<string> PlaintextEncodingString { get; set; } = new() { Name = nameof(PlaintextEncodingString) };
         public DesignOutArgument<string> Result { get; set; } = new DesignOutArgument<string>();
 
         protected override void InitializeModel()
@@ -35,6 +36,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Input.Category = Resources.Input;
 
             ConfigureAlgorithmAndKeyProperties(ref orderIndex);
+            ConfigureEncodingDropdown(PlaintextEncodingString, ref orderIndex);
             ConfigureInteropProperties(ref orderIndex);
 
             Result.IsPrincipal = false;
@@ -45,6 +47,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureKeyInputModeMenuActions();
             ConfigurePublicKeyFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
+        }
+
+        protected override void OnAlgorithmChanged(bool isPgp)
+        {
+            PlaintextEncodingString.IsVisible = !isPgp;
         }
     }
 }

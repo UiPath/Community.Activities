@@ -28,6 +28,14 @@ namespace UiPath.Cryptography.Activities.Tests
         private const string Plaintext = "External-tool interop: round-trip me. 0123456789 ăîșțâ €";
         private const string Password = "interop-test-password-{!@#}";
 
+        static ExternalInteropInProcessTests()
+        {
+            // Touching EncodingHelpers runs its static ctor, which registers
+            // CodePagesEncodingProvider — making legacy code pages such as windows-1252
+            // resolvable in this test process (the OpenSslEnc_AesCbc_KeyEncodingDoesNotAffectPlaintextBytes test).
+            UiPath.Cryptography.Activities.Helpers.EncodingHelpers.GetAvailableEncodings();
+        }
+
         // ────────────────────────────────────────────────────────────────────────
         // OpenSslEnc — AES-256-CBC, bidirectional, AGAINST a BCL counterpart that
         // mirrors `openssl enc -aes-256-cbc -pbkdf2 -iter <N>`. This is the headline
@@ -67,6 +75,52 @@ namespace UiPath.Cryptography.Activities.Tests
             byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, (int)aesKeySize / 8);
 
             Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // STUD-80530 — plaintext encoding must be governed by PlaintextEncoding, NOT the
+        // key/password Encoding. These two tests would pass against a UiPath↔UiPath round-trip
+        // (the existing suite) but only an external/BCL consumer reading the raw decrypted bytes
+        // can catch the conflation.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_PlaintextEncodingUtf16_PreservedForExternalConsumer()
+        {
+            // Repro: encrypt with PlaintextEncoding = UTF-16 (key Encoding stays UTF-8). An external
+            // openssl consumer must see the UTF-16 LE bytes of the plaintext. Before the fix the
+            // activity transcoded the plaintext through the key Encoding (UTF-8), so this failed.
+            const int iterations = 600_000;
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8, plaintextEncoding: Encoding.Unicode,
+                iterations: iterations, aesKeySize: AesKeySize.Aes256);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, 32);
+
+            Assert.Equal(Encoding.Unicode.GetBytes(Plaintext), decrypted);
+        }
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_KeyEncodingDoesNotAffectPlaintextBytes()
+        {
+            // Decoupling: set the key/password Encoding to windows-1252 while leaving PlaintextEncoding
+            // at its UTF-8 default. The password is ASCII, so windows-1252 and UTF-8 derive the same key
+            // and the BCL counterpart (UTF-8 password) still decrypts. The decoded bytes must be the
+            // UTF-8 representation of the plaintext — i.e. the key Encoding did not leak into the plaintext.
+            const int iterations = 600_000;
+            var windows1252 = Encoding.GetEncoding(1252);
+
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: windows1252,
+                iterations: iterations, aesKeySize: AesKeySize.Aes256);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, 32);
+
+            Assert.Equal(Encoding.UTF8.GetBytes(Plaintext), decrypted);
         }
 
         // ────────────────────────────────────────────────────────────────────────
@@ -503,7 +557,8 @@ namespace UiPath.Cryptography.Activities.Tests
         {
             if (e == Encoding.UTF8) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.UTF8));
             if (e == Encoding.Unicode || e == null) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.Unicode));
-            throw new ArgumentException($"Test helper only supports UTF-8 and Unicode; got {e.WebName}");
+            if (e.CodePage == 1252) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.GetEncoding(1252)));
+            throw new ArgumentException($"Test helper only supports UTF-8, Unicode, and windows-1252; got {e.WebName}");
         }
 
         private static string RunEncryptText(
@@ -515,6 +570,7 @@ namespace UiPath.Cryptography.Activities.Tests
             string iv = null,
             int iterations = 0,
             Encoding inputEncoding = null,
+            Encoding plaintextEncoding = null,
             AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new EncryptText
@@ -526,6 +582,13 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyEncodingString = null,
                 AesKeySize = aesKeySize,
             };
+            // When unset, the constructor default (PlaintextEncodingString = UTF-8) applies, keeping
+            // existing tests byte-stable. When set, exercise the InArgument<Encoding> path explicitly.
+            if (plaintextEncoding != null)
+            {
+                activity.PlaintextEncoding = MakeEncodingArg(plaintextEncoding);
+                activity.PlaintextEncodingString = null;
+            }
 
             var args = new Dictionary<string, object>
             {
@@ -555,6 +618,7 @@ namespace UiPath.Cryptography.Activities.Tests
             string key = null,
             int iterations = 0,
             Encoding inputEncoding = null,
+            Encoding plaintextEncoding = null,
             AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new DecryptText
@@ -566,6 +630,13 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyEncodingString = null,
                 AesKeySize = aesKeySize,
             };
+            // When unset, the constructor default (PlaintextEncodingString = UTF-8) applies, keeping
+            // existing tests byte-stable. When set, exercise the InArgument<Encoding> path explicitly.
+            if (plaintextEncoding != null)
+            {
+                activity.PlaintextEncoding = MakeEncodingArg(plaintextEncoding);
+                activity.PlaintextEncodingString = null;
+            }
 
             var args = new Dictionary<string, object>
             {

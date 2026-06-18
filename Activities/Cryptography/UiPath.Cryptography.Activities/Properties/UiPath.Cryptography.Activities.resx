@@ -330,7 +330,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>The encoding used to interpret the input text and the key specified in the Key property.</value>
+    <value>The encoding used to interpret the key/password specified in the Key property.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -343,6 +343,22 @@
   </data>
   <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>Key encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>The encoding used to convert the decrypted bytes back to text. Defaults to UTF-8. Set this to match the encoding used by the third-party tool that produced the ciphertext.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Text encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to convert the decrypted bytes back to text. Defaults to UTF-8. Set this to match the encoding used by the third-party tool that produced the ciphertext.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Text encoding</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -490,7 +506,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>The encoding used to interpret the input text and the key specified in the Key property.</value>
+    <value>The encoding used to interpret the key/password specified in the Key property.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -503,6 +519,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>Key encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>The encoding used to convert the input text to bytes before encryption. Defaults to UTF-8. Set this to match the encoding expected by the third-party tool that will consume the ciphertext.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Text encoding</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>The encoding used to convert the input text to bytes before encryption. Defaults to UTF-8. Set this to match the encoding expected by the third-party tool that will consume the ciphertext.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Text encoding</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
