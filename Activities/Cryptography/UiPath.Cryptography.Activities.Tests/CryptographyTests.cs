@@ -63,7 +63,11 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 Algorithm = enumValue,
                 Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
-                KeyEncodingString = null // see the ctor of EncryptText
+                KeyEncodingString = null, // see the ctor of EncryptText
+                // STUD-80530: plaintext encoding is now independent of the key Encoding; this test
+                // bridges to the legacy Unicode helper, so configure the plaintext side as Unicode too.
+                PlaintextEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                PlaintextEncodingString = null
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(EncryptText.Input), toProcess);
@@ -96,7 +100,10 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 Algorithm = enumValue,
                 Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
-                KeyEncodingString = null // see the ctor of DecryptText
+                KeyEncodingString = null, // see the ctor of DecryptText
+                // STUD-80530: bridge to the legacy Unicode helper output — configure plaintext as Unicode too.
+                PlaintextEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                PlaintextEncodingString = null
             };
 
             Dictionary<string, object> arguments = new Dictionary<string, object>();
@@ -194,7 +201,10 @@ namespace UiPath.Cryptography.Activities.Tests
                 Algorithm = enumValue,
                 Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
                 KeyInputModeSwitch = KeyInputMode.SecureKey,
-                KeyEncodingString = null // see the ctor of EncryptText
+                KeyEncodingString = null, // see the ctor of EncryptText
+                // STUD-80530: bridge to the legacy Unicode helper — configure plaintext as Unicode too.
+                PlaintextEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                PlaintextEncodingString = null
             };
             Dictionary<string, object> arguments = new Dictionary<string, object>();
             arguments.Add(nameof(EncryptText.Input), toProcess);
@@ -227,7 +237,10 @@ namespace UiPath.Cryptography.Activities.Tests
                 Algorithm = enumValue,
                 Encoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
                 KeyInputModeSwitch = KeyInputMode.SecureKey,
-                KeyEncodingString = null // see the ctor of DecryptText
+                KeyEncodingString = null, // see the ctor of DecryptText
+                // STUD-80530: bridge to the legacy Unicode helper output — configure plaintext as Unicode too.
+                PlaintextEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.Unicode)),
+                PlaintextEncodingString = null
             };
 
             Dictionary<string, object> arguments = new Dictionary<string, object>();
@@ -387,8 +400,17 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void KeyEncodingOrString_NumericCodePageString_ReturnsThatEncoding()
         {
-            var result = EncodingHelpers.KeyEncodingOrString(Encoding.ASCII, "65001"); // UTF-8 code page
+            var result = EncodingHelpers.KeyEncodingOrString(null, "65001"); // UTF-8 code page
             Assert.Equal(Encoding.UTF8.CodePage, result.CodePage);
+        }
+
+        [Fact]
+        public void KeyEncodingOrString_TypedEncoding_WinsOverProxyString()
+        {
+            // The explicit InArgument<Encoding> (Legacy/XAML/programmatic) takes precedence over a
+            // non-null code-page proxy — the proxy is only the modern-designer/default fallback. [STUD-80559]
+            var result = EncodingHelpers.KeyEncodingOrString(Encoding.ASCII, "65001"); // proxy says UTF-8
+            Assert.Same(Encoding.ASCII, result);
         }
 
         [Fact]
