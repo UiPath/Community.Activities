@@ -244,7 +244,7 @@ namespace UiPath.Cryptography.Activities
 
             keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
-            var plaintextEncoding = EncodingHelpers.PlaintextEncodingOrString(PlaintextEncoding.Get(context), PlaintextEncodingString.Get(context)) ?? System.Text.Encoding.UTF8;
+            var plaintextEncoding = EncodingHelpers.KeyEncodingOrString(PlaintextEncoding.Get(context), PlaintextEncodingString.Get(context)) ?? System.Text.Encoding.UTF8;
 
             byte[] decrypted = SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
                 Algorithm, Format, KeyFormat, keyEncoding,

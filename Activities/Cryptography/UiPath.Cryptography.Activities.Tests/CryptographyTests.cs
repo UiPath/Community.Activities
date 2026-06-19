@@ -400,8 +400,17 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void KeyEncodingOrString_NumericCodePageString_ReturnsThatEncoding()
         {
-            var result = EncodingHelpers.KeyEncodingOrString(Encoding.ASCII, "65001"); // UTF-8 code page
+            var result = EncodingHelpers.KeyEncodingOrString(null, "65001"); // UTF-8 code page
             Assert.Equal(Encoding.UTF8.CodePage, result.CodePage);
+        }
+
+        [Fact]
+        public void KeyEncodingOrString_TypedEncoding_WinsOverProxyString()
+        {
+            // The explicit InArgument<Encoding> (Legacy/XAML/programmatic) takes precedence over a
+            // non-null code-page proxy — the proxy is only the modern-designer/default fallback. [STUD-80559]
+            var result = EncodingHelpers.KeyEncodingOrString(Encoding.ASCII, "65001"); // proxy says UTF-8
+            Assert.Same(Encoding.ASCII, result);
         }
 
         [Fact]

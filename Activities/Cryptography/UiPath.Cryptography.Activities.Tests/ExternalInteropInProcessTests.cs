@@ -148,6 +148,75 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
+        public void OpenSslEnc_AesCbc_PublicKeyEncodingWinsOverProxyDefault()
+        {
+            // Twin of the plaintext regression above, on the key/password side [STUD-80559]: setting the public
+            // key Encoding InArgument must govern key derivation even though the hidden KeyEncodingString proxy
+            // still carries its UTF-8 constructor default. Earlier the non-null proxy won and silently used UTF-8.
+            // UTF-16 vs UTF-8 password bytes differ even for an ASCII password, so the derived key changes.
+            const int iterations = 600_000;
+
+            var encrypt = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                Format = SymmetricWireFormat.OpenSslEnc,
+                KeyFormat = KeyBytesFormat.Encoded,
+                AesKeySize = AesKeySize.Aes256,
+                // Public key Encoding set to UTF-16; KeyEncodingString proxy intentionally left at its UTF-8 default.
+                Encoding = MakeEncodingArg(Encoding.Unicode),
+            };
+            var encryptArgs = new Dictionary<string, object>
+            {
+                [nameof(EncryptText.Input)] = Plaintext,
+                [nameof(EncryptText.Key)] = Password,
+                [nameof(EncryptText.KdfIterations)] = iterations,
+            };
+
+            string encryptedBase64;
+            try
+            {
+                encryptedBase64 = (string)new WorkflowInvoker(encrypt).Invoke(encryptArgs)[nameof(encrypt.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+
+            // Positive: a UiPath round-trip with the same UTF-16 key Encoding (proxy left at default) recovers the plaintext.
+            var decrypt = new DecryptText
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                Format = SymmetricWireFormat.OpenSslEnc,
+                KeyFormat = KeyBytesFormat.Encoded,
+                AesKeySize = AesKeySize.Aes256,
+                Encoding = MakeEncodingArg(Encoding.Unicode),
+            };
+            var decryptArgs = new Dictionary<string, object>
+            {
+                [nameof(DecryptText.Input)] = encryptedBase64,
+                [nameof(DecryptText.Key)] = Password,
+                [nameof(DecryptText.KdfIterations)] = iterations,
+            };
+            string roundTripped;
+            try
+            {
+                roundTripped = (string)new WorkflowInvoker(decrypt).Invoke(decryptArgs)[nameof(decrypt.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+            Assert.Equal(Plaintext, roundTripped);
+
+            // Negative cross-check: the BCL counterpart derives the key from UTF-8 password bytes (lines 348/373),
+            // so it cannot decrypt a blob whose key came from UTF-16 bytes — the wrong key fails PKCS7 unpadding.
+            // If the proxy default had won (the pre-fix bug), the key would be UTF-8 and this would SUCCEED.
+            Assert.Throws<CryptographicException>(() => BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, 32));
+        }
+
+        [Fact]
         public void OpenSslEnc_AesCbc_KeyEncodingDoesNotAffectPlaintextBytes()
         {
             // Decoupling: set the key/password Encoding to windows-1252 while leaving PlaintextEncoding
