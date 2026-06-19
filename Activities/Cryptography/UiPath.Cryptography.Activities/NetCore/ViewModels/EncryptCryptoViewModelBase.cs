@@ -318,15 +318,20 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ApplyInteropVisibility();
         }
 
-        private void FormatChanged_Action()
+        internal void FormatChanged_Action()
         {
             ApplyInteropVisibility();
-            // Snap KdfIterations to a concrete value whenever Format changes — avoids the user seeing 0
-            // and having to look up what the format ships with. Customizations made before the format
-            // change are discarded by design (they were tied to the previous format's KDF anyway).
-            KdfIterations.Value = KdfIterations.IsVisible
-                ? CryptographyHelper.GetRecommendedIterations(Format.Value)
-                : 0;
+            // Snap KdfIterations to the new format's recommended literal so the user never sees a bare 0
+            // and has to look up the format's default. Untouched fields and stale literal defaults snap;
+            // a user-bound VB/argument expression is preserved — overwriting it would be silent
+            // design-time data loss (encrypt/decrypt sides bound to the same argument must stay in sync).
+            var boundExpression = KdfIterations.Value?.Expression;
+            if (boundExpression == null || boundExpression.IsLiteral())
+            {
+                KdfIterations.Value = KdfIterations.IsVisible
+                    ? CryptographyHelper.GetRecommendedIterations(Format.Value)
+                    : 0;
+            }
             // Snap KeyFormat: Hex when Raw (so the dropdown lands on a valid option),
             // Encoded otherwise (so non-Raw runtime validation passes).
             KeyFormat.Value = Format.Value == SymmetricWireFormat.Raw
