@@ -140,7 +140,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             var dataSource = EncodingHelpers.ConfigureEncodingDataSource();
             encodingProperty.IsPrincipal = false;
-            encodingProperty.IsVisible = true;
             encodingProperty.OrderIndex = orderIndex++;
             encodingProperty.Category = Resources.Input;
             encodingProperty.DataSource = dataSource;
