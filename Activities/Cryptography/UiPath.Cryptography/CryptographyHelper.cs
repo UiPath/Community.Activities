@@ -1059,11 +1059,10 @@ namespace UiPath.Cryptography
 
                 case KeyBytesFormat.Base64:
                 {
-                    if (!string.IsNullOrEmpty(keyString))
-                        return Convert.FromBase64String(keyString);
-                    if (keySecureString != null && keySecureString.Length > 0)
-                        return SecureStringHelpers.WithSecureChars(keySecureString, chars => Convert.FromBase64CharArray(chars, 0, chars.Length));
-                    throw new ArgumentException("Base64 key/IV string is empty.");
+                    string raw = keyString ?? (keySecureString != null ? new NetworkCredential(string.Empty, keySecureString).Password : null);
+                    if (string.IsNullOrEmpty(raw))
+                        throw new ArgumentException("Base64 key/IV string is empty.");
+                    return FromBase64String(raw);
                 }
 
                 default:
@@ -1104,6 +1103,26 @@ namespace UiPath.Cryptography
                 // Zero the secret-bearing scratch buffer (covers both the stackalloc and heap-allocated cases).
                 cleaned.Clear();
             }
+        }
+
+        private static byte[] FromBase64String(string s)
+        {
+            // Tolerate whitespace/line wraps, the URL-safe alphabet, and missing padding —
+            // common forms a third-party tool (openssl, JWT/OAuth secrets) produces. The final
+            // Convert.FromBase64String call still enforces strict validation on the cleaned text.
+            var cleaned = new StringBuilder(s.Length);
+            foreach (char c in s)
+            {
+                if (c == ' ' || c == '\t' || c == '\r' || c == '\n') continue;
+                if (c == '-') cleaned.Append('+');      // URL-safe alphabet → standard
+                else if (c == '_') cleaned.Append('/');
+                else cleaned.Append(c);
+            }
+            int rem = cleaned.Length % 4;
+            if (rem == 2) cleaned.Append("==");
+            else if (rem == 3) cleaned.Append('=');
+            else if (rem != 0) throw new ArgumentException("Base64 string has an invalid length.");
+            return Convert.FromBase64String(cleaned.ToString());
         }
 
         /// <summary>

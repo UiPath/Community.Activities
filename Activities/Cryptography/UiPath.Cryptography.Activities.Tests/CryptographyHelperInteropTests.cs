@@ -208,6 +208,88 @@ namespace UiPath.Cryptography.Activities.Tests
             Should.Throw<ArgumentOutOfRangeException>(() =>
                 CryptographyHelper.ParseKeyBytes("xx", keySecureString: null, (KeyBytesFormat)999, encoding: null));
         }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // Base64 leniency (STUD-80535) — the entry surface tolerates the artefacts a
+        // third-party tool actually produces, mirroring the Hex pre-cleaner.
+        //   Newly enabled by FromBase64String (threw FormatException before the fix):
+        //     URL-safe alphabet and missing padding.
+        //   Compatibility guards (already accepted — Convert.FromBase64String ignores
+        //     embedded whitespace/CR/LF — pinned so the pre-cleaner keeps tolerating them):
+        //     line wraps and surrounding whitespace.
+        // ────────────────────────────────────────────────────────────────────────
+
+        private static readonly byte[] Key32 = new byte[]
+        {
+            0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,
+            16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,
+        };
+
+        [Fact]
+        public void ParseKeyBytes_Base64_ToleratesLineWrap()
+        {
+            // openssl wraps base64 output and the CLI appends a trailing newline. A 32-byte
+            // key is 44 chars (doesn't wrap naturally) so inject the wrap manually, plus a
+            // trailing newline, mimicking what lands in the key field after copy-paste.
+            // Convert.FromBase64String already ignores these newlines; this pins that the
+            // pre-cleaner does not regress that behavior.
+            string b64 = Convert.ToBase64String(Key32);
+            string wrapped = b64.Substring(0, 22) + "\n" + b64.Substring(22) + "\n";
+            byte[] result = CryptographyHelper.ParseKeyBytes(wrapped, keySecureString: null, KeyBytesFormat.Base64, encoding: null);
+            result.ShouldBe(Key32);
+        }
+
+        [Fact]
+        public void ParseKeyBytes_Base64_ToleratesUrlSafeAlphabet()
+        {
+            // Bytes chosen so the standard encoding contains both '+' and '/', which the
+            // URL-safe alphabet renders as '-' and '_'.
+            byte[] expected = new byte[] { 0xFB, 0xFF, 0xBF, 0x00, 0x10, 0x83 };
+            string standard = Convert.ToBase64String(expected);
+            standard.ShouldContain("+");
+            standard.ShouldContain("/");
+            string urlSafe = standard.Replace('+', '-').Replace('/', '_');
+            byte[] result = CryptographyHelper.ParseKeyBytes(urlSafe, keySecureString: null, KeyBytesFormat.Base64, encoding: null);
+            result.ShouldBe(expected);
+        }
+
+        [Fact]
+        public void ParseKeyBytes_Base64_ToleratesSurroundingWhitespace()
+        {
+            // Compatibility guard: Convert.FromBase64String already tolerates surrounding
+            // whitespace/CR/LF; this pins that the pre-cleaner keeps accepting it.
+            string padded = "  \t" + Convert.ToBase64String(Key32) + " \r\n";
+            byte[] result = CryptographyHelper.ParseKeyBytes(padded, keySecureString: null, KeyBytesFormat.Base64, encoding: null);
+            result.ShouldBe(Key32);
+        }
+
+        [Fact]
+        public void ParseKeyBytes_Base64_RestoresMissingPadding()
+        {
+            // rem == 2 stem (one byte → "AQ==") and rem == 3 stem (two bytes → "AQI=").
+            byte[] oneByte = CryptographyHelper.ParseKeyBytes("AQ", keySecureString: null, KeyBytesFormat.Base64, encoding: null);
+            oneByte.ShouldBe(new byte[] { 1 });
+            byte[] twoBytes = CryptographyHelper.ParseKeyBytes("AQI", keySecureString: null, KeyBytesFormat.Base64, encoding: null);
+            twoBytes.ShouldBe(new byte[] { 1, 2 });
+        }
+
+        [Fact]
+        public void ParseKeyBytes_Base64_GarbageCharacters_StillThrows()
+        {
+            // Leniency strips whitespace and remaps the URL-safe alphabet only — characters
+            // outside the base64 alphabet must still be rejected by the final strict decode.
+            Should.Throw<FormatException>(() =>
+                CryptographyHelper.ParseKeyBytes("not base64 @#$%!", keySecureString: null, KeyBytesFormat.Base64, encoding: null));
+        }
+
+        [Fact]
+        public void ParseKeyBytes_Base64_InvalidLengthStem_StillThrows()
+        {
+            // A length-mod-4 == 1 stem can never be valid base64; the pre-cleaner rejects it
+            // rather than fabricating padding that would silently accept malformed data.
+            Should.Throw<ArgumentException>(() =>
+                CryptographyHelper.ParseKeyBytes("AQID Z", keySecureString: null, KeyBytesFormat.Base64, encoding: null));
+        }
     }
 }
 

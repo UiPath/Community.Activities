@@ -447,6 +447,31 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.Equal(Plaintext, decrypted);
         }
 
+        // STUD-80535 compatibility guard: a Base64 key as openssl actually emits it —
+        // line-wrapped with a trailing newline — must round-trip end-to-end. The embedded
+        // newlines were already tolerated by Convert.FromBase64String; this pins that the
+        // full activity path still decodes the messy key to the same 32 bytes the BCL
+        // counterpart uses, so the plaintext survives the round-trip.
+        [Fact]
+        public void Raw_AesCbc_Base64KeyWithLineWrap_InternalToExternal()
+        {
+            byte[] keyBytes = new byte[32];
+            RandomNumberGenerator.Fill(keyBytes);
+
+            string b64 = Convert.ToBase64String(keyBytes);                 // 44 chars
+            string opensslStyleKey = b64.Substring(0, 22) + "\n" + b64.Substring(22) + "\n";
+
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Raw, KeyBytesFormat.Base64,
+                key: opensslStyleKey,
+                inputEncoding: Encoding.UTF8);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclRaw.DecryptAesCbc(blob, keyBytes);       // literal 32 decoded bytes
+
+            Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
         // ────────────────────────────────────────────────────────────────────────
         // BCL counterpart implementations — strictly from the wire-format spec.
         // DO NOT call into CryptographyHelper here; the value of these tests is
