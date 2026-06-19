@@ -1121,7 +1121,9 @@ namespace UiPath.Cryptography
             int rem = cleaned.Length % 4;
             if (rem == 2) cleaned.Append("==");
             else if (rem == 3) cleaned.Append('=');
-            else if (rem != 0) throw new ArgumentException("Base64 string has an invalid length.");
+            // rem == 1 can never be valid Base64; leave it for Convert.FromBase64String to
+            // reject, so malformed input surfaces as FormatException consistently with the
+            // rest of the Base64 contract rather than a different exception type.
             return Convert.FromBase64String(cleaned.ToString());
         }
 

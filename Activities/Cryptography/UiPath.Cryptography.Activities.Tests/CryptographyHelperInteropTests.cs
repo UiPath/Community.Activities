@@ -285,9 +285,10 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void ParseKeyBytes_Base64_InvalidLengthStem_StillThrows()
         {
-            // A length-mod-4 == 1 stem can never be valid base64; the pre-cleaner rejects it
-            // rather than fabricating padding that would silently accept malformed data.
-            Should.Throw<ArgumentException>(() =>
+            // A length-mod-4 == 1 stem can never be valid base64; the pre-cleaner leaves it for
+            // Convert.FromBase64String to reject, so malformed input still surfaces as
+            // FormatException rather than being silently accepted via fabricated padding.
+            Should.Throw<FormatException>(() =>
                 CryptographyHelper.ParseKeyBytes("AQID Z", keySecureString: null, KeyBytesFormat.Base64, encoding: null));
         }
     }
