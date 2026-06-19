@@ -9,8 +9,10 @@ namespace UiPath.Cryptography
     /// Materialises a <see cref="SecureString"/> to bytes without ever producing a managed
     /// <see cref="string"/>. The secret is copied to an unmanaged Unicode buffer and an
     /// intermediate <c>char[]</c>; both are zeroed in <c>finally</c> so the only thing that
-    /// survives is the returned <c>byte[]</c> (which callers zero via
-    /// <see cref="SymmetricInteropHelper.ClearKeyBytes"/>).
+    /// survives is the returned <c>byte[]</c>. Zeroing that buffer is the caller's
+    /// responsibility: the symmetric path scrubs it via
+    /// <see cref="SymmetricInteropHelper.ClearKeyBytes"/>, while other callers
+    /// (e.g. the keyed-hash path through <see cref="CryptographyHelper.KeyEncoding"/>) do not.
     /// </summary>
     /// <remarks>
     /// Modelled on <c>PasswordKey.MaterialisePasswordBytes</c>. Replaces the
