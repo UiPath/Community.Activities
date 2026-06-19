@@ -17,7 +17,7 @@ namespace UiPath.Cryptography.Activities.API
         {
             ArgumentNullException.ThrowIfNull(input);
             ArgumentNullException.ThrowIfNull(options);
-            ValidateSymmetric(algorithm, options, options.IV);
+            ValidateSymmetric(algorithm, options, options.IV, isDecrypt: false);
             return options.Key.UseKeyBytes(keyBytes =>
                 SymmetricInteropHelper.DispatchEncrypt(algorithm, options.Format, options.KdfIterations, keyBytes, options.IV, input, options.AesKeySize));
         }
@@ -26,7 +26,7 @@ namespace UiPath.Cryptography.Activities.API
         {
             ArgumentNullException.ThrowIfNull(input);
             ArgumentNullException.ThrowIfNull(options);
-            ValidateSymmetric(algorithm, options, iv: null);
+            ValidateSymmetric(algorithm, options, iv: null, isDecrypt: true);
             return options.Key.UseKeyBytes(keyBytes =>
                 SymmetricInteropHelper.DispatchDecrypt(algorithm, options.Format, options.KdfIterations, keyBytes, input, options.AesKeySize));
         }
@@ -305,12 +305,14 @@ namespace UiPath.Cryptography.Activities.API
         // enforced at compile time by the typed factory parameters on SymmetricEncryptOptions /
         // SymmetricDecryptOptions; this still catches KDF-iteration-out-of-bounds, raw-key
         // length mismatch, and (encrypt) IV-on-non-Raw-format. iv is null for decrypt.
-        private static void ValidateSymmetric(EncryptionAlgorithm algorithm, CryptoOptions options, byte[] iv)
+        // isDecrypt skips the encrypt-only positive-but-below-minimum KDF-iteration floor so a
+        // third-party blob produced with a low iteration count can still be decrypted (STUD-80534).
+        private static void ValidateSymmetric(EncryptionAlgorithm algorithm, CryptoOptions options, byte[] iv, bool isDecrypt)
         {
             CryptoKey key = options.Key ?? throw new ArgumentException("Options must carry a key (construct via a format factory).", nameof(options));
             string ivSentinel = iv != null && iv.Length > 0 ? "set" : null;
             int? rawKeyLength = key.IsRawKey ? key.KeyBytes.Length : (int?)null;
-            SymmetricInteropHelper.ValidateInteropSettings(algorithm, options.Format, key.BytesFormat, ivSentinel, options.KdfIterations, rawKeyLength);
+            SymmetricInteropHelper.ValidateInteropSettings(algorithm, options.Format, key.BytesFormat, ivSentinel, options.KdfIterations, rawKeyLength, isDecrypt);
         }
 
         private static string ComputeHashHex(KeyedHashAlgorithms algorithm, byte[] inputBytes, byte[] keyBytes)

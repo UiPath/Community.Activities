@@ -301,7 +301,8 @@ namespace UiPath.Cryptography.Activities
                     {
                         throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
                     }
-                });
+                },
+                isDecrypt: true);
         }
 
         private void WriteDecryptedOutput(CodeActivityContext context, string outputFilePath, byte[] decrypted, (string, string, string) result)
