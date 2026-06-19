@@ -5,6 +5,7 @@ using System.Linq;
 using Shouldly;
 using UiPath.Cryptography.Enums;
 using Xunit;
+using CryptoRes = UiPath.Cryptography.Activities.Properties.Resources;
 
 #pragma warning disable CS0618 // tests intentionally use obsolete algorithms to fire FIPS warnings.
 
@@ -48,8 +49,8 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         // Iv set on EncryptText with Format == Raw → IV nonce-reuse warning. The IV is only
-        // consumed by the Raw wire format, so the warning is gated on it. The warning text
-        // mentions "(Key, IV) pair" so the user can self-serve.
+        // consumed by the Raw wire format, so the warning is gated on it. Matched by exact
+        // resource equality so a reword of the message can't silently weaken the assertion.
         [Fact]
         public void EncryptText_WithExplicitIv_EmitsNonceReuseWarning()
         {
@@ -61,7 +62,7 @@ namespace UiPath.Cryptography.Activities.Tests
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("explicit IV", StringComparison.Ordinal)).ShouldBeTrue(
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeTrue(
                 $"expected an IV nonce-reuse warning, got: {Format(warnings)}");
         }
 
@@ -81,7 +82,7 @@ namespace UiPath.Cryptography.Activities.Tests
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("nonce", StringComparison.Ordinal)).ShouldBeFalse(
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
                 $"did not expect IV nonce-reuse warning for non-Raw format {format}, got: {Format(warnings)}");
         }
 
@@ -91,7 +92,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new EncryptText { Algorithm = EncryptionAlgorithm.AESGCM };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("nonce", StringComparison.Ordinal)).ShouldBeFalse(
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
                 $"did not expect IV nonce-reuse warning, got: {Format(warnings)}");
         }
 
@@ -117,7 +118,7 @@ namespace UiPath.Cryptography.Activities.Tests
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("explicit IV", StringComparison.Ordinal)).ShouldBeTrue();
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeTrue();
         }
 
         // Companion to EncryptText_ExplicitIv_NonRawFormat_NoNonceReuseWarning: both activities
@@ -136,7 +137,7 @@ namespace UiPath.Cryptography.Activities.Tests
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("nonce", StringComparison.Ordinal)).ShouldBeFalse(
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
                 $"did not expect IV nonce-reuse warning for non-Raw format {format}, got: {Format(warnings)}");
         }
 
