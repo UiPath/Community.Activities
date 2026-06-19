@@ -103,5 +103,17 @@ namespace UiPath.Cryptography.Activities.Helpers
 
             return keyEncoding;
         }
+
+        /// <summary>
+        /// Resolves the plaintext encoding for the paired PlaintextEncoding / PlaintextEncodingString
+        /// inputs. The explicit <paramref name="plaintextEncoding"/> InArgument (classic designer, XAML,
+        /// or programmatic use) takes precedence when bound; the <paramref name="plaintextEncodingString"/>
+        /// code-page proxy (the modern designer dropdown and the activity's UTF-8 constructor default)
+        /// is the fallback. Returns null when neither is set, letting the caller apply its own default.
+        /// </summary>
+        public static Encoding PlaintextEncodingOrString(Encoding plaintextEncoding, string plaintextEncodingString)
+        {
+            return plaintextEncoding ?? KeyEncodingOrString(null, plaintextEncodingString);
+        }
     }
 }

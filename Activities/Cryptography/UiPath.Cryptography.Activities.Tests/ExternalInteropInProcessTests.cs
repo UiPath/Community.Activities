@@ -103,6 +103,51 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
+        public void OpenSslEnc_AesCbc_PublicPlaintextEncodingWinsOverProxyDefault()
+        {
+            // Regression for the public-surface bug: setting the public PlaintextEncoding InArgument must
+            // take effect even though the hidden PlaintextEncodingString proxy still carries its UTF-8
+            // constructor default. Earlier, the non-null proxy won and silently downgraded Unicode to UTF-8.
+            // The helper here assigns ONLY PlaintextEncoding (it no longer clears the proxy), so a passing
+            // assertion proves the public property is authoritative on its own.
+            const int iterations = 600_000;
+            var activity = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                Format = SymmetricWireFormat.OpenSslEnc,
+                KeyFormat = KeyBytesFormat.Encoded,
+                Encoding = MakeEncodingArg(Encoding.UTF8),
+                KeyEncodingString = null,
+                AesKeySize = AesKeySize.Aes256,
+                // Public property set to Unicode; proxy intentionally left at its UTF-8 default.
+                PlaintextEncoding = MakeEncodingArg(Encoding.Unicode),
+            };
+
+            var args = new Dictionary<string, object>
+            {
+                [nameof(EncryptText.Input)] = Plaintext,
+                [nameof(EncryptText.Key)] = Password,
+                [nameof(EncryptText.KdfIterations)] = iterations,
+            };
+
+            string encryptedBase64;
+            try
+            {
+                encryptedBase64 = (string)new WorkflowInvoker(activity).Invoke(args)[nameof(activity.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(Convert.FromBase64String(encryptedBase64), Password, iterations, 32);
+
+            // Unicode (UTF-16 LE) bytes, NOT the proxy's UTF-8 default.
+            Assert.Equal(Encoding.Unicode.GetBytes(Plaintext), decrypted);
+            Assert.NotEqual(Encoding.UTF8.GetBytes(Plaintext), decrypted);
+        }
+
+        [Fact]
         public void OpenSslEnc_AesCbc_KeyEncodingDoesNotAffectPlaintextBytes()
         {
             // Decoupling: set the key/password Encoding to windows-1252 while leaving PlaintextEncoding
@@ -583,11 +628,12 @@ namespace UiPath.Cryptography.Activities.Tests
                 AesKeySize = aesKeySize,
             };
             // When unset, the constructor default (PlaintextEncodingString = UTF-8) applies, keeping
-            // existing tests byte-stable. When set, exercise the InArgument<Encoding> path explicitly.
+            // existing tests byte-stable. When set, only the public PlaintextEncoding InArgument is
+            // assigned — the PlaintextEncodingString proxy is intentionally left at its UTF-8 default to
+            // prove the public surface wins over the proxy without callers having to clear it (STUD-80530).
             if (plaintextEncoding != null)
             {
                 activity.PlaintextEncoding = MakeEncodingArg(plaintextEncoding);
-                activity.PlaintextEncodingString = null;
             }
 
             var args = new Dictionary<string, object>
@@ -631,11 +677,12 @@ namespace UiPath.Cryptography.Activities.Tests
                 AesKeySize = aesKeySize,
             };
             // When unset, the constructor default (PlaintextEncodingString = UTF-8) applies, keeping
-            // existing tests byte-stable. When set, exercise the InArgument<Encoding> path explicitly.
+            // existing tests byte-stable. When set, only the public PlaintextEncoding InArgument is
+            // assigned — the PlaintextEncodingString proxy is intentionally left at its UTF-8 default to
+            // prove the public surface wins over the proxy without callers having to clear it (STUD-80530).
             if (plaintextEncoding != null)
             {
                 activity.PlaintextEncoding = MakeEncodingArg(plaintextEncoding);
-                activity.PlaintextEncodingString = null;
             }
 
             var args = new Dictionary<string, object>
