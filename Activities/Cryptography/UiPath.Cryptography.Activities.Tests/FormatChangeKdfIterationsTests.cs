@@ -82,5 +82,40 @@ namespace UiPath.Cryptography.Activities.Tests
             var literal = vm.KdfIterations.Value.Expression.ShouldBeOfType<Literal<int>>();
             literal.Value.ShouldBe(1_300_000); // Owasp2026 recommended PBKDF2-HMAC-SHA1 count
         }
+
+        // KdfIterations is not applicable to Classic/Raw — those formats hide it and the runtime
+        // (SymmetricInteropHelper.ValidateInteropSettings) rejects any non-zero value paired with them.
+        // So even a bound expression must be cleared to 0 when switching to a non-KDF format; preserving
+        // a hidden binding that resolves non-zero would resurface as a runtime validation failure.
+
+        [Fact]
+        public void Encrypt_FormatChangeToClassic_ClearsBoundKdfIterationsToZero()
+        {
+            var vm = NewEncryptViewModel();
+            vm.Format.Value = SymmetricWireFormat.Owasp2026;
+            vm.KdfIterations.Value = new InArgument<int> { Expression = new VisualBasicValue<int>("In_KdfIterations") };
+
+            vm.Format.Value = SymmetricWireFormat.Classic;
+            vm.FormatChanged_Action();
+
+            vm.KdfIterations.IsVisible.ShouldBeFalse();
+            var literal = vm.KdfIterations.Value.Expression.ShouldBeOfType<Literal<int>>();
+            literal.Value.ShouldBe(0);
+        }
+
+        [Fact]
+        public void Decrypt_FormatChangeToRaw_ClearsBoundKdfIterationsToZero()
+        {
+            var vm = NewDecryptViewModel();
+            vm.Format.Value = SymmetricWireFormat.OpenSslEnc;
+            vm.KdfIterations.Value = new InArgument<int> { Expression = new VisualBasicValue<int>("In_KdfIterations") };
+
+            vm.Format.Value = SymmetricWireFormat.Raw;
+            vm.FormatChanged_Action();
+
+            vm.KdfIterations.IsVisible.ShouldBeFalse();
+            var literal = vm.KdfIterations.Value.Expression.ShouldBeOfType<Literal<int>>();
+            literal.Value.ShouldBe(0);
+        }
     }
 }
