@@ -1101,7 +1101,7 @@ namespace UiPath.Cryptography
             }
             finally
             {
-                // Zero the secret-bearing scratch buffer (covers both the stackalloc and rented cases).
+                // Zero the secret-bearing scratch buffer (covers both the stackalloc and heap-allocated cases).
                 cleaned.Clear();
             }
         }

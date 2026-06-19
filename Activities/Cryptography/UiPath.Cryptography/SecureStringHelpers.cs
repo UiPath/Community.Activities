@@ -46,10 +46,12 @@ namespace UiPath.Cryptography
             char[] chars = null;
             try
             {
-                Interlocked.Increment(ref _materialisationCount);
                 ptr = Marshal.SecureStringToGlobalAllocUnicode(secret);
                 chars = new char[secret.Length];
                 Marshal.Copy(ptr, chars, 0, secret.Length);
+                // Count only once the char[] is fully populated, so a failed materialisation
+                // (e.g. OOM in the marshal/copy above) does not overcount the seam.
+                Interlocked.Increment(ref _materialisationCount);
                 return convert(chars);
             }
             finally
