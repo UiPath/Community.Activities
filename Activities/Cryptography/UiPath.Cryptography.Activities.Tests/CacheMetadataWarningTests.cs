@@ -86,6 +86,23 @@ namespace UiPath.Cryptography.Activities.Tests
                 $"did not expect IV nonce-reuse warning for non-Raw format {format}, got: {Format(warnings)}");
         }
 
+        // PGP ignores Format/Iv entirely (Execute routes to the PGP path, bypassing the
+        // symmetric helper). Even Raw + explicit IV must not warn under PGP. STUD-80532.
+        [Fact]
+        public void EncryptText_PgpWithExplicitRawIv_NoNonceReuseWarning()
+        {
+            var activity = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Format = SymmetricWireFormat.Raw,
+                Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
+            };
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
+                $"did not expect IV nonce-reuse warning for PGP, got: {Format(warnings)}");
+        }
+
         [Fact]
         public void EncryptText_WithoutIv_NoNonceReuseWarning()
         {
@@ -139,6 +156,22 @@ namespace UiPath.Cryptography.Activities.Tests
 
             warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
                 $"did not expect IV nonce-reuse warning for non-Raw format {format}, got: {Format(warnings)}");
+        }
+
+        // Companion to EncryptText_PgpWithExplicitRawIv_NoNonceReuseWarning. STUD-80532.
+        [Fact]
+        public void EncryptFile_PgpWithExplicitRawIv_NoNonceReuseWarning()
+        {
+            var activity = new EncryptFile
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Format = SymmetricWireFormat.Raw,
+                Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
+            };
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
+                $"did not expect IV nonce-reuse warning for PGP, got: {Format(warnings)}");
         }
 
         // DecryptText/DecryptFile emit FIPS + ChaCha warnings but NOT the IV warning
