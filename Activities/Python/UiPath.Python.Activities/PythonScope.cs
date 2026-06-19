@@ -35,6 +35,7 @@ namespace UiPath.Python.Activities
         [DefaultValue(null)]
         public InArgument<string> Path { get; set; }
 
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.LibraryPathNameDisplayName))]
         [LocalizedDescription(nameof(Resources.LibraryPathDescription))]
