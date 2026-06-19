@@ -19,12 +19,16 @@ namespace UiPath.Cryptography
     /// </remarks>
     internal static class SecureStringHelpers
     {
+        private static long _materialisationCount;
+
         /// <summary>
         /// Debug/test seam: number of times a <see cref="SecureString"/> has been materialised to a
         /// <c>char[]</c> via <see cref="WithSecureChars"/>. Tests assert this increments to prove the
         /// secret takes the string-free path rather than the old <c>NetworkCredential.Password</c> one.
+        /// Exposed as an atomic read-only accessor (via <see cref="Interlocked.Read"/>) so 64-bit reads
+        /// never tear on 32-bit runtimes and the backing field cannot be overwritten from elsewhere.
         /// </summary>
-        internal static long MaterialisationCount;
+        internal static long MaterialisationCount => Interlocked.Read(ref _materialisationCount);
 
         /// <summary>
         /// Copies <paramref name="secret"/> into a transient <c>char[]</c>, invokes
@@ -42,7 +46,7 @@ namespace UiPath.Cryptography
             char[] chars = null;
             try
             {
-                Interlocked.Increment(ref MaterialisationCount);
+                Interlocked.Increment(ref _materialisationCount);
                 ptr = Marshal.SecureStringToGlobalAllocUnicode(secret);
                 chars = new char[secret.Length];
                 Marshal.Copy(ptr, chars, 0, secret.Length);

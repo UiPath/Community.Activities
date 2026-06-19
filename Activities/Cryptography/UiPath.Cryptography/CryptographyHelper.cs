@@ -1073,14 +1073,14 @@ namespace UiPath.Cryptography
 
         // Takes ReadOnlySpan<char> (not string) so a SecureString-derived char[] can be parsed without
         // ever producing a managed string. The cleaned scratch buffer is stackalloc'd for the common
-        // (short key/IV) case and rented for the oversized fallback; either way it holds a copy of the
-        // secret hex digits, so it is zeroed in finally before the frame unwinds.
+        // (short key/IV) case and heap-allocated for the oversized fallback; either way it holds a copy
+        // of the secret hex digits, so it is zeroed in finally before the frame unwinds.
         private static byte[] FromHexString(ReadOnlySpan<char> hex)
         {
             // Tolerate "0x" prefix and any embedded whitespace/colons typical of hex dumps.
             int start = (hex.Length >= 2 && hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X')) ? 2 : 0;
-            char[] rented = hex.Length > 512 ? new char[hex.Length] : null;
-            Span<char> cleaned = rented ?? stackalloc char[hex.Length];
+            char[] heapBuffer = hex.Length > 512 ? new char[hex.Length] : null;
+            Span<char> cleaned = heapBuffer ?? stackalloc char[hex.Length];
             try
             {
                 int n = 0;
