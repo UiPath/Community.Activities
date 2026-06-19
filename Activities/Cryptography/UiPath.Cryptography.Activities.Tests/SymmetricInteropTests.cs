@@ -354,6 +354,12 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyFormat = keyFormat,
                 Encoding = MakeEncodingArg(inputEncoding),
                 KeyEncodingString = null,
+                // These tests model a workflow configured with a single encoding for both the key
+                // and the plaintext (the historical coupling). Mirror it explicitly now that the
+                // activity treats key encoding and plaintext encoding as independent (STUD-80530).
+                // The PlaintextEncodingString proxy is left at its UTF-8 default; the public
+                // PlaintextEncoding InArgument takes precedence over it.
+                PlaintextEncoding = MakeEncodingArg(inputEncoding),
             };
 
             var args = new Dictionary<string, object>
@@ -392,6 +398,11 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyFormat = keyFormat,
                 Encoding = MakeEncodingArg(inputEncoding),
                 KeyEncodingString = null,
+                // See RunEncryptText: mirror the single configured encoding onto the plaintext side
+                // so these legacy-coupling tests stay byte-stable after STUD-80530's decoupling.
+                // The PlaintextEncodingString proxy is left at its UTF-8 default; the public
+                // PlaintextEncoding InArgument takes precedence over it.
+                PlaintextEncoding = MakeEncodingArg(inputEncoding),
             };
 
             var args = new Dictionary<string, object>

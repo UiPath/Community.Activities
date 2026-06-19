@@ -28,6 +28,14 @@ namespace UiPath.Cryptography.Activities.Tests
         private const string Plaintext = "External-tool interop: round-trip me. 0123456789 ăîșțâ €";
         private const string Password = "interop-test-password-{!@#}";
 
+        static ExternalInteropInProcessTests()
+        {
+            // Touching EncodingHelpers runs its static ctor, which registers
+            // CodePagesEncodingProvider — making legacy code pages such as windows-1252
+            // resolvable in this test process (the OpenSslEnc_AesCbc_KeyEncodingDoesNotAffectPlaintextBytes test).
+            UiPath.Cryptography.Activities.Helpers.EncodingHelpers.GetAvailableEncodings();
+        }
+
         // ────────────────────────────────────────────────────────────────────────
         // OpenSslEnc — AES-256-CBC, bidirectional, AGAINST a BCL counterpart that
         // mirrors `openssl enc -aes-256-cbc -pbkdf2 -iter <N>`. This is the headline
@@ -67,6 +75,166 @@ namespace UiPath.Cryptography.Activities.Tests
             byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, (int)aesKeySize / 8);
 
             Assert.Equal(Plaintext, Encoding.UTF8.GetString(decrypted));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // STUD-80530 — plaintext encoding must be governed by PlaintextEncoding, NOT the
+        // key/password Encoding. These two tests would pass against a UiPath↔UiPath round-trip
+        // (the existing suite) but only an external/BCL consumer reading the raw decrypted bytes
+        // can catch the conflation.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_PlaintextEncodingUtf16_PreservedForExternalConsumer()
+        {
+            // Repro: encrypt with PlaintextEncoding = UTF-16 (key Encoding stays UTF-8). An external
+            // openssl consumer must see the UTF-16 LE bytes of the plaintext. Before the fix the
+            // activity transcoded the plaintext through the key Encoding (UTF-8), so this failed.
+            const int iterations = 600_000;
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8, plaintextEncoding: Encoding.Unicode,
+                iterations: iterations, aesKeySize: AesKeySize.Aes256);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, 32);
+
+            Assert.Equal(Encoding.Unicode.GetBytes(Plaintext), decrypted);
+        }
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_PublicPlaintextEncodingWinsOverProxyDefault()
+        {
+            // Regression for the public-surface bug: setting the public PlaintextEncoding InArgument must
+            // take effect even though the hidden PlaintextEncodingString proxy still carries its UTF-8
+            // constructor default. Earlier, the non-null proxy won and silently downgraded Unicode to UTF-8.
+            // The helper here assigns ONLY PlaintextEncoding (it no longer clears the proxy), so a passing
+            // assertion proves the public property is authoritative on its own.
+            const int iterations = 600_000;
+            var activity = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                Format = SymmetricWireFormat.OpenSslEnc,
+                KeyFormat = KeyBytesFormat.Encoded,
+                Encoding = MakeEncodingArg(Encoding.UTF8),
+                KeyEncodingString = null,
+                AesKeySize = AesKeySize.Aes256,
+                // Public property set to Unicode; proxy intentionally left at its UTF-8 default.
+                PlaintextEncoding = MakeEncodingArg(Encoding.Unicode),
+            };
+
+            var args = new Dictionary<string, object>
+            {
+                [nameof(EncryptText.Input)] = Plaintext,
+                [nameof(EncryptText.Key)] = Password,
+                [nameof(EncryptText.KdfIterations)] = iterations,
+            };
+
+            string encryptedBase64;
+            try
+            {
+                encryptedBase64 = (string)new WorkflowInvoker(activity).Invoke(args)[nameof(activity.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(Convert.FromBase64String(encryptedBase64), Password, iterations, 32);
+
+            // Unicode (UTF-16 LE) bytes, NOT the proxy's UTF-8 default.
+            Assert.Equal(Encoding.Unicode.GetBytes(Plaintext), decrypted);
+            Assert.NotEqual(Encoding.UTF8.GetBytes(Plaintext), decrypted);
+        }
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_PublicKeyEncodingWinsOverProxyDefault()
+        {
+            // Twin of the plaintext regression above, on the key/password side [STUD-80559]: setting the public
+            // key Encoding InArgument must govern key derivation even though the hidden KeyEncodingString proxy
+            // still carries its UTF-8 constructor default. Earlier the non-null proxy won and silently used UTF-8.
+            // UTF-16 vs UTF-8 password bytes differ even for an ASCII password, so the derived key changes.
+            const int iterations = 600_000;
+
+            var encrypt = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                Format = SymmetricWireFormat.OpenSslEnc,
+                KeyFormat = KeyBytesFormat.Encoded,
+                AesKeySize = AesKeySize.Aes256,
+                // Public key Encoding set to UTF-16; KeyEncodingString proxy intentionally left at its UTF-8 default.
+                Encoding = MakeEncodingArg(Encoding.Unicode),
+            };
+            var encryptArgs = new Dictionary<string, object>
+            {
+                [nameof(EncryptText.Input)] = Plaintext,
+                [nameof(EncryptText.Key)] = Password,
+                [nameof(EncryptText.KdfIterations)] = iterations,
+            };
+
+            string encryptedBase64;
+            try
+            {
+                encryptedBase64 = (string)new WorkflowInvoker(encrypt).Invoke(encryptArgs)[nameof(encrypt.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+
+            // Positive: a UiPath round-trip with the same UTF-16 key Encoding (proxy left at default) recovers the plaintext.
+            var decrypt = new DecryptText
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                Format = SymmetricWireFormat.OpenSslEnc,
+                KeyFormat = KeyBytesFormat.Encoded,
+                AesKeySize = AesKeySize.Aes256,
+                Encoding = MakeEncodingArg(Encoding.Unicode),
+            };
+            var decryptArgs = new Dictionary<string, object>
+            {
+                [nameof(DecryptText.Input)] = encryptedBase64,
+                [nameof(DecryptText.Key)] = Password,
+                [nameof(DecryptText.KdfIterations)] = iterations,
+            };
+            string roundTripped;
+            try
+            {
+                roundTripped = (string)new WorkflowInvoker(decrypt).Invoke(decryptArgs)[nameof(decrypt.Result)];
+            }
+            catch (System.Reflection.TargetInvocationException tie) when (tie.InnerException != null)
+            {
+                throw tie.InnerException;
+            }
+            Assert.Equal(Plaintext, roundTripped);
+
+            // Negative cross-check: the BCL counterpart derives the key from UTF-8 password bytes (lines 348/373),
+            // so it cannot decrypt a blob whose key came from UTF-16 bytes — the wrong key fails PKCS7 unpadding.
+            // If the proxy default had won (the pre-fix bug), the key would be UTF-8 and this would SUCCEED.
+            Assert.Throws<CryptographicException>(() => BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, 32));
+        }
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_KeyEncodingDoesNotAffectPlaintextBytes()
+        {
+            // Decoupling: set the key/password Encoding to windows-1252 while leaving PlaintextEncoding
+            // at its UTF-8 default. The password is ASCII, so windows-1252 and UTF-8 derive the same key
+            // and the BCL counterpart (UTF-8 password) still decrypts. The decoded bytes must be the
+            // UTF-8 representation of the plaintext — i.e. the key Encoding did not leak into the plaintext.
+            const int iterations = 600_000;
+            var windows1252 = Encoding.GetEncoding(1252);
+
+            string encryptedBase64 = RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: windows1252,
+                iterations: iterations, aesKeySize: AesKeySize.Aes256);
+
+            byte[] blob = Convert.FromBase64String(encryptedBase64);
+            byte[] decrypted = BclOpenSslEnc.DecryptAesCbc(blob, Password, iterations, 32);
+
+            Assert.Equal(Encoding.UTF8.GetBytes(Plaintext), decrypted);
         }
 
         // ────────────────────────────────────────────────────────────────────────
@@ -503,7 +671,8 @@ namespace UiPath.Cryptography.Activities.Tests
         {
             if (e == Encoding.UTF8) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.UTF8));
             if (e == Encoding.Unicode || e == null) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.Unicode));
-            throw new ArgumentException($"Test helper only supports UTF-8 and Unicode; got {e.WebName}");
+            if (e.CodePage == 1252) return new InArgument<Encoding>(ExpressionServices.Convert((env) => Encoding.GetEncoding(1252)));
+            throw new ArgumentException($"Test helper only supports UTF-8, Unicode, and windows-1252; got {e.WebName}");
         }
 
         private static string RunEncryptText(
@@ -515,6 +684,7 @@ namespace UiPath.Cryptography.Activities.Tests
             string iv = null,
             int iterations = 0,
             Encoding inputEncoding = null,
+            Encoding plaintextEncoding = null,
             AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new EncryptText
@@ -526,6 +696,14 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyEncodingString = null,
                 AesKeySize = aesKeySize,
             };
+            // When unset, the constructor default (PlaintextEncodingString = UTF-8) applies, keeping
+            // existing tests byte-stable. When set, only the public PlaintextEncoding InArgument is
+            // assigned — the PlaintextEncodingString proxy is intentionally left at its UTF-8 default to
+            // prove the public surface wins over the proxy without callers having to clear it (STUD-80530).
+            if (plaintextEncoding != null)
+            {
+                activity.PlaintextEncoding = MakeEncodingArg(plaintextEncoding);
+            }
 
             var args = new Dictionary<string, object>
             {
@@ -555,6 +733,7 @@ namespace UiPath.Cryptography.Activities.Tests
             string key = null,
             int iterations = 0,
             Encoding inputEncoding = null,
+            Encoding plaintextEncoding = null,
             AesKeySize aesKeySize = AesKeySize.Aes256)
         {
             var activity = new DecryptText
@@ -566,6 +745,14 @@ namespace UiPath.Cryptography.Activities.Tests
                 KeyEncodingString = null,
                 AesKeySize = aesKeySize,
             };
+            // When unset, the constructor default (PlaintextEncodingString = UTF-8) applies, keeping
+            // existing tests byte-stable. When set, only the public PlaintextEncoding InArgument is
+            // assigned — the PlaintextEncodingString proxy is intentionally left at its UTF-8 default to
+            // prove the public surface wins over the proxy without callers having to clear it (STUD-80530).
+            if (plaintextEncoding != null)
+            {
+                activity.PlaintextEncoding = MakeEncodingArg(plaintextEncoding);
+            }
 
             var args = new Dictionary<string, object>
             {

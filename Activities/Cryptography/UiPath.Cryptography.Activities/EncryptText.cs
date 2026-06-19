@@ -58,6 +58,14 @@ namespace UiPath.Cryptography.Activities
         public InArgument<string> KeyEncodingString { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_PlaintextEncoding_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_PlaintextEncoding_Description))]
+        public InArgument<Encoding> PlaintextEncoding { get; set; }
+
+        [Browsable(false)]
+        public InArgument<string> PlaintextEncodingString { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_EncryptText_Property_Format_Name))]
         [LocalizedDescription(nameof(Resources.Activity_EncryptText_Property_Format_Description))]
         [DefaultValue(SymmetricWireFormat.Classic)]
@@ -139,6 +147,7 @@ namespace UiPath.Cryptography.Activities
         {
             Algorithm = EncryptionAlgorithm.AESGCM;
             KeyEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
+            PlaintextEncodingString = System.Text.Encoding.UTF8.CodePage.ToString();
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -248,12 +257,14 @@ namespace UiPath.Cryptography.Activities
 
             keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
 
+            var plaintextEncoding = EncodingHelpers.KeyEncodingOrString(PlaintextEncoding.Get(context), PlaintextEncodingString.Get(context)) ?? System.Text.Encoding.UTF8;
+
             byte[] encrypted = SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
                 Algorithm, Format, KeyFormat, keyEncoding,
                 keyString: key, keySecureString: keySecureString,
                 ivString: ivString, kdfIterations: iterations, needsIv: true,
                 dispatch: (k, iv) => SymmetricInteropHelper.DispatchEncrypt(
-                    Algorithm, Format, iterations, k, iv, keyEncoding.GetBytes(input), AesKeySize));
+                    Algorithm, Format, iterations, k, iv, plaintextEncoding.GetBytes(input), AesKeySize));
 
             return Convert.ToBase64String(encrypted);
         }

@@ -316,6 +316,18 @@
           }
         },
         {
+          "Name": "PlaintextEncodingString",
+          "DisplayNameKey": "Activity_DecryptText_Property_PlaintextEncodingString_Name",
+          "TooltipKey": "Activity_DecryptText_Property_PlaintextEncodingString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Format",
           "DisplayNameKey": "Activity_DecryptText_Property_Format_Name",
           "TooltipKey": "Activity_DecryptText_Property_Format_Description",
@@ -799,6 +811,18 @@
           "Category": {
             "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "PlaintextEncodingString",
+          "DisplayNameKey": "Activity_EncryptText_Property_PlaintextEncodingString_Name",
+          "TooltipKey": "Activity_EncryptText_Property_PlaintextEncodingString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
           }
         },
         {

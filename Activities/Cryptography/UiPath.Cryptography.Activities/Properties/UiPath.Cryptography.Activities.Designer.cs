@@ -581,6 +581,42 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_DecryptText_Property_Encoding_Name", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The encoding used to convert the decrypted bytes back to text..
+        /// </summary>
+        public static string Activity_DecryptText_Property_PlaintextEncoding_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PlaintextEncoding_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Text encoding.
+        /// </summary>
+        public static string Activity_DecryptText_Property_PlaintextEncoding_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PlaintextEncoding_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The encoding used to convert the decrypted bytes back to text..
+        /// </summary>
+        public static string Activity_DecryptText_Property_PlaintextEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PlaintextEncodingString_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Text encoding.
+        /// </summary>
+        public static string Activity_DecryptText_Property_PlaintextEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PlaintextEncodingString_Name", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Input byte layout and key-derivation strategy. Must match the format that produced the ciphertext. See docs/symmetric-wire-format.md..
@@ -1416,6 +1452,42 @@ namespace UiPath.Cryptography.Activities.Properties {
         public static string Activity_EncryptText_Property_Encoding_Name {
             get {
                 return ResourceManager.GetString("Activity_EncryptText_Property_Encoding_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The encoding used to convert the input text to bytes before encryption..
+        /// </summary>
+        public static string Activity_EncryptText_Property_PlaintextEncoding_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PlaintextEncoding_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Text encoding.
+        /// </summary>
+        public static string Activity_EncryptText_Property_PlaintextEncoding_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PlaintextEncoding_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The encoding used to convert the input text to bytes before encryption..
+        /// </summary>
+        public static string Activity_EncryptText_Property_PlaintextEncodingString_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PlaintextEncodingString_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Text encoding.
+        /// </summary>
+        public static string Activity_EncryptText_Property_PlaintextEncodingString_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PlaintextEncodingString_Name", resourceCulture);
             }
         }
         

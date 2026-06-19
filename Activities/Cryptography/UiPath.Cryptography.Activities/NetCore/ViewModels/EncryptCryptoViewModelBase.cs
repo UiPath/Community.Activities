@@ -132,6 +132,22 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         }
 
         /// <summary>
+        /// Configures a code-page encoding dropdown on the supplied design property, mirroring the
+        /// <see cref="KeyEncodingString"/> setup. Used by Text activities to surface their plaintext
+        /// encoding; File activities operate on raw bytes and do not call this.
+        /// </summary>
+        protected void ConfigureEncodingDropdown(DesignInArgument<string> encodingProperty, ref int orderIndex)
+        {
+            var dataSource = EncodingHelpers.ConfigureEncodingDataSource();
+            encodingProperty.IsPrincipal = false;
+            encodingProperty.OrderIndex = orderIndex++;
+            encodingProperty.Category = Resources.Input;
+            encodingProperty.DataSource = dataSource;
+            encodingProperty.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
+            dataSource.Data = EncodingHelpers.GetAvailableEncodings();
+        }
+
+        /// <summary>
         /// Configures the third-party-compatibility properties (Format, KeyFormat, Iv, KdfIterations).
         /// Format is visible by default; the others are hidden until <see cref="ApplyInteropVisibility"/>
         /// reveals them based on Format/Algorithm.
@@ -316,7 +332,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             PrivateKeyFilePath.IsPrincipal = isPgp && SignData.Value;
             ApplyPassphraseVisibility();
             ApplyInteropVisibility();
+            OnAlgorithmChanged(isPgp);
         }
+
+        /// <summary>
+        /// Hook invoked at the end of <see cref="AlgorithmChanged_Action"/> so derived ViewModels can
+        /// react to the active algorithm (e.g. hide Text-only properties when PGP is selected).
+        /// </summary>
+        protected virtual void OnAlgorithmChanged(bool isPgp) { }
 
         private void FormatChanged_Action()
         {
