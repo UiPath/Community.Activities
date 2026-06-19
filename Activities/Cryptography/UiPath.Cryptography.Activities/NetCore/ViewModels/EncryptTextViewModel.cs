@@ -23,7 +23,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         }
 
         public DesignInArgument<string> Input { get; set; } = new DesignInArgument<string>();
-        public DesignInArgument<string> PlaintextEncodingString { get; set; } = new() { Name = nameof(PlaintextEncodingString) };
+        public DesignInArgument<string> PlaintextEncodingString { get; set; } = new();
         public DesignOutArgument<string> Result { get; set; } = new DesignOutArgument<string>();
 
         protected override void InitializeModel()
