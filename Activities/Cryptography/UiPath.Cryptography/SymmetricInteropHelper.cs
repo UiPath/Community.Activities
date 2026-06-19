@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Security;
 using System.Text;
 using UiPath.Cryptography.Enums;
@@ -74,8 +73,8 @@ namespace UiPath.Cryptography
             if (format == KeyBytesFormat.Encoded)
                 return CryptographyHelper.KeyEncoding(encoding, hasPlain ? value : null, hasSecure ? secureValue : null);
 
-            string raw = hasPlain ? value : new NetworkCredential(string.Empty, secureValue).Password;
-            return CryptographyHelper.ParseKeyBytes(raw, null, format, null);
+            // Pass the SecureString through; ParseKeyBytes materialises it string-free.
+            return CryptographyHelper.ParseKeyBytes(hasPlain ? value : null, hasSecure ? secureValue : null, format, null);
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 [assembly: Guid("92e8345e-2ca1-439d-926d-d979893840f5")]
+[assembly: InternalsVisibleTo("UiPath.Cryptography.Activities.Tests")]
