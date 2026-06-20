@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>La version {0} de Python n’est pas prise en charge. Les versions prises en charge sont les suivantes : {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>L’installation de Python au niveau de « {0} » est en version 32 bits. Seules les installations Python 64 bits sont prises en charge. Veuillez installer une version 64 bits de Python.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>La version {0} de Python n’est pas prise en charge. Les versions prises en charge sont les suivantes : {1}.</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>La taille des données du script Python ({0} Mo) dépasse la limite configurée ({1} Mo). Transmettez les données volumineuses via un chemin de fichier plutôt qu’en tant qu’argument de méthode, ou augmentez la valeur de la propriété « Limite de taille des données de script ».</value>
   </data>

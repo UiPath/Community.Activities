@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Versiunea Python {0} nu este acceptată. Versiunile acceptate sunt: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>Instalarea Python de la „{0}” este pe 32 de biți. Sunt acceptate numai instalările Python pe 64 de biți. Vă rugăm să instalați o versiune de Python pe 64 de biți.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>Python {0} nu este acceptat. Versiunile acceptate sunt: {1}.</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Dimensiunea datelor scriptului Python ({0} MB) depășește limita configurată ({1} MB). Transmiteți datele mari printr-o cale de fișier în loc să le transmiteți ca argument al metodei sau măriți valoarea proprietății Limită dimensiune date script.</value>
   </data>

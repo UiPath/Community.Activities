@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>不支持 Python 版本 {0}。支持的版本包括: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>位于“{0}”的 Python 安装是 32 位的。仅支持 64 位 Python 安装。请安装 64 位版本的 Python。</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>Python {0} 不受支持。支持的版本包括：{1}。</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python 脚本数据大小 ({0} MB) 超过了配置的限制 ({1} MB)。请通过文件路径传递大数据，而不是作为方法参数传递，或者增加“脚本数据大小限制”属性。</value>
   </data>

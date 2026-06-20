@@ -815,7 +815,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
-    <value>Encrypted file</value>
+    <value>Verschlüsselte Datei</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
@@ -831,7 +831,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
-    <value>Decrypted file</value>
+    <value>Entschlüsselte Datei</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
@@ -1090,7 +1090,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
-    <value>Generierte PGP-Schlüssel</value>
+    <value>PGP Generate Keys</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">

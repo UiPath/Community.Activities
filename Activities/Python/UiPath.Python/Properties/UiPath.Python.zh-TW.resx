@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>不支援 Python 版本 {0}。支援的版本包括: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>「{0}」中的 Python 安裝版本為 32 位元。僅支援 64 位元 Python 安裝。請安裝 64 位元版本的 Python。</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>不支援 Python {0}。支援的版本為: {1}。</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python 指令碼資料大小 ({0} MB) 超出配置的限制 ({1} MB)。透過檔案路徑 (而非方法引數) 傳遞大型資料，或增加「指令碼資料大小限制」屬性。</value>
   </data>
