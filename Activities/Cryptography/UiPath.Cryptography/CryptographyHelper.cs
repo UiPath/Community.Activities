@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Cryptography;
@@ -1030,7 +1029,9 @@ namespace UiPath.Cryptography
 
         public static byte[] KeyEncoding(Encoding encoding, string key, SecureString keySecureString)
         {
-            return key != null ? encoding.GetBytes(key) : encoding.GetBytes(new NetworkCredential("", keySecureString).Password);
+            return key != null
+                ? encoding.GetBytes(key)
+                : SecureStringHelpers.WithSecureChars(keySecureString, chars => encoding.GetBytes(chars));
         }
 
         /// <summary>
@@ -1049,18 +1050,20 @@ namespace UiPath.Cryptography
 
                 case KeyBytesFormat.Hex:
                 {
-                    string raw = keyString ?? (keySecureString != null ? new NetworkCredential(string.Empty, keySecureString).Password : null);
-                    if (string.IsNullOrEmpty(raw))
-                        throw new ArgumentException("Hex key/IV string is empty.");
-                    return FromHexString(raw);
+                    if (!string.IsNullOrEmpty(keyString))
+                        return FromHexString(keyString);
+                    if (keySecureString != null && keySecureString.Length > 0)
+                        return SecureStringHelpers.WithSecureChars(keySecureString, chars => FromHexString(chars));
+                    throw new ArgumentException("Hex key/IV string is empty.");
                 }
 
                 case KeyBytesFormat.Base64:
                 {
-                    string raw = keyString ?? (keySecureString != null ? new NetworkCredential(string.Empty, keySecureString).Password : null);
-                    if (string.IsNullOrEmpty(raw))
-                        throw new ArgumentException("Base64 key/IV string is empty.");
-                    return Convert.FromBase64String(raw);
+                    if (!string.IsNullOrEmpty(keyString))
+                        return Convert.FromBase64String(keyString);
+                    if (keySecureString != null && keySecureString.Length > 0)
+                        return SecureStringHelpers.WithSecureChars(keySecureString, chars => Convert.FromBase64CharArray(chars, 0, chars.Length));
+                    throw new ArgumentException("Base64 key/IV string is empty.");
                 }
 
                 default:
@@ -1068,25 +1071,39 @@ namespace UiPath.Cryptography
             }
         }
 
-        private static byte[] FromHexString(string hex)
+        // Takes ReadOnlySpan<char> (not string) so a SecureString-derived char[] can be parsed without
+        // ever producing a managed string. The cleaned scratch buffer is stackalloc'd for the common
+        // (short key/IV) case and heap-allocated for the oversized fallback; either way it holds a copy
+        // of the secret hex digits, so it is zeroed in finally before the frame unwinds.
+        private static byte[] FromHexString(ReadOnlySpan<char> hex)
         {
             // Tolerate "0x" prefix and any embedded whitespace/colons typical of hex dumps.
-            var cleaned = new StringBuilder(hex.Length);
             int start = (hex.Length >= 2 && hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X')) ? 2 : 0;
-            for (int i = start; i < hex.Length; i++)
+            char[] heapBuffer = hex.Length > 512 ? new char[hex.Length] : null;
+            Span<char> cleaned = heapBuffer ?? stackalloc char[hex.Length];
+            try
             {
-                char c = hex[i];
-                if (c == ' ' || c == ':' || c == '-' || c == '\t' || c == '\r' || c == '\n') continue;
-                cleaned.Append(c);
+                int n = 0;
+                for (int i = start; i < hex.Length; i++)
+                {
+                    char c = hex[i];
+                    if (c == ' ' || c == ':' || c == '-' || c == '\t' || c == '\r' || c == '\n') continue;
+                    cleaned[n++] = c;
+                }
+                if ((n & 1) != 0)
+                    throw new ArgumentException("Hex string has an odd number of digits.");
+                byte[] bytes = new byte[n / 2];
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    bytes[i] = byte.Parse(cleaned.Slice(i * 2, 2), System.Globalization.NumberStyles.HexNumber);
+                }
+                return bytes;
             }
-            if ((cleaned.Length & 1) != 0)
-                throw new ArgumentException("Hex string has an odd number of digits.");
-            byte[] bytes = new byte[cleaned.Length / 2];
-            for (int i = 0; i < bytes.Length; i++)
+            finally
             {
-                bytes[i] = byte.Parse(cleaned.ToString(i * 2, 2), System.Globalization.NumberStyles.HexNumber);
+                // Zero the secret-bearing scratch buffer (covers both the stackalloc and heap-allocated cases).
+                cleaned.Clear();
             }
-            return bytes;
         }
 
         /// <summary>

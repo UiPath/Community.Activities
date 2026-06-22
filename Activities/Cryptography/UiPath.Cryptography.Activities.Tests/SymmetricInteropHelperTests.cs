@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Security;
 using System.Text;
 using Shouldly;
@@ -154,8 +153,8 @@ namespace UiPath.Cryptography.Activities.Tests
             result.ShouldBe(new byte[] { 0x01, 0x02, 0xFF });
         }
 
-        // Hex via SecureString routes through the NetworkCredential trick on line 74 of
-        // SymmetricInteropHelper. Pins that this path produces the same bytes as plain hex.
+        // Hex via SecureString routes through ParseKeyBytes' string-free materialisation.
+        // Pins that this path produces the same bytes as plain hex.
         [Fact]
         public void ParseKeyOrIv_SecureStringHex_MatchesPlainHex()
         {
@@ -179,6 +178,70 @@ namespace UiPath.Cryptography.Activities.Tests
         {
             byte[] result = SymmetricInteropHelper.ParseKeyOrIv("0102", secureValue: ToSecureString("FFFF"), KeyBytesFormat.Hex, encoding: null);
             result.ShouldBe(new byte[] { 0x01, 0x02 });
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
+        // STUD-80531 — SecureString → bytes must never round-trip through a managed
+        // System.String. Pinned via the SecureStringHelpers materialisation seam:
+        // every non-plain branch (Encoded / Hex / Base64) must route through the
+        // unmanaged-buffer helper (which increments the counter), not the old
+        // NetworkCredential.Password idiom (which left the secret on the GC heap and
+        // never touched this counter). Each test also asserts byte-equivalence with the
+        // plain-string path so the security fix can't silently corrupt the output.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Theory]
+        [InlineData(KeyBytesFormat.Encoded)]
+        [InlineData(KeyBytesFormat.Hex)]
+        [InlineData(KeyBytesFormat.Base64)]
+        public void ParseKeyOrIv_SecureString_RoutesThroughSecureHelper_NeverMaterialisesString(KeyBytesFormat format)
+        {
+            // A value that is simultaneously valid UTF-8 text, hex, and Base64.
+            const string secret = "DEADBEEF";
+            Encoding encoding = format == KeyBytesFormat.Encoded ? Encoding.UTF8 : null;
+
+            byte[] viaPlain = SymmetricInteropHelper.ParseKeyOrIv(secret, secureValue: null, format, encoding);
+
+            long before = SecureStringHelpers.MaterialisationCount;
+            byte[] viaSecure = SymmetricInteropHelper.ParseKeyOrIv(value: null, secureValue: ToSecureString(secret), format, encoding);
+            long after = SecureStringHelpers.MaterialisationCount;
+
+            after.ShouldBe(before + 1, "the SecureString must be materialised through the string-free helper exactly once");
+            viaSecure.ShouldBe(viaPlain);
+        }
+
+        [Fact]
+        public void ParseKeyOrIv_PlainString_DoesNotMaterialiseThroughSecureHelper()
+        {
+            long before = SecureStringHelpers.MaterialisationCount;
+            SymmetricInteropHelper.ParseKeyOrIv("DEADBEEF", secureValue: null, KeyBytesFormat.Hex, encoding: null);
+            SecureStringHelpers.MaterialisationCount.ShouldBe(before, "a plain-string key must not touch the SecureString helper");
+        }
+
+        [Fact]
+        public void CryptographyHelper_KeyEncoding_SecureString_MatchesPlainAndUsesSecureHelper()
+        {
+            const string secret = "ăîș-password";
+            byte[] viaPlain = CryptographyHelper.KeyEncoding(Encoding.UTF8, secret, keySecureString: null);
+
+            long before = SecureStringHelpers.MaterialisationCount;
+            byte[] viaSecure = CryptographyHelper.KeyEncoding(Encoding.UTF8, key: null, ToSecureString(secret));
+
+            SecureStringHelpers.MaterialisationCount.ShouldBe(before + 1);
+            viaSecure.ShouldBe(viaPlain);
+        }
+
+        [Fact]
+        public void CryptographyHelper_ParseKeyBytes_SecureStringBase64_MatchesPlainAndUsesSecureHelper()
+        {
+            string secret = Convert.ToBase64String(new byte[] { 9, 8, 7, 6, 5, 4 });
+            byte[] viaPlain = CryptographyHelper.ParseKeyBytes(secret, keySecureString: null, KeyBytesFormat.Base64, encoding: null);
+
+            long before = SecureStringHelpers.MaterialisationCount;
+            byte[] viaSecure = CryptographyHelper.ParseKeyBytes(keyString: null, ToSecureString(secret), KeyBytesFormat.Base64, encoding: null);
+
+            SecureStringHelpers.MaterialisationCount.ShouldBe(before + 1);
+            viaSecure.ShouldBe(viaPlain);
         }
 
         // ────────────────────────────────────────────────────────────────────────
@@ -352,7 +415,14 @@ namespace UiPath.Cryptography.Activities.Tests
 
         // ────────────────────────────────────────────────────────────────────────
 
-        private static SecureString ToSecureString(string s) => new NetworkCredential(string.Empty, s).SecurePassword;
+        private static SecureString ToSecureString(string s)
+        {
+            var secure = new SecureString();
+            foreach (char c in s)
+                secure.AppendChar(c);
+            secure.MakeReadOnly();
+            return secure;
+        }
     }
 }
 
