@@ -29,7 +29,8 @@ namespace UiPath.Cryptography
             KeyBytesFormat keyFormat,
             string ivString,
             int kdfIterations,
-            int? rawKeyLengthBytes)
+            int? rawKeyLengthBytes,
+            bool isDecrypt = false)
         {
             if (format == SymmetricWireFormat.Raw && keyFormat == KeyBytesFormat.Encoded)
                 throw new ArgumentException(Resources.Validation_RawKeyFormat_EncodedNotAllowed);
@@ -43,7 +44,10 @@ namespace UiPath.Cryptography
                 throw new ArgumentException(Resources.Validation_KdfIterations_NotForClassicOrRaw);
             // Negative iterations were silently swallowed by the dispatch (treated as "use default") —
             // only zero means "default". Anything below the minimum (including negatives) is invalid.
-            if (kdfIterations < 0 || (kdfIterations > 0 && kdfIterations < MinKdfIterations))
+            // The positive-but-below-minimum floor is an encrypt-only guard (never produce weak ciphertext);
+            // on decrypt we must honour whatever iteration count a third-party producer chose, so the floor
+            // is skipped when isDecrypt is true. Negative iterations stay rejected in both directions.
+            if (kdfIterations < 0 || (kdfIterations > 0 && kdfIterations < MinKdfIterations && !isDecrypt))
                 throw new ArgumentException(string.Format(Resources.Validation_KdfIterations_BelowMinimum, kdfIterations, MinKdfIterations));
 
             if (format == SymmetricWireFormat.Raw && rawKeyLengthBytes.HasValue)
@@ -136,11 +140,12 @@ namespace UiPath.Cryptography
             string ivString,
             int kdfIterations,
             bool needsIv,
-            Func<byte[], byte[], TOut> dispatch)
+            Func<byte[], byte[], TOut> dispatch,
+            bool isDecrypt = false)
         {
             if (dispatch == null) throw new ArgumentNullException(nameof(dispatch));
 
-            ValidateInteropSettings(algorithm, format, keyFormat, ivString, kdfIterations, null);
+            ValidateInteropSettings(algorithm, format, keyFormat, ivString, kdfIterations, null, isDecrypt);
 
             byte[] keyOrPasswordBytes = ParseKeyOrIv(keyString, keySecureString, keyFormat, keyEncoding);
             byte[] ivBytes = needsIv
@@ -148,7 +153,7 @@ namespace UiPath.Cryptography
                 : null;
 
             if (format == SymmetricWireFormat.Raw)
-                ValidateInteropSettings(algorithm, format, keyFormat, ivString, kdfIterations, keyOrPasswordBytes?.Length);
+                ValidateInteropSettings(algorithm, format, keyFormat, ivString, kdfIterations, keyOrPasswordBytes?.Length, isDecrypt);
 
             try
             {

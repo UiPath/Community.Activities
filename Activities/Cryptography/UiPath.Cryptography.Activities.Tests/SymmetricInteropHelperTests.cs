@@ -89,6 +89,26 @@ namespace UiPath.Cryptography.Activities.Tests
             else Should.NotThrow(act);
         }
 
+        // STUD-80534: the positive-but-below-minimum floor is an encrypt-only guard. On decrypt
+        // (isDecrypt: true) a low iteration count chosen by a third-party producer must be honoured,
+        // so 999 no longer throws. Negative iterations have no legitimate use case and stay rejected
+        // in both directions; zero still means "use the format default" in both directions.
+        [Theory]
+        [InlineData(999, false)]
+        [InlineData(1_000, false)]
+        [InlineData(0, false)]
+        [InlineData(-1, true)]
+        [InlineData(int.MinValue, true)]
+        public void Validate_KdfIterations_AtFloor_DecryptSkipsPositiveFloor(int iterations, bool shouldThrow)
+        {
+            Action act = () => SymmetricInteropHelper.ValidateInteropSettings(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.Owasp2026, KeyBytesFormat.Encoded,
+                ivString: null, kdfIterations: iterations, rawKeyLengthBytes: null, isDecrypt: true);
+
+            if (shouldThrow) Should.Throw<ArgumentException>(act);
+            else Should.NotThrow(act);
+        }
+
         [Fact]
         public void Validate_Raw_WithWrongKeyLength_ThrowsWithLegalSizesInMessage()
         {

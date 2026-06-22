@@ -261,7 +261,8 @@ namespace UiPath.Cryptography.Activities
                     {
                         throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
                     }
-                });
+                },
+                isDecrypt: true);
 
             return plaintextEncoding.GetString(decrypted);
         }

@@ -78,6 +78,59 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         // ────────────────────────────────────────────────────────────────────────
+        // STUD-80534 — the MinKdfIterations=1000 floor is an encrypt-only guard. A
+        // third-party blob produced with a low iteration count (e.g.
+        // `openssl enc -pbkdf2 -iter 100`) is mathematically decryptable, so decrypt
+        // must honour whatever the producer chose; encrypt must still refuse to emit
+        // weak ciphertext.
+        // ────────────────────────────────────────────────────────────────────────
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_DecryptHonoursLowKdfIterations()
+        {
+            // Reproducer: an external producer used iterations=100 (below the 1000 floor). We can
+            // derive the matching key/IV, so the round-trip must succeed. Before the fix this threw
+            // ArgumentException (Validation_KdfIterations_BelowMinimum) before reaching the decrypt code.
+            const int lowIterations = 100;
+            byte[] plainBytes = Encoding.UTF8.GetBytes(Plaintext);
+            byte[] externalBlob = BclOpenSslEnc.EncryptAesCbc(plainBytes, Password, lowIterations, 32);
+
+            string decrypted = RunDecryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, input: Convert.ToBase64String(externalBlob),
+                inputEncoding: Encoding.UTF8, iterations: lowIterations, aesKeySize: AesKeySize.Aes256);
+
+            Assert.Equal(Plaintext, decrypted);
+        }
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_EncryptStillRefusesLowKdfIterations()
+        {
+            // Encrypt-side floor pin: we must never produce ciphertext with a weak iteration count.
+            Assert.Throws<ArgumentException>(() => RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8, iterations: 100, aesKeySize: AesKeySize.Aes256));
+        }
+
+        [Fact]
+        public void OpenSslEnc_AesCbc_NegativeKdfIterations_RejectedOnBothDirections()
+        {
+            // Negative iterations have no legitimate use case and stay rejected regardless of direction.
+            // On decrypt the validator runs before the input blob is decoded, so the input is never read;
+            // and a junk-blob failure would surface as InvalidOperationException, not ArgumentException —
+            // asserting ArgumentException therefore pins the rejection to the iteration validator alone.
+            Assert.Throws<ArgumentException>(() => RunEncryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, inputEncoding: Encoding.UTF8, iterations: -1, aesKeySize: AesKeySize.Aes256));
+
+            byte[] validBlob = BclOpenSslEnc.EncryptAesCbc(Encoding.UTF8.GetBytes(Plaintext), Password, 600_000, 32);
+            Assert.Throws<ArgumentException>(() => RunDecryptText(
+                EncryptionAlgorithm.AES, SymmetricWireFormat.OpenSslEnc, KeyBytesFormat.Encoded,
+                password: Password, input: Convert.ToBase64String(validBlob),
+                inputEncoding: Encoding.UTF8, iterations: -1, aesKeySize: AesKeySize.Aes256));
+        }
+
+        // ────────────────────────────────────────────────────────────────────────
         // STUD-80530 — plaintext encoding must be governed by PlaintextEncoding, NOT the
         // key/password Encoding. These two tests would pass against a UiPath↔UiPath round-trip
         // (the existing suite) but only an external/BCL consumer reading the raw decrypted bytes
