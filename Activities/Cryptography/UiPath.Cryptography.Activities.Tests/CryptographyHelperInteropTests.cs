@@ -1,4 +1,5 @@
 using System;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using Shouldly;
@@ -290,6 +291,21 @@ namespace UiPath.Cryptography.Activities.Tests
             // FormatException rather than being silently accepted via fabricated padding.
             Should.Throw<FormatException>(() =>
                 CryptographyHelper.ParseKeyBytes("AQID Z", keySecureString: null, KeyBytesFormat.Base64, encoding: null));
+        }
+
+        [Fact]
+        public void ParseKeyBytes_Base64_SecureStringPath_IsLenient()
+        {
+            // The SecureString key path is decoded without ever materializing a managed string
+            // (STUD-80531); it must still apply the same leniency as the keyString path. Feed a
+            // URL-safe, unpadded form through the SecureString overload and confirm it decodes to
+            // the same bytes as the standard padded form.
+            byte[] expected = new byte[] { 0xFB, 0xFF, 0xBF, 0x00, 0x10, 0x83, 0x01 };
+            string urlSafeUnpadded = Convert.ToBase64String(expected)
+                .Replace('+', '-').Replace('/', '_').TrimEnd('=');
+            SecureString secure = TestingHelper.StringToSecureString(urlSafeUnpadded);
+            byte[] result = CryptographyHelper.ParseKeyBytes(keyString: null, secure, KeyBytesFormat.Base64, encoding: null);
+            result.ShouldBe(expected);
         }
     }
 }

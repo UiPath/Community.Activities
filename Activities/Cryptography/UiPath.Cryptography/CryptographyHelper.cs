@@ -1059,10 +1059,11 @@ namespace UiPath.Cryptography
 
                 case KeyBytesFormat.Base64:
                 {
-                    string raw = keyString ?? (keySecureString != null ? new NetworkCredential(string.Empty, keySecureString).Password : null);
-                    if (string.IsNullOrEmpty(raw))
-                        throw new ArgumentException("Base64 key/IV string is empty.");
-                    return FromBase64String(raw);
+                    if (!string.IsNullOrEmpty(keyString))
+                        return FromBase64String(keyString);
+                    if (keySecureString != null && keySecureString.Length > 0)
+                        return SecureStringHelpers.WithSecureChars(keySecureString, chars => FromBase64String(chars));
+                    throw new ArgumentException("Base64 key/IV string is empty.");
                 }
 
                 default:
@@ -1105,26 +1106,42 @@ namespace UiPath.Cryptography
             }
         }
 
-        private static byte[] FromBase64String(string s)
+        // Takes ReadOnlySpan<char> (not string) so a SecureString-derived char[] can be parsed
+        // without ever producing a managed string — mirroring FromHexString and preserving the
+        // no-managed-string guarantee of the SecureString key path (STUD-80531). The cleaned
+        // scratch buffer holds a copy of the secret key material, so it is zeroed in finally.
+        // It is a char[] (not stackalloc) because Convert.FromBase64CharArray needs an array;
+        // a key/IV is short, so the allocation is negligible.
+        private static byte[] FromBase64String(ReadOnlySpan<char> s)
         {
             // Tolerate whitespace/line wraps, the URL-safe alphabet, and missing padding —
             // common forms a third-party tool (openssl, JWT/OAuth secrets) produces. The final
-            // Convert.FromBase64String call still enforces strict validation on the cleaned text.
-            var cleaned = new StringBuilder(s.Length);
-            foreach (char c in s)
+            // Convert.FromBase64CharArray call still enforces strict validation on the cleaned
+            // text: characters outside the alphabet and a mod-4==1 length both surface as
+            // FormatException, consistent with the rest of the Base64 contract.
+            char[] cleaned = new char[s.Length + 2]; // +2 head-room for the padding we may append
+            try
             {
-                if (c == ' ' || c == '\t' || c == '\r' || c == '\n') continue;
-                if (c == '-') cleaned.Append('+');      // URL-safe alphabet → standard
-                else if (c == '_') cleaned.Append('/');
-                else cleaned.Append(c);
+                int n = 0;
+                foreach (char c in s)
+                {
+                    if (c == ' ' || c == '\t' || c == '\r' || c == '\n') continue;
+                    if (c == '-') cleaned[n++] = '+';        // URL-safe alphabet → standard
+                    else if (c == '_') cleaned[n++] = '/';
+                    else cleaned[n++] = c;
+                }
+                int rem = n % 4;
+                if (rem == 2) { cleaned[n++] = '='; cleaned[n++] = '='; }
+                else if (rem == 3) { cleaned[n++] = '='; }
+                // rem == 1 can never be valid Base64; leave it for Convert.FromBase64CharArray
+                // to reject as FormatException, consistent with the rest of the Base64 contract.
+                return Convert.FromBase64CharArray(cleaned, 0, n);
             }
-            int rem = cleaned.Length % 4;
-            if (rem == 2) cleaned.Append("==");
-            else if (rem == 3) cleaned.Append('=');
-            // rem == 1 can never be valid Base64; leave it for Convert.FromBase64String to
-            // reject, so malformed input surfaces as FormatException consistently with the
-            // rest of the Base64 contract rather than a different exception type.
-            return Convert.FromBase64String(cleaned.ToString());
+            finally
+            {
+                // Zero the secret-bearing scratch buffer before the frame unwinds.
+                Array.Clear(cleaned, 0, cleaned.Length);
+            }
         }
 
         /// <summary>
