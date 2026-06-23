@@ -164,7 +164,7 @@ namespace UiPath.Cryptography.Activities
                 metadata.AddValidationError(new ValidationError(Resources.ChaCha20Poly1305NotSupported, isWarning: true, nameof(Algorithm)));
             }
 
-            if (Iv != null)
+            if (Iv != null && Format == SymmetricWireFormat.Raw && Algorithm != EncryptionAlgorithm.PGP)
             {
                 metadata.AddValidationError(new ValidationError(Resources.Iv_NonceReuseWarning, isWarning: true, nameof(Iv)));
             }

@@ -5,6 +5,7 @@ using System.Linq;
 using Shouldly;
 using UiPath.Cryptography.Enums;
 using Xunit;
+using CryptoRes = UiPath.Cryptography.Activities.Properties.Resources;
 
 #pragma warning disable CS0618 // tests intentionally use obsolete algorithms to fire FIPS warnings.
 
@@ -47,20 +48,59 @@ namespace UiPath.Cryptography.Activities.Tests
                 $"did not expect FIPS warning for {algorithm}, got: {Format(warnings)}");
         }
 
-        // Iv set on EncryptText (any non-Raw format) → IV nonce-reuse warning.
-        // The warning text mentions "(Key, IV) pair" so the user can self-serve.
+        // Iv set on EncryptText with Format == Raw → IV nonce-reuse warning. The IV is only
+        // consumed by the Raw wire format, so the warning is gated on it. Matched by exact
+        // resource equality so a reword of the message can't silently weaken the assertion.
         [Fact]
         public void EncryptText_WithExplicitIv_EmitsNonceReuseWarning()
         {
             var activity = new EncryptText
             {
                 Algorithm = EncryptionAlgorithm.AESGCM,
+                Format = SymmetricWireFormat.Raw,
                 Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("explicit IV", StringComparison.Ordinal)).ShouldBeTrue(
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeTrue(
                 $"expected an IV nonce-reuse warning, got: {Format(warnings)}");
+        }
+
+        // Iv set but Format is non-Raw → no warning. Non-Raw formats reject an IV at runtime,
+        // so the warning fired in unrelated contexts and desensitized the user. STUD-80532.
+        [Theory]
+        [InlineData(SymmetricWireFormat.Classic)]
+        [InlineData(SymmetricWireFormat.Owasp2026)]
+        [InlineData(SymmetricWireFormat.OpenSslEnc)]
+        public void EncryptText_ExplicitIv_NonRawFormat_NoNonceReuseWarning(SymmetricWireFormat format)
+        {
+            var activity = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.AESGCM,
+                Format = format,
+                Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
+            };
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
+                $"did not expect IV nonce-reuse warning for non-Raw format {format}, got: {Format(warnings)}");
+        }
+
+        // PGP ignores Format/Iv entirely (Execute routes to the PGP path, bypassing the
+        // symmetric helper). Even Raw + explicit IV must not warn under PGP. STUD-80532.
+        [Fact]
+        public void EncryptText_PgpWithExplicitRawIv_NoNonceReuseWarning()
+        {
+            var activity = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Format = SymmetricWireFormat.Raw,
+                Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
+            };
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
+                $"did not expect IV nonce-reuse warning for PGP, got: {Format(warnings)}");
         }
 
         [Fact]
@@ -69,7 +109,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new EncryptText { Algorithm = EncryptionAlgorithm.AESGCM };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("nonce", StringComparison.Ordinal)).ShouldBeFalse(
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
                 $"did not expect IV nonce-reuse warning, got: {Format(warnings)}");
         }
 
@@ -90,11 +130,48 @@ namespace UiPath.Cryptography.Activities.Tests
             var activity = new EncryptFile
             {
                 Algorithm = EncryptionAlgorithm.AES,
+                Format = SymmetricWireFormat.Raw,
                 Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
             };
             ValidationError[] warnings = ValidateAndGetWarnings(activity);
 
-            warnings.Any(w => w.Message.Contains("(Key, IV) pair", StringComparison.Ordinal) || w.Message.Contains("explicit IV", StringComparison.Ordinal)).ShouldBeTrue();
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeTrue();
+        }
+
+        // Companion to EncryptText_ExplicitIv_NonRawFormat_NoNonceReuseWarning: both activities
+        // share the same CacheMetadata gate and must stay aligned. STUD-80532.
+        [Theory]
+        [InlineData(SymmetricWireFormat.Classic)]
+        [InlineData(SymmetricWireFormat.Owasp2026)]
+        [InlineData(SymmetricWireFormat.OpenSslEnc)]
+        public void EncryptFile_ExplicitIv_NonRawFormat_NoNonceReuseWarning(SymmetricWireFormat format)
+        {
+            var activity = new EncryptFile
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                Format = format,
+                Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
+            };
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
+                $"did not expect IV nonce-reuse warning for non-Raw format {format}, got: {Format(warnings)}");
+        }
+
+        // Companion to EncryptText_PgpWithExplicitRawIv_NoNonceReuseWarning. STUD-80532.
+        [Fact]
+        public void EncryptFile_PgpWithExplicitRawIv_NoNonceReuseWarning()
+        {
+            var activity = new EncryptFile
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Format = SymmetricWireFormat.Raw,
+                Iv = new InArgument<string>("AABBCCDDEEFF00112233445566778899"),
+            };
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.Iv_NonceReuseWarning).ShouldBeFalse(
+                $"did not expect IV nonce-reuse warning for PGP, got: {Format(warnings)}");
         }
 
         // DecryptText/DecryptFile emit FIPS + ChaCha warnings but NOT the IV warning
