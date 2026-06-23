@@ -134,6 +134,7 @@ namespace UiPath.Database.Activities
             DatabaseConnection conn = null;
             Exception ex = null;
             var continueOnError = ContinueOnError.Get(context);
+            var existingConnection = ExistingDbConnection.Get(context);
             try
             {
                 conn = DatabaseConnection.Get(context);
@@ -152,7 +153,12 @@ namespace UiPath.Database.Activities
             }
             finally
             {
-                if (conn != null)
+                // Dispose only a connection this activity created (no ExistingDbConnection) AND that the
+                // user did not capture through the DatabaseConnection output. A bound output means the
+                // caller intends to reuse the connection after the scope (per the documented output
+                // contract "can be subsequently used for other database operations"), so it must stay
+                // open; an externally supplied connection is always the caller's to manage.
+                if (conn != null && existingConnection == null && DatabaseConnection?.Expression == null)
                 {
                     conn.Dispose();
                 }
@@ -171,6 +177,7 @@ namespace UiPath.Database.Activities
             faultContext.CancelChildren();
             DatabaseConnection conn = DatabaseConnection.Get(faultContext);
             var continueOnError = ContinueOnError.Get(faultContext);
+            var existingConnection = ExistingDbConnection.Get(faultContext);
             var primaryException = exception;
             if (conn != null)
             {
@@ -194,7 +201,12 @@ namespace UiPath.Database.Activities
                 }
                 finally
                 {
-                    conn.Dispose();
+                    // See OnCompletedCallback: keep the connection open when it was supplied externally
+                    // or captured via a bound DatabaseConnection output; otherwise the activity owns it.
+                    if (existingConnection == null && DatabaseConnection?.Expression == null)
+                    {
+                        conn.Dispose();
+                    }
                 }
             }
 

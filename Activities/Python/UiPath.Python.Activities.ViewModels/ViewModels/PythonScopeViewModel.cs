@@ -50,7 +50,7 @@ namespace UiPath.Activities.Python.ViewModels
             Path.DisplayName = Resources.PathNameDisplayName;
             Path.Tooltip = Resources.PathDescription;
             Path.Category = Resources.Input;
-            Path.IsRequired = true;
+            // Path is optional: when empty/null the PYTHONHOME environment variable is used at runtime.
             Path.IsPrincipal = true;
 
             LibraryPath.DisplayName = Resources.LibraryPathNameDisplayName;

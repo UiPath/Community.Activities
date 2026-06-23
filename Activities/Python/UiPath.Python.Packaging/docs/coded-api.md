@@ -169,12 +169,12 @@ Options for configuring a Python scope passed to `UsePythonScope`.
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `Path` | `string` | — | Path to the Python installation directory. When omitted, the runtime searches common locations. |
-| `LibraryPath` | `string` | — | Path to additional Python libraries (e.g., a `site-packages` directory from a virtual environment). |
-| `Version` | `Version` | `Version.Auto` | Python version to use. `Auto` detects the installed version automatically. |
+| `Path` | `string` | — | Path to the Python installation directory. Optional — when omitted, the `PYTHONHOME` environment variable is used. |
+| `LibraryPath` | `string` | — (**required**) | **Required.** Full path to the versioned Python runtime library including the file name — `python**.dll` on Windows (e.g. `python313.dll`), `libpython*.so` on Linux, or `libpython*.dylib` on macOS. pythonnet uses it to locate the runtime; an empty or missing file raises `FileNotFoundException`. |
+| `Version` | `Version` | `Version.Auto` | **Deprecated — has no effect.** The Python version is detected automatically from the installation at `Path`/`LibraryPath`. Retained only for backward compatibility. |
 | `WorkingFolder` | `string` | — | Working directory for the Python process. Relative imports in scripts resolve from this path. |
 | `OperationTimeout` | `TimeSpan?` | `null` (1 hour) | Maximum time to wait for Python operations to complete. When `null`, defaults to 1 hour. |
-| `Target` | `TargetPlatform` | `TargetPlatform.x64` | CPU architecture of the Python engine. Set to `TargetPlatform.x86` only when using a 32-bit Python installation (e.g., legacy native-DLL bindings that require a 32-bit host). |
+| `Target` | `TargetPlatform` | `TargetPlatform.x64` | **Deprecated — has no effect.** Only 64-bit in-process execution is supported. Retained only for backward compatibility. |
 | `LogTraces` | `bool` | `false` | When `true`, stdout/stderr from the Python host process is written to a per-host diagnostic log file under the folder resolved by `Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)`, in the `UiPath\Logs\python` subdirectory. Each log file is capped at 50 MB; once the cap is reached, no further output is written to that file. At most 128 log files are kept — the oldest are automatically deleted when a new file is created. Output is NOT forwarded to Orchestrator — intended for local diagnosis only. |
 | `ScriptDataSizeLimitMB` | `int?` | `null` (25 MB) | Maximum request payload size in megabytes sent to the Python host. When `null`, defaults to the engine default (25 MB). Must be at least 1 if specified. |
 
@@ -184,7 +184,7 @@ Options for configuring a Python scope passed to `UsePythonScope`.
 
 ### `Version`
 
-Specifies which Python version to initialize the scope with.
+> **Deprecated — has no effect.** The Python version is now detected automatically from the installation. This enum is retained only so existing serialized workflows continue to deserialize.
 
 | Value | Description |
 |-------|-------------|
@@ -195,20 +195,18 @@ Specifies which Python version to initialize the scope with.
 | `Python_39` | Python 3.9 |
 | `Python_310` | Python 3.10 and above |
 
-> **Note:** Python 2.7 and Python 3.3–3.5 values exist in the enum for serialization compatibility but are not supported and will raise a validation error at runtime if used.
+> **Note:** Only Python **3.10–3.14** are supported at runtime. The Python 2.7, 3.3–3.5 and 3.6–3.9 values remain in the enum for serialization compatibility but are not supported and will raise a validation error at runtime if used.
 
 ---
 
 ### `TargetPlatform`
 
-Specifies the CPU architecture for the Python engine host process.
+> **Deprecated — has no effect.** Only 64-bit Python is supported. This enum is retained only for backward compatibility.
 
 | Value | Description |
 |-------|-------------|
-| `x64` | 64-bit Python (default). Use with any standard 64-bit Python installation. |
-| `x86` | 32-bit Python. Use only when your Python installation is 32-bit, typically required for legacy native extensions (`.pyd`/`.dll`) that were built for a 32-bit host. |
-
-> **Note:** The `Target` value must match the bitness of the Python installation pointed to by `Path`. Mismatching architecture (e.g., `x64` engine with a 32-bit Python DLL) will cause an engine initialization failure.
+| `x64` | 64-bit Python (the only supported architecture). |
+| `x86` | 32-bit Python. **No longer supported** — a 32-bit installation raises an error at scope initialization. |
 
 ---
 
@@ -222,8 +220,8 @@ public async void Execute()
 {
     var options = new PythonScopeOptions
     {
-        Path = @"C:\Python310",
-        Version = Version.Python_310
+        Path = @"C:\Python313",
+        LibraryPath = @"C:\Python313\python313.dll"
     };
 
     await using var scope = await python.UsePythonScope(options);
@@ -239,7 +237,8 @@ public async void Execute()
 {
     await using var scope = await python.UsePythonScope(new PythonScopeOptions
     {
-        Version = Version.Auto
+        Path = @"C:\Python313",
+        LibraryPath = @"C:\Python313\python313.dll"
     });
 
     await scope.RunCode(@"
@@ -258,7 +257,8 @@ public async void Execute()
 {
     await using var scope = await python.UsePythonScope(new PythonScopeOptions
     {
-        Version = Version.Auto,
+        Path = @"C:\Python313",
+        LibraryPath = @"C:\Python313\python313.dll",
         WorkingFolder = @"C:\Automation\Scripts"
     });
 
@@ -282,7 +282,8 @@ public async void Execute()
 {
     await using var scope = await python.UsePythonScope(new PythonScopeOptions
     {
-        Version = Version.Auto
+        Path = @"C:\Python313",
+        LibraryPath = @"C:\Python313\python313.dll"
     });
 
     using var module = await scope.LoadCode(@"
@@ -305,8 +306,7 @@ public async void Execute()
     var options = new PythonScopeOptions
     {
         Path = @"C:\Envs\myenv\Scripts",
-        LibraryPath = @"C:\Envs\myenv\Lib\site-packages",
-        Version = Version.Python_310,
+        LibraryPath = @"C:\Python313\python313.dll",
         WorkingFolder = @"C:\Automation",
         OperationTimeout = TimeSpan.FromMinutes(5)
     };
