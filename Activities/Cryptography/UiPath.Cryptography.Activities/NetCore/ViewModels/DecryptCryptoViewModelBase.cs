@@ -321,15 +321,28 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// </summary>
         protected virtual void OnAlgorithmChanged(bool isPgp) { }
 
-        private void FormatChanged_Action()
+        internal void FormatChanged_Action()
         {
             ApplyInteropVisibility();
-            // Snap KdfIterations to a concrete value whenever Format changes — avoids the user seeing 0
-            // and having to look up what the format ships with. Customizations made before the format
-            // change are discarded by design (they were tied to the previous format's KDF anyway).
-            KdfIterations.Value = KdfIterations.IsVisible
-                ? CryptographyHelper.GetRecommendedIterations(Format.Value)
-                : 0;
+            // KdfIterations isn't applicable to Classic/Raw (the field is hidden). Reset it to 0 there —
+            // a hidden non-zero value, literal OR a bound expression that resolves non-zero, fails
+            // SymmetricInteropHelper.ValidateInteropSettings at runtime. When it IS applicable
+            // (Owasp2026/OpenSslEnc), snap an untouched/literal field to the format's recommended default
+            // so the user never sees a bare 0, but preserve a user-bound VB/argument expression —
+            // overwriting it would be silent design-time data loss (encrypt/decrypt sides bound to the
+            // same argument must stay in sync).
+            if (!KdfIterations.IsVisible)
+            {
+                KdfIterations.Value = 0;
+            }
+            else
+            {
+                var boundExpression = KdfIterations.Value?.Expression;
+                if (boundExpression == null || boundExpression.IsLiteral())
+                {
+                    KdfIterations.Value = CryptographyHelper.GetRecommendedIterations(Format.Value);
+                }
+            }
             // Snap KeyFormat: Hex when Raw (so the dropdown lands on a valid option),
             // Encoded otherwise (so non-Raw runtime validation passes).
             KeyFormat.Value = Format.Value == SymmetricWireFormat.Raw
