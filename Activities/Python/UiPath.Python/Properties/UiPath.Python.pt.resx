@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>A versão do Python {0} não é suportada. As versões suportadas são: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>A instalação do Python em &quot;{0} &quot; é de 32 bits. Apenas são suportadas instalações do Python de 64 bits. Instale uma versão de 64 bits do Python.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>O Python {0} não é suportado. As versões suportadas são: {1}.</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>O tamanho dos dados de script Python ({0} MB) excede o limite configurado ({1} MB). Transmita dados grandes através de um caminho de ficheiro e não como um argumento de método ou aumente a propriedade Limite de Tamanho de Dados de Script.</value>
   </data>

@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Python sürümü {0} desteklenmiyor. Desteklenen sürümler şunlardır: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>&apos;{0}&apos; konumundaki Python yüklemesi 32 bit. Yalnızca 64 bit Python yüklemeleri desteklenir. Lütfen Python&apos;un 64 bit sürümünü yükleyin.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>Python {0} desteklenmiyor. Desteklenen sürümler şunlardır: {1}</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python komut dosyası veri boyutu ({0} MB) yapılandırılan sınırı ({1} MB) aşıyor. Büyük verileri yöntem bağımsız değişkeni yerine bir dosya yolu üzerinden iletin veya Komut Dosyası Veri Boyutu Sınırı özelliğini artırın.</value>
   </data>

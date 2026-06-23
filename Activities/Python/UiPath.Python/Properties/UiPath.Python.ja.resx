@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>バージョン {0} の Python はサポートされていません。サポートされているバージョンは次のとおりです: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>「{0}」の Python のインストールは 32 ビットです。サポートされているのは、64 ビットの Python のインストールのみです。64 ビット版の Python をインストールしてください。</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>Python {0} はサポートされていません。サポートされているバージョン: {1}</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python スクリプトのデータ サイズ ({0} MB) が、設定された制限 ({1} MB) を超えています。メソッドの引数としてではなくファイル パスを介して大きなデータを渡すか、[スクリプトのデータ サイズ制限] プロパティの値を増やしてください。</value>
   </data>

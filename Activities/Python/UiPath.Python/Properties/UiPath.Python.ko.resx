@@ -159,6 +159,12 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Python 버전 {0}은(는) 지원되지 않습니다. 지원되는 버전: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>&apos;{0}&apos; 위치에 설치된 Python은 32비트 버전입니다. 64비트 Python 설치만 지원됩니다. 64비트 버전의 Python을 설치하십시오.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>Python {0}은(는) 지원되지 않습니다. 지원되는 버전: {1}.</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python 스크립트 데이터 크기({0}MB)가 구성된 제한({1}MB)을 초과합니다. 대용량 데이터는 메서드 인수 대신 파일 경로를 통해 전달하거나 스크립트 데이터 크기 제한 속성을 늘리십시오.</value>
   </data>
