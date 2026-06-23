@@ -1060,9 +1060,9 @@ namespace UiPath.Cryptography
                 case KeyBytesFormat.Base64:
                 {
                     if (!string.IsNullOrEmpty(keyString))
-                        return Convert.FromBase64String(keyString);
+                        return FromBase64String(keyString);
                     if (keySecureString != null && keySecureString.Length > 0)
-                        return SecureStringHelpers.WithSecureChars(keySecureString, chars => Convert.FromBase64CharArray(chars, 0, chars.Length));
+                        return SecureStringHelpers.WithSecureChars(keySecureString, chars => FromBase64String(chars));
                     throw new ArgumentException("Base64 key/IV string is empty.");
                 }
 
@@ -1103,6 +1103,44 @@ namespace UiPath.Cryptography
             {
                 // Zero the secret-bearing scratch buffer (covers both the stackalloc and heap-allocated cases).
                 cleaned.Clear();
+            }
+        }
+
+        // Takes ReadOnlySpan<char> (not string) so a SecureString-derived char[] can be parsed
+        // without ever producing a managed string — mirroring FromHexString and preserving the
+        // no-managed-string guarantee of the SecureString key path (STUD-80531). The cleaned
+        // scratch buffer holds a copy of the secret key material, so it is zeroed in finally.
+        // It is a char[] (not stackalloc) because Convert.FromBase64CharArray needs an array;
+        // a key/IV is short, so the allocation is negligible.
+        private static byte[] FromBase64String(ReadOnlySpan<char> s)
+        {
+            // Tolerate whitespace/line wraps, the URL-safe alphabet, and missing padding —
+            // common forms a third-party tool (openssl, JWT/OAuth secrets) produces. The final
+            // Convert.FromBase64CharArray call still enforces strict validation on the cleaned
+            // text: characters outside the alphabet and a mod-4==1 length both surface as
+            // FormatException, consistent with the rest of the Base64 contract.
+            char[] cleaned = new char[s.Length + 2]; // +2 head-room for the padding we may append
+            try
+            {
+                int n = 0;
+                foreach (char c in s)
+                {
+                    if (c == ' ' || c == '\t' || c == '\r' || c == '\n') continue;
+                    if (c == '-') cleaned[n++] = '+';        // URL-safe alphabet → standard
+                    else if (c == '_') cleaned[n++] = '/';
+                    else cleaned[n++] = c;
+                }
+                int rem = n % 4;
+                if (rem == 2) { cleaned[n++] = '='; cleaned[n++] = '='; }
+                else if (rem == 3) { cleaned[n++] = '='; }
+                // rem == 1 can never be valid Base64; leave it for Convert.FromBase64CharArray
+                // to reject as FormatException, consistent with the rest of the Base64 contract.
+                return Convert.FromBase64CharArray(cleaned, 0, n);
+            }
+            finally
+            {
+                // Zero the secret-bearing scratch buffer before the frame unwinds.
+                Array.Clear(cleaned, 0, cleaned.Length);
             }
         }
 

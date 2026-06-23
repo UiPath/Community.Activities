@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Encoding of the Key (and IV) string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <value>Encoding of the Key (and IV) string: Hex (e.g. 64 chars for an AES-256 key) or Base64. Base64 input tolerates whitespace, line wraps, URL-safe characters (- and _), and missing padding.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Encoding of the Key string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <value>Encoding of the Key string: Hex (e.g. 64 chars for an AES-256 key) or Base64. Base64 input tolerates whitespace, line wraps, URL-safe characters (- and _), and missing padding.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Encoding of the Key (and IV) string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <value>Encoding of the Key (and IV) string: Hex (e.g. 64 chars for an AES-256 key) or Base64. Base64 input tolerates whitespace, line wraps, URL-safe characters (- and _), and missing padding.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Encoding of the Key string: Hex (e.g. 64 chars for an AES-256 key) or Base64.</value>
+    <value>Encoding of the Key string: Hex (e.g. 64 chars for an AES-256 key) or Base64. Base64 input tolerates whitespace, line wraps, URL-safe characters (- and _), and missing padding.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
