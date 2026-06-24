@@ -363,11 +363,23 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                     KdfIterations.Value = CryptographyHelper.GetRecommendedIterations(Format.Value);
                 }
             }
-            // Snap KeyFormat: Hex when Raw (so the dropdown lands on a valid option),
-            // Encoded otherwise (so non-Raw runtime validation passes).
-            KeyFormat.Value = Format.Value == SymmetricWireFormat.Raw
-                ? KeyBytesFormat.Hex
-                : KeyBytesFormat.Encoded;
+            // Snap KeyFormat to a value valid for the new Format. This action also fires on reload,
+            // when the persisted Format value is applied to the design property — so for Raw we must
+            // preserve the user's persisted Hex/Base64 choice and only correct the Encoded default
+            // (which Raw's dropdown doesn't even offer) up to Hex. Overwriting it unconditionally
+            // dropped a saved Base64 selection back to Hex on every reopen. Non-Raw formats hide the
+            // field and reject Hex/Base64 at runtime, so they always snap back to Encoded.
+            if (Format.Value == SymmetricWireFormat.Raw)
+            {
+                if (KeyFormat.Value == KeyBytesFormat.Encoded)
+                {
+                    KeyFormat.Value = KeyBytesFormat.Hex;
+                }
+            }
+            else
+            {
+                KeyFormat.Value = KeyBytesFormat.Encoded;
+            }
         }
 
         private void ApplyInteropVisibility()
