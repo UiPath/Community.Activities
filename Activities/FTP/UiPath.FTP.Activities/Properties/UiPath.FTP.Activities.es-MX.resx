@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>El nombre de usuario no puede estar vacío.</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>El tiempo de espera debe ser mayor o igual que 0.</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>Protocolos SSL</value>
   </data>
@@ -217,7 +220,7 @@
     <value>Ruta de acceso a la clave privada en formato PKCS #1 PEM</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>No se encontró ningún método de autenticación válido: debe proporcionar un archivo de clave privada (y, opcionalmente, una frase de contraseña) o una contraseña</value>
+    <value>No se encontró ningún método de autenticación válido: debe suministrar un archivo de clave privada (y, opcionalmente, una frase de contraseña) o una contraseña</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>Nueva ruta de acceso remota</value>
@@ -240,14 +243,14 @@
     <value>Descargar archivos</value>
   </data>
   <data name="DownloadFilesDisplayName" xml:space="preserve">
-    <value>Descargar archivos</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="EnumerateObjectsDescription" xml:space="preserve">
     <value>Enumerar objetos</value>
   </data>
   <data name="EnumerateObjectsDisplayName" xml:space="preserve">
-    <value>Enumerar objetos</value>
+    <value>Enumerate Objects</value>
     <comment>Activity name</comment>
   </data>
   <data name="FileExistsDescription" xml:space="preserve">
@@ -261,14 +264,14 @@
     <value>Mover elemento</value>
   </data>
   <data name="MoveItemDisplayName" xml:space="preserve">
-    <value>Mover elemento</value>
+    <value>Move Item</value>
     <comment>Activity name</comment>
   </data>
   <data name="UploadFilesDescription" xml:space="preserve">
     <value>Cargar archivos</value>
   </data>
   <data name="UploadFilesDisplayName" xml:space="preserve">
-    <value>Subir archivos</value>
+    <value>Upload Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="WithFtpSessionDescription" xml:space="preserve">
@@ -325,7 +328,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Eliminar archivo/carpeta</value>
+    <value>Delete File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -469,7 +472,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Use FTP connection</value>
+    <value>Use FTP Connection</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -540,6 +543,14 @@
     <value>Seleccione el protocolo SSL que se utilizará para la conexión FTPS</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>El valor de tiempo de espera (en milisegundos) para la conexión FTP/SFTP. Si no se establece, se utiliza el tiempo de espera predeterminado de la biblioteca subyacente.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>Tiempo de espera (milisegundos)</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>Protocolos SSL</value>
     <comment>Property name</comment>
@@ -573,7 +584,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Descargar archivos</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -759,5 +770,22 @@
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>Dejar vacío para la configuración automática</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>La contraseña de proxy en formato de cadena segura</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Contraseña segura de proxy</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>Filtra elementos según el tipo (se incluirá lo que se seleccione)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>Tipos de objeto</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>Seleccione los tipos de objetos que desea incluir</value>
   </data>
 </root>

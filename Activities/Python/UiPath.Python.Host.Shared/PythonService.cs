@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using UiPath.Python.Service;
 using UiPath.Shared.Service;
 using System.Data;
@@ -33,7 +35,25 @@ namespace UiPath.Python.Host
 
         internal NamedPipeServerStream pipeServer { get; set; }
 
-        internal async void RunServer()
+        internal async Task RunServer(CancellationToken ct = default)
+        {
+            try
+            {
+                await RunServerCore(ct);
+            }
+            catch (OperationCanceledException) when (ct.IsCancellationRequested)
+            {
+                //expected on shutdown
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"PythonService.RunServer terminated unexpectedly: {ex}");
+                throw;
+            }
+        }
+
+        [SuppressMessage("SonarQube", "S2190:Loops and recursions should not be infinite", Justification = "Loop exits via OperationCanceledException on shutdown or via IOException / ObjectDisposedException when the named pipe is broken or disposed.")]
+        private async Task RunServerCore(CancellationToken ct)
         {
             PythonResponse response = new PythonResponse
             {
@@ -53,9 +73,10 @@ namespace UiPath.Python.Host
 
                 while (true)
                 {
+                    PythonRequest request = null;
                     try
                     {
-                        var request = PythonRequest.Deserialize(await streamReader.ReadLineAsync());
+                        request = PythonRequest.Deserialize(await streamReader.ReadLineAsync().WaitAsync(ct));
 
                         switch (request.RequestType)
                         {
@@ -72,6 +93,11 @@ namespace UiPath.Python.Host
                                 };
 
                                 streamWriter.WriteLine(response.Serialize());
+                                // Drain BEFORE Shutdown(): the loop-level WaitForPipeDrain below
+                                // is unreachable here because Shutdown() never returns. Without
+                                // this call, Process.Kill could fire before the client has read
+                                // the response on Windows.
+                                WaitForPipeDrain(pipeServer);
                                 Shutdown();
                                 break;
 
@@ -123,11 +149,30 @@ namespace UiPath.Python.Host
 
                         WaitForPipeDrain(pipeServer);
                     }
+                    catch (OperationCanceledException) when (ct.IsCancellationRequested)
+                    {
+                        throw;
+                    }
+                    catch (IOException)
+                    {
+                        // pipe is broken — the host can no longer serve requests, terminate.
+                        throw;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        // pipe was disposed — same as above.
+                        throw;
+                    }
                     catch (Exception ex)
                     {
+                        // recoverable: script error, deserialization issue, etc.
+                        // Report it to the client tagged with the request type that failed and
+                        // keep serving. If the report itself fails (e.g. IOException because the
+                        // pipe died mid-response), that exception propagates out of this catch
+                        // and exits the loop, which is the correct fatal-exit path.
                         response = new PythonResponse
                         {
-                            ResultState = ResultState.InstantiationException,
+                            ResultState = ResultStateFor(request?.RequestType),
                         };
                         response.Errors = new List<string>();
                         response.Errors.Add(ex.Message);
@@ -138,13 +183,24 @@ namespace UiPath.Python.Host
                 }
         }
 
+        private static ResultState ResultStateFor(RequestType? requestType)
+        {
+            switch (requestType)
+            {
+                case RequestType.Initialize: return ResultState.InstantiationException;
+                case RequestType.LoadScript: return ResultState.LoadException;
+                case RequestType.InvokeMethod: return ResultState.InvocationException;
+                case RequestType.Convert: return ResultState.ConversionException;
+                case RequestType.Execute: return ResultState.ExecutionException;
+                default: return ResultState.RequestException;
+            }
+        }
+
         private bool IsWindows()
         {
             bool isWindows = true;
-#if NETCOREAPP
             if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 isWindows = false;
-#endif
             return isWindows;
         }
         private void WaitForPipeDrain(NamedPipeServerStream pipe)
@@ -237,7 +293,11 @@ namespace UiPath.Python.Host
         {
             try
             {
-                //Delay the actual killing of the process a little bit in order for the client to process the shutdown response
+                // Cross-platform safety cushion: on Windows the Shutdown case already calls
+                // WaitForPipeDrain to guarantee the client read the response, so this Sleep is
+                // redundant there. On non-Windows WaitForPipeDrain is a no-op (unsupported),
+                // so this brief delay is the only thing giving the client time to read the
+                // response before Process.Kill tears down the pipe.
                 Thread.Sleep(1000);
                 Process.GetCurrentProcess().Kill();
                 Environment.Exit(1);

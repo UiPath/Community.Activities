@@ -129,6 +129,21 @@
   <data name="InstantiationException" xml:space="preserve">
     <value>Python-Instanziierungsausnahme</value>
   </data>
+  <data name="LoadException" xml:space="preserve">
+    <value>Ausnahme beim Laden des Python-Skripts</value>
+  </data>
+  <data name="InvocationException" xml:space="preserve">
+    <value>Ausnahme beim Aufruf der Python-Methode</value>
+  </data>
+  <data name="ConversionException" xml:space="preserve">
+    <value>Ausnahme bei der Python-Objektkonvertierung</value>
+  </data>
+  <data name="ExecutionException" xml:space="preserve">
+    <value>Ausnahme bei der Ausführung des Python-Codes</value>
+  </data>
+  <data name="RequestException" xml:space="preserve">
+    <value>Ausnahme bei der Verarbeitung der Python-Anforderung</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Die ausführbare Python-Datei wurde nicht gefunden.</value>
   </data>
@@ -143,5 +158,14 @@
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>Die Python-Version {0} wird nicht unterstützt. Folgende Versionen werden unterstützt: {1}</value>
+  </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>Die Python-Installation unter „{0}“ ist 32-Bit. Es werden nur 64-Bit-Python-Installationen unterstützt. Installieren Sie eine 64-Bit-Version von Python.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>Python {0} wird nicht unterstützt. Folgende Versionen werden unterstützt: {1}</value>
+  </data>
+  <data name="PayloadThresholdExceeded" xml:space="preserve">
+    <value>Die Datengröße des Python-Skripts ({0} MB) überschreitet das konfigurierte Limit ({1} MB). Übergeben Sie große Datenmengen über einen Dateipfad statt als Methodenargument, oder erhöhen Sie die Eigenschaft „Größenbegrenzung für Skriptdaten“.</value>
   </data>
 </root>

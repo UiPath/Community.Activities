@@ -248,6 +248,12 @@
     <value>参数列表</value>
     <comment>property name</comment>
   </data>
+  <data name="MenuAction_UseStaticNames" xml:space="preserve">
+    <value>使用静态名称</value>
+  </data>
+  <data name="MenuAction_UseAnExpression" xml:space="preserve">
+    <value>使用表达式</value>
+  </data>
   <data name="ParametersSetException" xml:space="preserve">
     <value>无法同时设置“{0}”和“{1}”。</value>
   </data>

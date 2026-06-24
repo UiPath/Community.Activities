@@ -1,10 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <Import Project="..\Python.build.props" />
   <PropertyGroup>
     <TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
     <UseWPF>true</UseWPF>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />
@@ -26,13 +25,7 @@
     <ProjectReference Include="..\UiPath.Python.Activities\UiPath.Python.Activities.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.fr.resx">
-      <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.ja.resx">
-      <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.ru.resx">
+    <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.*.resx">
       <DependentUpon>UiPath.Python.Activities.Design.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Python.Activities.Design.resx">

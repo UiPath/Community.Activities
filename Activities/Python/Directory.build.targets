@@ -1,0 +1,10 @@
+<Project>
+    <!-- Import first the parent targets -->
+    <Import Project="../Directory.build.targets" />
+
+    <ItemGroup>
+        <!-- Upgrade python specific dependencies here -->
+        <PackageReference Update="pythonnet" Version="3.1.0" />
+    </ItemGroup>
+    
+</Project>

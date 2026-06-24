@@ -1,11 +1,3 @@
-resources:
-  repositories:
-  - repository: common
-    type: github
-    name: UiPath/AzurePipelinesTemplates
-    ref: refs/tags/uipath.community.activities.1.3.0
-    endpoint: "GitHub connection"
-
 trigger:
   batch: true
   branches:
@@ -41,13 +33,17 @@ variables:
   - template: ..\.pipelines\variables\variables.yml
 
 stages:
-  - template: Activities/stage.start.yml@common
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'FTP'
       solutionPath: '$(SolutionsPath)/Activities.FTP.sln'
-      sonarKeyPrefix: 'CommunityActivities'
       sdkBuild: false
-      enableCDStages: false
       hasQaPackages: false
+      preTestRun:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 6 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '6.0.x'
 
 

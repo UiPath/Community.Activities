@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\Python.build.props" />
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
         <OutputPath>$(ProjectDir)..\..\Output\Activities\Python\</OutputPath>
@@ -27,10 +26,6 @@
         </ItemGroup>
     </Target>
 
-    <ItemGroup Label="Reference3rdParties">
-        <None Include="..\3rdparty\Python.Runtime*.dll" LinkBase="x86" CopyToOutputDirectory="PreserveNewest" />
-        <None Include="..\3rdparty\x64\Python.Runtime*.dll" LinkBase="x64" CopyToOutputDirectory="PreserveNewest" />        
-    </ItemGroup>
 
     <Target Name="AddDlls">
         <ItemGroup Label="AddActivitiesDlls">
@@ -38,12 +33,16 @@
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.dll" />
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.ViewModels.dll" />
 
-            <PythonResources Include="$(OutputPath)**\UiPath.Python.resources.dll" />
+            <PythonResources
+                Include="$(OutputPath)**\UiPath.Python.resources.dll"
+                Exclude="$(OutputPath)win-*\**\UiPath.Python.resources.dll;$(OutputPath)linux-*\**\UiPath.Python.resources.dll;$(OutputPath)osx-*\**\UiPath.Python.resources.dll" />
             <BuildOutputInPackage Include="@(PythonResources)">
                 <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
             </BuildOutputInPackage>
 
-            <PythonActivitiesResources Include="$(OutputPath)**\UiPath.Python.Activities.resources.dll" />
+            <PythonActivitiesResources
+                Include="$(OutputPath)**\UiPath.Python.Activities.resources.dll"
+                Exclude="$(OutputPath)win-*\**\UiPath.Python.Activities.resources.dll;$(OutputPath)linux-*\**\UiPath.Python.Activities.resources.dll;$(OutputPath)osx-*\**\UiPath.Python.Activities.resources.dll" />
             <BuildOutputInPackage Include="@(PythonActivitiesResources)">
                 <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
             </BuildOutputInPackage>
@@ -53,20 +52,34 @@
             <TfmSpecificPackageFile Include="$(OutputPath)*.dll">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
-            <TfmSpecificPackageFile Include="$(OutputPath)**\Python.Runtime*.dll">
-                <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
-            </TfmSpecificPackageFile>
-            <TfmSpecificPackageFile Include="$(OutputPath)UiPath.Python.Host*.json">
+            <TfmSpecificPackageFile Include="$(OutputPath)UiPath.Python.Host*.*">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
             <TfmSpecificPackageFile Include="$(OutputPath)**\UiPath.Python.resources.dll">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
-            
+
             <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Activities*.dll" />
             <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Packaging.dll" />
+            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Host32*.*" />
+            <TfmSpecificPackageFile Remove="$(OutputPath)**\UiPath.Python.Host32*.*" />
+            <TfmSpecificPackageFile Remove="$(OutputPath)**\*.pdb" />
+            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Host.exe" />
+            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Host.pdb" />
         </ItemGroup>
+
+        <!--Coded workflow API files-->
+        <ItemGroup Label="AddCodedWorkflowAPI">
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.API.dll" />
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.API.xml" />
+        </ItemGroup>
+      
     </Target>
+
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\Python\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj">
@@ -78,20 +91,24 @@
         <ProjectReference Include="..\..\Python\UiPath.Python.Activities\UiPath.Python.Activities.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
-        <ProjectReference Include="..\..\Python\UiPath.Python.Host32\UiPath.Python.Host32.csproj">
-            <PrivateAssets>All</PrivateAssets>
-        </ProjectReference>
         <ProjectReference Include="..\..\Python\UiPath.Python.Host\UiPath.Python.Host.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
+      <ProjectReference Include="..\..\Python\UiPath.Python.Activities.API\UiPath.Python.Activities.API.csproj">
+        <PrivateAssets>All</PrivateAssets>
+      </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="System.Activities.ViewModels" />
+        <PackageReference Include="UiPath.Platform" />
+        <PackageReference Include="UiPath.Telemetry.Client" />
+        <PackageReference Include="UiPath.CodedWorkflows" />
+        <PackageReference Include="pythonnet" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
-        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
-        
+        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" IgnoreStandardErrorWarningFormat="true" />
+
 </Target>
 </Project>

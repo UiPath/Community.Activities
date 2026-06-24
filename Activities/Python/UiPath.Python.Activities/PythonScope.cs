@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Statements;
 using System.Activities.Validation;
 using System.ComponentModel;
@@ -9,6 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Python.Activities.Properties;
 using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.Python.Activities
 {
@@ -16,13 +20,14 @@ namespace UiPath.Python.Activities
     [LocalizedDescription(nameof(Resources.PythonScopeDescription))]
     public class PythonScope : AsyncTaskNativeActivity
     {
-        [RequiredArgument]
+        [Browsable(false)]
+        [Obsolete("Version is no longer used. The Python version is detected automatically from the installation at Path/LibraryPath.")]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.VersionNameDisplayName))]
         [LocalizedDescription(nameof(Resources.VersionDescription))]
         [TypeConverter(typeof(EnumTypeConverter))]
         [DefaultValue(Version.Auto)]
-        public Version Version { get; set; }
+        public Version Version { get; set; } = Version.Auto;
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.PathNameDisplayName))]
@@ -30,12 +35,15 @@ namespace UiPath.Python.Activities
         [DefaultValue(null)]
         public InArgument<string> Path { get; set; }
 
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.LibraryPathNameDisplayName))]
         [LocalizedDescription(nameof(Resources.LibraryPathDescription))]
         [DefaultValue(null)]
         public InArgument<string> LibraryPath { get; set; }
 
+        [Browsable(false)]
+        [Obsolete("TargetPlatform is no longer used. Only 64-bit in-process execution is supported with direct pythonnet integration.")]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.TargetPlatformDisplayName))]
         [LocalizedDescription(nameof(Resources.TargetPlatformDescription))]
@@ -71,6 +79,18 @@ namespace UiPath.Python.Activities
 
         #endregion TODO: decide if these will be exposed
 
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.ScriptDataSizeLimitDisplayName))]
+        [LocalizedDescription(nameof(Resources.ScriptDataSizeLimitDescription))]
+        [DefaultValue(null)]
+        public InArgument<int> ScriptDataSizeLimitMB { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.LogTracesDisplayName))]
+        [LocalizedDescription(nameof(Resources.LogTracesDescription))]
+        [DefaultValue(false)]
+        public bool LogTraces { get; set; } = false;
+
         private const string PythonEngineSessionProperty = "PythonEngineSessionProperty";
         private IEngine _pythonEngine = null;
 
@@ -100,81 +120,111 @@ namespace UiPath.Python.Activities
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             base.CacheMetadata(metadata);
-            if(Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
-                metadata.AddValidationError(new ValidationError(Resources.ValidationErrorPlatformUnsupported, false, nameof(Version)));
+            if (ScriptDataSizeLimitMB?.Expression is Literal<int> literal && literal.Value < EngineProvider.MinPayloadThresholdMB)
+                metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorScriptDataSizeLimitInvalid, EngineProvider.MinPayloadThresholdMB), false, nameof(ScriptDataSizeLimitMB)));
         }
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)
         {
-            string path = Path.Get(context);
-            string libraryPath = LibraryPath.Get(context);
-            if (!path.IsNullOrEmpty() && !Directory.Exists(path))
-            {
-                throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
-            }
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            _pythonEngine = EngineProvider.Get(Version, path, libraryPath, !Isolated, TargetPlatform, ShowConsole);
-
-            if (_pythonEngine.Version == Version.Python_310 && TargetPlatform == TargetPlatform.x86)
-                throw new InvalidOperationException(Resources.ValidationErrorPlatformUnsupported);
-
-            var workingFolder = WorkingFolder.Get(context);
-            if (!workingFolder.IsNullOrEmpty())
-            {
-                var dir = new DirectoryInfo(workingFolder);
-                if (!dir.Exists)
-                {
-                    throw new DirectoryNotFoundException(Resources.WorkingFolderPathInvalid);
-                }
-                workingFolder = dir.FullName; //we need to pass an absolute path to the python host
-            }
-
-            var operationTimeout = OperationTimeout.Get(context);
-            if (operationTimeout == 0)
-            {
-                operationTimeout = 3600; //default to 1h for no values provided.
-            }
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
 
             try
             {
-                await _pythonEngine.Initialize(workingFolder, cancellationToken, operationTimeout);
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Error initializing Python engine: {e.ToString()}");
+                string path = Path.Get(context);
+                string libraryPath = LibraryPath.Get(context);
+                
+                // if the user supplied the full path to the Python executable instead of its folder, extract the folder
+                if (!path.IsNullOrEmpty() && File.Exists(path))
+                    path = System.IO.Path.GetDirectoryName(path);
+
+                if (!path.IsNullOrEmpty() && !Directory.Exists(path))
+                    throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                int payloadThresholdMB = ScriptDataSizeLimitMB?.Expression != null ? ScriptDataSizeLimitMB.Get(context) : EngineProvider.DefaultPayloadThresholdMB;
+                if (payloadThresholdMB < EngineProvider.MinPayloadThresholdMB)
+                    throw new ArgumentException(string.Format(Resources.ValidationErrorScriptDataSizeLimitInvalid, EngineProvider.MinPayloadThresholdMB));
+
+                // LibraryPath is always required — pythonnet uses it to locate the versioned Python DLL.
+                // Path is optional; when omitted the PYTHONHOME environment variable is used.
+                if (libraryPath.IsNullOrEmpty() || !File.Exists(libraryPath))
+                    throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, libraryPath));
+
+                EngineProvider.ValidateInstallation(path, libraryPath);
+
+                _pythonEngine = EngineProvider.Get(Version.Auto, path, libraryPath, !Isolated, TargetPlatform.x64, ShowConsole, LogTraces, payloadThresholdMB);
+
+                var workingFolder = WorkingFolder.Get(context);
+                if (!workingFolder.IsNullOrEmpty())
+                {
+                    var dir = new DirectoryInfo(workingFolder);
+                    if (!dir.Exists)
+                        throw new DirectoryNotFoundException(Resources.WorkingFolderPathInvalid);
+
+                    workingFolder = dir.FullName; //we need to pass an absolute path to the python host
+                }
+
+                var operationTimeout = OperationTimeout.Get(context);
+                if (operationTimeout == 0)
+                {
+                    operationTimeout = 3600; //default to 1h for no values provided.
+                }
+
                 try
                 {
-                    Cleanup();
+                    await _pythonEngine.Initialize(workingFolder, cancellationToken, operationTimeout);
                 }
-                catch (Exception) { }
-                if (Version != Version.Auto)
+                catch (Exception e)
                 {
-                    Version autodetected = Version.Auto;
-                    EngineProvider.Autodetect(path, out autodetected);
-                    if (autodetected != Version.Auto && autodetected != Version)
-                        throw new InvalidOperationException(string.Format(Resources.InvalidVersionException, Version.ToFriendlyString(), autodetected.ToFriendlyString()));
+                    Trace.TraceError($"Error initializing Python engine: {e}");
+                    Exception cleanupEx = null;
+                    try
+                    {
+                        Cleanup();
+                    }
+                    catch (Exception cEx)
+                    {
+                        cleanupEx = cEx;
+                    }
+
+                    var innerEx = cleanupEx != null ? new AggregateException(e, cleanupEx) : e;
+                    throw new InvalidOperationException(Resources.PythonInitializeException, innerEx);
                 }
-                throw new InvalidOperationException(Resources.PythonInitializeException, e);
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                return ctx =>
+                {
+                    ctx.ScheduleAction(Body, _pythonEngine, OnCompleted, OnFaulted);
+                };
             }
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return ctx =>
+            catch (Exception ex)
             {
-                ctx.ScheduleAction(Body, _pythonEngine, OnCompleted, OnFaulted);
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
 
         private void OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, faultContext);
+            telemetryOperation?.SendWithException(propagatedException);
+#endif
             faultContext.CancelChildren();
             Cleanup();
         }
 
         private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            ITelemetryOperationWrapper telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+            telemetryOperation?.Send();
+#endif
             Cleanup();
         }
 

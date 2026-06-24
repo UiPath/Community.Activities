@@ -3,7 +3,7 @@ using System.Activities.ViewModels;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
-    public partial class MoveItemViewModel : DesignPropertiesViewModel
+    internal class MoveItemViewModel : BaseFtpViewModel
     {
         /// <summary>
         /// Basic constructor
@@ -27,11 +27,6 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// If this box is checked, the files will be overwritten in the new remote directory if they're already stored there.
         /// </summary>
         public DesignProperty<bool> Overwrite { get; set; }
-
-        /// <summary>
-        /// Specifies if the automation should continue even when the activity throws an error.
-        /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; }
 
         protected override void InitializeModel()
         {

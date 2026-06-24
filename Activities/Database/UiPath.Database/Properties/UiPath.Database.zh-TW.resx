@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>提供的 ParameterDirection 引數沒有對應的 ArgumentDirection 值</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>交易已在進行中。在開始新交易之前，請認可或復原現有交易。</value>
+  </data>
 </root>

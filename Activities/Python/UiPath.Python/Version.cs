@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -49,6 +50,22 @@ namespace UiPath.Python
         //Unknown = -1,
         [LocalizedDescription(nameof(Resources.Activity_PythonScope_Property_Auto_Description))]
         Auto,
+
+        //Unsupported versions — hidden from the UI. Using them raises a validation error.
+        //Kept as enum values to avoid breaking serialized workflows that reference them.
+        [Description("Python 2.7")]
+        Python_27,
+
+        [Description("Python 3.3")]
+        Python_33,
+
+        [Description("Python 3.4")]
+        Python_34,
+
+        [Description("Python 3.5")]
+        Python_35,
+        //End of unsupported versions
+
         [Version(3, 6, "Python.Runtime.36.dll")]
         [Description("Python 3.6")]
         Python_36,
@@ -132,6 +149,31 @@ namespace UiPath.Python
 
             return (attributes.Length > 0) ? attributes[0].Description : version.ToString();
         }
+
+        private static readonly Version[] _supportedVersions =
+        {
+            Version.Auto,
+            Version.Python_310
+        };
+
+        [Obsolete("No longer used. With the direct pythonnet integration the supported runtime is " +
+            "validated from the actual Python installation (see EngineProvider.ValidateInstallation); " +
+            "this enum-based list is retained only for backward compatibility.")]
+        public static IReadOnlyList<Version> GetSupportedVersions() => _supportedVersions;
+
+        // Supported CPython minor versions for the direct pythonnet integration.
+        private static readonly (int Major, int Minor)[] _supportedRuntimeVersions =
+        {
+            (3, 10), (3, 11), (3, 12), (3, 13), (3, 14)
+        };
+
+        /// <summary>Returns true when the given major.minor combination is a supported runtime version.</summary>
+        internal static bool IsRuntimeVersionSupported(int major, int minor)
+            => Array.Exists(_supportedRuntimeVersions, v => v.Major == major && v.Minor == minor);
+
+        /// <summary>Returns a human-readable list of supported versions, e.g. "3.10, 3.11, 3.12, 3.13, 3.14".</summary>
+        internal static string GetSupportedRuntimeVersionsDisplay()
+            => string.Join(", ", Array.ConvertAll(_supportedRuntimeVersions, v => $"{v.Major}.{v.Minor}"));
     }
 
     public class EnumTypeConverter : EnumConverter

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>指定的 Python 路徑無效: {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>指定的 Python 元件庫路徑無效 (對 Python 3.10 而言，python**.dll /libpython*.so 的檔案路徑為必填項): {0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>叫用 Python 方法時發生錯誤</value>
   </data>
@@ -288,7 +291,7 @@
     <value>逾時</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>在遭到終止及擲回例外狀況之前，允許 Python 指令碼執行的時間長度。</value>
+    <value>在遭到終止及擲回例外狀況之前，允許 Python 指令碼執行的時間長度 (以秒為單位)。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>對於 Linux，是 Python libpython*.so 元件庫的路徑，包含元件庫名稱。對於 Windows (版本 &gt; 3.9)，是 python**.dll 的路徑，包括元件庫名稱 (通常位於 Python 主目錄路徑)。對於 Windows (版本 &lt;= 3.9)，留空。</value>
@@ -296,11 +299,38 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>元件庫路徑 (適用於 Linux 或版本 &gt; 3.9 的 Windows)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>不支援所選的 Python 版本。</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>32 位元上不支援 3.10 及以上的 Python 版本。 </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>應用程式叫用器.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>已安裝的 Python 版本</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>選取要用於配置活動的 Python 安裝</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>未偵測到任何 Python 安裝</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>指令碼資料大小限制 (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>傳送給 Python 指令碼作為方法引數的資料大小上限 (以 MB 為單位)。如果引數的大小超過此限制，則會引發錯誤。可接受的下限值為 1 MB。留空表示使用預設值 (25 MB)。</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>將 Python 輸出記錄至檔案 (診斷)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>啟用後，Python 主機程序的 stdout 和 stderr 輸出會寫入由 UiPath\Logs\python 子目錄中的 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) 解析的資料夾下的每個主機記錄檔。每個記錄檔的上限為 50 MB，達到上限後，就不會將進一步的輸出寫入該檔案。系統最多可保留 128 個記錄檔案，建立新檔案時會自動刪除最舊的記錄檔案。輸出結果不會轉送至 UiPath Orchestrator。僅用於本機診斷 — 在生產環境中會保持停用，以避免累積記錄檔。</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>指令碼資料大小限制 (MB) 必須至少為 {0}。</value>
   </data>
 </root>

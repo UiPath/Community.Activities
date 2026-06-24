@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\Java.build.props" />
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
 
   <PropertyGroup>
     <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
@@ -10,14 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="UiPath.Activities.Api" />
+    <PackageReference Include="System.Activities.Metadata" />
+  </ItemGroup>
+
+  <ItemGroup>
    <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
+   <EmbeddedResource Condition=" '$(TargetFramework)' == '$(PortableFramework)' " Include="Resources\ActivitiesMetadataPortable.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
    <EmbeddedResource Include="Resources\Icons\*.svg" />
   </ItemGroup>
 
   <ItemGroup>
-     <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
-       <PrivateAssets>All</PrivateAssets>
-       </ProjectReference>
+    <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
+
+  <Import Project="..\..\Shared\UiPath.Shared.ViewModels\UiPath.Shared.ViewModels.projitems" />
 
 </Project>

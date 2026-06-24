@@ -6,6 +6,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
+
 
 namespace UiPath.Java.Activities
 {
@@ -40,34 +45,46 @@ namespace UiPath.Java.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var methodName = MethodName.Get(context) ?? throw new ArgumentNullException(Resources.MethodName);
-            JavaObject javaObject = TargetObject.Get(context);
-            string className = TargetType.Get(context);
-
-            if (javaObject == null && string.IsNullOrWhiteSpace(className))
-            {
-                throw new InvalidOperationException(Resources.InvokationObjectException);
-            }
-
-            List<object> parameters = GetParameters(context);
-            var types = GetParameterTypes(context, parameters);
-            JavaObject instance = null;
-
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                instance = await invoker.InvokeMethod(methodName, className, javaObject, parameters, types, cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"The method could not be invoked: {e}");
-                throw new InvalidOperationException(Resources.InvokeMethodException, e);
-            }
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var methodName = MethodName.Get(context) ?? throw new ArgumentNullException(Resources.MethodName);
 
-            return asyncCodeActivityContext =>
+                JavaObject javaObject = TargetObject.Get(context);
+                string className = TargetType.Get(context);
+
+                if (javaObject == null && string.IsNullOrWhiteSpace(className))
+                    throw new InvalidOperationException(Resources.InvokationObjectException);
+
+                var (parameters, types) = GetParametersAndTypes(context);
+                JavaObject instance = null;
+
+                try
+                {
+                    instance = await invoker.InvokeMethod(methodName, className, javaObject, parameters, types, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"The method could not be invoked: {e}");
+                    throw new InvalidOperationException(Resources.InvokeMethodException, e);
+                }
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    Result.Set(asyncCodeActivityContext, instance);
+                });
+
+                telemetryOperation?.Send();
+                return result;
+            }
+            catch (Exception ex)
             {
-                Result.Set(asyncCodeActivityContext, instance);
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

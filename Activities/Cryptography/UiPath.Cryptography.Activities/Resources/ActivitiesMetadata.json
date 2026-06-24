@@ -5,6 +5,7 @@
       "FullName": "UiPath.Cryptography.Activities.DecryptFile",
       "ShortName": "DecryptFile",
       "DisplayNameKey": "Activity_DecryptFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
       "DescriptionKey": "Activity_DecryptFile_Description",
       "IconKey": "Decrypt_file.svg",
       "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.DecryptFileViewModel",
@@ -89,6 +90,54 @@
           }
         },
         {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_DecryptFile_Property_Format_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_DecryptFile_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_DecryptFile_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_DecryptFile_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_AesKeySize_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_DecryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_DecryptFile_Property_Overwrite_Description",
@@ -113,6 +162,78 @@
           }
         },
         {
+          "Name": "PrivateKeyFilePath",
+          "DisplayNameKey": "Activity_DecryptFile_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_PrivateKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Passphrase",
+          "DisplayNameKey": "Activity_DecryptFile_Property_Passphrase_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_Passphrase_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PassphraseSecureString",
+          "DisplayNameKey": "Activity_DecryptFile_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_PassphraseSecureString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "VerifySignature",
+          "DisplayNameKey": "Activity_DecryptFile_Property_VerifySignature_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_VerifySignature_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "PublicKeyFilePath",
+          "DisplayNameKey": "Activity_DecryptFile_Property_PublicKeyFilePath_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_PublicKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PublicKeyFile",
+          "DisplayNameKey": "Activity_DecryptFile_Property_PublicKeyFile_Name",
+          "TooltipKey": "Activity_DecryptFile_Property_PublicKeyFile_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "DecryptedFile",
           "DisplayNameKey": "Activity_DecryptFile_Property_DecryptedFile_Name",
           "TooltipKey": "Activity_DecryptFile_Property_DecryptedFile_Description",
@@ -129,6 +250,7 @@
       "FullName": "UiPath.Cryptography.Activities.DecryptText",
       "ShortName": "DecryptText",
       "DisplayNameKey": "Activity_DecryptText_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
       "DescriptionKey": "Activity_DecryptText_Description",
       "IconKey": "Decrypt_text.svg",
       "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.DecryptTextViewModel",
@@ -162,6 +284,7 @@
           "DisplayNameKey": "Activity_DecryptText_Property_Key_Name",
           "TooltipKey": "Activity_DecryptText_Property_Key_Description",
           "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": "Input",
@@ -173,6 +296,7 @@
           "DisplayNameKey": "Activity_DecryptText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_DecryptText_Property_KeySecureString_Description",
           "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": "Input",
@@ -182,13 +306,73 @@
         {
           "Name": "KeyEncodingString",
           "DisplayNameKey": "Activity_DecryptText_Property_KeyEncodingString_Name",
-          "TooltipKey": "Activity_DecryptFile_Property_KeyEncodingString_Description",
+          "TooltipKey": "Activity_DecryptText_Property_KeyEncodingString_Description",
           "IsRequired": false,
           "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": "Options",
             "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "PlaintextEncodingString",
+          "DisplayNameKey": "Activity_DecryptText_Property_PlaintextEncodingString_Name",
+          "TooltipKey": "Activity_DecryptText_Property_PlaintextEncodingString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_DecryptText_Property_Format_Name",
+          "TooltipKey": "Activity_DecryptText_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_DecryptText_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_DecryptText_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_DecryptText_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_DecryptText_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_DecryptText_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_DecryptText_Property_AesKeySize_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
           }
         },
         {
@@ -204,11 +388,83 @@
           }
         },
         {
+          "Name": "PrivateKeyFilePath",
+          "DisplayNameKey": "Activity_DecryptText_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_DecryptText_Property_PrivateKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Passphrase",
+          "DisplayNameKey": "Activity_DecryptText_Property_Passphrase_Name",
+          "TooltipKey": "Activity_DecryptText_Property_Passphrase_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PassphraseSecureString",
+          "DisplayNameKey": "Activity_DecryptText_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_DecryptText_Property_PassphraseSecureString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "VerifySignature",
+          "DisplayNameKey": "Activity_DecryptText_Property_VerifySignature_Name",
+          "TooltipKey": "Activity_DecryptText_Property_VerifySignature_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "PublicKeyFilePath",
+          "DisplayNameKey": "Activity_DecryptText_Property_PublicKeyFilePath_Name",
+          "TooltipKey": "Activity_DecryptText_Property_PublicKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PublicKeyFile",
+          "DisplayNameKey": "Activity_DecryptText_Property_PublicKeyFile_Name",
+          "TooltipKey": "Activity_DecryptText_Property_PublicKeyFile_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Result",
           "DisplayNameKey": "Activity_DecryptText_Property_Result_Name",
           "TooltipKey": "Activity_DecryptText_Property_Result_Description",
           "IsRequired": false,
-          "IsPrincipal": true,
+          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": "Output",
@@ -221,6 +477,7 @@
       "FullName": "UiPath.Cryptography.Activities.EncryptFile",
       "ShortName": "EncryptFile",
       "DisplayNameKey": "Activity_EncryptFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
       "DescriptionKey": "Activity_EncryptFile_Description",
       "IconKey": "Encrypt_file.svg",
       "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.EncryptFileViewModel",
@@ -269,6 +526,7 @@
           "DisplayNameKey": "Activity_EncryptFile_Property_Key_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Key_Description",
           "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": "Input",
@@ -280,6 +538,7 @@
           "DisplayNameKey": "Activity_EncryptFile_Property_KeySecureString_Name",
           "TooltipKey": "Activity_EncryptFile_Property_KeySecureString_Description",
           "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": "Input",
@@ -312,6 +571,66 @@
           }
         },
         {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Format_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_EncryptFile_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Iv",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Iv_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Iv_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_EncryptFile_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_EncryptFile_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_AesKeySize_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Overwrite",
           "DisplayNameKey": "Activity_EncryptFile_Property_Overwrite_Name",
           "TooltipKey": "Activity_EncryptFile_Property_Overwrite_Description",
@@ -336,6 +655,78 @@
           }
         },
         {
+          "Name": "PublicKeyFile",
+          "DisplayNameKey": "Activity_EncryptFile_Property_PublicKeyFile_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_PublicKeyFile_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PublicKeyFilePath",
+          "DisplayNameKey": "Activity_EncryptFile_Property_PublicKeyFilePath_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_PublicKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "SignData",
+          "DisplayNameKey": "Activity_EncryptFile_Property_SignData_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_SignData_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "PrivateKeyFilePath",
+          "DisplayNameKey": "Activity_EncryptFile_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_PrivateKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Passphrase",
+          "DisplayNameKey": "Activity_EncryptFile_Property_Passphrase_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_Passphrase_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PassphraseSecureString",
+          "DisplayNameKey": "Activity_EncryptFile_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_EncryptFile_Property_PassphraseSecureString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "EncryptedFile",
           "DisplayNameKey": "Activity_EncryptFile_Property_EncryptedFile_Name",
           "TooltipKey": "Activity_EncryptFile_Property_EncryptedFile_Description",
@@ -352,6 +743,7 @@
       "FullName": "UiPath.Cryptography.Activities.EncryptText",
       "ShortName": "EncryptText",
       "DisplayNameKey": "Activity_EncryptText_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
       "DescriptionKey": "Activity_EncryptText_Description",
       "IconKey": "Encrypt_text.svg",
       "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.EncryptTextViewModel",
@@ -390,6 +782,7 @@
           "DisplayNameKey": "Activity_EncryptText_Property_Key_Name",
           "TooltipKey": "Activity_EncryptText_Property_Key_Description",
           "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": "Input",
@@ -401,6 +794,7 @@
           "DisplayNameKey": "Activity_EncryptText_Property_KeySecureString_Name",
           "TooltipKey": "Activity_EncryptText_Property_KeySecureString_Description",
           "IsRequired": true,
+          "IsPrincipal": true,
           "IsVisible": true,
           "Category": {
             "Name": "Input",
@@ -420,6 +814,78 @@
           }
         },
         {
+          "Name": "PlaintextEncodingString",
+          "DisplayNameKey": "Activity_EncryptText_Property_PlaintextEncodingString_Name",
+          "TooltipKey": "Activity_EncryptText_Property_PlaintextEncodingString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Format",
+          "DisplayNameKey": "Activity_EncryptText_Property_Format_Name",
+          "TooltipKey": "Activity_EncryptText_Property_Format_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KeyFormat",
+          "DisplayNameKey": "Activity_EncryptText_Property_KeyFormat_Name",
+          "TooltipKey": "Activity_EncryptText_Property_KeyFormat_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Iv",
+          "DisplayNameKey": "Activity_EncryptText_Property_Iv_Name",
+          "TooltipKey": "Activity_EncryptText_Property_Iv_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "KdfIterations",
+          "DisplayNameKey": "Activity_EncryptText_Property_KdfIterations_Name",
+          "TooltipKey": "Activity_EncryptText_Property_KdfIterations_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "AesKeySize",
+          "DisplayNameKey": "Activity_EncryptText_Property_AesKeySize_Name",
+          "TooltipKey": "Activity_EncryptText_Property_AesKeySize_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "ContinueOnError",
           "DisplayNameKey": "Activity_EncryptText_Property_ContinueOnError_Name",
           "TooltipKey": "Activity_EncryptText_Property_ContinueOnError_Description",
@@ -432,11 +898,83 @@
           }
         },
         {
+          "Name": "PublicKeyFile",
+          "DisplayNameKey": "Activity_EncryptText_Property_PublicKeyFile_Name",
+          "TooltipKey": "Activity_EncryptText_Property_PublicKeyFile_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PublicKeyFilePath",
+          "DisplayNameKey": "Activity_EncryptText_Property_PublicKeyFilePath_Name",
+          "TooltipKey": "Activity_EncryptText_Property_PublicKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "SignData",
+          "DisplayNameKey": "Activity_EncryptText_Property_SignData_Name",
+          "TooltipKey": "Activity_EncryptText_Property_SignData_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "PrivateKeyFilePath",
+          "DisplayNameKey": "Activity_EncryptText_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_EncryptText_Property_PrivateKeyFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Passphrase",
+          "DisplayNameKey": "Activity_EncryptText_Property_Passphrase_Name",
+          "TooltipKey": "Activity_EncryptText_Property_Passphrase_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PassphraseSecureString",
+          "DisplayNameKey": "Activity_EncryptText_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_EncryptText_Property_PassphraseSecureString_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
           "Name": "Result",
           "DisplayNameKey": "Activity_EncryptText_Property_Result_Name",
           "TooltipKey": "Activity_EncryptText_Property_Result_Description",
           "IsRequired": false,
-          "IsPrincipal": true,
+          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": "Output",
@@ -449,6 +987,7 @@
       "FullName": "UiPath.Cryptography.Activities.KeyedHashFile",
       "ShortName": "KeyedHashFile",
       "DisplayNameKey": "Activity_KeyedHashFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
       "DescriptionKey": "Activity_KeyedHashFile_Description",
       "IconKey": "Hash_file_with_key.svg",
       "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.KeyedHashFileViewModel",
@@ -547,6 +1086,7 @@
       "FullName": "UiPath.Cryptography.Activities.KeyedHashText",
       "ShortName": "KeyedHashText",
       "DisplayNameKey": "Activity_KeyedHashText_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
       "DescriptionKey": "Activity_KeyedHashText_Description",
       "IconKey": "Hash_text_with_key.svg",
       "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.KeyedHashTextViewModel",
@@ -623,6 +1163,483 @@
           "TooltipKey": "Activity_KeyedHashText_Property_Result_Description",
           "IsRequired": false,
           "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpGenerateKeys",
+      "ShortName": "PgpGenerateKeys",
+      "DisplayNameKey": "Activity_PgpGenerateKeys_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpGenerateKeys_Description",
+      "IconKey": "PGP_generate_keys.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpGenerateKeysViewModel",
+      "Properties": [
+        {
+          "Name": "PublicKeyFilePath",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PrivateKeyFilePath",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "UserId",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_UserId_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_UserId_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Passphrase",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_Password_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_Password_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PassphraseSecureString",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_PassphraseSecureString_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_Overwrite_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "KeySize",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_KeySize_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_KeySize_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "PublicKeyFile",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_PublicKeyFile_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_PublicKeyFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        },
+        {
+          "Name": "PrivateKeyFile",
+          "DisplayNameKey": "Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name",
+          "TooltipKey": "Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpSignFile",
+      "ShortName": "PgpSignFile",
+      "DisplayNameKey": "Activity_PgpSignFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpSignFile_Description",
+      "IconKey": "PGP_sign_file.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpSignFileViewModel",
+      "Properties": [
+        {
+          "Name": "InputFilePath",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_InputFilePath_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_InputFilePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_InputFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PrivateKeyFilePath",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_PrivateKeyFilePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PrivateKeyFile",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_PrivateKeyFile_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_PrivateKeyFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Passphrase",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_Passphrase_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_Passphrase_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PassphraseSecureString",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_PassphraseSecureString_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "OutputFilePath",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_OutputFilePath_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_OutputFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_Overwrite_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "SignedFile",
+          "DisplayNameKey": "Activity_PgpSignFile_Property_SignedFile_Name",
+          "TooltipKey": "Activity_PgpSignFile_Property_SignedFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpClearSignFile",
+      "ShortName": "PgpClearSignFile",
+      "DisplayNameKey": "Activity_PgpClearSignFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpClearSignFile_Description",
+      "IconKey": "PGP_clear_sign_file.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpClearSignFileViewModel",
+      "Properties": [
+        {
+          "Name": "InputFilePath",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_InputFilePath_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_InputFilePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_InputFile_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_InputFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PrivateKeyFilePath",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PrivateKeyFile",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_PrivateKeyFile_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_PrivateKeyFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "Passphrase",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_Passphrase_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_Passphrase_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PassphraseSecureString",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_PassphraseSecureString_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_PassphraseSecureString_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "OutputFilePath",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_OutputFilePath_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_OutputFilePath_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "Overwrite",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_Overwrite_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_Overwrite_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "ClearSignedFile",
+          "DisplayNameKey": "Activity_PgpClearSignFile_Property_ClearSignedFile_Name",
+          "TooltipKey": "Activity_PgpClearSignFile_Property_ClearSignedFile_Description",
+          "IsRequired": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Output",
+            "DisplayNameKey": "Output"
+          }
+        }
+      ]
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpVerify",
+      "ShortName": "PgpVerify",
+      "DisplayNameKey": "Activity_PgpVerify_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpVerify_Description",
+      "IconKey": "PGP_verify.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpVerifyViewModel",
+      "Properties": [
+        {
+          "Name": "Mode",
+          "DisplayNameKey": "Activity_PgpVerify_Property_Mode_Name",
+          "TooltipKey": "Activity_PgpVerify_Property_Mode_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputFilePath",
+          "DisplayNameKey": "Activity_PgpVerify_Property_InputFilePath_Name",
+          "TooltipKey": "Activity_PgpVerify_Property_InputFilePath_Description",
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "InputFile",
+          "DisplayNameKey": "Activity_PgpVerify_Property_InputFile_Name",
+          "TooltipKey": "Activity_PgpVerify_Property_InputFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PublicKeyFilePath",
+          "DisplayNameKey": "Activity_PgpVerify_Property_PublicKeyFilePath_Name",
+          "TooltipKey": "Activity_PgpVerify_Property_PublicKeyFilePath_Description",
+          "IsRequired": true,
+          "IsPrincipal": true,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "PublicKeyFile",
+          "DisplayNameKey": "Activity_PgpVerify_Property_PublicKeyFile_Name",
+          "TooltipKey": "Activity_PgpVerify_Property_PublicKeyFile_Description",
+          "IsPrincipal": true,
+          "IsVisible": false,
+          "Category": {
+            "Name": "Input",
+            "DisplayNameKey": "Input"
+          }
+        },
+        {
+          "Name": "ContinueOnError",
+          "DisplayNameKey": "Activity_PgpVerify_Property_ContinueOnError_Name",
+          "TooltipKey": "Activity_PgpVerify_Property_ContinueOnError_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
+          "IsVisible": true,
+          "Category": {
+            "Name": "Options",
+            "DisplayNameKey": "Category_Options_Name"
+          }
+        },
+        {
+          "Name": "Result",
+          "DisplayNameKey": "Activity_PgpVerify_Property_Result_Name",
+          "TooltipKey": "Activity_PgpVerify_Property_Result_Description",
+          "IsRequired": false,
+          "IsPrincipal": false,
           "IsVisible": true,
           "Category": {
             "Name": "Output",

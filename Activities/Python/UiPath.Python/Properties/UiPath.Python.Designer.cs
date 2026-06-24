@@ -29,7 +29,7 @@ namespace UiPath.Python.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public UiPath_Python() {
+        internal UiPath_Python() {
         }
         
         /// <summary>
@@ -70,6 +70,15 @@ namespace UiPath.Python.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python object conversion exception.
+        /// </summary>
+        public static string ConversionException {
+            get {
+                return ResourceManager.GetString("ConversionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Python deserialization exception.
         /// </summary>
         public static string DeserializationException {
@@ -88,11 +97,47 @@ namespace UiPath.Python.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python code execution exception.
+        /// </summary>
+        public static string ExecutionException {
+            get {
+                return ResourceManager.GetString("ExecutionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Python instantiation exception.
         /// </summary>
         public static string InstantiationException {
             get {
                 return ResourceManager.GetString("InstantiationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python method invocation exception.
+        /// </summary>
+        public static string InvocationException {
+            get {
+                return ResourceManager.GetString("InvocationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python load script exception.
+        /// </summary>
+        public static string LoadException {
+            get {
+                return ResourceManager.GetString("LoadException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Python script data size ({0} MB) exceeds the configured limit ({1} MB). Pass large data via a file path instead of as a method argument, or increase the Script Data Size Limit property..
+        /// </summary>
+        public static string PayloadThresholdExceeded {
+            get {
+                return ResourceManager.GetString("PayloadThresholdExceeded", resourceCulture);
             }
         }
         
@@ -111,6 +156,15 @@ namespace UiPath.Python.Properties {
         public static string PythonRuntimeTypeException {
             get {
                 return ResourceManager.GetString("PythonRuntimeTypeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Python request processing exception.
+        /// </summary>
+        public static string RequestException {
+            get {
+                return ResourceManager.GetString("RequestException", resourceCulture);
             }
         }
         
@@ -138,6 +192,24 @@ namespace UiPath.Python.Properties {
         public static string UnsupportedVersionException {
             get {
                 return ResourceManager.GetString("UnsupportedVersionException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Python installation at '{0}' is 32-bit. Only 64-bit Python installations are supported.
+        /// </summary>
+        public static string Python32BitNotSupportedException {
+            get {
+                return ResourceManager.GetString("Python32BitNotSupportedException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Python {0} is not supported. Supported versions are: {1}.
+        /// </summary>
+        public static string PythonVersionNotSupportedException {
+            get {
+                return ResourceManager.GetString("PythonVersionNotSupportedException", resourceCulture);
             }
         }
     }

@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305 (非 FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (已淘汰)</value>
   </data>
@@ -184,7 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>三重 DES</value>
+    <value>TripleDES (已淘汰)</value>
+  </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP - 優良保密協定 (非 FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>不支援所提供的雜湊演算法。</value>
@@ -194,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>不支援所提供的對稱演算法。</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>提供的密文太短，無法以 UiPath 有線格式提供。UiPath 密文版面配置為 Base64(salt | IV | ciphertext)，對於此演算法，必須至少有 {0} 位元組。外部工具產生的密文不直接相容。如需瞭解傳輸格式規格，請參閱活動文件。</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>解密失敗。UiPath 傳輸格式為 Base64(salt | IV | ciphertext)，這通常表示輸入是由其他工具產生，或者金鑰/編碼與加密時所使用的不一致。</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>此平台不支援 ChaCha20-Poly1305。請改用 AES-GCM，或在提供 ChaCha20-Poly1305 的平台上執行 (使用 OpenSSL 的 Linux，或 Windows 10 1809 / Server 2019 或更高版本)。</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -615,5 +630,38 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>PGP 私密金鑰的密碼不正確。</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>提供的私密金鑰與加密資料不相符。請確認您使用的私密金鑰正確無誤。</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>PGP 簽名驗證失敗。公開金鑰與簽名不相符，或資料已遭篡改。</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>簽署的檔案 (二進位)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>清除簽署的檔案 (文字)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>驗證公開金鑰</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 位元</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 位元</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 位元</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>已請求簽署，但需要私密金鑰和密碼才能簽署。請同時提供私密金鑰串流和密碼，或將簽署設定為 False。</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>已請求簽名驗證，但需要公開金鑰才能驗證。請提供公開金鑰串流，或將驗證簽名設定為 False。</value>
   </data>
 </root>

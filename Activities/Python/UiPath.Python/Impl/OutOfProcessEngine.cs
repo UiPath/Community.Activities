@@ -12,13 +12,13 @@ namespace UiPath.Python.Impl
     internal class OutOfProcessEngine : IEngine
     {
         private const string ServiceDll_x64 = "UiPath.Python.Host.dll";
-        private const string ServiceDll_x86 = "UiPath.Python.Host32.dll";
 
         private PythonProxy _proxy;
         private Controller<IPythonService> _provider;
-        private TargetPlatform _target;
 
         private bool _visible;
+        private readonly bool _logTrace;
+        private readonly int _payloadThresholdMB;
 
         #region Runtime info
 
@@ -28,13 +28,14 @@ namespace UiPath.Python.Impl
 
         #endregion Runtime info
 
-        internal OutOfProcessEngine(Version version, string path, string libraryPath, TargetPlatform target, bool visible)
+        internal OutOfProcessEngine(Version version, string path, string libraryPath, TargetPlatform target, bool visible, bool logTrace, int payloadThresholdMB)
         {
             _version = version;
             _path = path;
             _libraryPath = libraryPath;
-            _target = target;
             _visible = visible;
+            _logTrace = logTrace;
+            _payloadThresholdMB = payloadThresholdMB;
         }
 
         #region IEngine
@@ -52,12 +53,15 @@ namespace UiPath.Python.Impl
             // TODO: expose visible as a property?
             _provider = new Controller<IPythonService>()
             {
-                HostLibFile = TargetPlatform.x64 == _target ? ServiceDll_x64 : ServiceDll_x86,
+                PythonHostLibFile = ServiceDll_x64,
                 Visible = _visible
             };
 
+            // Set LogTrace before Create() so the diagnostic file (if enabled) captures
+            // host startup output too, not just lines after the service is ready.
+            _provider.PythonWrapper.LogTrace = _logTrace;
             _provider.Create();
-            _proxy = new PythonProxy(_provider.PythonWrapper, timeout, ct);
+            _proxy = new PythonProxy(_provider.PythonWrapper, timeout, ct, _payloadThresholdMB);
             _proxy.Initialize(_path, _libraryPath, _version, workingFolder);
 
             sw.Stop();

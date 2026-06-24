@@ -7,6 +7,7 @@ using System.Activities.DesignViewModels;
 using System.Diagnostics.CodeAnalysis;
 using UiPath.Studio.Activities.Api;
 using UiPath.Python;
+using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
 namespace UiPath.Activities.Python.ViewModels
 {
@@ -33,8 +34,24 @@ namespace UiPath.Activities.Python.ViewModels
         {
             base.InitializeModel();
 
+            var orderIndex = 0;
+            PythonObject.OrderIndex = orderIndex++;
+            InputType.OrderIndex = orderIndex++;
+            Result.OrderIndex = orderIndex++;
+
+            PythonObject.DisplayName = Resources.PythonObjectNameDisplayName;
+            PythonObject.Tooltip = Resources.PythonObjectDescription;
+            PythonObject.Category = Resources.Input;
+            PythonObject.IsRequired = true;
+            PythonObject.IsPrincipal = true;
+
+            InputType.Category = Resources.Input;
             // hide the property until we know if the type picker widget is available
             InputType.IsVisible = false;
+
+            Result.DisplayName = Resources.ResultNameDisplayName;
+            Result.Tooltip = Resources.GetObjectResultDescription;
+            Result.Category = Resources.Output;
 
             if (_workflowDesignApi is null)
                 return;

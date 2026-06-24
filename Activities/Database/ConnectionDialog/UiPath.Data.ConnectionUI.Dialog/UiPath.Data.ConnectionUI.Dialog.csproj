@@ -8,6 +8,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Data.SqlClient" />
+        <PackageReference Include="Microsoft.Data.Sqlite" />
         <PackageReference Include="System.Data.Common" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
@@ -36,6 +37,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Update="Properties\UiPath.Data.ConnectionUI.Dialog.*.resx">
+            <DependentUpon>UiPath.Data.ConnectionUI.Dialog.resx</DependentUpon>
+        </EmbeddedResource>
         <EmbeddedResource Update="Properties\UiPath.Data.ConnectionUI.Dialog.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>UiPath.Data.ConnectionUI.Dialog.Designer.cs</LastGenOutput>

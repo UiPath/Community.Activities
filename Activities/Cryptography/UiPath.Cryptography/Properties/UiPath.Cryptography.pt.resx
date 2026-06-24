@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305 (Não FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (Preterido)</value>
   </data>
@@ -184,7 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>TripleDES (Preterido)</value>
+  </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP - Pretty Good Privacy (Não FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>O algoritmo de hash fornecido não é suportado.</value>
@@ -194,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>O algoritmo simétrico fornecido não é suportado.</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>O ficheiro de encriptação fornecido é demasiado curto para estar no formato de ligação do UiPath. O esquema de ficheiro de encriptação do UiPath é Base64(salt | IV | ciphertext) e tem de ter, pelo menos, {0} bytes para este algoritmo. O ficheiro de encriptação produzido por ferramentas externas não é diretamente compatível – consulte a documentação da atividade para a especificação do formato de ligação.</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>A desencriptação falhou. O formato de ligação do UiPath é Base64(salt | IV | ciphertext); isto indica muitas vezes que a entrada foi produzida por uma ferramenta diferente ou que a chave/codificação não corresponde à utilizada para encriptar.</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>O ChaCha20-Poly1305 não é suportado nesta plataforma. Utilize antes o AES-GCM ou execute numa plataforma que forneça o ChaCha20-Poly1305 (Linux com OpenSSL ou Windows 10 1809 / Server 2019 ou posterior).</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -615,5 +630,38 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>A palavra-passe da chave privada PGP está incorreta.</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>A chave privada fornecida não corresponde aos dados encriptados. Certifique-se de que está a utilizar a chave privada correta.</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>Falha na verificação da assinatura PGP. A chave pública não corresponde à assinatura ou os dados foram adulterados.</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>Ficheiro Assinado (Binário)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>Ficheiro Assinado com Texto Simples (Texto)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>Validar Chave Pública</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 bits</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 bits</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 bits</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>A assinatura foi pedida, mas é obrigatória uma chave privada e uma palavra-passe para assinar. Forneça um fluxo de chaves privadas e uma frase-passe ou defina o sinal como falso.</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>A verificação da assinatura foi pedida, mas é obrigatória uma chave pública para verificar. Forneça um fluxo de chave pública ou defina verificarAssinatura como falso.</value>
   </data>
 </root>

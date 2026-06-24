@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
-  <Import Project="..\Java.build.props" />
   <PropertyGroup>
     <TargetFrameworks>$(WindowsFramework)</TargetFrameworks>
     <OutputPath>$(ProjectDir)..\..\Output\Activities\Java\</OutputPath>
@@ -21,9 +20,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="UiPath.Java.Activities.Design.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\UiPath.Java.Activities.Design.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -31,6 +27,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Properties\UiPath.Java.Activities.Design.*.resx">
+      <DependentUpon>UiPath.Java.Activities.Design.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\UiPath.Java.Activities.Design.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UiPath.Java.Activities.Design.Designer.cs</LastGenOutput>

@@ -130,7 +130,7 @@
     <value>FTP 세션 범위</value>
   </data>
   <data name="CategoryAppIntegration" xml:space="preserve">
-    <value>앱 통합</value>
+    <value>App Integration</value>
     <comment>Activity name</comment>
   </data>
   <data name="CategoryFTP" xml:space="preserve">

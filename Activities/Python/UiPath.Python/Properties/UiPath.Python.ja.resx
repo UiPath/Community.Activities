@@ -129,6 +129,21 @@
   <data name="InstantiationException" xml:space="preserve">
     <value>Python インスタンス化例外</value>
   </data>
+  <data name="LoadException" xml:space="preserve">
+    <value>Python のスクリプト読み込み例外</value>
+  </data>
+  <data name="InvocationException" xml:space="preserve">
+    <value>Python のメソッド呼び出し例外</value>
+  </data>
+  <data name="ConversionException" xml:space="preserve">
+    <value>Python のオブジェクト変換例外</value>
+  </data>
+  <data name="ExecutionException" xml:space="preserve">
+    <value>Python のコード実行例外</value>
+  </data>
+  <data name="RequestException" xml:space="preserve">
+    <value>Python の要求処理例外</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Python の .exe ファイルが見つかりませんでした。</value>
   </data>
@@ -143,5 +158,14 @@
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>バージョン {0} の Python はサポートされていません。サポートされているバージョンは次のとおりです: {1}</value>
+  </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>「{0}」の Python のインストールは 32 ビットです。サポートされているのは、64 ビットの Python のインストールのみです。64 ビット版の Python をインストールしてください。</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>Python {0} はサポートされていません。サポートされているバージョン: {1}</value>
+  </data>
+  <data name="PayloadThresholdExceeded" xml:space="preserve">
+    <value>Python スクリプトのデータ サイズ ({0} MB) が、設定された制限 ({1} MB) を超えています。メソッドの引数としてではなくファイル パスを介して大きなデータを渡すか、[スクリプトのデータ サイズ制限] プロパティの値を増やしてください。</value>
   </data>
 </root>

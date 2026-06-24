@@ -1,0 +1,8 @@
+steps:
+- task: MSBuild@1
+  displayName: "MSBuild Pack"
+  inputs:
+    solution: "$(Solution)"
+    platform: "$(BuildPlatform)"
+    configuration: "$(BuildConfiguration)"
+    msbuildArguments: "-t:pack -p:PackageOutputPath=$(ArtifactsOutputPath)"

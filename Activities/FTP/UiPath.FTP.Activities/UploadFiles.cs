@@ -6,6 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
 using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.FTP.Activities
 {
@@ -42,73 +45,89 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
-            IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
-
-            if (ftpSession == null)
             {
-                throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
-            }
-
-            string localPath = LocalPath.Get(context);
-            string remotePath = RemotePath.Get(context);
-
-            if (Directory.Exists(localPath))
-            {
-                if (string.IsNullOrWhiteSpace(Path.GetExtension(remotePath)))
+                ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+                try
                 {
-                    if (!(await ftpSession.DirectoryExistsAsync(remotePath, cancellationToken)))
+                    PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
+                    IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
+
+                    if (ftpSession == null)
                     {
-                        if (Create)
+                        throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
+                    }
+
+                    string localPath = LocalPath.Get(context);
+                    string remotePath = RemotePath.Get(context);
+
+                    if (Directory.Exists(localPath))
+                    {
+                        if (string.IsNullOrWhiteSpace(Path.GetExtension(remotePath)))
                         {
-                            await ftpSession.CreateDirectoryAsync(remotePath, cancellationToken);
+                            if (!(await ftpSession.DirectoryExistsAsync(remotePath, cancellationToken)))
+                            {
+                                if (Create)
+                                {
+                                    await ftpSession.CreateDirectoryAsync(remotePath, cancellationToken);
+                                }
+                                else
+                                {
+                                    throw new ArgumentException(string.Format(Resources.PathNotFoundException, remotePath));
+                                }
+                            }
                         }
                         else
                         {
-                            throw new ArgumentException(string.Format(Resources.PathNotFoundException, remotePath));
+                            throw new InvalidOperationException(Resources.IncompatiblePathsException);
                         }
                     }
-                }
-                else
-                {
-                    throw new InvalidOperationException(Resources.IncompatiblePathsException);
-                }
-            }
-            else
-            {
-                if (File.Exists(localPath))
-                {
-                    if (string.IsNullOrWhiteSpace(Path.GetExtension(remotePath)))
+                    else
                     {
-                        remotePath = FtpConfiguration.CombinePaths(remotePath, Path.GetFileName(localPath));
-                    }
-
-                    string directoryPath = FtpConfiguration.GetDirectoryPath(remotePath);
-
-                    if (!(await ftpSession.DirectoryExistsAsync(directoryPath, cancellationToken)))
-                    {
-                        if (Create)
+                        if (File.Exists(localPath))
                         {
-                            await ftpSession.CreateDirectoryAsync(directoryPath, cancellationToken);
+                            if (string.IsNullOrWhiteSpace(Path.GetExtension(remotePath)))
+                            {
+                                remotePath = FtpConfiguration.CombinePaths(remotePath, Path.GetFileName(localPath));
+                            }
+
+                            string directoryPath = FtpConfiguration.GetDirectoryPath(remotePath);
+
+                            if (!(await ftpSession.DirectoryExistsAsync(directoryPath, cancellationToken)))
+                            {
+                                if (Create)
+                                {
+                                    await ftpSession.CreateDirectoryAsync(directoryPath, cancellationToken);
+                                }
+                                else
+                                {
+                                    throw new InvalidOperationException(string.Format(Resources.PathNotFoundException, directoryPath));
+                                }
+                            }
                         }
                         else
                         {
-                            throw new InvalidOperationException(string.Format(Resources.PathNotFoundException, directoryPath));
+                            throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath));
                         }
                     }
+
+                    await ftpSession.UploadAsync(localPath, remotePath, Overwrite, Recursive, cancellationToken);
+
+                    var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                    {
+                        // No arguments
+                    });
+                    telemetryOperation?.Send();
+                    return result;
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath));
+                    telemetryOperation?.SendWithException(ex);
+                    throw;
                 }
             }
-
-            await ftpSession.UploadAsync(localPath, remotePath, Overwrite, Recursive, cancellationToken);
-
-            return (asyncCodeActivityContext) =>
-            {
-
-            };
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿#if NET
-using System.Activities.DesignViewModels;
-#endif
+﻿using System.Activities.DesignViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,7 +12,6 @@ namespace UiPath.Cryptography.Activities.Helpers
 {
     public sealed class EncodingHelpers
     {
-#if NET
         private EncodingHelpers()
         {
         }
@@ -77,8 +74,6 @@ namespace UiPath.Cryptography.Activities.Helpers
 
             return exceptionDictionary.GetValueOrDefault(codePage, codePage * 10);
         }
-
-#endif
         public static string GetCodePageName(CodePages value)
         {
             try
@@ -96,17 +91,31 @@ namespace UiPath.Cryptography.Activities.Helpers
             }
         }
 
+        /// <summary>
+        /// Resolves an encoding from the paired InArgument&lt;Encoding&gt; / code-page-string inputs used by the
+        /// symmetric and keyed-hash activities (both the key/password encoding and the plaintext encoding follow
+        /// this shape). The explicit <paramref name="keyEncoding"/> InArgument (Legacy designer, hand-authored XAML,
+        /// or programmatic use) takes precedence when bound; the <paramref name="keyEncodingString"/> code-page proxy
+        /// (the modern Windows / cross-platform designer dropdown and the activity's UTF-8 constructor default) is the
+        /// fallback. Returns null when neither is set, letting the caller apply its own default.
+        /// </summary>
         public static Encoding KeyEncodingOrString(Encoding keyEncoding, string keyEncodingString)
         {
+            if (keyEncoding != null)
+            {
+                //explicit InArgument (Legacy/XAML/programmatic) wins when bound
+                return keyEncoding;
+            }
+
             if (keyEncodingString != null)
             {
                 //for modern and cross projects - use the string code page to get the encoding
-                keyEncoding = int.TryParse(keyEncodingString, out int codePage)
+                return int.TryParse(keyEncodingString, out int codePage)
                     ? System.Text.Encoding.GetEncoding(codePage)
                     : System.Text.Encoding.GetEncoding(keyEncodingString);
             }
 
-            return keyEncoding;
+            return null;
         }
     }
 }

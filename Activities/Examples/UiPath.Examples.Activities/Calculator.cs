@@ -4,6 +4,14 @@ using UiPath.Examples.Activities.Helpers;
 
 namespace UiPath.Examples.Activities
 {
+    public enum Operation
+    {
+        Add,
+        Subtract,
+        Multiply,
+        Divide
+    }
+
     public class Calculator : CodeActivity<int> // This base class exposes an OutArgument named Result
     {
         [RequiredArgument]
@@ -49,13 +57,5 @@ namespace UiPath.Examples.Activities
                 _ => throw new NotSupportedException("Operation not supported"),
             };
         }
-    }
-
-    public enum Operation
-    {
-        Add,
-        Subtract,
-        Multiply,
-        Divide
     }
 }

@@ -304,6 +304,33 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filters items based on type (what is selected will be included).
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Filter_Description {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object types.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Filter_Name {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Filter_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select object types to include.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_Filter_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_Filter_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If this check box is selected, the subfolders are also included in the enumeration of the files on the FTP server..
         /// </summary>
         public static string Activity_EnumerateObjects_Property_Recursive_Description {
@@ -970,6 +997,24 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The timeout value (in milliseconds) for the FTP/SFTP connection. If not set, the default timeout of the underlying library is used..
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Timeout_Description {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Timeout_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout (milliseconds).
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Timeout_Name {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Timeout_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
         /// </summary>
         public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Description {
@@ -1222,6 +1267,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timeout must be greater than or equal to 0..
+        /// </summary>
+        public static string InvalidTimeoutException {
+            get {
+                return ResourceManager.GetString("InvalidTimeoutException", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Username cannot be empty..
         /// </summary>
         public static string EmptyUsernameException {
@@ -1411,7 +1465,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No valid authentication method found: You need to supply either Private Key file (and optionally passphare) or Password.
+        ///   Looks up a localized string similar to No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password.
         /// </summary>
         public static string NoValidAuthenticationMethod {
             get {

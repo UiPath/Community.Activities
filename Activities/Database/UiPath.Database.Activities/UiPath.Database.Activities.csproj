@@ -1,10 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-    <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
     <PropertyGroup>
         <PackageId>.noconflict</PackageId>
         <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
         <OutputPath>..\..\Output\Activities\Database\</OutputPath>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <PreserveCompilationContext>true</PreserveCompilationContext>
         <Platforms>AnyCPU;x86;x64</Platforms>
@@ -12,10 +10,14 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="System.Activities.ViewModels" />
+        <PackageReference Include="UiPath.Telemetry.Client"/>
         <PackageReference Include="UiPath.Workflow" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
         <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+        <PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
+        <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
+        <PackageReference Include="UiPath.Platform" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Condition=" '$(TargetFramework)' == '$(WindowsFramework)' " Include="Resources\ActivitiesMetadataWindows.json" LogicalName="$(RootNamespace).Resources.ActivitiesMetadata.json" />
@@ -23,8 +25,7 @@
         <EmbeddedResource Include="Resources\Icons\*.svg" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="System.Resources.Extensions"/>
-        <PackageReference Include="UiPath.Activities.Api" />
+        <PackageReference Include="System.Resources.Extensions" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Properties\UiPath.Database.Activities.Designer.cs">
@@ -37,21 +38,20 @@
         <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Update="Properties\UiPath.Database.Activities.fr.resx">
-            <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Database.Activities.ja.resx">
+        <EmbeddedResource Update="Properties\UiPath.Database.Activities.*.resx">
             <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Update="Properties\UiPath.Database.Activities.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>UiPath.Database.Activities.Designer.cs</LastGenOutput>
         </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Database.Activities.ru.resx">
-            <DependentUpon>UiPath.Database.Activities.resx</DependentUpon>
-        </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
         <Compile Condition="'$(TargetFramework)' != '$(PortableFramework)'" Remove="NetCore/**" />
     </ItemGroup>
+    <Import Project="..\..\Shared\UiPath.Shared.Telemetry\UiPath.Shared.Telemetry.projitems" Label="Shared" />
+    <Import Project="..\..\Shared\UiPath.Shared.Activities\UiPath.Shared.Activities.projitems" Label="Shared" />
+    <Import Project="..\..\Shared\UiPath.Shared.Contracts\UiPath.Shared.Contracts.projitems" Label="Shared" />
+      <Import Project="..\..\Shared\UiPath.Shared.Contracts.Private\UiPath.Shared.Contracts.Private.projitems" Label="Shared" />
+    <Import Project="..\..\Shared\UiPath.Shared.ViewModels\UiPath.Shared.ViewModels.projitems" Label="Shared" />
 </Project>

@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>O nome de usuário não pode estar vazio.</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>O tempo limite deve ser maior ou igual a 0.</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>Protocolos SSL</value>
   </data>
@@ -217,7 +220,7 @@
     <value>Caminho para a Chave privada no formato PKCS #1 PEM</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>Nenhum método de autenticação válido encontrado: você precisa fornecer o arquivo de Chave Privada (e opcionalmente passphare) ou Senha</value>
+    <value>Nenhum método de autenticação válido encontrado: você precisa fornecer o arquivo de chave privada (e a frase secreta opcionalmente) ou a senha</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>Novo caminho remoto</value>
@@ -325,7 +328,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
-    <value>Delete File/Folder</value>
+    <value>Delete File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_Delete_Property_RemotePath_Description" xml:space="preserve">
@@ -469,7 +472,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_WithFtpSession_Name" xml:space="preserve">
-    <value>Use FTP connection</value>
+    <value>Use FTP Connection</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
@@ -540,6 +543,14 @@
     <value>Seleciona o protocolo SSL a ser usado para a conexão FTPS</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>O valor de tempo limite (em milissegundos) para a conexão FTP/SFTP. Se não for definido, será usado o tempo limite padrão da biblioteca subjacente.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>Tempo Limite (milissegundos)</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>Protocolos SSL</value>
     <comment>Property name</comment>
@@ -573,7 +584,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
-    <value>Faz o download de arquivos</value>
+    <value>Download Files</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
@@ -621,7 +632,7 @@
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
-    <value>Move File/Folder</value>
+    <value>Move File or Folder</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_MoveItem_Property_ContinueOnError_Description" xml:space="preserve">
@@ -759,5 +770,22 @@
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>Deixe vazio para configuração automática</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>A senha do proxy em formato de string segura</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>Senha segura do proxy</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>Filtra os itens com base no tipo (os tipos selecionados serão incluídos)</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>Tipos de objetos</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>Selecione os tipos de objetos a serem incluídos</value>
   </data>
 </root>

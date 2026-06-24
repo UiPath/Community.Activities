@@ -196,6 +196,24 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ChaCha20-Poly1305 (Non-FIPS).
+        /// </summary>
+        internal static string ChaCha20Poly1305 {
+            get {
+                return ResourceManager.GetString("ChaCha20Poly1305", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ChaCha20-Poly1305 is not supported on this platform. Use AES-GCM instead, or run on a platform that provides ChaCha20-Poly1305 (Linux with OpenSSL, or Windows 10 1809 / Server 2019 or later)..
+        /// </summary>
+        internal static string ChaCha20Poly1305NotSupported {
+            get {
+                return ResourceManager.GetString("ChaCha20Poly1305NotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chinese Simplified (EUC).
         /// </summary>
         internal static string ChineseSimplified_EUC {
@@ -367,7 +385,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DES  (Deprecated).
+        ///   Looks up a localized string similar to DES (Deprecated).
         /// </summary>
         internal static string DES {
             get {
@@ -1069,6 +1087,33 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base64.
+        /// </summary>
+        internal static string KeyBytesFormat_Base64 {
+            get {
+                return ResourceManager.GetString("KeyBytesFormat_Base64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoded (text password via Encoding).
+        /// </summary>
+        internal static string KeyBytesFormat_Encoded {
+            get {
+                return ResourceManager.GetString("KeyBytesFormat_Encoded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hex.
+        /// </summary>
+        internal static string KeyBytesFormat_Hex {
+            get {
+                return ResourceManager.GetString("KeyBytesFormat_Hex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Korean.
         /// </summary>
         internal static string Korean {
@@ -1204,6 +1249,96 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The ciphertext does not start with the openssl &apos;Salted__&apos; magic prefix. Confirm the producer used &apos;openssl enc -salt&apos; and the output was not stripped or transcoded..
+        /// </summary>
+        internal static string OpenSslEnc_MissingMagic {
+            get {
+                return ResourceManager.GetString("OpenSslEnc_MissingMagic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PGP - Pretty Good Privacy (Non-FIPS).
+        /// </summary>
+        internal static string PGP {
+            get {
+                return ResourceManager.GetString("PGP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase for the PGP private key is incorrect..
+        /// </summary>
+        internal static string PgpInvalidPassphrase {
+            get {
+                return ResourceManager.GetString("PgpInvalidPassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The provided private key does not match the encrypted data. Ensure you are using the correct private key..
+        /// </summary>
+        internal static string PgpPrivateKeyNotFound {
+            get {
+                return ResourceManager.GetString("PgpPrivateKeyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PGP signature verification failed. The public key does not match the signature, or the data has been tampered with..
+        /// </summary>
+        internal static string PgpSignatureVerificationFailed {
+            get {
+                return ResourceManager.GetString("PgpSignatureVerificationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signing was requested but a private key and passphrase are required to sign. Provide both a private key stream and a passphrase, or set sign to false..
+        /// </summary>
+        internal static string PgpSigningRequiresPrivateKeyAndPassphrase {
+            get {
+                return ResourceManager.GetString("PgpSigningRequiresPrivateKeyAndPassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signature verification was requested but a public key is required to verify. Provide a public key stream, or set verifySignature to false..
+        /// </summary>
+        internal static string PgpVerificationRequiresPublicKey {
+            get {
+                return ResourceManager.GetString("PgpVerificationRequiresPublicKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClearSigned File (Text).
+        /// </summary>
+        internal static string PgpVerifyMode_ClearSignature {
+            get {
+                return ResourceManager.GetString("PgpVerifyMode_ClearSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validate Public Key.
+        /// </summary>
+        internal static string PgpVerifyMode_PublicKey {
+            get {
+                return ResourceManager.GetString("PgpVerifyMode_PublicKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signed File (Binary).
+        /// </summary>
+        internal static string PgpVerifyMode_Signature {
+            get {
+                return ResourceManager.GetString("PgpVerifyMode_Signature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Portuguese (DOS).
         /// </summary>
         internal static string Portuguese_DOS {
@@ -1248,6 +1383,60 @@ namespace UiPath.Cryptography.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to 2048-bit.
+        /// </summary>
+        internal static string RsaKeySize_Rsa2048 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa2048", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3072-bit.
+        /// </summary>
+        internal static string RsaKeySize_Rsa3072 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa3072", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4096-bit.
+        /// </summary>
+        internal static string RsaKeySize_Rsa4096 {
+            get {
+                return ResourceManager.GetString("RsaKeySize_Rsa4096", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 128-bit.
+        /// </summary>
+        internal static string AesKeySize_Aes128 {
+            get {
+                return ResourceManager.GetString("AesKeySize_Aes128", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 192-bit.
+        /// </summary>
+        internal static string AesKeySize_Aes192 {
+            get {
+                return ResourceManager.GetString("AesKeySize_Aes192", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 256-bit.
+        /// </summary>
+        internal static string AesKeySize_Aes256 {
+            get {
+                return ResourceManager.GetString("AesKeySize_Aes256", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Toggle to Secure input.
         /// </summary>
@@ -1303,6 +1492,60 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided ciphertext is too short to be in UiPath wire format. UiPath ciphertext layout is Base64(salt | IV | ciphertext) and must be at least {0} bytes for this algorithm. Ciphertext produced by external tools is not directly compatible — see the activity documentation for the wire-format specification..
+        /// </summary>
+        internal static string SymmetricDecrypt_InputTooShort {
+            get {
+                return ResourceManager.GetString("SymmetricDecrypt_InputTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decryption failed. UiPath wire format is Base64(salt | IV | ciphertext); this commonly indicates the input was produced by a different tool, or that the key/encoding does not match the one used to encrypt..
+        /// </summary>
+        internal static string SymmetricDecrypt_PaddingHint {
+            get {
+                return ResourceManager.GetString("SymmetricDecrypt_PaddingHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UiPath (Classic).
+        /// </summary>
+        internal static string SymmetricWireFormat_Classic {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_Classic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenSSL enc (Salted__ + PBKDF2-SHA256).
+        /// </summary>
+        internal static string SymmetricWireFormat_OpenSslEnc {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_OpenSslEnc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UiPath (OWASP 2026).
+        /// </summary>
+        internal static string SymmetricWireFormat_Owasp2026 {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_Owasp2026", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raw (caller-supplied key and IV).
+        /// </summary>
+        internal static string SymmetricWireFormat_Raw {
+            get {
+                return ResourceManager.GetString("SymmetricWireFormat_Raw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to T.61.
         /// </summary>
         internal static string T61 {
@@ -1348,7 +1591,7 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TripleDES.
+        ///   Looks up a localized string similar to TripleDES (Deprecated).
         /// </summary>
         internal static string TripleDES {
             get {
@@ -1551,6 +1794,60 @@ namespace UiPath.Cryptography.Properties {
         internal static string WesternEuropean_Windows {
             get {
                 return ResourceManager.GetString("WesternEuropean_Windows", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format = Encoded is not allowed with wire format = Raw. Supply a literal raw key as Hex or Base64..
+        /// </summary>
+        internal static string Validation_RawKeyFormat_EncodedNotAllowed {
+            get {
+                return ResourceManager.GetString("Validation_RawKeyFormat_EncodedNotAllowed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Raw key length is {0} bytes, which is not a legal key size for the chosen algorithm. Expected one of: {1} bytes..
+        /// </summary>
+        internal static string Validation_RawKey_LengthMismatch {
+            get {
+                return ResourceManager.GetString("Validation_RawKey_LengthMismatch", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Key bytes format = Hex or Base64 is only valid with wire format = Raw. The Classic, Owasp2026, and OpenSslEnc formats use the Key string as a password (Encoded)..
+        /// </summary>
+        internal static string Validation_PasswordFormat_NonEncodedNotAllowed {
+            get {
+                return ResourceManager.GetString("Validation_PasswordFormat_NonEncodedNotAllowed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IV may only be set when wire format = Raw. The other formats embed the IV in the ciphertext stream..
+        /// </summary>
+        internal static string Validation_Iv_OnlyForRaw {
+            get {
+                return ResourceManager.GetString("Validation_Iv_OnlyForRaw", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations may only be set for wire format = Owasp2026 or OpenSslEnc. Classic is frozen at 10,000 iterations and Raw does not run a KDF..
+        /// </summary>
+        internal static string Validation_KdfIterations_NotForClassicOrRaw {
+            get {
+                return ResourceManager.GetString("Validation_KdfIterations_NotForClassicOrRaw", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to KDF iterations = {0} is below the {1}-iteration minimum (NIST SP 800-132 floor). OWASP currently recommends 1,300,000 for PBKDF2-SHA1 and 600,000 for PBKDF2-SHA256..
+        /// </summary>
+        internal static string Validation_KdfIterations_BelowMinimum {
+            get {
+                return ResourceManager.GetString("Validation_KdfIterations_BelowMinimum", resourceCulture);
             }
         }
     }

@@ -6,6 +6,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UiPath.Java.Activities.Properties;
+using UiPath.Shared.Activities;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
+
 
 namespace UiPath.Java.Activities
 {
@@ -26,29 +31,42 @@ namespace UiPath.Java.Activities
 
         protected async override Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            IInvoker invoker = JavaScope.GetJavaInvoker(context);
-            var className = TargetType.Get(context);
-            if (string.IsNullOrWhiteSpace(className))
-            {
-                throw new ArgumentNullException(nameof(TargetType));
-            }
-            List<object> parameters = GetParameters(context);
-            var types = GetParameterTypes(context, parameters);
-            JavaObject instance = null;
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
             try
             {
-                instance = await invoker.InvokeConstructor(className, parameters, types, cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Constrcutor could not be invoker: {e}");
-                throw new InvalidOperationException(Resources.ConstructorException, e);
-            }
+                IInvoker invoker = JavaScope.GetJavaInvoker(context);
+                var className = TargetType.Get(context);
+                if (string.IsNullOrWhiteSpace(className))
+                    throw new ArgumentNullException(nameof(TargetType));
 
-            return asyncCodeActivityContext =>
+                var (parameters, types) = GetParametersAndTypes(context);
+                JavaObject instance = null;
+                try
+                {
+                    instance = await invoker.InvokeConstructor(className, parameters, types, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Constructor could not be invoked: {e}");
+                    throw new InvalidOperationException(Resources.ConstructorException, e);
+                }
+
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    Result.Set(asyncCodeActivityContext, instance);
+                });
+
+                telemetryOperation?.Send();
+                return result;
+            }
+            catch (Exception ex)
             {
-                Result.Set(asyncCodeActivityContext, instance);
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

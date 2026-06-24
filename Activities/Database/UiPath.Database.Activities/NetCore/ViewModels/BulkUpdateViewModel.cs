@@ -54,6 +54,11 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
 
         /// <summary>
+        /// Specifies the amount of time (in milliseconds) to wait for the command to run before an error is thrown.
+        /// </summary>
+        public DesignInArgument<int> TimeoutMS { get; set; } = new DesignInArgument<int>();
+
+        /// <summary>
         /// The number of updated rows.
         /// </summary>
         public DesignOutArgument<long> AffectedRecords { get; set; } = new DesignOutArgument<long>();
@@ -84,7 +89,11 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
 
             ContinueOnError.OrderIndex = propertyOrderIndex++;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
-         
+
+            TimeoutMS.IsVisible = true;
+            TimeoutMS.OrderIndex = propertyOrderIndex++;
+            TimeoutMS.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
+
             AffectedRecords.OrderIndex = propertyOrderIndex;
             AffectedRecords.Widget = new DefaultWidget { Type = ViewModelWidgetType.Input };
         }

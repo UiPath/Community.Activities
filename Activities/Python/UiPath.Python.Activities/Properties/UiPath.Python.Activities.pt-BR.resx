@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>O caminho Python especificado não é válido: {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>O caminho da biblioteca Python especificado não é válido (um caminho de arquivo para python**.dll / libpython*.so é necessário no Python 3.10): {0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Erro ao invocar método Python</value>
   </data>
@@ -288,7 +291,7 @@
     <value>Tempo limite</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>A quantidade de tempo para permitir que um script em Python seja executado até que seja encerrado e uma exceção seja gerada.</value>
+    <value>A quantidade de tempo em segundos para permitir a execução de um script Python até que ele seja encerrado e uma exceção seja gerada.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Para Linux, é o caminho para biblioteca Python libpython*.so incluindo o nome da biblioteca. Para Windows (versão &gt; 3.9), caminho para biblioteca python**.dll incluindo o nome da biblioteca (geralmente está no caminho inicial Python). Para Windows (versão &lt;= 3.9) deixe em branco.</value>
@@ -296,11 +299,38 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>Caminho da biblioteca (Linux ou versão &gt; 3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>A versão do Python selecionada não é compatível.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>A versão do Python 3.10 ou posterior não é compatível com 32 bits. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>Invocador de Aplicativos.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>Versões do Python instaladas</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>Selecione a instalação do Python a ser usada para a configuração da atividade</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>Nenhuma instalação do Python foi detectada</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>Limite de tamanho de dados do script (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>Tamanho máximo em MB dos dados transmitidos para o script Python como argumentos de método. Se o tamanho dos argumentos ultrapassar esse limite, um erro será gerado. O valor mínimo aceito é 1 MB. Deixe vazio para usar o padrão (25 MB).</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Registrar saída do Python no arquivo (diagnóstico)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>Quando habilitado, a saída stdout e stderr do processo de host do Python é gravada em um arquivo de log por host na pasta resolvida por Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), localizada no subdiretório UiPath\Logs\python. Cada arquivo de log pode ter até 50 MB. Quando o limite é atingido, nenhuma saída adicional é gravada no arquivo. São mantidos no máximo 128 arquivos de log: os mais antigos são excluídos automaticamente após a criação de um novo. A saída NÃO é encaminhada ao Orchestrator. Destinado apenas para diagnóstico local: deixe desabilitado na produção para evitar o acúmulo de arquivos de log.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>O limite de tamanho de dados do script (MB) deve ser de pelo menos {0}.</value>
   </data>
 </root>

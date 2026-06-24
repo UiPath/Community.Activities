@@ -1,4 +1,5 @@
 ﻿using Renci.SshNet;
+using Renci.SshNet.Common;
 using Renci.SshNet.Sftp;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace UiPath.FTP
     public class SftpSession : IFtpSession
     {
         private readonly SftpClient _sftpClient;
+
+        internal SftpClient Client => _sftpClient;
+
         private const int DefaultFtpPort = 21;
         private const int DefaultProxyPort = 3128;
 
@@ -42,6 +46,28 @@ namespace UiPath.FTP
                 authMethods.Add(new PrivateKeyAuthenticationMethod(ftpConfiguration.Username, keyFiles));
             }
 
+            // Register keyboard-interactive when a password is configured, mirroring the
+            // PasswordAuthenticationMethod guard above. Servers that advertise only kbi
+            // (OpenSSH with ChallengeResponseAuthentication/PAM) can then authenticate
+            // using the configured password. Skipping kbi when there is no password avoids
+            // a redundant failed auth round-trip on certificate-only connections.
+            if (!String.IsNullOrEmpty(ftpConfiguration.Password))
+            {
+                var kbiMethod = new KeyboardInteractiveAuthenticationMethod(ftpConfiguration.Username);
+                var kbiPassword = ftpConfiguration.Password;
+                kbiMethod.AuthenticationPrompt += (sender, e) =>
+                {
+                    foreach (var prompt in e.Prompts)
+                    {
+                        if (!prompt.IsEchoed)
+                        {
+                            prompt.Response = kbiPassword;
+                        }
+                    }
+                };
+                authMethods.Add(kbiMethod);
+            }
+
             //Throw an error if we ended up with no authentication method
             if (authMethods.Count == 0)
             {
@@ -66,7 +92,21 @@ namespace UiPath.FTP
                 connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpPort, ftpConfiguration.Username, ftpConfiguration.ProxyType.ToMaster(),ftpConfiguration.ProxyServer, proxyPort,ftpConfiguration.ProxyUsername,ftpConfiguration.ProxyPassword, authMethods.ToArray());
             }
 
+            TimeSpan? timeoutSpan = ftpConfiguration.Timeout != null
+                ? TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value)
+                : null;
+
+            if (timeoutSpan.HasValue)
+            {
+                connectionInfo.Timeout = timeoutSpan.Value;
+            }
+
             _sftpClient = new SftpClient(connectionInfo);
+
+            if (timeoutSpan.HasValue)
+            {
+                _sftpClient.OperationTimeout = timeoutSpan.Value;
+            }
         }
 
         private IEnumerable<Tuple<string, string>> GetLocalListing(string localPath, string remotePath, bool recursive)
@@ -280,7 +320,39 @@ namespace UiPath.FTP
             return missingDirectories;
         }
 
+        /// <summary>
+        /// Calls <see cref="SftpClient.Exists"/> on the underlying client.
+        /// Extracted as a <c>protected internal virtual</c> method so that tests can subclass
+        /// <see cref="SftpSession"/> and override this single call without needing to mock the
+        /// sealed <c>SftpClient.Exists</c> method directly.
+        /// </summary>
+        protected internal virtual bool ClientExists(string path) => _sftpClient.Exists(path);
+
+        /// <summary>
+        /// Wraps <see cref="ClientExists"/> and returns <c>false</c> for bare
+        /// <see cref="SshException"/> (SSH_FX_FAILURE) thrown by some SFTP server
+        /// implementations when a path does not exist, while letting typed subclasses
+        /// (e.g. <see cref="SshConnectionException"/>, <see cref="SshOperationTimeoutException"/>)
+        /// propagate so that real connection/timeout failures are not silently swallowed.
+        /// </summary>
+        private bool SafeExists(string path)
+        {
+            try
+            {
+                return ClientExists(path);
+            }
+            catch (SshException ex) when (ex is SftpPathNotFoundException || ex.GetType() == typeof(SshException))
+            {
+                Trace.TraceWarning(
+                    "SftpSession.SafeExists: bare SshException treated as 'not found' for path '{0}': {1}",
+                    path,
+                    ex.Message);
+                return false;
+            }
+        }
+
         #region IFtpSession members
+
         bool IFtpSession.IsConnected()
         {
             return _sftpClient.IsConnected;
@@ -372,7 +444,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            return _sftpClient.Exists(path) && ((IFtpSession)this).GetObjectType(path) == UiPath.FTP.FtpObjectType.Directory;
+            return SafeExists(path) && ((IFtpSession)this).GetObjectType(path) == UiPath.FTP.FtpObjectType.Directory;
         }
 
         async Task<bool> IFtpSession.DirectoryExistsAsync(string path, CancellationToken cancellationToken)
@@ -382,7 +454,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            if (_sftpClient.Exists(path))
+            if (SafeExists(path))
             {
                 return await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken) == UiPath.FTP.FtpObjectType.Directory;
             }
@@ -515,7 +587,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            return _sftpClient.Exists(path) && ((IFtpSession)this).GetObjectType(path) == UiPath.FTP.FtpObjectType.File;
+            return SafeExists(path) && ((IFtpSession)this).GetObjectType(path) == UiPath.FTP.FtpObjectType.File;
         }
 
         async Task<bool> IFtpSession.FileExistsAsync(string path, CancellationToken cancellationToken)
@@ -525,7 +597,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            if (_sftpClient.Exists(path))
+            if (SafeExists(path))
             {
                 return await ((IFtpSession)this).GetObjectTypeAsync(path, cancellationToken) == UiPath.FTP.FtpObjectType.File;
             }
@@ -542,7 +614,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            if (!_sftpClient.Exists(path))
+            if (!SafeExists(path))
             {
                 throw new ArgumentException(string.Format(Resources.PathNotFoundException, path), nameof(path));
             }
@@ -557,7 +629,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            if (!_sftpClient.Exists(path))
+            if (!SafeExists(path))
             {
                 throw new ArgumentException(string.Format(Resources.PathNotFoundException, path), nameof(path));
             }
@@ -596,25 +668,25 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(newPath));
             }
 
-            if (!_sftpClient.Exists(remotePath))
+            if (!SafeExists(remotePath))
             {
                 throw new IOException(string.Format(Resources.PathNotFoundException, remotePath));
             }
 
-            if (_sftpClient.Exists(newPath) && _sftpClient.Get(newPath).IsRegularFile &&  !overwrite)
+            if (SafeExists(newPath) && _sftpClient.Get(newPath).IsRegularFile &&  !overwrite)
             {
                 throw new IOException(Resources.FileExistsException);
             }
 
             var file = _sftpClient.Get(remotePath);
 
-            if(_sftpClient.Exists(newPath) && file.IsRegularFile)
+            if(SafeExists(newPath) && file.IsRegularFile)
             {
                 var movePath = _sftpClient.Get(newPath);
                 if (movePath.IsDirectory)
                 {
                     var newFP = string.Format("{0}/{1}", movePath.FullName, file.Name);
-                    if (_sftpClient.Exists(newFP) && _sftpClient.Get(newFP).IsRegularFile)
+                    if (SafeExists(newFP) && _sftpClient.Get(newFP).IsRegularFile)
                     {
                         if (overwrite)
                             _sftpClient.DeleteFile(newFP);
@@ -651,7 +723,7 @@ namespace UiPath.FTP
                 foreach (Tuple<string, string> pair in listing)
                 {
                     string directoryPath = FtpConfiguration.GetDirectoryPath(pair.Item2);
-                    if (!_sftpClient.Exists(directoryPath))
+                    if (!SafeExists(directoryPath))
                     {
                         _sftpClient.CreateDirectory(directoryPath);
                     }
@@ -666,7 +738,7 @@ namespace UiPath.FTP
             {
                 if (File.Exists(localPath))
                 {
-                    if (_sftpClient.Exists(remotePath) && !overwrite)
+                    if (SafeExists(remotePath) && !overwrite)
                     {
                         throw new IOException(Resources.FileExistsException);
                     }
@@ -703,7 +775,7 @@ namespace UiPath.FTP
                     cancellationToken.ThrowIfCancellationRequested();
 
                     string directoryPath = FtpConfiguration.GetDirectoryPath(pair.Item2);
-                    if (!_sftpClient.Exists(directoryPath))
+                    if (!SafeExists(directoryPath))
                     {
                         _sftpClient.CreateDirectory(directoryPath);
                     }
@@ -718,7 +790,7 @@ namespace UiPath.FTP
             {
                 if (File.Exists(localPath))
                 {
-                    if (_sftpClient.Exists(remotePath) && !overwrite)
+                    if (SafeExists(remotePath) && !overwrite)
                     {
                         throw new IOException(Resources.FileExistsException);
                     }

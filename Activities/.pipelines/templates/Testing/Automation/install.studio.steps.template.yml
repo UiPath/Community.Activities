@@ -1,0 +1,51 @@
+parameters:
+- name: DownloadUrl
+  displayName: Download Studio Url
+  type: string
+  default: null
+
+- name: StudioVersion
+  displayName: Studio Version
+  type: string
+  default: '22.10.5'
+
+- name: InstallType
+  displayName: Studio Installation Type. One of machine/user(default machine)
+  type: string
+  default: machine
+  values:
+  - machine
+  - user
+
+- name: InstallComponents
+  displayName: Comma separated list of strings representing studio individual components. Command line parameter name ADDLOCAL
+  type: string
+  default: 'DesktopFeature,Studio,Robot,WindowsRdpExtension,ChromeExtension'
+
+# Note: StudioCustomNugetFeeds maps to the MSI installer's CUSTOM_NUGET_FEEDS argument.
+# This parameter only adds or updates the existing list of feeds. Initial list of feeds for
+# UiPath Studio 23.4 includes:
+#   Local,./Packages;Official,https://pkgs.dev.azure.com/uipath/Public.Feeds/_packaging/UiPath-Official/nuget/v3/index.json;Connect,https://gallery.uipath.com/api/v3/index.json
+- name: StudioCustomNugetFeeds
+  displayName: Semicolon separated list of name,value pairs representing custom nuget feeds (CUSTOM_NUGET_FEEDS)
+  type: string
+  default: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+
+- name: License
+  displayName: Studio License Code
+  type: string
+  default: ''
+
+# For more information about the command line parameters see:
+# https://docs.uipath.com/studio/standalone/2023.10/user-guide/command-line-parameters
+
+steps:
+  - template: install.msi.steps.template.yml
+    parameters:
+      DownloadUrl: ${{ parameters.DownloadUrl }}
+      MsiType: studio
+      MsiVersion: ${{ parameters.StudioVersion }}
+      InstallType: ${{ parameters.InstallType }}
+      InstallComponents: ${{ parameters.InstallComponents }}
+      CustomNugetFeeds: ${{ parameters.StudioCustomNugetFeeds }}
+      License: ${{ parameters.License }}

@@ -28,9 +28,19 @@ namespace UiPath.Cryptography.Activities.Models
 
             _fileInfo = new FileInfo(path);
 
-            //assign a new Guid for the resource (no Id from remoteItem as there is no remoteItem) 
+            //assign a new Guid for the resource (no Id from remoteItem as there is no remoteItem)
             _guid = Guid.NewGuid();
 
+            FullName = !string.IsNullOrEmpty(fullName) ? fullName : _fileInfo.FullName;
+        }
+
+        /// <summary>
+        /// Create the ILocalResource implementation from an existing file on disk.
+        /// </summary>
+        internal CryptographyLocalItem(string fullName, string existingFilePath)
+        {
+            _fileInfo = new FileInfo(existingFilePath);
+            _guid = Guid.NewGuid();
             FullName = !string.IsNullOrEmpty(fullName) ? fullName : _fileInfo.FullName;
         }
 

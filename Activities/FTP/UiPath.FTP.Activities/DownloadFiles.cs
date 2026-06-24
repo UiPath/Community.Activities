@@ -6,7 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
 using UiPath.Shared.Activities;
-using UiPath.FTP;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
 namespace UiPath.FTP.Activities
 {
@@ -43,74 +45,88 @@ namespace UiPath.FTP.Activities
 
         protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(AsyncCodeActivityContext context, CancellationToken cancellationToken)
         {
-            PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
-            IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
-
-            if (ftpSession == null)
+            ITelemetryOperationWrapper telemetryOperation = null;
+#if ENABLE_DEFAULT_TELEMETRY
+            telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+            try
             {
-                throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
-            }
+                PropertyDescriptor ftpSessionProperty = context.DataContext.GetProperties()[WithFtpSession.FtpSessionPropertyName];
+                IFtpSession ftpSession = ftpSessionProperty?.GetValue(context.DataContext) as IFtpSession;
 
-            string remotePath = RemotePath.Get(context);
-            string localPath = LocalPath.Get(context);
-
-            FtpObjectType objectType = await ftpSession.GetObjectTypeAsync(remotePath, cancellationToken);
-            if (objectType == FtpObjectType.Directory)
-            {
-                if (string.IsNullOrWhiteSpace(Path.GetExtension(localPath)))
+                if (ftpSession == null)
                 {
-                    if (!Directory.Exists(localPath))
-                    {
-                        if (Create)
-                        {
-                            Directory.CreateDirectory(localPath);
-                        }
-                        else
-                        {
-                            throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath));
-                        }
-                    }
+                    throw new InvalidOperationException(Resources.FTPSessionNotFoundException);
                 }
-                else
-                {
-                    throw new InvalidOperationException(Resources.IncompatiblePathsException);
-                }
-            }
-            else
-            {
-                if (objectType == FtpObjectType.File)
+
+                string remotePath = RemotePath.Get(context);
+                string localPath = LocalPath.Get(context);
+
+                FtpObjectType objectType = await ftpSession.GetObjectTypeAsync(remotePath, cancellationToken);
+                if (objectType == FtpObjectType.Directory)
                 {
                     if (string.IsNullOrWhiteSpace(Path.GetExtension(localPath)))
                     {
-                        localPath = Path.Combine(localPath, Path.GetFileName(remotePath));
+                        if (!Directory.Exists(localPath))
+                        {
+                            if (Create)
+                            {
+                                Directory.CreateDirectory(localPath);
+                            }
+                            else
+                            {
+                                throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath));
+                            }
+                        }
                     }
-
-                    string directoryPath = Path.GetDirectoryName(localPath);
-
-                    if (!Directory.Exists(directoryPath))
+                    else
                     {
-                        if (Create)
-                        {
-                            Directory.CreateDirectory(directoryPath);
-                        }
-                        else
-                        {
-                            throw new InvalidOperationException(string.Format(Resources.PathNotFoundException, directoryPath));
-                        }
+                        throw new InvalidOperationException(Resources.IncompatiblePathsException);
                     }
                 }
                 else
                 {
-                    throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
+                    if (objectType == FtpObjectType.File)
+                    {
+                        if (string.IsNullOrWhiteSpace(Path.GetExtension(localPath)))
+                        {
+                            localPath = Path.Combine(localPath, Path.GetFileName(remotePath));
+                        }
+
+                        string directoryPath = Path.GetDirectoryName(localPath);
+
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            if (Create)
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException(string.Format(Resources.PathNotFoundException, directoryPath));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
+                    }
                 }
+
+                await ftpSession.DownloadAsync(remotePath, localPath, Overwrite, Recursive, cancellationToken);
+
+                var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
+                {
+                    // No OutArgument
+                });
+                telemetryOperation?.Send();
+                return result;
             }
-
-            await ftpSession.DownloadAsync(remotePath, localPath, Overwrite, Recursive, cancellationToken);
-
-            return (asyncCodeActivityContext) =>
+            catch (Exception ex)
             {
-                
-            };
+                telemetryOperation?.SendWithException(ex);
+                throw;
+            }
         }
     }
 }

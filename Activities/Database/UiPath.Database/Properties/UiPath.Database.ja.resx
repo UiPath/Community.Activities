@@ -135,4 +135,7 @@
   <data name="ParameterDirectionArgumentException" xml:space="preserve">
     <value>指定した ParameterDirection 引数に対応する ArgumentDirection の値がありません。</value>
   </data>
+  <data name="TransactionAlreadyInProgress" xml:space="preserve">
+    <value>トランザクションがすでに進行中です。新しいトランザクションを開始する前に、既存のトランザクションをコミットまたはロールバックしてください。</value>
+  </data>
 </root>

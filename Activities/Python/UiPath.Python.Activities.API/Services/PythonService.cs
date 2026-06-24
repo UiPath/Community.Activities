@@ -1,0 +1,93 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using UiPath.Python;
+using UiPath.Python.Activities.API.Models;
+using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
+
+namespace UiPath.Python.Activities.API
+{
+    internal class PythonService : IPythonService
+    {
+        private readonly Func<Version, string, string, bool, TargetPlatform, bool, bool, int, IEngine> _engineFactory;
+
+        public PythonService()
+            : this((version, path, libraryPath, inProcess, target, visible, logTrace, payloadThresholdMB) =>
+                EngineProvider.Get(version, path, libraryPath, inProcess, target, visible, logTrace, payloadThresholdMB))
+        {
+        }
+
+        // For testing: allows injecting a fake IEngine without a real Python installation.
+        internal PythonService(Func<Version, string, string, bool, TargetPlatform, bool, bool, int, IEngine> engineFactory)
+        {
+            _engineFactory = engineFactory;
+        }
+
+        public async Task<IPythonScopeHandle> UsePythonScope(PythonScopeOptions options, CancellationToken ct = default)
+        {
+            ArgumentNullException.ThrowIfNull(options);
+
+            string path = options.Path;
+
+            // if the user supplied the full path to the Python executable instead of its folder, extract the folder
+            if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
+                path = Path.GetDirectoryName(path);
+
+            if (!string.IsNullOrWhiteSpace(path) && !Directory.Exists(path))
+                throw new DirectoryNotFoundException($"Python path not found: {path}");
+
+            if (options.OperationTimeout.HasValue && options.OperationTimeout.Value < TimeSpan.Zero)
+                throw new ArgumentOutOfRangeException(nameof(options), "OperationTimeout must be non-negative.");
+
+            if (options.ScriptDataSizeLimitMB.HasValue && options.ScriptDataSizeLimitMB.Value < EngineProvider.MinPayloadThresholdMB)
+                throw new ArgumentOutOfRangeException(nameof(options), $"ScriptDataSizeLimitMB must be at least {EngineProvider.MinPayloadThresholdMB}.");
+
+            string workingFolder = options.WorkingFolder;
+            if (!string.IsNullOrWhiteSpace(workingFolder))
+            {
+                var dir = new DirectoryInfo(workingFolder);
+                if (!dir.Exists)
+                    throw new DirectoryNotFoundException($"Working folder not found: {workingFolder}");
+
+                workingFolder = dir.FullName; // normalize to absolute path
+            }
+
+            var operationTimeout = (options.OperationTimeout ?? TimeSpan.FromHours(1)).TotalSeconds;
+
+            // LibraryPath is always required — pythonnet uses it to locate the versioned Python DLL.
+            // Path is optional; when omitted the PYTHONHOME environment variable is used.
+            if (string.IsNullOrWhiteSpace(options.LibraryPath) || !File.Exists(options.LibraryPath))
+                throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, options.LibraryPath));
+
+            EngineProvider.ValidateInstallation(path, options.LibraryPath);
+
+            int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;
+            IEngine engine = _engineFactory(Version.Auto, path, options.LibraryPath, false, TargetPlatform.x64, false, options.LogTraces, payloadThresholdMB);
+
+            try
+            {
+                await engine.Initialize(workingFolder, ct, operationTimeout);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Error initializing Python engine: {e}");
+                try
+                {
+                    await engine.Release();
+                }
+                catch (Exception releaseEx)
+                {
+                    // Release failed — record as secondary context so the original exception type is preserved.
+                    e.Data["ReleaseException"] = releaseEx.ToString();
+                }
+
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(e).Throw();
+                throw; // unreachable — satisfies the compiler
+            }
+
+            return new PythonScopeHandle(engine);
+        }
+    }
+}

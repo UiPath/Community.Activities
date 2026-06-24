@@ -2,7 +2,6 @@
 using System.Activities;
 using System.Activities.Validation;
 using System.ComponentModel;
-using System.Data;
 using System.Security;
 using UiPath.Database.Activities.Properties;
 using UiPath.Shared.Activities;
@@ -38,6 +37,12 @@ namespace UiPath.Database.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_DatabaseRowActivity_Property_ContinueOnError_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DatabaseRowActivity_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DatabaseExecute_Property_TimeoutMS_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DatabaseExecute_Property_TimeoutMS_Description))]
+        [DefaultValue(null)]
+        public InArgument<int> TimeoutMS { get; set; }
 
         protected static void HandleException(Exception ex, bool continueOnError)
         {

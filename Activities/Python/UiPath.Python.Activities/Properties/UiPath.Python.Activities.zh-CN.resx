@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>指定的 Python 路径无效: {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>指定的 Python 库路径无效（需要指向 Python 3.10 的 python**.dll 或 libpython*.so 的文件路径）：{0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>调用 Python 方法时出错</value>
   </data>
@@ -288,7 +291,7 @@
     <value>超时</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>在遭到终止及引发异常前，允许 Python 脚本运行的时长。</value>
+    <value>允许 Python 脚本运行的时间（秒），超时后将终止脚本并抛出异常。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>对于 Linux，是 Python libpython*.so 库的路径，包含库名称。对于 Windows (版本 &gt; 3.9)，是 python**.dll 的路径，包括库名称 (通常位于 Python 主页路径)。对于 Windows (版本 &lt;= 3.9)，留空。</value>
@@ -296,11 +299,38 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>库路径 (适用于 Linux 或版本 &gt; 3.9 的 Windows)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>选择的 Python 版本不受支持。</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>32 位版本上不支持 3.10 及以上的 Python 版本。 </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>应用程序调用程序.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>已安装的 Python 版本</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>选择用于配置活动的 Python 安装</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>未检测到 Python 安装</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>脚本数据大小限制 (MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>传递给 Python 脚本作为方法参数的数据的最大大小 (MB)。如果参数的大小超过此限制，则会引发错误。可接受的最小值为 1 MB。留空则使用默认值 (25 MB)。</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>将 Python 输出记录到文件（诊断用）</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>启用后，Python 主机进程的 stdout 和 stderr 输出将写入按主机区分的日志文件，该文件位于 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) 解析的文件夹下的 UiPath\Logs\python 子目录中。每个日志文件上限为 50 MB；达到上限后，将不再向该文件写入更多输出。最多保留 128 个日志文件 — 创建新文件时，最旧的文件会自动删除。这些输出不会转发到 Orchestrator。仅用于本地诊断 — 请在生产环境中保持禁用，以避免累积日志文件。</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>脚本数据大小限制 (MB) 必须至少为 {0}。</value>
   </data>
 </root>

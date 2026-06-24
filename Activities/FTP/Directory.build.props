@@ -1,0 +1,25 @@
+<Project>
+  <!-- Import first the parent targets -->
+  <Import Project="../Directory.build.props" />
+  
+  <PropertyGroup>
+    <Product>FTP</Product>
+    <Description>UiPath FTP Activities Pack</Description>
+    <Authors>UiPath</Authors>
+    <Company>UiPath</Company>
+    <Copyright>© UiPath</Copyright>
+    <VersionBuild>$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("F0"))</VersionBuild>
+    <VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("F0"))</VersionRevision>
+    <VersionPrefix Condition="'$(Configuration)' == 'Release'">3.2.0</VersionPrefix>
+    <VersionPrefix Condition="'$(Configuration)' == 'Debug'">3.2.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
+    <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">3.2.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+    <!--leave empty for ci to replace with pre-release tag-->
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsTestProject)' != 'true'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <IsConfigurationRelease>true</IsConfigurationRelease>
+  </PropertyGroup>
+</Project>

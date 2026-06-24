@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <OutputPath>..\..\Output\Activities\Java\</OutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NoWarn>CS1591</NoWarn>
+    <AssemblyName>UiPath.Java.Activities.API</AssemblyName>
+    <RootNamespace>UiPath.Java.Activities.API</RootNamespace>
+    <PackageId>UiPath.Java.Activities.API.Implementation</PackageId>
+    <IsPackable>false</IsPackable>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UiPath.Activities.Api" />
+    <PackageReference Include="UiPath.Activities.Contracts">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="UiPath.CodedWorkflows" />
+    <PackageReference Include="UiPath.Platform" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj" />
+    <ProjectReference Include="..\UiPath.Java\UiPath.Java.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -43,22 +43,24 @@ namespace UiPath.Java.Activities
             }
         }
 
-        protected List<object> GetParameters(AsyncCodeActivityContext context)
+        protected (List<object> parameters, List<Type> types) GetParametersAndTypes(AsyncCodeActivityContext context)
         {
-            List<object> parameters = ParametersList.Get(context) ?? Parameters.Select(arg => arg.Get(context)).ToList();
-            return parameters;
-        }
-        protected List<Type> GetParameterTypes(AsyncCodeActivityContext context, List<object> parameters)
-        {
-            List<Type> parameterTypes = new List<Type>();
-            for(int index=0;index<Parameters.Count;index++)
+            if (ParametersList != null)
             {
-                if(null != parameters[index])
-                    parameterTypes.Add(parameters[index].GetType());
-                else
-                    parameterTypes.Add(Parameters[index]?.ArgumentType ?? typeof(object));
+                var parametersList = ParametersList.Get(context) ?? new List<object>();
+                var types = parametersList.Select(p => p?.GetType() ?? typeof(object)).ToList();
+                return (parametersList, types);
             }
-            return parameterTypes;
+
+            var parameters = new List<object>();
+            var parameterTypes = new List<Type>();
+            foreach (var param in Parameters)
+            {
+                var value = param.Get(context);
+                parameters.Add(value);
+                parameterTypes.Add(value?.GetType() ?? param?.ArgumentType ?? typeof(object));
+            }
+            return (parameters, parameterTypes);
         }
     }
 }

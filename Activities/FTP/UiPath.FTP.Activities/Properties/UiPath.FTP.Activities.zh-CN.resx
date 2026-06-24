@@ -210,6 +210,9 @@
   <data name="EmptyUsernameException" xml:space="preserve">
     <value>用户名不得为空。</value>
   </data>
+  <data name="InvalidTimeoutException" xml:space="preserve">
+    <value>超时时间必须大于或等于 0。</value>
+  </data>
   <data name="SslProtocols" xml:space="preserve">
     <value>SSL 协议</value>
   </data>
@@ -217,7 +220,7 @@
     <value>PKCS #1 PEM 格式的私钥路径</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>未找到有效的身份验证方法: 您需要提供私钥文件 (可选择提供密码) 或密码</value>
+    <value>未找到有效的身份验证方法：您需要提供私钥文件（以及可选的密码短语）或密码</value>
   </data>
   <data name="NewPath" xml:space="preserve">
     <value>新建远程路径</value>
@@ -540,6 +543,14 @@
     <value>选择用于 FTPS 连接的 SSL 协议</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Description" xml:space="preserve">
+    <value>FTP/SFTP 连接的超时值（以毫秒为单位）。如果未设置，则使用基础库的默认超时时间。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
+    <value>超时 (毫秒)</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
     <value>SSL 协议</value>
     <comment>Property name</comment>
@@ -759,5 +770,22 @@
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
     <value>留空以使用自动配置</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
+    <value>安全字符串格式的代理密码</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Name" xml:space="preserve">
+    <value>代理安全密码</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Description" xml:space="preserve">
+    <value>按类型筛选项目（包括已选择的项目）</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
+    <value>对象类型</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
+    <value>选择要包括的对象类型</value>
   </data>
 </root>

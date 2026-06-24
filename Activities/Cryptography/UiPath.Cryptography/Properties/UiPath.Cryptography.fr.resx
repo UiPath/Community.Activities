@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>Chat20-Poly1305 (non compatible FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (obsolète)</value>
   </data>
@@ -184,7 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>TripleDES (obsolète)</value>
+  </data>
+  <data name="PGP" xml:space="preserve">
+    <value>PGP (Pretty Good Privacy, non FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>L’algorithme de hachage fourni n’est pas pris en charge.</value>
@@ -194,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>L’algorithme symétrique fourni n’est pas pris en charge.</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>Le texte chiffré (ciphertext) fourni est trop court pour être au format du fil UiPath. Le format de texte chiffré UiPath est en Base64(salt | IV | ciphertext) et doit être d’au moins {0} octets pour cet algorithme. Les textes chiffrés produits par des outils externes ne sont pas directement compatibles, consultez la documentation de l’activité pour connaître la spécification du format du fil.</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>Échec du déchiffrement. Le format texte chiffré UiPath est en Base64(salt | IV | ciphertext). Cette erreur indique généralement que l’entrée a été produite par un outil externe, ou que la clé ou l’encodage ne correspond pas à ce qui a été utilisé pour le chiffrement.</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChatCha20-Poly1305 n’est pas pris en charge sur cette plate-forme. Utilisez plutôt AES-GCM, ou exécutez sur une plate-forme prenant en charge ChatCha20-Poly1305 (Linux avec OpenSSL ou Windows 10 1809/Server 2019 ou version ultérieure).</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -615,5 +630,38 @@
   </data>
   <data name="Unicode_UTF_8" xml:space="preserve">
     <value>Unicode (UTF-8)</value>
+  </data>
+  <data name="PgpInvalidPassphrase" xml:space="preserve">
+    <value>La phrase de passe de la clé PGP privée est incorrecte.</value>
+  </data>
+  <data name="PgpPrivateKeyNotFound" xml:space="preserve">
+    <value>La clé privée fournie ne correspond pas aux données chiffrées. Vérifiez que vous utilisez la bonne clé privée.</value>
+  </data>
+  <data name="PgpSignatureVerificationFailed" xml:space="preserve">
+    <value>Échec de la vérification de la signature PGP. La clé publique ne correspond pas à la signature, ou les données ont été modifiées.</value>
+  </data>
+  <data name="PgpVerifyMode_Signature" xml:space="preserve">
+    <value>Fichier signé (binaire)</value>
+  </data>
+  <data name="PgpVerifyMode_ClearSignature" xml:space="preserve">
+    <value>Fichier signé (texte clair)</value>
+  </data>
+  <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
+    <value>Valider la clé publique</value>
+  </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2 048 bits</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3 072 bits</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4 096 bits</value>
+  </data>
+  <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
+    <value>La signature a été demandée, mais une clé privée et une phrase de passe sont requises pour signer. Veuillez fournir un flux de clé privée et une phrase de passe, ou définissez la signature sur False (faux).</value>
+  </data>
+  <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
+    <value>La vérification de la signature a été demandée, mais une clé publique est requise. Fournissez un flux de clé publique ou définissez « verifySignature » sur False (faux).</value>
   </data>
 </root>

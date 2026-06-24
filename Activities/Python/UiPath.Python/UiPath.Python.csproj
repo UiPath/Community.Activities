@@ -1,31 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-    <Import Project="..\Python.build.props" />
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
         <OutputPath>..\..\Output\Activities\Python\</OutputPath>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
     <!--<PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)..\..\Tools\localization_utilities\dist\synchronize_localization.exe" "$(ProjectDir)\" "$(ProjectName)</PreBuildEvent>
   </PropertyGroup>-->
     <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-    <Import Project="..\..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
+    <Import Project="..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
     <ItemGroup>
         <PackageReference Include="UiPath.Workflow" />
+        <PackageReference Include="pythonnet" />
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Update="Properties\UiPath.Python.fr.resx">
-            <DependentUpon>UiPath.Python.resx</DependentUpon>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Python.ja.resx">
+        <EmbeddedResource Update="Properties\UiPath.Python.*.resx">
             <DependentUpon>UiPath.Python.resx</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Update="Properties\UiPath.Python.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>UiPath.Python.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Properties\UiPath.Python.ru.resx">
-            <DependentUpon>UiPath.Python.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>

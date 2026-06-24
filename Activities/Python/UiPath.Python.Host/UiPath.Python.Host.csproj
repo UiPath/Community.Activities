@@ -1,23 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
-  <Import Project="..\Python.build.props" />
-  <PropertyGroup>
-    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
-    <RollForward>Major</RollForward>
-    <OutputPath>..\..\Output\Activities\Python\</OutputPath>
-    <OutputType>Exe</OutputType>
-	<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <Prefer32Bit>false</Prefer32Bit>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+	<PropertyGroup>
+		<TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+		<RollForward>Major</RollForward>
+		<OutputPath>..\..\Output\Activities\Python\</OutputPath>
+		<OutputType>Exe</OutputType>
+		<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		<PublishReadyToRun>true</PublishReadyToRun>
+		<Prefer32Bit>false</Prefer32Bit>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
+	<PropertyGroup>
+		<StartupObject />
+	</PropertyGroup>
 
-  <Import Project="..\..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
-  <Import Project="..\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems" Label="Shared" />
-  <Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
+	<Import Project="..\Shared\UiPath.Shared.Service\UiPath.Shared.Service.projitems" Label="Shared" />
+	<Import Project="..\UiPath.Python.Host.Shared\UiPath.Python.Host.Shared.projitems" Label="Shared" />
+	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
 
   <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />

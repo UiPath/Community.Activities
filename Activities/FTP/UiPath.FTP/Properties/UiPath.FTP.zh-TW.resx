@@ -130,7 +130,7 @@
     <value>遇到不支援的物件類型。</value>
   </data>
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
-    <value>找不到有效的驗證方法: 您必須提供私密金鑰檔案 (可選擇提供密碼) 或密碼</value>
+    <value>未找到有效的身分驗證方法: 您需要提供私密金鑰檔案 (可選擇提供密碼) 或密碼</value>
   </data>
   <data name="DirectoryExistsException" xml:space="preserve">
     <value>目的地目錄已存在</value>

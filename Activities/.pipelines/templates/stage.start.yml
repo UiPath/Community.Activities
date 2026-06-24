@@ -1,0 +1,99 @@
+# Local replacement for Activities/stage.start.yml@common
+# Build, test, and Sonar templates are vendored under templates/ and templates/Sonar/
+# (originally from UiPath/AzurePipelinesTemplates @ uipath.community.activities.1.3.0).
+
+parameters:
+  projectName: ''
+  tagName: ''
+  solutionPath: ''
+  buildPoolName: ''
+  testPoolName: ''
+  sonarProjectKey: 'UiPath_Community.Activities'
+  sonarServiceConnection: 'SonarCloudActivities'
+  sonarOrganization: 'ui'
+  runSettingsFilePath: '$(RunSettingsFilePath)'
+  preBuild: []
+  postBuild: []
+  additionalBuildJobs: []
+  preTestRun: []
+  postTestRun: []
+  additionalStages: []
+  additionalTestJobs: []
+  additionalSonarJobs: []
+  additionalSonarTasks: []
+  sonarDependsOn: []
+  msBuildPack: false
+  sdkBuild: false
+  requiresLfs: false
+  hasQaPackages: true
+
+stages:
+- stage: Build
+  displayName: ${{ format('Build {0} activities', parameters.projectName) }}
+  variables:
+    Solution: '${{ parameters.solutionPath }}'
+  jobs:
+  # Local should-run check — no GitHub API token needed
+  - template: stage.shouldrun.yml
+
+  # Build job from local vendored templates
+  - template: stage.build.yml
+    parameters:
+      projectName: ${{ parameters.projectName }}
+      solutionPath: ${{ parameters.solutionPath }}
+      poolName: ${{ parameters.buildPoolName }}
+      tagName: ${{ parameters.tagName }}
+      sonarProjectKey: ${{ parameters.sonarProjectKey }}
+      sonarServiceConnection: ${{ parameters.sonarServiceConnection }}
+      sonarOrganization: ${{ parameters.sonarOrganization }}
+      sdkBuild: ${{ parameters.sdkBuild }}
+      requiresLfs: ${{ parameters.requiresLfs }}
+      hasQaPackages: ${{ parameters.hasQaPackages }}
+      msBuildPack: ${{ parameters.msBuildPack }}
+      preBuild:
+      - ${{ each step in parameters.preBuild }}:
+        - ${{ step }}
+      postBuild:
+      - ${{ each step in parameters.postBuild }}:
+        - ${{ step }}
+  - ${{ each job in parameters.additionalBuildJobs }}:
+    - ${{ job }}
+
+- stage: Test
+  displayName: ${{ format('Run {0} tests', parameters.projectName) }}
+  dependsOn: Build
+  condition: and(succeeded(), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'))
+  jobs:
+  - template: stage.test.yml
+    parameters:
+      poolName: ${{ parameters.testPoolName }}
+      runSettingsFilePath: ${{ parameters.runSettingsFilePath }}
+      preTestRun:
+      - ${{ each step in parameters.preTestRun }}:
+        - ${{ step }}
+      postTestRun:
+      - ${{ each step in parameters.postTestRun }}:
+        - ${{ step }}
+  - ${{ each job in parameters.additionalTestJobs }}:
+    - ${{ job }}
+
+- ${{ each stage in parameters.additionalStages }}:
+  - ${{ stage }}
+
+- stage: PublishSonar
+  displayName: "Perform SonarQube analysis"
+  dependsOn:
+  - Build
+  - Test
+  - ${{ each stage in parameters.sonarDependsOn }}:
+    - ${{ stage }}
+  # IsFork blocks fork PRs (AzDO strips secrets); masters/* and support/* exclusions
+  # guard against direct pushes — PR builds use refs/pull/* so they aren't affected.
+  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+  jobs:
+  - template: stage.sonar.yml
+    parameters:
+      additionalSonarTasks: ${{ parameters.additionalSonarTasks }}
+
+  - ${{ each job in parameters.additionalSonarJobs }}:
+    - ${{ job }}

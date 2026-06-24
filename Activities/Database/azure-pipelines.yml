@@ -1,21 +1,3 @@
-resources:
-  repositories:
-  - repository: common
-    type: github
-    name: UiPath/AzurePipelinesTemplates
-    ref: refs/tags/uipath.community.activities.1.3.0
-    endpoint: "GitHub connection"
-  - repository: automationTests
-    type: github
-    name: UiPath/AzurePipelinesTemplates
-    ref: refs/tags/uipath.waitforbuild.1.0.3
-    endpoint: "GitHub connection"
-  - repository: template-helpers
-    type: github
-    name: UiPath/AzurePipelinesTemplates
-    endpoint: "UiPath"
-    ref: refs/tags/uipath.templates.helpers.1.1.4
-
 trigger:
   batch: true
   branches:
@@ -53,14 +35,18 @@ variables:
     value: false
 
 stages:
-  - template: Activities/stage.start.yml@common
+  - template: ..\.pipelines\templates\stage.start.yml
     parameters:
       projectName: 'Database'
       solutionPath: '$(SolutionsPath)/Activities.Database.sln'
-      sonarKeyPrefix: 'CommunityActivities'
       sdkBuild: false
-      enableCDStages: false
       hasQaPackages: false
+      preTestRun:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 6 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '6.0.x'
 
   - stage: CreateAndSetupBYOSAgent
     dependsOn:
@@ -102,6 +88,7 @@ stages:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
         robotVersion: $(TestsStudioVersion)
+        studioLicense: $(StudioLicense)
         environment:
           SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
 

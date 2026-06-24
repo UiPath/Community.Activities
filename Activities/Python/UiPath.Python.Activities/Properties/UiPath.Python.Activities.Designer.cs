@@ -19,7 +19,7 @@ namespace UiPath.Python.Activities.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UiPath_Python_Activities {
@@ -142,6 +142,24 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the Python installation to be used for the configuration of the activity.
+        /// </summary>
+        public static string InstalledVersionsDescription {
+            get {
+                return ResourceManager.GetString("InstalledVersionsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed Python Versions.
+        /// </summary>
+        public static string InstalledVersionsDisplayName {
+            get {
+                return ResourceManager.GetString("InstalledVersionsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instance of Python object.
         /// </summary>
         public static string InstanceDescription {
@@ -156,6 +174,15 @@ namespace UiPath.Python.Activities.Properties {
         public static string InstanceNameDisplayName {
             get {
                 return ResourceManager.GetString("InstanceNameDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}.
+        /// </summary>
+        public static string InvalidLibraryPathException {
+            get {
+                return ResourceManager.GetString("InvalidLibraryPathException", resourceCulture);
             }
         }
         
@@ -214,7 +241,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty..
+        ///   Looks up a localized string similar to Required. Full path to the Python runtime library including the file name — python**.dll on Windows (e.g. python313.dll, usually in the Python home folder), libpython*.so on Linux, or libpython*.dylib on macOS..
         /// </summary>
         public static string LibraryPathDescription {
             get {
@@ -223,7 +250,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Library path (Linux or version&gt;3.9).
+        ///   Looks up a localized string similar to Library path.
         /// </summary>
         public static string LibraryPathNameDisplayName {
             get {
@@ -259,6 +286,24 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to When enabled, stdout and stderr output from the Python host process is written to a per-host log file under the folder resolved by Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), in the UiPath\Logs\python subdirectory. Each log file is capped at 50 MB; once the cap is reached, no further output is written to that file. At most 128 log files are kept — the oldest are automatically deleted when a new file is created. The output is NOT forwarded to Orchestrator. Intended for local di [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LogTracesDescription {
+            get {
+                return ResourceManager.GetString("LogTracesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Python Output to File (Diagnostic).
+        /// </summary>
+        public static string LogTracesDisplayName {
+            get {
+                return ResourceManager.GetString("LogTracesDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name of the method to be invoked.
         /// </summary>
         public static string MethodNameDescription {
@@ -273,6 +318,15 @@ namespace UiPath.Python.Activities.Properties {
         public static string NameDisplayName {
             get {
                 return ResourceManager.GetString("NameDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Python installations were detected.
+        /// </summary>
+        public static string NoPythonInstallations {
+            get {
+                return ResourceManager.GetString("NoPythonInstallations", resourceCulture);
             }
         }
         
@@ -295,7 +349,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The amount of time to allow a Python script to run until it is terminated and an exception is thrown..
+        ///   Looks up a localized string similar to The amount of time in seconds to allow a Python script to run until it is terminated and an exception is thrown..
         /// </summary>
         public static string OperationTimeoutDescription {
             get {
@@ -457,6 +511,24 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum size in MB of the data passed to the Python script as method arguments. If the size of the arguments exceeds this limit, an error is raised. Minimum accepted value is 1 MB. Leave empty to use the default (25 MB)..
+        /// </summary>
+        public static string ScriptDataSizeLimitDescription {
+            get {
+                return ResourceManager.GetString("ScriptDataSizeLimitDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Data Size Limit (MB).
+        /// </summary>
+        public static string ScriptDataSizeLimitDisplayName {
+            get {
+                return ResourceManager.GetString("ScriptDataSizeLimitDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full path to Python script file.
         /// </summary>
         public static string ScriptFileDescription {
@@ -516,6 +588,24 @@ namespace UiPath.Python.Activities.Properties {
         public static string ValidationErrorPlatformUnsupported {
             get {
                 return ResourceManager.GetString("ValidationErrorPlatformUnsupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Data Size Limit (MB) must be at least {0}..
+        /// </summary>
+        public static string ValidationErrorScriptDataSizeLimitInvalid {
+            get {
+                return ResourceManager.GetString("ValidationErrorScriptDataSizeLimitInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected Python version is not supported..
+        /// </summary>
+        public static string ValidationErrorVersionUnsupported {
+            get {
+                return ResourceManager.GetString("ValidationErrorVersionUnsupported", resourceCulture);
             }
         }
         

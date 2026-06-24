@@ -1,19 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\Cryptography.build.props" />
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>$(PortableFramework)</TargetFrameworks>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
 	</PropertyGroup>
 
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
-	
+
 	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
 		<PackageReference Include="System.Security.Cryptography.Cng" />
 		<PackageReference Include="System.Formats.Asn1" />
+		<PackageReference Include="PgpCore" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,6 +24,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="Properties\UiPath.Cryptography.*.resx">
+			<DependentUpon>UiPath.Cryptography.resx</DependentUpon>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\UiPath.Cryptography.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>UiPath.Cryptography.Designer.cs</LastGenOutput>

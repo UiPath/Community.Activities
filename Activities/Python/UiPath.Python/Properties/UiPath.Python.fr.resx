@@ -129,6 +129,21 @@
   <data name="InstantiationException" xml:space="preserve">
     <value>Exception d&apos;instanciation Python</value>
   </data>
+  <data name="LoadException" xml:space="preserve">
+    <value>Exception de script de chargement Python</value>
+  </data>
+  <data name="InvocationException" xml:space="preserve">
+    <value>Exception d’invocation de la méthode Python</value>
+  </data>
+  <data name="ConversionException" xml:space="preserve">
+    <value>Exception de conversion d’objet Python</value>
+  </data>
+  <data name="ExecutionException" xml:space="preserve">
+    <value>Exception d’exécution du code Python</value>
+  </data>
+  <data name="RequestException" xml:space="preserve">
+    <value>Exception de traitement de la requête Python</value>
+  </data>
   <data name="PythonExeNotFoundException" xml:space="preserve">
     <value>Fichier exécutable Python introuvable</value>
   </data>
@@ -143,5 +158,14 @@
   </data>
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>La version {0} de Python n’est pas prise en charge. Les versions prises en charge sont les suivantes : {1}</value>
+  </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>L’installation de Python au niveau de « {0} » est en version 32 bits. Seules les installations Python 64 bits sont prises en charge. Veuillez installer une version 64 bits de Python.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>La version {0} de Python n’est pas prise en charge. Les versions prises en charge sont les suivantes : {1}.</value>
+  </data>
+  <data name="PayloadThresholdExceeded" xml:space="preserve">
+    <value>La taille des données du script Python ({0} Mo) dépasse la limite configurée ({1} Mo). Transmettez les données volumineuses via un chemin de fichier plutôt qu’en tant qu’argument de méthode, ou augmentez la valeur de la propriété « Limite de taille des données de script ».</value>
   </data>
 </root>

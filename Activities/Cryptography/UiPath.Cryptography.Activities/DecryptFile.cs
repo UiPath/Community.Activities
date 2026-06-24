@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Activities;
-using System.Activities.Expressions;
 using System.Activities.Validation;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,8 +13,11 @@ using UiPath.Cryptography.Activities.Models;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+#if ENABLE_DEFAULT_TELEMETRY
+using UiPath.Shared.Telemetry.Services;
+#endif
 
-#pragma warning disable CS0618 // obsolete encryption algorithm
+#pragma warning disable CS0618 // obsolete encryption algorithms (TripleDES, etc.) remain referenced for backwards compatibility
 
 namespace UiPath.Cryptography.Activities
 {
@@ -28,13 +31,19 @@ namespace UiPath.Cryptography.Activities
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Algorithm_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Algorithm_Description))]
-        public SymmetricAlgorithms Algorithm { get; set; }
+        public EncryptionAlgorithm Algorithm { get; set; }
 
-        [OverloadGroup(nameof(InputFilePath))]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_InputFilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_InputFilePath_Description))]
         public InArgument<string> InputFilePath { get; set; }
+
+        [Browsable(false)]
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_InputFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_InputFile_Description))]
+        public InArgument<IResource> InputFile { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Key_Name))]
@@ -42,9 +51,7 @@ namespace UiPath.Cryptography.Activities
         public InArgument<string> Key { get; set; }
 
         [Browsable(false)]
-        [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KeyInputModeSwitch_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeyInputModeSwitch_Description))]
+        [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active key input mode. The activity now infers the mode from which side is bound.")]
         public KeyInputMode KeyInputModeSwitch { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
@@ -60,10 +67,32 @@ namespace UiPath.Cryptography.Activities
         [Browsable(false)]
         public InArgument<string> KeyEncodingString { get; set; }
 
-        [Browsable(false)]
         [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_FileInputModeSwitch_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_FileInputModeSwitch_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Format_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Format_Description))]
+        [DefaultValue(SymmetricWireFormat.Classic)]
+        public SymmetricWireFormat Format { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KeyFormat_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeyFormat_Description))]
+        [DefaultValue(KeyBytesFormat.Encoded)]
+        public KeyBytesFormat KeyFormat { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KdfIterations_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KdfIterations_Description))]
+        public InArgument<int> KdfIterations { get; set; }
+
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_AesKeySize_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_AesKeySize_Description))]
+        [DefaultValue(AesKeySize.Aes256)]
+        public AesKeySize AesKeySize { get; set; } = AesKeySize.Aes256;
+
+        [Browsable(false)]
+        [Obsolete("Legacy property kept for XAML back-compat with workflows that persisted the active file input mode. The activity now infers the mode from which side is bound.")]
         public FileInputMode FileInputModeSwitch { get; set; }
 
         [LocalizedCategory(nameof(Resources.Input))]
@@ -83,19 +112,10 @@ namespace UiPath.Cryptography.Activities
         public bool Overwrite { get; set; }
 
         [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedCategory(nameof(Resources.Category_Options_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_ContinueOnError_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
-
-        [Browsable(false)]
-        [RequiredArgument]
-        [OverloadGroup(nameof(InputFile))]
-        [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Input))]
-        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_InputFile_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_InputFile_Description))]
-        public InArgument<IResource> InputFile { get; set; }
 
         [Browsable(false)]
         [DefaultValue(null)]
@@ -104,17 +124,47 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_DecryptedFile_Description))]
         public OutArgument<ILocalResource> DecryptedFile { get; set; }
 
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Description))]
+        public InArgument<string> PrivateKeyFilePath { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Passphrase_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Passphrase_Description))]
+        public InArgument<string> Passphrase { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_PassphraseSecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_PassphraseSecureString_Description))]
+        public InArgument<SecureString> PassphraseSecureString { get; set; }
+
+        [DefaultValue(false)]
+        [LocalizedCategory(nameof(Resources.Category_Options_Name))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_VerifySignature_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_VerifySignature_Description))]
+        public bool VerifySignature { get; set; }
+
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_PublicKeyFilePath_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_PublicKeyFilePath_Description))]
+        public InArgument<string> PublicKeyFilePath { get; set; }
+
+        [Browsable(false)]
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_PublicKeyFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_PublicKeyFile_Description))]
+        public InArgument<IResource> PublicKeyFile { get; set; }
+
         public DecryptFile()
         {
-            Algorithm = SymmetricAlgorithms.AESGCM;
-#if NET461
-            //we only use this on legacy
-            KeyEncoding = new InArgument<Encoding>(ExpressionServices.Convert((env) => System.Text.Encoding.UTF8));
-#endif
-#if NET
-            //for modern and cross projects
+            Algorithm = EncryptionAlgorithm.AESGCM;
             KeyEncodingString = Encoding.UTF8.CodePage.ToString();
-#endif
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
@@ -123,114 +173,153 @@ namespace UiPath.Cryptography.Activities
 
             if (!CryptographyHelper.IsFipsCompliant(Algorithm))
             {
-                var error = new ValidationError(Resources.FipsComplianceWarning, true, nameof(Algorithm));
-                metadata.AddValidationError(error);
+                metadata.AddValidationError(new ValidationError(Resources.FipsComplianceWarning, isWarning: true, nameof(Algorithm)));
             }
-#if NET
-            if (Key == null && KeyInputModeSwitch == KeyInputMode.Key)
+
+            if (Algorithm == EncryptionAlgorithm.ChaCha20Poly1305 && !System.Security.Cryptography.ChaCha20Poly1305.IsSupported)
             {
-                var error = new ValidationError(Resources.KeyNullError, false, nameof(Key));
-                metadata.AddValidationError(error);
+                metadata.AddValidationError(new ValidationError(Resources.ChaCha20Poly1305NotSupported, isWarning: true, nameof(Algorithm)));
             }
-            if (KeySecureString == null && KeyInputModeSwitch == KeyInputMode.SecureKey)
-            {
-                var error = new ValidationError(Resources.KeySecureStringNullError, false, nameof(KeySecureString));
-                metadata.AddValidationError(error);
-            }
-#endif
         }
 
         protected override void Execute(CodeActivityContext context)
         {
+#if ENABLE_DEFAULT_TELEMETRY
+            var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
+#endif
+
             try
             {
                 var inputFilePath = InputFilePath.Get(context);
                 var inputFile = InputFile.Get(context);
                 var outputFilePath = OutputFilePath.Get(context);
                 var outputFileName = OutputFileName.Get(context);
-                var key = Key.Get(context);
-                var keySecureString = KeySecureString.Get(context);
-                var keyEncoding = KeyEncoding.Get(context);
-                var keyEncodingString = KeyEncodingString.Get(context);
-#if NET
-                if (string.IsNullOrWhiteSpace(key) && KeyInputModeSwitch == KeyInputMode.Key)
-                {
-                    throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_Key_Name);
-                }
-                if ((keySecureString == null || keySecureString?.Length == 0) && KeyInputModeSwitch == KeyInputMode.SecureKey)
-                {
-                    throw new ArgumentNullException(Resources.Activity_DecryptFile_Property_KeySecureString_Name);
-                }
-#endif
 
-#if NET461
-                if (string.IsNullOrWhiteSpace(key) && (keySecureString == null || keySecureString?.Length == 0))
-                {
-                    throw new ArgumentNullException(Resources.KeyAndSecureStringNull);
-                }
-#endif
-                if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString)) throw new ArgumentNullException(Resources.Encoding);
+                ValidateSymmetricKeyParams(context, out var key, out var keySecureString, out var keyEncoding);
 
                 if (!File.Exists(inputFilePath) && inputFile == null)
                     throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.InputFilePathDisplayName);
-
-                // Because we use File.WriteAllText below, we don't need to delete the file now.
                 if (File.Exists(outputFilePath) && !Overwrite)
                     throw new ArgumentException(Resources.FileAlreadyExistsException, Resources.OutputFilePathDisplayName);
-
                 if (inputFile != null && inputFile.IsFolder)
                     throw new ArgumentException(Resources.Exception_UseOnlyFilesNotFolders);
 
                 var result = FilePathHelpers.GetDefaultFileNameAndLocation(inputFile, inputFilePath, outputFileName, Overwrite, outputFilePath, Decrypted);
-
-                keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
-
                 var encrypted = File.ReadAllBytes(result.Item3);
 
-                byte[] decrypted = null;
-                try
-                {
-                    decrypted = CryptographyHelper.DecryptData(Algorithm, encrypted, CryptographyHelper.KeyEncoding(keyEncoding, key, keySecureString));
-                }
-                catch (CryptographicException ex)
-                {
-                    throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
-                }
+                var decrypted = Algorithm == EncryptionAlgorithm.PGP
+                    ? ExecutePgpDecrypt(context, encrypted)
+                    : ExecuteSymmetricDecrypt(context, encrypted, keyEncoding, key, keySecureString);
 
-                if (string.IsNullOrEmpty(outputFilePath))
-                {
-                    var item = new CryptographyLocalItem(decrypted, result.Item1, result.Item2);
-
-                    DecryptedFile.Set(context, item);
-
-                    outputFilePath = item.LocalPath;
-                }
-                else
-                {
-                    var directory = Path.GetDirectoryName(outputFilePath);
-
-                    if (!string.IsNullOrEmpty(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
-                    var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
-
-                    DecryptedFile.Set(context, item);
-                }
-
-                // This overwrites the file if it already exists.
-                File.WriteAllBytes(outputFilePath, decrypted);
-
+                WriteDecryptedOutput(context, outputFilePath, decrypted, result);
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.Send();
+#endif
             }
             catch (Exception ex)
             {
+#if ENABLE_DEFAULT_TELEMETRY
+                telemetryOperation.SendWithException(ex);
+#endif
                 Trace.TraceError(ex.ToString());
 
                 if (!ContinueOnError.Get(context))
                 {
                     throw;
                 }
+            }
+        }
+
+        private void ValidateSymmetricKeyParams(CodeActivityContext context, out string key, out SecureString keySecureString, out Encoding keyEncoding)
+        {
+            key = null;
+            keySecureString = null;
+            keyEncoding = null;
+
+            if (Algorithm == EncryptionAlgorithm.PGP) return;
+
+            key = Key.Get(context);
+            keySecureString = KeySecureString.Get(context);
+            keyEncoding = KeyEncoding.Get(context);
+            var keyEncodingString = KeyEncodingString.Get(context);
+
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                if (keySecureString == null || keySecureString.Length == 0)
+                    throw new ArgumentNullException(nameof(Key), Resources.Activity_DecryptFile_Property_Key_Name);
+                key = null; // ensure helper falls back to SecureString
+            }
+            if (keyEncoding == null && string.IsNullOrEmpty(keyEncodingString))
+                throw new ArgumentNullException(Resources.Encoding);
+
+            keyEncoding = EncodingHelpers.KeyEncodingOrString(keyEncoding, keyEncodingString);
+        }
+
+        private byte[] ExecutePgpDecrypt(CodeActivityContext context, byte[] encrypted)
+        {
+            var privateKeyFilePath = PrivateKeyFilePath.Get(context);
+
+            var passphraseString = Passphrase.Get(context);
+            if (string.IsNullOrWhiteSpace(passphraseString))
+            {
+                var secure = PassphraseSecureString.Get(context);
+                if (secure == null || secure.Length == 0)
+                    throw new ArgumentNullException(nameof(Passphrase), Resources.Activity_DecryptFile_Property_Passphrase_Name);
+                passphraseString = new NetworkCredential(string.Empty, secure).Password;
+            }
+
+            var publicKeyFilePath = PublicKeyFilePath.Get(context);
+            var publicKeyResource = PublicKeyFile?.Get(context);
+            if (string.IsNullOrEmpty(publicKeyFilePath) && publicKeyResource != null)
+            {
+                var localResource = publicKeyResource.ToLocalResource();
+                localResource.ResolveAsync().GetAwaiter().GetResult();
+                publicKeyFilePath = localResource.LocalPath;
+            }
+
+            return PgpStreamHelper.WithPgpDecryptStreams(
+                privateKeyFilePath, passphraseString, publicKeyFilePath, VerifySignature,
+                (privStream, pass, pubStream) =>
+                    CryptographyHelper.PgpDecrypt(encrypted, privStream, pass, pubStream, VerifySignature));
+        }
+
+        private byte[] ExecuteSymmetricDecrypt(CodeActivityContext context, byte[] encrypted, Encoding keyEncoding, string key, SecureString keySecureString)
+        {
+            var iterations = KdfIterations?.Get(context) ?? 0;
+
+            return SymmetricInteropHelper.RunSymmetricWithKeyLifecycle(
+                Algorithm, Format, KeyFormat, keyEncoding,
+                keyString: key, keySecureString: keySecureString,
+                ivString: null, kdfIterations: iterations, needsIv: false,
+                dispatch: (k, _) =>
+                {
+                    try
+                    {
+                        return SymmetricInteropHelper.DispatchDecrypt(Algorithm, Format, iterations, k, encrypted, AesKeySize);
+                    }
+                    catch (CryptographicException ex)
+                    {
+                        throw new InvalidOperationException(Resources.GenericCryptographicException, ex);
+                    }
+                },
+                isDecrypt: true);
+        }
+
+        private void WriteDecryptedOutput(CodeActivityContext context, string outputFilePath, byte[] decrypted, (string, string, string) result)
+        {
+            if (string.IsNullOrEmpty(outputFilePath))
+            {
+                var item = new CryptographyLocalItem(decrypted, result.Item1, result.Item2);
+                DecryptedFile.Set(context, item);
+            }
+            else
+            {
+                var directory = Path.GetDirectoryName(outputFilePath);
+                if (!string.IsNullOrEmpty(directory))
+                    Directory.CreateDirectory(directory);
+
+                var item = new CryptographyLocalItem(decrypted, Path.GetFileName(outputFilePath), outputFilePath);
+                DecryptedFile.Set(context, item);
             }
         }
     }

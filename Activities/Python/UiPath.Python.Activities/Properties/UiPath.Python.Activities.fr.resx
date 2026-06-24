@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>Le chemin d’accès Python indiqué n’est pas valide : {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>Le chemin d’accès à la bibliothèque Python indiqué n’est pas valide (un chemin d’accès vers un fichier python**.dll ou libpython*.so est requis pour Python 3.10) : {0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Erreur lors de l’invocation de la méthode Python</value>
   </data>
@@ -288,7 +291,7 @@
     <value>Délai d&apos;attente</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Temps nécessaire pour permettre l’exécution d’un script Python jusqu’à la fin et le lancement d’une exception.</value>
+    <value>Temps nécessaire (en secondes) pour permettre l’exécution d’un script Python jusqu’à la fin et le lancement d’une exception.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Chemin vers la bibliothèque Python libpython*.so en incluant le nom de la bibliothèque. Pour Windows (version ultérieure à 3.9), indiquer le chemin vers python**.dll en incluant le nom de la bibliothèque (se trouve généralement dans le chemin Python Home). Pour Windows (Version antérieure à la 3.9), laisser vide.</value>
@@ -296,11 +299,38 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>Chemin de la bibliothèque (Linux ou version ultérieure à la 3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>La version de Python sélectionnée n’est pas prise en charge.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>Toute version de Python supérieure ou égale à la version 3.10 n&apos;est pas prise en charge sur 32 bits. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>Invocateur d’appli.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>Versions de Python installées</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>Sélectionnez l’installation Python à utiliser pour la configuration de l’activité</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>Aucune installation Python n’a été détectée</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>Limite de taille des données de script (Mo)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>La taille maximale en Mo des données transmises au script Python en tant qu’arguments de méthode. Si la taille des arguments dépasse cette limite, une erreur est générée. La valeur minimale acceptée est de 1 Mo. Laissez ce champ vide pour utiliser la valeur par défaut (25 Mo).</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Consigner la sortie Python dans un fichier (diagnostique)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>Lorsque cette option est activée, les sorties stdout et stderr du processus Python hôte est consignée dans un fichier journal (un par hôte) sous le dossier résolu par Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dans le sous-répertoire UiPath\Logs\python. Chaque fichier journal est limité à 50 Mo. Une fois ce plafond atteint, aucune autre sortie n’est écrite dans ce fichier. 128 fichiers journaux peuvent être conservés au maximum. Les plus anciens sont automatiquement supprimés lorsqu’un nouveau fichier est créé. La sortie n’est PAS transmise à Orchestrator. Cette fonction est destinée à des fins de diagnostic local uniquement. Laissez cette option désactivée en production pour éviter l’accumulation de fichiers journaux.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>La limite de taille des données de script (en Mo) doit être d’au moins {0}.</value>
   </data>
 </root>

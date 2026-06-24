@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -156,6 +156,9 @@
   <data name="InvalidPathException" xml:space="preserve">
     <value>지정된 Python 경로가 잘못됨: {0}</value>
   </data>
+  <data name="InvalidLibraryPathException" xml:space="preserve">
+    <value>지정된 Python 라이브러리 경로가 유효하지 않습니다(Python 3.10에는 python**.dll / libpython*.so 파일 경로가 필요함): {0}</value>
+  </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python 메서드 호출 중 오류</value>
   </data>
@@ -288,7 +291,7 @@
     <value>시간 제한</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간입니다.</value>
+    <value>Python 스크립트가 종료되어 예외가 throw될 때까지 실행이 허용되는 시간(초)입니다.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
     <value>Linux의 경우 Python libpython*.so 라이브러리(라이브러리 이름 포함). Windows(버전&gt;3.9)의 경우 python**.dll 라이브러리 이름 포함(일반적으로 Python 홈 경로에 있음). Windows(버전&lt;=3.9)의 경우 비워 둡니다.</value>
@@ -296,11 +299,38 @@
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
     <value>라이브러리 경로(Linux 또는 버전&gt; 3.9)</value>
   </data>
+  <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
+    <value>선택한 Python 버전은 지원되지 않습니다.</value>
+  </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
     <value>3.10 이상인 Python 버전은 32비트에서 지원되지 않습니다. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>앱 호출자.Python</value>
     <comment>category names (separated by .)</comment>
+  </data>
+  <data name="InstalledVersionsDisplayName" xml:space="preserve">
+    <value>설치된 Python 버전</value>
+  </data>
+  <data name="InstalledVersionsDescription" xml:space="preserve">
+    <value>액티비티 구성에 사용할 Python 설치 버전을 선택합니다</value>
+  </data>
+  <data name="NoPythonInstallations" xml:space="preserve">
+    <value>Python 설치가 감지되지 않았습니다</value>
+  </data>
+  <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
+    <value>스크립트 데이터 크기 제한(MB)</value>
+  </data>
+  <data name="ScriptDataSizeLimitDescription" xml:space="preserve">
+    <value>Python 스크립트에 메서드 인수로 전달되는 데이터의 최대 크기(MB)입니다. 인수의 크기가 이 제한을 초과하면 오류가 발생합니다. 최소 허용 값은 1MB입니다. 기본값(25MB)을 사용하려면 비워 두십시오.</value>
+  </data>
+  <data name="LogTracesDisplayName" xml:space="preserve">
+    <value>Python 출력을 파일에 기록(진단)</value>
+  </data>
+  <data name="LogTracesDescription" xml:space="preserve">
+    <value>활성화하면 Python 호스트 프로세스의 stdout 및 stderr 출력이 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)로 확인된 폴더 아래의 UiPath\Logs\python 하위 디렉터리에 있는 호스트별 로그 파일에 기록됩니다. 각 로그 파일의 최대 크기는 50MB이며, 이 제한에 도달하면 더 이상 해당 파일에 출력이 기록되지 않습니다. 최대 128개의 로그 파일이 유지되며, 새 파일이 생성될 때 가장 오래된 파일은 자동으로 삭제됩니다. 출력은 Orchestrator로 전달되지 않습니다. 로컬 진단 용도로만 사용되며, 로그 파일 누적을 방지하려면 프로덕션 환경에서는 비활성화 상태로 두십시오.</value>
+  </data>
+  <data name="ValidationErrorScriptDataSizeLimitInvalid" xml:space="preserve">
+    <value>스크립트 데이터 크기 제한(MB)은 {0} 이상이어야 합니다.</value>
   </data>
 </root>
