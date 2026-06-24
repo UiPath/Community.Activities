@@ -27,6 +27,13 @@ Generates an OpenPGP public/private RSA key pair and saves them to the specified
 | `Overwrite` | Overwrite | `InArgument<bool>` | `false` | If files already exist at the output paths, this overwrites them. |
 | `ContinueOnError` | Continue on error | `InArgument<bool>` |  | Specifies if the automation should continue when the activity throws an error. |
 
+### Output
+
+| Name | Display Name | Kind | Type | Description |
+|------|-------------|------|------|-------------|
+| `PublicKeyFile` | Public key file | OutArgument | `ILocalResource` | A resource handle to the generated public key file. Hidden in the designer (`[Browsable(false)]`) but populated at runtime — bind it to chain the file into a downstream activity. The key is also written to `PublicKeyFilePath`. |
+| `PrivateKeyFile` | Private key file | OutArgument | `ILocalResource` | A resource handle to the generated private key file. Hidden in the designer (`[Browsable(false)]`) but populated at runtime. The key is also written to `PrivateKeyFilePath`. |
+
 ## Valid Configurations
 
 - Provide `PublicKeyFilePath`, `PrivateKeyFilePath`, and `UserId`.
@@ -52,5 +59,5 @@ Generates an OpenPGP public/private RSA key pair and saves them to the specified
 ## Notes
 
 - `Passphrase` ↔ `PassphraseSecureString` are paired via a designer menu action: only one side is active at a time.
-- This activity has no `OutArgument` — the generated keys are written to the file paths above.
+- The generated keys are written to the file paths above. The activity also exposes hidden `PublicKeyFile` / `PrivateKeyFile` outputs (`OutArgument<ILocalResource>`) — see the Output table above.
 - The default `KeySize` is `Rsa4096`, which meets NIST guidance through 2030+ and aligns with the strictest enterprise security recommendations.

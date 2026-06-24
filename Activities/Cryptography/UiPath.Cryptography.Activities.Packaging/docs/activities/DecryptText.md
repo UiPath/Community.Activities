@@ -17,10 +17,12 @@ Decrypts a text string using a symmetric algorithm, or using PGP with a private 
 | `Input` | Text | InArgument | `string` | Yes |  | The encrypted text to decrypt (Base64-encoded for symmetric algorithms, ASCII-armored for PGP). |
 | `Key` | Key | InArgument | `string` | Conditional |  | The key used to decrypt the input. Provide either `Key` or `KeySecureString`. Symmetric algorithms only. |
 | `KeySecureString` | Key secure string | InArgument | `SecureString` | Conditional |  | Secure-string variant of the key. Symmetric algorithms only. |
-| `Encoding` | Encoding | InArgument | `Encoding` |  |  | The encoding used to interpret the input text and the key. Symmetric algorithms only. |
+| `Encoding` | Key encoding | InArgument | `Encoding` |  | UTF-8 | The encoding used to interpret the key/password in `Key`. Surfaced in the designer as a "Key encoding" dropdown. Symmetric algorithms only. |
+| `PlaintextEncoding` | Text encoding | InArgument | `Encoding` |  | UTF-8 | The encoding used to convert the decrypted bytes back to text. Set this to match the encoding used by the tool that produced the ciphertext. Symmetric algorithms only. |
 | `Format` | Wire format | Property | `SymmetricWireFormat` |  | `Classic` | The symmetric ciphertext layout to decrypt. Must match the format used at encrypt time. Symmetric algorithms only. |
 | `KeyFormat` | Key bytes format | Property | `KeyBytesFormat` |  | `Encoded` | How the `Key` string is interpreted. `Hex` or `Base64` are required when `Format = Raw`. Symmetric algorithms only. |
 | `KdfIterations` | KDF iterations | InArgument | `int` |  | `0` | PBKDF2 iteration count. Must match the value used at encrypt time. `0` uses the format's OWASP-recommended default. Rejected for `Classic` and `Raw`. |
+| `AesKeySize` | AES key size | Property | `AesKeySize` |  | `Aes256` | AES key size in bits used to encrypt the input. Applies only when `Algorithm = AES` and `Format = OpenSslEnc`; ignored otherwise. Must match the key size the producer used (e.g. `openssl enc -aes-128-cbc` / `-aes-192-cbc` / `-aes-256-cbc`). Not stored in the wire format — encrypt and decrypt sides must use matching values. |
 | `PrivateKeyFilePath` | Private key file path | InArgument | `string` | Conditional |  | Path to your PGP private key file. Required when `Algorithm = PGP`. |
 | `Passphrase` | Passphrase | InArgument | `string` | Conditional |  | Passphrase that unlocks the private key. Provide either `Passphrase` or `PassphraseSecureString`. PGP only. |
 | `PassphraseSecureString` | Passphrase (secure) | InArgument | `SecureString` | Conditional |  | Secure-string variant of the passphrase. PGP only. |
@@ -45,15 +47,16 @@ The activity has two modes selected by `Algorithm`:
 
 **Symmetric mode** (`AESGCM`, `ChaCha20Poly1305`, `AES`, `TripleDES`, `DES`, `RC2`, `Rijndael`):
 - Provide `Input`, `Algorithm`, and exactly one of `Key` / `KeySecureString`.
-- `Encoding` defaults to UTF-8.
+- `Encoding` (key/password) and `PlaintextEncoding` (output text) are independent and **both default to UTF-8**. Set either one alone — e.g. change only `PlaintextEncoding` to match the encoding used at encrypt time, while leaving the key as UTF-8.
 - `Format` defaults to `Classic` — must match what was used at encrypt time. The IV (when present) is read from the ciphertext stream prefix automatically.
 - For `Owasp2026` and `OpenSslEnc`: set `KdfIterations` to the same value used at encrypt time (the iteration count is **not** carried in the wire format).
+- For `OpenSslEnc` with `Algorithm = AES`: set `AesKeySize` to the same value used at encrypt time (also not carried in the wire format).
 - For `Raw`: set `KeyFormat = Hex` or `Base64` and supply the same raw key bytes used at encrypt time.
 
 **PGP mode** (`Algorithm = PGP`):
 - Provide `Input`, `PrivateKeyFilePath`, and exactly one of `Passphrase` / `PassphraseSecureString`.
 - Set `VerifySignature = True` and provide `PublicKeyFilePath` to additionally verify the embedded signature.
-- Symmetric properties (`Key`, `KeySecureString`, `Encoding`, `Format`, `KeyFormat`, `KdfIterations`) are ignored.
+- Symmetric properties (`Key`, `KeySecureString`, `Encoding`, `PlaintextEncoding`, `Format`, `KeyFormat`, `KdfIterations`) are ignored.
 
 The default symmetric format (`Classic`) is UiPath-specific (`salt(8) || IV || ciphertext [|| tag]`, PBKDF2-HMAC-SHA1 @ 10 000 iterations). Use `Raw` or `OpenSslEnc` to decrypt ciphertext produced by `openssl enc`, Java `javax.crypto`, Python `cryptography`, browser tools, etc. See `docs/symmetric-wire-format.md` for byte layouts and decoder examples.
 
@@ -64,6 +67,8 @@ The default symmetric format (`Classic`) is UiPath-specific (`salt(8) || IV || c
 **`SymmetricWireFormat`**: `Classic` (default), `Owasp2026`, `Raw`, `OpenSslEnc`.
 
 **`KeyBytesFormat`**: `Encoded` (default — string is a password), `Hex`, `Base64`. The activity's dropdown only surfaces `Hex` / `Base64` because `Encoded` is the implicit non-Raw choice.
+
+**`AesKeySize`**: `Aes128`, `Aes192`, `Aes256` (default). Only consulted when `Format = OpenSslEnc` and `Algorithm = AES`.
 
 ## XAML Example
 

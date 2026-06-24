@@ -17,6 +17,7 @@ Hashes a file using the specified algorithm and returns the hexadecimal hash str
 | `FilePath` | File path | InArgument | `string` | Conditional |  | The path to the file you want to hash. Paired with a hidden `IResource` alternative selectable via a designer menu action. |
 | `Key` | Key | InArgument | `string` | Conditional |  | The HMAC key. Required when `Algorithm` is an HMAC variant. Provide either `Key` or `KeySecureString`. |
 | `KeySecureString` | Key secure string | InArgument | `SecureString` | Conditional |  | Secure-string variant of the HMAC key. Required when `Algorithm` is an HMAC variant. |
+| `Encoding` | Key encoding | InArgument | `Encoding` |  | UTF-8 | The encoding used to convert the key to bytes. Surfaced in the designer as a "Key encoding" dropdown. File contents are hashed byte-for-byte regardless of this setting. |
 
 ### Configuration
 
@@ -34,7 +35,7 @@ Hashes a file using the specified algorithm and returns the hexadecimal hash str
 
 **Keyed (HMAC) mode** — `Algorithm` is one of `HMACMD5`, `HMACSHA1`, `HMACSHA256`, `HMACSHA384`, `HMACSHA512`:
 - Provide `FilePath`, `Algorithm`, and exactly one of `Key` / `KeySecureString`.
-- The key is interpreted as UTF-8.
+- The key is converted to bytes using the `Encoding` ("Key encoding") dropdown, which defaults to UTF-8. File contents are always hashed byte-for-byte.
 
 **Plain hash mode** — `Algorithm` is one of `SHA1`, `SHA256`, `SHA384`, `SHA512`:
 - Provide `FilePath` and `Algorithm`. `Key` / `KeySecureString` are not used.
