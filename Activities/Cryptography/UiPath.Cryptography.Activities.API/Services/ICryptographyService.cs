@@ -74,18 +74,21 @@ namespace UiPath.Cryptography.Activities.API
         byte[] DecryptBytes(byte[] input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options);
 
         /// <summary>
-        /// Encrypts a string and returns the ciphertext as Base64. The input string is always
-        /// transcoded to bytes via <see cref="System.Text.Encoding.UTF8"/> — there is no
-        /// encoding parameter. For non-UTF-8 text or for explicit encoding control, transcode
-        /// to bytes at the call site and use <see cref="EncryptBytes"/> instead.
+        /// Encrypts a string and returns the ciphertext as Base64. The input string is transcoded
+        /// to bytes via <c>options.TextEncoding</c> (set through the format factory's optional
+        /// <c>encoding:</c> parameter; defaults to <see cref="System.Text.Encoding.UTF8"/>). For
+        /// byte-exact control you can still transcode at the call site and use
+        /// <see cref="EncryptBytes"/> instead.
         /// </summary>
         string EncryptText(string input, EncryptionAlgorithm algorithm, SymmetricEncryptOptions options);
 
         /// <summary>
-        /// Decrypts a Base64-encoded ciphertext and returns the plaintext as a UTF-8 string.
-        /// The plaintext bytes are always decoded via <see cref="System.Text.Encoding.UTF8"/>
-        /// — there is no encoding parameter. For non-UTF-8 text or for explicit encoding
-        /// control, use <see cref="DecryptBytes"/> and decode at the call site.
+        /// Decrypts a Base64-encoded ciphertext and returns the plaintext as a string. The
+        /// plaintext bytes are decoded via <c>options.TextEncoding</c> (set through the format
+        /// factory's optional <c>encoding:</c> parameter; defaults to
+        /// <see cref="System.Text.Encoding.UTF8"/>) and must match the encoding used at encrypt
+        /// time. For byte-exact control you can still use <see cref="DecryptBytes"/> and decode
+        /// at the call site.
         /// </summary>
         string DecryptText(string input, EncryptionAlgorithm algorithm, SymmetricDecryptOptions options);
 

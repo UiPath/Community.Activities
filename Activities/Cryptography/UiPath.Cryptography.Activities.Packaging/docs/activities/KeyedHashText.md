@@ -17,6 +17,7 @@ Hashes a text string using the specified algorithm and returns the hexadecimal h
 | `Input` | Text | InArgument | `string` | Yes |  | The text that you want to hash. |
 | `Key` | Key | InArgument | `string` | Conditional |  | The HMAC key. Required when `Algorithm` is an HMAC variant. Provide either `Key` or `KeySecureString`. |
 | `KeySecureString` | Key secure string | InArgument | `SecureString` | Conditional |  | Secure-string variant of the HMAC key. Required when `Algorithm` is an HMAC variant. |
+| `Encoding` | Key encoding | InArgument | `Encoding` |  | UTF-8 | The encoding used to convert the input text (and the key, in HMAC mode) to bytes before hashing. Surfaced in the designer as a "Key encoding" dropdown. |
 
 ### Configuration
 
@@ -34,10 +35,11 @@ Hashes a text string using the specified algorithm and returns the hexadecimal h
 
 **Keyed (HMAC) mode** — `Algorithm` is one of `HMACMD5`, `HMACSHA1`, `HMACSHA256`, `HMACSHA384`, `HMACSHA512`:
 - Provide `Input`, `Algorithm`, and exactly one of `Key` / `KeySecureString`.
-- The text and the key are both interpreted as UTF-8.
+- The input text and the key are converted to bytes using the `Encoding` ("Key encoding") dropdown, which defaults to UTF-8.
 
 **Plain hash mode** — `Algorithm` is one of `SHA1`, `SHA256`, `SHA384`, `SHA512`:
 - Provide `Input` and `Algorithm`. `Key` / `KeySecureString` are not used.
+- The input text is converted to bytes using the `Encoding` dropdown (default UTF-8).
 
 ### Enum Reference
 

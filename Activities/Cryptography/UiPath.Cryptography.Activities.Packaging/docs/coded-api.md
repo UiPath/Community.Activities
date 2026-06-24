@@ -23,7 +23,7 @@ UiPath.Cryptography.Enums
 
 ## Service Overview
 
-The `cryptography` service exposes all operations as **direct method calls** — there is no connection, handle, or scope to open. Call methods on the service accessor directly:
+The `cryptography` service exposes all operations as **direct method calls** — there is no connection, handle, or scope to open. It is registered as a **stateless singleton**, so the accessor is shared across the workflow and its methods are safe to call concurrently. Call methods on the service accessor directly:
 
 ```csharp
 var key = PasswordKey.FromPassword("mykey", Encoding.UTF8);
@@ -63,6 +63,8 @@ Symmetric and keyed-hash operations take key material as one of two concrete `Cr
 
 Keyed-hash methods accept either subtype (they take `CryptoKey` directly — no wire-format axis).
 
+A `RawKey`'s length is **not** validated by `RawKey.FromBytes` / `FromHex` / `FromBase64`; it is checked when you call the encrypt/decrypt method, and an illegal length for the chosen algorithm throws `ArgumentException` listing the legal byte lengths (e.g. 16/24/32 for AES). Construct the key with exactly the algorithm's required key size.
+
 ### Symmetric wire format — `SymmetricEncryptOptions` / `SymmetricDecryptOptions`
 
 The options object bundles the key, wire format, and any format-specific knobs (IV for `Raw`, KDF iterations for `Owasp2026` / `OpenSslEnc`). Construct via a format factory — the factory's key-parameter type enforces the (key kind × wire format) pairing at compile time, so a `PasswordKey` cannot be passed to `Raw(...)` and a `RawKey` cannot be passed to `Classic(...)` etc.
@@ -75,6 +77,8 @@ The options object bundles the key, wire format, and any format-specific knobs (
 | `SymmetricEncryptOptions.OpenSslEnc(PasswordKey key, int kdfIterations = 600_000, Encoding encoding = null, AesKeySize aesKeySize = AesKeySize.Aes256)` | `OpenSslEnc` | `PasswordKey` | `openssl enc`-compatible (`Salted__` magic + PBKDF2-HMAC-SHA256). `aesKeySize` selects AES-128 / -192 / -256 to match the peer's `openssl enc -aes-N-cbc`. |
 
 The decrypt factories take the same shape (no `IV` on the decrypt side — the IV is read from the ciphertext stream automatically). The optional `encoding:` parameter sets `TextEncoding` on the options (defaults to UTF-8) and is only consulted by `EncryptText` / `DecryptText`.
+
+A constructed options object is read-only but **introspectable**: `CryptoOptions` exposes the getters `Key`, `Format`, `KdfIterations`, and `TextEncoding`; `SymmetricEncryptOptions` additionally exposes `IV` and `AesKeySize`, and `SymmetricDecryptOptions` exposes `AesKeySize`. All are set only through the factories (the setters are not public), so an options instance is immutable once built.
 
 See [`docs/symmetric-wire-format.md`](../../docs/symmetric-wire-format.md) for the full byte layouts and third-party interop reference.
 
@@ -101,13 +105,45 @@ PGP methods take strongly-typed key handles. Construct them once and reuse them 
 | `PgpPrivateKey.FromFilePath(string path, string passphrase)` | Private key from file. |
 | `PgpPrivateKey.FromFilePath(string path, SecureString passphrase)` | Private key from file with `SecureString`. |
 
-`PgpKeyPair` (returned by `PgpGenerateKeys`) holds a matched public/private pair. Use `pair.PublicKey` / `pair.PrivateKey`, or deconstruct with `var (pub, priv) = pair;`. Persist with `pair.PublicKey.Save(path)` / `pair.PrivateKey.Save(path)` when you need files on disk.
+Each key handle also exposes two instance methods:
+
+| Member | Purpose |
+|--------|---------|
+| `byte[] ToBytes()` | Returns a copy of the key bytes **as loaded** — ASCII-armored if the key was created from armored input, binary if loaded from binary; `ToBytes()` round-trips the original bytes rather than re-encoding them. Keys returned by `PgpGenerateKeys` are ASCII-armored. |
+| `void Save(string filePath, bool overwrite = false)` | Writes the key to disk. **Throws `InvalidOperationException` if the file exists and `overwrite` is `false`** — pass `overwrite: true` to replace an existing file. |
+
+`PgpKeyPair` (returned by `PgpGenerateKeys`, or constructed directly via `new PgpKeyPair(publicKey, privateKey)`) holds a matched public/private pair. Use `pair.PublicKey` / `pair.PrivateKey`, or deconstruct with `var (pub, priv) = pair;`. Persist with `pair.PublicKey.Save(path)` / `pair.PrivateKey.Save(path)` (add `overwrite: true` to replace existing files) when you need files on disk.
 
 Passing a `PgpPrivateKey` to an encrypt method implies signing; passing a `PgpPublicKey` to a decrypt method implies signature verification — separate `bool sign` / `bool verifySignature` flags are not used.
 
-### PGP passphrase limitation
+### PGP passphrase handling
 
-`PgpPrivateKey` carries its passphrase as a managed `string` because the underlying BouncyCastle library requires a plain string and offers no `byte[]`-based passphrase API. The `SecureString` factories materialise to a string at construction and cannot zero it afterward. For maximum security with PGP, prefer key rings without passphrase protection, or accept that the passphrase briefly exists as a managed string.
+`PgpPrivateKey` stores its passphrase as a `SecureString` for the lifetime of the instance (both the `string` and `SecureString` factories copy the supplied passphrase into one). It is materialised to a managed `string` only for the duration of each cryptographic operation — on the service call's stack frame, not pinned to the key object — because the underlying BouncyCastle library requires a plain `string` and offers no `byte[]`-based passphrase API. That transient string cannot be deterministically zeroed (managed strings are immutable), but its heap residency is bounded by the operation rather than by the object's lifetime.
+
+`PgpPrivateKey` is `IDisposable`: calling `Dispose()` eagerly zeroes the protected `SecureString` buffer. The instance is safe to use without disposing — the `SecureString` finalizer cleans up eventually — but disposing is recommended for sensitive, long-lived workflows. (`PgpPublicKey` holds no secret material and is not `IDisposable`.)
+
+---
+
+## Relationship to the XAML activities
+
+The coded API and the [XAML activities](overview.md) run on the **same cryptographic core**, so they are at full parity on algorithms, wire formats (`Classic` / `Owasp2026` / `Raw` / `OpenSslEnc`), IV / `KdfIterations` / `AesKeySize` / encoding options, keyed-hash algorithms, and every PGP operation (encrypt, decrypt, sign, clearsign, verify in all three modes, generate). Anything you can compute with an activity, you can compute with this service. The differences are about **I/O shape and key-input form**, not capability.
+
+**The coded API does more than the activities:**
+
+| Coded-only capability | Detail |
+|----------------------|--------|
+| **Bytes I/O on every operation** | `EncryptBytes` / `DecryptBytes`, `KeyedHashBytes`, `PgpEncryptBytes` / `PgpDecryptBytes`, `PgpSignBytes` / `PgpClearSignBytes`, `PgpVerifyBytes` / `PgpVerifyClearSignedBytes`. No activity has a `byte[]` in/out form. |
+| **Raw `byte[]` keys** | `RawKey.FromBytes(byte[])` for symmetric `Raw` and keyed hash. Activities can only supply raw keys as hex/base64 **strings** (and keyed-hash activities have no raw-key path at all). |
+| **In-memory PGP key material** | `PgpPublicKey.FromBytes` / `PgpPrivateKey.FromBytes` let you encrypt/decrypt/sign/verify without key files on disk. The activities require key **files**. |
+| **Text & Bytes Sign / ClearSign / Verify** | `PgpSignText` / `PgpClearSignText`, `PgpVerifyText` / `PgpVerifyClearSignedText` (+ Bytes forms). The activities expose only `PgpSignFile` / `PgpClearSignFile`, and `PgpVerify` is file-only. |
+| **In-memory `PgpKeyPair`** | `PgpGenerateKeys` returns a usable key pair without forcing file output; the activity only writes the two key files. |
+
+**The activities do two things the coded API doesn't — neither is a cryptographic capability:**
+
+- **UiPath resource handles** (`IResource` / `ILocalResource`) as inputs and outputs (e.g. Storage-bucket / project resources). The coded API takes plain `string` file paths and `byte[]`; a coded workflow works with local paths and in-memory data, not resource handles.
+- **`ContinueOnError`** swallow-and-continue. In a coded workflow you use ordinary `try/catch` instead — every method throws on failure.
+
+> **Encoding note (shaped differently, not a gap):** the Text activities split *key encoding* and *plaintext encoding* into two properties. In the coded API the password encoding is set on `PasswordKey.FromPassword(..., encoding)` and the plaintext encoding via the options `encoding:` parameter — both axes remain independently controllable.
 
 ---
 
@@ -310,7 +346,7 @@ Used by `EncryptBytes`/`EncryptText`/`EncryptFile` and `DecryptBytes`/`DecryptTe
 | `AESGCM` | AES-GCM with 96-bit nonce and 128-bit auth tag. AEAD — **recommended for new workflows.** |
 | `ChaCha20Poly1305` | ChaCha20-Poly1305 AEAD. Non-FIPS. Alternative to AES-GCM. |
 | `AES` | AES in CBC mode. |
-| `Rijndael` | Rijndael in CBC mode. |
+| `Rijndael` | Rijndael in CBC mode. **`[Obsolete]` — weak; avoid.** |
 | `DES` | DES in CBC mode. **`[Obsolete]` — weak; avoid.** |
 | `TripleDES` | 3DES in CBC mode. **`[Obsolete]` — weak; avoid.** |
 | `RC2` | RC2 in CBC mode. **`[Obsolete]` — weak; avoid.** |

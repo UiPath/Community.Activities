@@ -26,6 +26,12 @@ Creates a PGP clear-text signature of a file using a private key. The clearsigne
 | `Overwrite` | Overwrite | `bool` | `false` | If a file already exists at the output path, this overwrites it. |
 | `ContinueOnError` | Continue on error | `InArgument<bool>` |  | Specifies if the automation should continue when the activity throws an error. |
 
+### Output
+
+| Name | Display Name | Kind | Type | Description |
+|------|-------------|------|------|-------------|
+| `ClearSignedFile` | Clearsigned file | OutArgument | `ILocalResource` | A resource handle to the clearsigned file that was written. Hidden in the designer (`[Browsable(false)]`) but populated at runtime — bind it to chain the file into a downstream activity. The clearsigned text is also written to `OutputFilePath`. |
+
 ## Valid Configurations
 
 - Provide `InputFilePath`, `PrivateKeyFilePath`, and `OutputFilePath`.
@@ -47,4 +53,4 @@ Creates a PGP clear-text signature of a file using a private key. The clearsigne
 - `Passphrase` ↔ `PassphraseSecureString` are paired via a designer menu action: only one side is active at a time.
 - The input file must be text — clearsigning is designed for ASCII/UTF-8 content. For binary data, use `PgpSignFile`.
 - Verify the output with `PgpVerify` in `ClearSignature` mode.
-- This activity has no `OutArgument` — the clearsigned text is written to the file at `OutputFilePath`.
+- The clearsigned text is written to the file at `OutputFilePath`. The activity also exposes a hidden `ClearSignedFile` output (`OutArgument<ILocalResource>`) — see the Output table above.
