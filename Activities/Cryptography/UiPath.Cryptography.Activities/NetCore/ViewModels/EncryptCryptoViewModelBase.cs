@@ -87,6 +87,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected void ConfigureAlgorithmAndKeyProperties(ref int orderIndex)
         {
             Algorithm.IsPrincipal = true;
+            Algorithm.IsRequired = true;
             Algorithm.OrderIndex = orderIndex++;
             Algorithm.Category = Resources.Input;
             Algorithm.DataSource = DataSourceHelper.ForEnum(
@@ -102,6 +103,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 EncryptionAlgorithm.TripleDES);
             Algorithm.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
 
+            DeprecatedWarning.IsPrincipal = true;
+            DeprecatedWarning.IsVisible = false;
             DeprecatedWarning.OrderIndex = orderIndex++;
             DeprecatedWarning.Category = Resources.Input;
             DeprecatedWarning.Widget = new TextBlockWidget
@@ -121,9 +124,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             orderIndex++;
 
             KeyEncodingString.IsPrincipal = false;
-            KeyEncodingString.IsVisible = true;
             KeyEncodingString.OrderIndex = orderIndex++;
-            KeyEncodingString.Category = Resources.Input;
+            KeyEncodingString.Category = Resources.Category_Options_Name;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
@@ -155,7 +157,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected void ConfigureInteropProperties(ref int orderIndex)
         {
             Format.IsPrincipal = false;
-            Format.IsVisible = true;
             Format.OrderIndex = orderIndex++;
             Format.Category = Resources.Input;
             Format.DataSource = DataSourceHelper.ForEnum(

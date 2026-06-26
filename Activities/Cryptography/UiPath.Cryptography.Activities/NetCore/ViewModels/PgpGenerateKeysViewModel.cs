@@ -63,10 +63,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             PrivateKeyFilePath.Category = Resources.Input;
 
             Passphrase.IsPrincipal = true;
+            Passphrase.IsRequired = true;
             Passphrase.OrderIndex = orderIndex;
             Passphrase.Category = Resources.Input;
 
             PassphraseSecureString.IsPrincipal = true;
+            PassphraseSecureString.IsRequired = true;
             PassphraseSecureString.OrderIndex = orderIndex;
             PassphraseSecureString.Category = Resources.Input;
             orderIndex++;
@@ -103,6 +105,31 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             PrivateKeyFile.EditPlaceholder = Resources.Activity_PgpGenerateKeys_Property_PrivateKeyFile_Hint;
 
             ConfigurePassphraseInputModeMenuActions();
+            ConfigurePropertyTexts();
+        }
+
+        private void ConfigurePropertyTexts()
+        {
+            PublicKeyFilePath.DisplayName = Resources.Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name;
+            PublicKeyFilePath.Tooltip = Resources.Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description;
+            UserId.DisplayName = Resources.Activity_PgpGenerateKeys_Property_UserId_Name;
+            UserId.Tooltip = Resources.Activity_PgpGenerateKeys_Property_UserId_Description;
+            PrivateKeyFilePath.DisplayName = Resources.Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name;
+            PrivateKeyFilePath.Tooltip = Resources.Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description;
+            Passphrase.DisplayName = Resources.Activity_PgpGenerateKeys_Property_Password_Name;
+            Passphrase.Tooltip = Resources.Activity_PgpGenerateKeys_Property_Password_Description;
+            PassphraseSecureString.DisplayName = Resources.Activity_PgpGenerateKeys_Property_PassphraseSecureString_Name;
+            PassphraseSecureString.Tooltip = Resources.Activity_PgpGenerateKeys_Property_PassphraseSecureString_Description;
+            Overwrite.DisplayName = Resources.Activity_PgpGenerateKeys_Property_Overwrite_Name;
+            Overwrite.Tooltip = Resources.Activity_PgpGenerateKeys_Property_Overwrite_Description;
+            KeySize.DisplayName = Resources.Activity_PgpGenerateKeys_Property_KeySize_Name;
+            KeySize.Tooltip = Resources.Activity_PgpGenerateKeys_Property_KeySize_Description;
+            ContinueOnError.DisplayName = Resources.Activity_PgpGenerateKeys_Property_ContinueOnError_Name;
+            ContinueOnError.Tooltip = Resources.Activity_PgpGenerateKeys_Property_ContinueOnError_Description;
+            PublicKeyFile.DisplayName = Resources.Activity_PgpGenerateKeys_Property_PublicKeyFile_Name;
+            PublicKeyFile.Tooltip = Resources.Activity_PgpGenerateKeys_Property_PublicKeyFile_Description;
+            PrivateKeyFile.DisplayName = Resources.Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name;
+            PrivateKeyFile.Tooltip = Resources.Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description;
         }
 
         /// <summary>
