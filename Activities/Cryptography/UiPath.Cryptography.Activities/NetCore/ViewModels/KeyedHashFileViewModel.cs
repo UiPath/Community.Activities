@@ -66,6 +66,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             propertyOrderIndex++;
 
             Algorithm.IsPrincipal = true;
+            Algorithm.IsRequired = true;
             Algorithm.OrderIndex = propertyOrderIndex++;
             Algorithm.Category = Resources.Input;
             Algorithm.DataSource = DataSourceHelper.ForEnum(
@@ -92,16 +93,15 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             propertyOrderIndex++;
 
             KeyEncodingString.IsPrincipal = false;
-            KeyEncodingString.IsVisible = true;
             KeyEncodingString.OrderIndex = propertyOrderIndex++;
-            KeyEncodingString.Category = Resources.Input;
+            KeyEncodingString.Category = Resources.Category_Options_Name;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
 
             _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
 
-            Result.IsPrincipal = false;
+            Result.IsPrincipal = true;
             Result.OrderIndex = propertyOrderIndex++;
             Result.Category = Resources.Output;
 
@@ -116,6 +116,27 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             _inputFileToggle.ConfigureMenuActions();
             ApplyInputFileVisibility();
+            ConfigurePropertyTexts();
+        }
+
+        private void ConfigurePropertyTexts()
+        {
+            InputFile.DisplayName = Resources.Activity_KeyedHashFile_Property_InputFile_Name;
+            InputFile.Tooltip = Resources.Activity_KeyedHashFile_Property_InputFile_Description;
+            FilePath.DisplayName = Resources.Activity_KeyedHashFile_Property_FilePath_Name;
+            FilePath.Tooltip = Resources.Activity_KeyedHashFile_Property_FilePath_Description;
+            Algorithm.DisplayName = Resources.Activity_KeyedHashFile_Property_Algorithm_Name;
+            Algorithm.Tooltip = Resources.Activity_KeyedHashFile_Property_Algorithm_Description;
+            Key.DisplayName = Resources.Activity_KeyedHashFile_Property_Key_Name;
+            Key.Tooltip = Resources.Activity_KeyedHashFile_Property_Key_Description;
+            KeySecureString.DisplayName = Resources.Activity_KeyedHashFile_Property_KeySecureString_Name;
+            KeySecureString.Tooltip = Resources.Activity_KeyedHashFile_Property_KeySecureString_Description;
+            KeyEncodingString.DisplayName = Resources.Activity_KeyedHashFile_Property_KeyEncodingString_Name;
+            KeyEncodingString.Tooltip = Resources.Activity_KeyedHashFile_Property_KeyEncodingString_Description;
+            Result.DisplayName = Resources.Activity_KeyedHashFile_Property_Result_Name;
+            Result.Tooltip = Resources.Activity_KeyedHashFile_Property_Result_Description;
+            ContinueOnError.DisplayName = Resources.Activity_KeyedHashFile_Property_ContinueOnError_Name;
+            ContinueOnError.Tooltip = Resources.Activity_KeyedHashFile_Property_ContinueOnError_Description;
         }
 
         private void ApplyKeyInputModeVisibility()

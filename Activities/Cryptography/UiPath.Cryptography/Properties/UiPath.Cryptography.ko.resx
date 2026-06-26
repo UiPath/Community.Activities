@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -658,10 +658,63 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096비트</value>
   </data>
+  <data name="AesKeySize_Aes128" xml:space="preserve">
+    <value>128비트</value>
+  </data>
+  <data name="AesKeySize_Aes192" xml:space="preserve">
+    <value>192비트</value>
+  </data>
+  <data name="AesKeySize_Aes256" xml:space="preserve">
+    <value>256비트</value>
+  </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>서명이 요청되었지만 서명하려면 개인 키와 암호 문구가 필요합니다. 개인 키 스트림과 암호 문구를 모두 제공하거나 서명을 false로 설정합니다.</value>
   </data>
   <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
     <value>서명 확인이 요청되었지만 확인을 위해 공개 키가 필요합니다. 공개 키 스트림을 제공하거나 verifySignature를 false로 설정합니다.</value>
+  </data>
+  <data name="SymmetricWireFormat_Classic" xml:space="preserve">
+    <value>UiPath(클래식)</value>
+  </data>
+  <data name="SymmetricWireFormat_Owasp2026" xml:space="preserve">
+    <value>UiPath(OWASP 2026)</value>
+  </data>
+  <data name="SymmetricWireFormat_Raw" xml:space="preserve">
+    <value>Raw(호출자가 제공한 키 및 IV)</value>
+  </data>
+  <data name="SymmetricWireFormat_OpenSslEnc" xml:space="preserve">
+    <value>OpenSSL enc(Salted__ + PBKDF2-SHA256)</value>
+  </data>
+  <data name="KeyBytesFormat_Encoded" xml:space="preserve">
+    <value>인코딩됨(인코딩을 통한 텍스트 암호)</value>
+  </data>
+  <data name="KeyBytesFormat_Hex" xml:space="preserve">
+    <value>Hex</value>
+  </data>
+  <data name="KeyBytesFormat_Base64" xml:space="preserve">
+    <value>Base64</value>
+  </data>
+  <data name="OpenSslEnc_MissingMagic" xml:space="preserve">
+    <value>암호문이 openssl &apos;Salted__&apos; 매직 접두사로 시작하지 않습니다. 생성자가 &apos;openssl enc -salt&apos;를 사용했으며 출력이 제거되거나 변환되지 않았는지 확인합니다.</value>
+  </data>
+
+  <!-- Validation messages for cross-property constraints (see SymmetricInteropHelper.ValidateInteropSettings). -->
+  <data name="Validation_RawKeyFormat_EncodedNotAllowed" xml:space="preserve">
+    <value>키 바이트 형식 = Encoded는 와이어 포맷 = Raw와 함께 사용할 수 없습니다. 리터럴 원시 키를 Hex 또는 Base64 형태로 제공하십시오.</value>
+  </data>
+  <data name="Validation_RawKey_LengthMismatch" xml:space="preserve">
+    <value>원시 키 길이가 {0}바이트로, 선택한 알고리즘에 적합한 키 크기가 아닙니다. 다음 중 하나여야 합니다. {1}바이트.</value>
+  </data>
+  <data name="Validation_PasswordFormat_NonEncodedNotAllowed" xml:space="preserve">
+    <value>키 바이트 형식 = Hex 또는 Base64는 와이어 포맷 = Raw에서만 유효합니다. Classic, Owasp2026 및 OpenSslEc 형식은 키 문자열을 암호(Encoded)로 사용합니다.</value>
+  </data>
+  <data name="Validation_Iv_OnlyForRaw" xml:space="preserve">
+    <value>IV는 와이어 포맷 = Raw인 경우에만 설정할 수 있습니다. 다른 형식에서는 IV가 암호문 스트림에 포함되어 있습니다.</value>
+  </data>
+  <data name="Validation_KdfIterations_NotForClassicOrRaw" xml:space="preserve">
+    <value>KDF 반복 횟수는 와이어 포맷 = Owasp2026 또는 OpenSslEnc인 경우에만 설정할 수 있습니다. Classic은 10,000회 반복으로 고정되어 있으며 Raw에서는 KDF가 실행되지 않습니다.</value>
+  </data>
+  <data name="Validation_KdfIterations_BelowMinimum" xml:space="preserve">
+    <value>KDF 반복 횟수 = {0}은(는) 최소 기준인 {1}회 반복보다 낮습니다(NIST SP 800-132 하한값). Owasp는 현재 PBKDF2-SHA1의 경우 1300,000회, PBKDF2-SHA256의 경우 600,000회를 권장합니다.</value>
   </data>
 </root>

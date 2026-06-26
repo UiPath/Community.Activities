@@ -57,6 +57,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             var orderIndex = 1;
 
             Mode.IsPrincipal = true;
+            Mode.IsRequired = true;
             Mode.OrderIndex = orderIndex++;
             Mode.Category = Resources.Input;
             Mode.DataSource = DataSourceHelper.ForEnum(
@@ -67,6 +68,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Mode.Value = PgpVerifyMode.Signature;
 
             InputFile.IsPrincipal = true;
+            InputFile.IsVisible = false;
             InputFile.OrderIndex = orderIndex;
             InputFile.Category = Resources.Input;
 
@@ -75,10 +77,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             InputFilePath.Category = Resources.Input;
 
             PublicKeyFile.IsPrincipal = true;
+            PublicKeyFile.IsVisible = false;
             PublicKeyFile.OrderIndex = orderIndex;
             PublicKeyFile.Category = Resources.Input;
 
             PublicKeyFilePath.IsPrincipal = true;
+            PublicKeyFilePath.IsRequired = true;
             PublicKeyFilePath.OrderIndex = orderIndex++;
             PublicKeyFilePath.Category = Resources.Input;
 
@@ -97,6 +101,25 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             _publicKeyFileToggle.ConfigureMenuActions();
             ApplyPublicKeyVisibility();
+            ConfigurePropertyTexts();
+        }
+
+        private void ConfigurePropertyTexts()
+        {
+            Mode.DisplayName = Resources.Activity_PgpVerify_Property_Mode_Name;
+            Mode.Tooltip = Resources.Activity_PgpVerify_Property_Mode_Description;
+            InputFile.DisplayName = Resources.Activity_PgpVerify_Property_InputFile_Name;
+            InputFile.Tooltip = Resources.Activity_PgpVerify_Property_InputFile_Description;
+            InputFilePath.DisplayName = Resources.Activity_PgpVerify_Property_InputFilePath_Name;
+            InputFilePath.Tooltip = Resources.Activity_PgpVerify_Property_InputFilePath_Description;
+            PublicKeyFile.DisplayName = Resources.Activity_PgpVerify_Property_PublicKeyFile_Name;
+            PublicKeyFile.Tooltip = Resources.Activity_PgpVerify_Property_PublicKeyFile_Description;
+            PublicKeyFilePath.DisplayName = Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Name;
+            PublicKeyFilePath.Tooltip = Resources.Activity_PgpVerify_Property_PublicKeyFilePath_Description;
+            ContinueOnError.DisplayName = Resources.Activity_PgpVerify_Property_ContinueOnError_Name;
+            ContinueOnError.Tooltip = Resources.Activity_PgpVerify_Property_ContinueOnError_Description;
+            Result.DisplayName = Resources.Activity_PgpVerify_Property_Result_Name;
+            Result.Tooltip = Resources.Activity_PgpVerify_Property_Result_Description;
         }
 
         private void ApplyInputFileVisibility()

@@ -59,28 +59,34 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             var orderIndex = 1;
 
             InputFilePath.IsPrincipal = true;
+            InputFilePath.IsRequired = true;
             InputFilePath.OrderIndex = orderIndex;
             InputFilePath.Category = Resources.Input;
 
             InputFile.IsPrincipal = true;
+            InputFile.IsVisible = false;
             InputFile.OrderIndex = orderIndex;
             InputFile.Category = Resources.Input;
             orderIndex++;
 
             PrivateKeyFilePath.IsPrincipal = true;
+            PrivateKeyFilePath.IsRequired = true;
             PrivateKeyFilePath.OrderIndex = orderIndex;
             PrivateKeyFilePath.Category = Resources.Input;
 
             PrivateKeyFile.IsPrincipal = true;
+            PrivateKeyFile.IsVisible = false;
             PrivateKeyFile.OrderIndex = orderIndex;
             PrivateKeyFile.Category = Resources.Input;
             orderIndex++;
 
             Passphrase.IsPrincipal = true;
+            Passphrase.IsRequired = true;
             Passphrase.OrderIndex = orderIndex;
             Passphrase.Category = Resources.Input;
 
             PassphraseSecureString.IsPrincipal = true;
+            PassphraseSecureString.IsRequired = true;
             PassphraseSecureString.OrderIndex = orderIndex;
             PassphraseSecureString.Category = Resources.Input;
             orderIndex++;
@@ -88,7 +94,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             OutputFilePath.IsPrincipal = false;
             OutputFilePath.IsRequired = false;
             OutputFilePath.OrderIndex = orderIndex++;
-            OutputFilePath.Category = Resources.Input;
+            OutputFilePath.Category = Resources.Category_Options_Name;
 
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = orderIndex++;
@@ -111,9 +117,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ApplyPassphraseVisibility();
 
             InitializeOutputProperty(orderIndex);
+            ConfigurePropertyTexts();
         }
 
         protected abstract void InitializeOutputProperty(int orderIndex);
+        protected abstract void ConfigurePropertyTexts();
 
         private void ApplyInputFileVisibility()
         {
