@@ -1,5 +1,7 @@
+using Moq;
 using Renci.SshNet;
 using Renci.SshNet.Common;
+using Renci.SshNet.Sftp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -200,6 +202,137 @@ namespace UiPath.FTP.Tests
             Assert.False(result);
         }
 
+        // --- Recursive delete ---
+
+        [Fact]
+        public async Task SFTP_DeleteAsync_RemovesDirectoryContentsDepthFirst_ThenDirectory()
+        {
+            // /root
+            //   /root/a.txt
+            //   /root/sub
+            //     /root/sub/b.txt
+            var deleted = new List<string>();
+            var root = FakeItem("/root", "root", isDirectory: true, deleted: deleted);
+            var aTxt = FakeItem("/root/a.txt", "a.txt", isDirectory: false, deleted: deleted);
+            var sub = FakeItem("/root/sub", "sub", isDirectory: true, deleted: deleted);
+            var bTxt = FakeItem("/root/sub/b.txt", "b.txt", isDirectory: false, deleted: deleted);
+
+            using var session = new SftpSessionWithFakeTree(
+                CreateTestConfig(),
+                itemsByPath: new Dictionary<string, ISftpFile> { ["/root"] = root },
+                childrenByPath: new Dictionary<string, IEnumerable<ISftpFile>>
+                {
+                    ["/root"] = new[] { aTxt, sub },
+                    ["/root/sub"] = new[] { bTxt },
+                });
+
+            await ((IFtpSession)session).DeleteAsync("/root", CancellationToken.None);
+
+            // Children are deleted before their parent; the target directory is removed last.
+            Assert.Equal(new[] { "/root/a.txt", "/root/sub/b.txt", "/root/sub", "/root" }, deleted);
+        }
+
+        [Fact]
+        public async Task SFTP_DeleteAsync_DeletesSingleFile_WithoutListing()
+        {
+            var deleted = new List<string>();
+            var file = FakeItem("/root/file.txt", "file.txt", isDirectory: false, deleted: deleted);
+
+            using var session = new SftpSessionWithFakeTree(
+                CreateTestConfig(),
+                itemsByPath: new Dictionary<string, ISftpFile> { ["/root/file.txt"] = file },
+                childrenByPath: new Dictionary<string, IEnumerable<ISftpFile>>());
+
+            await ((IFtpSession)session).DeleteAsync("/root/file.txt", CancellationToken.None);
+
+            Assert.Equal(new[] { "/root/file.txt" }, deleted);
+            Assert.Equal(0, session.ListDirectoryCallCount);
+        }
+
+        [Fact]
+        public async Task SFTP_DeleteAsync_DoesNotRecurseIntoSymbolicLink()
+        {
+            // A symlink that points at a directory must be unlinked, not walked into.
+            var deleted = new List<string>();
+            var link = FakeItem("/link", "link", isDirectory: true, deleted: deleted, isSymbolicLink: true);
+            var insideLink = FakeItem("/link/should-not-touch.txt", "should-not-touch.txt", isDirectory: false, deleted: deleted);
+
+            using var session = new SftpSessionWithFakeTree(
+                CreateTestConfig(),
+                itemsByPath: new Dictionary<string, ISftpFile> { ["/link"] = link },
+                childrenByPath: new Dictionary<string, IEnumerable<ISftpFile>>
+                {
+                    ["/link"] = new[] { insideLink },
+                });
+
+            await ((IFtpSession)session).DeleteAsync("/link", CancellationToken.None);
+
+            Assert.Equal(new[] { "/link" }, deleted);
+            Assert.Equal(0, session.ListDirectoryCallCount);
+        }
+
+        [Fact]
+        public async Task SFTP_DeleteAsync_SkipsDotAndDotDotEntries()
+        {
+            var deleted = new List<string>();
+            var root = FakeItem("/root", "root", isDirectory: true, deleted: deleted);
+            var dot = FakeItem("/root/.", ".", isDirectory: true, deleted: deleted);
+            var dotDot = FakeItem("/root/..", "..", isDirectory: true, deleted: deleted);
+            var aTxt = FakeItem("/root/a.txt", "a.txt", isDirectory: false, deleted: deleted);
+
+            using var session = new SftpSessionWithFakeTree(
+                CreateTestConfig(),
+                itemsByPath: new Dictionary<string, ISftpFile> { ["/root"] = root },
+                childrenByPath: new Dictionary<string, IEnumerable<ISftpFile>>
+                {
+                    ["/root"] = new[] { dot, dotDot, aTxt },
+                });
+
+            await ((IFtpSession)session).DeleteAsync("/root", CancellationToken.None);
+
+            // "." and ".." are never deleted (deleting them would corrupt the tree / loop).
+            Assert.Equal(new[] { "/root/a.txt", "/root" }, deleted);
+        }
+
+        [Fact]
+        public async Task SFTP_DeleteAsync_ThrowsWhenCancelled()
+        {
+            var deleted = new List<string>();
+            var root = FakeItem("/root", "root", isDirectory: true, deleted: deleted);
+
+            using var session = new SftpSessionWithFakeTree(
+                CreateTestConfig(),
+                itemsByPath: new Dictionary<string, ISftpFile> { ["/root"] = root },
+                childrenByPath: new Dictionary<string, IEnumerable<ISftpFile>>());
+
+            using var cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(
+                () => ((IFtpSession)session).DeleteAsync("/root", cts.Token));
+            Assert.Empty(deleted);
+        }
+
+        [Fact]
+        public void SFTP_Delete_Sync_RemovesDirectoryContentsThenDirectory()
+        {
+            var deleted = new List<string>();
+            var root = FakeItem("/root", "root", isDirectory: true, deleted: deleted);
+            var aTxt = FakeItem("/root/a.txt", "a.txt", isDirectory: false, deleted: deleted);
+
+            using var session = new SftpSessionWithFakeTree(
+                CreateTestConfig(),
+                itemsByPath: new Dictionary<string, ISftpFile> { ["/root"] = root },
+                childrenByPath: new Dictionary<string, IEnumerable<ISftpFile>>
+                {
+                    ["/root"] = new[] { aTxt },
+                });
+
+            ((IFtpSession)session).Delete("/root");
+
+            Assert.Equal(new[] { "/root/a.txt", "/root" }, deleted);
+        }
+
         // --- Helpers ---
 
         /// <summary>
@@ -218,6 +351,61 @@ namespace UiPath.FTP.Tests
             }
 
             protected internal override bool ClientExists(string path) => _existsBehaviour();
+        }
+
+        /// <summary>
+        /// Subclass of <see cref="SftpSession"/> that overrides the <c>ClientGet</c>/<c>ClientListDirectory</c>
+        /// seams so the recursive delete walk can be exercised against an in-memory tree without a live
+        /// connection. Also counts <c>ClientListDirectory</c> calls so tests can assert that files and
+        /// symbolic links are not enumerated.
+        /// </summary>
+        private sealed class SftpSessionWithFakeTree : SftpSession
+        {
+            private readonly IReadOnlyDictionary<string, ISftpFile> _itemsByPath;
+            private readonly IReadOnlyDictionary<string, IEnumerable<ISftpFile>> _childrenByPath;
+
+            public SftpSessionWithFakeTree(
+                FtpConfiguration config,
+                IReadOnlyDictionary<string, ISftpFile> itemsByPath,
+                IReadOnlyDictionary<string, IEnumerable<ISftpFile>> childrenByPath)
+                : base(config)
+            {
+                _itemsByPath = itemsByPath;
+                _childrenByPath = childrenByPath;
+            }
+
+            public int ListDirectoryCallCount { get; private set; }
+
+            protected internal override ISftpFile ClientGet(string path) => _itemsByPath[path];
+
+            protected internal override IEnumerable<ISftpFile> ClientListDirectory(string path)
+            {
+                ListDirectoryCallCount++;
+                return _childrenByPath.TryGetValue(path, out var children)
+                    ? children
+                    : Enumerable.Empty<ISftpFile>();
+            }
+        }
+
+        /// <summary>
+        /// Builds a mocked <see cref="ISftpFile"/> whose <c>Delete</c> records its full name into
+        /// <paramref name="deleted"/>, so tests can assert both that an item was deleted and the order
+        /// in which deletions happened.
+        /// </summary>
+        private static ISftpFile FakeItem(
+            string fullName,
+            string name,
+            bool isDirectory,
+            List<string> deleted,
+            bool isSymbolicLink = false)
+        {
+            var mock = new Mock<ISftpFile>();
+            mock.SetupGet(f => f.FullName).Returns(fullName);
+            mock.SetupGet(f => f.Name).Returns(name);
+            mock.SetupGet(f => f.IsDirectory).Returns(isDirectory);
+            mock.SetupGet(f => f.IsSymbolicLink).Returns(isSymbolicLink);
+            mock.Setup(f => f.Delete()).Callback(() => deleted.Add(fullName));
+            return mock.Object;
         }
 
         /// <summary>
