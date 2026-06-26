@@ -329,6 +329,55 @@ namespace UiPath.FTP
         protected internal virtual bool ClientExists(string path) => _sftpClient.Exists(path);
 
         /// <summary>
+        /// Resolves <paramref name="path"/> to an <see cref="ISftpFile"/> via the underlying client.
+        /// Extracted as a <c>protected internal virtual</c> seam so tests can simulate a remote
+        /// directory tree without a live connection (mirrors <see cref="ClientExists"/>).
+        /// </summary>
+        protected internal virtual ISftpFile ClientGet(string path) => _sftpClient.Get(path);
+
+        /// <summary>
+        /// Lists the entries of the directory at <paramref name="path"/> via the underlying client.
+        /// Extracted as a <c>protected internal virtual</c> seam for testability (see <see cref="ClientGet"/>).
+        /// </summary>
+        protected internal virtual IEnumerable<ISftpFile> ClientListDirectory(string path) => _sftpClient.ListDirectory(path);
+
+        /// <summary>
+        /// Recursively deletes the SFTP object at <paramref name="path"/>.
+        /// The SFTP protocol's RMDIR (issued by <see cref="ISftpFile.Delete"/> for directories) only
+        /// removes empty directories, so a directory's contents must be deleted first. Files and
+        /// symbolic links are unlinked directly; real directories are emptied depth-first and then
+        /// removed. Symbolic links are never followed during the walk, mirroring <c>rm -rf</c>.
+        /// A missing <paramref name="path"/> surfaces as the same exception SSH.NET raises for
+        /// <c>Get</c>, preserving the previous "path not found" behaviour.
+        /// </summary>
+        private void DeleteRecursive(string path, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            DeleteRecursive(ClientGet(path), cancellationToken);
+        }
+
+        private void DeleteRecursive(ISftpFile item, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (item.IsDirectory && !item.IsSymbolicLink)
+            {
+                foreach (ISftpFile child in ClientListDirectory(item.FullName))
+                {
+                    if (child.Name == "." || child.Name == "..")
+                    {
+                        continue;
+                    }
+
+                    DeleteRecursive(child, cancellationToken);
+                }
+            }
+
+            item.Delete();
+        }
+
+        /// <summary>
         /// Wraps <see cref="ClientExists"/> and returns <c>false</c> for bare
         /// <see cref="SshException"/> (SSH_FX_FAILURE) thrown by some SFTP server
         /// implementations when a path does not exist, while letting typed subclasses
@@ -424,7 +473,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            _sftpClient.Delete(path);
+            DeleteRecursive(path, CancellationToken.None);
         }
 
         Task IFtpSession.DeleteAsync(string path, CancellationToken cancellationToken)
@@ -434,7 +483,7 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(path));
             }
 
-            return Task.Run(() => _sftpClient.Delete(path), cancellationToken);
+            return Task.Run(() => DeleteRecursive(path, cancellationToken), cancellationToken);
         }
 
         bool IFtpSession.DirectoryExists(string path)
