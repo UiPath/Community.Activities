@@ -80,6 +80,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected void ConfigureAlgorithmAndKeyProperties(ref int orderIndex)
         {
             Algorithm.IsPrincipal = true;
+            Algorithm.IsRequired = true;
             Algorithm.OrderIndex = orderIndex++;
             Algorithm.Category = Resources.Input;
             Algorithm.DataSource = DataSourceHelper.ForEnum(
@@ -105,9 +106,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             orderIndex++;
 
             KeyEncodingString.IsPrincipal = false;
-            KeyEncodingString.IsVisible = true;
             KeyEncodingString.OrderIndex = orderIndex++;
-            KeyEncodingString.Category = Resources.Input;
+            KeyEncodingString.Category = Resources.Category_Options_Name;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
@@ -124,7 +124,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             var dataSource = EncodingHelpers.ConfigureEncodingDataSource();
             encodingProperty.IsPrincipal = false;
-            encodingProperty.IsVisible = true;
             encodingProperty.OrderIndex = orderIndex++;
             encodingProperty.Category = Resources.Input;
             encodingProperty.DataSource = dataSource;
@@ -141,7 +140,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         protected void ConfigureInteropProperties(ref int orderIndex)
         {
             Format.IsPrincipal = false;
-            Format.IsVisible = true;
             Format.OrderIndex = orderIndex++;
             Format.Category = Resources.Input;
             Format.DataSource = DataSourceHelper.ForEnum(
@@ -211,7 +209,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             VerifySignature.IsPrincipal = false;
             VerifySignature.IsVisible = false;
             VerifySignature.OrderIndex = orderIndex++;
-            VerifySignature.Category = Resources.Input;
+            VerifySignature.Category = Resources.Category_Options_Name;
             VerifySignature.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
 
             PublicKeyFilePath.IsPrincipal = false;
