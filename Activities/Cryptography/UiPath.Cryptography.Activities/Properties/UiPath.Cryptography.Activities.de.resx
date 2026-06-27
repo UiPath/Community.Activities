@@ -123,6 +123,9 @@
   <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
     <value>ChaCha20-Poly1305 wird auf dieser Plattform nicht unterstützt. Verwenden Sie stattdessen AES-GCM oder führen auf einer Plattform aus, die ChaCha20-Poly1305 unterstützt (Linux mit OpenSSL oder Windows 10 1809 / Server 2019 oder höher).</value>
   </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>Ein expliziter IV wird angegeben. Die Wiederverwendung desselben Paares (Schlüssel, IV) bei mehreren Verschlüsselungsvorgängen beeinträchtigt die Vertraulichkeit und ermöglicht es einem Angreifer – bei AEAD-Modi (AES-GCM, ChaCha20-Poly1305) – darüber hinaus, den Authentifizierungsschlüssel zu ermitteln und beliebige Nachrichten unter Verwendung dieses Schlüssels zu fälschen. Stellen Sie sicher, dass jedes Paar (Schlüssel, IV) nur einmal verwendet wird, oder lassen Sie das IV-Feld leer, damit bei jedem Aufruf ein neuer zufälliger IV generiert wird.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Eingabe</value>
   </data>
@@ -327,7 +330,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Die Codierung, die zum Interpretieren des Eingabetexts und des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <value>Die Codierung, die zum Interpretieren des in der Schlüssel-Eigenschaft angegebenen Schlüssels/Passworts verwendet wird.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -342,6 +345,22 @@
     <value>Schlüsselcodierung</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>Die Codierung, die verwendet wird, um die entschlüsselten Bytes wieder in Text umzuwandeln. Die Standardeinstellung ist UTF-8. Passen Sie diese Einstellung an die Codierung an, die von dem Drittanbieter-Tool verwendet wurde, das den Geheimtext erzeugt hat.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Textcodierung</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, die verwendet wird, um die entschlüsselten Bytes wieder in Text umzuwandeln. Die Standardeinstellung ist UTF-8. Passen Sie diese Einstellung an die Codierung an, die von dem Drittanbieter-Tool verwendet wurde, das den Geheimtext erzeugt hat.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Textcodierung</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>Der Text, den Sie entschlüsseln möchten.</value>
     <comment>Property description</comment>
@@ -351,7 +370,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>Der Schlüssel, den Sie zum Entschlüsseln der angegebenen Datei verwenden möchten.</value>
+    <value>Der Schlüssel, den Sie zum Entschlüsseln des angegebenen Texts verwenden möchten.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
@@ -487,7 +506,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Die Codierung, die zum Interpretieren des Eingabetexts und des in der Eigenschaft „Key“ angegebenen Schlüssels verwendet wird.</value>
+    <value>Die Codierung, die zum Interpretieren des in der Schlüssel-Eigenschaft angegebenen Schlüssels/Passworts verwendet wird.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -500,6 +519,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>Schlüsselcodierung</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>Die Codierung, mit der der Eingabetext vor der Verschlüsselung in Bytes konvertiert wird. Die Standardeinstellung ist UTF-8. Passen Sie diese Einstellung an die Codierung an, die vom Drittanbieter-Tool erwartet wird, das den Geheimtext verarbeitet.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Textcodierung</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>Die Codierung, mit der der Eingabetext vor der Verschlüsselung in Bytes konvertiert wird. Die Standardeinstellung ist UTF-8. Passen Sie diese Einstellung an die Codierung an, die vom Drittanbieter-Tool erwartet wird, das den Geheimtext verarbeitet.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Textcodierung</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -519,7 +554,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>Der Schlüssel, den Sie zum Verschlüsseln der angegebenen Datei verwenden möchten.</value>
+    <value>Der Schlüssel, den Sie zum Verschlüsseln des angegebenen Texts verwenden möchten.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
@@ -1277,91 +1312,91 @@
     <value>Die signierte Datei als Dateiressource.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>PGP Clear Sign File</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>Erstellt mit einem privaten Schlüssel eine PGP-Klartextsignatur einer Datei.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>Pfad der Eingabedatei</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Der Pfad zur Datei, die Sie mit einer Klartextsignatur versehen möchten.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
     <value>Eingabedatei</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
     <value>Die Ressource, die die zu signierende Datei darstellt.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Dateipfad des privaten Schlüssels</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Der Pfad zu Ihrer eigenen PGP-Datei mit privatem Schlüssel, der für die Klartextsignatur der Daten verwendet wird.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>Private Schlüsseldatei</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>Ihr eigener privater PGP-Schlüssel, der als Dateiressource bereitgestellt wird. Wird für die Klartextsignatur der Daten verwendet.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Passphrase</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
     <value>Passphrase (sicher)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
     <value>Die Passphrase als sicherer String, die Ihren eigenen privaten Schlüssel für die Signierung freigibt.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>Die Passphrase, die Ihren eigenen privaten Schlüssel für die Signierung freigibt.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Pfad der Ausgabedatei</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>Der vollständige Pfad einschließlich Dateiname und Erweiterung, unter dem die Datei mit Klartextsignatur gespeichert wird.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Überschreiben</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Wenn am Ausgabepfad bereits eine Datei vorhanden ist, wird sie durch diese Auswahl überschrieben.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Bei Fehler fortsetzen</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Gibt an, ob die Automatisierung auch dann fortgesetzt werden soll, wenn die Aktivität einen Fehler auslöst.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>Datei mit Klartextsignatur</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Die Datei mit Klartextsignatur als Dateiressource.</value>
     <comment>Property description</comment>
   </data>
@@ -1441,4 +1476,165 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096-Bit-RSA</value>
   </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>Übertragungsformat</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>Ausgabe-Byte-Layout und Schlüsselableitungsstrategie. Siehe docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Format der Schlüssel-Bytes</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codierung des Schlüssel- (und des IV)-Strings: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>Initialisierungsvektor für das Rohformat. Geben Sie diesen in derselben Codierung an, die Sie oben im Dropdown-Menü „Schlüsselbytes-Format“ ausgewählt haben (Hex oder Base64). Leer lassen, um automatisch einen zufälligen IV zu generieren. Die Länge muss mit der IV-Größe des Algorithmus übereinstimmen (16 Bytes für AES/Rijndael, 12 für AESGCM/ChaCha20Poly1305, 8 für DES/TripleDES/RC2).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF-Iterationen</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Anzahl der PBKDF2-Iterationen, die ausschließlich für die Formate „Owasp2026“ und „OpenSslEnc“ verwendet wird. Vorab mit dem Wert voreingestellt, mit dem das Format ausgeliefert wird: 1.300.000 für „Owasp2026“ (PBKDF2-HMAC-SHA1), 600.000 für „OpenSslEnc“ (PBKDF2-HMAC-SHA256). Hinweis: Bei der einfachen Befehlszeile `openssl enc -pbkdf2 -md sha256` sind standardmäßig 10.000 Iterationen aus Gründen der Abwärtskompatibilität voreingestellt – um einen Round-Trip mit der Befehlszeile durchzuführen, müssen Sie entweder auf der OpenSSL-Seite `-iter 600000` übergeben oder diese Eigenschaft auf 10000 setzen. Überschreiben Sie diesen Wert nur, wenn Interoperabilität mit einem Peer erforderlich ist, der eine andere Anzahl verwendet. Mindestens 1.000. Die Iterationsanzahl wird nicht im Übertragungsformat gespeichert – die Verschlüsselungs- und Entschlüsselungsseite müssen übereinstimmende Werte verwenden.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Größe des AES-Schlüssels</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES-Schlüsselgröße in Bit. Gilt nur, wenn „Algorithm“ = „AES“ und „Format“ = „OpenSslEnc“ ist; wird andernfalls ignoriert. Muss mit der Schlüsselgröße übereinstimmen, die der Peer verwendet (z. B. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Die ausgewählte Schlüsselgröße wird nicht im Übertragungsformat gespeichert – die verschlüsselnde und die entschlüsselnde Seite müssen übereinstimmende Werte verwenden. Standard: 256 Bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>Übertragungsformat</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>Eingabe-Byte-Layout und Schlüsselableitungsstrategie. Muss mit dem Format übereinstimmen, das den Geheimtext erzeugt hat. Siehe docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Format der Schlüssel-Bytes</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codierung der Schlüsselzeichenfolge: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF-Iterationen</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Anzahl der PBKDF2-Iterationen, die zur Ableitung des Schlüssels verwendet wurden. Muss mit dem zum Zeitpunkt der Verschlüsselung verwendeten Wert übereinstimmen. Ist standardmäßig mit dem Wert vorausgefüllt, der im gewählten Format enthalten ist; überschreiben Sie diesen Wert, um ihn an den Erzeuger anzupassen, falls dieser eine andere Anzahl verwendet hat. Hinweis: Bei der einfachen Befehlszeile `openssl enc -pbkdf2 -md sha256` beträgt der Standardwert 10.000 Iterationen – beim Lesen der Ausgabe der OpenSSL-Befehlszeile, die ohne explizites `-iter`-Flag erzeugt wurde, setzen Sie diese Eigenschaft auf 10000.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Größe des AES-Schlüssels</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES-Schlüsselgröße in Bit, die zum Verschlüsseln der Eingabe verwendet wird. Gilt nur, wenn „Algorithm“ = „AES“ und „Format“ = „OpenSslEnc“ ist; wird andernfalls ignoriert. Muss mit der Schlüsselgröße übereinstimmen, die der Erzeuger verwendet hat (z. B. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Die ausgewählte Schlüsselgröße wird nicht im Übertragungsformat gespeichert – die verschlüsselnde und die entschlüsselnde Seite müssen übereinstimmende Werte verwenden. Standard: 256 Bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Übertragungsformat</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Ausgabe-Byte-Layout und Schlüsselableitungsstrategie. Siehe docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Format der Schlüssel-Bytes</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codierung des Schlüssel- (und des IV)-Strings: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>Initialisierungsvektor für das Rohformat. Geben Sie diesen in derselben Codierung an, die Sie oben im Dropdown-Menü „Schlüsselbytes-Format“ ausgewählt haben (Hex oder Base64). Leer lassen, um automatisch einen zufälligen IV zu generieren. Die Länge muss mit der IV-Größe des Algorithmus übereinstimmen (16 Bytes für AES/Rijndael, 12 für AESGCM/ChaCha20Poly1305, 8 für DES/TripleDES/RC2).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF-Iterationen</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Anzahl der PBKDF2-Iterationen, die ausschließlich für die Formate „Owasp2026“ und „OpenSslEnc“ verwendet wird. Vorab mit dem Wert voreingestellt, mit dem das Format ausgeliefert wird: 1.300.000 für „Owasp2026“ (PBKDF2-HMAC-SHA1), 600.000 für „OpenSslEnc“ (PBKDF2-HMAC-SHA256). Hinweis: Bei der einfachen Befehlszeile `openssl enc -pbkdf2 -md sha256` sind standardmäßig 10.000 Iterationen aus Gründen der Abwärtskompatibilität voreingestellt – um einen Round-Trip mit der Befehlszeile durchzuführen, müssen Sie entweder auf der OpenSSL-Seite `-iter 600000` übergeben oder diese Eigenschaft auf 10000 setzen. Überschreiben Sie diesen Wert nur, wenn Interoperabilität mit einem Peer erforderlich ist, der eine andere Anzahl verwendet. Mindestens 1.000. Die Iterationsanzahl wird nicht im Übertragungsformat gespeichert – die Verschlüsselungs- und Entschlüsselungsseite müssen übereinstimmende Werte verwenden.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Größe des AES-Schlüssels</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES-Schlüsselgröße in Bit. Gilt nur, wenn „Algorithm“ = „AES“ und „Format“ = „OpenSslEnc“ ist; wird andernfalls ignoriert. Muss mit der Schlüsselgröße übereinstimmen, die der Peer verwendet (z. B. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Die ausgewählte Schlüsselgröße wird nicht im Übertragungsformat gespeichert – die verschlüsselnde und die entschlüsselnde Seite müssen übereinstimmende Werte verwenden. Standard: 256 Bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Übertragungsformat</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Eingabe-Byte-Layout und Schlüsselableitungsstrategie. Muss mit dem Format übereinstimmen, das den Geheimtext erzeugt hat. Siehe docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Format der Schlüssel-Bytes</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codierung der Schlüsselzeichenfolge: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF-Iterationen</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Anzahl der PBKDF2-Iterationen, die zur Ableitung des Schlüssels verwendet wurden. Muss mit dem zum Zeitpunkt der Verschlüsselung verwendeten Wert übereinstimmen. Ist standardmäßig mit dem Wert vorausgefüllt, der im gewählten Format enthalten ist; überschreiben Sie diesen Wert, um ihn an den Erzeuger anzupassen, falls dieser eine andere Anzahl verwendet hat. Hinweis: Bei der einfachen Befehlszeile `openssl enc -pbkdf2 -md sha256` beträgt der Standardwert 10.000 Iterationen – beim Lesen der Ausgabe der OpenSSL-Befehlszeile, die ohne explizites `-iter`-Flag erzeugt wurde, setzen Sie diese Eigenschaft auf 10000.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Größe des AES-Schlüssels</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES-Schlüsselgröße in Bit, die zum Verschlüsseln der Eingabe verwendet wird. Gilt nur, wenn „Algorithm“ = „AES“ und „Format“ = „OpenSslEnc“ ist; wird andernfalls ignoriert. Muss mit der Schlüsselgröße übereinstimmen, die der Erzeuger verwendet hat (z. B. openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Die ausgewählte Schlüsselgröße wird nicht im Übertragungsformat gespeichert – die verschlüsselnde und die entschlüsselnde Seite müssen übereinstimmende Werte verwenden. Standard: 256 Bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>KDF-Iterationen (PBKDF2-HTAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>KDF-Iterationen (PBKDF2-HTAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>

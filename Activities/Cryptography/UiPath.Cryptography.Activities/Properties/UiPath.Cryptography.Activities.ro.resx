@@ -123,6 +123,9 @@
   <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
     <value>ChaCha20-Poly1305 nu este acceptat pe această platformă. Utilizați în schimb AES-GCM sau rulați pe o platformă care oferă ChaCha20-Poly1305 (Linux cu OpenSSL sau Windows 10 1809 / Server 2019 ori o versiune ulterioară).</value>
   </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>Este furnizat un IV explicit. Reutilizarea aceleiași perechi (Key, IV) în mai multe criptări compromite confidențialitatea și — în modurile AEAD (AES-GCM, ChaCha20-Poly1305) — permite suplimentar unui atacator să recupereze cheia de autentificare și să falsifice mesaje arbitrare cu acea cheie. Asigurați-vă că fiecare pereche (Key, IV) este utilizată cel mult o dată sau lăsați IV necompletat, astfel încât să fie generat un IV aleatoriu nou pentru fiecare apel.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>
@@ -327,7 +330,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Codarea utilizată pentru a interpreta input-ul și cheia specificată în proprietatea Key.</value>
+    <value>Codificarea utilizată pentru a interpreta cheia/parola specificată în proprietatea Key.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -342,6 +345,22 @@
     <value>Codificarea cheilor</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>Codificarea utilizată pentru a converti octeții decriptați înapoi în text. Valoarea implicită este UTF-8. Setați această opțiune astfel încât să corespundă codificării utilizate de instrumentul terț care a produs textul cifrat.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Codificarea textului</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>Codificarea utilizată pentru a converti octeții decriptați înapoi în text. Valoarea implicită este UTF-8. Setați această opțiune astfel încât să corespundă codificării utilizate de instrumentul terț care a produs textul cifrat.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Codificarea textului</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>Textul pe care vrei să-l decriptezi.</value>
     <comment>Property description</comment>
@@ -351,7 +370,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>Cheia pe care vrei să o folosești pentru a decripta fișierul specificat.</value>
+    <value>Cheia pe care doriți să o utilizați pentru a decripta textul specificat.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
@@ -487,7 +506,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Codarea utilizată pentru a interpreta input-ul și cheia specificată în proprietatea Key.</value>
+    <value>Codificarea utilizată pentru a interpreta cheia/parola specificată în proprietatea Key.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -500,6 +519,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>Codificarea cheilor</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>Codificarea utilizată pentru a converti textul de intrare în octeți înainte de criptare. Valoarea implicită este UTF-8. Setați această opțiune astfel încât să corespundă codificării așteptate de instrumentul terț care va utiliza textul cifrat.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Codificarea textului</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>Codificarea utilizată pentru a converti textul de intrare în octeți înainte de criptare. Valoarea implicită este UTF-8. Setați această opțiune astfel încât să corespundă codificării așteptate de instrumentul terț care va utiliza textul cifrat.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Codificarea textului</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -519,7 +554,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>Cheia pe care vrei să o folosești pentru a cripta fișierul specificat.</value>
+    <value>Cheia pe care doriți să o utilizați pentru a cripta textul specificat.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
@@ -1277,91 +1312,91 @@
     <value>Fișierul semnat ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>Fișier PGP Clear Sign</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>Creează o semnătură PGP în text clar pentru un fișier utilizând o cheie privată.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>Calea fișierului Input</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Calea către fișierul pe care doriți să îl semnați cu semnătură clară.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
     <value>&lt;b&gt;Input file&lt;/b&gt;</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
     <value>Resursa care reprezintă fișierul care urmează să fie semnat.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Calea către fișierul cheie privată</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Calea către propriul fișier cu cheie privată PGP, utilizat pentru a semna datele cu clearsign.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>Fișier cheie privată</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>Cheia dvs. privată PGP, furnizată ca resursă de fișier. Este utilizată pentru a semna datele cu semnătură clară.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parolă de acces</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
-    <value>Expresie secretă (sigură)</value>
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>Fraza de acces (securizată)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
-    <value>Expresia secretă, ca șir securizat, care vă deblochează cheia privată pentru semnare.</value>
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>Expresia secretă, ca șir securizat, care deblochează propria cheie privată pentru semnare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>Fraza secretă care vă deblochează propria cheie privată pentru semnare.</value>
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
+    <value>Fraza de acces care deblochează propria cheie privată pentru semnare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Output Calea fișierului de ieșire</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>Calea completă, inclusiv numele și extensia fișierului, unde va fi salvat fișierul cu semnătură clară.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Suprascriere</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Dacă există deja un fișier la calea de output, selectarea acestei opțiuni îl va suprascrie.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Continuați la eroare</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Specifică dacă automatizarea ar trebui să continue chiar și atunci când activitatea generează o eroare.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>Fișier semnat clar</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Fișierul semnat clar, ca resursă de fișier.</value>
     <comment>Property description</comment>
   </data>
@@ -1441,4 +1476,165 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>RSA pe 4096 de biți</value>
   </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>Format de transmisie</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>Structura octeților de ieșire și strategia de derivare a cheii. Consultați docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Formatul în octeți al cheii</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codificarea șirului Key (și IV): Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>Vector de inițializare pentru formatul Raw. Furnizați-l în aceeași codificare selectată în lista verticală „Key bytes format” de mai sus (Hex sau Base64). Lăsați câmpul gol pentru a genera automat un IV aleatoriu. Lungimea trebuie să corespundă dimensiunii IV a algoritmului (16 bytes pentru AES/Rijndael, 12 pentru AESGCM/ChaCha20Poly1305, 8 pentru DES/TripleDES/RC2).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>iterații KDF</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Numărul de iterații PBKDF2, utilizat numai pentru formatele Owasp2026 și OpenSslEnc. Este precompletat cu valoarea cu care este livrat formatul: 1,300,000 pentru Owasp2026 (PBKDF2-HMAC-SHA1), 600,000 pentru OpenSslEnc (PBKDF2-HMAC-SHA256). Notă: `openssl enc -pbkdf2 -md sha256` simplu utilizează implicit 10,000 de iterații pentru compatibilitate cu versiunile anterioare — pentru a asigura compatibilitatea completă cu CLI, trebuie fie să transmiteți `-iter 600000` în openssl, fie să setați această proprietate la 10000. Înlocuiți această valoare numai când trebuie să asigurați interoperabilitatea cu un partener care utilizează un număr diferit. Minimum 1,000. Numărul de iterații nu este stocat în formatul wire — părțile de criptare și de decriptare trebuie să utilizeze valori corespunzătoare.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Dimensiunea cheii AES</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Dimensiunea cheii AES în biți. Se aplică numai când Algorithm = AES și Format = OpenSslEnc; în caz contrar, este ignorată. Trebuie să corespundă dimensiunii cheii utilizate de partenerul de comunicare (de exemplu, openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Dimensiunea cheii selectate nu este stocată în formatul transmis — părțile care criptează și decriptează trebuie să utilizeze valori corespunzătoare. Implicit: 256 de biți.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>Format de transmisie</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>Structura octeților de intrare și strategia de derivare a cheii. Trebuie să corespundă formatului care a produs textul cifrat. Consultați docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Formatul în octeți al cheii</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codificarea șirului Key: Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>iterații KDF</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Numărul de iterații PBKDF2 utilizat pentru a deriva cheia. Trebuie să corespundă valorii utilizate în momentul criptării. Este precompletat cu valoarea furnizată de formatul ales; suprascrieți-o pentru a corespunde sursei, dacă aceasta a utilizat un număr diferit. Notă: comanda simplă `openssl enc -pbkdf2 -md sha256` utilizează implicit 10.000 de iterații — atunci când citiți ieșirea openssl CLI generată fără indicatorul explicit `-iter`, setați această proprietate la 10000.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Dimensiunea cheii AES</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Dimensiunea cheii AES, în biți, utilizată pentru a cripta datele de intrare. Se aplică numai când Algorithm = AES și Format = OpenSslEnc; în caz contrar, este ignorată. Trebuie să corespundă dimensiunii cheii utilizate de producător (de exemplu, openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Dimensiunea cheii selectate nu este stocată în formatul de transmisie — părțile de criptare și de decriptare trebuie să utilizeze valori corespunzătoare. Implicit: 256 de biți.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Format de transmisie</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Structura octeților de ieșire și strategia de derivare a cheii. Consultați docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Formatul în octeți al cheii</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codificarea șirului Key (și IV): Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>Vector de inițializare pentru formatul Raw. Furnizați-l în aceeași codificare selectată în lista verticală „Key bytes format” de mai sus (Hex sau Base64). Lăsați câmpul gol pentru a genera automat un IV aleatoriu. Lungimea trebuie să corespundă dimensiunii IV a algoritmului (16 bytes pentru AES/Rijndael, 12 pentru AESGCM/ChaCha20Poly1305, 8 pentru DES/TripleDES/RC2).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>iterații KDF</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Numărul de iterații PBKDF2, utilizat numai pentru formatele Owasp2026 și OpenSslEnc. Este precompletat cu valoarea cu care este livrat formatul: 1,300,000 pentru Owasp2026 (PBKDF2-HMAC-SHA1), 600,000 pentru OpenSslEnc (PBKDF2-HMAC-SHA256). Notă: comanda simplă `openssl enc -pbkdf2 -md sha256` utilizează implicit 10,000 de iterații pentru compatibilitate retroactivă — pentru a asigura compatibilitatea bidirecțională cu CLI, trebuie fie să transmiteți `-iter 600000` în openssl, fie să setați această proprietate la 10000. Înlocuiți această valoare numai atunci când trebuie să asigurați interoperabilitatea cu un partener care utilizează un număr diferit. Minimum 1,000. Numărul de iterații nu este stocat în formatul wire — părțile de criptare și de decriptare trebuie să utilizeze valori identice.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Dimensiunea cheii AES</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Dimensiunea cheii AES în biți. Se aplică numai când Algorithm = AES și Format = OpenSslEnc; în caz contrar, este ignorată. Trebuie să corespundă dimensiunii cheii utilizate de partenerul de comunicație (de exemplu, openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Dimensiunea cheii selectate nu este stocată în formatul transmis — părțile de criptare și de decriptare trebuie să utilizeze valori corespunzătoare. Implicit: 256 de biți.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Format de transmisie</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Aspectul octeților de intrare și strategia de derivare a cheii. Trebuie să corespundă formatului care a produs textul cifrat. Consultați docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Formatul în octeți al cheii</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Codificarea șirului Key: Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>iterații KDF</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Numărul de iterații PBKDF2 utilizat pentru a deriva cheia. Trebuie să corespundă valorii utilizate la momentul criptării. Este precompletat cu valoarea inclusă în formatul ales; suprascrieți-o pentru a corespunde producătorului, dacă a utilizat un număr diferit de iterații. Notă: comanda simplă `openssl enc -pbkdf2 -md sha256` utilizează implicit 10.000 de iterații — când citiți ieșirea openssl CLI produsă fără un indicator `-iter` explicit, setați această proprietate la 10000.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>Dimensiunea cheii AES</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Dimensiunea cheii AES, în biți, utilizată pentru a cripta intrarea. Se aplică numai când Algorithm = AES și Format = OpenSslEnc; în caz contrar, este ignorată. Trebuie să corespundă dimensiunii cheii utilizate de producător (de exemplu, openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc). Dimensiunea cheii selectate nu este stocată în formatul de transmisie — părțile care criptează și decriptează trebuie să utilizeze valori corespunzătoare. Implicit: 256 de biți.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>Iterații KDF (PBKDF2-HMAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>Iterații KDF (PBKDF2-HMAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>

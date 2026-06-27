@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -658,10 +658,63 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096-Bit</value>
   </data>
+  <data name="AesKeySize_Aes128" xml:space="preserve">
+    <value>128-Bit</value>
+  </data>
+  <data name="AesKeySize_Aes192" xml:space="preserve">
+    <value>192-Bit</value>
+  </data>
+  <data name="AesKeySize_Aes256" xml:space="preserve">
+    <value>256-Bit</value>
+  </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>Das Signieren wurde angefordert, zum Signieren sind jedoch ein privater Schlüssel und eine Passphrase erforderlich. Geben Sie sowohl einen privaten Schlüsselstream als auch eine Passphrase an oder setzen Sie die Signatur auf „false“.</value>
   </data>
   <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
     <value>Die Signaturüberprüfung wurde angefordert, zum Überprüfen ist jedoch ein öffentlicher Schlüssel erforderlich. Geben Sie einen öffentlichen Schlüsselstream an oder legen Sie SignaturVerifizieren auf „false“ fest.</value>
+  </data>
+  <data name="SymmetricWireFormat_Classic" xml:space="preserve">
+    <value>UiPath (klassisch)</value>
+  </data>
+  <data name="SymmetricWireFormat_Owasp2026" xml:space="preserve">
+    <value>UiPath (OWASP 2026)</value>
+  </data>
+  <data name="SymmetricWireFormat_Raw" xml:space="preserve">
+    <value>Unformatiert (vom Aufrufer bereitgestellter Schlüssel und IV)</value>
+  </data>
+  <data name="SymmetricWireFormat_OpenSslEnc" xml:space="preserve">
+    <value>OpenSSL enc (Salted__ + PBKDF2-SHA256)</value>
+  </data>
+  <data name="KeyBytesFormat_Encoded" xml:space="preserve">
+    <value>Codiert (Textkennwort über Codierung)</value>
+  </data>
+  <data name="KeyBytesFormat_Hex" xml:space="preserve">
+    <value>HEX</value>
+  </data>
+  <data name="KeyBytesFormat_Base64" xml:space="preserve">
+    <value>Base64</value>
+  </data>
+  <data name="OpenSslEnc_MissingMagic" xml:space="preserve">
+    <value>Der Geheimtext beginnt nicht mit dem magischen Präfix „Salted__“ von OpenSSL. Vergewissern Sie sich, dass der Erzeuger „openssl enc -salt“ verwendet hat und die Ausgabe nicht gekürzt oder transcodiert wurde.</value>
+  </data>
+
+  <!-- Validation messages for cross-property constraints (see SymmetricInteropHelper.ValidateInteropSettings). -->
+  <data name="Validation_RawKeyFormat_EncodedNotAllowed" xml:space="preserve">
+    <value>Schlüsselbyte-Format = Verschlüsselt ist bei Übertragungsformat = Roh nicht zulässig. Geben Sie einen Literal-Rohschlüssel im Hex- oder Base64-Format an.</value>
+  </data>
+  <data name="Validation_RawKey_LengthMismatch" xml:space="preserve">
+    <value>Die Länge des Rohschlüssels beträgt {0} Bytes, was keine zulässige Schlüsselgröße für den gewählten Algorithmus ist. Erwartet wurde eine der folgenden Längen: {1} Bytes.</value>
+  </data>
+  <data name="Validation_PasswordFormat_NonEncodedNotAllowed" xml:space="preserve">
+    <value>Das Schlüsselbyte-Format = Hex oder Base64 ist nur bei Übertragungsformat = Roh gültig. Die Formate „Klassisch“, „Owasp2026“ und „OpenSslEnc“ verwenden den Schlüssel-String als Passwort (codiert).</value>
+  </data>
+  <data name="Validation_Iv_OnlyForRaw" xml:space="preserve">
+    <value>Der IV darf nur bei Übertragungsformat = Roh festgelegt werden. Bei den anderen Formaten wird der IV in den Geheimtextstream eingebettet.</value>
+  </data>
+  <data name="Validation_KdfIterations_NotForClassicOrRaw" xml:space="preserve">
+    <value>KDF-Iterationen dürfen nur für Übertragungsformat = Owasp2026 oder OpenSslEnc festgelegt werden. Bei Klassisch ist der Wert auf 10.000 Iterationen begrenzt, und bei Roh wird kein KDF ausgeführt.</value>
+  </data>
+  <data name="Validation_KdfIterations_BelowMinimum" xml:space="preserve">
+    <value>KDF-Iterationen = {0} liegt unter dem Mindestwert von {1} Iterationen (NIST SP 800-132-Mindestanforderung). OWASP empfiehlt derzeit 1.300.000 für PBKDF2-SHA1 und 600.000 für PBKDF2-SHA256.</value>
   </data>
 </root>

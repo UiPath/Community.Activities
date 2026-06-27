@@ -123,6 +123,9 @@
   <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
     <value>ChaCha20-Poly1305 bu platformda desteklenmiyor. Bunun yerine AES-GCM kullanın veya ChaCha20-Poly1305 (OpenSSL&apos;li Linux veya Windows 10 1809/Server 2019 veya üzeri) sağlayan bir platformda çalıştırın.</value>
   </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>Açıkça bir IV sağlandı. Şifrelemelerde aynı (Anahtar, IV) çiftinin yeniden kullanılması gizliliği bozar ve AEAD modları (AES-GCM, ChaCha20-Poly1305) altında ayrıca bir saldırganın kimlik doğrulama anahtarını kurtarmasına ve bu anahtar altında rastgele iletiler oluşturmasına izin verir. Her (Anahtar, IV) çiftinin en fazla bir kez kullanıldığından emin olun veya çağrı başına yeni bir rastgele IV oluşturulması için IV&apos;yi boş bırakın.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Giriş</value>
   </data>
@@ -327,7 +330,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Giriş metnini ve Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -340,6 +343,22 @@
   </data>
   <data name="Activity_DecryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>Anahtar kodlama</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>Şifresi çözülmüş baytları tekrar metne dönüştürmek için kullanılan kodlama. Varsayılan olarak UTF-8&apos;dir. Bunu, şifreli metni üreten üçüncü taraf araç tarafından kullanılan kodlamayla eşleşecek şekilde ayarlayın.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Metin kodlaması</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>Şifresi çözülmüş baytları tekrar metne dönüştürmek için kullanılan kodlama. Varsayılan olarak UTF-8&apos;dir. Bunu, şifreli metni üreten üçüncü taraf araç tarafından kullanılan kodlamayla eşleşecek şekilde ayarlayın.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Metin kodlaması</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
@@ -487,7 +506,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>Giriş metnini ve Key özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
+    <value>Anahtar özelliğinde belirtilen anahtarı yorumlamak için kullanılan kodlama.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -500,6 +519,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>Anahtar kodlama</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>Giriş metnini şifrelemeden önce baytlara dönüştürmek için kullanılan kodlama. Varsayılan olarak UTF-8&apos;dir. Bunu, şifreli metni kullanacak üçüncü taraf araç tarafından beklenen kodlamayla eşleşecek şekilde ayarlayın.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>Metin kodlaması</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>Giriş metnini şifrelemeden önce baytlara dönüştürmek için kullanılan kodlama. Varsayılan olarak UTF-8&apos;dir. Bunu, şifreli metni kullanacak üçüncü taraf araç tarafından beklenen kodlamayla eşleşecek şekilde ayarlayın.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>Metin kodlaması</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -1277,91 +1312,91 @@
     <value>Dosya kaynağı olarak imzalanan dosya.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>PGP Şeffaf İmza Dosyası</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>Özel anahtar kullanarak bir dosyanın PGP açık metin imzasını oluşturur.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
-    <value>Giriş dosyası yolu</value>
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
+    <value>Giriş dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>Şifresini çözmek istediğiniz dosyanın yolu.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
     <value>Giriş dosyası</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
     <value>İmzalanacak dosyayı temsil eden kaynak.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>Özel anahtar dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>Verileri temizlemek için kullanılan kendi PGP özel anahtar dosyanızın yolu.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>Özel anahtar dosyası</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>Dosya kaynağı olarak sağlanan kendi PGP özel anahtarınız. Verilerin imzasını temizlemek için kullanılır.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>Parola</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
     <value>Parola (güvenli)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
     <value>İmza için kendi özel anahtarınızın kilidini açan güvenli bir dize olarak parola.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>İmzalamanız için kendi özel anahtarınızın kilidini açan parola.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>Çıkış dosyasının yolu</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>Temiz imzalı dosyanın kaydedileceği dosya adı ve uzantı dahil olmak üzere tam yol.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>Üzerine Yaz</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>Çıkış yolunda bir dosya zaten varsa bu seçildiğinde dosyanın üzerine yazılır.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>Hata olduğunda devam et</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>Etkinlik bir hata oluştursa bile otomasyonun devam edip etmeyeceğini belirtir.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>Clearsigned dosyası</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>Dosya kaynağı olarak açık imzalı dosya.</value>
     <comment>Property description</comment>
   </data>
@@ -1441,4 +1476,165 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096 bit RSA</value>
   </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>Aktarma biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>Çıkış baytı düzeni ve anahtar türetme stratejisi. Bkz. docs/smetric-tele-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Anahtar bayt biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Anahtar (ve IV) dizesinin kodlaması: Hex (örneğin AES-256 anahtarı için 64 karakter) veya Base64&apos;ü seçin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>Raw biçimi için başlatma vektörü. Bunu yukarıdaki &quot;Anahtar bayt biçimi&quot; açılır menüsünde seçilen kodlamayla sağlayın (Hex veya Base64). Rastgele bir IV&apos;ü otomatik olarak oluşturmak için boş bırakın. Uzunluk algoritmanın IV boyutuyla eşleşmelidir (AES/Rijndael için 16 bayt, AESGCM/ChaCha20Poly1305 için 12, DES/TripleDES/RC2 için 8 bayt).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF yinelemeleri</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Yalnızca Owasp2026 ve OpenSslEnc biçimleri için kullanılan PBKDF2 yineleme sayısı. Biçimin geldiği değer önceden doldurulur: Owasp2026 için 1.300.000 (PBKDF2 -HMAC-SHA1,), OpenSslEnc (PBKDF2 -HMAC-SHA256) için 600.000. Not: düz `openssl enc -pbkdf2 -mdsha256`, geri karşılaştırma için varsayılan olarak 10.000 yinelemedir. — CLI ile gidiş-dönüş için Openssl tarafında &quot;-iter 600000&quot; veya bu özelliği 10000 olarak ayarlamanız gerekir. Yalnızca farklı bir sayım kullanan bir eşle birlikte çalışmanız gerektiğinde geçersiz kılın. En az 1.000. Yineleme sayısı iletme biçiminde depolanmaz — Şifreleme ve şifre çözme tarafları eşleşen değerler kullanmalıdır.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES anahtar boyutu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Bit olarak AES anahtarı boyutu. Yalnızca Algorithm = AES ve Format = OpenSslEnc; aksi takdirde yoksayılır. Eşin anahtar boyutuyla eşleşmelidir (örn. Openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) kullanır. Seçili anahtar boyutu iletme biçiminde depolanmaz; şifreleme ve şifre çözme tarafı eşleşen değerler kullanmalıdır. Varsayılan: 256 bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>Aktarma biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>Giriş baytı düzeni ve anahtar türetme stratejisi. Şifreyi oluşturan biçimle eşleşmelidir. Bkz. docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Anahtar bayt biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Anahtar dizesinin kodlaması: Hex (örn. AES-256 anahtarı için 64 karakter) veya Base64&apos;ü seçin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF yinelemeleri</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Anahtarı türetmek için kullanılan PBKDF2 yineleme sayısı. Şifreleme sırasında kullanılan değerle eşleşmelidir. Seçilen biçimin birlikte geldiği değerle önceden doldurulur; Farklı bir sayım kullandıysa üreticiyle eşleşmek için geçersiz kılar. Not: düz &quot;openssl enc -pbkdf2 -mdsha256&quot; varsayılan olarak 10.000 yinelemedir. Açık bir &quot;-iter&quot; bayrağı olmadan oluşturulan Openssl CLI çıkışı okunurken bu özelliği 10000 olarak ayarlayın.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES anahtar boyutu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Girişi şifrelemek için kullanılan bit olarak AES anahtarı boyutu. Yalnızca Algoritma = AES ve Biçim = OpenSslEnc; aksi takdirde yoksayılır. Üreticinin anahtar boyutuyla eşleşmelidir (örneğin Openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) kullanılır. Seçili anahtar boyutu iletme biçiminde depolanmaz; şifreleme ve şifre çözme tarafı eşleşen değerler kullanmalıdır. Varsayılan: 256 bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Aktarma biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Çıkış baytı düzeni ve anahtar türetme stratejisi. Bkz. docs/symmetric-wire-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Anahtar bayt biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Anahtar (ve IV) dizesinin kodlaması: Hex (örneğin AES-256 anahtarı için 64 karakter) veya Base64&apos;ü seçin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>Raw biçimi için başlatma vektörü. Bunu yukarıdaki &quot;Anahtar bayt biçimi&quot; açılır menüsünde seçilen kodlamayla sağlayın (Hex veya Base64). Rastgele bir IV&apos;ü otomatik olarak oluşturmak için boş bırakın. Uzunluk algoritmanın IV boyutuyla eşleşmelidir (AES/Rijndael için 16 bayt, AESGCM/ChaCha20Poly1305 için 12, DES/TripleDES/RC2 için 8 bayt).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF yinelemeleri</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Yalnızca Owasp2026 ve OpenSslEnc biçimleri için kullanılan PBKDF2 yineleme sayısı. Biçimin geldiği değer önceden doldurulur: Owasp2026 için 1.300.000 (PBKDF2 -HMAC-SHA1,), OpenSslEnc (PBKDF2 -HMAC-SHA256) için 600.000. Not: düz `openssl enc -pbkdf2 -mdsha256`, geri karşılaştırma için varsayılan olarak 10.000 yinelemedir. — CLI ile gidiş-dönüş için Openssl tarafında &quot;-iter 600000&quot; veya bu özelliği 10000 olarak ayarlamanız gerekir. Yalnızca farklı bir sayım kullanan bir eşle birlikte çalışmanız gerektiğinde geçersiz kılın. En az 1.000. Yineleme sayısı iletme biçiminde depolanmaz — Şifreleme ve şifre çözme tarafları eşleşen değerler kullanmalıdır.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES anahtar boyutu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Bit olarak AES anahtarı boyutu. Yalnızca Algoritma = AES ve Biçim = OpenSslEnc; aksi takdirde yoksayılır. Eşin anahtar boyutuyla eşleşmelidir (örneğin Openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) kullanır. Seçili anahtar boyutu iletme biçiminde depolanmaz; şifreleme ve şifre çözme tarafı eşleşen değerler kullanmalıdır. Varsayılan: 256 bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>Aktarma biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>Giriş baytı düzeni ve anahtar türetme stratejisi. Şifreyi oluşturan biçimle eşleşmelidir. Bkz. docs/smetric-tele-format.md.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>Anahtar bayt biçimi</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Anahtar dizesinin kodlaması: Hex (örneğin AES-256 anahtarı için 64 karakter) veya Base64&apos;ü seçin.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF yinelemeleri</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>Anahtarı türetmek için kullanılan PBKDF2 yineleme sayısı. Şifreleme sırasında kullanılan değerle eşleşmelidir. Seçilen biçimin birlikte geldiği değerle önceden doldurulur; Farklı bir sayım kullandıysa üreticiyle eşleşmek için geçersiz kılar. Not: düz &quot;openssl enc -pbkdf2 -mdsha256&quot; varsayılan olarak 10.000 yinelemedir. Açık bir &quot;-iter&quot; bayrağı olmadan oluşturulan Openssl CLI çıkışı okunurken bu özelliği 10000 olarak ayarlayın.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES anahtar boyutu</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>Girişi şifrelemek için kullanılan bit olarak AES anahtarı boyutu. Yalnızca Algoritma = AES ve Biçim = OpenSslEnc; aksi takdirde yoksayılır. Üreticinin anahtar boyutuyla eşleşmelidir (örneğin Openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) kullanılır. Seçili anahtar boyutu iletme biçiminde depolanmaz; şifreleme ve şifre çözme tarafı eşleşen değerler kullanmalıdır. Varsayılan: 256 bit.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>KDF yinelemeleri (PBKDF2-HMAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>KDF yinelemeleri (PBKDF2-HMAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>

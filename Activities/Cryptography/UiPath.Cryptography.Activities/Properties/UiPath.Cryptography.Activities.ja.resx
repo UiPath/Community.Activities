@@ -123,6 +123,9 @@
   <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
     <value>ChaCha20-Poly1305 は、このプラットフォームではサポートされていません。代わりに AES-GCM を使用するか、ChaCha20-Poly1305 を提供するプラットフォーム (OpenSSL がある Linux、または Windows 10 1809 / Server 2019 以降) で実行してください。</value>
   </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>明示的な IV が設定されています。複数の暗号化で同じ (Key, IV) ペアを再利用すると、機密性が損なわれます。また、AEAD モード (AES-GCM、ChaCha20-Poly1305) では、攻撃者が認証キーを回復してそのキーの下で任意のメッセージを偽造できます。各 (Key, IV) ペアが最大 1 回使用されるようにするか、IV を空のままにして呼び出しごとに新しいランダムな IV が生成されるようにしてください。</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>入力</value>
   </data>
@@ -327,7 +330,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>入力テキストおよび [キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <value>[キー] プロパティで指定したキー/パスワードの解釈に使用されるエンコードです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -342,6 +345,22 @@
     <value>キーのエンコード</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>復号されたバイトをテキストに変換し直すために使用されるエンコーディングです。既定値は UTF-8 です。暗号文を生成したサードパーティ ツールによって使用されるエンコードと一致するように設定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>テキストのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>復号されたバイトをテキストに変換し直すために使用されるエンコーディングです。既定値は UTF-8 です。暗号文を生成したサードパーティ ツールによって使用されるエンコードと一致するように設定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>テキストのエンコード</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>復号するテキストです。</value>
     <comment>Property description</comment>
@@ -351,7 +370,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>指定したファイルの復号に使用するキーです。</value>
+    <value>指定したテキストの復号に使用するキーです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
@@ -487,7 +506,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>入力テキストおよび [キー] プロパティで指定したキーの解釈に使用するエンコードです。</value>
+    <value>[キー] プロパティで指定したキー/パスワードの解釈に使用されるエンコードです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -500,6 +519,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>キーのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>暗号化の前に入力テキストをバイトに変換するために使用されるエンコードです。既定値は UTF-8 です。暗号テキストを使用するサードパーティ ツールによって期待されるエンコードと一致するように設定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>テキストのエンコード</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>暗号化の前に入力テキストをバイトに変換するために使用されるエンコードです。既定値は UTF-8 です。暗号テキストを使用するサードパーティ ツールによって期待されるエンコードと一致するように設定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>テキストのエンコード</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -519,7 +554,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>指定したファイルの暗号化に使用するキーです。</value>
+    <value>指定したテキストの暗号化に使用するキーです。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
@@ -1277,91 +1312,91 @@
     <value>ファイル リソースとしての署名済みファイルです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>PGP ファイルにクリア署名</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>秘密キーを使用して、ファイルの PGP クリア テキスト署名を作成します。(PGP Clear Sign File)</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>入力ファイル パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>クリア署名するファイルへのパスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
     <value>入力ファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
     <value>署名するファイルを表すリソースです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>秘密キー ファイル パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>データのクリア署名に使用される、独自の PGP 秘密キー ファイルへのパスです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>秘密キー ファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>ファイル リソースとして提供される独自の PGP 秘密キーです。データにクリア署名するために使用されます。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>パスフレーズ</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
     <value>パスフレーズ (セキュリティ保護あり)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
     <value>セキュリティで保護された文字列としてのパスフレーズです。署名のための独自の秘密キーのロックを解除します。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>署名のための独自の秘密キーのロックを解除するパスフレーズです。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>出力ファイル パス</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>クリア署名済みファイルの保存先のフル パス (ファイル名と拡張子を含む) です。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>上書き</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>これを選択すると、出力パスにファイルがすでに存在する場合は上書きされます。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>アクティビティが例外をスローしてもオートメーションの実行を継続するかどうかを指定します。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>クリア署名済みファイル</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>ファイル リソースとしてのクリア署名済みファイルです。</value>
     <comment>Property description</comment>
   </data>
@@ -1441,4 +1476,165 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096 ビット RSA</value>
   </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>ワイヤ形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>出力バイト レイアウトとキー導出ストラテジです。docs/symmetric-wire-format.md を参照してください。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>キーのバイト形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>キー (および IV) 文字列のエンコードです。16 進数 (例: AES-256 キーの場合は 64 文字) または Base64 を使用できます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>初期化ベクトル (IV)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>Raw 形式の初期化ベクトルです。上の [キーのバイト形式] ドロップダウンで選択したエンコードと同じエンコード (Hex または Base64) で指定します。ランダムな IV を自動生成するには、空のままにします。長さは、アルゴリズムの IV サイズ (AES/Rijndael の場合は 16 バイト、AESGCM/ChaCha20Poly1305 の場合は 12 バイト、DES/TripleDES/RC2 の場合は 8 バイト) と一致する必要があります。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反復回数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 の反復回数です。Owasp2026 および OpenSslEnc 形式でのみ使用されます。形式に付属する値が事前に入力されています: Owasp2026 (PBKDF2-HMAC-SHA1) の場合は 1,300,000、OpenSslEnc (PBKDF2-HMAC-SHA256) の場合は 600,000 です。注: プレーンな「openssl enc -pbkdf2 -md sha256」の場合は、後方互換性のため既定で反復回数が 10,000 回になります。— CLI でラウンドトリップするには、openssl 側で「-iter 600000」を渡すか、このプロパティを 10000 に設定する必要があります。別の回数を使用してピアと相互運用する必要がある場合にのみ、オーバーライドします。最小値は 1,000 です。反復回数はワイヤ形式では保存されません。— 暗号化側と復号側は一致する値を使用する必要があります。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES キーのサイズ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES キーのサイズです (ビット単位)。Algorithm = AES および Format = OpenSslEnc の場合にのみ適用されます。それ以外の場合は無視されます。ピア (例: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) が使用するキーのサイズと一致する必要があります。選択したキーのサイズはワイヤ形式では保存されません。— 暗号化側と復号側は一致する値を使用する必要があります。既定値は 256 ビットです。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>ワイヤ形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>入力バイト レイアウトとキー導出ストラテジです。暗号文を生成した形式と一致する必要があります。docs/symmetric-wire-format.md を参照してください。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>キーのバイト形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>キー文字列のエンコードです。16 進数 (例: AES-256 キーの場合は 64 文字) または Base64 を使用できます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反復回数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>キーの導出に使用される PBKDF2 の反復回数です。暗号化時に使用された値と一致する必要があります。選択した形式に付属する値が事前に入力されています。別の回数を使用した場合、プロデューサーと一致するようにオーバーライドします。注: プレーンな「openssl enc -pbkdf2 -md sha256」の場合は、既定で反復回数が 10,000 になります。— 明示的な「-iter」フラグなしで生成された openssl CLI 出力を読み取る場合は、このプロパティを 10000 に設定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES キーのサイズ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>入力の暗号化に使用される AES キーのサイズ (ビット単位) です。Algorithm = AES および Format = OpenSslEnc の場合にのみ適用されます。それ以外の場合は無視されます。プロデューサー (例: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) が使用するキーのサイズと一致する必要があります。選択したキーのサイズはワイヤ形式では保存されません。— 暗号化側と復号側は一致する値を使用する必要があります。既定値は 256 ビットです。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>ワイヤ形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>出力バイト レイアウトとキー導出ストラテジです。docs/symmetric-wire-format.md を参照してください。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>キーのバイト形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>キー (および IV) 文字列のエンコードです。16 進数 (例: AES-256 キーの場合は 64 文字) または Base64 を使用できます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>初期化ベクトル (IV)</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>Raw 形式の初期化ベクトルです。上の [キーのバイト形式] ドロップダウンで選択したエンコードと同じエンコード (Hex または Base64) で指定します。ランダムな IV を自動生成するには、空のままにします。長さは、アルゴリズムの IV サイズ (AES/Rijndael の場合は 16 バイト、AESGCM/ChaCha20Poly1305 の場合は 12 バイト、DES/TripleDES/RC2 の場合は 8 バイト) と一致する必要があります。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反復回数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 の反復回数です。Owasp2026 および OpenSslEnc 形式でのみ使用されます。形式に付属する値が事前に入力されています: Owasp2026 (PBKDF2-HMAC-SHA1) の場合は 1,300,000、OpenSslEnc (PBKDF2-HMAC-SHA256) の場合は 600,000 です。注: プレーンな「openssl enc -pbkdf2 -md sha256」の場合は、後方互換性のため既定で反復回数が 10,000 回になります。— CLI でラウンドトリップするには、openssl 側で「-iter 600000」を渡すか、このプロパティを 10000 に設定する必要があります。別の回数を使用してピアと相互運用する必要がある場合にのみ、オーバーライドします。最小値は 1,000 です。反復回数はワイヤ形式では保存されません。— 暗号化側と復号側は一致する値を使用する必要があります。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES キーのサイズ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES キーのサイズです (ビット単位)。Algorithm = AES および Format = OpenSslEnc の場合にのみ適用されます。それ以外の場合は無視されます。ピア (例: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) が使用するキーのサイズと一致する必要があります。選択したキーのサイズはワイヤ形式では保存されません。— 暗号化側と復号側は一致する値を使用する必要があります。既定値は 256 ビットです。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>ワイヤ形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>入力バイト レイアウトとキー導出ストラテジです。暗号文を生成した形式と一致する必要があります。docs/symmetric-wire-format.md を参照してください。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>キーのバイト形式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>キー文字列のエンコードです。16 進数 (例: AES-256 キーの場合は 64 文字) または Base64 を使用できます。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反復回数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>キーの導出に使用される PBKDF2 の反復回数です。暗号化時に使用された値と一致する必要があります。選択した形式に付属する値が事前に入力されています。別の回数を使用した場合、プロデューサーと一致するようにオーバーライドします。注: プレーンな「openssl enc -pbkdf2 -md sha256」の場合は、既定で反復回数が 10,000 になります。— 明示的な「-iter」フラグなしで生成された openssl CLI 出力を読み取る場合は、このプロパティを 10000 に設定します。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES キーのサイズ</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>入力の暗号化に使用される AES キーのサイズ (ビット単位) です。Algorithm = AES および Format = OpenSslEnc の場合にのみ適用されます。それ以外の場合は無視されます。プロデューサー (例: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc) が使用するキーのサイズと一致する必要があります。選択したキーのサイズはワイヤ形式では保存されません。— 暗号化側と復号側は一致する値を使用する必要があります。既定値は 256 ビットです。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>KDF 反復回数 (PBKDF2-HMAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>KDF 反復回数 (PBKDF2-HMAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>
