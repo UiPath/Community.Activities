@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -658,10 +658,63 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096 bit</value>
   </data>
+  <data name="AesKeySize_Aes128" xml:space="preserve">
+    <value>128 bit</value>
+  </data>
+  <data name="AesKeySize_Aes192" xml:space="preserve">
+    <value>192 bit</value>
+  </data>
+  <data name="AesKeySize_Aes256" xml:space="preserve">
+    <value>256 bit</value>
+  </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>İmzalama istendi, ancak imzalamak için özel anahtar ve parola gerekiyor. Hem özel bir anahtar akışı hem de bir parola sağlayın ya da işareti yanlış olarak ayarlayın.</value>
   </data>
   <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
     <value>İmza doğrulaması istendi, ancak doğrulamak için bir genel anahtar gerekiyor. Genel bir anahtar akışı sağlayın veya İmzayıDoğrula&apos;yı yanlış olarak ayarlayın.</value>
+  </data>
+  <data name="SymmetricWireFormat_Classic" xml:space="preserve">
+    <value>UiPath (Klasik)</value>
+  </data>
+  <data name="SymmetricWireFormat_Owasp2026" xml:space="preserve">
+    <value>UiPath (OUASP 2026)</value>
+  </data>
+  <data name="SymmetricWireFormat_Raw" xml:space="preserve">
+    <value>Ham (arayanın sağladığı anahtar ve IV)</value>
+  </data>
+  <data name="SymmetricWireFormat_OpenSslEnc" xml:space="preserve">
+    <value>OpenSSL kodlaması (Salted__ + PBKDF2 -SHA256)</value>
+  </data>
+  <data name="KeyBytesFormat_Encoded" xml:space="preserve">
+    <value>Kodlanmış (Kodlama aracılığıyla metin parolası)</value>
+  </data>
+  <data name="KeyBytesFormat_Hex" xml:space="preserve">
+    <value>Onaltılık</value>
+  </data>
+  <data name="KeyBytesFormat_Base64" xml:space="preserve">
+    <value>Base64</value>
+  </data>
+  <data name="OpenSslEnc_MissingMagic" xml:space="preserve">
+    <value>Şifreli metin Openssl &apos;Salted__&apos; sihirbaz önekiyle başlamıyor. Üreticinin &quot;openssl enc -salt&quot; kullandığını ve çıkışın ayıklanmadığını veya kodunun dönüştürülmediğini onaylayın.</value>
+  </data>
+
+  <!-- Validation messages for cross-property constraints (see SymmetricInteropHelper.ValidateInteropSettings). -->
+  <data name="Validation_RawKeyFormat_EncodedNotAllowed" xml:space="preserve">
+    <value>Anahtar bayt biçimi = İletme biçimi = Raw ile kodlamaya izin verilmez. Hex veya Base64 olarak sabit bir ham anahtar sağlayın.</value>
+  </data>
+  <data name="Validation_RawKey_LengthMismatch" xml:space="preserve">
+    <value>İşlenmemiş anahtar uzunluğu {0} bayttır ve bu, seçilen algoritma için yasal bir anahtar boyutu değil. Biri bekleniyordu: {1} bayt.</value>
+  </data>
+  <data name="Validation_PasswordFormat_NonEncodedNotAllowed" xml:space="preserve">
+    <value>Anahtar bayt biçimi = Hex veya Base64 yalnızca bağlantı biçimi = Raw olduğunda geçerlidir. Klasik, Owasp2026 ve OpenSslEnc biçimleri, Parola (Kodlanmış) olarak Anahtar dizesini kullanır.</value>
+  </data>
+  <data name="Validation_Iv_OnlyForRaw" xml:space="preserve">
+    <value>IV sadece aktarma biçimi = Ham olduğunda ayarlanabilir. Diğer biçimler IV&apos;ü şifreli metin akışına yerleştirir.</value>
+  </data>
+  <data name="Validation_KdfIterations_NotForClassicOrRaw" xml:space="preserve">
+    <value>KDF yinelemeleri sadece aktarma biçimi = Owasp2026 veya OpenSslEnc için ayarlanabilir. Klasik, 10.000 yinelemede dondurulur ve Raw bir KDF çalıştırmaz.</value>
+  </data>
+  <data name="Validation_KdfIterations_BelowMinimum" xml:space="preserve">
+    <value>KDF yinelemeleri = {0} {1}minimum yinelemenin (NistSP 800-132 tabanı) altında. OWASP şu anda PBKDF2 -SHA1 için 1.300.000 ve PBKDF2 -SHA256 için 600.000 önermektedir.</value>
   </data>
 </root>

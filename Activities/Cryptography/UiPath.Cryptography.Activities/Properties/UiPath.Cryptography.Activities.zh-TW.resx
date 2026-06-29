@@ -123,6 +123,9 @@
   <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
     <value>此平台不支援 ChaCha20-Poly1305。請改用 AES-GCM，或在提供 ChaCha20-Poly1305 的平台上執行 (使用 OpenSSL 的 Linux，或 Windows 10 1809 / Server 2019 或更高版本)。</value>
   </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>提供明確的 IV。在加密中重複使用相同的 (金鑰，IV) 組會破壞機密性，而且在 AEAD 模式 (AES-GCM、ChaCha20-Poly1305) 下，還可以讓攻擊者復原驗證金鑰，並使用該金鑰偽造任意訊息。請確認最多使用一次每個 (金鑰，IV) 組，或將 IV 留空，以便每次呼叫都產生全新的隨機 IV。</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>輸入</value>
   </data>
@@ -327,7 +330,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>用於解譯在「金鑰」屬性中指定的輸入文字和金鑰的編碼。</value>
+    <value>用於解譯在「金鑰」屬性中指定的金鑰/密碼的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -342,6 +345,22 @@
     <value>金鑰編碼</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>用於將解密位元組轉換回文字的編碼。預設為 UTF-8。請進行此設定，以便與產生加密文字的第三方工具使用的編碼相符。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>文字編碼中</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>用於將解密位元組轉換回文字的編碼。預設為 UTF-8。請進行此設定，以便與產生加密文字的第三方工具使用的編碼相符。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>文字編碼中</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>您要解密的文字。</value>
     <comment>Property description</comment>
@@ -351,7 +370,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>您想用於解密指定檔案的金鑰。</value>
+    <value>您想用於解密指定文字的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
@@ -487,7 +506,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>用於解譯在「金鑰」屬性中指定的輸入文字和金鑰的編碼。</value>
+    <value>用於解譯在「金鑰」屬性中指定的金鑰/密碼的編碼。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -500,6 +519,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>金鑰編碼</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>加密前用於將輸入文字轉換為位元組的編碼。預設為 UTF-8。進行此設定，以便與將使用加密文字的第三方工具預期的編碼相符。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>文字編碼中</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>加密前用於將輸入文字轉換為位元組的編碼。預設為 UTF-8。進行此設定，以便與將使用加密文字的第三方工具預期的編碼相符。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>文字編碼中</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -519,7 +554,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>您想用於加密指定檔案的金鑰。</value>
+    <value>您想用於加密指定文字的金鑰。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
@@ -1277,91 +1312,91 @@
     <value>作為檔案資源的已簽署檔案。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>PGP 清除簽署檔案</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>使用私密金鑰建立檔案的 PGP 透明文字簽名。</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>輸入檔案路徑</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>您要清除簽署的檔案的路徑。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
     <value>輸入檔</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
     <value>代表待簽署檔案的資源。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>私密金鑰檔案路徑</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>您自己的 PGP 私密金鑰檔案的路徑，用於清除簽署資料。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>私密金鑰檔案</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>您自己的 PGP 私密金鑰，以檔案資源形式提供。用於清除簽署資料。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>密碼</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
     <value>密碼 (安全)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
     <value>作為安全字串的密碼，用於解鎖您自己的私密金鑰以進行簽署。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>用於解鎖您自己的私密金鑰以進行簽署的密碼。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>輸出檔路徑</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>儲存清除簽署檔案的完整路徑，包括檔案名稱和副檔名。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>覆寫</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>如果檔案已存在於輸出路徑中，則選取此項會覆寫該檔案。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>錯誤時繼續</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>指定如果活動擲回錯誤，是否仍應繼續自動化。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>清除簽署的檔案</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>清除簽署的檔案作為檔案資源。</value>
     <comment>Property description</comment>
   </data>
@@ -1441,4 +1476,165 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096 位元 RSA</value>
   </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>傳輸格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>輸出位元組版面配置和金鑰衍生策略。請參閱 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>金鑰位元組格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>金鑰 (和 IV) 字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>原始格式的初始化向量。請使用與上方「金鑰位元組格式」下拉清單中所選的相同編碼格式 (十六進位或 Base64) 提供。留空可自動產生隨機 IV。長度必須與演算法的 IV 大小相符 (AES/Rajndael 為 16 個位元組、AESGCM/ChaCha20Poly1305 為 12 個位元組、DES/TripleDES/RC2 為 8 個位元組)。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反覆運算</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 反覆運算計數，僅用於 Owasp2026 和 OpenSslEnc 格式。使用該格式隨附的值預先填入: 1,300,000 表示 Owasp2026 (PBKDF2-HMAC-SHA1)、600,000 表示 OpenSslEnc (PBKDF2-HMAC-SHA256)。注意: 無格式的 &quot;openssl enc -pbkdf2 -md sha256&quot; 預設為 10,000 次反覆運算，以用於反向相容 — 若要使用 CLI 來回傳輸，您必須在 openssl 端傳遞 &quot;-iter 600000&quot;，或將此屬性設定為 10000。僅在您需要使用不同計數的對等體互通時覆寫。最小值為 1,000。反覆運算計數未以傳輸格式儲存 — 加密端和解密端必須使用相符的值。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 金鑰大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES 金鑰大小 (位元)。僅適用於 Algorithm = AES 且 Format = OpenSslEnc; 否則將忽略。必須與對等體使用的金鑰大小相符 (例如，openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)。所選金鑰大小未以傳輸格式儲存 — 加密端和解密端必須使用相符的值。預設值: 256 位元。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>傳輸格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>輸入位元組版面配置和金鑰衍生策略。必須與產生加密文字的格式相符。請參閱 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>金鑰位元組格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>金鑰字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反覆運算</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>用於衍生金鑰的 PBKDF2 反覆運算計數。必須與加密時使用的值相符。使用所選格式隨附的值預先填入; 如果製作者使用了不同的計數，則覆寫以符合製作者的要求。注意: 無格式的 &quot;openssl enc -pbkdf2 -md sha256&quot; 預設為 10,000 次反覆運算 — 在讀取沒有明確 &quot;-iter&quot; 旗標的情況下產生的 openssl CLI 輸出時，請將此屬性設定為 10000。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 金鑰大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>用於加密輸入的 AES 金鑰大小 (位元)。僅適用於 Algorithm = AES 且 Format = OpenSslEnc; 否則將忽略。必須與製作者使用的金鑰大小相符 (例如，openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)。所選金鑰大小未以傳輸格式儲存 — 加密端和解密端必須使用相符的值。預設值: 256 位元。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>傳輸格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>輸出位元組版面配置和金鑰衍生策略。請參閱 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>金鑰位元組格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>金鑰 (和 IV) 字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>原始格式的初始化向量。請使用與上方「金鑰位元組格式」下拉清單中所選的相同編碼格式 (十六進位或 Base64) 提供。留空可自動產生隨機 IV。長度必須與演算法的 IV 大小相符 (AES/Rajndael 為 16 個位元組、AESGCM/ChaCha20Poly1305 為 12 個位元組、DES/TripleDES/RC2 為 8 個位元組)。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反覆運算</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 反覆運算計數，僅用於 Owasp2026 和 OpenSslEnc 格式。使用該格式隨附的值預先填入: 1,300,000 表示 Owasp2026 (PBKDF2-HMAC-SHA1)、600,000 表示 OpenSslEnc (PBKDF2-HMAC-SHA256)。注意: 無格式的 &quot;openssl enc -pbkdf2 -md sha256&quot; 預設為 10,000 次反覆運算，以用於反向相容 — 若要使用 CLI 來回傳輸，您必須在 openssl 端傳遞 &quot;-iter 600000&quot;，或將此屬性設定為 10000。僅在您需要使用不同計數的對等體互通時覆寫。最小值為 1,000。反覆運算計數未以傳輸格式儲存 — 加密端和解密端必須使用相符的值。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 金鑰大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES 金鑰大小 (位元)。僅適用於 Algorithm = AES 且 Format = OpenSslEnc; 否則將忽略。必須與對等體使用的金鑰大小相符 (例如，openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)。所選金鑰大小未以傳輸格式儲存 — 加密端和解密端必須使用相符的值。預設值: 256 位元。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>傳輸格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>輸入位元組版面配置和金鑰衍生策略。必須與產生加密文字的格式相符。請參閱 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>金鑰位元組格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>金鑰字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 反覆運算</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>用於衍生金鑰的 PBKDF2 反覆運算計數。必須與加密時使用的值相符。使用所選格式隨附的值預先填入; 如果製作者使用了不同的計數，則覆寫以符合製作者的要求。注意: 無格式的 &quot;openssl enc -pbkdf2 -md sha256&quot; 預設為 10,000 次反覆運算 — 在讀取沒有明確 &quot;-iter&quot; 旗標的情況下產生的 openssl CLI 輸出時，請將此屬性設定為 10000。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 金鑰大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>用於加密輸入的 AES 金鑰大小 (位元)。僅適用於 Algorithm = AES 且 Format = OpenSslEnc; 否則將忽略。必須與製作者使用的金鑰大小相符 (例如，openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)。所選金鑰大小未以傳輸格式儲存 — 加密端和解密端必須使用相符的值。預設值: 256 位元。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>KDF 反覆運算 (PBKDF2-HMAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>KDF 反覆運算 (PBKDF2-HMAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>

@@ -123,6 +123,9 @@
   <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
     <value>ChaCha20-Poly1305는 이 플랫폼에서 지원되지 않습니다. 대신 AES-GCM을 사용하거나, ChaCha20-Poly1305를 제공하는 플랫폼(OpenSSL이 설치된 Linux, 또는 Windows 10 1809 / Server 2019 이상)에서 실행하십시오.</value>
   </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>명시적 IV가 제공되었습니다. 암호화 과정 전반에 걸쳐 동일한 (키, IV) 쌍을 재사용하면 기밀성이 손상되며, AEAD 모드(AES-GCM, ChaCcha20-Poly1305)에서는 추가로 공격자가 인증 키를 복구하여 해당 키로 임의의 메시지를 위조할 수 있습니다. 각 (키, IV) 쌍이 한 번만 사용되도록 하거나, 호출할 때마다 새로운 임의의 IV가 생성되도록 IV를 비워둡니다.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>입력</value>
   </data>
@@ -327,7 +330,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>입력 텍스트 및 키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <value>키 속성에 지정된 키/암호를 해석하는 데 사용되는 인코딩입니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -342,6 +345,22 @@
     <value>키 인코딩</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>복호화된 바이트를 다시 텍스트로 변환하는 데 사용되는 인코딩입니다. 기본값은 UTF-8입니다. 암호문을 생성한 타사 도구에서 사용된 인코딩과 일치하도록 설정하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>텍스트 인코딩</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>복호화된 바이트를 다시 텍스트로 변환하는 데 사용되는 인코딩입니다. 기본값은 UTF-8입니다. 암호문을 생성한 타사 도구에서 사용된 인코딩과 일치하도록 설정하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>텍스트 인코딩</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>암호를 해독할 텍스트입니다.</value>
     <comment>Property description</comment>
@@ -351,7 +370,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>지정된 파일의 암호를 해독하는 데 사용할 키입니다.</value>
+    <value>지정된 텍스트의 복호화하는 데 사용할 키입니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
@@ -487,7 +506,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>입력 텍스트 및 키 속성에 지정된 키를 해석하는 데 사용되는 인코딩입니다.</value>
+    <value>키 속성에 지정된 키/암호를 해석하는 데 사용되는 인코딩입니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -500,6 +519,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>키 인코딩</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>암호화 전에 입력 텍스트를 바이트로 변환하는 데 사용되는 인코딩입니다. 기본값은 UTF-8입니다. 암호문을 사용할 타사 도구에서 예상되는 인코딩과 일치하도록 설정하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>텍스트 인코딩</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>암호화 전에 입력 텍스트를 바이트로 변환하는 데 사용되는 인코딩입니다. 기본값은 UTF-8입니다. 암호문을 사용할 타사 도구에서 예상되는 인코딩과 일치하도록 설정하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>텍스트 인코딩</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -519,7 +554,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>지정된 파일을 암호화하는 데 사용할 키입니다.</value>
+    <value>지정된 텍스트를 암호화하는 데 사용할 키입니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
@@ -1277,91 +1312,91 @@
     <value>파일 리소스로서의 서명된 파일입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Name" xml:space="preserve">
     <value>PGP Clear Sign File</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Description" xml:space="preserve">
     <value>개인 키를 사용하여 파일의 PGP 일반 텍스트 서명을 생성합니다.</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Name" xml:space="preserve">
     <value>입력 파일 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
     <value>클리어사인할 파일의 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
     <value>입력 파일</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_InputFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
     <value>서명할 파일을 나타내는 리소스입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>개인 키 파일 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>데이터를 클리어사인하는 데 사용되는 사용자 본인의 PGP 비공개 키 파일 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>개인 키 파일</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>파일 리소스로 제공되는 자신의 PGP 비공개 키입니다. 데이터를 클리어사인하는 데 사용됩니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>암호 문구</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
     <value>암호(보안)</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
     <value>서명을 위해 자신의 비공개 키 잠금을 해제하는 보안 문자열 형태의 암호입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Passphrase_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
     <value>서명을 위해 자신의 비공개 키를 잠금 해제하는 암호입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
     <value>출력 파일 경로</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_OutputFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
     <value>클리어사인된 파일이 저장될 파일 이름과 확장자를 포함한 전체 경로입니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
     <value>덮어쓰기</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_Overwrite_Description" xml:space="preserve">
     <value>출력 경로에 파일이 이미 존재하는 경우 이 옵션을 선택하면 파일을 덮어씁니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Name" xml:space="preserve">
     <value>오류 발생 시 계속</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ContinueOnError_Description" xml:space="preserve">
     <value>액티비티 패널에 오류가 발생해도 자동화를 계속 진행할지 지정합니다.</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Name" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Name" xml:space="preserve">
     <value>클리어사인된 파일</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpClearsignFile_Property_ClearSignedFile_Description" xml:space="preserve">
+  <data name="Activity_PgpClearSignFile_Property_ClearSignedFile_Description" xml:space="preserve">
     <value>파일 리소스로서의 클리어사인된 파일입니다.</value>
     <comment>Property description</comment>
   </data>
@@ -1441,4 +1476,165 @@
   <data name="RsaKeySize_Rsa4096" xml:space="preserve">
     <value>4096비트 RSA</value>
   </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>와이어 포맷</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>출력 바이트 레이아웃 및 키 파생 전략입니다. docs/symmetric-wire-format.md를 참조하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>키 바이트 형식</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>키(및 IV) 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>Raw 형식의 초기화 벡터입니다. 위의 &quot;키 바이트 형식&quot; 드롭다운에서 선택한 것과 동일한 인코딩으로 제공합니다(Hex 또는 Base64). 무작위 IV를 자동 생성하려면 비워 둡니다. 길이는 알고리즘의 IV 크기와 일치해야 합니다(AES/Rijndael의 경우 16바이트, AESGCM/ChaCha20Poly1305의 경우 12바이트, DES/TripleDES/RC2의 경우 8바이트).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 반복 횟수</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 반복 횟수로, Owasp2026 및 OpenSslENC 형식에만 사용됩니다. 해당 형식에 기본 제공되는 값으로 미리 채워집니다. Owasp2026(PBKDF2-HMAC-SHA1)의 경우 1,300,000, OpenSslEnc(PBKDF2-HMAC-SHA256)의 경우 600,000입니다. 참고: 일반 `openssl enc -pbkdf2 -md Sha256`은 하위 호환성을 위해 기본값이 10,000회 반복입니다 — CLI를 통해 왕복 통신을 수행하려면 openssl 측에서 `-iter 600000`을 전달하거나 이 속성을 10000으로 설정해야 합니다. 다른 반복 횟수를 사용하는 상대방과 상호 작용해야 하는 경우에만 이 값을 재정의하십시오. 최소값은 1,000입니다. 반복 횟수는 와이어 포맷에 저장되지 않으므로 암호화 측과 복호화 측이 일치하는 값을 사용해야 합니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 키 크기</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES 키 크기(비트 단위)입니다. Algorithm = AES이고 Format = OpenSslEnc인 경우에만 적용되며, 그 외에는 무시됩니다. 피어(예: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)가 사용하는 키 크기와 일치해야 합니다. 선택한 키 크기는 와이어 포맷에 저장되지 않으므로 암호화 측과 복호화 측이 일치하는 값을 사용해야 합니다. 기본값: 256비트.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>와이어 포맷</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>입력 바이트 레이아웃 및 키 파생 전략입니다. 암호문을 생성한 형식과 일치해야 합니다. docs/symmetric-wire-format.md를 참조하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>키 바이트 형식</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>키 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64입니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 반복 횟수</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 반복 횟수로, 키를 파생하는 데 사용됩니다. 암호화 시 사용된 값과 일치해야 합니다. 선택한 형식이 기본적으로 제공하는 값으로 미리 채워져 있습니다. 생성자가 다른 횟수를 사용한 경우 해당 값에 맞게 재정의해야 합니다. 참고: 일반 `openssl enc -pbkdf2 -md Sha256`의 기본값은 10,000회 반복입니다 — 명시적인 `-iter` 플래그 없이 생성된 openssl CLI 출력을 읽을 때는 이 속성을 10000으로 설정하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 키 크기</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>입력을 암호화하는 데 사용되는 AES 키 크기(비트 단위)입니다. Algorithm = AES이고 Format = OpenSslEnc인 경우에만 적용되며, 그 외에는 무시됩니다. 생성자(예: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)가 사용한 키 크기와 일치해야 합니다. 선택한 키 크기는 와이어 포맷에 저장되지 않으므로 암호화 측과 복호화 측이 일치하는 값을 사용해야 합니다. 기본값: 256비트.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>와이어 포맷</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>출력 바이트 레이아웃 및 키 파생 전략입니다. docs/symmetric-wire-format.md를 참조하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>키 바이트 형식</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>키(및 IV) 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>Raw 형식의 초기화 벡터입니다. 위의 &quot;키 바이트 형식&quot; 드롭다운에서 선택한 것과 동일한 인코딩으로 제공합니다(Hex 또는 Base64). 무작위 IV를 자동 생성하려면 비워 둡니다. 길이는 알고리즘의 IV 크기와 일치해야 합니다(AES/Rijndael의 경우 16바이트, AESGCM/ChaCha20Poly1305의 경우 12바이트, DES/TripleDES/RC2의 경우 8바이트).</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 반복 횟수</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 반복 횟수로, Owasp2026 및 OpenSslENC 형식에만 사용됩니다. 해당 형식에 기본 제공되는 값으로 미리 채워집니다. Owasp2026(PBKDF2-HMAC-SHA1)의 경우 1,300,000, OpenSslEnc(PBKDF2-HMAC-SHA256)의 경우 600,000입니다. 참고: 일반 `openssl enc -pbkdf2 -md Sha256`은 하위 호환성을 위해 기본값이 10,000회 반복입니다 — CLI를 통해 왕복 통신을 수행하려면 openssl 측에서 `-iter 600000`을 전달하거나 이 속성을 10000으로 설정해야 합니다. 다른 반복 횟수를 사용하는 상대방과 상호 작용해야 하는 경우에만 이 값을 재정의하십시오. 최소값은 1,000입니다. 반복 횟수는 와이어 포맷에 저장되지 않으므로 암호화 측과 복호화 측이 일치하는 값을 사용해야 합니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 키 크기</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES 키 크기(비트 단위)입니다. Algorithm = AES이고 Format = OpenSslEnc인 경우에만 적용되며, 그 외에는 무시됩니다. 피어(예: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)가 사용하는 키 크기와 일치해야 합니다. 선택한 키 크기는 와이어 포맷에 저장되지 않으므로 암호화 측과 복호화 측이 일치하는 값을 사용해야 합니다. 기본값: 256비트.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>와이어 포맷</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>입력 바이트 레이아웃 및 키 파생 전략입니다. 암호문을 생성한 형식과 일치해야 합니다. docs/symmetric-wire-format.md를 참조하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>키 바이트 형식</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>키 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64입니다.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 반복 횟수</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 반복 횟수로, 키를 파생하는 데 사용됩니다. 암호화 시 사용된 값과 일치해야 합니다. 선택한 형식이 기본적으로 제공하는 값으로 미리 채워져 있습니다. 생성자가 다른 횟수를 사용한 경우 해당 값에 맞게 재정의해야 합니다. 참고: 일반 `openssl enc -pbkdf2 -md Sha256`의 기본값은 10,000회 반복입니다 — 명시적인 `-iter` 플래그 없이 생성된 openssl CLI 출력을 읽을 때는 이 속성을 10000으로 설정하십시오.</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 키 크기</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>입력을 암호화하는 데 사용되는 AES 키 크기(비트 단위)입니다. Algorithm = AES이고 Format = OpenSslEnc인 경우에만 적용되며, 그 외에는 무시됩니다. 생성자(예: openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc)가 사용한 키 크기와 일치해야 합니다. 선택한 키 크기는 와이어 포맷에 저장되지 않으므로 암호화 측과 복호화 측이 일치하는 값을 사용해야 합니다. 기본값: 256비트.</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>KDF 반복 횟수(PBKDF2-HMAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>KDF 반복 횟수(PBKDF2-HMAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>
