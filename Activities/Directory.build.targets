@@ -17,7 +17,7 @@
 		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20240401-07" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="6.0.0-20220318.2" />
 		<PackageReference Update="System.Activities.Metadata" Version="6.0.0-20240517.13" PrivateAssets="All"/>
-		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20250625.2"/>
+		<PackageReference Update="System.Activities.ViewModels" Version="1.20260609.1"/>
 		<PackageReference Update="System.Activities" Version="5.0.0-20210730-02" />
 	</ItemGroup>
 
@@ -27,7 +27,6 @@
 
 	<ItemGroup>
     <!-- See above, please upgrade in all places-->
-		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Telemetry.Client" Version="2.9.1" />
 		<PackageReference Update="UiPath.Platform" Version="25.12.1"/>
 		<PackageReference Update="UiPath.CodedWorkflows" Version="24.10.2"/>
@@ -42,7 +41,7 @@
 
 		<!-- Studio contract-->
 		<PackageReference Update="UiPath.Activities.Contracts" Version="24.10.1" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Activities.Api" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<PropertyGroup>

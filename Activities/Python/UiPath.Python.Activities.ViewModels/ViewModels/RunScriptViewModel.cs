@@ -1,4 +1,6 @@
 ﻿using System.Activities.DesignViewModels;
+using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
@@ -32,7 +34,15 @@ namespace UiPath.Activities.Python.ViewModels
             Code.Tooltip = Resources.CodeDescription;
             Code.Category = Resources.Input;
             Code.IsPrincipal = true;
+            Code.Widget = new DefaultWidget
+            {
+                Type = WidgetSupportHelper.CheckWidgetSupport(Services, ViewModelWidgetType.CodeEditor),
+                Metadata = new Dictionary<string, string>
+                {
+                    ["language"] = WidgetSupportHelper.PythonLanguage,
+                    ["multiline"] = bool.TrueString.ToLowerInvariant(),
+                },
+            };
         }
-
     }
 }
