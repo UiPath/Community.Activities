@@ -294,10 +294,10 @@
     <value>Durata, în secunde, permisă pentru rularea unui script Python până când acesta este oprit și este generată o excepție.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Pentru Linux este calea către Python libpython*.so inclusiv numele bibliotecii. Pentru Windows (versiune&gt;3.9) Calea către Python**.dll inclusiv numele bibliotecii (de obicei este pe calea Python Home). Pentru Windows (versiune&lt;=3.9) Lasă gol.</value>
+    <value>Obligatoriu. Calea completă către biblioteca runtime Python, inclusiv numele fișierului — python**.dll pe Windows (de exemplu, python313.dll, de obicei în folderul principal Python), libpython*.so pe Linux sau libpython*.dylib pe macOS.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Library path (Linux or version&gt;3.9)</value>
+    <value>Cale bibliotecă</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>Versiunea Python selectată nu este acceptată.</value>

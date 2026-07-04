@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da cadeia Chave (e IV): Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da cadeia Chave (e IV): Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64. A entrada Base64 permite espaços em branco, moldagens de linhas, carateres seguros para URL (- e _) e preenchimento em falta.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da cadeia Chave: Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da cadeia Chave: Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64. A entrada Base64 permite espaços em branco, moldagens de linhas, carateres seguros para URL (- e _) e preenchimento em falta.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da cadeia Chave (e IV): Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da cadeia Chave (e IV): Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64. A entrada Base64 permite espaços em branco, moldagens de linhas, carateres seguros para URL (- e _) e preenchimento em falta.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da cadeia Chave: Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da cadeia Chave: Hex (por exemplo, 64 carateres para uma chave AES-256) ou Base64. A entrada Base64 permite espaços em branco, moldagens de linhas, carateres seguros para URL (- e _) e preenchimento em falta.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">

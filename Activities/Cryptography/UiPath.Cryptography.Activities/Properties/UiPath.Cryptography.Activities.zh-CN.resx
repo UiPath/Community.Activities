@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Key（和 IV）字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。</value>
+    <value>Key（和 IV）字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Key 字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。</value>
+    <value>Key 字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Key（和 IV）字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。</value>
+    <value>Key（和 IV）字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Key 字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。</value>
+    <value>Key 字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">

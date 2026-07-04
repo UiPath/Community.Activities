@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificación del string Clave (e IV): Hex (p. ej., 64 caracteres para una clave AES-256) o Base64.</value>
+    <value>Codificación del string Clave (e IV): Hex (p. ej., 64 caracteres para una clave AES-256) o Base64. La entrada de Base64 tolera espacios en blanco, ajustes de línea, caracteres seguros para URL (- y _) y falta de relleno.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificación del string Clave: Hex (p. ej., 64 caracteres para una clave AES-256) o Base64.</value>
+    <value>Codificación del string Clave: Hex (p. ej., 64 caracteres para una clave AES-256) o Base64. La entrada de Base64 tolera espacios en blanco, ajustes de línea, caracteres seguros para URL (- y _) y falta de relleno.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificación del string Clave (e IV): Hex (p. ej., 64 caracteres para una clave AES-256) o Base64.</value>
+    <value>Codificación del string Clave (e IV): Hex (p. ej., 64 caracteres para una clave AES-256) o Base64. La entrada de Base64 tolera espacios en blanco, ajustes de línea, caracteres seguros para URL (- y _) y falta de relleno.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificación del string Clave: Hex (p. ej., 64 caracteres para una clave AES-256) o Base64.</value>
+    <value>Codificación del string Clave: Hex (p. ej., 64 caracteres para una clave AES-256) o Base64. La entrada de Base64 tolera espacios en blanco, ajustes de línea, caracteres seguros para URL (- y _) y falta de relleno.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
