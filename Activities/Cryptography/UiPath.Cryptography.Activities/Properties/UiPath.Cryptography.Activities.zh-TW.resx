@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>金鑰 (和 IV) 字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <value>金鑰 (和 IV) 字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。Base64 輸入允許空格、換行、URL 安全字元 (- 和 _)，以及缺少填補。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>金鑰字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <value>金鑰字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。Base64 輸入允許空格、換行、URL 安全字元 (- 和 _)，以及缺少填補。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>金鑰 (和 IV) 字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <value>金鑰 (和 IV) 字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。Base64 輸入允許空格、換行、URL 安全字元 (- 和 _)，以及缺少填補。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>金鑰字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。</value>
+    <value>金鑰字串的編碼: 十六進位 (例如，64 個字元 (用於 AES-256 金鑰) 或 Base64。Base64 輸入允許空格、換行、URL 安全字元 (- 和 _)，以及缺少填補。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">

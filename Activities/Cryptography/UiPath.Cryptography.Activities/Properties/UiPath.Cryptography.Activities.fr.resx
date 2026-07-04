@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>L’encodage de la propriété Key (et IV) : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64.</value>
+    <value>L’encodage de la propriété Key (et IV) : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64. Une saisie en Base64 accepte les espaces, les retours à la ligne, les caractères compatibles avec les URL (- et _) et l’absence de marge intérieure.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>L’encodage de la propriété Key : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64.</value>
+    <value>L’encodage de la propriété Key : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64. Une saisie en Base64 accepte les espaces, les retours à la ligne, les caractères compatibles avec les URL (- et _) et l’absence de marge intérieure.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>L’encodage de la propriété Key (et IV) : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64.</value>
+    <value>L’encodage de la propriété Key (et IV) : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64. Une saisie en Base64 accepte les espaces, les retours à la ligne, les caractères compatibles avec les URL (- et _) et l’absence de marge intérieure.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>L’encodage de la propriété Key : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64.</value>
+    <value>L’encodage de la propriété Key : hexadécimal (p. ex. : 64 caractères pour une clé AES-256) ou Base64. Une saisie en Base64 accepte les espaces, les retours à la ligne, les caractères compatibles avec les URL (- et _) et l’absence de marge intérieure.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">

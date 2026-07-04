@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>키(및 IV) 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64.</value>
+    <value>키(및 IV) 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64. Base64 입력은 공백, 줄바꿈, URL 안전 문자(- 및 _), 패딩 누락을 허용합니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>키 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64입니다.</value>
+    <value>키 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64입니다. Base64 입력은 공백, 줄바꿈, URL 안전 문자(- 및 _), 패딩 누락을 허용합니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>키(및 IV) 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64.</value>
+    <value>키(및 IV) 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64. Base64 입력은 공백, 줄바꿈, URL 안전 문자(- 및 _), 패딩 누락을 허용합니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>키 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64입니다.</value>
+    <value>키 문자열 인코딩: Hex(예: AES-256 키의 경우 64자) 또는 Base64입니다. Base64 입력은 공백, 줄바꿈, URL 안전 문자(- 및 _), 패딩 누락을 허용합니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">

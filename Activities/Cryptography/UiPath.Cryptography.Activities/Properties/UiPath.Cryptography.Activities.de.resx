@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codierung des Schlüssel- (und des IV)-Strings: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <value>Codierung des Schlüssel- (und des IV)-Strings: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64. Die Base64-Eingabe toleriert Leerzeichen, Zeilenumbrüche, URL-sichere Zeichen (- und _) sowie fehlende Füllzeichen.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codierung der Schlüsselzeichenfolge: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <value>Codierung der Schlüsselzeichenfolge: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64. Die Base64-Eingabe toleriert Leerzeichen, Zeilenumbrüche, URL-sichere Zeichen (- und _) sowie fehlende Füllzeichen.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codierung des Schlüssel- (und des IV)-Strings: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <value>Codierung des Schlüssel- (und des IV)-Strings: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64. Die Base64-Eingabe toleriert Leerzeichen, Zeilenumbrüche, URL-sichere Zeichen (- und _) sowie fehlende Füllzeichen.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codierung der Schlüsselzeichenfolge: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64.</value>
+    <value>Codierung der Schlüsselzeichenfolge: Hex (z. B. 64 Zeichen für einen AES-256-Schlüssel) oder Base64. Die Base64-Eingabe toleriert Leerzeichen, Zeilenumbrüche, URL-sichere Zeichen (- und _) sowie fehlende Füllzeichen.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">

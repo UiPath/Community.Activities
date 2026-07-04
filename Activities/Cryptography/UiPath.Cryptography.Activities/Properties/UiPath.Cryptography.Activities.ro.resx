@@ -1491,7 +1491,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificarea șirului Key (și IV): Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <value>Codificarea șirului de cheie (și IV): Hex (de ex. 64 de caractere pentru o cheie AES-256) sau Base64. Intrarea Base64 acceptă spații albe, întreruperi de linie, caractere sigure pentru URL (- și _) și lipsa caracterelor de completare.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1532,7 +1532,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificarea șirului Key: Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <value>Codificarea șirului de cheie: Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64. Intrarea Base64 acceptă spații albe, întreruperi de linie, caractere sigure pentru URL (- și _) și lipsa caracterelor de umplere.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1565,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificarea șirului Key (și IV): Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <value>Codificarea șirului Key (și IV): Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64. Intrarea Base64 acceptă spații albe, întreruperi de linie, caractere sigure pentru URL (- și _) și lipsa caracterelor de umplere.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1606,7 +1606,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificarea șirului Key: Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64.</value>
+    <value>Codificarea șirului de cheie: Hex (de exemplu, 64 de caractere pentru o cheie AES-256) sau Base64. Intrarea Base64 tolerează spațiile albe, întreruperile de linie, caracterele sigure pentru URL (- și _) și lipsa caracterelor de umplere.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
