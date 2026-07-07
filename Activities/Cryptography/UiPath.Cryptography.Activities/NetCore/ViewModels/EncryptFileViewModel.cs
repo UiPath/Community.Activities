@@ -53,7 +53,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             OutputFilePath.OrderIndex = orderIndex++;
             OutputFilePath.Category = Resources.Category_Options_Name;
 
-            Overwrite.IsPrincipal = true;
+            Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = orderIndex++;
             Overwrite.Category = Resources.Category_Options_Name;
             Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };

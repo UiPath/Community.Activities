@@ -106,7 +106,7 @@ namespace UiPath.Cryptography.Activities
         public InArgument<string> OutputFileName { get; set; }
 
         [RequiredArgument]
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Options_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_Overwrite_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_Overwrite_Description))]
         public bool Overwrite { get; set; }
