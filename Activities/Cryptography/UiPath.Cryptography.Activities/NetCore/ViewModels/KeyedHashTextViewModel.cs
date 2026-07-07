@@ -106,15 +106,16 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
 
-            Result.IsPrincipal = true;
-            Result.OrderIndex = propertyOrderIndex++;
-            Result.Category = Resources.Output;
-
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex;
+            ContinueOnError.OrderIndex = propertyOrderIndex++;
             ContinueOnError.Category = Resources.Category_Options_Name;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
+
+            // Output is assigned last so it renders after the Options section (guideline "outputs last").
+            Result.IsPrincipal = true;
+            Result.OrderIndex = propertyOrderIndex++;
+            Result.Category = Resources.Output;
 
             _keyToggle.ConfigureMenuActions();
             ApplyKeyInputModeVisibility();
