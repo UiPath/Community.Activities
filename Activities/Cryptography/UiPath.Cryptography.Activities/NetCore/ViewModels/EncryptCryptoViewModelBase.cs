@@ -27,6 +27,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         private readonly PairedInputToggle<string, SecureString> _keyToggle;
         private readonly PairedInputToggle<string, SecureString> _passphraseToggle;
         private readonly PairedInputToggle<string, IResource> _publicKeyFileToggle;
+        private readonly PairedInputToggle<string, IResource> _privateKeyFileToggle;
 
         protected EncryptCryptoViewModelBase(IDesignServices services) : base(services)
         {
@@ -56,6 +57,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             {
                 AfterSwitch = ApplyPublicKeyVisibility,
             };
+
+            _privateKeyFileToggle = new PairedInputToggle<string, IResource>(
+                PrivateKeyFilePath, PrivateKeyFile,
+                Resources.MenuAction_UseFilePath,
+                Resources.MenuAction_UseFile)
+            {
+                AfterSwitch = ApplyPrivateKeyVisibility,
+            };
         }
 
         public DesignProperty<EncryptionAlgorithm> Algorithm { get; set; } = new DesignProperty<EncryptionAlgorithm>();
@@ -71,6 +80,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<IResource> PublicKeyFile { get; set; } = new DesignInArgument<IResource>();
         public DesignProperty<bool> SignData { get; set; } = new DesignProperty<bool>();
         public DesignInArgument<string> PrivateKeyFilePath { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<IResource> PrivateKeyFile { get; set; } = new DesignInArgument<IResource>();
         public DesignInArgument<string> Passphrase { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<SecureString> PassphraseSecureString { get; set; } = new DesignInArgument<SecureString>();
 
@@ -158,7 +168,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             Format.IsPrincipal = false;
             Format.OrderIndex = orderIndex++;
-            Format.Category = Resources.Input;
+            Format.Category = Resources.Category_Advanced_Name;
             Format.DataSource = DataSourceHelper.ForEnum(
                 SymmetricWireFormat.Classic,
                 SymmetricWireFormat.Owasp2026,
@@ -169,7 +179,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeyFormat.IsPrincipal = false;
             KeyFormat.IsVisible = false;
             KeyFormat.OrderIndex = orderIndex++;
-            KeyFormat.Category = Resources.Input;
+            KeyFormat.Category = Resources.Category_Advanced_Name;
             // Encoded is intentionally omitted — the dropdown is visible only when Format = Raw,
             // and Raw rejects Encoded at runtime. FormatChanged_Action keeps the underlying value
             // in sync (Hex when Raw, Encoded otherwise) so non-Raw runtime validation stays clean.
@@ -181,17 +191,17 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             Iv.IsPrincipal = false;
             Iv.IsVisible = false;
             Iv.OrderIndex = orderIndex++;
-            Iv.Category = Resources.Input;
+            Iv.Category = Resources.Category_Advanced_Name;
 
             KdfIterations.IsPrincipal = false;
             KdfIterations.IsVisible = false;
             KdfIterations.OrderIndex = orderIndex++;
-            KdfIterations.Category = Resources.Input;
+            KdfIterations.Category = Resources.Category_Advanced_Name;
 
             AesKeySize.IsPrincipal = false;
             AesKeySize.IsVisible = false;
             AesKeySize.OrderIndex = orderIndex++;
-            AesKeySize.Category = Resources.Input;
+            AesKeySize.Category = Resources.Category_Advanced_Name;
             AesKeySize.DataSource = DataSourceHelper.ForEnum(
                 AesKeySizeEnum.Aes128,
                 AesKeySizeEnum.Aes192,
@@ -231,8 +241,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             PrivateKeyFilePath.IsPrincipal = false;
             PrivateKeyFilePath.IsVisible = false;
-            PrivateKeyFilePath.OrderIndex = orderIndex++;
+            PrivateKeyFilePath.OrderIndex = orderIndex;
             PrivateKeyFilePath.Category = Resources.Input;
+
+            PrivateKeyFile.IsPrincipal = false;
+            PrivateKeyFile.IsVisible = false;
+            PrivateKeyFile.OrderIndex = orderIndex;
+            PrivateKeyFile.Category = Resources.Input;
+            orderIndex++;
 
             Passphrase.IsPrincipal = false;
             Passphrase.IsVisible = false;
@@ -250,6 +266,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         /// Registers Main-menu actions to toggle between PublicKeyFilePath (string) and PublicKeyFile (IResource).
         /// </summary>
         protected void ConfigurePublicKeyFileMenuActions() => _publicKeyFileToggle.ConfigureMenuActions();
+
+        /// <summary>
+        /// Registers Main-menu actions to toggle between PrivateKeyFilePath (string) and PrivateKeyFile (IResource).
+        /// </summary>
+        protected void ConfigurePrivateKeyFileMenuActions() => _privateKeyFileToggle.ConfigureMenuActions();
 
         /// <summary>
         /// Registers Main-menu actions to toggle between Key (string) and KeySecureString (SecureString),
@@ -287,6 +308,19 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             PublicKeyFile.IsRequired = isPgp && useResource;
             PublicKeyFilePath.IsPrincipal = isPgp;
             PublicKeyFile.IsPrincipal = isPgp;
+        }
+
+        private void ApplyPrivateKeyVisibility()
+        {
+            // The private key is only relevant when Algorithm == PGP AND SignData is enabled.
+            bool active = Algorithm.Value == EncryptionAlgorithm.PGP && SignData.Value;
+            bool useResource = _privateKeyFileToggle.UseSecondary;
+            PrivateKeyFilePath.IsVisible = active && !useResource;
+            PrivateKeyFilePath.IsRequired = active && !useResource;
+            PrivateKeyFile.IsVisible = active && useResource;
+            PrivateKeyFile.IsRequired = active && useResource;
+            PrivateKeyFilePath.IsPrincipal = active;
+            PrivateKeyFile.IsPrincipal = active;
         }
 
         private void ApplyPassphraseVisibility()
@@ -328,9 +362,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ApplyPublicKeyVisibility();
             SignData.IsVisible = isPgp;
             SignData.IsPrincipal = isPgp;
-            PrivateKeyFilePath.IsVisible = isPgp && SignData.Value;
-            PrivateKeyFilePath.IsRequired = isPgp && SignData.Value;
-            PrivateKeyFilePath.IsPrincipal = isPgp && SignData.Value;
+            ApplyPrivateKeyVisibility();
             ApplyPassphraseVisibility();
             ApplyInteropVisibility();
             OnAlgorithmChanged(isPgp);
@@ -424,9 +456,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             if (Algorithm.Value != EncryptionAlgorithm.PGP) return;
 
-            PrivateKeyFilePath.IsVisible = SignData.Value;
-            PrivateKeyFilePath.IsRequired = SignData.Value;
-            PrivateKeyFilePath.IsPrincipal = SignData.Value;
+            ApplyPrivateKeyVisibility();
             ApplyPassphraseVisibility();
         }
     }

@@ -61,6 +61,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureTailProperties(ref orderIndex);
             ConfigureKeyInputModeMenuActions();
             ConfigurePublicKeyFileMenuActions();
+            ConfigurePrivateKeyFileMenuActions();
             ConfigureInputFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
 
@@ -107,6 +108,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Tooltip = Resources.Activity_DecryptFile_Property_ContinueOnError_Description;
             PrivateKeyFilePath.DisplayName = Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Name;
             PrivateKeyFilePath.Tooltip = Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Description;
+            PrivateKeyFile.DisplayName = Resources.Activity_DecryptFile_Property_PrivateKeyFile_Name;
+            PrivateKeyFile.Tooltip = Resources.Activity_DecryptFile_Property_PrivateKeyFile_Description;
             Passphrase.DisplayName = Resources.Activity_DecryptFile_Property_Passphrase_Name;
             Passphrase.Tooltip = Resources.Activity_DecryptFile_Property_Passphrase_Description;
             PassphraseSecureString.DisplayName = Resources.Activity_DecryptFile_Property_PassphraseSecureString_Name;

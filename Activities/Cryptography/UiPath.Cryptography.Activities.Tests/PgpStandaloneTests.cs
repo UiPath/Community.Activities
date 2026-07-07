@@ -674,6 +674,30 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.NotNull(typeof(PgpVerify).GetProperty(nameof(PgpVerify.PublicKeyFile)));
         }
 
+        [Fact]
+        public void EncryptText_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(EncryptText).GetProperty(nameof(EncryptText.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void EncryptFile_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(EncryptFile).GetProperty(nameof(EncryptFile.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void DecryptText_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(DecryptText).GetProperty(nameof(DecryptText.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void DecryptFile_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(DecryptFile).GetProperty(nameof(DecryptFile.PrivateKeyFile)));
+        }
+
         #endregion
     }
 }

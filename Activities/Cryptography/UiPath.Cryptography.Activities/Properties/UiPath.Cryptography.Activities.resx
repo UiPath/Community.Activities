@@ -220,6 +220,30 @@
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>The sender's PGP public key, supplied as a file resource. Used to verify the signature. When set, takes precedence over the file-path variant.</value>
   </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource (e.g. from the project resources or Storage Bucket). Used to sign the encrypted output. Required only when Sign data is enabled. When set, takes precedence over the file-path variant.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource (e.g. from the project resources or Storage Bucket). Used to sign the encrypted output. Required only when Sign data is enabled. When set, takes precedence over the file-path variant.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource. Used to decrypt the message. When set, takes precedence over the file-path variant.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource. Used to decrypt the message. When set, takes precedence over the file-path variant.</value>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinueOnError</value>
     <comment>property name</comment>
@@ -911,6 +935,10 @@
   </data>
   <data name="Category_Options_Name" xml:space="preserve">
     <value>Options</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>Advanced</value>
     <comment>Category name</comment>
   </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
