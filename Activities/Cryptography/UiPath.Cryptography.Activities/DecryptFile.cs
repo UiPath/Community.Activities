@@ -59,7 +59,7 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Encoding_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptFile_Property_KeyEncoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptFile_Property_KeyEncoding_Description))]
         public InArgument<Encoding> KeyEncoding { get; set; }

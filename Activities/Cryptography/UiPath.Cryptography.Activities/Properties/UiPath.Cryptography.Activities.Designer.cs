@@ -3292,6 +3292,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Encoding.
+        /// </summary>
+        public static string Category_Encoding_Name {
+            get {
+                return ResourceManager.GetString("Category_Encoding_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
         public static string Category_Others_Name {

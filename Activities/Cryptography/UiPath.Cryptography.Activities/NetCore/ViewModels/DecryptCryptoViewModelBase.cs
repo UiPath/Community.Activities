@@ -117,7 +117,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyEncodingString.IsPrincipal = false;
             KeyEncodingString.OrderIndex = orderIndex++;
-            KeyEncodingString.Category = Resources.Category_Options_Name;
+            KeyEncodingString.Category = Resources.Category_Encoding_Name;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
@@ -135,7 +135,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             var dataSource = EncodingHelpers.ConfigureEncodingDataSource();
             encodingProperty.IsPrincipal = false;
             encodingProperty.OrderIndex = orderIndex++;
-            encodingProperty.Category = Resources.Input;
+            encodingProperty.Category = Resources.Category_Encoding_Name;
             encodingProperty.DataSource = dataSource;
             encodingProperty.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
             dataSource.Data = EncodingHelpers.GetAvailableEncodings();

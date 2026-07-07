@@ -50,7 +50,7 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Encoding_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Encoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
@@ -58,7 +58,7 @@ namespace UiPath.Cryptography.Activities
         [Browsable(false)]
         public InArgument<string> KeyEncodingString { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Encoding_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PlaintextEncoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PlaintextEncoding_Description))]
         public InArgument<Encoding> PlaintextEncoding { get; set; }

@@ -941,6 +941,10 @@
     <value>Advanced</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>Use Key Secure String</value>
   </data>

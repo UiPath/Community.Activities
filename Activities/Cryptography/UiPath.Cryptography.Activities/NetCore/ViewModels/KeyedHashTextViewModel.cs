@@ -99,7 +99,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyEncodingString.IsPrincipal = false;
             KeyEncodingString.OrderIndex = propertyOrderIndex++;
-            KeyEncodingString.Category = Resources.Category_Options_Name;
+            KeyEncodingString.Category = Resources.Category_Encoding_Name;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
