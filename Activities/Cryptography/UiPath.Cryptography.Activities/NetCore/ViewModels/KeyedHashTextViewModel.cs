@@ -113,7 +113,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Value = false;
 
             // Output is assigned last so it renders after the Options section (guideline "outputs last").
-            Result.IsPrincipal = true;
+            // Non-principal, matching every other Cryptography output — it belongs in the Output section
+            // of the properties panel, not the collapsed canvas card among the inputs.
+            Result.IsPrincipal = false;
             Result.OrderIndex = propertyOrderIndex++;
             Result.Category = Resources.Output;
 
