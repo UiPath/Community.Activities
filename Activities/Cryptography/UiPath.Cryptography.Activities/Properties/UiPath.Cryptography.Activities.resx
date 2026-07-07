@@ -1533,7 +1533,7 @@
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
     <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).
 
-⚠ WARNING: never reuse the same (Key, IV) pair — it breaks confidentiality, and under AEAD modes (AES-GCM, ChaCha20-Poly1305) also lets an attacker forge messages; use each pair at most once, or leave empty for a fresh random IV per call.</value>
+WARNING: never reuse the same (Key, IV) pair — it breaks confidentiality, and under AEAD modes (AES-GCM, ChaCha20-Poly1305) also lets an attacker forge messages; use each pair at most once, or leave empty for a fresh random IV per call.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1609,7 +1609,7 @@
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
     <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).
 
-⚠ WARNING: never reuse the same (Key, IV) pair — it breaks confidentiality, and under AEAD modes (AES-GCM, ChaCha20-Poly1305) also lets an attacker forge messages; use each pair at most once, or leave empty for a fresh random IV per call.</value>
+WARNING: never reuse the same (Key, IV) pair — it breaks confidentiality, and under AEAD modes (AES-GCM, ChaCha20-Poly1305) also lets an attacker forge messages; use each pair at most once, or leave empty for a fresh random IV per call.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
