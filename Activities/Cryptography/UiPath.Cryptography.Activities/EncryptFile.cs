@@ -282,14 +282,7 @@ namespace UiPath.Cryptography.Activities
 
         private byte[] ExecutePgpEncrypt(CodeActivityContext context, string inputPath)
         {
-            var publicKeyFilePath = PublicKeyFilePath.Get(context);
-            var publicKeyResource = PublicKeyFile?.Get(context);
-            if (string.IsNullOrEmpty(publicKeyFilePath) && publicKeyResource != null)
-            {
-                var localResource = publicKeyResource.ToLocalResource();
-                localResource.ResolveAsync().GetAwaiter().GetResult();
-                publicKeyFilePath = localResource.LocalPath;
-            }
+            var publicKeyFilePath = PgpFileResolver.ResolveLocalPath(PublicKeyFilePath.Get(context), PublicKeyFile?.Get(context));
             var privateKeyFilePath = PrivateKeyFilePath.Get(context);
 
             string passphraseString = null;
@@ -297,13 +290,7 @@ namespace UiPath.Cryptography.Activities
             {
                 // The private key is only consumed when signing; resolve the IResource fallback here
                 // (not unconditionally) so a bound-but-unused private key can't fail a non-signing encrypt.
-                var privateKeyResource = PrivateKeyFile?.Get(context);
-                if (string.IsNullOrEmpty(privateKeyFilePath) && privateKeyResource != null)
-                {
-                    var localResource = privateKeyResource.ToLocalResource();
-                    localResource.ResolveAsync().GetAwaiter().GetResult();
-                    privateKeyFilePath = localResource.LocalPath;
-                }
+                privateKeyFilePath = PgpFileResolver.ResolveLocalPath(privateKeyFilePath, PrivateKeyFile?.Get(context));
 
                 passphraseString = Passphrase.Get(context);
                 if (string.IsNullOrWhiteSpace(passphraseString))

@@ -264,14 +264,7 @@ namespace UiPath.Cryptography.Activities
 
         private byte[] ExecutePgpDecrypt(CodeActivityContext context, byte[] encrypted)
         {
-            var privateKeyFilePath = PrivateKeyFilePath.Get(context);
-            var privateKeyResource = PrivateKeyFile?.Get(context);
-            if (string.IsNullOrEmpty(privateKeyFilePath) && privateKeyResource != null)
-            {
-                var localResource = privateKeyResource.ToLocalResource();
-                localResource.ResolveAsync().GetAwaiter().GetResult();
-                privateKeyFilePath = localResource.LocalPath;
-            }
+            var privateKeyFilePath = PgpFileResolver.ResolveLocalPath(PrivateKeyFilePath.Get(context), PrivateKeyFile?.Get(context));
 
             var passphraseString = Passphrase.Get(context);
             if (string.IsNullOrWhiteSpace(passphraseString))
@@ -282,14 +275,7 @@ namespace UiPath.Cryptography.Activities
                 passphraseString = new NetworkCredential(string.Empty, secure).Password;
             }
 
-            var publicKeyFilePath = PublicKeyFilePath.Get(context);
-            var publicKeyResource = PublicKeyFile?.Get(context);
-            if (string.IsNullOrEmpty(publicKeyFilePath) && publicKeyResource != null)
-            {
-                var localResource = publicKeyResource.ToLocalResource();
-                localResource.ResolveAsync().GetAwaiter().GetResult();
-                publicKeyFilePath = localResource.LocalPath;
-            }
+            var publicKeyFilePath = PgpFileResolver.ResolveLocalPath(PublicKeyFilePath.Get(context), PublicKeyFile?.Get(context));
 
             return PgpStreamHelper.WithPgpDecryptStreams(
                 privateKeyFilePath, passphraseString, publicKeyFilePath, VerifySignature,
