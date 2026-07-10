@@ -2,6 +2,7 @@ using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Security.Cryptography;
 using UiPath.Cryptography.Activities.Helpers;
@@ -34,6 +35,7 @@ namespace UiPath.Cryptography.Activities
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
+    [ExcludeFromCodeCoverage]
     public partial class KeyedHashTextViewModel : DesignPropertiesViewModel
     {
         private readonly DataSource<string> _encodingDataSource;

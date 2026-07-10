@@ -1,5 +1,6 @@
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Activities.Properties;
 
@@ -16,6 +17,7 @@ namespace UiPath.Cryptography.Activities
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
+    [ExcludeFromCodeCoverage]
     public partial class EncryptTextViewModel : EncryptCryptoViewModelBase
     {
         public EncryptTextViewModel(IDesignServices services) : base(services)
