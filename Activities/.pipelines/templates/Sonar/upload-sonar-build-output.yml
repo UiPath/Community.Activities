@@ -62,7 +62,7 @@ steps:
       }
 
       if ([string]::IsNullOrEmpty($sonarScannerDir)) {
-        Write-Error "Could not find the Sonar Scanner directory"
+        throw "Could not find the Sonar Scanner directory - none of the expected scanner-path variables were set by SonarCloudPrepare. Aborting before the scanner copy."
       }
 
       $scannerBinDir = Join-Path "$binDir" "scanner"
