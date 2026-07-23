@@ -39,15 +39,30 @@ steps:
         Write-Error "The SonarQube directory does not exist!"
       }
 
+      # SonarCloudPrepare@3 publishes v3 scanner-path variable names
+      # (SONAR_SCANNER_DOTNET_*), while @1 published SONARQUBE_SCANNER_MSBUILD_*.
+      # Probe both families so the scanner staging works across task versions.
+      $sonarEnvVars = @(
+        'SONARQUBE_SCANNER_DOTNET_DLL',
+        'SONARQUBE_SCANNER_DOTNET_EXE',
+        'SONARQUBE_SCANNER_MSBUILD_DLL',
+        'SONARQUBE_SCANNER_MSBUILD_EXE',
+        'SONAR_SCANNER_DOTNET_DLL',
+        'SONAR_SCANNER_DOTNET_EXE',
+        'SONAR_SCANNER_MSBUILD_DLL',
+        'SONAR_SCANNER_MSBUILD_EXE'
+      )
       $sonarScannerDir = ""
-      if (![string]::IsNullOrEmpty($env:SONARQUBE_SCANNER_MSBUILD_EXE)) {
-        $sonarScannerDir = [System.IO.Path]::GetDirectoryName($env:SONARQUBE_SCANNER_MSBUILD_EXE)
-      } else {
-        if (![string]::IsNullOrEmpty($env:SONARQUBE_SCANNER_MSBUILD_DLL)) {
-          $sonarScannerDir = [System.IO.Path]::GetDirectoryName($env:SONARQUBE_SCANNER_MSBUILD_DLL)
-        } else {
-          Write-Error "Could not find the Sonar Scanner directory"
+      foreach ($var in $sonarEnvVars) {
+        $value = [System.Environment]::GetEnvironmentVariable($var)
+        if (![string]::IsNullOrEmpty($value)) {
+          $sonarScannerDir = [System.IO.Path]::GetDirectoryName($value)
+          break
         }
+      }
+
+      if ([string]::IsNullOrEmpty($sonarScannerDir)) {
+        Write-Error "Could not find the Sonar Scanner directory"
       }
 
       $scannerBinDir = Join-Path "$binDir" "scanner"
@@ -66,6 +81,7 @@ steps:
     script: |
       Write-Output "##vso[task.setvariable variable=OriginalSourcesPath;isOutput=true]$(Build.SourcesDirectory)"
       Write-Output "##vso[task.setvariable variable=OriginalPipelinePath;isOutput=true]$(Pipeline.Workspace)"
+      Write-Output "##vso[task.setvariable variable=OriginalTempPath;isOutput=true]$(Agent.TempDirectory)"
   name: setOriginalSrcPath
   displayName: "Set original paths"
   condition: ${{ parameters.condition }}
@@ -74,14 +90,20 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MODE;isOutput=true]$env:SONARQUBE_SCANNER_MODE"
+      # SonarCloud*@3 (SonarQube Cloud v3) renamed the cross-task variables to the
+      # SONAR_* namespace (see SonarSource TaskVariables enum); only *_PARAMS kept
+      # its legacy name. Analyze@3 fails without SONAR_SCANNER_MODE and Publish@3
+      # fails without SONAR_ENDPOINT, so carry the v3 names across the stage boundary.
+      Write-Output "##vso[task.setvariable variable=SONAR_SCANNER_REPORTTASKFILE;isOutput=true]$env:SONAR_SCANNER_REPORTTASKFILE"
+      Write-Output "##vso[task.setvariable variable=SONAR_SCANNER_MODE;isOutput=true]$env:SONAR_SCANNER_MODE"
+      Write-Output "##vso[task.setvariable variable=SONAR_SERVER_VERSION;isOutput=true]$env:SONAR_SERVER_VERSION"
       Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_PARAMS;isOutput=true]$env:SONARQUBE_SCANNER_PARAMS"
-      Write-Output "##vso[task.setvariable variable=SONARQUBE_ENDPOINT;isOutput=true;issecret=true]$env:sonarQubeEndpoint"
+      Write-Output "##vso[task.setvariable variable=SONAR_ENDPOINT;isOutput=true;issecret=true]$env:sonarEndpoint"
   name: setSonarVariables
   displayName: "Set SonarQube variables on the build"
   condition: ${{ parameters.condition }}
   env:
-    sonarQubeEndpoint: $(SONARQUBE_ENDPOINT) # secret variable, so we'll have to manually pass it over
+    sonarEndpoint: $(SONAR_ENDPOINT) # secret variable, so we'll have to manually pass it over
 
 - task: ArchiveFiles@2
   displayName: "Archive SonarQube artifact"

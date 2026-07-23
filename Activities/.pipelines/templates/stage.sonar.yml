@@ -9,9 +9,13 @@ jobs:
     SourceBranchCommitId: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setBranchCommitVariables.SourceBranchCommitId'] ]
     TargetBranchCommitId: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setBranchCommitVariables.TargetBranchCommitId'] ]
     OriginalSourcesPath: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setOriginalSrcPath.OriginalSourcesPath'] ]
-    SONARQUBE_SCANNER_MODE: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_SCANNER_MODE'] ]
+    OriginalPipelinePath: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setOriginalSrcPath.OriginalPipelinePath'] ]
+    OriginalTempPath: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setOriginalSrcPath.OriginalTempPath'] ]
+    SONAR_SCANNER_MODE: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_SCANNER_MODE'] ]
     SONARQUBE_SCANNER_PARAMS: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_SCANNER_PARAMS'] ]
-    SONARQUBE_ENDPOINT: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_ENDPOINT'] ]
+    SONAR_ENDPOINT: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_ENDPOINT'] ]
+    SONAR_SCANNER_REPORTTASKFILE: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_SCANNER_REPORTTASKFILE'] ]
+    SONAR_SERVER_VERSION: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_SERVER_VERSION'] ]
   steps:
     - checkout: self
       persistCredentials: true
@@ -44,6 +48,17 @@ jobs:
         pipelinePath: $(Pipeline.Workspace)
         repoPath: $(Build.SourcesDirectory)
         scannerPath: "$(Build.SourcesDirectory)\\SonarTemp\\scanner"
+
+    # SonarCloudPrepare@3 records the report-task.txt path against the Build job's
+    # Agent.TempDirectory; rewrite it to this (PublishSonar) job's temp path so
+    # SonarCloudPublish@3 can locate the report and poll the Quality Gate. No
+    # isOutput here: the value must overwrite the in-job SONAR_SCANNER_REPORTTASKFILE
+    # env that the analyze/publish tasks read later in this same job.
+    - powershell: |
+        $patchedReportPath = "$env:SONAR_SCANNER_REPORTTASKFILE".Replace("$(OriginalTempPath)", "$(Agent.TempDirectory)")
+        Write-Output "##vso[task.setvariable variable=SONAR_SCANNER_REPORTTASKFILE]$patchedReportPath"
+        Write-Host "SONAR_SCANNER_REPORTTASKFILE set to: $patchedReportPath"
+      displayName: Patch SONAR_SCANNER_REPORTTASKFILE variable
 
     - template: Sonar/analyze-sonar-coverage.yml
       parameters:

@@ -48,22 +48,29 @@ steps:
 
 - powershell: |
     $srcDir = $env:SrcDir
+    $sonarEnvVars = @()
+    if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll") {
+      Write-Host "Found scanner of type dotnet-sonar-scanner-msbuild"
 
-    if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe") {
+      $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll"
+      $sonarEnvVars += "SONAR_SCANNER_MSBUILD_DLL"
+      $sonarEnvVars += "SONAR_SCANNER_DOTNET_DLL"
+      $sonarEnvVars += "SONARQUBE_SCANNER_MSBUILD_DLL"
+      $sonarEnvVars += "SONARQUBE_SCANNER_DOTNET_DLL"
+    } elseif (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe") {
       Write-Host "Found scanner of type classic-sonar-scanner-msbuild"
 
       $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe"
-      Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_EXE]$scannerPath"
+      $sonarEnvVars += "SONAR_SCANNER_MSBUILD_EXE"
+      $sonarEnvVars += "SONAR_SCANNER_DOTNET_EXE"
+      $sonarEnvVars += "SONARQUBE_SCANNER_MSBUILD_EXE"
+      $sonarEnvVars += "SONARQUBE_SCANNER_DOTNET_EXE"
     } else {
-        if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll") {
-        Write-Host "Found scanner of type dotnet-sonar-scanner-msbuild"
+      Write-Error "The sonar scanner executable was not found inside the temp package"
+    }
 
-        $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll"
-        Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_DLL]$scannerPath"
-      }
-      else {
-        Write-Error "The sonar scanner executable was not found inside the temp package"
-      }
+    foreach ($var in $sonarEnvVars) {
+      Write-Output "##vso[task.setvariable variable=$var]$scannerPath"
     }
   env:
     SrcDir: $(Build.SourcesDirectory)
