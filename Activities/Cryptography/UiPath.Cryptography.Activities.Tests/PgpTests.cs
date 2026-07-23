@@ -260,6 +260,91 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         [Fact]
+        public void PgpDecryptText_VerifySignatureFalse_DoesNotResolvePublicKeyResource()
+        {
+            // Regression (STUD-80718): with verification disabled, a bound-but-unused PublicKeyFile
+            // resource must never be resolved — the public key isn't needed to decrypt without
+            // verifying, and resolving it (e.g. from a Storage Bucket) can fail. Any interaction with
+            // the mock would surface an unwanted resolution.
+            const string plainText = "Hello PGP decrypt without verifying!";
+            string encryptedText;
+            using (var publicKeyStream = File.OpenRead(_publicKeyPath))
+            {
+                encryptedText = CryptographyHelper.PgpEncryptText(plainText, publicKeyStream);
+            }
+
+            var publicKeyResource = new Mock<IResource>();
+
+            var decryptText = new DecryptText
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Input = new InArgument<string>(encryptedText),
+                PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                Passphrase = new InArgument<string>(Passphrase),
+                VerifySignature = false,
+                // Bind via a lambda (not a literal) — WF rejects Literal<T> of arbitrary reference types.
+                PublicKeyFile = new InArgument<IResource>(c => publicKeyResource.Object),
+            };
+
+            var result = WorkflowInvoker.Invoke(decryptText);
+
+            Assert.Equal(plainText, result);
+            publicKeyResource.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public void PgpDecryptFile_VerifySignatureFalse_DoesNotResolvePublicKeyResource()
+        {
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempEncryptedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempDecryptedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            try
+            {
+                const string message = "Hello PGP file decrypt without verifying!";
+                File.WriteAllText(tempInputFile, message);
+                var publicKeyResource = new Mock<IResource>();
+
+                var encryptFile = new EncryptFile
+                {
+                    InputFilePath = new InArgument<string>(tempInputFile),
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
+                    OutputFilePath = new InArgument<string>(tempEncryptedFile),
+                    SignData = false,
+                    Overwrite = true,
+                };
+
+                var decryptFile = new DecryptFile
+                {
+                    InputFilePath = new InArgument<string>(tempEncryptedFile),
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                    Passphrase = new InArgument<string>(Passphrase),
+                    VerifySignature = false,
+                    OutputFilePath = new InArgument<string>(tempDecryptedFile),
+                    Overwrite = true,
+                    // Bind via a lambda (not a literal) — WF rejects Literal<T> of arbitrary reference types.
+                    PublicKeyFile = new InArgument<IResource>(c => publicKeyResource.Object),
+                };
+
+                var sequence = new Sequence();
+                sequence.Activities.Add(encryptFile);
+                sequence.Activities.Add(decryptFile);
+
+                WorkflowInvoker.Invoke(sequence);
+
+                Assert.Equal(message, File.ReadAllText(tempDecryptedFile));
+                publicKeyResource.VerifyNoOtherCalls();
+            }
+            finally
+            {
+                if (File.Exists(tempInputFile)) File.Delete(tempInputFile);
+                if (File.Exists(tempEncryptedFile)) File.Delete(tempEncryptedFile);
+                if (File.Exists(tempDecryptedFile)) File.Delete(tempDecryptedFile);
+            }
+        }
+
+        [Fact]
         public void PgpEncryptDecryptText_Activity_Works()
         {
             // Arrange

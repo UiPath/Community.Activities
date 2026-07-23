@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Security;
 using System.Threading;
@@ -38,24 +37,22 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         /// <summary>
         /// Resolves a paired string-path ↔ IResource input for the synchronous activities
-        /// (Encrypt/Decrypt Text &amp; File). The string path takes precedence; only when it is empty
-        /// and a resource is supplied is the resource resolved to a local path. Non-throwing — returns
-        /// the (possibly empty) path so callers keep their own required/optional validation. Mirrors the
-        /// path-first precedence of the design-time path/resource toggle.
+        /// (Encrypt/Decrypt Text &amp; File). The string path takes precedence; only when it is empty or
+        /// whitespace and a resource is supplied is the resource resolved to a local path. The precedence
+        /// logic itself does not throw — it returns the (possibly empty) path so callers keep their own
+        /// required/optional validation; resolving a supplied resource can still surface exceptions from
+        /// the underlying resource-handling stack. Mirrors the path-first precedence of the design-time
+        /// path/resource toggle, matching the whitespace handling of <see cref="ResolveAsync"/>.
         /// </summary>
         public static string ResolveLocalPath(string filePath, IResource resource)
         {
-            if (!string.IsNullOrEmpty(filePath) || resource == null)
+            if (!string.IsNullOrWhiteSpace(filePath) || resource == null)
                 return filePath;
 
             return ResolveResourceLocalPath(resource);
         }
 
-        // Thin sync-over-async adapter over the platform's IResource→local-file conversion. Excluded from
-        // coverage because ToLocalResource() is an extension over the platform converter that can't be
-        // exercised without the full resource-handling stack; the precedence logic in ResolveLocalPath is
-        // unit-tested directly.
-        [ExcludeFromCodeCoverage]
+        // Thin sync-over-async adapter over the platform's IResource→local-file conversion.
         private static string ResolveResourceLocalPath(IResource resource)
         {
             var local = resource.ToLocalResource();

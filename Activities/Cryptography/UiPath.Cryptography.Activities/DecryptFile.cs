@@ -275,7 +275,13 @@ namespace UiPath.Cryptography.Activities
                 passphraseString = new NetworkCredential(string.Empty, secure).Password;
             }
 
-            var publicKeyFilePath = PgpFileResolver.ResolveLocalPath(PublicKeyFilePath.Get(context), PublicKeyFile?.Get(context));
+            var publicKeyFilePath = PublicKeyFilePath.Get(context);
+            if (VerifySignature)
+            {
+                // The public key is only consumed when verifying; resolve the IResource fallback here
+                // (not unconditionally) so a bound-but-unused public key can't fail a non-verifying decrypt.
+                publicKeyFilePath = PgpFileResolver.ResolveLocalPath(publicKeyFilePath, PublicKeyFile?.Get(context));
+            }
 
             return PgpStreamHelper.WithPgpDecryptStreams(
                 privateKeyFilePath, passphraseString, publicKeyFilePath, VerifySignature,
