@@ -1,7 +1,10 @@
 parameters:
   condition: succeeded()
+  jdkVersion: JAVA_HOME_21_X64
 
 steps:
-- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+- task: SonarCloudAnalyze@3
   displayName: 'Run Code Analysis'
   condition: ${{ parameters.condition }}
+  inputs:
+    jdkversion: ${{ parameters.jdkVersion }}

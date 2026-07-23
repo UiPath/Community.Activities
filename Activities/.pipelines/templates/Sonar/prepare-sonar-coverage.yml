@@ -21,7 +21,7 @@ steps:
       condition: ${{ parameters.condition }}
 
 - ${{ if ne(parameters.configFile, '') }}:
-  - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  - task: SonarCloudPrepare@3
     displayName: 'Prepare analysis on SonarCloud'
     condition: ${{ parameters.condition }}
     inputs:
@@ -38,7 +38,7 @@ steps:
       coverageExclusions: ${{ parameters.coverageExclusions }}
       runsettingsFile: ${{ parameters.runsettingsFile }}
 
-  - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  - task: SonarCloudPrepare@3
     displayName: 'Prepare analysis on SonarCloud'
     condition: ${{ parameters.condition }}
     inputs:
