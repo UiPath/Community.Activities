@@ -79,13 +79,18 @@ jobs:
     - powershell: |
         $configFile = "$(Pipeline.Workspace)\.sonarqube\conf\SonarQubeAnalysisConfig.xml"
         if (Test-Path $configFile) {
-          $javaExe = Join-Path $env:${{ parameters.sonarJdkVersion }} 'bin\java.exe'
+          $jdkHome = [System.Environment]::GetEnvironmentVariable($env:SonarJdkVar)
+          $javaExe = Join-Path $jdkHome 'bin\java.exe'
           (Get-Content $configFile -Raw) -replace '<JavaExePath>[^<]*</JavaExePath>', "<JavaExePath>$javaExe</JavaExePath>" |
             Set-Content $configFile
           Write-Host "JavaExePath patched to $javaExe"
         } else {
           Write-Host "$configFile not found; skipping JavaExePath patch."
         }
+      # Pass the JDK env-var name via env (not ${{ }} into the script) to avoid the
+      # azurepipelines:S7630 script-injection finding; resolve it at runtime.
+      env:
+        SonarJdkVar: ${{ parameters.sonarJdkVersion }}
       displayName: Patch Sonar JavaExePath for the local agent
       condition: eq(variables['RunAnalysis'], 'true')
 

@@ -44,7 +44,7 @@ steps:
       # Probe both scanner-path variable families (v3 SONAR_SCANNER_DOTNET_* and the
       # legacy SONARQUBE_SCANNER_MSBUILD_*). The name list is a single source of truth
       # in stage.start.yml, shared with download-sonar-build-output.yml.
-      $sonarEnvVars = "${{ parameters.sonarScannerVarsDll }},${{ parameters.sonarScannerVarsExe }}".Split(',')
+      $sonarEnvVars = "$env:SonarScannerVarsDll,$env:SonarScannerVarsExe".Split(',')
       $sonarScannerDir = ""
       foreach ($var in $sonarEnvVars) {
         $value = [System.Environment]::GetEnvironmentVariable($var)
@@ -64,6 +64,8 @@ steps:
   env:
     SourceDir: $(Build.SourcesDirectory)
     SonarBin: ${{ parameters.outputPath }}
+    SonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+    SonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
   continueOnError: true
   displayName: "Copy Sonar files to artifact staging directory"
   condition: ${{ parameters.condition }}
