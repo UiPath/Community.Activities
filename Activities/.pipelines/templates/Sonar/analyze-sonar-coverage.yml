@@ -3,7 +3,7 @@ parameters:
   jdkVersion: JAVA_HOME_21_X64
 
 steps:
-- task: SonarCloudAnalyze@3
+- task: SonarCloudAnalyze@3.4.3
   displayName: 'Run Code Analysis'
   condition: ${{ parameters.condition }}
   inputs:

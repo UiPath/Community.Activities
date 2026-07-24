@@ -4,7 +4,7 @@ parameters:
   condition: succeededOrFailed()
 
 steps:
-- task: SonarCloudPublish@3
+- task: SonarCloudPublish@3.4.3
   displayName: 'Publish Quality Gate Result'
   continueOnError: ${{ parameters.continueOnError }}
   condition: ${{ parameters.condition }}
