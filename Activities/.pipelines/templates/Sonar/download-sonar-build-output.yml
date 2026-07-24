@@ -2,6 +2,8 @@ parameters:
   artifactName: "SonarQube-Temp"
   cleanup: true
   condition: succeeded()
+  sonarScannerVarsDll: ''
+  sonarScannerVarsExe: ''
 
 steps:
 - ${{ if eq(parameters.cleanup, true) }}:
@@ -53,18 +55,12 @@ steps:
       Write-Host "Found scanner of type dotnet-sonar-scanner-msbuild"
 
       $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll"
-      $sonarEnvVars += "SONAR_SCANNER_MSBUILD_DLL"
-      $sonarEnvVars += "SONAR_SCANNER_DOTNET_DLL"
-      $sonarEnvVars += "SONARQUBE_SCANNER_MSBUILD_DLL"
-      $sonarEnvVars += "SONARQUBE_SCANNER_DOTNET_DLL"
+      $sonarEnvVars = "${{ parameters.sonarScannerVarsDll }}".Split(',')
     } elseif (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe") {
       Write-Host "Found scanner of type classic-sonar-scanner-msbuild"
 
       $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe"
-      $sonarEnvVars += "SONAR_SCANNER_MSBUILD_EXE"
-      $sonarEnvVars += "SONAR_SCANNER_DOTNET_EXE"
-      $sonarEnvVars += "SONARQUBE_SCANNER_MSBUILD_EXE"
-      $sonarEnvVars += "SONARQUBE_SCANNER_DOTNET_EXE"
+      $sonarEnvVars = "${{ parameters.sonarScannerVarsExe }}".Split(',')
     } else {
       throw "The sonar scanner executable was not found inside the temp package (neither SonarScanner.MSBuild.dll nor .exe under $srcDir/SonarTemp/scanner)."
     }

@@ -1,6 +1,6 @@
 parameters:
   condition: succeeded()
-  jdkVersion: JAVA_HOME_21_X64
+  jdkVersion: ''
   sonarTaskVersion: ''
 
 steps:

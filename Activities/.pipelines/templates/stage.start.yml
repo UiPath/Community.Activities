@@ -15,6 +15,12 @@ parameters:
   # prepare/analyze/publish templates. Bump here (only) when the AzDO SonarQube
   # Cloud extension is updated, or the pipeline fails to compile ("A task is missing").
   sonarTaskVersion: '3.4.3'
+  # Single source of truth for the JDK the Sonar scanner uses (env-var name on the
+  # agent) and the scanner-path variable-name families shared by the upload probe and
+  # the download republish. Keep here so a JDK bump or scanner-var change is one edit.
+  sonarJdkVersion: 'JAVA_HOME_21_X64'
+  sonarScannerVarsDll: 'SONAR_SCANNER_MSBUILD_DLL,SONAR_SCANNER_DOTNET_DLL,SONARQUBE_SCANNER_MSBUILD_DLL,SONARQUBE_SCANNER_DOTNET_DLL'
+  sonarScannerVarsExe: 'SONAR_SCANNER_MSBUILD_EXE,SONAR_SCANNER_DOTNET_EXE,SONARQUBE_SCANNER_MSBUILD_EXE,SONARQUBE_SCANNER_DOTNET_EXE'
   runSettingsFilePath: '$(RunSettingsFilePath)'
   preBuild: []
   postBuild: []
@@ -51,6 +57,8 @@ stages:
       sonarServiceConnection: ${{ parameters.sonarServiceConnection }}
       sonarOrganization: ${{ parameters.sonarOrganization }}
       sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
+      sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+      sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
       sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}
       hasQaPackages: ${{ parameters.hasQaPackages }}
@@ -100,6 +108,9 @@ stages:
     parameters:
       additionalSonarTasks: ${{ parameters.additionalSonarTasks }}
       sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
+      sonarJdkVersion: ${{ parameters.sonarJdkVersion }}
+      sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+      sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
 
   - ${{ each job in parameters.additionalSonarJobs }}:
     - ${{ job }}

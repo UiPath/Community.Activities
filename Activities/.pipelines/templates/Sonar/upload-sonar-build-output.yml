@@ -3,6 +3,8 @@ parameters:
   artifactName: "SonarQube-Temp"
   cleanup: true
   condition: succeeded()
+  sonarScannerVarsDll: ''
+  sonarScannerVarsExe: ''
 
 steps:
 - task: Powershell@2
@@ -39,19 +41,10 @@ steps:
         Write-Error "The SonarQube directory does not exist!"
       }
 
-      # SonarCloudPrepare@3 publishes v3 scanner-path variable names
-      # (SONAR_SCANNER_DOTNET_*), while @1 published SONARQUBE_SCANNER_MSBUILD_*.
-      # Probe both families so the scanner staging works across task versions.
-      $sonarEnvVars = @(
-        'SONARQUBE_SCANNER_DOTNET_DLL',
-        'SONARQUBE_SCANNER_DOTNET_EXE',
-        'SONARQUBE_SCANNER_MSBUILD_DLL',
-        'SONARQUBE_SCANNER_MSBUILD_EXE',
-        'SONAR_SCANNER_DOTNET_DLL',
-        'SONAR_SCANNER_DOTNET_EXE',
-        'SONAR_SCANNER_MSBUILD_DLL',
-        'SONAR_SCANNER_MSBUILD_EXE'
-      )
+      # Probe both scanner-path variable families (v3 SONAR_SCANNER_DOTNET_* and the
+      # legacy SONARQUBE_SCANNER_MSBUILD_*). The name list is a single source of truth
+      # in stage.start.yml, shared with download-sonar-build-output.yml.
+      $sonarEnvVars = "${{ parameters.sonarScannerVarsDll }},${{ parameters.sonarScannerVarsExe }}".Split(',')
       $sonarScannerDir = ""
       foreach ($var in $sonarEnvVars) {
         $value = [System.Environment]::GetEnvironmentVariable($var)

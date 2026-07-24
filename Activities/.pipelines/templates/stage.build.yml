@@ -9,6 +9,8 @@ parameters:
   sonarServiceConnection: ''
   sonarOrganization: ''
   sonarTaskVersion: ''
+  sonarScannerVarsDll: ''
+  sonarScannerVarsExe: ''
   msBuildPack: false
   sdkBuild: false
   requiresLfs: false
@@ -61,6 +63,8 @@ jobs:
         - template: Sonar/upload-sonar-build-output.yml
           parameters:
             condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+            sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+            sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
 
         - template: Sonar/uninstall-sonar-targets.yml
 
