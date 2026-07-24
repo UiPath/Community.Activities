@@ -1,5 +1,6 @@
 parameters:
   additionalSonarTasks: []
+  sonarTaskVersion: ''
 jobs:
 - job: RunSonar
   displayName: "Analyze & publish results"
@@ -55,10 +56,16 @@ jobs:
     # isOutput here: the value must overwrite the in-job SONAR_SCANNER_REPORTTASKFILE
     # env that the analyze/publish tasks read later in this same job.
     - powershell: |
-        $patchedReportPath = "$env:SONAR_SCANNER_REPORTTASKFILE".Replace("$(OriginalTempPath)", "$(Agent.TempDirectory)")
-        Write-Output "##vso[task.setvariable variable=SONAR_SCANNER_REPORTTASKFILE]$patchedReportPath"
-        Write-Host "SONAR_SCANNER_REPORTTASKFILE set to: $patchedReportPath"
+        $orig = "$(OriginalTempPath)"
+        if ([string]::IsNullOrEmpty($orig)) {
+          Write-Host "OriginalTempPath is empty; leaving SONAR_SCANNER_REPORTTASKFILE unchanged."
+        } else {
+          $patchedReportPath = "$env:SONAR_SCANNER_REPORTTASKFILE".Replace($orig, "$(Agent.TempDirectory)")
+          Write-Output "##vso[task.setvariable variable=SONAR_SCANNER_REPORTTASKFILE]$patchedReportPath"
+          Write-Host "SONAR_SCANNER_REPORTTASKFILE set to: $patchedReportPath"
+        }
       displayName: Patch SONAR_SCANNER_REPORTTASKFILE variable
+      condition: eq(variables['RunAnalysis'], 'true')
 
     # SonarScanner for .NET 10.x auto-provisions its own JRE on the build agent at
     # 'begin' and records that agent-local path in <JavaExePath>, deriving JAVA_HOME
@@ -80,9 +87,11 @@ jobs:
     - template: Sonar/analyze-sonar-coverage.yml
       parameters:
         condition: eq(variables['RunAnalysis'], 'true')
+        sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
 
     - template: Sonar/publish-sonar-coverage.yml
       parameters:
         condition: eq(variables['RunAnalysis'], 'true')
+        sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
 
     - ${{ parameters.additionalSonarTasks }}

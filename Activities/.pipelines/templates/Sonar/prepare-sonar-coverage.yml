@@ -13,6 +13,7 @@ parameters:
   logLevel: 'Info'
   verbose: 'false'
   cleanup: true
+  sonarTaskVersion: ''
 
 steps:
 - ${{ if eq(parameters.cleanup, true) }}:
@@ -21,7 +22,7 @@ steps:
       condition: ${{ parameters.condition }}
 
 - ${{ if ne(parameters.configFile, '') }}:
-  - task: SonarCloudPrepare@3.4.3
+  - task: SonarCloudPrepare@${{ parameters.sonarTaskVersion }}
     displayName: 'Prepare analysis on SonarCloud'
     condition: ${{ parameters.condition }}
     inputs:
@@ -38,7 +39,7 @@ steps:
       coverageExclusions: ${{ parameters.coverageExclusions }}
       runsettingsFile: ${{ parameters.runsettingsFile }}
 
-  - task: SonarCloudPrepare@3.4.3
+  - task: SonarCloudPrepare@${{ parameters.sonarTaskVersion }}
     displayName: 'Prepare analysis on SonarCloud'
     condition: ${{ parameters.condition }}
     inputs:

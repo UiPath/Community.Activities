@@ -8,6 +8,7 @@ parameters:
   sonarProjectKey: ''
   sonarServiceConnection: ''
   sonarOrganization: ''
+  sonarTaskVersion: ''
   msBuildPack: false
   sdkBuild: false
   requiresLfs: false
@@ -48,6 +49,7 @@ jobs:
             projectKey: ${{ parameters.sonarProjectKey }}
             serviceConnectionName: ${{ parameters.sonarServiceConnection }}
             organization: ${{ parameters.sonarOrganization }}
+            sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
             condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
       postBuild:
         - ${{ parameters.postBuild }}

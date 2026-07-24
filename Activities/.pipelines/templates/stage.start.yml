@@ -11,6 +11,10 @@ parameters:
   sonarProjectKey: 'UiPath_Community.Activities'
   sonarServiceConnection: 'SonarCloudActivities'
   sonarOrganization: 'ui'
+  # Single source of truth for the SonarCloud task version, threaded to the
+  # prepare/analyze/publish templates. Bump here (only) when the AzDO SonarQube
+  # Cloud extension is updated, or the pipeline fails to compile ("A task is missing").
+  sonarTaskVersion: '3.4.3'
   runSettingsFilePath: '$(RunSettingsFilePath)'
   preBuild: []
   postBuild: []
@@ -46,6 +50,7 @@ stages:
       sonarProjectKey: ${{ parameters.sonarProjectKey }}
       sonarServiceConnection: ${{ parameters.sonarServiceConnection }}
       sonarOrganization: ${{ parameters.sonarOrganization }}
+      sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
       sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}
       hasQaPackages: ${{ parameters.hasQaPackages }}
@@ -94,6 +99,7 @@ stages:
   - template: stage.sonar.yml
     parameters:
       additionalSonarTasks: ${{ parameters.additionalSonarTasks }}
+      sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
 
   - ${{ each job in parameters.additionalSonarJobs }}:
     - ${{ job }}

@@ -2,9 +2,10 @@ parameters:
   continueOnError: false
   cleanup: true
   condition: succeededOrFailed()
+  sonarTaskVersion: ''
 
 steps:
-- task: SonarCloudPublish@3.4.3
+- task: SonarCloudPublish@${{ parameters.sonarTaskVersion }}
   displayName: 'Publish Quality Gate Result'
   continueOnError: ${{ parameters.continueOnError }}
   condition: ${{ parameters.condition }}

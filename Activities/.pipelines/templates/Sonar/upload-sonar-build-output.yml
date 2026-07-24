@@ -75,6 +75,24 @@ steps:
   displayName: "Copy Sonar files to artifact staging directory"
   condition: ${{ parameters.condition }}
 
+# The copy step above runs with continueOnError, so a throw there cannot fail the
+# job. Re-check the staged scanner in a step WITHOUT continueOnError so a missing
+# scanner fails fast here instead of publishing an incomplete artifact that only
+# breaks later in the RunSonar stage.
+- task: Powershell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $scannerBinDir = Join-Path "$env:SonarBin" "scanner"
+      if (-not (Test-Path $scannerBinDir) -or -not (Get-ChildItem -Path $scannerBinDir -Recurse -File -ErrorAction SilentlyContinue)) {
+        throw "Sonar scanner was not staged into $scannerBinDir; failing before the artifact is published."
+      }
+      Write-Host "Verified staged scanner at $scannerBinDir"
+  env:
+    SonarBin: ${{ parameters.outputPath }}
+  displayName: "Verify Sonar scanner was staged"
+  condition: ${{ parameters.condition }}
+
 - task: Powershell@2
   inputs:
     targetType: 'inline'
