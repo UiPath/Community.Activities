@@ -23,10 +23,10 @@ Decrypts a text string using a symmetric algorithm, or using PGP with a private 
 | `KeyFormat` | Key bytes format | Property | `KeyBytesFormat` |  | `Encoded` | How the `Key` string is interpreted. `Hex` or `Base64` are required when `Format = Raw`. Symmetric algorithms only. |
 | `KdfIterations` | KDF iterations | InArgument | `int` |  | `0` | PBKDF2 iteration count. Must match the value used at encrypt time. `0` uses the format's OWASP-recommended default. Rejected for `Classic` and `Raw`. |
 | `AesKeySize` | AES key size | Property | `AesKeySize` |  | `Aes256` | AES key size in bits used to encrypt the input. Applies only when `Algorithm = AES` and `Format = OpenSslEnc`; ignored otherwise. Must match the key size the producer used (e.g. `openssl enc -aes-128-cbc` / `-aes-192-cbc` / `-aes-256-cbc`). Not stored in the wire format — encrypt and decrypt sides must use matching values. |
-| `PrivateKeyFilePath` | Private key file path | InArgument | `string` | Conditional |  | Path to your PGP private key file. Required when `Algorithm = PGP`. |
+| `PrivateKeyFilePath` | Private key file path | InArgument | `string` | Conditional |  | Path to your PGP private key file. Required when `Algorithm = PGP`. Paired with a hidden `IResource` alternative (`PrivateKeyFile`) selectable via a designer menu action. |
 | `Passphrase` | Passphrase | InArgument | `string` | Conditional |  | Passphrase that unlocks the private key. Provide either `Passphrase` or `PassphraseSecureString`. PGP only. |
 | `PassphraseSecureString` | Passphrase (secure) | InArgument | `SecureString` | Conditional |  | Secure-string variant of the passphrase. PGP only. |
-| `PublicKeyFilePath` | Public key file path | InArgument | `string` | Conditional |  | Path to the signer's PGP public key file. Required only when `VerifySignature = True`. |
+| `PublicKeyFilePath` | Public key file path | InArgument | `string` | Conditional |  | Path to the signer's PGP public key file. Required only when `VerifySignature = True`. Paired with a hidden `IResource` alternative (`PublicKeyFile`) selectable via a designer menu action. |
 
 ### Configuration
 

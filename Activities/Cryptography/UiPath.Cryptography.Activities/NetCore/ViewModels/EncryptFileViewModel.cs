@@ -53,7 +53,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             OutputFilePath.OrderIndex = orderIndex++;
             OutputFilePath.Category = Resources.Category_Options_Name;
 
-            Overwrite.IsPrincipal = true;
+            Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = orderIndex++;
             Overwrite.Category = Resources.Category_Options_Name;
             Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
@@ -61,6 +61,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureTailProperties(ref orderIndex);
             ConfigureKeyInputModeMenuActions();
             ConfigurePublicKeyFileMenuActions();
+            ConfigurePrivateKeyFileMenuActions();
             ConfigureInputFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
 
@@ -115,6 +116,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             SignData.Tooltip = Resources.Activity_EncryptFile_Property_SignData_Description;
             PrivateKeyFilePath.DisplayName = Resources.Activity_EncryptFile_Property_PrivateKeyFilePath_Name;
             PrivateKeyFilePath.Tooltip = Resources.Activity_EncryptFile_Property_PrivateKeyFilePath_Description;
+            PrivateKeyFile.DisplayName = Resources.Activity_EncryptFile_Property_PrivateKeyFile_Name;
+            PrivateKeyFile.Tooltip = Resources.Activity_EncryptFile_Property_PrivateKeyFile_Description;
             Passphrase.DisplayName = Resources.Activity_EncryptFile_Property_Passphrase_Name;
             Passphrase.Tooltip = Resources.Activity_EncryptFile_Property_Passphrase_Description;
             PassphraseSecureString.DisplayName = Resources.Activity_EncryptFile_Property_PassphraseSecureString_Name;

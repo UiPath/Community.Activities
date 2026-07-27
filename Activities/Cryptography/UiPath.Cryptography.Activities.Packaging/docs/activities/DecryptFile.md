@@ -24,10 +24,10 @@ Decrypts a file using a symmetric algorithm and key, or using PGP with a private
 | `AesKeySize` | AES key size | Property | `AesKeySize` |  | `Aes256` | AES key size in bits used to encrypt the input. Applies only when `Algorithm = AES` and `Format = OpenSslEnc`; ignored otherwise. Must match the key size the producer used (e.g. `openssl enc -aes-128-cbc` / `-aes-192-cbc` / `-aes-256-cbc`). Not stored in the wire format — encrypt and decrypt sides must use matching values. |
 | `OutputFilePath` | Output file path | InArgument | `string` |  |  | The full path where the decrypted file will be saved. When empty, the file is written next to the input file using the name `<input-name>_Decrypted<input-extension>`. |
 | `OutputFileName` | Decrypted file name | InArgument | `string` |  |  | The file name to use for the decrypted file. Honored when `OutputFilePath` is empty. |
-| `PrivateKeyFilePath` | Private key file path | InArgument | `string` | Conditional |  | Path to your PGP private key file. Required when `Algorithm = PGP`. |
+| `PrivateKeyFilePath` | Private key file path | InArgument | `string` | Conditional |  | Path to your PGP private key file. Required when `Algorithm = PGP`. Paired with a hidden `IResource` alternative (`PrivateKeyFile`) selectable via a designer menu action. |
 | `Passphrase` | Passphrase | InArgument | `string` | Conditional |  | Passphrase that unlocks the private key. Provide either `Passphrase` or `PassphraseSecureString`. PGP only. |
 | `PassphraseSecureString` | Passphrase (secure) | InArgument | `SecureString` | Conditional |  | Secure-string variant of the passphrase. Provide either `Passphrase` or `PassphraseSecureString`. PGP only. |
-| `PublicKeyFilePath` | Public key file path | InArgument | `string` | Conditional |  | Path to the signer's PGP public key file. Required only when `VerifySignature = True`. |
+| `PublicKeyFilePath` | Public key file path | InArgument | `string` | Conditional |  | Path to the signer's PGP public key file. Required only when `VerifySignature = True`. Paired with a hidden `IResource` alternative (`PublicKeyFile`) selectable via a designer menu action. |
 
 ### Configuration
 

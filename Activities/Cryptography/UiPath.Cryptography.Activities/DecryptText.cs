@@ -50,7 +50,7 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KeySecureString_Description))]
         public InArgument<SecureString> KeySecureString { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Encoding_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Encoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Encoding_Description))]
         public InArgument<Encoding> Encoding { get; set; }
@@ -58,7 +58,7 @@ namespace UiPath.Cryptography.Activities
         [Browsable(false)]
         public InArgument<string> KeyEncodingString { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Encoding_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PlaintextEncoding_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PlaintextEncoding_Description))]
         public InArgument<Encoding> PlaintextEncoding { get; set; }
@@ -66,25 +66,25 @@ namespace UiPath.Cryptography.Activities
         [Browsable(false)]
         public InArgument<string> PlaintextEncodingString { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Advanced_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_Format_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_Format_Description))]
         [DefaultValue(SymmetricWireFormat.Classic)]
         public SymmetricWireFormat Format { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Advanced_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_KeyFormat_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KeyFormat_Description))]
         [DefaultValue(KeyBytesFormat.Encoded)]
         public KeyBytesFormat KeyFormat { get; set; }
 
         [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Advanced_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_KdfIterations_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_KdfIterations_Description))]
         public InArgument<int> KdfIterations { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedCategory(nameof(Resources.Category_Advanced_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_AesKeySize_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_AesKeySize_Description))]
         [DefaultValue(AesKeySize.Aes256)]
@@ -106,6 +106,13 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFilePath_Description))]
         public InArgument<string> PrivateKeyFilePath { get; set; }
+
+        [Browsable(false)]
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_DecryptText_Property_PrivateKeyFile_Description))]
+        public InArgument<IResource> PrivateKeyFile { get; set; }
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Input))]
@@ -199,7 +206,7 @@ namespace UiPath.Cryptography.Activities
 
         private string ExecutePgpDecrypt(CodeActivityContext context, string input)
         {
-            var privateKeyFilePath = PrivateKeyFilePath.Get(context);
+            var privateKeyFilePath = PgpFileResolver.ResolveLocalPath(PrivateKeyFilePath.Get(context), PrivateKeyFile?.Get(context));
 
             var passphraseString = Passphrase.Get(context);
             if (string.IsNullOrWhiteSpace(passphraseString))
@@ -211,12 +218,11 @@ namespace UiPath.Cryptography.Activities
             }
 
             var publicKeyFilePath = PublicKeyFilePath.Get(context);
-            var publicKeyResource = PublicKeyFile?.Get(context);
-            if (string.IsNullOrEmpty(publicKeyFilePath) && publicKeyResource != null)
+            if (VerifySignature)
             {
-                var localResource = publicKeyResource.ToLocalResource();
-                localResource.ResolveAsync().GetAwaiter().GetResult();
-                publicKeyFilePath = localResource.LocalPath;
+                // The public key is only consumed when verifying; resolve the IResource fallback here
+                // (not unconditionally) so a bound-but-unused public key can't fail a non-verifying decrypt.
+                publicKeyFilePath = PgpFileResolver.ResolveLocalPath(publicKeyFilePath, PublicKeyFile?.Get(context));
             }
 
             return PgpStreamHelper.WithPgpDecryptStreams(

@@ -200,25 +200,49 @@
     <value>Public key file</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>The recipient's PGP public key, supplied as a file resource (e.g. from the project resources or Storage Bucket). When set, takes precedence over the file-path variant.</value>
+    <value>The recipient's PGP public key, supplied as a file resource (e.g. from the project resources or Storage Bucket).</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Public key file</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>The sender's PGP public key, supplied as a file resource. Used to verify the signature. When set, takes precedence over the file-path variant.</value>
+    <value>The sender's PGP public key, supplied as a file resource. Used to verify the signature.</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Public key file</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>The recipient's PGP public key, supplied as a file resource (e.g. from the project resources or Storage Bucket). When set, takes precedence over the file-path variant.</value>
+    <value>The recipient's PGP public key, supplied as a file resource (e.g. from the project resources or Storage Bucket).</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Public key file</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>The sender's PGP public key, supplied as a file resource. Used to verify the signature. When set, takes precedence over the file-path variant.</value>
+    <value>The sender's PGP public key, supplied as a file resource. Used to verify the signature.</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource (e.g. from the project resources or Storage Bucket). Used to sign the encrypted output. Required only when Sign data is enabled.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource (e.g. from the project resources or Storage Bucket). Used to sign the encrypted output. Required only when Sign data is enabled.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource. Used to decrypt the message.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Private key file</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Your own PGP private key, supplied as a file resource. Used to decrypt the message.</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinueOnError</value>
@@ -913,6 +937,14 @@
     <value>Options</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>Advanced</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>Use Key Secure String</value>
   </data>
@@ -1499,7 +1531,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).</value>
+    <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).
+
+WARNING: Never reuse the same (Key, IV) pair — it breaks confidentiality, and under AEAD modes (AES-GCM, ChaCha20-Poly1305) also lets an attacker forge messages; use each pair at most once, or leave empty for a fresh random IV per call.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1607,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).</value>
+    <value>Initialization vector for Raw format. Provide it in the same encoding selected in the "Key bytes format" dropdown above (Hex or Base64). Leave empty to auto-generate a random IV. Length must match the algorithm's IV size (16 bytes for AES/Rijndael, 12 for AESGCM/ChaCha20Poly1305, 8 for DES/TripleDES/RC2).
+
+WARNING: Never reuse the same (Key, IV) pair — it breaks confidentiality, and under AEAD modes (AES-GCM, ChaCha20-Poly1305) also lets an attacker forge messages; use each pair at most once, or leave empty for a fresh random IV per call.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">

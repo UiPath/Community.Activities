@@ -35,6 +35,31 @@ namespace UiPath.Cryptography.Activities.Helpers
             return local.LocalPath;
         }
 
+        /// <summary>
+        /// Resolves a paired string-path ↔ IResource input for the synchronous activities
+        /// (Encrypt/Decrypt Text &amp; File). The string path takes precedence; only when it is empty or
+        /// whitespace and a resource is supplied is the resource resolved to a local path. The precedence
+        /// logic itself does not throw — it returns the (possibly empty) path so callers keep their own
+        /// required/optional validation; resolving a supplied resource can still surface exceptions from
+        /// the underlying resource-handling stack. Mirrors the path-first precedence of the design-time
+        /// path/resource toggle, matching the whitespace handling of <see cref="ResolveAsync"/>.
+        /// </summary>
+        public static string ResolveLocalPath(string filePath, IResource resource)
+        {
+            if (!string.IsNullOrWhiteSpace(filePath) || resource == null)
+                return filePath;
+
+            return ResolveResourceLocalPath(resource);
+        }
+
+        // Thin sync-over-async adapter over the platform's IResource→local-file conversion.
+        private static string ResolveResourceLocalPath(IResource resource)
+        {
+            var local = resource.ToLocalResource();
+            local.ResolveAsync().GetAwaiter().GetResult();
+            return local.LocalPath;
+        }
+
         public static string ResolvePassphrase(
             string passphrase,
             SecureString securePassphrase,

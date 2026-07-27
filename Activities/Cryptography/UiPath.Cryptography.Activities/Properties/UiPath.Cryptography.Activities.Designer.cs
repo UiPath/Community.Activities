@@ -1724,6 +1724,78 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Activity_EncryptText_Property_PrivateKeyFilePath_Name", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file.
+        /// </summary>
+        public static string Activity_EncryptText_Property_PrivateKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PrivateKeyFile_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Your own PGP private key, supplied as a file resource. Used to sign the encrypted output..
+        /// </summary>
+        public static string Activity_EncryptText_Property_PrivateKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptText_Property_PrivateKeyFile_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file.
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PrivateKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PrivateKeyFile_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Your own PGP private key, supplied as a file resource. Used to sign the encrypted output..
+        /// </summary>
+        public static string Activity_EncryptFile_Property_PrivateKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_EncryptFile_Property_PrivateKeyFile_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file.
+        /// </summary>
+        public static string Activity_DecryptText_Property_PrivateKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PrivateKeyFile_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Your own PGP private key, supplied as a file resource. Used to decrypt the message..
+        /// </summary>
+        public static string Activity_DecryptText_Property_PrivateKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptText_Property_PrivateKeyFile_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Private key file.
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PrivateKeyFile_Name {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PrivateKeyFile_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Your own PGP private key, supplied as a file resource. Used to decrypt the message..
+        /// </summary>
+        public static string Activity_DecryptFile_Property_PrivateKeyFile_Description {
+            get {
+                return ResourceManager.GetString("Activity_DecryptFile_Property_PrivateKeyFile_Description", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to The recipient&apos;s PGP public key, supplied as a file resource (e.g. from the project resources or Storage Bucket). When set, takes precedence over the file-path variant..
@@ -3209,7 +3281,25 @@ namespace UiPath.Cryptography.Activities.Properties {
                 return ResourceManager.GetString("Category_Options_Name", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        public static string Category_Advanced_Name {
+            get {
+                return ResourceManager.GetString("Category_Advanced_Name", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding.
+        /// </summary>
+        public static string Category_Encoding_Name {
+            get {
+                return ResourceManager.GetString("Category_Encoding_Name", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>

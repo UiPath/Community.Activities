@@ -3,7 +3,9 @@ using System.Activities;
 using System.Activities.Statements;
 using System.IO;
 using System.Security;
+using Moq;
 using UiPath.Cryptography.Enums;
+using UiPath.Platform.ResourceHandling;
 using Xunit;
 
 #pragma warning disable CS0618 // tests intentionally set the obsolete PassphraseInputModeSwitch property to exercise the SecureString branch
@@ -194,6 +196,151 @@ namespace UiPath.Cryptography.Activities.Tests
             finally
             {
                 File.Delete(tempInputFile);
+            }
+        }
+
+        [Fact]
+        public void PgpEncryptText_SignDataFalse_DoesNotResolvePrivateKeyResource()
+        {
+            // Regression (STUD-80718): with signing disabled, a bound-but-unused PrivateKeyFile
+            // resource must never be resolved — the private key isn't needed for a non-signing
+            // encrypt, and resolving it (e.g. from a Storage Bucket) can fail. A strict-behavior
+            // failure would surface as any interaction with the mock.
+            var privateKeyResource = new Mock<IResource>();
+
+            var encryptText = new EncryptText
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Input = new InArgument<string>("Hello PGP without signing!"),
+                PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
+                SignData = false,
+                // Bind via a lambda (not a literal) — WF rejects Literal<T> of arbitrary reference types.
+                PrivateKeyFile = new InArgument<IResource>(c => privateKeyResource.Object),
+            };
+
+            var result = WorkflowInvoker.Invoke(encryptText);
+
+            Assert.False(string.IsNullOrEmpty(result));
+            privateKeyResource.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public void PgpEncryptFile_SignDataFalse_DoesNotResolvePrivateKeyResource()
+        {
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempEncryptedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            try
+            {
+                File.WriteAllText(tempInputFile, "Hello PGP file without signing!");
+                var privateKeyResource = new Mock<IResource>();
+
+                var encryptFile = new EncryptFile
+                {
+                    InputFilePath = new InArgument<string>(tempInputFile),
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
+                    OutputFilePath = new InArgument<string>(tempEncryptedFile),
+                    SignData = false,
+                    // Bind via a lambda (not a literal) — WF rejects Literal<T> of arbitrary reference types.
+                    PrivateKeyFile = new InArgument<IResource>(c => privateKeyResource.Object),
+                    Overwrite = true,
+                };
+
+                WorkflowInvoker.Invoke(encryptFile);
+
+                Assert.True(File.Exists(tempEncryptedFile));
+                Assert.True(new FileInfo(tempEncryptedFile).Length > 0);
+                privateKeyResource.VerifyNoOtherCalls();
+            }
+            finally
+            {
+                File.Delete(tempInputFile);
+                File.Delete(tempEncryptedFile);
+            }
+        }
+
+        [Fact]
+        public void PgpDecryptText_VerifySignatureFalse_DoesNotResolvePublicKeyResource()
+        {
+            // Regression (STUD-80718): with verification disabled, a bound-but-unused PublicKeyFile
+            // resource must never be resolved — the public key isn't needed to decrypt without
+            // verifying, and resolving it (e.g. from a Storage Bucket) can fail. Any interaction with
+            // the mock would surface an unwanted resolution.
+            const string plainText = "Hello PGP decrypt without verifying!";
+            string encryptedText;
+            using (var publicKeyStream = File.OpenRead(_publicKeyPath))
+            {
+                encryptedText = CryptographyHelper.PgpEncryptText(plainText, publicKeyStream);
+            }
+
+            var publicKeyResource = new Mock<IResource>();
+
+            var decryptText = new DecryptText
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Input = new InArgument<string>(encryptedText),
+                PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                Passphrase = new InArgument<string>(Passphrase),
+                VerifySignature = false,
+                // Bind via a lambda (not a literal) — WF rejects Literal<T> of arbitrary reference types.
+                PublicKeyFile = new InArgument<IResource>(c => publicKeyResource.Object),
+            };
+
+            var result = WorkflowInvoker.Invoke(decryptText);
+
+            Assert.Equal(plainText, result);
+            publicKeyResource.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public void PgpDecryptFile_VerifySignatureFalse_DoesNotResolvePublicKeyResource()
+        {
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempEncryptedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var tempDecryptedFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            try
+            {
+                const string message = "Hello PGP file decrypt without verifying!";
+                File.WriteAllText(tempInputFile, message);
+                var publicKeyResource = new Mock<IResource>();
+
+                var encryptFile = new EncryptFile
+                {
+                    InputFilePath = new InArgument<string>(tempInputFile),
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    PublicKeyFilePath = new InArgument<string>(_publicKeyPath),
+                    OutputFilePath = new InArgument<string>(tempEncryptedFile),
+                    SignData = false,
+                    Overwrite = true,
+                };
+
+                var decryptFile = new DecryptFile
+                {
+                    InputFilePath = new InArgument<string>(tempEncryptedFile),
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                    Passphrase = new InArgument<string>(Passphrase),
+                    VerifySignature = false,
+                    OutputFilePath = new InArgument<string>(tempDecryptedFile),
+                    Overwrite = true,
+                    // Bind via a lambda (not a literal) — WF rejects Literal<T> of arbitrary reference types.
+                    PublicKeyFile = new InArgument<IResource>(c => publicKeyResource.Object),
+                };
+
+                var sequence = new Sequence();
+                sequence.Activities.Add(encryptFile);
+                sequence.Activities.Add(decryptFile);
+
+                WorkflowInvoker.Invoke(sequence);
+
+                Assert.Equal(message, File.ReadAllText(tempDecryptedFile));
+                publicKeyResource.VerifyNoOtherCalls();
+            }
+            finally
+            {
+                if (File.Exists(tempInputFile)) File.Delete(tempInputFile);
+                if (File.Exists(tempEncryptedFile)) File.Delete(tempEncryptedFile);
+                if (File.Exists(tempDecryptedFile)) File.Delete(tempDecryptedFile);
             }
         }
 

@@ -1,5 +1,6 @@
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Activities.Properties;
 
@@ -16,6 +17,7 @@ namespace UiPath.Cryptography.Activities
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
+    [ExcludeFromCodeCoverage]
     public partial class EncryptTextViewModel : EncryptCryptoViewModelBase
     {
         public EncryptTextViewModel(IDesignServices services) : base(services)
@@ -39,15 +41,17 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureAlgorithmAndKeyProperties(ref orderIndex);
             ConfigureEncodingDropdown(PlaintextEncodingString, ref orderIndex);
             ConfigureInteropProperties(ref orderIndex);
+            ConfigureTailProperties(ref orderIndex);
 
+            // Output is assigned last so it renders after the Options section (guideline "outputs last").
             Result.IsPrincipal = false;
             Result.OrderIndex = orderIndex++;
             Result.Category = Resources.Output;
 
-            ConfigureTailProperties(ref orderIndex);
             ConfigurePropertyTexts();
             ConfigureKeyInputModeMenuActions();
             ConfigurePublicKeyFileMenuActions();
+            ConfigurePrivateKeyFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
         }
 
@@ -90,6 +94,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             SignData.Tooltip = Resources.Activity_EncryptText_Property_SignData_Description;
             PrivateKeyFilePath.DisplayName = Resources.Activity_EncryptText_Property_PrivateKeyFilePath_Name;
             PrivateKeyFilePath.Tooltip = Resources.Activity_EncryptText_Property_PrivateKeyFilePath_Description;
+            PrivateKeyFile.DisplayName = Resources.Activity_EncryptText_Property_PrivateKeyFile_Name;
+            PrivateKeyFile.Tooltip = Resources.Activity_EncryptText_Property_PrivateKeyFile_Description;
             Passphrase.DisplayName = Resources.Activity_EncryptText_Property_Passphrase_Name;
             Passphrase.Tooltip = Resources.Activity_EncryptText_Property_Passphrase_Description;
             PassphraseSecureString.DisplayName = Resources.Activity_EncryptText_Property_PassphraseSecureString_Name;
