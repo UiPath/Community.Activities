@@ -70,7 +70,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes a specified file from an FTP server. This activity only works if it is placed inside a With FTP Session scope activity..
+        ///   Looks up a localized string similar to Removes a file or folder from an FTP server. This activity only works if it is placed inside a Use FTP Connection activity..
         /// </summary>
         public static string Activity_Delete_Description {
             get {
@@ -106,7 +106,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checks whether a certain directory exists on an FTP server. This activity only works if it is placed inside a With FTP Session scope activity..
+        ///   Looks up a localized string similar to /remote/folder/file.txt.
+        /// </summary>
+        public static string Activity_Delete_Property_RemotePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_Delete_Property_RemotePath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checks whether a folder exists on an FTP server. This activity only works if it is placed inside a Use FTP Connection activity..
         /// </summary>
         public static string Activity_DirectoryExists_Description {
             get {
@@ -115,7 +124,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directory Exists.
+        ///   Looks up a localized string similar to Check If Folder Exists.
         /// </summary>
         public static string Activity_DirectoryExists_Name {
             get {
@@ -151,7 +160,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder Path.
+        ///   Looks up a localized string similar to Folder path.
         /// </summary>
         public static string Activity_DirectoryExists_Property_RemotePath_Name {
             get {
@@ -160,7 +169,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a With FTP Session scope activity..
+        ///   Looks up a localized string similar to /remote/folder.
+        /// </summary>
+        public static string Activity_DirectoryExists_Property_RemotePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DirectoryExists_Property_RemotePath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a Use FTP Connection activity..
         /// </summary>
         public static string Activity_DownloadFiles_Description {
             get {
@@ -178,7 +196,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, the folder path will be created locally in case it does not already exist..
+        ///   Looks up a localized string similar to If turned on, the folder path is created locally in case it does not already exist..
         /// </summary>
         public static string Activity_DownloadFiles_Property_Create_Description {
             get {
@@ -187,7 +205,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized string similar to Create folder if missing.
         /// </summary>
         public static string Activity_DownloadFiles_Property_Create_Name {
             get {
@@ -214,7 +232,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, the files will be overwritten locally if they&apos;re already stored there..
+        ///   Looks up a localized string similar to C:\Local\folder.
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_LocalPath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_LocalPath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If turned on, the files are overwritten locally if they are already stored there..
         /// </summary>
         public static string Activity_DownloadFiles_Property_Overwrite_Description {
             get {
@@ -223,7 +250,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overwrite.
+        ///   Looks up a localized string similar to Overwrite existing files.
         /// </summary>
         public static string Activity_DownloadFiles_Property_Overwrite_Name {
             get {
@@ -232,7 +259,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, the folders will be downloaded with their respective subfolders..
+        ///   Looks up a localized string similar to If turned on, the folders are downloaded with their respective subfolders..
         /// </summary>
         public static string Activity_DownloadFiles_Property_Recursive_Description {
             get {
@@ -268,7 +295,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity..
+        ///   Looks up a localized string similar to /remote/folder.
+        /// </summary>
+        public static string Activity_DownloadFiles_Property_RemotePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_DownloadFiles_Property_RemotePath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generates a collection of the files and folders found on the FTP server. Subfolders can also be included by turning on Include subfolders. This activity only works if it is placed inside a Use FTP Connection activity..
         /// </summary>
         public static string Activity_EnumerateObjects_Description {
             get {
@@ -277,7 +313,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enumerate Objects.
+        ///   Looks up a localized string similar to List Files and Folders.
         /// </summary>
         public static string Activity_EnumerateObjects_Name {
             get {
@@ -286,7 +322,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A collection of files that have been found on the FTP server..
+        ///   Looks up a localized string similar to The collection of files and folders found on the FTP server..
         /// </summary>
         public static string Activity_EnumerateObjects_Property_Files_Description {
             get {
@@ -295,7 +331,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files.
+        ///   Looks up a localized string similar to Files and folders.
         /// </summary>
         public static string Activity_EnumerateObjects_Property_Files_Name {
             get {
@@ -313,7 +349,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Object types.
+        ///   Looks up a localized string similar to Item types to include.
         /// </summary>
         public static string Activity_EnumerateObjects_Property_Filter_Name {
             get {
@@ -322,7 +358,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select object types to include.
+        ///   Looks up a localized string similar to Select the item types to include.
         /// </summary>
         public static string Activity_EnumerateObjects_Property_Filter_Placeholder {
             get {
@@ -331,7 +367,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this check box is selected, the subfolders are also included in the enumeration of the files on the FTP server..
+        ///   Looks up a localized string similar to If turned on, the subfolders are also included in the listing..
         /// </summary>
         public static string Activity_EnumerateObjects_Property_Recursive_Description {
             get {
@@ -349,7 +385,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The path of the directory on the FTP server whose files are to be enumerated..
+        ///   Looks up a localized string similar to The path of the folder on the FTP server whose contents are listed..
         /// </summary>
         public static string Activity_EnumerateObjects_Property_RemotePath_Description {
             get {
@@ -358,7 +394,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote Path.
+        ///   Looks up a localized string similar to Folder path.
         /// </summary>
         public static string Activity_EnumerateObjects_Property_RemotePath_Name {
             get {
@@ -367,7 +403,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checks whether a certain file exists in the specified FTP directory. This activity only works if it is placed inside a With FTP Session scope activity..
+        ///   Looks up a localized string similar to /remote/folder.
+        /// </summary>
+        public static string Activity_EnumerateObjects_Property_RemotePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_EnumerateObjects_Property_RemotePath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checks whether a file exists in the specified FTP folder. This activity only works if it is placed inside a Use FTP Connection activity..
         /// </summary>
         public static string Activity_FileExists_Description {
             get {
@@ -376,7 +421,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Exists.
+        ///   Looks up a localized string similar to Check If File Exists.
         /// </summary>
         public static string Activity_FileExists_Name {
             get {
@@ -412,7 +457,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Path.
+        ///   Looks up a localized string similar to File path.
         /// </summary>
         public static string Activity_FileExists_Property_RemotePath_Name {
             get {
@@ -421,7 +466,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moves an item on an FTP server to a different remote path. This activity only works if it is placed inside a With FTP.
+        ///   Looks up a localized string similar to /remote/folder/file.txt.
+        /// </summary>
+        public static string Activity_FileExists_Property_RemotePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_FileExists_Property_RemotePath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moves an item on an FTP server to a different remote path. This activity only works if it is placed inside a Use FTP Connection activity..
         /// </summary>
         public static string Activity_MoveItem_Description {
             get {
@@ -475,7 +529,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, the files will be overwritten in the new remote directory if they&apos;re already stored there..
+        ///   Looks up a localized string similar to /remote/new-folder/file.txt.
+        /// </summary>
+        public static string Activity_MoveItem_Property_NewPath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_NewPath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If turned on, the files are overwritten in the new remote folder if they are already stored there..
         /// </summary>
         public static string Activity_MoveItem_Property_Overwrite_Description {
             get {
@@ -484,7 +547,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overwrite.
+        ///   Looks up a localized string similar to Overwrite existing files.
         /// </summary>
         public static string Activity_MoveItem_Property_Overwrite_Name {
             get {
@@ -511,7 +574,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploads a file to an FTP server. This activity only works if it is placed inside a With FTP Session scope activity..
+        ///   Looks up a localized string similar to /remote/folder/file.txt.
+        /// </summary>
+        public static string Activity_MoveItem_Property_RemotePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_MoveItem_Property_RemotePath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploads files to an FTP server. This activity only works if it is placed inside a Use FTP Connection activity..
         /// </summary>
         public static string Activity_UploadFiles_Description {
             get {
@@ -529,7 +601,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, the folder path will be created on the FTP server in case it does not already exist..
+        ///   Looks up a localized string similar to If turned on, the folder path is created on the FTP server in case it does not already exist..
         /// </summary>
         public static string Activity_UploadFiles_Property_Create_Description {
             get {
@@ -538,7 +610,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized string similar to Create folder if missing.
         /// </summary>
         public static string Activity_UploadFiles_Property_Create_Name {
             get {
@@ -565,7 +637,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, the files will be overwritten on the FTP server if they&apos;re already stored there..
+        ///   Looks up a localized string similar to C:\Local\folder.
+        /// </summary>
+        public static string Activity_UploadFiles_Property_LocalPath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_LocalPath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If turned on, the files are overwritten on the FTP server if they are already stored there..
         /// </summary>
         public static string Activity_UploadFiles_Property_Overwrite_Description {
             get {
@@ -574,7 +655,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overwrite.
+        ///   Looks up a localized string similar to Overwrite existing files.
         /// </summary>
         public static string Activity_UploadFiles_Property_Overwrite_Name {
             get {
@@ -583,7 +664,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, the folders will be uploaded with their respective subfolders..
+        ///   Looks up a localized string similar to If turned on, the folders are uploaded with their respective subfolders..
         /// </summary>
         public static string Activity_UploadFiles_Property_Recursive_Description {
             get {
@@ -619,6 +700,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /remote/folder.
+        /// </summary>
+        public static string Activity_UploadFiles_Property_RemotePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_UploadFiles_Property_RemotePath_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connects to FTP server and provides a scope for other FTP activities..
         /// </summary>
         public static string Activity_WithFtpSession_Description {
@@ -637,7 +727,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If this box is checked, all certificates will be accepted, including the ones that are expired or not verified..
+        ///   Looks up a localized string similar to If turned on, all certificates are accepted, including the ones that are expired or not verified..
         /// </summary>
         public static string Activity_WithFtpSession_Property_AcceptAllCertificates_Description {
             get {
@@ -646,7 +736,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Accept All Certificates.
+        ///   Looks up a localized string similar to Accept all certificates.
         /// </summary>
         public static string Activity_WithFtpSession_Property_AcceptAllCertificates_Name {
             get {
@@ -682,7 +772,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Client Certificate Password.
+        ///   Looks up a localized string similar to Client certificate password.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ClientCertificatePassword_Name {
             get {
@@ -700,11 +790,20 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Client Certificate File.
+        ///   Looks up a localized string similar to Client certificate file.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ClientCertificatePath_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificatePath_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Certificates\client.pfx.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ClientCertificatePath_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ClientCertificatePath_Placeholder", resourceCulture);
             }
         }
         
@@ -718,7 +817,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Client Certificate Secure Password.
+        ///   Looks up a localized string similar to Client certificate secure password.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name {
             get {
@@ -736,7 +835,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue On Error.
+        ///   Looks up a localized string similar to Continue on error.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ContinueOnError_Name {
             get {
@@ -745,7 +844,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FTP Session Scope.
+        ///   Looks up a localized string similar to Use FTP Connection.
         /// </summary>
         public static string Activity_WithFtpSession_Property_DisplayName_Name {
             get {
@@ -763,7 +862,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FTPS Mode.
+        ///   Looks up a localized string similar to FTPS mode.
         /// </summary>
         public static string Activity_WithFtpSession_Property_FtpsMode_Name {
             get {
@@ -786,6 +885,15 @@ namespace UiPath.FTP.Activities.Properties {
         public static string Activity_WithFtpSession_Property_Host_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_Host_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ftp.example.com.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Host_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Host_Placeholder", resourceCulture);
             }
         }
         
@@ -844,6 +952,15 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 21 for FTP, 22 for SFTP.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Port_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Port_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password used for proxy if authentication is required.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyPassword_Description {
@@ -853,7 +970,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Password.
+        ///   Looks up a localized string similar to Proxy password.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyPassword_Name {
             get {
@@ -871,7 +988,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Host Port.
+        ///   Looks up a localized string similar to Proxy port.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyPort_Name {
             get {
@@ -889,7 +1006,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Secure Password.
+        ///   Looks up a localized string similar to Proxy secure password.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxySecurePassword_Name {
             get {
@@ -907,11 +1024,20 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Host.
+        ///   Looks up a localized string similar to Proxy host.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyServer_Name {
             get {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyServer_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to proxy.example.com.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_ProxyServer_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_ProxyServer_Placeholder", resourceCulture);
             }
         }
         
@@ -925,7 +1051,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Type.
+        ///   Looks up a localized string similar to Proxy type.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyType_Name {
             get {
@@ -943,7 +1069,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proxy Username.
+        ///   Looks up a localized string similar to Proxy username.
         /// </summary>
         public static string Activity_WithFtpSession_Property_ProxyUser_Name {
             get {
@@ -961,7 +1087,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secure Password.
+        ///   Looks up a localized string similar to Secure password.
         /// </summary>
         public static string Activity_WithFtpSession_Property_SecurePassword_Name {
             get {
@@ -979,7 +1105,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SSL Protocols.
+        ///   Looks up a localized string similar to SSL protocols.
         /// </summary>
         public static string Activity_WithFtpSession_Property_SslProtocols_Name {
             get {
@@ -988,7 +1114,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leave empty for auto configuration.
+        ///   Looks up a localized string similar to Auto: negotiate the best available protocol.
         /// </summary>
         public static string Activity_WithFtpSession_Property_SslProtocols_Placeholder {
             get {
@@ -1006,7 +1132,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Timeout (milliseconds).
+        ///   Looks up a localized string similar to Timeout.
         /// </summary>
         public static string Activity_WithFtpSession_Property_Timeout_Name {
             get {
@@ -1015,7 +1141,16 @@ namespace UiPath.FTP.Activities.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead..
+        ///   Looks up a localized string similar to Milliseconds.
+        /// </summary>
+        public static string Activity_WithFtpSession_Property_Timeout_Placeholder {
+            get {
+                return ResourceManager.GetString("Activity_WithFtpSession_Property_Timeout_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If turned on, the username and password fields are ignored, and a standard anonymous user is used instead..
         /// </summary>
         public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Description {
             get {
@@ -1024,7 +1159,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Anonymous Login.
+        ///   Looks up a localized string similar to Use anonymous login.
         /// </summary>
         public static string Activity_WithFtpSession_Property_UseAnonymousLogin_Name {
             get {
@@ -1051,7 +1186,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check this box if you want to use the SFTP transfer protocol..
+        ///   Looks up a localized string similar to Turn on to use the SFTP transfer protocol..
         /// </summary>
         public static string Activity_WithFtpSession_Property_UseSftp_Description {
             get {
@@ -1067,7 +1202,34 @@ namespace UiPath.FTP.Activities.Properties {
                 return ResourceManager.GetString("Activity_WithFtpSession_Property_UseSftp_Name", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ActivitySynonymDeleteFileOrFolder {
+            get {
+                return ResourceManager.GetString("ActivitySynonymDeleteFileOrFolder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Move Item.
+        /// </summary>
+        public static string ActivitySynonymMoveFileOrFolder {
+            get {
+                return ResourceManager.GetString("ActivitySynonymMoveFileOrFolder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to With FTP connection.
+        /// </summary>
+        public static string ActivitySynonymUseFtpConnection {
+            get {
+                return ResourceManager.GetString("ActivitySynonymUseFtpConnection", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Credentials.
         /// </summary>
@@ -1537,7 +1699,7 @@ namespace UiPath.FTP.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path &quot;{0}&quot; not found..
+        ///   Looks up a localized string similar to Path "{0}" not found..
         /// </summary>
         public static string PathNotFoundException {
             get {

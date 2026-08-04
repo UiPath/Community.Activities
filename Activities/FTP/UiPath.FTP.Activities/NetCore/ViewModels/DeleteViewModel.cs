@@ -1,4 +1,5 @@
-﻿using System.Activities.DesignViewModels;
+using System.Activities.DesignViewModels;
+using UiPath.FTP.Activities.Properties;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
@@ -20,7 +21,18 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            PersistValuesChangedDuringInit();
+
+            int orderIndex = 1;
+
+            RemotePath.DisplayName = Resources.Activity_Delete_Property_RemotePath_Name;
+            RemotePath.Tooltip = Resources.Activity_Delete_Property_RemotePath_Description;
+            RemotePath.EditPlaceholder = Resources.Activity_Delete_Property_RemotePath_Placeholder;
+            RemotePath.IsRequired = true;
+            RemotePath.IsPrincipal = true;
+            RemotePath.OrderIndex = orderIndex++;
+            RemotePath.Category = Resources.Input;
+
+            ConfigureContinueOnError(ref orderIndex);
         }
     }
 }

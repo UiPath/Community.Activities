@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Activities;
+using System.Activities.Expressions;
 using System.Activities.Statements;
 using System.ComponentModel;
 using System.Threading;
@@ -30,27 +31,27 @@ namespace UiPath.FTP.Activities
         public ActivityAction<IFtpSession> Body { get; set; }
 
         [RequiredArgument]
-        [LocalizedCategory(nameof(Resources.Server))]
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_Host_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Host_Description))]
         public InArgument<string> Host { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Server))]
+        [LocalizedCategory(nameof(Resources.Options))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_Port_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Port_Description))]
         public InArgument<int> Port { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Credentials))]
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_Username_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Username_Description))]
         public InArgument<string> Username { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Credentials))]
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_Password_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Password_Description))]
         public InArgument<string> Password { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Credentials))]
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Description))]
         public InArgument<SecureString> SecurePassword { get; set; }
@@ -62,7 +63,7 @@ namespace UiPath.FTP.Activities
         public PasswordInputMode PasswordInputModeSwitch { get; set; }
 
         [DefaultValue(false)]
-        [LocalizedCategory(nameof(Resources.Credentials))]
+        [LocalizedCategory(nameof(Resources.Options))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_UseAnonymousLogin_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_UseAnonymousLogin_Description))]
         public bool UseAnonymousLogin { get; set; }
@@ -113,12 +114,12 @@ namespace UiPath.FTP.Activities
         public bool AcceptAllCertificates { get; set; }
 
         [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Server))]
+        [LocalizedCategory(nameof(Resources.Options))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_Timeout_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_Timeout_Description))]
         public InArgument<int> Timeout { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedCategory(nameof(Resources.Options))]
         [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Name))]
         [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Description))]
         public override InArgument<bool> ContinueOnError { get; set; } = false;
@@ -149,8 +150,8 @@ namespace UiPath.FTP.Activities
 
         [DefaultValue(null)]
         [LocalizedCategory(nameof(Resources.Proxy))]
-        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_SecurePassword_Description))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ProxySecurePassword_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ProxySecurePassword_Description))]
         public InArgument<SecureString> ProxySecurePassword { get; set; }
 
         [Browsable(false)]
@@ -184,6 +185,28 @@ namespace UiPath.FTP.Activities
                 metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorFormat, Resources.Activity_WithFtpSession_Property_ProxyServer_Name), false, nameof(ProxyServer)));
             if (ProxyType != FtpProxyType.None && ProxyPort?.Expression == null)
                 metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorFormat, Resources.Activity_WithFtpSession_Property_ProxyPort_Name), false, nameof(ProxyPort)));
+
+            // Surface at design time what ExecuteAsync would otherwise only throw at runtime, so the
+            // fields get an error indicator and an entry in the Issues panel.
+            if (!UseAnonymousLogin)
+            {
+                if (Username?.Expression == null)
+                    metadata.AddValidationError(new ValidationError(Resources.EmptyUsernameException, false, nameof(Username)));
+
+                bool passwordProvided = PasswordInputModeSwitch == PasswordInputMode.Password
+                    ? Password?.Expression != null
+                    : SecurePassword?.Expression != null;
+                if (!passwordProvided && ClientCertificatePath?.Expression == null)
+                {
+                    string passwordPropertyName = PasswordInputModeSwitch == PasswordInputMode.Password
+                        ? nameof(Password)
+                        : nameof(SecurePassword);
+                    metadata.AddValidationError(new ValidationError(Resources.NoValidAuthenticationMethod, false, passwordPropertyName));
+                }
+            }
+
+            if (Timeout?.Expression is Literal<int> timeoutLiteral && timeoutLiteral.Value < 0)
+                metadata.AddValidationError(new ValidationError(Resources.InvalidTimeoutException, false, nameof(Timeout)));
         }
 
         protected override async Task<Action<NativeActivityContext>> ExecuteAsync(NativeActivityContext context, CancellationToken cancellationToken)

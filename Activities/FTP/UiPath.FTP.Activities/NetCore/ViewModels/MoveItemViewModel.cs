@@ -1,5 +1,6 @@
-﻿using System.Activities.DesignViewModels;
+using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using UiPath.FTP.Activities.Properties;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
@@ -31,17 +32,34 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            PersistValuesChangedDuringInit();
 
-            int propertyOrderIndex = 1;
+            int orderIndex = 1;
 
-            RemotePath.OrderIndex = propertyOrderIndex++;
-            NewPath.OrderIndex = propertyOrderIndex++;
-            Overwrite.OrderIndex = propertyOrderIndex++;
-            ContinueOnError.OrderIndex = propertyOrderIndex;
+            // source first, then destination
+            RemotePath.DisplayName = Resources.Activity_MoveItem_Property_RemotePath_Name;
+            RemotePath.Tooltip = Resources.Activity_MoveItem_Property_RemotePath_Description;
+            RemotePath.EditPlaceholder = Resources.Activity_MoveItem_Property_RemotePath_Placeholder;
+            RemotePath.IsRequired = true;
+            RemotePath.IsPrincipal = true;
+            RemotePath.OrderIndex = orderIndex++;
+            RemotePath.Category = Resources.Input;
 
-            Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
+            NewPath.DisplayName = Resources.Activity_MoveItem_Property_NewPath_Name;
+            NewPath.Tooltip = Resources.Activity_MoveItem_Property_NewPath_Description;
+            NewPath.EditPlaceholder = Resources.Activity_MoveItem_Property_NewPath_Placeholder;
+            NewPath.IsRequired = true;
+            NewPath.IsPrincipal = true;
+            NewPath.OrderIndex = orderIndex++;
+            NewPath.Category = Resources.Input;
+
+            Overwrite.DisplayName = Resources.Activity_MoveItem_Property_Overwrite_Name;
+            Overwrite.Tooltip = Resources.Activity_MoveItem_Property_Overwrite_Description;
+            Overwrite.IsPrincipal = false;
+            Overwrite.OrderIndex = orderIndex++;
+            Overwrite.Category = Resources.Options;
+            Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
+            ConfigureContinueOnError(ref orderIndex);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using UiPath.FTP.Activities.Properties;
 using UiPath.FTP.Enums;
 using UiPath.Shared;
 using UiPath.Shared.Activities;
+using FtpsModeEnum = UiPath.FTP.FtpsMode;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
@@ -19,9 +21,16 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <param name="services"></param>
         public WithFtpSessionViewModel(IDesignServices services) : base(services)
         {
+            InitializeSslProtocolsDataSource();
             InitializeFtpsModeDataSource();
             InitializeProxyModeDataSource();
         }
+
+        /// <summary>
+        /// The child activities that run against the open session. It is rendered as the scope's
+        /// drop area on the canvas, never as a property row — see <see cref="InitializeModel"/>.
+        /// </summary>
+        public DesignProperty<ActivityAction<IFtpSession>> Body { get; set; }
 
         /// <summary>
         /// The URL of the FTP server that you want to connect to.
@@ -142,35 +151,26 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
 
         private static IDataSource _proxyTypeDataSource;
 
+        private static IDataSource _ftpsModeDataSource;
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            PersistValuesChangedDuringInit();
 
-            int propertyOrderIndex = 1;
+            int orderIndex = 1;
 
-            Host.OrderIndex = propertyOrderIndex++;
-            Username.OrderIndex = propertyOrderIndex++;
-            Password.OrderIndex = propertyOrderIndex++;
-            SecurePassword.OrderIndex = propertyOrderIndex++;
-            Port.OrderIndex = propertyOrderIndex++;
-            Timeout.OrderIndex = propertyOrderIndex++;
-            UseAnonymousLogin.OrderIndex = propertyOrderIndex++;
-            ContinueOnError.OrderIndex = propertyOrderIndex++;
-            AcceptAllCertificates.OrderIndex = propertyOrderIndex++;
-            ClientCertificatePath.OrderIndex = propertyOrderIndex++;
-            ClientCertificatePassword.OrderIndex = propertyOrderIndex++;
-            ClientCertificateSecurePassword.OrderIndex = propertyOrderIndex++;
-            FtpsMode.OrderIndex = propertyOrderIndex++;
-            SslProtocols.OrderIndex = propertyOrderIndex++;
-            UseSftp.OrderIndex = propertyOrderIndex;
+            // The scope renders its children as a drop area, not as a property row.
+            Body.IsVisible = false;
 
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
-            SslProtocols.Widget = new DefaultWidget { Type = ViewModelWidgetType.MultiSelect };
-            UseSftp.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+            ConfigureConnectionProperties(ref orderIndex);
+            ConfigureOptionProperties(ref orderIndex);
+            ConfigureSecurityProperties(ref orderIndex);
+            ConfigureProxyProperties(ref orderIndex);
 
-            SslProtocols.DataSource = _sslProtocolsDataSource;
-            ProxyType.DataSource = _proxyTypeDataSource;
+            // the input-mode switches only back the menu actions below, they are never rendered
+            PasswordInputModeSwitch.IsVisible = false;
+            CertificatePasswordInputModeSwitch.IsVisible = false;
+            ProxyPasswordInputModeSwitch.IsVisible = false;
 
             MenuActionsBuilder<PasswordInputMode>.WithValueProperty(PasswordInputModeSwitch)
               .AddMenuProperty(Password, PasswordInputMode.Password)
@@ -186,6 +186,180 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
               .AddMenuProperty(ProxyPassword, PasswordInputMode.Password)
               .AddMenuProperty(ProxySecurePassword, PasswordInputMode.SecurePassword)
               .BuildAndInsertMenuActions(true);
+        }
+
+        /// <summary>
+        /// The three fields needed for every connection: server, user and password.
+        /// They form the primary section and are the only principal properties of the activity.
+        /// </summary>
+        private void ConfigureConnectionProperties(ref int orderIndex)
+        {
+            Host.DisplayName = Resources.Activity_WithFtpSession_Property_Host_Name;
+            Host.Tooltip = Resources.Activity_WithFtpSession_Property_Host_Description;
+            Host.EditPlaceholder = Resources.Activity_WithFtpSession_Property_Host_Placeholder;
+            Host.IsRequired = true;
+            Host.IsPrincipal = true;
+            Host.OrderIndex = orderIndex++;
+            Host.Category = Resources.Input;
+
+            Username.DisplayName = Resources.Activity_WithFtpSession_Property_Username_Name;
+            Username.Tooltip = Resources.Activity_WithFtpSession_Property_Username_Description;
+            Username.IsPrincipal = true;
+            Username.OrderIndex = orderIndex++;
+            Username.Category = Resources.Input;
+
+            // Password and SecurePassword are two renderings of the same field, only one is ever
+            // visible, so they share an order index.
+            Password.DisplayName = Resources.Activity_WithFtpSession_Property_Password_Name;
+            Password.Tooltip = Resources.Activity_WithFtpSession_Property_Password_Description;
+            Password.IsPrincipal = true;
+            Password.OrderIndex = orderIndex;
+            Password.Category = Resources.Input;
+
+            SecurePassword.DisplayName = Resources.Activity_WithFtpSession_Property_SecurePassword_Name;
+            SecurePassword.Tooltip = Resources.Activity_WithFtpSession_Property_SecurePassword_Description;
+            SecurePassword.IsPrincipal = true;
+            SecurePassword.IsVisible = false;
+            SecurePassword.OrderIndex = orderIndex++;
+            SecurePassword.Category = Resources.Input;
+        }
+
+        /// <summary>
+        /// Connection knobs that have a working default: anonymous login, port, timeout and
+        /// ContinueOnError. None of them belong in the primary section.
+        /// </summary>
+        private void ConfigureOptionProperties(ref int orderIndex)
+        {
+            UseAnonymousLogin.DisplayName = Resources.Activity_WithFtpSession_Property_UseAnonymousLogin_Name;
+            UseAnonymousLogin.Tooltip = Resources.Activity_WithFtpSession_Property_UseAnonymousLogin_Description;
+            UseAnonymousLogin.IsPrincipal = false;
+            UseAnonymousLogin.OrderIndex = orderIndex++;
+            UseAnonymousLogin.Category = Resources.Options;
+            UseAnonymousLogin.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
+            Port.DisplayName = Resources.Activity_WithFtpSession_Property_Port_Name;
+            Port.Tooltip = Resources.Activity_WithFtpSession_Property_Port_Description;
+            Port.EditPlaceholder = Resources.Activity_WithFtpSession_Property_Port_Placeholder;
+            Port.IsPrincipal = false;
+            Port.OrderIndex = orderIndex++;
+            Port.Category = Resources.Options;
+            Port.Widget = new DefaultWidget { Type = ViewModelWidgetType.Number };
+
+            Timeout.DisplayName = Resources.Activity_WithFtpSession_Property_Timeout_Name;
+            Timeout.Tooltip = Resources.Activity_WithFtpSession_Property_Timeout_Description;
+            Timeout.EditPlaceholder = Resources.Activity_WithFtpSession_Property_Timeout_Placeholder;
+            Timeout.IsPrincipal = false;
+            Timeout.OrderIndex = orderIndex++;
+            Timeout.Category = Resources.Options;
+            Timeout.Widget = new DefaultWidget { Type = ViewModelWidgetType.Number };
+
+            ConfigureContinueOnError(ref orderIndex);
+        }
+
+        /// <summary>
+        /// Transport and certificate configuration. UseSftp comes first because it decides which of
+        /// the fields below apply.
+        /// </summary>
+        private void ConfigureSecurityProperties(ref int orderIndex)
+        {
+            UseSftp.DisplayName = Resources.Activity_WithFtpSession_Property_UseSftp_Name;
+            UseSftp.Tooltip = Resources.Activity_WithFtpSession_Property_UseSftp_Description;
+            UseSftp.IsPrincipal = false;
+            UseSftp.OrderIndex = orderIndex++;
+            UseSftp.Category = Resources.Security;
+            UseSftp.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
+            FtpsMode.DisplayName = Resources.Activity_WithFtpSession_Property_FtpsMode_Name;
+            FtpsMode.Tooltip = Resources.Activity_WithFtpSession_Property_FtpsMode_Description;
+            FtpsMode.IsPrincipal = false;
+            FtpsMode.OrderIndex = orderIndex++;
+            FtpsMode.Category = Resources.Security;
+            FtpsMode.DataSource = _ftpsModeDataSource;
+            FtpsMode.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
+            SslProtocols.DisplayName = Resources.Activity_WithFtpSession_Property_SslProtocols_Name;
+            SslProtocols.Tooltip = Resources.Activity_WithFtpSession_Property_SslProtocols_Description;
+            SslProtocols.EditPlaceholder = Resources.Activity_WithFtpSession_Property_SslProtocols_Placeholder;
+            SslProtocols.IsPrincipal = false;
+            SslProtocols.OrderIndex = orderIndex++;
+            SslProtocols.Category = Resources.Security;
+            SslProtocols.DataSource = _sslProtocolsDataSource;
+            SslProtocols.Widget = new DefaultWidget { Type = ViewModelWidgetType.MultiSelect };
+
+            ClientCertificatePath.DisplayName = Resources.Activity_WithFtpSession_Property_ClientCertificatePath_Name;
+            ClientCertificatePath.Tooltip = Resources.Activity_WithFtpSession_Property_ClientCertificatePath_Description;
+            ClientCertificatePath.EditPlaceholder = Resources.Activity_WithFtpSession_Property_ClientCertificatePath_Placeholder;
+            ClientCertificatePath.IsPrincipal = false;
+            ClientCertificatePath.OrderIndex = orderIndex++;
+            ClientCertificatePath.Category = Resources.Security;
+
+            ClientCertificatePassword.DisplayName = Resources.Activity_WithFtpSession_Property_ClientCertificatePassword_Name;
+            ClientCertificatePassword.Tooltip = Resources.Activity_WithFtpSession_Property_ClientCertificatePassword_Description;
+            ClientCertificatePassword.IsPrincipal = false;
+            ClientCertificatePassword.OrderIndex = orderIndex;
+            ClientCertificatePassword.Category = Resources.Security;
+
+            ClientCertificateSecurePassword.DisplayName = Resources.Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name;
+            ClientCertificateSecurePassword.Tooltip = Resources.Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Description;
+            ClientCertificateSecurePassword.IsPrincipal = false;
+            ClientCertificateSecurePassword.IsVisible = false;
+            ClientCertificateSecurePassword.OrderIndex = orderIndex++;
+            ClientCertificateSecurePassword.Category = Resources.Security;
+
+            AcceptAllCertificates.DisplayName = Resources.Activity_WithFtpSession_Property_AcceptAllCertificates_Name;
+            AcceptAllCertificates.Tooltip = Resources.Activity_WithFtpSession_Property_AcceptAllCertificates_Description;
+            AcceptAllCertificates.IsPrincipal = false;
+            AcceptAllCertificates.OrderIndex = orderIndex++;
+            AcceptAllCertificates.Category = Resources.Security;
+            AcceptAllCertificates.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+        }
+
+        /// <summary>
+        /// Proxy configuration. Everything below ProxyType is revealed by
+        /// <see cref="ProxyModeChanged_Action"/> once a proxy type is picked.
+        /// </summary>
+        private void ConfigureProxyProperties(ref int orderIndex)
+        {
+            ProxyType.DisplayName = Resources.Activity_WithFtpSession_Property_ProxyType_Name;
+            ProxyType.Tooltip = Resources.Activity_WithFtpSession_Property_ProxyType_Description;
+            ProxyType.IsPrincipal = false;
+            ProxyType.OrderIndex = orderIndex++;
+            ProxyType.Category = Resources.Proxy;
+            ProxyType.DataSource = _proxyTypeDataSource;
+            ProxyType.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown };
+
+            ProxyServer.DisplayName = Resources.Activity_WithFtpSession_Property_ProxyServer_Name;
+            ProxyServer.Tooltip = Resources.Activity_WithFtpSession_Property_ProxyServer_Description;
+            ProxyServer.EditPlaceholder = Resources.Activity_WithFtpSession_Property_ProxyServer_Placeholder;
+            ProxyServer.IsPrincipal = false;
+            ProxyServer.OrderIndex = orderIndex++;
+            ProxyServer.Category = Resources.Proxy;
+
+            ProxyPort.DisplayName = Resources.Activity_WithFtpSession_Property_ProxyPort_Name;
+            ProxyPort.Tooltip = Resources.Activity_WithFtpSession_Property_ProxyPort_Description;
+            ProxyPort.IsPrincipal = false;
+            ProxyPort.OrderIndex = orderIndex++;
+            ProxyPort.Category = Resources.Proxy;
+            ProxyPort.Widget = new DefaultWidget { Type = ViewModelWidgetType.Number };
+
+            ProxyUser.DisplayName = Resources.Activity_WithFtpSession_Property_ProxyUser_Name;
+            ProxyUser.Tooltip = Resources.Activity_WithFtpSession_Property_ProxyUser_Description;
+            ProxyUser.IsPrincipal = false;
+            ProxyUser.OrderIndex = orderIndex++;
+            ProxyUser.Category = Resources.Proxy;
+
+            ProxyPassword.DisplayName = Resources.Activity_WithFtpSession_Property_ProxyPassword_Name;
+            ProxyPassword.Tooltip = Resources.Activity_WithFtpSession_Property_ProxyPassword_Description;
+            ProxyPassword.IsPrincipal = false;
+            ProxyPassword.OrderIndex = orderIndex;
+            ProxyPassword.Category = Resources.Proxy;
+
+            ProxySecurePassword.DisplayName = Resources.Activity_WithFtpSession_Property_ProxySecurePassword_Name;
+            ProxySecurePassword.Tooltip = Resources.Activity_WithFtpSession_Property_ProxySecurePassword_Description;
+            ProxySecurePassword.IsPrincipal = false;
+            ProxySecurePassword.IsVisible = false;
+            ProxySecurePassword.OrderIndex = orderIndex++;
+            ProxySecurePassword.Category = Resources.Proxy;
         }
 
         /// <inheritdoc/>
@@ -294,6 +468,20 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         }
 
         private static void InitializeFtpsModeDataSource()
+        {
+            _ftpsModeDataSource ??= DataSourceBuilder<FtpsModeEnum>
+                .WithId(m => Enum.GetName(m))
+                .WithLabel(m => LocalizedEnum.GetLocalizedValue(typeof(FtpsModeEnum), m).Name)
+                .WithData(new List<FtpsModeEnum>
+                {
+                    FtpsModeEnum.None,
+                    FtpsModeEnum.Explicit,
+                    FtpsModeEnum.Implicit,
+                })
+                .Build();
+        }
+
+        private static void InitializeSslProtocolsDataSource()
         {
             if (_sslProtocolsDataSource is not null)
             {

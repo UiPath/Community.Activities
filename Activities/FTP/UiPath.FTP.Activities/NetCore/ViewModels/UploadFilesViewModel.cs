@@ -1,4 +1,6 @@
-﻿using System.Activities.DesignViewModels;
+using System.Activities.DesignViewModels;
+using System.Activities.ViewModels;
+using UiPath.FTP.Activities.Properties;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
@@ -40,15 +42,48 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         protected override void InitializeModel()
         {
             base.InitializeModel();
-            PersistValuesChangedDuringInit();
 
-            int propertyOrderIndex = 1;
+            int orderIndex = 1;
 
-            RemotePath.OrderIndex = propertyOrderIndex++;
-            LocalPath.OrderIndex = propertyOrderIndex++;
-            Create.OrderIndex = propertyOrderIndex++;
-            Recursive.OrderIndex = propertyOrderIndex++;
-            Overwrite.OrderIndex = propertyOrderIndex;
+            // source first, then destination
+            LocalPath.DisplayName = Resources.Activity_UploadFiles_Property_LocalPath_Name;
+            LocalPath.Tooltip = Resources.Activity_UploadFiles_Property_LocalPath_Description;
+            LocalPath.EditPlaceholder = Resources.Activity_UploadFiles_Property_LocalPath_Placeholder;
+            LocalPath.IsRequired = true;
+            LocalPath.IsPrincipal = true;
+            LocalPath.OrderIndex = orderIndex++;
+            LocalPath.Category = Resources.Input;
+
+            RemotePath.DisplayName = Resources.Activity_UploadFiles_Property_RemotePath_Name;
+            RemotePath.Tooltip = Resources.Activity_UploadFiles_Property_RemotePath_Description;
+            RemotePath.EditPlaceholder = Resources.Activity_UploadFiles_Property_RemotePath_Placeholder;
+            RemotePath.IsRequired = true;
+            RemotePath.IsPrincipal = true;
+            RemotePath.OrderIndex = orderIndex++;
+            RemotePath.Category = Resources.Input;
+
+            Create.DisplayName = Resources.Activity_UploadFiles_Property_Create_Name;
+            Create.Tooltip = Resources.Activity_UploadFiles_Property_Create_Description;
+            Create.IsPrincipal = false;
+            Create.OrderIndex = orderIndex++;
+            Create.Category = Resources.Options;
+            Create.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
+            Recursive.DisplayName = Resources.Activity_UploadFiles_Property_Recursive_Name;
+            Recursive.Tooltip = Resources.Activity_UploadFiles_Property_Recursive_Description;
+            Recursive.IsPrincipal = false;
+            Recursive.OrderIndex = orderIndex++;
+            Recursive.Category = Resources.Options;
+            Recursive.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
+            Overwrite.DisplayName = Resources.Activity_UploadFiles_Property_Overwrite_Name;
+            Overwrite.Tooltip = Resources.Activity_UploadFiles_Property_Overwrite_Description;
+            Overwrite.IsPrincipal = false;
+            Overwrite.OrderIndex = orderIndex++;
+            Overwrite.Category = Resources.Options;
+            Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+
+            ConfigureContinueOnError(ref orderIndex);
         }
     }
 }
