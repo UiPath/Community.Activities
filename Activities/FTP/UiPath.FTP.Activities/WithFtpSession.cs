@@ -188,6 +188,15 @@ namespace UiPath.FTP.Activities
 
             // Surface at design time what ExecuteAsync would otherwise only throw at runtime, so the
             // fields get an error indicator and an entry in the Issues panel.
+
+            // SFTP has no concept of anonymous login: unlike FtpSession, SftpSession always builds
+            // its authentication methods from Username plus a password/keyboard-interactive or
+            // private-key credential, and ExecuteAsync never populates Username when
+            // UseAnonymousLogin is on. That combination reaches OpenAsync and always throws
+            // NoValidAuthenticationMethod, regardless of what else is configured.
+            if (UseSftp && UseAnonymousLogin)
+                metadata.AddValidationError(new ValidationError(Resources.AnonymousLoginNotSupportedOnSftp, false, nameof(UseAnonymousLogin)));
+
             if (!UseAnonymousLogin)
             {
                 if (Username?.Expression == null)

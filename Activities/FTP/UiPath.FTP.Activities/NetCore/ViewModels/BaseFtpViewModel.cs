@@ -17,7 +17,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// Specifies if the automation should continue even when the activity throws an error.
         /// </summary>
-        public DesignInArgument<bool> ContinueOnError { get; set; }
+        public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
 
         protected override void InitializeModel()
         {

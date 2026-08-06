@@ -30,122 +30,122 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// The child activities that run against the open session. It is rendered as the scope's
         /// drop area on the canvas, never as a property row — see <see cref="InitializeModel"/>.
         /// </summary>
-        public DesignProperty<ActivityAction<IFtpSession>> Body { get; set; }
+        public DesignProperty<ActivityAction<IFtpSession>> Body { get; set; } = new DesignProperty<ActivityAction<IFtpSession>>();
 
         /// <summary>
         /// The URL of the FTP server that you want to connect to.
         /// </summary>
-        public DesignInArgument<string> Host { get; set; }
+        public DesignInArgument<string> Host { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The port of the FTP server that you want to connect to.
         /// </summary>
-        public DesignInArgument<int> Port { get; set; }
+        public DesignInArgument<int> Port { get; set; } = new DesignInArgument<int>();
 
         /// <summary>
         /// The connection timeout in milliseconds.
         /// </summary>
-        public DesignInArgument<int> Timeout { get; set; }
+        public DesignInArgument<int> Timeout { get; set; } = new DesignInArgument<int>();
 
         /// <summary>
         /// The username that will be used to connect to the FTP server.
         /// </summary>
-        public DesignInArgument<string> Username { get; set; }
+        public DesignInArgument<string> Username { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The password that will be used to connect to the FTP server.
         /// </summary>
-        public DesignInArgument<string> Password { get; set; }
+        public DesignInArgument<string> Password { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The secure password that will be used to connect to the FTP server.
         /// </summary>
-        public DesignInArgument<SecureString> SecurePassword { get; set; }
+        public DesignInArgument<SecureString> SecurePassword { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
         /// Switches Password as string or secure string
         /// </summary>
-        public DesignProperty<PasswordInputMode> PasswordInputModeSwitch { get; set; }
+        public DesignProperty<PasswordInputMode> PasswordInputModeSwitch { get; set; } = new DesignProperty<PasswordInputMode>();
 
         /// <summary>
         /// When this box is checked, the username and password fields are ignored, and a standard anonymous user is used instead.
         /// </summary>
-        public DesignProperty<bool> UseAnonymousLogin { get; set; }
+        public DesignProperty<bool> UseAnonymousLogin { get; set; } = new DesignProperty<bool>();
 
         /// <summary>
         /// Switches to the FTPS protocol.
         /// </summary>
-        public DesignProperty<FtpsMode> FtpsMode { get; set; }
+        public DesignProperty<FtpsMode> FtpsMode { get; set; } = new DesignProperty<FtpsMode>();
 
         /// <summary>
         /// Select the SSL protocol to be used for the FTPS connection
         /// </summary>
-        public DesignProperty<FtpSslProtocols> SslProtocols { get; set; }
+        public DesignProperty<FtpSslProtocols> SslProtocols { get; set; } = new DesignProperty<FtpSslProtocols>();
 
         /// <summary>
         /// Check this box if you want to use the SFTP transfer protocol.
         /// </summary>
-        public DesignProperty<bool> UseSftp { get; set; }
+        public DesignProperty<bool> UseSftp { get; set; } = new DesignProperty<bool>();
 
         /// <summary>
         /// The path to the certificate used to verify the identity of the client.
         /// </summary>
-        public DesignInArgument<string> ClientCertificatePath { get; set; }
+        public DesignInArgument<string> ClientCertificatePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The password for the client certificate.
         /// </summary>
-        public DesignInArgument<string> ClientCertificatePassword { get; set; }
+        public DesignInArgument<string> ClientCertificatePassword { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The secure password that will be used to connect to the FTP server.
         /// </summary>
-        public DesignInArgument<SecureString> ClientCertificateSecurePassword { get; set; }
+        public DesignInArgument<SecureString> ClientCertificateSecurePassword { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
         /// Switches Password as string or secure string
         /// </summary>
-        public DesignProperty<PasswordInputMode> CertificatePasswordInputModeSwitch { get; set; }
+        public DesignProperty<PasswordInputMode> CertificatePasswordInputModeSwitch { get; set; } = new DesignProperty<PasswordInputMode>();
 
         /// <summary>
         /// If this box is checked, all certificates will be accepted, including the ones that are expired or not verified.
         /// </summary>
-        public DesignProperty<bool> AcceptAllCertificates { get; set; }
+        public DesignProperty<bool> AcceptAllCertificates { get; set; } = new DesignProperty<bool>();
 
         /// <summary>
         /// The type of proxy used
         /// </summary>
-        public DesignProperty<FtpProxyType> ProxyType { get; set; }
+        public DesignProperty<FtpProxyType> ProxyType { get; set; } = new DesignProperty<FtpProxyType>();
 
         /// <summary>
         /// The proxy host
         /// </summary>
-        public DesignInArgument<string> ProxyServer { get; set; }
+        public DesignInArgument<string> ProxyServer { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The proxy port
         /// </summary>
-        public DesignInArgument<int> ProxyPort { get; set; }
+        public DesignInArgument<int> ProxyPort { get; set; } = new DesignInArgument<int>();
 
         /// <summary>
         /// User used for proxy authentification
         /// </summary>
-        public DesignInArgument<string> ProxyUser { get; set; }
+        public DesignInArgument<string> ProxyUser { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// Password for proxy
         /// </summary>
-        public DesignInArgument<string> ProxyPassword { get; set; }
+        public DesignInArgument<string> ProxyPassword { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// Secured password for proxy
         /// </summary>
-        public DesignInArgument<SecureString> ProxySecurePassword { get; set; }
+        public DesignInArgument<SecureString> ProxySecurePassword { get; set; } = new DesignInArgument<SecureString>();
 
         /// <summary>
         /// Switches Proxy Password as string or secure string
         /// </summary>
-        public DesignProperty<PasswordInputMode> ProxyPasswordInputModeSwitch { get; set; }
+        public DesignProperty<PasswordInputMode> ProxyPasswordInputModeSwitch { get; set; } = new DesignProperty<PasswordInputMode>();
 
         private static DataSource<FtpSslProtocols> _sslProtocolsDataSource;
 
@@ -388,7 +388,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// Password input Mode has changed. Set controls visibility based on selection
         /// </summary>
-        private void PasswordInputModeChanged_Action()
+        internal void PasswordInputModeChanged_Action()
         {
             switch (PasswordInputModeSwitch.Value)
             {
@@ -408,7 +408,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// CertificatePassword input Mode has changed. Set controls visibility based on selection
         /// </summary>
-        private void CertificatePasswordInputModeChanged_Action()
+        internal void CertificatePasswordInputModeChanged_Action()
         {
             switch (CertificatePasswordInputModeSwitch.Value)
             {
@@ -428,7 +428,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// CertificatePassword input Mode has changed. Set controls visibility based on selection
         /// </summary>
-        private void ProxyPasswordInputModeChanged_Action()
+        internal void ProxyPasswordInputModeChanged_Action()
         {
             switch (ProxyPasswordInputModeSwitch.Value)
             {
@@ -445,7 +445,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             }
         }
 
-        private void FtpEncryptionModeChanged_Action()
+        internal void FtpEncryptionModeChanged_Action()
         {
             if (FtpsMode.Value == FTP.FtpsMode.None)
             {
@@ -456,7 +456,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             SslProtocols.IsVisible = true;
         }
 
-        private void ProxyModeChanged_Action()
+        internal void ProxyModeChanged_Action()
         {
             bool proxyConfigVisible = ProxyType.Value != FtpProxyType.None;
             ProxyServer.IsVisible = proxyConfigVisible;

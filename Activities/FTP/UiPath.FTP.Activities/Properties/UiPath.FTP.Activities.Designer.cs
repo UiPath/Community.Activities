@@ -1231,6 +1231,33 @@ namespace UiPath.FTP.Activities.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Directory Exists.
+        /// </summary>
+        public static string ActivitySynonymCheckIfFolderExists {
+            get {
+                return ResourceManager.GetString("ActivitySynonymCheckIfFolderExists", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to File Exists.
+        /// </summary>
+        public static string ActivitySynonymCheckIfFileExists {
+            get {
+                return ResourceManager.GetString("ActivitySynonymCheckIfFileExists", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enumerate Objects.
+        /// </summary>
+        public static string ActivitySynonymListFilesAndFolders {
+            get {
+                return ResourceManager.GetString("ActivitySynonymListFilesAndFolders", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Credentials.
         /// </summary>
         public static string Category_Credentials_Name {
@@ -1634,7 +1661,16 @@ namespace UiPath.FTP.Activities.Properties {
                 return ResourceManager.GetString("NoValidAuthenticationMethod", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Anonymous login is not supported over SFTP. Turn off Use Anonymous Login or Use SFTP.
+        /// </summary>
+        public static string AnonymousLoginNotSupportedOnSftp {
+            get {
+                return ResourceManager.GetString("AnonymousLoginNotSupportedOnSftp", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to {0} (Obsolete).
         /// </summary>

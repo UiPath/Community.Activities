@@ -222,6 +222,9 @@
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
     <value>No valid authentication method found: You need to supply either Private Key file (and optionally passphrase) or Password</value>
   </data>
+  <data name="AnonymousLoginNotSupportedOnSftp" xml:space="preserve">
+    <value>Anonymous login is not supported over SFTP. Turn off Use Anonymous Login or Use SFTP.</value>
+  </data>
   <data name="NewPath" xml:space="preserve">
     <value>New remote path</value>
   </data>
@@ -843,6 +846,18 @@
   </data>
   <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
     <value>With FTP connection</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFolderExists" xml:space="preserve">
+    <value>Directory Exists</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFileExists" xml:space="preserve">
+    <value>File Exists</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymListFilesAndFolders" xml:space="preserve">
+    <value>Enumerate Objects</value>
     <comment>Activity search alias</comment>
   </data>
 </root>
