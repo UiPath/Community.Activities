@@ -16,12 +16,12 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// The path of the FTP directory in which to check whether the indicated directory exists.
         /// </summary>
-        public DesignInArgument<string> RemotePath { get; set; }
+        public DesignInArgument<string> RemotePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// A boolean variable that states whether the indicated directory was found or not.
         /// </summary>
-        public DesignOutArgument<bool> Exists { get; set; }
+        public DesignOutArgument<bool> Exists { get; set; } = new DesignOutArgument<bool>();
 
         protected override void InitializeModel()
         {

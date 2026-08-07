@@ -17,17 +17,17 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// The remote path on the FTP server where the file is currently located.
         /// </summary>
-        public DesignInArgument<string> RemotePath { get; set; }
+        public DesignInArgument<string> RemotePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The remote path on the FTP server where the file will be moved.
         /// </summary>
-        public DesignInArgument<string> NewPath { get; set; }
+        public DesignInArgument<string> NewPath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// If this box is checked, the files will be overwritten in the new remote directory if they're already stored there.
         /// </summary>
-        public DesignProperty<bool> Overwrite { get; set; }
+        public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
 
         protected override void InitializeModel()
         {

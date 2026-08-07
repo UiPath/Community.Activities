@@ -181,14 +181,31 @@ namespace UiPath.FTP.Activities
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             base.CacheMetadata(metadata);
-            if (ProxyType != FtpProxyType.None && ProxyServer?.Expression == null)
+
+            ValidateProxyConfiguration(metadata);
+            ValidateAuthenticationMethod(metadata);
+            ValidateTimeout(metadata);
+        }
+
+        private void ValidateProxyConfiguration(NativeActivityMetadata metadata)
+        {
+            if (ProxyType == FtpProxyType.None)
+            {
+                return;
+            }
+
+            if (ProxyServer?.Expression == null)
                 metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorFormat, Resources.Activity_WithFtpSession_Property_ProxyServer_Name), false, nameof(ProxyServer)));
-            if (ProxyType != FtpProxyType.None && ProxyPort?.Expression == null)
+            if (ProxyPort?.Expression == null)
                 metadata.AddValidationError(new ValidationError(string.Format(Resources.ValidationErrorFormat, Resources.Activity_WithFtpSession_Property_ProxyPort_Name), false, nameof(ProxyPort)));
+        }
 
-            // Surface at design time what ExecuteAsync would otherwise only throw at runtime, so the
-            // fields get an error indicator and an entry in the Issues panel.
-
+        /// <summary>
+        /// Surfaces at design time what ExecuteAsync would otherwise only throw at runtime, so the
+        /// fields get an error indicator and an entry in the Issues panel.
+        /// </summary>
+        private void ValidateAuthenticationMethod(NativeActivityMetadata metadata)
+        {
             // SFTP has no concept of anonymous login: unlike FtpSession, SftpSession always builds
             // its authentication methods from Username plus a password/keyboard-interactive or
             // private-key credential, and ExecuteAsync never populates Username when
@@ -197,23 +214,30 @@ namespace UiPath.FTP.Activities
             if (UseSftp && UseAnonymousLogin)
                 metadata.AddValidationError(new ValidationError(Resources.AnonymousLoginNotSupportedOnSftp, false, nameof(UseAnonymousLogin)));
 
-            if (!UseAnonymousLogin)
+            if (UseAnonymousLogin)
             {
-                if (Username?.Expression == null)
-                    metadata.AddValidationError(new ValidationError(Resources.EmptyUsernameException, false, nameof(Username)));
-
-                bool passwordProvided = PasswordInputModeSwitch == PasswordInputMode.Password
-                    ? Password?.Expression != null
-                    : SecurePassword?.Expression != null;
-                if (!passwordProvided && ClientCertificatePath?.Expression == null)
-                {
-                    string passwordPropertyName = PasswordInputModeSwitch == PasswordInputMode.Password
-                        ? nameof(Password)
-                        : nameof(SecurePassword);
-                    metadata.AddValidationError(new ValidationError(Resources.NoValidAuthenticationMethod, false, passwordPropertyName));
-                }
+                return;
             }
 
+            if (Username?.Expression == null)
+                metadata.AddValidationError(new ValidationError(Resources.EmptyUsernameException, false, nameof(Username)));
+
+            bool passwordProvided = PasswordInputModeSwitch == PasswordInputMode.Password
+                ? Password?.Expression != null
+                : SecurePassword?.Expression != null;
+            if (passwordProvided || ClientCertificatePath?.Expression != null)
+            {
+                return;
+            }
+
+            string passwordPropertyName = PasswordInputModeSwitch == PasswordInputMode.Password
+                ? nameof(Password)
+                : nameof(SecurePassword);
+            metadata.AddValidationError(new ValidationError(Resources.NoValidAuthenticationMethod, false, passwordPropertyName));
+        }
+
+        private void ValidateTimeout(NativeActivityMetadata metadata)
+        {
             if (Timeout?.Expression is Literal<int> timeoutLiteral && timeoutLiteral.Value < 0)
                 metadata.AddValidationError(new ValidationError(Resources.InvalidTimeoutException, false, nameof(Timeout)));
         }
@@ -227,92 +251,99 @@ namespace UiPath.FTP.Activities
 
             try
             {
-                string passwordValue = Password.Get(context);
-                SecureString securePasswordValue = SecurePassword.Get(context);
-                string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
-                SecureString clientCertificateSecurePasswordValue = ClientCertificateSecurePassword.Get(context);
-
-                FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
-                ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
-                int? timeout = Timeout.Expression == null ? null : (int?)Timeout.Get(context);
-                if (timeout.HasValue && timeout.Value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(Timeout), Resources.InvalidTimeoutException);
-                }
-                ftpConfiguration.Timeout = timeout;
-                ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
-                ftpConfiguration.SslProtocols = SslProtocols;
-                ftpConfiguration.ProxyType = ProxyType;
-
-                if (PasswordInputModeSwitch == PasswordInputMode.Password)
-                {
-                    ftpConfiguration.Password = passwordValue;
-                }
-                else
-                {
-                    ftpConfiguration.Password = new NetworkCredential("", securePasswordValue).Password;
-                }
-
-                if (ftpConfiguration.ProxyType != FtpProxyType.None)
-                {
-                    ftpConfiguration.ProxyServer = ProxyServer.Get(context);
-                    ftpConfiguration.ProxyPort = ProxyPort.Expression == null ? null : (int?)ProxyPort.Get(context);
-                    ftpConfiguration.ProxyUsername = ProxyUser.Get(context);
-
-                    if (ProxyPasswordInputModeSwitch == PasswordInputMode.Password)
-                        ftpConfiguration.ProxyPassword = ProxyPassword.Get(context);
-                    else
-                        ftpConfiguration.ProxyPassword = new NetworkCredential(string.Empty, ProxySecurePassword.Get(context)).Password;
-                }
-
-                ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
-                ftpConfiguration.ClientCertificatePassword = clientCertificatePasswordValue;
-                if (ftpConfiguration.ClientCertificatePassword == null)
-                {
-                    ftpConfiguration.ClientCertificatePassword = new NetworkCredential("", clientCertificateSecurePasswordValue).Password;
-                }
-
-                ftpConfiguration.AcceptAllCertificates = AcceptAllCertificates;
-
-                if (ftpConfiguration.UseAnonymousLogin == false)
-                {
-                    ftpConfiguration.Username = Username.Get(context);
-                    if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
-                    {
-                        throw new ArgumentNullException(Resources.EmptyUsernameException);
-                    }
-
-                    if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
-                    {
-                        throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
-                    }
-                }
-
-                IFtpSession ftpSession = _setFtpSession;
-
-                if (UseSftp)
-                    ftpSession ??= new SftpSession(ftpConfiguration);
-                else
-                    ftpSession ??= new FtpSession(ftpConfiguration, FtpsMode);
+                FtpConfiguration ftpConfiguration = BuildFtpConfiguration(context);
+                IFtpSession ftpSession = _setFtpSession ?? CreateFtpSession(ftpConfiguration);
 
                 await ftpSession.OpenAsync(cancellationToken);
 
-                var result = new Action<NativeActivityContext>(nativeActivityContext =>
-                {
-                    if (Body != null)
-                    {
-                        _ftpSession = ftpSession;
-                        nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
-                    }
-                });
-                return result;
+                return nativeActivityContext => ScheduleBody(nativeActivityContext, ftpSession);
             }
             catch (Exception ex)
             {
                 telemetryOperation?.SendWithException(ex);
                 throw;
             }
+        }
 
+        private FtpConfiguration BuildFtpConfiguration(NativeActivityContext context)
+        {
+            string passwordValue = Password.Get(context);
+            SecureString securePasswordValue = SecurePassword.Get(context);
+            string clientCertificatePasswordValue = ClientCertificatePassword.Get(context);
+            SecureString clientCertificateSecurePasswordValue = ClientCertificateSecurePassword.Get(context);
+
+            FtpConfiguration ftpConfiguration = new FtpConfiguration(Host.Get(context));
+            ftpConfiguration.Port = Port.Expression == null ? null : (int?)Port.Get(context);
+            int? timeout = Timeout.Expression == null ? null : (int?)Timeout.Get(context);
+            if (timeout.HasValue && timeout.Value < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(Timeout), Resources.InvalidTimeoutException);
+            }
+            ftpConfiguration.Timeout = timeout;
+            ftpConfiguration.UseAnonymousLogin = UseAnonymousLogin;
+            ftpConfiguration.SslProtocols = SslProtocols;
+            ftpConfiguration.ProxyType = ProxyType;
+            ftpConfiguration.Password = PasswordInputModeSwitch == PasswordInputMode.Password
+                ? passwordValue
+                : new NetworkCredential("", securePasswordValue).Password;
+
+            ConfigureProxy(ftpConfiguration, context);
+
+            ftpConfiguration.ClientCertificatePath = ClientCertificatePath.Get(context);
+            ftpConfiguration.ClientCertificatePassword = clientCertificatePasswordValue
+                ?? new NetworkCredential("", clientCertificateSecurePasswordValue).Password;
+
+            ftpConfiguration.AcceptAllCertificates = AcceptAllCertificates;
+
+            if (ftpConfiguration.UseAnonymousLogin == false)
+            {
+                ResolveCredentials(context, ftpConfiguration);
+            }
+
+            return ftpConfiguration;
+        }
+
+        private void ConfigureProxy(FtpConfiguration ftpConfiguration, NativeActivityContext context)
+        {
+            if (ftpConfiguration.ProxyType == FtpProxyType.None)
+            {
+                return;
+            }
+
+            ftpConfiguration.ProxyServer = ProxyServer.Get(context);
+            ftpConfiguration.ProxyPort = ProxyPort.Expression == null ? null : (int?)ProxyPort.Get(context);
+            ftpConfiguration.ProxyUsername = ProxyUser.Get(context);
+            ftpConfiguration.ProxyPassword = ProxyPasswordInputModeSwitch == PasswordInputMode.Password
+                ? ProxyPassword.Get(context)
+                : new NetworkCredential(string.Empty, ProxySecurePassword.Get(context)).Password;
+        }
+
+        private void ResolveCredentials(NativeActivityContext context, FtpConfiguration ftpConfiguration)
+        {
+            ftpConfiguration.Username = Username.Get(context);
+            if (string.IsNullOrWhiteSpace(ftpConfiguration.Username))
+            {
+                throw new ArgumentNullException(Resources.EmptyUsernameException);
+            }
+
+            if (string.IsNullOrWhiteSpace(ftpConfiguration.Password) && string.IsNullOrWhiteSpace(ftpConfiguration.ClientCertificatePath))
+            {
+                throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
+            }
+        }
+
+        private IFtpSession CreateFtpSession(FtpConfiguration ftpConfiguration)
+            => UseSftp ? new SftpSession(ftpConfiguration) : new FtpSession(ftpConfiguration, FtpsMode);
+
+        private void ScheduleBody(NativeActivityContext nativeActivityContext, IFtpSession ftpSession)
+        {
+            if (Body == null)
+            {
+                return;
+            }
+
+            _ftpSession = ftpSession;
+            nativeActivityContext.ScheduleAction(Body, ftpSession, OnCompleted, OnFaulted);
         }
 
         private void OnCompleted(NativeActivityContext context, ActivityInstance completedInstance)

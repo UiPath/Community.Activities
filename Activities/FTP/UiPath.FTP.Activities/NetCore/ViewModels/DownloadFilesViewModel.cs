@@ -17,27 +17,27 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// The path of the files on the FTP server that are to be downloaded.
         /// </summary>
-        public DesignInArgument<string> RemotePath { get; set; }
+        public DesignInArgument<string> RemotePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// The local path for the files that are to be downloaded.
         /// </summary>
-        public DesignInArgument<string> LocalPath { get; set; }
+        public DesignInArgument<string> LocalPath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// If this box is checked, the folders will be downloaded with their respective subfolders.
         /// </summary>
-        public DesignProperty<bool> Recursive { get; set; }
+        public DesignProperty<bool> Recursive { get; set; } = new DesignProperty<bool>();
 
         /// <summary>
         /// If this box is checked, the folder path will be created locally in case it does not already exist.
         /// </summary>
-        public DesignProperty<bool> Create { get; set; }
+        public DesignProperty<bool> Create { get; set; } = new DesignProperty<bool>();
 
         /// <summary>
         /// If this box is checked, the files will be overwritten locally if they're already stored there.
         /// </summary>
-        public DesignProperty<bool> Overwrite { get; set; }
+        public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
 
         protected override void InitializeModel()
         {

@@ -16,7 +16,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// The path of the file that is to be removed from the FTP server.
         /// </summary>
-        public DesignInArgument<string> RemotePath { get; set; }
+        public DesignInArgument<string> RemotePath { get; set; } = new DesignInArgument<string>();
 
         protected override void InitializeModel()
         {

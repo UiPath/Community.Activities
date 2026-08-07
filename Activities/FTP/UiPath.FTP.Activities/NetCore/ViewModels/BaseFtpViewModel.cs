@@ -37,7 +37,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             ContinueOnError.IsRequired = false;
             ContinueOnError.OrderIndex = orderIndex++;
             ContinueOnError.Category = Resources.Options;
-            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
+            ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.NullableBoolean };
         }
     }
 }

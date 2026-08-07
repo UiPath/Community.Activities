@@ -28,8 +28,35 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(ftpConfiguration));
             }
 
-            ConnectionInfo connectionInfo = null;
+            List<AuthenticationMethod> authMethods = BuildAuthenticationMethods(ftpConfiguration);
 
+            //Throw an error if we ended up with no authentication method
+            if (authMethods.Count == 0)
+            {
+                throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
+            }
+
+            ConnectionInfo connectionInfo = BuildConnectionInfo(ftpConfiguration, authMethods);
+
+            TimeSpan? timeoutSpan = ftpConfiguration.Timeout != null
+                ? TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value)
+                : null;
+
+            if (timeoutSpan.HasValue)
+            {
+                connectionInfo.Timeout = timeoutSpan.Value;
+            }
+
+            _sftpClient = new SftpClient(connectionInfo);
+
+            if (timeoutSpan.HasValue)
+            {
+                _sftpClient.OperationTimeout = timeoutSpan.Value;
+            }
+        }
+
+        private static List<AuthenticationMethod> BuildAuthenticationMethods(FtpConfiguration ftpConfiguration)
+        {
             var authMethods = new List<AuthenticationMethod>();
 
             //Add password authentication method if password is provided
@@ -53,63 +80,44 @@ namespace UiPath.FTP
             // a redundant failed auth round-trip on certificate-only connections.
             if (!String.IsNullOrEmpty(ftpConfiguration.Password))
             {
-                var kbiMethod = new KeyboardInteractiveAuthenticationMethod(ftpConfiguration.Username);
-                var kbiPassword = ftpConfiguration.Password;
-                kbiMethod.AuthenticationPrompt += (sender, e) =>
-                {
-                    foreach (var prompt in e.Prompts)
-                    {
-                        if (!prompt.IsEchoed)
-                        {
-                            prompt.Response = kbiPassword;
-                        }
-                    }
-                };
-                authMethods.Add(kbiMethod);
+                authMethods.Add(BuildKeyboardInteractiveAuthenticationMethod(ftpConfiguration.Username, ftpConfiguration.Password));
             }
 
-            //Throw an error if we ended up with no authentication method
-            if (authMethods.Count == 0)
-            {
-                throw new ArgumentNullException(Resources.NoValidAuthenticationMethod);
-            }
-            if (ftpConfiguration.ProxyType == FtpProxyType.None)
-            {
-                if (ftpConfiguration.Port == null)
-                {
-                    connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Username, authMethods.ToArray());
-                }
-                else
-                {
-                    connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Port.Value, ftpConfiguration.Username, authMethods.ToArray());
-                }
-            }
-            else
-            {
-                int proxyPort = (ftpConfiguration.ProxyPort == null) ? DefaultProxyPort : ftpConfiguration.ProxyPort.Value;
-                int ftpPort = (ftpConfiguration.Port == null) ? DefaultFtpPort : ftpConfiguration.Port.Value;
-
-                connectionInfo = new ConnectionInfo(ftpConfiguration.Host, ftpPort, ftpConfiguration.Username, ftpConfiguration.ProxyType.ToMaster(),ftpConfiguration.ProxyServer, proxyPort,ftpConfiguration.ProxyUsername,ftpConfiguration.ProxyPassword, authMethods.ToArray());
-            }
-
-            TimeSpan? timeoutSpan = ftpConfiguration.Timeout != null
-                ? TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value)
-                : null;
-
-            if (timeoutSpan.HasValue)
-            {
-                connectionInfo.Timeout = timeoutSpan.Value;
-            }
-
-            _sftpClient = new SftpClient(connectionInfo);
-
-            if (timeoutSpan.HasValue)
-            {
-                _sftpClient.OperationTimeout = timeoutSpan.Value;
-            }
+            return authMethods;
         }
 
-        private IEnumerable<Tuple<string, string>> GetLocalListing(string localPath, string remotePath, bool recursive)
+        private static KeyboardInteractiveAuthenticationMethod BuildKeyboardInteractiveAuthenticationMethod(string username, string password)
+        {
+            var kbiMethod = new KeyboardInteractiveAuthenticationMethod(username);
+            kbiMethod.AuthenticationPrompt += (sender, e) =>
+            {
+                foreach (var prompt in e.Prompts)
+                {
+                    if (!prompt.IsEchoed)
+                    {
+                        prompt.Response = password;
+                    }
+                }
+            };
+            return kbiMethod;
+        }
+
+        private static ConnectionInfo BuildConnectionInfo(FtpConfiguration ftpConfiguration, List<AuthenticationMethod> authMethods)
+        {
+            if (ftpConfiguration.ProxyType == FtpProxyType.None)
+            {
+                return ftpConfiguration.Port == null
+                    ? new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Username, authMethods.ToArray())
+                    : new ConnectionInfo(ftpConfiguration.Host, ftpConfiguration.Port.Value, ftpConfiguration.Username, authMethods.ToArray());
+            }
+
+            int proxyPort = (ftpConfiguration.ProxyPort == null) ? DefaultProxyPort : ftpConfiguration.ProxyPort.Value;
+            int ftpPort = (ftpConfiguration.Port == null) ? DefaultFtpPort : ftpConfiguration.Port.Value;
+
+            return new ConnectionInfo(ftpConfiguration.Host, ftpPort, ftpConfiguration.Username, ftpConfiguration.ProxyType.ToMaster(), ftpConfiguration.ProxyServer, proxyPort, ftpConfiguration.ProxyUsername, ftpConfiguration.ProxyPassword, authMethods.ToArray());
+        }
+
+        private static IEnumerable<Tuple<string, string>> GetLocalListing(string localPath, string remotePath, bool recursive)
         {
             if (string.IsNullOrWhiteSpace(localPath))
             {
@@ -392,7 +400,7 @@ namespace UiPath.FTP
         /// Only sub-directories are treated this way: the caller's own remote path is resolved by
         /// <see cref="ClientGet"/> before any walk starts, so a bad remote path still throws.
         /// </summary>
-        private IEnumerable<T> Descend<T>(ISftpFile directory, Func<IEnumerable<T>> walk)
+        private static IEnumerable<T> Descend<T>(ISftpFile directory, Func<IEnumerable<T>> walk)
         {
             try
             {
@@ -408,7 +416,7 @@ namespace UiPath.FTP
         /// <summary>
         /// Asynchronous counterpart of <see cref="Descend{T}"/>.
         /// </summary>
-        private async Task<IEnumerable<T>> DescendAsync<T>(ISftpFile directory, Func<Task<IEnumerable<T>>> walk)
+        private static async Task<IEnumerable<T>> DescendAsync<T>(ISftpFile directory, Func<Task<IEnumerable<T>>> walk)
         {
             try
             {
@@ -628,39 +636,41 @@ namespace UiPath.FTP
             UiPath.FTP.FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
             if (objectType == UiPath.FTP.FtpObjectType.Directory)
             {
-                IEnumerable<Tuple<string, string>> listing = GetRemoteListing(remotePath, localPath, recursive);
-
-                foreach (Tuple<string, string> file in listing)
-                {
-                    string directoryPath = Path.GetDirectoryName(file.Item1);
-                    if (!Directory.Exists(directoryPath))
-                    {
-                        Directory.CreateDirectory(directoryPath);
-                    }
-
-                    using (Stream fileStream = File.OpenWrite(file.Item1))
-                    {
-                        _sftpClient.DownloadFile(file.Item2, fileStream);
-                    }
-                }
+                DownloadDirectory(remotePath, localPath, recursive);
+                return;
             }
-            else
-            {
-                if (objectType == UiPath.FTP.FtpObjectType.File)
-                {
-                    if (File.Exists(localPath) && !overwrite)
-                    {
-                        throw new IOException(Resources.FileExistsException);
-                    }
 
-                    using (Stream fileStream = File.OpenWrite(localPath))
-                    {
-                        _sftpClient.DownloadFile(remotePath, fileStream);
-                    }
-                }
-                else
+            if (objectType != UiPath.FTP.FtpObjectType.File)
+            {
+                throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
+            }
+
+            if (File.Exists(localPath) && !overwrite)
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+
+            using (Stream fileStream = File.OpenWrite(localPath))
+            {
+                _sftpClient.DownloadFile(remotePath, fileStream);
+            }
+        }
+
+        private void DownloadDirectory(string remotePath, string localPath, bool recursive)
+        {
+            IEnumerable<Tuple<string, string>> listing = GetRemoteListing(remotePath, localPath, recursive);
+
+            foreach (Tuple<string, string> file in listing)
+            {
+                string directoryPath = Path.GetDirectoryName(file.Item1);
+                if (!Directory.Exists(directoryPath))
                 {
-                    throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                using (Stream fileStream = File.OpenWrite(file.Item1))
+                {
+                    _sftpClient.DownloadFile(file.Item2, fileStream);
                 }
             }
         }
@@ -679,53 +689,53 @@ namespace UiPath.FTP
             UiPath.FTP.FtpObjectType objectType = ((IFtpSession)this).GetObjectType(remotePath);
             if (objectType == UiPath.FTP.FtpObjectType.Directory)
             {
-                IEnumerable<Tuple<string, string>> listing = await GetRemoteListingAsync(remotePath, localPath, recursive, cancellationToken);
-
-                foreach (Tuple<string, string> file in listing)
-                {
-                    if (File.Exists(file.Item1) && !overwrite)
-                    {
-                        continue;
-                    }
-
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    string directoryPath = Path.GetDirectoryName(file.Item1);
-                    if (!Directory.Exists(directoryPath))
-                    {
-                        Directory.CreateDirectory(directoryPath);
-                    }
-
-                    using (Stream fileStream = File.OpenWrite(file.Item1))
-                    {
-                        await Task.Factory.FromAsync(_sftpClient.BeginDownloadFile(file.Item2, fileStream), _sftpClient.EndDownloadFile);
-                    }
-                }
+                await DownloadDirectoryAsync(remotePath, localPath, overwrite, recursive, cancellationToken);
+                return;
             }
-            else
-            {
-                if (objectType == UiPath.FTP.FtpObjectType.File)
-                {
-                    if (File.Exists(localPath))
-                    {
-                        if (overwrite)
-                        {
-                            File.Delete(localPath);
-                        }
-                        else
-                        {
-                            throw new IOException(Resources.FileExistsException);
-                        }
-                    }
 
-                    using (Stream fileStream = File.OpenWrite(localPath))
-                    {
-                        await Task.Factory.FromAsync(_sftpClient.BeginDownloadFile(remotePath, fileStream), _sftpClient.EndDownloadFile);
-                    }
-                }
-                else
+            if (objectType != UiPath.FTP.FtpObjectType.File)
+            {
+                throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
+            }
+
+            if (File.Exists(localPath))
+            {
+                if (!overwrite)
                 {
-                    throw new NotImplementedException(Resources.UnsupportedObjectTypeException);
+                    throw new IOException(Resources.FileExistsException);
+                }
+
+                File.Delete(localPath);
+            }
+
+            using (Stream fileStream = File.OpenWrite(localPath))
+            {
+                await Task.Factory.FromAsync(_sftpClient.BeginDownloadFile(remotePath, fileStream), _sftpClient.EndDownloadFile);
+            }
+        }
+
+        private async Task DownloadDirectoryAsync(string remotePath, string localPath, bool overwrite, bool recursive, CancellationToken cancellationToken)
+        {
+            IEnumerable<Tuple<string, string>> listing = await GetRemoteListingAsync(remotePath, localPath, recursive, cancellationToken);
+
+            foreach (Tuple<string, string> file in listing)
+            {
+                if (File.Exists(file.Item1) && !overwrite)
+                {
+                    continue;
+                }
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                string directoryPath = Path.GetDirectoryName(file.Item1);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                using (Stream fileStream = File.OpenWrite(file.Item1))
+                {
+                    await Task.Factory.FromAsync(_sftpClient.BeginDownloadFile(file.Item2, fileStream), _sftpClient.EndDownloadFile);
                 }
             }
         }
@@ -823,36 +833,52 @@ namespace UiPath.FTP
                 throw new IOException(string.Format(Resources.PathNotFoundException, remotePath));
             }
 
-            if (SafeExists(newPath) && _sftpClient.Get(newPath).IsRegularFile &&  !overwrite)
+            if (SafeExists(newPath) && _sftpClient.Get(newPath).IsRegularFile && !overwrite)
             {
                 throw new IOException(Resources.FileExistsException);
             }
 
             var file = _sftpClient.Get(remotePath);
 
-            if(SafeExists(newPath) && file.IsRegularFile)
+            if (SafeExists(newPath) && file.IsRegularFile)
             {
-                var movePath = _sftpClient.Get(newPath);
-                if (movePath.IsDirectory)
-                {
-                    var newFP = string.Format("{0}/{1}", movePath.FullName, file.Name);
-                    if (SafeExists(newFP) && _sftpClient.Get(newFP).IsRegularFile)
-                    {
-                        if (overwrite)
-                            _sftpClient.DeleteFile(newFP);
-                        else
-                            throw new IOException(Resources.FileExistsException);
-                    }
-                }
-                else
-                {
-                    if (overwrite)
-                        movePath.Delete();
-                    else
-                        throw new IOException(Resources.FileExistsException);
-                }
+                ResolveFileMoveConflict(file, newPath, overwrite);
             }
+
             file.MoveTo(newPath);
+        }
+
+        private void ResolveFileMoveConflict(ISftpFile file, string newPath, bool overwrite)
+        {
+            var movePath = _sftpClient.Get(newPath);
+            if (movePath.IsDirectory)
+            {
+                ResolveDirectoryDestinationConflict(file, movePath, overwrite);
+                return;
+            }
+
+            if (!overwrite)
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+
+            movePath.Delete();
+        }
+
+        private void ResolveDirectoryDestinationConflict(ISftpFile file, ISftpFile movePath, bool overwrite)
+        {
+            string newFilePath = string.Format("{0}/{1}", movePath.FullName, file.Name);
+            if (!SafeExists(newFilePath) || !_sftpClient.Get(newFilePath).IsRegularFile)
+            {
+                return;
+            }
+
+            if (!overwrite)
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+
+            _sftpClient.DeleteFile(newFilePath);
         }
 
         void IFtpSession.Upload(string localPath, string remotePath, bool overwrite, bool recursive)
@@ -868,39 +894,41 @@ namespace UiPath.FTP
 
             if (Directory.Exists(localPath))
             {
-                IEnumerable<Tuple<string, string>> listing = GetLocalListing(localPath, remotePath, recursive);
-
-                foreach (Tuple<string, string> pair in listing)
-                {
-                    string directoryPath = FtpConfiguration.GetDirectoryPath(pair.Item2);
-                    if (!SafeExists(directoryPath))
-                    {
-                        _sftpClient.CreateDirectory(directoryPath);
-                    }
-
-                    using (Stream fileStream = File.OpenRead(pair.Item1))
-                    {
-                        _sftpClient.UploadFile(fileStream, pair.Item2, overwrite);
-                    }
-                }
+                UploadDirectory(localPath, remotePath, overwrite, recursive);
+                return;
             }
-            else
-            {
-                if (File.Exists(localPath))
-                {
-                    if (SafeExists(remotePath) && !overwrite)
-                    {
-                        throw new IOException(Resources.FileExistsException);
-                    }
 
-                    using (Stream fileStream = File.OpenRead(localPath))
-                    {
-                        _sftpClient.UploadFile(fileStream, remotePath, overwrite);
-                    }
-                }
-                else
+            if (!File.Exists(localPath))
+            {
+                throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath), nameof(localPath));
+            }
+
+            if (SafeExists(remotePath) && !overwrite)
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+
+            using (Stream fileStream = File.OpenRead(localPath))
+            {
+                _sftpClient.UploadFile(fileStream, remotePath, overwrite);
+            }
+        }
+
+        private void UploadDirectory(string localPath, string remotePath, bool overwrite, bool recursive)
+        {
+            IEnumerable<Tuple<string, string>> listing = GetLocalListing(localPath, remotePath, recursive);
+
+            foreach (Tuple<string, string> pair in listing)
+            {
+                string directoryPath = FtpConfiguration.GetDirectoryPath(pair.Item2);
+                if (!SafeExists(directoryPath))
                 {
-                    throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath), nameof(localPath));
+                    _sftpClient.CreateDirectory(directoryPath);
+                }
+
+                using (Stream fileStream = File.OpenRead(pair.Item1))
+                {
+                    _sftpClient.UploadFile(fileStream, pair.Item2, overwrite);
                 }
             }
         }
@@ -918,41 +946,43 @@ namespace UiPath.FTP
 
             if (Directory.Exists(localPath))
             {
-                IEnumerable<Tuple<string, string>> listing = GetLocalListing(localPath, remotePath, recursive);
-
-                foreach (Tuple<string, string> pair in listing)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    string directoryPath = FtpConfiguration.GetDirectoryPath(pair.Item2);
-                    if (!SafeExists(directoryPath))
-                    {
-                        _sftpClient.CreateDirectory(directoryPath);
-                    }
-
-                    using (Stream fileStream = File.OpenRead(pair.Item1))
-                    {
-                        await Task.Factory.FromAsync(_sftpClient.BeginUploadFile(fileStream, pair.Item2, overwrite, null, null), _sftpClient.EndUploadFile);
-                    }
-                }
+                await UploadDirectoryAsync(localPath, remotePath, overwrite, recursive, cancellationToken);
+                return;
             }
-            else
-            {
-                if (File.Exists(localPath))
-                {
-                    if (SafeExists(remotePath) && !overwrite)
-                    {
-                        throw new IOException(Resources.FileExistsException);
-                    }
 
-                    using (Stream fileStream = File.OpenRead(localPath))
-                    {
-                        await Task.Factory.FromAsync(_sftpClient.BeginUploadFile(fileStream, remotePath, overwrite, null, null), _sftpClient.EndUploadFile);
-                    }
-                }
-                else
+            if (!File.Exists(localPath))
+            {
+                throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath), nameof(localPath));
+            }
+
+            if (SafeExists(remotePath) && !overwrite)
+            {
+                throw new IOException(Resources.FileExistsException);
+            }
+
+            using (Stream fileStream = File.OpenRead(localPath))
+            {
+                await Task.Factory.FromAsync(_sftpClient.BeginUploadFile(fileStream, remotePath, overwrite, null, null), _sftpClient.EndUploadFile);
+            }
+        }
+
+        private async Task UploadDirectoryAsync(string localPath, string remotePath, bool overwrite, bool recursive, CancellationToken cancellationToken)
+        {
+            IEnumerable<Tuple<string, string>> listing = GetLocalListing(localPath, remotePath, recursive);
+
+            foreach (Tuple<string, string> pair in listing)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                string directoryPath = FtpConfiguration.GetDirectoryPath(pair.Item2);
+                if (!SafeExists(directoryPath))
                 {
-                    throw new ArgumentException(string.Format(Resources.PathNotFoundException, localPath), nameof(localPath));
+                    _sftpClient.CreateDirectory(directoryPath);
+                }
+
+                using (Stream fileStream = File.OpenRead(pair.Item1))
+                {
+                    await Task.Factory.FromAsync(_sftpClient.BeginUploadFile(fileStream, pair.Item2, overwrite, null, null), _sftpClient.EndUploadFile);
                 }
             }
         }
@@ -985,12 +1015,11 @@ namespace UiPath.FTP
         // }
 
         // This code added to correctly implement the disposable pattern.
-        void IDisposable.Dispose()
+        public void Dispose()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
         #endregion
     }

@@ -159,13 +159,18 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
 
             int orderIndex = 1;
 
-            // The scope renders its children as a drop area, not as a property row.
-            Body.IsVisible = false;
-
             ConfigureConnectionProperties(ref orderIndex);
             ConfigureOptionProperties(ref orderIndex);
             ConfigureSecurityProperties(ref orderIndex);
             ConfigureProxyProperties(ref orderIndex);
+
+            // The scope renders its children as a drop area, not as a property row. OrderIndex must
+            // be set *after* the Configure* calls above (i.e. last, not first/default) -- giving it
+            // an earlier index broke the canvas layout, with Username/Password rendering detached
+            // from the "Use FTP connection" container instead of stacked inside it. Verified in
+            // Studio; keep Body's OrderIndex last if InitializeModel is reordered.
+            Body.OrderIndex = orderIndex++;
+            Body.IsVisible = false;
 
             // the input-mode switches only back the menu actions below, they are never rendered
             PasswordInputModeSwitch.IsVisible = false;
@@ -488,12 +493,14 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
                 return;
             }
 
+#pragma warning disable CS0618 // FtpSslProtocols.Default remains a selectable option for backwards compatibility with workflows that already use it
             var protocols = Enum.GetValues<FtpSslProtocols>()
                 .Where(s => s != FtpSslProtocols.Auto && s != FtpSslProtocols.Default)
                 .OrderBy(s => s)
                 .Reverse() // newer, non-obsolete protocols first
                 .ToList();
             protocols.Add(FtpSslProtocols.Default); // add Default as the last option, by default it would have been between Tls and Tls11
+#pragma warning restore CS0618
 
             _sslProtocolsDataSource = DataSourceBuilder<FtpSslProtocols>
                 .WithId(s => Enum.GetName(s))

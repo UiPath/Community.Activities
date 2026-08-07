@@ -23,22 +23,22 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// <summary>
         /// The path of the directory on the FTP server whose files are to be enumerated.
         /// </summary>
-        public DesignInArgument<string> RemotePath { get; set; }
+        public DesignInArgument<string> RemotePath { get; set; } = new DesignInArgument<string>();
 
         /// <summary>
         /// If this check box is selected, the subfolders are also included in the enumeration of the files on the FTP server.
         /// </summary>
-        public DesignProperty<bool> Recursive { get; set; }
+        public DesignProperty<bool> Recursive { get; set; } = new DesignProperty<bool>();
 
         /// <summary>
-        /// Configure what type of objects to filter 
+        /// Configure what type of objects to filter
         /// </summary>
-        public DesignProperty<FtpFilterObjectType> Filter { get; set; }
+        public DesignProperty<FtpFilterObjectType> Filter { get; set; } = new DesignProperty<FtpFilterObjectType>();
 
         /// <summary>
         /// A collection of files that have been found on the FTP server.
         /// </summary>
-        public DesignOutArgument<System.Collections.Generic.IEnumerable<FtpObjectInfo>> Files { get; set; }
+        public DesignOutArgument<System.Collections.Generic.IEnumerable<FtpObjectInfo>> Files { get; set; } = new DesignOutArgument<System.Collections.Generic.IEnumerable<FtpObjectInfo>>();
 
         private static DataSource<FtpFilterObjectType> _filterObjectDataSource;
 
