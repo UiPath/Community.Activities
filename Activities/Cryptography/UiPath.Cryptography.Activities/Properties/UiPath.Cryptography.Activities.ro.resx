@@ -200,25 +200,49 @@
     <value>Fișier cheie publică</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Cheia publică PGP a destinatarului, furnizată ca resursă de fișier (de exemplu, din resursele proiectului sau din Storage Bucket). Când este setată, are prioritate față de varianta căii fișierului.</value>
+    <value>Cheia publică PGP a destinatarului, furnizată ca resursă de fișier (de ex. din resursele proiectului sau din Storage Bucket).</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Fișier cheie publică</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Cheia publică PGP a expeditorului, furnizată ca resursă de fișier. Este utilizată pentru a verifica semnătura. Când este setată, are prioritate față de varianta cu calea fișierului.</value>
+    <value>Cheia publică PGP a expeditorului, furnizată ca resursă de fișier. Utilizată pentru a verifica semnătura.</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Fișier cheie publică</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Cheia publică PGP a destinatarului, furnizată ca resursă de fișier (de exemplu, din resursele proiectului sau din Storage Bucket). Când este setată, are prioritate față de varianta cu calea fișierului.</value>
+    <value>Cheia publică PGP a destinatarului, furnizată ca resursă de fișier (de ex. din resursele proiectului sau din Storage Bucket).</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Fișier cheie publică</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Cheia publică PGP a expeditorului, furnizată ca resursă de fișier. Este utilizată pentru a verifica semnătura. Când este definită, are prioritate față de varianta cu calea fișierului.</value>
+    <value>Cheia publică PGP a expeditorului, furnizată ca resursă de fișier. Utilizată pentru a verifica semnătura.</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Fișier cheie privată</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Cheia dvs. privată PGP, furnizată ca resursă de fișier (de exemplu, din resursele proiectului sau din Storage Bucket). Utilizată pentru a semna output-ul criptat. Necesară numai când Sign data este activat.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Fișier cheie privată</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Cheia dvs. privată PGP, furnizată ca resursă de fișier (de exemplu, din resursele proiectului sau din Storage Bucket). Utilizată pentru a semna output-ul criptat. Necesară numai când opțiunea Sign data este activată.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Fișier cheie privată</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Cheia dvs. privată PGP, furnizată ca resursă de fișier. Este utilizată pentru a decripta mesajul.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Fișier cheie privată</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Cheia dvs. privată PGP, furnizată ca resursă de fișier. Este utilizată pentru a decripta mesajul.</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>Continuați la eroare</value>
@@ -913,6 +937,14 @@
     <value>Opțiuni</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>Avansat</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>Codificare</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>Folosește șirul de siguranță al cheii</value>
   </data>
@@ -1499,7 +1531,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>Vector de inițializare pentru formatul Raw. Furnizați-l în aceeași codificare selectată în lista verticală „Key bytes format” de mai sus (Hex sau Base64). Lăsați câmpul gol pentru a genera automat un IV aleatoriu. Lungimea trebuie să corespundă dimensiunii IV a algoritmului (16 bytes pentru AES/Rijndael, 12 pentru AESGCM/ChaCha20Poly1305, 8 pentru DES/TripleDES/RC2).</value>
+    <value>Vector de inițializare pentru formatul Raw. Furnizați-l în aceeași codificare selectată în lista verticală „Key bytes format” de mai sus (Hex sau Base64). Lăsați necompletat pentru a genera automat un IV aleatoriu. Lungimea trebuie să corespundă dimensiunii IV a algoritmului (16 bytes pentru AES/Rijndael, 12 pentru AESGCM/ChaCha20Poly1305, 8 pentru DES/TripleDES/RC2).
+
+WARNING: Nu reutilizați niciodată aceeași pereche (Key, IV) — acest lucru compromite confidențialitatea, iar în modurile AEAD (AES-GCM, ChaCha20-Poly1305) permite și unui atacator să falsifice mesaje; utilizați fiecare pereche cel mult o singură dată sau lăsați necompletat pentru un IV aleatoriu nou la fiecare apel.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1607,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>Vector de inițializare pentru formatul Raw. Furnizați-l în aceeași codificare selectată în lista verticală „Key bytes format” de mai sus (Hex sau Base64). Lăsați câmpul gol pentru a genera automat un IV aleatoriu. Lungimea trebuie să corespundă dimensiunii IV a algoritmului (16 bytes pentru AES/Rijndael, 12 pentru AESGCM/ChaCha20Poly1305, 8 pentru DES/TripleDES/RC2).</value>
+    <value>Vector de inițializare pentru formatul Raw. Furnizați-l în aceeași codificare selectată în lista verticală „Key bytes format” de mai sus (Hex sau Base64). Lăsați necompletat pentru a genera automat un IV aleatoriu. Lungimea trebuie să corespundă dimensiunii IV a algoritmului (16 bytes pentru AES/Rijndael, 12 pentru AESGCM/ChaCha20Poly1305, 8 pentru DES/TripleDES/RC2).
+
+WARNING: Nu reutilizați niciodată aceeași pereche (Key, IV) — compromite confidențialitatea, iar în modurile AEAD (AES-GCM, ChaCha20-Poly1305) permite și unui atacator să falsifice mesaje; utilizați fiecare pereche cel mult o singură dată sau lăsați necompletat pentru un IV aleatoriu nou la fiecare apel.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
