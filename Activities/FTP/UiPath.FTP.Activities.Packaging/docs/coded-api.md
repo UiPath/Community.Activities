@@ -94,6 +94,12 @@ Downloads a file or directory from the FTP server to a local path. When `remoteP
 
 **Returns:** `Task`
 
+**Recursive walk behaviour:**
+- Symbolic links are not descended into. On SFTP a link is still transferred as a file (the server follows it on open), but files underneath a linked directory are not downloaded. This prevents a link cycle from recursing forever.
+- A sub-directory the server lists but refuses to open is skipped rather than failing the whole call: its contents are omitted, the path is traced as a warning, and the transfer completes. **The call still succeeds** — inspect the trace if you need certainty that every file was retrieved.
+- Connection and timeout failures still throw, so a dropped connection is never reported as a completed download.
+- A bad `remotePath` still throws. The tolerance above applies only to sub-directories found during the walk.
+
 ---
 
 ### `Task UploadFiles(string localPath, string remotePath, bool overwrite = false, bool recursive = false, CancellationToken ct = default)`
@@ -146,6 +152,9 @@ Checks whether a file exists at the specified remote path.
 
 **Returns:** `Task<bool>` — `true` if the remote file exists; `false` otherwise.
 
+> **On SFTP this also returns `true` for a symbolic link**, whatever it points at -- links are
+> classified as regular files. See the `FtpObjectType` note under Return Types.
+
 ---
 
 ### `Task<bool> DirectoryExists(string remotePath, CancellationToken ct = default)`
@@ -157,6 +166,8 @@ Checks whether a directory exists at the specified remote path.
 - `ct` (`CancellationToken`) — Cancellation token (default: `default`)
 
 **Returns:** `Task<bool>` — `true` if the remote directory exists; `false` otherwise.
+
+> **A symbolic link pointing at a directory returns `false` on SFTP**, for the same reason.
 
 ---
 
@@ -170,6 +181,14 @@ Lists files and directories at the specified remote path.
 - `ct` (`CancellationToken`) — Cancellation token (default: `default`)
 
 **Returns:** `Task<IEnumerable<FtpObjectInfo>>` — Collection of `FtpObjectInfo` items describing each file and directory found.
+
+**Recursive walk behaviour:**
+- Symbolic links are listed but not descended into, so entries underneath a linked directory are not returned. This prevents a link cycle from recursing forever.
+- A sub-directory the server lists but refuses to open is skipped rather than failing the whole call: the sub-directory still appears in the results, its contents are omitted, and the path is traced as a warning.
+- Connection and timeout failures still throw, so a dropped connection is never returned as a successful partial listing.
+- A bad `remotePath` still throws. The tolerance above applies only to sub-directories found during the walk.
+
+> **On SFTP, `FtpObjectInfo.Type` is never `Link`.** See the `FtpObjectType` note under Return Types.
 
 ---
 
@@ -186,7 +205,7 @@ Describes a single file or directory entry returned by `EnumerateObjects`.
 | `Size` | `long` | Size in bytes. `0` for directories. |
 | `Created` | `DateTime` | Creation timestamp (server-reported; may be `DateTime.MinValue` if not supported). |
 | `Modified` | `DateTime` | Last-modified timestamp (server-reported). |
-| `Type` | `FtpObjectType` | Whether the item is a file, directory, symbolic link, or other. |
+| `Type` | `FtpObjectType` | Whether the item is a file, directory, symbolic link, or other. **On SFTP, symbolic links are reported as `File`, never `Link`** -- see the `FtpObjectType` note below. |
 | `OwnerPermissions` | `FtpPermissions` | Unix-style owner permissions (flags: `Read`, `Write`, `Execute`). |
 | `GroupPermissions` | `FtpPermissions` | Unix-style group permissions. |
 | `OthersPermissions` | `FtpPermissions` | Unix-style other permissions. |
@@ -254,6 +273,11 @@ Options for configuring an FTP/FTPS/SFTP session. Properties are grouped by conc
 **`FtpProxyType`**: `None`, `Socks4`, `Socks5`, `Http`
 
 **`FtpObjectType`**: `Directory`, `File`, `Link`, `Other`
+
+> **`Link` is never produced on SFTP.** The SSH library classifies a symbolic link as a regular
+> file, so over SFTP links arrive as `FtpObjectType.File` and a `Type == FtpObjectType.Link`
+> test matches nothing. FTP and FTPS are unaffected and report `Link` correctly. There is
+> currently no way to distinguish a link from a file over SFTP through this API.
 
 **`FtpPermissions`** (`[Flags]`): `None`, `Read`, `Write`, `Execute`
 
@@ -342,6 +366,7 @@ public async void Execute()
     var items = await session.EnumerateObjects("/data", recursive: false);
     foreach (var item in items)
     {
+        // Over SFTP this also matches symbolic links; see the FtpObjectType note above.
         if (item.Type == FtpObjectType.File)
             Log($"{item.Name} — {item.Size} bytes, modified {item.Modified:yyyy-MM-dd}");
     }
