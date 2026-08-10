@@ -28,7 +28,7 @@
 	<ItemGroup>
     <!-- See above, please upgrade in all places-->
 		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Telemetry.Client" Version="2.9.1" />
+		<PackageReference Update="UiPath.Telemetry.Client" Version="2.12.0" />
 		<PackageReference Update="UiPath.Platform" Version="25.12.1"/>
 		<PackageReference Update="UiPath.CodedWorkflows" Version="24.10.2"/>
 
