@@ -31,9 +31,9 @@ namespace UiPath.FTP.Activities
         [LocalizedDescription(nameof(Resources.Activity_MoveItem_Property_Overwrite_Description))]
         public bool Overwrite { get; set; }
 
-        [LocalizedCategory(nameof(Resources.Common))]
-        [LocalizedDisplayName(nameof(Resources.Activity_MoveItem_Property_ContinueOnError_Name))]
-        [LocalizedDescription(nameof(Resources.Activity_MoveItem_Property_ContinueOnError_Description))]
+        [LocalizedCategory(nameof(Resources.Options))]
+        [LocalizedDisplayName(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_WithFtpSession_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; } = false;
 
         protected override void Execute(CodeActivityContext context)

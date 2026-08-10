@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://schemas.uipath.com/workflow/activities/ftp", "UiPath.FTP.Activities")]
-[assembly: XmlnsDefinition("http://schemas.uipath.com/workflow/activities/ftp", "UiPath.FTP.Activities.Design")]
 
 
 // Setting ComVisible to false makes the types in this assembly not visible to COM
