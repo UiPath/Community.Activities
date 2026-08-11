@@ -200,25 +200,49 @@
     <value>공개 키 파일</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>프로젝트 리소스 또는 스토리지 버킷 등에서 파일 리소스로 제공되는 수신자의 PGP 공개 키입니다. 설정 시, 파일 경로 변수보다 우선하여 적용됩니다.</value>
+    <value>파일 리소스로 제공되는 수신자의 PGP 공개 키입니다(예: 프로젝트 리소스 또는 스토리지 버킷에서).</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>공개 키 파일</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>파일 리소스로 제공되는 발신자의 PGP 공개 키입니다. 서명을 확인하는 데 사용됩니다. 설정 시, 파일 경로 변수보다 우선하여 적용됩니다.</value>
+    <value>파일 리소스로 제공되는 발신자의 PGP 공개 키입니다. 서명을 확인하는 데 사용됩니다.</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>공개 키 파일</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>프로젝트 리소스 또는 스토리지 버킷 등에서 파일 리소스로 제공되는 수신자의 PGP 공개 키입니다. 설정 시, 파일 경로 변수보다 우선하여 적용됩니다.</value>
+    <value>파일 리소스로 제공되는 수신자의 PGP 공개 키입니다(예: 프로젝트 리소스 또는 스토리지 버킷에서).</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>공개 키 파일</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>파일 리소스로 제공되는 발신자의 PGP 공개 키입니다. 서명을 확인하는 데 사용됩니다. 설정 시, 파일 경로 변수보다 우선하여 적용됩니다.</value>
+    <value>파일 리소스로 제공되는 발신자의 PGP 공개 키입니다. 서명을 확인하는 데 사용됩니다.</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>개인 키 파일</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>파일 리소스로 제공되는 자체 PGP 비공개 키입니다(예: 프로젝트 리소스 또는 스토리지 버킷에서). 암호화된 출력에 서명하는 데 사용됩니다. 서명 데이터가 활성화된 경우에만 필요합니다.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>개인 키 파일</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>파일 리소스로 제공되는 자체 PGP 비공개 키입니다(예: 프로젝트 리소스 또는 스토리지 버킷에서). 암호화된 출력에 서명하는 데 사용됩니다. 서명 데이터가 활성화된 경우에만 필요합니다.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>개인 키 파일</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>파일 리소스로 제공되는 고유 PGP 비공개 키입니다. 메시지를 해독하는 데 사용됩니다.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>개인 키 파일</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>파일 리소스로 제공되는 고유 PGP 비공개 키입니다. 메시지를 해독하는 데 사용됩니다.</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>오류 발생 시 계속 진행</value>
@@ -913,6 +937,14 @@
     <value>옵션</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>고급</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>인코딩</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>키 보안 문자열 사용</value>
   </data>
@@ -1499,7 +1531,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>Raw 형식의 초기화 벡터입니다. 위의 &quot;키 바이트 형식&quot; 드롭다운에서 선택한 것과 동일한 인코딩으로 제공합니다(Hex 또는 Base64). 무작위 IV를 자동 생성하려면 비워 둡니다. 길이는 알고리즘의 IV 크기와 일치해야 합니다(AES/Rijndael의 경우 16바이트, AESGCM/ChaCha20Poly1305의 경우 12바이트, DES/TripleDES/RC2의 경우 8바이트).</value>
+    <value>Raw 형식의 초기화 벡터입니다. 위의 &quot;키 바이트 형식&quot; 드롭다운에서 선택한 것과 동일한 인코딩으로 제공합니다(Hex 또는 Base64). 무작위 IV를 자동 생성하려면 비워 둡니다. 길이는 알고리즘의 IV 크기와 일치해야 합니다(AES/Rijndael의 경우 16바이트, AESGCM/ChaCha20Poly1305의 경우 12바이트, DES/TripleDES/RC2의 경우 8바이트).
+
+경고: 동일한 (키, IV) 쌍을 재사용하지 마십시오. 이렇게 하면 기밀성이 손상되며, AEAD 모드(AES-GCM, ChaCha20-Poly1305)에서는 공격자가 메시지를 위조할 수도 있습니다. 각 쌍을 최대 한 번만 사용하거나, 호출당 무작위 IV를 새로 생성하려면 비워 두십시오.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1607,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>Raw 형식의 초기화 벡터입니다. 위의 &quot;키 바이트 형식&quot; 드롭다운에서 선택한 것과 동일한 인코딩으로 제공합니다(Hex 또는 Base64). 무작위 IV를 자동 생성하려면 비워 둡니다. 길이는 알고리즘의 IV 크기와 일치해야 합니다(AES/Rijndael의 경우 16바이트, AESGCM/ChaCha20Poly1305의 경우 12바이트, DES/TripleDES/RC2의 경우 8바이트).</value>
+    <value>Raw 형식의 초기화 벡터입니다. 위의 &quot;키 바이트 형식&quot; 드롭다운에서 선택한 것과 동일한 인코딩으로 제공합니다(Hex 또는 Base64). 무작위 IV를 자동 생성하려면 비워 둡니다. 길이는 알고리즘의 IV 크기와 일치해야 합니다(AES/Rijndael의 경우 16바이트, AESGCM/ChaCha20Poly1305의 경우 12바이트, DES/TripleDES/RC2의 경우 8바이트).
+
+경고: 동일한 (키, IV) 쌍을 재사용하지 마십시오. 이렇게 하면 기밀성이 손상되며, AEAD 모드(AES-GCM, ChaCha20-Poly1305)에서는 공격자가 메시지를 위조할 수도 있습니다. 각 쌍을 최대 한 번만 사용하거나, 호출당 무작위 IV를 새로 생성하려면 비워 둡니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">

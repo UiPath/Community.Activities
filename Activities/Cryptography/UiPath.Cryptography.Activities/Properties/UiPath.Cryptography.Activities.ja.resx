@@ -200,25 +200,49 @@
     <value>公開キー ファイル</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供される、受信者の PGP 公開キーです。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供される、受信者の PGP 公開キーです。</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開キー ファイル</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>ファイル リソースとして提供される、送信者の PGP 公開キーです。署名の検証に使用されます。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+    <value>ファイル リソースとして提供される、送信者の PGP 公開キーです。署名の検証に使用されます。</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開キー ファイル</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供される、受信者の PGP 公開キーです。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供される、受信者の PGP 公開キーです。</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開キー ファイル</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>ファイル リソースとして提供される、送信者の PGP 公開キーです。署名の検証に使用されます。設定すると、ファイル パスのバリアントよりも優先されます。</value>
+    <value>ファイル リソースとして提供される、送信者の PGP 公開キーです。署名の検証に使用されます。</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>秘密キー ファイル</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供されるユーザー独自の PGP 秘密キーです。暗号化された出力の署名に使用されます。[データに署名] が有効化されている場合にのみ必須です。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>秘密キー ファイル</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして (プロジェクト リソースやストレージバケットなどから) 提供されるユーザー独自の PGP 秘密キーです。暗号化された出力の署名に使用されます。[データに署名] が有効化されている場合にのみ必須です。</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>秘密キー ファイル</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして提供されるユーザー独自の PGP 秘密キーです。メッセージの復号に使用されます。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>秘密キー ファイル</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>ファイル リソースとして提供されるユーザー独自の PGP 秘密キーです。メッセージの復号に使用されます。</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>エラー発生時に実行を継続</value>
@@ -913,6 +937,14 @@
     <value>オプション</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>詳細設定</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>エンコード</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>キー (SecureString) を使用</value>
   </data>
@@ -1499,7 +1531,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>Raw 形式の初期化ベクトルです。上の [キーのバイト形式] ドロップダウンで選択したエンコードと同じエンコード (Hex または Base64) で指定します。ランダムな IV を自動生成するには、空のままにします。長さは、アルゴリズムの IV サイズ (AES/Rijndael の場合は 16 バイト、AESGCM/ChaCha20Poly1305 の場合は 12 バイト、DES/TripleDES/RC2 の場合は 8 バイト) と一致する必要があります。</value>
+    <value>Raw 形式の初期化ベクトルです。上の [キーのバイト形式] ドロップダウンで選択したエンコードと同じエンコード (Hex または Base64) で指定します。ランダムな IV を自動生成するには、空のままにします。長さは、アルゴリズムの IV のサイズ (AES/Rijndael の場合は 16 バイト、AESGCM/ChaCha20Poly1305 の場合は 12 バイト、DES/TripleDES/RC2 の場合は 8 バイト) と一致する必要があります。
+
+警告: 同じ (キー、IV) のペアを再利用しないでください。— 機密性が損なわれ、AEAD モード (AES-GCM、ChaCha20-Poly1305) では攻撃者がメッセージを偽造することもできます。各ペアの使用を最大 1 回にするか、空のままにして呼び出しごとに新しいランダム IV を生成してください。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1607,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>Raw 形式の初期化ベクトルです。上の [キーのバイト形式] ドロップダウンで選択したエンコードと同じエンコード (Hex または Base64) で指定します。ランダムな IV を自動生成するには、空のままにします。長さは、アルゴリズムの IV サイズ (AES/Rijndael の場合は 16 バイト、AESGCM/ChaCha20Poly1305 の場合は 12 バイト、DES/TripleDES/RC2 の場合は 8 バイト) と一致する必要があります。</value>
+    <value>Raw 形式の初期化ベクトルです。上の [キーのバイト形式] ドロップダウンで選択したエンコードと同じエンコード (Hex または Base64) で指定します。ランダムな IV を自動生成するには、空のままにします。長さは、アルゴリズムの IV のサイズ (AES/Rijndael の場合は 16 バイト、AESGCM/ChaCha20Poly1305 の場合は 12 バイト、DES/TripleDES/RC2 の場合は 8 バイト) と一致する必要があります。
+
+警告: 同じ (キー、IV) のペアを再利用しないでください。— 機密性が損なわれ、AEAD モード (AES-GCM、ChaCha20-Poly1305) では攻撃者がメッセージを偽造することもできます。各ペアの使用を最大 1 回にするか、空のままにして呼び出しごとに新しいランダム IV を生成してください。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">

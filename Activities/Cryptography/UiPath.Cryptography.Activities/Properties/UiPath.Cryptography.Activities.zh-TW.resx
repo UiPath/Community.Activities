@@ -200,25 +200,49 @@
     <value>公開金鑰檔案</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>收件者的 PGP 公開金鑰，以檔案資源形式提供 (例如從專案資源或儲存貯體)。設定後，優先於檔案路徑變體。</value>
+    <value>收件者的 PGP 公開金鑰，以檔案資源形式提供 (例如從專案資源或儲存貯體)。</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開金鑰檔案</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>寄件者的 PGP 公開金鑰，以檔案資源形式提供。用於驗證簽名。設定後，優先於檔案路徑變體。</value>
+    <value>寄件者的 PGP 公開金鑰，以檔案資源形式提供。用於驗證簽名。</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開金鑰檔案</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>收件者的 PGP 公開金鑰，以檔案資源形式提供 (例如從專案資源或儲存貯體)。設定後，優先於檔案路徑變體。</value>
+    <value>收件者的 PGP 公開金鑰，以檔案資源形式提供 (例如從專案資源或儲存貯體)。</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公開金鑰檔案</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>寄件者的 PGP 公開金鑰，以檔案資源形式提供。用於驗證簽名。設定後，優先於檔案路徑變體。</value>
+    <value>寄件者的 PGP 公開金鑰，以檔案資源形式提供。用於驗證簽名。</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私密金鑰檔案</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私密金鑰，以檔案資源形式提供（例如，從專案資源或儲存貯體中）。用於簽署加密的輸出。僅在啟用「簽署資料」時為必填項。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私密金鑰檔案</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私密金鑰，以檔案資源形式提供（例如，從專案資源或儲存貯體中）。用於簽署加密的輸出。僅在啟用「簽署資料」時為必填項。</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私密金鑰檔案</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私密金鑰，以檔案資源形式提供。用於解密郵件。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私密金鑰檔案</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私密金鑰，以檔案資源形式提供。用於解密郵件。</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>錯誤時繼續</value>
@@ -913,6 +937,14 @@
     <value>選項</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>高級</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>編碼</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>使用金鑰安全字串</value>
   </data>
@@ -1499,7 +1531,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>原始格式的初始化向量。請使用與上方「金鑰位元組格式」下拉清單中所選的相同編碼格式 (十六進位或 Base64) 提供。留空可自動產生隨機 IV。長度必須與演算法的 IV 大小相符 (AES/Rajndael 為 16 個位元組、AESGCM/ChaCha20Poly1305 為 12 個位元組、DES/TripleDES/RC2 為 8 個位元組)。</value>
+    <value>原始格式的初始化向量。使用與在「金鑰位元組格式」中選取的編碼相同的編碼方式提供該金鑰下拉清單 (十六進位 或 Base64)。留空可自動產生隨機 IV。長度必須與演算法的 IV 大小相符 (AES/Rajndael 為 16 個位元組，AESGCM/ChaCha20Poly1305 為 12 個位元組，DES/TripleDES/RC2 為 8 個位元組)。警告: 切勿重複使用相同的（金鑰， IV）對，這會違反機密性，而且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，也會讓攻擊者偽造訊息；每對最多只能使用一次，或留空，讓每次呼叫都會有新的隨機 IV。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1605,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>原始格式的初始化向量。請使用與上方「金鑰位元組格式」下拉清單中所選的相同編碼格式 (十六進位或 Base64) 提供。留空可自動產生隨機 IV。長度必須與演算法的 IV 大小相符 (AES/Rajndael 為 16 個位元組、AESGCM/ChaCha20Poly1305 為 12 個位元組、DES/TripleDES/RC2 為 8 個位元組)。</value>
+    <value>原始格式的初始化向量。使用與在「金鑰位元組格式」中選取的編碼相同的編碼方式提供該金鑰下拉清單 (十六進位 或 Base64)。留空可自動產生隨機 IV。長度必須與演算法的 IV 大小相符 (AES/Rajndael 為 16 個位元組，AESGCM/ChaCha20Poly1305 為 12 個位元組，DES/TripleDES/RC2 為 8 個位元組)。警告: 切勿重複使用相同的（金鑰， IV）對，這會違反機密性，而且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，也會讓攻擊者偽造訊息；每對最多只能使用一次，或留空，讓每次呼叫都會有新的隨機 IV。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">

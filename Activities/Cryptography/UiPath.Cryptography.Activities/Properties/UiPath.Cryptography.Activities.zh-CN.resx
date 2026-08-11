@@ -200,25 +200,49 @@
     <value>公钥文件</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>接收方的 PGP 公钥，以文件资源形式提供（例如来自项目资源或存储桶）。设置后，优先于文件路径变体。</value>
+    <value>接收方的 PGP 公钥，以文件资源形式提供（例如来自项目资源或存储桶）。</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公钥文件</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>发送方的 PGP 公钥，以文件资源形式提供。用于验证签名。设置后，优先于文件路径变体。</value>
+    <value>发送方的 PGP 公钥，以文件资源形式提供。用于验证签名。</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公钥文件</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>接收方的 PGP 公钥，以文件资源形式提供（例如来自项目资源或存储桶）。设置后，优先于文件路径变体。</value>
+    <value>接收方的 PGP 公钥，以文件资源形式提供（例如来自项目资源或存储桶）。</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公钥文件</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>发送方的 PGP 公钥，以文件资源形式提供。用于验证签名。设置后，优先于文件路径变体。</value>
+    <value>发送方的 PGP 公钥，以文件资源形式提供。用于验证签名。</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供（例如，来自项目资源或存储桶）。用于对加密输出进行签名。仅在启用签名数据时才需要。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供（例如，来自项目资源或存储桶）。用于对加密输出进行签名。仅在启用签名数据时才需要。</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供。用于解密消息。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供。用于解密消息。</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>出错时继续</value>
@@ -913,6 +937,14 @@
     <value>选项</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>高级</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>编码</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>使用密钥安全字符串</value>
   </data>
@@ -1499,7 +1531,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>原始格式的初始化向量。请使用上方“密钥字节格式”下拉菜单中选择的相同编码（Hex 或 Base64）提供。留空以自动生成随机 IV。长度必须与算法的 IV 大小匹配（AES/Rijndael 为 16 字节，AESGCM/ChaCha20Poly1305 为 12 字节，DES/TripleDES/RC2 为 8 字节）。</value>
+    <value>原始格式的初始化向量。以在“密钥字节格式”页面中选择的相同编码提供密钥上方的下拉列表（Hex 或 Base64）。留空以自动生成随机初始化向量。长度必须与算法的初始化变量大小匹配（AES/Rjndael 为 16 个字节，AESGCM/ChaCha20Poly1305 为 12 个字节，DES/TripleDES/RC2 为 8 个字节）。警告：切勿重复使用相同的（密钥，IV）对 — 这破坏了机密性，并且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，攻击者还可利用该模式篡改消息；每一对最多使用一次，留空则每次调用都会生成新的随机初始化向量。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1605,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>原始格式的初始化向量。请使用上方“密钥字节格式”下拉菜单中选择的相同编码（Hex 或 Base64）提供。留空以自动生成随机 IV。长度必须与算法的 IV 大小匹配（AES/Rijndael 为 16 字节，AESGCM/ChaCha20Poly1305 为 12 字节，DES/TripleDES/RC2 为 8 字节）。</value>
+    <value>原始格式的初始化向量。以在“密钥字节格式”页面中选择的相同编码提供密钥上方的下拉列表（Hex 或 Base64）。留空以自动生成随机初始化向量。长度必须与算法的初始化变量大小匹配（AES/Rjndael 为 16 个字节，AESGCM/ChaCha20Poly1305 为 12 个字节，DES/TripleDES/RC2 为 8 个字节）。警告：切勿重复使用相同的（密钥，IV）对 — 这破坏了机密性，并且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，攻击者还可利用该模式篡改消息；每一对最多使用一次，留空则每次调用都会生成新的随机初始化向量。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">

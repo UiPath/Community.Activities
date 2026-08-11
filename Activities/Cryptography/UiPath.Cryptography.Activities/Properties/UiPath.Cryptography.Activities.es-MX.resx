@@ -200,25 +200,49 @@
     <value>Archivo de clave pública</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>La clave pública PGP del destinatario, proporcionada como un recurso de archivo (p. ej., de los recursos del proyecto o del depósito de almacenamiento). Cuando se establece, tiene prioridad sobre la variante de ruta de archivo.</value>
+    <value>La clave pública PGP del destinatario, proporcionada como un recurso de archivo (p. ej., de los recursos del proyecto o del depósito de almacenamiento).</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Archivo de clave pública</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>La clave pública PGP del remitente, proporcionada como un recurso de archivo. Se utiliza para verificar la firma. Cuando se establece, tiene prioridad sobre la variante de ruta de archivo.</value>
+    <value>La clave pública PGP del remitente, proporcionada como un recurso de archivo. Se utiliza para verificar la firma.</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Archivo de clave pública</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>La clave pública PGP del destinatario, proporcionada como un recurso de archivo (p. ej., de los recursos del proyecto o del depósito de almacenamiento). Cuando se establece, tiene prioridad sobre la variante de ruta de archivo.</value>
+    <value>La clave pública PGP del destinatario, proporcionada como un recurso de archivo (p. ej., de los recursos del proyecto o del depósito de almacenamiento).</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Archivo de clave pública</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>La clave pública PGP del remitente, proporcionada como un recurso de archivo. Se utiliza para verificar la firma. Cuando se establece, tiene prioridad sobre la variante de ruta de archivo.</value>
+    <value>La clave pública PGP del remitente, proporcionada como un recurso de archivo. Se utiliza para verificar la firma.</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Archivo de clave privada</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Su propia clave privada PGP, proporcionada como un recurso de archivo (p. ej., de los recursos del proyecto o del depósito de almacenamiento). Se utiliza para firmar la salida cifrada. Solo se requiere cuando Firmar datos está habilitado.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Archivo de clave privada</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Su propia clave privada PGP, proporcionada como un recurso de archivo (p. ej., de los recursos del proyecto o del depósito de almacenamiento). Se utiliza para firmar la salida cifrada. Solo se requiere cuando Firmar datos está habilitado.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Archivo de clave privada</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Su propia clave privada PGP, proporcionada como un recurso de archivo. Se utiliza para descifrar el mensaje.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Archivo de clave privada</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Su propia clave privada PGP, proporcionada como un recurso de archivo. Se utiliza para descifrar el mensaje.</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinuarConElError</value>
@@ -913,6 +937,14 @@
     <value>Opciones</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>Avanzado</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>Codificación</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>Usar cadena segura de clave</value>
   </data>
@@ -1499,7 +1531,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>Vector de inicialización para el formato Sin formato. Especifíquelo en la misma codificación seleccionada en el menú desplegable &quot;Formato de bytes de clave&quot; arriba (Hex o Base64). Déjelo vacío para generar automáticamente un IV aleatorio. La longitud debe coincidir con el tamaño del IV del algoritmo (16 bytes para AES/Rijndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).</value>
+    <value>Vector de inicialización para el formato Sin formato. Especifíquelo en la misma codificación seleccionada en el menú desplegable &quot;Formato de bytes de clave&quot; arriba (Hex o Base64). Déjelo vacío para generar automáticamente un IV aleatorio. La longitud debe coincidir con el tamaño del IV del algoritmo (16 bytes para AES/Rijndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).
+
+ADVERTENCIA: Nunca reutilice el mismo par (Clave, IV): infringe la confidencialidad y, en los modos AEAD (AES-GCM, ChaCha20-Poly1305), también permite que un atacante falsifique mensajes. Use cada par como máximo una vez o déjelo vacío para obtener un nuevo IV aleatorio por llamada.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1607,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>Vector de inicialización para el formato Sin formato. Especifíquelo en la misma codificación seleccionada en el menú desplegable &quot;Formato de bytes de clave&quot; arriba (Hex o Base64). Déjelo vacío para generar automáticamente un IV aleatorio. La longitud debe coincidir con el tamaño del IV del algoritmo (16 bytes para AES/Rijndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).</value>
+    <value>Vector de inicialización para el formato Sin formato. Especifíquelo en la misma codificación seleccionada en el menú desplegable &quot;Formato de bytes de clave&quot; arriba (Hex o Base64). Déjelo vacío para generar automáticamente un IV aleatorio. La longitud debe coincidir con el tamaño del IV del algoritmo (16 bytes para AES/Rijndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).ADVERTENCIA: Nunca reutilice el mismo par (Clave, IV): infringe la confidencialidad y, en los modos AEAD (AES-GCM, ChaCha20-Poly1305), también permite que un atacante falsifique mensajes. Use cada par como máximo una vez o déjelo vacío para obtener un nuevo IV aleatorio por llamada.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">

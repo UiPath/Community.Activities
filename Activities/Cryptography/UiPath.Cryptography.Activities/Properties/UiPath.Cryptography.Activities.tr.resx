@@ -200,25 +200,49 @@
     <value>Genel anahtar dosyası</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Alıcının dosya kaynağı olarak sağlanan PGP genel anahtarı (örneğin, proje kaynaklarından veya Depolama Kutusundan). Ayarlandığında dosya yolu varyantına göre öncelikli olur.</value>
+    <value>Alıcının dosya kaynağı olarak sağlanan PGP genel anahtarı (örneğin, proje kaynaklarından veya Depolama Kutusundan).</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Genel anahtar dosyası</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Gönderenin, dosya kaynağı olarak sağlanan PGP genel anahtarı. İmzayı doğrulamak için kullanılır. Ayarlandığında dosya yolu varyantına göre öncelikli olur.</value>
+    <value>Gönderenin, dosya kaynağı olarak sağlanan PGP genel anahtarı. İmzayı doğrulamak için kullanılır.</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Genel anahtar dosyası</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Alıcının dosya kaynağı olarak sağlanan PGP genel anahtarı (örneğin, proje kaynaklarından veya Depolama Kutusundan). Ayarlandığında dosya yolu varyantına göre öncelikli olur.</value>
+    <value>Alıcının dosya kaynağı olarak sağlanan PGP genel anahtarı (örneğin, proje kaynaklarından veya Depolama Kutusundan).</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Genel anahtar dosyası</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>Gönderenin, dosya kaynağı olarak sağlanan PGP genel anahtarı. İmzayı doğrulamak için kullanılır. Ayarlandığında, dosya yolu varyantına göre öncelikli olur.</value>
+    <value>Gönderenin, dosya kaynağı olarak sağlanan PGP genel anahtarı. İmzayı doğrulamak için kullanılır.</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Özel anahtar dosyası</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Dosya kaynağı olarak sağlanan kendi PGP özel anahtarınız (örneğin, proje kaynaklarından veya Depolama Kutusundan). Şifrelenmiş çıkışı imzalamak için kullanılır. Yalnızca İmza verileri etkinleştirildiğinde gereklidir.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Özel anahtar dosyası</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Dosya kaynağı olarak sağlanan kendi PGP özel anahtarınız (örneğin, proje kaynaklarından veya Depolama Kutusundan). Şifrelenmiş çıkışı imzalamak için kullanılır. Yalnızca İmza verileri etkinleştirildiğinde gereklidir.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Özel anahtar dosyası</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Dosya kaynağı olarak sağlanan kendi PGP özel anahtarınız. İletinin şifresini çözmek için kullanılır.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Özel anahtar dosyası</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Dosya kaynağı olarak sağlanan kendi PGP özel anahtarınız. İletinin şifresini çözmek için kullanılır.</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>HataOlduğundaDevamEt</value>
@@ -913,6 +937,14 @@
     <value>Seçenekler</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>Gelişmiş</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>Kodlama</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>Anahtar Güvenli Dizesini Kullan</value>
   </data>
@@ -1499,7 +1531,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>Raw biçimi için başlatma vektörü. Bunu yukarıdaki &quot;Anahtar bayt biçimi&quot; açılır menüsünde seçilen kodlamayla sağlayın (Hex veya Base64). Rastgele bir IV&apos;ü otomatik olarak oluşturmak için boş bırakın. Uzunluk algoritmanın IV boyutuyla eşleşmelidir (AES/Rijndael için 16 bayt, AESGCM/ChaCha20Poly1305 için 12, DES/TripleDES/RC2 için 8 bayt).</value>
+    <value>Raw biçimi için başlatma vektörü. &quot;Anahtar bayt biçimi&quot;nde seçilen kodlamayla sağlayın. açılır menüden (Hex veya Base64). Rastgele bir IV&apos;ü otomatik olarak oluşturmak için boş bırakın. Uzunluk algoritmanın IV boyutuyla eşleşmelidir (AES/Rijndael için 16 bayt, AESGCM/ChaCha20Poly1305 için 12, DES/TripleDES/RC2 için 8 bayt).
+
+UYARI: Aynı (Anahtar, IV) çiftini asla yeniden kullanmayın. Gizliliği bozar ve AEAD modları (AES-GCM, ChaCha20-Poly1305) bir saldırganın sahte iletiler oluşturmasına da izin verir; her çifti en fazla bir kez kullanın veya arama başına yeni bir rastgele IV için boş bırakın.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1573,7 +1607,9 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>Raw biçimi için başlatma vektörü. Bunu yukarıdaki &quot;Anahtar bayt biçimi&quot; açılır menüsünde seçilen kodlamayla sağlayın (Hex veya Base64). Rastgele bir IV&apos;ü otomatik olarak oluşturmak için boş bırakın. Uzunluk algoritmanın IV boyutuyla eşleşmelidir (AES/Rijndael için 16 bayt, AESGCM/ChaCha20Poly1305 için 12, DES/TripleDES/RC2 için 8 bayt).</value>
+    <value>Raw biçimi için başlatma vektörü. &quot;Anahtar bayt biçimi&quot;nde seçilen kodlamayla sağlayın. açılır menüden (Hex veya Base64). Rastgele bir IV&apos;ü otomatik olarak oluşturmak için boş bırakın. Uzunluk algoritmanın IV boyutuyla eşleşmelidir (AES/Rijndael için 16 bayt, AESGCM/ChaCha20Poly1305 için 12, DES/TripleDES/RC2 için 8 bayt).
+
+UYARI: Aynı (Anahtar, IV) çiftini asla yeniden kullanmayın. Gizliliği bozar ve AEAD modları (AES-GCM, ChaCha20-Poly1305) bir saldırganın sahte iletiler oluşturmasına da izin verir; her çifti en fazla bir kez kullanın veya arama başına yeni bir rastgele IV için boş bırakın.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
