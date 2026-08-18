@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
 	<VersionSuffix></VersionSuffix>
@@ -58,10 +58,6 @@
         <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
       </BuildOutputInPackage>
 		</ItemGroup>
-    
-		<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
-		</ItemGroup>
 
     <!--Coded workflow API files-->
     <ItemGroup Label="AddCodedWorkflowAPI">
@@ -84,11 +80,6 @@
 		<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
 	</Target>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
-    <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj">
-      <PrivateAssets>All</PrivateAssets>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>

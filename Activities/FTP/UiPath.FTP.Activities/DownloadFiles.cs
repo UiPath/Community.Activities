@@ -23,7 +23,7 @@ namespace UiPath.FTP.Activities
         public InArgument<string> RemotePath { get; set; }
 
         [RequiredArgument]
-        [LocalizedCategory(nameof(Resources.Output))]
+        [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_DownloadFiles_Property_LocalPath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_DownloadFiles_Property_LocalPath_Description))]
         public InArgument<string> LocalPath { get; set; }
