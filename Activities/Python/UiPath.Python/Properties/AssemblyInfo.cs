@@ -4,6 +4,7 @@ using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://schemas.uipath.com/workflow/activities/python", "UiPath.Python")]
 [assembly: InternalsVisibleTo("UiPath.Python.Activities.API.Tests")]
+[assembly: InternalsVisibleTo("UiPath.Python.Tests")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

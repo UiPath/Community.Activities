@@ -50,11 +50,29 @@ namespace UiPath.Python.Impl
 
             Stopwatch sw = Stopwatch.StartNew();
 
-            // TODO: expose visible as a property?
+            var venv = _version == Version.Python_310 ? VenvDetection.GetVenvInfo(_path) : null;
+
+            // Actual user-site suppression for the default (ShouldDisableUserSite) case happens
+            // inside Engine.Initialize() itself, via PythonEngine.SetNoSiteFlag() — that runs in
+            // this same host process regardless, so no parent-side plumbing is needed for it
+            // (an env-var-based attempt used to live here; it turned out to be both unreliable
+            // when set this late from managed code in an already-spawned process, and defeatable
+            // by whatever PYTHONNOUSERSITE the ambient environment already carried).
+            //
+            // What *does* still need to happen here, in the parent, before the host spawns: for a
+            // --system-site-packages venv (ShouldDisableUserSite == false), the intent is to leave
+            // user-site exactly as a normal, non-embedded interpreter would — but ProcessStartInfo
+            // starts as a copy of this process's own environment, so if PYTHONNOUSERSITE already
+            // happens to be set there (e.g. a customer's own leftover workaround, unrelated to this
+            // fix), it would otherwise leak into the host and silently force user-site off anyway,
+            // regardless of what SetNoSiteFlag does or doesn't do for the other case. Clearing it
+            // explicitly for the child guarantees the venv's own IncludeSystemSitePackages flag is
+            // what decides this, not whatever's ambient on the machine.
             _provider = new Controller<IPythonService>()
             {
                 PythonHostLibFile = ServiceDll_x64,
-                Visible = _visible
+                Visible = _visible,
+                ClearUserSiteEnvironmentOverride = venv != null && venv.IncludeSystemSitePackages
             };
 
             // Set LogTrace before Create() so the diagnostic file (if enabled) captures

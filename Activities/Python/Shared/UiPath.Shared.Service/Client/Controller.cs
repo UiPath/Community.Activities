@@ -28,6 +28,19 @@ namespace UiPath.Shared.Service.Client
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
 
+        // Must be set in this (parent) process, before the host is spawned: environment variables
+        // changed from managed code already running inside the host, right before it initializes
+        // Python, are not reliably observed by the native interpreter there. Only variables present
+        // in the process's environment block at OS process-creation time are.
+        //
+        // ProcessStartInfo.EnvironmentVariables starts as a copy of this (parent) process's own
+        // environment, so if PYTHONNOUSERSITE already happens to be set there for unrelated reasons
+        // (e.g. a customer's own leftover manual workaround), it would otherwise flow straight
+        // through to the host untouched. When true, explicitly clears it for the host's own
+        // environment instead, so a venv's declared --system-site-packages behavior is decided by
+        // that flag alone, not by whatever's ambient on the machine (STUD-81085 follow-up).
+        internal bool ClearUserSiteEnvironmentOverride { get; set; }
+
         internal HostWrapper Create()
         {
             StartHostService();
@@ -97,6 +110,8 @@ namespace UiPath.Shared.Service.Client
             // never reach the host until the buffer fills or the interpreter exits — and on
             // forced shutdown (Process.Kill) any buffered output is lost.
             psi.EnvironmentVariables["PYTHONUNBUFFERED"] = "1";
+            if (ClearUserSiteEnvironmentOverride)
+                psi.EnvironmentVariables.Remove("PYTHONNOUSERSITE");
             if (!isExeMode)
                 psi.ArgumentList.Add(hostFullPath);
             return psi;
