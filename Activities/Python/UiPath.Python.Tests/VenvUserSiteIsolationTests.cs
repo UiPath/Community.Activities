@@ -18,18 +18,14 @@ namespace UiPath.Python.Tests
     //
     // This test doesn't need real pywin32 binaries: the bug is that the user-site .pth runs at
     // all when a venv is configured, so a .pth marker is a faithful, hermetic reproduction of the
-    // exact mechanism pywin32 relies on. Runs out-of-process (the real production default) since
-    // the fix depends on an environment variable set in the parent process before the host spawns.
+    // exact mechanism pywin32 relies on. Runs out-of-process since that's the real production
+    // default path (PythonScope.Isolated defaults to true).
     public class VenvUserSiteIsolationTests : IDisposable
     {
         private const string Category = "Python";
 
         private static readonly string EmbeddedRuntimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath();
         private static readonly string EmbeddedLibraryPath = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedRuntimePath);
-
-        // Must match the running embeddable interpreter's sys.version_info (3.14.5) — Windows
-        // user-site resolves to <PYTHONUSERBASE>\Python<major><minor>\site-packages.
-        private const string UserSiteVersionFolder = "Python314";
 
         private readonly string _rootDir;
         private readonly string _venvDir;
@@ -54,6 +50,7 @@ namespace UiPath.Python.Tests
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _previousUserBase);
             Environment.SetEnvironmentVariable("PYTHONNOUSERSITE", _previousNoUserSite);
             try { Directory.Delete(_rootDir, true); } catch { /* best effort cleanup */ }
+            GC.SuppressFinalize(this);
         }
 
         [Fact]
@@ -66,7 +63,7 @@ namespace UiPath.Python.Tests
             File.WriteAllText(Path.Combine(_venvDir, "pyvenv.cfg"), $"home = {EmbeddedRuntimePath}{Environment.NewLine}");
             WriteMarkerPth(venvSitePackages, "venv");
 
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
             WriteMarkerPth(userSitePackages, "usersite");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
 
@@ -108,7 +105,7 @@ namespace UiPath.Python.Tests
                 $"home = {EmbeddedRuntimePath}{Environment.NewLine}include-system-site-packages = true{Environment.NewLine}");
             WriteMarkerPth(venvSitePackages, "venv");
 
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
             WriteMarkerPth(userSitePackages, "usersite");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
 
@@ -245,16 +242,57 @@ namespace UiPath.Python.Tests
 
         [Fact]
         [Trait(TestCategories.Category, Category)]
-        public async Task Venv_With_SystemSitePackages_Ignores_Ambient_PYTHONNOUSERSITE()
+        public async Task Venv_With_SystemSitePackages_OwnSiteCustomize_Still_Runs()
         {
-            // Regression test: a customer's own leftover PYTHONNOUSERSITE=1 (e.g. a manual
-            // workaround predating this fix, exactly like the one mentioned in the original
-            // ticket) sitting in the *ambient* environment used to leak straight into the spawned
-            // host via ProcessStartInfo.EnvironmentVariables (which starts as a copy of this
-            // process's own environment), silently defeating a --system-site-packages venv's
-            // intent to leave user-site enabled — regardless of what our own code did or didn't
-            // set. Controller.ClearUserSiteEnvironmentOverride exists specifically to guarantee
-            // this venv flag decides the outcome, not whatever's ambient on the machine.
+            // Regression test: for a --system-site-packages venv, SetNoSiteFlag isn't set, so
+            // site.main() already ran during PythonEngine.Initialize() — before this fix, that
+            // meant it could already have imported and cached "sitecustomize" from the user site
+            // (enabled here via PYTHONUSERBASE, same as the ambient-PYTHONNOUSERSITE test below)
+            // before the venv's own site-packages, added afterwards in
+            // PostInitializationVenvSetup, ever got a chance to be searched. Without popping that
+            // cached module first, the venv's own sitecustomize.py would never run at all — only
+            // the user site's copy would. This asserts the venv's own copy does run.
+            Skip.IfNot(Directory.Exists(EmbeddedRuntimePath));
+
+            var venvSitePackages = Directory.CreateDirectory(Path.Combine(_venvDir, "Lib", "site-packages")).FullName;
+            File.WriteAllText(Path.Combine(_venvDir, "pyvenv.cfg"),
+                $"home = {EmbeddedRuntimePath}{Environment.NewLine}include-system-site-packages = true{Environment.NewLine}");
+
+            var markerPath = _markerFile.Replace("\\", "/");
+            File.WriteAllText(Path.Combine(venvSitePackages, "sitecustomize.py"),
+                $"import codecs{Environment.NewLine}codecs.open('{markerPath}', 'a', encoding='utf-8').write('venv-sitecustomize\\n'){Environment.NewLine}");
+
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
+            File.WriteAllText(Path.Combine(userSitePackages, "sitecustomize.py"),
+                $"import codecs{Environment.NewLine}codecs.open('{markerPath}', 'a', encoding='utf-8').write('usersite-sitecustomize\\n'){Environment.NewLine}");
+            Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
+
+            var engine = EngineProvider.Get(Version.Python_310, _venvDir, EmbeddedLibraryPath, inProcess: false);
+            try
+            {
+                await engine.Initialize(null, CancellationToken.None, 60);
+            }
+            finally
+            {
+                await engine.Release();
+            }
+
+            var markerLines = File.Exists(_markerFile) ? File.ReadAllLines(_markerFile) : Array.Empty<string>();
+            Assert.Contains("venv-sitecustomize", markerLines);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public async Task Venv_With_SystemSitePackages_Honors_Ambient_PYTHONNOUSERSITE()
+        {
+            // A --system-site-packages venv's own flag only says "also add the base install's
+            // site-packages" — it says nothing about user-site, which native CPython computes
+            // independently from PYTHONNOUSERSITE regardless of --system-site-packages. So an
+            // ambient PYTHONNOUSERSITE=1 (e.g. an administrator's own workaround, exactly like the
+            // one mentioned in the original ticket) must still suppress user-site here, matching
+            // what a normally-activated --system-site-packages venv would do. ProcessStartInfo
+            // already starts as a copy of this process's own environment, so this just needs
+            // nothing in our own code to actively defeat it.
             Skip.IfNot(Directory.Exists(EmbeddedRuntimePath));
 
             Environment.SetEnvironmentVariable("PYTHONNOUSERSITE", "1");
@@ -264,7 +302,7 @@ namespace UiPath.Python.Tests
                 $"home = {EmbeddedRuntimePath}{Environment.NewLine}include-system-site-packages = true{Environment.NewLine}");
             WriteMarkerPth(venvSitePackages, "venv");
 
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
             WriteMarkerPth(userSitePackages, "usersite");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
 
@@ -281,7 +319,7 @@ namespace UiPath.Python.Tests
             var markerLines = File.Exists(_markerFile) ? File.ReadAllLines(_markerFile) : Array.Empty<string>();
 
             Assert.Contains("venv", markerLines);
-            Assert.Contains("usersite", markerLines);
+            Assert.DoesNotContain("usersite", markerLines);
         }
 
         private async Task<string[]> GetSysPath()

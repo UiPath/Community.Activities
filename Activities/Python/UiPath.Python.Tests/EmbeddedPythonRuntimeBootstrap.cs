@@ -10,7 +10,7 @@ namespace UiPath.Python.Tests
     public static class EmbeddedPythonRuntimeBootstrap
     {
         private const string EmbeddedZipFileName = "python-3.14.5-embed-amd64.zip";
-        private const string PythonVersion = "3.14.5";
+        public const string PythonVersion = "3.14.5";
 
         private static readonly string RuntimeRoot = Path.Combine(Path.GetTempPath(), "pythons", PythonVersion);
         private static readonly string LockFile = Path.Combine(RuntimeRoot, ".setup.lock");
@@ -60,6 +60,20 @@ namespace UiPath.Python.Tests
             }
 
             return RuntimeRoot;
+        }
+
+        /// <summary>
+        /// The folder name Python's own per-user site (e.g. %APPDATA%\Roaming\Python\PythonXY on
+        /// Windows) resolves to for this embedded runtime's version, derived from
+        /// <see cref="PythonVersion"/> so it can't drift out of sync when that's bumped.
+        /// </summary>
+        public static string UserSiteVersionFolder
+        {
+            get
+            {
+                var parts = PythonVersion.Split('.');
+                return $"Python{parts[0]}{parts[1]}";
+            }
         }
 
         public static string GetPythonLibraryPath(string runtimePath)

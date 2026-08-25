@@ -25,9 +25,10 @@ namespace UiPath.Python.Tests
         public void Dispose()
         {
             try { Directory.Delete(_rootDir, true); } catch { /* best effort cleanup */ }
+            GC.SuppressFinalize(this);
         }
 
-        private string WriteVenvCfg(string venvDir, string home = @"C:\FakeBase", string extra = null)
+        private static string WriteVenvCfg(string venvDir, string home = @"C:\FakeBase", string extra = null)
         {
             Directory.CreateDirectory(venvDir);
             var content = $"home = {home}{Environment.NewLine}version = 3.13.0{Environment.NewLine}{extra}";
@@ -76,6 +77,57 @@ namespace UiPath.Python.Tests
             var venv = VenvDetection.GetVenvInfo(standaloneDir);
 
             Assert.Null(venv);
+        }
+
+        [Theory]
+        [InlineData("Scripts")]
+        [InlineData("bin")]
+        [Trait(TestCategories.Category, Category)]
+        public void LauncherSubfolder_With_TrailingSeparator_Is_Detected(string folderName)
+        {
+            // Path.GetDirectoryName on a separator-terminated path only strips the trailing
+            // separator and returns the launcher folder itself, not its parent — detection must
+            // derive the parent from the trimmed path instead, or this silently fails to find the
+            // venv root's pyvenv.cfg.
+            var venvDir = WriteVenvCfg(Path.Combine(_rootDir, "myvenv"));
+            var launcherDir = Directory.CreateDirectory(Path.Combine(venvDir, folderName)).FullName;
+
+            var venv = VenvDetection.GetVenvInfo(launcherDir + Path.DirectorySeparatorChar);
+
+            Assert.NotNull(venv);
+            Assert.Equal(venvDir, venv.Root);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void UnreadablePyvenvCfg_Is_Not_Detected_And_Does_Not_Throw()
+        {
+            // A pyvenv.cfg that exists but can't be read right now (ACLs, an AV sharing
+            // violation, a concurrent pip rewrite) must not hard-fail detection — the engine
+            // should get a chance to surface its own, more specific error instead.
+            var venvDir = WriteVenvCfg(Path.Combine(_rootDir, "myvenv"));
+            var cfgFile = Path.Combine(venvDir, "pyvenv.cfg");
+
+            using (new FileStream(cfgFile, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                var venv = VenvDetection.GetVenvInfo(venvDir);
+                Assert.Null(venv);
+            }
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void VersionInfoKey_Is_Read_As_Fallback_For_Version()
+        {
+            // virtualenv/uv write "version_info" instead of stdlib venv's "version".
+            var venvDir = Directory.CreateDirectory(Path.Combine(_rootDir, "myvenv")).FullName;
+            File.WriteAllText(Path.Combine(venvDir, "pyvenv.cfg"),
+                $"home = C:\\FakeBase{Environment.NewLine}version_info = 3.10.4.final.0{Environment.NewLine}");
+
+            var venv = VenvDetection.GetVenvInfo(venvDir);
+
+            Assert.NotNull(venv);
+            Assert.Equal("3.10.4.final.0", venv.Version);
         }
 
         [Fact]

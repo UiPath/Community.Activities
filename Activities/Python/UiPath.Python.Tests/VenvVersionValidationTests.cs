@@ -30,6 +30,7 @@ namespace UiPath.Python.Tests
         public void Dispose()
         {
             try { Directory.Delete(_rootDir, true); } catch { /* best effort cleanup */ }
+            GC.SuppressFinalize(this);
         }
 
         private void WriteVenvCfg(string version)
@@ -57,10 +58,9 @@ namespace UiPath.Python.Tests
         {
             Skip.IfNot(Directory.Exists(EmbeddedRuntimePath));
 
-            WriteVenvCfg("3.14.5");
+            WriteVenvCfg(EmbeddedPythonRuntimeBootstrap.PythonVersion);
 
-            // Must not throw.
-            EngineProvider.ValidateInstallation(_venvDir, EmbeddedLibraryPath);
+            Assert.Null(Record.Exception(() => EngineProvider.ValidateInstallation(_venvDir, EmbeddedLibraryPath)));
         }
 
         [Fact]
@@ -73,7 +73,22 @@ namespace UiPath.Python.Tests
             // must not even engage.
             Directory.CreateDirectory(_venvDir);
 
-            EngineProvider.ValidateInstallation(_venvDir, EmbeddedLibraryPath);
+            Assert.Null(Record.Exception(() => EngineProvider.ValidateInstallation(_venvDir, EmbeddedLibraryPath)));
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void VersionInfoOnly_CrossChecksJustLikeVersion()
+        {
+            // virtualenv/uv write "version_info" instead of stdlib venv's "version" — the
+            // cross-check must not silently skip for venvs created by those tools.
+            Skip.IfNot(Directory.Exists(EmbeddedRuntimePath));
+
+            Directory.CreateDirectory(_venvDir);
+            File.WriteAllText(Path.Combine(_venvDir, "pyvenv.cfg"),
+                $"home = {EmbeddedRuntimePath}{Environment.NewLine}version_info = 3.9.0.final.0{Environment.NewLine}");
+
+            Assert.Throws<NotSupportedException>(() => EngineProvider.ValidateInstallation(_venvDir, EmbeddedLibraryPath));
         }
     }
 }

@@ -29,7 +29,10 @@ namespace UiPath.Python.Impl
         /// <summary>
         /// Parses pyvenv.cfg at <paramref name="path"/>, if present. Requiring at least one of the
         /// keys a real venv config always has (home/version) avoids treating an unrelated file that
-        /// merely happens to be named pyvenv.cfg as a venv.
+        /// merely happens to be named pyvenv.cfg as a venv. Returns null (rather than throwing) when
+        /// the file exists but can't be read — e.g. ACLs on a locked-down robot account, an AV
+        /// sharing violation, or a concurrent pip rewrite — matching the "let engine initialization
+        /// produce its own, precise error" convention every other validator on this path follows.
         /// </summary>
         private static VenvInfo TryReadVenvConfig(string path)
         {
@@ -38,18 +41,37 @@ namespace UiPath.Python.Impl
                 return null;
 
             var kv = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var line in File.ReadLines(cfgFile))
+            try
             {
-                var parts = line.Split('=', 2);
-                if (parts.Length == 2)
-                    kv[parts[0].Trim()] = parts[1].Trim();
+                foreach (var line in File.ReadLines(cfgFile))
+                {
+                    var parts = line.Split('=', 2);
+                    if (parts.Length == 2)
+                        kv[parts[0].Trim()] = parts[1].Trim();
+                }
+            }
+            catch (IOException)
+            {
+                return null;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return null;
             }
 
-            if (!kv.ContainsKey("home") && !kv.ContainsKey("version"))
+            kv.TryGetValue("home", out var home);
+
+            // CPython's stdlib venv writes "version"; virtualenv and uv write "version_info"
+            // instead (e.g. "version_info = 3.10.4.final.0") — fall back to it so the venv/library
+            // version cross-check (EngineProvider.ValidateVenvVersion) isn't silently skipped for
+            // venvs created by those tools. TryParseVenvVersion only reads the first two dot-
+            // separated parts, so the extra ".final.0" segments are harmless.
+            if (!kv.TryGetValue("version", out var version))
+                kv.TryGetValue("version_info", out version);
+
+            if (home == null && version == null)
                 return null;
 
-            kv.TryGetValue("home", out var home);
-            kv.TryGetValue("version", out var version);
             var includeSystemSitePackages = kv.TryGetValue("include-system-site-packages", out var include)
                 && string.Equals(include, "true", StringComparison.OrdinalIgnoreCase);
 
@@ -74,11 +96,16 @@ namespace UiPath.Python.Impl
             if (direct != null)
                 return direct;
 
-            var folderName = Path.GetFileName(path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+            var trimmedPath = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var folderName = Path.GetFileName(trimmedPath);
             if (!Array.Exists(VenvBinFolderNames, name => string.Equals(name, folderName, StringComparison.OrdinalIgnoreCase)))
                 return null;
 
-            return TryReadVenvConfig(Path.GetDirectoryName(path));
+            // Must derive the parent from the trimmed path: Path.GetDirectoryName on a
+            // separator-terminated path (e.g. ".../venv/bin/") only strips the trailing separator
+            // and returns the launcher folder itself, not its parent — which would silently miss
+            // the venv root's pyvenv.cfg for any Path ending in a separator.
+            return TryReadVenvConfig(Path.GetDirectoryName(trimmedPath));
         }
     }
 }

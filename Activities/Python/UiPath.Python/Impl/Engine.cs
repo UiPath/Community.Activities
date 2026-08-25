@@ -55,65 +55,17 @@ namespace UiPath.Python.Impl
                             Trace.TraceInformation($"Initializing Python runtime using version {_version} and path {_path}");
                             Stopwatch sw = Stopwatch.StartNew();
 
-                            // Detected before Initialize(): a real venv (activated normally, e.g.
-                            // <venv>\Scripts\python.exe) always disables the PEP-370 user-site
-                            // directory on its own. Our embedded interpreter never goes through that
-                            // activation path, so nothing does this for us — without it, a native
-                            // package installed in both the venv and the user-site directory (e.g.
-                            // pywin32) can resolve its Python module from one and its native DLL
-                            // dependency from the other, mismatched, copy (STUD-81085). Suppression
-                            // itself happens below, via PythonEngine.SetNoSiteFlag() — see that call
-                            // for why (it also closes a second, related leak path, and is immune to
-                            // whatever PYTHONNOUSERSITE happens to already be set in the ambient
-                            // environment, which an env-var-based approach was not).
+                            // A real venv (activated normally, e.g. <venv>\Scripts\python.exe)
+                            // always disables the PEP-370 user-site directory on its own. Our
+                            // embedded interpreter never goes through that activation path, so
+                            // nothing does this for us — without it, a native package installed in
+                            // both the venv and the user-site directory (e.g. pywin32) can resolve
+                            // its Python module from one and its native DLL dependency from the
+                            // other, mismatched, copy (STUD-81085). See ConfigureRuntime for how
+                            // this is used.
                             var venv = _version == Version.Python_310 ? VenvDetection.GetVenvInfo(_path) : null;
 
-                            if (_isWindows && !_path.IsNullOrEmpty())
-                                SetDllDirectory(Path.GetFullPath(_path));
-
-                            if (!_libraryPath.IsNullOrEmpty())
-                                Runtime.PythonDLL = _libraryPath;
-
-                            // A venv's own folder is not a valid PythonHome: it only has
-                            // Lib\site-packages, not the standard library (Lib\encodings etc.), so
-                            // pointing the native interpreter at it fails at the very first import
-                            // with "Fatal Python error: Failed to import encodings module". Use the
-                            // base install recorded in the venv's own pyvenv.cfg instead — exactly
-                            // what a normally-activated venv resolves to on its own. EngineProvider
-                            // already validated that base install's version matches _libraryPath's.
-                            var pythonHome = venv != null ? ResolvePythonHome(venv.Home) : _path;
-                            if (!pythonHome.IsNullOrEmpty())
-                                PythonEngine.PythonHome = pythonHome;
-
-                            // For a default venv (no --system-site-packages), suppresses both the
-                            // PEP-370 user-site leak (STUD-81085) and a second, distinct leak path
-                            // found by inspecting a real venv's actual sys.path: CPython's own
-                            // site.main() also unconditionally adds the *base install's* own
-                            // site-packages (site.addsitepackages() against sys.prefix/exec_prefix,
-                            // still pointing at the base install at this point). PYTHONNOUSERSITE
-                            // would only ever have covered the first of these — SetNoSiteFlag
-                            // (Py_NoSiteFlag) disables site.main()'s automatic run entirely, so
-                            // *neither* ever gets added in the first place: "prevent, don't clean up
-                            // after" — a cleanup-after-the-fact fix couldn't undo any .pth-triggered
-                            // side effects, e.g. os.add_dll_directory calls, that already ran by the
-                            // time managed code regains control. It's also an in-memory flag on this
-                            // process's loaded Python DLL, never written to os.environ — unlike an
-                            // env-var-based approach, it can't be defeated by (or leak into) whatever
-                            // PYTHONNOUSERSITE the ambient environment happens to already carry, which
-                            // is exactly the failure mode found in Controller.cs's
-                            // ClearUserSiteEnvironmentOverride for the --system-site-packages case.
-                            // `site` itself is still importable —
-                            // this only skips its automatic invocation at startup — so the explicit
-                            // site.addsitedir() call in PostInitializationVenvSetup for the venv's own
-                            // site-packages, and the site.execsitecustomize() call there preserving
-                            // sitecustomize.py support, both keep working. Must come after
-                            // Runtime.PythonDLL/PythonHome are set, not before — calling it earlier
-                            // left Runtime.PythonDLL null by the time the host tried to use it (and,
-                            // per a known pythonnet issue, SetNoSiteFlag itself can be silently
-                            // ignored on Windows unless another PythonEngine call already preceded
-                            // it — PythonHome, set just above, already satisfies that).
-                            if (venv != null && venv.ShouldDisableUserSite)
-                                PythonEngine.SetNoSiteFlag();
+                            ConfigureRuntime(venv);
 
                             PythonEngine.Initialize();
 
@@ -145,6 +97,77 @@ namespace UiPath.Python.Impl
                     await InvokeMethod(module, "setWorkingFolder", new[] { workingFolder }, ct);
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets up everything <see cref="PythonEngine.Initialize"/> needs before it's called: the
+        /// native DLL search directory, which pythonnet-loaded library to use, <see
+        /// cref="PythonEngine.PythonHome"/>, and whether to suppress <c>site.main()</c>'s automatic
+        /// run for <paramref name="venv"/>.
+        ///
+        /// <para>
+        /// A venv's own folder is not a valid PythonHome: it only has Lib\site-packages, not the
+        /// standard library (Lib\encodings etc.), so pointing the native interpreter at it fails at
+        /// the very first import with "Fatal Python error: Failed to import encodings module". Use
+        /// the base install recorded in the venv's own pyvenv.cfg instead — exactly what a
+        /// normally-activated venv resolves to on its own — falling back to LibraryPath's own
+        /// directory (validated, mandatory) whenever that recorded base install doesn't actually
+        /// carry a stdlib either (e.g. a Microsoft Store Python's app-execution-alias folder, or a
+        /// pyvenv.cfg missing "home" entirely).
+        /// </para>
+        ///
+        /// <para>
+        /// For a default venv (no --system-site-packages), suppresses both the PEP-370 user-site
+        /// leak (STUD-81085) and a second, distinct leak path found by inspecting a real venv's
+        /// actual sys.path: CPython's own site.main() also unconditionally adds the *base
+        /// install's* own site-packages (site.addsitepackages() against sys.prefix/exec_prefix,
+        /// still pointing at the base install at this point). PYTHONNOUSERSITE would only ever have
+        /// covered the first of these — SetNoSiteFlag (Py_NoSiteFlag) disables site.main()'s
+        /// automatic run entirely, so *neither* ever gets added in the first place: "prevent, don't
+        /// clean up after" — a cleanup-after-the-fact fix couldn't undo any .pth-triggered side
+        /// effects, e.g. os.add_dll_directory calls, that already ran by the time managed code
+        /// regains control. It's also an in-memory flag on this process's loaded Python DLL, never
+        /// written to os.environ — unlike an env-var-based approach, it can't be defeated by (or
+        /// leak into) whatever PYTHONNOUSERSITE the ambient environment happens to already carry.
+        /// `site` itself is still importable — this only skips its automatic invocation at startup
+        /// — so the explicit site.addsitedir() call in PostInitializationVenvSetup for the venv's
+        /// own site-packages, and the sitecustomize/usercustomize handling there, both keep
+        /// working.
+        /// </para>
+        ///
+        /// <para>
+        /// Py_NoSiteFlag is deprecated since CPython 3.12, with removal planned for 3.15
+        /// (VersionExtensions._supportedRuntimeVersions currently tops out at 3.14): before adding
+        /// 3.15+ support, confirm this flag still applies — its removal would silently re-open the
+        /// original STUD-81085 leak rather than surface an error. The forward-looking replacement
+        /// is PyConfig.site_import via Py_InitializeFromConfig.
+        /// </para>
+        ///
+        /// <para>
+        /// SetNoSiteFlag must be called after Runtime.PythonDLL/PythonEngine.PythonHome are set,
+        /// not before — calling it earlier left Runtime.PythonDLL null by the time the host tried
+        /// to use it (and, per a known pythonnet issue, SetNoSiteFlag itself can be silently
+        /// ignored on Windows unless another PythonEngine call already preceded it — PythonHome,
+        /// set just above, already satisfies that).
+        /// </para>
+        /// </summary>
+        private void ConfigureRuntime(VenvDetection.VenvInfo venv)
+        {
+            if (_isWindows && !_path.IsNullOrEmpty())
+                SetDllDirectory(Path.GetFullPath(_path));
+
+            if (!_libraryPath.IsNullOrEmpty())
+                Runtime.PythonDLL = _libraryPath;
+
+            var pythonHome = venv != null ? ResolvePythonHome(venv.Home) : _path;
+            if (!HasStdlib(pythonHome))
+                pythonHome = Path.GetDirectoryName(_libraryPath);
+
+            if (!pythonHome.IsNullOrEmpty())
+                PythonEngine.PythonHome = pythonHome;
+
+            if (venv != null && venv.ShouldDisableUserSite)
+                PythonEngine.SetNoSiteFlag();
         }
 
         public Task Release()
@@ -336,6 +359,39 @@ namespace UiPath.Python.Impl
             return venvHome;
         }
 
+        /// <summary>
+        /// Whether <paramref name="pythonHome"/> actually carries a standard library, i.e. is a
+        /// real, complete Python install root rather than e.g. a Microsoft Store app-execution-
+        /// alias folder (reparse-point exe stubs only) or a venv root itself.
+        /// </summary>
+        private static bool HasStdlib(string pythonHome)
+        {
+            if (pythonHome.IsNullOrEmpty())
+                return false;
+
+            return RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? Directory.Exists(WindowsStdlibLandmark(pythonHome))
+                : HasPosixStdlib(pythonHome);
+        }
+
+        // "Lib" (capital L) and "lib" (lowercase) below are each the real, fixed folder name
+        // CPython's own installer/build produces on that platform — not a style choice. Exposed
+        // (internal) so a test can assert on the exact, case-sensitive string each platform
+        // checks for: this repo's CI only runs Windows agents, where NTFS's default
+        // case-insensitive resolution means a real Directory.Exists call can't distinguish "Lib"
+        // from "lib" on disk — so the only way to actually pin the casing down here is to assert
+        // the literal path string being built, rather than relying on filesystem lookup behavior.
+        internal static string WindowsStdlibLandmark(string pythonHome) => Path.Combine(pythonHome, "Lib", "encodings");
+
+        internal static string PosixStdlibDirectory(string pythonHome) => Path.Combine(pythonHome, "lib");
+
+        private static bool HasPosixStdlib(string pythonHome)
+        {
+            var libPath = PosixStdlibDirectory(pythonHome);
+            return Directory.Exists(libPath)
+                && Directory.GetDirectories(libPath, "python*").Any(dir => Directory.Exists(Path.Combine(dir, "encodings")));
+        }
+
         private static string GetEnvSitePackagesPath(string venvPath)
         {
             string sitePackages;
@@ -354,7 +410,7 @@ namespace UiPath.Python.Impl
             return sitePackages;
         }
 
-        private void PostInitializationVenvSetup(VenvDetection.VenvInfo venv)
+        private static void PostInitializationVenvSetup(VenvDetection.VenvInfo venv)
         {
             if (venv != null)
             {
@@ -377,12 +433,28 @@ namespace UiPath.Python.Impl
                     // SetNoSiteFlag (see Initialize()) skips site.main() entirely for a default
                     // venv, which also skips its sitecustomize.py auto-import — some environments
                     // rely on that for corporate setup (proxies, logging, etc.), and it did run
-                    // today before this change, so preserve it explicitly. Safe to call even when
-                    // SetNoSiteFlag wasn't set (--system-site-packages venvs): site.main() already
-                    // ran it there, and re-importing an already-imported module is a no-op.
-                    // Deliberately not calling execusercustomize() — its user-site counterpart,
-                    // consistent with suppressing user-site itself.
+                    // today before this change, so preserve it explicitly.
+                    //
+                    // For a --system-site-packages venv, SetNoSiteFlag is *not* set, so site.main()
+                    // already ran during PythonEngine.Initialize() above and may already have
+                    // imported sitecustomize/usercustomize from whatever the base/user site
+                    // resolved to sys.path first — before the venv's own site-packages, just
+                    // inserted above, ever got a chance to take precedence. Drop any such cached
+                    // module first so the re-import below resolves against the corrected sys.path
+                    // order, matching a natively-activated venv (whose own site-packages is already
+                    // first on sys.path by the time site.main() runs). This is a no-op for the
+                    // default venv case: SetNoSiteFlag prevented anything from being imported yet.
+                    sys.modules.pop("sitecustomize", null);
                     site.execsitecustomize();
+
+                    // execusercustomize() mirrors site.main()'s own "if ENABLE_USER_SITE:" guard —
+                    // only called when user-site isn't suppressed, consistent with not calling it at
+                    // all for the default (user-site-disabled) case.
+                    if (!venv.ShouldDisableUserSite)
+                    {
+                        sys.modules.pop("usercustomize", null);
+                        site.execusercustomize();
+                    }
                 }
             }
         }
