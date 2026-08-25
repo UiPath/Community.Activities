@@ -283,6 +283,44 @@ namespace UiPath.Python.Tests
 
         [Fact]
         [Trait(TestCategories.Category, Category)]
+        public async Task Venv_With_SystemSitePackages_And_No_Own_SiteCustomize_Does_Not_Rerun_UserSite_Copy()
+        {
+            // Regression test for a real bug in an earlier version of this fix: unconditionally
+            // popping "sitecustomize" from sys.modules and re-importing, regardless of whether the
+            // venv itself has its own copy, would still find the *same* user-site copy again when
+            // the venv has none of its own — re-running its side effects a second time. Gating the
+            // pop+reimport on the venv's own site-packages actually containing a sitecustomize.py
+            // (see PostInitializationVenvSetup) avoids this: with no venv-local copy, the module
+            // site.main() already cached is left untouched, so it runs exactly once.
+            Skip.IfNot(Directory.Exists(EmbeddedRuntimePath));
+
+            Directory.CreateDirectory(Path.Combine(_venvDir, "Lib", "site-packages"));
+            File.WriteAllText(Path.Combine(_venvDir, "pyvenv.cfg"),
+                $"home = {EmbeddedRuntimePath}{Environment.NewLine}include-system-site-packages = true{Environment.NewLine}");
+
+            var markerPath = _markerFile.Replace("\\", "/");
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
+            File.WriteAllText(Path.Combine(userSitePackages, "sitecustomize.py"),
+                $"import codecs{Environment.NewLine}codecs.open('{markerPath}', 'a', encoding='utf-8').write('usersite-sitecustomize\\n'){Environment.NewLine}");
+            Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
+
+            var engine = EngineProvider.Get(Version.Python_310, _venvDir, EmbeddedLibraryPath, inProcess: false);
+            try
+            {
+                await engine.Initialize(null, CancellationToken.None, 60);
+            }
+            finally
+            {
+                await engine.Release();
+            }
+
+            var markerLines = File.Exists(_markerFile) ? File.ReadAllLines(_markerFile) : Array.Empty<string>();
+            var single = Assert.Single(markerLines);
+            Assert.Equal("usersite-sitecustomize", single);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
         public async Task Venv_With_SystemSitePackages_Honors_Ambient_PYTHONNOUSERSITE()
         {
             // A --system-site-packages venv's own flag only says "also add the base install's

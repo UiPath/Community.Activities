@@ -439,18 +439,26 @@ namespace UiPath.Python.Impl
                     // already ran during PythonEngine.Initialize() above and may already have
                     // imported sitecustomize/usercustomize from whatever the base/user site
                     // resolved to sys.path first — before the venv's own site-packages, just
-                    // inserted above, ever got a chance to take precedence. Drop any such cached
-                    // module first so the re-import below resolves against the corrected sys.path
-                    // order, matching a natively-activated venv (whose own site-packages is already
-                    // first on sys.path by the time site.main() runs). This is a no-op for the
-                    // default venv case: SetNoSiteFlag prevented anything from being imported yet.
-                    sys.modules.pop("sitecustomize", null);
-                    site.execsitecustomize();
+                    // inserted above, ever got a chance to take precedence. Only when the venv
+                    // itself actually carries its own copy do we drop the cached module and
+                    // re-import, so the venv's copy — now first on sys.path — wins, matching a
+                    // natively-activated venv. Gating on the venv actually having its own copy
+                    // matters: unconditionally popping and re-importing would, when the venv has
+                    // no copy of its own, still find the same base/user module again and run its
+                    // side effects a *second* time. When the venv has no copy, the module already
+                    // cached by site.main() (if any) is already the correct, highest-priority one
+                    // — left untouched. No-op either way for the default venv case: SetNoSiteFlag
+                    // prevented anything from being imported yet, so the cache is empty going in.
+                    if (File.Exists(Path.Combine(sitePackagesPath, "sitecustomize.py")))
+                    {
+                        sys.modules.pop("sitecustomize", null);
+                        site.execsitecustomize();
+                    }
 
                     // execusercustomize() mirrors site.main()'s own "if ENABLE_USER_SITE:" guard —
                     // only called when user-site isn't suppressed, consistent with not calling it at
-                    // all for the default (user-site-disabled) case.
-                    if (!venv.ShouldDisableUserSite)
+                    // all for the default (user-site-disabled) case. Same re-import gating as above.
+                    if (!venv.ShouldDisableUserSite && File.Exists(Path.Combine(sitePackagesPath, "usercustomize.py")))
                     {
                         sys.modules.pop("usercustomize", null);
                         site.execusercustomize();
