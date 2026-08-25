@@ -43,6 +43,15 @@ namespace UiPath.Python.Tests
 
             _previousUserBase = Environment.GetEnvironmentVariable("PYTHONUSERBASE");
             _previousNoUserSite = Environment.GetEnvironmentVariable("PYTHONNOUSERSITE");
+
+            // Start every test from a known-clean baseline regardless of whatever the host
+            // machine's own ambient environment happens to have for these two — otherwise a
+            // machine/CI agent with e.g. PYTHONNOUSERSITE already set would make tests that expect
+            // user-site processing fail for reasons unrelated to the behavior under test. The one
+            // test that specifically wants an ambient value sets it itself, after this. Dispose
+            // restores whatever was actually ambient when this instance was constructed.
+            Environment.SetEnvironmentVariable("PYTHONUSERBASE", null);
+            Environment.SetEnvironmentVariable("PYTHONNOUSERSITE", null);
         }
 
         public void Dispose()
@@ -168,6 +177,41 @@ namespace UiPath.Python.Tests
 
         [Fact]
         [Trait(TestCategories.Category, Category)]
+        public async Task Venv_ExitAndHelp_Builtins_Still_Resolve()
+        {
+            // Regression test: SetNoSiteFlag skips site.main() entirely for a default venv, which
+            // does more than path setup — it also calls setquit()/setcopyright()/sethelper(),
+            // installing the exit/quit/help/copyright/credits/license builtins. Without restoring
+            // them, a script calling exit() (a common, if discouraged, RPA pattern) would die with
+            // a NameError that gives no hint it's related to venv handling — it works today, works
+            // natively in a venv, and works in every non-venv scope.
+            Skip.IfNot(Directory.Exists(EmbeddedRuntimePath));
+
+            Directory.CreateDirectory(Path.Combine(_venvDir, "Lib", "site-packages"));
+            File.WriteAllText(Path.Combine(_venvDir, "pyvenv.cfg"), $"home = {EmbeddedRuntimePath}{Environment.NewLine}");
+
+            var engine = EngineProvider.Get(Version.Python_310, _venvDir, EmbeddedLibraryPath, inProcess: false);
+            string result;
+            try
+            {
+                await engine.Initialize(null, CancellationToken.None, 60);
+
+                var script = await engine.LoadScript(
+                    "import builtins\ndef check():\n    return f\"{hasattr(builtins, 'exit')},{hasattr(builtins, 'help')}\"\n",
+                    CancellationToken.None);
+                var invoked = await engine.InvokeMethod(script, "check", null, CancellationToken.None);
+                result = (string)engine.Convert(invoked, typeof(string));
+            }
+            finally
+            {
+                await engine.Release();
+            }
+
+            Assert.Equal("True,True", result);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
         public async Task Venv_Does_Not_Leak_BaseInstall_SitePackages()
         {
             // Regression test for a second, distinct leak path found by inspecting a real venv's
@@ -238,6 +282,40 @@ namespace UiPath.Python.Tests
 
             var markerLines = File.Exists(_markerFile) ? File.ReadAllLines(_markerFile) : Array.Empty<string>();
             Assert.Contains("sitecustomize", markerLines);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public async Task Venv_SiteCustomize_Still_Runs_From_BaseInstall_When_Venv_Has_None()
+        {
+            // Regression test: for a default venv (SetNoSiteFlag set) with no sitecustomize.py of
+            // its own, the base install's Lib\sitecustomize.py (e.g. corporate proxy/logging setup)
+            // must still be picked up — the stdlib paths remain on sys.path under Py_NoSiteFlag, and
+            // this must be an unconditional call for the default-venv case, unlike the
+            // --system-site-packages case where it's gated on the venv having its own copy.
+            Skip.IfNot(Directory.Exists(EmbeddedRuntimePath));
+
+            var fakeBase = Directory.CreateDirectory(Path.Combine(_rootDir, "fakebase")).FullName;
+            Directory.CreateDirectory(Path.Combine(fakeBase, "Lib", "encodings"));
+            var markerPath = _markerFile.Replace("\\", "/");
+            File.WriteAllText(Path.Combine(fakeBase, "Lib", "sitecustomize.py"),
+                $"import codecs{Environment.NewLine}codecs.open('{markerPath}', 'a', encoding='utf-8').write('base-sitecustomize\\n'){Environment.NewLine}");
+
+            Directory.CreateDirectory(Path.Combine(_venvDir, "Lib", "site-packages"));
+            File.WriteAllText(Path.Combine(_venvDir, "pyvenv.cfg"), $"home = {fakeBase}{Environment.NewLine}");
+
+            var engine = EngineProvider.Get(Version.Python_310, _venvDir, EmbeddedLibraryPath, inProcess: false);
+            try
+            {
+                await engine.Initialize(null, CancellationToken.None, 60);
+            }
+            finally
+            {
+                await engine.Release();
+            }
+
+            var markerLines = File.Exists(_markerFile) ? File.ReadAllLines(_markerFile) : Array.Empty<string>();
+            Assert.Contains("base-sitecustomize", markerLines);
         }
 
         [Fact]

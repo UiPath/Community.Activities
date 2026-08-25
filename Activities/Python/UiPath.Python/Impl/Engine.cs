@@ -110,10 +110,11 @@ namespace UiPath.Python.Impl
         /// standard library (Lib\encodings etc.), so pointing the native interpreter at it fails at
         /// the very first import with "Fatal Python error: Failed to import encodings module". Use
         /// the base install recorded in the venv's own pyvenv.cfg instead — exactly what a
-        /// normally-activated venv resolves to on its own — falling back to LibraryPath's own
-        /// directory (validated, mandatory) whenever that recorded base install doesn't actually
-        /// carry a stdlib either (e.g. a Microsoft Store Python's app-execution-alias folder, or a
-        /// pyvenv.cfg missing "home" entirely).
+        /// normally-activated venv resolves to on its own — falling back to a real prefix derived
+        /// from LibraryPath itself (validated, mandatory — see ResolvePrefixFromLibraryPath)
+        /// whenever that recorded base install doesn't actually carry a stdlib either (e.g. a
+        /// Microsoft Store Python's app-execution-alias folder, or a pyvenv.cfg missing "home"
+        /// entirely).
         /// </para>
         ///
         /// <para>
@@ -161,7 +162,7 @@ namespace UiPath.Python.Impl
 
             var pythonHome = venv != null ? ResolvePythonHome(venv.Home) : _path;
             if (!HasStdlib(pythonHome))
-                pythonHome = Path.GetDirectoryName(_libraryPath);
+                pythonHome = ResolvePrefixFromLibraryPath(_libraryPath);
 
             if (!pythonHome.IsNullOrEmpty())
                 PythonEngine.PythonHome = pythonHome;
@@ -362,12 +363,20 @@ namespace UiPath.Python.Impl
         /// <summary>
         /// Whether <paramref name="pythonHome"/> actually carries a standard library, i.e. is a
         /// real, complete Python install root rather than e.g. a Microsoft Store app-execution-
-        /// alias folder (reparse-point exe stubs only) or a venv root itself.
+        /// alias folder (reparse-point exe stubs only) or a venv root itself. Also recognizes a
+        /// <c>*._pth</c> file directly in this folder as valid evidence of a home: CPython's
+        /// <c>._pth</c>-based isolation (used by the official Windows embeddable distribution, but
+        /// not Windows-exclusive) resolves its stdlib from a bundled zip next to the interpreter
+        /// rather than an unpacked Lib folder, so the folder-based checks below would otherwise
+        /// wrongly treat a perfectly valid embeddable-style home as having no stdlib at all.
         /// </summary>
         private static bool HasStdlib(string pythonHome)
         {
-            if (pythonHome.IsNullOrEmpty())
+            if (pythonHome.IsNullOrEmpty() || !Directory.Exists(pythonHome))
                 return false;
+
+            if (Directory.EnumerateFiles(pythonHome, "*._pth").Any())
+                return true;
 
             return RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                 ? Directory.Exists(WindowsStdlibLandmark(pythonHome))
@@ -390,6 +399,39 @@ namespace UiPath.Python.Impl
             var libPath = PosixStdlibDirectory(pythonHome);
             return Directory.Exists(libPath)
                 && Directory.GetDirectories(libPath, "python*").Any(dir => Directory.Exists(Path.Combine(dir, "encodings")));
+        }
+
+        /// <summary>
+        /// Derives a real Python prefix from <paramref name="libraryPath"/> itself, for when the
+        /// venv's/Path's declared home doesn't carry a stdlib. On Windows the DLL sits directly at
+        /// the prefix root, so its own directory normally already qualifies — confirmed by the walk
+        /// below succeeding on the first iteration there. On POSIX the shared library sits one or
+        /// more levels *below* the prefix — plain <c>lib/libpythonX.Y.so</c>, or a multiarch triplet
+        /// like <c>lib/x86_64-linux-gnu/libpythonX.Y.so</c> — so blindly taking the library's own
+        /// directory (as an earlier version of this fix did) yields something like
+        /// <c>/opt/python/lib</c> rather than the real <c>/opt/python</c>, which itself has no
+        /// stdlib directly under it either. Walking up ancestors, testing <see cref="HasStdlib"/> at
+        /// each level, finds the real prefix on both platforms without hardcoding how many levels
+        /// separate the library from it.
+        /// </summary>
+        internal static string ResolvePrefixFromLibraryPath(string libraryPath)
+        {
+            if (libraryPath.IsNullOrEmpty())
+                return null;
+
+            var dir = Path.GetDirectoryName(libraryPath);
+            while (!dir.IsNullOrEmpty())
+            {
+                if (HasStdlib(dir))
+                    return dir;
+
+                var parent = Path.GetDirectoryName(dir);
+                if (string.Equals(parent, dir, StringComparison.Ordinal))
+                    break;
+                dir = parent;
+            }
+
+            return null;
         }
 
         private static string GetEnvSitePackagesPath(string venvPath)
@@ -430,39 +472,50 @@ namespace UiPath.Python.Impl
 
                     sys.path.insert(0, sitePackagesPath);
 
-                    // SetNoSiteFlag (see Initialize()) skips site.main() entirely for a default
-                    // venv, which also skips its sitecustomize.py auto-import — some environments
-                    // rely on that for corporate setup (proxies, logging, etc.), and it did run
-                    // today before this change, so preserve it explicitly.
-                    //
-                    // For a --system-site-packages venv, SetNoSiteFlag is *not* set, so site.main()
-                    // already ran during PythonEngine.Initialize() above and may already have
-                    // imported sitecustomize/usercustomize from whatever the base/user site
-                    // resolved to sys.path first — before the venv's own site-packages, just
-                    // inserted above, ever got a chance to take precedence. Only when the venv
-                    // itself actually carries its own copy do we drop the cached module and
-                    // re-import, so the venv's copy — now first on sys.path — wins, matching a
-                    // natively-activated venv. Gating on the venv actually having its own copy
-                    // matters: unconditionally popping and re-importing would, when the venv has
-                    // no copy of its own, still find the same base/user module again and run its
-                    // side effects a *second* time. When the venv has no copy, the module already
-                    // cached by site.main() (if any) is already the correct, highest-priority one
-                    // — left untouched. No-op either way for the default venv case: SetNoSiteFlag
-                    // prevented anything from being imported yet, so the cache is empty going in.
-                    if (File.Exists(Path.Combine(sitePackagesPath, "sitecustomize.py")))
+                    if (venv.ShouldDisableUserSite)
                     {
+                        // SetNoSiteFlag (see ConfigureRuntime) skipped site.main() entirely for
+                        // this default venv — which means it also skipped the plain, non-path
+                        // parts of site.main() itself: setquit()/setcopyright()/sethelper(), the
+                        // module-level functions that install the quit/exit/help/copyright/
+                        // credits/license builtins. Without them a script calling exit() (a common
+                        // RPA pattern, however discouraged) dies with a NameError that gives no
+                        // hint it's related to venv handling. enablerlcompleter() is deliberately
+                        // not restored — it only registers an interactive-startup readline hook,
+                        // irrelevant to a non-interactive embedded script.
+                        site.setquit();
+                        site.setcopyright();
+                        site.sethelper();
+
+                        // Nothing was ever imported/cached under SetNoSiteFlag — the stdlib paths
+                        // (including the base install's own Lib) are still on sys.path under
+                        // Py_NoSiteFlag, so this unconditionally picks up either the venv's own
+                        // sitecustomize.py or a base-install Lib\sitecustomize.py (corporate
+                        // proxy/logging setup etc.), exactly like it did before this whole fix and
+                        // like a natively-activated default venv does.
+                        site.execsitecustomize();
+                    }
+                    else if (File.Exists(Path.Combine(sitePackagesPath, "sitecustomize.py")))
+                    {
+                        // --system-site-packages: SetNoSiteFlag was *not* set, so site.main()
+                        // already ran during PythonEngine.Initialize() above and may already have
+                        // cached sitecustomize from whatever the base/user site resolved to
+                        // sys.path first — before the venv's own site-packages, just inserted
+                        // above, ever got a chance to take precedence. Only pop and re-import when
+                        // the venv actually has its own copy, so it wins as intended; when it
+                        // doesn't, the module already cached (already the correct,
+                        // highest-priority one in that case) is left untouched, avoiding running
+                        // its side effects a second time.
                         sys.modules.pop("sitecustomize", null);
                         site.execsitecustomize();
                     }
 
-                    // execusercustomize() mirrors site.main()'s own "if ENABLE_USER_SITE:" guard —
-                    // only called when user-site isn't suppressed, consistent with not calling it at
-                    // all for the default (user-site-disabled) case. Same re-import gating as above.
-                    if (!venv.ShouldDisableUserSite && File.Exists(Path.Combine(sitePackagesPath, "usercustomize.py")))
-                    {
-                        sys.modules.pop("usercustomize", null);
-                        site.execusercustomize();
-                    }
+                    // usercustomize.py lives in the *user-site* directory, never in a venv's own
+                    // site-packages, and by the time we get here site.main() (when it ran, i.e.
+                    // the --system-site-packages case) already handled it via its own "if
+                    // ENABLE_USER_SITE:" guard — there is nothing left for this venv-specific setup
+                    // to do for it, in either case. Deliberately not calling execusercustomize()
+                    // ourselves, consistent with not touching user-site handling at all here.
                 }
             }
         }

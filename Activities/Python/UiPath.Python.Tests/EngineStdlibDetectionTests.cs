@@ -94,6 +94,61 @@ namespace UiPath.Python.Tests
             Assert.False(EngineHasStdlib(string.Empty));
         }
 
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void HasStdlib_True_When_PthFile_Present_Even_Without_Lib_Folder()
+        {
+            // The official Windows embeddable distribution (and any other CPython using ._pth-based
+            // isolation) resolves its stdlib from a bundled zip referenced by a *._pth file next to
+            // the interpreter, not an unpacked Lib folder — HasStdlib must not treat that as "no
+            // stdlib" just because Lib\encodings doesn't literally exist.
+            File.WriteAllText(Path.Combine(_rootDir, "python314._pth"), "python314.zip" + Environment.NewLine);
+
+            Assert.True(EngineHasStdlib(_rootDir));
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void ResolvePrefixFromLibraryPath_WalksUp_To_Ancestor_With_Stdlib()
+        {
+            // Models the POSIX case this fix targets: the shared library sits one or more levels
+            // *below* the real prefix (e.g. lib/x86_64-linux-gnu/libpythonX.Y.so under a prefix
+            // that only has Lib\encodings at its own root) — the immediate parent directory of the
+            // library is not itself a valid home, but an ancestor is. Uses the Windows landmark
+            // (Lib\encodings) since that's the only one this Windows-only CI can exercise via a
+            // real Directory.Exists call — the walk-up mechanism itself is platform-agnostic; only
+            // which landmark HasStdlib checks for differs by OS.
+            Directory.CreateDirectory(Path.Combine(_rootDir, "Lib", "encodings"));
+            var libDir = Directory.CreateDirectory(Path.Combine(_rootDir, "lib", "x86_64-linux-gnu")).FullName;
+            var libraryPath = Path.Combine(libDir, "libpython3.12.so");
+            File.WriteAllText(libraryPath, string.Empty);
+
+            var prefix = Engine.ResolvePrefixFromLibraryPath(libraryPath);
+
+            Assert.Equal(_rootDir, prefix);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void ResolvePrefixFromLibraryPath_Returns_Null_When_No_Ancestor_Has_Stdlib()
+        {
+            var libDir = Directory.CreateDirectory(Path.Combine(_rootDir, "lib")).FullName;
+            var libraryPath = Path.Combine(libDir, "libpython3.12.so");
+            File.WriteAllText(libraryPath, string.Empty);
+
+            var prefix = Engine.ResolvePrefixFromLibraryPath(libraryPath);
+
+            Assert.Null(prefix);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void ResolvePrefixFromLibraryPath_Null_For_NullOrEmpty()
+        {
+            Assert.Null(Engine.ResolvePrefixFromLibraryPath(null));
+            Assert.Null(Engine.ResolvePrefixFromLibraryPath(string.Empty));
+        }
+
         // Engine.HasStdlib itself is private (only ConfigureRuntime should call it directly) —
         // reached here via reflection so this suite doesn't need to widen that method's
         // visibility just for testing, unlike WindowsStdlibLandmark/PosixStdlibDirectory, whose
