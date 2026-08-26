@@ -212,5 +212,14 @@ namespace UiPath.Python.Properties {
                 return ResourceManager.GetString("PythonVersionNotSupportedException", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The virtual environment at &apos;{0}&apos; was created with Python {1}, but LibraryPath points to Python {2}. Point LibraryPath to a Python {1} installation that matches the virtual environment.
+        /// </summary>
+        public static string PythonVenvVersionMismatchException {
+            get {
+                return ResourceManager.GetString("PythonVenvVersionMismatchException", resourceCulture);
+            }
+        }
     }
 }

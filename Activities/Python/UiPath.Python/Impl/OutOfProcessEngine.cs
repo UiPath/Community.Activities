@@ -50,7 +50,14 @@ namespace UiPath.Python.Impl
 
             Stopwatch sw = Stopwatch.StartNew();
 
-            // TODO: expose visible as a property?
+            // Venv-driven user-site suppression is handled entirely inside Engine.Initialize()
+            // (the host process), via PythonEngine.SetNoSiteFlag() for the default case. For a
+            // --system-site-packages venv, nothing needs to happen here either: ProcessStartInfo
+            // already starts as a copy of this process's own environment, so whatever
+            // PYTHONNOUSERSITE is ambient on the machine flows through to the host untouched —
+            // exactly matching how a normally-activated --system-site-packages venv would behave
+            // (PYTHONNOUSERSITE governs user-site independently of --system-site-packages in
+            // native CPython too), so no parent-side plumbing is needed for either case.
             _provider = new Controller<IPythonService>()
             {
                 PythonHostLibFile = ServiceDll_x64,
