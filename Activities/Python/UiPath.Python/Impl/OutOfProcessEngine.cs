@@ -53,6 +53,24 @@ namespace UiPath.Python.Impl
 
             Stopwatch sw = Stopwatch.StartNew();
 
+            // venv support only ever applies to the >=3.10 bucket (matches Engine.cs), which is
+            // x64-only in practice — no need to consider _target here.
+            var venv = _version == Version.Python_310 ? VenvDetection.GetVenvInfo(_path) : null;
+
+            // A venv whose declared Python version doesn't match _libraryPath means its
+            // site-packages were compiled for a different ABI — throw a clear error now, before
+            // the host even spawns, rather than a confusing native failure later.
+            if (venv != null)
+                VenvDetection.ValidateVersionMatch(venv, _libraryPath);
+
+            // Venv-driven user-site suppression is handled entirely inside Engine.Initialize()
+            // (the host process), via PythonEngine.SetNoSiteFlag() for the default case. For a
+            // --system-site-packages venv, nothing needs to happen here either: ProcessStartInfo
+            // already starts as a copy of this process's own environment, so whatever
+            // PYTHONNOUSERSITE is ambient on the machine flows through to the host untouched —
+            // exactly matching how a normally-activated --system-site-packages venv would behave
+            // (PYTHONNOUSERSITE governs user-site independently of --system-site-packages in
+            // native CPython too).
             // TODO: expose visible as a property?
             _provider = new Controller<IPythonService>()
             {

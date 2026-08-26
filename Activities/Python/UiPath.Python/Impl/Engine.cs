@@ -118,6 +118,37 @@ namespace UiPath.Python.Impl
                             else
                                 _pyEngine.PythonHome = _path;
 
+                            // Detected before Initialize(): a real venv (activated normally, e.g.
+                            // <venv>\Scripts\python.exe) always disables the PEP-370 user-site
+                            // directory on its own, and never lets the base install's own
+                            // site-packages leak in either. Our embedded interpreter never goes
+                            // through that activation path, so nothing does this for us — without
+                            // it, a native package installed in both the venv and the user-site (or
+                            // base install) directory can resolve its Python module from one and
+                            // its native DLL dependency from the other, mismatched, copy
+                            // (STUD-81085). SetNoSiteFlag (Py_NoSiteFlag) disables site.main()'s
+                            // automatic run entirely for that case, so neither leak path is ever
+                            // added in the first place — "prevent, don't clean up after": a
+                            // cleanup-after-the-fact fix couldn't undo any .pth-triggered side
+                            // effects (e.g. os.add_dll_directory calls) that already ran by the
+                            // time managed code regains control. `site` itself stays importable —
+                            // this only skips its automatic invocation — so the explicit
+                            // site.addsitedir()/site.execsitecustomize() calls in
+                            // PostInitializationVenvSetup for the venv's own site-packages keep
+                            // working. Deliberately not applied when venv.IncludeSystemSitePackages
+                            // is true: site.main() runs normally there, which is already correct
+                            // for that case.
+                            var venv = _version == Version.Python_310 ? VenvDetection.GetVenvInfo(_path) : null;
+
+                            // A venv whose declared Python version doesn't match _libraryPath means
+                            // its site-packages were compiled for a different ABI — throw a clear
+                            // error now rather than a confusing native failure later.
+                            if (venv != null)
+                                VenvDetection.ValidateVersionMatch(venv, _libraryPath);
+
+                            if (venv != null && venv.ShouldDisableUserSite)
+                                _pyEngine.SetNoSiteFlag();
+
                             if (_version >= Version.Python_36 && _version <= Version.Python_39)
                                 _pyEngine.Initialize(null, null, null, null);
                             else
@@ -125,7 +156,7 @@ namespace UiPath.Python.Impl
 
                             ct.ThrowIfCancellationRequested();
 
-                            PostInitializationVenvSetup();
+                            PostInitializationVenvSetup(venv);
 
                             _pythreads = _pyEngine.BeginAllowThreads();
 
@@ -341,18 +372,6 @@ namespace UiPath.Python.Impl
             }
         }
 
-        private static bool IsVenv(string path) => File.Exists(Path.Combine(path, "pyvenv.cfg"));
-
-        private static string GetVenvPath(string venvPath, int maxLevels = 3)
-        {
-            if (string.IsNullOrEmpty(venvPath) || maxLevels == 0)
-                return null;
-            else if (IsVenv(venvPath))
-                return venvPath;
-            else
-                return GetVenvPath(Path.GetDirectoryName(venvPath), maxLevels - 1);
-        }
-
         private static string GetEnvSitePackagesPath(string venvPath)
         {
             string sitePackages;
@@ -371,38 +390,78 @@ namespace UiPath.Python.Impl
             return sitePackages;
         }
 
-        private void PostInitializationVenvSetup()
+        private void PostInitializationVenvSetup(VenvDetection.VenvInfo venv)
         {
-            if (_version != Version.Python_310)
+            if (venv == null)
                 return;
 
-            var venvPath = GetVenvPath(_path);
-            if (!string.IsNullOrWhiteSpace(venvPath))
+            using (_py.GIL())
             {
-                using (_py.GIL())
+                dynamic sys = _py.Import("sys");
+                dynamic site = _py.Import("site");
+
+                // Full venv activation: sys.prefix/exec_prefix let packages locate
+                // their own data files (e.g. scipy, spaCy models) inside the venv.
+                // sys.base_prefix/base_exec_prefix retain the base Python location
+                // and are already set correctly by Initialize().
+                sys.prefix = venv.Root;
+                sys.exec_prefix = venv.Root;
+
+                // addsitedir adds site-packages to sys.path AND processes .pth files.
+                // .pth processing is required for editable installs (pip install -e)
+                // and packages that register extra paths via .pth (e.g. scipy, spaCy).
+                var sitePackagesPath = GetEnvSitePackagesPath(venv.Root);
+                site.addsitedir(sitePackagesPath);
+
+                // addsitedir appends; move to front so venv packages take priority over base Python.
+                if ((bool)sys.path.__contains__(sitePackagesPath))
+                    sys.path.remove(sitePackagesPath);
+
+                sys.path.insert(0, sitePackagesPath);
+
+                if (venv.ShouldDisableUserSite)
                 {
-                    dynamic sys = _py.Import("sys");
-                    dynamic site = _py.Import("site");
+                    // SetNoSiteFlag (see Initialize()) skipped site.main() entirely for this
+                    // default venv — which means it also skipped the plain, non-path parts of
+                    // site.main() itself: setquit()/setcopyright()/sethelper(), the module-level
+                    // functions that install the quit/exit/help/copyright/credits/license
+                    // builtins. Without them a script calling exit() (a common RPA pattern,
+                    // however discouraged) dies with a NameError that gives no hint it's related
+                    // to venv handling. enablerlcompleter() is deliberately not restored — it only
+                    // registers an interactive-startup readline hook, irrelevant to a
+                    // non-interactive embedded script.
+                    site.setquit();
+                    site.setcopyright();
+                    site.sethelper();
 
-                    // Full venv activation: sys.prefix/exec_prefix let packages locate
-                    // their own data files (e.g. scipy, spaCy models) inside the venv.
-                    // sys.base_prefix/base_exec_prefix retain the base Python location
-                    // and are already set correctly by Initialize().
-                    sys.prefix = venvPath;
-                    sys.exec_prefix = venvPath;
-
-                    // addsitedir adds site-packages to sys.path AND processes .pth files.
-                    // .pth processing is required for editable installs (pip install -e)
-                    // and packages that register extra paths via .pth (e.g. scipy, spaCy).
-                    var sitePackagesPath = GetEnvSitePackagesPath(venvPath);
-                    site.addsitedir(sitePackagesPath);
-
-                    // addsitedir appends; move to front so venv packages take priority over base Python.
-                    if ((bool)sys.path.__contains__(sitePackagesPath))
-                        sys.path.remove(sitePackagesPath);
-
-                    sys.path.insert(0, sitePackagesPath);
+                    // Nothing was ever imported/cached under SetNoSiteFlag — the stdlib paths
+                    // (including the base install's own Lib) are still on sys.path under
+                    // Py_NoSiteFlag, so this unconditionally picks up either the venv's own
+                    // sitecustomize.py or a base-install Lib\sitecustomize.py (corporate
+                    // proxy/logging setup etc.), exactly like it did before this whole fix and
+                    // like a natively-activated default venv does.
+                    site.execsitecustomize();
                 }
+                else if (File.Exists(Path.Combine(sitePackagesPath, "sitecustomize.py")))
+                {
+                    // --system-site-packages: SetNoSiteFlag was *not* set, so site.main() already
+                    // ran during Initialize() above and may already have cached sitecustomize from
+                    // whatever the base/user site resolved to sys.path first — before the venv's
+                    // own site-packages, just inserted above, ever got a chance to take
+                    // precedence. Only pop and re-import when the venv actually has its own copy,
+                    // so it wins as intended; when it doesn't, the module already cached (already
+                    // the correct, highest-priority one in that case) is left untouched, avoiding
+                    // running its side effects a second time.
+                    sys.modules.pop("sitecustomize", null);
+                    site.execsitecustomize();
+                }
+
+                // usercustomize.py lives in the *user-site* directory, never in a venv's own
+                // site-packages, and by the time we get here site.main() (when it ran, i.e. the
+                // --system-site-packages case) already handled it via its own "if
+                // ENABLE_USER_SITE:" guard — there is nothing left for this venv-specific setup to
+                // do for it, in either case. Deliberately not calling execusercustomize()
+                // ourselves, consistent with not touching user-site handling at all here.
             }
         }
 
