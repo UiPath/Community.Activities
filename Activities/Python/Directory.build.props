@@ -9,7 +9,7 @@
         <Copyright>© UiPath</Copyright>
         <VersionBuild>$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("F0"))</VersionBuild>
         <VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("F0"))</VersionRevision>
-        <VersionPrefix Condition="'$(Configuration)' == 'Release'">2.2.1</VersionPrefix>
+        <VersionPrefix Condition="'$(Configuration)' == 'Release'">2.2.2</VersionPrefix>
         <VersionPrefix Condition="'$(Configuration)' == 'Debug'">2.2.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
         <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">2.2.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
         <!--leave empty for ci to replace with pre-release tag-->
