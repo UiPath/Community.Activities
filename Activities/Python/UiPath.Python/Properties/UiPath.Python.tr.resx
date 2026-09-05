@@ -165,6 +165,9 @@
   <data name="PythonVersionNotSupportedException" xml:space="preserve">
     <value>Python {0} desteklenmiyor. Desteklenen sürümler şunlardır: {1}</value>
   </data>
+  <data name="PythonVenvVersionMismatchException" xml:space="preserve">
+    <value>&apos;{0}&apos; konumundaki sanal ortam {1} ile oluşturuldu, ancak KitaplıkYolu Python {2}&apos;yi işaret ediyor. LibraryPath&apos;i sanal ortamla eşleşen bir Python {1} yüklemesine getirin.</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python komut dosyası veri boyutu ({0} MB) yapılandırılan sınırı ({1} MB) aşıyor. Büyük verileri yöntem bağımsız değişkeni yerine bir dosya yolu üzerinden iletin veya Komut Dosyası Veri Boyutu Sınırı özelliğini artırın.</value>
   </data>

@@ -165,6 +165,9 @@
   <data name="PythonVersionNotSupportedException" xml:space="preserve">
     <value>Python {0} wird nicht unterstützt. Folgende Versionen werden unterstützt: {1}</value>
   </data>
+  <data name="PythonVenvVersionMismatchException" xml:space="preserve">
+    <value>Die virtuelle Umgebung unter „{0}“ wurde mit Python {1} erstellt, aber LibraryPath verweist auf Python {2}. Verweisen Sie mit LibraryPath auf eine Python {1}-Installation, die der virtuellen Umgebung entspricht.</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Die Datengröße des Python-Skripts ({0} MB) überschreitet das konfigurierte Limit ({1} MB). Übergeben Sie große Datenmengen über einen Dateipfad statt als Methodenargument, oder erhöhen Sie die Eigenschaft „Größenbegrenzung für Skriptdaten“.</value>
   </data>

@@ -165,6 +165,9 @@
   <data name="PythonVersionNotSupportedException" xml:space="preserve">
     <value>Python {0} 不受支持。支持的版本包括：{1}。</value>
   </data>
+  <data name="PythonVenvVersionMismatchException" xml:space="preserve">
+    <value>“{0}”的虚拟环境是使用 Python {1} 创建的，但库路径指向 Python {2}。将“LibraryPath”指向与虚拟环境匹配的 Python{1} 安装。</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python 脚本数据大小 ({0} MB) 超过了配置的限制 ({1} MB)。请通过文件路径传递大数据，而不是作为方法参数传递，或者增加“脚本数据大小限制”属性。</value>
   </data>
