@@ -165,6 +165,9 @@
   <data name="PythonVersionNotSupportedException" xml:space="preserve">
     <value>Python {0} はサポートされていません。サポートされているバージョン: {1}</value>
   </data>
+  <data name="PythonVenvVersionMismatchException" xml:space="preserve">
+    <value>「{0}」の仮想環境は Python {1} で作成されましたが、LibraryPath は Python {2} を指しています。LibraryPath が、仮想環境に一致する Python {1} のインストールを指すようにしてください。</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python スクリプトのデータ サイズ ({0} MB) が、設定された制限 ({1} MB) を超えています。メソッドの引数としてではなくファイル パスを介して大きなデータを渡すか、[スクリプトのデータ サイズ制限] プロパティの値を増やしてください。</value>
   </data>
