@@ -84,6 +84,8 @@ namespace UiPath.Database.Activities
                 }
                 var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {
+                    if (affectedRecords == null) return;
+
                     AffectedRecords.Set(asyncCodeActivityContext, affectedRecords.Result);
                     ConnectionHelper.SetOutputParameters(asyncCodeActivityContext, Parameters, affectedRecords.ParametersBind);
                 });

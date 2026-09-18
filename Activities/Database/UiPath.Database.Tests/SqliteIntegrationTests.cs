@@ -320,6 +320,23 @@ namespace UiPath.Database.Tests
             }
         }
 
+        [Fact, TestPriority(12)]
+        public void ExecuteNonQuery_ContinueOnError_SwallowsExceptionInsteadOfThrowingNullReferenceException()
+        {
+            var activity = new ExecuteNonQuery
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                Sql = new InArgument<string>("SELECT * FROM ThisTableDoesNotExist_Probe"),
+                ContinueOnError = new InArgument<bool>(true),
+                AffectedRecords = new OutArgument<int>()
+            };
+
+            var outputs = WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30));
+
+            var affected = (int)outputs[nameof(ExecuteNonQuery.AffectedRecords)];
+            Assert.Equal(0, affected);
+        }
+
         private static string NewTempDbPath()
             => Path.Combine(Path.GetTempPath(), $"uipath_sqlite_txn_{Guid.NewGuid():N}.db");
 
