@@ -47,7 +47,7 @@ namespace UiPath.Database.Activities
                 string sql = string.Empty;
                 int? commandTimeoutMs = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
                 DatabaseConnection existingConnection = null;
-                DBExecuteCommandResult affectedRecords = null;
+                DBExecuteCommandResult affectedRecords = new DBExecuteCommandResult();
                 if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
                 {
                     throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
@@ -84,8 +84,6 @@ namespace UiPath.Database.Activities
                 }
                 var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {
-                    if (affectedRecords == null) return;
-
                     AffectedRecords.Set(asyncCodeActivityContext, affectedRecords.Result);
                     ConnectionHelper.SetOutputParameters(asyncCodeActivityContext, Parameters, affectedRecords.ParametersBind);
                 });

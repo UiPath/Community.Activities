@@ -257,7 +257,7 @@ namespace UiPath.Database.Tests
             try
             {
                 var connVar = new Variable<DatabaseConnection>();
-                var capture = new CaptureConnection { Input = new InArgument<DatabaseConnection>(connVar) };
+                var capture = new CaptureValue<DatabaseConnection> { Input = new InArgument<DatabaseConnection>(connVar) };
 
                 var workflow = new Sequence
                 {
@@ -337,6 +337,36 @@ namespace UiPath.Database.Tests
             Assert.Equal(0, affected);
         }
 
+        [Fact, TestPriority(13)]
+        public void ExecuteNonQuery_ContinueOnError_ResetsAffectedRecordsInsteadOfLeavingStaleValue()
+        {
+            // Pre-seed the bound variable with a value the activity did NOT produce, so the
+            // assertion can only pass if ExecuteNonQuery actively resets it to 0 on the swallowed
+            // failure path, not because an unbound OutArgument happens to default to 0.
+            var affectedVar = new Variable<int> { Default = 42 };
+            var capture = new CaptureValue<int> { Input = new InArgument<int>(affectedVar) };
+
+            var workflow = new Sequence
+            {
+                Variables = { affectedVar },
+                Activities =
+                {
+                    new ExecuteNonQuery
+                    {
+                        ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                        Sql = new InArgument<string>("SELECT * FROM ThisTableDoesNotExist_Probe"),
+                        ContinueOnError = new InArgument<bool>(true),
+                        AffectedRecords = new OutArgument<int>(affectedVar)
+                    },
+                    capture
+                }
+            };
+
+            WorkflowInvoker.Invoke(workflow, TimeSpan.FromSeconds(30));
+
+            Assert.Equal(0, capture.Value);
+        }
+
         private static string NewTempDbPath()
             => Path.Combine(Path.GetTempPath(), $"uipath_sqlite_txn_{Guid.NewGuid():N}.db");
 
@@ -360,13 +390,13 @@ namespace UiPath.Database.Tests
         }
 
         /// <summary>
-        /// Reads a <see cref="DatabaseConnection"/> argument at the end of a workflow body and exposes
-        /// it to the test, so the connection's post-scope state can be asserted.
+        /// Reads an argument at the end of a workflow body and exposes it to the test, so a
+        /// variable's post-scope state can be asserted.
         /// </summary>
-        private sealed class CaptureConnection : CodeActivity
+        private sealed class CaptureValue<T> : CodeActivity
         {
-            public InArgument<DatabaseConnection> Input { get; set; }
-            public DatabaseConnection Value { get; private set; }
+            public InArgument<T> Input { get; set; }
+            public T Value { get; private set; }
 
             protected override void Execute(CodeActivityContext context)
             {
