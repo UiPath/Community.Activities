@@ -367,6 +367,20 @@ namespace UiPath.Database.Tests
             Assert.Equal(0, capture.Value);
         }
 
+        [Fact, TestPriority(14)]
+        public void ExecuteNonQuery_NegativeTimeoutMS_ThrowsArgumentException()
+        {
+            var activity = new ExecuteNonQuery
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                Sql = new InArgument<string>("SELECT 1"),
+                TimeoutMS = new InArgument<int>(-1),
+                AffectedRecords = new OutArgument<int>()
+            };
+
+            Assert.Throws<ArgumentException>(() => WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30)));
+        }
+
         private static string NewTempDbPath()
             => Path.Combine(Path.GetTempPath(), $"uipath_sqlite_txn_{Guid.NewGuid():N}.db");
 
