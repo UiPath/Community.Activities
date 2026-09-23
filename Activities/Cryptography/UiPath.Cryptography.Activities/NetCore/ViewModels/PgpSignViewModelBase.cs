@@ -6,6 +6,7 @@ using System.Security;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
@@ -116,12 +117,32 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             _passphraseToggle.ConfigureMenuActions();
             ApplyPassphraseVisibility();
 
+            // STUD-80743: Configure file widgets (LocalResource adoption)
+            ConfigureFilePathWidgets();
+
             InitializeOutputProperty(orderIndex);
             ConfigurePropertyTexts();
         }
 
         protected abstract void InitializeOutputProperty(int orderIndex);
         protected abstract void ConfigurePropertyTexts();
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption
+            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // Tier A: string paths that have an IResource overload carry NoWrap metadata.
+            InputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+
+            // ILocalResource-typed properties omit NoWrap.
+            InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            PrivateKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+
+            // Tier B: output path string has no IResource variant, no NoWrap.
+            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+        }
 
         private void ApplyInputFileVisibility()
         {

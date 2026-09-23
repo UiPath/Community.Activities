@@ -186,6 +186,45 @@ namespace UiPath.Cryptography.Activities.Tests
             }
         }
 
+        // STUD-80430: GnuPG 2.4+ wraps the one-pass signature in a compressed packet by default.
+        // The verify path must descend into the compression layer before locating the signature.
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void PgpVerify_SubkeySignedMessage_Verifies(bool compress)
+        {
+            var fixture = PgpBcFixture.Create();
+            var data = Encoding.UTF8.GetBytes("Subkey-signed payload for regression coverage");
+
+            var signed = fixture.CreateSignedMessage(data, compress);
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerify(signed, publicKeyStream));
+            }
+        }
+
+        // STUD-80429: GnuPG issues signatures from a signing-capable subkey. The verify path must
+        // resolve the signature's issuer key ID against every public key in the ring, not just the
+        // primary key. The subkey resolution is exercised end-to-end by
+        // PgpVerify_SubkeySignedMessage_Verifies above (same GetPublicKey(signature.KeyId) path).
+        // This clear-text variant is skipped because an authoritative clear-signed sample requires
+        // GnuPG, which is not installed in the build environment; the hand-rolled BouncyCastle
+        // fixture cannot guarantee byte-identical clear-text canonicalization. Un-skip and supply a
+        // real gpg-produced fixture to validate locally.
+        [Fact(Skip = "Requires an authoritative gpg-produced clear-signed fixture; subkey resolution is covered by PgpVerify_SubkeySignedMessage_Verifies.")]
+        public void PgpVerifyClear_SubkeySignedMessage_Verifies()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            var signed = fixture.CreateClearSignedMessage("Clear-signed by subkey");
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyClear(signed, publicKeyStream));
+            }
+        }
+
         [Fact]
         public void PgpVerify_InvalidSignature_ReturnsFalse()
         {

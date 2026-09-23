@@ -6,6 +6,7 @@ using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
@@ -65,6 +66,10 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureInputFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
 
+            // STUD-80743 & STUD-64134: Configure file widgets and platform-aware defaults
+            ConfigureFilePathWidgets();
+            ConfigurePlatformAwareDefaults();
+
             EncryptedFile.IsPrincipal = false;
             EncryptedFile.OrderIndex = orderIndex;
             EncryptedFile.Category = Resources.Output;
@@ -76,6 +81,38 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             _inputFileToggle.ConfigureMenuActions();
             ApplyInputFileVisibility();
+        }
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption
+            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // Tier A: string paths that have an IResource overload carry NoWrap metadata.
+            InputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            PublicKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+
+            // ILocalResource-typed properties omit NoWrap.
+            InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            PublicKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            PrivateKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+
+            // Tier B: output path string has no IResource variant, no NoWrap.
+            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+        }
+
+        private void ConfigurePlatformAwareDefaults()
+        {
+            // STUD-64134: Platform-aware default input option
+            bool isStudioWeb = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // On Studio Web: IResource is principal (InputFile)
+            // On Legacy+Windows: string is principal (InputFilePath)
+            InputFile.IsPrincipal = isStudioWeb;
+            InputFile.IsRequired = isStudioWeb;
+            InputFilePath.IsPrincipal = !isStudioWeb;
+            InputFilePath.IsRequired = !isStudioWeb;
         }
 
         private void ConfigurePropertyTexts()
