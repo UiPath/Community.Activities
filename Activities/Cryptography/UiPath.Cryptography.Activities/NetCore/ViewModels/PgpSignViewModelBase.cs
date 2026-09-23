@@ -132,16 +132,18 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             // STUD-80743: LocalResource widget adoption
             bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
 
-            // Tier A: string paths that have an IResource overload carry NoWrap metadata.
+            // string-typed properties carry NoWrap metadata so the picker returns the raw path
+            // instead of wrapping it as LocalResource.FromPath(...) — that wrap is only correct
+            // for the IResource-typed properties below. This applies regardless of whether the
+            // string property has an IResource sibling (Tier A) or not (Tier B, output-only).
             InputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
             PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
 
-            // ILocalResource-typed properties omit NoWrap.
+            // IResource-typed properties omit NoWrap — the picker must wrap the selection as
+            // LocalResource.FromPath(...) to match this property's actual type.
             InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
             PrivateKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
-
-            // Tier B: output path string has no IResource variant, no NoWrap.
-            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
         }
 
         private void ApplyInputFileVisibility()

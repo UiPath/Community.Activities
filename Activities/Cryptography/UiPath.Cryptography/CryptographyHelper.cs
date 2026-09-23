@@ -738,9 +738,12 @@ namespace UiPath.Cryptography
             if (message.Contains("Failed to verify"))
                 return new InvalidOperationException(Resources.PgpSignatureVerificationFailed, ex);
 
-            // "unknown packet type encountered: 20" → GnuPG 2.4+ AEAD encryption (tag 20, OCB cipher)
-            // STUD-80430b: GnuPG 2.4+ creates AEAD encrypted packets which BouncyCastle doesn't support
-            if (message.Contains("unknown packet type encountered: 20"))
+            // GnuPG 2.4+ AEAD encryption (tag 20, OCB cipher) → BouncyCastle's PgpObjectFactory
+            // rejects the top-level packet with "unknown object in stream 20" (Bcpg's lower-level
+            // packet reader uses a differently worded "unknown packet type encountered: <tag>" for
+            // a similar failure elsewhere; both are matched since either could surface here).
+            // STUD-80428: GnuPG 2.4+ creates AEAD encrypted packets which BouncyCastle doesn't support
+            if (message.Contains("unknown object in stream 20") || message.Contains("unknown packet type encountered: 20"))
                 return new InvalidOperationException(Resources.PgpAeadNotSupported, ex);
 
             // No translation — preserve original stack trace

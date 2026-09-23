@@ -121,9 +121,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             _inputFileToggle.ConfigureMenuActions();
             ApplyInputFileVisibility();
 
-            // STUD-80743 & STUD-64134: Configure file widgets and platform-aware defaults
+            // STUD-80743: Configure file widgets
             ConfigureFilePathWidgets();
-            ConfigurePlatformAwareDefaults();
 
             ConfigurePropertyTexts();
         }
@@ -138,17 +137,6 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             // ILocalResource-typed property omits NoWrap.
             InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
-        }
-
-        private void ConfigurePlatformAwareDefaults()
-        {
-            // STUD-64134: Platform-aware default input option
-            bool isStudioWeb = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
-
-            InputFile.IsPrincipal = isStudioWeb;
-            InputFile.IsRequired = isStudioWeb;
-            FilePath.IsPrincipal = !isStudioWeb;
-            FilePath.IsRequired = !isStudioWeb;
         }
 
         private void ConfigurePropertyTexts()

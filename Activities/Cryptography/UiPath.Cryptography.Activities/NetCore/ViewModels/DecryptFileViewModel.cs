@@ -29,6 +29,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
         public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<string> OutputFileName { get; set; } = new DesignInArgument<string>();
         public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
         public DesignOutArgument<ILocalResource> DecryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
 
@@ -54,6 +55,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             OutputFilePath.OrderIndex = orderIndex++;
             OutputFilePath.Category = Resources.Category_Options_Name;
 
+            OutputFileName.IsPrincipal = false;
+            OutputFileName.IsRequired = false;
+            OutputFileName.OrderIndex = orderIndex++;
+            OutputFileName.Category = Resources.Category_Options_Name;
+
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = orderIndex++;
             Overwrite.Category = Resources.Category_Options_Name;
@@ -66,9 +72,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureInputFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
 
-            // STUD-80743 & STUD-64134: Configure file widgets and platform-aware defaults
+            // STUD-80743: Configure file widgets
             ConfigureFilePathWidgets();
-            ConfigurePlatformAwareDefaults();
 
             DecryptedFile.IsPrincipal = false;
             DecryptedFile.OrderIndex = orderIndex;
@@ -88,29 +93,21 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             // STUD-80743: LocalResource widget adoption
             bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
 
-            // Tier A: string paths that have an IResource overload carry NoWrap metadata.
+            // string-typed properties carry NoWrap metadata so the picker returns the raw path
+            // instead of wrapping it as LocalResource.FromPath(...) — that wrap is only correct
+            // for the IResource-typed properties below. This applies regardless of whether the
+            // string property has an IResource sibling (Tier A) or not (Tier B, output-only).
             InputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
             PublicKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
             PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            OutputFileName.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
 
-            // ILocalResource-typed properties omit NoWrap.
+            // IResource-typed properties omit NoWrap — the picker must wrap the selection as
+            // LocalResource.FromPath(...) to match this property's actual type.
             InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
             PublicKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
             PrivateKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
-
-            // Tier B: output path string has no IResource variant, no NoWrap.
-            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
-        }
-
-        private void ConfigurePlatformAwareDefaults()
-        {
-            // STUD-64134: Platform-aware default input option
-            bool isStudioWeb = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
-
-            InputFile.IsPrincipal = isStudioWeb;
-            InputFile.IsRequired = isStudioWeb;
-            InputFilePath.IsPrincipal = !isStudioWeb;
-            InputFilePath.IsRequired = !isStudioWeb;
         }
 
         private void ConfigurePropertyTexts()
@@ -127,6 +124,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeySecureString.Tooltip = Resources.Activity_DecryptFile_Property_KeySecureString_Description;
             OutputFilePath.DisplayName = Resources.Activity_DecryptFile_Property_OutputFilePath_Name;
             OutputFilePath.Tooltip = Resources.Activity_DecryptFile_Property_OutputFilePath_Description;
+            OutputFileName.DisplayName = Resources.Activity_DecryptFile_Property_OutputFileName_Name;
+            OutputFileName.Tooltip = Resources.Activity_DecryptFile_Property_OutputFileName_Description;
             KeyEncodingString.DisplayName = Resources.Activity_DecryptFile_Property_KeyEncodingString_Name;
             KeyEncodingString.Tooltip = Resources.Activity_DecryptFile_Property_KeyEncodingString_Description;
             Format.DisplayName = Resources.Activity_DecryptFile_Property_Format_Name;

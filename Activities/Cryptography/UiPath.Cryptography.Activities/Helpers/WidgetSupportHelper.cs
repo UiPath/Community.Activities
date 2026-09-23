@@ -38,9 +38,12 @@ namespace UiPath.Cryptography.Activities.Helpers
 
         /// <summary>
         /// Builds the LocalResource widget when supported, otherwise a Text widget.
-        /// Tier-A string properties (those with an IResource overload) carry the
-        /// <c>NoWrap</c> metadata per the STUD-80743 adoption pattern; ILocalResource-typed
-        /// properties omit it (pass <paramref name="applyNoWrap"/> = false).
+        /// Every <c>string</c>-typed path property must pass <paramref name="applyNoWrap"/> =
+        /// true, regardless of whether it has an <c>IResource</c>-typed sibling (Tier A) or not
+        /// (Tier B, output-only) — otherwise the host wraps the picked file as
+        /// <c>LocalResource.FromPath(...)</c>, which cannot be assigned to a string argument.
+        /// Only the <c>IResource</c>/<c>ILocalResource</c>-typed properties themselves omit it
+        /// (pass <paramref name="applyNoWrap"/> = false), since they need that wrap.
         /// </summary>
         public static DefaultWidget BuildLocalResourceWidget(bool isSupported, bool applyNoWrap)
         {

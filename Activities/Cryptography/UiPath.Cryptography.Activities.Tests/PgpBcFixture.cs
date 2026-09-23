@@ -99,13 +99,12 @@ namespace UiPath.Cryptography.Activities.Tests
             using var outerBuffer = new MemoryStream();
             using (var armored = new ArmoredOutputStream(outerBuffer))
             {
-                Stream signingTarget = armored;
-                PgpCompressedDataGenerator compressedGenerator = null;
-                if (compress)
-                {
-                    compressedGenerator = new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip);
-                    signingTarget = compressedGenerator.Open(armored);
-                }
+                // Disposing the stream returned by Open() (rather than calling the obsolete
+                // PgpCompressedDataGenerator.Close()) flushes the compression trailer.
+                Stream compressedStream = compress
+                    ? new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip).Open(armored)
+                    : null;
+                Stream signingTarget = compressedStream ?? armored;
 
                 var bcpgOut = new BcpgOutputStream(signingTarget);
                 signatureGenerator.GenerateOnePassVersion(false).Encode(bcpgOut);
@@ -118,7 +117,8 @@ namespace UiPath.Cryptography.Activities.Tests
                 }
 
                 signatureGenerator.Generate().Encode(bcpgOut);
-                compressedGenerator?.Close();
+                bcpgOut.Flush();
+                compressedStream?.Dispose();
             }
 
             return outerBuffer.ToArray();
@@ -145,7 +145,8 @@ namespace UiPath.Cryptography.Activities.Tests
 
                 var lineOut = new MemoryStream();
                 int lookAhead = ReadInputLine(lineOut, fIn);
-                ProcessLine(armored, signatureGenerator, lineOut.ToArray());
+                byte[] lastLine = lineOut.ToArray();
+                ProcessLine(armored, signatureGenerator, lastLine);
 
                 if (lookAhead != -1)
                 {
@@ -154,9 +155,21 @@ namespace UiPath.Cryptography.Activities.Tests
                         lookAhead = ReadInputLine(lineOut, lookAhead, fIn);
                         signatureGenerator.Update((byte)'\r');
                         signatureGenerator.Update((byte)'\n');
-                        ProcessLine(armored, signatureGenerator, lineOut.ToArray());
+                        lastLine = lineOut.ToArray();
+                        ProcessLine(armored, signatureGenerator, lastLine);
                     }
                     while (lookAhead != -1);
+                }
+
+                // The armored clear-text section must end with a line break before the
+                // "-----BEGIN PGP SIGNATURE-----" boundary. Add one if the source text didn't
+                // already end with one — it is purely a structural separator, not part of the
+                // hashed content, so it must not go through signatureGenerator.Update.
+                bool lastLineHasTerminator = lastLine.Length > 0 &&
+                    (lastLine[lastLine.Length - 1] == '\n' || lastLine[lastLine.Length - 1] == '\r');
+                if (!lastLineHasTerminator)
+                {
+                    armored.Write(new byte[] { (byte)'\r', (byte)'\n' }, 0, 2);
                 }
 
                 armored.EndClearText();
@@ -216,17 +229,17 @@ namespace UiPath.Cryptography.Activities.Tests
         {
             lineOut.SetLength(0);
 
+            // Unlike the no-lookAhead overload above, this one must write ch to lineOut
+            // unconditionally (including the terminator itself) — this fixture's ProcessLine
+            // writes lineOut straight back to the armor, so dropping the terminator here would
+            // concatenate this line onto the next one in the produced armor text.
             int ch = lookAhead;
             do
             {
-                if (ch != '\r' && ch != '\n')
+                lineOut.WriteByte((byte)ch);
+                if (ch == '\r' || ch == '\n')
                 {
-                    lineOut.WriteByte((byte)ch);
-                }
-                else
-                {
-                    lookAhead = ReadPastEol(lineOut, ch, fIn);
-                    return lookAhead;
+                    return ReadPastEol(lineOut, ch, fIn);
                 }
             }
             while ((ch = fIn.ReadByte()) >= 0);

@@ -118,9 +118,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             // STUD-80743: LocalResource widget adoption
             bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
 
-            // Tier B: output key file paths (no IResource variant, no NoWrap).
-            PublicKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
-            PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            // Output key file paths are string-typed (no IResource variant here), so NoWrap
+            // must be applied — otherwise the picker wraps the selection as
+            // LocalResource.FromPath(...), which can't be assigned to a string argument.
+            PublicKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
         }
 
         private void ConfigurePropertyTexts()
