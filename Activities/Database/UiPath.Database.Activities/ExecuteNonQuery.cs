@@ -50,7 +50,7 @@ namespace UiPath.Database.Activities
                 DBExecuteCommandResult affectedRecords = new DBExecuteCommandResult();
                 if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
                 {
-                    throw new ArgumentException(Resources.TimeoutMSException);
+                    throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
                 }
                 TimeSpan? commandTimeout = commandTimeoutMs.HasValue ? TimeSpan.FromMilliseconds(commandTimeoutMs.Value) : (TimeSpan?)null;
                 Dictionary<string, ParameterInfo> parameters = null;
