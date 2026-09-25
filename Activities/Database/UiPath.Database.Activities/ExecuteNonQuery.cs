@@ -47,7 +47,7 @@ namespace UiPath.Database.Activities
                 string sql = string.Empty;
                 int? commandTimeoutMs = TimeoutMS.Expression is null ? (int?)null : TimeoutMS.Get(context);
                 DatabaseConnection existingConnection = null;
-                DBExecuteCommandResult affectedRecords = null;
+                DBExecuteCommandResult affectedRecords = new DBExecuteCommandResult();
                 if (commandTimeoutMs.HasValue && commandTimeoutMs.Value < 0)
                 {
                     throw new ArgumentException(Resources.TimeoutMSException, nameof(TimeoutMS));
@@ -66,7 +66,7 @@ namespace UiPath.Database.Activities
                     parameters = ConnectionHelper.BuildParameters(Parameters, context);
                     ConnectionHelper.ConnectionValidation(existingConnection, connSecureString, connString, provName);
                     // create the action for doing the actual work
-                    affectedRecords = await Task.Run(() => ExecuteCommand(connString, connSecureString, provName, sql, parameters, commandTimeout));
+                    affectedRecords = await Task.Run(() => ExecuteCommand(connString, connSecureString, provName, sql, parameters, commandTimeout), cancellationToken);
                 }
                 catch (Exception ex)
                 {
@@ -110,7 +110,7 @@ namespace UiPath.Database.Activities
             return new DBExecuteCommandResult(DbConnection.Execute(sql, parameters, commandTimeout, CommandType), parameters);
         }
 
-        private class DBExecuteCommandResult
+        private sealed class DBExecuteCommandResult
         {
             public int Result { get; }
             public Dictionary<string, ParameterInfo> ParametersBind { get; }
