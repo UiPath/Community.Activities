@@ -1,5 +1,6 @@
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using UiPath.Platform.ResourceHandling;
 using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities.Helpers
@@ -59,6 +60,33 @@ namespace UiPath.Cryptography.Activities.Helpers
             }
 
             return widget;
+        }
+
+        /// <summary>
+        /// Configures the LocalResource/NoWrap widgets shared by <c>EncryptFileViewModel</c> and
+        /// <c>DecryptFileViewModel</c>, whose file/key path property sets are identical. Every
+        /// <c>string</c>-typed property gets <c>applyNoWrap: true</c>; the paired
+        /// <c>IResource</c>-typed properties get <c>applyNoWrap: false</c> — see
+        /// <see cref="BuildLocalResourceWidget"/>.
+        /// </summary>
+        public static void ConfigureFilePathWidgets(
+            IDesignServices services,
+            DesignInArgument<string> inputFilePath, DesignInArgument<IResource> inputFile,
+            DesignInArgument<string> publicKeyFilePath, DesignInArgument<IResource> publicKeyFile,
+            DesignInArgument<string> privateKeyFilePath, DesignInArgument<IResource> privateKeyFile,
+            DesignInArgument<string> outputFilePath, DesignInArgument<string> outputFileName)
+        {
+            bool isSupported = IsWidgetSupported(services, nameof(ViewModelWidgetType.LocalResource));
+
+            inputFilePath.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            publicKeyFilePath.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            privateKeyFilePath.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            outputFilePath.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            outputFileName.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+
+            inputFile.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            publicKeyFile.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            privateKeyFile.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: false);
         }
     }
 }

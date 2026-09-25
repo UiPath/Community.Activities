@@ -90,24 +90,14 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
         private void ConfigureFilePathWidgets()
         {
-            // STUD-80743: LocalResource widget adoption
-            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
-
-            // string-typed properties carry NoWrap metadata so the picker returns the raw path
-            // instead of wrapping it as LocalResource.FromPath(...) — that wrap is only correct
-            // for the IResource-typed properties below. This applies regardless of whether the
-            // string property has an IResource sibling (Tier A) or not (Tier B, output-only).
-            InputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
-            PublicKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
-            PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
-            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
-            OutputFileName.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
-
-            // IResource-typed properties omit NoWrap — the picker must wrap the selection as
-            // LocalResource.FromPath(...) to match this property's actual type.
-            InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
-            PublicKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
-            PrivateKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            // STUD-80743: LocalResource widget adoption — shared with DecryptFileViewModel,
+            // whose file/key path property set is identical.
+            WidgetSupportHelper.ConfigureFilePathWidgets(
+                Services,
+                InputFilePath, InputFile,
+                PublicKeyFilePath, PublicKeyFile,
+                PrivateKeyFilePath, PrivateKeyFile,
+                OutputFilePath, OutputFileName);
         }
 
         private void ConfigurePropertyTexts()
