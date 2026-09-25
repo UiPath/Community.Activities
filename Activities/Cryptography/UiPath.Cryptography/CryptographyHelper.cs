@@ -9,6 +9,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using Org.BouncyCastle.Bcpg;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using PgpCore;
 using UiPath.Cryptography.Enums;
 using UiPath.Cryptography.Properties;
@@ -737,6 +738,14 @@ namespace UiPath.Cryptography
             if (message.Contains("Failed to verify"))
                 return new InvalidOperationException(Resources.PgpSignatureVerificationFailed, ex);
 
+            // GnuPG 2.4+ AEAD encryption (tag 20, OCB cipher) → BouncyCastle's PgpObjectFactory
+            // rejects the top-level packet with "unknown object in stream 20" (Bcpg's lower-level
+            // packet reader uses a differently worded "unknown packet type encountered: <tag>" for
+            // a similar failure elsewhere; both are matched since either could surface here).
+            // STUD-80428: GnuPG 2.4+ creates AEAD encrypted packets which BouncyCastle doesn't support
+            if (message.Contains("unknown object in stream 20") || message.Contains("unknown packet type encountered: 20"))
+                return new InvalidOperationException(Resources.PgpAeadNotSupported, ex);
+
             // No translation — preserve original stack trace
             ExceptionDispatchInfo.Capture(ex).Throw();
             return ex; // unreachable — satisfies compiler
@@ -929,10 +938,10 @@ namespace UiPath.Cryptography
         }
 
         public static bool PgpVerify(byte[] inputBytes, Stream publicKeyStream)
-            => ExecutePgpVerifyOperation(inputBytes, publicKeyStream, (pgp, input) => pgp.Verify(input));
+            => ExecutePgpVerifyOperation(inputBytes, publicKeyStream, (pgp, input) => pgp.Verify(input), BcVerifyBinarySignature);
 
         public static bool PgpVerifyClear(byte[] inputBytes, Stream publicKeyStream)
-            => ExecutePgpVerifyOperation(inputBytes, publicKeyStream, (pgp, input) => pgp.VerifyClear(input));
+            => ExecutePgpVerifyOperation(inputBytes, publicKeyStream, (pgp, input) => pgp.VerifyClear(input), BcVerifyClearSignature);
 
         public static bool PgpVerifyText(string input, Stream publicKeyStream)
         {
@@ -990,23 +999,257 @@ namespace UiPath.Cryptography
         }
 
         private static bool ExecutePgpVerifyOperation(byte[] inputBytes, Stream publicKeyStream,
-            Func<PGP, Stream, bool> verifyFunc)
+            Func<PGP, Stream, bool> verifyFunc, Func<byte[], byte[], bool> bcFallbackVerify)
         {
+            // Buffer the public key so it can be consumed by both the PgpCore path and the
+            // BouncyCastle fallback (streams are forward-only / get disposed by PgpCore).
+            byte[] publicKeyBytes;
+            using (var keyBuffer = new MemoryStream())
+            {
+                publicKeyStream.CopyTo(keyBuffer);
+                publicKeyBytes = keyBuffer.ToArray();
+            }
+
             try
             {
-                var encryptionKeys = new EncryptionKeys(publicKeyStream);
+                var encryptionKeys = new EncryptionKeys(new MemoryStream(publicKeyBytes));
                 using (var pgp = new PGP(encryptionKeys))
                 using (var inputStream = new MemoryStream(inputBytes))
                 {
-                    return verifyFunc(pgp, inputStream);
+                    if (verifyFunc(pgp, inputStream))
+                    {
+                        return true;
+                    }
                 }
             }
             catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
             {
-                Trace.TraceWarning("PGP verify operation failed: {0}", ex);
+                Trace.TraceWarning("PGP verify operation (PgpCore path) failed: {0}", ex);
+            }
+
+            // STUD-80430 & STUD-80429: PgpCore's verify path does not descend into a
+            // compression layer and only consults the primary key. Fall back to a custom
+            // BouncyCastle verification that unwraps compression and resolves the signature's
+            // issuer key ID against every public key in the ring (subkeys included).
+            try
+            {
+                return bcFallbackVerify(inputBytes, publicKeyBytes);
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
+            {
+                Trace.TraceWarning("PGP verify operation (BouncyCastle fallback) failed: {0}", ex);
                 return false;
             }
         }
+
+        /// <summary>
+        /// STUD-80430/80429: Verify a one-pass/detached binary signature using BouncyCastle,
+        /// descending through any <see cref="PgpCompressedData"/> layer and resolving the
+        /// signature's issuer key ID against all public keys in the provided keyring.
+        /// </summary>
+        private static bool BcVerifyBinarySignature(byte[] inputBytes, byte[] publicKeyBytes)
+        {
+            using var inputStream = new MemoryStream(inputBytes);
+            using var decoderStream = PgpUtilities.GetDecoderStream(inputStream);
+
+            var pgpFactory = new PgpObjectFactory(decoderStream);
+            var pgpObject = pgpFactory.NextPgpObject();
+
+            // Descend through the compression layer (GnuPG's default for gpg --sign) if present.
+            // The compressed data stream must stay open for the rest of the verification, so it is
+            // disposed via the method-scoped variable rather than an inner using block.
+            Stream compressedStream = null;
+            try
+            {
+                if (pgpObject is PgpCompressedData compressedData)
+                {
+                    compressedStream = compressedData.GetDataStream();
+                    pgpFactory = new PgpObjectFactory(compressedStream);
+                    pgpObject = pgpFactory.NextPgpObject();
+                }
+
+                if (pgpObject is not PgpOnePassSignatureList onePassList)
+                {
+                    return false;
+                }
+
+                var onePassSignature = onePassList[0];
+
+                if (pgpFactory.NextPgpObject() is not PgpLiteralData literalData)
+                {
+                    return false;
+                }
+
+                var publicKeyRings = new PgpPublicKeyRingBundle(
+                    PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
+
+                var signingKey = publicKeyRings.GetPublicKey(onePassSignature.KeyId);
+                if (signingKey is null)
+                {
+                    return false;
+                }
+
+                onePassSignature.InitVerify(signingKey);
+
+                using (var literalStream = literalData.GetInputStream())
+                {
+                    int ch;
+                    while ((ch = literalStream.ReadByte()) >= 0)
+                    {
+                        onePassSignature.Update((byte)ch);
+                    }
+                }
+
+                if (pgpFactory.NextPgpObject() is not PgpSignatureList signatureList)
+                {
+                    return false;
+                }
+
+                return onePassSignature.Verify(signatureList[0]);
+            }
+            finally
+            {
+                compressedStream?.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// STUD-80429: Verify a clear-text signature using BouncyCastle, resolving the
+        /// signature's issuer key ID against all public keys in the provided keyring so that
+        /// signatures issued by signing-capable subkeys verify correctly. Uses the canonical
+        /// OpenPGP clear-text line processing (trailing whitespace trimmed, lines joined by CRLF,
+        /// no trailing line separator) so the recomputed hash matches the signer's.
+        /// </summary>
+        private static bool BcVerifyClearSignature(byte[] inputBytes, byte[] publicKeyBytes)
+        {
+            using var inputStream = new MemoryStream(inputBytes);
+            using var armoredInput = new ArmoredInputStream(inputStream);
+
+            // Copy the clear-text section verbatim so it can be re-canonicalized line-by-line.
+            using var clearTextBuffer = new MemoryStream();
+            int ch;
+            while ((ch = armoredInput.ReadByte()) >= 0 && armoredInput.IsClearText())
+            {
+                clearTextBuffer.WriteByte((byte)ch);
+            }
+
+            var signatureFactory = new PgpObjectFactory(armoredInput);
+            if (signatureFactory.NextPgpObject() is not PgpSignatureList signatureList)
+            {
+                return false;
+            }
+
+            var signature = signatureList[0];
+
+            var publicKeyRings = new PgpPublicKeyRingBundle(
+                PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
+
+            var signingKey = publicKeyRings.GetPublicKey(signature.KeyId);
+            if (signingKey is null)
+            {
+                return false;
+            }
+
+            signature.InitVerify(signingKey);
+
+            using (var lineIn = new MemoryStream(clearTextBuffer.ToArray()))
+            {
+                var lineOut = new MemoryStream();
+                int lookAhead = ReadInputLine(lineOut, lineIn);
+                ProcessSignatureLine(signature, lineOut.ToArray());
+
+                if (lookAhead != -1)
+                {
+                    do
+                    {
+                        lookAhead = ReadInputLine(lineOut, lookAhead, lineIn);
+                        signature.Update((byte)'\r');
+                        signature.Update((byte)'\n');
+                        ProcessSignatureLine(signature, lineOut.ToArray());
+                    }
+                    while (lookAhead != -1);
+                }
+            }
+
+            return signature.Verify();
+        }
+
+        private static int ReadInputLine(MemoryStream lineOut, Stream fIn)
+        {
+            lineOut.SetLength(0);
+
+            int lookAhead = -1;
+            int ch;
+            while ((ch = fIn.ReadByte()) >= 0)
+            {
+                lineOut.WriteByte((byte)ch);
+                if (ch == '\r' || ch == '\n')
+                {
+                    lookAhead = ReadPastEol(lineOut, ch, fIn);
+                    break;
+                }
+            }
+
+            return lookAhead;
+        }
+
+        private static int ReadInputLine(MemoryStream lineOut, int lookAhead, Stream fIn)
+        {
+            lineOut.SetLength(0);
+
+            int ch = lookAhead;
+            do
+            {
+                if (ch != '\r' && ch != '\n')
+                {
+                    lineOut.WriteByte((byte)ch);
+                }
+                else
+                {
+                    lookAhead = ReadPastEol(lineOut, ch, fIn);
+                    return lookAhead;
+                }
+            }
+            while ((ch = fIn.ReadByte()) >= 0);
+
+            return -1;
+        }
+
+        private static int ReadPastEol(MemoryStream lineOut, int lastCh, Stream fIn)
+        {
+            int lookAhead = fIn.ReadByte();
+
+            if (lastCh == '\r' && lookAhead == '\n')
+            {
+                lineOut.WriteByte((byte)lookAhead);
+                lookAhead = fIn.ReadByte();
+            }
+
+            return lookAhead;
+        }
+
+        private static void ProcessSignatureLine(PgpSignature signature, byte[] line)
+        {
+            int length = GetLengthWithoutWhiteSpace(line);
+            if (length > 0)
+            {
+                signature.Update(line, 0, length);
+            }
+        }
+
+        private static int GetLengthWithoutWhiteSpace(byte[] line)
+        {
+            int end = line.Length - 1;
+            while (end >= 0 && IsWhiteSpace(line[end]))
+            {
+                end--;
+            }
+
+            return end + 1;
+        }
+
+        private static bool IsWhiteSpace(byte b)
+            => b == '\r' || b == '\n' || b == '\t' || b == ' ';
 
         public static bool PgpVerifyPublicKey(Stream publicKeyStream)
         {

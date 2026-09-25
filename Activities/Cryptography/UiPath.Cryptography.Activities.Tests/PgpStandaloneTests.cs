@@ -186,6 +186,57 @@ namespace UiPath.Cryptography.Activities.Tests
             }
         }
 
+        // STUD-80430: GnuPG 2.4+ wraps the one-pass signature in a compressed packet by default.
+        // The verify path must descend into the compression layer before locating the signature.
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void PgpVerify_SubkeySignedMessage_Verifies(bool compress)
+        {
+            var fixture = PgpBcFixture.Create();
+            var data = Encoding.UTF8.GetBytes("Subkey-signed payload for regression coverage");
+
+            var signed = fixture.CreateSignedMessage(data, compress);
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerify(signed, publicKeyStream));
+            }
+        }
+
+        // STUD-80429: GnuPG issues signatures from a signing-capable subkey. The verify path must
+        // resolve the signature's issuer key ID against every public key in the ring, not just the
+        // primary key, in ClearSignature mode too (binary-mode resolution is covered by
+        // PgpVerify_SubkeySignedMessage_Verifies above; same GetPublicKey(signature.KeyId) path).
+        [Fact]
+        public void PgpVerifyClear_SubkeySignedMessage_Verifies()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            var signed = fixture.CreateClearSignedMessage("Clear-signed by subkey");
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyClear(signed, publicKeyStream));
+            }
+        }
+
+        // STUD-80429: same subkey-resolution path as above, but with a multi-line message so the
+        // clear-text canonicalization loop's line-continuation branch (embedded newlines) is covered
+        // too, not just the single-line/no-trailing-newline case.
+        [Fact]
+        public void PgpVerifyClear_SubkeySignedMultiLineMessage_Verifies()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            var signed = fixture.CreateClearSignedMessage("Line one\nLine two\nLine three");
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyClear(signed, publicKeyStream));
+            }
+        }
+
         [Fact]
         public void PgpVerify_InvalidSignature_ReturnsFalse()
         {
@@ -226,6 +277,71 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 File.Delete(invalidKeyPath);
             }
+        }
+
+        // STUD-80428: GnuPG 2.4+ defaults to a LibrePGP AEAD Encrypted Data packet (tag 20, OCB
+        // cipher) for recipient keys that advertise AEAD support. BouncyCastle 2.4.0's
+        // PgpObjectFactory has no case for tag 20 and throws "unknown object in stream 20";
+        // PgpDecrypt/PgpDecryptStream must translate that into the actionable
+        // PgpAeadNotSupported message instead of surfacing the raw BouncyCastle exception.
+        [Fact]
+        public void PgpDecrypt_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var aeadPacket = BuildRawAeadEncryptedDataPacket();
+
+            using (var privateKeyStream = File.OpenRead(_privateKeyPath))
+            {
+                var ex = Assert.Throws<InvalidOperationException>(() =>
+                    CryptographyHelper.PgpDecrypt(aeadPacket, privateKeyStream, Passphrase));
+
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+        }
+
+        [Fact]
+        public void DecryptFile_Activity_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var aeadPacket = BuildRawAeadEncryptedDataPacket();
+            var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_aead_in_{Guid.NewGuid()}.pgp");
+            File.WriteAllBytes(inputPath, aeadPacket);
+
+            try
+            {
+                var activity = new DecryptFile
+                {
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    InputFilePath = new InArgument<string>(inputPath),
+                    PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                    Passphrase = new InArgument<string>(Passphrase),
+                    OutputFilePath = new InArgument<string>(Path.Combine(Path.GetTempPath(), $"pgp_aead_out_{Guid.NewGuid()}.txt")),
+                };
+
+                var ex = Assert.Throws<InvalidOperationException>(() => WorkflowInvoker.Invoke(activity));
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+            finally
+            {
+                if (File.Exists(inputPath)) File.Delete(inputPath);
+            }
+        }
+
+        /// <summary>
+        /// Builds a minimal raw OpenPGP packet with tag 20 (AEAD Encrypted Data / LibrePGP,
+        /// GnuPG 2.4+'s default for AEAD-capable recipients). BouncyCastle 2.4.0's
+        /// <see cref="PgpObjectFactory"/> has no case for this tag and throws before any key
+        /// material is consulted, so the body content is irrelevant — only a well-formed
+        /// new-format packet header for tag 20 is needed to reproduce the failure.
+        /// </summary>
+        private static byte[] BuildRawAeadEncryptedDataPacket()
+        {
+            const byte tag20NewFormatHeader = 0xC0 | 20; // RFC 4880 new-format packet header, tag 20
+            byte[] body = { 1, 9, 2, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // version, cipher, aead algo, chunk size, IV (arbitrary)
+
+            using var ms = new MemoryStream();
+            ms.WriteByte(tag20NewFormatHeader);
+            ms.WriteByte((byte)body.Length); // one-byte new-format length (body.Length < 192)
+            ms.Write(body, 0, body.Length);
+            return ms.ToArray();
         }
 
         #endregion

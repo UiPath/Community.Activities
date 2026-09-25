@@ -9,6 +9,7 @@ using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 #pragma warning disable CS0618 // obsolete keyed-hash algorithms (HMACMD5, HMACSHA1, SHA1) remain referenced for backwards compatibility
 
@@ -119,7 +120,23 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             _inputFileToggle.ConfigureMenuActions();
             ApplyInputFileVisibility();
+
+            // STUD-80743: Configure file widgets
+            ConfigureFilePathWidgets();
+
             ConfigurePropertyTexts();
+        }
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption
+            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // Tier A: string path that has an IResource overload carries NoWrap metadata.
+            FilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+
+            // ILocalResource-typed property omits NoWrap.
+            InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
         }
 
         private void ConfigurePropertyTexts()

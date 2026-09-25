@@ -6,6 +6,7 @@ using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
@@ -28,6 +29,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
         public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<string> OutputFileName { get; set; } = new DesignInArgument<string>();
         public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
         public DesignOutArgument<ILocalResource> EncryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
 
@@ -53,6 +55,11 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             OutputFilePath.OrderIndex = orderIndex++;
             OutputFilePath.Category = Resources.Category_Options_Name;
 
+            OutputFileName.IsPrincipal = false;
+            OutputFileName.IsRequired = false;
+            OutputFileName.OrderIndex = orderIndex++;
+            OutputFileName.Category = Resources.Category_Options_Name;
+
             Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = orderIndex++;
             Overwrite.Category = Resources.Category_Options_Name;
@@ -65,6 +72,9 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureInputFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
 
+            // STUD-80743: Configure file widgets
+            ConfigureFilePathWidgets();
+
             EncryptedFile.IsPrincipal = false;
             EncryptedFile.OrderIndex = orderIndex;
             EncryptedFile.Category = Resources.Output;
@@ -76,6 +86,18 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             _inputFileToggle.ConfigureMenuActions();
             ApplyInputFileVisibility();
+        }
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption — shared with DecryptFileViewModel,
+            // whose file/key path property set is identical.
+            WidgetSupportHelper.ConfigureFilePathWidgets(
+                Services,
+                InputFilePath, InputFile,
+                PublicKeyFilePath, PublicKeyFile,
+                PrivateKeyFilePath, PrivateKeyFile,
+                OutputFilePath, OutputFileName);
         }
 
         private void ConfigurePropertyTexts()
@@ -92,6 +114,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeySecureString.Tooltip = Resources.Activity_EncryptFile_Property_KeySecureString_Description;
             OutputFilePath.DisplayName = Resources.Activity_EncryptFile_Property_OutputFilePath_Name;
             OutputFilePath.Tooltip = Resources.Activity_EncryptFile_Property_OutputFilePath_Description;
+            OutputFileName.DisplayName = Resources.Activity_EncryptFile_Property_OutputFileName_Name;
+            OutputFileName.Tooltip = Resources.Activity_EncryptFile_Property_OutputFileName_Description;
             KeyEncodingString.DisplayName = Resources.Activity_EncryptFile_Property_KeyEncoding_Name;
             KeyEncodingString.Tooltip = Resources.Activity_EncryptFile_Property_KeyEncoding_Description;
             Format.DisplayName = Resources.Activity_EncryptFile_Property_Format_Name;

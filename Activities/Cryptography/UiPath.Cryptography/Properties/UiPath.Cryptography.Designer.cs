@@ -1283,7 +1283,7 @@ namespace UiPath.Cryptography.Properties {
                 return ResourceManager.GetString("PgpPrivateKeyNotFound", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PGP signature verification failed. The public key does not match the signature, or the data has been tampered with..
         /// </summary>
@@ -1292,7 +1292,16 @@ namespace UiPath.Cryptography.Properties {
                 return ResourceManager.GetString("PgpSignatureVerificationFailed", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The input uses GnuPG's AEAD/LibrePGP format (OCB), which is not supported. Ask the sender to encrypt with RFC 4880 compatibility (no AEAD)..
+        /// </summary>
+        internal static string PgpAeadNotSupported {
+            get {
+                return ResourceManager.GetString("PgpAeadNotSupported", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Signing was requested but a private key and passphrase are required to sign. Provide both a private key stream and a passphrase, or set sign to false..
         /// </summary>
