@@ -249,6 +249,55 @@ namespace UiPath.Cryptography.Activities.Tests
             }
         }
 
+        // Code review finding (PR #601): buffering the public key stream so it can feed both the
+        // PgpCore path and the BouncyCastle fallback must stay under the same non-fatal exception
+        // policy as the rest of ExecutePgpVerifyOperation - an unreadable/disposed key stream is a
+        // "verification failed" (false) result, not a thrown exception, exactly as before this PR.
+        [Fact]
+        public void PgpVerify_UnreadablePublicKeyStream_ReturnsFalseWithoutThrowing()
+        {
+            var signedBytes = Encoding.UTF8.GetBytes("irrelevant - the key stream fails before this is read");
+            var disposedKeyStream = new MemoryStream();
+            disposedKeyStream.Dispose();
+
+            var isValid = CryptographyHelper.PgpVerify(signedBytes, disposedKeyStream);
+
+            Assert.False(isValid);
+        }
+
+        [Fact]
+        public void PgpVerifyClear_UnreadablePublicKeyStream_ReturnsFalseWithoutThrowing()
+        {
+            var signedBytes = Encoding.UTF8.GetBytes("irrelevant - the key stream fails before this is read");
+            var disposedKeyStream = new MemoryStream();
+            disposedKeyStream.Dispose();
+
+            var isValid = CryptographyHelper.PgpVerifyClear(signedBytes, disposedKeyStream);
+
+            Assert.False(isValid);
+        }
+
+        // Code review finding (PR #601): BcVerifyBinarySignature originally hashed the literal
+        // payload one byte at a time. Use a payload larger than, and not a multiple of, the
+        // fallback's internal read buffer (8192 bytes) so the block-read loop is exercised across
+        // several full reads plus a final partial read, proving the refactor still verifies
+        // correctly (not just faster) for large signed files.
+        [Fact]
+        public void PgpVerify_SubkeySignedLargeMessage_Verifies()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            var data = new byte[8192 * 3 + 137];
+            new Random(12345).NextBytes(data);
+
+            var signed = fixture.CreateSignedMessage(data, compress: false);
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerify(signed, publicKeyStream));
+            }
+        }
+
         [Fact]
         public void PgpVerifyPublicKey_ValidKey_ReturnsTrue()
         {

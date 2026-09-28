@@ -1004,10 +1004,18 @@ namespace UiPath.Cryptography
             // Buffer the public key so it can be consumed by both the PgpCore path and the
             // BouncyCastle fallback (streams are forward-only / get disposed by PgpCore).
             byte[] publicKeyBytes;
-            using (var keyBuffer = new MemoryStream())
+            try
             {
+                using var keyBuffer = new MemoryStream();
                 publicKeyStream.CopyTo(keyBuffer);
                 publicKeyBytes = keyBuffer.ToArray();
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
+            {
+                // Preserve the pre-existing contract: an unreadable/disposed key stream is a
+                // non-fatal verification failure (returns false), not a thrown exception.
+                Trace.TraceWarning("PGP verify operation (key buffering) failed: {0}", ex);
+                return false;
             }
 
             try
@@ -1093,10 +1101,11 @@ namespace UiPath.Cryptography
 
                 using (var literalStream = literalData.GetInputStream())
                 {
-                    int ch;
-                    while ((ch = literalStream.ReadByte()) >= 0)
+                    var buffer = new byte[8192];
+                    int bytesRead;
+                    while ((bytesRead = literalStream.Read(buffer, 0, buffer.Length)) > 0)
                     {
-                        onePassSignature.Update((byte)ch);
+                        onePassSignature.Update(buffer, 0, bytesRead);
                     }
                 }
 
