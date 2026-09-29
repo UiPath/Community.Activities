@@ -943,39 +943,18 @@ namespace UiPath.Cryptography
         public static bool PgpVerifyClear(byte[] inputBytes, Stream publicKeyStream)
             => ExecutePgpVerifyOperation(inputBytes, publicKeyStream, (pgp, input) => pgp.VerifyClear(input), BcVerifyClearSignature);
 
+        // Text entry points share ExecutePgpVerifyOperation so armored subkey-signed / compressed
+        // messages get the same BouncyCastle fallback as the byte[] entry points (STUD-80429/80430).
+        // PgpCore's string verify stays the first attempt, so input it already handles is unchanged.
         public static bool PgpVerifyText(string input, Stream publicKeyStream)
-        {
-            try
-            {
-                var encryptionKeys = new EncryptionKeys(publicKeyStream);
-                using (var pgp = new PGP(encryptionKeys))
-                {
-                    return pgp.VerifyArmoredString(input);
-                }
-            }
-            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
-            {
-                Trace.TraceWarning("PGP verify-text operation failed: {0}", ex);
-                return false;
-            }
-        }
+            => ExecutePgpVerifyOperation(ToUtf8Bytes(input), publicKeyStream, (pgp, _) => pgp.VerifyArmoredString(input), BcVerifyBinarySignature);
 
         public static bool PgpVerifyClearText(string input, Stream publicKeyStream)
-        {
-            try
-            {
-                var encryptionKeys = new EncryptionKeys(publicKeyStream);
-                using (var pgp = new PGP(encryptionKeys))
-                {
-                    return pgp.VerifyClearArmoredString(input);
-                }
-            }
-            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
-            {
-                Trace.TraceWarning("PGP verify-clear-text operation failed: {0}", ex);
-                return false;
-            }
-        }
+            => ExecutePgpVerifyOperation(ToUtf8Bytes(input), publicKeyStream, (pgp, _) => pgp.VerifyClearArmoredString(input), BcVerifyClearSignature);
+
+        // A null input must keep meaning "verification failed" (false) rather than throwing.
+        private static byte[] ToUtf8Bytes(string input)
+            => input is null ? Array.Empty<byte>() : Encoding.UTF8.GetBytes(input);
 
         private static byte[] ExecutePgpSignOperation(byte[] inputBytes, Stream privateKeyStream, string passphrase,
             Action<PGP, Stream, Stream> signAction)

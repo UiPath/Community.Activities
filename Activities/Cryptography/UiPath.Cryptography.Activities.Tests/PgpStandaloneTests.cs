@@ -298,6 +298,74 @@ namespace UiPath.Cryptography.Activities.Tests
             }
         }
 
+        // Code review finding (PR #601): the text entry points (used by the coded-workflow
+        // CryptographyService.PgpVerifyText / PgpVerifyClearSignedText) must get the same
+        // subkey/compressed fallback as the byte[] entry points. The fixture output is already
+        // ASCII-armored, so it is passed as a string here.
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void PgpVerifyText_SubkeySignedMessage_Verifies(bool compress)
+        {
+            var fixture = PgpBcFixture.Create();
+            var signed = Encoding.ASCII.GetString(
+                fixture.CreateSignedMessage(Encoding.UTF8.GetBytes("Subkey-signed text payload"), compress));
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyText(signed, publicKeyStream));
+            }
+        }
+
+        [Theory]
+        [InlineData("Clear-signed by subkey")]
+        [InlineData("Line one\nLine two\nLine three")]
+        public void PgpVerifyClearText_SubkeySignedMessage_Verifies(string text)
+        {
+            var fixture = PgpBcFixture.Create();
+            var signed = Encoding.ASCII.GetString(fixture.CreateClearSignedMessage(text));
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyClearText(signed, publicKeyStream));
+            }
+        }
+
+        [Fact]
+        public void PgpVerifyText_SubkeySignedMessage_WrongKey_ReturnsFalse()
+        {
+            var signer = PgpBcFixture.Create();
+            var other = PgpBcFixture.Create();
+            var signed = Encoding.ASCII.GetString(
+                signer.CreateSignedMessage(Encoding.UTF8.GetBytes("payload"), compress: true));
+
+            using (var publicKeyStream = new MemoryStream(other.PublicKeyRing))
+            {
+                Assert.False(CryptographyHelper.PgpVerifyText(signed, publicKeyStream));
+            }
+        }
+
+        [Fact]
+        public void PgpVerifyText_NullInput_ReturnsFalseWithoutThrowing()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.False(CryptographyHelper.PgpVerifyText(null, publicKeyStream));
+            }
+        }
+
+        [Fact]
+        public void PgpVerifyText_UnreadablePublicKeyStream_ReturnsFalseWithoutThrowing()
+        {
+            var disposedKeyStream = new MemoryStream();
+            disposedKeyStream.Dispose();
+
+            Assert.False(CryptographyHelper.PgpVerifyText("not a signed message", disposedKeyStream));
+            Assert.False(CryptographyHelper.PgpVerifyClearText("not a signed message", disposedKeyStream));
+        }
+
         [Fact]
         public void PgpVerifyPublicKey_ValidKey_ReturnsTrue()
         {
