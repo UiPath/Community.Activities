@@ -67,14 +67,16 @@ namespace UiPath.Cryptography.Activities.Helpers
         /// <c>DecryptFileViewModel</c>, whose file/key path property sets are identical. Every
         /// <c>string</c>-typed property gets <c>applyNoWrap: true</c>; the paired
         /// <c>IResource</c>-typed properties get <c>applyNoWrap: false</c> — see
-        /// <see cref="BuildLocalResourceWidget"/>.
+        /// <see cref="BuildLocalResourceWidget"/>. <c>OutputFileName</c> is deliberately NOT
+        /// configured here: it is a bare file name resolved against the input file's folder, not a
+        /// path, so it keeps the default text widget (a picker would insert an absolute path).
         /// </summary>
         public static void ConfigureFilePathWidgets(
             IDesignServices services,
             DesignInArgument<string> inputFilePath, DesignInArgument<IResource> inputFile,
             DesignInArgument<string> publicKeyFilePath, DesignInArgument<IResource> publicKeyFile,
             DesignInArgument<string> privateKeyFilePath, DesignInArgument<IResource> privateKeyFile,
-            DesignInArgument<string> outputFilePath, DesignInArgument<string> outputFileName)
+            DesignInArgument<string> outputFilePath)
         {
             bool isSupported = IsWidgetSupported(services, nameof(ViewModelWidgetType.LocalResource));
 
@@ -82,7 +84,6 @@ namespace UiPath.Cryptography.Activities.Helpers
             publicKeyFilePath.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
             privateKeyFilePath.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
             outputFilePath.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
-            outputFileName.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: true);
 
             inputFile.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: false);
             publicKeyFile.Widget = BuildLocalResourceWidget(isSupported, applyNoWrap: false);

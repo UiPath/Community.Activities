@@ -97,7 +97,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
                 InputFilePath, InputFile,
                 PublicKeyFilePath, PublicKeyFile,
                 PrivateKeyFilePath, PrivateKeyFile,
-                OutputFilePath, OutputFileName);
+                OutputFilePath);
         }
 
         private void ConfigurePropertyTexts()

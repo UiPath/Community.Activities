@@ -3337,6 +3337,15 @@ namespace UiPath.Cryptography.Activities.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Both OutputFilePath and OutputFileName are set. OutputFileName is ignored when OutputFilePath is provided; the output file name is taken from OutputFilePath..
+        /// </summary>
+        public static string OutputFileName_IgnoredWhenOutputFilePathSet {
+            get {
+                return ResourceManager.GetString("OutputFileName_IgnoredWhenOutputFilePathSet", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Common.
         /// </summary>
         public static string Common {

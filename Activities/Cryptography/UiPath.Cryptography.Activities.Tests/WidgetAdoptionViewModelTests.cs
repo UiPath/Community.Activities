@@ -48,7 +48,9 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.Equal(ViewModelWidgetType.LocalResource, vm.InputFilePath.Widget.Type);
             Assert.Equal(ViewModelWidgetType.LocalResource, vm.InputFile.Widget.Type);
             Assert.Equal(ViewModelWidgetType.LocalResource, vm.OutputFilePath.Widget.Type);
-            Assert.Equal(ViewModelWidgetType.LocalResource, vm.OutputFileName.Widget.Type);
+            // OutputFileName is a bare file name (resolved against the input file's folder), not a
+            // path, so it must NOT get the file picker even when LocalResource is supported.
+            Assert.NotEqual(ViewModelWidgetType.LocalResource, vm.OutputFileName.Widget?.Type);
 
             // Every string-typed property carries NoWrap (so the picker returns a raw path, not
             // a LocalResource.FromPath(...)-wrapped value) — regardless of whether it has an
@@ -79,7 +81,7 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.Equal(ViewModelWidgetType.Text, vm.InputFilePath.Widget.Type);
             Assert.Equal(ViewModelWidgetType.Text, vm.InputFile.Widget.Type);
             Assert.Equal(ViewModelWidgetType.Text, vm.OutputFilePath.Widget.Type);
-            Assert.Equal(ViewModelWidgetType.Text, vm.OutputFileName.Widget.Type);
+            Assert.NotEqual(ViewModelWidgetType.LocalResource, vm.OutputFileName.Widget?.Type);
 
             Assert.True(vm.InputFile.IsPrincipal);
             Assert.True(vm.InputFilePath.IsPrincipal);
@@ -98,13 +100,14 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.Equal(ViewModelWidgetType.LocalResource, vm.InputFilePath.Widget.Type);
             Assert.Equal(ViewModelWidgetType.LocalResource, vm.InputFile.Widget.Type);
             Assert.Equal(ViewModelWidgetType.LocalResource, vm.OutputFilePath.Widget.Type);
-            Assert.Equal(ViewModelWidgetType.LocalResource, vm.OutputFileName.Widget.Type);
+            // OutputFileName is a bare file name (resolved against the input file's folder), not a
+            // path, so it must NOT get the file picker even when LocalResource is supported.
+            Assert.NotEqual(ViewModelWidgetType.LocalResource, vm.OutputFileName.Widget?.Type);
 
             // Every string-typed property carries NoWrap, regardless of whether it has an
-            // IResource sibling (InputFilePath) or not (OutputFilePath/OutputFileName).
+            // IResource sibling (InputFilePath) or not (OutputFilePath).
             Assert.Equal("true", vm.InputFilePath.Widget.Metadata["NoWrap"]);
             Assert.Equal("true", vm.OutputFilePath.Widget.Metadata["NoWrap"]);
-            Assert.Equal("true", vm.OutputFileName.Widget.Metadata["NoWrap"]);
             Assert.False(vm.InputFile.Widget.Metadata.ContainsKey("NoWrap"));
 
             // IsPrincipal must stay identical for the paired properties. The default (IsVisible/
@@ -127,7 +130,7 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.Equal(ViewModelWidgetType.Text, vm.InputFilePath.Widget.Type);
             Assert.Equal(ViewModelWidgetType.Text, vm.InputFile.Widget.Type);
             Assert.Equal(ViewModelWidgetType.Text, vm.OutputFilePath.Widget.Type);
-            Assert.Equal(ViewModelWidgetType.Text, vm.OutputFileName.Widget.Type);
+            Assert.NotEqual(ViewModelWidgetType.LocalResource, vm.OutputFileName.Widget?.Type);
 
             Assert.True(vm.InputFile.IsPrincipal);
             Assert.True(vm.InputFilePath.IsPrincipal);
