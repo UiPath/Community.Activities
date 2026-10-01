@@ -1030,7 +1030,8 @@ namespace UiPath.Cryptography
         }
 
         /// <summary>
-        /// STUD-80430/80429: Verify a one-pass/detached binary signature using BouncyCastle,
+        /// STUD-80430/80429: Verify an embedded (one-pass) binary signature using BouncyCastle — detached
+        /// signatures are not supported, since they carry no literal-data packet —
         /// descending through any <see cref="PgpCompressedData"/> layer and resolving the
         /// signature's issuer key ID against all public keys in the provided keyring.
         /// </summary>

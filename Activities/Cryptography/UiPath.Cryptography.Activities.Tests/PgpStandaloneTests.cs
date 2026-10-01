@@ -442,6 +442,48 @@ namespace UiPath.Cryptography.Activities.Tests
             }
         }
 
+        // Text path: PgpDecryptText uses PgpCore's DecryptArmoredString, a separate API from the
+        // stream-based one above, so it needs its own proof that the translation still fires.
+        private static string BuildArmoredAeadMessage()
+        {
+            using var ms = new MemoryStream();
+            using (var armored = new ArmoredOutputStream(ms))
+            {
+                var packet = BuildRawAeadEncryptedDataPacket();
+                armored.Write(packet, 0, packet.Length);
+            }
+            return Encoding.ASCII.GetString(ms.ToArray());
+        }
+
+        [Fact]
+        public void PgpDecryptText_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var armoredAead = BuildArmoredAeadMessage();
+
+            using (var privateKeyStream = File.OpenRead(_privateKeyPath))
+            {
+                var ex = Assert.Throws<InvalidOperationException>(() =>
+                    CryptographyHelper.PgpDecryptText(armoredAead, privateKeyStream, Passphrase));
+
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+        }
+
+        [Fact]
+        public void DecryptText_Activity_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var activity = new DecryptText
+            {
+                Algorithm = EncryptionAlgorithm.PGP,
+                Input = new InArgument<string>(BuildArmoredAeadMessage()),
+                PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
+                Passphrase = new InArgument<string>(Passphrase),
+            };
+
+            var ex = Assert.Throws<InvalidOperationException>(() => WorkflowInvoker.Invoke(activity));
+            Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+        }
+
         /// <summary>
         /// Builds a minimal raw OpenPGP packet with tag 20 (AEAD Encrypted Data / LibrePGP,
         /// GnuPG 2.4+'s default for AEAD-capable recipients). BouncyCastle 2.4.0's
