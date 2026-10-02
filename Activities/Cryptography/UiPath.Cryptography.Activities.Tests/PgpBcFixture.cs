@@ -37,7 +37,31 @@ namespace UiPath.Cryptography.Activities.Tests
 
             /// <summary>Sign with the primary key instead of the subkey.</summary>
             public bool SignWithPrimary { get; set; }
+
+            /// <summary>Makes the (first) subkey binding signature itself lapse after this many seconds.</summary>
+            public long? SubkeyBindingExpirySeconds { get; set; }
+
+            /// <summary>
+            /// Extra binding signatures added after the first one (e.g. a later restriction or a
+            /// later authorization), each with its own creation time and key flags (null omits them).
+            /// </summary>
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> LaterBindings { get; }
+                = new System.Collections.Generic.List<(DateTime, int?)>();
         }
+
+        /// <summary>Where to put an ignorable Marker packet (RFC 4880 section 5.8) in a signed message.</summary>
+        public enum MarkerPlacement
+        {
+            None,
+
+            /// <summary>Before the compressed packet (or before the one-pass header when uncompressed).</summary>
+            Outside,
+
+            /// <summary>Inside the compressed packet, before the one-pass header.</summary>
+            Inside,
+        }
+
+        private static readonly byte[] MarkerPacket = { 0xCA, 0x03, (byte)'P', (byte)'G', (byte)'P' };
 
         private readonly PgpSecretKey _signingSecret;
         private readonly char[] _passphrase;
@@ -92,21 +116,26 @@ namespace UiPath.Cryptography.Activities.Tests
                 null,
                 random);
 
+            // The binding signature is created when the subkey is: a binding dated after the signing
+            // time would (correctly) not be in force for messages signed earlier.
             var subGen = new PgpSignatureSubpacketGenerator();
-            var hasSubpackets = false;
+            subGen.SetSignatureCreationTime(false, options.SubkeyCreatedUtc ?? now);
             if (options.SubkeyKeyFlags.HasValue)
             {
                 subGen.SetKeyFlags(false, options.SubkeyKeyFlags.Value);
-                hasSubpackets = true;
             }
 
             if (options.SubkeyExpirySeconds.HasValue)
             {
                 subGen.SetKeyExpirationTime(false, options.SubkeyExpirySeconds.Value);
-                hasSubpackets = true;
             }
 
-            keyRingGenerator.AddSubKey(subPgpPair, hasSubpackets ? subGen.Generate() : null, null);
+            if (options.SubkeyBindingExpirySeconds.HasValue)
+            {
+                subGen.SetSignatureExpirationTime(false, options.SubkeyBindingExpirySeconds.Value);
+            }
+
+            keyRingGenerator.AddSubKey(subPgpPair, subGen.Generate(), null);
 
             var secretRing = keyRingGenerator.GenerateSecretKeyRing();
             var publicRing = keyRingGenerator.GeneratePublicKeyRing();
@@ -140,6 +169,23 @@ namespace UiPath.Cryptography.Activities.Tests
             // half carried by a secret key does not know whether it is a master key or a subkey.
             var masterPublic = publicRing.GetPublicKey(masterSecret.KeyId);
             var subkeyPublic = publicRing.GetPublicKey(subkeySecret.KeyId);
+
+            foreach (var (createdUtc, keyFlags) in options.LaterBindings)
+            {
+                var later = new PgpSignatureSubpacketGenerator();
+                later.SetSignatureCreationTime(false, createdUtc);
+                if (keyFlags.HasValue)
+                {
+                    later.SetKeyFlags(false, keyFlags.Value);
+                }
+
+                var bindingGenerator = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
+                bindingGenerator.InitSign(PgpSignature.SubkeyBinding, masterPrivate);
+                bindingGenerator.SetHashedSubpackets(later.Generate());
+                subkeyPublic = PgpPublicKey.AddCertification(
+                    subkeyPublic, bindingGenerator.GenerateCertification(masterPublic, subkeyPublic));
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, subkeyPublic);
+            }
 
             if (options.RevokeSubkey)
             {
@@ -214,6 +260,10 @@ namespace UiPath.Cryptography.Activities.Tests
         /// OPS(first) OPS(second) literal SIG(second) SIG(first).
         /// </summary>
         public static byte[] CreateMultiSignerMessage(byte[] data, bool compress, DateTime? signedAtUtc, params PgpBcFixture[] signers)
+            => CreateMultiSignerMessage(data, compress, signedAtUtc, MarkerPlacement.None, signers);
+
+        public static byte[] CreateMultiSignerMessage(
+            byte[] data, bool compress, DateTime? signedAtUtc, MarkerPlacement marker, params PgpBcFixture[] signers)
         {
             var generators = new PgpSignatureGenerator[signers.Length];
             for (var i = 0; i < signers.Length; i++)
@@ -224,12 +274,22 @@ namespace UiPath.Cryptography.Activities.Tests
             using var outerBuffer = new MemoryStream();
             using (var armored = new ArmoredOutputStream(outerBuffer))
             {
+                if (marker == MarkerPlacement.Outside)
+                {
+                    armored.Write(MarkerPacket, 0, MarkerPacket.Length);
+                }
+
                 // Disposing the stream returned by Open() (rather than calling the obsolete
                 // PgpCompressedDataGenerator.Close()) flushes the compression trailer.
                 Stream compressedStream = compress
                     ? new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip).Open(armored)
                     : null;
                 Stream signingTarget = compressedStream ?? armored;
+
+                if (marker == MarkerPlacement.Inside)
+                {
+                    signingTarget.Write(MarkerPacket, 0, MarkerPacket.Length);
+                }
 
                 var bcpgOut = new BcpgOutputStream(signingTarget);
                 for (var i = 0; i < generators.Length; i++)
@@ -270,6 +330,10 @@ namespace UiPath.Cryptography.Activities.Tests
 
         /// <summary>One clear-text block carrying one signature packet per signer, in the given order.</summary>
         public static byte[] CreateMultiSignerClearSignedMessage(string text, DateTime? signedAtUtc, params PgpBcFixture[] signers)
+            => CreateMultiSignerClearSignedMessage(text, signedAtUtc, markerBeforeSignature: false, signers);
+
+        public static byte[] CreateMultiSignerClearSignedMessage(
+            string text, DateTime? signedAtUtc, bool markerBeforeSignature, params PgpBcFixture[] signers)
         {
             var generators = new PgpSignatureGenerator[signers.Length];
             for (var i = 0; i < signers.Length; i++)
@@ -319,6 +383,11 @@ namespace UiPath.Cryptography.Activities.Tests
                 }
 
                 armored.EndClearText();
+
+                if (markerBeforeSignature)
+                {
+                    armored.Write(MarkerPacket, 0, MarkerPacket.Length);
+                }
 
                 var bcpgOut = new BcpgOutputStream(armored);
                 foreach (var generator in generators)

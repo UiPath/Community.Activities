@@ -1052,7 +1052,7 @@ namespace UiPath.Cryptography
             using var decoderStream = PgpUtilities.GetDecoderStream(inputStream);
 
             var pgpFactory = new PgpObjectFactory(decoderStream);
-            var pgpObject = pgpFactory.NextPgpObject();
+            var pgpObject = NextSignificantObject(pgpFactory);
 
             // Descend through the compression layer (GnuPG's default for gpg --sign) if present.
             // The compressed data stream must stay open for the rest of the verification, so it is
@@ -1064,7 +1064,7 @@ namespace UiPath.Cryptography
                 {
                     compressedStream = compressedData.GetDataStream();
                     pgpFactory = new PgpObjectFactory(compressedStream);
-                    pgpObject = pgpFactory.NextPgpObject();
+                    pgpObject = NextSignificantObject(pgpFactory);
                 }
 
                 if (pgpObject is not PgpOnePassSignatureList onePassList)
@@ -1072,7 +1072,7 @@ namespace UiPath.Cryptography
                     return false;
                 }
 
-                if (pgpFactory.NextPgpObject() is not PgpLiteralData literalData)
+                if (NextSignificantObject(pgpFactory) is not PgpLiteralData literalData)
                 {
                     return false;
                 }
@@ -1119,7 +1119,7 @@ namespace UiPath.Cryptography
                     }
                 }
 
-                if (pgpFactory.NextPgpObject() is not PgpSignatureList signatureList || signatureList.Count != signerCount)
+                if (NextSignificantObject(pgpFactory) is not PgpSignatureList signatureList || signatureList.Count != signerCount)
                 {
                     return false;
                 }
@@ -1173,7 +1173,7 @@ namespace UiPath.Cryptography
             }
 
             var signatureFactory = new PgpObjectFactory(armoredInput);
-            if (signatureFactory.NextPgpObject() is not PgpSignatureList signatureList)
+            if (NextSignificantObject(signatureFactory) is not PgpSignatureList signatureList)
             {
                 return false;
             }
@@ -1203,6 +1203,19 @@ namespace UiPath.Cryptography
             return false;
         }
 
+        // RFC 4880 section 5.8: a Marker packet is ignorable and may appear before any other packet.
+        private static PgpObject NextSignificantObject(PgpObjectFactory factory)
+        {
+            PgpObject next;
+            do
+            {
+                next = factory.NextPgpObject();
+            }
+            while (next is PgpMarker);
+
+            return next;
+        }
+
         private static void UpdateSignatureWithClearText(PgpSignature signature, byte[] clearText)
         {
             using var lineIn = new MemoryStream(clearText);
@@ -1228,8 +1241,9 @@ namespace UiPath.Cryptography
         /// loads keys without validating them, so a key must be vetted before its signature is trusted:
         /// it (and its primary key) must not be revoked, both must have existed and not yet expired
         /// at <paramref name="signedAtUtc"/>, and a subkey needs a valid binding signature from the
-        /// primary key that allows signing. A subkey whose binding signature does not carry a
-        /// key-flags subpacket is accepted (older keys), but one whose flags omit "sign" is not.
+        /// primary key, in force at that time, that allows signing. A subkey whose binding
+        /// signature does not carry a key-flags subpacket is accepted (older keys), but one whose
+        /// flags omit "sign" is not.
         /// This keeps the fallback from trusting more than PgpCore's single-key lookup did, so a
         /// revoked or grafted-on subkey cannot start verifying.
         /// </summary>
@@ -1253,7 +1267,7 @@ namespace UiPath.Cryptography
                 return false;
             }
 
-            return key.IsMasterKey || HasValidSigningSubkeyBinding(primary, key);
+            return key.IsMasterKey || HasValidSigningSubkeyBinding(primary, key, signedAtUtc);
         }
 
         private static bool WasValidAt(PgpPublicKey key, DateTime atUtc)
@@ -1267,8 +1281,15 @@ namespace UiPath.Cryptography
             return validSeconds <= 0 || atUtc <= key.CreationTime.AddSeconds(validSeconds);
         }
 
-        private static bool HasValidSigningSubkeyBinding(PgpPublicKey primary, PgpPublicKey subkey)
+        /// <summary>
+        /// A subkey keeps every binding signature it ever received, so the one that governs a
+        /// signature is the LATEST valid binding that already existed and had not expired at
+        /// <paramref name="signedAtUtc"/>; older or later bindings must not decide it (a later
+        /// authorization cannot retroactively allow, nor a later restriction retroactively forbid).
+        /// </summary>
+        private static bool HasValidSigningSubkeyBinding(PgpPublicKey primary, PgpPublicKey subkey, DateTime signedAtUtc)
         {
+            PgpSignature effective = null;
             foreach (PgpSignature binding in subkey.GetSignaturesOfType(PgpSignature.SubkeyBinding))
             {
                 try
@@ -1284,14 +1305,30 @@ namespace UiPath.Cryptography
                     continue;
                 }
 
-                var keyFlags = binding.GetHashedSubPackets()?.GetKeyFlags() ?? 0;
-                if (keyFlags == 0 || (keyFlags & PgpKeyFlags.CanSign) != 0)
+                if (binding.CreationTime > signedAtUtc)
                 {
-                    return true;
+                    continue; // not yet in force when the message was signed
+                }
+
+                var expirySeconds = binding.GetHashedSubPackets()?.GetSignatureExpirationTime() ?? 0;
+                if (expirySeconds > 0 && signedAtUtc > binding.CreationTime.AddSeconds(expirySeconds))
+                {
+                    continue; // the binding itself had lapsed
+                }
+
+                if (effective is null || binding.CreationTime >= effective.CreationTime)
+                {
+                    effective = binding;
                 }
             }
 
-            return false;
+            if (effective is null)
+            {
+                return false;
+            }
+
+            var keyFlags = effective.GetHashedSubPackets()?.GetKeyFlags() ?? 0;
+            return keyFlags == 0 || (keyFlags & PgpKeyFlags.CanSign) != 0;
         }
 
         private static int ReadInputLine(MemoryStream lineOut, Stream fIn)

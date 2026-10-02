@@ -196,6 +196,183 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.False(CryptographyHelper.PgpVerifyText(armored, keyStream));
         }
 
+        // ---------------------------------------------------------------- binding in force at signing time
+
+        // Old bindings stay in the ring. The one that governs a signature is the latest valid
+        // binding that existed (and had not lapsed) when the message was signed.
+        private static PgpBcFixture WithBindingHistory(int? firstFlags, params (int AgeDays, int? Flags)[] later)
+            => Create(o =>
+            {
+                o.MasterCreatedUtc = DaysAgo(1000);
+                o.SubkeyCreatedUtc = DaysAgo(1000);
+                o.SubkeyKeyFlags = firstFlags;
+                foreach (var (ageDays, flags) in later)
+                {
+                    o.LaterBindings.Add((DaysAgo(ageDays), flags));
+                }
+            });
+
+        private const int EncryptOnly = PgpKeyFlags.CanEncryptCommunications | PgpKeyFlags.CanEncryptStorage;
+
+        // Signing was authorized, then later restricted to encryption: a signature made BEFORE the
+        // restriction still counts; one made after it does not.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void LaterRestrictedBinding_SignatureMadeBeforeRestriction_Verifies(Mode mode)
+        {
+            var signer = WithBindingHistory(PgpKeyFlags.CanSign, (100, EncryptOnly));
+
+            Assert.True(SignAndVerify(mode, signer, signedAtUtc: DaysAgo(500)));
+        }
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void LaterRestrictedBinding_SignatureMadeAfterRestriction_DoesNotVerify(Mode mode)
+        {
+            var signer = WithBindingHistory(PgpKeyFlags.CanSign, (100, EncryptOnly));
+
+            Assert.False(SignAndVerify(mode, signer, signedAtUtc: DaysAgo(10)));
+        }
+
+        // Signing was authorized only LATER: a signature made before that authorization must not
+        // be validated by the newer binding; one made after it is fine.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void LaterAuthorizedBinding_SignatureMadeBeforeAuthorization_DoesNotVerify(Mode mode)
+        {
+            var signer = WithBindingHistory(EncryptOnly, (100, PgpKeyFlags.CanSign));
+
+            Assert.False(SignAndVerify(mode, signer, signedAtUtc: DaysAgo(500)));
+        }
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void LaterAuthorizedBinding_SignatureMadeAfterAuthorization_Verifies(Mode mode)
+        {
+            var signer = WithBindingHistory(EncryptOnly, (100, PgpKeyFlags.CanSign));
+
+            Assert.True(SignAndVerify(mode, signer, signedAtUtc: DaysAgo(10)));
+        }
+
+        // The latest binding wins even when an older, signing-capable one is still present.
+        [Fact]
+        public void SupersededSigningBinding_DoesNotAuthorizeLaterSignature()
+        {
+            var signer = WithBindingHistory(PgpKeyFlags.CanSign, (400, EncryptOnly), (100, EncryptOnly));
+
+            Assert.False(SignAndVerify(Mode.Binary, signer, signedAtUtc: DaysAgo(10)));
+        }
+
+        // A binding that postdates the signature and is the only one is not in force.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void OnlyBindingPostdatesSignature_DoesNotVerify(Mode mode)
+        {
+            var signer = Create(o =>
+            {
+                o.MasterCreatedUtc = DaysAgo(1000);
+                o.SubkeyCreatedUtc = DaysAgo(100); // binding dated 100 days ago
+            });
+
+            Assert.False(SignAndVerify(mode, signer, signedAtUtc: DaysAgo(200)));
+        }
+
+        // A binding signature can itself expire; after that it no longer authorizes the subkey.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void BindingSignatureExpired_DoesNotVerify(Mode mode)
+        {
+            var signer = Create(o =>
+            {
+                o.MasterCreatedUtc = DaysAgo(730);
+                o.SubkeyCreatedUtc = DaysAgo(730);
+                o.SubkeyBindingExpirySeconds = OneYear; // lapsed ~365 days ago
+            });
+
+            Assert.False(SignAndVerify(mode, signer));
+        }
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void BindingSignatureNotYetExpired_Verifies(Mode mode)
+        {
+            var signer = Create(o =>
+            {
+                o.MasterCreatedUtc = DaysAgo(730);
+                o.SubkeyCreatedUtc = DaysAgo(730);
+                o.SubkeyBindingExpirySeconds = OneYear;
+            });
+
+            Assert.True(SignAndVerify(mode, signer, signedAtUtc: DaysAgo(548)));
+        }
+
+        // ---------------------------------------------------------------- marker packets
+
+        [Theory]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        public void MarkerPacketBeforeSignedPayload_Verifies(bool compress, bool markerInsideCompression)
+        {
+            var marker = markerInsideCompression ? PgpBcFixture.MarkerPlacement.Inside : PgpBcFixture.MarkerPlacement.Outside;
+            var signer = PgpBcFixture.Create();
+            var signed = PgpBcFixture.CreateMultiSignerMessage(Payload, compress, null, marker, signer);
+
+            using var keyStream = new MemoryStream(signer.PublicKeyRing);
+            Assert.True(CryptographyHelper.PgpVerify(signed, keyStream));
+        }
+
+        [Fact]
+        public void MarkerPacketBeforeSignedPayload_PgpVerifyText_Verifies()
+        {
+            var signer = PgpBcFixture.Create();
+            var armored = Encoding.ASCII.GetString(
+                PgpBcFixture.CreateMultiSignerMessage(Payload, compress: true, null, PgpBcFixture.MarkerPlacement.Outside, signer));
+
+            using var keyStream = new MemoryStream(signer.PublicKeyRing);
+            Assert.True(CryptographyHelper.PgpVerifyText(armored, keyStream));
+        }
+
+        // Skipping markers must not weaken anything: a marker-prefixed message from an unusable key
+        // is still rejected, as is one from a key that is not in the ring.
+        [Fact]
+        public void MarkerPacket_RevokedSubkey_DoesNotVerify()
+        {
+            var signer = Create(o => o.RevokeSubkey = true);
+            var signed = PgpBcFixture.CreateMultiSignerMessage(Payload, compress: true, null, PgpBcFixture.MarkerPlacement.Inside, signer);
+
+            using var keyStream = new MemoryStream(signer.PublicKeyRing);
+            Assert.False(CryptographyHelper.PgpVerify(signed, keyStream));
+        }
+
+        [Fact]
+        public void MarkerPacket_UnknownSigner_DoesNotVerify()
+        {
+            var signer = PgpBcFixture.Create();
+            var stranger = PgpBcFixture.Create();
+            var signed = PgpBcFixture.CreateMultiSignerMessage(Payload, compress: true, null, PgpBcFixture.MarkerPlacement.Outside, signer);
+
+            using var keyStream = new MemoryStream(stranger.PublicKeyRing);
+            Assert.False(CryptographyHelper.PgpVerify(signed, keyStream));
+        }
+
+        [Fact]
+        public void MarkerPacketBeforeClearTextSignature_Verifies()
+        {
+            var signer = PgpBcFixture.Create();
+            var clear = PgpBcFixture.CreateMultiSignerClearSignedMessage(ClearPayload, null, markerBeforeSignature: true, signer);
+
+            Assert.True(CryptographyHelper.BcVerifyClearSignature(clear, signer.PublicKeyRing));
+        }
+
         // ---------------------------------------------------------------- multiple signers
 
         [Theory]
