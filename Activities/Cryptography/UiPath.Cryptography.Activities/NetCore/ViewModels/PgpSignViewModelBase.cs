@@ -6,6 +6,7 @@ using System.Security;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
@@ -116,12 +117,34 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             _passphraseToggle.ConfigureMenuActions();
             ApplyPassphraseVisibility();
 
+            // STUD-80743: Configure file widgets (LocalResource adoption)
+            ConfigureFilePathWidgets();
+
             InitializeOutputProperty(orderIndex);
             ConfigurePropertyTexts();
         }
 
         protected abstract void InitializeOutputProperty(int orderIndex);
         protected abstract void ConfigurePropertyTexts();
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption
+            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // string-typed properties carry NoWrap metadata so the picker returns the raw path
+            // instead of wrapping it as LocalResource.FromPath(...) — that wrap is only correct
+            // for the IResource-typed properties below. This applies regardless of whether the
+            // string property has an IResource sibling (Tier A) or not (Tier B, output-only).
+            InputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            OutputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+
+            // IResource-typed properties omit NoWrap — the picker must wrap the selection as
+            // LocalResource.FromPath(...) to match this property's actual type.
+            InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            PrivateKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+        }
 
         private void ApplyInputFileVisibility()
         {

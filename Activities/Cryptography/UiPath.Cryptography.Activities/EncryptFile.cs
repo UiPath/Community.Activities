@@ -193,6 +193,13 @@ namespace UiPath.Cryptography.Activities
                 metadata.AddValidationError(new ValidationError(Resources.ChaCha20Poly1305NotSupported, isWarning: true, nameof(Algorithm)));
             }
 
+            // The runtime derives the output name from OutputFilePath when it is set, so a value
+            // in OutputFileName would be dropped silently.
+            if (OutputFilePath != null && OutputFileName != null)
+            {
+                metadata.AddValidationError(new ValidationError(Resources.OutputFileName_IgnoredWhenOutputFilePathSet, isWarning: true, nameof(OutputFileName)));
+            }
+
             if (Iv != null && Format == SymmetricWireFormat.Raw && Algorithm != EncryptionAlgorithm.PGP)
             {
                 metadata.AddValidationError(new ValidationError(Resources.Iv_NonceReuseWarning, isWarning: true, nameof(Iv)));

@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>PGP signature verification failed. The public key does not match the signature, or the data has been tampered with.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>The input uses GnuPG's AEAD/LibrePGP format (OCB), which is not supported. Ask the sender to encrypt with RFC 4880 compatibility (no AEAD).</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Signed File (Binary)</value>
   </data>

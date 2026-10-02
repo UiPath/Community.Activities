@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>An explicit IV is supplied. Reusing the same (Key, IV) pair across encryptions destroys confidentiality and — under AEAD modes (AES-GCM, ChaCha20-Poly1305) — additionally lets an attacker recover the authentication key and forge arbitrary messages under that key. Ensure each (Key, IV) pair is used at most once, or leave IV empty so a fresh random IV is generated per call.</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>Both OutputFilePath and OutputFileName are set. OutputFileName is ignored when OutputFilePath is provided; the output file name is taken from OutputFilePath.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>

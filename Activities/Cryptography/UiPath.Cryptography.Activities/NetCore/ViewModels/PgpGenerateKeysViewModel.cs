@@ -4,10 +4,12 @@ using System.Activities.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Threading.Tasks;
+using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -104,8 +106,23 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             PrivateKeyFile.Category = Resources.Output;
             PrivateKeyFile.EditPlaceholder = Resources.Activity_PgpGenerateKeys_Property_PrivateKeyFile_Hint;
 
+            // STUD-80743: Configure file widgets (LocalResource adoption)
+            ConfigureFilePathWidgets();
+
             ConfigurePassphraseInputModeMenuActions();
             ConfigurePropertyTexts();
+        }
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption
+            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // Output key file paths are string-typed (no IResource variant here), so NoWrap
+            // must be applied — otherwise the picker wraps the selection as
+            // LocalResource.FromPath(...), which can't be assigned to a string argument.
+            PublicKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            PrivateKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
         }
 
         private void ConfigurePropertyTexts()
