@@ -196,6 +196,59 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.False(CryptographyHelper.PgpVerifyText(armored, keyStream));
         }
 
+        // ---------------------------------------------------------------- embedded back-signature (0x19)
+
+        // GnuPG requires a signing subkey to consent to its binding with an embedded Primary Key
+        // Binding signature made by the subkey. A binding by the primary alone is not enough: anyone
+        // could otherwise attach somebody else public signing subkey to their own key.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void SigningSubkey_WithoutBackSignature_DoesNotVerify(Mode mode)
+            => Assert.False(SignAndVerify(mode, Create(o => o.BackSignature = PgpBcFixture.BackSignatureMode.Missing)));
+
+        // The back-signature was made by an unrelated key, not by the subkey itself.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void SigningSubkey_BackSignatureMadeByAnotherKey_DoesNotVerify(Mode mode)
+            => Assert.False(SignAndVerify(mode, Create(o => o.BackSignature = PgpBcFixture.BackSignatureMode.SignedByWrongKey)));
+
+        // The stolen-subkey case: the subkey did sign a back-signature, but over its REAL primary key,
+        // while this ring attaches it to a different primary.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void SigningSubkey_BackSignatureOverAnotherPrimary_DoesNotVerify(Mode mode)
+            => Assert.False(SignAndVerify(mode, Create(o => o.BackSignature = PgpBcFixture.BackSignatureMode.WrongPrimary)));
+
+        // GnuPG may place the embedded signature in either subpacket area; both are accepted.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void SigningSubkey_BackSignatureInUnhashedArea_Verifies(Mode mode)
+            => Assert.True(SignAndVerify(mode, Create(o => o.BackSignatureInUnhashedArea = true)));
+
+        // A primary-key signer has no binding and therefore needs no back-signature.
+        [Fact]
+        public void PrimaryKeySigner_NeedsNoBackSignature()
+            => Assert.True(SignAndVerify(Mode.Binary, Create(o =>
+            {
+                o.SignWithPrimary = true;
+                o.BackSignature = PgpBcFixture.BackSignatureMode.Missing;
+            })));
+
+        // Back-signature check is applied to the binding that is in force at signing time.
+        [Fact]
+        public void LaterBinding_WithoutBackSignature_IsNotInForceBeforeItsDate()
+        {
+            // First binding (with back-signature) authorizes signing; the history check still passes
+            // for a signature made while that binding was the governing one.
+            var signer = WithBindingHistory(PgpKeyFlags.CanSign, (100, PgpKeyFlags.CanSign));
+
+            Assert.True(SignAndVerify(Mode.Binary, signer, signedAtUtc: DaysAgo(500)));
+        }
+
         // ---------------------------------------------------------------- binding in force at signing time
 
         // Old bindings stay in the ring. The one that governs a signature is the latest valid
