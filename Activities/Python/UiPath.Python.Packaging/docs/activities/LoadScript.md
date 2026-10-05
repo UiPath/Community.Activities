@@ -14,7 +14,7 @@ Loads and executes Python script code or a script file and returns a Python obje
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `Code` | Code | InArgument | `string` |  |  |  | Python script content. Provide either `Code` or `ScriptFile`. |
-| `ScriptFile` | Load Python Script | InArgument | `string` |  |  |  | Path to a Python script file to load and execute. Provide either `Code` or `ScriptFile`. |
+| `ScriptFile` | Load Python Script | InArgument | `string` |  |  |  | Path to a Python script file to load and execute. Provide either `Code` or `ScriptFile`. In Studio, shows a file picker when the host supports it, and a plain text box otherwise. |
 
 ### Configuration
 

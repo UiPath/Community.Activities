@@ -12,10 +12,14 @@
   <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />
     <PackageReference Include="UiPath.Activities.Contracts" />
+    <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="System.Activities.Metadata" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Python.Activities\UiPath.Python.Activities.csproj" />
+    <ProjectReference Include="..\UiPath.Python.Activities.ViewModels\UiPath.Python.Activities.ViewModels.csproj" />
     <ProjectReference Include="..\UiPath.Python.Tests\UiPath.Python.Tests.csproj" />
     <ProjectReference Include="..\..\Shared\UiPath.TestUtils\UiPath.TestUtils.csproj" />
   </ItemGroup>
