@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>Ein expliziter IV wird angegeben. Die Wiederverwendung desselben Paares (Schlüssel, IV) bei mehreren Verschlüsselungsvorgängen beeinträchtigt die Vertraulichkeit und ermöglicht es einem Angreifer – bei AEAD-Modi (AES-GCM, ChaCha20-Poly1305) – darüber hinaus, den Authentifizierungsschlüssel zu ermitteln und beliebige Nachrichten unter Verwendung dieses Schlüssels zu fälschen. Stellen Sie sicher, dass jedes Paar (Schlüssel, IV) nur einmal verwendet wird, oder lassen Sie das IV-Feld leer, damit bei jedem Aufruf ein neuer zufälliger IV generiert wird.</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>Sowohl AusgabeDateiPfad als auch AusgabeDateiName sind festgelegt. AusgabeDateiName wird ignoriert, wenn AusgabeDateiPfad angegeben ist; der Name der Ausgabedatei wird aus AusgabeDateiPfad entnommen.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Eingabe</value>
   </data>

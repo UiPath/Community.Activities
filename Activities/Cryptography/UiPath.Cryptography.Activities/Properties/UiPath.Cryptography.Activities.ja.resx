@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>明示的な IV が設定されています。複数の暗号化で同じ (Key, IV) ペアを再利用すると、機密性が損なわれます。また、AEAD モード (AES-GCM、ChaCha20-Poly1305) では、攻撃者が認証キーを回復してそのキーの下で任意のメッセージを偽造できます。各 (Key, IV) ペアが最大 1 回使用されるようにするか、IV を空のままにして呼び出しごとに新しいランダムな IV が生成されるようにしてください。</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>[出力ファイル パス] と [出力ファイル名] の両方が設定されています。[出力ファイル パス] を指定すると、[出力ファイル名] は無視されます。出力ファイル名は [出力ファイル パス] から取得されます。</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>入力</value>
   </data>

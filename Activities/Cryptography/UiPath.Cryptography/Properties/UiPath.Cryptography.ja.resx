@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>PGP 署名の検証に失敗しました。公開キーが署名と一致しないか、データが改ざんされています。</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>入力は、サポートされていない GnuPG の AEAD/LibrePGP 形式 (OCB) を使用します。RFC 4880 対応 (AEAD なし) で暗号化するように送信者に依頼してください。</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>署名済みファイル (バイナリ)</value>
   </data>
