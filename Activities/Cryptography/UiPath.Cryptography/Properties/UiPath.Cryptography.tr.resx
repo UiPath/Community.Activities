@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>PGP imza doğrulaması başarısız oldu. Genel anahtar imzayla eşleşmiyor veya veriler değiştirilmiş.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>Girdi, GnuPG&apos;nin desteklenmeyen AEAD/LibrePGP biçimini (OCB) kullanıyor. Gönderenden RFC 4880 ile uyumlu şekilde (AEAD olmadan) şifrelemesini isteyin.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>İmzalanan Dosya (İkili)</value>
   </data>

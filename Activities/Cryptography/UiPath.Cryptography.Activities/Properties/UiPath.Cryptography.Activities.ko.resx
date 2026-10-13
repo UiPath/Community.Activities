@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>명시적 IV가 제공되었습니다. 암호화 과정 전반에 걸쳐 동일한 (키, IV) 쌍을 재사용하면 기밀성이 손상되며, AEAD 모드(AES-GCM, ChaCcha20-Poly1305)에서는 추가로 공격자가 인증 키를 복구하여 해당 키로 임의의 메시지를 위조할 수 있습니다. 각 (키, IV) 쌍이 한 번만 사용되도록 하거나, 호출할 때마다 새로운 임의의 IV가 생성되도록 IV를 비워둡니다.</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>OutputFilePath과 OutputFileName이 모두 설정되어 있습니다. OutputFileName은 OutputFilePath이 제공되면 무시되며, 출력 파일 이름은 OutputFilePath에서 가져옵니다.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>입력</value>
   </data>

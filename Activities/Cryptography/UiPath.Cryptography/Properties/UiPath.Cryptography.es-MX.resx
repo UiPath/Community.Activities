@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>Se produjo un error en la verificación de la firma PGP. La clave pública no coincide con la firma o se han alterado los datos.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>La entrada utiliza el formato AEAD/LibrePGP (OCB) de GnuPG, que no es compatible. Pida al remitente que cifre con compatibilidad RFC 4880 (no AEAD).</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Archivo firmado (binario)</value>
   </data>

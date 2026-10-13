@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>Fehler bei der Überprüfung der PGP-Signatur. Der öffentliche Schlüssel stimmt nicht mit der Signatur überein oder die Daten wurden manipuliert.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>Die Eingabe verwendet das AEAD/LibrePGP-Format (OCB) von GnuPG, das nicht unterstützt wird. Bitten Sie den Absender, mit RFC 4880-Kompatibilität (kein AEAD) zu verschlüsseln.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Signierte Datei (Binär)</value>
   </data>

@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>已提供显式 IV。在多次加密中重复使用相同的 (Key, IV) 对会破坏机密性，并且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，还会让攻击者恢复认证密钥并伪造任意消息。请确保每个 (Key, IV) 对最多使用一次，或将 IV 留空以便每次调用生成新的随机 IV。</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>OutputFilePath 和 OutputFileName 均已设置。提供 OutputFilePath 时，将忽略 OutputFileName；输出文件名取自 OutputFilePath。</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>输入</value>
   </data>

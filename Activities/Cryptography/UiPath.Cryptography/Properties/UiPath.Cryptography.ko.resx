@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>PGP 서명 확인에 실패했습니다. 공개 키가 서명과 일치하지 않거나 데이터가 변조되었습니다.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>입력은 GnuPG의 AEAD/LibrePGP 형식(OCB)을 사용하며, 이는 지원되지 않습니다. 발신자에게 RFC 4880 호환 방식(AEAD 없음)으로 암호화하도록 요청하십시오.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>서명된 파일(바이너리)</value>
   </data>

@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>Se proporciona un IV explícito. Reutilizar el mismo par (clave, IV) en todos los cifrados destruye la confidencialidad y, en los modos AEAD (AES-GCM, ChaCha20-Poly1305), también permite que un atacante recupere la clave de autenticación y falsifique mensajes arbitrarios con esa clave. Asegúrese de que cada par (clave, IV) se utilice como máximo una vez o deje IV vacío para que se genere un nuevo IV aleatorio por llamada.</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>Se establecen tanto RutaDeArchivoDeSalida como NombreDeArchivoDeSalida. NombreDeArchivoDeSalida se omite cuando se proporciona RutaDeArchivoDeSalida; el nombre del archivo de salida se toma de RutaDeArchivoDeSalida.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Entrada</value>
   </data>

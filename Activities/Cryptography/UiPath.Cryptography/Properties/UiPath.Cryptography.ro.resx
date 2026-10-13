@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>Verificarea semnăturii PGP a eșuat. Cheia publică nu corespunde semnăturii sau datele au fost modificate.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>Input-ul utilizează formatul AEAD/LibrePGP (OCB) al GnuPG, care nu este acceptat. Solicitați expeditorului să cripteze cu compatibilitate RFC 4880 (fără AEAD).</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Fișier semnat (binar)</value>
   </data>

@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>Este furnizat un IV explicit. Reutilizarea aceleiași perechi (Key, IV) în mai multe criptări compromite confidențialitatea și — în modurile AEAD (AES-GCM, ChaCha20-Poly1305) — permite suplimentar unui atacator să recupereze cheia de autentificare și să falsifice mesaje arbitrare cu acea cheie. Asigurați-vă că fiecare pereche (Key, IV) este utilizată cel mult o dată sau lăsați IV necompletat, astfel încât să fie generat un IV aleatoriu nou pentru fiecare apel.</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>Atât OutputFilePath, cât și OutputFileName sunt setate. OutputFileName este ignorat când este furnizat OutputFilePath; numele fișierului output este preluat din OutputFilePath.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Input</value>
   </data>

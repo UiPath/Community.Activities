@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>Açıkça bir IV sağlandı. Şifrelemelerde aynı (Anahtar, IV) çiftinin yeniden kullanılması gizliliği bozar ve AEAD modları (AES-GCM, ChaCha20-Poly1305) altında ayrıca bir saldırganın kimlik doğrulama anahtarını kurtarmasına ve bu anahtar altında rastgele iletiler oluşturmasına izin verir. Her (Anahtar, IV) çiftinin en fazla bir kez kullanıldığından emin olun veya çağrı başına yeni bir rastgele IV oluşturulması için IV&apos;yi boş bırakın.</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>Hem OutputFilePath hem de OutputFileName ayarlandı. OutputFilePath belirtildiğinde OutputFileName yoksayılır; çıkış dosyası adı OutputFilePath değerinden alınır.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Giriş</value>
   </data>
