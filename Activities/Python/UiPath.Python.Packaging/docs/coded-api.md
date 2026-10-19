@@ -195,7 +195,7 @@ Options for configuring a Python scope passed to `UsePythonScope`.
 | `Python_39` | Python 3.9 |
 | `Python_310` | Python 3.10 and above |
 
-> **Note:** Only Python **3.10–3.14** are supported at runtime. The Python 2.7, 3.3–3.5 and 3.6–3.9 values remain in the enum for serialization compatibility but are not supported and will raise a validation error at runtime if used.
+> **Note:** Only Python **3.10–3.15** are supported at runtime. The Python 2.7, 3.3–3.5 and 3.6–3.9 values remain in the enum for serialization compatibility but are not supported and will raise a validation error at runtime if used.
 
 ---
 

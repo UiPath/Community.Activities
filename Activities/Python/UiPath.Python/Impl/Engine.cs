@@ -137,9 +137,10 @@ namespace UiPath.Python.Impl
         /// </para>
         ///
         /// <para>
-        /// Py_NoSiteFlag is deprecated since CPython 3.12, with removal planned for 3.15
-        /// (VersionExtensions._supportedRuntimeVersions currently tops out at 3.14): before adding
-        /// 3.15+ support, confirm this flag still applies — its removal would silently re-open the
+        /// Py_NoSiteFlag is deprecated since CPython 3.12, with removal planned for a later release.
+        /// It was verified to still be exported and honored by CPython 3.15.0 (the whole
+        /// VenvUserSiteIsolationTests suite runs against the embedded 3.15 runtime). Before adding
+        /// support for a newer version, confirm this again — its removal would silently re-open the
         /// original STUD-81085 leak rather than surface an error. The forward-looking replacement
         /// is PyConfig.site_import via Py_InitializeFromConfig.
         /// </para>

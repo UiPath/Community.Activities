@@ -3,31 +3,38 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace UiPath.Python.Tests
 {
     public static class EmbeddedPythonRuntimeBootstrap
     {
-        private const string EmbeddedZipFileName = "python-3.14.5-embed-amd64.zip";
-        public const string PythonVersion = "3.14.5";
+        /// <summary>The embedded runtime versions; each has a python-{version}-embed-amd64.zip under 3rdparty.</summary>
+        public const string Python314 = "3.14.5";
+        public const string Python315 = "3.15.0";
 
-        private static readonly string RuntimeRoot = Path.Combine(Path.GetTempPath(), "pythons", PythonVersion);
-        private static readonly string LockFile = Path.Combine(RuntimeRoot, ".setup.lock");
-        private static readonly string ReadyFile = Path.Combine(RuntimeRoot, ".setup.ready");
-        private static readonly string InProgressFile = Path.Combine(RuntimeRoot, ".setup.inprogress");
+        /// <summary>The runtime the tests use unless they ask for a specific one.</summary>
+        public const string PythonVersion = Python314;
 
-        public static string EnsureRuntimePath()
+        public static string EnsureRuntimePath() => EnsureRuntimePath(PythonVersion);
+
+        public static string EnsureRuntimePath(string pythonVersion)
         {
-            Directory.CreateDirectory(RuntimeRoot);
+            var runtimeRoot = Path.Combine(Path.GetTempPath(), "pythons", pythonVersion);
+            var lockFile = Path.Combine(runtimeRoot, ".setup.lock");
+            var readyFile = Path.Combine(runtimeRoot, ".setup.ready");
+            var inProgressFile = Path.Combine(runtimeRoot, ".setup.inprogress");
 
-            using var lockStream = AcquireSetupLock();
+            Directory.CreateDirectory(runtimeRoot);
 
-            if (IsReady())
-                return RuntimeRoot;
+            using var lockStream = AcquireSetupLock(lockFile);
 
-            File.WriteAllText(InProgressFile, $"PID={Environment.ProcessId};UTC={DateTime.UtcNow:O}");
-            var stagingDir = Path.Combine(Path.GetTempPath(), "pythons", $"staging-{PythonVersion}-{Guid.NewGuid():N}");
+            if (IsReady(runtimeRoot, readyFile))
+                return runtimeRoot;
+
+            File.WriteAllText(inProgressFile, $"PID={Environment.ProcessId};UTC={DateTime.UtcNow:O}");
+            var stagingDir = Path.Combine(Path.GetTempPath(), "pythons", $"staging-{pythonVersion}-{Guid.NewGuid():N}");
 
             try
             {
@@ -36,30 +43,30 @@ namespace UiPath.Python.Tests
 
                 Directory.CreateDirectory(stagingDir);
 
-                using (var zipStream = GetEmbeddedZipStream())
+                using (var zipStream = GetEmbeddedZipStream(pythonVersion))
                 using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Read, leaveOpen: false))
                 {
                     archive.ExtractToDirectory(stagingDir, true);
                 }
 
-                CleanRuntimeRoot();
-                CopyDirectory(stagingDir, RuntimeRoot);
+                CleanRuntimeRoot(runtimeRoot, lockFile);
+                CopyDirectory(stagingDir, runtimeRoot);
 
-                if (!HasExtractedRuntime())
-                    throw new InvalidOperationException($"Extracted embedded Python runtime is invalid in '{RuntimeRoot}'.");
+                if (!HasExtractedRuntime(runtimeRoot))
+                    throw new InvalidOperationException($"Extracted embedded Python runtime is invalid in '{runtimeRoot}'.");
 
-                File.WriteAllText(ReadyFile, DateTime.UtcNow.ToString("O"));
+                File.WriteAllText(readyFile, DateTime.UtcNow.ToString("O"));
             }
             finally
             {
-                if (File.Exists(InProgressFile))
-                    File.Delete(InProgressFile);
+                if (File.Exists(inProgressFile))
+                    File.Delete(inProgressFile);
 
                 if (Directory.Exists(stagingDir))
                     Directory.Delete(stagingDir, true);
             }
 
-            return RuntimeRoot;
+            return runtimeRoot;
         }
 
         /// <summary>
@@ -67,21 +74,22 @@ namespace UiPath.Python.Tests
         /// Windows) resolves to for this embedded runtime's version, derived from
         /// <see cref="PythonVersion"/> so it can't drift out of sync when that's bumped.
         /// </summary>
-        public static string UserSiteVersionFolder
+        public static string UserSiteVersionFolder => GetUserSiteVersionFolder(PythonVersion);
+
+        public static string GetUserSiteVersionFolder(string pythonVersion)
         {
-            get
-            {
-                var parts = PythonVersion.Split('.');
-                return $"Python{parts[0]}{parts[1]}";
-            }
+            var parts = pythonVersion.Split('.');
+            return $"Python{parts[0]}{parts[1]}";
         }
 
         public static string GetPythonLibraryPath(string runtimePath)
         {
             ArgumentNullException.ThrowIfNull(runtimePath);
 
+            // The interpreter DLL is python3NN.dll. Later runtimes also ship python3t.dll (the
+            // free-threaded stub), which sorts after it and must not be picked.
             var specificDll = Directory.EnumerateFiles(runtimePath, "python3*.dll", SearchOption.TopDirectoryOnly)
-                .Where(file => !string.Equals(Path.GetFileName(file), "python3.dll", StringComparison.OrdinalIgnoreCase))
+                .Where(file => Regex.IsMatch(Path.GetFileName(file), @"^python3\d+\.dll$", RegexOptions.IgnoreCase))
                 .OrderBy(file => file)
                 .LastOrDefault();
 
@@ -96,23 +104,23 @@ namespace UiPath.Python.Tests
             return dll;
         }
 
-        private static bool IsReady()
+        private static bool IsReady(string runtimeRoot, string readyFile)
         {
-            return File.Exists(Path.Combine(RuntimeRoot, "python.exe")) && File.Exists(ReadyFile);
+            return File.Exists(Path.Combine(runtimeRoot, "python.exe")) && File.Exists(readyFile);
         }
 
-        private static bool HasExtractedRuntime()
+        private static bool HasExtractedRuntime(string runtimeRoot)
         {
-            return File.Exists(Path.Combine(RuntimeRoot, "python.exe"));
+            return File.Exists(Path.Combine(runtimeRoot, "python.exe"));
         }
 
-        private static FileStream AcquireSetupLock()
+        private static FileStream AcquireSetupLock(string lockFile)
         {
             while (true)
             {
                 try
                 {
-                    return new FileStream(LockFile, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                    return new FileStream(lockFile, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
                 }
                 catch (IOException)
                 {
@@ -121,31 +129,32 @@ namespace UiPath.Python.Tests
             }
         }
 
-        private static Stream GetEmbeddedZipStream()
+        private static Stream GetEmbeddedZipStream(string pythonVersion)
         {
+            var embeddedZipFileName = $"python-{pythonVersion}-embed-amd64.zip";
             var assembly = typeof(EmbeddedPythonRuntimeBootstrap).Assembly;
             var resourceName = assembly.GetManifestResourceNames()
-                .FirstOrDefault(name => name.EndsWith(EmbeddedZipFileName, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(name => name.EndsWith(embeddedZipFileName, StringComparison.OrdinalIgnoreCase));
 
             if (string.IsNullOrWhiteSpace(resourceName))
-                throw new FileNotFoundException($"Embedded resource '{EmbeddedZipFileName}' not found in test assembly.");
+                throw new FileNotFoundException($"Embedded resource '{embeddedZipFileName}' not found in test assembly.");
 
             return assembly.GetManifestResourceStream(resourceName)
                 ?? throw new InvalidOperationException($"Unable to open embedded resource stream '{resourceName}'.");
         }
 
-        private static void CleanRuntimeRoot()
+        private static void CleanRuntimeRoot(string runtimeRoot, string lockFile)
         {
-            foreach (var file in Directory.EnumerateFiles(RuntimeRoot, "*", SearchOption.TopDirectoryOnly))
+            foreach (var file in Directory.EnumerateFiles(runtimeRoot, "*", SearchOption.TopDirectoryOnly))
             {
                 var name = Path.GetFileName(file);
-                if (string.Equals(name, Path.GetFileName(LockFile), StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(name, Path.GetFileName(lockFile), StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 File.Delete(file);
             }
 
-            foreach (var dir in Directory.EnumerateDirectories(RuntimeRoot, "*", SearchOption.TopDirectoryOnly))
+            foreach (var dir in Directory.EnumerateDirectories(runtimeRoot, "*", SearchOption.TopDirectoryOnly))
             {
                 Directory.Delete(dir, true);
             }

@@ -61,6 +61,7 @@ namespace UiPath.Python.Impl
             _provider = new Controller<IPythonService>()
             {
                 PythonHostLibFile = ServiceDll_x64,
+                HostAssemblies = HostAssemblies.GetPaths(),
                 Visible = _visible
             };
 

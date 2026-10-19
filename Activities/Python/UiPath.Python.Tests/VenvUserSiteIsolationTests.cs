@@ -20,12 +20,19 @@ namespace UiPath.Python.Tests
     // all when a venv is configured, so a .pth marker is a faithful, hermetic reproduction of the
     // exact mechanism pywin32 relies on. Runs out-of-process since that's the real production
     // default path (PythonScope.Isolated defaults to true).
-    public class VenvUserSiteIsolationTests : IDisposable
+    //
+    // The suite is an abstract base so it runs once per embedded runtime. It matters beyond version
+    // checks: it relies on Py_NoSiteFlag (deprecated since 3.12), so it is what catches a CPython
+    // release where that flag stops working.
+    public abstract class VenvUserSiteIsolationTestsBase : IDisposable
     {
         private const string Category = "Python";
 
-        private static readonly string EmbeddedRuntimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath();
-        private static readonly string EmbeddedLibraryPath = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedRuntimePath);
+        protected abstract string PythonVersion { get; }
+
+        private string _embeddedRuntimePath;
+        private string EmbeddedRuntimePath => _embeddedRuntimePath ??= EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath(PythonVersion);
+        private string EmbeddedLibraryPath => EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedRuntimePath);
 
         private readonly string _rootDir;
         private readonly string _venvDir;
@@ -34,7 +41,7 @@ namespace UiPath.Python.Tests
         private readonly string _previousUserBase;
         private readonly string _previousNoUserSite;
 
-        public VenvUserSiteIsolationTests()
+        protected VenvUserSiteIsolationTestsBase()
         {
             _rootDir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "venv-usersite-tests", Guid.NewGuid().ToString("N"))).FullName;
             _venvDir = Path.Combine(_rootDir, ".venv");
@@ -72,7 +79,7 @@ namespace UiPath.Python.Tests
             File.WriteAllText(Path.Combine(_venvDir, "pyvenv.cfg"), $"home = {EmbeddedRuntimePath}{Environment.NewLine}");
             WriteMarkerPth(venvSitePackages, "venv");
 
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.GetUserSiteVersionFolder(PythonVersion), "site-packages")).FullName;
             WriteMarkerPth(userSitePackages, "usersite");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
 
@@ -114,7 +121,7 @@ namespace UiPath.Python.Tests
                 $"home = {EmbeddedRuntimePath}{Environment.NewLine}include-system-site-packages = true{Environment.NewLine}");
             WriteMarkerPth(venvSitePackages, "venv");
 
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.GetUserSiteVersionFolder(PythonVersion), "site-packages")).FullName;
             WriteMarkerPth(userSitePackages, "usersite");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
 
@@ -340,7 +347,7 @@ namespace UiPath.Python.Tests
             File.WriteAllText(Path.Combine(venvSitePackages, "sitecustomize.py"),
                 $"import codecs{Environment.NewLine}codecs.open('{markerPath}', 'a', encoding='utf-8').write('venv-sitecustomize\\n'){Environment.NewLine}");
 
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.GetUserSiteVersionFolder(PythonVersion), "site-packages")).FullName;
             File.WriteAllText(Path.Combine(userSitePackages, "sitecustomize.py"),
                 $"import codecs{Environment.NewLine}codecs.open('{markerPath}', 'a', encoding='utf-8').write('usersite-sitecustomize\\n'){Environment.NewLine}");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
@@ -377,7 +384,7 @@ namespace UiPath.Python.Tests
                 $"home = {EmbeddedRuntimePath}{Environment.NewLine}include-system-site-packages = true{Environment.NewLine}");
 
             var markerPath = _markerFile.Replace("\\", "/");
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.GetUserSiteVersionFolder(PythonVersion), "site-packages")).FullName;
             File.WriteAllText(Path.Combine(userSitePackages, "sitecustomize.py"),
                 $"import codecs{Environment.NewLine}codecs.open('{markerPath}', 'a', encoding='utf-8').write('usersite-sitecustomize\\n'){Environment.NewLine}");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
@@ -418,7 +425,7 @@ namespace UiPath.Python.Tests
                 $"home = {EmbeddedRuntimePath}{Environment.NewLine}include-system-site-packages = true{Environment.NewLine}");
             WriteMarkerPth(venvSitePackages, "venv");
 
-            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.UserSiteVersionFolder, "site-packages")).FullName;
+            var userSitePackages = Directory.CreateDirectory(Path.Combine(_userBaseDir, EmbeddedPythonRuntimeBootstrap.GetUserSiteVersionFolder(PythonVersion), "site-packages")).FullName;
             WriteMarkerPth(userSitePackages, "usersite");
             Environment.SetEnvironmentVariable("PYTHONUSERBASE", _userBaseDir);
 
@@ -463,5 +470,15 @@ namespace UiPath.Python.Tests
             var pthLine = $"import codecs; codecs.open('{markerPath}', 'a', encoding='utf-8').write('{tag}\\n')";
             File.WriteAllText(Path.Combine(siteDir, $"zzz_{tag}_marker.pth"), pthLine + Environment.NewLine);
         }
+    }
+
+    public class VenvUserSiteIsolationTests : VenvUserSiteIsolationTestsBase
+    {
+        protected override string PythonVersion => EmbeddedPythonRuntimeBootstrap.Python314;
+    }
+
+    public class VenvUserSiteIsolationTests_Python315 : VenvUserSiteIsolationTestsBase
+    {
+        protected override string PythonVersion => EmbeddedPythonRuntimeBootstrap.Python315;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -25,6 +26,12 @@ namespace UiPath.Shared.Service.Client
         internal string PythonHostLibFile { get; set; }
 
         internal string PythonHostExeFile { get; set; }
+
+        /// <summary>
+        /// Assembly name to full path, passed to the host on its command line for assemblies it
+        /// cannot find next to itself.
+        /// </summary>
+        internal IReadOnlyDictionary<string, string> HostAssemblies { get; set; }
 
         internal TimeSpan StartTimeout { get; set; } = Config.DefaultServiceCreationTimeout;
 
@@ -99,6 +106,8 @@ namespace UiPath.Shared.Service.Client
             psi.EnvironmentVariables["PYTHONUNBUFFERED"] = "1";
             if (!isExeMode)
                 psi.ArgumentList.Add(hostFullPath);
+            foreach (var argument in HostAssemblyArguments.Format(HostAssemblies))
+                psi.ArgumentList.Add(argument);
             return psi;
         }
 

@@ -164,14 +164,14 @@ namespace UiPath.Python
         // Supported CPython minor versions for the direct pythonnet integration.
         private static readonly (int Major, int Minor)[] _supportedRuntimeVersions =
         {
-            (3, 10), (3, 11), (3, 12), (3, 13), (3, 14)
+            (3, 10), (3, 11), (3, 12), (3, 13), (3, 14), (3, 15)
         };
 
         /// <summary>Returns true when the given major.minor combination is a supported runtime version.</summary>
         internal static bool IsRuntimeVersionSupported(int major, int minor)
             => Array.Exists(_supportedRuntimeVersions, v => v.Major == major && v.Minor == minor);
 
-        /// <summary>Returns a human-readable list of supported versions, e.g. "3.10, 3.11, 3.12, 3.13, 3.14".</summary>
+        /// <summary>Returns a human-readable list of supported versions, e.g. "3.10, 3.11, 3.12, 3.13, 3.14, 3.15".</summary>
         internal static string GetSupportedRuntimeVersionsDisplay()
             => string.Join(", ", Array.ConvertAll(_supportedRuntimeVersions, v => $"{v.Major}.{v.Minor}"));
     }

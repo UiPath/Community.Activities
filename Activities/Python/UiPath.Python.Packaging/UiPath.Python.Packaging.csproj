@@ -49,23 +49,17 @@
         </ItemGroup>
 
         <ItemGroup Label="AddPythonHost">
-            <TfmSpecificPackageFile Include="$(OutputPath)*.dll">
-                <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
-            </TfmSpecificPackageFile>
-            <TfmSpecificPackageFile Include="$(OutputPath)UiPath.Python.Host*.*">
+            <!--Only UiPath-authored host files are packed, never a wildcard over the output folder: it is shared
+                by every project and picks up third-party dependencies and stale files. Python.Runtime comes
+                from the pythonnet package and System.Xaml from the executor; the client passes both to the
+                host by path (see HostAssemblyArguments). No deps.json is packed, since it would list
+                assemblies that are intentionally absent.-->
+            <TfmSpecificPackageFile Include="$(OutputPath)UiPath.Python.dll;$(OutputPath)UiPath.Python.Host.dll;$(OutputPath)UiPath.Python.Host.runtimeconfig.json">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
             <TfmSpecificPackageFile Include="$(OutputPath)**\UiPath.Python.resources.dll">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
-
-            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Activities*.dll" />
-            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Packaging.dll" />
-            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Host32*.*" />
-            <TfmSpecificPackageFile Remove="$(OutputPath)**\UiPath.Python.Host32*.*" />
-            <TfmSpecificPackageFile Remove="$(OutputPath)**\*.pdb" />
-            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Host.exe" />
-            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Host.pdb" />
         </ItemGroup>
 
         <!--Coded workflow API files-->

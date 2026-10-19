@@ -77,12 +77,17 @@ namespace UiPath.Python.Tests
 
         #region Runtimes
 
-        private static readonly string EmbeddedRuntimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath();
+        private static readonly string EmbeddedRuntimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath(EmbeddedPythonRuntimeBootstrap.Python314);
         private static readonly string EmbeddedLibraryPath = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedRuntimePath);
+
+        private static readonly string EmbeddedRuntimePath315 = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath(EmbeddedPythonRuntimeBootstrap.Python315);
+        private static readonly string EmbeddedLibraryPath315 = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedRuntimePath315);
 
         public static IEnumerable<object[]> X86Engines =>
             Array.Empty<object[]>();
 
+        // In-process engines load the Python library into this test process and cache it, so only one
+        // runtime can be exercised per process; the out-of-process cases below cover every runtime.
         public static IEnumerable<object[]> X64Engines =>
             new List<object[]>
             {
@@ -94,7 +99,22 @@ namespace UiPath.Python.Tests
                 }
             };
 
-        public static IEnumerable<object[]> AllEngines = X64Engines;
+        public static IEnumerable<object[]> AllEngines =>
+            new List<object[]>
+            {
+                new object[]
+                {
+                    EmbeddedRuntimePath,
+                    Version.Python_310,
+                    EmbeddedLibraryPath
+                },
+                new object[]
+                {
+                    EmbeddedRuntimePath315,
+                    Version.Python_310,
+                    EmbeddedLibraryPath315
+                }
+            };
 
         #endregion Runtimes
 
