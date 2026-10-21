@@ -139,7 +139,7 @@ namespace UiPath.Activities.Python.ViewModels
             LibraryPath.Value = installation.LibraryPath;
         }
 
-        private sealed record PythonInstallation(string Version, string InstallPath, string? LibraryPath)
+        private sealed record PythonInstallation(string Version, string InstallPath, string LibraryPath)
         {
             // Identity must include the install path: the same version can be installed in more
             // than one location, and keying on version alone would collapse them to a single entry.
@@ -200,7 +200,7 @@ namespace UiPath.Activities.Python.ViewModels
 
                 if (!Task.WhenAll(stdoutTask, stderrTask).Wait(System.TimeSpan.FromSeconds(3)))
                 {
-                    try { process.Kill(entireProcessTree: true); } catch { }
+                    try { process.Kill(entireProcessTree: true); } catch { /* the process may have just exited; nothing to clean up */ }
                     return;
                 }
 
@@ -212,10 +212,10 @@ namespace UiPath.Activities.Python.ViewModels
                         if (TryParseLauncherLine(line) is { } installation)
                             versions.Add(installation);
                     }
-                    catch { }
+                    catch { /* skip a launcher line that cannot be parsed */ }
                 }
             }
-            catch { }
+            catch { /* design-time discovery is best effort: no launcher or a failure just means fewer suggestions */ }
         }
 
         /// <summary>Returns the literal string wrapped by a <see cref="System.Activities.InArgument{T}"/>,
@@ -223,7 +223,7 @@ namespace UiPath.Activities.Python.ViewModels
         private static string GetLiteralValue(System.Activities.InArgument<string> arg) =>
             (arg?.Expression as System.Activities.Expressions.Literal<string>)?.Value;
 
-        private static PythonInstallation? TryParseLauncherLine(string line)
+        private static PythonInstallation TryParseLauncherLine(string line)
         {
             // Format (old): -3.11-64 *       C:\Python311\python.exe
             // Format (new): -V:3.11 *        C:\Program Files\Python311\python.exe

@@ -27,7 +27,7 @@ namespace UiPath.Activities.Python.ViewModels
             var orderIndex = 0;
             ScriptFile.OrderIndex = orderIndex++;
             Code.OrderIndex = orderIndex++;
-            Result.OrderIndex = orderIndex++;
+            Result.OrderIndex = orderIndex;
 
             ScriptFile.DisplayName = Resources.ScriptFileNameDisplayName;
             ScriptFile.Tooltip = Resources.ScriptFileDescription;
