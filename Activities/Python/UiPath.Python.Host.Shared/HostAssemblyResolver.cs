@@ -31,9 +31,10 @@ namespace UiPath.Python.Host
             if (!HostAssemblyArguments.TryParse(args, out var assemblies, out error))
                 return false;
 
-            foreach (var assembly in assemblies.Where(a => !File.Exists(a.Value)))
+            var missing = assemblies.FirstOrDefault(a => !File.Exists(a.Value));
+            if (missing.Key != null)
             {
-                error = $"Assembly '{assembly.Key}' was not found at '{assembly.Value}'.";
+                error = $"Assembly '{missing.Key}' was not found at '{missing.Value}'.";
                 return false;
             }
 

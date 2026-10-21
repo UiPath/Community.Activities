@@ -101,7 +101,7 @@
                     {
                         // bin/<tfm>/<file> or bin/<tfm>/[<rid>/]<culture>/<satellite>
                         var parts = entry.FullName.Split('/');
-                        if (parts.Length < 3 || !string.Equals(parts[0], "bin", System.StringComparison.OrdinalIgnoreCase))
+                        if (!string.Equals(parts[0], "bin", System.StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith("/"))
                             continue;
 
                         hostFileCount++;
@@ -132,7 +132,10 @@
         </ItemGroup>
         <ValidateHostPackageLayout PackagePath="%(_PythonNupkg.FullPath)"
                                    AllowedFiles="@(PythonHostFile)"
-                                   AllowedSatelliteFiles="@(PythonHostSatelliteFile)" />
+                                   AllowedSatelliteFiles="@(PythonHostSatelliteFile)"
+                                   ContinueOnError="ErrorAndContinue" />
+        <!--CI packs with continueOnError, so delete a rejected package rather than leave it to be published.-->
+        <Delete Files="@(_PythonNupkg)" Condition=" '$(MSBuildLastTaskResult)' == 'false' " />
     </Target>
 
   <!--Pack .md files-->
