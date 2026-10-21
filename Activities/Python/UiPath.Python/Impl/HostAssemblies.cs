@@ -29,7 +29,7 @@ namespace UiPath.Python.Impl
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static Assembly Xaml() => typeof(System.Windows.Markup.XmlnsDefinitionAttribute).Assembly;
 
-        private static void Add(Dictionary<string, string> paths, Assembly assembly)
+        internal static void Add(Dictionary<string, string> paths, Assembly assembly)
         {
             var name = assembly.GetName().Name;
             var location = assembly.Location;

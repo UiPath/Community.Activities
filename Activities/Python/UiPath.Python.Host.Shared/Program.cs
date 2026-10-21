@@ -17,9 +17,8 @@ namespace UiPath.Python.Host
         {
             // The resolver must be in place before any code that touches the assemblies it provides is
             // compiled, so everything else runs in a separate method.
-            if (!HostAssemblyResolver.TryRegister(args, out var error))
+            if (!HostAssemblyResolver.TryRegisterOrReport(args, Console.Error))
             {
-                Console.Error.WriteLine(error);
                 Environment.ExitCode = 2;
                 return;
             }

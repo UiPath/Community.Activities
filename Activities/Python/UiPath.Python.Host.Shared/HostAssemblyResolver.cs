@@ -15,6 +15,16 @@ namespace UiPath.Python.Host
     /// </summary>
     internal static class HostAssemblyResolver
     {
+        /// <summary>Registers the resolver, writing the reason to <paramref name="errorOutput"/> when the arguments are bad.</summary>
+        internal static bool TryRegisterOrReport(IEnumerable<string> args, TextWriter errorOutput)
+        {
+            if (TryRegister(args, out var error))
+                return true;
+
+            errorOutput.WriteLine(error);
+            return false;
+        }
+
         internal static bool TryRegister(IEnumerable<string> args, out string error)
         {
             if (!HostAssemblyArguments.TryParse(args, out var assemblies, out error))
@@ -35,7 +45,7 @@ namespace UiPath.Python.Host
             return true;
         }
 
-        private static Assembly Resolve(AssemblyLoadContext context, AssemblyName name, IReadOnlyDictionary<string, string> assemblies)
+        internal static Assembly Resolve(AssemblyLoadContext context, AssemblyName name, IReadOnlyDictionary<string, string> assemblies)
         {
             if (name.Name == null || !assemblies.TryGetValue(name.Name, out var path))
                 return null;

@@ -32,6 +32,10 @@
 		<ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
 	</ItemGroup>
   <ItemGroup>
+    <!-- The host is out of process, so its resolver is compiled into the tests to be covered. -->
+    <Compile Include="..\UiPath.Python.Host.Shared\HostAssemblyResolver.cs" Link="Host\HostAssemblyResolver.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="..\..\xunit.runner.json">
       <Link>xunit.runner.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
