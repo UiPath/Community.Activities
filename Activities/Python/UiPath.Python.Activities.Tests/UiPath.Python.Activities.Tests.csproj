@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="UiPath.Workflow" />
+    <PackageReference Include="UiPath.Activities.Contracts" />
   </ItemGroup>
 
   <ItemGroup>

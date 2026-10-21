@@ -25,8 +25,6 @@ namespace UiPath.Shared.Service.Client
 
         internal string PythonHostLibFile { get; set; }
 
-        internal string PythonHostExeFile { get; set; }
-
         /// <summary>
         /// Assembly name to full path, passed to the host on its command line for assemblies it
         /// cannot find next to itself.
@@ -48,21 +46,19 @@ namespace UiPath.Shared.Service.Client
 
         private void StartHostService()
         {
-            bool isExeMode = !PythonHostExeFile.IsNullOrEmpty();
-            string hostFile = isExeMode ? PythonHostExeFile : PythonHostLibFile;
-            var (folder, hostFullPath) = ResolveHostFullPath(hostFile);
+            var (folder, hostFullPath) = ResolveHostFullPath(PythonHostLibFile);
 
             if (!File.Exists(hostFullPath))
                 throw new Exception($"Process path not found: {hostFullPath}");
 
-            PythonWrapper.Proc = Process.Start(CreateProcessStartInfo(hostFullPath, folder, isExeMode));
+            PythonWrapper.Proc = Process.Start(CreateProcessStartInfo(hostFullPath, folder));
 
             // Eagerly create the diagnostic log file (when LogTrace is enabled) so that even
             // hosts that crash before emitting any stdout/stderr leave a record on disk.
             // Use GetHostProcessId to safely read the PID — Process.Id can throw if the host
             // already exited or the OS handle isn't fully populated yet.
             PythonWrapper.GetHostProcessId(out var startupPid);
-            PythonWrapper.AppendDiagnostic($"Host process started (pid={(startupPid > 0 ? startupPid.ToString() : "unknown")}, exe='{hostFullPath}', mode={(isExeMode ? "exe" : "dll")}).");
+            PythonWrapper.AppendDiagnostic($"Host process started (pid={(startupPid > 0 ? startupPid.ToString() : "unknown")}, host='{hostFullPath}').");
 
             // Subscribe before BeginOutputReadLine/BeginErrorReadLine — these handlers drive the
             // diagnostic log and the post-mortem buffer surfaced by ThrowIfProcessHasExited.
@@ -87,13 +83,13 @@ namespace UiPath.Shared.Service.Client
             return (resolvedFolder, Path.Combine(resolvedFolder, hostFile));
         }
 
-        private ProcessStartInfo CreateProcessStartInfo(string hostFullPath, string folder, bool isExeMode)
+        private ProcessStartInfo CreateProcessStartInfo(string hostFullPath, string folder)
         {
-            // start the host process: directly via exe on x86, or via dotnet for the managed lib
+            // start the host process via dotnet for the managed lib
             var psi = new ProcessStartInfo
             {
                 UseShellExecute = false,
-                FileName = isExeMode ? hostFullPath : "dotnet",
+                FileName = "dotnet",
                 WorkingDirectory = folder,
                 WindowStyle = Visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
                 RedirectStandardError = true,
@@ -104,8 +100,7 @@ namespace UiPath.Shared.Service.Client
             // never reach the host until the buffer fills or the interpreter exits — and on
             // forced shutdown (Process.Kill) any buffered output is lost.
             psi.EnvironmentVariables["PYTHONUNBUFFERED"] = "1";
-            if (!isExeMode)
-                psi.ArgumentList.Add(hostFullPath);
+            psi.ArgumentList.Add(hostFullPath);
             foreach (var argument in HostAssemblyArguments.Format(HostAssemblies))
                 psi.ArgumentList.Add(argument);
             return psi;

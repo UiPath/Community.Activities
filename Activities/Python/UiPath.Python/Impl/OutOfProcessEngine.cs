@@ -13,6 +13,12 @@ namespace UiPath.Python.Impl
     {
         private const string ServiceDll_x64 = "UiPath.Python.Host.dll";
 
+        /// <summary>
+        /// Full path of the host to start instead of the one next to UiPath.Python.dll. Tests use it to run
+        /// the host from a folder that holds only the packed files.
+        /// </summary>
+        internal static string HostFileOverride { get; set; }
+
         private PythonProxy _proxy;
         private Controller<IPythonService> _provider;
 
@@ -60,7 +66,7 @@ namespace UiPath.Python.Impl
             // native CPython too), so no parent-side plumbing is needed for either case.
             _provider = new Controller<IPythonService>()
             {
-                PythonHostLibFile = ServiceDll_x64,
+                PythonHostLibFile = HostFileOverride ?? ServiceDll_x64,
                 HostAssemblies = HostAssemblies.GetPaths(),
                 Visible = _visible
             };
