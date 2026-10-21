@@ -96,18 +96,17 @@ namespace UiPath.Python
         {
             Debug.Assert(version.IsValid());
             Type t = typeof(Version);
-            FieldInfo fi = t.GetField(version.ToString());
             VersionAttribute attr = (VersionAttribute)Attribute.GetCustomAttribute(t.GetField(version.ToString()), typeof(VersionAttribute));
             return attr.AssemblyName;
         }
 
         internal static Version GetVersionFromStr(this string fileVersion)
         {
-            var regex = new Regex(@"(?<=Python )[0-9]+(\.[0-9]+)*");
+            var regex = new Regex(@"(?<=Python )[0-9]+(\.[0-9]+)*", RegexOptions.None, TimeSpan.FromSeconds(5));
             var nrVer = regex.Matches(fileVersion);
             if (nrVer.Count == 1)
             {
-                var versionDetails = nrVer[0].Value.Split(new char[] { '.' });
+                var versionDetails = nrVer[0].Value.Split('.');
                 var version = GetPythonVersion(Int32.Parse(versionDetails[0]), Int32.Parse(versionDetails[1]));
                 if (!version.IsValid())
                     throw new ArgumentException(string.Format(Resources.UnsupportedVersionException, nrVer[0].Value, string.Join(", ", Enum.GetNames(typeof(Version)).Where(x => x != Version.Auto.ToString()))));
@@ -134,9 +133,8 @@ namespace UiPath.Python
                 return Version.Python_310;
             foreach (Version version in Enum.GetValues(t))
             {
-                FieldInfo fi = t.GetField(version.ToString());
                 VersionAttribute attr = (VersionAttribute)Attribute.GetCustomAttribute(t.GetField(version.ToString()), typeof(VersionAttribute));
-                if (attr?.Major == major && attr?.Minor == minor)
+                if (attr != null && attr.Major == major && attr.Minor == minor)
                     return version;
             }
             return Version.Auto;
@@ -178,7 +176,7 @@ namespace UiPath.Python
 
     public class EnumTypeConverter : EnumConverter
     {
-        private Type enumType;
+        private readonly Type enumType;
 
         public EnumTypeConverter() : base(typeof(Version))
         {
@@ -190,13 +188,13 @@ namespace UiPath.Python
             enumType = type;
         }
 
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destType)
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
-            return destType == typeof(string);
+            return destinationType == typeof(string);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture,
-                                         object value, Type destType)
+                                         object value, Type destinationType)
         {
             FieldInfo fi = enumType.GetField(Enum.GetName(enumType, value));
             DescriptionAttribute dna = (DescriptionAttribute)Attribute.GetCustomAttribute(fi,
@@ -207,9 +205,9 @@ namespace UiPath.Python
                 return value.ToString();
         }
 
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type srcType)
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return srcType == typeof(string);
+            return sourceType == typeof(string);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture,

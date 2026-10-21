@@ -22,15 +22,15 @@ namespace UiPath.Python.Impl
         private PythonProxy _proxy;
         private Controller<IPythonService> _provider;
 
-        private bool _visible;
+        private readonly bool _visible;
         private readonly bool _logTrace;
         private readonly int _payloadThresholdMB;
 
         #region Runtime info
 
-        private Version _version;
-        private string _path;
-        private string _libraryPath;
+        private readonly Version _version;
+        private readonly string _path;
+        private readonly string _libraryPath;
 
         #endregion Runtime info
 
@@ -48,7 +48,7 @@ namespace UiPath.Python.Impl
 
         public Version Version { get { return _version; } }
 
-        public Task Initialize(string workingFolder, CancellationToken ct, double timeout)
+        public Task Initialize(string workingFolder, CancellationToken ct, double timeout = 3600)
         {
             ct.ThrowIfCancellationRequested();
 

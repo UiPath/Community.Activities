@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using UiPath.Shared.Service;
@@ -30,13 +31,10 @@ namespace UiPath.Python.Host
             if (!HostAssemblyArguments.TryParse(args, out var assemblies, out error))
                 return false;
 
-            foreach (var assembly in assemblies)
+            foreach (var assembly in assemblies.Where(a => !File.Exists(a.Value)))
             {
-                if (!File.Exists(assembly.Value))
-                {
-                    error = $"Assembly '{assembly.Key}' was not found at '{assembly.Value}'.";
-                    return false;
-                }
+                error = $"Assembly '{assembly.Key}' was not found at '{assembly.Value}'.";
+                return false;
             }
 
             if (assemblies.Count > 0)

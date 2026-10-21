@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UiPath.Shared.Service;
@@ -39,7 +40,7 @@ namespace UiPath.Python.Tests
         [Trait(TestCategories.Category, Category)]
         public void TryParse_NoArguments_IsValidAndEmpty()
         {
-            Assert.True(HostAssemblyArguments.TryParse(new string[0], out var result, out _));
+            Assert.True(HostAssemblyArguments.TryParse(Array.Empty<string>(), out var result, out _));
             Assert.Empty(result);
         }
 
@@ -47,7 +48,7 @@ namespace UiPath.Python.Tests
         [Trait(TestCategories.Category, Category)]
         public void TryParse_IsCaseInsensitiveOnNames()
         {
-            HostAssemblyArguments.TryParse(new[] { @"python.runtime=C:\x\Python.Runtime.dll" }, out var result, out _);
+            Assert.True(HostAssemblyArguments.TryParse(new[] { @"python.runtime=C:\x\Python.Runtime.dll" }, out var result, out _));
 
             Assert.True(result.ContainsKey("Python.Runtime"));
         }

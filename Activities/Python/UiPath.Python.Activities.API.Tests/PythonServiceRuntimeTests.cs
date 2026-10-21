@@ -38,6 +38,7 @@ def fail():
         public void Dispose()
         {
             try { Directory.Delete(_tempDir, true); } catch { /* best effort cleanup */ }
+            GC.SuppressFinalize(this);
         }
 
         private static Task<IPythonScopeHandle> UseScope(string embeddedVersion, Action<PythonScopeOptions> configure = null)

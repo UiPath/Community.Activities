@@ -59,6 +59,7 @@ def create_file(path, content):
         public void Dispose()
         {
             OutOfProcessEngine.HostFileOverride = null;
+            GC.SuppressFinalize(this);
             try { Directory.Delete(_tempDir, true); } catch { /* best effort cleanup */ }
         }
 
