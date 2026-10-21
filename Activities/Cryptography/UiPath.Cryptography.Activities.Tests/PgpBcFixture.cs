@@ -165,7 +165,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var backSignature = CreateBackSignature(options, masterPgpPair, subPgpPair, random, now);
             if (backSignature is not null)
             {
-                (options.BackSignatureInUnhashedArea ? subUnhashedGen : subGen).SetEmbeddedSignature(false, backSignature);
+                (options.BackSignatureInUnhashedArea ? subUnhashedGen : subGen).AddEmbeddedSignature(false, backSignature);
             }
 
             subGen.SetSignatureCreationTime(false, options.SubkeyCreatedUtc ?? now);
@@ -240,7 +240,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 var laterUnhashed = new PgpSignatureSubpacketGenerator();
                 if (backSignature is not null)
                 {
-                    (options.BackSignatureInUnhashedArea ? laterUnhashed : later).SetEmbeddedSignature(false, backSignature);
+                    (options.BackSignatureInUnhashedArea ? laterUnhashed : later).AddEmbeddedSignature(false, backSignature);
                 }
 
                 later.SetSignatureCreationTime(false, createdUtc);

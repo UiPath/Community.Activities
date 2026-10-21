@@ -1190,76 +1190,87 @@ namespace UiPath.Cryptography
                     return false;
                 }
 
-                // Only signers whose key is in the ring are hashed; the rest are skipped, not fatal,
-                // so a valid signature from a second signer is still tried.
-                var signerCount = onePassList.Count;
-                var hashing = new bool[signerCount];
-                var anySigner = false;
-                for (var i = 0; i < signerCount; i++)
-                {
-                    var signingKey = publicKeyRings.GetPublicKey(onePassList[i].KeyId);
-                    if (signingKey is null)
-                    {
-                        continue;
-                    }
-
-                    onePassList[i].InitVerify(signingKey);
-                    hashing[i] = true;
-                    anySigner = true;
-                }
-
-                if (!anySigner)
+                var hashing = InitVerifyKnownSigners(onePassList, publicKeyRings);
+                if (Array.IndexOf(hashing, true) < 0)
                 {
                     return false;
                 }
 
-                using (var literalStream = literalData.GetInputStream())
-                {
-                    var buffer = new byte[8192];
-                    int bytesRead;
-                    while ((bytesRead = literalStream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        for (var i = 0; i < signerCount; i++)
-                        {
-                            if (hashing[i])
-                            {
-                                onePassList[i].Update(buffer, 0, bytesRead);
-                            }
-                        }
+                HashLiteralData(literalData, onePassList, hashing, literalSink);
 
-                        literalSink?.Write(buffer, 0, bytesRead);
-                    }
-                }
-
-                if (NextSignificantObject(pgpFactory) is not PgpSignatureList signatureList || signatureList.Count != signerCount)
+                if (NextSignificantObject(pgpFactory) is not PgpSignatureList signatureList || signatureList.Count != onePassList.Count)
                 {
                     return false;
                 }
 
-                // RFC 4880 §5.4: one-pass headers and signatures nest like brackets
-                // (OPS(A) OPS(B) literal SIG(B) SIG(A)), so header i pairs with signature n-1-i.
-                for (var i = 0; i < signerCount; i++)
-                {
-                    if (!hashing[i])
-                    {
-                        continue;
-                    }
-
-                    var signature = signatureList[signerCount - 1 - i];
-                    if (signature.KeyId == onePassList[i].KeyId &&
-                        onePassList[i].Verify(signature) &&
-                        IsUsableSigningKey(publicKeyRings, signature.KeyId, signature.CreationTime))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
+                return HasValidSigner(onePassList, signatureList, hashing, publicKeyRings);
             }
             finally
             {
                 compressedStream?.Dispose();
             }
+        }
+
+        // Only signers whose key is in the ring are hashed; the rest are skipped, not fatal,
+        // so a valid signature from a second signer is still tried.
+        private static bool[] InitVerifyKnownSigners(PgpOnePassSignatureList onePassList, PgpPublicKeyRingBundle publicKeyRings)
+        {
+            var hashing = new bool[onePassList.Count];
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                var signingKey = publicKeyRings.GetPublicKey(onePassList[i].KeyId);
+                if (signingKey is null)
+                {
+                    continue;
+                }
+
+                onePassList[i].InitVerify(signingKey);
+                hashing[i] = true;
+            }
+
+            return hashing;
+        }
+
+        private static void HashLiteralData(PgpLiteralData literalData, PgpOnePassSignatureList onePassList, bool[] hashing, Stream literalSink)
+        {
+            using var literalStream = literalData.GetInputStream();
+            var buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = literalStream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                for (var i = 0; i < hashing.Length; i++)
+                {
+                    if (hashing[i])
+                    {
+                        onePassList[i].Update(buffer, 0, bytesRead);
+                    }
+                }
+
+                literalSink?.Write(buffer, 0, bytesRead);
+            }
+        }
+
+        // RFC 4880 §5.4: one-pass headers and signatures nest like brackets
+        // (OPS(A) OPS(B) literal SIG(B) SIG(A)), so header i pairs with signature n-1-i.
+        private static bool HasValidSigner(PgpOnePassSignatureList onePassList, PgpSignatureList signatureList, bool[] hashing, PgpPublicKeyRingBundle publicKeyRings)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (!hashing[i])
+                {
+                    continue;
+                }
+
+                var signature = signatureList[hashing.Length - 1 - i];
+                if (signature.KeyId == onePassList[i].KeyId &&
+                    onePassList[i].Verify(signature) &&
+                    IsUsableSigningKey(publicKeyRings, signature.KeyId, signature.CreationTime))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -1518,47 +1529,60 @@ namespace UiPath.Cryptography
         {
             foreach (var subpackets in new[] { binding.GetHashedSubPackets(), binding.GetUnhashedSubPackets() })
             {
-                if (subpackets is null)
-                {
-                    continue;
-                }
-
-                PgpSignatureList embedded;
-                try
-                {
-                    embedded = subpackets.GetEmbeddedSignatures();
-                }
-                catch (Exception ex) when (ex is PgpException or IOException)
+                var embedded = GetEmbeddedSignatures(subpackets);
+                if (embedded is null)
                 {
                     continue;
                 }
 
                 for (var i = 0; i < embedded.Count; i++)
                 {
-                    var backSignature = embedded[i];
-                    if (backSignature.SignatureType != PgpSignature.PrimaryKeyBinding || backSignature.KeyId != subkey.KeyId)
+                    if (IsValidBackSignature(embedded[i], primary, subkey))
                     {
-                        continue;
-                    }
-
-                    try
-                    {
-                        backSignature.InitVerify(subkey);
-                        UpdateWithKeyPacket(backSignature, primary);
-                        UpdateWithKeyPacket(backSignature, subkey);
-                        if (backSignature.Verify())
-                        {
-                            return true;
-                        }
-                    }
-                    catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
-                    {
-                        // An unusable back-signature is the same as none.
+                        return true;
                     }
                 }
             }
 
             return false;
+        }
+
+        private static PgpSignatureList GetEmbeddedSignatures(PgpSignatureSubpacketVector subpackets)
+        {
+            if (subpackets is null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return subpackets.GetEmbeddedSignatures();
+            }
+            catch (Exception ex) when (ex is PgpException or IOException)
+            {
+                return null;
+            }
+        }
+
+        private static bool IsValidBackSignature(PgpSignature backSignature, PgpPublicKey primary, PgpPublicKey subkey)
+        {
+            if (backSignature.SignatureType != PgpSignature.PrimaryKeyBinding || backSignature.KeyId != subkey.KeyId)
+            {
+                return false;
+            }
+
+            try
+            {
+                backSignature.InitVerify(subkey);
+                UpdateWithKeyPacket(backSignature, primary);
+                UpdateWithKeyPacket(backSignature, subkey);
+                return backSignature.Verify();
+            }
+            catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
+            {
+                // An unusable back-signature is the same as none.
+                return false;
+            }
         }
 
         // RFC 4880 section 5.2.4: a key is hashed as 0x99, a two-byte length, then the key packet body.
