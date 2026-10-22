@@ -963,7 +963,9 @@ namespace UiPath.Cryptography
                 ExceptionDispatchInfo.Capture(pgpCoreFailure).Throw();
             }
 
-            return Encoding.UTF8.GetString(verifiedPlaintext.ToArray());
+            verifiedPlaintext.Position = 0;
+            using var reader = new StreamReader(verifiedPlaintext);
+            return reader.ReadToEnd();
         }
 
         private static Exception TryPgpCoreDecryptAndVerify(byte[] privateKeyBytes, byte[] publicKeyBytes,
@@ -1007,14 +1009,13 @@ namespace UiPath.Cryptography
             }
         }
 
-        // PgpCore 8 decrypts and verifies a message signed by a revoked, expired or non-signing key without
-        // complaint. After it succeeded, our own evaluation (which needs a second decryption, because the
-        // signature sits inside the encrypted payload) can still reject the signer; the plaintext is only
-        // released to the caller after this check, as it is buffered.
+        // The verification result is decided by our own evaluation, so it also runs after PgpCore succeeded (it
+        // needs a second decryption, because the signature sits inside the encrypted payload). The plaintext is
+        // buffered and only released to the caller after this check.
         private static void EnsureSignerIsUsable(byte[] inputBytes, byte[] privateKeyBytes, string passphrase, byte[] publicKeyBytes)
         {
             using var discarded = new MemoryStream();
-            if (TryBcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, discarded) == BcVerdict.Rejected)
+            if (TryBcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, discarded) != BcVerdict.Verified)
             {
                 throw new InvalidOperationException(Resources.PgpSignatureVerificationFailed);
             }
@@ -1171,12 +1172,11 @@ namespace UiPath.Cryptography
                 Trace.TraceWarning("PGP verify operation (PgpCore path) failed: {0}", ex);
             }
 
-            // PgpCore 8 reads compressed and subkey-signed messages itself, but it accepts a signature from
-            // a revoked, expired or non-signing key. Whenever our own evaluation can examine the signature
-            // it has the last word, so such a key is rejected whichever library verified the signature.
+            // The verification result is decided by our own evaluation, which must agree with PgpCore's, so
+            // the same rules apply whichever library verified the signature.
             if (pgpCoreVerified)
             {
-                return TryBcEvaluate(bcEvaluate, fallbackInput, publicKeyBytes) != BcVerdict.Rejected;
+                return TryBcEvaluate(bcEvaluate, fallbackInput, publicKeyBytes) == BcVerdict.Verified;
             }
 
             // STUD-80430 & STUD-80429: messages PgpCore cannot verify (for example a signer other than the
@@ -1325,6 +1325,15 @@ namespace UiPath.Cryptography
             }
         }
 
+        // The header decides how the data is canonicalized while it is hashed (text mode normalizes line
+        // endings) and the signature packet supplies the trailer, so the two must describe the same signature.
+        private static bool HeaderMatchesSignature(PgpOnePassSignature header, PgpSignature signature)
+            => header.KeyId == signature.KeyId
+               && header.SignatureType == signature.SignatureType
+               && header.HashAlgorithm == signature.HashAlgorithm
+               && header.KeyAlgorithm == signature.KeyAlgorithm
+               && (signature.SignatureType == PgpSignature.BinaryDocument || signature.SignatureType == PgpSignature.CanonicalTextDocument);
+
         // RFC 4880 §5.4: one-pass headers and signatures nest like brackets
         // (OPS(A) OPS(B) literal SIG(B) SIG(A)), so header i pairs with signature n-1-i.
         private static bool HasValidSigner(PgpOnePassSignatureList onePassList, PgpSignatureList signatureList, bool[] hashing, PgpPublicKeyRingBundle publicKeyRings)
@@ -1337,7 +1346,7 @@ namespace UiPath.Cryptography
                 }
 
                 var signature = signatureList[hashing.Length - 1 - i];
-                if (signature.KeyId == onePassList[i].KeyId &&
+                if (HeaderMatchesSignature(onePassList[i], signature) &&
                     onePassList[i].Verify(signature) &&
                     IsUsableSigningKey(publicKeyRings, signature.KeyId, signature.CreationTime))
                 {
@@ -1390,7 +1399,14 @@ namespace UiPath.Cryptography
                     continue;
                 }
 
-                privateKey = secretKey.ExtractPrivateKey((passphrase ?? string.Empty).ToCharArray());
+                // The passphrase is encoded as UTF-8, as PgpCore does (ExtractPrivateKey(char[]) would use a legacy encoding).
+                var extracted = secretKey.ExtractPrivateKeyRaw(Encoding.UTF8.GetBytes(passphrase ?? string.Empty));
+                if (extracted is null)
+                {
+                    continue; // empty stub, for example an offline or card key: try the next recipient
+                }
+
+                privateKey = extracted;
                 encryptedData = publicKeyEncrypted;
                 break;
             }
@@ -1460,6 +1476,11 @@ namespace UiPath.Cryptography
                 }
 
                 anySignerKnown = true;
+                if (signature.SignatureType != PgpSignature.CanonicalTextDocument)
+                {
+                    continue;
+                }
+
                 signature.InitVerify(signingKey);
                 UpdateSignatureWithClearText(signature, clearText);
 
@@ -1651,7 +1672,9 @@ namespace UiPath.Cryptography
 
         private static bool IsValidBackSignature(PgpSignature backSignature, PgpPublicKey primary, PgpPublicKey subkey)
         {
-            if (backSignature.SignatureType != PgpSignature.PrimaryKeyBinding || backSignature.KeyId != subkey.KeyId)
+            // A back-signature without an Issuer Key ID subpacket reports key id 0; the verification below proves the issuer.
+            if (backSignature.SignatureType != PgpSignature.PrimaryKeyBinding ||
+                (backSignature.KeyId != 0 && backSignature.KeyId != subkey.KeyId))
             {
                 return false;
             }
@@ -1659,25 +1682,13 @@ namespace UiPath.Cryptography
             try
             {
                 backSignature.InitVerify(subkey);
-                UpdateWithKeyPacket(backSignature, primary);
-                UpdateWithKeyPacket(backSignature, subkey);
-                return backSignature.Verify();
+                return backSignature.VerifyCertification(primary, subkey);
             }
             catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
             {
                 // An unusable back-signature is the same as none.
                 return false;
             }
-        }
-
-        // RFC 4880 section 5.2.4: a key is hashed as 0x99, a two-byte length, then the key packet body.
-        private static void UpdateWithKeyPacket(PgpSignature signature, PgpPublicKey key)
-        {
-            var body = key.PublicKeyPacket.GetEncodedContents();
-            signature.Update(0x99);
-            signature.Update((byte)(body.Length >> 8));
-            signature.Update((byte)body.Length);
-            signature.Update(body);
         }
 
         private static int ReadInputLine(MemoryStream lineOut, Stream fIn)
