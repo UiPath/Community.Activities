@@ -4,7 +4,20 @@
 
     <ItemGroup>
         <!-- Upgrade python specific dependencies here -->
-        <PackageReference Update="pythonnet" Version="3.1.0" />
+        <PackageReference Update="pythonnet" Version="3.2.1" />
+
+        <!-- Studio contract, patch updates inside the 24.10 line (the Api/Contracts packages are
+             PrivateAssets=All, so they do not change what consumers need). UiPath.Platform and
+             System.Activities.ViewModels are intentionally left at the shared versions: newer ones
+             raise the minimum Studio version the package declares. -->
+        <PackageReference Update="UiPath.Activities.Api" Version="24.10.5" />
+        <PackageReference Update="UiPath.Activities.Contracts" Version="24.10.5" />
+        <PackageReference Update="UiPath.CodedWorkflows" Version="24.10.3" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(IsTestProject)' == 'true' ">
+        <!-- Microsoft.NET.Test.Sdk 18 and xunit.runner.visualstudio 4 no longer support net6.0 -->
+        <PackageReference Update="Moq" Version="4.21.0" />
     </ItemGroup>
     
 </Project>

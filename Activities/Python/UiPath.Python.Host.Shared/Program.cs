@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace UiPath.Python.Host
@@ -12,7 +13,21 @@ namespace UiPath.Python.Host
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
+        {
+            // The resolver must be in place before any code that touches the assemblies it provides is
+            // compiled, so everything else runs in a separate method.
+            if (!HostAssemblyResolver.TryRegisterOrReport(args, Console.Error))
+            {
+                Environment.ExitCode = 2;
+                return;
+            }
+
+            Run();
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static void Run()
         {
             AppDomain.CurrentDomain.ProcessExit += Application_ApplicationExit;
 

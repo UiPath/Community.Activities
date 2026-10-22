@@ -23,6 +23,21 @@ namespace UiPath.Python.Tests
             Assert.Null(ex);
         }
 
+        [Theory]
+        [Trait(TestCategories.Category, Category)]
+        [InlineData(EmbeddedPythonRuntimeBootstrap.Python314)]
+        [InlineData(EmbeddedPythonRuntimeBootstrap.Python315)]
+        public void EmbeddedRuntime_IsAccepted_ByLibraryAndInstallationValidation(string pythonVersion)
+        {
+            var runtimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath(pythonVersion);
+            var libraryPath = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(runtimePath);
+
+            // The library check reads the version from the file name; the installation check runs the
+            // interpreter and reads the version it reports.
+            Assert.Null(Record.Exception(() => EngineProvider.ValidatePythonLibrary(libraryPath)));
+            Assert.Null(Record.Exception(() => EngineProvider.ValidateInstallation(runtimePath, libraryPath)));
+        }
+
         [Fact]
         [Trait(TestCategories.Category, Category)]
         public void UnsupportedVersionName_ThrowsNotSupported()

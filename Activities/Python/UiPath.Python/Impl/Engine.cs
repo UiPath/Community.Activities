@@ -20,6 +20,7 @@ namespace UiPath.Python.Impl
         private static extern bool SetDllDirectory(string lpPathName);
 
         private readonly bool _isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        private readonly object _lock = new object();
         private bool _initialized;
 
         #region Runtime info
@@ -41,11 +42,11 @@ namespace UiPath.Python.Impl
 
         public Version Version => _version;
 
-        public async Task Initialize(string workingFolder, CancellationToken ct, double timeout)
+        public async Task Initialize(string workingFolder, CancellationToken ct, double timeout = 3600)
         {
             if (!_initialized)
             {
-                lock (this)
+                lock (_lock)
                 {
                     if (!_initialized)
                     {
@@ -137,9 +138,10 @@ namespace UiPath.Python.Impl
         /// </para>
         ///
         /// <para>
-        /// Py_NoSiteFlag is deprecated since CPython 3.12, with removal planned for 3.15
-        /// (VersionExtensions._supportedRuntimeVersions currently tops out at 3.14): before adding
-        /// 3.15+ support, confirm this flag still applies — its removal would silently re-open the
+        /// Py_NoSiteFlag is deprecated since CPython 3.12, with removal planned for a later release.
+        /// It was verified to still be exported and honored by CPython 3.15.0 (the whole
+        /// VenvUserSiteIsolationTests suite runs against the embedded 3.15 runtime). Before adding
+        /// support for a newer version, confirm this again — its removal would silently re-open the
         /// original STUD-81085 leak rather than surface an error. The forward-looking replacement
         /// is PyConfig.site_import via Py_InitializeFromConfig.
         /// </para>
@@ -173,7 +175,7 @@ namespace UiPath.Python.Impl
 
         public Task Release()
         {
-            lock (this)
+            lock (_lock)
             {
                 if (_initialized)
                 {
@@ -214,9 +216,9 @@ namespace UiPath.Python.Impl
             });
         }
 
-        public Task<PythonObject> InvokeMethod(PythonObject instance, string method, IEnumerable<object> args, CancellationToken cancellationToken)
+        public Task<PythonObject> InvokeMethod(PythonObject instance, string method, IEnumerable<object> args, CancellationToken ct)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            ct.ThrowIfCancellationRequested();
             return Task.Run(() =>
             {
                 using (Py.GIL())
@@ -243,12 +245,12 @@ namespace UiPath.Python.Impl
                         Trace.TraceInformation($"Method execution took {sw.ElapsedMilliseconds} ms");
                     }
                 }
-            }, cancellationToken);
+            }, ct);
         }
 
-        public Task Execute(string code, CancellationToken cancellationToken)
+        public Task Execute(string code, CancellationToken ct)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            ct.ThrowIfCancellationRequested();
             return RunSTA(() =>
             {
                 using (Py.GIL())
@@ -308,7 +310,7 @@ namespace UiPath.Python.Impl
                 return moduleName;
             }
 
-            lock (this)
+            lock (_lock)
             {
                 if (_cachedModules.TryGetValue(hash, out moduleName))
                 {
@@ -324,14 +326,14 @@ namespace UiPath.Python.Impl
 
         private static string Hash(string input)
         {
-            using (MD5 md5 = MD5.Create())
+            using (SHA256 sha = SHA256.Create())
             {
-                byte[] bytes = md5.ComputeHash(Encoding.Unicode.GetBytes(input));
+                byte[] bytes = sha.ComputeHash(Encoding.Unicode.GetBytes(input));
                 return BitConverter.ToString(bytes);
             }
         }
 
-        private string GetInitializationScript()
+        private static string GetInitializationScript()
         {
             const string resourceName = "UiPath.Python.Scripts.Init.py";
             var asm = typeof(Engine).Assembly;

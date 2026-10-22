@@ -7,7 +7,7 @@ Container activity that initializes and manages the Python runtime session for c
 **Package:** `UiPath.Python.Activities`
 **Category:** App Invoker.Python
 
-> **Supported runtimes:** 64-bit Python **3.10–3.14**. Python versions older than 3.10 and 32-bit (x86) installations are no longer supported and raise a validation error at runtime.
+> **Supported runtimes:** 64-bit Python **3.10–3.15**. Python versions older than 3.10 and 32-bit (x86) installations are no longer supported and raise a validation error at runtime.
 
 ## Properties
 
