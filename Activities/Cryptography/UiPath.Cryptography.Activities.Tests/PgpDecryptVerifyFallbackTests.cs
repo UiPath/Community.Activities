@@ -251,9 +251,10 @@ namespace UiPath.Cryptography.Activities.Tests
             var otherRecipient = Recipient();
             var encrypted = PgpBcFixture.CreateEncryptedSignedMessage(Plaintext, user, compress: true, null, armor: true, user);
 
-            // PgpCore reports this as an ArgumentException; the fallback must not change or mask it.
-            var ex = Assert.Throws<ArgumentException>(() => Decrypt(encrypted, otherRecipient, user.PublicKeyRing));
-            Assert.Contains("Decryption key for message not found", ex.Message, StringComparison.Ordinal);
+            // PgpCore reports this as a NoDecryptionKeyException; the fallback must not mask it, and it is
+            // translated to the same message PgpDecrypt gives for a private key that does not match.
+            var ex = Assert.Throws<InvalidOperationException>(() => Decrypt(encrypted, otherRecipient, user.PublicKeyRing));
+            Assert.Equal(CryptoResources.PgpPrivateKeyNotFound, ex.Message);
         }
 
         [Fact]
