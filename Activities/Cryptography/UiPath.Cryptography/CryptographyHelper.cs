@@ -1014,8 +1014,7 @@ namespace UiPath.Cryptography
         // buffered and only released to the caller after this check.
         private static void EnsureSignerIsUsable(byte[] inputBytes, byte[] privateKeyBytes, string passphrase, byte[] publicKeyBytes)
         {
-            using var discarded = new MemoryStream();
-            if (TryBcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, discarded) != BcVerdict.Verified)
+            if (TryBcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, Stream.Null) != BcVerdict.Verified)
             {
                 throw new InvalidOperationException(Resources.PgpSignatureVerificationFailed);
             }
@@ -1216,7 +1215,13 @@ namespace UiPath.Cryptography
 
             var publicKeyRings = new PgpPublicKeyRingBundle(
                 PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
-            return BcVerifySignedPayload(new PgpObjectFactory(decoderStream), publicKeyRings, literalSink: null);
+            var verdict = BcVerifySignedPayload(new PgpObjectFactory(decoderStream), publicKeyRings, literalSink: null);
+            if (verdict == BcVerdict.Verified && HasSecondArmorBlock(inputBytes))
+            {
+                return BcVerdict.Rejected;
+            }
+
+            return verdict;
         }
 
         /// <summary>Outcome of our own (key-vetting) signature evaluation.</summary>
@@ -1240,6 +1245,7 @@ namespace UiPath.Cryptography
         /// </summary>
         private static BcVerdict BcVerifySignedPayload(PgpObjectFactory pgpFactory, PgpPublicKeyRingBundle publicKeyRings, Stream literalSink)
         {
+            var outerFactory = pgpFactory;
             var pgpObject = NextSignificantObject(pgpFactory);
 
             // Descend through the compression layer (GnuPG's default for gpg --sign) if present.
@@ -1275,16 +1281,35 @@ namespace UiPath.Cryptography
 
                 if (NextSignificantObject(pgpFactory) is not PgpSignatureList signatureList || signatureList.Count != onePassList.Count)
                 {
-                    return BcVerdict.NotApplicable;
+                    return BcVerdict.Rejected;
                 }
 
-                return HasValidSigner(onePassList, signatureList, hashing, publicKeyRings) ? BcVerdict.Verified : BcVerdict.Rejected;
+                if (!HasValidSigner(onePassList, signatureList, hashing, publicKeyRings))
+                {
+                    return BcVerdict.Rejected;
+                }
+
+                // Only the first message is evaluated, so anything after it (another message, a second compressed packet) is refused.
+                return HasNoFurtherObjects(pgpFactory, outerFactory) ? BcVerdict.Verified : BcVerdict.Rejected;
             }
             finally
             {
                 compressedStream?.Dispose();
             }
         }
+
+        // An armored message is one armor block. A second block would not be looked at by the evaluation, so it is
+        // refused instead of being ignored. Binary input has no such marker: further messages show up as further
+        // objects in the packet stream, which the callers check.
+        private static bool HasSecondArmorBlock(byte[] input)
+        {
+            var text = Encoding.ASCII.GetString(input);
+            var first = text.IndexOf("-----BEGIN PGP", StringComparison.Ordinal);
+            return first >= 0 && text.IndexOf("-----BEGIN PGP", first + 1, StringComparison.Ordinal) >= 0;
+        }
+
+        private static bool HasNoFurtherObjects(PgpObjectFactory first, PgpObjectFactory second)
+            => NextSignificantObject(first) is null && (ReferenceEquals(first, second) || NextSignificantObject(second) is null);
 
         // Only signers whose key is in the ring are hashed; the rest are skipped, not fatal,
         // so a valid signature from a second signer is still tried.
@@ -1427,7 +1452,13 @@ namespace UiPath.Cryptography
             }
 
             // Verify() drains the rest of the stream and checks the modification-detection code.
-            return !encryptedData.IsIntegrityProtected() || encryptedData.Verify() ? BcVerdict.Verified : BcVerdict.Rejected;
+            if (encryptedData.IsIntegrityProtected() && !encryptedData.Verify())
+            {
+                return BcVerdict.Rejected;
+            }
+
+            // Only the first message is evaluated, so a further message after it is refused instead of released unvetted.
+            return NextSignificantObject(factory) is null && !HasSecondArmorBlock(inputBytes) ? BcVerdict.Verified : BcVerdict.Rejected;
         }
 
         /// <summary>

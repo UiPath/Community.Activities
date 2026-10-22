@@ -44,42 +44,67 @@ namespace UiPath.Cryptography.Activities.Tests
             return new PgpPrivateKey(keyId, pair.PublicKey.PublicKeyPacket, pair.PrivateKey.Key);
         }
 
-        // Writes OPS(ops) literal(content) SIG(signature), optionally compressed, into a stream.
-        private static void WriteSigned(Stream target, bool compress, PgpOnePassSignature ops, byte[] content, PgpSignature signature)
+        // Writes OPS(ops...) literal(content) SIG(signatures...), optionally compressed, into a stream.
+        private static void WriteSigned(Stream target, bool compress, PgpOnePassSignature[] ops, byte[] content, PgpSignature[] signatures)
         {
-            Stream compressed = compress ? new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip).Open(target) : null;
+            Stream compressed = compress ? new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip).Open(target, new byte[1 << 16]) : null;
             var bcpg = new BcpgOutputStream(compressed ?? target);
-            ops.Encode(bcpg);
+            foreach (var header in ops)
+            {
+                header.Encode(bcpg);
+            }
+
             using (var literal = new PgpLiteralDataGenerator().Open(bcpg, PgpLiteralData.Binary, "data", content.Length, DateTime.UtcNow))
             {
                 literal.Write(content, 0, content.Length);
             }
 
-            signature.Encode(bcpg);
+            foreach (var signature in signatures)
+            {
+                signature.Encode(bcpg);
+            }
+
             bcpg.Flush();
             compressed?.Dispose();
         }
 
-        private static byte[] SignedOnly(bool compress, PgpOnePassSignature ops, byte[] content, PgpSignature signature)
+        private static byte[] SignedOnly(bool compress, PgpOnePassSignature ops, byte[] content, PgpSignature signature, bool armor = true)
+            => SignedOnly(compress, new[] { ops }, content, new[] { signature }, armor);
+
+        private static byte[] SignedOnly(bool compress, PgpOnePassSignature[] ops, byte[] content, PgpSignature[] signatures, bool armor = true)
         {
             using var buffer = new MemoryStream();
-            using (var armored = new ArmoredOutputStream(buffer))
+            if (armor)
             {
-                WriteSigned(armored, compress, ops, content, signature);
+                using var armored = new ArmoredOutputStream(buffer);
+                WriteSigned(armored, compress, ops, content, signatures);
+            }
+            else
+            {
+                WriteSigned(buffer, compress, ops, content, signatures);
             }
 
             return buffer.ToArray();
         }
 
-        private static byte[] SignedAndEncrypted(PgpPublicKey recipientKey, bool compress, PgpOnePassSignature ops, byte[] content, PgpSignature signature)
+        private static byte[] SignedAndEncrypted(PgpPublicKey recipientKey, bool compress, PgpOnePassSignature ops, byte[] content, PgpSignature signature, bool armor = true)
+            => SignedAndEncrypted(recipientKey, compress, new[] { ops }, content, new[] { signature }, armor);
+
+        private static byte[] SignedAndEncrypted(PgpPublicKey recipientKey, bool compress, PgpOnePassSignature[] ops, byte[] content, PgpSignature[] signatures, bool armor = true)
         {
             var encryption = new PgpEncryptedDataGenerator(SymmetricKeyAlgorithmTag.Aes256, true, Random);
             encryption.AddMethod(recipientKey);
             using var buffer = new MemoryStream();
-            using (var armored = new ArmoredOutputStream(buffer))
-            using (var encrypted = encryption.Open(armored, new byte[1 << 16]))
+            if (armor)
             {
-                WriteSigned(encrypted, compress, ops, content, signature);
+                using var armored = new ArmoredOutputStream(buffer);
+                using var encrypted = encryption.Open(armored, new byte[1 << 16]);
+                WriteSigned(encrypted, compress, ops, content, signatures);
+            }
+            else
+            {
+                using var encrypted = encryption.Open(buffer, new byte[1 << 16]);
+                WriteSigned(encrypted, compress, ops, content, signatures);
             }
 
             return buffer.ToArray();
@@ -224,6 +249,84 @@ namespace UiPath.Cryptography.Activities.Tests
             var message = SignedAndEncrypted(EncryptionKey(user), compress: true, ops, LfContent, signature);
 
             Assert.Equal(LfContent, Decrypt(message, user, user.PublicKeyRing));
+        }
+
+        // ---------------------------------------------------------------- the message must be exactly one signed message
+
+        // Two headers for one signature, from a signer whose key is revoked: the signature must not carry the message.
+        private static (byte[] Encrypted, byte[] SignedOnly) DuplicatedHeaderMessages(PgpBcFixture user)
+        {
+            var generator = new PgpSignatureGenerator(user.SigningPublicKey.Algorithm, HashAlgorithmTag.Sha256);
+            generator.InitSign(PgpSignature.BinaryDocument, SigningPrivateKey(user));
+            generator.Update(Payload);
+            var headers = new[] { generator.GenerateOnePassVersion(true), generator.GenerateOnePassVersion(false) };
+            var signatures = new[] { generator.Generate() };
+            return (SignedAndEncrypted(EncryptionKey(user), compress: true, headers, Payload, signatures),
+                    SignedOnly(compress: true, headers, Payload, signatures));
+        }
+
+        private static PgpBcFixture NewRevokedUser()
+            => PgpBcFixture.Create(new PgpBcFixture.Options { WithEncryptionSubkey = true, RevokeSubkey = true });
+
+        [Fact]
+        public void Verify_MoreHeadersThanSignatures_IsFalse()
+        {
+            var user = NewRevokedUser();
+            var (_, signedOnly) = DuplicatedHeaderMessages(user);
+
+            Assert.False(Verify(signedOnly, user.PublicKeyRing));
+        }
+
+        [Fact]
+        public void Decrypt_MoreHeadersThanSignatures_IsRejected()
+        {
+            var user = NewRevokedUser();
+            var (encrypted, _) = DuplicatedHeaderMessages(user);
+
+            Assert.ThrowsAny<Exception>(() => Decrypt(encrypted, user, user.PublicKeyRing));
+            Assert.ThrowsAny<Exception>(() => DecryptText(encrypted, user));
+        }
+
+        private static string DecryptText(byte[] armoredMessage, PgpBcFixture user)
+        {
+            using var privateKey = new MemoryStream(user.PrivateKeyRing);
+            using var publicKey = new MemoryStream(user.PublicKeyRing);
+            return CryptographyHelper.PgpDecryptText(Encoding.ASCII.GetString(armoredMessage), privateKey, user.Passphrase, publicKey, verifySignature: true);
+        }
+
+        private static byte[] GenuineSignedAndEncrypted(PgpBcFixture user, bool armor)
+        {
+            var (ops, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            return SignedAndEncrypted(EncryptionKey(user), compress: true, ops, Payload, signature, armor);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Decrypt_SecondMessageAfterTheFirst_IsRejected(bool armor)
+        {
+            var user = NewUser();
+            var message = GenuineSignedAndEncrypted(user, armor).Concat(GenuineSignedAndEncrypted(user, armor)).ToArray();
+
+            Assert.ThrowsAny<Exception>(() => Decrypt(message, user, user.PublicKeyRing));
+            if (armor)
+            {
+                Assert.ThrowsAny<Exception>(() => DecryptText(message, user));
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Verify_SecondMessageAfterTheFirst_IsFalse(bool armor)
+        {
+            var user = NewUser();
+            var first = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var second = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var message = SignedOnly(compress: true, first.Ops, Payload, first.Signature, armor)
+                .Concat(SignedOnly(compress: true, second.Ops, Payload, second.Signature, armor)).ToArray();
+
+            Assert.False(Verify(message, user.PublicKeyRing));
         }
 
         // ---------------------------------------------------------------- the recipient key's passphrase is UTF-8
