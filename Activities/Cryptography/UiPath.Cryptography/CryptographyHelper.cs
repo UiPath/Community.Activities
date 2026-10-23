@@ -724,6 +724,18 @@ namespace UiPath.Cryptography
 
         private static Exception TranslatePgpException(Exception ex)
         {
+            // PgpCore 8 reports these cases with typed exceptions; they map to the same messages as the
+            // BouncyCastle texts matched below, which stay for the errors BouncyCastle still raises itself.
+            switch (ex)
+            {
+                case IncorrectPassphraseException:
+                    return new InvalidOperationException(Resources.PgpInvalidPassphrase, ex);
+                case NoDecryptionKeyException:
+                    return new InvalidOperationException(Resources.PgpPrivateKeyNotFound, ex);
+                case UnsupportedAeadException:
+                    return new InvalidOperationException(Resources.PgpAeadNotSupported, ex);
+            }
+
             var message = ex.Message ?? string.Empty;
 
             // "Checksum mismatch" → wrong passphrase for private key
@@ -747,6 +759,12 @@ namespace UiPath.Cryptography
             // gives value 20 a name (RFC 9580 AEAD packet) instead of printing the bare number.
             var aeadTag = ((PacketTag)20).ToString();
             if (message.Contains($"unknown object in stream {aeadTag}") || message.Contains($"unknown packet type encountered: {aeadTag}"))
+                return new InvalidOperationException(Resources.PgpAeadNotSupported, ex);
+
+            // BouncyCastle 2.7+ no longer knows tag 20 (reserved in RFC 9580): the packet reaches PgpUnknown
+            // and ReadPacket fails with "invalid header encountered". Matching the PgpUnknown frame keeps a
+            // damaged header inside a known packet from being reported as AEAD.
+            if (ex is IOException && message.Contains("invalid header encountered") && (ex.StackTrace?.Contains("PgpUnknown") ?? false))
                 return new InvalidOperationException(Resources.PgpAeadNotSupported, ex);
 
             // No translation — preserve original stack trace
@@ -778,6 +796,8 @@ namespace UiPath.Cryptography
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    // PgpCore 8 compresses by default; keep the uncompressed output earlier versions produced.
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
                     pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
                     if (sign)
                         pgp.EncryptAndSign(inputStream, outputStream);
@@ -808,18 +828,19 @@ namespace UiPath.Cryptography
                 if (verifySignature && publicKeyStream == null)
                     throw new ArgumentException(Properties.UiPath_Cryptography.PgpVerificationRequiresPublicKey);
 
-                var encryptionKeys = verifySignature
-                    ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
-                    : new EncryptionKeys(privateKeyStream, passphrase);
+                if (verifySignature)
+                {
+                    DecryptAndVerifyWithFallback(inputStream, outputStream, privateKeyStream, passphrase, publicKeyStream);
+                    return;
+                }
 
+                var encryptionKeys = new EncryptionKeys(privateKeyStream, passphrase);
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
                     pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
-                    if (verifySignature)
-                        pgp.DecryptAndVerify(inputStream, outputStream);
-                    else
-                        pgp.Decrypt(inputStream, outputStream);
+                    pgp.Decrypt(inputStream, outputStream);
                 }
             }
             catch (Exception ex)
@@ -842,6 +863,7 @@ namespace UiPath.Cryptography
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
                     pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
                     return sign
                         ? pgp.EncryptArmoredStringAndSign(input)
@@ -861,23 +883,148 @@ namespace UiPath.Cryptography
                 if (verifySignature && publicKeyStream == null)
                     throw new ArgumentException(Properties.UiPath_Cryptography.PgpVerificationRequiresPublicKey);
 
-                var encryptionKeys = verifySignature
-                    ? new EncryptionKeys(publicKeyStream, privateKeyStream, passphrase)
-                    : new EncryptionKeys(privateKeyStream, passphrase);
+                if (verifySignature)
+                {
+                    return DecryptTextAndVerifyWithFallback(input, privateKeyStream, passphrase, publicKeyStream);
+                }
 
+                var encryptionKeys = new EncryptionKeys(privateKeyStream, passphrase);
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
                     pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
-                    return verifySignature
-                        ? pgp.DecryptArmoredStringAndVerify(input)
-                        : pgp.DecryptArmoredString(input);
+                    return pgp.DecryptArmoredString(input);
                 }
             }
             catch (Exception ex)
             {
                 throw TranslatePgpException(ex);
             }
+        }
+
+        // STUD-81645: decrypt + verify. PgpCore's DecryptAndVerify resolves the signature's issuer
+        // against ONE key per ring, so messages signed by a signing SUBKEY (GnuPG 2.4+ default) fail
+        // verification. PgpCore stays the first attempt (input it already handles behaves exactly
+        // as before); only when it fails do we retry with a BouncyCastle decrypt + verify that uses
+        // the same key-vetting as the PgpVerify fallback. If that does not succeed either, the
+        // ORIGINAL PgpCore exception is thrown, so wrong passphrase / missing private key / failed
+        // verification keep their translated messages. Plaintext is only released after the
+        // signature has been verified: it is buffered and copied to the caller's stream on success.
+        private static void DecryptAndVerifyWithFallback(Stream inputStream, Stream outputStream,
+            Stream privateKeyStream, string passphrase, Stream publicKeyStream)
+        {
+            var inputBytes = ReadAllBytes(inputStream);
+            var privateKeyBytes = ReadAllBytes(privateKeyStream);
+            var publicKeyBytes = ReadAllBytes(publicKeyStream);
+
+            using var verifiedPlaintext = new MemoryStream();
+            var pgpCoreFailure = TryPgpCoreDecryptAndVerify(
+                privateKeyBytes, publicKeyBytes, passphrase,
+                pgp => pgp.DecryptAndVerify(new MemoryStream(inputBytes), verifiedPlaintext));
+
+            if (pgpCoreFailure is not null)
+            {
+                verifiedPlaintext.SetLength(0);
+                if (!TryBcDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, verifiedPlaintext))
+                {
+                    ExceptionDispatchInfo.Capture(pgpCoreFailure).Throw();
+                }
+            }
+            else
+            {
+                EnsureSignerIsUsable(inputBytes, privateKeyBytes, passphrase, publicKeyBytes);
+            }
+
+            verifiedPlaintext.Position = 0;
+            verifiedPlaintext.CopyTo(outputStream);
+        }
+
+        private static string DecryptTextAndVerifyWithFallback(string input, Stream privateKeyStream,
+            string passphrase, Stream publicKeyStream)
+        {
+            var privateKeyBytes = ReadAllBytes(privateKeyStream);
+            var publicKeyBytes = ReadAllBytes(publicKeyStream);
+
+            string pgpCoreResult = null;
+            var pgpCoreFailure = TryPgpCoreDecryptAndVerify(
+                privateKeyBytes, publicKeyBytes, passphrase,
+                pgp => pgpCoreResult = pgp.DecryptArmoredStringAndVerify(input));
+
+            if (pgpCoreFailure is null)
+            {
+                EnsureSignerIsUsable(ToUtf8Bytes(input), privateKeyBytes, passphrase, publicKeyBytes);
+                return pgpCoreResult;
+            }
+
+            using var verifiedPlaintext = new MemoryStream();
+            if (!TryBcDecryptAndVerify(ToUtf8Bytes(input), privateKeyBytes, passphrase, publicKeyBytes, verifiedPlaintext))
+            {
+                ExceptionDispatchInfo.Capture(pgpCoreFailure).Throw();
+            }
+
+            verifiedPlaintext.Position = 0;
+            using var reader = new StreamReader(verifiedPlaintext);
+            return reader.ReadToEnd();
+        }
+
+        private static Exception TryPgpCoreDecryptAndVerify(byte[] privateKeyBytes, byte[] publicKeyBytes,
+            string passphrase, Action<PGP> decryptAndVerify)
+        {
+            try
+            {
+                var encryptionKeys = new EncryptionKeys(
+                    new MemoryStream(publicKeyBytes), new MemoryStream(privateKeyBytes), passphrase);
+                using (var pgp = new PGP(encryptionKeys))
+                {
+                    pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
+                    pgp.SymmetricKeyAlgorithm = SymmetricKeyAlgorithmTag.Aes256;
+                    decryptAndVerify(pgp);
+                }
+
+                return null;
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
+            {
+                return ex;
+            }
+        }
+
+        private static bool TryBcDecryptAndVerify(byte[] inputBytes, byte[] privateKeyBytes, string passphrase,
+            byte[] publicKeyBytes, Stream verifiedPlaintext)
+            => TryBcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, verifiedPlaintext) == BcVerdict.Verified;
+
+        private static BcVerdict TryBcEvaluateDecryptAndVerify(byte[] inputBytes, byte[] privateKeyBytes, string passphrase,
+            byte[] publicKeyBytes, Stream verifiedPlaintext)
+        {
+            try
+            {
+                return BcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, verifiedPlaintext);
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
+            {
+                Trace.TraceWarning("PGP decrypt-and-verify (BouncyCastle evaluation) failed: {0}", ex);
+                return BcVerdict.NotApplicable;
+            }
+        }
+
+        // The verification result is decided by our own evaluation, so it also runs after PgpCore succeeded (it
+        // needs a second decryption, because the signature sits inside the encrypted payload). The plaintext is
+        // buffered and only released to the caller after this check.
+        private static void EnsureSignerIsUsable(byte[] inputBytes, byte[] privateKeyBytes, string passphrase, byte[] publicKeyBytes)
+        {
+            if (TryBcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, Stream.Null) != BcVerdict.Verified)
+            {
+                throw new InvalidOperationException(Resources.PgpSignatureVerificationFailed);
+            }
+        }
+
+        private static byte[] ReadAllBytes(Stream stream)
+        {
+            using var buffer = new MemoryStream();
+            stream.CopyTo(buffer);
+            return buffer.ToArray();
         }
 
         public static void PgpGenerateKeys(string publicKeyPath, string privateKeyPath, string username, string password, RsaKeySize keySize = RsaKeySize.Rsa4096)
@@ -914,6 +1061,7 @@ namespace UiPath.Cryptography
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
                     return pgp.SignArmoredString(input);
                 }
             }
@@ -931,6 +1079,7 @@ namespace UiPath.Cryptography
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
                     return pgp.ClearSignArmoredString(input);
                 }
             }
@@ -941,20 +1090,20 @@ namespace UiPath.Cryptography
         }
 
         public static bool PgpVerify(byte[] inputBytes, Stream publicKeyStream)
-            => ExecutePgpVerifyOperation(publicKeyStream, pgp => VerifyBytes(inputBytes, stream => pgp.Verify(stream)), () => inputBytes, BcVerifyBinarySignature);
+            => ExecutePgpVerifyOperation(publicKeyStream, pgp => VerifyBytes(inputBytes, stream => pgp.Verify(stream)), () => inputBytes, BcEvaluateBinarySignature);
 
         public static bool PgpVerifyClear(byte[] inputBytes, Stream publicKeyStream)
-            => ExecutePgpVerifyOperation(publicKeyStream, pgp => VerifyBytes(inputBytes, stream => pgp.VerifyClear(stream)), () => inputBytes, BcVerifyClearSignature);
+            => ExecutePgpVerifyOperation(publicKeyStream, pgp => VerifyBytes(inputBytes, stream => pgp.VerifyClear(stream)), () => inputBytes, BcEvaluateClearSignature);
 
         // Text entry points share ExecutePgpVerifyOperation so armored subkey-signed / compressed
         // messages get the same BouncyCastle fallback as the byte[] entry points (STUD-80429/80430).
         // PgpCore's string verify stays the first attempt, so input it already handles is unchanged.
         // The UTF-8 copy is only built if that first attempt fails (lazy fallback input).
         public static bool PgpVerifyText(string input, Stream publicKeyStream)
-            => ExecutePgpVerifyOperation(publicKeyStream, pgp => pgp.VerifyArmoredString(input), () => ToUtf8Bytes(input), BcVerifyBinarySignature);
+            => ExecutePgpVerifyOperation(publicKeyStream, pgp => pgp.VerifyArmoredString(input), () => ToUtf8Bytes(input), BcEvaluateBinarySignature);
 
         public static bool PgpVerifyClearText(string input, Stream publicKeyStream)
-            => ExecutePgpVerifyOperation(publicKeyStream, pgp => pgp.VerifyClearArmoredString(input), () => ToUtf8Bytes(input), BcVerifyClearSignature);
+            => ExecutePgpVerifyOperation(publicKeyStream, pgp => pgp.VerifyClearArmoredString(input), () => ToUtf8Bytes(input), BcEvaluateClearSignature);
 
         private static bool VerifyBytes(byte[] inputBytes, Func<Stream, bool> verify)
         {
@@ -977,6 +1126,7 @@ namespace UiPath.Cryptography
                 using (var outputStream = new MemoryStream())
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
+                    pgp.CompressionAlgorithm = CompressionAlgorithmTag.Uncompressed;
                     signAction(pgp, inputStream, outputStream);
                     return outputStream.ToArray();
                 }
@@ -988,7 +1138,7 @@ namespace UiPath.Cryptography
         }
 
         private static bool ExecutePgpVerifyOperation(Stream publicKeyStream, Func<PGP, bool> verifyFunc,
-            Func<byte[]> fallbackInput, Func<byte[], byte[], bool> bcFallbackVerify)
+            Func<byte[]> fallbackInput, Func<byte[], byte[], BcVerdict> bcEvaluate)
         {
             // Buffer the public key so it can be consumed by both the PgpCore path and the
             // BouncyCastle fallback (streams are forward-only / get disposed by PgpCore).
@@ -1007,15 +1157,13 @@ namespace UiPath.Cryptography
                 return false;
             }
 
+            var pgpCoreVerified = false;
             try
             {
                 var encryptionKeys = new EncryptionKeys(new MemoryStream(publicKeyBytes));
                 using (var pgp = new PGP(encryptionKeys))
                 {
-                    if (verifyFunc(pgp))
-                    {
-                        return true;
-                    }
+                    pgpCoreVerified = verifyFunc(pgp);
                 }
             }
             catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
@@ -1023,18 +1171,29 @@ namespace UiPath.Cryptography
                 Trace.TraceWarning("PGP verify operation (PgpCore path) failed: {0}", ex);
             }
 
-            // STUD-80430 & STUD-80429: PgpCore's verify path does not descend into a
-            // compression layer and only consults the primary key. Fall back to a custom
-            // BouncyCastle verification that unwraps compression and resolves the signature's
-            // issuer key ID against every public key in the ring (subkeys included).
+            // The verification result is decided by our own evaluation, which must agree with PgpCore's, so
+            // the same rules apply whichever library verified the signature.
+            if (pgpCoreVerified)
+            {
+                return TryBcEvaluate(bcEvaluate, fallbackInput, publicKeyBytes) == BcVerdict.Verified;
+            }
+
+            // STUD-80430 & STUD-80429: messages PgpCore cannot verify (for example a signer other than the
+            // primary key's) fall back to a custom BouncyCastle verification that unwraps compression and
+            // resolves the signature's issuer key ID against every public key in the ring (subkeys included).
+            return TryBcEvaluate(bcEvaluate, fallbackInput, publicKeyBytes) == BcVerdict.Verified;
+        }
+
+        private static BcVerdict TryBcEvaluate(Func<byte[], byte[], BcVerdict> bcEvaluate, Func<byte[]> input, byte[] publicKeyBytes)
+        {
             try
             {
-                return bcFallbackVerify(fallbackInput(), publicKeyBytes);
+                return bcEvaluate(input(), publicKeyBytes);
             }
             catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
             {
-                Trace.TraceWarning("PGP verify operation (BouncyCastle fallback) failed: {0}", ex);
-                return false;
+                Trace.TraceWarning("PGP verify operation (BouncyCastle evaluation) failed: {0}", ex);
+                return BcVerdict.NotApplicable;
             }
         }
 
@@ -1047,11 +1206,46 @@ namespace UiPath.Cryptography
         /// signature is valid AND its key passes <see cref="IsUsableSigningKey"/>.
         /// </summary>
         internal static bool BcVerifyBinarySignature(byte[] inputBytes, byte[] publicKeyBytes)
+            => BcEvaluateBinarySignature(inputBytes, publicKeyBytes) == BcVerdict.Verified;
+
+        internal static BcVerdict BcEvaluateBinarySignature(byte[] inputBytes, byte[] publicKeyBytes)
         {
             using var inputStream = new MemoryStream(inputBytes);
             using var decoderStream = PgpUtilities.GetDecoderStream(inputStream);
 
-            var pgpFactory = new PgpObjectFactory(decoderStream);
+            var publicKeyRings = new PgpPublicKeyRingBundle(
+                PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
+            var verdict = BcVerifySignedPayload(new PgpObjectFactory(decoderStream), publicKeyRings, literalSink: null);
+            if (verdict == BcVerdict.Verified && HasSecondArmorBlock(inputBytes))
+            {
+                return BcVerdict.Rejected;
+            }
+
+            return verdict;
+        }
+
+        /// <summary>Outcome of our own (key-vetting) signature evaluation.</summary>
+        internal enum BcVerdict
+        {
+            /// <summary>The message is not in a shape the evaluation understands, or no signer key was available: no verdict.</summary>
+            NotApplicable,
+
+            /// <summary>A signature from a key in the ring was examined and none was both valid and from a usable key.</summary>
+            Rejected,
+
+            /// <summary>At least one signature is valid and comes from a usable key.</summary>
+            Verified,
+        }
+
+        /// <summary>
+        /// Verifies a one-pass-signed payload read from <paramref name="pgpFactory"/> (optionally
+        /// wrapped in a compressed packet). When <paramref name="literalSink"/> is given, the signed
+        /// literal data is copied there while it is hashed; the caller must discard it unless this
+        /// returns true.
+        /// </summary>
+        private static BcVerdict BcVerifySignedPayload(PgpObjectFactory pgpFactory, PgpPublicKeyRingBundle publicKeyRings, Stream literalSink)
+        {
+            var outerFactory = pgpFactory;
             var pgpObject = NextSignificantObject(pgpFactory);
 
             // Descend through the compression layer (GnuPG's default for gpg --sign) if present.
@@ -1067,87 +1261,293 @@ namespace UiPath.Cryptography
                     pgpObject = NextSignificantObject(pgpFactory);
                 }
 
+                // Signature-first layout (RFC 4880 section 11.3): the signatures precede the literal data they cover.
+                if (pgpObject is PgpSignatureList leadingSignatures)
+                {
+                    return BcVerifySignatureFirstPayload(pgpFactory, outerFactory, leadingSignatures, publicKeyRings, literalSink);
+                }
+
                 if (pgpObject is not PgpOnePassSignatureList onePassList)
                 {
-                    return false;
+                    return BcVerdict.NotApplicable;
                 }
 
                 if (NextSignificantObject(pgpFactory) is not PgpLiteralData literalData)
                 {
-                    return false;
+                    return BcVerdict.NotApplicable;
                 }
 
-                var publicKeyRings = new PgpPublicKeyRingBundle(
-                    PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
-
-                // Only signers whose key is in the ring are hashed; the rest are skipped, not fatal,
-                // so a valid signature from a second signer is still tried.
-                var signerCount = onePassList.Count;
-                var hashing = new bool[signerCount];
-                var anySigner = false;
-                for (var i = 0; i < signerCount; i++)
+                var hashing = InitVerifyKnownSigners(onePassList, publicKeyRings);
+                if (Array.IndexOf(hashing, true) < 0)
                 {
-                    var signingKey = publicKeyRings.GetPublicKey(onePassList[i].KeyId);
-                    if (signingKey is null)
-                    {
-                        continue;
-                    }
-
-                    onePassList[i].InitVerify(signingKey);
-                    hashing[i] = true;
-                    anySigner = true;
+                    return BcVerdict.NotApplicable;
                 }
 
-                if (!anySigner)
+                CopyLiteralData(literalData, (buffer, count) => UpdateOnePassSignatures(onePassList, hashing, buffer, count), literalSink);
+
+                if (NextSignificantObject(pgpFactory) is not PgpSignatureList signatureList || signatureList.Count != onePassList.Count)
                 {
-                    return false;
+                    return BcVerdict.Rejected;
                 }
 
-                using (var literalStream = literalData.GetInputStream())
+                if (!HasValidSigner(onePassList, signatureList, hashing, publicKeyRings))
                 {
-                    var buffer = new byte[8192];
-                    int bytesRead;
-                    while ((bytesRead = literalStream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        for (var i = 0; i < signerCount; i++)
-                        {
-                            if (hashing[i])
-                            {
-                                onePassList[i].Update(buffer, 0, bytesRead);
-                            }
-                        }
-                    }
+                    return BcVerdict.Rejected;
                 }
 
-                if (NextSignificantObject(pgpFactory) is not PgpSignatureList signatureList || signatureList.Count != signerCount)
-                {
-                    return false;
-                }
-
-                // RFC 4880 §5.4: one-pass headers and signatures nest like brackets
-                // (OPS(A) OPS(B) literal SIG(B) SIG(A)), so header i pairs with signature n-1-i.
-                for (var i = 0; i < signerCount; i++)
-                {
-                    if (!hashing[i])
-                    {
-                        continue;
-                    }
-
-                    var signature = signatureList[signerCount - 1 - i];
-                    if (signature.KeyId == onePassList[i].KeyId &&
-                        onePassList[i].Verify(signature) &&
-                        IsUsableSigningKey(publicKeyRings, signature.KeyId, signature.CreationTime))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
+                // Only the first message is evaluated, so anything after it (another message, a second compressed packet) is refused.
+                return HasNoFurtherObjects(pgpFactory, outerFactory) ? BcVerdict.Verified : BcVerdict.Rejected;
             }
             finally
             {
                 compressedStream?.Dispose();
             }
+        }
+
+        // An armored message is one armor block. A second block would not be looked at by the evaluation, so it is
+        // refused instead of being ignored. Binary input has no such marker (its payload may even contain armor-looking
+        // text): further messages show up as further objects in the packet stream, which the callers check.
+        private static bool HasSecondArmorBlock(byte[] input)
+        {
+            // Same test as PgpUtilities.GetDecoderStream: a binary packet starts with a byte whose high bit is set.
+            if (input.Length == 0 || (input[0] & 0x80) != 0)
+            {
+                return false;
+            }
+
+            var text = Encoding.ASCII.GetString(input);
+            var first = text.IndexOf("-----BEGIN PGP", StringComparison.Ordinal);
+            return first >= 0 && text.IndexOf("-----BEGIN PGP", first + 1, StringComparison.Ordinal) >= 0;
+        }
+
+        private static bool HasNoFurtherObjects(PgpObjectFactory first, PgpObjectFactory second)
+            => NextSignificantObject(first) is null && (ReferenceEquals(first, second) || NextSignificantObject(second) is null);
+
+        // Only signers whose key is in the ring are hashed; the rest are skipped, not fatal,
+        // so a valid signature from a second signer is still tried.
+        private static bool[] InitVerifyKnownSigners(PgpOnePassSignatureList onePassList, PgpPublicKeyRingBundle publicKeyRings)
+        {
+            var hashing = new bool[onePassList.Count];
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                var signingKey = publicKeyRings.GetPublicKey(onePassList[i].KeyId);
+                if (signingKey is null)
+                {
+                    continue;
+                }
+
+                onePassList[i].InitVerify(signingKey);
+                hashing[i] = true;
+            }
+
+            return hashing;
+        }
+
+        // Feeds the literal data to the signatures while copying it to the sink (if any).
+        private static void CopyLiteralData(PgpLiteralData literalData, Action<byte[], int> update, Stream literalSink)
+        {
+            using var literalStream = literalData.GetInputStream();
+            var buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = literalStream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                update(buffer, bytesRead);
+                literalSink?.Write(buffer, 0, bytesRead);
+            }
+        }
+
+        private static void UpdateOnePassSignatures(PgpOnePassSignatureList onePassList, bool[] hashing, byte[] buffer, int count)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (hashing[i])
+                {
+                    onePassList[i].Update(buffer, 0, count);
+                }
+            }
+        }
+
+        private static void UpdateSignatures(PgpSignatureList signatures, bool[] hashing, byte[] buffer, int count)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (hashing[i])
+                {
+                    signatures[i].Update(buffer, 0, count);
+                }
+            }
+        }
+
+        // Signatures followed by the literal data they cover, without one-pass headers. The same rules apply as for
+        // the one-pass layout: only binary or canonical-text signatures count, the signer's key must be usable,
+        // and nothing may follow the message.
+        private static BcVerdict BcVerifySignatureFirstPayload(PgpObjectFactory pgpFactory, PgpObjectFactory outerFactory,
+            PgpSignatureList signatures, PgpPublicKeyRingBundle publicKeyRings, Stream literalSink)
+        {
+            if (NextSignificantObject(pgpFactory) is not PgpLiteralData literalData)
+            {
+                return BcVerdict.NotApplicable;
+            }
+
+            var hashing = InitVerifySignatureFirstSigners(signatures, publicKeyRings, out var anySignerKnown);
+            if (!anySignerKnown)
+            {
+                return BcVerdict.NotApplicable;
+            }
+
+            CopyLiteralData(literalData, (buffer, count) => UpdateSignatures(signatures, hashing, buffer, count), literalSink);
+
+            return HasValidSignatureFirstSigner(signatures, hashing, publicKeyRings) && HasNoFurtherObjects(pgpFactory, outerFactory)
+                ? BcVerdict.Verified
+                : BcVerdict.Rejected;
+        }
+
+        // Signers whose key is in the ring are known; only those with a binary or canonical-text signature are hashed.
+        private static bool[] InitVerifySignatureFirstSigners(PgpSignatureList signatures, PgpPublicKeyRingBundle publicKeyRings, out bool anySignerKnown)
+        {
+            anySignerKnown = false;
+            var hashing = new bool[signatures.Count];
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                var signingKey = publicKeyRings.GetPublicKey(signatures[i].KeyId);
+                if (signingKey is null)
+                {
+                    continue;
+                }
+
+                anySignerKnown = true;
+                if (signatures[i].SignatureType is PgpSignature.BinaryDocument or PgpSignature.CanonicalTextDocument)
+                {
+                    signatures[i].InitVerify(signingKey);
+                    hashing[i] = true;
+                }
+            }
+
+            return hashing;
+        }
+
+        private static bool HasValidSignatureFirstSigner(PgpSignatureList signatures, bool[] hashing, PgpPublicKeyRingBundle publicKeyRings)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (hashing[i] && signatures[i].Verify() && IsUsableSigningKey(publicKeyRings, signatures[i].KeyId, signatures[i].CreationTime))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // The header decides how the data is canonicalized while it is hashed (text mode normalizes line
+        // endings) and the signature packet supplies the trailer, so the two must describe the same signature.
+        private static bool HeaderMatchesSignature(PgpOnePassSignature header, PgpSignature signature)
+            => header.KeyId == signature.KeyId
+               && header.SignatureType == signature.SignatureType
+               && header.HashAlgorithm == signature.HashAlgorithm
+               && header.KeyAlgorithm == signature.KeyAlgorithm
+               && (signature.SignatureType == PgpSignature.BinaryDocument || signature.SignatureType == PgpSignature.CanonicalTextDocument);
+
+        // RFC 4880 §5.4: one-pass headers and signatures nest like brackets
+        // (OPS(A) OPS(B) literal SIG(B) SIG(A)), so header i pairs with signature n-1-i.
+        private static bool HasValidSigner(PgpOnePassSignatureList onePassList, PgpSignatureList signatureList, bool[] hashing, PgpPublicKeyRingBundle publicKeyRings)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (!hashing[i])
+                {
+                    continue;
+                }
+
+                var signature = signatureList[hashing.Length - 1 - i];
+                if (HeaderMatchesSignature(onePassList[i], signature) &&
+                    onePassList[i].Verify(signature) &&
+                    IsUsableSigningKey(publicKeyRings, signature.KeyId, signature.CreationTime))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// STUD-81645: decrypt a public-key-encrypted message with BouncyCastle (private key looked up
+        /// across the whole secret ring, subkeys included) and verify its embedded signature(s) with
+        /// the same rules as <see cref="BcVerifyBinarySignature"/>. Writes the plaintext to
+        /// <paramref name="verifiedPlaintext"/> and returns true only when decryption succeeded, the
+        /// integrity check (if any) passed and a signature from a usable key verified; on false the
+        /// stream content must be discarded. Exceptions (e.g. a wrong passphrase) propagate to the caller.
+        /// </summary>
+        internal static bool BcDecryptAndVerify(byte[] inputBytes, byte[] privateKeyBytes, string passphrase,
+            byte[] publicKeyBytes, Stream verifiedPlaintext)
+            => BcEvaluateDecryptAndVerify(inputBytes, privateKeyBytes, passphrase, publicKeyBytes, verifiedPlaintext) == BcVerdict.Verified;
+
+        internal static BcVerdict BcEvaluateDecryptAndVerify(byte[] inputBytes, byte[] privateKeyBytes, string passphrase,
+            byte[] publicKeyBytes, Stream verifiedPlaintext)
+        {
+            using var inputStream = new MemoryStream(inputBytes);
+            using var decoderStream = PgpUtilities.GetDecoderStream(inputStream);
+
+            var factory = new PgpObjectFactory(decoderStream);
+            if (NextSignificantObject(factory) is not PgpEncryptedDataList encryptedList)
+            {
+                return BcVerdict.NotApplicable;
+            }
+
+            var secretKeys = new PgpSecretKeyRingBundle(
+                PgpUtilities.GetDecoderStream(new MemoryStream(privateKeyBytes)));
+
+            PgpPublicKeyEncryptedData encryptedData = null;
+            PgpPrivateKey privateKey = null;
+            foreach (PgpEncryptedData candidate in encryptedList.GetEncryptedDataObjects())
+            {
+                if (candidate is not PgpPublicKeyEncryptedData publicKeyEncrypted)
+                {
+                    continue;
+                }
+
+                var secretKey = secretKeys.GetSecretKey(publicKeyEncrypted.KeyId);
+                if (secretKey is null)
+                {
+                    continue;
+                }
+
+                // The passphrase is encoded as UTF-8, as PgpCore does (ExtractPrivateKey(char[]) would use a legacy encoding).
+                var extracted = secretKey.ExtractPrivateKeyRaw(Encoding.UTF8.GetBytes(passphrase ?? string.Empty));
+                if (extracted is null)
+                {
+                    continue; // empty stub, for example an offline or card key: try the next recipient
+                }
+
+                privateKey = extracted;
+                encryptedData = publicKeyEncrypted;
+                break;
+            }
+
+            if (encryptedData is null)
+            {
+                return BcVerdict.NotApplicable;
+            }
+
+            var publicKeyRings = new PgpPublicKeyRingBundle(
+                PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
+
+            using var clearStream = encryptedData.GetDataStream(privateKey);
+            var verdict = BcVerifySignedPayload(new PgpObjectFactory(clearStream), publicKeyRings, verifiedPlaintext);
+            if (verdict != BcVerdict.Verified)
+            {
+                return verdict;
+            }
+
+            // Verify() drains the rest of the stream and checks the modification-detection code.
+            if (encryptedData.IsIntegrityProtected() && !encryptedData.Verify())
+            {
+                return BcVerdict.Rejected;
+            }
+
+            // Only the first message is evaluated, so a further message after it is refused instead of released unvetted.
+            return NextSignificantObject(factory) is null && !HasSecondArmorBlock(inputBytes) ? BcVerdict.Verified : BcVerdict.Rejected;
         }
 
         /// <summary>
@@ -1160,6 +1560,9 @@ namespace UiPath.Cryptography
         /// <see cref="IsUsableSigningKey"/>.
         /// </summary>
         internal static bool BcVerifyClearSignature(byte[] inputBytes, byte[] publicKeyBytes)
+            => BcEvaluateClearSignature(inputBytes, publicKeyBytes) == BcVerdict.Verified;
+
+        internal static BcVerdict BcEvaluateClearSignature(byte[] inputBytes, byte[] publicKeyBytes)
         {
             using var inputStream = new MemoryStream(inputBytes);
             using var armoredInput = new ArmoredInputStream(inputStream);
@@ -1175,13 +1578,14 @@ namespace UiPath.Cryptography
             var signatureFactory = new PgpObjectFactory(armoredInput);
             if (NextSignificantObject(signatureFactory) is not PgpSignatureList signatureList)
             {
-                return false;
+                return BcVerdict.NotApplicable;
             }
 
             var publicKeyRings = new PgpPublicKeyRingBundle(
                 PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
             var clearText = clearTextBuffer.ToArray();
 
+            var anySignerKnown = false;
             for (var i = 0; i < signatureList.Count; i++)
             {
                 var signature = signatureList[i];
@@ -1191,16 +1595,22 @@ namespace UiPath.Cryptography
                     continue;
                 }
 
+                anySignerKnown = true;
+                if (signature.SignatureType != PgpSignature.CanonicalTextDocument)
+                {
+                    continue;
+                }
+
                 signature.InitVerify(signingKey);
                 UpdateSignatureWithClearText(signature, clearText);
 
                 if (signature.Verify() && IsUsableSigningKey(publicKeyRings, signature.KeyId, signature.CreationTime))
                 {
-                    return true;
+                    return BcVerdict.Verified;
                 }
             }
 
-            return false;
+            return anySignerKnown ? BcVerdict.Rejected : BcVerdict.NotApplicable;
         }
 
         // RFC 4880 section 5.8: a Marker packet is ignorable and may appear before any other packet.
@@ -1241,9 +1651,9 @@ namespace UiPath.Cryptography
         /// loads keys without validating them, so a key must be vetted before its signature is trusted:
         /// it (and its primary key) must not be revoked, both must have existed and not yet expired
         /// at <paramref name="signedAtUtc"/>, and a subkey needs a valid binding signature from the
-        /// primary key, in force at that time, that allows signing. A subkey whose binding
-        /// signature does not carry a key-flags subpacket is accepted (older keys), but one whose
-        /// flags omit "sign" is not.
+        /// primary key, in force at that time, that allows signing, and the subkey must have
+        /// consented with an embedded back-signature. A subkey whose binding signature does not
+        /// carry a key-flags subpacket is accepted (older keys), but one whose flags omit "sign" is not.
         /// This keeps the fallback from trusting more than PgpCore's single-key lookup did, so a
         /// revoked or grafted-on subkey cannot start verifying.
         /// </summary>
@@ -1289,46 +1699,125 @@ namespace UiPath.Cryptography
         /// </summary>
         private static bool HasValidSigningSubkeyBinding(PgpPublicKey primary, PgpPublicKey subkey, DateTime signedAtUtc)
         {
-            PgpSignature effective = null;
-            foreach (PgpSignature binding in subkey.GetSignaturesOfType(PgpSignature.SubkeyBinding))
-            {
-                try
-                {
-                    binding.InitVerify(primary);
-                    if (!binding.VerifyCertification(primary, subkey))
-                    {
-                        continue;
-                    }
-                }
-                catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
-                {
-                    continue;
-                }
-
-                if (binding.CreationTime > signedAtUtc)
-                {
-                    continue; // not yet in force when the message was signed
-                }
-
-                var expirySeconds = binding.GetHashedSubPackets()?.GetSignatureExpirationTime() ?? 0;
-                if (expirySeconds > 0 && signedAtUtc > binding.CreationTime.AddSeconds(expirySeconds))
-                {
-                    continue; // the binding itself had lapsed
-                }
-
-                if (effective is null || binding.CreationTime >= effective.CreationTime)
-                {
-                    effective = binding;
-                }
-            }
-
+            var effective = GetBindingInForce(primary, subkey, signedAtUtc);
             if (effective is null)
             {
                 return false;
             }
 
             var keyFlags = effective.GetHashedSubPackets()?.GetKeyFlags() ?? 0;
-            return keyFlags == 0 || (keyFlags & PgpKeyFlags.CanSign) != 0;
+            if (keyFlags != 0 && (keyFlags & PgpKeyFlags.CanSign) == 0)
+            {
+                return false;
+            }
+
+            // A binding by the primary only proves the primary CLAIMS the subkey. GnuPG additionally
+            // requires the signing subkey to consent: an embedded back-signature (Primary Key
+            // Binding, 0x19) made by the subkey over (primary, subkey). Without it, anyone could attach
+            // somebody else's public signing subkey to their own key and have that person's
+            // signatures verify as theirs.
+            return HasValidBackSignature(primary, subkey, effective);
+        }
+
+        // The latest verified binding that existed, and had not lapsed, when the message was signed.
+        private static PgpSignature GetBindingInForce(PgpPublicKey primary, PgpPublicKey subkey, DateTime signedAtUtc)
+        {
+            PgpSignature effective = null;
+            foreach (PgpSignature binding in subkey.GetSignaturesOfType(PgpSignature.SubkeyBinding))
+            {
+                if (IsVerifiedBinding(primary, subkey, binding) &&
+                    IsBindingActiveAt(binding, signedAtUtc) &&
+                    (effective is null || binding.CreationTime >= effective.CreationTime))
+                {
+                    effective = binding;
+                }
+            }
+
+            return effective;
+        }
+
+        private static bool IsVerifiedBinding(PgpPublicKey primary, PgpPublicKey subkey, PgpSignature binding)
+        {
+            try
+            {
+                binding.InitVerify(primary);
+                return binding.VerifyCertification(primary, subkey);
+            }
+            catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
+            {
+                return false;
+            }
+        }
+
+        private static bool IsBindingActiveAt(PgpSignature binding, DateTime signedAtUtc)
+        {
+            if (binding.CreationTime > signedAtUtc)
+            {
+                return false; // not yet in force when the message was signed
+            }
+
+            var expirySeconds = binding.GetHashedSubPackets()?.GetSignatureExpirationTime() ?? 0;
+            return expirySeconds <= 0 || signedAtUtc <= binding.CreationTime.AddSeconds(expirySeconds); // else the binding itself had lapsed
+        }
+
+        private static bool HasValidBackSignature(PgpPublicKey primary, PgpPublicKey subkey, PgpSignature binding)
+        {
+            foreach (var subpackets in new[] { binding.GetHashedSubPackets(), binding.GetUnhashedSubPackets() })
+            {
+                var embedded = GetEmbeddedSignatures(subpackets);
+                if (embedded is null)
+                {
+                    continue;
+                }
+
+                for (var i = 0; i < embedded.Count; i++)
+                {
+                    if (IsValidBackSignature(embedded[i], primary, subkey))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static PgpSignatureList GetEmbeddedSignatures(PgpSignatureSubpacketVector subpackets)
+        {
+            if (subpackets is null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return subpackets.GetEmbeddedSignatures();
+            }
+            catch (Exception ex) when (ex is PgpException or IOException)
+            {
+                return null;
+            }
+        }
+
+        private static bool IsValidBackSignature(PgpSignature backSignature, PgpPublicKey primary, PgpPublicKey subkey)
+        {
+            // A back-signature without an Issuer Key ID subpacket reports key id 0; the verification below proves the issuer.
+            if (backSignature.SignatureType != PgpSignature.PrimaryKeyBinding ||
+                (backSignature.KeyId != 0 && backSignature.KeyId != subkey.KeyId))
+            {
+                return false;
+            }
+
+            try
+            {
+                backSignature.InitVerify(subkey);
+                return backSignature.VerifyCertification(primary, subkey);
+            }
+            catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
+            {
+                // An unusable back-signature is the same as none.
+                return false;
+            }
         }
 
         private static int ReadInputLine(MemoryStream lineOut, Stream fIn)
