@@ -23,12 +23,13 @@ namespace UiPath.Activities.Python.ViewModels
 
             var orderIndex = 0;
             ScriptFile.OrderIndex = orderIndex++;
-            Code.OrderIndex = orderIndex++;
+            Code.OrderIndex = orderIndex;
 
             ScriptFile.DisplayName = Resources.ScriptFileNameDisplayName;
             ScriptFile.Tooltip = Resources.ScriptFileDescription;
             ScriptFile.Category = Resources.Input;
             ScriptFile.IsPrincipal = true;
+            ScriptFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services);
 
             Code.DisplayName = Resources.CodeNameDisplayName;
             Code.Tooltip = Resources.CodeDescription;

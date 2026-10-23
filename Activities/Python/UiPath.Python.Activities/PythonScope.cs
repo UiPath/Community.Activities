@@ -143,6 +143,10 @@ namespace UiPath.Python.Activities
                 if (!path.IsNullOrEmpty() && !Directory.Exists(path))
                     throw new DirectoryNotFoundException(string.Format(Resources.InvalidPathException, path));
 
+                // the picker saves project-relative paths; the python host starts in another directory, so pass absolute paths
+                if (!path.IsNullOrEmpty())
+                    path = System.IO.Path.GetFullPath(path);
+
                 cancellationToken.ThrowIfCancellationRequested();
 
                 int payloadThresholdMB = ScriptDataSizeLimitMB?.Expression != null ? ScriptDataSizeLimitMB.Get(context) : EngineProvider.DefaultPayloadThresholdMB;
@@ -153,6 +157,8 @@ namespace UiPath.Python.Activities
                 // Path is optional; when omitted the PYTHONHOME environment variable is used.
                 if (libraryPath.IsNullOrEmpty() || !File.Exists(libraryPath))
                     throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, libraryPath));
+
+                libraryPath = System.IO.Path.GetFullPath(libraryPath);
 
                 EngineProvider.ValidateInstallation(path, libraryPath);
 
