@@ -1699,39 +1699,7 @@ namespace UiPath.Cryptography
         /// </summary>
         private static bool HasValidSigningSubkeyBinding(PgpPublicKey primary, PgpPublicKey subkey, DateTime signedAtUtc)
         {
-            PgpSignature effective = null;
-            foreach (PgpSignature binding in subkey.GetSignaturesOfType(PgpSignature.SubkeyBinding))
-            {
-                try
-                {
-                    binding.InitVerify(primary);
-                    if (!binding.VerifyCertification(primary, subkey))
-                    {
-                        continue;
-                    }
-                }
-                catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
-                {
-                    continue;
-                }
-
-                if (binding.CreationTime > signedAtUtc)
-                {
-                    continue; // not yet in force when the message was signed
-                }
-
-                var expirySeconds = binding.GetHashedSubPackets()?.GetSignatureExpirationTime() ?? 0;
-                if (expirySeconds > 0 && signedAtUtc > binding.CreationTime.AddSeconds(expirySeconds))
-                {
-                    continue; // the binding itself had lapsed
-                }
-
-                if (effective is null || binding.CreationTime >= effective.CreationTime)
-                {
-                    effective = binding;
-                }
-            }
-
+            var effective = GetBindingInForce(primary, subkey, signedAtUtc);
             if (effective is null)
             {
                 return false;
@@ -1749,6 +1717,47 @@ namespace UiPath.Cryptography
             // somebody else's public signing subkey to their own key and have that person's
             // signatures verify as theirs.
             return HasValidBackSignature(primary, subkey, effective);
+        }
+
+        // The latest verified binding that existed, and had not lapsed, when the message was signed.
+        private static PgpSignature GetBindingInForce(PgpPublicKey primary, PgpPublicKey subkey, DateTime signedAtUtc)
+        {
+            PgpSignature effective = null;
+            foreach (PgpSignature binding in subkey.GetSignaturesOfType(PgpSignature.SubkeyBinding))
+            {
+                if (IsVerifiedBinding(primary, subkey, binding) &&
+                    IsBindingActiveAt(binding, signedAtUtc) &&
+                    (effective is null || binding.CreationTime >= effective.CreationTime))
+                {
+                    effective = binding;
+                }
+            }
+
+            return effective;
+        }
+
+        private static bool IsVerifiedBinding(PgpPublicKey primary, PgpPublicKey subkey, PgpSignature binding)
+        {
+            try
+            {
+                binding.InitVerify(primary);
+                return binding.VerifyCertification(primary, subkey);
+            }
+            catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
+            {
+                return false;
+            }
+        }
+
+        private static bool IsBindingActiveAt(PgpSignature binding, DateTime signedAtUtc)
+        {
+            if (binding.CreationTime > signedAtUtc)
+            {
+                return false; // not yet in force when the message was signed
+            }
+
+            var expirySeconds = binding.GetHashedSubPackets()?.GetSignatureExpirationTime() ?? 0;
+            return expirySeconds <= 0 || signedAtUtc <= binding.CreationTime.AddSeconds(expirySeconds); // else the binding itself had lapsed
         }
 
         private static bool HasValidBackSignature(PgpPublicKey primary, PgpPublicKey subkey, PgpSignature binding)
