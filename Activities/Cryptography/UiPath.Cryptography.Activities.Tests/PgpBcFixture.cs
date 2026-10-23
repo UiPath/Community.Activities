@@ -53,9 +53,10 @@ namespace UiPath.Cryptography.Activities.Tests
             /// <summary>
             /// Extra binding signatures added after the first one (e.g. a later restriction or a
             /// later authorization), each with its own creation time and key flags (null omits them).
+            /// The back-signature of a later binding follows <see cref="BackSignature"/> unless given here.
             /// </summary>
-            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> LaterBindings { get; }
-                = new System.Collections.Generic.List<(DateTime, int?)>();
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags, BackSignatureMode? BackSignature)> LaterBindings { get; }
+                = new System.Collections.Generic.List<(DateTime, int?, BackSignatureMode?)>();
         }
 
         public enum BackSignatureMode
@@ -162,7 +163,7 @@ namespace UiPath.Cryptography.Activities.Tests
             // time would (correctly) not be in force for messages signed earlier.
             var subGen = new PgpSignatureSubpacketGenerator();
             var subUnhashedGen = new PgpSignatureSubpacketGenerator();
-            var backSignature = CreateBackSignature(options, masterPgpPair, subPgpPair, random, now);
+            var backSignature = CreateBackSignature(options.BackSignature, masterPgpPair, subPgpPair, random, now);
             if (backSignature is not null)
             {
                 (options.BackSignatureInUnhashedArea ? subUnhashedGen : subGen).AddEmbeddedSignature(false, backSignature);
@@ -234,13 +235,16 @@ namespace UiPath.Cryptography.Activities.Tests
             var masterPublic = publicRing.GetPublicKey(masterSecret.KeyId);
             var subkeyPublic = publicRing.GetPublicKey(subkeySecret.KeyId);
 
-            foreach (var (createdUtc, keyFlags) in options.LaterBindings)
+            foreach (var (createdUtc, keyFlags, laterBackSignatureMode) in options.LaterBindings)
             {
                 var later = new PgpSignatureSubpacketGenerator();
                 var laterUnhashed = new PgpSignatureSubpacketGenerator();
-                if (backSignature is not null)
+                var laterBackSignature = laterBackSignatureMode.HasValue
+                    ? CreateBackSignature(laterBackSignatureMode.Value, masterPgpPair, subPgpPair, random, now)
+                    : backSignature;
+                if (laterBackSignature is not null)
                 {
-                    (options.BackSignatureInUnhashedArea ? laterUnhashed : later).AddEmbeddedSignature(false, backSignature);
+                    (options.BackSignatureInUnhashedArea ? laterUnhashed : later).AddEmbeddedSignature(false, laterBackSignature);
                 }
 
                 later.SetSignatureCreationTime(false, createdUtc);
@@ -252,7 +256,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 var bindingGenerator = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
                 bindingGenerator.InitSign(PgpSignature.SubkeyBinding, masterPrivate);
                 bindingGenerator.SetHashedSubpackets(later.Generate());
-                if (options.BackSignatureInUnhashedArea && backSignature is not null)
+                if (options.BackSignatureInUnhashedArea && laterBackSignature is not null)
                 {
                     bindingGenerator.SetUnhashedSubpackets(laterUnhashed.Generate());
                 }
@@ -296,17 +300,17 @@ namespace UiPath.Cryptography.Activities.Tests
 
         // A Primary Key Binding signature (0x19): made by the SUBKEY over (primary key, subkey), embedded in
         // the primary's binding so the subkey proves it consents to being bound.
-        private static PgpSignature CreateBackSignature(Options options, PgpKeyPair master, PgpKeyPair subkey, SecureRandom random, DateTime now)
+        private static PgpSignature CreateBackSignature(BackSignatureMode mode, PgpKeyPair master, PgpKeyPair subkey, SecureRandom random, DateTime now)
         {
-            if (options.BackSignature == BackSignatureMode.Missing)
+            if (mode == BackSignatureMode.Missing)
             {
                 return null;
             }
 
-            var signer = options.BackSignature == BackSignatureMode.SignedByWrongKey
+            var signer = mode == BackSignatureMode.SignedByWrongKey
                 ? new PgpKeyPair(PublicKeyAlgorithmTag.RsaSign, GenerateRsaKeyPair(random), now)
                 : subkey;
-            var primary = options.BackSignature == BackSignatureMode.WrongPrimary
+            var primary = mode == BackSignatureMode.WrongPrimary
                 ? new PgpKeyPair(PublicKeyAlgorithmTag.RsaGeneral, GenerateRsaKeyPair(random), now).PublicKey
                 : master.PublicKey;
 

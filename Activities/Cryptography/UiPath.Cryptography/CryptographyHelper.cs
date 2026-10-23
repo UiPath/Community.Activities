@@ -1261,6 +1261,12 @@ namespace UiPath.Cryptography
                     pgpObject = NextSignificantObject(pgpFactory);
                 }
 
+                // Signature-first layout (RFC 4880 section 11.3): the signatures precede the literal data they cover.
+                if (pgpObject is PgpSignatureList leadingSignatures)
+                {
+                    return BcVerifySignatureFirstPayload(pgpFactory, outerFactory, leadingSignatures, publicKeyRings, literalSink);
+                }
+
                 if (pgpObject is not PgpOnePassSignatureList onePassList)
                 {
                     return BcVerdict.NotApplicable;
@@ -1277,7 +1283,7 @@ namespace UiPath.Cryptography
                     return BcVerdict.NotApplicable;
                 }
 
-                HashLiteralData(literalData, onePassList, hashing, literalSink);
+                CopyLiteralData(literalData, (buffer, count) => UpdateOnePassSignatures(onePassList, hashing, buffer, count), literalSink);
 
                 if (NextSignificantObject(pgpFactory) is not PgpSignatureList signatureList || signatureList.Count != onePassList.Count)
                 {
@@ -1299,10 +1305,16 @@ namespace UiPath.Cryptography
         }
 
         // An armored message is one armor block. A second block would not be looked at by the evaluation, so it is
-        // refused instead of being ignored. Binary input has no such marker: further messages show up as further
-        // objects in the packet stream, which the callers check.
+        // refused instead of being ignored. Binary input has no such marker (its payload may even contain armor-looking
+        // text): further messages show up as further objects in the packet stream, which the callers check.
         private static bool HasSecondArmorBlock(byte[] input)
         {
+            // Same test as PgpUtilities.GetDecoderStream: a binary packet starts with a byte whose high bit is set.
+            if (input.Length == 0 || (input[0] & 0x80) != 0)
+            {
+                return false;
+            }
+
             var text = Encoding.ASCII.GetString(input);
             var first = text.IndexOf("-----BEGIN PGP", StringComparison.Ordinal);
             return first >= 0 && text.IndexOf("-----BEGIN PGP", first + 1, StringComparison.Ordinal) >= 0;
@@ -1331,23 +1343,100 @@ namespace UiPath.Cryptography
             return hashing;
         }
 
-        private static void HashLiteralData(PgpLiteralData literalData, PgpOnePassSignatureList onePassList, bool[] hashing, Stream literalSink)
+        // Feeds the literal data to the signatures while copying it to the sink (if any).
+        private static void CopyLiteralData(PgpLiteralData literalData, Action<byte[], int> update, Stream literalSink)
         {
             using var literalStream = literalData.GetInputStream();
             var buffer = new byte[8192];
             int bytesRead;
             while ((bytesRead = literalStream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                for (var i = 0; i < hashing.Length; i++)
-                {
-                    if (hashing[i])
-                    {
-                        onePassList[i].Update(buffer, 0, bytesRead);
-                    }
-                }
-
+                update(buffer, bytesRead);
                 literalSink?.Write(buffer, 0, bytesRead);
             }
+        }
+
+        private static void UpdateOnePassSignatures(PgpOnePassSignatureList onePassList, bool[] hashing, byte[] buffer, int count)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (hashing[i])
+                {
+                    onePassList[i].Update(buffer, 0, count);
+                }
+            }
+        }
+
+        private static void UpdateSignatures(PgpSignatureList signatures, bool[] hashing, byte[] buffer, int count)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (hashing[i])
+                {
+                    signatures[i].Update(buffer, 0, count);
+                }
+            }
+        }
+
+        // Signatures followed by the literal data they cover, without one-pass headers. The same rules apply as for
+        // the one-pass layout: only binary or canonical-text signatures count, the signer's key must be usable,
+        // and nothing may follow the message.
+        private static BcVerdict BcVerifySignatureFirstPayload(PgpObjectFactory pgpFactory, PgpObjectFactory outerFactory,
+            PgpSignatureList signatures, PgpPublicKeyRingBundle publicKeyRings, Stream literalSink)
+        {
+            if (NextSignificantObject(pgpFactory) is not PgpLiteralData literalData)
+            {
+                return BcVerdict.NotApplicable;
+            }
+
+            var hashing = InitVerifySignatureFirstSigners(signatures, publicKeyRings, out var anySignerKnown);
+            if (!anySignerKnown)
+            {
+                return BcVerdict.NotApplicable;
+            }
+
+            CopyLiteralData(literalData, (buffer, count) => UpdateSignatures(signatures, hashing, buffer, count), literalSink);
+
+            return HasValidSignatureFirstSigner(signatures, hashing, publicKeyRings) && HasNoFurtherObjects(pgpFactory, outerFactory)
+                ? BcVerdict.Verified
+                : BcVerdict.Rejected;
+        }
+
+        // Signers whose key is in the ring are known; only those with a binary or canonical-text signature are hashed.
+        private static bool[] InitVerifySignatureFirstSigners(PgpSignatureList signatures, PgpPublicKeyRingBundle publicKeyRings, out bool anySignerKnown)
+        {
+            anySignerKnown = false;
+            var hashing = new bool[signatures.Count];
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                var signingKey = publicKeyRings.GetPublicKey(signatures[i].KeyId);
+                if (signingKey is null)
+                {
+                    continue;
+                }
+
+                anySignerKnown = true;
+                if (signatures[i].SignatureType is PgpSignature.BinaryDocument or PgpSignature.CanonicalTextDocument)
+                {
+                    signatures[i].InitVerify(signingKey);
+                    hashing[i] = true;
+                }
+            }
+
+            return hashing;
+        }
+
+        private static bool HasValidSignatureFirstSigner(PgpSignatureList signatures, bool[] hashing, PgpPublicKeyRingBundle publicKeyRings)
+        {
+            for (var i = 0; i < hashing.Length; i++)
+            {
+                if (hashing[i] && signatures[i].Verify() && IsUsableSigningKey(publicKeyRings, signatures[i].KeyId, signatures[i].CreationTime))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // The header decides how the data is canonicalized while it is hashed (text mode normalizes line

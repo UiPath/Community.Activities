@@ -329,6 +329,178 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.False(Verify(message, user.PublicKeyRing));
         }
 
+        // ---------------------------------------------------------------- signature-first messages
+
+        // Writes SIG(signatures...) literal(content), optionally compressed: the layout without one-pass headers.
+        private static void WriteSignatureFirst(Stream target, bool compress, PgpSignature[] signatures, byte[] content)
+        {
+            Stream compressed = compress ? new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip).Open(target, new byte[1 << 16]) : null;
+            var bcpg = new BcpgOutputStream(compressed ?? target);
+            foreach (var signature in signatures)
+            {
+                signature.Encode(bcpg);
+            }
+
+            using (var literal = new PgpLiteralDataGenerator().Open(bcpg, PgpLiteralData.Binary, "data", content.Length, DateTime.UtcNow))
+            {
+                literal.Write(content, 0, content.Length);
+            }
+
+            bcpg.Flush();
+            compressed?.Dispose();
+        }
+
+        private static byte[] SignatureFirstSigned(bool compress, PgpSignature signature, byte[] content, bool armor)
+        {
+            using var buffer = new MemoryStream();
+            if (armor)
+            {
+                using var armored = new ArmoredOutputStream(buffer);
+                WriteSignatureFirst(armored, compress, new[] { signature }, content);
+            }
+            else
+            {
+                WriteSignatureFirst(buffer, compress, new[] { signature }, content);
+            }
+
+            return buffer.ToArray();
+        }
+
+        private static byte[] SignatureFirstSignedAndEncrypted(PgpBcFixture user, PgpSignature signature, byte[] content, bool armor)
+        {
+            var encryption = new PgpEncryptedDataGenerator(SymmetricKeyAlgorithmTag.Aes256, true, Random);
+            encryption.AddMethod(EncryptionKey(user));
+            using var buffer = new MemoryStream();
+            if (armor)
+            {
+                using var armored = new ArmoredOutputStream(buffer);
+                using var encrypted = encryption.Open(armored, new byte[1 << 16]);
+                WriteSignatureFirst(encrypted, compress: true, new[] { signature }, content);
+            }
+            else
+            {
+                using var encrypted = encryption.Open(buffer, new byte[1 << 16]);
+                WriteSignatureFirst(encrypted, compress: true, new[] { signature }, content);
+            }
+
+            return buffer.ToArray();
+        }
+
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void Verify_SignatureFirstMessage_IsTrue(bool compress, bool armor)
+        {
+            var user = NewUser();
+            var (_, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+
+            Assert.True(Verify(SignatureFirstSigned(compress, signature, Payload, armor), user.PublicKeyRing));
+        }
+
+        [Fact]
+        public void VerifyText_SignatureFirstMessage_IsTrue()
+        {
+            var user = NewUser();
+            var (_, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var message = SignatureFirstSigned(compress: true, signature, Payload, armor: true);
+
+            using var publicKey = new MemoryStream(user.PublicKeyRing);
+            Assert.True(CryptographyHelper.PgpVerifyText(Encoding.ASCII.GetString(message), publicKey));
+        }
+
+        [Fact]
+        public void Verify_SignatureFirstMessageWithAnotherSignersSignature_IsFalse()
+        {
+            var user = NewUser();
+            var (_, signature) = Sign(OtherKeyWithId(user.SigningPublicKey.KeyId), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+
+            Assert.False(Verify(SignatureFirstSigned(compress: true, signature, Payload, armor: true), user.PublicKeyRing));
+        }
+
+        [Fact]
+        public void Verify_SignatureFirstMessageWithAlteredContent_IsFalse()
+        {
+            var user = NewUser();
+            var (_, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var altered = Encoding.UTF8.GetBytes("payload NOT covered by the signature");
+
+            Assert.False(Verify(SignatureFirstSigned(compress: true, signature, altered, armor: true), user.PublicKeyRing));
+        }
+
+        [Fact]
+        public void Verify_SignatureFirstMessageFromARevokedKey_IsFalse()
+        {
+            var user = NewRevokedUser();
+            var (_, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+
+            Assert.False(Verify(SignatureFirstSigned(compress: true, signature, Payload, armor: true), user.PublicKeyRing));
+        }
+
+        [Fact]
+        public void Verify_SecondSignatureFirstMessageAfterTheFirst_IsFalse()
+        {
+            var user = NewUser();
+            var (_, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var message = SignatureFirstSigned(compress: true, signature, Payload, armor: false)
+                .Concat(SignatureFirstSigned(compress: true, signature, Payload, armor: false)).ToArray();
+
+            Assert.False(Verify(message, user.PublicKeyRing));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Decrypt_SignatureFirstMessage_IsAccepted(bool armor)
+        {
+            var user = NewUser();
+            var (_, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var message = SignatureFirstSignedAndEncrypted(user, signature, Payload, armor);
+
+            Assert.Equal(Payload, Decrypt(message, user, user.PublicKeyRing));
+            if (armor)
+            {
+                Assert.Equal(Encoding.UTF8.GetString(Payload), DecryptText(message, user));
+            }
+        }
+
+        [Fact]
+        public void Decrypt_SignatureFirstMessageWithAnotherSignersSignature_IsRejected()
+        {
+            var user = NewUser();
+            var (_, signature) = Sign(OtherKeyWithId(user.SigningPublicKey.KeyId), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var message = SignatureFirstSignedAndEncrypted(user, signature, Payload, armor: true);
+
+            AssertSignatureRejected(() => Decrypt(message, user, user.PublicKeyRing));
+        }
+
+        // ---------------------------------------------------------------- armor-looking content inside a binary message
+
+        private static readonly byte[] ContentWithArmorMarkers = Encoding.ASCII.GetBytes(
+            "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nAAAA\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n" +
+            "-----BEGIN PGP PUBLIC KEY BLOCK-----\r\nBBBB\r\n-----END PGP PUBLIC KEY BLOCK-----\r\n");
+
+        [Fact]
+        public void Verify_BinaryMessageWhoseContentHoldsTwoArmorBlocks_IsTrue()
+        {
+            var user = NewUser();
+            var (ops, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, ContentWithArmorMarkers);
+            var message = SignedOnly(compress: false, ops, ContentWithArmorMarkers, signature, armor: false);
+
+            Assert.True(Verify(message, user.PublicKeyRing));
+        }
+
+        [Fact]
+        public void Decrypt_BinaryMessageWhoseContentHoldsTwoArmorBlocks_IsAccepted()
+        {
+            var user = NewUser();
+            var (ops, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, ContentWithArmorMarkers);
+            var message = SignedAndEncrypted(EncryptionKey(user), compress: false, ops, ContentWithArmorMarkers, signature, armor: false);
+
+            Assert.Equal(ContentWithArmorMarkers, Decrypt(message, user, user.PublicKeyRing));
+        }
+
         // ---------------------------------------------------------------- the recipient key's passphrase is UTF-8
 
         // The secret key ring of a recipient whose key is protected with the UTF-8 bytes of the passphrase, as GnuPG does.

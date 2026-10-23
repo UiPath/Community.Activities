@@ -238,16 +238,27 @@ namespace UiPath.Cryptography.Activities.Tests
                 o.BackSignature = PgpBcFixture.BackSignatureMode.Missing;
             })));
 
-        // Back-signature check is applied to the binding that is in force at signing time.
-        [Fact]
-        public void LaterBinding_WithoutBackSignature_IsNotInForceBeforeItsDate()
-        {
-            // First binding (with back-signature) authorizes signing; the history check still passes
-            // for a signature made while that binding was the governing one.
-            var signer = WithBindingHistory(PgpKeyFlags.CanSign, (100, PgpKeyFlags.CanSign));
+        // The back-signature check is applied to the binding that is in force at signing time: the first
+        // binding carries one, the later binding (also signing-capable) does not.
+        private static PgpBcFixture WithLaterBindingWithoutBackSignature()
+            => Create(o =>
+            {
+                o.MasterCreatedUtc = DaysAgo(1000);
+                o.SubkeyCreatedUtc = DaysAgo(1000);
+                o.LaterBindings.Add((DaysAgo(100), PgpKeyFlags.CanSign, PgpBcFixture.BackSignatureMode.Missing));
+            });
 
-            Assert.True(SignAndVerify(Mode.Binary, signer, signedAtUtc: DaysAgo(500)));
-        }
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void LaterBinding_WithoutBackSignature_IsNotInForceBeforeItsDate(Mode mode)
+            => Assert.True(SignAndVerify(mode, WithLaterBindingWithoutBackSignature(), signedAtUtc: DaysAgo(500)));
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void LaterBinding_WithoutBackSignature_GovernsSignaturesMadeAfterItsDate(Mode mode)
+            => Assert.False(SignAndVerify(mode, WithLaterBindingWithoutBackSignature(), signedAtUtc: DaysAgo(10)));
 
         // ---------------------------------------------------------------- binding in force at signing time
 
@@ -261,7 +272,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 o.SubkeyKeyFlags = firstFlags;
                 foreach (var (ageDays, flags) in later)
                 {
-                    o.LaterBindings.Add((DaysAgo(ageDays), flags));
+                    o.LaterBindings.Add((DaysAgo(ageDays), flags, null));
                 }
             });
 
