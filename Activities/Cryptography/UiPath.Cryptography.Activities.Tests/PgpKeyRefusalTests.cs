@@ -50,6 +50,34 @@ namespace UiPath.Cryptography.Activities.Tests
             => Assert.NotEmpty(Sign(Create(o => o.RevokeSubkey = true)));
 
         [Fact]
+        public void SignText_WithAValidKey_Works()
+        {
+            var signer = Create();
+            using var privateKey = new MemoryStream(signer.PrivateKeyRing);
+            Assert.NotEmpty(CryptographyHelper.PgpSignText("payload", privateKey, signer.Passphrase));
+        }
+
+        [Fact]
+        public void SignText_WithARevokedKey_IsRefused()
+        {
+            var signer = Create(o => o.RevokePrimary = true);
+            using var privateKey = new MemoryStream(signer.PrivateKeyRing);
+
+            var exception = Assert.Throws<InvalidOperationException>(() => CryptographyHelper.PgpSignText("payload", privateKey, signer.Passphrase));
+            Assert.Equal(CryptoResources.PgpSigningKeyNotUsable, exception.Message);
+        }
+
+        [Fact]
+        public void ClearSignText_WithARevokedKey_IsRefused()
+        {
+            var signer = Create(o => o.RevokePrimary = true);
+            using var privateKey = new MemoryStream(signer.PrivateKeyRing);
+
+            var exception = Assert.Throws<InvalidOperationException>(() => CryptographyHelper.PgpClearSignText("payload", privateKey, signer.Passphrase));
+            Assert.Equal(CryptoResources.PgpSigningKeyNotUsable, exception.Message);
+        }
+
+        [Fact]
         public void EncryptAndSign_WithARevokedSigningKey_IsRefused()
         {
             var signer = Create(o => o.RevokePrimary = true);

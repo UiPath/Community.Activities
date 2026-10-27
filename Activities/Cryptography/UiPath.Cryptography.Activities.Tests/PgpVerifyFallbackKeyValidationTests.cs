@@ -283,6 +283,58 @@ namespace UiPath.Cryptography.Activities.Tests
                 o.PrimaryKeyFlags = primaryKeyFlags;
             })));
 
+        // The governing self-signature of the primary key is the newest one that verifies against it and was in
+        // force at signing time. The initial self-signature is dated when the fixture is created; the later ones
+        // are dated a day after it and the message is signed two days after it.
+        private static DateTime SoonAfterCreation(int days) => DateTime.UtcNow.AddDays(days);
+
+        private static bool PrimarySignsAfterSelfSignatures(Mode mode, int? initialFlags, Action<PgpBcFixture.Options> configure)
+            => SignAndVerify(mode, Create(o =>
+            {
+                o.SignWithPrimary = true;
+                o.PrimaryKeyFlags = initialFlags;
+                configure(o);
+            }), signedAtUtc: SoonAfterCreation(2));
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_NewerSelfSignatureWithSigningFlags_Verifies(Mode mode)
+            => Assert.True(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify,
+                o => o.LaterPrimaryCertifications.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign))));
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_NewerSelfSignatureWithoutSigningFlags_DoesNotVerify(Mode mode)
+            => Assert.False(PrimarySignsAfterSelfSignatures(mode, null,
+                o => o.LaterPrimaryCertifications.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify))));
+
+        // A newer self-signature without a key-flags subpacket governs: it no longer carries the older restriction.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_NewerSelfSignatureWithoutFlags_ReplacesOlderRestriction(Mode mode)
+            => Assert.True(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify,
+                o => o.LaterPrimaryCertifications.Add((SoonAfterCreation(1), null))));
+
+        // Flags that are present but empty grant no capability at all.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_EmptyKeyFlags_DoesNotVerify(Mode mode)
+            => Assert.False(PrimarySignsAfterSelfSignatures(mode, null,
+                o => o.LaterPrimaryCertifications.Add((SoonAfterCreation(1), 0))));
+
+        // A self-signature that names the primary key as issuer but was made by another key does not verify, so it
+        // cannot lift the restriction of the genuine one.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_SelfSignatureNotMadeByThePrimaryKey_IsIgnored(Mode mode)
+            => Assert.False(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify,
+                o => o.ForgedPrimaryCertifications.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign))));
+
         // The back-signature check is applied to the binding that is in force at signing time: the first
         // binding carries one, the later binding (also signing-capable) does not.
         private static PgpBcFixture WithLaterBindingWithoutBackSignature()

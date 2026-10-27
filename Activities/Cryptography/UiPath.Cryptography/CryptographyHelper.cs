@@ -1073,7 +1073,7 @@ namespace UiPath.Cryptography
         {
             try
             {
-                var encryptionKeys = new EncryptionKeys(privateKeyStream, passphrase);
+                var encryptionKeys = CreateSigningKeys(null, privateKeyStream, passphrase);
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
@@ -1091,7 +1091,7 @@ namespace UiPath.Cryptography
         {
             try
             {
-                var encryptionKeys = new EncryptionKeys(privateKeyStream, passphrase);
+                var encryptionKeys = CreateSigningKeys(null, privateKeyStream, passphrase);
                 using (var pgp = new PGP(encryptionKeys))
                 {
                     pgp.HashAlgorithmTag = HashAlgorithmTag.Sha256;
@@ -1686,41 +1686,67 @@ namespace UiPath.Cryptography
         }
 
         // The primary key's usage flags sit on its self-signatures (user-id certifications or a direct-key
-        // signature). Like for subkeys, no key-flags subpacket means "unrestricted" (older keys), but a key whose
-        // governing self-signature carries flags without "sign" (for example certify-only) must not verify data.
+        // signature). The governing one is the newest verified self-signature in force at signing time. Like for
+        // subkeys, no key-flags subpacket means "unrestricted" (older keys), but flags without "sign" (for example
+        // certify-only, or none at all) must not verify data.
         private static bool PrimaryKeyAllowsSigning(PgpPublicKey primary, DateTime signedAtUtc)
         {
             PgpSignature governing = null;
-            foreach (PgpSignature selfSignature in GetSelfSignatures(primary))
+            foreach (PgpSignature selfSignature in GetVerifiedSelfSignatures(primary))
             {
-                var hashed = selfSignature.GetHashedSubPackets();
-                if (selfSignature.CreationTime <= signedAtUtc &&
-                    IsBindingActiveAt(selfSignature, signedAtUtc) &&
-                    hashed?.GetKeyFlags() is not null and not 0 &&
+                if (IsBindingActiveAt(selfSignature, signedAtUtc) &&
                     (governing is null || selfSignature.CreationTime >= governing.CreationTime))
                 {
                     governing = selfSignature;
                 }
             }
 
-            return governing is null || (governing.GetHashedSubPackets().GetKeyFlags() & PgpKeyFlags.CanSign) != 0;
+            var hashed = governing?.GetHashedSubPackets();
+            return hashed is null || !hashed.HasSubpacket(SignatureSubpacketTag.KeyFlags) || (hashed.GetKeyFlags() & PgpKeyFlags.CanSign) != 0;
         }
 
-        private static IEnumerable<PgpSignature> GetSelfSignatures(PgpPublicKey primary)
+        // Only signatures that verify against the primary key count: a claimed issuer is not proof. Signatures that
+        // name another issuer (third-party certifications) are skipped without verifying; one without an issuer key id
+        // is verified, because verification is what decides.
+        private static IEnumerable<PgpSignature> GetVerifiedSelfSignatures(PgpPublicKey primary)
         {
-            foreach (var type in new[]
+            foreach (PgpSignature signature in primary.GetSignaturesOfType(PgpSignature.DirectKey))
             {
-                PgpSignature.DirectKey, PgpSignature.DefaultCertification, PgpSignature.NoCertification,
-                PgpSignature.CasualCertification, PgpSignature.PositiveCertification,
-            })
-            {
-                foreach (PgpSignature signature in primary.GetSignaturesOfType(type))
+                if (IsVerifiedSelfSignature(primary, signature, null))
                 {
-                    if (signature.KeyId == primary.KeyId)
+                    yield return signature;
+                }
+            }
+
+            foreach (string userId in primary.GetUserIds())
+            {
+                foreach (PgpSignature signature in primary.GetSignaturesForId(userId) ?? Enumerable.Empty<PgpSignature>())
+                {
+                    if (IsVerifiedSelfSignature(primary, signature, userId))
                     {
                         yield return signature;
                     }
                 }
+            }
+        }
+
+        private static bool IsVerifiedSelfSignature(PgpPublicKey primary, PgpSignature signature, string userId)
+        {
+            if (signature.KeyId != 0 && signature.KeyId != primary.KeyId)
+            {
+                return false;
+            }
+
+            try
+            {
+                signature.InitVerify(primary);
+                return userId is null
+                    ? signature.VerifyCertification(primary)
+                    : signature.VerifyCertification(userId, primary);
+            }
+            catch (Exception ex) when (ex is PgpException or InvalidOperationException or IOException)
+            {
+                return false;
             }
         }
 
