@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Org.BouncyCastle.Bcpg;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using Org.BouncyCastle.Crypto;
@@ -28,6 +29,9 @@ namespace UiPath.Cryptography.Activities.Tests
 
             /// <summary>Key flags written on the subkey binding signature; null omits the subpacket.</summary>
             public int? SubkeyKeyFlags { get; set; } = PgpKeyFlags.CanSign;
+
+            /// <summary>Key flags written on the primary key's self-signature; null omits the subpacket.</summary>
+            public int? PrimaryKeyFlags { get; set; }
 
             public bool RevokeSubkey { get; set; }
             public bool RevokePrimary { get; set; }
@@ -63,6 +67,9 @@ namespace UiPath.Cryptography.Activities.Tests
         {
             /// <summary>Made by the subkey over (primary, subkey): what GnuPG writes.</summary>
             Valid,
+
+            /// <summary>Valid, but without the Issuer Key ID subpacket (the signed data is unchanged).</summary>
+            ValidWithoutIssuer,
 
             /// <summary>No embedded signature at all.</summary>
             Missing,
@@ -141,10 +148,19 @@ namespace UiPath.Cryptography.Activities.Tests
             var subPgpPair = new PgpKeyPair(PublicKeyAlgorithmTag.RsaSign, subPair, options.SubkeyCreatedUtc ?? now);
 
             PgpSignatureSubpacketVector masterHashed = null;
-            if (options.MasterExpirySeconds.HasValue)
+            if (options.MasterExpirySeconds.HasValue || options.PrimaryKeyFlags.HasValue)
             {
                 var gen = new PgpSignatureSubpacketGenerator();
-                gen.SetKeyExpirationTime(false, options.MasterExpirySeconds.Value);
+                if (options.MasterExpirySeconds.HasValue)
+                {
+                    gen.SetKeyExpirationTime(false, options.MasterExpirySeconds.Value);
+                }
+
+                if (options.PrimaryKeyFlags.HasValue)
+                {
+                    gen.SetKeyFlags(false, options.PrimaryKeyFlags.Value);
+                }
+
                 masterHashed = gen.Generate();
             }
 
@@ -295,6 +311,12 @@ namespace UiPath.Cryptography.Activities.Tests
                 publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, sub);
             }
 
+            if (options.RevokePrimary || options.RevokeSubkey)
+            {
+                // A revocation is part of the key as published; the secret ring carries it too once the owner revokes.
+                secretRing = PgpSecretKeyRing.ReplacePublicKeys(secretRing, publicRing);
+            }
+
             return new PgpBcFixture(publicRing, options.SignWithPrimary ? masterSecret : subkeySecret, passChars, secretRing, encryptionKeyId);
         }
 
@@ -316,7 +338,46 @@ namespace UiPath.Cryptography.Activities.Tests
 
             var generator = new PgpSignatureGenerator(signer.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
             generator.InitSign(PgpSignature.PrimaryKeyBinding, signer.PrivateKey);
-            return generator.GenerateCertification(primary, subkey.PublicKey);
+            var signature = generator.GenerateCertification(primary, subkey.PublicKey);
+            return mode == BackSignatureMode.ValidWithoutIssuer ? RemoveUnhashedIssuer(signature) : signature;
+        }
+
+        // The unhashed subpackets are not covered by the signature, so dropping the Issuer Key ID (type 16) from
+        // them leaves a valid signature that no longer names its issuer. Rebuilds a version 4 signature packet.
+        private static PgpSignature RemoveUnhashedIssuer(PgpSignature signature)
+        {
+            const int IssuerKeyIdSubpacket = 16;
+            var encoded = signature.GetEncoded();
+            var header = (encoded[0] & 0x40) != 0 ? 2 : new[] { 2, 3, 5 }[encoded[0] & 0x03]; // new format: one length octet
+            var body = encoded.Skip(header).ToArray();
+            var hashedLength = (body[4] << 8) | body[5];
+            var unhashedStart = 6 + hashedLength;
+            var unhashedLength = (body[unhashedStart] << 8) | body[unhashedStart + 1];
+            var kept = new MemoryStream();
+            for (var offset = unhashedStart + 2; offset < unhashedStart + 2 + unhashedLength;)
+            {
+                var length = body[offset]; // subpackets used here are shorter than 192 octets
+                if ((body[offset + 1] & 0x7F) != IssuerKeyIdSubpacket)
+                {
+                    kept.Write(body, offset, length + 1);
+                }
+
+                offset += length + 1;
+            }
+
+            var rebuilt = new MemoryStream();
+            rebuilt.Write(body, 0, unhashedStart);
+            rebuilt.WriteByte((byte)(kept.Length >> 8));
+            rebuilt.WriteByte((byte)kept.Length);
+            kept.WriteTo(rebuilt);
+            rebuilt.Write(body, unhashedStart + 2 + unhashedLength, body.Length - (unhashedStart + 2 + unhashedLength));
+
+            var packet = new MemoryStream();
+            packet.WriteByte(0x89); // old format, tag 2, two length octets
+            packet.WriteByte((byte)(rebuilt.Length >> 8));
+            packet.WriteByte((byte)rebuilt.Length);
+            rebuilt.WriteTo(packet);
+            return (PgpSignature)((PgpSignatureList)new PgpObjectFactory(packet.ToArray()).NextPgpObject())[0];
         }
 
         /// <summary>

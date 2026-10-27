@@ -173,11 +173,13 @@ namespace UiPath.Cryptography.Activities.Tests
         public void Decrypt_InputWithoutEncryptionLayer_IsRejected()
         {
             var user = NewUser();
-            var otherKey = OtherKeyWithId(user.SigningPublicKey.KeyId);
-            var (ops, signature) = Sign(otherKey, user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            var (ops, signature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
             var message = SignedOnly(compress: true, ops, Payload, signature);
 
-            Assert.ThrowsAny<Exception>(() => Decrypt(message, user, user.PublicKeyRing));
+            // The signature is genuine and the signer is the verifier key, so only the missing encryption layer can reject it.
+            Assert.True(Verify(message, user.PublicKeyRing));
+            var exception = Assert.Throws<InvalidOperationException>(() => Decrypt(message, user, user.PublicKeyRing));
+            Assert.Equal(CryptoResources.PgpInputNotEncrypted, exception.Message);
         }
 
         // ---------------------------------------------------------------- a message needs a signature
@@ -253,7 +255,7 @@ namespace UiPath.Cryptography.Activities.Tests
 
         // ---------------------------------------------------------------- the message must be exactly one signed message
 
-        // Two headers for one signature, from a signer whose key is revoked: the signature must not carry the message.
+        // Two headers for one signature from a valid signer: only the header/signature count can reject the message.
         private static (byte[] Encrypted, byte[] SignedOnly) DuplicatedHeaderMessages(PgpBcFixture user)
         {
             var generator = new PgpSignatureGenerator(user.SigningPublicKey.Algorithm, HashAlgorithmTag.Sha256);
@@ -265,13 +267,10 @@ namespace UiPath.Cryptography.Activities.Tests
                     SignedOnly(compress: true, headers, Payload, signatures));
         }
 
-        private static PgpBcFixture NewRevokedUser()
-            => PgpBcFixture.Create(new PgpBcFixture.Options { WithEncryptionSubkey = true, RevokeSubkey = true });
-
         [Fact]
         public void Verify_MoreHeadersThanSignatures_IsFalse()
         {
-            var user = NewRevokedUser();
+            var user = NewUser();
             var (_, signedOnly) = DuplicatedHeaderMessages(user);
 
             Assert.False(Verify(signedOnly, user.PublicKeyRing));
@@ -280,12 +279,15 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void Decrypt_MoreHeadersThanSignatures_IsRejected()
         {
-            var user = NewRevokedUser();
+            var user = NewUser();
             var (encrypted, _) = DuplicatedHeaderMessages(user);
 
-            Assert.ThrowsAny<Exception>(() => Decrypt(encrypted, user, user.PublicKeyRing));
-            Assert.ThrowsAny<Exception>(() => DecryptText(encrypted, user));
+            AssertSignatureRejected(() => Decrypt(encrypted, user, user.PublicKeyRing));
+            AssertSignatureRejected(() => DecryptText(encrypted, user));
         }
+
+        private static PgpBcFixture NewRevokedUser()
+            => PgpBcFixture.Create(new PgpBcFixture.Options { WithEncryptionSubkey = true, RevokeSubkey = true });
 
         private static string DecryptText(byte[] armoredMessage, PgpBcFixture user)
         {

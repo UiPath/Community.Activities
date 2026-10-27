@@ -278,11 +278,20 @@ namespace UiPath.Cryptography.Activities.Tests
             using var output = new MemoryStream();
             using var privateKey = new MemoryStream(user.PrivateKeyRing);
             using var publicKey = new MemoryStream(user.PublicKeyRing);
-            Assert.ThrowsAny<Exception>(() => CryptographyHelper.PgpDecryptStream(
+            var exception = Assert.Throws<InvalidOperationException>(() => CryptographyHelper.PgpDecryptStream(
                 new MemoryStream(encrypted), output, privateKey, user.Passphrase, publicKey, verifySignature: true));
 
+            Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpMessageIntegrityFailed, exception.Message);
             Assert.Equal(0, output.Length);
         }
+
+        // The text fallback decodes through a BOM-detecting reader, as PgpCore's string API does.
+        [Theory]
+        [InlineData("UTF-8", new byte[] { 0xEF, 0xBB, 0xBF, 0x68, 0x69, 0xC3, 0xA9 }, "hié")]
+        [InlineData("UTF-16LE", new byte[] { 0xFF, 0xFE, 0x68, 0x00, 0x69, 0x00 }, "hi")]
+        [InlineData("none", new byte[] { 0x68, 0x69, 0xC3, 0xA9 }, "hié")]
+        public void ReadPlaintextText_UsesByteOrderMark(string _, byte[] bytes, string expected)
+            => Assert.Equal(expected, CryptographyHelper.ReadPlaintextText(new MemoryStream(bytes)));
 
         [Fact]
         public void VerificationFailure_WritesNothingToOutputStream()

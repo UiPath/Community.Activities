@@ -222,6 +222,37 @@ namespace UiPath.Cryptography.Activities.Tests
         public void SigningSubkey_BackSignatureOverAnotherPrimary_DoesNotVerify(Mode mode)
             => Assert.False(SignAndVerify(mode, Create(o => o.BackSignature = PgpBcFixture.BackSignatureMode.WrongPrimary)));
 
+        // A back-signature that does not name its issuer is still accepted when it verifies against the subkey.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void SigningSubkey_BackSignatureWithoutIssuer_Verifies(Mode mode)
+        {
+            var signer = Create(o => o.BackSignature = PgpBcFixture.BackSignatureMode.ValidWithoutIssuer);
+
+            Assert.True(System.Linq.Enumerable.All(BackSignaturesOf(signer), s => s.KeyId == 0), "the fixture must produce an issuer-less back-signature");
+            Assert.True(SignAndVerify(mode, signer));
+        }
+
+        private static System.Collections.Generic.List<PgpSignature> BackSignaturesOf(PgpBcFixture user)
+        {
+            var result = new System.Collections.Generic.List<PgpSignature>();
+            foreach (PgpSignature binding in user.SigningPublicKey.GetSignaturesOfType(PgpSignature.SubkeyBinding))
+            {
+                foreach (var subpackets in new[] { binding.GetHashedSubPackets(), binding.GetUnhashedSubPackets() })
+                {
+                    var embedded = subpackets?.GetEmbeddedSignatures();
+                    for (var i = 0; embedded is not null && i < embedded.Count; i++)
+                    {
+                        result.Add(embedded[i]);
+                    }
+                }
+            }
+
+            Assert.NotEmpty(result);
+            return result;
+        }
+
         // GnuPG may place the embedded signature in either subpacket area; both are accepted.
         [Theory]
         [InlineData(Mode.Binary)]
@@ -236,6 +267,20 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 o.SignWithPrimary = true;
                 o.BackSignature = PgpBcFixture.BackSignatureMode.Missing;
+            })));
+
+        // Like a subkey, a primary key whose self-signature carries key flags must allow signing: a
+        // certify-only primary does not verify data signatures, whichever way they are made.
+        [Theory]
+        [InlineData(Mode.Binary, PgpKeyFlags.CanCertify, false)]
+        [InlineData(Mode.Clear, PgpKeyFlags.CanCertify, false)]
+        [InlineData(Mode.Binary, PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign, true)]
+        [InlineData(Mode.Clear, PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign, true)]
+        public void PrimaryKeySigner_KeyFlagsDecideWhetherItMaySign(Mode mode, int primaryKeyFlags, bool expected)
+            => Assert.Equal(expected, SignAndVerify(mode, Create(o =>
+            {
+                o.SignWithPrimary = true;
+                o.PrimaryKeyFlags = primaryKeyFlags;
             })));
 
         // The back-signature check is applied to the binding that is in force at signing time: the first
