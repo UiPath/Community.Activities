@@ -132,6 +132,43 @@ namespace UiPath.Cryptography.Activities.Tests
             return CryptographyHelper.PgpVerify(message, publicKey);
         }
 
+        // A clear-signed message is the whole input: unsigned text around the signed block must not ride along with it.
+        private static bool VerifyClear(string text, PgpBcFixture signer)
+        {
+            using var publicKey = new MemoryStream(signer.PublicKeyRing);
+            return CryptographyHelper.PgpVerifyClearText(text, publicKey);
+        }
+
+        private static string GenuineClearSigned(PgpBcFixture signer)
+            => Encoding.ASCII.GetString(signer.CreateClearSignedMessage("signed line one\nsigned line two"));
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("\r\n\r\n", "\r\n")]
+        [InlineData("  \n", " \n\n")]
+        public void VerifyClear_OnlyWhitespaceAroundTheSignedBlock_IsTrue(string before, string after)
+        {
+            var signer = NewUser();
+            Assert.True(VerifyClear(before + GenuineClearSigned(signer) + after, signer));
+        }
+
+        [Theory]
+        [InlineData("this line is not signed\n", "")]
+        [InlineData("", "\nthis line is not signed")]
+        [InlineData("this line is not signed\n", "\nneither is this one")]
+        public void VerifyClear_UnsignedTextAroundTheSignedBlock_IsFalse(string before, string after)
+        {
+            var signer = NewUser();
+            Assert.False(VerifyClear(before + GenuineClearSigned(signer) + after, signer));
+        }
+
+        [Fact]
+        public void VerifyClear_SecondSignedBlock_IsFalse()
+        {
+            var signer = NewUser();
+            Assert.False(VerifyClear(GenuineClearSigned(signer) + "\n" + GenuineClearSigned(signer), signer));
+        }
+
         private static void AssertSignatureRejected(Action action)
         {
             var exception = Assert.Throws<InvalidOperationException>(action);
@@ -315,6 +352,35 @@ namespace UiPath.Cryptography.Activities.Tests
             {
                 Assert.ThrowsAny<Exception>(() => DecryptText(message, user));
             }
+        }
+
+        // Whatever follows the first message, the released content is the verified content or nothing at all.
+        // The trailing block is a genuine message with other content whose armor header is labelled differently.
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Decrypt_ContentAfterTheFirstMessage_IsNeverReleased(bool text)
+        {
+            var user = NewUser();
+            var other = Encoding.UTF8.GetBytes("content that was never verified");
+            var (otherOps, otherSignature) = Sign(SigningPrivateKey(user), user.SigningPublicKey, PgpSignature.BinaryDocument, other);
+            var trailing = Encoding.ASCII.GetString(SignedAndEncrypted(EncryptionKey(user), compress: true, otherOps, other, otherSignature))
+                .Replace("BEGIN PGP", "BEGIN").Replace("END PGP", "END");
+            var message = Encoding.ASCII.GetBytes(Encoding.ASCII.GetString(GenuineSignedAndEncrypted(user, armor: true)) + "\n" + trailing);
+
+            byte[] released = null;
+            try
+            {
+                released = text
+                    ? Encoding.UTF8.GetBytes(DecryptText(message, user))
+                    : Decrypt(message, user, user.PublicKeyRing);
+            }
+            catch (Exception)
+            {
+                // refused: nothing is released
+            }
+
+            Assert.True(released is null || released.SequenceEqual(Payload));
         }
 
         [Theory]

@@ -50,6 +50,33 @@ namespace UiPath.Cryptography.Activities.Tests
             => Assert.NotEmpty(Sign(Create(o => o.RevokeSubkey = true)));
 
         [Fact]
+        public void Sign_WithAnExpiredKey_IsRefused()
+        {
+            var signer = Create(o =>
+            {
+                o.MasterCreatedUtc = DateTime.UtcNow.AddDays(-30);
+                o.SubkeyCreatedUtc = DateTime.UtcNow.AddDays(-30);
+                o.MasterExpirySeconds = 24 * 3600;
+            });
+
+            var exception = Assert.Throws<InvalidOperationException>(() => Sign(signer));
+            Assert.Equal(CryptoResources.PgpSigningKeyNotUsable, exception.Message);
+        }
+
+        // A key file that lists the same secret ring twice has always signed; no extra parsing may break it.
+        [Fact]
+        public void Sign_WithAKeyFileHoldingTheSameRingTwice_Works()
+        {
+            var signer = Create();
+            using var privateKey = new MemoryStream();
+            privateKey.Write(signer.PrivateKeyRing, 0, signer.PrivateKeyRing.Length);
+            privateKey.Write(signer.PrivateKeyRing, 0, signer.PrivateKeyRing.Length);
+            privateKey.Position = 0;
+
+            Assert.NotEmpty(CryptographyHelper.PgpSign(Payload, privateKey, signer.Passphrase));
+        }
+
+        [Fact]
         public void SignText_WithAValidKey_Works()
         {
             var signer = Create();
@@ -81,8 +108,9 @@ namespace UiPath.Cryptography.Activities.Tests
         public void EncryptAndSign_WithARevokedSigningKey_IsRefused()
         {
             var signer = Create(o => o.RevokePrimary = true);
+            var recipient = Create();
             using var privateKey = new MemoryStream(signer.PrivateKeyRing);
-            using var publicKey = new MemoryStream(signer.PublicKeyRing);
+            using var publicKey = new MemoryStream(recipient.PublicKeyRing);
 
             var exception = Assert.Throws<InvalidOperationException>(() => CryptographyHelper.PgpEncrypt(
                 Payload, publicKey, privateKey, signer.Passphrase, sign: true));

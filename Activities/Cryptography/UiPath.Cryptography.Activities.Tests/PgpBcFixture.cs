@@ -72,6 +72,24 @@ namespace UiPath.Cryptography.Activities.Tests
             /// </summary>
             public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> ForgedPrimaryCertifications { get; }
                 = new System.Collections.Generic.List<(DateTime, int?)>();
+
+            /// <summary>The user id of the primary key.</summary>
+            public string UserId { get; set; } = "fixture@test.com";
+
+            /// <summary>Direct-key signatures made by the primary key itself (creation time, key flags; null omits them).</summary>
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> DirectKeySignatures { get; }
+                = new System.Collections.Generic.List<(DateTime, int?)>();
+
+            /// <summary>Revocations of the user-id certifications (type 0x30) made by the primary key; they carry no key flags.</summary>
+            public System.Collections.Generic.List<DateTime> UserIdRevocations { get; }
+                = new System.Collections.Generic.List<DateTime>();
+
+            /// <summary>
+            /// Self-certifications that name a signature algorithm BouncyCastle does not know (so they cannot be
+            /// verified): creation time, key flags.
+            /// </summary>
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> UnverifiableSelfCertifications { get; }
+                = new System.Collections.Generic.List<(DateTime, int?)>();
         }
 
         public enum BackSignatureMode
@@ -178,7 +196,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var keyRingGenerator = new PgpKeyRingGenerator(
                 PgpSignature.PositiveCertification,
                 masterPgpPair,
-                "fixture@test.com",
+                options.UserId,
                 SymmetricKeyAlgorithmTag.Aes256,
                 passChars,
                 true,
@@ -295,14 +313,49 @@ namespace UiPath.Cryptography.Activities.Tests
 
             foreach (var (createdUtc, keyFlags) in options.LaterPrimaryCertifications)
             {
-                masterPublic = AddPrimaryCertification(masterPublic, masterSecret.PublicKey.Algorithm, masterPrivate, createdUtc, keyFlags, null);
+                masterPublic = AddPrimaryCertification(masterPublic, options.UserId, masterSecret.PublicKey.Algorithm, masterPrivate, createdUtc, keyFlags, null);
                 publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
             }
 
             foreach (var (createdUtc, keyFlags) in options.ForgedPrimaryCertifications)
             {
                 masterPublic = AddPrimaryCertification(
-                    masterPublic, subkeySecret.PublicKey.Algorithm, subkeySecret.ExtractPrivateKey(passChars), createdUtc, keyFlags, masterSecret.KeyId);
+                    masterPublic, options.UserId, subkeySecret.PublicKey.Algorithm, subkeySecret.ExtractPrivateKey(passChars), createdUtc, keyFlags, masterSecret.KeyId);
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            foreach (var (createdUtc, keyFlags) in options.DirectKeySignatures)
+            {
+                var subpackets = new PgpSignatureSubpacketGenerator();
+                subpackets.SetSignatureCreationTime(false, createdUtc);
+                if (keyFlags.HasValue)
+                {
+                    subpackets.SetKeyFlags(false, keyFlags.Value);
+                }
+
+                var direct = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
+                direct.InitSign(PgpSignature.DirectKey, masterPrivate);
+                direct.SetHashedSubpackets(subpackets.Generate());
+                masterPublic = PgpPublicKey.AddCertification(masterPublic, direct.GenerateCertification(masterPublic));
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            foreach (var createdUtc in options.UserIdRevocations)
+            {
+                var subpackets = new PgpSignatureSubpacketGenerator();
+                subpackets.SetSignatureCreationTime(false, createdUtc);
+                var userIdRevocation = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
+                userIdRevocation.InitSign(PgpSignature.CertificationRevocation, masterPrivate);
+                userIdRevocation.SetHashedSubpackets(subpackets.Generate());
+                masterPublic = PgpPublicKey.AddCertification(
+                    masterPublic, options.UserId, userIdRevocation.GenerateCertification(options.UserId, masterPublic));
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            foreach (var (createdUtc, keyFlags) in options.UnverifiableSelfCertifications)
+            {
+                masterPublic = AddPrimaryCertification(
+                    masterPublic, options.UserId, masterSecret.PublicKey.Algorithm, masterPrivate, createdUtc, keyFlags, null, unknownAlgorithm: true);
                 publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
             }
 
@@ -347,7 +400,8 @@ namespace UiPath.Cryptography.Activities.Tests
         // A user-id certification of the primary key; with a different signer it names the primary as issuer but does
         // not verify against it.
         private static PgpPublicKey AddPrimaryCertification(
-            PgpPublicKey primary, PublicKeyAlgorithmTag algorithm, PgpPrivateKey signer, DateTime createdUtc, int? keyFlags, long? claimedIssuer)
+            PgpPublicKey primary, string userId, PublicKeyAlgorithmTag algorithm, PgpPrivateKey signer, DateTime createdUtc, int? keyFlags,
+            long? claimedIssuer, bool unknownAlgorithm = false)
         {
             var subpackets = new PgpSignatureSubpacketGenerator();
             subpackets.SetSignatureCreationTime(false, createdUtc);
@@ -359,13 +413,23 @@ namespace UiPath.Cryptography.Activities.Tests
             var generator = new PgpSignatureGenerator(algorithm, HashAlgorithmTag.Sha256);
             generator.InitSign(PgpSignature.PositiveCertification, signer);
             generator.SetHashedSubpackets(subpackets.Generate());
-            var certification = generator.GenerateCertification("fixture@test.com", primary);
+            var certification = generator.GenerateCertification(userId, primary);
             if (claimedIssuer.HasValue)
             {
                 certification = RewriteUnhashedIssuer(certification, claimedIssuer.Value);
             }
 
-            return PgpPublicKey.AddCertification(primary, "fixture@test.com", certification);
+            if (unknownAlgorithm)
+            {
+                // ElGamal signatures carry two integers: the RSA one plus a dummy second one keeps the packet parseable.
+                certification = RewriteSignatureBody(certification, body =>
+                {
+                    body[2] = (byte)PublicKeyAlgorithmTag.ElGamalGeneral;
+                    return body.Concat(new byte[] { 0x00, 0x01, 0x01 }).ToArray();
+                });
+            }
+
+            return PgpPublicKey.AddCertification(primary, userId, certification);
         }
 
         // A Primary Key Binding signature (0x19): made by the SUBKEY over (primary key, subkey), embedded in
@@ -388,6 +452,21 @@ namespace UiPath.Cryptography.Activities.Tests
             generator.InitSign(PgpSignature.PrimaryKeyBinding, signer.PrivateKey);
             var signature = generator.GenerateCertification(primary, subkey.PublicKey);
             return mode == BackSignatureMode.ValidWithoutIssuer ? RewriteUnhashedIssuer(signature, null) : signature;
+        }
+
+        // Re-encodes a version 4 signature with a changed packet body (the signed data is not touched).
+        private static PgpSignature RewriteSignatureBody(PgpSignature signature, Func<byte[], byte[]> change)
+        {
+            var encoded = signature.GetEncoded();
+            var header = (encoded[0] & 0x40) != 0 ? 2 : new[] { 2, 3, 5 }[encoded[0] & 0x03];
+            var body = encoded.Skip(header).ToArray();
+            body = change(body);
+            var packet = new MemoryStream();
+            packet.WriteByte(0x89); // old format, tag 2, two length octets
+            packet.WriteByte((byte)(body.Length >> 8));
+            packet.WriteByte((byte)body.Length);
+            packet.Write(body, 0, body.Length);
+            return (PgpSignature)((PgpSignatureList)new PgpObjectFactory(packet.ToArray()).NextPgpObject())[0];
         }
 
         // The unhashed subpackets are not covered by the signature, so dropping the Issuer Key ID (type 16) from

@@ -335,6 +335,65 @@ namespace UiPath.Cryptography.Activities.Tests
             => Assert.False(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify,
                 o => o.ForgedPrimaryCertifications.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign))));
 
+        // A user id that is not plain ASCII must not hide the key's restriction (or its permission).
+        [Theory]
+        [InlineData(Mode.Binary, PgpKeyFlags.CanCertify, false)]
+        [InlineData(Mode.Clear, PgpKeyFlags.CanCertify, false)]
+        [InlineData(Mode.Binary, PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign, true)]
+        [InlineData(Mode.Clear, PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign, true)]
+        public void PrimaryKeySigner_NonAsciiUserId_KeyFlagsStillDecide(Mode mode, int primaryKeyFlags, bool expected)
+            => Assert.Equal(expected, SignAndVerify(mode, Create(o =>
+            {
+                o.SignWithPrimary = true;
+                o.UserId = "Ștefan Ionescu <stefan@example.com>";
+                o.PrimaryKeyFlags = primaryKeyFlags;
+            })));
+
+        // Key flags may also sit on a direct-key signature, which governs when it is the newest self-signature.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_NewerDirectKeySignatureWithoutSigningFlags_DoesNotVerify(Mode mode)
+            => Assert.False(PrimarySignsAfterSelfSignatures(mode, null,
+                o => o.DirectKeySignatures.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify))));
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_NewerDirectKeySignatureWithSigningFlags_Verifies(Mode mode)
+            => Assert.True(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify,
+                o => o.DirectKeySignatures.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign))));
+
+        // A revocation of a user-id certification grants nothing: it must not replace the certification's restriction.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_UserIdRevocation_DoesNotLiftTheRestriction(Mode mode)
+            => Assert.False(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify,
+                o => o.UserIdRevocations.Add(SoonAfterCreation(1))));
+
+        // A self-signature that cannot be verified (unknown algorithm) does not count and does not fail the evaluation.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_UnverifiableSelfSignature_IsSkipped(Mode mode)
+            => Assert.True(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign,
+                o => o.UnverifiableSelfCertifications.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify))));
+
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void PrimaryKeySigner_UnverifiableSelfSignature_CannotLiftTheRestriction(Mode mode)
+            => Assert.False(PrimarySignsAfterSelfSignatures(mode, PgpKeyFlags.CanCertify,
+                o => o.UnverifiableSelfCertifications.Add((SoonAfterCreation(1), PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign))));
+
+        // The binding of a signing subkey that carries empty key flags grants nothing, like for the primary key.
+        [Theory]
+        [InlineData(Mode.Binary)]
+        [InlineData(Mode.Clear)]
+        public void SigningSubkey_EmptyKeyFlags_DoesNotVerify(Mode mode)
+            => Assert.False(SignAndVerify(mode, Create(o => o.SubkeyKeyFlags = 0)));
+
         // The back-signature check is applied to the binding that is in force at signing time: the first
         // binding carries one, the later binding (also signing-capable) does not.
         private static PgpBcFixture WithLaterBindingWithoutBackSignature()
