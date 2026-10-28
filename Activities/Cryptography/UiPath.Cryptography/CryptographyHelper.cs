@@ -8,6 +8,7 @@ using System.Runtime.ExceptionServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Org.BouncyCastle.Bcpg;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using PgpCore;
@@ -1182,8 +1183,7 @@ namespace UiPath.Cryptography
             using var inputStream = new MemoryStream(inputBytes);
             using var decoderStream = PgpUtilities.GetDecoderStream(inputStream);
 
-            var publicKeyRings = new PgpPublicKeyRingBundle(
-                PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
+            var publicKeyRings = ReadPublicKeyRings(publicKeyBytes);
             var verdict = BcVerifySignedPayload(new PgpObjectFactory(decoderStream), publicKeyRings, literalSink: null);
             if (verdict == BcVerdict.Verified && HasSecondArmorBlock(inputBytes))
             {
@@ -1464,8 +1464,7 @@ namespace UiPath.Cryptography
                 return BcVerdict.Rejected;
             }
 
-            var secretKeys = new PgpSecretKeyRingBundle(
-                PgpUtilities.GetDecoderStream(new MemoryStream(privateKeyBytes)));
+            var secretKeys = ReadSecretKeyRings(privateKeyBytes);
 
             PgpPublicKeyEncryptedData encryptedData = null;
             PgpPrivateKey privateKey = null;
@@ -1499,8 +1498,7 @@ namespace UiPath.Cryptography
                 return BcVerdict.Rejected;
             }
 
-            var publicKeyRings = new PgpPublicKeyRingBundle(
-                PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
+            var publicKeyRings = ReadPublicKeyRings(publicKeyBytes);
 
             using var clearStream = encryptedData.GetDataStream(privateKey);
             var verdict = BcVerifySignedPayload(new PgpObjectFactory(clearStream), publicKeyRings, verifiedPlaintext);
@@ -1555,8 +1553,7 @@ namespace UiPath.Cryptography
                 return BcVerdict.Rejected;
             }
 
-            var publicKeyRings = new PgpPublicKeyRingBundle(
-                PgpUtilities.GetDecoderStream(new MemoryStream(publicKeyBytes)));
+            var publicKeyRings = ReadPublicKeyRings(publicKeyBytes);
             var clearText = clearTextBuffer.ToArray();
 
             for (var i = 0; i < signatureList.Count; i++)
@@ -1585,44 +1582,118 @@ namespace UiPath.Cryptography
             return BcVerdict.Rejected;
         }
 
-        // The signature covers only the text inside the block, so a result of "verified" must not hide unsigned text
-        // before it, after it or in a second block: the whole input is one clear-signed block, and only whitespace may
-        // surround it. A body line that starts like a header or footer is dash-escaped, so it never matches them.
-        private static bool IsSingleClearSignedBlock(byte[] input)
+        // A key file may list the same key more than once (an export concatenated twice, an older export followed by a
+        // newer one). The BouncyCastle bundles throw on a repeated key id, which turned a file that PgpCore handles
+        // into a failed verification. Copies of a public key are merged, so a revocation or a newer binding in a later
+        // copy survives and an identical repeat changes nothing. Only the first copy of a secret key is used, as PgpCore does.
+        private static PgpPublicKeyRingBundle ReadPublicKeyRings(byte[] keyBytes)
         {
-            const string BeginLine = "-----BEGIN PGP SIGNED MESSAGE-----";
-            const string EndPrefix = "-----END PGP ";
-
-            var lines = Encoding.UTF8.GetString(input).Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
-            int begin = -1, end = -1;
-            for (var i = 0; i < lines.Length; i++)
+            var rings = new List<PgpPublicKeyRing>();
+            var factory = new PgpObjectFactory(PgpUtilities.GetDecoderStream(new MemoryStream(keyBytes)));
+            for (var next = factory.NextPgpObject(); next is not null; next = factory.NextPgpObject())
             {
-                var line = lines[i].TrimEnd();
-                if (line == BeginLine)
+                var ring = next as PgpPublicKeyRing ?? throw new PgpException(next.GetType().FullName + " found where PgpPublicKeyRing expected");
+                var seen = rings.FindIndex(existing => existing.GetPublicKey().KeyId == ring.GetPublicKey().KeyId);
+                if (seen < 0)
                 {
-                    if (begin >= 0)
-                    {
-                        return false;
-                    }
-
-                    begin = i;
+                    rings.Add(ring);
                 }
-                else if (line.StartsWith(EndPrefix, StringComparison.Ordinal))
+                else
                 {
-                    if (end >= 0)
-                    {
-                        return false;
-                    }
-
-                    end = i;
+                    rings[seen] = PgpPublicKeyRing.Join(rings[seen], ring);
                 }
             }
 
-            return begin >= 0 && end > begin &&
-                lines.Take(begin).All(IsBlank) &&
-                lines.Skip(end + 1).All(IsBlank);
+            return new PgpPublicKeyRingBundle(rings);
+        }
 
-            static bool IsBlank(string line) => line.Trim().Trim('\uFEFF').Length == 0;
+        private static PgpSecretKeyRingBundle ReadSecretKeyRings(byte[] keyBytes)
+        {
+            var rings = new List<PgpSecretKeyRing>();
+            var factory = new PgpObjectFactory(PgpUtilities.GetDecoderStream(new MemoryStream(keyBytes)));
+            for (var next = factory.NextPgpObject(); next is not null; next = factory.NextPgpObject())
+            {
+                var ring = next as PgpSecretKeyRing ?? throw new PgpException(next.GetType().FullName + " found where PgpSecretKeyRing expected");
+                if (!rings.Exists(existing => existing.GetSecretKey().KeyId == ring.GetSecretKey().KeyId))
+                {
+                    rings.Add(ring);
+                }
+            }
+
+            return new PgpSecretKeyRingBundle(rings);
+        }
+
+        // The signature covers only the text inside the block, so a result of "verified" must not hide unsigned text
+        // anywhere else: the whole input is exactly one clear-signed message, laid out as RFC 4880 section 7 describes
+        // it, with only whitespace around it. The armor reader that does the verifying is lenient about what follows
+        // the footer marker and about stray lines in the signature block, so this scan is stricter than the reader:
+        //   BEGIN PGP SIGNED MESSAGE, "Hash:" headers, blank line, clear text (a line that starts with "-----" is
+        //   dash-escaped, so only the signature header can end the clear text), BEGIN PGP SIGNATURE (or MESSAGE),
+        //   armor headers, blank line, base64 lines with an optional checksum line, the matching END line.
+        private static readonly Regex ArmorHeaderLine = new Regex(@"^[A-Za-z][A-Za-z0-9-]*:( .*)?$", RegexOptions.CultureInvariant);
+        private static readonly Regex ArmorDataLine = new Regex(@"^([A-Za-z0-9+/]+={0,2}|=[A-Za-z0-9+/]{4})$", RegexOptions.CultureInvariant);
+        private static readonly Regex SignatureBeginLine = new Regex(@"^-----BEGIN PGP (SIGNATURE|MESSAGE)-----$", RegexOptions.CultureInvariant);
+
+        private static bool IsSingleClearSignedBlock(byte[] input)
+        {
+            var lines = Encoding.UTF8.GetString(input).Replace("\r\n", "\n").Replace('\r', '\n').Split('\n')
+                .Select(line => line.TrimEnd()).ToArray();
+
+            var at = 0;
+            SkipLines(lines, ref at, line => line.Length == 0);
+            if (at >= lines.Length || lines[at++] != "-----BEGIN PGP SIGNED MESSAGE-----")
+            {
+                return false;
+            }
+
+            SkipLines(lines, ref at, line => line.StartsWith("Hash:", StringComparison.Ordinal));
+            if (!SkipBlankLine(lines, ref at))
+            {
+                return false;
+            }
+
+            SkipLines(lines, ref at, line => !line.StartsWith("-----", StringComparison.Ordinal));
+            var signatureBegin = at < lines.Length ? SignatureBeginLine.Match(lines[at]) : Match.Empty;
+            if (!signatureBegin.Success)
+            {
+                return false;
+            }
+
+            at++;
+            return HasValidSignatureArmor(lines, ref at, "-----END PGP " + signatureBegin.Groups[1].Value + "-----")
+                && lines.Skip(at).All(line => line.Length == 0);
+        }
+
+        // Armor headers, a blank line, base64 data (checksum line included) and then exactly the footer.
+        private static bool HasValidSignatureArmor(string[] lines, ref int at, string footer)
+        {
+            SkipLines(lines, ref at, ArmorHeaderLine.IsMatch);
+            if (!SkipBlankLine(lines, ref at))
+            {
+                return false;
+            }
+
+            SkipLines(lines, ref at, ArmorDataLine.IsMatch);
+            return at < lines.Length && lines[at++] == footer;
+        }
+
+        private static void SkipLines(string[] lines, ref int at, Func<string, bool> accept)
+        {
+            while (at < lines.Length && accept(lines[at]))
+            {
+                at++;
+            }
+        }
+
+        private static bool SkipBlankLine(string[] lines, ref int at)
+        {
+            if (at >= lines.Length || lines[at].Length != 0)
+            {
+                return false;
+            }
+
+            at++;
+            return true;
         }
 
         // RFC 4880 section 5.8: a Marker packet is ignorable and may appear before any other packet.

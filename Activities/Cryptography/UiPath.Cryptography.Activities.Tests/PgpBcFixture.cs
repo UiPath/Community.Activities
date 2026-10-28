@@ -132,14 +132,18 @@ namespace UiPath.Cryptography.Activities.Tests
 
         public byte[] PublicKeyRing { get; }
 
+        /// <summary>The same public key ring (binary) as it was before any revocation was added; equals the ring when none was.</summary>
+        public byte[] PublicKeyRingBeforeRevocation { get; }
+
         /// <summary>Armored secret key ring (null for fixtures that have none, e.g. a grafted ring).</summary>
         public byte[] PrivateKeyRing { get; }
 
         public string Passphrase => new string(_passphrase);
 
         private PgpBcFixture(PgpPublicKeyRing publicRing, PgpSecretKey signingSecret, char[] passphrase,
-            PgpSecretKeyRing secretRing = null, long? encryptionKeyId = null)
+            PgpSecretKeyRing secretRing = null, long? encryptionKeyId = null, PgpPublicKeyRing ringBeforeRevocation = null)
         {
+            PublicKeyRingBeforeRevocation = (ringBeforeRevocation ?? publicRing).GetEncoded();
             PublicRing = publicRing;
             _signingSecret = signingSecret;
             _passphrase = passphrase;
@@ -359,6 +363,8 @@ namespace UiPath.Cryptography.Activities.Tests
                 publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
             }
 
+            var ringBeforeRevocation = publicRing;
+
             if (options.RevokeSubkey)
             {
                 var revocation = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
@@ -394,7 +400,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 secretRing = PgpSecretKeyRing.ReplacePublicKeys(secretRing, publicRing);
             }
 
-            return new PgpBcFixture(publicRing, options.SignWithPrimary ? masterSecret : subkeySecret, passChars, secretRing, encryptionKeyId);
+            return new PgpBcFixture(publicRing, options.SignWithPrimary ? masterSecret : subkeySecret, passChars, secretRing, encryptionKeyId, ringBeforeRevocation);
         }
 
         // A user-id certification of the primary key; with a different signer it names the primary as issuer but does

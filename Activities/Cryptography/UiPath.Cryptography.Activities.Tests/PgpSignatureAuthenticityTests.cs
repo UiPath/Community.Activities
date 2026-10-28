@@ -169,6 +169,152 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.False(VerifyClear(GenuineClearSigned(signer) + "\n" + GenuineClearSigned(signer), signer));
         }
 
+        // The layout is checked line by line, so the same genuine message is edited line by line here.
+        private static string[] Lines(string message) => message.Replace("\r\n", "\n").Split('\n');
+
+        private static string EditedClearSigned(PgpBcFixture signer, Func<System.Collections.Generic.List<string>, System.Collections.Generic.List<string>> edit)
+            => string.Join("\n", edit(Lines(GenuineClearSigned(signer)).ToList()));
+
+        private static int IndexOfLine(System.Collections.Generic.List<string> lines, string prefix) => lines.FindIndex(line => line.StartsWith(prefix, StringComparison.Ordinal));
+
+        [Fact]
+        public void VerifyClear_TextOnTheFooterLine_IsFalse()
+        {
+            var signer = NewUser();
+            Assert.False(VerifyClear(GenuineClearSigned(signer).Replace("-----END PGP SIGNATURE-----", "-----END PGP SIGNATURE----- unsigned text"), signer));
+        }
+
+        // Whatever the armor reader treats as the end of the block, nothing but base64 may sit between the data and the footer.
+        [Theory]
+        [InlineData("-----")]
+        [InlineData("-----END")]
+        [InlineData("- -----END PGP SIGNATURE-----")]
+        [InlineData("unsigned text")]
+        public void VerifyClear_StrayLinesInTheSignatureBlock_IsFalse(string stray)
+        {
+            var signer = NewUser();
+            var message = EditedClearSigned(signer, lines =>
+            {
+                lines.InsertRange(IndexOfLine(lines, "-----END PGP SIGNATURE"), new[] { stray, "more unsigned text" });
+                return lines;
+            });
+
+            Assert.False(VerifyClear(message, signer));
+        }
+
+        // Only "Hash:" headers belong between the begin line and the clear text; an armor header there carries unsigned text.
+        [Fact]
+        public void VerifyClear_ExtraHeaderBeforeTheClearText_IsFalse()
+        {
+            var signer = NewUser();
+            var message = EditedClearSigned(signer, lines =>
+            {
+                lines.Insert(IndexOfLine(lines, "Hash:") + 1, "Comment: unsigned text");
+                return lines;
+            });
+
+            Assert.False(VerifyClear(message, signer));
+        }
+
+        // The signature's own armor block may carry headers such as Comment: and Version:.
+        [Fact]
+        public void VerifyClear_ArmorHeaderInTheSignatureBlock_IsTrue()
+        {
+            var signer = NewUser();
+            var message = EditedClearSigned(signer, lines =>
+            {
+                lines.Insert(IndexOfLine(lines, "-----BEGIN PGP SIGNATURE") + 1, "Comment: an ordinary armor header");
+                return lines;
+            });
+
+            Assert.True(VerifyClear(message, signer));
+        }
+
+        [Fact]
+        public void VerifyClear_CrLfLineEndings_IsTrue()
+        {
+            var signer = NewUser();
+            Assert.True(VerifyClear(GenuineClearSigned(signer).Replace("\r\n", "\n").Replace("\n", "\r\n"), signer));
+        }
+
+        // The armor reader does not skip a byte-order mark, so such input is refused, not partly read.
+        [Fact]
+        public void VerifyClear_ByteOrderMarkBeforeTheBlock_IsFalse()
+        {
+            var signer = NewUser();
+            Assert.False(VerifyClear("﻿" + GenuineClearSigned(signer), signer));
+        }
+
+        // ---------------------------------------------------------------- key files that list a key more than once
+
+        private static byte[] Dearmored(byte[] armored)
+        {
+            using var decoder = PgpUtilities.GetDecoderStream(new MemoryStream(armored));
+            using var buffer = new MemoryStream();
+            decoder.CopyTo(buffer);
+            return buffer.ToArray();
+        }
+
+        private static byte[] Twice(byte[] armored)
+        {
+            var binary = Dearmored(armored);
+            return binary.Concat(binary).ToArray();
+        }
+
+        private static byte[] GenuineSignedOnly(PgpBcFixture signer)
+        {
+            var (ops, signature) = Sign(SigningPrivateKey(signer), signer.SigningPublicKey, PgpSignature.BinaryDocument, Payload);
+            return SignedOnly(compress: true, ops, Payload, signature);
+        }
+
+        [Fact]
+        public void Verify_PublicKeyListedTwice_IsTrue()
+        {
+            var signer = NewUser();
+            Assert.True(Verify(GenuineSignedOnly(signer), Twice(signer.PublicKeyRing)));
+        }
+
+        [Fact]
+        public void VerifyClear_PublicKeyListedTwice_IsTrue()
+        {
+            var signer = NewUser();
+            using var publicKey = new MemoryStream(Twice(signer.PublicKeyRing));
+            Assert.True(CryptographyHelper.PgpVerifyClear(signer.CreateClearSignedMessage("signed line"), publicKey));
+        }
+
+        [Theory]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        [InlineData(true, true)]
+        public void Decrypt_KeysListedTwice_StillVerifies(bool publicTwice, bool privateTwice)
+        {
+            var user = NewUser();
+            var publicRing = publicTwice ? Twice(user.PublicKeyRing) : user.PublicKeyRing;
+            var privateRing = privateTwice ? Twice(user.PrivateKeyRing) : user.PrivateKeyRing;
+
+            using var privateKey = new MemoryStream(privateRing);
+            using var publicKey = new MemoryStream(publicRing);
+            Assert.Equal(Payload, CryptographyHelper.PgpDecrypt(
+                GenuineSignedAndEncrypted(user, armor: false), privateKey, user.Passphrase, publicKey, verifySignature: true));
+        }
+
+        // A later copy of a key may carry a revocation (an older export followed by a newer one): it must not be dropped,
+        // whichever copy comes first.
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Verify_RevocationInAnotherCopyOfTheKey_IsHonoured(bool revokedCopyFirst)
+        {
+            var signer = PgpBcFixture.Create(new PgpBcFixture.Options { SignWithPrimary = true, RevokePrimary = true });
+            var message = GenuineSignedOnly(signer);
+            var revoked = Dearmored(signer.PublicKeyRing);
+            var unrevoked = signer.PublicKeyRingBeforeRevocation;
+
+            Assert.True(Verify(message, unrevoked), "control: without the revocation the signature verifies");
+            Assert.False(Verify(message, revoked), "control: the revoked copy alone is refused");
+            Assert.False(Verify(message, revokedCopyFirst ? revoked.Concat(unrevoked).ToArray() : unrevoked.Concat(revoked).ToArray()));
+        }
+
         private static void AssertSignatureRejected(Action action)
         {
             var exception = Assert.Throws<InvalidOperationException>(action);
