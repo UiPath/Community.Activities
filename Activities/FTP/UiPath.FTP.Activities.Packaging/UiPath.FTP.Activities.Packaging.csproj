@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
     <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
     <!--leave empty for ci to replace with prelease tag-->
 	<VersionSuffix></VersionSuffix>
 	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
 	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
 	<PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
-	<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-  </PropertyGroup>
+	</PropertyGroup>
 
   <PropertyGroup>
     <PackageId>UiPath.FTP.Activities</PackageId>
@@ -39,11 +38,6 @@
   </ItemGroup>
 
 	<Target Name="AddDlls">
-		<!-- PDBs for debug-->
-		<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.pdb" />
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.pdb" />
-		</ItemGroup>
 		<ItemGroup>
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.dll" />
 			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.dll" />
@@ -57,10 +51,6 @@
       <BuildOutputInPackage Include="@(FtpActivitiesResources)">
         <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
       </BuildOutputInPackage>
-		</ItemGroup>
-    
-		<ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
-			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Design.dll" />
 		</ItemGroup>
 
     <!--Coded workflow API files-->
@@ -84,11 +74,6 @@
 		<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
 	</Target>
 
-  <ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
-    <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.Design\UiPath.FTP.Activities.Design.csproj">
-      <PrivateAssets>All</PrivateAssets>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>

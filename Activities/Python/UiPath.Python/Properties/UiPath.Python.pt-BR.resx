@@ -159,6 +159,15 @@
   <data name="UnsupportedVersionException" xml:space="preserve">
     <value>A versão do Python {0} não é compatível. As versões compatíveis são: {1}</value>
   </data>
+  <data name="Python32BitNotSupportedException" xml:space="preserve">
+    <value>A instalação de Python em &quot;{0}&quot; é de 32 bits. Apenas instalações de Python de 64 bits são compatíveis. Instale uma versão de Python de 64 bits.</value>
+  </data>
+  <data name="PythonVersionNotSupportedException" xml:space="preserve">
+    <value>A versão do Python {0} não é compatível. As versões compatíveis são: {1}.</value>
+  </data>
+  <data name="PythonVenvVersionMismatchException" xml:space="preserve">
+    <value>O ambiente virtual em &quot;{0}&quot; foi criado com o Python {1}, mas o LibraryPath aponta para o Python {2}. Aponte o LibraryPath para uma instalação do Python {1} que corresponda ao ambiente virtual.</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>O tamanho dos dados do script Python ({0} MB) ultrapassa o limite configurado ({1} MB). Transmita dados grandes por um caminho de arquivo, e não como um argumento de método. Se preferir, aumente a propriedade Limite de tamanho de dados do script.</value>
   </data>

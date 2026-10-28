@@ -222,6 +222,9 @@
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
     <value>유효한 인증 방법을 찾을 수 없음: 개인 키 파일(및 선택적으로 암호문) 또는 암호를 입력해야 합니다</value>
   </data>
+  <data name="AnonymousLoginNotSupportedOnSftp" xml:space="preserve">
+    <value>SFTP를 통한 익명 로그인은 지원되지 않습니다. 사용 익명 로그인 또는 SFTP를 사용하십시오.</value>
+  </data>
   <data name="NewPath" xml:space="preserve">
     <value>새 원격 경로</value>
   </data>
@@ -321,10 +324,10 @@
     <value>공통</value>
   </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
-    <value>FTP 세션 범위</value>
+    <value>Use FTP connection</value>
   </data>
   <data name="Activity_Delete_Description" xml:space="preserve">
-    <value>지정된 파일을 FTP 서버에서 제거합니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
+    <value>FTP 서버에서 파일 또는 폴더를 제거합니다. 이 액티비티는 FTP 연결 사용 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
@@ -340,11 +343,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
-    <value>FTP 서버에 특정 디렉터리가 있는지 확인합니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
+    <value>FTP 서버에 폴더가 있는지 확인합니다. 이 액티비티는 FTP 연결 사용 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DirectoryExists_Name" xml:space="preserve">
-    <value>Directory Exists</value>
+    <value>Check If Folder Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
@@ -364,23 +367,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>FTP 서버에서 찾은 파일 컬렉션을 생성합니다. 하위 폴더 포함 확인란을 선택하여 하위 폴더를 검색에 포함할 수도 있습니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
+    <value>FTP 서버에서 발견된 파일 및 폴더의 컬렉션을 생성합니다. 하위 폴더 포함을 설정하여 하위 폴더를 포함할 수도 있습니다. 이 액티비티는 FTP 연결 사용 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
-    <value>Enumerate Objects</value>
+    <value>List Files and Folders</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
-    <value>FTP 서버에서 발견된 파일의 컬렉션입니다.</value>
+    <value>FTP 서버에 있는 파일 및 폴더의 컬렉션입니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>파일</value>
+    <value>파일 및 폴더</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 하위 폴더도 FTP 서버에 있는 파일의 열거에 포함됩니다.</value>
+    <value>설정되어 있으면 하위 폴더도 목록에 포함됩니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
@@ -388,19 +391,19 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
-    <value>파일을 열거할 FTP 서버의 디렉터리 경로입니다.</value>
+    <value>콘텐츠가 나열되는 FTP 서버에서 폴더 경로입니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>원격 경로</value>
+    <value>폴더 경로</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
-    <value>지정된 FTP 디렉터리에 특정 파일이 있는지 확인합니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
+    <value>지정된 FTP 폴더에 파일이 있는지 확인합니다. 이 액티비티는 FTP 연결 사용 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_FileExists_Name" xml:space="preserve">
-    <value>File Exists</value>
+    <value>Check If File Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
@@ -420,7 +423,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
-    <value>FTP 서버에 파일을 업로드합니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
+    <value>FTP 서버에 파일을 업로드합니다. 이 액티비티는 FTP 연결 사용 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_UploadFiles_Name" xml:space="preserve">
@@ -428,11 +431,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 아직 없는 경우 폴더 경로가 FTP 서버에 생성됩니다.</value>
+    <value>설정하면 아직 없는 경우 폴더 경로가 FTP 서버에 생성됩니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>만들기</value>
+    <value>누락된 경우 폴더 만들기</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -444,15 +447,15 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 FTP 서버에 이미 저장되어 있는 파일을 덮어씁니다.</value>
+    <value>활성화된 경우 FTP 서버에 이미 저장되어 있는 파일을 덮어씁니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>덮어쓰기</value>
+    <value>기존 파일 덮어쓰기</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 폴더가 해당 하위 폴더와 함께 업로드됩니다.</value>
+    <value>설정되어 있으면 폴더가 해당 하위 폴더와 함께 업로드됩니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
@@ -476,7 +479,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 만료되거나 확인되지 않은 인증서를 포함한 모든 인증서가 수락됩니다.</value>
+    <value>설정되어 있는 경우 만료되거나 확인되지 않은 인증서를 포함한 모든 인증서가 수락됩니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
@@ -504,7 +507,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>오류 발생시 계속 진행</value>
+    <value>오류 발생 시 계속</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
@@ -548,7 +551,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
-    <value>시간 제한(밀리초)</value>
+    <value>시간 제한</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
@@ -556,7 +559,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
-    <value>이 상자를 선택하면, 사용자 이름 및 암호 필드가 무시되고 표준 익명 사용자가 대신 사용됩니다.</value>
+    <value>설정되어 있는 경우 사용자 이름 및 암호 필드가 무시되고 대신 표준 익명 사용자가 사용됩니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
@@ -572,7 +575,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
-    <value>SFTP 전송 프로토콜을 사용하려면 이 확인란을 선택합니다.</value>
+    <value>SFTP 전송 프로토콜을 사용하려면 설정합니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
@@ -580,7 +583,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
-    <value>지정된 파일을 FTP 서버에서 지정된 로컬 폴더로 다운로드합니다. 이 액티비티는 With FTP Session 범위 액티비티 내에 있는 경우에만 작동합니다.</value>
+    <value>지정된 파일을 FTP 서버에서 지정된 로컬 폴더로 다운로드합니다. 이 액티비티는 FTP 연결 사용 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
@@ -588,11 +591,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 아직 없는 경우 폴더 경로가 로컬에 생성됩니다.</value>
+    <value>활성화된 경우 아직 없는 경우 폴더 경로가 로컬에 생성됩니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>만들기</value>
+    <value>누락된 경우 폴더 만들기</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -604,15 +607,15 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 로컬에 이미 저장되어 있는 파일을 덮어씁니다.</value>
+    <value>설정하면 로컬에 이미 저장되어 있는 파일을 덮어씁니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>덮어쓰기</value>
+    <value>기존 파일 덮어쓰기</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 폴더가 해당 하위 폴더와 함께 다운로드됩니다.</value>
+    <value>설정되어 있는 경우 폴더가 해당 하위 폴더와 함께 다운로드됩니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
@@ -628,7 +631,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
-    <value>FTP 서버의 항목을 다른 원격 경로로 이동합니다. 이 액티비티는 With FTP 내에 있는 경우에만 작동합니다.</value>
+    <value>FTP 서버의 항목을 다른 원격 경로로 이동합니다. 이 액티비티는 FTP 연결 사용 액티비티 내에 있는 경우에만 작동합니다.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
@@ -652,11 +655,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
-    <value>이 확인란을 선택하면 새 원격 디렉터리에 파일이 이미 저장되어 있는 경우 해당 파일을 덮어씁니다.</value>
+    <value>설정되어 있는 경우 새 원격 폴더에 파일이 이미 저장되어 있는 경우 해당 파일을 새 원격 폴더에 덮어씁니다.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>덮어쓰기</value>
+    <value>기존 파일 덮어쓰기</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
@@ -737,7 +740,7 @@
     <value>프록시 포트 번호</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
-    <value>프록시 호스트 포트</value>
+    <value>프록시 포트</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
     <value>프록시 호스트 이름</value>
@@ -769,7 +772,7 @@
     <comment>it is used to mark the obsolete values in a dropdown</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
-    <value>자동 구성을 위해 비워두십시오</value>
+    <value>자동: 사용 가능한 최상의 프로토콜 협상</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
     <value>보안 문자열 형식의 프록시 암호</value>
@@ -782,10 +785,79 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
-    <value>개체 형식</value>
+    <value>포함할 항목 형식</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
-    <value>포함할 개체 형식 선택</value>
+    <value>포함할 항목 형식 선택</value>
+  </data>
+  <data name="Activity_Delete_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_DirectoryExists_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder</value>
+  </data>
+  <data name="Activity_FileExists_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder</value>
+  </data>
+  <data name="Activity_DownloadFiles_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder</value>
+  </data>
+  <data name="Activity_DownloadFiles_Property_LocalPath_Placeholder" xml:space="preserve">
+    <value>C:\로컬\폴더</value>
+  </data>
+  <data name="Activity_UploadFiles_Property_LocalPath_Placeholder" xml:space="preserve">
+    <value>C:\로컬\폴더</value>
+  </data>
+  <data name="Activity_UploadFiles_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder</value>
+  </data>
+  <data name="Activity_MoveItem_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_MoveItem_Property_NewPath_Placeholder" xml:space="preserve">
+    <value>/remote/new-folder/file.txt</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Host_Placeholder" xml:space="preserve">
+    <value>ftp.example.com</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Port_Placeholder" xml:space="preserve">
+    <value>FTP용 21, SFTP용 22</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Placeholder" xml:space="preserve">
+    <value>밀리초</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Placeholder" xml:space="preserve">
+    <value>C:\Certificates\client.pfx</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Placeholder" xml:space="preserve">
+    <value>Proxy.example.com</value>
+  </data>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>삭제</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>항목 이동</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>FTP 연결 사용</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFolderExists" xml:space="preserve">
+    <value>Directory Exists</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFileExists" xml:space="preserve">
+    <value>File Exists</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymListFilesAndFolders" xml:space="preserve">
+    <value>Enumerate Objects</value>
+    <comment>Activity search alias</comment>
   </data>
 </root>

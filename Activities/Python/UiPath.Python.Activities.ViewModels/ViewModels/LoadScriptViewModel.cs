@@ -1,4 +1,6 @@
 ﻿using System.Activities.DesignViewModels;
+using System.Activities.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UiPath.Python;
 using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
@@ -25,23 +27,32 @@ namespace UiPath.Activities.Python.ViewModels
             var orderIndex = 0;
             ScriptFile.OrderIndex = orderIndex++;
             Code.OrderIndex = orderIndex++;
-            Result.OrderIndex = orderIndex++;
+            Result.OrderIndex = orderIndex;
 
             ScriptFile.DisplayName = Resources.ScriptFileNameDisplayName;
             ScriptFile.Tooltip = Resources.ScriptFileDescription;
             ScriptFile.Category = Resources.Input;
             ScriptFile.IsPrincipal = true;
+            ScriptFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services);
 
             Code.DisplayName = Resources.CodeNameDisplayName;
             Code.Tooltip = Resources.CodeDescription;
             Code.Category = Resources.Input;
             Code.IsPrincipal = true;
+            Code.Widget = new DefaultWidget
+            {
+                Type = WidgetSupportHelper.CheckWidgetSupport(Services, ViewModelWidgetType.CodeEditor),
+                Metadata = new Dictionary<string, string>
+                {
+                    ["language"] = WidgetSupportHelper.PythonLanguage,
+                    ["multiline"] = bool.TrueString.ToLowerInvariant(),
+                },
+            };
 
             Result.DisplayName = Resources.ResultNameDisplayName;
             Result.Tooltip = Resources.ResultDescription;
             Result.Category = Resources.Output;
             Result.IsPrincipal = true;
         }
-
     }
 }

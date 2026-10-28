@@ -26,9 +26,12 @@
         </ItemGroup>
     </Target>
 
-    <ItemGroup Label="Reference3rdParties">
-        <None Include="..\3rdparty\Python.Runtime*.dll" LinkBase="x86" CopyToOutputDirectory="PreserveNewest" />
-        <None Include="..\3rdparty\x64\Python.Runtime*.dll" LinkBase="x64" CopyToOutputDirectory="PreserveNewest" />        
+
+    <ItemGroup>
+        <!--The files packed into bin\<tfm>\ (the out-of-process host), besides the resource satellites below.
+            ValidatePackageLayout fails the pack when the nupkg holds anything else there.-->
+        <PythonHostFile Include="UiPath.Python.dll;UiPath.Python.Host.dll;UiPath.Python.Host.runtimeconfig.json" />
+        <PythonHostSatelliteFile Include="UiPath.Python.resources.dll" />
     </ItemGroup>
 
     <Target Name="AddDlls">
@@ -37,33 +40,33 @@
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.dll" />
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.ViewModels.dll" />
 
-            <PythonResources Include="$(OutputPath)**\UiPath.Python.resources.dll" />
+            <PythonResources
+                Include="$(OutputPath)**\UiPath.Python.resources.dll"
+                Exclude="$(OutputPath)win-*\**\UiPath.Python.resources.dll;$(OutputPath)linux-*\**\UiPath.Python.resources.dll;$(OutputPath)osx-*\**\UiPath.Python.resources.dll" />
             <BuildOutputInPackage Include="@(PythonResources)">
                 <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
             </BuildOutputInPackage>
 
-            <PythonActivitiesResources Include="$(OutputPath)**\UiPath.Python.Activities.resources.dll" />
+            <PythonActivitiesResources
+                Include="$(OutputPath)**\UiPath.Python.Activities.resources.dll"
+                Exclude="$(OutputPath)win-*\**\UiPath.Python.Activities.resources.dll;$(OutputPath)linux-*\**\UiPath.Python.Activities.resources.dll;$(OutputPath)osx-*\**\UiPath.Python.Activities.resources.dll" />
             <BuildOutputInPackage Include="@(PythonActivitiesResources)">
                 <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
             </BuildOutputInPackage>
         </ItemGroup>
 
         <ItemGroup Label="AddPythonHost">
-            <TfmSpecificPackageFile Include="$(OutputPath)*.dll">
-                <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
-            </TfmSpecificPackageFile>
-            <TfmSpecificPackageFile Include="$(OutputPath)**\Python.Runtime*.dll">
-                <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
-            </TfmSpecificPackageFile>
-            <TfmSpecificPackageFile Include="$(OutputPath)UiPath.Python.Host*.*">
+            <!--Only UiPath-authored host files are packed, never a wildcard over the output folder: it is shared
+                by every project and picks up third-party dependencies and stale files. Python.Runtime comes
+                from the pythonnet package and System.Xaml from the executor; the client passes both to the
+                host by path (see HostAssemblyArguments). No deps.json is packed, since it would list
+                assemblies that are intentionally absent.-->
+            <TfmSpecificPackageFile Include="@(PythonHostFile->'$(OutputPath)%(Identity)')">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
             <TfmSpecificPackageFile Include="$(OutputPath)**\UiPath.Python.resources.dll">
                 <PackagePath>bin\$(TargetFramework)$(TargetPlatformVersion)</PackagePath>
             </TfmSpecificPackageFile>
-            
-            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Activities*.dll" />
-            <TfmSpecificPackageFile Remove="$(OutputPath)UiPath.Python.Packaging.dll" />
         </ItemGroup>
 
         <!--Coded workflow API files-->
@@ -72,6 +75,67 @@
             <BuildOutputInPackage Include="$(OutputPath)UiPath.Python.Activities.API.xml" />
         </ItemGroup>
       
+    </Target>
+
+    <!--Fails the pack when bin\<tfm>\ in the nupkg holds anything but the allowlisted UiPath-authored files. The CD
+        signer signs every unsigned DLL it finds, so a third-party assembly that slips in here would ship signed as
+        UiPath (STUD-79859).-->
+    <UsingTask TaskName="ValidateHostPackageLayout" TaskFactory="RoslynCodeTaskFactory"
+               AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+        <ParameterGroup>
+            <PackagePath ParameterType="System.String" Required="true" />
+            <AllowedFiles ParameterType="System.String" Required="true" />
+            <AllowedSatelliteFiles ParameterType="System.String" Required="true" />
+        </ParameterGroup>
+        <Task>
+            <Using Namespace="System.IO.Compression" />
+            <Code Type="Fragment" Language="cs"><![CDATA[
+                var allowed = new System.Collections.Generic.HashSet<string>(AllowedFiles.Split(';'), System.StringComparer.OrdinalIgnoreCase);
+                var satellites = new System.Collections.Generic.HashSet<string>(AllowedSatelliteFiles.Split(';'), System.StringComparer.OrdinalIgnoreCase);
+                var unexpected = new System.Collections.Generic.List<string>();
+                var hostFileCount = 0;
+
+                using (var archive = ZipFile.OpenRead(PackagePath))
+                {
+                    foreach (var entry in archive.Entries)
+                    {
+                        // bin/<tfm>/<file> or bin/<tfm>/[<rid>/]<culture>/<satellite>
+                        var parts = entry.FullName.Split('/');
+                        if (!string.Equals(parts[0], "bin", System.StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith("/"))
+                            continue;
+
+                        hostFileCount++;
+                        var isHostFile = parts.Length == 3 && allowed.Contains(parts[2]);
+                        var isSatellite = parts.Length >= 4 && satellites.Contains(parts[parts.Length - 1]);
+                        if (!isHostFile && !isSatellite)
+                            unexpected.Add(entry.FullName);
+                    }
+                }
+
+                if (hostFileCount == 0)
+                    Log.LogError("'{0}' has no files under bin/<tfm>/: the out-of-process host is missing from the package.", PackagePath);
+
+                foreach (var file in unexpected)
+                    Log.LogError("'{0}' is not an allowed host file in the package. Only UiPath-authored files may be packed under bin/<tfm>/ (see PythonHostFile in UiPath.Python.Packaging.csproj).", file);
+
+                if (!Log.HasLoggedErrors)
+                    Log.LogMessage(Microsoft.Build.Framework.MessageImportance.High, "Package layout OK: {0} files under bin/<tfm>/ in {1}, all UiPath-authored.", hostFileCount, System.IO.Path.GetFileName(PackagePath));
+
+                return !Log.HasLoggedErrors;
+            ]]></Code>
+        </Task>
+    </UsingTask>
+
+    <Target Name="ValidatePackageLayout" AfterTargets="Pack">
+        <ItemGroup>
+            <_PythonNupkg Include="@(NuGetPackOutput)" Condition=" '%(Extension)' == '.nupkg' " />
+        </ItemGroup>
+        <ValidateHostPackageLayout PackagePath="%(_PythonNupkg.FullPath)"
+                                   AllowedFiles="@(PythonHostFile)"
+                                   AllowedSatelliteFiles="@(PythonHostSatelliteFile)"
+                                   ContinueOnError="ErrorAndContinue" />
+        <!--CI packs with continueOnError, so delete a rejected package rather than leave it to be published.-->
+        <Delete Files="@(_PythonNupkg)" Condition=" '$(MSBuildLastTaskResult)' == 'false' " />
     </Target>
 
   <!--Pack .md files-->
@@ -89,9 +153,6 @@
         <ProjectReference Include="..\..\Python\UiPath.Python.Activities\UiPath.Python.Activities.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
-        <ProjectReference Include="..\..\Python\UiPath.Python.Host32\UiPath.Python.Host32.csproj">
-            <PrivateAssets>All</PrivateAssets>
-        </ProjectReference>
         <ProjectReference Include="..\..\Python\UiPath.Python.Host\UiPath.Python.Host.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
@@ -105,10 +166,11 @@
         <PackageReference Include="UiPath.Platform" />
         <PackageReference Include="UiPath.Telemetry.Client" />
         <PackageReference Include="UiPath.CodedWorkflows" />
+        <PackageReference Include="pythonnet" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
-        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" />
-        
+        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Python.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" IgnoreStandardErrorWarningFormat="true" />
+
 </Target>
 </Project>

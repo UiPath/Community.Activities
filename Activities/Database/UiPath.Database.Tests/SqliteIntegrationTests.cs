@@ -1,6 +1,7 @@
 using Microsoft.Data.Sqlite;
 using System;
 using System.Activities;
+using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -171,7 +172,55 @@ namespace UiPath.Database.Tests
             Assert.Equal(countBefore + 1, countAfter);
         }
 
-        [Fact, TestPriority(8)]
+        [Theory, TestPriority(8)]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void DatabaseTransaction_WithExistingConnection_AllowsFollowUpQuery(bool useTransaction)
+        {
+            int insertedId = CountRows() + 1000;
+            const string insertedName = "TransactionActivity";
+            const int insertedAge = 42;
+
+            var transactionActivity = new DatabaseTransaction
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                UseTransaction = useTransaction,
+                Body = new ExecuteNonQuery
+                {
+                    ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                    Sql = new InArgument<string>($"INSERT INTO {TableName} (Id, Name, Age) VALUES (@id, @name, @age)"),
+                    Parameters = new Dictionary<string, Argument>
+                    {
+                        { "@id", new InArgument<int>(insertedId) },
+                        { "@name", new InArgument<string>(insertedName) },
+                        { "@age", new InArgument<int>(insertedAge) }
+                    },
+                    AffectedRecords = new OutArgument<int>()
+                }
+            };
+
+            WorkflowInvoker.Invoke(transactionActivity, TimeSpan.FromSeconds(30));
+
+            var queryActivity = new ExecuteQuery
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                Sql = new InArgument<string>($"SELECT Name, Age FROM {TableName} WHERE Id = @id"),
+                Parameters = new Dictionary<string, Argument>
+                {
+                    { "@id", new InArgument<int>(insertedId) }
+                },
+                DataTable = new OutArgument<DataTable>()
+            };
+
+            var outputs = WorkflowInvoker.Invoke(queryActivity, TimeSpan.FromSeconds(30));
+            var table = (DataTable)outputs[nameof(ExecuteQuery.DataTable)];
+
+            Assert.Single(table.Rows);
+            Assert.Equal(insertedName, table.Rows[0]["Name"]);
+            Assert.Equal((long)insertedAge, table.Rows[0]["Age"]);
+        }
+
+        [Fact, TestPriority(9)]
         public void ConnectAndDisconnect_WithConnectionString_OpensAndClosesConnection()
         {
             DatabaseConnection connection = null;
@@ -199,6 +248,142 @@ namespace UiPath.Database.Tests
             Assert.Equal(System.Data.ConnectionState.Closed, connection.State);
         }
 
+        [Fact, TestPriority(10)]
+        public void DatabaseTransaction_InternalConnection_OutputBound_IsNotDisposed()
+        {
+            // Internally-created connection + the DatabaseConnection output is bound to a variable
+            // => the user captured it to reuse, so the activity must NOT dispose it.
+            var dbPath = NewTempDbPath();
+            try
+            {
+                var connVar = new Variable<DatabaseConnection>();
+                var capture = new CaptureValue<DatabaseConnection> { Input = new InArgument<DatabaseConnection>(connVar) };
+
+                var workflow = new Sequence
+                {
+                    Variables = { connVar },
+                    Activities =
+                    {
+                        new DatabaseTransaction
+                        {
+                            ConnectionString = new InArgument<string>($"Data Source={dbPath}"),
+                            ProviderName = new InArgument<string>(DatabaseConstants.SQLiteProvider),
+                            DatabaseConnection = new OutArgument<DatabaseConnection>(connVar) // bound output
+                        },
+                        capture
+                    }
+                };
+
+                WorkflowInvoker.Invoke(workflow, TimeSpan.FromSeconds(30));
+
+                Assert.NotNull(capture.Value);
+                Assert.Equal(ConnectionState.Open, capture.Value.State);
+
+                // The documented contract: the returned connection can be used for further operations.
+                var (table, _) = capture.Value.ExecuteQuery("SELECT 1", new Dictionary<string, ParameterInfo>(), TimeSpan.Zero);
+                Assert.Single(table.Rows);
+
+                capture.Value.Dispose(); // we own it now
+            }
+            finally
+            {
+                SqliteConnection.ClearAllPools();
+                if (File.Exists(dbPath)) File.Delete(dbPath);
+            }
+        }
+
+        [Fact, TestPriority(11)]
+        public void DatabaseTransaction_InternalConnection_OutputNotBound_IsDisposed()
+        {
+            // Internally-created connection + the DatabaseConnection output is NOT bound (no expression)
+            // => nobody can reference it after the scope, so the activity owns and disposes it.
+            var dbPath = NewTempDbPath();
+            try
+            {
+                var activity = new DatabaseTransaction
+                {
+                    ConnectionString = new InArgument<string>($"Data Source={dbPath}"),
+                    ProviderName = new InArgument<string>(DatabaseConstants.SQLiteProvider),
+                    DatabaseConnection = new OutArgument<DatabaseConnection>() // not bound (no expression)
+                };
+
+                var outputs = WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30));
+                var conn = (DatabaseConnection)outputs[nameof(DatabaseTransaction.DatabaseConnection)];
+
+                Assert.NotNull(conn);
+                Assert.Equal(ConnectionState.Closed, conn.State);
+            }
+            finally
+            {
+                SqliteConnection.ClearAllPools();
+                if (File.Exists(dbPath)) File.Delete(dbPath);
+            }
+        }
+
+        [Fact, TestPriority(12)]
+        public void ExecuteNonQuery_ContinueOnError_SwallowsExceptionInsteadOfThrowingNullReferenceException()
+        {
+            var activity = new ExecuteNonQuery
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                Sql = new InArgument<string>("SELECT * FROM ThisTableDoesNotExist_Probe"),
+                ContinueOnError = new InArgument<bool>(true),
+                AffectedRecords = new OutArgument<int>()
+            };
+
+            var outputs = WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30));
+
+            var affected = (int)outputs[nameof(ExecuteNonQuery.AffectedRecords)];
+            Assert.Equal(0, affected);
+        }
+
+        [Fact, TestPriority(13)]
+        public void ExecuteNonQuery_ContinueOnError_ResetsAffectedRecordsInsteadOfLeavingStaleValue()
+        {
+            // Pre-seed the bound variable with a value the activity did NOT produce, so the
+            // assertion can only pass if ExecuteNonQuery actively resets it to 0 on the swallowed
+            // failure path, not because an unbound OutArgument happens to default to 0.
+            var affectedVar = new Variable<int> { Default = 42 };
+            var capture = new CaptureValue<int> { Input = new InArgument<int>(affectedVar) };
+
+            var workflow = new Sequence
+            {
+                Variables = { affectedVar },
+                Activities =
+                {
+                    new ExecuteNonQuery
+                    {
+                        ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                        Sql = new InArgument<string>("SELECT * FROM ThisTableDoesNotExist_Probe"),
+                        ContinueOnError = new InArgument<bool>(true),
+                        AffectedRecords = new OutArgument<int>(affectedVar)
+                    },
+                    capture
+                }
+            };
+
+            WorkflowInvoker.Invoke(workflow, TimeSpan.FromSeconds(30));
+
+            Assert.Equal(0, capture.Value);
+        }
+
+        [Fact, TestPriority(14)]
+        public void ExecuteNonQuery_NegativeTimeoutMS_ThrowsArgumentException()
+        {
+            var activity = new ExecuteNonQuery
+            {
+                ExistingDbConnection = new InArgument<DatabaseConnection>(_ => _fixture.Connection),
+                Sql = new InArgument<string>("SELECT 1"),
+                TimeoutMS = new InArgument<int>(-1),
+                AffectedRecords = new OutArgument<int>()
+            };
+
+            Assert.Throws<ArgumentException>(() => WorkflowInvoker.Invoke(activity, TimeSpan.FromSeconds(30)));
+        }
+
+        private static string NewTempDbPath()
+            => Path.Combine(Path.GetTempPath(), $"uipath_sqlite_txn_{Guid.NewGuid():N}.db");
+
         private int CountRows()
         {
             var (table, _) = _fixture.Connection.ExecuteQuery("SELECT COUNT(*) AS Cnt FROM " + TableName, null, TimeSpan.Zero);
@@ -216,6 +401,21 @@ namespace UiPath.Database.Tests
                 table.Rows.Add((long)id, name, (long)age);
 
             return table;
+        }
+
+        /// <summary>
+        /// Reads an argument at the end of a workflow body and exposes it to the test, so a
+        /// variable's post-scope state can be asserted.
+        /// </summary>
+        private sealed class CaptureValue<T> : CodeActivity
+        {
+            public InArgument<T> Input { get; set; }
+            public T Value { get; private set; }
+
+            protected override void Execute(CodeActivityContext context)
+            {
+                Value = Input.Get(context);
+            }
         }
     }
 

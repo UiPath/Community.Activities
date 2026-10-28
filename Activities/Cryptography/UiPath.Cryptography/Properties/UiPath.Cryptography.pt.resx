@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -123,6 +123,9 @@
   <data name="AESGCM" xml:space="preserve">
     <value>AES GCM</value>
   </data>
+  <data name="ChaCha20Poly1305" xml:space="preserve">
+    <value>ChaCha20-Poly1305 (Não FIPS)</value>
+  </data>
   <data name="DES" xml:space="preserve">
     <value>DES (Preterido)</value>
   </data>
@@ -184,10 +187,10 @@
     <value>SHA512</value>
   </data>
   <data name="TripleDES" xml:space="preserve">
-    <value>TripleDES</value>
+    <value>TripleDES (Preterido)</value>
   </data>
   <data name="PGP" xml:space="preserve">
-    <value>PGP (Pretty Good Privacy)</value>
+    <value>PGP - Pretty Good Privacy (Não FIPS)</value>
   </data>
   <data name="UnsupportedHashAlgorithmException" xml:space="preserve">
     <value>O algoritmo de hash fornecido não é suportado.</value>
@@ -197,6 +200,15 @@
   </data>
   <data name="UnsupportedSymmetricAlgorithmException" xml:space="preserve">
     <value>O algoritmo simétrico fornecido não é suportado.</value>
+  </data>
+  <data name="SymmetricDecrypt_InputTooShort" xml:space="preserve">
+    <value>O ficheiro de encriptação fornecido é demasiado curto para estar no formato de ligação do UiPath. O esquema de ficheiro de encriptação do UiPath é Base64(salt | IV | ciphertext) e tem de ter, pelo menos, {0} bytes para este algoritmo. O ficheiro de encriptação produzido por ferramentas externas não é diretamente compatível – consulte a documentação da atividade para a especificação do formato de ligação.</value>
+  </data>
+  <data name="SymmetricDecrypt_PaddingHint" xml:space="preserve">
+    <value>A desencriptação falhou. O formato de ligação do UiPath é Base64(salt | IV | ciphertext); isto indica muitas vezes que a entrada foi produzida por uma ferramenta diferente ou que a chave/codificação não corresponde à utilizada para encriptar.</value>
+  </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>O ChaCha20-Poly1305 não é suportado nesta plataforma. Utilize antes o AES-GCM ou execute numa plataforma que forneça o ChaCha20-Poly1305 (Linux com OpenSSL ou Windows 10 1809 / Server 2019 ou posterior).</value>
   </data>
 
    <data name="DefaultCodePage" xml:space="preserve">
@@ -628,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>Falha na verificação da assinatura PGP. A chave pública não corresponde à assinatura ou os dados foram adulterados.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>A entrada utiliza o formato AEAD/LibrePGP (OCB) do GnuPG, que não é suportado. Peça ao remetente para encriptar com compatibilidade com a RFC 4880 (sem AEAD).</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Ficheiro Assinado (Binário)</value>
   </data>
@@ -637,10 +652,72 @@
   <data name="PgpVerifyMode_PublicKey" xml:space="preserve">
     <value>Validar Chave Pública</value>
   </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 bits</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 bits</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 bits</value>
+  </data>
+  <data name="AesKeySize_Aes128" xml:space="preserve">
+    <value>128 bits</value>
+  </data>
+  <data name="AesKeySize_Aes192" xml:space="preserve">
+    <value>192 bits</value>
+  </data>
+  <data name="AesKeySize_Aes256" xml:space="preserve">
+    <value>256 bits</value>
+  </data>
   <data name="PgpSigningRequiresPrivateKeyAndPassphrase" xml:space="preserve">
     <value>A assinatura foi pedida, mas é obrigatória uma chave privada e uma palavra-passe para assinar. Forneça um fluxo de chaves privadas e uma frase-passe ou defina o sinal como falso.</value>
   </data>
   <data name="PgpVerificationRequiresPublicKey" xml:space="preserve">
     <value>A verificação da assinatura foi pedida, mas é obrigatória uma chave pública para verificar. Forneça um fluxo de chave pública ou defina verificarAssinatura como falso.</value>
+  </data>
+  <data name="SymmetricWireFormat_Classic" xml:space="preserve">
+    <value>UiPath (Clássico)</value>
+  </data>
+  <data name="SymmetricWireFormat_Owasp2026" xml:space="preserve">
+    <value>UiPath (OWASP 2026)</value>
+  </data>
+  <data name="SymmetricWireFormat_Raw" xml:space="preserve">
+    <value>Não Processado (chave fornecida pelo chamador e IV)</value>
+  </data>
+  <data name="SymmetricWireFormat_OpenSslEnc" xml:space="preserve">
+    <value>OpenSSL enc (Salted__ + PBKDF2-SHA256)</value>
+  </data>
+  <data name="KeyBytesFormat_Encoded" xml:space="preserve">
+    <value>Codificado (palavra-passe de texto através de Codificação)</value>
+  </data>
+  <data name="KeyBytesFormat_Hex" xml:space="preserve">
+    <value>Hex</value>
+  </data>
+  <data name="KeyBytesFormat_Base64" xml:space="preserve">
+    <value>Base64</value>
+  </data>
+  <data name="OpenSslEnc_MissingMagic" xml:space="preserve">
+    <value>O texto encriptado não começa com o prefixo invocado &quot;Salted__&quot; do openssl. Confirme que o produtor utilizou &quot;openssl enc -salt&quot; e que a saída não foi removida ou transcodificada.</value>
+  </data>
+
+  <!-- Validation messages for cross-property constraints (see SymmetricInteropHelper.ValidateInteropSettings). -->
+  <data name="Validation_RawKeyFormat_EncodedNotAllowed" xml:space="preserve">
+    <value>O formato de bytes de chave = Codificado não é permitido com o formato de ligação = Não Processado. Forneça uma chave não processada literal como Hex ou Base64.</value>
+  </data>
+  <data name="Validation_RawKey_LengthMismatch" xml:space="preserve">
+    <value>O comprimento da chave não processada é {0} bytes, que não é um tamanho de chave legal para o algoritmo escolhido. Esperava-se um de: {1} bytes.</value>
+  </data>
+  <data name="Validation_PasswordFormat_NonEncodedNotAllowed" xml:space="preserve">
+    <value>O formato de bytes de chave = Hex ou Base64 só é válido com o formato de ligação = Não Processado. Os formatos Clássico, Owasp2026 e OpenSslEnc utilizam a cadeia Chave como palavra-passe (Codificada).</value>
+  </data>
+  <data name="Validation_Iv_OnlyForRaw" xml:space="preserve">
+    <value>O IV só pode ser definido quando o formato de ligação = Não Processado. Os outros formatos incorporam o IV no fluxo de texto encriptado.</value>
+  </data>
+  <data name="Validation_KdfIterations_NotForClassicOrRaw" xml:space="preserve">
+    <value>As iterações de KDF só podem ser definidas para o formato de ligação = Owasp2026 ou OpenSslEnc. Clássico congela às 10 000 iterações e Raw não executa um KDF.</value>
+  </data>
+  <data name="Validation_KdfIterations_BelowMinimum" xml:space="preserve">
+    <value>Iterações de KDF = {0} está abaixo do mínimo de {1} iterações (limite mínimo de NIST SP 800-132). Atualmente, a OWASP recomenda 1 300 000 para PBKDF2-SHA1 e 600 000 para PBKDF2-SHA256.</value>
   </data>
 </root>

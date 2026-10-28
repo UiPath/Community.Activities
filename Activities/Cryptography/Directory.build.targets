@@ -1,0 +1,4 @@
+<Project>
+  <!-- Import first the parent targets -->
+  <Import Project="../Directory.build.targets" />
+</Project>

@@ -90,6 +90,36 @@ jobs:
     displayName: 'Execute tests'
     env: ${{ parameters.environment }}
 
+  - powershell: |
+      $src = "$env:LOCALAPPDATA\UiPath\Logs"
+      $dst = "$(System.ArtifactsDirectory)\RobotLogs"
+      New-Item -ItemType Directory -Force -Path $dst | Out-Null
+      if (Test-Path $src) {
+        Copy-Item -Path "$src\*" -Destination $dst -Recurse -Force -ErrorAction Continue -ErrorVariable copyErrors
+        if ($copyErrors) {
+          "Copy-Item from $src to $dst encountered errors: $($copyErrors -join '; ')" | Out-File "$dst\staging-errors.txt" -Encoding utf8
+          Write-Host "Copy-Item from $src to $dst encountered errors; wrote details to staging-errors.txt (some logs may still have been copied)."
+        } elseif ((Get-ChildItem -Path $dst -Recurse -File | Measure-Object).Count -eq 0) {
+          "Source directory $src exists but contains no files; nothing was staged." | Out-File "$dst\no-logs.txt" -Encoding utf8
+          Write-Host "Source directory $src was empty; wrote placeholder."
+        } else {
+          Write-Host "Copied robot logs from $src to $dst"
+        }
+      } else {
+        "Robot log directory $src does not exist on this agent run." | Out-File "$dst\no-logs.txt" -Encoding utf8
+        Write-Host "No robot logs found at $src; wrote placeholder."
+      }
+    displayName: 'Stage robot logs'
+    condition: always()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish robot logs'
+    condition: always()
+    inputs:
+      PathToPublish: '$(System.ArtifactsDirectory)/RobotLogs'
+      ArtifactName: 'RuntimeTestsLogs_$(System.StageName)_$(System.JobAttempt)'
+      ArtifactType: 'Container'
+
   - ${{ each step in parameters.afterTestsCustomSteps }}:
     - ${{ step }}
 

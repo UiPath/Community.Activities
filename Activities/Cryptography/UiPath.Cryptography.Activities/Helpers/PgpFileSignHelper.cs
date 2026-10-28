@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using System.Net;
-using System.Security;
 using UiPath.Cryptography.Activities.Models;
 using UiPath.Cryptography.Activities.Properties;
 
@@ -12,7 +10,7 @@ namespace UiPath.Cryptography.Activities.Helpers
         internal static CryptographyLocalItem ExecuteSign(
             string inputFilePath,
             string privateKeyFilePath,
-            SecureString passphrase,
+            string passphrase,
             string outputFilePath,
             bool overwrite,
             string suffix,
@@ -26,7 +24,7 @@ namespace UiPath.Cryptography.Activities.Helpers
                 throw new ArgumentNullException(Resources.PrivateKeyFilePathDisplayName);
             if (!File.Exists(privateKeyFilePath))
                 throw new ArgumentException(Resources.FileDoesNotExistsException, Resources.PrivateKeyFilePathDisplayName);
-            if (passphrase == null || passphrase.Length == 0)
+            if (string.IsNullOrWhiteSpace(passphrase))
                 throw new ArgumentNullException(Resources.PassphraseDisplayName);
 
             if (string.IsNullOrEmpty(outputFilePath))
@@ -39,7 +37,7 @@ namespace UiPath.Cryptography.Activities.Helpers
             if (File.Exists(outputFilePath) && !overwrite)
                 throw new ArgumentException(Resources.FileAlreadyExistsException, Resources.OutputFilePathDisplayName);
 
-            var passphraseString = new NetworkCredential("", passphrase).Password;
+            var passphraseString = passphrase;
             var inputBytes = File.ReadAllBytes(inputFilePath);
 
             using (var privateKeyStream = File.OpenRead(privateKeyFilePath))

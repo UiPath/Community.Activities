@@ -4,6 +4,7 @@
   
   <PropertyGroup>
     <Product>FTP</Product>
+    <Description>UiPath FTP Activities Pack</Description>
     <Authors>UiPath</Authors>
     <Company>UiPath</Company>
     <Copyright>© UiPath</Copyright>
@@ -12,6 +13,7 @@
     <VersionPrefix Condition="'$(Configuration)' == 'Release'">3.2.0</VersionPrefix>
     <VersionPrefix Condition="'$(Configuration)' == 'Debug'">3.2.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
     <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">3.2.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+    <!--leave empty for ci to replace with pre-release tag-->
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsTestProject)' != 'true'">

@@ -2,7 +2,10 @@ using System;
 using System.Activities;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
 using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
 using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Platform.ResourceHandling;
@@ -11,32 +14,51 @@ using UiPath.Shared.Activities;
 using UiPath.Shared.Telemetry.Services;
 #endif
 
+#pragma warning disable CS0618 // CryptographyHelper is intentionally marked Obsolete to discourage external use; in-package consumers are expected.
+
 namespace UiPath.Cryptography.Activities
 {
     [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Name))]
     [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Description))]
-    public partial class PgpSignFile : CodeActivity
+    public partial class PgpSignFile : UiPath.Shared.Activities.AsyncTaskCodeActivity
     {
-        private const string Signed = "_Signed";
 
-        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_InputFilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_InputFilePath_Description))]
         public InArgument<string> InputFilePath { get; set; }
 
-        [RequiredArgument]
+        [Browsable(false)]
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_InputFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_InputFile_Description))]
+        public InArgument<IResource> InputFile { get; set; }
+
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_PrivateKeyFilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_PrivateKeyFilePath_Description))]
         public InArgument<string> PrivateKeyFilePath { get; set; }
 
-        [RequiredArgument]
+        [Browsable(false)]
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_PrivateKeyFile_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_PrivateKeyFile_Description))]
+        public InArgument<IResource> PrivateKeyFile { get; set; }
+
         [LocalizedCategory(nameof(Resources.Input))]
         [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_Passphrase_Name))]
         [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_Passphrase_Description))]
-        public InArgument<SecureString> Passphrase { get; set; }
+        public InArgument<string> Passphrase { get; set; }
 
+        [DefaultValue(null)]
+        [LocalizedCategory(nameof(Resources.Input))]
+        [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_PassphraseSecureString_Name))]
+        [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_PassphraseSecureString_Description))]
+        public InArgument<SecureString> PassphraseSecureString { get; set; }
+
+        [RequiredArgument]
         [LocalizedCategory(nameof(Resources.Category_Options_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_OutputFilePath_Name))]
         [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_OutputFilePath_Description))]
@@ -49,7 +71,7 @@ namespace UiPath.Cryptography.Activities
         public bool Overwrite { get; set; }
 
         [DefaultValue(null)]
-        [LocalizedCategory(nameof(Resources.Common))]
+        [LocalizedCategory(nameof(Resources.Category_Options_Name))]
         [LocalizedDisplayName(nameof(Resources.Activity_PgpSignFile_Property_ContinueOnError_Name))]
         [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_ContinueOnError_Description))]
         public InArgument<bool> ContinueOnError { get; set; }
@@ -61,37 +83,57 @@ namespace UiPath.Cryptography.Activities
         [LocalizedDescription(nameof(Resources.Activity_PgpSignFile_Property_SignedFile_Description))]
         public OutArgument<ILocalResource> SignedFile { get; set; }
 
-        protected override void Execute(CodeActivityContext context)
+        protected override async Task<Action<AsyncCodeActivityContext>> ExecuteAsync(
+            AsyncCodeActivityContext context,
+            CancellationToken cancellationToken)
         {
-#if ENABLE_DEFAULT_TELEMETRY
-            var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
-#endif
-
+            var continueOnError = ContinueOnError.Get(context);
             try
             {
+                var inputPath = await PgpFileResolver.ResolveAsync(
+                    InputFilePath.Get(context), InputFile.Get(context),
+                    nameof(InputFilePath), Resources.Activity_PgpSignFile_Property_InputFilePath_Name,
+                    cancellationToken);
+
+                var privateKeyPath = await PgpFileResolver.ResolveAsync(
+                    PrivateKeyFilePath.Get(context), PrivateKeyFile.Get(context),
+                    nameof(PrivateKeyFilePath), Resources.Activity_PgpSignFile_Property_PrivateKeyFilePath_Name,
+                    cancellationToken);
+
+                var passphraseString = PgpFileResolver.ResolvePassphrase(
+                    Passphrase.Get(context), PassphraseSecureString.Get(context),
+                    nameof(Passphrase), Resources.Activity_PgpSignFile_Property_Passphrase_Name);
+
+                var outputPath = OutputFilePath.Get(context);
+
                 var item = PgpFileSignHelper.ExecuteSign(
-                    InputFilePath.Get(context),
-                    PrivateKeyFilePath.Get(context),
-                    Passphrase.Get(context),
-                    OutputFilePath.Get(context),
+                    inputPath,
+                    privateKeyPath,
+                    passphraseString,
+                    outputPath,
                     Overwrite,
-                    Signed,
+                    "_Signed",
                     CryptographyHelper.PgpSign);
 
                 SignedFile.Set(context, item);
 
 #if ENABLE_DEFAULT_TELEMETRY
+                var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
                 telemetryOperation.Send();
 #endif
             }
             catch (Exception ex)
             {
 #if ENABLE_DEFAULT_TELEMETRY
+                var telemetryOperation = RuntimeTelemetryService.CreateExecutionOperation(this, context);
                 telemetryOperation.SendWithException(ex);
 #endif
                 Trace.TraceError(ex.ToString());
-                if (!ContinueOnError.Get(context)) throw;
+                if (!continueOnError)
+                    throw;
             }
+
+            return _ => { };
         }
     }
 }

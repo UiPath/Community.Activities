@@ -38,14 +38,34 @@ namespace UiPath.Python.Tests
             var expected = new[]
             {
                 Version.Auto,
-                Version.Python_36,
-                Version.Python_37,
-                Version.Python_38,
-                Version.Python_39,
                 Version.Python_310,
             };
 
+            // GetSupportedVersions is obsolete but retained for backward compatibility; assert it
+            // still returns the documented value.
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.Equal(expected, VersionExtensions.GetSupportedVersions());
+#pragma warning restore CS0618
+        }
+
+        [Theory]
+        [InlineData(3, 10, true)]
+        [InlineData(3, 13, true)]
+        [InlineData(3, 14, true)]
+        [InlineData(3, 15, true)]
+        [InlineData(3, 9, false)]
+        [InlineData(3, 16, false)]
+        [InlineData(2, 7, false)]
+        public void IsRuntimeVersionSupported_MatchesTheSupportedRange(int major, int minor, bool expected)
+        {
+            // Supported runtimes are 3.10 through 3.15; bump this together with the list in Version.cs.
+            Assert.Equal(expected, VersionExtensions.IsRuntimeVersionSupported(major, minor));
+        }
+
+        [Fact]
+        public void SupportedRuntimeVersionsDisplay_ListsEverySupportedVersion()
+        {
+            Assert.Equal("3.10, 3.11, 3.12, 3.13, 3.14, 3.15", VersionExtensions.GetSupportedRuntimeVersionsDisplay());
         }
     }
 }

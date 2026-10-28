@@ -8,6 +8,9 @@ parameters:
   sonarProjectKey: ''
   sonarServiceConnection: ''
   sonarOrganization: ''
+  sonarTaskVersion: ''
+  sonarScannerVarsDll: ''
+  sonarScannerVarsExe: ''
   msBuildPack: false
   sdkBuild: false
   requiresLfs: false
@@ -48,7 +51,8 @@ jobs:
             projectKey: ${{ parameters.sonarProjectKey }}
             serviceConnectionName: ${{ parameters.sonarServiceConnection }}
             organization: ${{ parameters.sonarOrganization }}
-            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+            sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
       postBuild:
         - ${{ parameters.postBuild }}
 
@@ -58,7 +62,9 @@ jobs:
 
         - template: Sonar/upload-sonar-build-output.yml
           parameters:
-            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+            condition: and(eq(variables['RunAnalysis'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+            sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+            sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
 
         - template: Sonar/uninstall-sonar-targets.yml
 

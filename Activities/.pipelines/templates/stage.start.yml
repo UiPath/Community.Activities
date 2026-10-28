@@ -11,6 +11,16 @@ parameters:
   sonarProjectKey: 'UiPath_Community.Activities'
   sonarServiceConnection: 'SonarCloudActivities'
   sonarOrganization: 'ui'
+  # Single source of truth for the SonarCloud task version, threaded to the
+  # prepare/analyze/publish templates. Bump here (only) when the AzDO SonarQube
+  # Cloud extension is updated, or the pipeline fails to compile ("A task is missing").
+  sonarTaskVersion: '3.4.3'
+  # Single source of truth for the JDK the Sonar scanner uses (env-var name on the
+  # agent) and the scanner-path variable-name families shared by the upload probe and
+  # the download republish. Keep here so a JDK bump or scanner-var change is one edit.
+  sonarJdkVersion: 'JAVA_HOME_21_X64'
+  sonarScannerVarsDll: 'SONAR_SCANNER_MSBUILD_DLL,SONAR_SCANNER_DOTNET_DLL,SONARQUBE_SCANNER_MSBUILD_DLL,SONARQUBE_SCANNER_DOTNET_DLL'
+  sonarScannerVarsExe: 'SONAR_SCANNER_MSBUILD_EXE,SONAR_SCANNER_DOTNET_EXE,SONARQUBE_SCANNER_MSBUILD_EXE,SONARQUBE_SCANNER_DOTNET_EXE'
   runSettingsFilePath: '$(RunSettingsFilePath)'
   preBuild: []
   postBuild: []
@@ -46,6 +56,9 @@ stages:
       sonarProjectKey: ${{ parameters.sonarProjectKey }}
       sonarServiceConnection: ${{ parameters.sonarServiceConnection }}
       sonarOrganization: ${{ parameters.sonarOrganization }}
+      sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
+      sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+      sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
       sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}
       hasQaPackages: ${{ parameters.hasQaPackages }}
@@ -87,21 +100,17 @@ stages:
   - Test
   - ${{ each stage in parameters.sonarDependsOn }}:
     - ${{ stage }}
-  # Sonar runs only on develop and release/* pushes — never on masters/* or
-  # support/* (the two startsWith exclusions below), and not on PR triggers until
-  # SonarCloud's main branch is renamed from master (stale, 6 years) to develop.
-  # See SONARCLOUD_ADMIN_CHECKLIST.md.
-  # When restoring PR decoration after the rename: remove ONLY the
-  # `ne(variables['Build.Reason'], 'PullRequest')` clause. Keep the IsFork clause
-  # (guards out fork PRs, where AzDO strips secrets and Sonar would fail anyway)
-  # and the masters/support exclusions (PR builds use refs/pull/* so the
-  # exclusions don't block them). The same guards appear on the prepare/upload
-  # condition parameters in stage.build.yml.
-  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), ne(variables['Build.Reason'], 'PullRequest'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
+  # IsFork blocks fork PRs (AzDO strips secrets); masters/* and support/* exclusions
+  # guard against direct pushes — PR builds use refs/pull/* so they aren't affected.
+  condition: and(not(canceled()), eq(variables['RunAnalysis'], 'true'), eq(stageDependencies.Build.outputs['DetermineShouldRun.SetRunVariable.BuildShouldRun'], 'true'), ne(variables['System.PullRequest.IsFork'], 'True'), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/masters/')), not(startsWith(variables['Build.SourceBranch'], 'refs/heads/support/')))
   jobs:
   - template: stage.sonar.yml
     parameters:
       additionalSonarTasks: ${{ parameters.additionalSonarTasks }}
+      sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
+      sonarJdkVersion: ${{ parameters.sonarJdkVersion }}
+      sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+      sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
 
   - ${{ each job in parameters.additionalSonarJobs }}:
     - ${{ job }}

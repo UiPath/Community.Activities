@@ -1,5 +1,9 @@
 parameters:
   additionalSonarTasks: []
+  sonarTaskVersion: ''
+  sonarJdkVersion: ''
+  sonarScannerVarsDll: ''
+  sonarScannerVarsExe: ''
 jobs:
 - job: RunSonar
   displayName: "Analyze & publish results"
@@ -9,9 +13,13 @@ jobs:
     SourceBranchCommitId: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setBranchCommitVariables.SourceBranchCommitId'] ]
     TargetBranchCommitId: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setBranchCommitVariables.TargetBranchCommitId'] ]
     OriginalSourcesPath: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setOriginalSrcPath.OriginalSourcesPath'] ]
-    SONARQUBE_SCANNER_MODE: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_SCANNER_MODE'] ]
+    OriginalPipelinePath: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setOriginalSrcPath.OriginalPipelinePath'] ]
+    OriginalTempPath: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setOriginalSrcPath.OriginalTempPath'] ]
+    SONAR_SCANNER_MODE: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_SCANNER_MODE'] ]
     SONARQUBE_SCANNER_PARAMS: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_SCANNER_PARAMS'] ]
-    SONARQUBE_ENDPOINT: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONARQUBE_ENDPOINT'] ]
+    SONAR_ENDPOINT: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_ENDPOINT'] ]
+    SONAR_SCANNER_REPORTTASKFILE: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_SCANNER_REPORTTASKFILE'] ]
+    SONAR_SERVER_VERSION: $[ stageDependencies.Build.BuildAndPublishArtifacts.outputs['setSonarVariables.SONAR_SERVER_VERSION'] ]
   steps:
     - checkout: self
       persistCredentials: true
@@ -32,6 +40,8 @@ jobs:
     - template: Sonar/download-sonar-build-output.yml
       parameters:
         condition: eq(variables['RunAnalysis'], 'true')
+        sonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+        sonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
 
     # Exact-patch pin clears SonarCloud's "use complete version number" hotspot
     # (azurepipelines:S7637-family). Must be bumped in lockstep with the installed
@@ -45,12 +55,54 @@ jobs:
         repoPath: $(Build.SourcesDirectory)
         scannerPath: "$(Build.SourcesDirectory)\\SonarTemp\\scanner"
 
+    # SonarCloudPrepare@3 records the report-task.txt path against the Build job's
+    # Agent.TempDirectory; rewrite it to this (PublishSonar) job's temp path so
+    # SonarCloudPublish@3 can locate the report and poll the Quality Gate. No
+    # isOutput here: the value must overwrite the in-job SONAR_SCANNER_REPORTTASKFILE
+    # env that the analyze/publish tasks read later in this same job.
+    - powershell: |
+        $orig = "$(OriginalTempPath)"
+        if ([string]::IsNullOrEmpty($orig)) {
+          Write-Host "OriginalTempPath is empty; leaving SONAR_SCANNER_REPORTTASKFILE unchanged."
+        } else {
+          $patchedReportPath = "$env:SONAR_SCANNER_REPORTTASKFILE".Replace($orig, "$(Agent.TempDirectory)")
+          Write-Output "##vso[task.setvariable variable=SONAR_SCANNER_REPORTTASKFILE]$patchedReportPath"
+          Write-Host "SONAR_SCANNER_REPORTTASKFILE set to: $patchedReportPath"
+        }
+      displayName: Patch SONAR_SCANNER_REPORTTASKFILE variable
+      condition: eq(variables['RunAnalysis'], 'true')
+
+    # SonarScanner for .NET 10.x auto-provisions its own JRE on the build agent at
+    # 'begin' and records that agent-local path in <JavaExePath>, deriving JAVA_HOME
+    # from it at 'end'. That path does not exist on this (separate) RunSonar agent,
+    # so repoint it at the local JDK 21 (present on windows-latest as JAVA_HOME_21_X64).
+    - powershell: |
+        $configFile = "$(Pipeline.Workspace)\.sonarqube\conf\SonarQubeAnalysisConfig.xml"
+        if (Test-Path $configFile) {
+          $jdkHome = [System.Environment]::GetEnvironmentVariable($env:SonarJdkVar)
+          $javaExe = Join-Path $jdkHome 'bin\java.exe'
+          (Get-Content $configFile -Raw) -replace '<JavaExePath>[^<]*</JavaExePath>', "<JavaExePath>$javaExe</JavaExePath>" |
+            Set-Content $configFile
+          Write-Host "JavaExePath patched to $javaExe"
+        } else {
+          Write-Host "$configFile not found; skipping JavaExePath patch."
+        }
+      # Pass the JDK env-var name via env (not ${{ }} into the script) to avoid the
+      # azurepipelines:S7630 script-injection finding; resolve it at runtime.
+      env:
+        SonarJdkVar: ${{ parameters.sonarJdkVersion }}
+      displayName: Patch Sonar JavaExePath for the local agent
+      condition: eq(variables['RunAnalysis'], 'true')
+
     - template: Sonar/analyze-sonar-coverage.yml
       parameters:
         condition: eq(variables['RunAnalysis'], 'true')
+        sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
+        jdkVersion: ${{ parameters.sonarJdkVersion }}
 
     - template: Sonar/publish-sonar-coverage.yml
       parameters:
         condition: eq(variables['RunAnalysis'], 'true')
+        sonarTaskVersion: ${{ parameters.sonarTaskVersion }}
 
     - ${{ parameters.additionalSonarTasks }}
