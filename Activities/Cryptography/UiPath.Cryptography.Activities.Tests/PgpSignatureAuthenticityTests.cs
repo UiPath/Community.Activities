@@ -202,6 +202,44 @@ namespace UiPath.Cryptography.Activities.Tests
             Assert.False(VerifyClear(message, signer));
         }
 
+        // The armor reader ends the clear text at any line that starts with two dashes; a generator dash-escapes such a
+        // line, so an unescaped one can only be the signature header.
+        [Theory]
+        [InlineData("--")]
+        [InlineData("--unsigned text")]
+        [InlineData("-unsigned text")]
+        public void VerifyClear_UnescapedDashLineInTheClearText_IsFalse(string line)
+        {
+            var signer = NewUser();
+            var message = EditedClearSigned(signer, lines =>
+            {
+                lines.InsertRange(IndexOfLine(lines, "-----BEGIN PGP SIGNATURE"), new[] { line, "Comment: more unsigned text" });
+                return lines;
+            });
+
+            Assert.False(VerifyClear(message, signer));
+        }
+
+        // The armor reader and the layout check must agree on where the clear text ends, so the layout rule is also
+        // pinned directly: a line that starts with a dash and is not dash-escaped can only be the signature header.
+        [Theory]
+        [InlineData("--x", false)]
+        [InlineData("-- x", false)]
+        [InlineData("--x: y", false)]
+        [InlineData("- --x", true)]
+        [InlineData("- -----BEGIN PGP SIGNATURE-----", true)]
+        public void ClearSignedLayout_DashLineInTheClearText_FollowsTheEscapingRule(string line, bool accepted)
+        {
+            var signer = NewUser();
+            var message = EditedClearSigned(signer, lines =>
+            {
+                lines.Insert(IndexOfLine(lines, "-----BEGIN PGP SIGNATURE"), line);
+                return lines;
+            });
+
+            Assert.Equal(accepted, CryptographyHelper.IsSingleClearSignedBlock(System.Text.Encoding.UTF8.GetBytes(message)));
+        }
+
         // Only "Hash:" headers belong between the begin line and the clear text; an armor header there carries unsigned text.
         [Fact]
         public void VerifyClear_ExtraHeaderBeforeTheClearText_IsFalse()
@@ -306,6 +344,30 @@ namespace UiPath.Cryptography.Activities.Tests
         public void Verify_RevocationInAnotherCopyOfTheKey_IsHonoured(bool revokedCopyFirst)
         {
             var signer = PgpBcFixture.Create(new PgpBcFixture.Options { SignWithPrimary = true, RevokePrimary = true });
+            var message = GenuineSignedOnly(signer);
+            var revoked = Dearmored(signer.PublicKeyRing);
+            var unrevoked = signer.PublicKeyRingBeforeRevocation;
+
+            Assert.True(Verify(message, unrevoked), "control: without the revocation the signature verifies");
+            Assert.False(Verify(message, revoked), "control: the revoked copy alone is refused");
+            Assert.False(Verify(message, revokedCopyFirst ? revoked.Concat(unrevoked).ToArray() : unrevoked.Concat(revoked).ToArray()));
+        }
+
+        // PgpPublicKeyRing.Join stops at the first key-level signature both copies share, so a revocation behind a shared
+        // direct-key signature has to be carried over explicitly.
+        [Theory]
+        [InlineData(true, null)]
+        [InlineData(false, null)]
+        [InlineData(true, PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign)]
+        [InlineData(false, PgpKeyFlags.CanCertify | PgpKeyFlags.CanSign)]
+        public void Verify_RevocationInAnotherCopyOfAKeyWithADirectKeySignature_IsHonoured(bool revokedCopyFirst, int? keyFlags)
+        {
+            var signer = PgpBcFixture.Create(new PgpBcFixture.Options
+            {
+                SignWithPrimary = true,
+                RevokePrimary = true,
+                DirectKeySignatures = { (DateTime.UtcNow.AddMinutes(-30), keyFlags) },
+            });
             var message = GenuineSignedOnly(signer);
             var revoked = Dearmored(signer.PublicKeyRing);
             var unrevoked = signer.PublicKeyRingBeforeRevocation;

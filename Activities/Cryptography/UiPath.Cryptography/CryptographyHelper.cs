@@ -1600,11 +1600,29 @@ namespace UiPath.Cryptography
                 }
                 else
                 {
-                    rings[seen] = PgpPublicKeyRing.Join(rings[seen], ring);
+                    rings[seen] = MergeKeyLevelSignatures(PgpPublicKeyRing.Join(rings[seen], ring), ring);
                 }
             }
 
             return new PgpPublicKeyRingBundle(rings);
+        }
+
+        // PgpPublicKeyRing.Join stops adding the later copy's key-level signatures (direct-key signatures, key
+        // revocations) at the first one both copies share, so a revocation behind a shared signature would be lost.
+        // Every key-level signature of the later copy that the joined key lacks is added explicitly.
+        private static PgpPublicKeyRing MergeKeyLevelSignatures(PgpPublicKeyRing joined, PgpPublicKeyRing later)
+        {
+            var master = joined.GetPublicKey();
+            var known = master.GetKeySignatures().Cast<PgpSignature>().Select(signature => Convert.ToBase64String(signature.GetEncoded())).ToList();
+            foreach (PgpSignature signature in later.GetPublicKey().GetKeySignatures())
+            {
+                if (!known.Contains(Convert.ToBase64String(signature.GetEncoded())))
+                {
+                    master = PgpPublicKey.AddCertification(master, signature);
+                }
+            }
+
+            return PgpPublicKeyRing.InsertPublicKey(joined, master);
         }
 
         private static PgpSecretKeyRingBundle ReadSecretKeyRings(byte[] keyBytes)
@@ -1627,14 +1645,14 @@ namespace UiPath.Cryptography
         // anywhere else: the whole input is exactly one clear-signed message, laid out as RFC 4880 section 7 describes
         // it, with only whitespace around it. The armor reader that does the verifying is lenient about what follows
         // the footer marker and about stray lines in the signature block, so this scan is stricter than the reader:
-        //   BEGIN PGP SIGNED MESSAGE, "Hash:" headers, blank line, clear text (a line that starts with "-----" is
+        //   BEGIN PGP SIGNED MESSAGE, "Hash:" headers, blank line, clear text (a line that starts with a dash is
         //   dash-escaped, so only the signature header can end the clear text), BEGIN PGP SIGNATURE (or MESSAGE),
         //   armor headers, blank line, base64 lines with an optional checksum line, the matching END line.
         private static readonly Regex ArmorHeaderLine = new Regex(@"^[A-Za-z][A-Za-z0-9-]*:( .*)?$", RegexOptions.CultureInvariant);
         private static readonly Regex ArmorDataLine = new Regex(@"^([A-Za-z0-9+/]+={0,2}|=[A-Za-z0-9+/]{4})$", RegexOptions.CultureInvariant);
         private static readonly Regex SignatureBeginLine = new Regex(@"^-----BEGIN PGP (SIGNATURE|MESSAGE)-----$", RegexOptions.CultureInvariant);
 
-        private static bool IsSingleClearSignedBlock(byte[] input)
+        internal static bool IsSingleClearSignedBlock(byte[] input)
         {
             var lines = Encoding.UTF8.GetString(input).Replace("\r\n", "\n").Replace('\r', '\n').Split('\n')
                 .Select(line => line.TrimEnd()).ToArray();
@@ -1652,7 +1670,7 @@ namespace UiPath.Cryptography
                 return false;
             }
 
-            SkipLines(lines, ref at, line => !line.StartsWith("-----", StringComparison.Ordinal));
+            SkipLines(lines, ref at, IsClearTextLine);
             var signatureBegin = at < lines.Length ? SignatureBeginLine.Match(lines[at]) : Match.Empty;
             if (!signatureBegin.Success)
             {
@@ -1663,6 +1681,11 @@ namespace UiPath.Cryptography
             return HasValidSignatureArmor(lines, ref at, "-----END PGP " + signatureBegin.Groups[1].Value + "-----")
                 && lines.Skip(at).All(line => line.Length == 0);
         }
+
+        // A generator dash-escapes every clear-text line that starts with a dash. The armor reader ends the clear text
+        // at any line that starts with two dashes, so such a line may only be the signature header.
+        private static bool IsClearTextLine(string line)
+            => !line.StartsWith("-", StringComparison.Ordinal) || line.StartsWith("- ", StringComparison.Ordinal);
 
         // Armor headers, a blank line, base64 data (checksum line included) and then exactly the footer.
         private static bool HasValidSignatureArmor(string[] lines, ref int at, string footer)
