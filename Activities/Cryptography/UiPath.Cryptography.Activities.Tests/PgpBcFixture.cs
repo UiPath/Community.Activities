@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using Org.BouncyCastle.Bcpg;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using Org.BouncyCastle.Crypto;
@@ -29,6 +30,9 @@ namespace UiPath.Cryptography.Activities.Tests
             /// <summary>Key flags written on the subkey binding signature; null omits the subpacket.</summary>
             public int? SubkeyKeyFlags { get; set; } = PgpKeyFlags.CanSign;
 
+            /// <summary>Key flags written on the primary key's self-signature; null omits the subpacket.</summary>
+            public int? PrimaryKeyFlags { get; set; }
+
             public bool RevokeSubkey { get; set; }
             public bool RevokePrimary { get; set; }
 
@@ -38,15 +42,72 @@ namespace UiPath.Cryptography.Activities.Tests
             /// <summary>Sign with the primary key instead of the subkey.</summary>
             public bool SignWithPrimary { get; set; }
 
+            /// <summary>Add a third key: an encryption-capable subkey (so messages can be encrypted to this fixture).</summary>
+            public bool WithEncryptionSubkey { get; set; }
+
+            /// <summary>What the signing subkey's binding carries as its embedded back-signature (0x19).</summary>
+            public BackSignatureMode BackSignature { get; set; } = BackSignatureMode.Valid;
+
+            /// <summary>Put the embedded back-signature in the unhashed subpacket area instead of the hashed one.</summary>
+            public bool BackSignatureInUnhashedArea { get; set; }
+
             /// <summary>Makes the (first) subkey binding signature itself lapse after this many seconds.</summary>
             public long? SubkeyBindingExpirySeconds { get; set; }
 
             /// <summary>
             /// Extra binding signatures added after the first one (e.g. a later restriction or a
             /// later authorization), each with its own creation time and key flags (null omits them).
+            /// The back-signature of a later binding follows <see cref="BackSignature"/> unless given here.
             /// </summary>
-            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> LaterBindings { get; }
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags, BackSignatureMode? BackSignature)> LaterBindings { get; }
+                = new System.Collections.Generic.List<(DateTime, int?, BackSignatureMode?)>();
+
+            /// <summary>Extra self-certifications made by the primary key itself (creation time, key flags; null omits them).</summary>
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> LaterPrimaryCertifications { get; }
                 = new System.Collections.Generic.List<(DateTime, int?)>();
+
+            /// <summary>
+            /// Self-certifications that name the primary key as issuer but were made by another key (the subkey), so
+            /// they do not verify against the primary key.
+            /// </summary>
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> ForgedPrimaryCertifications { get; }
+                = new System.Collections.Generic.List<(DateTime, int?)>();
+
+            /// <summary>The user id of the primary key.</summary>
+            public string UserId { get; set; } = "fixture@test.com";
+
+            /// <summary>Direct-key signatures made by the primary key itself (creation time, key flags; null omits them).</summary>
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> DirectKeySignatures { get; }
+                = new System.Collections.Generic.List<(DateTime, int?)>();
+
+            /// <summary>Revocations of the user-id certifications (type 0x30) made by the primary key; they carry no key flags.</summary>
+            public System.Collections.Generic.List<DateTime> UserIdRevocations { get; }
+                = new System.Collections.Generic.List<DateTime>();
+
+            /// <summary>
+            /// Self-certifications that name a signature algorithm BouncyCastle does not know (so they cannot be
+            /// verified): creation time, key flags.
+            /// </summary>
+            public System.Collections.Generic.List<(DateTime CreatedUtc, int? KeyFlags)> UnverifiableSelfCertifications { get; }
+                = new System.Collections.Generic.List<(DateTime, int?)>();
+        }
+
+        public enum BackSignatureMode
+        {
+            /// <summary>Made by the subkey over (primary, subkey): what GnuPG writes.</summary>
+            Valid,
+
+            /// <summary>Valid, but without the Issuer Key ID subpacket (the signed data is unchanged).</summary>
+            ValidWithoutIssuer,
+
+            /// <summary>No embedded signature at all.</summary>
+            Missing,
+
+            /// <summary>Made by an unrelated key instead of the subkey.</summary>
+            SignedByWrongKey,
+
+            /// <summary>Made by the subkey, but over a different primary key.</summary>
+            WrongPrimary,
         }
 
         /// <summary>Where to put an ignorable Marker packet (RFC 4880 section 5.8) in a signed message.</summary>
@@ -65,17 +126,39 @@ namespace UiPath.Cryptography.Activities.Tests
 
         private readonly PgpSecretKey _signingSecret;
         private readonly char[] _passphrase;
+        private readonly long? _encryptionKeyId;
 
         public PgpPublicKeyRing PublicRing { get; }
 
         public byte[] PublicKeyRing { get; }
 
-        private PgpBcFixture(PgpPublicKeyRing publicRing, PgpSecretKey signingSecret, char[] passphrase)
+        /// <summary>The same public key ring (binary) as it was before any revocation was added; equals the ring when none was.</summary>
+        public byte[] PublicKeyRingBeforeRevocation { get; }
+
+        /// <summary>Armored secret key ring (null for fixtures that have none, e.g. a grafted ring).</summary>
+        public byte[] PrivateKeyRing { get; }
+
+        public string Passphrase => new string(_passphrase);
+
+        private PgpBcFixture(PgpPublicKeyRing publicRing, PgpSecretKey signingSecret, char[] passphrase,
+            PgpSecretKeyRing secretRing = null, long? encryptionKeyId = null, PgpPublicKeyRing ringBeforeRevocation = null)
         {
+            PublicKeyRingBeforeRevocation = (ringBeforeRevocation ?? publicRing).GetEncoded();
             PublicRing = publicRing;
             _signingSecret = signingSecret;
             _passphrase = passphrase;
+            _encryptionKeyId = encryptionKeyId;
             PublicKeyRing = EncodeArmored(publicRing);
+            if (secretRing is not null)
+            {
+                using var buffer = new MemoryStream();
+                using (var armored = new ArmoredOutputStream(buffer))
+                {
+                    secretRing.Encode(armored);
+                }
+
+                PrivateKeyRing = buffer.ToArray();
+            }
         }
 
         /// <summary>The (public) signing key, for grafting into another ring.</summary>
@@ -98,17 +181,26 @@ namespace UiPath.Cryptography.Activities.Tests
             var subPgpPair = new PgpKeyPair(PublicKeyAlgorithmTag.RsaSign, subPair, options.SubkeyCreatedUtc ?? now);
 
             PgpSignatureSubpacketVector masterHashed = null;
-            if (options.MasterExpirySeconds.HasValue)
+            if (options.MasterExpirySeconds.HasValue || options.PrimaryKeyFlags.HasValue)
             {
                 var gen = new PgpSignatureSubpacketGenerator();
-                gen.SetKeyExpirationTime(false, options.MasterExpirySeconds.Value);
+                if (options.MasterExpirySeconds.HasValue)
+                {
+                    gen.SetKeyExpirationTime(false, options.MasterExpirySeconds.Value);
+                }
+
+                if (options.PrimaryKeyFlags.HasValue)
+                {
+                    gen.SetKeyFlags(false, options.PrimaryKeyFlags.Value);
+                }
+
                 masterHashed = gen.Generate();
             }
 
             var keyRingGenerator = new PgpKeyRingGenerator(
                 PgpSignature.PositiveCertification,
                 masterPgpPair,
-                "fixture@test.com",
+                options.UserId,
                 SymmetricKeyAlgorithmTag.Aes256,
                 passChars,
                 true,
@@ -119,6 +211,13 @@ namespace UiPath.Cryptography.Activities.Tests
             // The binding signature is created when the subkey is: a binding dated after the signing
             // time would (correctly) not be in force for messages signed earlier.
             var subGen = new PgpSignatureSubpacketGenerator();
+            var subUnhashedGen = new PgpSignatureSubpacketGenerator();
+            var backSignature = CreateBackSignature(options.BackSignature, masterPgpPair, subPgpPair, random, now);
+            if (backSignature is not null)
+            {
+                (options.BackSignatureInUnhashedArea ? subUnhashedGen : subGen).AddEmbeddedSignature(false, backSignature);
+            }
+
             subGen.SetSignatureCreationTime(false, options.SubkeyCreatedUtc ?? now);
             if (options.SubkeyKeyFlags.HasValue)
             {
@@ -135,7 +234,17 @@ namespace UiPath.Cryptography.Activities.Tests
                 subGen.SetSignatureExpirationTime(false, options.SubkeyBindingExpirySeconds.Value);
             }
 
-            keyRingGenerator.AddSubKey(subPgpPair, subGen.Generate(), null);
+            keyRingGenerator.AddSubKey(
+                subPgpPair, subGen.Generate(), options.BackSignatureInUnhashedArea && backSignature is not null ? subUnhashedGen.Generate() : null);
+
+            if (options.WithEncryptionSubkey)
+            {
+                var encryptionPair = new PgpKeyPair(PublicKeyAlgorithmTag.RsaGeneral, GenerateRsaKeyPair(random), options.SubkeyCreatedUtc ?? now);
+                var encryptionSubpackets = new PgpSignatureSubpacketGenerator();
+                encryptionSubpackets.SetSignatureCreationTime(false, options.SubkeyCreatedUtc ?? now);
+                encryptionSubpackets.SetKeyFlags(false, PgpKeyFlags.CanEncryptCommunications | PgpKeyFlags.CanEncryptStorage);
+                keyRingGenerator.AddSubKey(encryptionPair, encryptionSubpackets.Generate(), null);
+            }
 
             var secretRing = keyRingGenerator.GenerateSecretKeyRing();
             var publicRing = keyRingGenerator.GeneratePublicKeyRing();
@@ -143,6 +252,7 @@ namespace UiPath.Cryptography.Activities.Tests
             // The first key in the ring is the master; the second is the signing subkey.
             PgpSecretKey masterSecret = null;
             PgpSecretKey subkeySecret = null;
+            long? encryptionKeyId = null;
             var secretKeyIndex = 0;
             foreach (PgpSecretKey secretKey in secretRing.GetSecretKeys())
             {
@@ -153,6 +263,10 @@ namespace UiPath.Cryptography.Activities.Tests
                 else if (secretKeyIndex == 1)
                 {
                     subkeySecret = secretKey;
+                }
+                else if (secretKeyIndex == 2)
+                {
+                    encryptionKeyId = secretKey.KeyId;
                 }
 
                 secretKeyIndex++;
@@ -170,9 +284,18 @@ namespace UiPath.Cryptography.Activities.Tests
             var masterPublic = publicRing.GetPublicKey(masterSecret.KeyId);
             var subkeyPublic = publicRing.GetPublicKey(subkeySecret.KeyId);
 
-            foreach (var (createdUtc, keyFlags) in options.LaterBindings)
+            foreach (var (createdUtc, keyFlags, laterBackSignatureMode) in options.LaterBindings)
             {
                 var later = new PgpSignatureSubpacketGenerator();
+                var laterUnhashed = new PgpSignatureSubpacketGenerator();
+                var laterBackSignature = laterBackSignatureMode.HasValue
+                    ? CreateBackSignature(laterBackSignatureMode.Value, masterPgpPair, subPgpPair, random, now)
+                    : backSignature;
+                if (laterBackSignature is not null)
+                {
+                    (options.BackSignatureInUnhashedArea ? laterUnhashed : later).AddEmbeddedSignature(false, laterBackSignature);
+                }
+
                 later.SetSignatureCreationTime(false, createdUtc);
                 if (keyFlags.HasValue)
                 {
@@ -182,10 +305,65 @@ namespace UiPath.Cryptography.Activities.Tests
                 var bindingGenerator = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
                 bindingGenerator.InitSign(PgpSignature.SubkeyBinding, masterPrivate);
                 bindingGenerator.SetHashedSubpackets(later.Generate());
+                if (options.BackSignatureInUnhashedArea && laterBackSignature is not null)
+                {
+                    bindingGenerator.SetUnhashedSubpackets(laterUnhashed.Generate());
+                }
+
                 subkeyPublic = PgpPublicKey.AddCertification(
                     subkeyPublic, bindingGenerator.GenerateCertification(masterPublic, subkeyPublic));
                 publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, subkeyPublic);
             }
+
+            foreach (var (createdUtc, keyFlags) in options.LaterPrimaryCertifications)
+            {
+                masterPublic = AddPrimaryCertification(masterPublic, options.UserId, masterSecret.PublicKey.Algorithm, masterPrivate, createdUtc, keyFlags, null);
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            foreach (var (createdUtc, keyFlags) in options.ForgedPrimaryCertifications)
+            {
+                masterPublic = AddPrimaryCertification(
+                    masterPublic, options.UserId, subkeySecret.PublicKey.Algorithm, subkeySecret.ExtractPrivateKey(passChars), createdUtc, keyFlags, masterSecret.KeyId);
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            foreach (var (createdUtc, keyFlags) in options.DirectKeySignatures)
+            {
+                var subpackets = new PgpSignatureSubpacketGenerator();
+                subpackets.SetSignatureCreationTime(false, createdUtc);
+                if (keyFlags.HasValue)
+                {
+                    subpackets.SetKeyFlags(false, keyFlags.Value);
+                }
+
+                var direct = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
+                direct.InitSign(PgpSignature.DirectKey, masterPrivate);
+                direct.SetHashedSubpackets(subpackets.Generate());
+                masterPublic = PgpPublicKey.AddCertification(masterPublic, direct.GenerateCertification(masterPublic));
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            foreach (var createdUtc in options.UserIdRevocations)
+            {
+                var subpackets = new PgpSignatureSubpacketGenerator();
+                subpackets.SetSignatureCreationTime(false, createdUtc);
+                var userIdRevocation = new PgpSignatureGenerator(masterSecret.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
+                userIdRevocation.InitSign(PgpSignature.CertificationRevocation, masterPrivate);
+                userIdRevocation.SetHashedSubpackets(subpackets.Generate());
+                masterPublic = PgpPublicKey.AddCertification(
+                    masterPublic, options.UserId, userIdRevocation.GenerateCertification(options.UserId, masterPublic));
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            foreach (var (createdUtc, keyFlags) in options.UnverifiableSelfCertifications)
+            {
+                masterPublic = AddPrimaryCertification(
+                    masterPublic, options.UserId, masterSecret.PublicKey.Algorithm, masterPrivate, createdUtc, keyFlags, null, unknownAlgorithm: true);
+                publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, masterPublic);
+            }
+
+            var ringBeforeRevocation = publicRing;
 
             if (options.RevokeSubkey)
             {
@@ -216,7 +394,134 @@ namespace UiPath.Cryptography.Activities.Tests
                 publicRing = PgpPublicKeyRing.InsertPublicKey(publicRing, sub);
             }
 
-            return new PgpBcFixture(publicRing, options.SignWithPrimary ? masterSecret : subkeySecret, passChars);
+            if (options.RevokePrimary || options.RevokeSubkey)
+            {
+                // A revocation is part of the key as published; the secret ring carries it too once the owner revokes.
+                secretRing = PgpSecretKeyRing.ReplacePublicKeys(secretRing, publicRing);
+            }
+
+            return new PgpBcFixture(publicRing, options.SignWithPrimary ? masterSecret : subkeySecret, passChars, secretRing, encryptionKeyId, ringBeforeRevocation);
+        }
+
+        // A user-id certification of the primary key; with a different signer it names the primary as issuer but does
+        // not verify against it.
+        private static PgpPublicKey AddPrimaryCertification(
+            PgpPublicKey primary, string userId, PublicKeyAlgorithmTag algorithm, PgpPrivateKey signer, DateTime createdUtc, int? keyFlags,
+            long? claimedIssuer, bool unknownAlgorithm = false)
+        {
+            var subpackets = new PgpSignatureSubpacketGenerator();
+            subpackets.SetSignatureCreationTime(false, createdUtc);
+            if (keyFlags.HasValue)
+            {
+                subpackets.SetKeyFlags(false, keyFlags.Value);
+            }
+
+            var generator = new PgpSignatureGenerator(algorithm, HashAlgorithmTag.Sha256);
+            generator.InitSign(PgpSignature.PositiveCertification, signer);
+            generator.SetHashedSubpackets(subpackets.Generate());
+            var certification = generator.GenerateCertification(userId, primary);
+            if (claimedIssuer.HasValue)
+            {
+                certification = RewriteUnhashedIssuer(certification, claimedIssuer.Value);
+            }
+
+            if (unknownAlgorithm)
+            {
+                // ElGamal signatures carry two integers: the RSA one plus a dummy second one keeps the packet parseable.
+                certification = RewriteSignatureBody(certification, body =>
+                {
+                    body[2] = (byte)PublicKeyAlgorithmTag.ElGamalGeneral;
+                    return body.Concat(new byte[] { 0x00, 0x01, 0x01 }).ToArray();
+                });
+            }
+
+            return PgpPublicKey.AddCertification(primary, userId, certification);
+        }
+
+        // A Primary Key Binding signature (0x19): made by the SUBKEY over (primary key, subkey), embedded in
+        // the primary's binding so the subkey proves it consents to being bound.
+        private static PgpSignature CreateBackSignature(BackSignatureMode mode, PgpKeyPair master, PgpKeyPair subkey, SecureRandom random, DateTime now)
+        {
+            if (mode == BackSignatureMode.Missing)
+            {
+                return null;
+            }
+
+            var signer = mode == BackSignatureMode.SignedByWrongKey
+                ? new PgpKeyPair(PublicKeyAlgorithmTag.RsaSign, GenerateRsaKeyPair(random), now)
+                : subkey;
+            var primary = mode == BackSignatureMode.WrongPrimary
+                ? new PgpKeyPair(PublicKeyAlgorithmTag.RsaGeneral, GenerateRsaKeyPair(random), now).PublicKey
+                : master.PublicKey;
+
+            var generator = new PgpSignatureGenerator(signer.PublicKey.Algorithm, HashAlgorithmTag.Sha256);
+            generator.InitSign(PgpSignature.PrimaryKeyBinding, signer.PrivateKey);
+            var signature = generator.GenerateCertification(primary, subkey.PublicKey);
+            return mode == BackSignatureMode.ValidWithoutIssuer ? RewriteUnhashedIssuer(signature, null) : signature;
+        }
+
+        // Re-encodes a version 4 signature with a changed packet body (the signed data is not touched).
+        private static PgpSignature RewriteSignatureBody(PgpSignature signature, Func<byte[], byte[]> change)
+        {
+            var encoded = signature.GetEncoded();
+            var header = (encoded[0] & 0x40) != 0 ? 2 : new[] { 2, 3, 5 }[encoded[0] & 0x03];
+            var body = encoded.Skip(header).ToArray();
+            body = change(body);
+            var packet = new MemoryStream();
+            packet.WriteByte(0x89); // old format, tag 2, two length octets
+            packet.WriteByte((byte)(body.Length >> 8));
+            packet.WriteByte((byte)body.Length);
+            packet.Write(body, 0, body.Length);
+            return (PgpSignature)((PgpSignatureList)new PgpObjectFactory(packet.ToArray()).NextPgpObject())[0];
+        }
+
+        // The unhashed subpackets are not covered by the signature, so dropping the Issuer Key ID (type 16) from
+        // them leaves a valid signature that no longer names its issuer; a replacement id makes it name another key
+        // (the signature stays unverifiable against that key). Rebuilds a version 4 signature packet.
+        private static PgpSignature RewriteUnhashedIssuer(PgpSignature signature, long? replacementKeyId)
+        {
+            const int IssuerKeyIdSubpacket = 16;
+            var encoded = signature.GetEncoded();
+            var header = (encoded[0] & 0x40) != 0 ? 2 : new[] { 2, 3, 5 }[encoded[0] & 0x03]; // new format: one length octet
+            var body = encoded.Skip(header).ToArray();
+            var hashedLength = (body[4] << 8) | body[5];
+            var unhashedStart = 6 + hashedLength;
+            var unhashedLength = (body[unhashedStart] << 8) | body[unhashedStart + 1];
+            var kept = new MemoryStream();
+            for (var offset = unhashedStart + 2; offset < unhashedStart + 2 + unhashedLength;)
+            {
+                var length = body[offset]; // subpackets used here are shorter than 192 octets
+                if ((body[offset + 1] & 0x7F) != IssuerKeyIdSubpacket)
+                {
+                    kept.Write(body, offset, length + 1);
+                }
+
+                offset += length + 1;
+            }
+
+            if (replacementKeyId.HasValue)
+            {
+                kept.WriteByte(9);
+                kept.WriteByte(IssuerKeyIdSubpacket);
+                for (var shift = 56; shift >= 0; shift -= 8)
+                {
+                    kept.WriteByte((byte)(replacementKeyId.Value >> shift));
+                }
+            }
+
+            var rebuilt = new MemoryStream();
+            rebuilt.Write(body, 0, unhashedStart);
+            rebuilt.WriteByte((byte)(kept.Length >> 8));
+            rebuilt.WriteByte((byte)kept.Length);
+            kept.WriteTo(rebuilt);
+            rebuilt.Write(body, unhashedStart + 2 + unhashedLength, body.Length - (unhashedStart + 2 + unhashedLength));
+
+            var packet = new MemoryStream();
+            packet.WriteByte(0x89); // old format, tag 2, two length octets
+            packet.WriteByte((byte)(rebuilt.Length >> 8));
+            packet.WriteByte((byte)rebuilt.Length);
+            rebuilt.WriteTo(packet);
+            return (PgpSignature)((PgpSignatureList)new PgpObjectFactory(packet.ToArray()).NextPgpObject())[0];
         }
 
         /// <summary>
@@ -274,47 +579,111 @@ namespace UiPath.Cryptography.Activities.Tests
             using var outerBuffer = new MemoryStream();
             using (var armored = new ArmoredOutputStream(outerBuffer))
             {
-                if (marker == MarkerPlacement.Outside)
+                WriteSignedPayload(armored, data, compress, generators, marker);
+            }
+
+            return outerBuffer.ToArray();
+        }
+
+        // Writes [marker] [compressed(] OPS... literal SIG... [)] to target: the signed payload of a message.
+        private static void WriteSignedPayload(
+            Stream armored, byte[] data, bool compress, PgpSignatureGenerator[] generators, MarkerPlacement marker)
+        {
+            if (marker == MarkerPlacement.Outside)
+            {
+                armored.Write(MarkerPacket, 0, MarkerPacket.Length);
+            }
+
+            // Disposing the stream returned by Open() (rather than calling the obsolete
+            // PgpCompressedDataGenerator.Close()) flushes the compression trailer.
+            Stream compressedStream = compress
+                ? new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip).Open(armored)
+                : null;
+            Stream signingTarget = compressedStream ?? armored;
+
+            if (marker == MarkerPlacement.Inside)
+            {
+                signingTarget.Write(MarkerPacket, 0, MarkerPacket.Length);
+            }
+
+            var bcpgOut = new BcpgOutputStream(signingTarget);
+            for (var i = 0; i < generators.Length; i++)
+            {
+                // isNested == true writes "another one-pass packet follows"; only the last is false.
+                generators[i].GenerateOnePassVersion(i < generators.Length - 1).Encode(bcpgOut);
+            }
+
+            var literalGenerator = new PgpLiteralDataGenerator();
+            using (var literalOut = literalGenerator.Open(bcpgOut, PgpLiteralData.Binary, "fixture.dat", data.Length, DateTime.UtcNow))
+            {
+                literalOut.Write(data, 0, data.Length);
+                foreach (var generator in generators)
                 {
-                    armored.Write(MarkerPacket, 0, MarkerPacket.Length);
+                    generator.Update(data);
                 }
+            }
 
-                // Disposing the stream returned by Open() (rather than calling the obsolete
-                // PgpCompressedDataGenerator.Close()) flushes the compression trailer.
-                Stream compressedStream = compress
-                    ? new PgpCompressedDataGenerator(CompressionAlgorithmTag.Zip).Open(armored)
-                    : null;
-                Stream signingTarget = compressedStream ?? armored;
+            for (var i = generators.Length - 1; i >= 0; i--)
+            {
+                generators[i].Generate().Encode(bcpgOut);
+            }
 
-                if (marker == MarkerPlacement.Inside)
+            bcpgOut.Flush();
+            compressedStream?.Dispose();
+        }
+
+        /// <summary>
+        /// Encrypt (AES-256, with integrity packet) to <paramref name="recipient"/>'s encryption subkey a
+        /// payload signed by <paramref name="signers"/>, i.e. Encrypted(Compressed(OPS literal SIG)),
+        /// which is what gpg --encrypt --sign produces. <paramref name="armor"/> false yields raw binary.
+        /// </summary>
+        public static byte[] CreateEncryptedSignedMessage(
+            byte[] data, PgpBcFixture recipient, bool compress, DateTime? signedAtUtc, bool armor, params PgpBcFixture[] signers)
+        {
+            var generators = new PgpSignatureGenerator[signers.Length];
+            for (var i = 0; i < signers.Length; i++)
+            {
+                generators[i] = signers[i].NewGenerator(PgpSignature.BinaryDocument, signedAtUtc);
+            }
+
+            return Encrypt(recipient, armor, encrypted => WriteSignedPayload(encrypted, data, compress, generators, MarkerPlacement.None));
+        }
+
+        /// <summary>Encrypt without any signature (verification must then fail).</summary>
+        public static byte[] CreateEncryptedUnsignedMessage(byte[] data, PgpBcFixture recipient, bool armor)
+            => Encrypt(recipient, armor, encrypted =>
+            {
+                var literal = new PgpLiteralDataGenerator();
+                using var literalOut = literal.Open(encrypted, PgpLiteralData.Binary, "fixture.dat", data.Length, DateTime.UtcNow);
+                literalOut.Write(data, 0, data.Length);
+            });
+
+        private static byte[] Encrypt(PgpBcFixture recipient, bool armor, Action<Stream> writePayload)
+        {
+            if (recipient._encryptionKeyId is null)
+            {
+                throw new InvalidOperationException("The recipient fixture was created without an encryption subkey.");
+            }
+
+            var encryptionKey = recipient.PublicRing.GetPublicKey(recipient._encryptionKeyId.Value);
+            var generator = new PgpEncryptedDataGenerator(SymmetricKeyAlgorithmTag.Aes256, true, new SecureRandom());
+            generator.AddMethod(encryptionKey);
+
+            using var outerBuffer = new MemoryStream();
+            Stream sink = armor ? new ArmoredOutputStream(outerBuffer) : outerBuffer;
+            try
+            {
+                using (var encrypted = generator.Open(sink, new byte[1 << 16]))
                 {
-                    signingTarget.Write(MarkerPacket, 0, MarkerPacket.Length);
+                    writePayload(encrypted);
                 }
-
-                var bcpgOut = new BcpgOutputStream(signingTarget);
-                for (var i = 0; i < generators.Length; i++)
+            }
+            finally
+            {
+                if (armor)
                 {
-                    // isNested == true writes "another one-pass packet follows"; only the last is false.
-                    generators[i].GenerateOnePassVersion(i < generators.Length - 1).Encode(bcpgOut);
+                    sink.Dispose();
                 }
-
-                var literalGenerator = new PgpLiteralDataGenerator();
-                using (var literalOut = literalGenerator.Open(bcpgOut, PgpLiteralData.Binary, "fixture.dat", data.Length, DateTime.UtcNow))
-                {
-                    literalOut.Write(data, 0, data.Length);
-                    foreach (var generator in generators)
-                    {
-                        generator.Update(data);
-                    }
-                }
-
-                for (var i = generators.Length - 1; i >= 0; i--)
-                {
-                    generators[i].Generate().Encode(bcpgOut);
-                }
-
-                bcpgOut.Flush();
-                compressedStream?.Dispose();
             }
 
             return outerBuffer.ToArray();
