@@ -111,12 +111,17 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="Oracle.ManagedDataAccess" Version ="19.22.0"/>
+    <!-- SqlClient 4.1.0 pulls vulnerable IdentityModel 6.8.0 (CVE-2024-21319). STUD-82134 -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
   </ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
 		<PackageReference Include="System.Activities.ViewModels" />
 	</ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.0" />
+    <!-- Oracle chain resolves System.Formats.Asn1 6.0.0 (GHSA-447r-wph3-92pm). STUD-82133 -->
+    <PackageReference Include="System.Formats.Asn1" />
     <PackageReference Include="System.Data.Odbc" Version="6.0.2" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.1" />
   </ItemGroup>
