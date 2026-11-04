@@ -1,0 +1,127 @@
+parameters:
+  vstsProject: ''
+  poolName: ''
+  runSettingsFilePath: ''
+  preTestRun: []
+  postTestRun: []
+
+jobs:
+- job: RunTests
+  displayName: "Run tests"
+  timeoutInMinutes: 90
+  pool:
+    ${{ if eq(parameters.poolName, '') }}:
+      vmImage: $(vmImage)
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+    demands:
+      - npm
+      - msbuild
+      - visualstudio
+
+  variables:
+    - template: stage.variables.yml
+
+  steps:
+  - task: DownloadBuildArtifacts@0
+    displayName: "Download test artifact"
+    inputs:
+      artifactName: "OutputTests"
+      downloadPath: "$(Build.SourcesDirectory)"
+    condition: and(succeeded(), eq(variables['RunTests'], 'true'))
+
+  # Exact-patch pin clears SonarCloud's "use complete version number" hotspot.
+  # Must be bumped in lockstep with the installed extension version on AzDO —
+  # otherwise the pipeline fails to compile with "A task is missing"
+  # (see commit b587daa for the prior occurrence with SonarCloudAnalyze).
+  - task: BuildProcessCleaner@0.9147.15998
+
+  - task: VisualStudioTestPlatformInstaller@1
+    displayName: "VSTest Platform Installer"
+    inputs:
+      versionSelector: 'specificVersion'
+      testPlatformVersion: 17.2.0
+
+  - powershell: |
+      $content = ""
+      if ('$(IncludeLongRunning)' -ne 'true') {
+        $content = "Category!=LongRunning"
+      }
+
+      Write-Host "testFilterCriteria = $content"
+      Write-Output "##vso[task.setvariable variable=testFilterCriteria;]$content"
+    displayName: 'Set testFilterCriteria variable'
+
+  - ${{ parameters.preTestRun }}
+
+  - task: VSTest@2
+    displayName: "Run Smoke Tests"
+    inputs:
+      testAssemblyVer2: "**\\*tests.dll\n**\\*Test.dll\n**\\*UnitTest.dll\n!**\\*TestAdapter.dll\n!**\\obj\\**"
+      testRunTitle: "Unit Tests"
+      platform: "$(BuildPlatform)"
+      codeCoverageEnabled: "true"
+      publishRunAttachments: False
+      configuration: "$(BuildConfiguration)"
+      testFiltercriteria: $(testFilterCriteria)
+      runSettingsFile: ${{ parameters.runSettingsFilePath }}
+      vsTestVersion: toolsInstaller
+    condition: and(and(succeeded(), eq(variables['RunTests'], 'true')), ne(variables['TestRun'], 'AllTests'))
+
+  - task: VSTest@2
+    displayName: "Run All Tests"
+    inputs:
+      testAssemblyVer2: "**\\*tests.dll\n**\\*Test.dll\n**\\*UnitTest.dll\n!**\\*TestAdapter.dll\n!**\\obj\\**"
+      testRunTitle: "Unit Tests"
+      platform: "$(BuildPlatform)"
+      codeCoverageEnabled: "true"
+      publishRunAttachments: False
+      configuration: "$(BuildConfiguration)"
+      runSettingsFile: ${{ parameters.runSettingsFilePath }}
+      vsTestVersion: toolsInstaller
+    condition: and(and(succeeded(), eq(variables['RunTests'], 'true')), eq(variables['TestRun'], 'AllTests'))
+    timeoutInMinutes: 120
+
+  - task: PowerShell@1
+    displayName: "Stop all processes used in tests"
+    inputs:
+      scriptType: "inlineScript"
+      inlineScript: "
+      Get-Process -Name 'excel', 'winword', 'powerpnt'  -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+      "
+    condition: succeededOrFailed()
+
+  - task: PowerShell@1
+    displayName: "Download code coverage from TestRuns"
+    inputs:
+      scriptName: "$(ToolsPath)/Download-TestRunAttachments.ps1"
+      arguments: "-project $(System.TeamProject) -buildId $(Build.BuildId) -outputPath \"$(Build.ArtifactStagingDirectory)\\CodeCoverage\""
+    env:
+      # Token read by the script via $env:SYSTEM_ACCESSTOKEN — passing it on the
+      # command line would expose it in agent process listings even though
+      # AzDO masks it in logs.
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+    condition: always()
+
+  - task: PublishCodeCoverageResults@1
+    displayName: "Publish backend unit tests code coverage"
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "$(Build.ArtifactStagingDirectory)\\CodeCoverage\\*.coverage"
+    condition: and(succeededOrFailed(), ne(variables['PublishUTCoverage'], false))
+
+  - task: PowerShell@1
+    displayName: "Convert coverage to coveragexml"
+    inputs:
+      scriptName: "$(ToolsPath)/Convert-CoverageToCoverageXml.ps1"
+      arguments: "-inputPath \"$(Build.ArtifactStagingDirectory)\\CodeCoverage\" -outputPath \"$(Build.SourcesDirectory)\\TestResults\\UnitTests.coveragexml\""
+    condition: always()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifact - CodeCoverage'
+    inputs:
+      pathtoPublish: "$(Build.SourcesDirectory)\\TestResults\\UnitTests.coveragexml"
+      artifactName: CodeCoverage
+    condition: succeededOrFailed()
+
+  - ${{ parameters.postTestRun }}

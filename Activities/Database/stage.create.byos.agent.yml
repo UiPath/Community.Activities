@@ -48,7 +48,7 @@ jobs:
       expiryTimeMinutes: 90
       removePublicIp: "False"
 
-  - template: AzurePipelines/wait-for-agent.yml@template-helpers
+  - template: ../.pipelines/templates/AzurePipelines/wait-for-agent.yml
     parameters:
       capabilities: "{'agentKey': '$(athenaservicesAgentPrefix)-$(Build.BuildId)'}"
       azureDevOpsToken: "$(System.AccessToken)"

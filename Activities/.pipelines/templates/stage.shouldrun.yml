@@ -1,0 +1,30 @@
+jobs:
+- job: DetermineShouldRun
+  displayName: 'Determine should run'
+  pool:
+    vmImage: windows-latest
+  steps:
+  - checkout: none
+
+  - powershell: |
+      $buildReason = $ENV:BUILD_REASON
+      $branchRef = $ENV:BUILD_SOURCEBRANCH
+
+      # Each activity pipeline has path-based triggers that already guarantee
+      # it only runs when relevant files change. No GitHub API call needed.
+      $shouldRun = 'true'
+
+      if ($buildReason -eq 'Schedule') {
+        Write-Host "Scheduled build. Running."
+      } elseif ($buildReason -eq 'Manual') {
+        Write-Host "Manual build. Running."
+      } elseif ($buildReason -eq 'PullRequest') {
+        Write-Host "PR build. Path triggers already filtered to relevant changes. Running."
+      } else {
+        Write-Host "CI build on branch $branchRef. Running."
+      }
+
+      Write-Host "Setting BuildShouldRun to '$shouldRun'"
+      Write-Host "##vso[task.setvariable variable=BuildShouldRun;isOutput=true]$shouldRun"
+    displayName: "Determine build should run (path-trigger based)"
+    name: SetRunVariable
