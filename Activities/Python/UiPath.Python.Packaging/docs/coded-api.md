@@ -170,7 +170,7 @@ Options for configuring a Python scope passed to `UsePythonScope`.
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `Path` | `string` | — | Path to the Python installation directory. Optional — when omitted, the `PYTHONHOME` environment variable is used. |
-| `LibraryPath` | `string` | — (**required**) | **Required.** Full path to the versioned Python runtime library including the file name — `python**.dll` on Windows (e.g. `python313.dll`), `libpython*.so` on Linux, or `libpython*.dylib` on macOS. pythonnet uses it to locate the runtime; an empty or missing file raises `FileNotFoundException`. |
+| `LibraryPath` | `string` | — (**required**) | **Required.** Full path to the versioned Python runtime library including the file name — `python**.dll` on Windows (e.g. `python313.dll`), `libpython*.so` on Linux, or `libpython*.dylib` on macOS. pythonnet uses it to locate the runtime; an empty or missing file raises `FileNotFoundException`. A relative path is resolved against the current working directory (the project folder) when the scope starts. |
 | `Version` | `Version` | `Version.Auto` | **Deprecated — has no effect.** The Python version is detected automatically from the installation at `Path`/`LibraryPath`. Retained only for backward compatibility. |
 | `WorkingFolder` | `string` | — | Working directory for the Python process. Relative imports in scripts resolve from this path. |
 | `OperationTimeout` | `TimeSpan?` | `null` (1 hour) | Maximum time to wait for Python operations to complete. When `null`, defaults to 1 hour. |
@@ -195,7 +195,7 @@ Options for configuring a Python scope passed to `UsePythonScope`.
 | `Python_39` | Python 3.9 |
 | `Python_310` | Python 3.10 and above |
 
-> **Note:** Only Python **3.10–3.14** are supported at runtime. The Python 2.7, 3.3–3.5 and 3.6–3.9 values remain in the enum for serialization compatibility but are not supported and will raise a validation error at runtime if used.
+> **Note:** Only Python **3.10–3.15** are supported at runtime. The Python 2.7, 3.3–3.5 and 3.6–3.9 values remain in the enum for serialization compatibility but are not supported and will raise a validation error at runtime if used.
 
 ---
 

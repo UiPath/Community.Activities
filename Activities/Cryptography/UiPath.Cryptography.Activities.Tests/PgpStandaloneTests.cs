@@ -186,6 +186,57 @@ namespace UiPath.Cryptography.Activities.Tests
             }
         }
 
+        // STUD-80430: GnuPG 2.4+ wraps the one-pass signature in a compressed packet by default.
+        // The verify path must descend into the compression layer before locating the signature.
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void PgpVerify_SubkeySignedMessage_Verifies(bool compress)
+        {
+            var fixture = PgpBcFixture.Create();
+            var data = Encoding.UTF8.GetBytes("Subkey-signed payload for regression coverage");
+
+            var signed = fixture.CreateSignedMessage(data, compress);
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerify(signed, publicKeyStream));
+            }
+        }
+
+        // STUD-80429: GnuPG issues signatures from a signing-capable subkey. The verify path must
+        // resolve the signature's issuer key ID against every public key in the ring, not just the
+        // primary key, in ClearSignature mode too (binary-mode resolution is covered by
+        // PgpVerify_SubkeySignedMessage_Verifies above; same GetPublicKey(signature.KeyId) path).
+        [Fact]
+        public void PgpVerifyClear_SubkeySignedMessage_Verifies()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            var signed = fixture.CreateClearSignedMessage("Clear-signed by subkey");
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyClear(signed, publicKeyStream));
+            }
+        }
+
+        // STUD-80429: same subkey-resolution path as above, but with a multi-line message so the
+        // clear-text canonicalization loop's line-continuation branch (embedded newlines) is covered
+        // too, not just the single-line/no-trailing-newline case.
+        [Fact]
+        public void PgpVerifyClear_SubkeySignedMultiLineMessage_Verifies()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            var signed = fixture.CreateClearSignedMessage("Line one\nLine two\nLine three");
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyClear(signed, publicKeyStream));
+            }
+        }
+
         [Fact]
         public void PgpVerify_InvalidSignature_ReturnsFalse()
         {
@@ -196,6 +247,123 @@ namespace UiPath.Cryptography.Activities.Tests
                 var isValid = CryptographyHelper.PgpVerify(unsignedBytes, publicKeyStream);
                 Assert.False(isValid);
             }
+        }
+
+        // Code review finding (PR #601): buffering the public key stream so it can feed both the
+        // PgpCore path and the BouncyCastle fallback must stay under the same non-fatal exception
+        // policy as the rest of ExecutePgpVerifyOperation - an unreadable/disposed key stream is a
+        // "verification failed" (false) result, not a thrown exception, exactly as before this PR.
+        [Fact]
+        public void PgpVerify_UnreadablePublicKeyStream_ReturnsFalseWithoutThrowing()
+        {
+            var signedBytes = Encoding.UTF8.GetBytes("irrelevant - the key stream fails before this is read");
+            var disposedKeyStream = new MemoryStream();
+            disposedKeyStream.Dispose();
+
+            var isValid = CryptographyHelper.PgpVerify(signedBytes, disposedKeyStream);
+
+            Assert.False(isValid);
+        }
+
+        [Fact]
+        public void PgpVerifyClear_UnreadablePublicKeyStream_ReturnsFalseWithoutThrowing()
+        {
+            var signedBytes = Encoding.UTF8.GetBytes("irrelevant - the key stream fails before this is read");
+            var disposedKeyStream = new MemoryStream();
+            disposedKeyStream.Dispose();
+
+            var isValid = CryptographyHelper.PgpVerifyClear(signedBytes, disposedKeyStream);
+
+            Assert.False(isValid);
+        }
+
+        // Code review finding (PR #601): BcVerifyBinarySignature originally hashed the literal
+        // payload one byte at a time. Use a payload larger than, and not a multiple of, the
+        // fallback's internal read buffer (8192 bytes) so the block-read loop is exercised across
+        // several full reads plus a final partial read, proving the refactor still verifies
+        // correctly (not just faster) for large signed files.
+        [Fact]
+        public void PgpVerify_SubkeySignedLargeMessage_Verifies()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            var data = new byte[8192 * 3 + 137];
+            new Random(12345).NextBytes(data);
+
+            var signed = fixture.CreateSignedMessage(data, compress: false);
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerify(signed, publicKeyStream));
+            }
+        }
+
+        // Code review finding (PR #601): the text entry points (used by the coded-workflow
+        // CryptographyService.PgpVerifyText / PgpVerifyClearSignedText) must get the same
+        // subkey/compressed fallback as the byte[] entry points. The fixture output is already
+        // ASCII-armored, so it is passed as a string here.
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void PgpVerifyText_SubkeySignedMessage_Verifies(bool compress)
+        {
+            var fixture = PgpBcFixture.Create();
+            var signed = Encoding.ASCII.GetString(
+                fixture.CreateSignedMessage(Encoding.UTF8.GetBytes("Subkey-signed text payload"), compress));
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyText(signed, publicKeyStream));
+            }
+        }
+
+        [Theory]
+        [InlineData("Clear-signed by subkey")]
+        [InlineData("Line one\nLine two\nLine three")]
+        public void PgpVerifyClearText_SubkeySignedMessage_Verifies(string text)
+        {
+            var fixture = PgpBcFixture.Create();
+            var signed = Encoding.ASCII.GetString(fixture.CreateClearSignedMessage(text));
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.True(CryptographyHelper.PgpVerifyClearText(signed, publicKeyStream));
+            }
+        }
+
+        [Fact]
+        public void PgpVerifyText_SubkeySignedMessage_WrongKey_ReturnsFalse()
+        {
+            var signer = PgpBcFixture.Create();
+            var other = PgpBcFixture.Create();
+            var signed = Encoding.ASCII.GetString(
+                signer.CreateSignedMessage(Encoding.UTF8.GetBytes("payload"), compress: true));
+
+            using (var publicKeyStream = new MemoryStream(other.PublicKeyRing))
+            {
+                Assert.False(CryptographyHelper.PgpVerifyText(signed, publicKeyStream));
+            }
+        }
+
+        [Fact]
+        public void PgpVerifyText_NullInput_ReturnsFalseWithoutThrowing()
+        {
+            var fixture = PgpBcFixture.Create();
+
+            using (var publicKeyStream = new MemoryStream(fixture.PublicKeyRing))
+            {
+                Assert.False(CryptographyHelper.PgpVerifyText(null, publicKeyStream));
+            }
+        }
+
+        [Fact]
+        public void PgpVerifyText_UnreadablePublicKeyStream_ReturnsFalseWithoutThrowing()
+        {
+            var disposedKeyStream = new MemoryStream();
+            disposedKeyStream.Dispose();
+
+            Assert.False(CryptographyHelper.PgpVerifyText("not a signed message", disposedKeyStream));
+            Assert.False(CryptographyHelper.PgpVerifyClearText("not a signed message", disposedKeyStream));
         }
 
         [Fact]
@@ -225,6 +393,104 @@ namespace UiPath.Cryptography.Activities.Tests
             finally
             {
                 File.Delete(invalidKeyPath);
+            }
+        }
+
+        // STUD-80428: GnuPG 2.4+ defaults to a LibrePGP AEAD Encrypted Data packet (tag 20, OCB
+        // cipher) for recipient keys that advertise AEAD support. BouncyCastle fails on tag 20
+        // (2.4.0-2.6.x: "unknown object in stream 20"; 2.7+: "invalid header encountered");
+        // PgpDecrypt/PgpDecryptStream must translate that into the actionable
+        // PgpAeadNotSupported message instead of surfacing the raw BouncyCastle exception.
+        [Fact]
+        public void PgpDecrypt_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var aeadPacket = GnuPgAeadSample.Message();
+
+            using (var privateKeyStream = GnuPgAeadSample.PrivateKeyStream())
+            {
+                var ex = Assert.Throws<InvalidOperationException>(() =>
+                    CryptographyHelper.PgpDecrypt(aeadPacket, privateKeyStream, GnuPgAeadSample.Passphrase));
+
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+        }
+
+        [Fact]
+        public void DecryptFile_Activity_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var aeadPacket = GnuPgAeadSample.Message();
+            var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_aead_in_{Guid.NewGuid()}.pgp");
+            File.WriteAllBytes(inputPath, aeadPacket);
+            var keyPath = GnuPgAeadSample.WritePrivateKeyFile();
+
+            try
+            {
+                var activity = new DecryptFile
+                {
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    InputFilePath = new InArgument<string>(inputPath),
+                    PrivateKeyFilePath = new InArgument<string>(keyPath),
+                    Passphrase = new InArgument<string>(GnuPgAeadSample.Passphrase),
+                    OutputFilePath = new InArgument<string>(Path.Combine(Path.GetTempPath(), $"pgp_aead_out_{Guid.NewGuid()}.txt")),
+                };
+
+                var ex = Assert.Throws<InvalidOperationException>(() => WorkflowInvoker.Invoke(activity));
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+            finally
+            {
+                if (File.Exists(inputPath)) File.Delete(inputPath);
+                if (File.Exists(keyPath)) File.Delete(keyPath);
+            }
+        }
+
+        // Text path: PgpDecryptText uses PgpCore's DecryptArmoredString, a separate API from the
+        // stream-based one above, so it needs its own proof that the translation still fires.
+        private static string BuildArmoredAeadMessage()
+        {
+            using var ms = new MemoryStream();
+            using (var armored = new ArmoredOutputStream(ms))
+            {
+                var packet = GnuPgAeadSample.Message();
+                armored.Write(packet, 0, packet.Length);
+            }
+            return Encoding.ASCII.GetString(ms.ToArray());
+        }
+
+        [Fact]
+        public void PgpDecryptText_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var armoredAead = BuildArmoredAeadMessage();
+
+            using (var privateKeyStream = GnuPgAeadSample.PrivateKeyStream())
+            {
+                var ex = Assert.Throws<InvalidOperationException>(() =>
+                    CryptographyHelper.PgpDecryptText(armoredAead, privateKeyStream, GnuPgAeadSample.Passphrase));
+
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+        }
+
+        [Fact]
+        public void DecryptText_Activity_AeadEncryptedPacket_ThrowsActionableError()
+        {
+            var keyPath = GnuPgAeadSample.WritePrivateKeyFile();
+            try
+            {
+                var activity = new DecryptText
+                {
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    Input = new InArgument<string>(BuildArmoredAeadMessage()),
+                    PrivateKeyFilePath = new InArgument<string>(keyPath),
+                    Passphrase = new InArgument<string>(GnuPgAeadSample.Passphrase),
+                };
+
+                var ex = Assert.Throws<InvalidOperationException>(() => WorkflowInvoker.Invoke(activity));
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+            finally
+            {
+                if (File.Exists(keyPath)) File.Delete(keyPath);
             }
         }
 
@@ -672,6 +938,30 @@ namespace UiPath.Cryptography.Activities.Tests
         {
             Assert.NotNull(typeof(PgpVerify).GetProperty(nameof(PgpVerify.InputFile)));
             Assert.NotNull(typeof(PgpVerify).GetProperty(nameof(PgpVerify.PublicKeyFile)));
+        }
+
+        [Fact]
+        public void EncryptText_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(EncryptText).GetProperty(nameof(EncryptText.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void EncryptFile_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(EncryptFile).GetProperty(nameof(EncryptFile.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void DecryptText_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(DecryptText).GetProperty(nameof(DecryptText.PrivateKeyFile)));
+        }
+
+        [Fact]
+        public void DecryptFile_Has_PrivateKeyFile_IResource_Property()
+        {
+            Assert.NotNull(typeof(DecryptFile).GetProperty(nameof(DecryptFile.PrivateKeyFile)));
         }
 
         #endregion

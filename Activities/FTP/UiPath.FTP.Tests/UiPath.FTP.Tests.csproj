@@ -24,6 +24,14 @@
     <PackageReference Include="UiPath.Telemetry.Client" />
     <PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
     <PackageReference Include="UiPath.Platform" />
+    <!--
+      System.Activities.Metadata is PrivateAssets="All" repo-wide (Directory.build.targets), so it
+      is never copied to a consuming test project's output. DesignPropertiesViewModel.LoadProperties
+      needs it at runtime to reflect over a ViewModel's own DesignProperty-typed properties, and
+      every DesignProperty.Value/IsVisible mutation throws FileNotFoundException without it.
+      Re-including it here, test-project-only, does not affect what ships in the FTP nupkg.
+    -->
+    <PackageReference Include="System.Activities.Metadata" PrivateAssets="" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">

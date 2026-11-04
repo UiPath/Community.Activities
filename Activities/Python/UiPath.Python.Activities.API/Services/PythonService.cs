@@ -38,6 +38,10 @@ namespace UiPath.Python.Activities.API
             if (!string.IsNullOrWhiteSpace(path) && !Directory.Exists(path))
                 throw new DirectoryNotFoundException($"Python path not found: {path}");
 
+            // the python host runs in another working directory, so relative paths must be resolved here
+            if (!string.IsNullOrWhiteSpace(path))
+                path = Path.GetFullPath(path);
+
             if (options.OperationTimeout.HasValue && options.OperationTimeout.Value < TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(options), "OperationTimeout must be non-negative.");
 
@@ -61,10 +65,12 @@ namespace UiPath.Python.Activities.API
             if (string.IsNullOrWhiteSpace(options.LibraryPath) || !File.Exists(options.LibraryPath))
                 throw new FileNotFoundException(string.Format(Resources.InvalidLibraryPathException, options.LibraryPath));
 
-            EngineProvider.ValidateInstallation(path, options.LibraryPath);
+            var libraryPath = Path.GetFullPath(options.LibraryPath);
+
+            EngineProvider.ValidateInstallation(path, libraryPath);
 
             int payloadThresholdMB = options.ScriptDataSizeLimitMB ?? EngineProvider.DefaultPayloadThresholdMB;
-            IEngine engine = _engineFactory(Version.Auto, path, options.LibraryPath, false, TargetPlatform.x64, false, options.LogTraces, payloadThresholdMB);
+            IEngine engine = _engineFactory(Version.Auto, path, libraryPath, false, TargetPlatform.x64, false, options.LogTraces, payloadThresholdMB);
 
             try
             {

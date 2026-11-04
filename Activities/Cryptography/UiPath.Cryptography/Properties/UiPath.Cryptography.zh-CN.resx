@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>PGP 签名验证失败。公钥与签名不匹配，或者数据已被篡改。</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>输入使用了 GnuPG 的 AEAD/LibrePGP 格式（OCB），该格式不受支持。请发件人使用与 RFC 4880 兼容的方式进行加密（不使用 AEAD）。</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>签名文件（二进制）</value>
   </data>

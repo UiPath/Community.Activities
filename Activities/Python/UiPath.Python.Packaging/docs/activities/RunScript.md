@@ -14,7 +14,7 @@ Executes Python script code or a script file inside an active Python runtime sco
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `Code` | Code | InArgument | `string` |  |  |  | Python script content. Provide either `Code` or `ScriptFile`. |
-| `ScriptFile` | Run Python Script | InArgument | `string` |  |  |  | Path to a Python script file to load and execute. Provide either `Code` or `ScriptFile`. |
+| `ScriptFile` | Run Python Script | InArgument | `string` |  |  |  | Path to a Python script file to load and execute. Provide either `Code` or `ScriptFile`. In Studio, shows a file picker when the host supports it, and a plain text box otherwise. |
 
 ### Configuration
 

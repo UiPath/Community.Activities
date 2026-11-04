@@ -9,6 +9,7 @@ using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 #pragma warning disable CS0618 // obsolete keyed-hash algorithms (HMACMD5, HMACSHA1, SHA1) remain referenced for backwards compatibility
 
@@ -94,29 +95,48 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             KeyEncodingString.IsPrincipal = false;
             KeyEncodingString.OrderIndex = propertyOrderIndex++;
-            KeyEncodingString.Category = Resources.Category_Options_Name;
+            KeyEncodingString.Category = Resources.Category_Encoding_Name;
 
             KeyEncodingString.DataSource = _encodingDataSource;
             KeyEncodingString.Widget = new DefaultWidget { Type = ViewModelWidgetType.Dropdown, Metadata = new Dictionary<string, string>() };
 
             _encodingDataSource.Data = EncodingHelpers.GetAvailableEncodings();
 
-            Result.IsPrincipal = true;
-            Result.OrderIndex = propertyOrderIndex++;
-            Result.Category = Resources.Output;
-
             ContinueOnError.IsPrincipal = false;
-            ContinueOnError.OrderIndex = propertyOrderIndex;
+            ContinueOnError.OrderIndex = propertyOrderIndex++;
             ContinueOnError.Category = Resources.Category_Options_Name;
             ContinueOnError.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle, Metadata = new Dictionary<string, string>() };
             ContinueOnError.Value = false;
+
+            // Output is assigned last so it renders after the Options section (guideline "outputs last").
+            // Non-principal, matching every other Cryptography output — it belongs in the Output section
+            // of the properties panel, not the collapsed canvas card among the inputs.
+            Result.IsPrincipal = false;
+            Result.OrderIndex = propertyOrderIndex++;
+            Result.Category = Resources.Output;
 
             _keyToggle.ConfigureMenuActions();
             ApplyKeyInputModeVisibility();
 
             _inputFileToggle.ConfigureMenuActions();
             ApplyInputFileVisibility();
+
+            // STUD-80743: Configure file widgets
+            ConfigureFilePathWidgets();
+
             ConfigurePropertyTexts();
+        }
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption
+            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // Tier A: string path that has an IResource overload carries NoWrap metadata.
+            FilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+
+            // ILocalResource-typed property omits NoWrap.
+            InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
         }
 
         private void ConfigurePropertyTexts()

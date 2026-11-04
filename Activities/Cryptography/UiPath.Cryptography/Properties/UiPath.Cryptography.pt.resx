@@ -640,6 +640,9 @@
   <data name="PgpSignatureVerificationFailed" xml:space="preserve">
     <value>Falha na verificação da assinatura PGP. A chave pública não corresponde à assinatura ou os dados foram adulterados.</value>
   </data>
+  <data name="PgpAeadNotSupported" xml:space="preserve">
+    <value>A entrada utiliza o formato AEAD/LibrePGP (OCB) do GnuPG, que não é suportado. Peça ao remetente para encriptar com compatibilidade com a RFC 4880 (sem AEAD).</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Ficheiro Assinado (Binário)</value>
   </data>

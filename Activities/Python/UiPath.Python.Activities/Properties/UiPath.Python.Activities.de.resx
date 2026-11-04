@@ -294,10 +294,10 @@
     <value>Die Zeit in Sekunden, die ein Python-Skript ausgeführt werden kann, bis es beendet und eine Ausnahme ausgelöst wird.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Für Linux ist der Pfad zur Python-Bibliothek „libpython*.so“ einschließlich des Bibliotheksnamens anzugeben. Für Windows (Version &gt; 3.9) ist der Pfad zu „python**.dll“ einschließlich des Bibliotheksnamens (steht normalerweise im Python-Startpfad) anzugeben. Für Windows (Version &lt;= 3.9) leer lassen.</value>
+    <value>Erforderlich. Vollständiger Pfad zur Python-Runtimebibliothek einschließlich des Dateinamens – python**.dll unter Windows (z. B. python313.dll, in der Regel im Python-Basisordner), libpython*.so unter Linux oder libpython*.dylib unter macOS.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Bibliothekspfad (Linux oder Version &gt; 3.9)</value>
+    <value>Bibliothekspfad</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>Die ausgewählte Python-Version wird nicht unterstützt.</value>

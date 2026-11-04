@@ -6,13 +6,13 @@
 
 | Activity | Description |
 |----------|-------------|
-| [Delete File or Folder](activities/Delete.md) | Removes a specified file from an FTP server. This activity only works if it is placed inside a With FTP Session scope activity. |
-| [Directory Exists](activities/DirectoryExists.md) | Checks whether a certain directory exists on an FTP server. This activity only works if it is placed inside a With FTP Session scope activity. |
-| [Download Files](activities/DownloadFiles.md) | Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a With FTP Session scope activity. |
-| [Enumerate Objects](activities/EnumerateObjects.md) | Generates a collection of files that have been found on the FTP server. Subfolders can also be included in the search by checking the Includes subfolders box. This activity only works if it is placed inside a With FTP Session scope activity. |
-| [File Exists](activities/FileExists.md) | Checks whether a certain file exists in the specified FTP directory. This activity only works if it is placed inside a With FTP Session scope activity. |
-| [Move File or Folder](activities/MoveItem.md) | Moves an item on an FTP server to a different remote path. This activity only works if it is placed inside a With FTP Session scope activity. |
-| [Upload Files](activities/UploadFiles.md) | Uploads a file to an FTP server. This activity only works if it is placed inside a With FTP Session scope activity. |
+| [Delete File or Folder](activities/Delete.md) | Removes a file or folder from an FTP server. This activity only works if it is placed inside a Use FTP Connection activity. |
+| [Check If Folder Exists](activities/DirectoryExists.md) | Checks whether a folder exists on an FTP server. This activity only works if it is placed inside a Use FTP Connection activity. |
+| [Download Files](activities/DownloadFiles.md) | Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a Use FTP Connection activity. |
+| [List Files and Folders](activities/EnumerateObjects.md) | Generates a collection of the files and folders found on the FTP server. Subfolders can also be included by turning on Include subfolders. This activity only works if it is placed inside a Use FTP Connection activity. |
+| [Check If File Exists](activities/FileExists.md) | Checks whether a file exists in the specified FTP folder. This activity only works if it is placed inside a Use FTP Connection activity. |
+| [Move File or Folder](activities/MoveItem.md) | Moves an item on an FTP server to a different remote path. This activity only works if it is placed inside a Use FTP Connection activity. |
+| [Upload Files](activities/UploadFiles.md) | Uploads files to an FTP server. This activity only works if it is placed inside a Use FTP Connection activity. |
 | [Use FTP Connection](activities/WithFtpSession.md) | Connects to FTP server and provides a scope for other FTP activities. |
 
 ## XAML Namespace
@@ -34,6 +34,6 @@ This one URI maps the whole package — the activities (`UiPath.FTP.Activities`)
 | Type | XAML | Notes |
 |------|------|-------|
 | `IFtpSession` | `ftp:IFtpSession` | Delegate argument exposed by the `WithFtpSession` scope body (`ActivityAction<IFtpSession>`, arg name `FtpSession`). |
-| `FtpObjectInfo` | `ftp:FtpObjectInfo` | Returned by Enumerate Objects. Members: `FullName`, `Name`, `Size`, `Created`, `Modified`, `Type` (`FtpObjectType`), `OwnerPermissions`, `GroupPermissions`, `OthersPermissions` (`FtpPermissions`). |
-| `FtpObjectType` | `ftp:FtpObjectType` | Enum: `Directory`, `File`, `Link`, `Other`. |
-| `FtpFilterObjectType` | `ftp:FtpFilterObjectType` | `[Flags]` enum used by Enumerate Objects `Filter` — see that activity's doc for values and semantics. |
+| `FtpObjectInfo` | `ftp:FtpObjectInfo` | Returned by List Files and Folders. Members: `FullName`, `Name`, `Size`, `Created`, `Modified`, `Type` (`FtpObjectType`), `OwnerPermissions`, `GroupPermissions`, `OthersPermissions` (`FtpPermissions`). |
+| `FtpObjectType` | `ftp:FtpObjectType` | Enum: `Directory`, `File`, `Link`, `Other`. **On SFTP, `Link` is never produced** — symbolic links are reported as `File`. FTP/FTPS report `Link` correctly. See [List Files and Folders](activities/EnumerateObjects.md). |
+| `FtpFilterObjectType` | `ftp:FtpFilterObjectType` | `[Flags]` enum used by List Files and Folders `Filter` — see that activity's doc for values and semantics. |

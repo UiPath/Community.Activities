@@ -9,6 +9,7 @@
     <Import_RootNamespace>UiPath.Python.Host.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)HostAssemblyResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Program.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PythonService.cs" />
   </ItemGroup>

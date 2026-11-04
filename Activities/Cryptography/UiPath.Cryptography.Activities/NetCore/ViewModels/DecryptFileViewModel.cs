@@ -6,6 +6,7 @@ using UiPath.Cryptography.Activities.Helpers;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 {
@@ -28,6 +29,7 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         public DesignInArgument<IResource> InputFile { get; set; } = new DesignInArgument<IResource>();
         public DesignInArgument<string> InputFilePath { get; set; } = new DesignInArgument<string>();
         public DesignInArgument<string> OutputFilePath { get; set; } = new DesignInArgument<string>();
+        public DesignInArgument<string> OutputFileName { get; set; } = new DesignInArgument<string>();
         public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
         public DesignOutArgument<ILocalResource> DecryptedFile { get; set; } = new DesignOutArgument<ILocalResource>();
 
@@ -53,7 +55,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             OutputFilePath.OrderIndex = orderIndex++;
             OutputFilePath.Category = Resources.Category_Options_Name;
 
-            Overwrite.IsPrincipal = true;
+            OutputFileName.IsPrincipal = false;
+            OutputFileName.IsRequired = false;
+            OutputFileName.OrderIndex = orderIndex++;
+            OutputFileName.Category = Resources.Category_Options_Name;
+
+            Overwrite.IsPrincipal = false;
             Overwrite.OrderIndex = orderIndex++;
             Overwrite.Category = Resources.Category_Options_Name;
             Overwrite.Widget = new DefaultWidget { Type = ViewModelWidgetType.Toggle };
@@ -61,8 +68,12 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ConfigureTailProperties(ref orderIndex);
             ConfigureKeyInputModeMenuActions();
             ConfigurePublicKeyFileMenuActions();
+            ConfigurePrivateKeyFileMenuActions();
             ConfigureInputFileMenuActions();
             ConfigurePassphraseInputModeMenuActions();
+
+            // STUD-80743: Configure file widgets
+            ConfigureFilePathWidgets();
 
             DecryptedFile.IsPrincipal = false;
             DecryptedFile.OrderIndex = orderIndex;
@@ -75,6 +86,18 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
         {
             _inputFileToggle.ConfigureMenuActions();
             ApplyInputFileVisibility();
+        }
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption — shared with EncryptFileViewModel,
+            // whose file/key path property set is identical.
+            WidgetSupportHelper.ConfigureFilePathWidgets(
+                Services,
+                InputFilePath, InputFile,
+                PublicKeyFilePath, PublicKeyFile,
+                PrivateKeyFilePath, PrivateKeyFile,
+                OutputFilePath);
         }
 
         private void ConfigurePropertyTexts()
@@ -91,6 +114,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             KeySecureString.Tooltip = Resources.Activity_DecryptFile_Property_KeySecureString_Description;
             OutputFilePath.DisplayName = Resources.Activity_DecryptFile_Property_OutputFilePath_Name;
             OutputFilePath.Tooltip = Resources.Activity_DecryptFile_Property_OutputFilePath_Description;
+            OutputFileName.DisplayName = Resources.Activity_DecryptFile_Property_OutputFileName_Name;
+            OutputFileName.Tooltip = Resources.Activity_DecryptFile_Property_OutputFileName_Description;
             KeyEncodingString.DisplayName = Resources.Activity_DecryptFile_Property_KeyEncodingString_Name;
             KeyEncodingString.Tooltip = Resources.Activity_DecryptFile_Property_KeyEncodingString_Description;
             Format.DisplayName = Resources.Activity_DecryptFile_Property_Format_Name;
@@ -107,6 +132,8 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
             ContinueOnError.Tooltip = Resources.Activity_DecryptFile_Property_ContinueOnError_Description;
             PrivateKeyFilePath.DisplayName = Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Name;
             PrivateKeyFilePath.Tooltip = Resources.Activity_DecryptFile_Property_PrivateKeyFilePath_Description;
+            PrivateKeyFile.DisplayName = Resources.Activity_DecryptFile_Property_PrivateKeyFile_Name;
+            PrivateKeyFile.Tooltip = Resources.Activity_DecryptFile_Property_PrivateKeyFile_Description;
             Passphrase.DisplayName = Resources.Activity_DecryptFile_Property_Passphrase_Name;
             Passphrase.Tooltip = Resources.Activity_DecryptFile_Property_Passphrase_Description;
             PassphraseSecureString.DisplayName = Resources.Activity_DecryptFile_Property_PassphraseSecureString_Name;

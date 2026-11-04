@@ -142,13 +142,51 @@ namespace UiPath.Python
         /// executable) and its dynamic library (<paramref name="libraryPath"/>, via binary inspection).
         /// Either input may be absent or invalid independently; each check no-ops when its input is
         /// missing and throws <see cref="PlatformNotSupportedException"/> / <see cref="NotSupportedException"/>
-        /// when it finds a 32-bit or unsupported runtime.
+        /// when it finds a 32-bit or unsupported runtime. Also cross-checks a venv at <paramref name="path"/>
+        /// against the version actually loaded from <paramref name="libraryPath"/> (see
+        /// <see cref="ValidateVenvVersion"/>).
         /// </summary>
         public static void ValidateInstallation(string path, string libraryPath)
         {
             // Library first: it is the exact artifact pythonnet loads and the check is cheap (no spawn).
             ValidatePythonLibrary(libraryPath);
             ValidatePythonExecutable(path);
+            ValidateVenvVersion(path, libraryPath);
+        }
+
+        /// <summary>
+        /// If <paramref name="path"/> is a venv, cross-checks the Python version it was created with
+        /// (from its pyvenv.cfg) against the version actually loaded from <paramref name="libraryPath"/>.
+        /// A mismatch means the venv's site-packages — compiled for a different ABI — would end up on
+        /// sys.path for a differently-versioned interpreter. Surfaced here, before any native
+        /// initialization, rather than as a confusing failure deep inside the engine (e.g. a missing
+        /// _sysconfigdata module, or subtly wrong stdlib behavior). No-ops when either version can't be
+        /// determined — engine initialization will surface its own error in that case.
+        /// </summary>
+        private static void ValidateVenvVersion(string path, string libraryPath)
+        {
+            var venv = VenvDetection.GetVenvInfo(path);
+            if (venv?.Version == null || !TryParseVenvVersion(venv.Version, out int venvMajor, out int venvMinor))
+                return;
+
+            if (!TryGetLibraryVersion(libraryPath, out int libMajor, out int libMinor))
+                return;
+
+            if (venvMajor != libMajor || venvMinor != libMinor)
+                throw new NotSupportedException(
+                    string.Format(Resources.PythonVenvVersionMismatchException,
+                        venv.Root, $"{venvMajor}.{venvMinor}", $"{libMajor}.{libMinor}"));
+        }
+
+        /// <summary>
+        /// Parses the "major.minor(.patch)" version string pyvenv.cfg's version key always carries.
+        /// </summary>
+        private static bool TryParseVenvVersion(string version, out int major, out int minor)
+        {
+            major = 0;
+            minor = 0;
+            var parts = version.Split('.');
+            return parts.Length >= 2 && int.TryParse(parts[0], out major) && int.TryParse(parts[1], out minor);
         }
 
         /// <summary>

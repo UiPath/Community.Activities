@@ -165,6 +165,9 @@
   <data name="PythonVersionNotSupportedException" xml:space="preserve">
     <value>不支援 Python {0}。支援的版本為: {1}。</value>
   </data>
+  <data name="PythonVenvVersionMismatchException" xml:space="preserve">
+    <value>“{0}” 中的虛擬環境是使用 Python {1} 建立，但「元件庫路徑」指向 Python {2}。將與虛擬環境相符的 Python {1} 安裝的元件庫路徑指向。</value>
+  </data>
   <data name="PayloadThresholdExceeded" xml:space="preserve">
     <value>Python 指令碼資料大小 ({0} MB) 超出配置的限制 ({1} MB)。透過檔案路徑 (而非方法引數) 傳遞大型資料，或增加「指令碼資料大小限制」屬性。</value>
   </data>

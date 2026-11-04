@@ -13,6 +13,7 @@
 		<PackageReference Include="System.Security.Cryptography.Cng" />
 		<PackageReference Include="System.Formats.Asn1" />
 		<PackageReference Include="PgpCore" />
+		<PackageReference Include="BouncyCastle.Cryptography" />
 	</ItemGroup>
 
 	<ItemGroup>

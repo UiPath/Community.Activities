@@ -18,9 +18,6 @@
 	<Import Project="..\..\Shared\UiPath.Shared\UiPath.Shared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
   </ItemGroup>
 </Project>

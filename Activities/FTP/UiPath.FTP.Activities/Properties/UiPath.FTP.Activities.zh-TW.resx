@@ -222,6 +222,9 @@
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
     <value>未找到有效的身分驗證方法: 您需要提供私密金鑰檔案 (可選擇提供密碼) 或密碼</value>
   </data>
+  <data name="AnonymousLoginNotSupportedOnSftp" xml:space="preserve">
+    <value>不支援透過 SFTP 進行匿名登入。關閉「使用匿名登入」或「使用 SFTP」。</value>
+  </data>
   <data name="NewPath" xml:space="preserve">
     <value>新遠端路徑</value>
   </data>
@@ -321,10 +324,10 @@
     <value>常見</value>
   </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
-    <value>FTP 工作階段範圍</value>
+    <value>使用 FTP 連線</value>
   </data>
   <data name="Activity_Delete_Description" xml:space="preserve">
-    <value>從 FTP 伺服器中移除指定檔案。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <value>從 FTP 伺服器中移除檔案或資料夾。僅當此活動置於「使用 FTP 連線」活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
@@ -340,11 +343,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
-    <value>檢查 FTP 伺服器上是否存在某個目錄。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <value>檢查 FTP 伺服器上是否存在資料夾。僅當此活動置於「使用 FTP 連線」活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DirectoryExists_Name" xml:space="preserve">
-    <value>目錄存在</value>
+    <value>檢查資料夾是否存在</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
@@ -364,23 +367,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>產生一個檔案集合，其中的檔案是在 FTP 伺服器上找到的檔案。勾選「包括子資料夾」方塊後，搜尋結果中也會包含子資料夾。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <value>產生一個在 FTP 伺服器上找到的檔案和資料夾的集合。也可以透過開啟「包括子資料夾」來包含子資料夾。僅當此活動置於「使用 FTP 連線」活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
-    <value>列舉對象</value>
+    <value>列出檔案和資料夾</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
-    <value>已在 FTP 伺服器上找到檔案的集合。</value>
+    <value>在 FTP 伺服器上找到的檔案和資料夾的集合。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>檔案</value>
+    <value>文件和資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
-    <value>如果勾選此方塊，FTP 伺服器上的檔案列舉也將包含子資料夾。</value>
+    <value>如果已開啟，則子資料夾也包含在列表中。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
@@ -388,19 +391,19 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
-    <value>FTP 伺服器上要對其檔案進行列舉的目錄的路徑。</value>
+    <value>FTP 伺服器上列出其內容的資料夾的路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>遠端路徑</value>
+    <value>資料夾路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
-    <value>檢查指定 FTP 目錄中是否存在特定檔案。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <value>檢查指定 FTP 資料夾中是否存在檔案。僅當此活動置於「使用 FTP 連線」活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_FileExists_Name" xml:space="preserve">
-    <value>檔案存在</value>
+    <value>檢查檔案是否存在</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
@@ -416,11 +419,11 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>檔案路徑</value>
+    <value>檔路徑</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
-    <value>上傳檔案至 FTP 伺服器。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <value>將檔案上傳至 FTP 伺服器。僅當此活動置於「使用 FTP 連線」活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_UploadFiles_Name" xml:space="preserve">
@@ -428,11 +431,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
-    <value>如果勾選此方塊，則會在資料夾路徑尚不存在的情況下在 FTP 伺服器上加以建立。</value>
+    <value>如果開啟，系統會在資料夾路徑尚不存在的情況下，在 FTP 伺服器上建立該路徑。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>建立</value>
+    <value>如果缺少資料夾，請建立資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -444,15 +447,15 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>如果勾選此方塊，則 FTP 伺服器上已儲存的檔案將被覆寫。</value>
+    <value>如果開啟，則 FTP 伺服器上已儲存的檔案將被覆寫。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>覆寫</value>
+    <value>覆蓋現有文件</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>如果勾選此核取方塊，則系統將上傳資料夾及其各自的子資料夾。</value>
+    <value>如果已開啟，系統會上傳資料夾及其各自的子資料夾。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
@@ -476,11 +479,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
-    <value>如果勾選此方塊，則系統將接受所有憑證，包括過期或未經驗證的憑證。</value>
+    <value>如果已開啟，則接受所有憑證，包括已過期或未驗證的憑證。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
-    <value>接受所有憑證</value>
+    <value>接受所有證書</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Description" xml:space="preserve">
@@ -488,7 +491,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePassword_Name" xml:space="preserve">
-    <value>用戶端憑證密碼</value>
+    <value>用戶端證書密碼</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Description" xml:space="preserve">
@@ -548,15 +551,15 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
-    <value>超時(毫秒)</value>
+    <value>逾時</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
-    <value>SSL 通訊協定</value>
+    <value>SSL 協議</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
-    <value>勾選此方塊時，將忽略使用者名稱和密碼欄位，並改用標準匿名使用者。</value>
+    <value>如果開啟，系統將忽略使用者名稱和密碼欄位，並改用標準匿名使用者。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
@@ -572,7 +575,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
-    <value>如果要使用 SFTP 傳輸通訊協定，請勾選此方塊。</value>
+    <value>開啟以使用 SFTP 傳輸通訊協定。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
@@ -580,7 +583,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
-    <value>將來自 FTP 伺服器的指定檔案下載至指定的本機資料夾。僅當此活動置於「使用 FTP 工作階段」範圍活動中時才能正常工作。</value>
+    <value>將來自 FTP 伺服器的指定檔案下載至指定的本機資料夾。僅當此活動置於「使用 FTP 連線」活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
@@ -588,11 +591,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
-    <value>如果勾選此方塊，則系統會在資料夾路徑尚不存在的情況下在本機加以建立。</value>
+    <value>如果開啟，則係統會在資料夾路徑尚不存在的情況下在本機加以建立。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>建立</value>
+    <value>如果缺少資料夾，請建立資料夾</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -604,15 +607,15 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>如果勾選此方塊，則系統會覆寫已儲存在本機的檔案。</value>
+    <value>如果開啟，則係統會覆寫已儲存在本機的檔案。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>覆寫</value>
+    <value>覆蓋現有文件</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>如果勾選此方塊，則系統將下載資料夾及其各自的子資料夾。</value>
+    <value>如果已開啟，系統將下載資料夾及其各自的子資料夾。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
@@ -628,7 +631,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
-    <value>將 FTP 伺服器上的項目移動到其他遠端路徑。僅當此活動置於「使用 FTP」中時才能正常工作</value>
+    <value>將 FTP 伺服器上的項目移動到其他遠端路徑。僅當此活動置於「使用 FTP 連線」活動中時才能正常工作。</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
@@ -652,11 +655,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
-    <value>如果勾選此方塊，則新遠端目錄上已儲存的檔案將被覆寫。</value>
+    <value>如果啟用，則新遠端資料夾中已儲存的檔案將被覆寫。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>覆寫</value>
+    <value>覆蓋現有文件</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
@@ -705,7 +708,7 @@
     <value>安全字串格式中的用戶端憑證密碼</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
-    <value>用戶端憑證安全密碼</value>
+    <value>用戶端證書安全密碼</value>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
     <value>密碼輸入模式的開關</value>
@@ -737,7 +740,7 @@
     <value>Proxy 連接埠編號</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
-    <value>Proxy 主機連接埠</value>
+    <value>Proxy 連接埠</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
     <value>Proxy 主機名稱</value>
@@ -769,7 +772,7 @@
     <comment>it is used to mark the obsolete values in a dropdown</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
-    <value>如果留空，將自動配置</value>
+    <value>自動: 協商最佳可用通訊協定</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
     <value>安全字串格式的代理密碼</value>
@@ -782,10 +785,79 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
-    <value>物件類型</value>
+    <value>要包含的項目類型</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
-    <value>選取要包含的物件類型</value>
+    <value>選取要包含的項目類型</value>
+  </data>
+  <data name="Activity_Delete_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_DirectoryExists_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/資料夾</value>
+  </data>
+  <data name="Activity_FileExists_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/資料夾</value>
+  </data>
+  <data name="Activity_DownloadFiles_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/資料夾</value>
+  </data>
+  <data name="Activity_DownloadFiles_Property_LocalPath_Placeholder" xml:space="preserve">
+    <value>C:\Local\folder</value>
+  </data>
+  <data name="Activity_UploadFiles_Property_LocalPath_Placeholder" xml:space="preserve">
+    <value>C:\Local\folder</value>
+  </data>
+  <data name="Activity_UploadFiles_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/資料夾</value>
+  </data>
+  <data name="Activity_MoveItem_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_MoveItem_Property_NewPath_Placeholder" xml:space="preserve">
+    <value>/remote/new-folder/file.txt</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Host_Placeholder" xml:space="preserve">
+    <value>ftp.example.com</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Port_Placeholder" xml:space="preserve">
+    <value>21 FTP，22 SFTP</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Placeholder" xml:space="preserve">
+    <value>毫秒</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Placeholder" xml:space="preserve">
+    <value>C:\Certificates\client.pfx</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Placeholder" xml:space="preserve">
+    <value>Proxy.example.com</value>
+  </data>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>刪除</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>移動項目</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>使用 FTP 連線</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFolderExists" xml:space="preserve">
+    <value>目錄存在</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFileExists" xml:space="preserve">
+    <value>文件存在</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymListFilesAndFolders" xml:space="preserve">
+    <value>列舉對象</value>
+    <comment>Activity search alias</comment>
   </data>
 </root>

@@ -6,6 +6,7 @@ using UiPath.Cryptography.Activities.NetCore.ViewModels;
 using UiPath.Cryptography.Activities.Properties;
 using UiPath.Cryptography.Enums;
 using UiPath.Platform.ResourceHandling;
+using UiPath.Studio.Activities.Api;
 
 namespace UiPath.Cryptography.Activities
 {
@@ -101,7 +102,25 @@ namespace UiPath.Cryptography.Activities.NetCore.ViewModels
 
             _publicKeyFileToggle.ConfigureMenuActions();
             ApplyPublicKeyVisibility();
+
+            // STUD-80743: Configure file widgets (LocalResource adoption)
+            ConfigureFilePathWidgets();
+
             ConfigurePropertyTexts();
+        }
+
+        private void ConfigureFilePathWidgets()
+        {
+            // STUD-80743: LocalResource widget adoption
+            bool isSupported = WidgetSupportHelper.IsWidgetSupported(Services, nameof(ViewModelWidgetType.LocalResource));
+
+            // Tier A: string paths that have an IResource overload carry NoWrap metadata.
+            InputFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+            PublicKeyFilePath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: true);
+
+            // ILocalResource-typed properties omit NoWrap.
+            InputFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
+            PublicKeyFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(isSupported, applyNoWrap: false);
         }
 
         private void ConfigurePropertyTexts()

@@ -2,6 +2,8 @@ parameters:
   artifactName: "SonarQube-Temp"
   cleanup: true
   condition: succeeded()
+  sonarScannerVarsDll: ''
+  sonarScannerVarsExe: ''
 
 steps:
 - ${{ if eq(parameters.cleanup, true) }}:
@@ -48,24 +50,27 @@ steps:
 
 - powershell: |
     $srcDir = $env:SrcDir
+    $sonarEnvVars = @()
+    if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll") {
+      Write-Host "Found scanner of type dotnet-sonar-scanner-msbuild"
 
-    if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe") {
+      $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll"
+      $sonarEnvVars = $env:SonarScannerVarsDll.Split(',')
+    } elseif (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe") {
       Write-Host "Found scanner of type classic-sonar-scanner-msbuild"
 
       $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.exe"
-      Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_EXE]$scannerPath"
+      $sonarEnvVars = $env:SonarScannerVarsExe.Split(',')
     } else {
-        if (Test-Path "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll") {
-        Write-Host "Found scanner of type dotnet-sonar-scanner-msbuild"
+      throw "The sonar scanner executable was not found inside the temp package (neither SonarScanner.MSBuild.dll nor .exe under $srcDir/SonarTemp/scanner)."
+    }
 
-        $scannerPath = "$srcDir/SonarTemp/scanner/SonarScanner.MSBuild.dll"
-        Write-Output "##vso[task.setvariable variable=SONARQUBE_SCANNER_MSBUILD_DLL]$scannerPath"
-      }
-      else {
-        Write-Error "The sonar scanner executable was not found inside the temp package"
-      }
+    foreach ($var in $sonarEnvVars) {
+      Write-Output "##vso[task.setvariable variable=$var]$scannerPath"
     }
   env:
     SrcDir: $(Build.SourcesDirectory)
+    SonarScannerVarsDll: ${{ parameters.sonarScannerVarsDll }}
+    SonarScannerVarsExe: ${{ parameters.sonarScannerVarsExe }}
   displayName: 'Set SonarQube Scanner Path'
   condition: ${{ parameters.condition }}

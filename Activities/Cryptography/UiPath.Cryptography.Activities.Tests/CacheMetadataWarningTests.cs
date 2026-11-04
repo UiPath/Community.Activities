@@ -186,6 +186,48 @@ namespace UiPath.Cryptography.Activities.Tests
             warnings.Any(w => w.Message.Contains("FIPS", StringComparison.Ordinal)).ShouldBeTrue();
         }
 
+        // PR #601 review: OutputFileName is silently dropped when OutputFilePath is set, so the
+        // designer warns when both are provided (and only then).
+        [Theory]
+        [InlineData(true, true, true)]
+        [InlineData(true, false, false)]
+        [InlineData(false, true, false)]
+        [InlineData(false, false, false)]
+        public void EncryptFile_OutputFileNameWithOutputFilePath_WarnsOnlyWhenBothSet(bool setPath, bool setName, bool expectWarning)
+        {
+            var activity = new EncryptFile
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                OutputFilePath = setPath ? new InArgument<string>("out.enc") : null,
+                OutputFileName = setName ? new InArgument<string>("name.enc") : null,
+            };
+
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.OutputFileName_IgnoredWhenOutputFilePathSet).ShouldBe(
+                expectWarning, $"warnings: {Format(warnings)}");
+        }
+
+        [Theory]
+        [InlineData(true, true, true)]
+        [InlineData(true, false, false)]
+        [InlineData(false, true, false)]
+        [InlineData(false, false, false)]
+        public void DecryptFile_OutputFileNameWithOutputFilePath_WarnsOnlyWhenBothSet(bool setPath, bool setName, bool expectWarning)
+        {
+            var activity = new DecryptFile
+            {
+                Algorithm = EncryptionAlgorithm.AES,
+                OutputFilePath = setPath ? new InArgument<string>("out.txt") : null,
+                OutputFileName = setName ? new InArgument<string>("name.txt") : null,
+            };
+
+            ValidationError[] warnings = ValidateAndGetWarnings(activity);
+
+            warnings.Any(w => w.Message == CryptoRes.OutputFileName_IgnoredWhenOutputFilePathSet).ShouldBe(
+                expectWarning, $"warnings: {Format(warnings)}");
+        }
+
         // ────────────────────────────────────────────────────────────────────────
         // Helpers
         // ────────────────────────────────────────────────────────────────────────

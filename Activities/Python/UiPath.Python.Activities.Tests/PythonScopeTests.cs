@@ -210,6 +210,92 @@ def current_dir():
 
         [Theory]
         [Trait(TestCategories.Category, Category)]
+        [InlineData(false, true)]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        public void PythonScope_WithProjectRelativePaths_ResolvesThemBeforeStartingTheHost(bool relativeHome, bool relativeLibrary)
+        {
+            // LocalResource saves paths inside the project relative to the project folder (the process working directory)
+            var projectFolder = Directory.GetParent(RuntimePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))!.FullName;
+            var originalDirectory = Environment.CurrentDirectory;
+
+            var scriptVar = new Variable<PythonObject>("scriptObj");
+            var resultVar = new Variable<PythonObject>("resultObj");
+            var outputVar = new Variable<string>("outputVal");
+            var capture = new Capture<string> { Input = new InArgument<string>(outputVar) };
+
+            var scope = BuildScope(new Sequence
+            {
+                Variables = { scriptVar, resultVar, outputVar },
+                Activities =
+                {
+                    new LoadScript
+                    {
+                        Code = Script,
+                        Result = new OutArgument<PythonObject>(scriptVar)
+                    },
+                    new InvokeMethod
+                    {
+                        Instance = new InArgument<PythonObject>(scriptVar),
+                        Name = "greet",
+                        Parameters = new InArgument<IEnumerable<object>>(ctx => new object[] { "UiPath" }),
+                        Result = new OutArgument<PythonObject>(resultVar)
+                    },
+                    new GetObject<string>
+                    {
+                        PythonObject = new InArgument<PythonObject>(resultVar),
+                        Result = new OutArgument<string>(outputVar)
+                    },
+                    capture
+                }
+            });
+
+            var homePath = relativeHome ? Path.GetRelativePath(projectFolder, RuntimePath) : RuntimePath;
+            var libraryPath = relativeLibrary ? Path.GetRelativePath(projectFolder, LibraryPath) : LibraryPath;
+            Assert.Equal(relativeHome, !Path.IsPathRooted(homePath));
+            Assert.Equal(relativeLibrary, !Path.IsPathRooted(libraryPath));
+            scope.Path = homePath;
+            scope.LibraryPath = libraryPath;
+
+            try
+            {
+                Environment.CurrentDirectory = projectFolder;
+                new WorkflowInvoker(scope).Invoke(TestTimeout);
+            }
+            finally
+            {
+                Environment.CurrentDirectory = originalDirectory;
+            }
+
+            Assert.Equal("Hello UiPath", capture.Value);
+        }
+
+        [Fact]
+        [Trait(TestCategories.Category, Category)]
+        public void PythonScope_WithMissingRelativeLibraryPath_ThrowsFileNotFound()
+        {
+            var projectFolder = Directory.GetParent(RuntimePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))!.FullName;
+            var originalDirectory = Environment.CurrentDirectory;
+            var missingLibrary = Path.Combine("does-not-exist", Path.GetFileName(LibraryPath));
+
+            var scope = BuildScope(new Sequence());
+            scope.LibraryPath = missingLibrary;
+
+            try
+            {
+                Environment.CurrentDirectory = projectFolder;
+                var ex = Assert.ThrowsAny<Exception>(() => new WorkflowInvoker(scope).Invoke(TestTimeout));
+                Assert.True(HasInnerException<FileNotFoundException>(ex));
+                Assert.Contains(missingLibrary, ex.ToString(), StringComparison.Ordinal);
+            }
+            finally
+            {
+                Environment.CurrentDirectory = originalDirectory;
+            }
+        }
+
+        [Theory]
+        [Trait(TestCategories.Category, Category)]
         [InlineData(1, 2, true)]
         [InlineData(3, 1, false)]
         [InlineData(null, 3, false)]

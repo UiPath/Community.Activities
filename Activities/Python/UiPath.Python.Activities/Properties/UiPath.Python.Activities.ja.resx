@@ -294,10 +294,10 @@
     <value>Python スクリプトを実行して終了するまでの時間 (秒) です。設定した時間内に実行が終わらない場合は例外がスローされます。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Linux の場合は、Python ライブラリ libpython*.so (ライブラリ名を含む) のパスを入力します。Windows (3.9 より後のバージョン) の場合は、python**.dll (ライブラリ名を含む) のパスを入力します (通常 Python のホーム パスに含まれます)。Windows (3.9 以前のバージョン) の場合は、空のままにします。</value>
+    <value>必須です。ファイル名を含む、Python ランタイム ライブラリへのフル パスです。— Windows の場合は python**.dll (例:python313.dll、通常は Python のホーム フォルダー内)、Linux の場合は libpython*.so、macOS の場合は libpython*.dylib です。</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>ライブラリ パス (Linux または 3.9 より後のバージョン)</value>
+    <value>ライブラリ パス</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>選択した Python のバージョンはサポートされていません。</value>

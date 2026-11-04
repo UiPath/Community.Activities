@@ -126,6 +126,9 @@
   <data name="Iv_NonceReuseWarning" xml:space="preserve">
     <value>Um IV explícito é fornecido. Reutilizar o mesmo par (chave, IV) em diferentes operações de criptografia compromete a confidencialidade e — nos modos AEAD (AES-GCM, ChaCha20-Poly1305) — também permite que um invasor recupere a chave de autenticação e falsifique mensagens arbitrárias usando essa chave. Garanta que cada par (chave, IV) seja usado no máximo uma vez ou deixe o IV em branco para que um novo IV aleatório seja gerado a cada chamada.</value>
   </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>CaminhoDoArquivoDeSaída e NomeDoArquivoDeSaída estão definidos. CaminhoDoArquivoDeSaída é ignorado quando NomeDoArquivoDeSaída é fornecido; o nome do arquivo de saída é tirado de CaminhoDoArquivoDeSaída.</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>Entrada</value>
   </data>
@@ -200,25 +203,49 @@
     <value>Caminho da chave pública</value>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>A chave pública PGP do destinatário, fornecida como um recurso de arquivo (por exemplo, dos recursos do projeto ou do bucket de armazenamento). Quando definida, tem precedência sobre a variante do caminho de arquivo.</value>
+    <value>A chave pública PGP do destinatário, fornecida como um recurso de arquivo (por exemplo, dos recursos do projeto ou do bucket de armazenamento).</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Caminho da chave pública</value>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>A chave pública PGP do remetente, fornecida como um recurso de arquivo. Usada para verificar a assinatura. Quando definida, tem precedência sobre a variante do caminho de arquivo.</value>
+    <value>A chave pública PGP do remetente, fornecida como um recurso de arquivo. Usada para verificar a assinatura.</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Caminho da chave pública</value>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>A chave pública PGP do destinatário, fornecida como um recurso de arquivo (por exemplo, dos recursos do projeto ou do bucket de armazenamento). Quando definida, tem precedência sobre a variante do caminho de arquivo.</value>
+    <value>A chave pública PGP do destinatário, fornecida como um recurso de arquivo (por exemplo, dos recursos do projeto ou do bucket de armazenamento).</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>Caminho da chave pública</value>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
-    <value>A chave pública PGP do remetente, fornecida como um recurso de arquivo. Usada para verificar a assinatura. Quando definida, tem precedência sobre a variante do caminho de arquivo.</value>
+    <value>A chave pública PGP do remetente, fornecida como um recurso de arquivo. Usada para verificar a assinatura.</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Caminho da chave privada</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Sua própria chave privada PGP, fornecida como um recurso de arquivo (por exemplo, dos recursos do projeto ou do bucket de armazenamento). Usada para assinar a saída criptografada. Necessária apenas quando Assinar dados está habilitado.</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Caminho da chave privada</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Sua própria chave privada PGP, fornecida como um recurso de arquivo (por exemplo, dos recursos do projeto ou do bucket de armazenamento). Usada para assinar a saída criptografada. Necessária apenas quando Assinar dados está habilitado.</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Caminho da chave privada</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Sua própria chave privada PGP, fornecida como um recurso de arquivo. Usada para descriptografar a mensagem.</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>Caminho da chave privada</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>Sua própria chave privada PGP, fornecida como um recurso de arquivo. Usada para descriptografar a mensagem.</value>
   </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>ContinuarComErro</value>
@@ -913,6 +940,14 @@
     <value>Opções</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>Avançado</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>Codificação</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>Usar String Segura da Chave</value>
   </data>
@@ -1491,7 +1526,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da string Chave (e IV): hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da string Chave (e IV): hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64. A entrada Base64 tolera espaço em branco, quebras de linha, caracteres compatíveis com URL (- e _) e preenchimento ausente.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
@@ -1499,7 +1534,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
-    <value>Vetor de inicialização para o formato Raw. Forneça-o na mesma codificação selecionada no menu suspenso &quot;Formato de bytes de chave&quot; acima (Hex ou Base64). Deixe vazio para gerar automaticamente um IV aleatório. O comprimento deve corresponder ao tamanho IV do algoritmo (16 bytes para AES/Rjndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).</value>
+    <value>Vetor de inicialização do formato Raw. Forneça-o na mesma codificação selecionada no menu suspenso &quot;Formato de bytes de chave&quot; acima (Hex ou Base64). Deixe vazio para gerar automaticamente um IV aleatório. O comprimento deve corresponder ao tamanho IV do algoritmo (16 bytes para AES/Rjndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).AVISO: nunca reutilize o mesmo par (chave, IV). Isso quebra a confidencialidade e, nos modos AEAD (AES-GCM, ChaCha20-Poly1305), também permite que um invasor forje mensagens. Use cada par no máximo uma vez ou deixe em branco para gerar um novo IV aleatório por chamada.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1532,7 +1567,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da string Chave: hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da string Chave: hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64. A entrada Base64 tolera espaço em branco, quebras de linha, caracteres compatíveis com URL (- e _) e preenchimento ausente.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
@@ -1565,7 +1600,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da string Chave (e IV): hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da string Chave (e IV): hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64. A entrada Base64 tolera espaço em branco, quebras de linha, caracteres compatíveis com URL (- e _) e preenchimento ausente.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
@@ -1573,7 +1608,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
-    <value>Vetor de inicialização para o formato Raw. Forneça-o na mesma codificação selecionada no menu suspenso &quot;Formato de bytes de chave&quot; acima (Hex ou Base64). Deixe vazio para gerar automaticamente um IV aleatório. O comprimento deve corresponder ao tamanho IV do algoritmo (16 bytes para AES/Rjndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).</value>
+    <value>Vetor de inicialização do formato Raw. Forneça-o na mesma codificação selecionada no menu suspenso &quot;Formato de bytes de chave&quot; acima (Hex ou Base64). Deixe vazio para gerar automaticamente um IV aleatório. O comprimento deve corresponder ao tamanho IV do algoritmo (16 bytes para AES/Rjndael, 12 para AESGCM/ChaCha20Poly1305, 8 para DES/TripleDES/RC2).AVISO: nunca reutilize o mesmo par (chave, IV). Isso quebra a confidencialidade e, nos modos AEAD (AES-GCM, ChaCha20-Poly1305), também permite que um invasor forje mensagens. Use cada par no máximo uma vez ou deixe em branco para gerar um novo IV aleatório por chamada.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
@@ -1606,7 +1641,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
-    <value>Codificação da string Chave: hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64.</value>
+    <value>Codificação da string Chave: hexadecimal (por exemplo, 64 caracteres para uma chave AES-256) ou Base64. A entrada Base64 tolera espaço em branco, quebras de linha, caracteres compatíveis com URL (- e _) e preenchimento ausente.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">

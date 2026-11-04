@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
@@ -66,6 +67,45 @@ namespace UiPath.Python.Activities.API.Tests
 
             handle.ShouldNotBeNull();
         }
+
+        [Theory]
+        [InlineData(false, true)]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        public async Task UsePythonScope_RelativePaths_StartsHostWithResolvedPaths(bool relativeHome, bool relativeLibrary)
+        {
+            var projectFolder = Directory.GetParent(RuntimePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))!.FullName;
+            var homePath = relativeHome ? Path.GetRelativePath(projectFolder, RuntimePath) : RuntimePath;
+            var libraryPath = relativeLibrary ? Path.GetRelativePath(projectFolder, LibraryPath) : LibraryPath;
+            Path.IsPathRooted(homePath).ShouldBe(!relativeHome);
+            Path.IsPathRooted(libraryPath).ShouldBe(!relativeLibrary);
+
+            var originalDirectory = Environment.CurrentDirectory;
+            try
+            {
+                Environment.CurrentDirectory = projectFolder;
+
+                // real embedded runtime: initialization fails if the host receives an unresolved relative path
+                using var handle = await _pythonService.UsePythonScope(new PythonScopeOptions { Path = homePath, LibraryPath = libraryPath });
+
+                handle.ShouldNotBeNull();
+            }
+            finally
+            {
+                Environment.CurrentDirectory = originalDirectory;
+            }
+        }
+
+        [Fact]
+        public async Task UsePythonScope_MissingRelativeLibraryPath_ThrowsFileNotFoundWithOriginalValue()
+        {
+            var missingLibrary = Path.Combine("does-not-exist", Path.GetFileName(LibraryPath));
+
+            var ex = await Should.ThrowAsync<FileNotFoundException>(
+                () => _pythonService.UsePythonScope(new PythonScopeOptions { Path = RuntimePath, LibraryPath = missingLibrary }));
+
+            ex.Message.ShouldContain(missingLibrary);
+        }
     }
 
     public class PythonServiceCancellationTests
@@ -75,6 +115,41 @@ namespace UiPath.Python.Activities.API.Tests
         private static PythonService BuildService(IEngine engine)
         {
             return new PythonService((_, _, _, _, _, _, _, _) => engine);
+        }
+
+        [Fact]
+        public async Task UsePythonScope_RelativePaths_PassesAbsolutePathsToEngine()
+        {
+            var runtimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath();
+            var projectFolder = Directory.GetParent(runtimePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))!.FullName;
+            var relativeHome = Path.GetRelativePath(projectFolder, runtimePath);
+            var relativeLibrary = Path.GetRelativePath(projectFolder, _libraryPath);
+
+            string receivedPath = null, receivedLibrary = null;
+            var engineMock = new Mock<IEngine>();
+            engineMock
+                .Setup(e => e.Initialize(It.IsAny<string>(), It.IsAny<CancellationToken>(), It.IsAny<double>()))
+                .Returns(Task.CompletedTask);
+            var service = new PythonService((_, path, library, _, _, _, _, _) =>
+            {
+                receivedPath = path;
+                receivedLibrary = library;
+                return engineMock.Object;
+            });
+
+            var originalDirectory = Environment.CurrentDirectory;
+            try
+            {
+                Environment.CurrentDirectory = projectFolder;
+                using var handle = await service.UsePythonScope(new PythonScopeOptions { Path = relativeHome, LibraryPath = relativeLibrary });
+            }
+            finally
+            {
+                Environment.CurrentDirectory = originalDirectory;
+            }
+
+            receivedPath.ShouldBe(Path.GetFullPath(runtimePath));
+            receivedLibrary.ShouldBe(Path.GetFullPath(_libraryPath));
         }
 
         [Fact]

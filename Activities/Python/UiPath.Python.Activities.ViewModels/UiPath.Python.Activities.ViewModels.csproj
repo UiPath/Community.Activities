@@ -25,6 +25,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="UiPath.Python.Activities.Tests" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\UiPath.Python.Activities\UiPath.Python.Activities.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>

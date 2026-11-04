@@ -294,10 +294,10 @@
     <value>A quantidade de tempo em segundos para permitir que um script Python seja executado até que seja terminado e seja lançada uma exceção.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>No Linux, é o caminho para a biblioteca Python libpython*.so, incluindo o nome da biblioteca. No Windows (Versão &gt;3.9), é o caminho para python**.dll, incluindo o nome da biblioteca (normalmente, está no caminho inicial Python. No Windows (Versão &lt;=3.9), deixe vazio.</value>
+    <value>Obrigatório. Caminho completo para a biblioteca de runtime do Python, incluindo o nome de ficheiro – python**.dll no Windows (por exemplo, python313.dll, normalmente na pasta inicial do Python), libpython*.so no Linux ou libpython*.dylib no macOS.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Caminho para a biblioteca (Linux ou versão &gt;3.9)</value>
+    <value>Caminho de biblioteca</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>A versão do Python selecionada não é suportada.</value>

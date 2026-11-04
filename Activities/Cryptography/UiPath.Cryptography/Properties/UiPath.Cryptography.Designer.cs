@@ -1283,7 +1283,7 @@ namespace UiPath.Cryptography.Properties {
                 return ResourceManager.GetString("PgpPrivateKeyNotFound", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to PGP signature verification failed. The public key does not match the signature, or the data has been tampered with..
         /// </summary>
@@ -1292,7 +1292,52 @@ namespace UiPath.Cryptography.Properties {
                 return ResourceManager.GetString("PgpSignatureVerificationFailed", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to The input uses GnuPG's AEAD/LibrePGP format (OCB), which is not supported. Ask the sender to encrypt with RFC 4880 compatibility (no AEAD)..
+        /// </summary>
+        internal static string PgpAeadNotSupported {
+            get {
+                return ResourceManager.GetString("PgpAeadNotSupported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The recipient public key cannot be used for encryption because it is expired, revoked or has no encryption-capable key. Provide a current public key for the recipient..
+        /// </summary>
+        internal static string PgpEncryptionKeyNotUsable {
+            get {
+                return ResourceManager.GetString("PgpEncryptionKeyNotUsable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The private key cannot be used for signing because it is expired, revoked or has no signing-capable key. Provide a current private key..
+        /// </summary>
+        internal static string PgpSigningKeyNotUsable {
+            get {
+                return ResourceManager.GetString("PgpSigningKeyNotUsable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The input is not PGP-encrypted data, so it cannot be decrypted. Provide the encrypted message, or turn off decryption if the input is only signed..
+        /// </summary>
+        internal static string PgpInputNotEncrypted {
+            get {
+                return ResourceManager.GetString("PgpInputNotEncrypted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The encrypted data failed its integrity check; it was modified or is corrupted..
+        /// </summary>
+        internal static string PgpMessageIntegrityFailed {
+            get {
+                return ResourceManager.GetString("PgpMessageIntegrityFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Signing was requested but a private key and passphrase are required to sign. Provide both a private key stream and a passphrase, or set sign to false..
         /// </summary>
