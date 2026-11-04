@@ -114,6 +114,8 @@
     <!-- SqlClient 4.1.0 pulls vulnerable IdentityModel 6.8.0 (CVE-2024-21319). STUD-82134 -->
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
   </ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
 		<PackageReference Include="System.Activities.ViewModels" />
