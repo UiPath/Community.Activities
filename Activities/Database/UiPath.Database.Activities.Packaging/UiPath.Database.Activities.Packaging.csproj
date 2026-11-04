@@ -101,7 +101,9 @@
 	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
   </Target>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <!-- SqlClient 5.x has no net461 asset (falls back to netstandard2.0 -> System.Runtime.Loader TypeLoadException on .NET Framework). Keep 4.1.0 for net461. STUD-82095 -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" Condition=" '$(TargetFramework)' != 'net461' " />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" Condition=" '$(TargetFramework)' == 'net461' " />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
 
     <!--Dependencies override to solve FOSSA issues-->

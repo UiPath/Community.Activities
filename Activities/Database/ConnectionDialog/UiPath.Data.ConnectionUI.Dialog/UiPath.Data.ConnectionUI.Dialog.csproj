@@ -7,7 +7,9 @@
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <!-- SqlClient 5.x has no net461 asset (falls back to netstandard2.0 -> System.Runtime.Loader TypeLoadException on .NET Framework). Keep 4.1.0 for net461. STUD-82095 -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" Condition=" '$(TargetFramework)' != 'net461' " />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" Condition=" '$(TargetFramework)' == 'net461' " />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.Odbc" Version="6.0.2" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.1" />
