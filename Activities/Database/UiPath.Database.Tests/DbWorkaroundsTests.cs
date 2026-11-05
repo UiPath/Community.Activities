@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Xml.Linq;
 using Shouldly;
 using Xunit;
 
@@ -50,6 +52,19 @@ namespace UiPath.Database.Tests
         public void SqliteMinVersion_IsNotVulnerable()
         {
             Version.Parse(DbWorkarounds.Sqlite.MinVersion).ShouldBeGreaterThanOrEqualTo(new Version(2, 1, 12));
+        }
+
+        [Fact]
+        public void SqliteNativePackagePin_IsAtLeastMinVersion()
+        {
+            // Directory.build.targets is copied next to the test assembly (see UiPath.Database.Tests.csproj).
+            var targets = XDocument.Load(Path.Combine(AppContext.BaseDirectory, "Database.Directory.build.targets"));
+            var pinned = targets.Descendants("PackageReference")
+                .Where(e => (string)e.Attribute("Update") == "SQLitePCLRaw.lib.e_sqlite3")
+                .Select(e => (string)e.Attribute("Version"))
+                .Single();
+
+            Version.Parse(pinned).ShouldBeGreaterThanOrEqualTo(Version.Parse(DbWorkarounds.Sqlite.MinVersion));
         }
     }
 }
