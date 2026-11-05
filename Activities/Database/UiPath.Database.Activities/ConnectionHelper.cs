@@ -56,7 +56,7 @@ namespace UiPath.Database.Activities
         {
             if (existingConnection == null && connString == null && connSecureString == null && provName == null)
             {
-                throw new ArgumentNullException(Resources.ValidationError_ConnectionNotValid);
+                throw new ArgumentNullException("ExistingDbConnection", Resources.ValidationError_ConnectionNotValid);
             }
             if (existingConnection != null && (provName != null || connString != null || connSecureString != null))
             {
@@ -66,7 +66,7 @@ namespace UiPath.Database.Activities
             {
                 if (provName == null)
                 {
-                    throw new ArgumentNullException(Resources.ValidationError_ProviderNull);
+                    throw new ArgumentNullException("ProviderName", Resources.ValidationError_ProviderNull);
                 }
                 if (connString != null && connSecureString != null)
                 {
@@ -74,7 +74,7 @@ namespace UiPath.Database.Activities
                 }
                 if (connString == null && connSecureString == null)
                 {
-                    throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+                    throw new ArgumentNullException("ConnectionString", Resources.ValidationError_ConnectionStringMustNotBeNull);
                 }
             }
         }

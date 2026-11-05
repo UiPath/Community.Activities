@@ -85,7 +85,7 @@ namespace UiPath.Database.Activities
                 }
                 else
                 {
-                    throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+                    throw new ArgumentNullException("ConnectionString", Resources.ValidationError_ConnectionStringMustNotBeNull);
                 }
                 var provName = ProviderName.Get(context);
 
