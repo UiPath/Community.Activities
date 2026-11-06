@@ -42,6 +42,11 @@
 		<PackageReference Update="System.Formats.Asn1" Version="8.0.1" />
 
 		<PackageReference Update="Azure.Identity" Version="1.13.1" />
+		<!-- net461 only: SqlClient 4.1.0 pulls IdentityModel 6.8.0 (CVE-2024-21319). STUD-82134 -->
+		<PackageReference Update="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
+		<PackageReference Update="Microsoft.IdentityModel.JsonWebTokens" Version="6.35.0" />
+		<PackageReference Update="Microsoft.IdentityModel.Protocols" Version="6.35.0" />
+		<PackageReference Update="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.35.0" />
 	</ItemGroup>
 
 	<!-- the None element is used for keeping files visible in solution explorer -->
