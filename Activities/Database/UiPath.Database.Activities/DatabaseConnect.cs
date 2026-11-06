@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Activities;
 using System.Activities.Statements;
 using System.Activities.Validation;
@@ -85,11 +85,14 @@ namespace UiPath.Database.Activities
                 }
                 else
                 {
-                    throw new ArgumentNullException(Resources.ValidationError_ConnectionStringMustNotBeNull);
+                    // ExecuteAsync has no such parameter; "ConnectionString" is the activity argument the user must set.
+#pragma warning disable S3928, CA2208
+                    throw new ArgumentNullException("ConnectionString", Resources.ValidationError_ConnectionStringMustNotBeNull);
+#pragma warning restore S3928, CA2208
                 }
                 var provName = ProviderName.Get(context);
 
-                var dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName));
+                var dbConnection = await Task.Run(() => _connectionFactory.Create(connectionStringForFactory, provName), cancellationToken);
 
                 var result = new Action<AsyncCodeActivityContext>(asyncCodeActivityContext =>
                 {

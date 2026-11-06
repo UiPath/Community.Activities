@@ -17,7 +17,7 @@ namespace UiPath.Database
         internal readonly record struct NativePackage(string Package, string MinVersion, string Module);
 
         internal static readonly NativePackage Sni    = new("microsoft.data.sqlclient.sni.runtime", "5.2.0", "Microsoft.Data.SqlClient.SNI");
-        internal static readonly NativePackage Sqlite = new("sqlitepclraw.lib.e_sqlite3",           "2.1.6", "e_sqlite3");
+        internal static readonly NativePackage Sqlite = new("sqlitepclraw.lib.e_sqlite3",           "2.1.14", "e_sqlite3");
 
         private static int _resolverRegistered;
         private static readonly ConditionalWeakTable<AssemblyLoadContext, object> _registeredContexts = new();
@@ -127,6 +127,9 @@ namespace UiPath.Database
         }
 
         private static string FindPackageVersionPath(string package, string minVersion)
+            => FindPackageVersionPath(package, minVersion, NugetPackageRoots().ToList());
+
+        internal static string FindPackageVersionPath(string package, string minVersion, IReadOnlyList<string> roots)
         {
             // The same package folder may exist in more than one cache root with
             // different versions installed in each, so scan all roots and pick
@@ -134,7 +137,6 @@ namespace UiPath.Database
             // If no stable version is found, fall back to the lowest pre-release
             // version that satisfies the minimum requirement.
             var minVer = Version.Parse(minVersion);
-            var roots = NugetPackageRoots().ToList();
 
             var candidates = roots
                 .Select(root => Path.Combine(root, package.ToLowerInvariant()))

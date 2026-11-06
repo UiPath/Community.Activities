@@ -9,6 +9,8 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Data.SqlClient" />
         <PackageReference Include="Microsoft.Data.Sqlite" />
+        <!-- Direct pin: Microsoft.Data.Sqlite 8.0.0 pulls vulnerable e_sqlite3 2.1.6 (CVE-2025-6965). -->
+        <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
         <PackageReference Include="System.Data.Common" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
