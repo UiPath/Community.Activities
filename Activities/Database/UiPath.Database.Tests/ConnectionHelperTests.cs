@@ -15,7 +15,7 @@ namespace UiPath.Database.Tests
         {
             var ex = Should.Throw<ArgumentNullException>(() => ConnectionHelper.ConnectionValidation(null));
 
-            AssertMessageAndParamNameSeparate(ex, Resources.ValidationError_ConnectionNotValid, "ExistingDbConnection");
+            AssertMessageAndParamNameSeparate(ex, Resources.ValidationError_ConnectionNotValid, "existingConnection");
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace UiPath.Database.Tests
         {
             var ex = Should.Throw<ArgumentNullException>(() => ConnectionHelper.ConnectionValidation(null, null, "Data Source=x", null));
 
-            AssertMessageAndParamNameSeparate(ex, Resources.ValidationError_ProviderNull, "ProviderName");
+            AssertMessageAndParamNameSeparate(ex, Resources.ValidationError_ProviderNull, "provName");
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace UiPath.Database.Tests
         {
             var ex = Should.Throw<ArgumentNullException>(() => ConnectionHelper.ConnectionValidation(null, null, null, "System.Data.SqlClient"));
 
-            AssertMessageAndParamNameSeparate(ex, Resources.ValidationError_ConnectionStringMustNotBeNull, "ConnectionString");
+            AssertMessageAndParamNameSeparate(ex, Resources.ValidationError_ConnectionStringMustNotBeNull, "connString");
         }
 
         [Fact]

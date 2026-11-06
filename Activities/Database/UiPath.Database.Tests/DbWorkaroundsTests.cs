@@ -16,9 +16,10 @@ namespace UiPath.Database.Tests
         public void Dispose()
         {
             try { Directory.Delete(_root, true); } catch (IOException) { }
+            GC.SuppressFinalize(this);
         }
 
-        private string AddPackage(string root, string package, string version)
+        private static string AddPackage(string root, string package, string version)
         {
             var path = Path.Combine(root, package, version);
             Directory.CreateDirectory(path);
