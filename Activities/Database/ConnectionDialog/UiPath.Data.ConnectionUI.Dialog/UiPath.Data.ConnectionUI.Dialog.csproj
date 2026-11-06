@@ -7,7 +7,9 @@
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <!-- SqlClient 5.x has no net461 asset (falls back to netstandard2.0 -> System.Runtime.Loader TypeLoadException on .NET Framework). Keep 4.1.0 for net461. STUD-82095 -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" Condition=" '$(TargetFramework)' != 'net461' " />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" Condition=" '$(TargetFramework)' == 'net461' " />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.Odbc" Version="6.0.2" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.1" />
@@ -46,6 +48,11 @@
       <Version>19.20.0</Version>
     </PackageReference>
     <Reference Include="System.Configuration" />
+    <!-- SqlClient 4.1.0 pulls IdentityModel 6.8.0 (CVE-2024-21319); versions are central in Directory.build.targets. STUD-82134 -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
     <PackageReference Include="Oracle.ManagedDataAccess.Core">

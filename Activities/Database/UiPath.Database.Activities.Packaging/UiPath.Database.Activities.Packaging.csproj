@@ -101,7 +101,9 @@
 	<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
   </Target>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <!-- SqlClient 5.x has no net461 asset (falls back to netstandard2.0 -> System.Runtime.Loader TypeLoadException on .NET Framework). Keep 4.1.0 for net461. STUD-82095 -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" Condition=" '$(TargetFramework)' != 'net461' " />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" Condition=" '$(TargetFramework)' == 'net461' " />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
 
     <!--Dependencies override to solve FOSSA issues-->
@@ -109,12 +111,19 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <PackageReference Include="Oracle.ManagedDataAccess" Version ="19.22.0"/>
+    <!-- SqlClient 4.1.0 pulls vulnerable IdentityModel 6.8.0 (CVE-2024-21319). STUD-82134 -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
   </ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
 		<PackageReference Include="System.Activities.ViewModels" />
 	</ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.5.0" />
+    <!-- Oracle chain resolves System.Formats.Asn1 6.0.0 (GHSA-447r-wph3-92pm). STUD-82133 -->
+    <PackageReference Include="System.Formats.Asn1" />
     <PackageReference Include="System.Data.Odbc" Version="6.0.2" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.1" />
   </ItemGroup>

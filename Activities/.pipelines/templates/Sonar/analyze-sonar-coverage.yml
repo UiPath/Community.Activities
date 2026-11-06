@@ -1,0 +1,11 @@
+parameters:
+  condition: succeeded()
+  jdkVersion: ''
+  sonarTaskVersion: ''
+
+steps:
+- task: SonarCloudAnalyze@${{ parameters.sonarTaskVersion }}
+  displayName: 'Run Code Analysis'
+  condition: ${{ parameters.condition }}
+  inputs:
+    jdkversion: ${{ parameters.jdkVersion }}

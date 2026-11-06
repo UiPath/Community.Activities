@@ -17,13 +17,16 @@ jobs:
   workspace:
     clean: outputs | resources | all
 
-  steps:     
-  - template: Testing/Automation/install.studio.steps.template.yml@automationTests
+  steps:
+  - checkout: self
+    fetchDepth: 1
+
+  - template: ../templates/Testing/Automation/install.studio.steps.template.yml
     parameters:
-      installType: 'machine'
-      studioVersion: ${{ parameters.robotVersion }}
-      license: $(studioLicense)
-      studioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+      InstallType: 'machine'
+      StudioVersion: ${{ parameters.robotVersion }}
+      License: ${{ parameters.studioLicense }}
+      StudioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
 
   - powershell: |
       echo "##vso[task.setvariable variable=studioPackagesPath]$env:ProgramFiles/UiPath/Studio/Packages"
@@ -110,5 +113,5 @@ jobs:
     displayName: "Publish packed tests"
     inputs:
       PathToPublish: "$(IntegrationTestStudioPackPath)"
-      ArtifactName: "Packages"
+      ArtifactName: "RuntimeTestsPackages"
       ArtifactType: "Container"

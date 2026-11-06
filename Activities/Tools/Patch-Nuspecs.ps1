@@ -102,7 +102,7 @@ function Get-PrereleaseTag([string] $prereleaseTag, [string] $commitSha)
     $commitMessagePattern = "Merge branch '(.+)'.*";
     if($commitMessage -match $commitMessagePattern) 
     {
-        $mergedBranchName = $commitMessage -replace $commitMessagePattern, "`$1";
+        $mergedBranchName = $Matches[1];
         Write-Host "This is a merge from a release branch. Branch name '$mergedBranchName'";
         $parts = $mergedBranchName.Split('/');
         $lastPart = $parts[$parts.Length - 1];

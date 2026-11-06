@@ -20,6 +20,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.22.0" PrivateAssets="All" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' or '$(TargetFramework)' == 'net6.0'">
@@ -30,7 +34,9 @@
 
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <!-- SqlClient 5.x has no net461 asset (falls back to netstandard2.0 -> System.Runtime.Loader TypeLoadException on .NET Framework). Keep 4.1.0 for net461. STUD-82095 -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" Condition=" '$(TargetFramework)' != 'net461' " />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" Condition=" '$(TargetFramework)' == 'net461' " />
     <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
 
     <!--Dependencies override to solve FOSSA issues-->
@@ -44,11 +50,21 @@
   <ItemGroup>
     <Compile Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\Workaround\DbWorkarounds.cs" Link="Workaround\DbWorkarounds.cs" />
   </ItemGroup>
-  <ItemGroup>
+  <!-- Native SNI must match the managed SqlClient: 5.2.0 for net6.0*, 4.0.0 (as shipped in 1.7.0) for net461 (SqlClient 4.1.0). STUD-82095 -->
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net461' ">
     <Content Include="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <None Remove="runtimes-net461\**" />
+    <Content Include="runtimes-net461\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" Link="runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runtimes-net461\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll" Link="runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.x86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
