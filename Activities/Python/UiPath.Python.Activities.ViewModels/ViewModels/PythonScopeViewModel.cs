@@ -52,19 +52,28 @@ namespace UiPath.Activities.Python.ViewModels
             Path.Category = Resources.Input;
             // Path is optional: when empty/null the PYTHONHOME environment variable is used at runtime.
             Path.IsPrincipal = true;
-            Path.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services, selectFolder: true);
+            if (WidgetSupportHelper.BuildLocalResourceWidget(Services, selectFolder: true) is { } pathWidget)
+            {
+                Path.Widget = pathWidget;
+            }
 
             LibraryPath.DisplayName = Resources.LibraryPathNameDisplayName;
             LibraryPath.Tooltip = Resources.LibraryPathDescription;
             LibraryPath.Category = Resources.Input;
             LibraryPath.IsRequired = true;
             LibraryPath.IsPrincipal = true;
-            LibraryPath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services);
+            if (WidgetSupportHelper.BuildLocalResourceWidget(Services, fileExtensions: WidgetSupportHelper.PythonLibraryExtensions) is { } libraryPathWidget)
+            {
+                LibraryPath.Widget = libraryPathWidget;
+            }
 
             WorkingFolder.DisplayName = Resources.WorkingFolder;
             WorkingFolder.Tooltip = Resources.WorkingFolderDescription;
             WorkingFolder.Category = Resources.Input;
-            WorkingFolder.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services, selectFolder: true);
+            if (WidgetSupportHelper.BuildLocalResourceWidget(Services, selectFolder: true) is { } workingFolderWidget)
+            {
+                WorkingFolder.Widget = workingFolderWidget;
+            }
 
             OperationTimeout.DisplayName = Resources.OperationTimeout;
             OperationTimeout.Tooltip = Resources.OperationTimeoutDescription;

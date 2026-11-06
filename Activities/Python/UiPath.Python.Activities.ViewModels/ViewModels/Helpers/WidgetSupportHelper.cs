@@ -8,6 +8,8 @@ namespace UiPath.Activities.Python.ViewModels
     internal static class WidgetSupportHelper
     {
         internal const string PythonLanguage = "python";
+        internal const string PythonScriptExtensions = ".py";
+        internal const string PythonLibraryExtensions = ".dll;.so;.dylib";
 
         public static string CheckWidgetSupport(IDesignServices services, string preferredWidgetType)
         {
@@ -40,19 +42,22 @@ namespace UiPath.Activities.Python.ViewModels
 
         /// <summary>
         /// Builds the LocalResource picker for a <c>string</c>-typed path argument when the host
-        /// supports it, otherwise a plain text box. <c>NoWrap</c> makes the picker return the raw path
+        /// supports it, otherwise <c>null</c> so the property keeps the host's default widget for its type
+        /// (the same widget it had before the picker was adopted). <c>NoWrap</c> makes the picker return the raw path
         /// instead of a <c>LocalResource.FromPath(...)</c> value, which cannot be assigned to a string argument.
         /// When <paramref name="selectFolder"/> is set the picker opens the folder dialog, but only on hosts that
         /// advertise <see cref="FolderSelectionFeature"/>; older hosts would show a file dialog for a folder
-        /// argument, so they get the text box instead.
+        /// argument, so they keep the default widget instead.
+        /// <paramref name="fileExtensions"/> (';' separated, e.g. ".py") restricts the file dialog; hosts that do not
+        /// know the <c>FileExtensions</c> metadata ignore it and show all files.
         /// </summary>
-        public static DefaultWidget BuildLocalResourceWidget(IDesignServices services, bool selectFolder = false)
+        public static DefaultWidget? BuildLocalResourceWidget(IDesignServices services, bool selectFolder = false, string? fileExtensions = null)
         {
             var widgetType = CheckWidgetSupport(services, ViewModelWidgetType.LocalResource);
             if (widgetType != ViewModelWidgetType.LocalResource ||
                 (selectFolder && !IsWidgetFeatureSupported(services, FolderSelectionFeature)))
             {
-                return new DefaultWidget { Type = ViewModelWidgetType.Text };
+                return null;
             }
 
             var widget = new DefaultWidget { Type = ViewModelWidgetType.LocalResource };
@@ -60,6 +65,10 @@ namespace UiPath.Activities.Python.ViewModels
             if (selectFolder)
             {
                 widget.Metadata["SelectFolder"] = bool.TrueString.ToLowerInvariant();
+            }
+            else if (!string.IsNullOrWhiteSpace(fileExtensions))
+            {
+                widget.Metadata["FileExtensions"] = fileExtensions;
             }
 
             return widget;

@@ -178,7 +178,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}.
+        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required): {0}.
         /// </summary>
         public static string InvalidLibraryPathException {
             get {
@@ -583,7 +583,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Python version &gt;= 3.10 is not supported on 32 bit. .
+        ///   Looks up a localized string similar to 32-bit Python is not supported. Only 64-bit Python 3.11 and later is supported..
         /// </summary>
         public static string ValidationErrorPlatformUnsupported {
             get {

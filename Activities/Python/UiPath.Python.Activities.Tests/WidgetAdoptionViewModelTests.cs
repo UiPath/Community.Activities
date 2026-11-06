@@ -11,7 +11,7 @@ namespace UiPath.Python.Activities.Tests
 {
     /// <summary>
     /// STUD-80745: script/environment path inputs must show the LocalResource picker (with NoWrap,
-    /// since the arguments are plain strings) when the host supports it, and fall back to a text box otherwise.
+    /// since the arguments are plain strings) when the host supports it, and keep the host's default widget otherwise.
     /// </summary>
     public class WidgetAdoptionViewModelTests
     {
@@ -51,11 +51,8 @@ namespace UiPath.Python.Activities.Tests
             Assert.Equal("true", widget.Metadata["SelectFolder"]);
         }
 
-        private static void AssertText(IWidget widget)
-        {
-            Assert.Equal(ViewModelWidgetType.Text, widget.Type);
-            Assert.False(widget.Metadata.ContainsKey("NoWrap"));
-        }
+        // Fallback: no widget is set, so the host's default widget for the argument type is used.
+        private static void AssertDefaultWidget(IWidget widget) => Assert.Null(widget);
 
         [Fact]
         public async Task RunScript_WidgetSupported_UsesLocalResource()
@@ -67,12 +64,12 @@ namespace UiPath.Python.Activities.Tests
         }
 
         [Fact]
-        public async Task RunScript_WidgetUnsupported_FallsBackToText()
+        public async Task RunScript_WidgetUnsupported_FallsBackToDefaultWidget()
         {
             var vm = new RunScriptViewModel(UnsupportedServices());
             await vm.InitializeAsync();
 
-            AssertText(vm.ScriptFile.Widget);
+            AssertDefaultWidget(vm.ScriptFile.Widget);
         }
 
         [Fact]
@@ -85,12 +82,12 @@ namespace UiPath.Python.Activities.Tests
         }
 
         [Fact]
-        public async Task LoadScript_WidgetUnsupported_FallsBackToText()
+        public async Task LoadScript_WidgetUnsupported_FallsBackToDefaultWidget()
         {
             var vm = new LoadScriptViewModel(UnsupportedServices());
             await vm.InitializeAsync();
 
-            AssertText(vm.ScriptFile.Widget);
+            AssertDefaultWidget(vm.ScriptFile.Widget);
         }
 
         [Fact]
@@ -105,33 +102,33 @@ namespace UiPath.Python.Activities.Tests
         }
 
         [Fact]
-        public async Task PythonScope_FolderSelectionNotSupported_FoldersFallBackToText()
+        public async Task PythonScope_FolderSelectionNotSupported_FoldersFallBackToDefaultWidget()
         {
             // Older hosts have the file-only widget: a file picker on a folder argument would be wrong.
             var vm = new PythonScopeViewModel(SupportedServices(folderSelection: false));
             await vm.InitializeAsync();
 
             AssertLocalResource(vm.LibraryPath.Widget);
-            AssertText(vm.Path.Widget);
-            AssertText(vm.WorkingFolder.Widget);
+            AssertDefaultWidget(vm.Path.Widget);
+            AssertDefaultWidget(vm.WorkingFolder.Widget);
         }
 
         [Fact]
-        public void BuildLocalResourceWidget_FolderFeatureWithoutLocalResource_FallsBackToText()
+        public void BuildLocalResourceWidget_FolderFeatureWithoutLocalResource_FallsBackToDefaultWidget()
         {
             var services = ServicesWith(hasWidgetSupportService: true, localResource: false, folderSelection: true);
 
-            AssertText(WidgetSupportHelper.BuildLocalResourceWidget(services, selectFolder: true));
-            AssertText(WidgetSupportHelper.BuildLocalResourceWidget(services));
+            AssertDefaultWidget(WidgetSupportHelper.BuildLocalResourceWidget(services, selectFolder: true));
+            AssertDefaultWidget(WidgetSupportHelper.BuildLocalResourceWidget(services));
         }
 
         [Fact]
-        public void BuildLocalResourceWidget_HostWithoutWidgetSupportService_FallsBackToText()
+        public void BuildLocalResourceWidget_HostWithoutWidgetSupportService_FallsBackToDefaultWidget()
         {
             var services = ServicesWith(hasWidgetSupportService: false, localResource: true, folderSelection: true);
 
-            AssertText(WidgetSupportHelper.BuildLocalResourceWidget(services, selectFolder: true));
-            AssertText(WidgetSupportHelper.BuildLocalResourceWidget(services));
+            AssertDefaultWidget(WidgetSupportHelper.BuildLocalResourceWidget(services, selectFolder: true));
+            AssertDefaultWidget(WidgetSupportHelper.BuildLocalResourceWidget(services));
         }
 
         [Fact]
@@ -141,6 +138,23 @@ namespace UiPath.Python.Activities.Tests
 
             AssertLocalResource(WidgetSupportHelper.BuildLocalResourceWidget(services));
             AssertFolderPicker(WidgetSupportHelper.BuildLocalResourceWidget(services, selectFolder: true));
+        }
+
+        [Fact]
+        public async Task ScriptAndLibraryPickers_SupportedHost_CarryFileExtensions()
+        {
+            var services = SupportedServices(folderSelection: true);
+            var scope = new PythonScopeViewModel(services);
+            await scope.InitializeAsync();
+            var run = new RunScriptViewModel(services);
+            await run.InitializeAsync();
+            var load = new LoadScriptViewModel(services);
+            await load.InitializeAsync();
+
+            Assert.Equal(".dll;.so;.dylib", scope.LibraryPath.Widget.Metadata["FileExtensions"]);
+            Assert.Equal(".py", run.ScriptFile.Widget.Metadata["FileExtensions"]);
+            Assert.Equal(".py", load.ScriptFile.Widget.Metadata["FileExtensions"]);
+            Assert.False(scope.Path.Widget.Metadata.ContainsKey("FileExtensions"));
         }
 
         [Fact]
@@ -165,14 +179,14 @@ namespace UiPath.Python.Activities.Tests
         }
 
         [Fact]
-        public async Task PythonScope_WidgetUnsupported_FallsBackToText()
+        public async Task PythonScope_WidgetUnsupported_FallsBackToDefaultWidget()
         {
             var vm = new PythonScopeViewModel(UnsupportedServices());
             await vm.InitializeAsync();
 
-            AssertText(vm.LibraryPath.Widget);
-            AssertText(vm.Path.Widget);
-            AssertText(vm.WorkingFolder.Widget);
+            AssertDefaultWidget(vm.LibraryPath.Widget);
+            AssertDefaultWidget(vm.Path.Widget);
+            AssertDefaultWidget(vm.WorkingFolder.Widget);
         }
     }
 }
