@@ -29,7 +29,10 @@ namespace UiPath.Activities.Python.ViewModels
             ScriptFile.Tooltip = Resources.ScriptFileDescription;
             ScriptFile.Category = Resources.Input;
             ScriptFile.IsPrincipal = true;
-            ScriptFile.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services);
+            if (WidgetSupportHelper.BuildLocalResourceWidget(Services, fileExtensions: WidgetSupportHelper.PythonScriptExtensions) is { } scriptFileWidget)
+            {
+                ScriptFile.Widget = scriptFileWidget;
+            }
 
             Code.DisplayName = Resources.CodeNameDisplayName;
             Code.Tooltip = Resources.CodeDescription;
