@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>Input-ul utilizează formatul AEAD/LibrePGP (OCB) al GnuPG, care nu este acceptat. Solicitați expeditorului să cripteze cu compatibilitate RFC 4880 (fără AEAD).</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>Cheia publică a destinatarului nu poate fi utilizată pentru criptare deoarece a expirat, a fost revocată sau nu conține nicio cheie care permite criptarea. Furnizați o cheie publică actuală pentru destinatar.</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>Cheia privată nu poate fi utilizată pentru semnare deoarece a expirat, a fost revocată sau nu conține nicio cheie care poate fi utilizată pentru semnare. Furnizați o cheie privată valabilă.</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>Input-ul nu reprezintă date criptate cu PGP, deci nu poate fi decriptat. Furnizați mesajul criptat sau dezactivați decriptarea dacă input-ul este doar semnat.</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>Datele criptate nu au trecut verificarea integrității; au fost modificate sau sunt corupte.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Fișier semnat (binar)</value>
   </data>

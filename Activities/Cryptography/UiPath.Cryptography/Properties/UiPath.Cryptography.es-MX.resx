@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>La entrada utiliza el formato AEAD/LibrePGP (OCB) de GnuPG, que no es compatible. Pida al remitente que cifre con compatibilidad RFC 4880 (no AEAD).</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>La clave pública del destinatario no se puede utilizar para el cifrado porque caducó, se revocó o no tiene una clave con capacidad de cifrado. Introduzca una clave pública actual para el destinatario.</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>La clave privada no se puede utilizar para firmar porque caducó, se revocó o no tiene una clave con capacidad de firma. Introduzca una clave privada actual.</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>La entrada no contiene datos cifrados con PGP, por lo que no se puede descifrar. Especifique el mensaje cifrado o desactive el descifrado si la entrada solo está firmada.</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>Los datos cifrados no superaron la comprobación de integridad; se modificaron o están dañados.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Archivo firmado (binario)</value>
   </data>
