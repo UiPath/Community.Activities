@@ -303,7 +303,7 @@
     <value>The selected Python version is not supported.</value>
   </data>
   <data name="ValidationErrorPlatformUnsupported" xml:space="preserve">
-    <value>32-bit Python is not supported. Only 64-bit Python 3.11 and later is supported.</value>
+    <value>Python version &gt;= 3.10 is not supported on 32 bit. </value>
   </data>
   <data name="CategoryPython" xml:space="preserve">
     <value>App Invoker.Python</value>

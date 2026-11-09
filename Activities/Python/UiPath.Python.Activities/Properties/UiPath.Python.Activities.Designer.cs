@@ -583,7 +583,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 32-bit Python is not supported. Only 64-bit Python 3.11 and later is supported..
+        ///   Looks up a localized string similar to Python version &gt;= 3.10 is not supported on 32 bit. .
         /// </summary>
         public static string ValidationErrorPlatformUnsupported {
             get {

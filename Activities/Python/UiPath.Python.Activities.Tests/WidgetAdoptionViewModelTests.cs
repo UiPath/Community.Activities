@@ -140,21 +140,21 @@ namespace UiPath.Python.Activities.Tests
             AssertFolderPicker(WidgetSupportHelper.BuildLocalResourceWidget(services, selectFolder: true));
         }
 
-        [Fact]
-        public async Task ScriptAndLibraryPickers_SupportedHost_CarryFileExtensions()
+        [Theory]
+        [InlineData(@"-V:3.10 *        C:\Python310\python.exe")]
+        [InlineData(@"-3.10-64 *       C:\Python310\python.exe")]
+        public void TryParseLauncherLine_UnsupportedPython310_IsSkipped(string line)
         {
-            var services = SupportedServices(folderSelection: true);
-            var scope = new PythonScopeViewModel(services);
-            await scope.InitializeAsync();
-            var run = new RunScriptViewModel(services);
-            await run.InitializeAsync();
-            var load = new LoadScriptViewModel(services);
-            await load.InitializeAsync();
+            Assert.Null(PythonScopeViewModel.TryParseLauncherLine(line));
+        }
 
-            Assert.Equal(".dll;.so;.dylib", scope.LibraryPath.Widget.Metadata["FileExtensions"]);
-            Assert.Equal(".py", run.ScriptFile.Widget.Metadata["FileExtensions"]);
-            Assert.Equal(".py", load.ScriptFile.Widget.Metadata["FileExtensions"]);
-            Assert.False(scope.Path.Widget.Metadata.ContainsKey("FileExtensions"));
+        [Fact]
+        public void TryParseLauncherLine_SupportedPython311_IsListed()
+        {
+            var installation = PythonScopeViewModel.TryParseLauncherLine(@"-V:3.11 *        C:\Python311\python.exe");
+
+            Assert.NotNull(installation);
+            Assert.Equal("3.11", installation.Version);
         }
 
         [Fact]

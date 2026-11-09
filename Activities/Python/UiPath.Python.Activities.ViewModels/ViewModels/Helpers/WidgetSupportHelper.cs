@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
 using UiPath.Studio.Activities.Api;
@@ -8,8 +8,6 @@ namespace UiPath.Activities.Python.ViewModels
     internal static class WidgetSupportHelper
     {
         internal const string PythonLanguage = "python";
-        internal const string PythonScriptExtensions = ".py";
-        internal const string PythonLibraryExtensions = ".dll;.so;.dylib";
 
         public static string CheckWidgetSupport(IDesignServices services, string preferredWidgetType)
         {
@@ -48,10 +46,8 @@ namespace UiPath.Activities.Python.ViewModels
         /// When <paramref name="selectFolder"/> is set the picker opens the folder dialog, but only on hosts that
         /// advertise <see cref="FolderSelectionFeature"/>; older hosts would show a file dialog for a folder
         /// argument, so they keep the default widget instead.
-        /// <paramref name="fileExtensions"/> (';' separated, e.g. ".py") restricts the file dialog; hosts that do not
-        /// know the <c>FileExtensions</c> metadata ignore it and show all files.
         /// </summary>
-        public static DefaultWidget? BuildLocalResourceWidget(IDesignServices services, bool selectFolder = false, string? fileExtensions = null)
+        public static DefaultWidget BuildLocalResourceWidget(IDesignServices services, bool selectFolder = false)
         {
             var widgetType = CheckWidgetSupport(services, ViewModelWidgetType.LocalResource);
             if (widgetType != ViewModelWidgetType.LocalResource ||
@@ -66,12 +62,22 @@ namespace UiPath.Activities.Python.ViewModels
             {
                 widget.Metadata["SelectFolder"] = bool.TrueString.ToLowerInvariant();
             }
-            else if (!string.IsNullOrWhiteSpace(fileExtensions))
-            {
-                widget.Metadata["FileExtensions"] = fileExtensions;
-            }
 
             return widget;
+        }
+
+        /// <summary>
+        /// Assigns the LocalResource picker to <paramref name="property"/> when the host supports it; otherwise leaves
+        /// <c>Widget</c> untouched (assigning <c>null</c> explicitly is not equivalent to leaving it unset).
+        /// </summary>
+        public static void ApplyLocalResourceWidget(DesignProperty property, IDesignServices services, bool selectFolder = false)
+        {
+            ArgumentNullException.ThrowIfNull(property);
+
+            if (BuildLocalResourceWidget(services, selectFolder) is { } widget)
+            {
+                property.Widget = widget;
+            }
         }
     }
 }
