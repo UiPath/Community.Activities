@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>入力は、サポートされていない GnuPG の AEAD/LibrePGP 形式 (OCB) を使用します。RFC 4880 対応 (AEAD なし) で暗号化するように送信者に依頼してください。</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>受信者の公開キーは、有効期限が切れているか、取り消されたか、暗号化可能なキーでないため、暗号化に使用できません。受信者の現在の公開キーを入力してください。</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>秘密キーは、有効期限が切れているか、取り消されたか、署名可能なキーでないため、署名に使用できません。現在の秘密キーを入力してください。</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>入力は PGP で暗号化されたデータではないため、復号できません。暗号化されたメッセージを指定するか、入力が署名のみの場合は復号をオフにしてください。</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>暗号化されたデータの整合性チェックに失敗しました。変更されたか、破損しています。</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>署名済みファイル (バイナリ)</value>
   </data>
