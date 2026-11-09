@@ -49,6 +49,15 @@ namespace UiPath.Database.Tests
             AssertMessageAndParamNameSeparate(ex, Resources.ValidationError_ConnectionStringMustNotBeNull, "ConnectionString");
         }
 
+        [Fact]
+        public void BuildParameters_NullActivityParameters_ReturnsEmptyDictionary()
+        {
+            var result = ConnectionHelper.BuildParameters(null, null);
+
+            result.ShouldNotBeNull();
+            result.ShouldBeEmpty();
+        }
+
         private static void AssertMessageAndParamNameSeparate(ArgumentNullException ex, string expectedMessage, string expectedParamName)
         {
             ex.Message.ShouldStartWith(expectedMessage);

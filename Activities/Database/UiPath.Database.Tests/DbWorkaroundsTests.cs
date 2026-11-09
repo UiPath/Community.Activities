@@ -50,6 +50,77 @@ namespace UiPath.Database.Tests
         }
 
         [Fact]
+        public void FindPackageVersionPath_VersionExactlyAtFloor_IsAccepted()
+        {
+            var root = Path.Combine(_root, "r");
+            var atFloor = AddPackage(root, DbWorkarounds.Sqlite.Package, DbWorkarounds.Sqlite.MinVersion);
+
+            DbWorkarounds.FindPackageVersionPath(DbWorkarounds.Sqlite.Package, DbWorkarounds.Sqlite.MinVersion, new[] { root })
+                .ShouldBe(atFloor);
+        }
+
+        [Fact]
+        public void FindPackageVersionPath_SeveralPatchedVersions_PicksLowestAtOrAboveFloor()
+        {
+            var root = Path.Combine(_root, "r");
+            AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.6");
+            var lowestPatched = AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.14");
+            AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.20");
+
+            DbWorkarounds.FindPackageVersionPath(DbWorkarounds.Sqlite.Package, DbWorkarounds.Sqlite.MinVersion, new[] { root })
+                .ShouldBe(lowestPatched);
+        }
+
+        [Fact]
+        public void FindPackageVersionPath_StableAndPrereleaseInstalled_PrefersStable()
+        {
+            var root = Path.Combine(_root, "r");
+            var stable = AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.14");
+            AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.15-beta");
+
+            DbWorkarounds.FindPackageVersionPath(DbWorkarounds.Sqlite.Package, DbWorkarounds.Sqlite.MinVersion, new[] { root })
+                .ShouldBe(stable);
+        }
+
+        [Fact]
+        public void FindPackageVersionPath_OnlyPrereleaseAtOrAboveFloor_FallsBackToPrerelease()
+        {
+            var root = Path.Combine(_root, "r");
+            AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.6");
+            var pre = AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.15-beta");
+
+            DbWorkarounds.FindPackageVersionPath(DbWorkarounds.Sqlite.Package, DbWorkarounds.Sqlite.MinVersion, new[] { root })
+                .ShouldBe(pre);
+        }
+
+        [Fact]
+        public void FindPackageVersionPath_MissingRootsAreSkipped()
+        {
+            var missing = Path.Combine(_root, "does-not-exist");
+            var root = Path.Combine(_root, "r");
+            var patched = AddPackage(root, DbWorkarounds.Sqlite.Package, "2.1.14");
+
+            DbWorkarounds.FindPackageVersionPath(DbWorkarounds.Sqlite.Package, DbWorkarounds.Sqlite.MinVersion, new[] { missing, root })
+                .ShouldBe(patched);
+        }
+
+        [Theory]
+        [InlineData("Database.UiPath.Database.csproj")]
+        [InlineData("Database.UiPath.Database.Activities.Packaging.csproj")]
+        [InlineData("Database.UiPath.Data.ConnectionUI.Dialog.csproj")]
+        public void ProjectsReferencingSqlite_AlsoReferenceNativePackage(string copiedProject)
+        {
+            // The csproj files are copied next to the test assembly (see UiPath.Database.Tests.csproj).
+            var project = XDocument.Load(Path.Combine(AppContext.BaseDirectory, copiedProject));
+            var references = project.Descendants("PackageReference")
+                .Select(e => (string)e.Attribute("Include") ?? (string)e.Attribute("Update"))
+                .ToList();
+
+            references.ShouldContain("Microsoft.Data.Sqlite");
+            references.ShouldContain("SQLitePCLRaw.lib.e_sqlite3");
+        }
+
+        [Fact]
         public void SqliteMinVersion_IsNotVulnerable()
         {
             Version.Parse(DbWorkarounds.Sqlite.MinVersion).ShouldBeGreaterThanOrEqualTo(new Version(2, 1, 12));

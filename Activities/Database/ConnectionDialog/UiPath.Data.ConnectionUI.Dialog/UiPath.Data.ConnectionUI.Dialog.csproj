@@ -9,7 +9,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Data.SqlClient" />
         <PackageReference Include="Microsoft.Data.Sqlite" />
-        <!-- Direct pin: Microsoft.Data.Sqlite 8.0.0 pulls vulnerable e_sqlite3 2.1.6 (CVE-2025-6965). -->
+        <!-- Floor for the native SQLite library (CVE-2025-6965 affects <= 2.1.11). Keep >= DbWorkarounds.Sqlite.MinVersion; Microsoft.Data.Sqlite 8.0.33 alone pulls 2.1.13. -->
         <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
         <PackageReference Include="System.Data.Common" />
         <PackageReference Include="System.Data.Odbc" />

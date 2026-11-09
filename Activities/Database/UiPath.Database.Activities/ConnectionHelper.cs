@@ -22,7 +22,7 @@ namespace UiPath.Database.Activities
         /// <summary>Resolves activity Parameters into a typed dictionary using the current context.</summary>
         public static Dictionary<string, ParameterInfo> BuildParameters(Dictionary<string, Argument> activityParameters, AsyncCodeActivityContext context)
         {
-            if (activityParameters == null) return null;
+            if (activityParameters == null) return new Dictionary<string, ParameterInfo>();
             var parameters = new Dictionary<string, ParameterInfo>();
             foreach (var param in activityParameters)
             {
