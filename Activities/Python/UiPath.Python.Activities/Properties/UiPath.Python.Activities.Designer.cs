@@ -322,7 +322,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Python installations were detected.
+        ///   Looks up a localized string similar to No supported Python installations (64-bit 3.11 or later) were detected.
         /// </summary>
         public static string NoPythonInstallations {
             get {

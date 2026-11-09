@@ -316,7 +316,7 @@
     <value>Select the Python installation to be used for the configuration of the activity</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>No Python installations were detected</value>
+    <value>No supported Python installations (64-bit 3.11 or later) were detected</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Script Data Size Limit (MB)</value>
