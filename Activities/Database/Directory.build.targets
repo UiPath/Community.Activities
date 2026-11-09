@@ -15,7 +15,7 @@
               5. Build again — check passes.
         -->
         <_DbWorkarounds_SqlClientNativePin>5.2.1</_DbWorkarounds_SqlClientNativePin>
-        <_DbWorkarounds_SqliteNativePin>8.0.0</_DbWorkarounds_SqliteNativePin>
+        <_DbWorkarounds_SqliteNativePin>8.0.33</_DbWorkarounds_SqliteNativePin>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,7 +25,9 @@
         <PackageReference Update="System.Data.Odbc" Version="8.0.0" />
         <PackageReference Update="System.Data.OleDb" Version="8.0.0" />
         <!-- When upgrading Microsoft.Data.Sqlite, follow the workflow above. -->
-        <PackageReference Update="Microsoft.Data.Sqlite" Version="8.0.0" />
+        <PackageReference Update="Microsoft.Data.Sqlite" Version="8.0.33" />
+        <!-- Keep in sync with DbWorkarounds.Sqlite.MinVersion; must be >= 2.1.12 (CVE-2025-6965). -->
+        <PackageReference Update="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.14" />
         <PackageReference Update="Oracle.ManagedDataAccess.Core" Version="23.8.0"/>
         <PackageReference Update="System.Resources.Extensions" Version="8.0.0" />
         <PackageReference Update="System.Activities.Presentation" Version="6.0.0-20250327.10" />
