@@ -26,6 +26,7 @@ namespace UiPath.Activities.Java.ViewModels
             JarPath.Category = Resources.Input;
             JarPath.IsRequired = true;
             JarPath.IsPrincipal = true;
+            WidgetSupportHelper.ApplyLocalResourceWidget(JarPath, Services);
         }
     }
 }

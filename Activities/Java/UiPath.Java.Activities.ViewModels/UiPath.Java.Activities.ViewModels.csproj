@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="UiPath.Java.Activities.API.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj">
       <PrivateAssets>All</PrivateAssets>
     </ProjectReference>

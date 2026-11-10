@@ -79,7 +79,8 @@ namespace UiPath.Java.Activities
 #endif
                 if (javaPath != null)
                 {
-                    javaPath = Path.Combine(javaPath, "bin", javaExec);
+                    // the picker saves project-relative paths; the Java service is a separate process, so use an absolute path
+                    javaPath = Path.Combine(Path.GetFullPath(javaPath), "bin", javaExec);
                     if (!File.Exists(javaPath))
                     {
                         throw new ArgumentException(Resources.InvalidJavaPath, Resources.JavaPathDisplayName);

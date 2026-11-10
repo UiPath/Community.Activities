@@ -14,7 +14,7 @@ Starts and manages a Java runtime bridge used by all Java child activities.
 
 | Name | Display Name | Kind | Type | Required | Default | Description |
 |------|-------------|------|------|----------|---------|-------------|
-| `JavaPath` | Java Path | InArgument | `string` |  |  | Java installation folder path. If empty, the system Java executable is used. |
+| `JavaPath` | Java Path | InArgument | `string` |  |  | Java installation folder path. If empty, the system Java executable is used. A relative path is resolved against the project folder (the current working directory) when the scope starts. In Studio, shows a folder picker when the host supports folder selection, and a plain text box otherwise. |
 | `TimeoutMS` | Timeout (ms) | InArgument | `int` |  | `15000` | Timeout in milliseconds for Java service initialization. |
 
 ## XAML Example
