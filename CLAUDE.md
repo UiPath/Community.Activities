@@ -85,6 +85,7 @@ Code reuse via C# Shared Projects (`.shproj`/`.projitems`) in `Activities/Shared
 ## Key Conventions
 
 - All user-facing strings go in `.resx` files; activities use `[LocalizedDisplayName]`, `[LocalizedDescription]`, `[LocalizedCategory]` attributes
+- Localized `*.<culture>.resx` files are written by the weekly `chore(l10n): sync from Localization` PR from the Localization team's copy of this repo; never edit them by hand. When you delete or move a `.resx` (or a whole project), tell the Localization team in #product-localization (repo, branch, path) before the next sync, otherwise the sync re-adds the deleted files every week
 - New properties must specify `[DefaultValue]` for forward compatibility
 - Obsolete properties get `[Obsolete]` + `[Browsable(false)]` — do not remove them or change behavior
 - Breaking changes (public contract, behavior, exceptions) require discussion with repo owners
