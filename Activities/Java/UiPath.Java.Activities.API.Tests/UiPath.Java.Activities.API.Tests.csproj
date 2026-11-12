@@ -12,11 +12,14 @@
 
   <ItemGroup>
     <PackageReference Include="UiPath.Activities.Api" />
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="System.Activities.Metadata" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Java.Activities.API\UiPath.Java.Activities.API.csproj" />
     <ProjectReference Include="..\UiPath.Java\UiPath.Java.csproj" />
+    <ProjectReference Include="..\UiPath.Java.Activities.ViewModels\UiPath.Java.Activities.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

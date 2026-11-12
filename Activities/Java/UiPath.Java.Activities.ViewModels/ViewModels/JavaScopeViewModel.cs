@@ -35,6 +35,7 @@ namespace UiPath.Activities.Java.ViewModels
             JavaPath.DisplayName = Resources.JavaPathDisplayName;
             JavaPath.Tooltip = Resources.JavaPathDescription;
             JavaPath.Category = Resources.Input;
+            WidgetSupportHelper.ApplyLocalResourceWidget(JavaPath, Services, selectFolder: true);
 
             TimeoutMS.DisplayName = Resources.TimeoutMSDisplayName;
             TimeoutMS.Tooltip = Resources.TimeoutMSDescription;
