@@ -18,14 +18,21 @@ namespace UiPath.Java.Activities
                 return path;
             }
 
-            if (!Path.IsPathRooted(path))
+            return Path.GetFullPath(NormalizeSeparators(path, Path.DirectorySeparatorChar));
+        }
+
+        /// <summary>
+        /// Rewrites both separators of a relative path to <paramref name="separator"/>; rooted paths are returned as typed.
+        /// The separator is a parameter so the Linux/macOS behavior can be tested on Windows.
+        /// </summary>
+        internal static string NormalizeSeparators(string path, char separator)
+        {
+            if (string.IsNullOrEmpty(path) || Path.IsPathRooted(path))
             {
-                path = path
-                    .Replace('\\', Path.DirectorySeparatorChar)
-                    .Replace('/', Path.DirectorySeparatorChar);
+                return path;
             }
 
-            return Path.GetFullPath(path);
+            return path.Replace('\\', separator).Replace('/', separator);
         }
     }
 }

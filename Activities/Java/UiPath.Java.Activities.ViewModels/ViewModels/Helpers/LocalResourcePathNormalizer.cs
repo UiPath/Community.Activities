@@ -1,4 +1,6 @@
 using System;
+using System.Activities;
+using System.Activities.Expressions;
 
 namespace UiPath.Activities.Java.ViewModels
 {
@@ -20,9 +22,31 @@ namespace UiPath.Activities.Java.ViewModels
         /// </summary>
         public static object Normalize(object value)
         {
-            if (value is not string text)
+            // Studio passes the widget result as an InArgument<string> (a Literal<string> or a text expression)
+            if (value is not InArgument<string> argument)
             {
                 return value;
+            }
+
+            var text = argument.Expression switch
+            {
+                Literal<string> literal => "\"" + literal.Value + "\"",
+                ITextExpression expression => expression.ExpressionText,
+                _ => null,
+            };
+
+            return NormalizeText(text) is string normalized
+                   && normalized != text && normalized.Length >= 2 && normalized[0] == '"' && normalized[normalized.Length - 1] == '"'
+                ? new InArgument<string>(new Literal<string>(normalized.Substring(1, normalized.Length - 2)))
+                : value;
+        }
+
+        /// <summary>The string rules behind <see cref="Normalize"/>; returns the input itself when nothing applies.</summary>
+        internal static string NormalizeText(string text)
+        {
+            if (text is null)
+            {
+                return null;
             }
 
             var trimmed = text.Trim();
@@ -46,7 +70,7 @@ namespace UiPath.Activities.Java.ViewModels
             }
             else if (!unwrapped)
             {
-                return value;
+                return text;
             }
 
             return quoted ? "\"" + path + "\"" : path;

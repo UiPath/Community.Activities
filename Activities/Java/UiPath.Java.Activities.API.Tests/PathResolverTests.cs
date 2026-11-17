@@ -24,6 +24,23 @@ namespace UiPath.Java.Activities.API.Tests
             Assert.Equal(expected, PathResolver.ToFullPath(path));
         }
 
+        // CI runs on Windows, where GetFullPath accepts both separators; pin the separator step itself,
+        // with the Linux/macOS separator, so removing the Replace calls fails the test.
+        [Theory]
+        [InlineData("lib\\x.jar", "lib/x.jar")]
+        [InlineData("lib/sub\\x.jar", "lib/sub/x.jar")]
+        [InlineData("x.jar", "x.jar")]
+        public void NormalizeSeparators_RelativePath_UsesTargetSeparator(string path, string expected)
+        {
+            Assert.Equal(expected, PathResolver.NormalizeSeparators(path, '/'));
+        }
+
+        [Fact]
+        public void NormalizeSeparators_RootedPath_Unchanged()
+        {
+            Assert.Equal("/opt/libs\\x.jar", PathResolver.NormalizeSeparators("/opt/libs\\x.jar", '/'));
+        }
+
         [Fact]
         public void ToFullPath_AbsolutePath_Unchanged()
         {
