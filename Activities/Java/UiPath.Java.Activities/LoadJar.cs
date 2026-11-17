@@ -32,11 +32,10 @@ namespace UiPath.Java.Activities
             {
                 IInvoker invoker = JavaScope.GetJavaInvoker(context);
                 var jarPath = JarPath.Get(context) ?? throw new ArgumentNullException(Resources.JarPathDisplayName);
-                // the picker saves project-relative paths; the Java service is a separate process, so pass an absolute path
-                jarPath = System.IO.Path.GetFullPath(jarPath);
                 try
                 {
-                    await invoker.LoadJar(jarPath, cancellationToken);
+                    // the picker saves project-relative paths; resolve them against the current directory (project folder)
+                    await invoker.LoadJar(PathResolver.ToFullPath(jarPath), cancellationToken);
                 }
                 catch (Exception e)
                 {
