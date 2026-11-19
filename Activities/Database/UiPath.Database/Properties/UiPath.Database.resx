@@ -129,6 +129,9 @@
   <data name="BulkInsert_NumberOfColumnsMustMatch" xml:space="preserve">
     <value>The provided number of columns in the DataTable must match the number of columns in the DB table.</value>
   </data>
+  <data name="DatabaseProviderNotInstalled" xml:space="preserve">
+    <value>The database provider "{0}" is not available. Install the UiPath.Database.Activities package, which includes it.</value>
+  </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>Connection is not initialized</value>
   </data>

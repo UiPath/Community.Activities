@@ -21,7 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
         <PackageReference Include="System.Activities" />
         <PackageReference Include="System.Activities.Core.Presentation" />
     </ItemGroup>

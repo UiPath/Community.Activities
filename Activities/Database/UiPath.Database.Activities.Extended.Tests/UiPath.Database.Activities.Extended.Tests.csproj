@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+        <AssemblyTitle>UiPath.Database.Extended.Tests</AssemblyTitle>
+        <Product>UiPath.Database.Extended.Tests</Product>
+        <OutputPath>..\..\OutputTests\Database\Extended\</OutputPath>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+        <IsTestProject>true</IsTestProject>
+        <TestProjectType>UnitTest</TestProjectType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
+        <PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
+        <PackageReference Include="UiPath.Platform" />
+        <PackageReference Include="UiPath.Workflow" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UiPath.Database.Activities.Extended\UiPath.Database.Activities.Extended.csproj" />
+        <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
+        <ProjectReference Include="..\UiPath.Database.Activities\UiPath.Database.Activities.csproj" />
+    </ItemGroup>
+</Project>

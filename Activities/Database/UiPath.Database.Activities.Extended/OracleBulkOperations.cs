@@ -1,9 +1,10 @@
-﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Data;
 using System.Data.Common;
+using Oracle.ManagedDataAccess.Client;
+using UiPath.Database.BulkOps;
 
-namespace UiPath.Database.BulkOps
+namespace UiPath.Database.Extended
 {
     public class OracleBulkOperations : IBulkOperations
     {
