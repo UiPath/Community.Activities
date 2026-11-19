@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+    <PropertyGroup>
+        <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+        <OutputPath>..\..\Output\Activities\Database\</OutputPath>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+        <!-- The assembly name is what the base package loads by name (DatabaseProviders.WellKnownAssemblies). -->
+        <AssemblyName>UiPath.Database.Activities.Extended</AssemblyName>
+        <RootNamespace>UiPath.Database.Extended</RootNamespace>
+        <PackageId>UiPath.Database.Extended</PackageId>
+        <IsPackable>false</IsPackable>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\UiPath.Database\UiPath.Database.csproj" />
+    </ItemGroup>
+
+    <!--
+      The extended package is a package of its own for Studio Web: the type cache lists only packages with activities,
+      and the palette shows the activities of the packages a project lists. So the portable build carries its own
+      manifest, a copy of Core's (guarded by a test), and the same icons. The activities, their view models and the
+      display texts stay in UiPath.Database.Core.Activities: the manifest points at Core's resource manager, which the
+      type cache and the designers find in the dependency. Studio desktop finds the activities of the dependency by
+      itself, so the Windows build needs no manifest.
+    -->
+    <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
+        <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
+        <EmbeddedResource Include="..\UiPath.Database.Activities\Resources\Icons\*.svg" LinkBase="Resources\Icons" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="UiPath.Database.Activities.Extended.Tests" />
+    </ItemGroup>
+</Project>

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,6 +79,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             _providerName = providerName;
 
             DatabaseHelper.RegisterFactories(true);
+            DatabaseHelper.RegisterExtraFactories();
 
             //SqlConnectionStringBuilder
             // Create an underlying connection string builder object
@@ -155,9 +155,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
             DbConnection connection;
             switch (_providerName)
             {
-                case DatabaseConstants.OracleProvider:
-                    connection = new OracleConnection(testString);
-                    break;
                 case DatabaseConstants.SqlServerProvider:
                     connection = new SqlConnection(testString);
                     break;

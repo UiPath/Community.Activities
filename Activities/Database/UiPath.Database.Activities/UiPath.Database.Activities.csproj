@@ -14,7 +14,6 @@
         <PackageReference Include="UiPath.Workflow" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
-        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
         <PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
         <PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
         <PackageReference Include="UiPath.Platform" />

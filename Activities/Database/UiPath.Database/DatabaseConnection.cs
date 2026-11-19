@@ -1,18 +1,18 @@
 ﻿using Microsoft.Data.SqlClient;
-using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.Odbc;
+using System.Data.OleDb;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using UiPath.Database.BulkOps;
+using UiPath.Database.Extensibility;
 using UiPath.Database.Properties;
 using UiPath.Robot.Activities.Api;
 
@@ -24,6 +24,8 @@ namespace UiPath.Database
         private DbCommand _command;
         private DbTransaction _transaction;
         private string _providerName;
+        private IDatabaseProvider _provider;
+        private bool _providerResolved;
 
         private bool _isWindows = true;
 
@@ -38,6 +40,8 @@ namespace UiPath.Database
         public DatabaseConnection Initialize(DbConnection connection)
         {
             _connection = connection;
+            _provider = null;
+            _providerResolved = false;
             OpenConnection();
             return this;
         }
@@ -45,17 +49,17 @@ namespace UiPath.Database
         public DatabaseConnection Initialize(string connectionString, string providerName)
         {
             _providerName = providerName;
+            _provider = null;
+            _providerResolved = false;
 
             DatabaseHelper.RegisterFactories(_isWindows);
 
             if (providerName.Equals(DatabaseConstants.SqlServerProvider, StringComparison.OrdinalIgnoreCase))
                 _connection = new SqlConnection();
-            else if (providerName.Equals(DatabaseConstants.OracleProvider, StringComparison.OrdinalIgnoreCase))
-                _connection = new OracleConnection();
             else if (providerName.Equals(DatabaseConstants.SQLiteProvider, StringComparison.OrdinalIgnoreCase))
                 _connection = new SqliteConnection();
             else
-                _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
+                _connection = CreateConnectionOfOtherProvider(providerName);
 
             _connection.ConnectionString = connectionString;
             OpenConnection();
@@ -264,10 +268,50 @@ namespace UiPath.Database
 
         public virtual bool SupportsBulk()
         {
-            if (_connection is OracleConnection || _connection is SqlConnection)
+            if (_connection is SqlConnection)
                 return true;
-            return false;
+            return GetProvider()?.SupportsBulk == true;
         }
+
+        /// <summary>
+        /// Creates a connection for a provider that is not built in: first an installed extra provider (for example the
+        /// Oracle provider of the extended package), then the providers registered on the machine.
+        /// </summary>
+        private DbConnection CreateConnectionOfOtherProvider(string providerName)
+        {
+            _provider = DatabaseProviders.Find(providerName);
+            _providerResolved = true;
+            if (_provider != null)
+            {
+                _provider.Initialize();
+                DbProviderFactories.RegisterFactory(_provider.ProviderName, _provider.Factory);
+                return _provider.Factory.CreateConnection();
+            }
+
+            try
+            {
+                return DbProviderFactories.GetFactory(providerName).CreateConnection();
+            }
+            catch (ArgumentException) when (providerName.Equals(DatabaseConstants.OracleProvider, StringComparison.OrdinalIgnoreCase))
+            {
+                // The Oracle provider moved to the extended package.
+                throw new InvalidOperationException(string.Format(Resources.DatabaseProviderNotInstalled, providerName));
+            }
+        }
+
+        /// <summary>The extra provider of the current connection, or null for the built-in providers.</summary>
+        private IDatabaseProvider GetProvider()
+        {
+            if (_providerResolved)
+                return _provider;
+
+            _provider = _connection == null || IsBuiltInConnection(_connection) ? null : DatabaseProviders.FindFor(_connection);
+            _providerResolved = true;
+            return _provider;
+        }
+
+        private static bool IsBuiltInConnection(DbConnection connection) =>
+            connection is SqlConnection || connection is SqliteConnection || connection is OdbcConnection || connection is OleDbConnection;
 
         public long BulkInsertDataTable(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)
         {
@@ -407,8 +451,9 @@ namespace UiPath.Database
                 tempTableName = string.Format("##{0}", tempTableName);
                 cmd.CommandText = string.Format("SELECT TOP 1 {0} INTO {1} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
             }
-            if (_connection is OracleConnection)
-                cmd.CommandText = string.Format("CREATE GLOBAL TEMPORARY TABLE {1}  ON COMMIT PRESERVE ROWS AS SELECT {0} FROM {2}", string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tempTableName, tableName);
+            var providerSql = GetProvider()?.GetCreateTempTableSql(tempTableName, string.Join(",", dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray()), tableName);
+            if (providerSql != null)
+                cmd.CommandText = providerSql;
             cmd.ExecuteNonQuery();
             cmd.CommandText = string.Format("TRUNCATE TABLE {0}", tempTableName);
             cmd.ExecuteNonQuery();
@@ -713,46 +758,9 @@ namespace UiPath.Database
         {
             if (parameterInfo?.Type is null)
                 return;
-            else if (UpdateDbParamTypeOracle(dbParameter, parameterInfo))
-                return; //in the futuree we might consider update param type for other providers
+
+            //the built-in providers need no type mapping; extra providers (Oracle) map the types themselves
+            GetProvider()?.TryUpdateParameterType(dbParameter, parameterInfo.Type);
         }
-
-        private bool UpdateDbParamTypeOracle(DbParameter dbParameter, ParameterInfo parameterInfo)
-        {
-            if (dbParameter is OracleParameter oracleParameter && _oracleMappings.TryGetValue(parameterInfo.Type, out var oracleType))
-            {
-                oracleParameter.OracleDbType = oracleType;
-                return true;
-            }
-
-            return false;
-        }
-
-
-        /// <summary>
-        /// The mapping of C# Type to OracleDbType or to DbType is not 1-1
-        /// There are a lot of conversions behind the scene that are done
-        /// Most of the conversions work ok with string type
-        /// Here is some reference (it might not be up to date)
-        /// https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-data-type-mappings
-        /// https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/oracle-data-type-mappings
-        /// For now leave only a few conversions
-        /// </summary>
-        private readonly Dictionary<Type, OracleDbType> _oracleMappings = new Dictionary<Type, OracleDbType>()
-        {
-            { typeof(OracleRefCursor), OracleDbType.RefCursor },
-            { typeof(bool), OracleDbType.Boolean },
-            { typeof(int), OracleDbType.Int32 },
-            { typeof(uint), OracleDbType.Int32 },
-            { typeof(short), OracleDbType.Int16 },
-            { typeof(ushort), OracleDbType.Int16 },
-            { typeof(long), OracleDbType.Int64 },
-            { typeof(ulong), OracleDbType.Int64 },
-            { typeof(byte), OracleDbType.Byte },
-            { typeof(sbyte), OracleDbType.Byte },
-            { typeof(float), OracleDbType.Single },
-            { typeof(double), OracleDbType.Double },
-            { typeof(decimal), OracleDbType.Decimal }
-        };
     }
 }
