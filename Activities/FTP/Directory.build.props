@@ -1,7 +1,15 @@
 <Project>
   <!-- Import first the parent targets -->
   <Import Project="../Directory.build.props" />
-  
+
+  <!-- The FTP pack targets net8.0 and net8.0-windows only (STUD-82139): SFTP uses only operating system crypto, and the
+       ECDH raw secret agreement it needs (ECDiffieHellman.DeriveRawSecretAgreement) does not exist on net6.0. -->
+  <PropertyGroup>
+    <PortableFramework>net8.0</PortableFramework>
+    <WindowsFramework>net8.0-windows</WindowsFramework>
+  </PropertyGroup>
+
+ 
   <PropertyGroup>
     <Product>FTP</Product>
     <Description>UiPath FTP Activities Pack</Description>

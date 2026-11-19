@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using UiPath.FTP.Extensibility;
 using UiPath.FTP.Properties;
 
 namespace UiPath.FTP
@@ -28,7 +29,11 @@ namespace UiPath.FTP
                 throw new ArgumentNullException(nameof(ftpConfiguration));
             }
 
-            List<AuthenticationMethod> authMethods = BuildAuthenticationMethods(ftpConfiguration);
+            // The extensions of this connection also apply to the private key file read below.
+            SftpCryptoRegistry cryptoRegistry = SftpCryptoRegistry.Create(
+                SftpCryptoExtensionDiscovery.Combine(ftpConfiguration.CryptoExtensions, ftpConfiguration.DiscoverCryptoExtensions));
+
+            List<AuthenticationMethod> authMethods = BuildAuthenticationMethods(ftpConfiguration, cryptoRegistry.CreateKeyFileOptions());
 
             //Throw an error if we ended up with no authentication method
             if (authMethods.Count == 0)
@@ -37,6 +42,7 @@ namespace UiPath.FTP
             }
 
             ConnectionInfo connectionInfo = BuildConnectionInfo(ftpConfiguration, authMethods);
+            cryptoRegistry.ApplyTo(connectionInfo);
 
             TimeSpan? timeoutSpan = ftpConfiguration.Timeout != null
                 ? TimeSpan.FromMilliseconds(ftpConfiguration.Timeout.Value)
@@ -55,7 +61,7 @@ namespace UiPath.FTP
             }
         }
 
-        private static List<AuthenticationMethod> BuildAuthenticationMethods(FtpConfiguration ftpConfiguration)
+        private static List<AuthenticationMethod> BuildAuthenticationMethods(FtpConfiguration ftpConfiguration, PrivateKeyFileOptions keyFileOptions)
         {
             var authMethods = new List<AuthenticationMethod>();
 
@@ -68,7 +74,7 @@ namespace UiPath.FTP
             //Add private key authentication method if private key is provided
             if (!String.IsNullOrEmpty(ftpConfiguration.ClientCertificatePath))
             {
-                PrivateKeyFile keyFile = new PrivateKeyFile(ftpConfiguration.ClientCertificatePath, ftpConfiguration.ClientCertificatePassword);
+                PrivateKeyFile keyFile = new PrivateKeyFile(ftpConfiguration.ClientCertificatePath, ftpConfiguration.ClientCertificatePassword, certificateFileName: null, options: keyFileOptions);
                 var keyFiles = new[] { keyFile };
                 authMethods.Add(new PrivateKeyAuthenticationMethod(ftpConfiguration.Username, keyFiles));
             }
