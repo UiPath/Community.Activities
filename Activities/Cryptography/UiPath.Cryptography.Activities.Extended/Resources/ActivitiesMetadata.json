@@ -1,0 +1,109 @@
+{
+  "AssemblyRelativePath": "UiPath.Cryptography.Activities.Extended.dll",
+  "Activities": [
+    {
+      "FullName": "UiPath.Cryptography.Activities.DecryptFile",
+      "ShortName": "DecryptFile",
+      "DisplayNameKey": "Activity_DecryptFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_DecryptFile_Description",
+      "IconKey": "Decrypt_file.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.DecryptFileViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.DecryptText",
+      "ShortName": "DecryptText",
+      "DisplayNameKey": "Activity_DecryptText_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_DecryptText_Description",
+      "IconKey": "Decrypt_text.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.DecryptTextViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.EncryptFile",
+      "ShortName": "EncryptFile",
+      "DisplayNameKey": "Activity_EncryptFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_EncryptFile_Description",
+      "IconKey": "Encrypt_file.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.EncryptFileViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.EncryptText",
+      "ShortName": "EncryptText",
+      "DisplayNameKey": "Activity_EncryptText_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_EncryptText_Description",
+      "IconKey": "Encrypt_text.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.EncryptTextViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.KeyedHashFile",
+      "ShortName": "KeyedHashFile",
+      "DisplayNameKey": "Activity_KeyedHashFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_KeyedHashFile_Description",
+      "IconKey": "Hash_file_with_key.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.KeyedHashFileViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.KeyedHashText",
+      "ShortName": "KeyedHashText",
+      "DisplayNameKey": "Activity_KeyedHashText_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_KeyedHashText_Description",
+      "IconKey": "Hash_text_with_key.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.KeyedHashTextViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpGenerateKeys",
+      "ShortName": "PgpGenerateKeys",
+      "DisplayNameKey": "Activity_PgpGenerateKeys_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpGenerateKeys_Description",
+      "IconKey": "PGP_generate_keys.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpGenerateKeysViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpSignFile",
+      "ShortName": "PgpSignFile",
+      "DisplayNameKey": "Activity_PgpSignFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpSignFile_Description",
+      "IconKey": "PGP_sign_file.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpSignFileViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpClearSignFile",
+      "ShortName": "PgpClearSignFile",
+      "DisplayNameKey": "Activity_PgpClearSignFile_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpClearSignFile_Description",
+      "IconKey": "PGP_clear_sign_file.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpClearSignFileViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.Cryptography.Activities.PgpVerify",
+      "ShortName": "PgpVerify",
+      "DisplayNameKey": "Activity_PgpVerify_Name",
+      "DisplayNameAliasKeys": ["ActivitySynonymCryptography"],
+      "DescriptionKey": "Activity_PgpVerify_Description",
+      "IconKey": "PGP_verify.svg",
+      "ViewModelType": "UiPath.Cryptography.Activities.NetCore.ViewModels.PgpVerifyViewModel",
+      "Properties": []
+    }
+  ],
+  "DefaultActivityColor": "#526069",
+  "DefaultActivityNameBackgroundColor": "#FFFFFF",
+  "AssemblyIconKey": "Cryptography.svg",
+  "ResourceManagerName": "UiPath.Cryptography.Activities.Properties.UiPath.Cryptography.Activities"
+}
