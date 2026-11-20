@@ -64,7 +64,7 @@ steps:
         Write-Host Update to version $version
         Write-Host "##vso[build.updatebuildnumber]$version"
         cd ${{ parameters.studioInstallPath }}
-        .\UiPath.Studio.CommandLine.exe manage --project-path "$(uipathTestDirectory)\FTPandSFTP\project.json" --add-ref "UiPath.FTP.Activities|$version|strict"
+        .\UiPath.Studio.CommandLine.exe manage --project-path "$(uipathTestDirectory)\FTPandSFTP\project.json" --add-ref "UiPath.FTP.Core.Activities|$version|strict"
 
    - task: PowerShell@2
      displayName: Run SFTP User Pass Tests VB

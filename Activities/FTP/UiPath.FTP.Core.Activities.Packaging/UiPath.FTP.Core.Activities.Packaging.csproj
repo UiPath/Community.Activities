@@ -1,0 +1,85 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
+    <!--leave empty for ci to replace with prelease tag-->
+	<VersionSuffix></VersionSuffix>
+	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
+	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
+	<PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
+	</PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>UiPath.FTP.Core.Activities</PackageId>
+    <PackageTitle>UiPath.FTP.Core.Activities</PackageTitle>
+    <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
+    <PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-ftp-activities-pack</PackageLicenseUrl>
+    <PackageTags>UiPathActivities</PackageTags>
+    <Description>UiPath FTP Activities Pack (core): SFTP uses only operating system cryptography; additional algorithms can be supplied by an extension package.</Description>
+    <Authors>UiPath</Authors>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
+    <ItemGroup>
+      <BuiltProjectOutputGroupOutput Remove="@(BuiltProjectOutputGroupOutput)" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="FluentFTP" />
+    <PackageReference Include="UiPath.SSH.NET" />
+    <PackageReference Include="UiPath.Telemetry.Client" />
+    <PackageReference Include="UiPath.Platform" />
+    <PackageReference Include="UiPath.CodedWorkflows" />
+  </ItemGroup>
+
+	<Target Name="AddDlls">
+		<ItemGroup>
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.dll" />
+			<BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.dll" />
+
+      <FtpResources Include="$(OutputPath)**\UiPath.FTP.resources.dll" />
+      <BuildOutputInPackage Include="@(FtpResources)">
+        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </BuildOutputInPackage>
+
+      <FtpActivitiesResources Include="$(OutputPath)**\UiPath.FTP.Activities.resources.dll" />
+      <BuildOutputInPackage Include="@(FtpActivitiesResources)">
+        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </BuildOutputInPackage>
+		</ItemGroup>
+
+    <!--Coded workflow API files-->
+    <ItemGroup Label="AddCodedWorkflowAPI">
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.API.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.API.xml" />
+    </ItemGroup>
+    
+	</Target>
+
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+  
+	<Target Name="CleanPackageFiles" BeforeTargets="Build">
+		<Message Text="Deleting packages ..." />
+		<ItemGroup>
+			<PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+		</ItemGroup>
+		<Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
+	</Target>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
+    <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities\UiPath.FTP.Activities.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FTP\UiPath.FTP.Activities.API\UiPath.FTP.Activities.API.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
