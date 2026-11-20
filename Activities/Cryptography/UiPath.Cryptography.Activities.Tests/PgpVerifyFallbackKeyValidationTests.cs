@@ -1,3 +1,4 @@
+using UiPath.Cryptography.Pgp;
 using System;
 using System.IO;
 using System.Text;
@@ -46,7 +47,7 @@ namespace UiPath.Cryptography.Activities.Tests
             }
 
             var clear = PgpBcFixture.CreateMultiSignerClearSignedMessage(ClearPayload, signedAtUtc, signers);
-            return CryptographyHelper.BcVerifyClearSignature(clear, ring);
+            return PgpImplementation.BcVerifyClearSignature(clear, ring);
         }
 
         private static PgpBcFixture Create(Action<PgpBcFixture.Options> configure)
@@ -590,7 +591,7 @@ namespace UiPath.Cryptography.Activities.Tests
             var signer = PgpBcFixture.Create();
             var clear = PgpBcFixture.CreateMultiSignerClearSignedMessage(ClearPayload, null, markerBeforeSignature: true, signer);
 
-            Assert.True(CryptographyHelper.BcVerifyClearSignature(clear, signer.PublicKeyRing));
+            Assert.True(PgpImplementation.BcVerifyClearSignature(clear, signer.PublicKeyRing));
         }
 
         // ---------------------------------------------------------------- multiple signers
