@@ -106,7 +106,7 @@ namespace UiPath.Database.Tests
 
         [Theory]
         [InlineData("Database.UiPath.Database.csproj")]
-        [InlineData("Database.UiPath.Database.Activities.Packaging.csproj")]
+        [InlineData("Database.UiPath.Database.Core.Activities.Packaging.csproj")]
         [InlineData("Database.UiPath.Data.ConnectionUI.Dialog.csproj")]
         public void ProjectsReferencingSqlite_AlsoReferenceNativePackage(string copiedProject)
         {

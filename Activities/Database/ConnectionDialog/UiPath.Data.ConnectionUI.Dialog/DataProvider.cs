@@ -1,5 +1,4 @@
-﻿using Oracle.ManagedDataAccess.Client;
-using System;
+﻿using System;
 using System.Activities.Presentation;
 using System.Collections.Generic;
 using UiPath.Data.ConnectionUI.Dialog.Controls;
@@ -21,7 +20,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
         private static DataProvider _sqlDataProvider;
         private static DataProvider _oleDBDataProvider;
         private static DataProvider _odbcDataProvider;
-        private static DataProvider _oracleManagedDataAcessProvider;
         private static DataProvider _sqliteDataProvider;
 
         #region Public Properties
@@ -163,37 +161,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
                         typeof(OdbcConnectionProperties));
                 }
                 return _odbcDataProvider;
-            }
-        }
-
-        public static DataProvider OracleManagedDataAccessProvider
-        {
-            get
-            {
-                if (_oracleManagedDataAcessProvider == null)
-                {
-                    Dictionary<string, string> descriptions = new Dictionary<string, string>
-                    {
-                        { DataSource.OracleManagedDataAccessSource.Name, Resources.DataProvider_Oracle_DataSource_Description }
-                    };
-
-                    Dictionary<string, Type> uiControls = new Dictionary<string, Type>
-                    {
-                        { string.Empty, typeof(OracleConnectionUIControl) }
-                    };
-
-                    _oracleManagedDataAcessProvider = new DataProvider(
-                        DatabaseConstants.OracleProvider,
-                        Resources.DataProvider_Oracle,
-                        Resources.DataProvider_Oracle_Short,
-                        Resources.DataProvider_Oracle_Description,
-                        typeof(OracleConnection),
-                        descriptions,
-                        uiControls,
-                        typeof(OracleConnectionProperties)
-                        );
-                }
-                return _oracleManagedDataAcessProvider;
             }
         }
 

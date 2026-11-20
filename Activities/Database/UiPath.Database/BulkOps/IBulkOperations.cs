@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
+using UiPath.Database.Extensibility;
 
 namespace UiPath.Database.BulkOps
 {
@@ -21,11 +22,8 @@ namespace UiPath.Database.BulkOps
             {
                 return new SQLBulkOperations();
             }
-            if (connection is Oracle.ManagedDataAccess.Client.OracleConnection)
-            {
-                return new OracleBulkOperations();
-            }
-            return null;
+            // Other providers (Oracle) come from the extended package, when it is installed.
+            return DatabaseProviders.FindFor(connection)?.CreateBulkOperations();
         }
     }
 }

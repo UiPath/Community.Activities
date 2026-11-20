@@ -23,6 +23,7 @@ namespace UiPath.Database.Activities.Design
             ProviderNames = new List<string>();
 
             DatabaseHelper.RegisterFactories(true);
+            DatabaseHelper.RegisterExtraFactories();
             
             var installedProviders = DbProviderFactories.GetFactoryClasses();
             foreach (DataRow installedProvider in installedProviders.Rows)
