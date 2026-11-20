@@ -1,3 +1,4 @@
+using UiPath.Cryptography.Pgp;
 using System;
 using System.Activities;
 using System.IO;
@@ -52,7 +53,7 @@ namespace UiPath.Cryptography.Activities.Tests
         private static bool FallbackAccepts(byte[] encrypted, PgpBcFixture recipient, byte[] verifierRing)
         {
             using var plaintext = new MemoryStream();
-            return CryptographyHelper.BcDecryptAndVerify(encrypted, recipient.PrivateKeyRing, recipient.Passphrase, verifierRing, plaintext);
+            return PgpImplementation.BcDecryptAndVerify(encrypted, recipient.PrivateKeyRing, recipient.Passphrase, verifierRing, plaintext);
         }
 
         private static void AssertSignatureVerificationFailed(Action action)
@@ -291,7 +292,7 @@ namespace UiPath.Cryptography.Activities.Tests
         [InlineData("UTF-16LE", new byte[] { 0xFF, 0xFE, 0x68, 0x00, 0x69, 0x00 }, "hi")]
         [InlineData("none", new byte[] { 0x68, 0x69, 0xC3, 0xA9 }, "hié")]
         public void ReadPlaintextText_UsesByteOrderMark(string _, byte[] bytes, string expected)
-            => Assert.Equal(expected, CryptographyHelper.ReadPlaintextText(new MemoryStream(bytes)));
+            => Assert.Equal(expected, PgpImplementation.ReadPlaintextText(new MemoryStream(bytes)));
 
         [Fact]
         public void VerificationFailure_WritesNothingToOutputStream()

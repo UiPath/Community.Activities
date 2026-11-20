@@ -1276,6 +1276,15 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PGP is not available. The PGP activities need the UiPath.Cryptography.Activities package (the extended package)..
+        /// </summary>
+        internal static string PgpProviderNotInstalled {
+            get {
+                return ResourceManager.GetString("PgpProviderNotInstalled", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to The provided private key does not match the encrypted data. Ensure you are using the correct private key..
         /// </summary>
         internal static string PgpPrivateKeyNotFound {

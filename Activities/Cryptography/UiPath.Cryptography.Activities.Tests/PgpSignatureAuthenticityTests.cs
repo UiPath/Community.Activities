@@ -1,3 +1,4 @@
+using UiPath.Cryptography.Pgp;
 using System;
 using System.IO;
 using System.Linq;
@@ -237,7 +238,7 @@ namespace UiPath.Cryptography.Activities.Tests
                 return lines;
             });
 
-            Assert.Equal(accepted, CryptographyHelper.IsSingleClearSignedBlock(System.Text.Encoding.UTF8.GetBytes(message)));
+            Assert.Equal(accepted, PgpImplementation.IsSingleClearSignedBlock(System.Text.Encoding.UTF8.GetBytes(message)));
         }
 
         // Only "Hash:" headers belong between the begin line and the clear text; an armor header there carries unsigned text.
