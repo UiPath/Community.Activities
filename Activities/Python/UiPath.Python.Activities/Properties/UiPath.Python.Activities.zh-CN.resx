@@ -157,7 +157,7 @@
     <value>指定的 Python 路径无效: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>指定的 Python 库路径无效（需要指向 Python 3.10 的 python**.dll 或 libpython*.so 的文件路径）：{0}</value>
+    <value>指定的 Python 库路径无效（需要指向 python**.dll 或 libpython*.so 的文件路径）：{0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>调用 Python 方法时出错</value>
@@ -316,7 +316,7 @@
     <value>选择用于配置活动的 Python 安装</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>未检测到 Python 安装</value>
+    <value>未检测到受支持的 Python 安装（64 位 3.11 或更高版本）</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>脚本数据大小限制 (MB)</value>

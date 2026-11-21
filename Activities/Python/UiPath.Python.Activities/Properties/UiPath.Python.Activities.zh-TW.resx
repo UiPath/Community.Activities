@@ -157,7 +157,7 @@
     <value>指定的 Python 路徑無效: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>指定的 Python 元件庫路徑無效 (對 Python 3.10 而言，python**.dll /libpython*.so 的檔案路徑為必填項): {0}</value>
+    <value>指定的 Python 元件庫路徑無效 (python**.dll / libpython*.so 的檔案路徑為必填項): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>叫用 Python 方法時發生錯誤</value>
@@ -316,7 +316,7 @@
     <value>選取要用於配置活動的 Python 安裝</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>未偵測到任何 Python 安裝</value>
+    <value>未偵測到任何受支援的 Python 安裝（64 位元 3.11 或更新版本）</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>指令碼資料大小限制 (MB)</value>

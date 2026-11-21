@@ -157,7 +157,7 @@
     <value>Le chemin d’accès Python indiqué n’est pas valide : {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>Le chemin d’accès à la bibliothèque Python indiqué n’est pas valide (un chemin d’accès vers un fichier python**.dll ou libpython*.so est requis pour Python 3.10) : {0}</value>
+    <value>Le chemin d’accès à la bibliothèque Python indiqué n’est pas valide (un chemin d’accès vers un fichier python**.dll ou libpython*.so est requis) : {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Erreur lors de l’invocation de la méthode Python</value>
@@ -316,7 +316,7 @@
     <value>Sélectionnez l’installation Python à utiliser pour la configuration de l’activité</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Aucune installation Python n’a été détectée</value>
+    <value>Aucune installation Python prise en charge (64 bits 3.11 ou versions ultérieures) n’a été détectée</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Limite de taille des données de script (Mo)</value>
