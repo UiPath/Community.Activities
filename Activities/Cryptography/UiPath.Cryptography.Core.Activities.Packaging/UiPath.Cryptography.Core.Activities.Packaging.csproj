@@ -87,6 +87,23 @@
     <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
   </ItemGroup>
   
+  <!--
+    Guard for what the compliance scan judges: this package must not declare PgpCore or BouncyCastle as a dependency, nor
+    ship their assemblies. Both belong to the extension package UiPath.Cryptography.Activities.
+  -->
+  <Target Name="GuardNoNonOsCrypto" AfterTargets="GenerateNuspec">
+    <PropertyGroup>
+      <_GuardNuspec>$(NuspecOutputPath)$(PackageId).$(PackageVersion).nuspec</_GuardNuspec>
+      <_GuardNuspecText Condition="Exists('$(_GuardNuspec)')">$([System.IO.File]::ReadAllText('$(_GuardNuspec)'))</_GuardNuspecText>
+    </PropertyGroup>
+    <Error Condition="'$(_GuardNuspecText)' == ''" Text="The generated nuspec $(_GuardNuspec) was not found; cannot check the package dependencies." />
+    <Error Condition="$(_GuardNuspecText.Contains('PgpCore')) Or $(_GuardNuspecText.Contains('BouncyCastle'))" Text="$(PackageId) must not depend on PgpCore or BouncyCastle (OS crypto only); they belong to UiPath.Cryptography.Activities." />
+    <ItemGroup>
+      <_GuardShipped Include="@(BuildOutputInPackage)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('BouncyCastle')) Or $([System.String]::Copy('%(Filename)').StartsWith('PgpCore'))" />
+    </ItemGroup>
+    <Error Condition="'@(_GuardShipped)' != ''" Text="$(PackageId) must not ship PgpCore or BouncyCastle assemblies: @(_GuardShipped)." />
+  </Target>
+
   <Target Name="CleanPackageFiles" BeforeTargets="Build">
     <Message Text="Deleting packages ..." />
     <ItemGroup>
