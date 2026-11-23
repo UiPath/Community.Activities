@@ -4,8 +4,10 @@
 
 Creates a PGP clear-text signature of a file using a private key. The clearsigned output contains the original plaintext wrapped between `-----BEGIN PGP SIGNED MESSAGE-----` and `-----END PGP SIGNATURE-----` markers, so it is human-readable and tamper-evident.
 
-**Package:** `UiPath.Cryptography.Activities`
+**Package:** `UiPath.Cryptography.Core.Activities` (requires the extension package `UiPath.Cryptography.Activities`)
 **Category:** Cryptography
+
+> **Requires the PGP extension.** This activity ships in `UiPath.Cryptography.Core.Activities` but its OpenPGP implementation (PgpCore, BouncyCastle) is in the extension package `UiPath.Cryptography.Activities`. Add that package to the project; without it the activity fails at run time with "PGP is not available". See the documentation of the extension package `UiPath.Cryptography.Activities`.
 
 ## Properties
 

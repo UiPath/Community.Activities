@@ -1,11 +1,13 @@
-# Decrypt File
+# Decrypt Text
 
-`UiPath.Cryptography.Activities.DecryptFile`
+`UiPath.Cryptography.Activities.DecryptText`
 
-Decrypts a file using a symmetric algorithm and key, or using PGP with a private key. The result is written to a new file.
+Decrypts a text string using a symmetric algorithm, or using PGP with a private key. Returns the plaintext string.
 
-**Package:** `UiPath.Cryptography.Activities`
+**Package:** `UiPath.Cryptography.Core.Activities`
 **Category:** Cryptography
+
+> **PGP needs the extension.** The `PGP` algorithm requires the extension package `UiPath.Cryptography.Activities` in the project (it contains the OpenPGP implementation). All other algorithms use only the operating system cryptography in `UiPath.Cryptography.Core.Activities`. Without the extension, selecting `PGP` fails at run time with "PGP is not available". See the documentation of the extension package `UiPath.Cryptography.Activities`.
 
 ## Properties
 
@@ -14,52 +16,49 @@ Decrypts a file using a symmetric algorithm and key, or using PGP with a private
 | Name | Display Name | Kind | Type | Required | Default | Description |
 |------|-------------|------|------|----------|---------|-------------|
 | `Algorithm` | Algorithm | Property | `EncryptionAlgorithm` | Yes |  | The cryptographic algorithm to use. See the Enum Reference below. |
-| `InputFilePath` | File path | InArgument | `string` | Conditional |  | The path to the file that you want to decrypt. Paired with a hidden `IResource` alternative selectable via a designer menu action. |
-| `Key` | Key | InArgument | `string` | Conditional |  | The key used to decrypt the file. Provide either `Key` or `KeySecureString`. Symmetric algorithms only. |
-| `KeySecureString` | Key secure string | InArgument | `SecureString` | Conditional |  | Secure-string variant of the key. Provide either `Key` or `KeySecureString`. Symmetric algorithms only. |
-| `KeyEncoding` | Key encoding | InArgument | `Encoding` |  | UTF-8 | The encoding used to interpret the key. Symmetric algorithms only. |
+| `Input` | Text | InArgument | `string` | Yes |  | The encrypted text to decrypt (Base64-encoded for symmetric algorithms, ASCII-armored for PGP). |
+| `Key` | Key | InArgument | `string` | Conditional |  | The key used to decrypt the input. Provide either `Key` or `KeySecureString`. Symmetric algorithms only. |
+| `KeySecureString` | Key secure string | InArgument | `SecureString` | Conditional |  | Secure-string variant of the key. Symmetric algorithms only. |
+| `Encoding` | Key encoding | InArgument | `Encoding` |  | UTF-8 | The encoding used to interpret the key/password in `Key`. Surfaced in the designer as a "Key encoding" dropdown. Symmetric algorithms only. |
+| `PlaintextEncoding` | Text encoding | InArgument | `Encoding` |  | UTF-8 | The encoding used to convert the decrypted bytes back to text. Set this to match the encoding used by the tool that produced the ciphertext. Symmetric algorithms only. |
 | `Format` | Wire format | Property | `SymmetricWireFormat` |  | `Classic` | The symmetric ciphertext layout to decrypt. Must match the format used at encrypt time. Symmetric algorithms only. |
 | `KeyFormat` | Key bytes format | Property | `KeyBytesFormat` |  | `Encoded` | How the `Key` string is interpreted. `Hex` or `Base64` are required when `Format = Raw`. Symmetric algorithms only. |
 | `KdfIterations` | KDF iterations | InArgument | `int` |  | `0` | PBKDF2 iteration count. Must match the value used at encrypt time. `0` uses the format's OWASP-recommended default. Rejected for `Classic` and `Raw`. |
 | `AesKeySize` | AES key size | Property | `AesKeySize` |  | `Aes256` | AES key size in bits used to encrypt the input. Applies only when `Algorithm = AES` and `Format = OpenSslEnc`; ignored otherwise. Must match the key size the producer used (e.g. `openssl enc -aes-128-cbc` / `-aes-192-cbc` / `-aes-256-cbc`). Not stored in the wire format — encrypt and decrypt sides must use matching values. |
-| `OutputFilePath` | Output file path | InArgument | `string` |  |  | The full path where the decrypted file will be saved. When empty, the file is written next to the input file using the name `<input-name>_Decrypted<input-extension>`. |
-| `OutputFileName` | Decrypted file name | InArgument | `string` |  |  | The file name to use for the decrypted file. Honored when `OutputFilePath` is empty. |
 | `PrivateKeyFilePath` | Private key file path | InArgument | `string` | Conditional |  | Path to your PGP private key file. Required when `Algorithm = PGP`. Paired with a hidden `IResource` alternative (`PrivateKeyFile`) selectable via a designer menu action. |
 | `Passphrase` | Passphrase | InArgument | `string` | Conditional |  | Passphrase that unlocks the private key. Provide either `Passphrase` or `PassphraseSecureString`. PGP only. |
-| `PassphraseSecureString` | Passphrase (secure) | InArgument | `SecureString` | Conditional |  | Secure-string variant of the passphrase. Provide either `Passphrase` or `PassphraseSecureString`. PGP only. |
+| `PassphraseSecureString` | Passphrase (secure) | InArgument | `SecureString` | Conditional |  | Secure-string variant of the passphrase. PGP only. |
 | `PublicKeyFilePath` | Public key file path | InArgument | `string` | Conditional |  | Path to the signer's PGP public key file. Required only when `VerifySignature = True`. Paired with a hidden `IResource` alternative (`PublicKeyFile`) selectable via a designer menu action. |
 
 ### Configuration
 
-| Name | Display Name | Type | Required | Default | Description |
-|------|-------------|------|----------|---------|-------------|
-| `Overwrite` | Overwrite | `bool` | Yes |  | If a file already exists at the output path, this overwrites it. |
-| `VerifySignature` | Verify signature | `bool` |  | `false` | When enabled, verifies the PGP signature of the decrypted data using the public key. PGP only. |
-| `ContinueOnError` | Continue on error | `InArgument<bool>` |  |  | Specifies if the automation should continue when the activity throws an error. |
+| Name | Display Name | Type | Default | Description |
+|------|-------------|------|---------|-------------|
+| `VerifySignature` | Verify signature | `bool` | `false` | When enabled, verifies the PGP signature of the decrypted data using the public key. PGP only. |
+| `ContinueOnError` | Continue on error | `InArgument<bool>` |  | Specifies if the automation should continue when the activity throws an error. |
 
 ### Output
 
 | Name | Display Name | Kind | Type | Description |
 |------|-------------|------|------|-------------|
-| `DecryptedFile` | Decrypted file | OutArgument | `ILocalResource` | A resource handle to the file that was written. Hidden in the designer (`[Browsable(false)]`) but populated at runtime — bind it to chain the decrypted file into a downstream activity. The decrypted bytes are also written to disk at `OutputFilePath`, or — when `OutputFilePath` is empty — at the computed default path next to the input file (`<input-name>_Decrypted<input-extension>`). |
+| `Result` | Decrypted text | OutArgument | `string` | The decrypted plaintext. |
 
 ## Valid Configurations
 
 The activity has two modes selected by `Algorithm`:
 
 **Symmetric mode** (`AESGCM`, `ChaCha20Poly1305`, `AES`, `TripleDES`, `DES`, `RC2`, `Rijndael`):
-- Provide `InputFilePath`, `Algorithm`, and exactly one of `Key` / `KeySecureString`.
-- `KeyEncoding` defaults to UTF-8.
+- Provide `Input`, `Algorithm`, and exactly one of `Key` / `KeySecureString`.
+- `Encoding` (key/password) and `PlaintextEncoding` (output text) are independent and **both default to UTF-8**. Set either one alone — e.g. change only `PlaintextEncoding` to match the encoding used at encrypt time, while leaving the key as UTF-8.
 - `Format` defaults to `Classic` — must match what was used at encrypt time. The IV (when present) is read from the ciphertext stream prefix automatically.
-- For `Owasp2026` and `OpenSslEnc`: set `KdfIterations` to the same value used at encrypt time.
+- For `Owasp2026` and `OpenSslEnc`: set `KdfIterations` to the same value used at encrypt time (the iteration count is **not** carried in the wire format).
 - For `OpenSslEnc` with `Algorithm = AES`: set `AesKeySize` to the same value used at encrypt time (also not carried in the wire format).
 - For `Raw`: set `KeyFormat = Hex` or `Base64` and supply the same raw key bytes used at encrypt time.
-- PGP properties (private/public key, passphrase, `VerifySignature`) are ignored.
 
 **PGP mode** (`Algorithm = PGP`):
-- Provide `InputFilePath`, `PrivateKeyFilePath`, and exactly one of `Passphrase` / `PassphraseSecureString`.
-- Set `VerifySignature = True` and provide `PublicKeyFilePath` to additionally verify the signature embedded in the encrypted payload.
-- Symmetric properties (`Key`, `KeySecureString`, `KeyEncoding`, `Format`, `KeyFormat`, `KdfIterations`) are ignored.
+- Provide `Input`, `PrivateKeyFilePath`, and exactly one of `Passphrase` / `PassphraseSecureString`.
+- Set `VerifySignature = True` and provide `PublicKeyFilePath` to additionally verify the embedded signature.
+- Symmetric properties (`Key`, `KeySecureString`, `Encoding`, `PlaintextEncoding`, `Format`, `KeyFormat`, `KdfIterations`) are ignored.
 
 The default symmetric format (`Classic`) is UiPath-specific (`salt(8) || IV || ciphertext [|| tag]`, PBKDF2-HMAC-SHA1 @ 10 000 iterations). Use `Raw` or `OpenSslEnc` to decrypt ciphertext produced by `openssl enc`, Java `javax.crypto`, Python `cryptography`, browser tools, etc. See `docs/symmetric-wire-format.md` for byte layouts and decoder examples.
 
@@ -78,41 +77,48 @@ The default symmetric format (`Classic`) is UiPath-specific (`salt(8) || IV || c
 Symmetric decrypt — Classic (default):
 
 ```xml
-<ui:DecryptFile DisplayName="Decrypt File"
+<ui:DecryptText DisplayName="Decrypt Text"
                 Algorithm="AESGCM"
-                InputFilePath="C:\temp\plain.txt.encrypted"
+                Input="[ciphertextBase64]"
                 Key="[passphrase]"
-                OutputFilePath="C:\temp\plain.txt"
-                Overwrite="True" />
+                Result="[plaintext]" />
+```
+
+Symmetric decrypt — `Raw` with caller-supplied key:
+
+```xml
+<ui:DecryptText DisplayName="Decrypt Text (Raw)"
+                Algorithm="AESGCM"
+                Format="Raw"
+                Input="[ciphertextBase64]"
+                Key="a3f1b2c4d5e6f70819a0b1c2d3e4f5061718293a4b5c6d7e8f90a1b2c3d4e5f6"
+                KeyFormat="Hex"
+                Result="[plaintext]" />
 ```
 
 Symmetric decrypt — `OpenSslEnc` (input produced by `openssl enc -pbkdf2 -iter 600000 -md sha256 -salt -k password`):
 
 ```xml
-<ui:DecryptFile DisplayName="Decrypt File (openssl)"
+<ui:DecryptText DisplayName="Decrypt Text (openssl)"
                 Algorithm="AES"
                 Format="OpenSslEnc"
-                InputFilePath="C:\temp\plain.txt.enc"
+                Input="[ciphertextBase64]"
                 Key="[passphrase]"
-                OutputFilePath="C:\temp\plain.txt"
-                Overwrite="True" />
+                Result="[plaintext]" />
 ```
 
-PGP decrypt with signature verification:
+PGP decrypt:
 
 ```xml
-<ui:DecryptFile DisplayName="Decrypt File (PGP)"
+<ui:DecryptText DisplayName="Decrypt Text (PGP)"
                 Algorithm="PGP"
-                InputFilePath="C:\temp\report.pgp"
+                Input="[pgpArmoredText]"
                 PrivateKeyFilePath="C:\keys\private.asc"
                 Passphrase="[keyPassphrase]"
-                VerifySignature="True"
-                PublicKeyFilePath="C:\keys\sender_public.asc"
-                OutputFilePath="C:\temp\report.txt"
-                Overwrite="True" />
+                Result="[plaintext]" />
 ```
 
 ## Notes
 
 - `Key` ↔ `KeySecureString` and `Passphrase` ↔ `PassphraseSecureString` are paired via a designer menu action: only one side of each pair is active at a time.
-- The decrypted bytes are written to the file at `OutputFilePath`, or — when `OutputFilePath` is empty — to the computed default path next to the input file (`<input-name>_Decrypted<input-extension>`). The activity also exposes a hidden `DecryptedFile` output (`OutArgument<ILocalResource>`) — see the Output table above.
+- For PGP signature verification, also set `VerifySignature = True` and supply `PublicKeyFilePath`.

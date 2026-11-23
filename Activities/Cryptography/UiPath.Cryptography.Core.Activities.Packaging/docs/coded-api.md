@@ -5,7 +5,8 @@
 Provides coded workflow operations for symmetric encryption/decryption, keyed hashing, and PGP encryption, decryption, signing, clear-signing, verification, and key generation.
 
 **Service accessor:** `cryptography` (type `ICryptographyService`)
-**Required package:** `"UiPath.Cryptography.Activities": "*"` in project.json dependencies
+**Required package:** `"UiPath.Cryptography.Core.Activities": "*"` in project.json dependencies  
+**PGP methods additionally require the extension package** `"UiPath.Cryptography.Activities": "*"` (OpenPGP implementation, depends on the core package). Without it a PGP call throws `InvalidOperationException` ("PGP is not available"). See the documentation of the extension package `UiPath.Cryptography.Activities`.
 
 ## Auto-Imported Namespaces
 

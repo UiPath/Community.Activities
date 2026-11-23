@@ -4,8 +4,10 @@
 
 Generates an OpenPGP public/private RSA key pair and saves them to the specified file paths in ASCII-armored format.
 
-**Package:** `UiPath.Cryptography.Activities`
+**Package:** `UiPath.Cryptography.Core.Activities` (requires the extension package `UiPath.Cryptography.Activities`)
 **Category:** Cryptography
+
+> **Requires the PGP extension.** This activity ships in `UiPath.Cryptography.Core.Activities` but its OpenPGP implementation (PgpCore, BouncyCastle) is in the extension package `UiPath.Cryptography.Activities`. Add that package to the project; without it the activity fails at run time with "PGP is not available". See the documentation of the extension package `UiPath.Cryptography.Activities`.
 
 ## Properties
 

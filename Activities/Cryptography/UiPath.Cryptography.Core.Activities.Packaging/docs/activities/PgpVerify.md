@@ -4,8 +4,10 @@
 
 Verifies a PGP signature, a clearsignature, or the structural validity of a public key file. The mode selects which check is performed and which inputs are required.
 
-**Package:** `UiPath.Cryptography.Activities`
+**Package:** `UiPath.Cryptography.Core.Activities` (requires the extension package `UiPath.Cryptography.Activities`)
 **Category:** Cryptography
+
+> **Requires the PGP extension.** This activity ships in `UiPath.Cryptography.Core.Activities` but its OpenPGP implementation (PgpCore, BouncyCastle) is in the extension package `UiPath.Cryptography.Activities`. Add that package to the project; without it the activity fails at run time with "PGP is not available". See the documentation of the extension package `UiPath.Cryptography.Activities`.
 
 ## Properties
 
