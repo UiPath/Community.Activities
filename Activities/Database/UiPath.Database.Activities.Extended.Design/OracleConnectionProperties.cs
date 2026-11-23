@@ -5,7 +5,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 {
 	public class OracleConnectionProperties : AdoDotNetConnectionProperties
 	{
-		private OracleConnectionStringBuilder _connStringBuilder;
+		private readonly OracleConnectionStringBuilder _connStringBuilder;
 
 		public override bool IsComplete
 		{
@@ -28,14 +28,12 @@ namespace UiPath.Data.ConnectionUI.Dialog
 		public OracleConnectionProperties()
 			: base(DatabaseConstants.OracleProvider)
 		{
-			LocalReset();
 			_connStringBuilder = ConnectionStringBuilder as OracleConnectionStringBuilder;
 		}
 
 		public override void Reset()
 		{
 			base.Reset();
-			LocalReset();
 		}
 
 		protected override string ToTestString()
@@ -60,8 +58,5 @@ namespace UiPath.Data.ConnectionUI.Dialog
 			return base.ToFullString().Replace("\"", "");
         }
 
-        private void LocalReset()
-		{
-		}
 	}
 }

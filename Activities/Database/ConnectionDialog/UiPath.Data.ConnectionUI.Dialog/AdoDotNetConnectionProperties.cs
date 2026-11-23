@@ -498,7 +498,10 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     if (m_Property.Converter.CanConvertTo(m_Property.PropertyType))
                         val = m_Property.Converter.ConvertTo(val, m_Property.PropertyType);
                 }
-                catch (Exception) { }
+                catch (Exception)
+                {
+                    // The value cannot be converted for display: show it as it is.
+                }
                 conProp._errorProperties.Remove(m_Property.DisplayName);
                 conProp.OnErrorValidating(EventArgs.Empty);
                 return val;

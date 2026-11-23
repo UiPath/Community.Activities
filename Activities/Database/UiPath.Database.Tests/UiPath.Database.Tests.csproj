@@ -38,6 +38,13 @@
 		<PackageReference Include="UiPath.Workflow" />
 	</ItemGroup>
 
+	<!-- The connection dialog and the Oracle dialog provider are Windows-only designer code; their logic is tested here. -->
+	<ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">
+		<ProjectReference Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj" />
+		<ProjectReference Include="..\UiPath.Database.Activities.Extended.Design\UiPath.Database.Activities.Extended.Design.csproj" />
+		<ProjectReference Include="..\UiPath.Database.Activities.Extended\UiPath.Database.Activities.Extended.csproj" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<!-- Copied to the test output so DbWorkaroundsVersionTests can read managed package versions. -->
 		<Content Include="..\Directory.build.targets" CopyToOutputDirectory="Always" Link="Database.Directory.build.targets" />

@@ -324,6 +324,8 @@ namespace UiPath.Database.Tests
             Assert.True(FakeDatabaseProvider.InitializeCalls > before);
         }
 
+#if !WINDOWS
+        // The Windows test build references the extended package (for the connection dialog tests), so Oracle is installed there.
         [Fact]
         public void Initialize_ExplainsThatTheOracleProviderComesWithTheExtendedPackage()
         {
@@ -333,6 +335,7 @@ namespace UiPath.Database.Tests
             Assert.Contains(DatabaseConstants.OracleProvider, exception.Message);
             Assert.Contains("UiPath.Database.Activities", exception.Message);
         }
+#endif
 
         [Fact]
         public void ExecuteQuery_AsksTheProviderToMapTheTypeOfAParameter()
