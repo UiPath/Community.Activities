@@ -157,7 +157,7 @@
     <value>O caminho Python especificado não é válido: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>O caminho da biblioteca Python especificado não é válido (um caminho de arquivo para python**.dll / libpython*.so é necessário no Python 3.10): {0}</value>
+    <value>O caminho da biblioteca Python especificado não é válido (um caminho de arquivo para python**.dll / libpython*.so é obrigatório): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Erro ao invocar método Python</value>
@@ -316,7 +316,7 @@
     <value>Selecione a instalação do Python a ser usada para a configuração da atividade</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Nenhuma instalação do Python foi detectada</value>
+    <value>Nenhuma instalação compatível do Python (64 bits 3.11 ou posterior) foi detectada</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Limite de tamanho de dados do script (MB)</value>

@@ -157,7 +157,7 @@
     <value>Belirtilen Python yolu geçerli değil: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>Belirtilen Python kitaplık yolu geçerli değil (Python 3.10 için python**.dll / libpython*.so dosya yolu gereklidir): {0}</value>
+    <value>Belirtilen Python kitaplık yolu geçerli değil (python**.dll / libpython*.so dosya yolu gereklidir): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python yöntemi çağrılırken hata oluştu</value>
@@ -316,7 +316,7 @@
     <value>Etkinliğin yapılandırması için kullanılacak Python yüklemesini seçin</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Python yüklemesi algılanmadı</value>
+    <value>Desteklenen Python yüklemesi (64 bit 3.11 veya üzeri) algılanmadı</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Komut Dosyası Veri Boyutu Sınırı (MB)</value>

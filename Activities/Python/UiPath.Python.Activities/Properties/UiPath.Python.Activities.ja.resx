@@ -157,7 +157,7 @@
     <value>指定した Python のパスは無効です: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>指定した Python のライブラリ パスは無効です (Python 3.10 の python**.dll / libpython*.so へのファイル パスが必要です): {0}</value>
+    <value>指定した Python のライブラリ パスは無効です (python**.dll / libpython*.so へのファイル パスが必要です): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python メソッドの呼びし中にエラーが発生しました。</value>
@@ -316,7 +316,7 @@
     <value>アクティビティの設定に使用する Python のインストールを選択します。</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Python のインストールが検出されませんでした。</value>
+    <value>サポートされている Python のインストール (64 ビット 3.11 以降) が検出されませんでした。</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>スクリプトのデータ サイズ制限 (MB)</value>
