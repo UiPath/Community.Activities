@@ -64,8 +64,16 @@ steps:
         $version = $file.Substring($act+11)
         Write-Host Update to version $version
         Write-Host "##vso[build.updatebuildnumber]$version"
+        # The test project still names the old UiPath.FTP.Activities package. Remove it, otherwise two packages supply
+        # UiPath.FTP.dll and UiPath.FTP.Activities.dll and the run may exercise the old implementation instead of Core.
+        $projectJson = "$(uipathTestDirectory)\FTPandSFTP\project.json"
+        $project = Get-Content -Raw -Path $projectJson | ConvertFrom-Json
+        if ($project.dependencies.PSObject.Properties.Name -contains 'UiPath.FTP.Activities') {
+          $project.dependencies.PSObject.Properties.Remove('UiPath.FTP.Activities')
+          $project | ConvertTo-Json -Depth 20 | Set-Content -Path $projectJson -Encoding UTF8
+        }
         cd ${{ parameters.studioInstallPath }}
-        .\UiPath.Studio.CommandLine.exe manage --project-path "$(uipathTestDirectory)\FTPandSFTP\project.json" --add-ref "UiPath.FTP.Core.Activities|$version|strict"
+        .\UiPath.Studio.CommandLine.exe manage --project-path "$projectJson" --add-ref "UiPath.FTP.Core.Activities|$version|strict"
 
    - task: PowerShell@2
      displayName: Run SFTP User Pass Tests VB
