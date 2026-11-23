@@ -68,35 +68,37 @@ namespace UiPath.Cryptography.Pgp
             Func<string, Assembly> load,
             ICollection<Exception> errors)
         {
+            // A provider from another load context is only usable when it shares this assembly's IPgpProvider type;
+            // CreateProvider checks that. Such an assembly must not count as loaded for the by-name load into this context.
+            IPgpProvider found = FindInLoaded(loadedAssemblies, errors, out HashSet<string> loadedNames);
+            return found ?? LoadByName(wellKnownAssemblies, loadedNames, load, errors);
+        }
+
+        private static IPgpProvider FindInLoaded(IEnumerable<Assembly> loadedAssemblies, ICollection<Exception> errors, out HashSet<string> loadedNames)
+        {
             AssemblyLoadContext ownContext = AssemblyLoadContext.GetLoadContext(typeof(PgpProviderAttribute).Assembly);
-            var loadedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            loadedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (Assembly assembly in loadedAssemblies)
             {
-                // An assembly loaded by another load context has another type identity: its provider cannot be used here, and
-                // it must not stop the by-name load into this context.
-                bool sameContext = AssemblyLoadContext.GetLoadContext(assembly) == ownContext;
-                if (sameContext)
+                if (AssemblyLoadContext.GetLoadContext(assembly) == ownContext)
                 {
                     loadedNames.Add(assembly.GetName().Name);
                 }
 
-                if (sameContext && References(assembly))
+                IPgpProvider provider = References(assembly) ? CreateProvider(assembly, errors) : null;
+                if (provider != null)
                 {
-                    IPgpProvider provider = CreateProvider(assembly, errors);
-                    if (provider != null)
-                    {
-                        return provider;
-                    }
+                    return provider;
                 }
             }
 
-            foreach (string name in wellKnownAssemblies)
-            {
-                if (loadedNames.Contains(name))
-                {
-                    continue;
-                }
+            return null;
+        }
 
+        private static IPgpProvider LoadByName(IEnumerable<string> names, ISet<string> loadedNames, Func<string, Assembly> load, ICollection<Exception> errors)
+        {
+            foreach (string name in names.Where(name => !loadedNames.Contains(name)))
+            {
                 Assembly assembly;
                 try
                 {
