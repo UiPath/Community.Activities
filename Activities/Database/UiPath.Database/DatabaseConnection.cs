@@ -285,7 +285,7 @@ namespace UiPath.Database
         /// </summary>
         private DbConnection CreateConnectionOfOtherProvider(string providerName)
         {
-            _provider = DatabaseProviders.Find(providerName);
+            _provider = DatabaseProviders.Find(providerName, out Exception loadError);
             _providerResolved = true;
             if (_provider != null)
             {
@@ -294,20 +294,23 @@ namespace UiPath.Database
                 return _provider.Factory.CreateConnection();
             }
 
-            // The package was found but could not be loaded: say so instead of claiming it is not installed.
-            Exception loadError = DatabaseProviders.LastLoadError;
-            if (loadError != null)
-                throw new InvalidOperationException(string.Format(Resources.DatabaseProviderFailedToLoad, providerName, loadError.Message), loadError);
-
+            DbProviderFactory factory;
             try
             {
-                return DbProviderFactories.GetFactory(providerName).CreateConnection();
+                factory = DbProviderFactories.GetFactory(providerName);
             }
             catch (ArgumentException) when (providerName.Equals(DatabaseConstants.OracleProvider, StringComparison.OrdinalIgnoreCase))
             {
-                // The Oracle provider moved to the extended package.
+                // The Oracle provider moved to the extended package. If the package is installed but could not be loaded,
+                // say so instead of claiming it is not installed.
+                if (loadError != null)
+                    throw new InvalidOperationException(string.Format(Resources.DatabaseProviderFailedToLoad, providerName, loadError.Message), loadError);
+
                 throw new InvalidOperationException(string.Format(Resources.DatabaseProviderNotInstalled, providerName));
             }
+
+            // Other registered providers are used as before; their own failures propagate unchanged.
+            return factory.CreateConnection();
         }
 
         /// <summary>The extra provider of the current connection, or null for the built-in providers.</summary>

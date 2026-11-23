@@ -63,17 +63,18 @@ namespace UiPath.Database.Extensibility
 
         private Assembly OwnerAssembly { get; }
 
-        /// <summary>
-        /// The last failure to load or create an extension during the most recent lookup, or null. A well-known assembly
-        /// that is not installed is not a failure; one that is installed but cannot be loaded (for example a version
-        /// mismatch) is, so callers can tell "not installed" from "installed but broken".
-        /// </summary>
-        public Exception LastLoadError { get; private set; }
-
         /// <summary>Returns every extension that is installed now.</summary>
-        public IReadOnlyList<TExtension> GetAll()
+        public IReadOnlyList<TExtension> GetAll() => GetAll(out _);
+
+        /// <summary>
+        /// Returns every extension that is installed now. <paramref name="loadError"/> is the failure to load or create
+        /// an extension during this lookup, or null. A well-known assembly that is not installed is not a failure; one
+        /// that is installed but cannot be loaded (for example a version mismatch) is, so callers can tell "not
+        /// installed" from "installed but broken". The error belongs to this call, so concurrent lookups cannot clear it.
+        /// </summary>
+        public IReadOnlyList<TExtension> GetAll(out Exception loadError)
         {
-            Refresh();
+            loadError = Refresh();
             return Snapshot();
         }
 
@@ -81,16 +82,25 @@ namespace UiPath.Database.Extensibility
         /// Returns the first extension that matches, looking again at the loaded assemblies when none of the known ones
         /// does. Returns null when there is none.
         /// </summary>
-        public TExtension Find(Func<TExtension, bool> match)
+        public TExtension Find(Func<TExtension, bool> match) => Find(match, out _);
+
+        /// <summary>
+        /// Like <see cref="Find(Func{TExtension, bool})"/>; when nothing matches, <paramref name="loadError"/> tells
+        /// whether an installed extension package failed to load during this lookup (see <see cref="GetAll(out Exception)"/>).
+        /// </summary>
+        public TExtension Find(Func<TExtension, bool> match, out Exception loadError)
         {
+            loadError = null;
             TExtension found = Match(match);
             if (found != null)
             {
                 return found;
             }
 
-            Refresh();
-            return Match(match);
+            Exception error = Refresh();
+            found = Match(match);
+            loadError = found == null ? error : null;
+            return found;
         }
 
         private List<TExtension> Snapshot()
@@ -121,16 +131,16 @@ namespace UiPath.Database.Extensibility
             return null;
         }
 
-        private void Refresh()
+        private Exception Refresh()
         {
-            LastLoadError = null;
+            Exception error = null;
             var loadedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (Assembly assembly in _loadedAssemblies())
             {
                 loadedNames.Add(assembly.GetName().Name);
                 if (References(assembly))
                 {
-                    AddExtensions(assembly);
+                    error = AddExtensions(assembly) ?? error;
                 }
             }
 
@@ -156,12 +166,14 @@ namespace UiPath.Database.Extensibility
                 {
                     // Installed but not loadable: keep the reason so that callers can report it.
                     Trace.TraceWarning("The assembly {0} could not be loaded: {1}", name, ex);
-                    LastLoadError = ex;
+                    error = ex;
                     continue;
                 }
 
-                AddExtensions(assembly);
+                error = AddExtensions(assembly) ?? error;
             }
+
+            return error;
         }
 
         private bool References(Assembly assembly)
@@ -181,8 +193,10 @@ namespace UiPath.Database.Extensibility
             }
         }
 
-        private void AddExtensions(Assembly assembly)
+        /// <summary>Adds the extensions of the assembly; returns the failure to read or create one, or null.</summary>
+        private Exception AddExtensions(Assembly assembly)
         {
+            Exception error = null;
             List<TAttribute> attributes;
             try
             {
@@ -191,7 +205,7 @@ namespace UiPath.Database.Extensibility
             catch (Exception ex)
             {
                 Trace.TraceWarning("Extensions of {0} were not read: {1}", assembly.GetName().Name, ex.Message);
-                return;
+                return ex;
             }
 
             foreach (TAttribute attribute in attributes)
@@ -235,9 +249,11 @@ namespace UiPath.Database.Extensibility
                 catch (Exception ex)
                 {
                     Trace.TraceWarning("The extension {0} could not be created and is ignored: {1}", type.FullName, ex.Message);
-                    LastLoadError = ex;
+                    error = ex;
                 }
             }
+
+            return error;
         }
     }
 }

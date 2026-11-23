@@ -187,8 +187,8 @@ namespace UiPath.Database.Tests
             var failure = new System.IO.FileLoadException("version mismatch");
             var catalog = CatalogOf(() => new Assembly[0], new[] { "Broken" }, name => throw failure);
 
-            Assert.Null(catalog.Find(extension => true));
-            Assert.Same(failure, catalog.LastLoadError);
+            Assert.Null(catalog.Find(extension => true, out Exception error));
+            Assert.Same(failure, error);
         }
 
         [Fact]
@@ -196,9 +196,9 @@ namespace UiPath.Database.Tests
         {
             var catalog = CatalogOf(() => new Assembly[0], new[] { "Not.Installed" });
 
-            catalog.GetAll();
+            catalog.GetAll(out Exception error);
 
-            Assert.Null(catalog.LastLoadError);
+            Assert.Null(error);
         }
 
         [Fact]
@@ -210,12 +210,12 @@ namespace UiPath.Database.Tests
                 new[] { "Flaky" },
                 name => broken ? throw new System.IO.FileLoadException("not yet") : typeof(object).Assembly);
 
-            catalog.GetAll();
-            Assert.NotNull(catalog.LastLoadError);
+            catalog.GetAll(out Exception first);
+            Assert.NotNull(first);
 
             broken = false;
-            catalog.GetAll();
-            Assert.Null(catalog.LastLoadError);
+            catalog.GetAll(out Exception second);
+            Assert.Null(second);
         }
 
         [Fact]
@@ -223,9 +223,9 @@ namespace UiPath.Database.Tests
         {
             var catalog = CatalogOf(() => new[] { TestAssembly });
 
-            catalog.GetAll();
+            catalog.GetAll(out Exception error);
 
-            Assert.IsType<System.Reflection.TargetInvocationException>(catalog.LastLoadError);
+            Assert.IsType<System.Reflection.TargetInvocationException>(error);
         }
 
         [Fact]

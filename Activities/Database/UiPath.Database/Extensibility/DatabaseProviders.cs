@@ -23,14 +23,22 @@ namespace UiPath.Database.Extensibility
                 typeof(DatabaseProviderAttribute).Assembly);
 
         /// <summary>Returns the provider with the given ADO.NET provider name, or null.</summary>
-        public static IDatabaseProvider Find(string providerName)
+        public static IDatabaseProvider Find(string providerName) => Find(providerName, out _);
+
+        /// <summary>
+        /// Returns the provider with the given ADO.NET provider name, or null. When there is none,
+        /// <paramref name="loadError"/> is the reason an installed provider package could not be loaded during this
+        /// lookup, or null when the package is simply not installed.
+        /// </summary>
+        public static IDatabaseProvider Find(string providerName, out Exception loadError)
         {
+            loadError = null;
             if (string.IsNullOrEmpty(providerName))
             {
                 return null;
             }
 
-            return Catalog.Find(provider => string.Equals(provider.ProviderName, providerName, StringComparison.OrdinalIgnoreCase));
+            return Catalog.Find(provider => string.Equals(provider.ProviderName, providerName, StringComparison.OrdinalIgnoreCase), out loadError);
         }
 
         /// <summary>Returns the provider that owns <paramref name="connection"/>, or null.</summary>
@@ -43,12 +51,6 @@ namespace UiPath.Database.Extensibility
 
             return Catalog.Find(provider => provider.Owns(connection));
         }
-
-        /// <summary>
-        /// The reason an installed provider package could not be loaded during the last lookup, or null when the package
-        /// is simply not installed.
-        /// </summary>
-        public static Exception LastLoadError => Catalog.LastLoadError;
 
         /// <summary>Returns every provider that is installed now.</summary>
         public static IReadOnlyList<IDatabaseProvider> GetAll() => Catalog.GetAll();

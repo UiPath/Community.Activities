@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -128,10 +127,12 @@ namespace UiPath.Data.ConnectionUI.Dialog
             return _connectionStringBuilder.ContainsKey(propertyName);
         }
 
-        [SuppressMessage("Security", "S6641:Connection strings should not be built from user input", Justification = "The dialog edits the user's own connection string for their own database connection; nothing is shared or elevated.")]
         public virtual void Parse(string s)
         {
+            // The dialog edits the user's own connection string for their own database connection; nothing is shared or elevated.
+#pragma warning disable S6641 // Connection string built from a desktop UI control, by design
             _connectionStringBuilder.ConnectionString = s;
+#pragma warning restore S6641
             OnPropertyChanged(EventArgs.Empty);
         }
 
