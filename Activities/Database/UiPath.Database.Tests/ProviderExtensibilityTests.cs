@@ -113,6 +113,32 @@ namespace UiPath.Database.Tests
                 load ?? (name => throw new System.IO.FileNotFoundException(name)));
 
         [Fact]
+        public void Catalog_IgnoresAnAssemblyWhoseReferencesCannotBeRead()
+        {
+            var broken = new Moq.Mock<Assembly> { CallBase = false };
+            broken.Setup(a => a.GetReferencedAssemblies()).Throws(new System.IO.FileLoadException("unreadable"));
+            broken.Setup(a => a.GetName()).Returns(new AssemblyName("Broken.References"));
+            var catalog = CatalogOf(() => new[] { broken.Object });
+
+            Assert.Empty(catalog.GetAll(out Exception error));
+            Assert.Null(error);
+        }
+
+        [Fact]
+        public void Catalog_ReportsAnAssemblyWhoseAttributesCannotBeRead()
+        {
+            var failure = new System.IO.FileLoadException("attributes unreadable");
+            var broken = new Moq.Mock<Assembly>();
+            broken.Setup(a => a.GetName()).Returns(new AssemblyName("Broken.Attributes"));
+            broken.Setup(a => a.GetReferencedAssemblies()).Returns(new[] { typeof(DatabaseConnection).Assembly.GetName() });
+            broken.Setup(a => a.GetCustomAttributes(Moq.It.IsAny<Type>(), Moq.It.IsAny<bool>())).Throws(failure);
+            var catalog = CatalogOf(() => new[] { broken.Object });
+
+            Assert.Empty(catalog.GetAll(out Exception error));
+            Assert.NotNull(error);
+        }
+
+        [Fact]
         public void Catalog_FindsTheExtensionsOfALoadedAssembly()
         {
             var catalog = CatalogOf(() => new[] { TestAssembly });

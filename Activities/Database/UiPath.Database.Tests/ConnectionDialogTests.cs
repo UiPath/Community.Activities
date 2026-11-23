@@ -225,6 +225,29 @@ namespace UiPath.Database.Tests
             Assert.Contains("file.db", sqlite.ToFullString());
             sqlite.Test();
         }
+
+        [Fact]
+        public void Test_RefusesAnEmptyConnectionString()
+        {
+            Assert.Throws<InvalidOperationException>(() => NewSqlite().Test());
+        }
+
+        [Fact]
+        public void CustomTypeDescriptor_DelegatesToTheUnderlyingBuilder()
+        {
+            ICustomTypeDescriptor descriptor = NewSqlite();
+
+            Assert.NotNull(descriptor.GetAttributes());
+            Assert.NotNull(descriptor.GetConverter());
+            Assert.NotNull(descriptor.GetEvents());
+            Assert.NotNull(descriptor.GetEvents(new Attribute[0]));
+            Assert.NotNull(descriptor.GetProperties());
+            descriptor.GetEditor(typeof(object));
+            descriptor.GetDefaultEvent();
+            descriptor.GetDefaultProperty();
+            descriptor.GetClassName();
+            descriptor.GetComponentName();
+        }
     }
 
     public class DataProviderAndDataSourceTests
