@@ -23,6 +23,8 @@
     <PackageReference Include="UiPath.Telemetry.Client" />
     <PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
     <PackageReference Include="UiPath.Platform" />
+    <!-- Needed at runtime to initialize a design ViewModel (DesignProperty mutation fails without it); test project only. -->
+    <PackageReference Include="System.Activities.Metadata" PrivateAssets="" />
   </ItemGroup>
 	
   <ItemGroup>
