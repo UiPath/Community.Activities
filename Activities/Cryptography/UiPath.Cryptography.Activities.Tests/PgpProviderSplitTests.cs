@@ -160,9 +160,8 @@ namespace UiPath.Cryptography.Activities.Tests
             }
 
             string csproj = File.ReadAllText(Path.Combine(CryptographyFolder(), "UiPath.Cryptography.Core.Activities.Packaging", "UiPath.Cryptography.Core.Activities.Packaging.csproj"));
-            Assert.DoesNotContain("PgpCore", csproj);
-            Assert.DoesNotContain("BouncyCastle", csproj);
-            Assert.DoesNotContain("Cryptography.Activities.Extended", csproj);
+            // Only references count: the project's pack guard names PgpCore and BouncyCastle in its own text.
+            Assert.DoesNotMatch(@"<(PackageReference|ProjectReference)[^>]*(PgpCore|BouncyCastle|Cryptography\.Activities\.Extended)", csproj);
 
             foreach (string project in Directory.GetFiles(CryptographyFolder(), "*.csproj", SearchOption.AllDirectories))
             {
