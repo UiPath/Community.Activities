@@ -4,8 +4,10 @@
 
 Encrypts a text string using a symmetric algorithm, or using PGP with a recipient's public key. Returns the encrypted output as a string.
 
-**Package:** `UiPath.Cryptography.Activities`
+**Package:** `UiPath.Cryptography.Core.Activities`
 **Category:** Cryptography
+
+> **PGP needs the extension.** The `PGP` algorithm requires the extension package `UiPath.Cryptography.Activities` in the project (it contains the OpenPGP implementation). All other algorithms use only the operating system cryptography in `UiPath.Cryptography.Core.Activities`. Without the extension, selecting `PGP` fails at run time with "PGP is not available". See the documentation of the extension package `UiPath.Cryptography.Activities`.
 
 ## Properties
 

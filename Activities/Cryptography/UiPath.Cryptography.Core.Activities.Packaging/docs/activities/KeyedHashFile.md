@@ -4,7 +4,7 @@
 
 Hashes a file using the specified algorithm and returns the hexadecimal hash string. Supports keyed HMAC algorithms (which require a key) and plain hash algorithms (which do not).
 
-**Package:** `UiPath.Cryptography.Activities`
+**Package:** `UiPath.Cryptography.Core.Activities`
 **Category:** Cryptography
 
 ## Properties

@@ -1,10 +1,14 @@
 # UiPath Cryptography Activities
 
-`UiPath.Cryptography.Activities`
+`UiPath.Cryptography.Core.Activities`
+
+This package uses only the operating system cryptography, so it can be used where non-OS crypto is not allowed. OpenPGP has no operating system implementation and is therefore an **extension**: the package `UiPath.Cryptography.Activities` adds the OpenPGP implementation (PgpCore, BouncyCastle) and depends on this package. The PGP activities and the `PGP` algorithm of the Encrypt/Decrypt activities are listed here but only work when the extension is in the project. See the documentation of the extension package `UiPath.Cryptography.Activities`.
 
 ## Activities
 
 ### Cross-platform
+
+Activities marked *(PGP extension)* need the `UiPath.Cryptography.Activities` package.
 
 | Activity | Description |
 |----------|-------------|
@@ -14,10 +18,10 @@
 | [Encrypt Text](activities/EncryptText.md) | Encrypts a string with a key based on a specified key encoding and algorithm |
 | [Hash File](activities/KeyedHashFile.md) | Hashes a file with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash |
 | [Hash Text](activities/KeyedHashText.md) | Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash |
-| [PGP Generate Keys](activities/PgpGenerateKeys.md) | Generates a PGP public/private key pair and saves them to the specified file paths |
-| [PGP Sign File](activities/PgpSignFile.md) | Creates a PGP binary signature of a file using a private key |
-| [PGP ClearSign File](activities/PgpClearSignFile.md) | Creates a PGP clear-text signature of a file using a private key |
-| [PGP Verify](activities/PgpVerify.md) | Verifies a PGP signature, clearsignature, or validates a public key file |
+| [PGP Generate Keys](activities/PgpGenerateKeys.md) | *(PGP extension)* Generates a PGP public/private key pair and saves them to the specified file paths |
+| [PGP Sign File](activities/PgpSignFile.md) | *(PGP extension)* Creates a PGP binary signature of a file using a private key |
+| [PGP ClearSign File](activities/PgpClearSignFile.md) | *(PGP extension)* Creates a PGP clear-text signature of a file using a private key |
+| [PGP Verify](activities/PgpVerify.md) | *(PGP extension)* Verifies a PGP signature, clearsignature, or validates a public key file |
 
 ## Coded workflows
 

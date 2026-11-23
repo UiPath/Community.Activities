@@ -31,7 +31,7 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void Discover_ProviderInLoadedAssembly_IsFound()
         {
-            var provider = PgpProviderLocator.Discover(new[] { Extended }, new string[0], name => throw new FileNotFoundException(name));
+            var provider = PgpProviderLocator.Discover(new[] { Extended }, Array.Empty<string>(), name => throw new FileNotFoundException(name));
 
             Assert.IsType<PgpProvider>(provider);
         }
@@ -72,6 +72,107 @@ namespace UiPath.Cryptography.Activities.Tests
                 Assert.DoesNotContain("PgpCore", names);
                 Assert.DoesNotContain("BouncyCastle.Cryptography", names);
             }
+        }
+
+        [Fact]
+        public void Discover_InstalledButNotLoadable_ReportsTheCause()
+        {
+            var errors = new System.Collections.Generic.List<Exception>();
+            var cause = new BadImageFormatException("version mismatch");
+
+            var provider = PgpProviderLocator.Discover(
+                Enumerable.Empty<Assembly>(),
+                PgpProviderLocator.WellKnownAssemblies,
+                name => throw cause,
+                errors);
+
+            Assert.Null(provider);
+            Assert.Same(cause, Assert.Single(errors));
+        }
+
+        [Fact]
+        public void Discover_NotInstalled_ReportsNoCause()
+        {
+            var errors = new System.Collections.Generic.List<Exception>();
+
+            PgpProviderLocator.Discover(Enumerable.Empty<Assembly>(), PgpProviderLocator.WellKnownAssemblies, name => throw new FileNotFoundException(name), errors);
+
+            Assert.Empty(errors);
+        }
+
+        [Fact]
+        public void Discover_AssemblyFromAnotherLoadContext_DoesNotPreventTheByNameLoad()
+        {
+            // The extended assembly loaded by another load context has another type identity; it must not count as loaded here.
+            string path = Extended.Location;
+            var other = new System.Runtime.Loader.AssemblyLoadContext("other", isCollectible: true);
+            try
+            {
+                Assembly foreign = other.LoadFromAssemblyPath(path);
+                string requested = null;
+
+                PgpProviderLocator.Discover(
+                    new[] { foreign },
+                    PgpProviderLocator.WellKnownAssemblies,
+                    name =>
+                    {
+                        requested = name;
+                        return Extended;
+                    });
+
+                Assert.Equal("UiPath.Cryptography.Activities.Extended", requested);
+            }
+            finally
+            {
+                other.Unload();
+            }
+        }
+
+        private static string CryptographyFolder()
+        {
+            string dir = AppContext.BaseDirectory;
+            while (dir != null && !File.Exists(Path.Combine(dir, "UiPath.Cryptography.Core.Activities.Packaging", "UiPath.Cryptography.Core.Activities.Packaging.csproj"))
+                   && !File.Exists(Path.Combine(dir, "Cryptography", "UiPath.Cryptography.Core.Activities.Packaging", "UiPath.Cryptography.Core.Activities.Packaging.csproj")))
+            {
+                dir = Path.GetDirectoryName(dir);
+            }
+
+            Assert.NotNull(dir);
+            return Directory.Exists(Path.Combine(dir, "Cryptography")) ? Path.Combine(dir, "Cryptography") : dir;
+        }
+
+        // The scan judges what the Core package declares and ships, so the check reads the packaging project that produces
+        // the nuspec (all of Core, including the coded workflow API assembly, goes through it).
+        [Fact]
+        public void CorePackagingProject_DoesNotDeclarePgpCoreBouncyCastleOrTheExtension()
+        {
+            string csproj = File.ReadAllText(Path.Combine(CryptographyFolder(), "UiPath.Cryptography.Core.Activities.Packaging", "UiPath.Cryptography.Core.Activities.Packaging.csproj"));
+            Assert.DoesNotContain("PgpCore", csproj);
+            Assert.DoesNotContain("BouncyCastle", csproj);
+            Assert.DoesNotContain("Cryptography.Activities.Extended", csproj);
+
+            foreach (string project in Directory.GetFiles(CryptographyFolder(), "*.csproj", SearchOption.AllDirectories))
+            {
+                if (project.Contains(".Extended") || project.Contains("Tests") || project.Contains("UiPath.Cryptography.Activities.Packaging")
+                    || project.Contains(Path.DirectorySeparatorChar + "obj" + Path.DirectorySeparatorChar))
+                {
+                    continue;
+                }
+
+                string text = File.ReadAllText(project);
+                Assert.DoesNotContain("PackageReference Include=\"PgpCore\"", text);
+                Assert.DoesNotContain("PackageReference Include=\"BouncyCastle.Cryptography\"", text);
+            }
+        }
+
+        [Fact]
+        public void ExtendedPackagingProject_PinsTheCoreVersionAndPacksItsDocs()
+        {
+            string folder = Path.Combine(CryptographyFolder(), "UiPath.Cryptography.Activities.Packaging");
+            string csproj = File.ReadAllText(Path.Combine(folder, "UiPath.Cryptography.Activities.Packaging.csproj"));
+            Assert.Contains("[$(PackageVersion)]", csproj);
+            Assert.Contains(@"PackagePath=""content\docs""", csproj);
+            Assert.True(File.Exists(Path.Combine(folder, "docs", "overview.md")));
         }
 
         [Fact]

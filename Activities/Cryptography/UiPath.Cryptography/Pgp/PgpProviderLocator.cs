@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using UiPath.Cryptography.Properties;
 
 namespace UiPath.Cryptography.Pgp
@@ -32,13 +34,17 @@ namespace UiPath.Cryptography.Pgp
                 return provider;
             }
 
+            var errors = new List<Exception>();
             provider = Discover(
                 AppDomain.CurrentDomain.GetAssemblies().Where(assembly => !assembly.IsDynamic),
                 WellKnownAssemblies,
-                name => Assembly.Load(new AssemblyName(name)));
+                name => Assembly.Load(new AssemblyName(name)),
+                errors);
             if (provider == null)
             {
-                throw new InvalidOperationException(Resources.PgpProviderNotInstalled);
+                // A package that is not installed has no error to report; an installed one that cannot be loaded or
+                // created keeps its cause as the inner exception, so a broken install is distinguishable from a missing one.
+                throw new InvalidOperationException(Resources.PgpProviderNotInstalled, errors.FirstOrDefault());
             }
 
             _found = provider;
@@ -53,14 +59,30 @@ namespace UiPath.Cryptography.Pgp
             IEnumerable<Assembly> loadedAssemblies,
             IEnumerable<string> wellKnownAssemblies,
             Func<string, Assembly> load)
+            => Discover(loadedAssemblies, wellKnownAssemblies, load, new List<Exception>());
+
+        /// <param name="errors">Receives the reasons an installed provider could not be used (not the plain "not installed").</param>
+        internal static IPgpProvider Discover(
+            IEnumerable<Assembly> loadedAssemblies,
+            IEnumerable<string> wellKnownAssemblies,
+            Func<string, Assembly> load,
+            ICollection<Exception> errors)
         {
+            AssemblyLoadContext ownContext = AssemblyLoadContext.GetLoadContext(typeof(PgpProviderAttribute).Assembly);
             var loadedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (Assembly assembly in loadedAssemblies)
             {
-                loadedNames.Add(assembly.GetName().Name);
-                if (References(assembly))
+                // An assembly loaded by another load context has another type identity: its provider cannot be used here, and
+                // it must not stop the by-name load into this context.
+                bool sameContext = AssemblyLoadContext.GetLoadContext(assembly) == ownContext;
+                if (sameContext)
                 {
-                    IPgpProvider provider = CreateProvider(assembly);
+                    loadedNames.Add(assembly.GetName().Name);
+                }
+
+                if (sameContext && References(assembly))
+                {
+                    IPgpProvider provider = CreateProvider(assembly, errors);
                     if (provider != null)
                     {
                         return provider;
@@ -80,13 +102,19 @@ namespace UiPath.Cryptography.Pgp
                 {
                     assembly = load(name);
                 }
-                catch (Exception)
+                catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                 {
-                    // Not installed (or not loadable): there is no provider.
+                    // Not installed: there is no provider.
+                    continue;
+                }
+                catch (Exception ex)
+                {
+                    // Installed but not loadable (for example a version mismatch).
+                    errors.Add(ex);
                     continue;
                 }
 
-                IPgpProvider provider = CreateProvider(assembly);
+                IPgpProvider provider = CreateProvider(assembly, errors);
                 if (provider != null)
                 {
                     return provider;
@@ -115,7 +143,7 @@ namespace UiPath.Cryptography.Pgp
             }
         }
 
-        private static IPgpProvider CreateProvider(Assembly assembly)
+        private static IPgpProvider CreateProvider(Assembly assembly, ICollection<Exception> errors)
         {
             PgpProviderAttribute attribute;
             try
@@ -125,6 +153,7 @@ namespace UiPath.Cryptography.Pgp
             catch (Exception ex)
             {
                 Trace.TraceWarning("The PGP provider of {0} was not read: {1}", assembly.GetName().Name, ex.Message);
+                errors.Add(ex);
                 return null;
             }
 
@@ -152,6 +181,7 @@ namespace UiPath.Cryptography.Pgp
             catch (Exception ex)
             {
                 Trace.TraceWarning("The PGP provider {0} could not be created and is ignored: {1}", type.FullName, ex.Message);
+                errors.Add(ex);
                 return null;
             }
         }

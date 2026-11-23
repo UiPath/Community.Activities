@@ -46,9 +46,27 @@
     <PackageReference Include="BouncyCastle.Cryptography" />
   </ItemGroup>
 
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+
   <Target Name="AddDlls">
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.Cryptography.Activities.Extended.dll" />
+    </ItemGroup>
+  </Target>
+
+  <!--
+    The extended assembly uses Core's internals (InternalsVisibleTo, Resources) and implements Core's IPgpProvider, and both
+    packages come from one build: pin the dependency on UiPath.Cryptography.Core.Activities to this exact version instead
+    of the default "this version or later".
+  -->
+  <Target Name="PinCoreDependency" AfterTargets="_GetProjectReferenceVersions">
+    <ItemGroup>
+      <_ProjectReferencesWithVersions Condition="'%(_ProjectReferencesWithVersions.Filename)' == 'UiPath.Cryptography.Core.Activities.Packaging'">
+        <ProjectVersion>[$(PackageVersion)]</ProjectVersion>
+      </_ProjectReferencesWithVersions>
     </ItemGroup>
   </Target>
 

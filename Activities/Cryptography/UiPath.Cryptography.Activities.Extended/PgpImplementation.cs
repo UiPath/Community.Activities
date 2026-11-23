@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -916,13 +916,11 @@ namespace UiPath.Cryptography.Pgp
         private static PgpPublicKeyRing MergeKeyLevelSignatures(PgpPublicKeyRing joined, PgpPublicKeyRing later)
         {
             var master = joined.GetPublicKey();
-            var known = master.GetKeySignatures().Cast<PgpSignature>().Select(signature => Convert.ToBase64String(signature.GetEncoded())).ToList();
-            foreach (PgpSignature signature in later.GetPublicKey().GetKeySignatures())
+            var known = master.GetKeySignatures().Select(signature => Convert.ToBase64String(signature.GetEncoded())).ToList();
+            foreach (PgpSignature signature in later.GetPublicKey().GetKeySignatures()
+                .Where(signature => !known.Contains(Convert.ToBase64String(signature.GetEncoded()))))
             {
-                if (!known.Contains(Convert.ToBase64String(signature.GetEncoded())))
-                {
-                    master = PgpPublicKey.AddCertification(master, signature);
-                }
+                master = PgpPublicKey.AddCertification(master, signature);
             }
 
             return PgpPublicKeyRing.InsertPublicKey(joined, master);
@@ -951,9 +949,10 @@ namespace UiPath.Cryptography.Pgp
         //   BEGIN PGP SIGNED MESSAGE, "Hash:" headers, blank line, clear text (a line that starts with a dash is
         //   dash-escaped, so only the signature header can end the clear text), BEGIN PGP SIGNATURE (or MESSAGE),
         //   armor headers, blank line, base64 lines with an optional checksum line, the matching END line.
-        private static readonly Regex ArmorHeaderLine = new Regex(@"^[A-Za-z][A-Za-z0-9-]*:( .*)?$", RegexOptions.CultureInvariant);
-        private static readonly Regex ArmorDataLine = new Regex(@"^([A-Za-z0-9+/]+={0,2}|=[A-Za-z0-9+/]{4})$", RegexOptions.CultureInvariant);
-        private static readonly Regex SignatureBeginLine = new Regex(@"^-----BEGIN PGP (SIGNATURE|MESSAGE)-----$", RegexOptions.CultureInvariant);
+        private static readonly TimeSpan RegexTimeout = TimeSpan.FromSeconds(5);
+        private static readonly Regex ArmorHeaderLine = new Regex(@"^[A-Za-z][A-Za-z0-9-]*:( .*)?$", RegexOptions.CultureInvariant, RegexTimeout);
+        private static readonly Regex ArmorDataLine = new Regex(@"^([A-Za-z0-9+/]+={0,2}|=[A-Za-z0-9+/]{4})$", RegexOptions.CultureInvariant, RegexTimeout);
+        private static readonly Regex SignatureBeginLine = new Regex(@"^-----BEGIN PGP (SIGNATURE|MESSAGE)-----$", RegexOptions.CultureInvariant, RegexTimeout);
 
         internal static bool IsSingleClearSignedBlock(byte[] input)
         {
