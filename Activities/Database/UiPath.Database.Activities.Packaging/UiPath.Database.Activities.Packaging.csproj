@@ -27,7 +27,7 @@
         <PackageTags>UiPathActivities</PackageTags>
         <Description>
             <![CDATA[IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows.
-            UiPath Database Activities Pack. Includes UiPath.Database.Core.Activities and the Oracle provider; the Oracle driver is not limited to operating system cryptography. Use UiPath.Database.Core.Activities for operating system cryptography only.]]>
+            UiPath Database Activities Pack. Includes UiPath.Database.Core.Activities and the Oracle provider; the Oracle driver is not limited to operating system cryptography. Use UiPath.Database.Core.Activities for operating system cryptography only, and never next to an older UiPath.Database.Activities: upgrade this package or remove it first. Keep both packages on the same version.]]>
         </Description>
         <Authors>UiPath</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

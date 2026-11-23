@@ -10,10 +10,10 @@ namespace UiPath.Data.ConnectionUI.Dialog
 {
     public class DataSource
     {
-        private string _name;
-        private string _displayName;
+        private readonly string _name;
+        private readonly string _displayName;
         private DataProvider _defaultProvider;
-        private ICollection<DataProvider> _providers;
+        private readonly ICollection<DataProvider> _providers;
         private static DataSource _accessDataSource;
         private static DataSource _sqlDataSource;
         private static DataSource _sqlFileDataSource;

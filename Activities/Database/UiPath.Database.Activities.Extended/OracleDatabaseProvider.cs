@@ -23,7 +23,9 @@ namespace UiPath.Database.Extended
 
         public bool SupportsBulk => true;
 
-        public void Initialize()
+        public void Initialize() => EnsureInitialized();
+
+        private static void EnsureInitialized()
         {
             lock (InitializeLock)
             {

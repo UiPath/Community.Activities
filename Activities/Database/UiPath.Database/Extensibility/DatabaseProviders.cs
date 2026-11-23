@@ -44,6 +44,12 @@ namespace UiPath.Database.Extensibility
             return Catalog.Find(provider => provider.Owns(connection));
         }
 
+        /// <summary>
+        /// The reason an installed provider package could not be loaded during the last lookup, or null when the package
+        /// is simply not installed.
+        /// </summary>
+        public static Exception LastLoadError => Catalog.LastLoadError;
+
         /// <summary>Returns every provider that is installed now.</summary>
         public static IReadOnlyList<IDatabaseProvider> GetAll() => Catalog.GetAll();
     }

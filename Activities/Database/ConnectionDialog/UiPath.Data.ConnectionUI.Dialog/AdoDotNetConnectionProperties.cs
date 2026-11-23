@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,9 +15,9 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
     public class AdoDotNetConnectionProperties : IDataConnectionProperties, ICustomTypeDescriptor
     {
-        private string _providerName;
-        private DbConnectionStringBuilder _connectionStringBuilder;
-        private HashSet<string> _errorProperties = new HashSet<string>();
+        private readonly string _providerName;
+        private readonly DbConnectionStringBuilder _connectionStringBuilder;
+        private readonly HashSet<string> _errorProperties = new HashSet<string>();
         public event EventHandler PropertyChanged;
         public event EventHandler PropertyValueChanged;
         public event EventHandler ErrorValidating;
@@ -127,6 +128,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             return _connectionStringBuilder.ContainsKey(propertyName);
         }
 
+        [SuppressMessage("Security", "S6641:Connection strings should not be built from user input", Justification = "The dialog edits the user's own connection string for their own database connection; nothing is shared or elevated.")]
         public virtual void Parse(string s)
         {
             _connectionStringBuilder.ConnectionString = s;
@@ -296,7 +298,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
             var baseP = TypeDescriptor.GetProperties(_connectionStringBuilder, attributes);
 
             var props = new List<PropertyDescriptor>();
-            int i = 0;
             foreach (PropertyDescriptor p in baseP)
             {
                 bool isSensitive = false;
@@ -316,7 +317,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
             {
                 var name = prop.Name;
                 var trimmedName = name.Replace(" ", "");
-                if (trimmedName == name && (props.Where(x => x.Name.Replace(" ", "") == trimmedName).Count() > 1))
+                if (trimmedName == name && (props.Count(x => x.Name.Replace(" ", "") == trimmedName) > 1))
                     duplicates.Add(prop);
             }
             foreach (var prop in duplicates)
@@ -405,7 +406,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
         private class KeyValuePropertyDescriptor : PropertyDescriptor
         {
-            private PropertyDescriptor m_Property;
+            private readonly PropertyDescriptor m_Property;
 
             #region Public Properties
             public override string Name
@@ -429,14 +430,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
                 get
                 {
                     return m_Property.Description;
-                }
-            }
-
-            public object Value
-            {
-                get
-                {
-                    return GetValue(this);
                 }
             }
 
@@ -512,7 +505,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
             public override void ResetValue(object component)
             {
-                //Have to implement
+                // Nothing to reset: the value lives in the connection string builder.
             }
 
             public override bool ShouldSerializeValue(object component)
@@ -536,7 +529,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
                     connStrB[m_Property.DisplayName] = value;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     conProp._errorProperties.Add(m_Property.DisplayName);
                     conProp._hasErrors = true;

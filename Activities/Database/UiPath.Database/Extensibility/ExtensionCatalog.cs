@@ -63,6 +63,13 @@ namespace UiPath.Database.Extensibility
 
         private Assembly OwnerAssembly { get; }
 
+        /// <summary>
+        /// The last failure to load or create an extension during the most recent lookup, or null. A well-known assembly
+        /// that is not installed is not a failure; one that is installed but cannot be loaded (for example a version
+        /// mismatch) is, so callers can tell "not installed" from "installed but broken".
+        /// </summary>
+        public Exception LastLoadError { get; private set; }
+
         /// <summary>Returns every extension that is installed now.</summary>
         public IReadOnlyList<TExtension> GetAll()
         {
@@ -116,6 +123,7 @@ namespace UiPath.Database.Extensibility
 
         private void Refresh()
         {
+            LastLoadError = null;
             var loadedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (Assembly assembly in _loadedAssemblies())
             {
@@ -139,9 +147,16 @@ namespace UiPath.Database.Extensibility
                 {
                     assembly = _load(name);
                 }
-                catch (Exception)
+                catch (System.IO.FileNotFoundException)
                 {
-                    // Not installed (or not loadable): there is no extension.
+                    // Not installed: there is no extension.
+                    continue;
+                }
+                catch (Exception ex)
+                {
+                    // Installed but not loadable: keep the reason so that callers can report it.
+                    Trace.TraceWarning("The assembly {0} could not be loaded: {1}", name, ex);
+                    LastLoadError = ex;
                     continue;
                 }
 
@@ -220,6 +235,7 @@ namespace UiPath.Database.Extensibility
                 catch (Exception ex)
                 {
                     Trace.TraceWarning("The extension {0} could not be created and is ignored: {1}", type.FullName, ex.Message);
+                    LastLoadError = ex;
                 }
             }
         }

@@ -68,6 +68,8 @@ namespace UiPath.Database.Tests
     public class FakeDatabaseProvider : IDatabaseProvider
     {
         public static int InitializeCalls;
+        public static int ParameterTypeCalls;
+        public static int TempTableSqlCalls;
 
         public string ProviderName => "Fake.Provider";
 
@@ -81,9 +83,17 @@ namespace UiPath.Database.Tests
 
         public IBulkOperations CreateBulkOperations() => null;
 
-        public bool TryUpdateParameterType(DbParameter parameter, Type clrType) => false;
+        public bool TryUpdateParameterType(DbParameter parameter, Type clrType)
+        {
+            ParameterTypeCalls++;
+            return false;
+        }
 
-        public string GetCreateTempTableSql(string tempTableName, string columnList, string sourceTable) => null;
+        public string GetCreateTempTableSql(string tempTableName, string columnList, string sourceTable)
+        {
+            TempTableSqlCalls++;
+            return $"CREATE TABLE {tempTableName} AS SELECT {columnList} FROM {sourceTable}";
+        }
     }
 
     public class ExtensionCatalogTests
@@ -172,6 +182,53 @@ namespace UiPath.Database.Tests
         }
 
         [Fact]
+        public void Catalog_ReportsAWellKnownAssemblyThatIsInstalledButCannotBeLoaded()
+        {
+            var failure = new System.IO.FileLoadException("version mismatch");
+            var catalog = CatalogOf(() => new Assembly[0], new[] { "Broken" }, name => throw failure);
+
+            Assert.Null(catalog.Find(extension => true));
+            Assert.Same(failure, catalog.LastLoadError);
+        }
+
+        [Fact]
+        public void Catalog_DoesNotReportAMissingAssemblyAsALoadError()
+        {
+            var catalog = CatalogOf(() => new Assembly[0], new[] { "Not.Installed" });
+
+            catalog.GetAll();
+
+            Assert.Null(catalog.LastLoadError);
+        }
+
+        [Fact]
+        public void Catalog_ClearsTheLoadErrorWhenALaterLookupSucceeds()
+        {
+            bool broken = true;
+            var catalog = CatalogOf(
+                () => new Assembly[0],
+                new[] { "Flaky" },
+                name => broken ? throw new System.IO.FileLoadException("not yet") : typeof(object).Assembly);
+
+            catalog.GetAll();
+            Assert.NotNull(catalog.LastLoadError);
+
+            broken = false;
+            catalog.GetAll();
+            Assert.Null(catalog.LastLoadError);
+        }
+
+        [Fact]
+        public void Catalog_ReportsAnExtensionThatCannotBeCreated()
+        {
+            var catalog = CatalogOf(() => new[] { TestAssembly });
+
+            catalog.GetAll();
+
+            Assert.IsType<System.Reflection.TargetInvocationException>(catalog.LastLoadError);
+        }
+
+        [Fact]
         public void Catalog_SkipsAnExtensionWhoseLookupThrows()
         {
             var catalog = CatalogOf(() => new[] { TestAssembly });
@@ -217,6 +274,38 @@ namespace UiPath.Database.Tests
                 typeof(DatabaseConnection).Assembly.GetReferencedAssemblies(),
                 reference => reference.Name.StartsWith("Oracle", StringComparison.OrdinalIgnoreCase));
         }
+
+        [Fact]
+        public void TheCorePackageHasNoOracleDependencyAnywhereInItsTree()
+        {
+            // The direct references of UiPath.Database.dll are not enough: an Oracle reference added to the activities
+            // project, the connection dialog or the packaging project would also ship the driver in the core package.
+            string assets = System.IO.Path.GetFullPath(System.IO.Path.Combine(
+                SourceDirectory(),
+                "..",
+                "UiPath.Database.Core.Activities.Packaging",
+                "obj",
+                "project.assets.json"));
+            if (!System.IO.File.Exists(assets))
+            {
+                // The packaging project is not restored when only this test project is built; the solution build does.
+                return;
+            }
+
+            string text = System.IO.File.ReadAllText(assets);
+            using (var document = System.Text.Json.JsonDocument.Parse(text))
+            {
+                var oracle = document.RootElement.GetProperty("libraries").EnumerateObject()
+                    .Select(library => library.Name)
+                    .Where(name => name.StartsWith("Oracle", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                Assert.Empty(oracle);
+            }
+        }
+
+        private static string SourceDirectory([System.Runtime.CompilerServices.CallerFilePath] string path = "") =>
+            System.IO.Path.GetDirectoryName(path);
     }
 
     public class DatabaseConnectionProviderTests
@@ -243,6 +332,60 @@ namespace UiPath.Database.Tests
 
             Assert.Contains(DatabaseConstants.OracleProvider, exception.Message);
             Assert.Contains("UiPath.Database.Activities", exception.Message);
+        }
+
+        [Fact]
+        public void ExecuteQuery_AsksTheProviderToMapTheTypeOfAParameter()
+        {
+            int before = FakeDatabaseProvider.ParameterTypeCalls;
+            using (var connection = new DatabaseConnection().Initialize("Data Source=:memory:", "Fake.Provider"))
+            {
+                var parameters = new Dictionary<string, ParameterInfo>
+                {
+                    ["@p"] = new ParameterInfo { Value = 1, Type = typeof(int) }
+                };
+
+                connection.ExecuteQuery("SELECT @p", parameters, TimeSpan.Zero);
+            }
+
+            Assert.Equal(before + 1, FakeDatabaseProvider.ParameterTypeCalls);
+        }
+
+        [Fact]
+        public void ExecuteQuery_DoesNotAskTheProviderWhenTheParameterHasNoType()
+        {
+            int before = FakeDatabaseProvider.ParameterTypeCalls;
+            using (var connection = new DatabaseConnection().Initialize("Data Source=:memory:", "Fake.Provider"))
+            {
+                var parameters = new Dictionary<string, ParameterInfo>
+                {
+                    ["@p"] = new ParameterInfo { Value = 1 }
+                };
+
+                connection.ExecuteQuery("SELECT @p", parameters, TimeSpan.Zero);
+            }
+
+            Assert.Equal(before, FakeDatabaseProvider.ParameterTypeCalls);
+        }
+
+        [Fact]
+        public void BulkUpdate_AsksTheProviderForTheTemporaryTableSql()
+        {
+            int before = FakeDatabaseProvider.TempTableSqlCalls;
+            using (var connection = new DatabaseConnection().Initialize("Data Source=:memory:", "Fake.Provider"))
+            {
+                connection.Execute("CREATE TABLE t (id INTEGER, name TEXT)", null, TimeSpan.Zero);
+                var table = new System.Data.DataTable();
+                table.Columns.Add("id", typeof(long));
+                table.Columns.Add("name", typeof(string));
+                table.Rows.Add(1L, "x");
+
+                // The fake provider has no bulk operations, so the bulk update fails after the temporary table step;
+                // the step under test is the provider being asked for the SQL.
+                Record.Exception(() => connection.BulkUpdateDataTable(true, "t", table, new[] { "id" }));
+            }
+
+            Assert.Equal(before + 1, FakeDatabaseProvider.TempTableSqlCalls);
         }
 
         [Fact]

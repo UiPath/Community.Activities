@@ -28,7 +28,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
         private const string DefaultProviderNameValue = DatabaseConstants.SqlServerProvider;
 
         // The built-in providers followed by the ones installed packages bring (Oracle comes with the extended package).
-        private static string[] ProviderNameDataSourceItems =>
+        private static string[] GetProviderNameDataSourceItems() =>
             new[] { DatabaseConstants.SqlServerProvider, DatabaseConstants.OleDbProvider, DatabaseConstants.OdbcProvider }
                 .Concat(DatabaseProviders.GetAll().Select(provider => provider.ProviderName))
                 .Distinct(StringComparer.OrdinalIgnoreCase)
@@ -85,7 +85,7 @@ namespace UiPath.Database.Activities.NetCore.ViewModels
             ProviderName.DataSource = DataSourceBuilder<string>
                                             .WithId(p => p)
                                             .WithLabel(d => d)
-                                            .WithData(ProviderNameDataSourceItems)
+                                            .WithData(GetProviderNameDataSourceItems())
                                             .Build();
             ProviderName.Value ??= new InArgument<string>(DefaultProviderNameValue);
 

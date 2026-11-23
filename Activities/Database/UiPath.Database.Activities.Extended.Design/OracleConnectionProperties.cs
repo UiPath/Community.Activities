@@ -62,8 +62,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
         private void LocalReset()
 		{
-			// We always start with unicode turned on
-			//this["Unicode"] = true;
 		}
 	}
 }

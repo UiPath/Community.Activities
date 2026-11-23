@@ -56,7 +56,10 @@ namespace UiPath.Database.Activities.Design
                     }
                 }
             }
-            catch { }
+            catch
+            {
+                // The connection string could not be applied to the activity; the dialog leaves the activity unchanged.
+            }
         }
 
         private void ComboboxControl_SelectionChanged(object sender, RoutedEventArgs e)

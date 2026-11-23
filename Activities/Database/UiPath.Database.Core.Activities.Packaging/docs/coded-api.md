@@ -2,7 +2,7 @@
 
 `UiPath.Database.Activities`
 
-Provides coded workflow operations for querying and modifying relational databases via ADO.NET. Supports SQL Server, Oracle, SQLite, OLE DB, and ODBC data sources.
+Provides coded workflow operations for querying and modifying relational databases via ADO.NET. Supports SQL Server, SQLite, OLE DB, and ODBC data sources. Oracle is also supported when the `UiPath.Database.Activities` package is installed; this core package does not include the Oracle provider.
 
 **Service accessor:** `database` (type `IDatabaseService`)
 **Required package:** `"UiPath.Database.Activities": "*"` in project.json dependencies
@@ -66,9 +66,9 @@ All database operations are called directly on the `DatabaseConnection` object r
 | `ExecuteQuery(string sql, Dictionary<string, ParameterInfo> parameters, TimeSpan? commandTimeout, CommandType commandType = CommandType.Text)` | `(DataTable ResultTable, DataSet ResultDataSet)` | Executes a query and returns all result sets. |
 | `Execute(string sql, Dictionary<string, ParameterInfo> parameters, TimeSpan? commandTimeout, CommandType commandType = CommandType.Text)` | `int` | Executes a non-query statement and returns the number of rows affected. |
 | `InsertDataTable(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null)` | `int` | Inserts all rows of a `DataTable` into a database table. |
-| `BulkInsertDataTable(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)` | `long` | Bulk-inserts all rows using native bulk copy (SQL Server / Oracle). Falls back to `InsertDataTable` for other providers. |
-| `BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)` | `long` | Updates rows matched by `columnNames` using native bulk merge (SQL Server / Oracle) or row-by-row UPDATE. |
-| `SupportsBulk()` | `bool` | Returns `true` if the current provider supports native bulk operations (SQL Server and Oracle only). |
+| `BulkInsertDataTable(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)` | `long` | Bulk-inserts all rows using native bulk copy (SQL Server, or Oracle with the `UiPath.Database.Activities` package). Falls back to `InsertDataTable` for other providers. |
+| `BulkUpdateDataTable(bool bulkBatch, string tableName, DataTable dataTable, string[] columnNames, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)` | `long` | Updates rows matched by `columnNames` using native bulk merge (SQL Server, or Oracle with the `UiPath.Database.Activities` package) or row-by-row UPDATE. |
+| `SupportsBulk()` | `bool` | Returns `true` if the current provider supports native bulk operations (SQL Server, and Oracle when the `UiPath.Database.Activities` package is installed). |
 | `BeginTransaction()` | `void` | Begins a database transaction. Only one transaction can be active at a time. |
 | `Commit()` | `void` | Commits the active transaction and releases it. |
 | `Rollback()` | `void` | Rolls back the active transaction and releases it. |
@@ -123,7 +123,7 @@ Inserts all rows of a `DataTable` into the named database table. Column names in
 
 ### `long BulkInsertDataTable(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)`
 
-Inserts all rows using the provider's native bulk-copy API for maximum throughput. Natively supported on **SQL Server** (`SqlBulkCopy`) and **Oracle** (`OracleBulkCopy`). For all other providers, automatically falls back to `InsertDataTable` and logs a warning if `executorRuntime` is provided.
+Inserts all rows using the provider's native bulk-copy API for maximum throughput. Natively supported on **SQL Server** (`SqlBulkCopy`) and **Oracle** (`OracleBulkCopy`, only with the `UiPath.Database.Activities` package installed). For all other providers, automatically falls back to `InsertDataTable` and logs a warning if `executorRuntime` is provided.
 
 **Parameters:**
 - `tableName` (`string`) — Target table name
@@ -139,7 +139,7 @@ Inserts all rows using the provider's native bulk-copy API for maximum throughpu
 
 Updates existing rows in the target table. `columnNames` identifies the key columns used in the `WHERE` clause to match rows; all other columns in the `DataTable` are updated.
 
-When `bulkBatch` is `true` and the provider supports bulk operations (SQL Server or Oracle), uses a MERGE statement via a temporary table. Otherwise falls back to a row-by-row `UPDATE` statement.
+When `bulkBatch` is `true` and the provider supports bulk operations (SQL Server, or Oracle with the `UiPath.Database.Activities` package), uses a MERGE statement via a temporary table. Otherwise falls back to a row-by-row `UPDATE` statement.
 
 **Parameters:**
 - `bulkBatch` (`bool`) — When `true`, attempts native bulk MERGE; falls back to row-by-row UPDATE for unsupported providers
@@ -155,7 +155,7 @@ When `bulkBatch` is `true` and the provider supports bulk operations (SQL Server
 
 ### `bool SupportsBulk()`
 
-Returns `true` if the active provider supports native bulk operations. Currently `true` for SQL Server and Oracle; `false` for SQLite, OLE DB, and ODBC.
+Returns `true` if the active provider supports native bulk operations. Currently `true` for SQL Server, and for Oracle when the `UiPath.Database.Activities` package is installed; `false` for SQLite, OLE DB, and ODBC.
 
 **Returns:** `bool`
 
@@ -199,7 +199,7 @@ Options for configuring a database connection passed to `UseConnection`.
 | Database | `ProviderName` | Notes |
 |----------|---------------|-------|
 | SQL Server | `Microsoft.Data.SqlClient` | Supports native bulk operations. |
-| Oracle | `Oracle.ManagedDataAccess.Client` | Supports native bulk operations. |
+| Oracle | `Oracle.ManagedDataAccess.Client` | Requires the `UiPath.Database.Activities` package; not available with this core package alone. Supports native bulk operations. |
 | SQLite | `Microsoft.Data.Sqlite` | No native bulk; uses parameterised INSERT fallback. |
 | OLE DB sources | `System.Data.OleDb` | Access, Excel, CSV, legacy SQL Server. Windows only. |
 | ODBC sources | `System.Data.Odbc` | Generic ODBC driver bridge. Windows only. |
@@ -215,7 +215,7 @@ Describes a single SQL parameter passed to `Execute` or `ExecuteQuery`.
 | Property | Type | Description |
 |----------|------|-------------|
 | `Value` | `object` | Parameter value. Set to `DBNull.Value` or `null` for SQL NULL. |
-| `Type` | `Type` | Optional explicit .NET type. Used for Oracle-specific type mapping (e.g., `typeof(OracleRefCursor)` for ref cursors). |
+| `Type` | `Type` | Optional explicit .NET type. Used for Oracle-specific type mapping, available only with the `UiPath.Database.Activities` package (e.g., `typeof(OracleRefCursor)` for ref cursors). |
 | `Direction` | `ArgumentDirection` | Parameter direction: `In`, `Out`, or `InOut`. Default: `In`. |
 
 > **Output parameters:** After `Execute` or `ExecuteQuery` returns, output and inout parameter values are written back into the `parameters` dictionary. Read updated values from the dictionary using the original parameter name.

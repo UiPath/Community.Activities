@@ -106,6 +106,15 @@ namespace UiPath.Database.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The database provider "{0}" is installed but could not be loaded: {1} Make sure the UiPath.Database.Activities and UiPath.Database.Core.Activities packages have the same version..
+        /// </summary>
+        public static string DatabaseProviderFailedToLoad {
+            get {
+                return ResourceManager.GetString("DatabaseProviderFailedToLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection is not initialized.
         /// </summary>
         public static string ConnectionNotInitialized {

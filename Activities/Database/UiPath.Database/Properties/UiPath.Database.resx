@@ -132,6 +132,9 @@
   <data name="DatabaseProviderNotInstalled" xml:space="preserve">
     <value>The database provider "{0}" is not available. Install the UiPath.Database.Activities package, which includes it.</value>
   </data>
+  <data name="DatabaseProviderFailedToLoad" xml:space="preserve">
+    <value>The database provider "{0}" is installed but could not be loaded: {1} Make sure the UiPath.Database.Activities and UiPath.Database.Core.Activities packages have the same version.</value>
+  </data>
   <data name="ConnectionNotInitialized" xml:space="preserve">
     <value>Connection is not initialized</value>
   </data>

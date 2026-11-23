@@ -18,10 +18,6 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 
         private string DataSource
         {
-            get
-            {
-                return _connectionProperties[DatabaseConstants.Data_Source] as string;
-            }
             set
             {
                 if (value != null && value.Trim().Length > 0)

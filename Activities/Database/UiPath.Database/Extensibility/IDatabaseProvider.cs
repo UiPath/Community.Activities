@@ -12,6 +12,12 @@ namespace UiPath.Database.Extensibility
     /// <remarks>
     /// The type must be a public, non-abstract class with a public parameterless constructor. One instance is created
     /// per process and reused.
+    /// <para>
+    /// This interface ships in the base package and is implemented by extension packages that can be installed at a
+    /// different version than the base package. Never add, remove or change a member: a mismatch fails to load the
+    /// extension with a <see cref="TypeLoadException"/>. Add new capabilities as separate, optional interfaces that the
+    /// base package tests for with <c>is</c>.
+    /// </para>
     /// </remarks>
     public interface IDatabaseProvider
     {

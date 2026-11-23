@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Activities;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +28,7 @@ namespace UiPath.Database
         private IDatabaseProvider _provider;
         private bool _providerResolved;
 
-        private bool _isWindows = true;
+        private readonly bool _isWindows;
 
         public ConnectionState? State => _connection?.State;
 
@@ -58,6 +59,9 @@ namespace UiPath.Database
                 _connection = new SqlConnection();
             else if (providerName.Equals(DatabaseConstants.SQLiteProvider, StringComparison.OrdinalIgnoreCase))
                 _connection = new SqliteConnection();
+            else if (providerName.Equals(DatabaseConstants.OdbcProvider, StringComparison.OrdinalIgnoreCase)
+                || providerName.Equals(DatabaseConstants.OleDbProvider, StringComparison.OrdinalIgnoreCase))
+                _connection = DbProviderFactories.GetFactory(providerName).CreateConnection();
             else
                 _connection = CreateConnectionOfOtherProvider(providerName);
 
@@ -165,6 +169,7 @@ namespace UiPath.Database
             throw new AggregateException(firstException, secondException);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int InsertDataTableInternal(string tableName, DataTable dataTable, bool removeBrackets, TimeSpan? commandTimeout = null)
         {
             var factory = GetCurrentFactory();
@@ -202,6 +207,7 @@ namespace UiPath.Database
         // Builds a parameterised INSERT statement and executes it row by row.
         // When no external transaction is active, wraps all inserts in a local transaction to avoid
         // per-row auto-commits (critical for performance on file-based databases such as SQLite).
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int InsertDataTableFallback(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null)
         {
             // Always escape identifiers; reserved words and names with spaces require quoting.
@@ -288,6 +294,11 @@ namespace UiPath.Database
                 return _provider.Factory.CreateConnection();
             }
 
+            // The package was found but could not be loaded: say so instead of claiming it is not installed.
+            Exception loadError = DatabaseProviders.LastLoadError;
+            if (loadError != null)
+                throw new InvalidOperationException(string.Format(Resources.DatabaseProviderFailedToLoad, providerName, loadError.Message), loadError);
+
             try
             {
                 return DbProviderFactories.GetFactory(providerName).CreateConnection();
@@ -341,6 +352,7 @@ namespace UiPath.Database
             return countEnd - countStart;
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private long CountRowsInTable(string tableName, TimeSpan? commandTimeout = null)
         {
             var commandRowCount = _connection.CreateCommand();
@@ -427,6 +439,7 @@ namespace UiPath.Database
             return DbProviderFactories.GetFactory(_connection);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private void ValidateDatabaseTableStructure(string tableName, DataTable dataTable, TimeSpan? commandTimeout = null)
         {
             if (_connection == null)
@@ -443,6 +456,7 @@ namespace UiPath.Database
             ValidateTableStructure(tableName, dataTable, ds);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private string CreateTempTableForUpdate(DataTable dataTable, string tableName, DbCommand cmd)
         {
             var tempTableName = string.Format("a{0}", DateTime.Now.Ticks);
@@ -468,19 +482,17 @@ namespace UiPath.Database
                 return DoBatchUpdate(tableName, dataTable, columnNames, commandTimeout);
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int DoBatchUpdate(string tableName, DataTable dataTable, string[] columnNames, TimeSpan? commandTimeout = null)
         {
             if (_connection == null)
                 return -1;
-            var sqlCommand = _connection?.CreateCommand();
-            if (sqlCommand != null)
-            {
-                sqlCommand.Connection = _connection;
-                sqlCommand.Transaction = _transaction;
-                sqlCommand.CommandType = CommandType.Text;
-                ApplyCommandTimeout(sqlCommand, commandTimeout);
-            }
-            var dbSchema = _connection?.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
+            var sqlCommand = _connection.CreateCommand();
+            sqlCommand.Connection = _connection;
+            sqlCommand.Transaction = _transaction;
+            sqlCommand.CommandType = CommandType.Text;
+            ApplyCommandTimeout(sqlCommand, commandTimeout);
+            var dbSchema = _connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
             string markerFormat = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerFormat];
             string markerPattern = (string)dbSchema.Rows[0][DbMetaDataColumnNames.ParameterMarkerPattern];
             if (markerFormat == "{0}" && markerPattern.StartsWith("@"))
@@ -508,19 +520,17 @@ namespace UiPath.Database
             return rows;
         }
 
+        [SuppressMessage("Security", "S2077:Formatting SQL queries is security-sensitive", Justification = "Table and column names are identifiers chosen by the workflow author, cannot be passed as parameters, and are escaped or validated against the table schema.")]
         private int DoBulkUpdate(string tableName, DataTable dataTable, string[] columnNames, TimeSpan? commandTimeout = null, IExecutorRuntime executorRuntime = null)
         {
             if (_connection == null)
                 return -1;
             var tblName = string.Empty;
-            var sqlCommand = _connection?.CreateCommand();
-            if (sqlCommand != null)
-            {
-                sqlCommand.Connection = _connection;
-                sqlCommand.Transaction = _transaction;
-                sqlCommand.CommandType = CommandType.Text;
-                ApplyCommandTimeout(sqlCommand, commandTimeout);
-            }
+            var sqlCommand = _connection.CreateCommand();
+            sqlCommand.Connection = _connection;
+            sqlCommand.Transaction = _transaction;
+            sqlCommand.CommandType = CommandType.Text;
+            ApplyCommandTimeout(sqlCommand, commandTimeout);
             try
             {
                 tblName = CreateTempTableForUpdate(dataTable, tableName, sqlCommand);
@@ -657,7 +667,7 @@ namespace UiPath.Database
                 dbParameter.Direction = WokflowDbParameterToParameterDirection(param.Value.Direction);
                 if (dbParameter.Direction.HasFlag(ParameterDirection.InputOutput) || dbParameter.Direction.HasFlag(ParameterDirection.Output))
                 {
-                    dbParameter.Size = GetParameterSize(dbParameter);
+                    dbParameter.Size = GetParameterSize();
                 }
 
                 dbParameter.Value = param.Value.Value ?? DBNull.Value;
@@ -682,7 +692,7 @@ namespace UiPath.Database
             }
         }
 
-        private int GetParameterSize(DbParameter dbParameter)
+        private int GetParameterSize()
         {
             if ((_connection.GetType() == typeof(OdbcConnection) && (((OdbcConnection)_connection).Driver.StartsWith(DatabaseConstants.OracleOdbcDriverPattern) || ((OdbcConnection)_connection).Driver.StartsWith(DatabaseConstants.DB2OdbcDriverPattern)))
                || _connection.ToString().Contains(DatabaseConstants.OraclePattern, StringComparison.OrdinalIgnoreCase))
