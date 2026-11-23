@@ -1,7 +1,15 @@
 <Project>
   <!-- Import first the parent targets -->
   <Import Project="../Directory.build.props" />
-  
+
+  <!-- The FTP pack targets net8.0 and net8.0-windows only (STUD-82139): SFTP uses only operating system crypto, and the
+       ECDH raw secret agreement it needs (ECDiffieHellman.DeriveRawSecretAgreement) does not exist on net6.0. -->
+  <PropertyGroup>
+    <PortableFramework>net8.0</PortableFramework>
+    <WindowsFramework>net8.0-windows</WindowsFramework>
+  </PropertyGroup>
+
+ 
   <PropertyGroup>
     <Product>FTP</Product>
     <Description>UiPath FTP Activities Pack</Description>
@@ -10,6 +18,10 @@
     <Copyright>© UiPath</Copyright>
     <VersionBuild>$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("F0"))</VersionBuild>
     <VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("F0"))</VersionRevision>
+    <!-- Each project evaluates the minute on its own, so the extended package may require a core version one build minute
+         away from the one that was packed. Set FtpDevRevision (property or environment variable) to one value for a local
+         build of both packages, e.g. dotnet build -p:FtpDevRevision=500. CI passes /p:Version and is not affected. -->
+    <VersionRevision Condition="'$(FtpDevRevision)' != ''">$(FtpDevRevision)</VersionRevision>
     <VersionPrefix Condition="'$(Configuration)' == 'Release'">3.2.0</VersionPrefix>
     <VersionPrefix Condition="'$(Configuration)' == 'Debug'">3.2.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
     <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">3.2.$(VersionBuild).$(VersionRevision)</AssemblyVersion>

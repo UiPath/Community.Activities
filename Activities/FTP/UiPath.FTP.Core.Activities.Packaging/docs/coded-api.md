@@ -5,7 +5,8 @@
 Provides coded workflow operations for connecting to FTP, FTPS, and SFTP servers to upload, download, delete, move, and enumerate remote files and directories.
 
 **Service accessor:** `ftp` (type `IFtpService`)
-**Required package:** `"UiPath.FTP.Activities": "*"` in project.json dependencies
+**Required package:** `"UiPath.FTP.Core.Activities": "*"` in project.json dependencies. `UiPath.FTP.Activities` (the extended package, which depends on it) provides the same API.
+**SFTP algorithms:** the core package uses only operating system cryptography. For algorithms it does not provide (Ed25519, curve25519, Diffie-Hellman, legacy ciphers and MACs, encrypted OpenSSH keys, `ssh-dss` host keys) add `UiPath.FTP.Activities`; it is picked up automatically, no code change. See the [overview](overview.md#sftp-algorithms-core-and-extended-packages).
 
 ## Auto-Imported Namespaces
 

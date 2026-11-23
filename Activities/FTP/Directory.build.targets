@@ -3,8 +3,8 @@
   <Import Project="../Directory.build.targets" />
 
   <ItemGroup>
-    <PackageReference Update="FluentFTP" Version="51.1.0" />
-    <PackageReference Update="SSH.NET" Version="2024.1.0" />
+    <PackageReference Update="FluentFTP" Version="55.1.0" />
+    <PackageReference Update="UiPath.SSH.NET" Version="2026.0.1-alpha.14363218" />
   </ItemGroup>
 
 </Project>
