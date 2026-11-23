@@ -32,7 +32,7 @@ The FTP pack ships two NuGet packages built from one solution (`Activities/Activ
 
 The activities live only in the core package. The extended package ships `UiPath.FTP.Extended` (assembly `UiPath.FTP.Activities.Extended`), which registers its algorithms through the extension registry of `UiPath.FTP` (`ISftpCryptoExtension`, found automatically when a connection is opened), plus its own copy of `ActivitiesMetadata.json` and the icons so that Studio Web lists the package and shows the activities.
 
-When you add, rename or remove an FTP activity, change `ActivitiesMetadata.json` in `UiPath.FTP.Activities` **and** the copy in `UiPath.FTP.Extended/Resources`; `ManifestTests` in `UiPath.FTP.Extended.Tests` fails when the two differ. When you pack both packages into the same folder, build `UiPath.FTP.Activities.Packaging` before `UiPath.FTP.Core.Activities.Packaging`.
+When you add, rename or remove an FTP activity, change `ActivitiesMetadata.json` in `UiPath.FTP.Activities` **and** the copy in `UiPath.FTP.Extended/Resources`; `ManifestTests` in `UiPath.FTP.Extended.Tests` fails when the two differ. When you pack both packages into the same folder, build both packaging projects with the same dev revision, otherwise the extended package may require a core dev version that was not packed: `dotnet build Activities/Activities.FTP.sln -c Debug -p:FtpDevRevision=500` (CI passes `/p:Version` and does not need this).
 
 ### Building and Testing
 

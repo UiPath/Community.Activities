@@ -56,7 +56,8 @@ steps:
       ignoreLASTEXITCODE: true
       script: |
         cd ${{ parameters.packagesFolder }}
-        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        # The artifact holds two packages (core and extended); the version is read from the core one.
+        $file = Get-ChildItem -Path .\ -Filter UiPath.FTP.Core.Activities.*.nupkg -Recurse -File -Name -Exclude *symbols* | Select-Object -First 1
         $dot = $file.LastIndexof('.')
         $file = $file.Replace(".nupkg","")
         $act = $file.LastIndexof('Activities.')

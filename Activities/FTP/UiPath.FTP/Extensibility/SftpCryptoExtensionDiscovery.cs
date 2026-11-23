@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 
 namespace UiPath.FTP.Extensibility
 {
@@ -66,10 +67,20 @@ namespace UiPath.FTP.Extensibility
         }
 
         public static IReadOnlyList<ISftpCryptoExtension> Discover() =>
-            Discover(
-                AppDomain.CurrentDomain.GetAssemblies().Where(assembly => !assembly.IsDynamic),
-                WellKnownAssemblies,
-                name => Assembly.Load(new AssemblyName(name)));
+            Discover(LoadedAssemblies(), WellKnownAssemblies, name => Assembly.Load(new AssemblyName(name)));
+
+        /// <summary>
+        /// The assemblies of the load context this library was loaded into. Not the whole AppDomain: with several load
+        /// contexts each one has its own copy of this library, and an extension of another context declares an attribute
+        /// of a different type, so it is of no use here (and it must not stop the extension from being loaded into this
+        /// context by name).
+        /// </summary>
+        internal static IEnumerable<Assembly> LoadedAssemblies()
+        {
+            AssemblyLoadContext context = AssemblyLoadContext.GetLoadContext(typeof(SftpCryptoExtensionAttribute).Assembly);
+            IEnumerable<Assembly> assemblies = context?.Assemblies ?? AppDomain.CurrentDomain.GetAssemblies();
+            return assemblies.Where(assembly => !assembly.IsDynamic).ToList();
+        }
 
         /// <summary>The testable core of the discovery.</summary>
         /// <param name="loadedAssemblies">The assemblies to look at.</param>

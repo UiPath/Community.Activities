@@ -4,7 +4,7 @@
 
 Generates a collection of the files and folders found on the FTP server. Subfolders can also be included by turning on Include subfolders. This activity only works if it is placed inside a [Use FTP Connection](WithFtpSession.md) scope activity.
 
-**Package:** `UiPath.FTP.Activities`
+**Package:** `UiPath.FTP.Core.Activities` (also available through `UiPath.FTP.Activities`, which depends on it)
 **Category:** FTP
 
 ## Properties

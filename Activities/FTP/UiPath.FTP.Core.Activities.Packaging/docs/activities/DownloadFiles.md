@@ -4,7 +4,7 @@
 
 Downloads the specified files from an FTP server to the specified local folder. This activity only works if it is placed inside a [Use FTP Connection](WithFtpSession.md) scope activity.
 
-**Package:** `UiPath.FTP.Activities`
+**Package:** `UiPath.FTP.Core.Activities` (also available through `UiPath.FTP.Activities`, which depends on it)
 **Category:** FTP
 
 ## Properties

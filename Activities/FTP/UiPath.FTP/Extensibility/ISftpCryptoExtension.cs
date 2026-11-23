@@ -45,6 +45,13 @@ namespace UiPath.FTP.Extensibility
         /// <param name="factory">Creates the cipher from the key and the initialization vector.</param>
         void AddCipher(string name, int keySizeBits, Func<byte[], byte[], ISftpCipher> factory);
 
+        /// <summary>Adds a transport cipher, saying whether it is an authenticated (AEAD) cipher.</summary>
+        /// <param name="name">The SSH algorithm name, for example <c>chacha20-poly1305@openssh.com</c>.</param>
+        /// <param name="keySizeBits">The key size in bits.</param>
+        /// <param name="factory">Creates the cipher from the key and the initialization vector.</param>
+        /// <param name="isAead">Whether the cipher authenticates the packet itself (its <see cref="ISftpCipher.TagSize"/> is not 0); the packets then have no separate MAC.</param>
+        void AddCipher(string name, int keySizeBits, Func<byte[], byte[], ISftpCipher> factory, bool isAead);
+
         /// <summary>Adds a message authentication code.</summary>
         /// <param name="name">The SSH algorithm name, for example <c>hmac-md5</c>.</param>
         /// <param name="keySizeBits">The key size in bits (the digest size for the standard HMACs).</param>

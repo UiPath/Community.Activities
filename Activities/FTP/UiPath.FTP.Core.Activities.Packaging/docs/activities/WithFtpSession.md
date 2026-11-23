@@ -4,7 +4,7 @@
 
 Connects to FTP server and provides a scope for other FTP activities.
 
-**Package:** `UiPath.FTP.Activities`
+**Package:** `UiPath.FTP.Core.Activities` (also available through `UiPath.FTP.Activities`, which depends on it)
 **Category:** FTP
 
 ## Properties
@@ -49,6 +49,9 @@ xmlns:ftp="http://schemas.uipath.com/workflow/activities/ftp"
 ```
 
 `WithFtpSession` is a **scope**. Its `Body` is an `ActivityAction<IFtpSession>` whose delegate argument is named `FtpSession`; child FTP activities go inside the body's `Sequence`. For SFTP set `UseSftp="True"`.
+
+> **SFTP algorithms.** This package (`UiPath.FTP.Core.Activities`) uses only the cryptography of the operating system. A server that needs an algorithm the operating system does not provide (for example `ssh-ed25519` host or client keys, `curve25519-sha256`, Diffie-Hellman key exchanges, `ssh-dss`, legacy ciphers or MACs such as Blowfish, CAST128, RC4 or MD5, or encrypted OpenSSH private keys) needs the extended package `UiPath.FTP.Activities` in the same project; see the [overview](../overview.md#sftp-algorithms-core-and-extended-packages). No activity setting changes: the extra algorithms are used automatically once the extended package is installed.
+
 
 ```xml
 <ftp:WithFtpSession DisplayName="Use FTP Connection"

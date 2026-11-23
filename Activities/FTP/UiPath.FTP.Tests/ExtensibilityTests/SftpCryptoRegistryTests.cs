@@ -42,6 +42,18 @@ namespace UiPath.FTP.Tests
         }
 
         [Fact]
+        public void ApplyTo_PassesTheAeadFlagOfACipher()
+        {
+            SftpCryptoRegistry registry = SftpCryptoRegistry.Create(new[] { new FakeExtension() });
+            ConnectionInfo info = NewConnectionInfo();
+
+            registry.ApplyTo(info);
+
+            Assert.True(info.Encryptions["fake-aead"].IsAead);
+            Assert.False(info.Encryptions["fake-cbc"].IsAead);
+        }
+
+        [Fact]
         public void CreateKeyFileOptions_ReturnsBcryptKdfAndOpenSshKeyFactory()
         {
             var extension = new FakeExtension();
@@ -96,6 +108,7 @@ namespace UiPath.FTP.Tests
             {
                 registry.AddSignatureAlgorithm(new FakeSignature());
                 registry.AddCipher("fake-cbc", 256, (key, iv) => new FakeCipher());
+                registry.AddCipher("fake-aead", 256, (key, iv) => new FakeCipher(), isAead: true);
                 registry.AddMac("hmac-md5", 128, key => new HMACMD5(key));
                 registry.SetBcryptPbkdf(new FakeKdf());
             }

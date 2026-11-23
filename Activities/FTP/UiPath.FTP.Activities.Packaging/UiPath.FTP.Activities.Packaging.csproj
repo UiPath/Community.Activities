@@ -39,6 +39,14 @@
     <PackageReference Include="BouncyCastle.Cryptography" />
   </ItemGroup>
 
+  <!-- Docs for tools that read a package's shipped files by the id a project references: the overview of this package
+       (it points to the core package) plus the activity and coded API documents of the core package, which apply as is. -->
+  <ItemGroup>
+    <Content Include="docs\overview.md" Pack="true" PackagePath="content\docs" />
+    <Content Include="..\UiPath.FTP.Core.Activities.Packaging\docs\activities\**\*" Pack="true" PackagePath="content\docs\activities" Link="docs\activities\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Content Include="..\UiPath.FTP.Core.Activities.Packaging\docs\coded-api.md" Pack="true" PackagePath="content\docs" Link="docs\coded-api.md" />
+  </ItemGroup>
+
   <Target Name="AddDlls">
     <ItemGroup>
       <BuildOutputInPackage Include="$(OutputPath)UiPath.FTP.Activities.Extended.dll" />

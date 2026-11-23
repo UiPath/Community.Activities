@@ -1,5 +1,8 @@
 using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 using Renci.SshNet;
 using UiPath.FTP.Extensibility;
 using Xunit;
@@ -45,6 +48,47 @@ namespace UiPath.FTP.Extended.Tests
             var info = new ConnectionInfo("localhost", 22, "user", new PasswordAuthenticationMethod("user", "password"));
             SftpCryptoRegistry.Create(new ISftpCryptoExtension[] { new ExtendedSftpCryptoExtension() }).ApplyTo(info);
             return info;
+        }
+
+        // A load context that loads its own copy of every assembly found next to the test assembly, like a host that
+        // loads the package a second time.
+        private sealed class IsolatedContext : AssemblyLoadContext
+        {
+            private readonly string _directory = Path.GetDirectoryName(typeof(IsolatedContext).Assembly.Location);
+
+            public IsolatedContext() : base("second-ftp-context", isCollectible: true)
+            {
+            }
+
+            protected override Assembly Load(AssemblyName assemblyName)
+            {
+                string path = Path.Combine(_directory, assemblyName.Name + ".dll");
+                return File.Exists(path) ? LoadFromAssemblyPath(path) : null;
+            }
+        }
+
+        [Fact]
+        public void Discovery_FindsTheExtensionInASecondLoadContextWhenTheFirstContextAlreadyLoadedIt()
+        {
+            // The default context has loaded the extended assembly (this test references it).
+            Assert.NotNull(typeof(ExtendedSftpCryptoExtension).Assembly);
+
+            var context = new IsolatedContext();
+            try
+            {
+                Assembly ftp = context.LoadFromAssemblyName(typeof(SftpCryptoRegistry).Assembly.GetName());
+                Assert.NotSame(typeof(SftpCryptoRegistry).Assembly, ftp);
+
+                Type discovery = ftp.GetType("UiPath.FTP.Extensibility.SftpCryptoExtensionDiscovery", throwOnError: true);
+                var found = (System.Collections.IEnumerable)discovery.GetMethod("Discover", BindingFlags.Public | BindingFlags.Static, null, Type.EmptyTypes, null).Invoke(null, null);
+
+                Assert.Contains(found.Cast<object>(), extension => extension.GetType().Name == nameof(ExtendedSftpCryptoExtension));
+                Assert.Contains(context.Assemblies, assembly => assembly.GetName().Name == "UiPath.FTP.Activities.Extended");
+            }
+            finally
+            {
+                context.Unload();
+            }
         }
 
         [Fact]

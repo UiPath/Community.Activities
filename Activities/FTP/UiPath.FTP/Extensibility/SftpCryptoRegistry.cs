@@ -13,7 +13,7 @@ namespace UiPath.FTP.Extensibility
     internal sealed class SftpCryptoRegistry : ISftpCryptoRegistry
     {
         private readonly List<ISftpSignatureAlgorithm> _signatures = new List<ISftpSignatureAlgorithm>();
-        private readonly List<(string Name, int KeySizeBits, Func<byte[], byte[], ISftpCipher> Factory)> _ciphers = new List<(string, int, Func<byte[], byte[], ISftpCipher>)>();
+        private readonly List<(string Name, int KeySizeBits, Func<byte[], byte[], ISftpCipher> Factory, bool IsAead)> _ciphers = new List<(string, int, Func<byte[], byte[], ISftpCipher>, bool)>();
         private readonly List<(string Name, int KeySizeBits, Func<byte[], HMAC> Factory, bool IsEncryptThenMac)> _macs = new List<(string, int, Func<byte[], HMAC>, bool)>();
         private readonly List<ISftpHostKeyAlgorithm> _hostKeys = new List<ISftpHostKeyAlgorithm>();
         private readonly List<(string Name, Func<IKeyExchange> Factory)> _keyExchanges = new List<(string, Func<IKeyExchange>)>();
@@ -35,8 +35,10 @@ namespace UiPath.FTP.Extensibility
 
         public void AddSignatureAlgorithm(ISftpSignatureAlgorithm algorithm) => _signatures.Add(algorithm ?? throw new ArgumentNullException(nameof(algorithm)));
 
-        public void AddCipher(string name, int keySizeBits, Func<byte[], byte[], ISftpCipher> factory) =>
-            _ciphers.Add((name ?? throw new ArgumentNullException(nameof(name)), keySizeBits, factory ?? throw new ArgumentNullException(nameof(factory))));
+        public void AddCipher(string name, int keySizeBits, Func<byte[], byte[], ISftpCipher> factory) => AddCipher(name, keySizeBits, factory, isAead: false);
+
+        public void AddCipher(string name, int keySizeBits, Func<byte[], byte[], ISftpCipher> factory, bool isAead) =>
+            _ciphers.Add((name ?? throw new ArgumentNullException(nameof(name)), keySizeBits, factory ?? throw new ArgumentNullException(nameof(factory)), isAead));
 
         public void AddMac(string name, int keySizeBits, Func<byte[], HMAC> factory) => AddMac(name, keySizeBits, factory, isEncryptThenMac: false);
 
@@ -125,10 +127,10 @@ namespace UiPath.FTP.Extensibility
                 };
             }
 
-            foreach (var (name, keySizeBits, factory) in _ciphers)
+            foreach (var (name, keySizeBits, factory, isAead) in _ciphers)
             {
                 var captured = factory;
-                connectionInfo.Encryptions[name] = new CipherInfo(keySizeBits, (key, iv) => new ExternalCipher(captured(key, iv)));
+                connectionInfo.Encryptions[name] = new CipherInfo(keySizeBits, (key, iv) => new ExternalCipher(captured(key, iv)), isAead);
             }
 
             foreach (var (name, keySizeBits, factory, isEncryptThenMac) in _macs)
