@@ -10,7 +10,7 @@
   "webServices": [],
   "entitiesStores": [],
   "schemaVersion": "4.0",
-  "studioVersion": "26.10.0.0",
+  "studioVersion": "25.10.18.0",
   "projectVersion": "1.0.0",
   "runtimeOptions": {
     "autoDispose": false,
