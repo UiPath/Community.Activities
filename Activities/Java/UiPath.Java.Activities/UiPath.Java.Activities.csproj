@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
     <PackageReference Include="UiPath.Workflow" />
-	<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" Version="24.10.1" />
+	<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
 	<PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
 	<PackageReference Include="UiPath.Platform" />
   </ItemGroup>

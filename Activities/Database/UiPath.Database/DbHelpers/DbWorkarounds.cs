@@ -16,7 +16,7 @@ namespace UiPath.Database
         /// <summary>Describes a native library that ships inside a NuGet package.</summary>
         internal readonly record struct NativePackage(string Package, string MinVersion, string Module);
 
-        internal static readonly NativePackage Sni    = new("microsoft.data.sqlclient.sni.runtime", "5.2.0", "Microsoft.Data.SqlClient.SNI");
+        internal static readonly NativePackage Sni    = new("microsoft.data.sqlclient.sni.runtime", "6.0.3", "Microsoft.Data.SqlClient.SNI");
         internal static readonly NativePackage Sqlite = new("sqlitepclraw.lib.e_sqlite3",           "2.1.14", "e_sqlite3");
 
         private static int _resolverRegistered;

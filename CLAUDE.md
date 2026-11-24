@@ -78,7 +78,7 @@ Code reuse via C# Shared Projects (`.shproj`/`.projitems`) in `Activities/Shared
 
 ### Build Infrastructure
 
-- **Target frameworks**: `net6.0` (portable/Studio Web) and `net6.0-windows` (Studio Desktop), defined in `Activities/Directory.build.props` as `PortableFramework` and `WindowsFramework`
+- **Target frameworks**: `net8.0` (portable/Studio Web) and `net8.0-windows` (Studio Desktop), defined in `Activities/Directory.build.props` as `PortableFramework` and `WindowsFramework`
 - **Central dependency versions**: `Activities/Directory.build.targets` — update versions there, plus Examples and Templates
 - **Per-pack versioning**: `{Category}.build.props` — `{Major}.{Minor}.{Build}-dev.{Minutes}` in Debug, `{Major}.{Minor}.0` in Release
 - **CI/CD**: Azure Pipelines configs in `Activities/.pipelines/`

@@ -9,14 +9,12 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Data.SqlClient" />
         <PackageReference Include="Microsoft.Data.Sqlite" />
-        <!-- Floor for the native SQLite library (CVE-2025-6965 affects <= 2.1.11). Keep >= DbWorkarounds.Sqlite.MinVersion; Microsoft.Data.Sqlite 8.0.33 alone pulls 2.1.13. -->
+        <!-- Floor for the native SQLite library (CVE-2025-6965 affects <= 2.1.11). Keep >= DbWorkarounds.Sqlite.MinVersion; Microsoft.Data.Sqlite 8.0.34 alone pulls 2.1.13. -->
         <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
-        <PackageReference Include="System.Data.Common" />
         <PackageReference Include="System.Data.Odbc" />
         <PackageReference Include="System.Data.OleDb" />
 
         <!--Dependencies override to solve FOSSA issues-->
-        <PackageReference Include="System.Text.RegularExpressions" />
         <PackageReference Include="Azure.Identity" />
     </ItemGroup>
 

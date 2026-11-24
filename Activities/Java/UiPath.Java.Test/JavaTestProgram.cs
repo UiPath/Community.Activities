@@ -138,14 +138,10 @@ namespace UiPath.Java.Test
 
         [Fact]
         [TestPriority(5)]
-        public void InvokeWrapperArrayTypeFromUser()
+        public async Task InvokeWrapperArrayTypeFromUser()
         {
-            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () =>
-            {
-                await _invoker.InvokeMethod("getSumDoubleBoxed", "uipath.java.test.StaticMethods", null, new List<object> { new List<double> { 1.3, 1.5, 1.6 } }, null, _ct);
-            });
-
-            Assert.NotNull(ex);
+            await Assert.ThrowsAsync<InvalidOperationException>(() =>
+                _invoker.InvokeMethod("getSumDoubleBoxed", "uipath.java.test.StaticMethods", null, new List<object> { new List<double> { 1.3, 1.5, 1.6 } }, null, _ct));
         }
 
         [Fact]
