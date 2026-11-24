@@ -418,6 +418,17 @@ namespace UiPath.Database.Tests
         }
 
         [Fact]
+        public void Initialize_UsesAFactoryRegisteredOnTheMachineForAnotherProviderName()
+        {
+            DbProviderFactories.RegisterFactory("Registered.Only.Provider", SqliteFactory.Instance);
+
+            using (var connection = new DatabaseConnection().Initialize("Data Source=:memory:", "Registered.Only.Provider"))
+            {
+                Assert.NotNull(connection);
+            }
+        }
+
+        [Fact]
         public void Initialize_StillFailsForAnUnknownProvider()
         {
             Assert.Throws<ArgumentException>(() => new DatabaseConnection().Initialize("x", "No.Such.Provider"));

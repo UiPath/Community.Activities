@@ -82,6 +82,26 @@ namespace UiPath.Database.Extended.Tests
             Assert.Contains(DatabaseProviders.GetAll(), p => p is OracleDatabaseProvider);
         }
 
+        [Theory]
+        [InlineData(null)]
+        [InlineData(0)]
+        [InlineData(30)]
+        public void OracleBulkOperations_HandsTheTableToTheBulkCopyAndFailsWithoutAnOpenConnection(int? timeoutSeconds)
+        {
+            var operations = new OracleBulkOperations
+            {
+                Connection = new OracleConnection(),
+                TableName = "SOME_TABLE"
+            };
+            var table = new System.Data.DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Rows.Add(1);
+            TimeSpan? timeout = timeoutSeconds.HasValue ? TimeSpan.FromSeconds(timeoutSeconds.Value) : (TimeSpan?)null;
+
+            // No server in the unit tests: the call reaches OracleBulkCopy, which rejects the closed connection.
+            Assert.ThrowsAny<Exception>(() => operations.WriteToServer(table, timeout));
+        }
+
         [Fact]
         public void TheBaseAssembly_CreatesOracleBulkOperationsForOracleConnections()
         {
