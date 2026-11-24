@@ -107,7 +107,11 @@
     <Error Condition="'$(_GuardRejected)' == 'true' And '$(_GuardNuspecText)' != ''" Text="$(PackageId) must not depend on or ship PgpCore or BouncyCastle (OS crypto only); they belong to UiPath.Cryptography.Activities. The package was deleted." />
   </Target>
 
-  <Target Name="CleanPackageFiles" BeforeTargets="Build">
+  <!--
+    Runs right before the new .nupkg is written, not before Build: the extended packaging project references this one, and
+    that reference builds it without packing, so a Build-time cleanup would delete this package and never recreate it.
+  -->
+  <Target Name="CleanPackageFiles" BeforeTargets="GenerateNuspec">
     <Message Text="Deleting packages ..." />
     <ItemGroup>
       <PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />

@@ -66,7 +66,11 @@
     <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
   </ItemGroup>
   
-	<Target Name="CleanPackageFiles" BeforeTargets="Build">
+	<!--
+	  Runs right before the new .nupkg is written, not before Build: the extended packaging project references this one, and
+	  that reference builds it without packing, so a Build-time cleanup would delete this package and never recreate it.
+	-->
+	<Target Name="CleanPackageFiles" BeforeTargets="GenerateNuspec">
 		<Message Text="Deleting packages ..." />
 		<ItemGroup>
 			<PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
