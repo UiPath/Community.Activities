@@ -29,7 +29,6 @@ steps:
     Invoke-WebRequest -Uri "${{ parameters.InstallerUrl }}" -OutFile $msiPath -UseBasicParsing
 
     $robotParameters = [ordered]@{ CUSTOM_NUGET_FEEDS = $env:CUSTOM_NUGET_FEEDS }
-    if ($env:LICENSE) { $robotParameters.LICENSE_KEY = $env:LICENSE }
     $config = [ordered]@{
       Packages = @(
         [ordered]@{ PackageName = 'Robot'; InstallRequested = $true; Parameters = $robotParameters },
@@ -38,24 +37,13 @@ steps:
     }
     [System.IO.File]::WriteAllText($configPath, ($config | ConvertTo-Json -Depth 5), (New-Object System.Text.UTF8Encoding $false))
 
-    try {
-      $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-      $arguments = "/i `"$msiPath`" /qn /l*v `"$logPath`" MSIINSTALLPERUSER=0 PLATFORM_CONFIGURATION_FILE=`"$configPath`""
-      $process = Start-Process -FilePath 'msiexec.exe' -ArgumentList $arguments -Wait -PassThru
-      Write-Host "msiexec exited with code $($process.ExitCode) after $([int]$stopwatch.Elapsed.TotalSeconds) seconds"
-      if ($process.ExitCode -ne 0 -and $process.ExitCode -ne 3010) {
-        Get-Content -Path $logPath -Tail 100 -ErrorAction SilentlyContinue
-        throw "UiPath Platform installation failed with exit code $($process.ExitCode)"
-      }
-    }
-    finally {
-      # The configuration may hold the license key, and the installer keeps a copy under %TEMP%\UiPathConnected.
-      Remove-Item -Path $configPath -Force -ErrorAction SilentlyContinue
-      if ($env:LICENSE) {
-        Get-ChildItem -Path (Join-Path $env:TEMP 'UiPathConnected') -Recurse -File -ErrorAction SilentlyContinue |
-          Where-Object { (Get-Content -Path $_.FullName -Raw -ErrorAction SilentlyContinue) -like "*$env:LICENSE*" } |
-          Remove-Item -Force -ErrorAction SilentlyContinue
-      }
+    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+    $arguments = "/i `"$msiPath`" /qn /l*v `"$logPath`" MSIINSTALLPERUSER=0 PLATFORM_CONFIGURATION_FILE=`"$configPath`""
+    $process = Start-Process -FilePath 'msiexec.exe' -ArgumentList $arguments -Wait -PassThru
+    Write-Host "msiexec exited with code $($process.ExitCode) after $([int]$stopwatch.Elapsed.TotalSeconds) seconds"
+    if ($process.ExitCode -ne 0 -and $process.ExitCode -ne 3010) {
+      Get-Content -Path $logPath -Tail 100 -ErrorAction SilentlyContinue
+      throw "UiPath Platform installation failed with exit code $($process.ExitCode)"
     }
 
     # Products install to %ProgramFiles%\UiPathPlatform\<product>\<version>\.
@@ -74,6 +62,23 @@ steps:
     }
     Write-Host "Robot installed at $($robotExe.FullName)"
     Write-Host "##vso[task.setvariable variable=RobotExePath]$($robotExe.FullName)"
+
+    # The LICENSE_KEY product parameter does not activate a local license: the Robot then refuses jobs with
+    # "A local license is required". Activate it with the license tool, as for the classic install.
+    if ($env:LICENSE) {
+      $licenseTool = Get-ChildItem -Path $robotExe.DirectoryName -Filter 'UiPath.LicenseTool.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
+      if (-not $licenseTool) {
+        $licenseTool = Get-ChildItem -Path (Join-Path $env:ProgramFiles 'UiPathPlatform') -Filter 'UiPath.LicenseTool.exe' -Recurse -ErrorAction SilentlyContinue |
+          Sort-Object -Property LastWriteTime -Descending |
+          Select-Object -First 1
+      }
+      if (-not $licenseTool) {
+        Get-ChildItem -Path $robotExe.DirectoryName -Filter '*.exe' | Select-Object -ExpandProperty Name
+        throw "UiPath.LicenseTool.exe was not found under $(Join-Path $env:ProgramFiles 'UiPathPlatform')"
+      }
+      & $licenseTool.FullName activate -l "$env:LICENSE"
+      if ($LASTEXITCODE -ne 0) { throw "License activation failed with exit code $LASTEXITCODE" }
+    }
   displayName: 'Install Robot (UiPath Platform installer)'
   env:
     CUSTOM_NUGET_FEEDS: ${{ parameters.CustomNugetFeeds }}
