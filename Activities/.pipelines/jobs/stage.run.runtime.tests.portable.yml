@@ -1,5 +1,4 @@
 parameters:
-  robotVersion: ''
   beforeTestsCustomSteps: []
   afterTestsCustomSteps: []
   environment: {}

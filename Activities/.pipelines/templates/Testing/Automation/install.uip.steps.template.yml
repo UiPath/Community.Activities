@@ -1,0 +1,58 @@
+# Installs the UiPath CLI (uip) and its RPA tool, which packs Studio projects without a Studio install.
+# Both npm packages are pinned. NPM_CONFIG_BEFORE makes every npm call in the job, including the ones uip makes itself,
+# ignore versions published in the last MinimumReleaseAgeDays days.
+# https://docs.uipath.com/uipath-cli/standalone/latest/user-guide/about-uipath-cli
+parameters:
+- name: CliVersion
+  type: string
+  default: '1.205.0'
+
+- name: RpaToolVersion
+  type: string
+  default: '1.205.0'
+
+- name: MinimumReleaseAgeDays
+  type: number
+  default: 14
+
+- name: InstallPath
+  type: string
+  default: '$(Agent.ToolsDirectory)\uip'
+
+steps:
+- task: NodeTool@0
+  displayName: 'Use Node.js 22'
+  inputs:
+    versionSpec: '22.x'
+
+# The packager in @uipath/rpa-tool runs on .NET 10 (Microsoft.NETCore.App and Microsoft.WindowsDesktop.App).
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK 10.0.x'
+  inputs:
+    packageType: 'sdk'
+    version: '10.0.x'
+
+- powershell: |
+    $before = [DateTime]::UtcNow.AddDays(-${{ parameters.MinimumReleaseAgeDays }}).ToString('yyyy-MM-ddTHH:mm:ssZ')
+    Write-Host "npm will only install versions published before $before"
+    Write-Host "##vso[task.setvariable variable=NPM_CONFIG_BEFORE]$before"
+  displayName: 'Set npm minimum release age'
+
+- powershell: |
+    $installPath = "${{ parameters.InstallPath }}"
+    New-Item -ItemType Directory -Force -Path $installPath | Out-Null
+    npm install --prefix "$installPath" --no-fund --no-audit "@uipath/cli@${{ parameters.CliVersion }}"
+    if ($LASTEXITCODE -ne 0) { throw "npm install @uipath/cli failed with exit code $LASTEXITCODE" }
+
+    $binPath = Join-Path $installPath 'node_modules\.bin'
+    $env:PATH = "$binPath;$env:PATH"
+    uip tools install "@uipath/rpa-tool@${{ parameters.RpaToolVersion }}" --output plain
+    if ($LASTEXITCODE -ne 0) { throw "uip tools install @uipath/rpa-tool failed with exit code $LASTEXITCODE" }
+
+    uip --version
+    Write-Host "##vso[task.prependpath]$binPath"
+  displayName: 'Install UiPath CLI'
+  env:
+    # Keep the pinned versions: no daily self-update check, no tool installs on first use.
+    UIPATH_CLI_DISABLE_VERSION_SYNC: '1'
+    UIPATH_CLI_DISABLE_AUTOINSTALL: '1'

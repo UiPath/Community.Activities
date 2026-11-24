@@ -1,16 +1,15 @@
 parameters:
-  robotVersion: "25.10.18"
   studioProjectPath: ""
   buildForWindows: true
   buildForPortable: true
   packageUnderTestName: ''
-  studioLicense: ""
 
 jobs:
 - job: "BuildRuntimeTests"
   displayName: "Build Runtime Tests"
   variables:
     IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
+    LocalFeedPath: '$(Agent.TempDirectory)\LocalFeed'
   timeoutInMinutes: 90
   pool:
     vmImage: windows-2022
@@ -21,93 +20,77 @@ jobs:
   - checkout: self
     fetchDepth: 1
 
-  - template: ../templates/Testing/Automation/install.studio.steps.template.yml
-    parameters:
-      InstallType: 'machine'
-      StudioVersion: ${{ parameters.robotVersion }}
-      License: ${{ parameters.studioLicense }}
-      StudioCustomNugetFeeds: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+  - template: ../templates/Testing/Automation/install.uip.steps.template.yml
 
-  - powershell: |
-      echo "##vso[task.setvariable variable=studioPackagesPath]$env:ProgramFiles/UiPath/Studio/Packages"
-      & "C:/Program Files/UiPath/Studio/UiRobot.exe" trace --enableLowLevel
-    displayName: "Enable robot low level"
-    failOnStderr: false
-
+  # The activity packages built by this run; the pack step resolves the package under test from this folder.
   - task: DownloadPipelineArtifact@2
     displayName: "Download Packages"
     inputs:
       artifact: "Packages"
-      path: "$(studioPackagesPath)"
+      path: "$(LocalFeedPath)"
 
   - powershell: |
       if (Test-Path -Path "$(IntegrationTestStudioPackPath)") {
-        Remove-Item -Path $(IntegrationTestStudioPackPath) -Force -Recurse
-        Write-Host "Removed old packages" 
+        Remove-Item -Path "$(IntegrationTestStudioPackPath)" -Force -Recurse
+        Write-Host "Removed old packages"
       }
-      
+      New-Item -ItemType Directory -Force -Path "$(IntegrationTestStudioPackPath)" | Out-Null
+
       $packageUnderTest = "${{ parameters.packageUnderTestName }}"
-      $path = "$(studioPackagesPath)/" + $packageUnderTest + ".*.nupkg"
-      $file = (Get-Item -Path "$path" | select Name).Name
-      $null = $file -match '(?<name>[^\d]+)(?<version>.*).nupkg'
-      $pkgName, $pkgVersion = $Matches['name'].TrimEnd('.'), $Matches['version']
+      $package = Get-ChildItem -Path "$(LocalFeedPath)" -Filter "$packageUnderTest.*.nupkg" |
+        Where-Object { $_.Name -notlike '*.symbols.nupkg' } |
+        Select-Object -First 1
+      if (-not $package) { throw "No $packageUnderTest package found in $(LocalFeedPath)" }
+      $pkgVersion = $package.BaseName.Substring($packageUnderTest.Length + 1)
+      Write-Host "Will build against $packageUnderTest with version $pkgVersion"
 
-      Write-Host "Will build against $pkgName with version $pkgVersion"
-      
-      mkdir $(IntegrationTestStudioPackPath)
-      $seconds = ([System.DateTime]::Now - [System.DateTime]::Today).TotalSeconds -as [int]
-      & "C:/Program Files/UiPath/Studio/UIRobot.exe" --version
-      Write-Host " "
-      
+      # Only these sources: the local build output first, then the feeds the Studio install used to have.
+      $nugetConfig = Join-Path "$(Agent.TempDirectory)" 'RuntimeTests.NuGet.config'
+      @"
+      <?xml version="1.0" encoding="utf-8"?>
+      <configuration>
+        <packageSources>
+          <clear />
+          <add key="LocalBuild" value="$(LocalFeedPath)" />
+          <add key="UiPath-Internal" value="https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json" />
+          <add key="UiPath-Official" value="https://pkgs.dev.azure.com/uipath/Public.Feeds/_packaging/UiPath-Official/nuget/v3/index.json" />
+          <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+        </packageSources>
+      </configuration>
+      "@ | Set-Content -Path $nugetConfig -Encoding ascii
+
       $projectPath = Join-Path -Path "$(Build.SourcesDirectory)" -ChildPath "${{ parameters.studioProjectPath }}"
+      $projectDir = Split-Path -Path $projectPath -Parent
       Write-Host "Project Path = $projectPath"
-      $project = (get-content "$projectPath" | ConvertFrom-Json)
-      $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_portable"
-      $project.dependencies.$packageUnderTest = "[$pkgVersion]"
-      
-      if ("${{ parameters.buildForPortable }}" -eq "true") {
-        Write-Host "Pack for portable " + $project.name
-        echo $project.name
-        $project.targetFramework = "Portable"
-        $project | ConvertTo-JSon | Out-File  "$projectPath"
-        
-        $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
-        
-        if (-Not $output.Contains("Project published successfully."))
-        {
-          echo "Sleep 1 minute"
-          Start-Sleep -Seconds 60
-          $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
-          if (-Not $output.Contains("Project published successfully."))
-          {
-            throw "Pack failed: " + $output  
-          }
+      $seconds = ([System.DateTime]::Now - [System.DateTime]::Today).TotalSeconds -as [int]
+      $packageVersion = "$env:BUILD_BUILDID.0.$seconds"
+      $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+      function Invoke-RuntimeTestsPack([string] $targetFramework, [string] $nameSuffix) {
+        $project = Get-Content -Path $projectPath -Raw | ConvertFrom-Json
+        $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + $nameSuffix
+        $project.targetFramework = $targetFramework
+        $project.dependencies.$packageUnderTest = "[$pkgVersion]"
+        [System.IO.File]::WriteAllText($projectPath, ($project | ConvertTo-Json -Depth 20), $utf8NoBom)
+        Write-Host "Pack for $targetFramework $($project.name)"
+
+        for ($attempt = 1; $attempt -le 2; $attempt++) {
+          $output = uip rpa pack "$projectDir" "$(IntegrationTestStudioPackPath)" --package-version $packageVersion --nuget-sources-config-path "$nugetConfig" --exclude-configured-sources --output json
+          if ($LASTEXITCODE -eq 0) { Write-Host ($output -join "`n"); return }
+          Write-Host "Pack attempt $attempt failed (exit code $LASTEXITCODE): $($output -join "`n")"
+          if ($attempt -lt 2) { Start-Sleep -Seconds 60 }
         }
+        throw "Pack failed for $targetFramework"
       }
 
-      if ("${{ parameters.buildForWindows }}" -eq "true")
-      {
-        $project = (get-content "$projectPath" | ConvertFrom-Json)
-        $project.name = $project.name.Replace("_portable", "").Replace("_windows", "") + "_windows"
-        Write-Host "Pack for windows " + $project.name
-        $project.targetFramework = "Windows"
-        $project | ConvertTo-JSon | Out-File  "$projectPath"
-
-        $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
-
-        if (-Not $output.Contains("Project published successfully."))
-        {
-          echo "Sleep 1 minute"
-          Start-Sleep -Seconds 60
-          $output = (& "C:/Program Files/UiPath/Studio/UiPath.Studio.CommandLine.exe" publish -p "$projectPath" -f "$(IntegrationTestStudioPackPath)" -v "$env:BUILD_BUILDID.0.$seconds")
-          if (-Not $output.Contains("Project published successfully."))
-          {
-            throw "Pack failed: " + $output  
-          }
-        }
-      }
-    displayName: "Pack runtime tests project using UiPath.Studio.CommandLine.exe"
-    failOnStderr: true
+      if ("${{ parameters.buildForPortable }}" -eq "true") { Invoke-RuntimeTestsPack "Portable" "_portable" }
+      if ("${{ parameters.buildForWindows }}" -eq "true") { Invoke-RuntimeTestsPack "Windows" "_windows" }
+    displayName: "Pack runtime tests project using uip rpa pack"
+    # uip writes analyzer warnings to stderr; the exit code decides success.
+    failOnStderr: false
+    env:
+      UIPATH_CLI_DISABLE_VERSION_SYNC: '1'
+      UIPATH_CLI_DISABLE_AUTOINSTALL: '1'
 
   - task: PublishBuildArtifacts@1
     displayName: "Publish packed tests"

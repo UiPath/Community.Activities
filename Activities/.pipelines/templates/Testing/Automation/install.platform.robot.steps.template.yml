@@ -1,0 +1,80 @@
+# Installs the Robot (with the Runtimes it needs) through the UiPath Platform installer, which replaces the classic
+# UiPathRobot.msi from 2026.10. The online installer follows the Enterprise LTS 26.10 channel, so it always installs the
+# latest 26.10 patch. Products are chosen in platformConfig.json (the classic ADDLOCAL has no equivalent).
+# https://docs.uipath.com/uipath-platform-installer/standalone/latest/user-guide/install-from-the-command-line
+# Sets the variable RobotExePath to the installed UiRobot.exe.
+parameters:
+- name: InstallerUrl
+  type: string
+  default: 'https://download.uipath.com/connected-installer/latest/lts-26-10/UiPathPlatformLTS.26.10.msi'
+
+# name,url;name2,url2 - URLs, folder paths or network shares.
+- name: CustomNugetFeeds
+  type: string
+  default: 'UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
+
+- name: License
+  type: string
+  default: ''
+
+steps:
+- powershell: |
+    $workPath = Join-Path "$(Agent.TempDirectory)" 'UiPathPlatform'
+    New-Item -ItemType Directory -Force -Path $workPath | Out-Null
+    $msiPath = Join-Path $workPath 'UiPathPlatform.msi'
+    $configPath = Join-Path $workPath 'platformConfig.json'
+    $logPath = Join-Path $workPath 'installation.log'
+
+    Write-Host "Download installer from ${{ parameters.InstallerUrl }}"
+    Invoke-WebRequest -Uri "${{ parameters.InstallerUrl }}" -OutFile $msiPath -UseBasicParsing
+
+    $robotParameters = [ordered]@{ CUSTOM_NUGET_FEEDS = $env:CUSTOM_NUGET_FEEDS }
+    if ($env:LICENSE) { $robotParameters.LICENSE_KEY = $env:LICENSE }
+    $config = [ordered]@{
+      Packages = @(
+        [ordered]@{ PackageName = 'Robot'; InstallRequested = $true; Parameters = $robotParameters },
+        [ordered]@{ PackageName = 'Runtimes'; InstallRequested = $true; Parameters = @{} }
+      )
+    }
+    [System.IO.File]::WriteAllText($configPath, ($config | ConvertTo-Json -Depth 5), (New-Object System.Text.UTF8Encoding $false))
+
+    try {
+      $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+      $arguments = "/i `"$msiPath`" /qn /l*v `"$logPath`" MSIINSTALLPERUSER=0 PLATFORM_CONFIGURATION_FILE=`"$configPath`""
+      $process = Start-Process -FilePath 'msiexec.exe' -ArgumentList $arguments -Wait -PassThru
+      Write-Host "msiexec exited with code $($process.ExitCode) after $([int]$stopwatch.Elapsed.TotalSeconds) seconds"
+      if ($process.ExitCode -ne 0 -and $process.ExitCode -ne 3010) {
+        Get-Content -Path $logPath -Tail 100 -ErrorAction SilentlyContinue
+        throw "UiPath Platform installation failed with exit code $($process.ExitCode)"
+      }
+    }
+    finally {
+      # The configuration may hold the license key, and the installer keeps a copy under %TEMP%\UiPathConnected.
+      Remove-Item -Path $configPath -Force -ErrorAction SilentlyContinue
+      if ($env:LICENSE) {
+        Get-ChildItem -Path (Join-Path $env:TEMP 'UiPathConnected') -Recurse -File -ErrorAction SilentlyContinue |
+          Where-Object { (Get-Content -Path $_.FullName -Raw -ErrorAction SilentlyContinue) -like "*$env:LICENSE*" } |
+          Remove-Item -Force -ErrorAction SilentlyContinue
+      }
+    }
+
+    # Products install to %ProgramFiles%\UiPathPlatform\<product>\<version>\.
+    $robotRoot = Join-Path $env:ProgramFiles 'UiPathPlatform\Robot'
+    $deadline = (Get-Date).AddMinutes(10)
+    do {
+      $robotExe = Get-ChildItem -Path $robotRoot -Filter 'UiRobot.exe' -Recurse -ErrorAction SilentlyContinue |
+        Sort-Object -Property LastWriteTime -Descending |
+        Select-Object -First 1
+      if ($robotExe) { break }
+      Start-Sleep -Seconds 15
+    } while ((Get-Date) -lt $deadline)
+    if (-not $robotExe) {
+      Get-ChildItem -Path (Join-Path $env:ProgramFiles 'UiPathPlatform') -Recurse -Depth 2 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
+      throw "UiRobot.exe was not found under $robotRoot"
+    }
+    Write-Host "Robot installed at $($robotExe.FullName)"
+    Write-Host "##vso[task.setvariable variable=RobotExePath]$($robotExe.FullName)"
+  displayName: 'Install Robot (UiPath Platform installer)'
+  env:
+    CUSTOM_NUGET_FEEDS: ${{ parameters.CustomNugetFeeds }}
+    LICENSE: ${{ parameters.License }}

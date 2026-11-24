@@ -1,5 +1,4 @@
 parameters:
-  robotVersion: ''
   studioLicense: ''
   beforeTestsCustomSteps: []
   afterTestsCustomSteps: []
@@ -10,6 +9,7 @@ jobs:
   displayName: "Run Runtime Tests Windows"
   variables:
     IntegrationTestStudioPackPath: '$(System.ArtifactsDirectory)/Packages'
+    LocalFeedPath: '$(Agent.TempDirectory)\LocalFeed'
   timeoutInMinutes: 90
   pool:
     vmImage: windows-2022
@@ -56,20 +56,23 @@ jobs:
       artifact: "RuntimeTestsPackages"
       path: "$(IntegrationTestStudioPackPath)"
 
+  # The activity packages built by this run: the packed tests depend on this run's package under test.
+  - task: DownloadPipelineArtifact@2
+    displayName: "Download activity packages"
+    inputs:
+      artifact: "Packages"
+      path: "$(LocalFeedPath)"
+
   - ${{ each step in parameters.beforeTestsCustomSteps }}:
     - ${{ step }}
 
-  # install robot
-  - template: ../templates/Testing/Automation/install.msi.steps.template.yml
+  - template: ../templates/Testing/Automation/install.platform.robot.steps.template.yml
     parameters:
-      InstallType: 'machine'
-      MsiType: 'robot'
-      MsiVersion: ${{ parameters.robotVersion }}
       License: ${{ parameters.studioLicense }}
-      InstallComponents: 'Robot'
+      CustomNugetFeeds: 'LocalBuild,$(LocalFeedPath);UiPath-Internal,https://uipath.pkgs.visualstudio.com/Public.Feeds/_packaging/UiPath-Internal/nuget/v3/index.json'
 
   - powershell: |
-      & "C:/Program Files/UiPath/Robot/UiRobot.exe" trace --enableLowLevel
+      & "$(RobotExePath)" trace --enableLowLevel
     displayName: "Enable robot low level"
     failOnStderr: false
   
@@ -80,7 +83,7 @@ jobs:
       $filepath = Get-ChildItem $(IntegrationTestStudioPackPath)/*_windows*
       $fullPath = $filepath.FullName
       $env:MOUNT_OUTPUT="$(System.ArtifactsDirectory)"
-      $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory) --robotPath "C:/Program Files/UiPath/Robot/UiRobot.exe"
+      $(Build.ArtifactStagingDirectory)/TestRunner/uipath.studio.codedwf.tests.runner.exe run --package $fullPath --output $(System.ArtifactsDirectory) --robotPath "$(RobotExePath)"
     displayName: 'Execute tests'
     env: ${{ parameters.environment }}
 

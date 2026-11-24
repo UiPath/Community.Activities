@@ -53,12 +53,10 @@ stages:
     jobs:
     - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
       parameters:
-        robotVersion: $(TestsStudioVersion)
         studioProjectPath: 'Activities/Python/UiPath.Python.RuntimeTests/project.json'
         buildForWindows: true
         buildForPortable: false
         packageUnderTestName: 'UiPath.Python.Activities'
-        studioLicense: $(StudioLicense)        
 
   - stage: RunPythonRuntimeTestsWindows
     displayName: 'Run Python Runtime Tests Windows'
@@ -67,7 +65,6 @@ stages:
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
-        robotVersion: $(TestsStudioVersion)
         studioLicense: $(StudioLicense)
         environment:
           PYTHON_HOME: $(USEPYTHONVERSION_PYTHONLOCATION)

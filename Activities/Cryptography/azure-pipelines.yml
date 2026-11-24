@@ -53,12 +53,10 @@ stages:
     jobs:
     - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
       parameters:
-        robotVersion: $(TestsStudioVersion)
         studioProjectPath: 'Activities/Cryptography/UiPath.Cryptography.Activities.RuntimeTests/project.json'
         buildForWindows: true
         buildForPortable: false
         packageUnderTestName: 'UiPath.Cryptography.Activities'
-        studioLicense: $(StudioLicense)
 
   - stage: RunCryptographyRuntimeTestsWindows
     displayName: 'Run Cryptography Runtime Tests Windows'
@@ -67,7 +65,6 @@ stages:
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
-        robotVersion: $(TestsStudioVersion)
         studioLicense: $(StudioLicense)
 
   - stage: RunCryptographyRuntimeTestsPortable
@@ -77,5 +74,3 @@ stages:
     condition: false # Temporary disable runtime tests for portable
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
-      parameters:
-        robotVersion: $(TestsStudioVersion)

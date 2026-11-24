@@ -69,12 +69,10 @@ stages:
     jobs:
     - template: ../.pipelines/jobs/stage.build.runtime.tests.yml
       parameters:
-        robotVersion: $(TestsStudioVersion)
         studioProjectPath: 'Activities/Database/UiPath.Database.Runtime.Tests/project.json'
         buildForWindows: true
         buildForPortable: true
         packageUnderTestName: 'UiPath.Database.Activities'
-        studioLicense: $(StudioLicense)
 
   - stage: RunDatabaseRuntimeTestsWindows
     displayName: 'Run Database Runtime Tests Windows'
@@ -87,7 +85,6 @@ stages:
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.windows.yml
       parameters:
-        robotVersion: $(TestsStudioVersion)
         studioLicense: $(StudioLicense)
         environment:
           SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
@@ -103,7 +100,6 @@ stages:
     jobs:
     - template: ../.pipelines/jobs/stage.run.runtime.tests.portable.yml
       parameters:
-        robotVersion: $(TestsStudioVersion)
         environment:
           SQL_SERVER_HOST: "$(DatabaseServicesAgentPublicIp)"
 
