@@ -23,6 +23,8 @@
     <PackageReference Include="UiPath.Telemetry.Client" />
     <PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
     <PackageReference Include="UiPath.Platform" />
+    <!-- Needed at runtime to initialize a design ViewModel (DesignProperty mutation fails without it); test project only. -->
+    <PackageReference Include="System.Activities.Metadata" PrivateAssets="" />
   </ItemGroup>
 	
   <ItemGroup>
@@ -36,14 +38,22 @@
 
 	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow" />
-		<PackageReference Include="Oracle.ManagedDataAccess.Core" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- The connection dialog and the Oracle dialog provider are Windows-only designer code; their logic is tested here. -->
+	<ItemGroup Condition=" '$(TargetFramework)' == '$(WindowsFramework)' ">
+		<ProjectReference Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj" />
+		<ProjectReference Include="..\UiPath.Database.Activities.Extended.Design\UiPath.Database.Activities.Extended.Design.csproj" />
+		<ProjectReference Include="..\UiPath.Database.Activities.Extended\UiPath.Database.Activities.Extended.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- Copied to the test output so DbWorkaroundsVersionTests can read managed package versions. -->
 		<Content Include="..\Directory.build.targets" CopyToOutputDirectory="Always" Link="Database.Directory.build.targets" />
+		<!-- The restore result of the Core package: the test checks that no Oracle library is in its dependency tree. -->
+		<Content Include="..\UiPath.Database.Core.Activities.Packaging\obj\project.assets.json" Condition="Exists('..\UiPath.Database.Core.Activities.Packaging\obj\project.assets.json')" CopyToOutputDirectory="Always" Link="Core.project.assets.json" />
 		<Content Include="..\UiPath.Database\UiPath.Database.csproj" CopyToOutputDirectory="Always" Link="Database.UiPath.Database.csproj" />
-		<Content Include="..\UiPath.Database.Activities.Packaging\UiPath.Database.Activities.Packaging.csproj" CopyToOutputDirectory="Always" Link="Database.UiPath.Database.Activities.Packaging.csproj" />
+		<Content Include="..\UiPath.Database.Core.Activities.Packaging\UiPath.Database.Core.Activities.Packaging.csproj" CopyToOutputDirectory="Always" Link="Database.UiPath.Database.Core.Activities.Packaging.csproj" />
 		<Content Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj" CopyToOutputDirectory="Always" Link="Database.UiPath.Data.ConnectionUI.Dialog.csproj" />
 	</ItemGroup>
 </Project>

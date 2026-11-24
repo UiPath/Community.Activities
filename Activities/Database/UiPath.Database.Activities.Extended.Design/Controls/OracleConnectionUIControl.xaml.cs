@@ -16,22 +16,15 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
 
         bool _useSID;
 
-        private string DataSource
+        private void SetDataSourceValue(string value)
         {
-            get
+            if (value != null && value.Trim().Length > 0)
             {
-                return _connectionProperties[DatabaseConstants.Data_Source] as string;
+                _connectionProperties[DatabaseConstants.Data_Source] = value.Trim();
             }
-            set
+            else
             {
-                if (value != null && value.Trim().Length > 0)
-                {
-                    _connectionProperties[DatabaseConstants.Data_Source] = value.Trim();
-                }
-                else
-                {
-                    _connectionProperties.Reset(DatabaseConstants.Data_Source);
-                }
+                _connectionProperties.Reset(DatabaseConstants.Data_Source);
             }
         }
 
@@ -166,9 +159,9 @@ namespace UiPath.Data.ConnectionUI.Dialog.Controls
         private void SetDataSource()
         {
             if (_useSID)
-                DataSource = $"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {_host})(PORT = {_port})))(CONNECT_DATA = (SERVER = DEDICATED)(SID = {_sid})))";
+                SetDataSourceValue($"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {_host})(PORT = {_port})))(CONNECT_DATA = (SERVER = DEDICATED)(SID = {_sid})))");
             else
-                DataSource = $"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {_host})(PORT = {_port})))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {_service})))";
+                SetDataSourceValue($"(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = {_host})(PORT = {_port})))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = {_service})))");
         }
     }
 }
