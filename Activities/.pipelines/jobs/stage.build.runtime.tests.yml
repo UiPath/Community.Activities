@@ -44,7 +44,8 @@ jobs:
       $pkgVersion = $package.BaseName.Substring($packageUnderTest.Length + 1)
       Write-Host "Will build against $packageUnderTest with version $pkgVersion"
 
-      # Only these sources: the local build output first, then the feeds the Studio install used to have.
+      # Only these sources: this run's packages, then the UiPath feeds and nuget.org. The mapping restricts UiPath.*
+      # to the local folder and the UiPath feeds, so a package with a UiPath name on nuget.org is never picked.
       $nugetConfig = Join-Path "$(Agent.TempDirectory)" 'RuntimeTests.NuGet.config'
       @"
       <?xml version="1.0" encoding="utf-8"?>
@@ -56,6 +57,12 @@ jobs:
           <add key="UiPath-Official" value="https://pkgs.dev.azure.com/uipath/Public.Feeds/_packaging/UiPath-Official/nuget/v3/index.json" />
           <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
         </packageSources>
+        <packageSourceMapping>
+          <packageSource key="LocalBuild"><package pattern="UiPath.*" /></packageSource>
+          <packageSource key="UiPath-Internal"><package pattern="UiPath.*" /></packageSource>
+          <packageSource key="UiPath-Official"><package pattern="UiPath.*" /><package pattern="*" /></packageSource>
+          <packageSource key="nuget.org"><package pattern="*" /></packageSource>
+        </packageSourceMapping>
       </configuration>
       "@ | Set-Content -Path $nugetConfig -Encoding ascii
 
