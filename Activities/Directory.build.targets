@@ -31,7 +31,7 @@
 		<PackageReference Update="System.Formats.Asn1" Version="10.0.13" />
 		<PackageReference Update="PgpCore" Version="8.1.1" />
 		<PackageReference Update="BouncyCastle.Cryptography" Version="2.7.0" />
-		<PackageReference Update="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Update="Newtonsoft.Json" Version="13.0.4" />
 
 		<PackageReference Update="Azure.Identity" Version="1.21.0" />
 
@@ -66,7 +66,7 @@
 	</ItemGroup>
 
 	<!-- For whatever reason, with "Fast UpToDate" VS option ON, changes are not detected properly 
-	Eg. obj/Debug/net6-0/refint/ .. is not copied to /obj/Debug/net6-0/ref even if there are changes
+	Eg. obj/Debug/net8-0/refint/ .. is not copied to /obj/Debug/net8-0/ref even if there are changes
 	This causes package not to be generated even if there are changes (rebuild is necessary)
 	This is very annoying when developing -->
 	<Target Name="UpdateObjRefIfNeeded" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == Debug">
