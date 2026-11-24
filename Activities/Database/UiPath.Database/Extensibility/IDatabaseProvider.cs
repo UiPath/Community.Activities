@@ -15,7 +15,8 @@ namespace UiPath.Database.Extensibility
     /// <para>
     /// This interface ships in the base package and is implemented by extension packages that can be installed at a
     /// different version than the base package. Never add, remove or change a member: a mismatch fails to load the
-    /// extension with a <see cref="TypeLoadException"/>. Add new capabilities as separate, optional interfaces that the
+    /// extension with a <see cref="TypeLoadException"/>. The same holds for every other type the extension implements,
+    /// such as <see cref="BulkOps.IBulkOperations"/>. Add new capabilities as separate, optional interfaces that the
     /// base package tests for with <c>is</c>.
     /// </para>
     /// </remarks>

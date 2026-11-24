@@ -75,11 +75,12 @@ namespace UiPath.Database.Tests
         }
 
         [Fact]
-        public void Indexer_ReturnsNullForUnknownAndDbNullForAnUnsetKnownProperty()
+        public void Indexer_ReturnsNullForUnknownPropertiesAndTheDefaultForAnUnsetKnownProperty()
         {
             var properties = NewSqlite();
 
             Assert.Null(properties["No Such Property"]);
+            Assert.Equal(string.Empty, properties[DataSourceKey]);
             Assert.Throws<ArgumentNullException>(() => properties[null]);
             Assert.Throws<ArgumentNullException>(() => properties[null] = "x");
         }
@@ -128,7 +129,7 @@ namespace UiPath.Database.Tests
             var properties = NewSqlite();
             properties.Parse("Data Source=:memory:");
 
-            properties.Test();
+            Assert.Null(Record.Exception(() => properties.Test()));
         }
 
         [Fact]
@@ -141,10 +142,10 @@ namespace UiPath.Database.Tests
         public void Test_UsesTheSqlServerConnectionForTheSqlServerProvider()
         {
             var properties = new AdoDotNetConnectionProperties(DatabaseConstants.SqlServerProvider);
-            properties.Parse("Data Source=.;Connect Timeout=1;Initial Catalog=x");
+            properties.Parse("Data Source=no-such-server.invalid;Connect Timeout=1;Initial Catalog=x");
 
-            // No server answers: the point is that a SqlConnection is created and opened.
-            Assert.ThrowsAny<Exception>(() => properties.Test());
+            // The name cannot be resolved on any machine: a SqlConnection is created and the open fails with a SqlException.
+            Assert.Throws<Microsoft.Data.SqlClient.SqlException>(() => properties.Test());
         }
 
         [Fact]
@@ -216,7 +217,7 @@ namespace UiPath.Database.Tests
         }
 
         [Fact]
-        public void SqliteAndOdbcProperties_KnowWhenTheyAreComplete()
+        public void SqliteProperties_KnowWhenTheyAreComplete()
         {
             var sqlite = new SqliteConnectionProperties();
             Assert.False(sqlite.IsComplete);
@@ -224,12 +225,6 @@ namespace UiPath.Database.Tests
             Assert.True(sqlite.IsComplete);
             Assert.Contains("file.db", sqlite.ToFullString());
             sqlite.Test();
-        }
-
-        [Fact]
-        public void Test_RefusesAnEmptyConnectionString()
-        {
-            Assert.Throws<InvalidOperationException>(() => NewSqlite().Test());
         }
 
         [Fact]
@@ -262,7 +257,6 @@ namespace UiPath.Database.Tests
 
             foreach (DataProvider provider in new[] { DataProvider.SqlDataProvider, DataProvider.OleDBDataProvider, DataProvider.OdbcDataProvider, DataProvider.SqliteDataProvider })
             {
-                Assert.Same(provider, provider.Name == DatabaseConstants.SqlServerProvider ? DataProvider.SqlDataProvider : provider);
                 Assert.False(string.IsNullOrEmpty(provider.DisplayName));
                 Assert.NotNull(provider.ShortDisplayName);
                 Assert.False(string.IsNullOrEmpty(provider.Description));

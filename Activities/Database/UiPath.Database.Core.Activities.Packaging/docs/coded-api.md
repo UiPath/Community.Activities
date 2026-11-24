@@ -1,11 +1,11 @@
 # Database — Coded Workflow API
 
-`UiPath.Database.Activities`
+`UiPath.Database.Core.Activities` (or `UiPath.Database.Activities`, which includes Core and adds Oracle)
 
 Provides coded workflow operations for querying and modifying relational databases via ADO.NET. Supports SQL Server, SQLite, OLE DB, and ODBC data sources. Oracle is also supported when the `UiPath.Database.Activities` package is installed; this core package does not include the Oracle provider.
 
 **Service accessor:** `database` (type `IDatabaseService`)
-**Required package:** `"UiPath.Database.Activities": "*"` in project.json dependencies
+**Required package:** `"UiPath.Database.Core.Activities": "*"` in project.json dependencies, or `"UiPath.Database.Activities": "*"` when Oracle is needed (it includes Core)
 
 ## Auto-Imported Namespaces
 

@@ -315,6 +315,10 @@ namespace UiPath.Database.Tests
             if (!System.IO.File.Exists(assets))
             {
                 // The packaging project is not restored when only this test project is built; the solution build does.
+                // On the build server a missing file would hide the check, so it fails there.
+                Assert.True(
+                    string.IsNullOrEmpty(Environment.GetEnvironmentVariable("TF_BUILD")),
+                    "The Core packaging project was not restored, so the no-Oracle check could not run: " + assets);
                 return;
             }
 
@@ -424,7 +428,68 @@ namespace UiPath.Database.Tests
 
             using (var connection = new DatabaseConnection().Initialize("Data Source=:memory:", "Registered.Only.Provider"))
             {
-                Assert.NotNull(connection);
+                Assert.Equal(System.Data.ConnectionState.Open, connection.State);
+                Assert.False(connection.SupportsBulk());
+            }
+        }
+
+        /// <summary>Puts a catalog into <see cref="DatabaseProviders"/> whose extended assembly cannot be loaded.</summary>
+        private sealed class BrokenExtendedPackage : IDisposable
+        {
+            private readonly ExtensionCatalog<IDatabaseProvider, DatabaseProviderAttribute> _original = DatabaseProviders.Catalog;
+            private readonly bool _oracleWasRegistered;
+            private readonly DbProviderFactory _oracleFactory;
+
+            public BrokenExtendedPackage(Exception failure)
+            {
+                // The Oracle factory may be registered by an earlier test in the Windows build, which would hide the error.
+                _oracleWasRegistered = DbProviderFactories.TryGetFactory(DatabaseConstants.OracleProvider, out _oracleFactory);
+                if (_oracleWasRegistered)
+                    DbProviderFactories.UnregisterFactory(DatabaseConstants.OracleProvider);
+
+                DatabaseProviders.Catalog = new ExtensionCatalog<IDatabaseProvider, DatabaseProviderAttribute>(
+                    attribute => attribute.ProviderType,
+                    DatabaseProviders.WellKnownAssemblies,
+                    typeof(DatabaseConnection).Assembly,
+                    () => new System.Reflection.Assembly[0],
+                    name => throw failure);
+            }
+
+            public void Dispose()
+            {
+                DatabaseProviders.Catalog = _original;
+                if (_oracleWasRegistered)
+                    DbProviderFactories.RegisterFactory(DatabaseConstants.OracleProvider, _oracleFactory);
+            }
+        }
+
+        [Fact]
+        public void Initialize_ReportsAnOracleProviderThatIsInstalledButCannotBeLoaded()
+        {
+            var failure = new System.IO.FileLoadException("version mismatch");
+            using (new BrokenExtendedPackage(failure))
+            {
+                var exception = Assert.Throws<InvalidOperationException>(
+                    () => new DatabaseConnection().Initialize("User Id=x;Password=y;Data Source=z", DatabaseConstants.OracleProvider));
+
+                Assert.Same(failure, exception.InnerException);
+                Assert.Contains("version mismatch", exception.Message);
+                Assert.Contains(DatabaseConstants.OracleProvider, exception.Message);
+                Assert.Equal(
+                    string.Format(UiPath.Database.Properties.Resources.DatabaseProviderFailedToLoad, DatabaseConstants.OracleProvider, failure.Message),
+                    exception.Message);
+            }
+        }
+
+        [Fact]
+        public void Initialize_StillUsesARegisteredProviderWhenTheExtendedPackageCannotBeLoaded()
+        {
+            DbProviderFactories.RegisterFactory("Registered.Only.Provider", SqliteFactory.Instance);
+
+            using (new BrokenExtendedPackage(new System.IO.FileLoadException("version mismatch")))
+            using (var connection = new DatabaseConnection().Initialize("Data Source=:memory:", "Registered.Only.Provider"))
+            {
+                Assert.Equal(System.Data.ConnectionState.Open, connection.State);
             }
         }
 

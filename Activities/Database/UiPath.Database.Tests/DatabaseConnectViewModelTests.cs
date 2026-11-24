@@ -1,5 +1,6 @@
 #if !WINDOWS // the ViewModels exist only in the portable (Studio Web) build
 using System.Activities.DesignViewModels;
+using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using UiPath.Database.Activities.NetCore.ViewModels;
@@ -37,8 +38,12 @@ namespace UiPath.Database.Tests
         {
             var vm = await InitializedAsync();
 
-            Assert.NotNull(vm.ProviderName.DataSource);
             Assert.NotNull(vm.ProviderName.Widget);
+            var data = ((DataSource<string>)vm.ProviderName.DataSource).Data.Select(item => item.ToString()).ToArray();
+
+            Assert.Equal(
+                new[] { DatabaseConstants.SqlServerProvider, DatabaseConstants.OleDbProvider, DatabaseConstants.OdbcProvider, "Fake.Provider" },
+                data);
         }
     }
 }

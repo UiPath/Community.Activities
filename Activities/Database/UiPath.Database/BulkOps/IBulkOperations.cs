@@ -5,6 +5,12 @@ using UiPath.Database.Extensibility;
 
 namespace UiPath.Database.BulkOps
 {
+    /// <remarks>
+    /// This interface is implemented by extension packages that can be installed at a different version than the base
+    /// package (for example the Oracle bulk copy of the extended package). Never add, remove or change a member: a
+    /// mismatch fails with a <see cref="TypeLoadException"/> when a bulk operation runs. Add new capabilities as
+    /// separate, optional interfaces.
+    /// </remarks>
     public interface IBulkOperations
     {
         DbConnection Connection { get; set; }

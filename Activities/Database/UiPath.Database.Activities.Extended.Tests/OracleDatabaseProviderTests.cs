@@ -82,11 +82,8 @@ namespace UiPath.Database.Extended.Tests
             Assert.Contains(DatabaseProviders.GetAll(), p => p is OracleDatabaseProvider);
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData(0)]
-        [InlineData(30)]
-        public void OracleBulkOperations_HandsTheTableToTheBulkCopyAndFailsWithoutAnOpenConnection(int? timeoutSeconds)
+        [Fact]
+        public void OracleBulkOperations_HandsTheTableToTheBulkCopyAndFailsWithoutAnOpenConnection()
         {
             var operations = new OracleBulkOperations
             {
@@ -96,10 +93,25 @@ namespace UiPath.Database.Extended.Tests
             var table = new System.Data.DataTable();
             table.Columns.Add("ID", typeof(int));
             table.Rows.Add(1);
-            TimeSpan? timeout = timeoutSeconds.HasValue ? TimeSpan.FromSeconds(timeoutSeconds.Value) : (TimeSpan?)null;
 
-            // No server in the unit tests: the call reaches OracleBulkCopy, which rejects the closed connection.
-            Assert.ThrowsAny<Exception>(() => operations.WriteToServer(table, timeout));
+            // No server in the unit tests: the cast succeeds and OracleBulkCopy itself rejects the closed connection.
+            var exception = Assert.Throws<InvalidOperationException>(() => operations.WriteToServer(table));
+            Assert.Contains("open", exception.Message, StringComparison.OrdinalIgnoreCase);
+
+            // The same with a command timeout, which is passed on to the bulk copy before it fails.
+            Assert.Throws<InvalidOperationException>(() => operations.WriteToServer(table, TimeSpan.FromSeconds(30)));
+        }
+
+        [Fact]
+        public void OracleBulkOperations_RejectsAConnectionOfAnotherProvider()
+        {
+            var operations = new OracleBulkOperations
+            {
+                Connection = new Microsoft.Data.Sqlite.SqliteConnection("Data Source=:memory:"),
+                TableName = "SOME_TABLE"
+            };
+
+            Assert.Throws<InvalidCastException>(() => operations.WriteToServer(new System.Data.DataTable(), TimeSpan.FromSeconds(5)));
         }
 
         [Fact]

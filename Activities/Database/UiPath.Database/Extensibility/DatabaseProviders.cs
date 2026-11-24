@@ -16,7 +16,8 @@ namespace UiPath.Database.Extensibility
         /// </summary>
         internal static readonly string[] WellKnownAssemblies = { "UiPath.Database.Activities.Extended" };
 
-        private static readonly ExtensionCatalog<IDatabaseProvider, DatabaseProviderAttribute> Catalog =
+        // Not readonly so that tests can put in a catalog whose loading fails.
+        internal static ExtensionCatalog<IDatabaseProvider, DatabaseProviderAttribute> Catalog =
             new ExtensionCatalog<IDatabaseProvider, DatabaseProviderAttribute>(
                 attribute => attribute.ProviderType,
                 WellKnownAssemblies,
