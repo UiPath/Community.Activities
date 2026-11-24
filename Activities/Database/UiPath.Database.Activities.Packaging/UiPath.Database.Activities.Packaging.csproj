@@ -58,19 +58,6 @@
         </ItemGroup>
         <Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
     </Target>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Data.SqlClient" />
-        <PackageReference Include="System.Resources.Extensions" />
-        <PackageReference Include="System.Activities.ViewModels" />
-        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
-        <PackageReference Include="System.Data.Odbc" />
-        <PackageReference Include="System.Data.OleDb" />
-        <PackageReference Include="Microsoft.Data.Sqlite" />
-        <!-- Floor for the native SQLite library (CVE-2025-6965 affects <= 2.1.11). Keep >= DbWorkarounds.Sqlite.MinVersion; Microsoft.Data.Sqlite 8.0.34 alone pulls 2.1.13. -->
-        <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
-        <PackageReference Include="UiPath.Platform" />
-        <PackageReference Include="UiPath.Telemetry.Client" />
-        <PackageReference Include="UiPath.CodedWorkflows" />
 
     <ItemGroup>
         <PackageReference Include="Oracle.ManagedDataAccess.Core" />
