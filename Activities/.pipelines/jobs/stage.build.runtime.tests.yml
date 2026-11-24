@@ -1,5 +1,5 @@
 parameters:
-  robotVersion: "24.10.8"
+  robotVersion: "26.10.0"
   studioProjectPath: ""
   buildForWindows: true
   buildForPortable: true

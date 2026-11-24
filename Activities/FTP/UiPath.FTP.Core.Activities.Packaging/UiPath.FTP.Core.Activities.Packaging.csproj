@@ -15,7 +15,7 @@
     <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
     <PackageLicenseUrl>https://docs.uipath.com/activities/docs/about-the-ftp-activities-pack</PackageLicenseUrl>
     <PackageTags>UiPathActivities</PackageTags>
-    <Description>UiPath FTP Activities Pack (core): SFTP uses only operating system cryptography; additional algorithms (Ed25519, curve25519, Diffie-Hellman, legacy ciphers and MACs, encrypted OpenSSH keys) are added by the extended package UiPath.FTP.Activities, which depends on this one.</Description>
+    <Description>IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows. UiPath FTP Activities Pack (core): SFTP uses only operating system cryptography; additional algorithms (Ed25519, curve25519, Diffie-Hellman, legacy ciphers and MACs, encrypted OpenSSH keys) are added by the extended package UiPath.FTP.Activities, which depends on this one.</Description>
     <Authors>UiPath</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>

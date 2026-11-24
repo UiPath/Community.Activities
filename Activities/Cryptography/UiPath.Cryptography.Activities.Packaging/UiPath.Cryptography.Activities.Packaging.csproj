@@ -24,7 +24,7 @@
     <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
     <PackageProjectUrl>https://docs.uipath.com/activities/docs/about-the-cryptography-activities-pack</PackageProjectUrl>
     <PackageTags>UiPathActivities</PackageTags>
-    <Description>UiPath Cryptography Activities Pack. Includes UiPath.Cryptography.Core.Activities and the OpenPGP implementation (PgpCore, BouncyCastle) that the PGP activities and the PGP option of the encryption activities need; not limited to operating system cryptography. Use UiPath.Cryptography.Core.Activities for operating system cryptography only.</Description>
+    <Description>IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows. UiPath Cryptography Activities Pack. Includes UiPath.Cryptography.Core.Activities and the OpenPGP implementation (PgpCore, BouncyCastle) that the PGP activities and the PGP option of the encryption activities need; not limited to operating system cryptography. Use UiPath.Cryptography.Core.Activities for operating system cryptography only.</Description>
     <Authors>UiPath</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
@@ -33,6 +33,28 @@
 
   <ItemGroup>
     <None Include="..\LICENSE.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
+    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cryptography\UiPath.Cryptography.Activities.API\UiPath.Cryptography.Activities.API.csproj">
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
+    <PackageReference Include="System.Formats.Asn1" />
+    <PackageReference Include="PgpCore" />
+    <PackageReference Include="BouncyCastle.Cryptography" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="UiPath.Platform" />
+    <PackageReference Include="UiPath.Telemetry.Client" />
+    <PackageReference Include="UiPath.CodedWorkflows" />
   </ItemGroup>
 
   <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
@@ -60,12 +82,13 @@
   <!--
     The extended assembly uses Core's internals (InternalsVisibleTo, Resources) and implements Core's IPgpProvider, and both
     packages come from one build: pin the dependency on UiPath.Cryptography.Core.Activities to this exact version instead
-    of the default "this version or later".
+    of the default "this version or later". The version is the one the Core project reported (not this
+    project's own $(PackageVersion)): Debug versions come from the clock at evaluation, so the two can differ by a minute.
   -->
   <Target Name="PinCoreDependency" AfterTargets="_GetProjectReferenceVersions">
     <ItemGroup>
       <_ProjectReferencesWithVersions Condition="'%(_ProjectReferencesWithVersions.Filename)' == 'UiPath.Cryptography.Core.Activities.Packaging'">
-        <ProjectVersion>[$(PackageVersion)]</ProjectVersion>
+        <ProjectVersion>[%(_ProjectReferencesWithVersions.ProjectVersion)]</ProjectVersion>
       </_ProjectReferencesWithVersions>
     </ItemGroup>
   </Target>

@@ -10,7 +10,6 @@
 	<ItemGroup>
 		<PackageReference Include="UiPath.Workflow.Runtime" />
 		<PackageReference Include="UiPath.Workflow" />
-		<PackageReference Include="System.Security.Cryptography.Cng" />
 		<PackageReference Include="System.Formats.Asn1" />
 	</ItemGroup>
 

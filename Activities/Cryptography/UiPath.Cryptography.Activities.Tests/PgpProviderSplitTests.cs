@@ -103,16 +103,16 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void Discover_AssemblyFromAnotherLoadContext_DoesNotPreventTheByNameLoad()
         {
-            // The extended assembly loaded by another load context has another type identity; it must not count as loaded here.
-            string path = Extended.Location;
-            var other = new System.Runtime.Loader.AssemblyLoadContext("other", isCollectible: true);
+            // The other context loads its own copy of Core as well, so the foreign extended assembly implements another
+            // IPgpProvider type: it is unusable here and must not count as loaded, otherwise the by-name load is skipped
+            // and an installed package is reported as missing.
+            var other = new OwnCopyLoadContext(Path.GetDirectoryName(Extended.Location));
             try
             {
-                Assembly foreign = other.LoadFromAssemblyPath(path);
-                string requested = null;
+                Assembly foreign = other.LoadFromAssemblyPath(Extended.Location);
+                Assert.NotSame(typeof(PgpProviderLocator).Assembly, other.LoadFromAssemblyName(typeof(PgpProviderLocator).Assembly.GetName()));
 
-                // The foreign copy shares Core's IPgpProvider type here (the other context falls back to the default one), so
-                // it is usable; either way a provider is found and discovery does not report the package as missing.
+                string requested = null;
                 var provider = PgpProviderLocator.Discover(
                     new[] { foreign },
                     PgpProviderLocator.WellKnownAssemblies,
@@ -122,12 +122,33 @@ namespace UiPath.Cryptography.Activities.Tests
                         return Extended;
                     });
 
-                Assert.NotNull(provider);
-                Assert.True(requested == null || requested == "UiPath.Cryptography.Activities.Extended");
+                Assert.Equal("UiPath.Cryptography.Activities.Extended", requested);
+                Assert.IsType<PgpProvider>(provider);
             }
             finally
             {
                 other.Unload();
+            }
+        }
+
+        // Loads UiPath.Cryptography* from the output folder into this context (its own copy, another type identity);
+        // everything else comes from the default context.
+        private sealed class OwnCopyLoadContext : System.Runtime.Loader.AssemblyLoadContext
+        {
+            private readonly string _folder;
+
+            public OwnCopyLoadContext(string folder)
+                : base("own-copy", isCollectible: true)
+            {
+                _folder = folder;
+            }
+
+            protected override Assembly Load(AssemblyName name)
+            {
+                string path = Path.Combine(_folder, name.Name + ".dll");
+                return name.Name.StartsWith("UiPath.Cryptography", StringComparison.Ordinal) && File.Exists(path)
+                    ? LoadFromAssemblyPath(path)
+                    : null;
             }
         }
 
@@ -187,7 +208,9 @@ namespace UiPath.Cryptography.Activities.Tests
 
             string folder = Path.Combine(CryptographyFolder(), "UiPath.Cryptography.Activities.Packaging");
             string csproj = File.ReadAllText(Path.Combine(folder, "UiPath.Cryptography.Activities.Packaging.csproj"));
-            Assert.Contains("[$(PackageVersion)]", csproj);
+            // The version the Core project reported, not this project's own clock-based $(PackageVersion).
+            Assert.Contains("[%(_ProjectReferencesWithVersions.ProjectVersion)]", csproj);
+            Assert.DoesNotContain("[$(PackageVersion)]", csproj);
             Assert.Contains(@"PackagePath=""content\docs""", csproj);
             Assert.True(File.Exists(Path.Combine(folder, "docs", "overview.md")));
         }
