@@ -50,6 +50,8 @@
 	<ItemGroup>
 		<!-- Copied to the test output so DbWorkaroundsVersionTests can read managed package versions. -->
 		<Content Include="..\Directory.build.targets" CopyToOutputDirectory="Always" Link="Database.Directory.build.targets" />
+		<!-- The restore result of the Core package: the test checks that no Oracle library is in its dependency tree. -->
+		<Content Include="..\UiPath.Database.Core.Activities.Packaging\obj\project.assets.json" Condition="Exists('..\UiPath.Database.Core.Activities.Packaging\obj\project.assets.json')" CopyToOutputDirectory="Always" Link="Core.project.assets.json" />
 		<Content Include="..\UiPath.Database\UiPath.Database.csproj" CopyToOutputDirectory="Always" Link="Database.UiPath.Database.csproj" />
 		<Content Include="..\UiPath.Database.Core.Activities.Packaging\UiPath.Database.Core.Activities.Packaging.csproj" CopyToOutputDirectory="Always" Link="Database.UiPath.Database.Core.Activities.Packaging.csproj" />
 		<Content Include="..\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj" CopyToOutputDirectory="Always" Link="Database.UiPath.Data.ConnectionUI.Dialog.csproj" />

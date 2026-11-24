@@ -306,21 +306,13 @@ namespace UiPath.Database.Tests
         {
             // The direct references of UiPath.Database.dll are not enough: an Oracle reference added to the activities
             // project, the connection dialog or the packaging project would also ship the driver in the core package.
-            string assets = System.IO.Path.GetFullPath(System.IO.Path.Combine(
-                SourceDirectory(),
-                "..",
-                "UiPath.Database.Core.Activities.Packaging",
-                "obj",
-                "project.assets.json"));
-            if (!System.IO.File.Exists(assets))
-            {
-                // The packaging project is not restored when only this test project is built; the solution build does.
-                // On the build server a missing file would hide the check, so it fails there.
-                Assert.True(
-                    string.IsNullOrEmpty(Environment.GetEnvironmentVariable("TF_BUILD")),
-                    "The Core packaging project was not restored, so the no-Oracle check could not run: " + assets);
-                return;
-            }
+            // The test job runs on the build output, so the assets file of the packaging project is copied next to the
+            // test assembly at build time (see the csproj). It exists once the solution was restored; fail when it does
+            // not, because a missing file would otherwise hide the check.
+            string assets = System.IO.Path.Combine(AppContext.BaseDirectory, "Core.project.assets.json");
+            Assert.True(
+                System.IO.File.Exists(assets),
+                "Core.project.assets.json was not copied to the test output. Restore the solution (or the Core packaging project) and build again: " + assets);
 
             string text = System.IO.File.ReadAllText(assets);
             using (var document = System.Text.Json.JsonDocument.Parse(text))
@@ -334,8 +326,6 @@ namespace UiPath.Database.Tests
             }
         }
 
-        private static string SourceDirectory([System.Runtime.CompilerServices.CallerFilePath] string path = "") =>
-            System.IO.Path.GetDirectoryName(path);
     }
 
     public class DatabaseConnectionProviderTests
