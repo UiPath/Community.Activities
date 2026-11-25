@@ -12,7 +12,6 @@ parameters:
   sonarScannerVarsDll: ''
   sonarScannerVarsExe: ''
   msBuildPack: false
-  sdkBuild: false
   requiresLfs: false
   hasQaPackages: true
 
@@ -40,7 +39,6 @@ jobs:
     parameters:
       projectName: "${{ parameters.projectName }}"
       tagName: "${{ parameters.tagName }}"
-      sdkBuild: ${{ parameters.sdkBuild }}
       requiresLfs: ${{ parameters.requiresLfs }}
       msBuildPack: ${{ parameters.msBuildPack }}
       preBuild:

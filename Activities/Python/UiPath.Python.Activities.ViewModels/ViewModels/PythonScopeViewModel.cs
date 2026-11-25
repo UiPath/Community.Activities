@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UiPath.Python;
+using UiPath.Shared.ViewModels.Helpers;
 using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
 namespace UiPath.Activities.Python.ViewModels
@@ -33,6 +34,18 @@ namespace UiPath.Activities.Python.ViewModels
 
         [NotMappedProperty]
         public DesignProperty<string> InstalledVersions { get; set; }
+
+        // Older Studio versions ignore NoWrap and would store LocalResource.FromPath("...") in a string argument;
+        // unwrap it and keep relative paths portable ('/').
+        public override async ValueTask<UpdateViewModelResult> UpdateAsync(string propertyName, object value)
+        {
+            if (propertyName == nameof(Path) || propertyName == nameof(LibraryPath) || propertyName == nameof(WorkingFolder))
+            {
+                value = LocalResourcePathNormalizer.Normalize(value);
+            }
+
+            return await base.UpdateAsync(propertyName, value);
+        }
 
         protected override void InitializeModel()
         {

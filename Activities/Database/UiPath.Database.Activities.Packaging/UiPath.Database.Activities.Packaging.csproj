@@ -77,4 +77,18 @@
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
     </ItemGroup>
+
+    <!--
+        The extended assembly builds on the core package and both
+        packages come from one build: pin the dependency on UiPath.Database.Core.Activities to this exact version instead
+        of the default "this version or later". The version is the one the Core project reported (not this
+        project's own $(PackageVersion)): Debug versions come from the clock at evaluation, so the two can differ by a minute.
+    -->
+    <Target Name="PinCoreDependency" AfterTargets="_GetProjectReferenceVersions">
+        <ItemGroup>
+            <_ProjectReferencesWithVersions Condition="'%(_ProjectReferencesWithVersions.Filename)' == 'UiPath.Database.Core.Activities.Packaging'">
+                <ProjectVersion>[%(_ProjectReferencesWithVersions.ProjectVersion)]</ProjectVersion>
+            </_ProjectReferencesWithVersions>
+        </ItemGroup>
+    </Target>
 </Project>

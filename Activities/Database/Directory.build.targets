@@ -27,7 +27,7 @@
         <PackageReference Update="Microsoft.Data.Sqlite" Version="8.0.34" />
         <!-- Keep in sync with DbWorkarounds.Sqlite.MinVersion; must be >= 2.1.12 (CVE-2025-6965). -->
         <PackageReference Update="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.14" />
-        <PackageReference Update="Oracle.ManagedDataAccess.Core" Version="23.26.401"/>
+        <PackageReference Update="Oracle.ManagedDataAccess.Core" Version="23.26.200"/>
         <PackageReference Update="System.Resources.Extensions" Version="8.0.0" />
         <PackageReference Update="System.Activities.Presentation" Version="6.0.0-20250327.10" />
     </ItemGroup>

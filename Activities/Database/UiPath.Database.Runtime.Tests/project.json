@@ -5,8 +5,8 @@
   "main": "Tests\\TestMicrosoftSqlServer.xaml",
   "dependencies": {
     "UiPath.Database.Activities": "[1.8.2-preview]",
-    "UiPath.System.Activities": "[24.2.0-preview]",
-    "UiPath.UIAutomation.Activities": "[24.2.0-preview]"
+    "UiPath.System.Activities": "[26.10.1]",
+    "UiPath.UIAutomation.Activities": "[26.10.4]"
   },
   "webServices": [],
   "entitiesStores": [],

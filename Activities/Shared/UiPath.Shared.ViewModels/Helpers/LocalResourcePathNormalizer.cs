@@ -2,10 +2,11 @@ using System;
 using System.Activities;
 using System.Activities.Expressions;
 
-namespace UiPath.Activities.Java.ViewModels
+namespace UiPath.Shared.ViewModels.Helpers
 {
     /// <summary>
     /// Normalizes the value the LocalResource picker writes into a <c>string</c> path argument.
+    /// Shared by the activity packs that adopt the picker (Java, FTP, Python); each assembly compiles its own internal copy.
     /// </summary>
     internal static class LocalResourcePathNormalizer
     {
@@ -14,7 +15,7 @@ namespace UiPath.Activities.Java.ViewModels
         private const string DoubleBackslash = "\\\\";
 
         /// <summary>
-        /// Studio 25.10.1-25.10.14 ignore the <c>NoWrap</c> metadata and save a <c>LocalResource.FromPath("...")</c> expression
+        /// Older Studio versions ignore the <c>NoWrap</c> metadata and save a <c>LocalResource.FromPath("...")</c> expression
         /// with doubled backslashes, which is an <c>IResource</c> and cannot be assigned to a string argument. This unwraps it to
         /// the plain path (kept as a quoted string literal when the host sent a quoted expression) and removes the doubled backslashes.
         /// Relative literal paths are written with <c>/</c> (valid on every OS) because Studio on Windows saves them with a backslash,

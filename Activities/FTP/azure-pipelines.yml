@@ -37,7 +37,6 @@ stages:
     parameters:
       projectName: 'FTP'
       solutionPath: '$(SolutionsPath)/Activities.FTP.sln'
-      sdkBuild: false
       hasQaPackages: false
       preTestRun:
       - task: UseDotNet@2
