@@ -14,7 +14,7 @@ Downloads the specified files from an FTP server to the specified local folder. 
 | Name | Display Name | Kind | Type | Required | Default | Placeholder | Description |
 |------|-------------|------|------|----------|---------|-------------|-------------|
 | `RemotePath` | Path to files to download | InArgument | `string` | Yes |  | `/remote/folder` | The path of the files on the FTP server that are to be downloaded. |
-| `LocalPath` | Where to download | InArgument | `string` | Yes |  | `C:\Local\folder` | The local path for the files that are to be downloaded. |
+| `LocalPath` | Where to download | InArgument | `string` | Yes |  | `C:\Local\folder` | The local path for the files that are to be downloaded. Shows a file picker when the host supports it, otherwise a text box. |
 | `Recursive` | Include subfolders | Property | `bool` |  |  |  | If turned on, the folders are downloaded with their respective subfolders. |
 | `Create` | Create folder if missing | Property | `bool` |  |  |  | If turned on, the folder path is created locally in case it does not already exist. |
 | `Overwrite` | Overwrite existing files | Property | `bool` |  |  |  | If turned on, the files are overwritten locally if they are already stored there. |

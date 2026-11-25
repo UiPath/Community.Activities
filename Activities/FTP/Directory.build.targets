@@ -4,7 +4,7 @@
 
   <ItemGroup>
     <PackageReference Update="FluentFTP" Version="55.1.0" />
-    <PackageReference Update="UiPath.SSH.NET" Version="2026.0.1-alpha.14363218" />
+    <PackageReference Update="UiPath.SSH.NET" Version="2026.0.1" />
   </ItemGroup>
 
 </Project>

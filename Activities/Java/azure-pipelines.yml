@@ -37,7 +37,6 @@ stages:
     parameters:
       projectName: 'Java'
       solutionPath: '$(SolutionsPath)/Activities.Java.sln'
-      sdkBuild: false
       hasQaPackages: false
       preTestRun:
       - task: UseDotNet@2

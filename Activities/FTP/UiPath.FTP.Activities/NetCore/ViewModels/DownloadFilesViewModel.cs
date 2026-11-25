@@ -1,5 +1,6 @@
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
 using UiPath.FTP.Activities.Properties;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
@@ -39,6 +40,8 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// </summary>
         public DesignProperty<bool> Overwrite { get; set; } = new DesignProperty<bool>();
 
+        protected override IReadOnlyCollection<string> LocalResourcePathProperties => new[] { nameof(LocalPath) };
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -61,6 +64,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             LocalPath.IsPrincipal = true;
             LocalPath.OrderIndex = orderIndex++;
             LocalPath.Category = Resources.Input;
+            WidgetSupportHelper.ApplyLocalResourceWidget(LocalPath, Services);
 
             Create.DisplayName = Resources.Activity_DownloadFiles_Property_Create_Name;
             Create.Tooltip = Resources.Activity_DownloadFiles_Property_Create_Description;

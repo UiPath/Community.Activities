@@ -4,8 +4,8 @@
   "description": "Project containing runtime tests for Cryptography activities.",
   "main": "Tests\\SampleTest.xaml",
   "dependencies": {
-    "UiPath.Cryptography.Activities": "[1.5.0]",
-    "UiPath.System.Activities": "[24.2.0-preview]"
+    "UiPath.Cryptography.Activities": "[2.4.0]",
+    "UiPath.System.Activities": "[26.10.1]"
   },
   "webServices": [],
   "entitiesStores": [],

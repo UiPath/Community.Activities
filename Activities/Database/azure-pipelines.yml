@@ -39,7 +39,6 @@ stages:
     parameters:
       projectName: 'Database'
       solutionPath: '$(SolutionsPath)/Activities.Database.sln'
-      sdkBuild: false
       hasQaPackages: false
       preTestRun:
       - task: UseDotNet@2

@@ -23,7 +23,7 @@ Connects to FTP server and provides a scope for other FTP activities.
 | `FtpsMode` | FTPS mode | Property | `FtpsMode` |  |  |  | Switches to the FTPS protocol. Choose one of the two available options: Explicit or Implicit. |
 | `SslProtocols` | SSL protocols | Property | `FtpSslProtocols` |  |  | `Auto: negotiate the best available protocol` | Select the SSL protocol to be used for the FTPS connection. |
 | `UseSftp` | Use SFTP | Property | `bool` |  |  |  | Turn on to use the SFTP transfer protocol. |
-| `ClientCertificatePath` | Client certificate file | InArgument | `string` |  |  | `C:\Certificates\client.pfx` | The path to the certificate used to verify the identity of the client. |
+| `ClientCertificatePath` | Client certificate file | InArgument | `string` |  |  | `C:\Certificates\client.pfx` | The path to the certificate used to verify the identity of the client. Shows a file picker when the host supports it, otherwise a text box. |
 | `ClientCertificatePassword` | Client certificate password | InArgument | `string` |  |  |  | The password for the client certificate. |
 | `ClientCertificateSecurePassword` | Client certificate secure password | InArgument | `SecureString` |  |  |  | The password for client certificate in secure string format. |
 | `AcceptAllCertificates` | Accept all certificates | Property | `bool` |  |  |  | If turned on, all certificates are accepted, including the ones that are expired or not verified. |

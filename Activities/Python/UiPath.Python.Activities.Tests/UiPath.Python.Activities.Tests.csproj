@@ -30,4 +30,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Shared\Tests\UiPath.Shared.ViewModels.Tests\Helpers\LocalResourcePathNormalizerTests.cs" Link="Helpers\LocalResourcePathNormalizerTests.cs" />
+  </ItemGroup>
 </Project>

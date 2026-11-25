@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DesignPropertyHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocalResourcePathNormalizer.cs" />
   </ItemGroup>
 </Project>
