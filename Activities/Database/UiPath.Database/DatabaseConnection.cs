@@ -90,24 +90,37 @@ namespace UiPath.Database
             DataTable resultTable;
             using (var reader = _command.ExecuteReader())
             {
-                // First result set: DataTable.Load preserves exact backward-compatible behaviour
-                // (schema inference, PrimaryKey, constraints, LoadOption merging).
-                // Load internally calls reader.NextResult() after consuming the rows, and calls
-                // reader.Close() when NextResult() returns false, so IsClosed is reliable here.
-                var firstTable = new DataTable();
-                firstTable.Load(reader);
-                resultDataSet.Tables.Add(firstTable);
+                bool hasMoreResults;
+                if (reader is SqliteDataReader sqliteReader)
+                {
+                    // SQLite (STUD-82629): DataTable.Load calls GetSchemaTable, and Microsoft.Data.Sqlite answers it by
+                    // running "SELECT typeof(col) FROM table ... GROUP BY typeof(col)" for every selected table column,
+                    // which reads the WHOLE source table once per column, whatever the WHERE clause or indexes.
+                    // ReadSqliteResultSet builds the DataTable without GetSchemaTable. SQLite advances to the next
+                    // result set here, because only DataTable.Load does that (and closes the reader) by itself.
+                    resultDataSet.Tables.Add(ReadSqliteResultSet(sqliteReader));
+                    hasMoreResults = reader.NextResult();
+                }
+                else
+                {
+                    // Other providers: DataTable.Load preserves exact backward-compatible behaviour
+                    // (schema inference, PrimaryKey, constraints, LoadOption merging).
+                    // Load internally calls reader.NextResult() after consuming the rows, and calls
+                    // reader.Close() when NextResult() returns false, so IsClosed is reliable here.
+                    var firstTable = new DataTable();
+                    firstTable.Load(reader);
+                    resultDataSet.Tables.Add(firstTable);
+                    hasMoreResults = !reader.IsClosed;
+                }
 
-                // Subsequent result sets: manual loop because Load already advanced the reader.
+                // Subsequent result sets: manual loop because the first result set already advanced the reader.
                 // reader.NextResult() is the authoritative termination signal.
                 int resultSetCount = 1;
-                while (!reader.IsClosed && resultSetCount < MaxResultSets)
+                while (hasMoreResults && resultSetCount < MaxResultSets)
                 {
                     resultDataSet.Tables.Add(ReadResultSet(reader));
                     resultSetCount++;
-
-                    if (!reader.NextResult())
-                        break;
+                    hasMoreResults = reader.NextResult();
                 }
 
                 resultTable = resultDataSet.Tables[0];
@@ -433,6 +446,158 @@ namespace UiPath.Database
             }
 
             return table;
+        }
+
+        // Reads the current SQLite result set into a new DataTable without calling GetSchemaTable (STUD-82629).
+        // Does NOT call NextResult — the caller owns result-set advancement.
+        //
+        // Why not DataTable.Load: Load calls reader.GetSchemaTable(), and Microsoft.Data.Sqlite (8.0 to 10.0) picks
+        // each table column's type there with "SELECT typeof(col) FROM table WHERE typeof(col) != 'null'
+        // GROUP BY typeof(col) ORDER BY count() DESC LIMIT 1", one full pass over the source table per column.
+        // On a 2.5 GB file that is ~18 s per column even when the query returns a single row by index.
+        //
+        // Why not ReadResultSet: it types each column from the first row only. SQLite stores a type per value, so a
+        // column can hold mixed types (e.g. a DATE column with 20260101 and '2026-01-02'). Typing it Int64 from the
+        // first row makes Rows.Add throw "Couldn't store <2026-01-02> in D Column" on data DataTable.Load accepted.
+        //
+        // What this does instead, keeping the rule the driver uses but scoped to the rows actually returned:
+        //  - buffers the rows, then gives each column the most common .NET type among its non-null values
+        //    (ties go to the type seen first);
+        //  - a column with no non-null value keeps the type the driver reports before the first row is read
+        //    (GetFieldType: the first row's stored type, else the affinity of the declared column type);
+        //  - values of a less common type are converted by the DataColumn, as DataTable.Load did;
+        //  - rows end Unchanged and duplicate names get the same "Name1", "Name2" suffixes, as with DataTable.Load.
+        // Known difference from DataTable.Load (2.1.0/2.1.1): no constraints are copied from the table, so there is
+        // no PrimaryKey (Load set one only for WITHOUT ROWID tables), AllowDBNull is always true, and Unique and
+        // AutoIncrement are false. These come from GetSchemaTable, and reading them cheaply needs driver internals.
+        // The rows are held twice while the table is built (buffer plus DataTable), so peak memory is a bit higher.
+        private static DataTable ReadSqliteResultSet(SqliteDataReader reader)
+        {
+            int fieldCount = reader.FieldCount;
+            var table = new DataTable();
+            if (fieldCount == 0)
+                return table;
+
+            // Before Read(), Microsoft.Data.Sqlite already holds the first row, so this is the first row's type
+            // or, for NULL or no rows, the declared type's affinity. Used only for columns with no non-null value.
+            var fallbackTypes = new Type[fieldCount];
+            for (int i = 0; i < fieldCount; i++)
+            {
+                try { fallbackTypes[i] = reader.GetFieldType(i); } catch { fallbackTypes[i] = null; }
+            }
+
+            var rows = new List<object[]>();
+            var typeCounts = new Dictionary<Type, int>[fieldCount];
+            var firstSeen = new List<Type>[fieldCount];
+            for (int i = 0; i < fieldCount; i++)
+            {
+                typeCounts[i] = new Dictionary<Type, int>();
+                firstSeen[i] = new List<Type>();
+            }
+
+            while (reader.Read())
+            {
+                var values = new object[fieldCount];
+                reader.GetValues(values);
+                rows.Add(values);
+                for (int i = 0; i < fieldCount; i++)
+                {
+                    if (values[i] == null || values[i] is DBNull)
+                        continue;
+                    var type = values[i].GetType();
+                    if (typeCounts[i].TryGetValue(type, out int count))
+                        typeCounts[i][type] = count + 1;
+                    else
+                    {
+                        typeCounts[i][type] = 1;
+                        firstSeen[i].Add(type);
+                    }
+                }
+            }
+
+            var names = new string[fieldCount];
+            for (int i = 0; i < fieldCount; i++)
+            {
+                try { names[i] = reader.GetName(i); } catch { names[i] = null; }
+            }
+            BuildUniqueColumnNames(names);
+
+            for (int i = 0; i < fieldCount; i++)
+            {
+                Type columnType = null;
+                int best = 0;
+                foreach (var type in firstSeen[i]) // in first-seen order, so ties go to the type seen first
+                {
+                    int count = typeCounts[i][type];
+                    if (count > best)
+                    {
+                        best = count;
+                        columnType = type;
+                    }
+                }
+
+                table.Columns.Add(names[i], columnType ?? fallbackTypes[i] ?? typeof(object));
+            }
+
+            table.BeginLoadData();
+            try
+            {
+                foreach (var values in rows)
+                    table.LoadDataRow(values, true); // true = AcceptChanges, rows end Unchanged like DataTable.Load
+            }
+            finally
+            {
+                table.EndLoadData();
+            }
+
+            return table;
+        }
+
+        // Makes result column names unique in place, with the same rule DataTable.Load uses
+        // (System.Data.Common.ADP.BuildSchemaTableInfoTableNames, internal to .NET), so SQLite results keep
+        // the column names they had in 2.1.1. Names compare case-insensitively. The first column with a name keeps it;
+        // a later duplicate keeps its own spelling plus the lowest number (from 1) that no other column, original
+        // or renamed, already uses ("a, a, a1" gives "a, a2, a1"). Empty names become "Column1", "Column2", ...
+        private static void BuildUniqueColumnNames(string[] names)
+        {
+            var firstIndex = new Dictionary<string, int>(names.Length, StringComparer.OrdinalIgnoreCase);
+            int start = names.Length; // lowest index that may need a new name
+            for (int i = names.Length - 1; i >= 0; i--) // backwards, so each name ends up mapped to its first column
+            {
+                if (!string.IsNullOrEmpty(names[i]))
+                {
+                    if (firstIndex.TryGetValue(names[i], out int later))
+                        start = Math.Min(start, later);
+                    firstIndex[names[i]] = i;
+                }
+                else
+                {
+                    names[i] = string.Empty;
+                    start = i;
+                }
+            }
+
+            int emptySuffix = 1; // shared by all unnamed columns, as in DataTable.Load
+            for (int i = start; i < names.Length; i++)
+            {
+                if (names[i].Length == 0)
+                    emptySuffix = AddUniqueName(firstIndex, ref names[i], "Column", i, emptySuffix);
+                else if (firstIndex[names[i]] != i)
+                    AddUniqueName(firstIndex, ref names[i], names[i], i, 1);
+            }
+        }
+
+        private static int AddUniqueName(Dictionary<string, int> usedNames, ref string name, string baseName, int index, int suffix)
+        {
+            for (; ; suffix++)
+            {
+                string candidate = baseName + suffix.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                if (usedNames.TryAdd(candidate, index))
+                {
+                    name = candidate;
+                    return suffix;
+                }
+            }
         }
 
         private DbProviderFactory GetCurrentFactory()
