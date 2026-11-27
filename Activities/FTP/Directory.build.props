@@ -16,9 +16,9 @@
          away from the one that was packed. Set FtpDevRevision (property or environment variable) to one value for a local
          build of both packages, e.g. dotnet build -p:FtpDevRevision=500. CI passes /p:Version and is not affected. -->
     <VersionRevision Condition="'$(FtpDevRevision)' != ''">$(FtpDevRevision)</VersionRevision>
-    <VersionPrefix Condition="'$(Configuration)' == 'Release'">4.0.0</VersionPrefix>
-    <VersionPrefix Condition="'$(Configuration)' == 'Debug'">4.0.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
-    <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">4.0.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
+    <VersionPrefix Condition="'$(Configuration)' == 'Release'">4.1.0</VersionPrefix>
+    <VersionPrefix Condition="'$(Configuration)' == 'Debug'">4.1.$(VersionBuild)-dev.$(VersionRevision)</VersionPrefix>
+    <AssemblyVersion Condition="'$(Configuration)' == 'Debug' and '$(VersionPrefix)' != '' ">4.1.$(VersionBuild).$(VersionRevision)</AssemblyVersion>
     <!--leave empty for ci to replace with pre-release tag-->
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
   </PropertyGroup>
