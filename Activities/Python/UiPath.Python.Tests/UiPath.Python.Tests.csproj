@@ -23,15 +23,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Validation" Version="2.4.18" />
-    <PackageReference Include="Xunit.SkippableFact" Version="1.3.12" />
+    <PackageReference Include="Xunit.SkippableFact" Version="1.5.85" />
   </ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\..\Shared\UiPath.TestUtils\UiPath.TestUtils.csproj" />
-    <ProjectReference Include="..\UiPath.Python.Host32\UiPath.Python.Host32.csproj" />
-    <ProjectReference Include="..\UiPath.Python.Host\UiPath.Python.Host.csproj" />
-    <ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
+		<ProjectReference Include="..\..\Shared\UiPath.TestUtils\UiPath.TestUtils.csproj" />
+		<ProjectReference Include="..\UiPath.Python.Host\UiPath.Python.Host.csproj" />
+		<ProjectReference Include="..\UiPath.Python\UiPath.Python.csproj" />
+	</ItemGroup>
+  <ItemGroup>
+    <!-- The host is out of process, so its resolver is compiled into the tests to be covered. -->
+    <Compile Include="..\UiPath.Python.Host.Shared\HostAssemblyResolver.cs" Link="Host\HostAssemblyResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\xunit.runner.json">
@@ -39,11 +41,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-      xcopy "$(SolutionDir)Python\3rdparty\*" "$(TargetDir)x86\" /Y
-      xcopy "$(SolutionDir)Python\3rdparty\x64\*" "$(TargetDir)x64\" /Y
-    </PostBuildEvent>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
-  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\3rdparty\python-3.14.5-embed-amd64.zip">
+      <Link>EmbeddedPython\python-3.14.5-embed-amd64.zip</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\3rdparty\python-3.15.0-embed-amd64.zip">
+      <Link>EmbeddedPython\python-3.15.0-embed-amd64.zip</Link>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

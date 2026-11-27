@@ -10,15 +10,14 @@ namespace UiPath.Data.ConnectionUI.Dialog
 {
     public class DataSource
     {
-        private string _name;
-        private string _displayName;
+        private readonly string _name;
+        private readonly string _displayName;
         private DataProvider _defaultProvider;
-        private ICollection<DataProvider> _providers;
+        private readonly ICollection<DataProvider> _providers;
         private static DataSource _accessDataSource;
         private static DataSource _sqlDataSource;
         private static DataSource _sqlFileDataSource;
         private static DataSource _odbcDataSource;
-        private static DataSource _oracleManagedDataAccessaSource;
         private static DataSource _sqliteDataSource;
         private static DataSource _unspecifiedDataSource;
 
@@ -79,19 +78,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
             }
         }
 
-        public static DataSource OracleManagedDataAccessSource
-        {
-            get
-            {
-                if (_oracleManagedDataAccessaSource == null)
-                {
-                    _oracleManagedDataAccessaSource = new DataSource("OracleManagedDataAccess", Resources.DataProvider_Oracle);
-                    _oracleManagedDataAccessaSource.Providers.Add(DataProvider.OracleManagedDataAccessProvider);
-                }
-                return _oracleManagedDataAccessaSource;
-            }
-        }
-
         public static DataSource SqliteDataSource
         {
             get
@@ -115,9 +101,18 @@ namespace UiPath.Data.ConnectionUI.Dialog
                     _unspecifiedDataSource.Providers.Add(DataProvider.OdbcDataProvider);
                     _unspecifiedDataSource.Providers.Add(DataProvider.OleDBDataProvider);
                     _unspecifiedDataSource.Providers.Add(DataProvider.SqlDataProvider);
-                    _unspecifiedDataSource.Providers.Add(DataProvider.OracleManagedDataAccessProvider);
                     _unspecifiedDataSource.Providers.Add(DataProvider.SqliteDataProvider);
                 }
+
+                // Providers of installed extra packages (Oracle): they can be installed after the first access.
+                foreach (IConnectionDialogProvider extra in ConnectionDialogProviders.GetAll())
+                {
+                    if (!_unspecifiedDataSource.Providers.Any(provider => provider.Name == extra.DataProvider.Name))
+                    {
+                        _unspecifiedDataSource.Providers.Add(extra.DataProvider);
+                    }
+                }
+
                 return _unspecifiedDataSource;
             }
         }

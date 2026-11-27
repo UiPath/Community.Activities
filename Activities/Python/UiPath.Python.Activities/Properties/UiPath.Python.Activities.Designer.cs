@@ -178,7 +178,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}.
+        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required): {0}.
         /// </summary>
         public static string InvalidLibraryPathException {
             get {
@@ -241,7 +241,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For Linux is the path to Python libpython*.so library including library name. For Windows (Version&gt;3.9) path to python**.dll including library name(usually is in Python Home path. For Windows (Version&lt;=3.9) leave empty..
+        ///   Looks up a localized string similar to Required. Full path to the Python runtime library including the file name — python**.dll on Windows (e.g. python313.dll, usually in the Python home folder), libpython*.so on Linux, or libpython*.dylib on macOS..
         /// </summary>
         public static string LibraryPathDescription {
             get {
@@ -250,7 +250,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Library path (Linux or version&gt;3.9).
+        ///   Looks up a localized string similar to Library path.
         /// </summary>
         public static string LibraryPathNameDisplayName {
             get {
@@ -322,7 +322,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Python installations were detected.
+        ///   Looks up a localized string similar to No supported Python installations (64-bit 3.11 or later) were detected.
         /// </summary>
         public static string NoPythonInstallations {
             get {

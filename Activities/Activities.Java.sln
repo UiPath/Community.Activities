@@ -15,8 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.Java.Activities.Pack
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{871CD9F5-AE6C-4C8B-9BE8-B1F1BBC0C8F0}"
 	ProjectSection(SolutionItems) = preProject
-		..\Directory.build.targets = ..\Directory.build.targets
-		Java\Java.build.props = Java\Java.build.props
+		Directory.build.props = Directory.build.props
+		Directory.build.targets = Directory.build.targets
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UiPath.TestUtils", "Shared\UiPath.TestUtils\UiPath.TestUtils.csproj", "{D2C94889-1E86-4ABD-9D5E-631B3463DA86}"
@@ -26,6 +26,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Java.Activities.API", "Java\UiPath.Java.Activities.API\UiPath.Java.Activities.API.csproj", "{18186ED9-7099-72E8-BCA8-70EE38BC07BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiPath.Java.Activities.API.Tests", "Java\UiPath.Java.Activities.API.Tests\UiPath.Java.Activities.API.Tests.csproj", "{8018DEB1-4B08-4CC3-8FCC-60D891CEF710}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Java", "Java", "{0BCBB051-2AB6-47FC-81C7-F73ACD47E769}"
+	ProjectSection(SolutionItems) = preProject
+		Java\Directory.build.props = Java\Directory.build.props
+		Java\Directory.build.targets = Java\Directory.build.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +78,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0BCBB051-2AB6-47FC-81C7-F73ACD47E769} = {871CD9F5-AE6C-4C8B-9BE8-B1F1BBC0C8F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5AC55779-EA32-41AD-BAAD-1808F8A412CB}

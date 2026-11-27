@@ -77,131 +77,109 @@ namespace UiPath.Python.Tests
 
         #region Runtimes
 
-        public static IEnumerable<object[]> X86Engines =>
-            new List<object[]>
-            {
-                new object[]
-                {
-                    @"C:\Python\python36-x86",
-                    Version.Python_36
-                },
-                new object[]
-                {
-                     @"C:\Python\python37-x86",
-                    Version.Python_37
-                },
-                new object[]
-                {
-                    @"C:\Python\python38-x86",
-                    Version.Python_38
-                },
-                new object[]
-                {
-                    @"C:\Python\Python39-x86",
-                    Version.Python_39
-                }
-            };
+        private static readonly string EmbeddedRuntimePath = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath(EmbeddedPythonRuntimeBootstrap.Python314);
+        private static readonly string EmbeddedLibraryPath = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedRuntimePath);
 
+        private static readonly string EmbeddedRuntimePath315 = EmbeddedPythonRuntimeBootstrap.EnsureRuntimePath(EmbeddedPythonRuntimeBootstrap.Python315);
+        private static readonly string EmbeddedLibraryPath315 = EmbeddedPythonRuntimeBootstrap.GetPythonLibraryPath(EmbeddedRuntimePath315);
+
+        public static IEnumerable<object[]> X86Engines =>
+            Array.Empty<object[]>();
+
+        // In-process engines load the Python library into this test process and cache it, so only one
+        // runtime can be exercised per process; the out-of-process cases below cover every runtime.
         public static IEnumerable<object[]> X64Engines =>
             new List<object[]>
             {
                 new object[]
                 {
-                    @"C:\Python\python36-x64",
-                    Version.Python_36
-                },
-                new object[]
-                {
-                    @"C:\Python\python37-x64",
-                    Version.Python_37
-                },
-                new object[]
-                {
-                    @"C:\Python\python38-x64",
-                    Version.Python_38
-                },
-                new object[]
-                {
-                   @"C:\Python\python39-x64",
-                    Version.Python_39
+                    EmbeddedRuntimePath,
+                    Version.Python_310,
+                    EmbeddedLibraryPath
                 }
             };
 
-        public static IEnumerable<object[]> AllEngines = X86Engines.Union(X64Engines);
+        public static IEnumerable<object[]> AllEngines =>
+            new List<object[]>
+            {
+                new object[]
+                {
+                    EmbeddedRuntimePath,
+                    Version.Python_310,
+                    EmbeddedLibraryPath
+                },
+                new object[]
+                {
+                    EmbeddedRuntimePath315,
+                    Version.Python_310,
+                    EmbeddedLibraryPath315
+                }
+            };
 
         #endregion Runtimes
 
         #region Test cases
 
-        [SkippableTheory]
+        [Theory]
         [Trait(TestCategories.Category, Category)]
         [MemberData(nameof(AllEngines))]
-        public void AutomaticVersionDetection(string path, Version version)
+        public void AutomaticVersionDetection(string path, Version version, string libraryPath)
         {
             Skip.IfNot(ValidateRuntime(path));
-            var target = X64Engines.Any(x => x[0].Equals(path) && x[1].Equals(version))
-                ? TargetPlatform.x64
-                : TargetPlatform.x86;
-            var engine = EngineProvider.Get(Version.Auto, path, null, true, target, true);
+            var engine = EngineProvider.Get(Version.Auto, path, libraryPath, true, TargetPlatform.x64, true);
             Assert.Equal(engine.Version, version);
         }
 
-        [SkippableTheory]
+        [Theory]
         [Trait(TestCategories.Category, Category)]
-        [MemberData(nameof(X86Engines))]
-        public async Task Simple_InProcess(string path, Version version)
+        [MemberData(nameof(X64Engines))]
+        public async Task Simple_InProcess(string path, Version version, string libraryPath)
         {
             Skip.IfNot(ValidateRuntime(path));
 
-            await RunBasicTest(path, version, true, TargetPlatform.x86);
+            await RunBasicTest(path, version, libraryPath, true, TargetPlatform.x64);
         }
 
-        [SkippableTheory]
+        [Theory]
         [Trait(TestCategories.Category, Category)]
         [MemberData(nameof(AllEngines))]
-        public async Task Simple_OutOfProcess(string path, Version version)
+        public async Task Simple_OutOfProcess(string path, Version version, string libraryPath)
         {
             Skip.IfNot(ValidateRuntime(path));
 
-            var target = X64Engines.Any(x => x[0].Equals(path) && x[1].Equals(version))
-                ? TargetPlatform.x64
-                : TargetPlatform.x86;
-            await RunBasicTest(path, version, false, target);
+            await RunBasicTest(path, version, libraryPath, false, TargetPlatform.x64);
         }
 
-        [SkippableTheory]
+        [Theory]
         [Trait(TestCategories.Category, Category)]
-        [MemberData(nameof(X86Engines))]
-        public async Task Types_InProcess(string path, Version version)
+        [MemberData(nameof(X64Engines))]
+        public async Task Types_InProcess(string path, Version version, string libraryPath)
         {
             Skip.IfNot(ValidateRuntime(path));
 
-            await RunTypesTest(path, version, true, TargetPlatform.x86);
-            await RunUnicodeTests(path, version, true, TargetPlatform.x86);
+            await RunTypesTest(path, version, libraryPath, true, TargetPlatform.x64);
+            await RunUnicodeTests(path, version, libraryPath, true, TargetPlatform.x64);
         }
 
-        [SkippableTheory]
+        [Theory]
         [Trait(TestCategories.Category, Category)]
         [MemberData(nameof(AllEngines))]
-        public async Task Types_OutOfProcess(string path, Version version)
+        public async Task Types_OutOfProcess(string path, Version version, string libraryPath)
         {
             Skip.IfNot(ValidateRuntime(path));
 
-            var target = X64Engines.Any(x => x[0].Equals(path) && x[1].Equals(version))
-                ? TargetPlatform.x64
-                : TargetPlatform.x86;
-            await RunTypesTest(path, version, false, target);
-            await RunUnicodeTests(path, version, false, target);
+            await RunTypesTest(path, version, libraryPath, false, TargetPlatform.x64);
+            await RunUnicodeTests(path, version, libraryPath, false, TargetPlatform.x64);
         }
 
         #endregion Test cases
 
         #region Actual tests to run
 
-        private async Task RunTypesTest(string path, Version version, bool inProcess, TargetPlatform target)
+        private async Task RunTypesTest(string path, Version version, string libraryPath, bool inProcess, TargetPlatform target)
         {
             // init engine
-            var engine = EngineProvider.Get(version, path, null, inProcess, target, true);
+            var engine = EngineProvider.Get(version, path, libraryPath, inProcess, target, true);
             await engine.Initialize(null, _ct);
             // load test script
             var pyScript = await engine.LoadScript(_typeTestScript, _ct);
@@ -224,10 +202,10 @@ namespace UiPath.Python.Tests
             await engine.Release();
         }
 
-        private async Task RunUnicodeTests(string path, Version version, bool inProcess, TargetPlatform target)
+        private async Task RunUnicodeTests(string path, Version version, string libraryPath, bool inProcess, TargetPlatform target)
         {
             // init engine
-            var engine = EngineProvider.Get(version, path, null, inProcess, target, true);
+            var engine = EngineProvider.Get(version, path, libraryPath, inProcess, target, true);
             await engine.Initialize(null, _ct);
             // load test script
             var pyScript = await engine.LoadScript(_unicodeTestScript, _ct);
@@ -236,9 +214,9 @@ namespace UiPath.Python.Tests
             await engine.Release();
         }
 
-        private async Task RunBasicTest(string path, Version version, bool inProcess, TargetPlatform target)
+        private async Task RunBasicTest(string path, Version version, string libraryPath, bool inProcess, TargetPlatform target)
         {
-            var engine = EngineProvider.Get(version, path, null, inProcess, target, true);
+            var engine = EngineProvider.Get(version, path, libraryPath, inProcess, target, true);
             await engine.Initialize(null, _ct);
 
             await engine.Execute(_basicTestScript, _ct);

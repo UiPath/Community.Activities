@@ -157,7 +157,7 @@
     <value>指定的 Python 路径无效: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>指定的 Python 库路径无效（需要指向 Python 3.10 的 python**.dll 或 libpython*.so 的文件路径）：{0}</value>
+    <value>指定的 Python 库路径无效（需要指向 python**.dll 或 libpython*.so 的文件路径）：{0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>调用 Python 方法时出错</value>
@@ -291,13 +291,13 @@
     <value>超时</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>在遭到终止及引发异常前，允许 Python 脚本运行的时长。</value>
+    <value>允许 Python 脚本运行的时间（秒），超时后将终止脚本并抛出异常。</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>对于 Linux，是 Python libpython*.so 库的路径，包含库名称。对于 Windows (版本 &gt; 3.9)，是 python**.dll 的路径，包括库名称 (通常位于 Python 主页路径)。对于 Windows (版本 &lt;= 3.9)，留空。</value>
+    <value>必填。Python 运行时库的完整路径，包括文件名 — Windows 上为 python**.dll（例如 python313.dll，通常在 Python 主目录中），Linux 上为 libpython*.so，macOS 上为 libpython*.dylib。</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>库路径 (适用于 Linux 或版本 &gt; 3.9 的 Windows)</value>
+    <value>库路径</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>选择的 Python 版本不受支持。</value>
@@ -316,7 +316,7 @@
     <value>选择用于配置活动的 Python 安装</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>未检测到 Python 安装</value>
+    <value>未检测到受支持的 Python 安装（64 位 3.11 或更高版本）</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>脚本数据大小限制 (MB)</value>

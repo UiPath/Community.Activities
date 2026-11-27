@@ -222,6 +222,9 @@
   <data name="NoValidAuthenticationMethod" xml:space="preserve">
     <value>Nu a fost găsită nicio metodă de autentificare validă: trebuie să furnizați fie fișierul Private Key (și, opțional, fraza de acces), fie parola</value>
   </data>
+  <data name="AnonymousLoginNotSupportedOnSftp" xml:space="preserve">
+    <value>Autentificarea anonimă nu este acceptată prin SFTP. Dezactivați opțiunea Use Anonymous Login sau Use SFTP.</value>
+  </data>
   <data name="NewPath" xml:space="preserve">
     <value>Noua cale la distanță</value>
   </data>
@@ -321,10 +324,10 @@
     <value>Comun</value>
   </data>
   <data name="Activity_WithFtpSession_Property_DisplayName_Name" xml:space="preserve">
-    <value>Domeniul sesiunii FTP</value>
+    <value>Folosește conexiunea FTP</value>
   </data>
   <data name="Activity_Delete_Description" xml:space="preserve">
-    <value>Elimină un fișier specificat de pe un server FTP. Această activitate funcționează doar dacă este plasată într-o activitate de scop With FTP Session.</value>
+    <value>Elimină un fișier sau un folder de pe un server FTP. Această activitate funcționează numai dacă este plasată în interiorul unei activități Use FTP Connection.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_Delete_Name" xml:space="preserve">
@@ -340,11 +343,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DirectoryExists_Description" xml:space="preserve">
-    <value>Verifică dacă există un anumit director pe un server FTP. Această activitate funcționează doar dacă este plasată într-o activitate de scop With FTP Session.</value>
+    <value>Verifică dacă există un folder pe un server FTP. Această activitate funcționează numai dacă este plasată în interiorul unei activități Use FTP Connection.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DirectoryExists_Name" xml:space="preserve">
-    <value>Directory Exists</value>
+    <value>Check If Folder Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_Exists_Description" xml:space="preserve">
@@ -360,27 +363,27 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_DirectoryExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Calea folderului</value>
+    <value>Cale folder</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Description" xml:space="preserve">
-    <value>Generează o colecție de fișiere care au fost găsite pe serverul FTP. Subfolderele pot fi, de asemenea, incluse în căutare bifând căsuța Include subfoldere. Această activitate funcționează doar dacă este plasată într-o activitate de scop With FTP Session.</value>
+    <value>Generează o colecție de fișiere și foldere găsite pe serverul FTP. Subfolderele pot fi incluse și prin activarea opțiunii Include subfolders. Această activitate funcționează numai dacă este plasată într-o activitate Use FTP Connection.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Name" xml:space="preserve">
-    <value>Enumerate Objects</value>
+    <value>List Files and Folders</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Description" xml:space="preserve">
-    <value>O colecție de fișiere care au fost găsite pe serverul FTP.</value>
+    <value>Colecția de fișiere și foldere găsite pe serverul FTP.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Files_Name" xml:space="preserve">
-    <value>Dosare</value>
+    <value>Fișiere și foldere</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Description" xml:space="preserve">
-    <value>Dacă această căsuță este bifată, subfolderele sunt incluse și în enumerarea fișierelor de pe serverul FTP.</value>
+    <value>Dacă este activată, subfolderele sunt incluse și în listare.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Recursive_Name" xml:space="preserve">
@@ -388,19 +391,19 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Description" xml:space="preserve">
-    <value>Calea directorului pe serverul FTP ale cărui fișiere trebuie enumerate.</value>
+    <value>Calea folderului de pe serverul FTP al cărui conținut este listat.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_RemotePath_Name" xml:space="preserve">
-    <value>Calea Îndepărtată</value>
+    <value>Cale folder</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_FileExists_Description" xml:space="preserve">
-    <value>Verifică dacă un anumit fișier există în directorul FTP specificat. Această activitate funcționează doar dacă este plasată într-o activitate de scop With FTP Session.</value>
+    <value>Verifică dacă există un fișier în folderul FTP specificat. Această activitate funcționează numai dacă este plasată în interiorul unei activități Use FTP Connection.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_FileExists_Name" xml:space="preserve">
-    <value>File Exists</value>
+    <value>Check If File Exists</value>
     <comment>Activity name</comment>
   </data>
   <data name="Activity_FileExists_Property_Exists_Description" xml:space="preserve">
@@ -416,11 +419,11 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_FileExists_Property_RemotePath_Name" xml:space="preserve">
-    <value>Calea fișierului</value>
+    <value>Cale fișier</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Description" xml:space="preserve">
-    <value>Încarcă un fișier pe un server FTP. Această activitate funcționează doar dacă este plasată într-o activitate de scop With FTP Session.</value>
+    <value>Încarcă fișiere pe un server FTP. Această activitate funcționează numai dacă este plasată în interiorul unei activități Use FTP Connection.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_UploadFiles_Name" xml:space="preserve">
@@ -428,11 +431,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Description" xml:space="preserve">
-    <value>Dacă această casă este bifată, calea folderului va fi creată pe serverul FTP în cazul în care nu există deja.</value>
+    <value>Dacă este activată, calea folderului este creată pe serverul FTP dacă nu există deja.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Creează</value>
+    <value>Creați folderul dacă lipsește</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -444,15 +447,15 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>Dacă această casă este bifată, fișierele vor fi suprascrise pe serverul FTP dacă sunt deja stocate acolo.</value>
+    <value>Dacă este activată, fișierele sunt suprascrise pe serverul FTP dacă sunt deja stocate acolo.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Suprascrie</value>
+    <value>Suprascrie fișierele existente</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>Dacă această căsuță este bifată, folderele vor fi încărcate cu subfolderele respective.</value>
+    <value>Dacă este activată, folderele sunt încărcate împreună cu subfolderele corespunzătoare.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_UploadFiles_Property_Recursive_Name" xml:space="preserve">
@@ -476,7 +479,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Description" xml:space="preserve">
-    <value>Dacă această căsuță este bifată, toate certificatele vor fi acceptate, inclusiv cele expirate sau neverificate.</value>
+    <value>Dacă este activată, sunt acceptate toate certificatele, inclusiv cele expirate sau neverificate.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_AcceptAllCertificates_Name" xml:space="preserve">
@@ -504,7 +507,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_ContinueOnError_Name" xml:space="preserve">
-    <value>Continuă greșeala</value>
+    <value>Continuați la eroare</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Description" xml:space="preserve">
@@ -512,7 +515,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_FtpsMode_Name" xml:space="preserve">
-    <value>Modul FTPS</value>
+    <value>Mod FTPS</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Host_Description" xml:space="preserve">
@@ -548,7 +551,7 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Timeout_Name" xml:space="preserve">
-    <value>Timeout (milisecunde)</value>
+    <value>Timeout</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Name" xml:space="preserve">
@@ -556,11 +559,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Description" xml:space="preserve">
-    <value>Când această căsuță este bifată, câmpurile de nume de utilizator și parolă sunt ignorate, iar în schimb se folosește un utilizator anonim standard.</value>
+    <value>Dacă este activată, câmpurile pentru numele de utilizator și parolă sunt ignorate și este utilizat în schimb un utilizator anonim standard.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseAnonymousLogin_Name" xml:space="preserve">
-    <value>Folosește autentificare anonimă</value>
+    <value>Folosește autentificarea anonimă</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_Username_Description" xml:space="preserve">
@@ -572,7 +575,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Description" xml:space="preserve">
-    <value>Bifează această căsuță dacă vrei să folosești protocolul de transfer SFTP.</value>
+    <value>Activați pentru a utiliza protocolul de transfer SFTP.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_UseSftp_Name" xml:space="preserve">
@@ -580,7 +583,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Description" xml:space="preserve">
-    <value>Descarcă fișierele specificate de pe un server FTP în folderul local specificat. Această activitate funcționează doar dacă este plasată într-o activitate de scop With FTP Session.</value>
+    <value>Descarcă fișierele specificate de pe un server FTP în folderul local specificat. Această activitate funcționează numai dacă este plasată într-o activitate Use FTP Connection.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_DownloadFiles_Name" xml:space="preserve">
@@ -588,11 +591,11 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Description" xml:space="preserve">
-    <value>Dacă această căsuță este bifată, calea folderului va fi creată local în cazul în care nu există deja.</value>
+    <value>Dacă este activată, calea folderului este creată local dacă nu există deja.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Create_Name" xml:space="preserve">
-    <value>Creează</value>
+    <value>Creați folderul dacă lipsește</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_LocalPath_Description" xml:space="preserve">
@@ -604,15 +607,15 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Description" xml:space="preserve">
-    <value>Dacă această căsuță este bifată, fișierele vor fi suprascrise local dacă sunt deja stocate acolo.</value>
+    <value>Dacă este activată, fișierele sunt suprascrise local dacă sunt deja stocate acolo.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Overwrite_Name" xml:space="preserve">
-    <value>Suprascrie</value>
+    <value>Suprascrie fișierele existente</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Description" xml:space="preserve">
-    <value>Dacă această căsuță este bifată, folderele vor fi descărcate împreună cu subfolderele respective.</value>
+    <value>Dacă este activată, folderele sunt descărcate împreună cu subfolderele corespunzătoare.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DownloadFiles_Property_Recursive_Name" xml:space="preserve">
@@ -628,7 +631,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Description" xml:space="preserve">
-    <value>Mută un element de pe un server FTP pe o altă cale la distanță. Această activitate funcționează doar dacă este plasată într-un With FTP</value>
+    <value>Mută un element de pe un server FTP într-o altă cale la distanță. Această activitate funcționează numai dacă este plasată în interiorul unei activități Use FTP Connection.</value>
     <comment>Activity description</comment>
   </data>
   <data name="Activity_MoveItem_Name" xml:space="preserve">
@@ -652,11 +655,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Description" xml:space="preserve">
-    <value>Dacă această căsuță este bifată, fișierele vor fi suprascrise în noul director remote dacă sunt deja stocate acolo.</value>
+    <value>Dacă este activată, fișierele sunt suprascrise în folderul remote nou dacă sunt deja stocate acolo.</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_MoveItem_Property_Overwrite_Name" xml:space="preserve">
-    <value>Suprascrie</value>
+    <value>Suprascrie fișierele existente</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_MoveItem_Property_RemotePath_Description" xml:space="preserve">
@@ -705,7 +708,7 @@
     <value>Parola pentru certificatul clientului în format securizat de șir</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ClientCertificateSecurePassword_Name" xml:space="preserve">
-    <value>Certificatul clientului: parolă securizată</value>
+    <value>Parolă securizată a certificatului clientului</value>
   </data>
   <data name="Activity_WithFtpSession_Property_PasswordInputModeSwitch_Description" xml:space="preserve">
     <value>Comutatorul pentru modul de input al parolei</value>
@@ -719,7 +722,7 @@
     <value>Parola în format secure string</value>
   </data>
   <data name="Activity_WithFtpSession_Property_SecurePassword_Name" xml:space="preserve">
-    <value>Parolă Securizată</value>
+    <value>Parolă securizată</value>
   </data>
   <data name="ValidationError_ClientCertificatePasswordFieldsNotNull" xml:space="preserve">
     <value>ClientCertificatePassword și ClientCertificateSecurePassword nu trebuie să fie ambele nule</value>
@@ -737,7 +740,7 @@
     <value>Numărul portului proxy</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyPort_Name" xml:space="preserve">
-    <value>Portul gazdă proxy</value>
+    <value>Proxy Port</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxyServer_Description" xml:space="preserve">
     <value>Nume gazdă proxy</value>
@@ -769,7 +772,7 @@
     <comment>it is used to mark the obsolete values in a dropdown</comment>
   </data>
   <data name="Activity_WithFtpSession_Property_SslProtocols_Placeholder" xml:space="preserve">
-    <value>Lasă gol pentru configurarea automată</value>
+    <value>Auto: negociază cel mai bun protocol disponibil</value>
   </data>
   <data name="Activity_WithFtpSession_Property_ProxySecurePassword_Description" xml:space="preserve">
     <value>Parola proxy în format securizat de șir</value>
@@ -782,10 +785,79 @@
     <comment>Property description</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Filter_Name" xml:space="preserve">
-    <value>Tipuri de obiecte</value>
+    <value>Tipuri de elemente de inclus</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EnumerateObjects_Property_Filter_Placeholder" xml:space="preserve">
-    <value>Selectați tipurile de obiecte de inclus</value>
+    <value>Selectați tipurile de elemente de inclus</value>
+  </data>
+  <data name="Activity_Delete_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_DirectoryExists_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder</value>
+  </data>
+  <data name="Activity_FileExists_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_EnumerateObjects_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folderul</value>
+  </data>
+  <data name="Activity_DownloadFiles_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder</value>
+  </data>
+  <data name="Activity_DownloadFiles_Property_LocalPath_Placeholder" xml:space="preserve">
+    <value>C:\Local\folder</value>
+  </data>
+  <data name="Activity_UploadFiles_Property_LocalPath_Placeholder" xml:space="preserve">
+    <value>C:\Local\folder</value>
+  </data>
+  <data name="Activity_UploadFiles_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder</value>
+  </data>
+  <data name="Activity_MoveItem_Property_RemotePath_Placeholder" xml:space="preserve">
+    <value>/remote/folder/file.txt</value>
+  </data>
+  <data name="Activity_MoveItem_Property_NewPath_Placeholder" xml:space="preserve">
+    <value>/remote/new-folder/file.txt</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Host_Placeholder" xml:space="preserve">
+    <value>ftp.example.com</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Port_Placeholder" xml:space="preserve">
+    <value>21 pentru FTP, 22 pentru SFTP</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_Timeout_Placeholder" xml:space="preserve">
+    <value>Milisecunde</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ClientCertificatePath_Placeholder" xml:space="preserve">
+    <value>C:\Certificates\client.pfx</value>
+  </data>
+  <data name="Activity_WithFtpSession_Property_ProxyServer_Placeholder" xml:space="preserve">
+    <value>proxy.example.com</value>
+  </data>
+  <data name="ActivitySynonymDeleteFileOrFolder" xml:space="preserve">
+    <value>Ștergeți</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymMoveFileOrFolder" xml:space="preserve">
+    <value>Mută obiectul</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymUseFtpConnection" xml:space="preserve">
+    <value>Cu conexiune FTP</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFolderExists" xml:space="preserve">
+    <value>Există directorul</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymCheckIfFileExists" xml:space="preserve">
+    <value>Fișierul există</value>
+    <comment>Activity search alias</comment>
+  </data>
+  <data name="ActivitySynonymListFilesAndFolders" xml:space="preserve">
+    <value>Enumerare obiecte</value>
+    <comment>Activity search alias</comment>
   </data>
 </root>

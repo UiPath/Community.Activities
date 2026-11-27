@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<PackageId>UiPath.Examples.Activities.Activities</PackageId>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Activities.ViewModels" Version="1.0.0-20250625.2" />
+    <PackageReference Include="System.Activities.ViewModels" Version="1.20260609.1" />
     <PackageReference Include="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
     <PackageReference Include="UiPath.Workflow" Version="6.0.0-20240401-07" PrivateAssets="All" />
   </ItemGroup>

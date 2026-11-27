@@ -59,6 +59,8 @@ Each activity category follows this layout:
 └── UiPath.{Category}.Activities.Packaging/   # NuGet package definition
 ```
 
+**FTP exception (core + extended packages):** the FTP pack builds two packages. `UiPath.FTP.Core.Activities.Packaging` produces `UiPath.FTP.Core.Activities` (the activities; operating system cryptography only). `UiPath.FTP.Activities.Packaging` produces `UiPath.FTP.Activities`, which depends on the core package and adds extra SFTP algorithms from `UiPath.FTP.Extended` (BouncyCastle), discovered through `ISftpCryptoExtension` in `UiPath.FTP/Extensibility`. Folder names match the package ids they produce. The activities exist only in the core package; the extended package carries a copy of `ActivitiesMetadata.json` and the icons (so Studio Web lists it). When you change the FTP activities or their metadata, update that copy too (`ManifestTests` in `UiPath.FTP.Extended.Tests` guards it). Do not add algorithm code that is not OS crypto to `UiPath.FTP` or the core package; it belongs in `UiPath.FTP.Extended`. When packing both into one folder, build both packaging projects in one command with `-c Debug -p:FtpDevRevision=<n>` so the dev versions of the two packages match.
+
 ### Three-Layer Pattern
 
 1. **Activity** (`CodeActivity<T>`): Defines `InArgument`/`OutArgument` properties, implements `Execute()`, validates in `CacheMetadata()`. Runtime telemetry via `#if ENABLE_DEFAULT_TELEMETRY`.
@@ -76,7 +78,7 @@ Code reuse via C# Shared Projects (`.shproj`/`.projitems`) in `Activities/Shared
 
 ### Build Infrastructure
 
-- **Target frameworks**: `net6.0` (portable/Studio Web) and `net6.0-windows` (Studio Desktop), defined in `Activities/Directory.build.props` as `PortableFramework` and `WindowsFramework`
+- **Target frameworks**: `net8.0` (portable/Studio Web) and `net8.0-windows` (Studio Desktop), defined in `Activities/Directory.build.props` as `PortableFramework` and `WindowsFramework`
 - **Central dependency versions**: `Activities/Directory.build.targets` — update versions there, plus Examples and Templates
 - **Per-pack versioning**: `{Category}.build.props` — `{Major}.{Minor}.{Build}-dev.{Minutes}` in Debug, `{Major}.{Minor}.0` in Release
 - **CI/CD**: Azure Pipelines configs in `Activities/.pipelines/`
@@ -85,6 +87,7 @@ Code reuse via C# Shared Projects (`.shproj`/`.projitems`) in `Activities/Shared
 ## Key Conventions
 
 - All user-facing strings go in `.resx` files; activities use `[LocalizedDisplayName]`, `[LocalizedDescription]`, `[LocalizedCategory]` attributes
+- Localized `*.<culture>.resx` files are written by the weekly `chore(l10n): sync from Localization` PR from the Localization team's copy of this repo; never edit them by hand. When you delete or move a `.resx` (or a whole project), tell the Localization team in #product-localization (repo, branch, path) before the next sync, otherwise the sync re-adds the deleted files every week
 - New properties must specify `[DefaultValue]` for forward compatibility
 - Obsolete properties get `[Obsolete]` + `[Browsable(false)]` — do not remove them or change behavior
 - Breaking changes (public contract, behavior, exceptions) require discussion with repo owners

@@ -28,7 +28,7 @@ steps:
       ignoreLASTEXITCODE: true
       script: |
         cd ${{ parameters.packagesFolder }}
-        $file = Get-ChildItem -Path .\ -Filter *.nupkg -Recurse -File -Name -Exclude *symbols*
+        $file = Get-ChildItem -Path .\ -Filter UiPath.Database.Activities.*.nupkg -Recurse -File -Name -Exclude *symbols*
         $dot = $file.LastIndexof('.')
         $file = $file.Replace(".nupkg","")
         $act = $file.LastIndexof('Activities.')

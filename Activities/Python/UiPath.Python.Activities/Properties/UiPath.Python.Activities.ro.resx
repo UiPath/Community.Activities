@@ -157,7 +157,7 @@
     <value>Calea Python specificată nu este validă: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>Calea specificată către biblioteca Python nu este validă (pentru Python 3.10 este necesară o cale de fișier către python**.dll / libpython*.so): {0}</value>
+    <value>Calea specificată către biblioteca Python nu este validă (este necesară calea către un fișier python**.dll / libpython*.so): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Eroare la invocarea metodei Python</value>
@@ -291,13 +291,13 @@
     <value>Timeout</value>
   </data>
   <data name="OperationTimeoutDescription" xml:space="preserve">
-    <value>Durata de timp permisă pentru executarea unui script Python până când acesta este oprit și se aruncă o excepție.</value>
+    <value>Durata, în secunde, permisă pentru rularea unui script Python până când acesta este oprit și este generată o excepție.</value>
   </data>
   <data name="LibraryPathDescription" xml:space="preserve">
-    <value>Pentru Linux este calea către Python libpython*.so inclusiv numele bibliotecii. Pentru Windows (versiune&gt;3.9) Calea către Python**.dll inclusiv numele bibliotecii (de obicei este pe calea Python Home). Pentru Windows (versiune&lt;=3.9) Lasă gol.</value>
+    <value>Obligatoriu. Calea completă către biblioteca runtime Python, inclusiv numele fișierului — python**.dll pe Windows (de exemplu, python313.dll, de obicei în folderul principal Python), libpython*.so pe Linux sau libpython*.dylib pe macOS.</value>
   </data>
   <data name="LibraryPathNameDisplayName" xml:space="preserve">
-    <value>Library path (Linux or version&gt;3.9)</value>
+    <value>Cale bibliotecă</value>
   </data>
   <data name="ValidationErrorVersionUnsupported" xml:space="preserve">
     <value>Versiunea Python selectată nu este acceptată.</value>
@@ -316,7 +316,7 @@
     <value>Selectați instalarea Python care va fi utilizată pentru configurarea activității</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Nu au fost detectate instalări de Python</value>
+    <value>Nu au fost detectate instalări Python compatibile (pe 64 de biți, versiunea 3.11 sau o versiune ulterioară)</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Limită pentru dimensiunea datelor scriptului (MB)</value>
