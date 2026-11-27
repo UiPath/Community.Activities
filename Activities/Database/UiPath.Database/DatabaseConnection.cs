@@ -466,6 +466,9 @@ namespace UiPath.Database
         //  - a column with no non-null value keeps the type the driver reports before the first row is read
         //    (GetFieldType: the first row's stored type, else the affinity of the declared column type);
         //  - values of a less common type are converted by the DataColumn, as DataTable.Load did;
+        //  - if that type cannot hold one of those values (e.g. 'a' in a column that is mostly integers, which a mixed
+        //    expression such as CASE ... THEN 'a' ELSE Id END returns), the column becomes String, or Object if
+        //    String cannot hold them either, instead of throwing "Couldn't store <a> in V Column";
         //  - rows end Unchanged and duplicate names get the same "Name1", "Name2" suffixes, as with DataTable.Load.
         // Known difference from DataTable.Load (2.1.0/2.1.1): no constraints are copied from the table, so there is
         // no PrimaryKey (Load set one only for WITHOUT ROWID tables), AllowDBNull is always true, and Unique and
@@ -536,6 +539,9 @@ namespace UiPath.Database
                     }
                 }
 
+                if (columnType != null && firstSeen[i].Count > 1)
+                    columnType = TypeThatHoldsEveryValue(columnType, rows, i, table.Locale);
+
                 table.Columns.Add(names[i], columnType ?? fallbackTypes[i] ?? typeof(object));
             }
 
@@ -551,6 +557,32 @@ namespace UiPath.Database
             }
 
             return table;
+        }
+
+        // Returns preferred if a DataColumn of that type can store every value of column i, else String if it can,
+        // else Object. Only values of another type are tried, each through a scratch DataColumn so the check uses
+        // exactly the conversion LoadDataRow will use. A column stops being checked at its first failure, so at most
+        // one or two conversion exceptions are thrown per column.
+        private static Type TypeThatHoldsEveryValue(Type preferred, List<object[]> rows, int i, System.Globalization.CultureInfo locale)
+        {
+            foreach (var candidate in new[] { preferred, typeof(string) })
+            {
+                var probe = new DataTable { Locale = locale };
+                var column = probe.Columns.Add("v", candidate);
+                var row = probe.NewRow();
+                bool holdsAll = true;
+                foreach (var values in rows)
+                {
+                    var value = values[i];
+                    if (value == null || value is DBNull || value.GetType() == candidate)
+                        continue;
+                    try { row[column] = value; }
+                    catch (ArgumentException) { holdsAll = false; break; }
+                }
+                if (holdsAll)
+                    return candidate;
+            }
+            return typeof(object);
         }
 
         // Makes result column names unique in place, with the same rule DataTable.Load uses

@@ -88,6 +88,45 @@ namespace UiPath.Database.Tests
         }
 
         [Fact]
+        public void ExecuteQuery_MixedExpression_FallsBackToStringWhenTheMostCommonTypeCannotHoldEveryValue()
+        {
+            // An expression has no source column, so 2.1.1 (DataTable.Load) typed it from the first row: String.
+            // Int64 is the most common type here but cannot hold 'a', so the column falls back to String.
+            Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY)");
+            Execute("INSERT INTO T (Id) VALUES (1), (2), (3)");
+
+            var table = Query("SELECT CASE WHEN Id = 1 THEN 'a' ELSE Id END AS V FROM T ORDER BY Id");
+
+            Assert.Equal(typeof(string), table.Columns["V"].DataType);
+            Assert.Equal(new object[] { "a", "2", "3" }, Column(table, "V"));
+        }
+
+        [Fact]
+        public void ExecuteQuery_TiedTypes_FallBackToStringWhenTheFirstSeenTypeCannotHoldEveryValue()
+        {
+            Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, D DATE)");
+            Execute("INSERT INTO T (D) VALUES (20260101), ('2026-01-02')");
+
+            var table = Query("SELECT D FROM T ORDER BY Id");
+
+            Assert.Equal(typeof(string), table.Columns["D"].DataType);
+            Assert.Equal(new object[] { "20260101", "2026-01-02" }, Column(table, "D"));
+        }
+
+        [Fact]
+        public void ExecuteQuery_MinorityValuesThatConvert_KeepTheMostCommonType()
+        {
+            // As with DataTable.Load, a value of a less common type is converted when the column type can hold it.
+            Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, V)");
+            Execute("INSERT INTO T (V) VALUES (5), (6), ('7')");
+
+            var table = Query("SELECT V FROM T ORDER BY Id");
+
+            Assert.Equal(typeof(long), table.Columns["V"].DataType);
+            Assert.Equal(new object[] { 5L, 6L, 7L }, Column(table, "V"));
+        }
+
+        [Fact]
         public void ExecuteQuery_FirstRowNull_TakesTheTypeFromTheOtherRows()
         {
             Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, V)");
