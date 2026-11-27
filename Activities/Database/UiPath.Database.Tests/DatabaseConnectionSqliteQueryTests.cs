@@ -127,6 +127,63 @@ namespace UiPath.Database.Tests
         }
 
         [Fact]
+        public void ExecuteQuery_BlobMajorityWithText_FallsBackToObjectAndKeepsTheBytes()
+        {
+            // A String column would accept 't' but store the BLOBs as the text "System.Byte[]".
+            Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, B BLOB)");
+            Execute("INSERT INTO T (B) VALUES (x'01'), (x'02'), ('t')");
+
+            var table = Query("SELECT B FROM T ORDER BY Id");
+
+            Assert.Equal(typeof(object), table.Columns["B"].DataType);
+            Assert.Equal(new byte[] { 1 }, (byte[])table.Rows[0]["B"]);
+            Assert.Equal(new byte[] { 2 }, (byte[])table.Rows[1]["B"]);
+            Assert.Equal("t", table.Rows[2]["B"]);
+        }
+
+        [Fact]
+        public void ExecuteQuery_IntegerMajorityWithBlob_FallsBackToObjectAndKeepsEachValue()
+        {
+            Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, V)");
+            Execute("INSERT INTO T (V) VALUES (5), (6), (x'07')");
+
+            var table = Query("SELECT V FROM T ORDER BY Id");
+
+            Assert.Equal(typeof(object), table.Columns["V"].DataType);
+            Assert.Equal(5L, table.Rows[0]["V"]);
+            Assert.Equal(6L, table.Rows[1]["V"]);
+            Assert.Equal(new byte[] { 7 }, (byte[])table.Rows[2]["V"]);
+        }
+
+        [Fact]
+        public void ExecuteQuery_TextMajorityWithBlob_FallsBackToObjectAndKeepsTheBytes()
+        {
+            // Before, the column was String (the most common type) and the BLOB became the text "System.Byte[]".
+            Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, V)");
+            Execute("INSERT INTO T (V) VALUES ('a'), ('b'), (x'0102')");
+
+            var table = Query("SELECT V FROM T ORDER BY Id");
+
+            Assert.Equal(typeof(object), table.Columns["V"].DataType);
+            Assert.Equal("a", table.Rows[0]["V"]);
+            Assert.Equal("b", table.Rows[1]["V"]);
+            Assert.Equal(new byte[] { 1, 2 }, (byte[])table.Rows[2]["V"]);
+        }
+
+        [Fact]
+        public void ExecuteQuery_RealMinorityInIntegerColumn_IsConvertedToInt64LikeDataTableLoad()
+        {
+            // Pins the 2.1.1 behaviour: the Int64 column converts 1.5 with IConvertible.ToInt64, which rounds it to 2.
+            Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, V)");
+            Execute("INSERT INTO T (V) VALUES (1), (2), (1.5)");
+
+            var table = Query("SELECT V FROM T ORDER BY Id");
+
+            Assert.Equal(typeof(long), table.Columns["V"].DataType);
+            Assert.Equal(new object[] { 1L, 2L, 2L }, Column(table, "V"));
+        }
+
+        [Fact]
         public void ExecuteQuery_FirstRowNull_TakesTheTypeFromTheOtherRows()
         {
             Execute("CREATE TABLE T (Id INTEGER PRIMARY KEY, V)");
