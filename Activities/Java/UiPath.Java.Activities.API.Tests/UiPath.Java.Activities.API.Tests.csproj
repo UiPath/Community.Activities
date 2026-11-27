@@ -16,7 +16,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Java.Activities.API\UiPath.Java.Activities.API.csproj" />
+    <ProjectReference Include="..\UiPath.Java.Activities\UiPath.Java.Activities.csproj" />
     <ProjectReference Include="..\UiPath.Java\UiPath.Java.csproj" />
   </ItemGroup>
 
+  <!-- ViewModel tests run on the portable framework only (System.Activities.Presentation is not available to the
+       windows test output), like the Python and Cryptography ViewModel tests. -->
+  <ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
+    <PackageReference Include="System.Activities.ViewModels" />
+    <PackageReference Include="System.Activities.Metadata" />
+    <ProjectReference Include="..\UiPath.Java.Activities.ViewModels\UiPath.Java.Activities.ViewModels.csproj" />
+    <Compile Include="..\..\Shared\Tests\UiPath.Shared.ViewModels.Tests\Helpers\LocalResourcePathNormalizerTests.cs" Link="Helpers\LocalResourcePathNormalizerTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
+    <Compile Remove="WidgetAdoptionViewModelTests.cs" />
+    <Compile Remove="LoadJarLocalResourceTests.cs" />
+  </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
         <OutputPath>..\..\Output\Activities\Database\</OutputPath>
@@ -11,6 +11,14 @@
         <PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
     </PropertyGroup>
 
+    <!--
+      The extended package keeps the id of the original Database package: projects that upgrade UiPath.Database.Activities
+      keep working as before. The activity code comes from the dependency UiPath.Database.Core.Activities (a project
+      reference below becomes a package dependency); the extended assemblies carry the Oracle provider and, for Studio
+      Web, a copy of Core's activities manifest and icons so that the package is listed and shows its activities. The
+      Oracle driver ships its own cryptography instead of the operating system crypto module, so this package is not
+      limited to OS crypto; new projects that need that use UiPath.Database.Core.Activities.
+    -->
     <PropertyGroup>
         <PackageId>UiPath.Database.Activities</PackageId>
         <PackageTitle>UiPath.Database.Activities</PackageTitle>
@@ -19,7 +27,7 @@
         <PackageTags>UiPathActivities</PackageTags>
         <Description>
             <![CDATA[IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows.
-            UiPath Database Activities Pack]]>
+            UiPath Database Activities Pack. Includes UiPath.Database.Core.Activities and the Oracle provider; the Oracle driver is not limited to operating system cryptography. Use UiPath.Database.Core.Activities for operating system cryptography only, and never next to an older UiPath.Database.Activities: upgrade this package or remove it first. Keep both packages on the same version.]]>
         </Description>
         <Authors>UiPath</Authors>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -34,85 +42,53 @@
     </Target>
 
     <Target Name="AddDlls">
-        <ItemGroup Label="AddActivitiesDlls">
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
-
-            <DatabaseResources Include="$(OutputPath)**\UiPath.Database.resources.dll" />
-            <BuildOutputInPackage Include="@(DatabaseResources)">
-                <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-            </BuildOutputInPackage>
-
-            <DatabaseActivitiesResources Include="$(OutputPath)**\UiPath.Database.Activities.resources.dll" />
-            <BuildOutputInPackage Include="@(DatabaseActivitiesResources)">
-                <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-            </BuildOutputInPackage>
+        <ItemGroup Label="AddExtendedDlls">
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Extended.dll" />
         </ItemGroup>
 
         <ItemGroup Label="AddWindowsSpecificDlls" Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
-
-            <DatabaseActivitiesDesignResources Include="$(OutputPath)**\UiPath.Database.Activities.Design.resources.dll" />
-            <BuildOutputInPackage Include="@(DatabaseActivitiesDesignResources)">
-                <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-            </BuildOutputInPackage>
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Extended.Design.dll" />
         </ItemGroup>
-
-        <!--Coded workflow API files-->
-        <ItemGroup Label="AddCodedWorkflowAPI">
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.API.dll" />
-            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.API.xml" />
-        </ItemGroup>
-
     </Target>
 
-  <!--Pack .md files-->
-  <ItemGroup>
-    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
-  </ItemGroup>
-  
     <Target Name="CleanPackageFiles" BeforeTargets="Build">
         <Message Text="Deleting packages ..." />
         <ItemGroup>
-            <PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+            <PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId).*.nupkg" />
         </ItemGroup>
         <Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
     </Target>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Data.SqlClient" />
-        <PackageReference Include="System.Resources.Extensions" />
-        <PackageReference Include="System.Activities.ViewModels" />
-        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
-        <PackageReference Include="System.Data.Odbc" />
-        <PackageReference Include="System.Data.OleDb" />
-        <PackageReference Include="Microsoft.Data.Sqlite" />
-        <PackageReference Include="UiPath.Platform" />
-        <PackageReference Include="UiPath.Telemetry.Client" />
-        <PackageReference Include="UiPath.CodedWorkflows" />
 
-        <!--Dependencies override to solve FOSSA issues-->
-        <PackageReference Include="Azure.Identity" />
+    <ItemGroup>
+        <PackageReference Include="Oracle.ManagedDataAccess.Core" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- The assemblies that ship; their content is added by AddDlls, nothing flows from them -->
+        <ProjectReference Include="..\UiPath.Database.Activities.Extended\UiPath.Database.Activities.Extended.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
+        <!-- The core package becomes the package dependency UiPath.Database.Core.Activities -->
+        <ProjectReference Include="..\UiPath.Database.Core.Activities.Packaging\UiPath.Database.Core.Activities.Packaging.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
-        <ProjectReference Include="..\..\Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj">
-            <PrivateAssets>All</PrivateAssets>
-        </ProjectReference>
-        <ProjectReference Include="..\..\Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj">
-            <PrivateAssets>All</PrivateAssets>
-        </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\..\Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj">
-            <PrivateAssets>All</PrivateAssets>
-        </ProjectReference>
-        <ProjectReference Include="..\..\Database\UiPath.Database.Activities.API\UiPath.Database.Activities.API.csproj">
+        <ProjectReference Include="..\UiPath.Database.Activities.Extended.Design\UiPath.Database.Activities.Extended.Design.csproj">
             <PrivateAssets>All</PrivateAssets>
         </ProjectReference>
     </ItemGroup>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
-        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" IgnoreStandardErrorWarningFormat="true" />
+    <!--
+        The extended assembly builds on the core package and both
+        packages come from one build: pin the dependency on UiPath.Database.Core.Activities to this exact version instead
+        of the default "this version or later". The version is the one the Core project reported (not this
+        project's own $(PackageVersion)): Debug versions come from the clock at evaluation, so the two can differ by a minute.
+    -->
+    <Target Name="PinCoreDependency" AfterTargets="_GetProjectReferenceVersions">
+        <ItemGroup>
+            <_ProjectReferencesWithVersions Condition="'%(_ProjectReferencesWithVersions.Filename)' == 'UiPath.Database.Core.Activities.Packaging'">
+                <ProjectVersion>[%(_ProjectReferencesWithVersions.ProjectVersion)]</ProjectVersion>
+            </_ProjectReferencesWithVersions>
+        </ItemGroup>
     </Target>
 </Project>

@@ -34,7 +34,8 @@ namespace UiPath.Java.Activities
                 var jarPath = JarPath.Get(context) ?? throw new ArgumentNullException(Resources.JarPathDisplayName);
                 try
                 {
-                    await invoker.LoadJar(jarPath, cancellationToken);
+                    // the picker saves project-relative paths; resolve them against the current directory (project folder)
+                    await invoker.LoadJar(PathResolver.ToFullPath(jarPath), cancellationToken);
                 }
                 catch (Exception e)
                 {

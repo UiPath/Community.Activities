@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>$(PortableFramework);$(WindowsFramework)</TargetFrameworks>
+        <OutputPath>..\..\Output\Activities\Database\</OutputPath>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+        <VersionSuffix></VersionSuffix>
+        <!--leave empty for ci to replace with prelease tag-->
+        <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">false</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Debug'">true</GeneratePackageOnBuild>
+        <PackageOutputPath Condition="'$(Configuration)' == 'Debug'">..\..\Output\Activities\Packages\</PackageOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>UiPath.Database.Core.Activities</PackageId>
+        <PackageTitle>UiPath.Database.Core.Activities</PackageTitle>
+        <PackageIconUrl>https://download.uipath.com/UI_icon.png?web</PackageIconUrl>
+        <PackageLicenseUrl>https://github.com/UiPath/Community.Activities/tree/develop/Activities/Database/Licenses</PackageLicenseUrl>
+        <PackageTags>UiPathActivities</PackageTags>
+        <Description>
+            <![CDATA[IMPORTANT: This package version requires Studio v24.10 or above. Installing it on versions lower than the recommended ones may cause unexpected changes in your workflows.
+            UiPath Database Activities Pack (core): operating system cryptography only. The Oracle provider is in UiPath.Database.Activities. Do not add this package to a project that still references an older UiPath.Database.Activities (before this release): this package replaces its activities, so both would put the same assemblies in the project. Upgrade UiPath.Database.Activities instead, or remove it first.]]>
+        </Description>
+        <Authors>UiPath</Authors>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddDlls</TargetsForTfmSpecificBuildOutput>
+        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    </PropertyGroup>
+
+    <Target Name="RemoveMetaDll" AfterTargets="BuiltProjectOutputGroup">
+        <ItemGroup>
+            <BuiltProjectOutputGroupOutput Remove="@(BuiltProjectOutputGroupOutput)" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="AddDlls">
+        <ItemGroup Label="AddActivitiesDlls">
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.dll" />
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.dll" />
+
+            <DatabaseResources Include="$(OutputPath)**\UiPath.Database.resources.dll" />
+            <BuildOutputInPackage Include="@(DatabaseResources)">
+                <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+            </BuildOutputInPackage>
+
+            <DatabaseActivitiesResources Include="$(OutputPath)**\UiPath.Database.Activities.resources.dll" />
+            <BuildOutputInPackage Include="@(DatabaseActivitiesResources)">
+                <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+            </BuildOutputInPackage>
+        </ItemGroup>
+
+        <ItemGroup Label="AddWindowsSpecificDlls" Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Data.ConnectionUI.Dialog.dll" />
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.Design.dll" />
+
+            <DatabaseActivitiesDesignResources Include="$(OutputPath)**\UiPath.Database.Activities.Design.resources.dll" />
+            <BuildOutputInPackage Include="@(DatabaseActivitiesDesignResources)">
+                <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+            </BuildOutputInPackage>
+        </ItemGroup>
+
+        <!--Coded workflow API files-->
+        <ItemGroup Label="AddCodedWorkflowAPI">
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.API.dll" />
+            <BuildOutputInPackage Include="$(OutputPath)UiPath.Database.Activities.API.xml" />
+        </ItemGroup>
+
+    </Target>
+
+  <!--Pack .md files-->
+  <ItemGroup>
+    <Content Include="docs\**\*" Pack="true" PackagePath="content\docs" />
+  </ItemGroup>
+  
+    <Target Name="CleanPackageFiles" BeforeTargets="Build">
+        <Message Text="Deleting packages ..." />
+        <ItemGroup>
+            <PackageFilesToDelete Include="$(PackageOutputPath)\$(PackageId)*.nupkg" />
+        </ItemGroup>
+        <Delete Files="@(PackageFilesToDelete)" ContinueOnError="WarnAndContinue" />
+    </Target>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Data.SqlClient" />
+        <PackageReference Include="System.Resources.Extensions" />
+        <PackageReference Include="System.Activities.ViewModels" />
+        <PackageReference Include="System.Data.Odbc" />
+        <PackageReference Include="System.Data.OleDb" />
+        <PackageReference Include="Microsoft.Data.Sqlite" />
+        <!-- Floor for the native SQLite library (CVE-2025-6965 affects <= 2.1.11). Keep >= DbWorkarounds.Sqlite.MinVersion; Microsoft.Data.Sqlite 8.0.34 alone pulls 2.1.13. -->
+        <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
+        <PackageReference Include="UiPath.Platform" />
+        <PackageReference Include="UiPath.Telemetry.Client" />
+        <PackageReference Include="UiPath.CodedWorkflows" />
+
+        <!--Dependencies override to solve FOSSA issues-->
+        <PackageReference Include="Azure.Identity" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' != '$(PortableFramework)' ">
+        <ProjectReference Include="..\..\Database\UiPath.Database.Activities.Design\UiPath.Database.Activities.Design.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
+        <ProjectReference Include="..\..\Database\ConnectionDialog\UiPath.Data.ConnectionUI.Dialog\UiPath.Data.ConnectionUI.Dialog.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Database\UiPath.Database.Activities\UiPath.Database.Activities.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
+        <ProjectReference Include="..\..\Database\UiPath.Database.Activities.API\UiPath.Database.Activities.API.csproj">
+            <PrivateAssets>All</PrivateAssets>
+        </ProjectReference>
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(TargetFramework)' == '$(PortableFramework)' AND $(ConfigurationName) == Debug ">
+        <Exec Command="if exist &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.Core.Activities.*&quot; del &quot;$(ProjectDir)..\..\Output\Activities\Packages\UiPath.Database.Core.Activities.*&quot;&#xD;&#xA;&#xD;&#xA;&quot;powershell.exe&quot; -NonInteractive -ExecutionPolicy Unrestricted -file &quot;$(ProjectDir)..\..\Tools\net.sdk\pack-project.ps1&quot; -projectPath &quot;$(ProjectPath)&quot; -outputPath &quot;$(ProjectDir)..\..\Output\Activities\Packages&quot; -suffix &quot;dev&quot;" IgnoreStandardErrorWarningFormat="true" />
+    </Target>
+</Project>

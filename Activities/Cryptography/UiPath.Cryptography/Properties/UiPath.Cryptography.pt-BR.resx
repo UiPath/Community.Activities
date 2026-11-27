@@ -643,6 +643,18 @@
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>A entrada usa o formato AEAD/LibrePGP (OCP) do GnuPG, que não é aceito. Peça ao remetente para criptografar com compatibilidade RFC 4880 (sem AEAD).</value>
   </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>A chave pública do destinatário não pode ser usada para criptografia porque expirou, foi revogada ou não possui uma chave capaz de realizar criptografia. Forneça uma chave pública atual para o destinatário.</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>A chave privada não pode ser usada para assinatura porque expirou, foi revogada ou não possui uma chave capaz de realizar assinaturas. Forneça uma chave privada atual.</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>Os dados de entrada não estão criptografados com PGP, então não podem ser descriptografados. Forneça a mensagem criptografada ou desative a descriptografia se a entrada estiver apenas assinada.</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>Os dados criptografados foram reprovados na verificação de integridade; foram modificados ou estão corrompidos.</value>
+  </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Arquivo assinado (binário)</value>
   </data>

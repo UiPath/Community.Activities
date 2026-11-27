@@ -17,12 +17,14 @@
 		<PackageReference Include="UiPath.Activities.Contracts" PrivateAssets="All" />
 		<PackageReference Include="UiPath.Activities.Api" PrivateAssets="All" />
 		<PackageReference Include="PgpCore" />
+		<PackageReference Include="BouncyCastle.Cryptography" />
 		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="System.Activities.Metadata" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\UiPath.Cryptography.Activities\UiPath.Cryptography.Activities.csproj" />
 		<ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
+		<ProjectReference Include="..\UiPath.Cryptography.Activities.Extended\UiPath.Cryptography.Activities.Extended.csproj" />
 	</ItemGroup>
 	<Import Project="..\..\Shared\Tests\UiPath.Shared.ViewModels.Tests\UiPath.Shared.ViewModels.Tests.projitems" Label="Shared" />
 </Project>

@@ -157,7 +157,7 @@
     <value>La ruta de Python especificada no es válida: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>La ruta de la biblioteca Python especificada no es válida (se requiere una ruta de archivo a python**.dll / libpython*.so para Python 3.10): {0}</value>
+    <value>La ruta de la biblioteca Python especificada no es válida (se requiere una ruta de archivo a python**.dll / libpython*.so): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Error al invocar el método Python</value>
@@ -316,7 +316,7 @@
     <value>Seleccione la instalación de Python que se utilizará para la configuración de la actividad</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>No se detectaron instalaciones de Python</value>
+    <value>No se detectaron instalaciones de Python compatibles (64 bits 3.11 o posterior)</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>Límite de tamaño de datos del script (MB)</value>

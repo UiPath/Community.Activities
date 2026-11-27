@@ -146,9 +146,11 @@ namespace UiPath.Cryptography.Activities.Tests
             var chachaEncrypted = CryptographyHelper.EncryptData(EncryptionAlgorithm.ChaCha20Poly1305, plain, key);
 
             // Same wire layout (salt|iv|cipher|tag) but different cipher families — cross-decryption must fail.
-            Assert.Throws<CryptographicException>(() =>
+            // .NET 8 throws AuthenticationTagMismatchException (a CryptographicException subclass) for a wrong tag,
+            // so accept any CryptographicException, not only the exact base type.
+            Assert.ThrowsAny<CryptographicException>(() =>
                 CryptographyHelper.DecryptData(EncryptionAlgorithm.AESGCM, chachaEncrypted, key));
-            Assert.Throws<CryptographicException>(() =>
+            Assert.ThrowsAny<CryptographicException>(() =>
                 CryptographyHelper.DecryptData(EncryptionAlgorithm.ChaCha20Poly1305, aesEncrypted, key));
         }
 

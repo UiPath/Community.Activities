@@ -157,7 +157,7 @@
     <value>지정된 Python 경로가 잘못됨: {0}</value>
   </data>
   <data name="InvalidLibraryPathException" xml:space="preserve">
-    <value>지정된 Python 라이브러리 경로가 유효하지 않습니다(Python 3.10에는 python**.dll / libpython*.so 파일 경로가 필요함): {0}</value>
+    <value>지정된 Python 라이브러리 경로가 유효하지 않습니다(python**.dll / libpython*.so 파일 경로가 필요함): {0}</value>
   </data>
   <data name="InvokeException" xml:space="preserve">
     <value>Python 메서드 호출 중 오류</value>
@@ -316,7 +316,7 @@
     <value>액티비티 구성에 사용할 Python 설치 버전을 선택합니다</value>
   </data>
   <data name="NoPythonInstallations" xml:space="preserve">
-    <value>Python 설치가 감지되지 않았습니다</value>
+    <value>지원되는 Python 설치(64비트 3.11 이상)가 감지되지 않았습니다</value>
   </data>
   <data name="ScriptDataSizeLimitDisplayName" xml:space="preserve">
     <value>스크립트 데이터 크기 제한(MB)</value>

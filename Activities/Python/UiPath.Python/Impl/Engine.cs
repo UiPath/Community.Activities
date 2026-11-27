@@ -31,6 +31,17 @@ namespace UiPath.Python.Impl
 
         #endregion Runtime info
 
+        static Engine()
+        {
+            // PythonEngine.Shutdown() saves the runtime state in the interpreter (RuntimeData.Stash) and the next
+            // PythonEngine.Initialize() restores it. Saving needs a working formatter: on .NET 8 BinaryFormatter is
+            // unusable, so pythonnet falls back to a NoopFormatter that saves nothing and throws NotImplementedException
+            // when the state is restored, which made every second initialization in the same process fail (a second
+            // Python Scope after the first one was released). Discard the saved state right after it was written: the
+            // next Initialize then starts clean, as the first one does.
+            RuntimeData.PostStashHook = RuntimeData.ClearStash;
+        }
+
         internal Engine(Version version, string path, string libraryPath)
         {
             _version = version;

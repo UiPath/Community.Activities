@@ -634,6 +634,9 @@
   <data name="PgpInvalidPassphrase" xml:space="preserve">
     <value>The passphrase for the PGP private key is incorrect.</value>
   </data>
+  <data name="PgpProviderNotInstalled" xml:space="preserve">
+    <value>PGP is not available. The PGP activities and the PGP option of the encryption activities need the UiPath.Cryptography.Activities package (the extended package), which adds the OpenPGP implementation to UiPath.Cryptography.Core.Activities. Install it, or use another algorithm.</value>
+  </data>
   <data name="PgpPrivateKeyNotFound" xml:space="preserve">
     <value>The provided private key does not match the encrypted data. Ensure you are using the correct private key.</value>
   </data>
@@ -642,6 +645,18 @@
   </data>
   <data name="PgpAeadNotSupported" xml:space="preserve">
     <value>The input uses GnuPG's AEAD/LibrePGP format (OCB), which is not supported. Ask the sender to encrypt with RFC 4880 compatibility (no AEAD).</value>
+  </data>
+  <data name="PgpEncryptionKeyNotUsable" xml:space="preserve">
+    <value>The recipient public key cannot be used for encryption because it is expired, revoked or has no encryption-capable key. Provide a current public key for the recipient.</value>
+  </data>
+  <data name="PgpSigningKeyNotUsable" xml:space="preserve">
+    <value>The private key cannot be used for signing because it is expired, revoked or has no signing-capable key. Provide a current private key.</value>
+  </data>
+  <data name="PgpInputNotEncrypted" xml:space="preserve">
+    <value>The input is not PGP-encrypted data, so it cannot be decrypted. Provide the encrypted message, or turn off decryption if the input is only signed.</value>
+  </data>
+  <data name="PgpMessageIntegrityFailed" xml:space="preserve">
+    <value>The encrypted data failed its integrity check; it was modified or is corrupted.</value>
   </data>
   <data name="PgpVerifyMode_Signature" xml:space="preserve">
     <value>Signed File (Binary)</value>

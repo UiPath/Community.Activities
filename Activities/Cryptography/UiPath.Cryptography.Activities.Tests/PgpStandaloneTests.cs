@@ -397,19 +397,19 @@ namespace UiPath.Cryptography.Activities.Tests
         }
 
         // STUD-80428: GnuPG 2.4+ defaults to a LibrePGP AEAD Encrypted Data packet (tag 20, OCB
-        // cipher) for recipient keys that advertise AEAD support. BouncyCastle 2.4.0's
-        // PgpObjectFactory has no case for tag 20 and throws "unknown object in stream 20";
+        // cipher) for recipient keys that advertise AEAD support. BouncyCastle fails on tag 20
+        // (2.4.0-2.6.x: "unknown object in stream 20"; 2.7+: "invalid header encountered");
         // PgpDecrypt/PgpDecryptStream must translate that into the actionable
         // PgpAeadNotSupported message instead of surfacing the raw BouncyCastle exception.
         [Fact]
         public void PgpDecrypt_AeadEncryptedPacket_ThrowsActionableError()
         {
-            var aeadPacket = BuildRawAeadEncryptedDataPacket();
+            var aeadPacket = GnuPgAeadSample.Message();
 
-            using (var privateKeyStream = File.OpenRead(_privateKeyPath))
+            using (var privateKeyStream = GnuPgAeadSample.PrivateKeyStream())
             {
                 var ex = Assert.Throws<InvalidOperationException>(() =>
-                    CryptographyHelper.PgpDecrypt(aeadPacket, privateKeyStream, Passphrase));
+                    CryptographyHelper.PgpDecrypt(aeadPacket, privateKeyStream, GnuPgAeadSample.Passphrase));
 
                 Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
             }
@@ -418,9 +418,10 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void DecryptFile_Activity_AeadEncryptedPacket_ThrowsActionableError()
         {
-            var aeadPacket = BuildRawAeadEncryptedDataPacket();
+            var aeadPacket = GnuPgAeadSample.Message();
             var inputPath = Path.Combine(Path.GetTempPath(), $"pgp_aead_in_{Guid.NewGuid()}.pgp");
             File.WriteAllBytes(inputPath, aeadPacket);
+            var keyPath = GnuPgAeadSample.WritePrivateKeyFile();
 
             try
             {
@@ -428,8 +429,8 @@ namespace UiPath.Cryptography.Activities.Tests
                 {
                     Algorithm = EncryptionAlgorithm.PGP,
                     InputFilePath = new InArgument<string>(inputPath),
-                    PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
-                    Passphrase = new InArgument<string>(Passphrase),
+                    PrivateKeyFilePath = new InArgument<string>(keyPath),
+                    Passphrase = new InArgument<string>(GnuPgAeadSample.Passphrase),
                     OutputFilePath = new InArgument<string>(Path.Combine(Path.GetTempPath(), $"pgp_aead_out_{Guid.NewGuid()}.txt")),
                 };
 
@@ -439,6 +440,7 @@ namespace UiPath.Cryptography.Activities.Tests
             finally
             {
                 if (File.Exists(inputPath)) File.Delete(inputPath);
+                if (File.Exists(keyPath)) File.Delete(keyPath);
             }
         }
 
@@ -449,7 +451,7 @@ namespace UiPath.Cryptography.Activities.Tests
             using var ms = new MemoryStream();
             using (var armored = new ArmoredOutputStream(ms))
             {
-                var packet = BuildRawAeadEncryptedDataPacket();
+                var packet = GnuPgAeadSample.Message();
                 armored.Write(packet, 0, packet.Length);
             }
             return Encoding.ASCII.GetString(ms.ToArray());
@@ -460,10 +462,10 @@ namespace UiPath.Cryptography.Activities.Tests
         {
             var armoredAead = BuildArmoredAeadMessage();
 
-            using (var privateKeyStream = File.OpenRead(_privateKeyPath))
+            using (var privateKeyStream = GnuPgAeadSample.PrivateKeyStream())
             {
                 var ex = Assert.Throws<InvalidOperationException>(() =>
-                    CryptographyHelper.PgpDecryptText(armoredAead, privateKeyStream, Passphrase));
+                    CryptographyHelper.PgpDecryptText(armoredAead, privateKeyStream, GnuPgAeadSample.Passphrase));
 
                 Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
             }
@@ -472,35 +474,24 @@ namespace UiPath.Cryptography.Activities.Tests
         [Fact]
         public void DecryptText_Activity_AeadEncryptedPacket_ThrowsActionableError()
         {
-            var activity = new DecryptText
+            var keyPath = GnuPgAeadSample.WritePrivateKeyFile();
+            try
             {
-                Algorithm = EncryptionAlgorithm.PGP,
-                Input = new InArgument<string>(BuildArmoredAeadMessage()),
-                PrivateKeyFilePath = new InArgument<string>(_privateKeyPath),
-                Passphrase = new InArgument<string>(Passphrase),
-            };
+                var activity = new DecryptText
+                {
+                    Algorithm = EncryptionAlgorithm.PGP,
+                    Input = new InArgument<string>(BuildArmoredAeadMessage()),
+                    PrivateKeyFilePath = new InArgument<string>(keyPath),
+                    Passphrase = new InArgument<string>(GnuPgAeadSample.Passphrase),
+                };
 
-            var ex = Assert.Throws<InvalidOperationException>(() => WorkflowInvoker.Invoke(activity));
-            Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
-        }
-
-        /// <summary>
-        /// Builds a minimal raw OpenPGP packet with tag 20 (AEAD Encrypted Data / LibrePGP,
-        /// GnuPG 2.4+'s default for AEAD-capable recipients). BouncyCastle 2.4.0's
-        /// <see cref="PgpObjectFactory"/> has no case for this tag and throws before any key
-        /// material is consulted, so the body content is irrelevant — only a well-formed
-        /// new-format packet header for tag 20 is needed to reproduce the failure.
-        /// </summary>
-        private static byte[] BuildRawAeadEncryptedDataPacket()
-        {
-            const byte tag20NewFormatHeader = 0xC0 | 20; // RFC 4880 new-format packet header, tag 20
-            byte[] body = { 1, 9, 2, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // version, cipher, aead algo, chunk size, IV (arbitrary)
-
-            using var ms = new MemoryStream();
-            ms.WriteByte(tag20NewFormatHeader);
-            ms.WriteByte((byte)body.Length); // one-byte new-format length (body.Length < 192)
-            ms.Write(body, 0, body.Length);
-            return ms.ToArray();
+                var ex = Assert.Throws<InvalidOperationException>(() => WorkflowInvoker.Invoke(activity));
+                Assert.Equal(UiPath.Cryptography.Properties.Resources.PgpAeadNotSupported, ex.Message);
+            }
+            finally
+            {
+                if (File.Exists(keyPath)) File.Delete(keyPath);
+            }
         }
 
         #endregion

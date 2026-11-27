@@ -1276,6 +1276,15 @@ namespace UiPath.Cryptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PGP is not available. The PGP activities need the UiPath.Cryptography.Activities package (the extended package)..
+        /// </summary>
+        internal static string PgpProviderNotInstalled {
+            get {
+                return ResourceManager.GetString("PgpProviderNotInstalled", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to The provided private key does not match the encrypted data. Ensure you are using the correct private key..
         /// </summary>
         internal static string PgpPrivateKeyNotFound {
@@ -1299,6 +1308,42 @@ namespace UiPath.Cryptography.Properties {
         internal static string PgpAeadNotSupported {
             get {
                 return ResourceManager.GetString("PgpAeadNotSupported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The recipient public key cannot be used for encryption because it is expired, revoked or has no encryption-capable key. Provide a current public key for the recipient..
+        /// </summary>
+        internal static string PgpEncryptionKeyNotUsable {
+            get {
+                return ResourceManager.GetString("PgpEncryptionKeyNotUsable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The private key cannot be used for signing because it is expired, revoked or has no signing-capable key. Provide a current private key..
+        /// </summary>
+        internal static string PgpSigningKeyNotUsable {
+            get {
+                return ResourceManager.GetString("PgpSigningKeyNotUsable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The input is not PGP-encrypted data, so it cannot be decrypted. Provide the encrypted message, or turn off decryption if the input is only signed..
+        /// </summary>
+        internal static string PgpInputNotEncrypted {
+            get {
+                return ResourceManager.GetString("PgpInputNotEncrypted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The encrypted data failed its integrity check; it was modified or is corrupted..
+        /// </summary>
+        internal static string PgpMessageIntegrityFailed {
+            get {
+                return ResourceManager.GetString("PgpMessageIntegrityFailed", resourceCulture);
             }
         }
 

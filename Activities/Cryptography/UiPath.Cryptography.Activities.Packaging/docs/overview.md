@@ -1,24 +1,33 @@
-# UiPath Cryptography Activities
+# UiPath Cryptography Activities: PGP extension
 
 `UiPath.Cryptography.Activities`
 
-## Activities
+This package is the **extension** of `UiPath.Cryptography.Core.Activities`. It adds the OpenPGP implementation (PgpCore on BouncyCastle) that the core package needs for its PGP features. OpenPGP has no operating system equivalent, so this package is not limited to operating system cryptography. Projects that must use operating system cryptography only reference `UiPath.Cryptography.Core.Activities` and have no PGP.
 
-### Cross-platform
+The package contains no activities of its own. It depends on the exact same version of `UiPath.Cryptography.Core.Activities`, so adding or upgrading this package brings the activities, the coded workflow API and their documentation from the core package. Projects that already listed `UiPath.Cryptography.Activities` keep working unchanged after an upgrade, including PGP.
 
-| Activity | Description |
-|----------|-------------|
-| [Decrypt File](activities/DecryptFile.md) | Decrypts a file based on a specified key encoding and algorithm |
-| [Decrypt Text](activities/DecryptText.md) | Decrypts text based on a specified key encoding and algorithm |
-| [Encrypt File](activities/EncryptFile.md) | Encrypts a file with a key based on a specified key encoding and algorithm |
-| [Encrypt Text](activities/EncryptText.md) | Encrypts a string with a key based on a specified key encoding and algorithm |
-| [Hash File](activities/KeyedHashFile.md) | Hashes a file with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash |
-| [Hash Text](activities/KeyedHashText.md) | Hashes a string with a key using a specified algorithm and returns the hexadecimal string representation of the resulting hash |
-| [PGP Generate Keys](activities/PgpGenerateKeys.md) | Generates a PGP public/private key pair and saves them to the specified file paths |
-| [PGP Sign File](activities/PgpSignFile.md) | Creates a PGP binary signature of a file using a private key |
-| [PGP ClearSign File](activities/PgpClearSignFile.md) | Creates a PGP clear-text signature of a file using a private key |
-| [PGP Verify](activities/PgpVerify.md) | Verifies a PGP signature, clearsignature, or validates a public key file |
+## What the extension enables
 
-## Coded workflows
+| Feature | Where it lives |
+|---------|----------------|
+| PGP Generate Keys, PGP Sign File, PGP ClearSign File, PGP Verify | Activities of the core package |
+| `PGP` algorithm of Encrypt Text, Encrypt File, Decrypt Text, Decrypt File | Activities of the core package |
+| PGP methods of the `cryptography` coded workflow service (`PgpPublicKey`, `PgpPrivateKey`, `PgpKeyPair`) | Coded workflow API of the core package |
 
-The same capabilities are available to coded (C#) workflows through the `cryptography` service — see the [Coded Workflow API](coded-api.md). The activities and the coded API share one cryptographic core, so they are at full parity on algorithms, wire formats, and PGP operations. The coded API additionally offers `byte[]` I/O, raw-byte and in-memory keys, and Text/Bytes variants of sign/clearsign/verify; the activities add UiPath `IResource` handle support and the `ContinueOnError` option. See [Relationship to the XAML activities](coded-api.md#relationship-to-the-xaml-activities) for the full comparison.
+The activity and API documentation is in the documentation of `UiPath.Cryptography.Core.Activities`.
+
+## Without the extension
+
+With only `UiPath.Cryptography.Core.Activities` in the project, the PGP activities stay visible but fail at run time, and so do PGP calls from coded workflows and the `PGP` algorithm choice, with `InvalidOperationException`: "PGP is not available ... need the UiPath.Cryptography.Activities package (the extended package)". Add this package to fix it.
+
+## How the core package finds the extension
+
+The extension assembly `UiPath.Cryptography.Activities.Extended.dll` declares its provider with the `PgpProvider` assembly attribute. The core package looks for it among the loaded assemblies and then loads it by name; a missing extension is never cached, so installing it takes effect on the next call. If the extension is installed but cannot be loaded (for example a version mismatch), the exception carries the cause as its inner exception.
+
+## Versions
+
+Both packages are built together and the extension pins the exact version of the core package. Upgrade them together.
+
+## Compliance note
+
+`UiPath.Cryptography.Core.Activities` passes the operating system crypto scan. This package contains `PgpCore` and `BouncyCastle.Cryptography` and is flagged by that scan by design; do not use it where only operating system cryptography is allowed.

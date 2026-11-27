@@ -24,6 +24,8 @@
         <EmbeddedResource Include="Resources\Icons\*.svg" />
     </ItemGroup>
 
+    <Import Project="..\..\Shared\UiPath.Shared.ViewModels\UiPath.Shared.ViewModels.projitems" Label="Shared" />
+
     <ItemGroup>
         <InternalsVisibleTo Include="UiPath.Python.Activities.Tests" />
     </ItemGroup>

@@ -178,7 +178,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required for Python 3.10): {0}.
+        ///   Looks up a localized string similar to The specified Python library path is not valid (a file path to python**.dll / libpython*.so is required): {0}.
         /// </summary>
         public static string InvalidLibraryPathException {
             get {
@@ -322,7 +322,7 @@ namespace UiPath.Python.Activities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Python installations were detected.
+        ///   Looks up a localized string similar to No supported Python installations (64-bit 3.11 or later) were detected.
         /// </summary>
         public static string NoPythonInstallations {
             get {

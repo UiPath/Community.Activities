@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UiPath.Python;
+using UiPath.Shared.ViewModels.Helpers;
 using Resources = UiPath.Python.Activities.Properties.UiPath_Python_Activities;
 
 namespace UiPath.Activities.Python.ViewModels
@@ -34,6 +35,18 @@ namespace UiPath.Activities.Python.ViewModels
         [NotMappedProperty]
         public DesignProperty<string> InstalledVersions { get; set; }
 
+        // Older Studio versions ignore NoWrap and would store LocalResource.FromPath("...") in a string argument;
+        // unwrap it and keep relative paths portable ('/').
+        public override async ValueTask<UpdateViewModelResult> UpdateAsync(string propertyName, object value)
+        {
+            if (propertyName == nameof(Path) || propertyName == nameof(LibraryPath) || propertyName == nameof(WorkingFolder))
+            {
+                value = LocalResourcePathNormalizer.Normalize(value);
+            }
+
+            return await base.UpdateAsync(propertyName, value);
+        }
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -52,19 +65,19 @@ namespace UiPath.Activities.Python.ViewModels
             Path.Category = Resources.Input;
             // Path is optional: when empty/null the PYTHONHOME environment variable is used at runtime.
             Path.IsPrincipal = true;
-            Path.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services, selectFolder: true);
+            WidgetSupportHelper.ApplyLocalResourceWidget(Path, Services, selectFolder: true);
 
             LibraryPath.DisplayName = Resources.LibraryPathNameDisplayName;
             LibraryPath.Tooltip = Resources.LibraryPathDescription;
             LibraryPath.Category = Resources.Input;
             LibraryPath.IsRequired = true;
             LibraryPath.IsPrincipal = true;
-            LibraryPath.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services);
+            WidgetSupportHelper.ApplyLocalResourceWidget(LibraryPath, Services);
 
             WorkingFolder.DisplayName = Resources.WorkingFolder;
             WorkingFolder.Tooltip = Resources.WorkingFolderDescription;
             WorkingFolder.Category = Resources.Input;
-            WorkingFolder.Widget = WidgetSupportHelper.BuildLocalResourceWidget(Services, selectFolder: true);
+            WidgetSupportHelper.ApplyLocalResourceWidget(WorkingFolder, Services, selectFolder: true);
 
             OperationTimeout.DisplayName = Resources.OperationTimeout;
             OperationTimeout.Tooltip = Resources.OperationTimeoutDescription;
@@ -139,7 +152,7 @@ namespace UiPath.Activities.Python.ViewModels
             LibraryPath.Value = installation.LibraryPath;
         }
 
-        private sealed record PythonInstallation(string Version, string InstallPath, string LibraryPath)
+        internal sealed record PythonInstallation(string Version, string InstallPath, string LibraryPath)
         {
             // Identity must include the install path: the same version can be installed in more
             // than one location, and keying on version alone would collapse them to a single entry.
@@ -223,7 +236,7 @@ namespace UiPath.Activities.Python.ViewModels
         private static string GetLiteralValue(System.Activities.InArgument<string> arg) =>
             (arg?.Expression as System.Activities.Expressions.Literal<string>)?.Value;
 
-        private static PythonInstallation TryParseLauncherLine(string line)
+        internal static PythonInstallation TryParseLauncherLine(string line)
         {
             // Format (old): -3.11-64 *       C:\Python311\python.exe
             // Format (new): -V:3.11 *        C:\Program Files\Python311\python.exe
@@ -249,7 +262,8 @@ namespace UiPath.Activities.Python.ViewModels
         private static bool TryBuildVersionLabel(int major, int minor, out string label)
         {
             label = null;
-            if (major != 3)
+            // Only offer versions the runtime accepts, so the designer and EngineProvider.ValidatePythonLibrary agree.
+            if (major != 3 || !VersionExtensions.IsRuntimeVersionSupported(major, minor))
                 return false;
 
             label = $"{major}.{minor}";
