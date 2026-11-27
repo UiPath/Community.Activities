@@ -9,10 +9,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="UiPath.Activities.Api" />
-    <PackageReference Include="UiPath.Workflow" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UiPath.Python.Activities.API\UiPath.Python.Activities.API.csproj" />

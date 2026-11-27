@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <!-- The core package discovers this assembly by name (PgpProviderLocator.WellKnownAssemblies). -->
+    <AssemblyName>UiPath.Cryptography.Activities.Extended</AssemblyName>
+    <RootNamespace>UiPath.Cryptography.Extended</RootNamespace>
+    <OutputPath>..\..\Output\Activities\Cryptography\</OutputPath>
+    <Description>OpenPGP for the UiPath Cryptography activities (implemented with PgpCore and BouncyCastle).</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PgpCore" />
+    <PackageReference Include="BouncyCastle.Cryptography" />
+    <ProjectReference Include="..\UiPath.Cryptography\UiPath.Cryptography.csproj" />
+  </ItemGroup>
+
+  <!--
+    The extended package is a package of its own for Studio Web: the type cache lists only packages with activities,
+    and the palette shows the activities of the packages a project lists. So it carries its own manifest, a copy of
+    Core's (guarded by a test), and the same icons. The activities, their view models and the display texts stay in
+    UiPath.Cryptography.Core.Activities: the manifest points at Core's resource manager, which the type cache and the
+    designers find in the dependency.
+  -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
+    <EmbeddedResource Include="..\UiPath.Cryptography.Activities\Resources\Icons\*.svg" LinkBase="Resources\Icons" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="UiPath.Cryptography.Activities.Tests" />
+  </ItemGroup>
+</Project>

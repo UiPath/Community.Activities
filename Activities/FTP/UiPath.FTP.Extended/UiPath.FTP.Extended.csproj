@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>$(PortableFramework)</TargetFrameworks>
+    <!-- Core discovers this assembly by name (SftpCryptoExtensionDiscovery.WellKnownAssemblies). -->
+    <AssemblyName>UiPath.FTP.Activities.Extended</AssemblyName>
+    <RootNamespace>UiPath.FTP.Extended</RootNamespace>
+    <OutputPath>..\..\Output\Activities\FTP\</OutputPath>
+    <Description>Additional SFTP algorithms for the UiPath FTP activities (implemented with BouncyCastle).</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" />
+    <ProjectReference Include="..\UiPath.FTP\UiPath.FTP.csproj" />
+  </ItemGroup>
+
+  <!--
+    The extended package is a package of its own for Studio Web: the type cache lists only packages with activities,
+    and the palette shows the activities of the packages a project lists. So it carries its own manifest, a copy of
+    Core's (guarded by a test), and the same icons. The activities, their view models and the display texts stay in
+    UiPath.FTP.Core.Activities: the manifest points at Core's resource manager, which the type cache and the designers
+    find in the dependency.
+  -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ActivitiesMetadata.json" />
+    <EmbeddedResource Include="..\UiPath.FTP.Activities\Resources\Icons\*.svg" LinkBase="Resources\Icons" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="UiPath.FTP.Extended.Tests" />
+  </ItemGroup>
+</Project>

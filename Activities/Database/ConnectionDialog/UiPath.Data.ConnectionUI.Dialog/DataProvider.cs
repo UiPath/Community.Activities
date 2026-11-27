@@ -1,5 +1,4 @@
-﻿using Oracle.ManagedDataAccess.Client;
-using System;
+﻿using System;
 using System.Activities.Presentation;
 using System.Collections.Generic;
 using UiPath.Data.ConnectionUI.Dialog.Controls;
@@ -10,18 +9,16 @@ namespace UiPath.Data.ConnectionUI.Dialog
 {
     public class DataProvider
     {
-        private string _name;
-        private string _displayName;
-        private string _shortDisplayName;
-        private string _description;
-        private Type _targetConnectionType;
-        private IDictionary<string, string> _dataSourceDescriptions;
-        private IDictionary<string, Type> _connectionUIControlTypes;
-        private IDictionary<string, Type> _connectionPropertiesTypes;
+        private readonly string _name;
+        private readonly string _displayName;
+        private readonly string _shortDisplayName;
+        private readonly string _description;
+        private readonly IDictionary<string, string> _dataSourceDescriptions;
+        private readonly IDictionary<string, Type> _connectionUIControlTypes;
+        private readonly IDictionary<string, Type> _connectionPropertiesTypes;
         private static DataProvider _sqlDataProvider;
         private static DataProvider _oleDBDataProvider;
         private static DataProvider _odbcDataProvider;
-        private static DataProvider _oracleManagedDataAcessProvider;
         private static DataProvider _sqliteDataProvider;
 
         #region Public Properties
@@ -166,37 +163,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
             }
         }
 
-        public static DataProvider OracleManagedDataAccessProvider
-        {
-            get
-            {
-                if (_oracleManagedDataAcessProvider == null)
-                {
-                    Dictionary<string, string> descriptions = new Dictionary<string, string>
-                    {
-                        { DataSource.OracleManagedDataAccessSource.Name, Resources.DataProvider_Oracle_DataSource_Description }
-                    };
-
-                    Dictionary<string, Type> uiControls = new Dictionary<string, Type>
-                    {
-                        { string.Empty, typeof(OracleConnectionUIControl) }
-                    };
-
-                    _oracleManagedDataAcessProvider = new DataProvider(
-                        DatabaseConstants.OracleProvider,
-                        Resources.DataProvider_Oracle,
-                        Resources.DataProvider_Oracle_Short,
-                        Resources.DataProvider_Oracle_Description,
-                        typeof(OracleConnection),
-                        descriptions,
-                        uiControls,
-                        typeof(OracleConnectionProperties)
-                        );
-                }
-                return _oracleManagedDataAcessProvider;
-            }
-        }
-
         public static DataProvider SqliteDataProvider
         {
             get
@@ -240,7 +206,6 @@ namespace UiPath.Data.ConnectionUI.Dialog
             _displayName = displayName;
             _shortDisplayName = shortDisplayName;
             _description = description;
-            _targetConnectionType = targetConnectionType;
         }
 
         public DataProvider(string name, string displayName, string shortDisplayName, string description, Type targetConnectionType, Type connectionPropertiesType)
@@ -292,10 +257,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
         public virtual WorkflowElementDialog CreateConnectionUIControl(DataSource dataSource, IDataConnectionProperties properties)
         {
-            string key = null;
-            if (_connectionUIControlTypes != null &&
-                (dataSource != null && dataSource.Name != null && _connectionUIControlTypes.ContainsKey(key = dataSource.Name)) ||
-                _connectionUIControlTypes.ContainsKey(key = string.Empty))
+            if (TryGetKey(_connectionUIControlTypes, dataSource, out string key))
             {
                 WorkflowElementDialog uiInterface = (WorkflowElementDialog)Activator.CreateInstance(_connectionUIControlTypes[key]);
                 ((IDataConnectionUIControl)uiInterface).Initialize(properties);
@@ -307,6 +269,23 @@ namespace UiPath.Data.ConnectionUI.Dialog
             }
         }
 
+        // The type registered for the data source, or else the default one (empty key).
+        private static bool TryGetKey(IDictionary<string, Type> types, DataSource dataSource, out string key)
+        {
+            key = null;
+            if (types == null)
+                return false;
+
+            if (dataSource?.Name != null && types.ContainsKey(dataSource.Name))
+            {
+                key = dataSource.Name;
+                return true;
+            }
+
+            key = string.Empty;
+            return types.ContainsKey(key);
+        }
+
         public IDataConnectionProperties CreateConnectionProperties()
         {
             return CreateConnectionProperties(null);
@@ -314,10 +293,7 @@ namespace UiPath.Data.ConnectionUI.Dialog
 
         public virtual IDataConnectionProperties CreateConnectionProperties(DataSource dataSource)
         {
-            string key = null;
-            if (_connectionPropertiesTypes != null &&
-                ((dataSource != null && dataSource.Name != null && _connectionPropertiesTypes.ContainsKey(key = dataSource.Name)) ||
-                _connectionPropertiesTypes.ContainsKey(key = string.Empty)))
+            if (TryGetKey(_connectionPropertiesTypes, dataSource, out string key))
             {
                 return Activator.CreateInstance(_connectionPropertiesTypes[key]) as IDataConnectionProperties;
             }

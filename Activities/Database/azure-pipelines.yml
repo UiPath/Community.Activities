@@ -39,14 +39,13 @@ stages:
     parameters:
       projectName: 'Database'
       solutionPath: '$(SolutionsPath)/Activities.Database.sln'
-      sdkBuild: false
       hasQaPackages: false
       preTestRun:
       - task: UseDotNet@2
-        displayName: 'Install .NET 6 SDK'
+        displayName: 'Install .NET 8 SDK'
         inputs:
           packageType: 'sdk'
-          version: '6.0.x'
+          version: '8.0.x'
 
   - stage: CreateAndSetupBYOSAgent
     dependsOn:

@@ -1,4 +1,6 @@
 using System.Activities.DesignViewModels;
+using System.Threading.Tasks;
+using UiPath.Shared.ViewModels.Helpers;
 using Resources = UiPath.Java.Activities.Properties.UiPath_Java_Activities;
 
 namespace UiPath.Activities.Java.ViewModels
@@ -26,6 +28,19 @@ namespace UiPath.Activities.Java.ViewModels
             JarPath.Category = Resources.Input;
             JarPath.IsRequired = true;
             JarPath.IsPrincipal = true;
+            WidgetSupportHelper.ApplyLocalResourceWidget(JarPath, Services);
+        }
+
+        // Older Studio versions ignore NoWrap and would store LocalResource.FromPath("...") in the string JarPath;
+        // unwrap it and keep relative paths portable ('/').
+        public override async ValueTask<UpdateViewModelResult> UpdateAsync(string propertyName, object value)
+        {
+            if (propertyName == nameof(JarPath))
+            {
+                value = LocalResourcePathNormalizer.Normalize(value);
+            }
+
+            return await base.UpdateAsync(propertyName, value);
         }
     }
 }

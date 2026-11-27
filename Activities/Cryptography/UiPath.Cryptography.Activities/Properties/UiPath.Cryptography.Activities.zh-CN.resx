@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -120,6 +120,15 @@
   <data name="FipsComplianceWarning" xml:space="preserve">
     <value>所选算法不具有符合 FIPS 的实现。可能无法在某些计算机上工作。</value>
   </data>
+  <data name="ChaCha20Poly1305NotSupported" xml:space="preserve">
+    <value>ChaCha20-Poly1305 在此平台上不受支持。请改用 AES-GCM，或在提供 ChaCha20-Poly1305 的平台上运行（带有 OpenSSL 的 Linux，或 Windows 10 1809 / Server 2019 及更高版本）。</value>
+  </data>
+  <data name="Iv_NonceReuseWarning" xml:space="preserve">
+    <value>已提供显式 IV。在多次加密中重复使用相同的 (Key, IV) 对会破坏机密性，并且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，还会让攻击者恢复认证密钥并伪造任意消息。请确保每个 (Key, IV) 对最多使用一次，或将 IV 留空以便每次调用生成新的随机 IV。</value>
+  </data>
+  <data name="OutputFileName_IgnoredWhenOutputFilePathSet" xml:space="preserve">
+    <value>OutputFilePath 和 OutputFileName 均已设置。提供 OutputFilePath 时，将忽略 OutputFileName；输出文件名取自 OutputFilePath。</value>
+  </data>
   <data name="Input" xml:space="preserve">
     <value>输入</value>
   </data>
@@ -172,6 +181,72 @@
   <data name="Common" xml:space="preserve">
     <value>常见</value>
   </data>
+  <data name="MenuAction_UseFile" xml:space="preserve">
+    <value>使用文件</value>
+  </data>
+  <data name="MenuAction_UseFilePath" xml:space="preserve">
+    <value>使用文件路径</value>
+  </data>
+  <data name="MenuAction_UseKey" xml:space="preserve">
+    <value>使用密钥</value>
+  </data>
+  <data name="MenuAction_UseSecureKey" xml:space="preserve">
+    <value>使用安全密钥</value>
+  </data>
+  <data name="MenuAction_UsePassphrase" xml:space="preserve">
+    <value>使用密码短语</value>
+  </data>
+  <data name="MenuAction_UseSecurePassphrase" xml:space="preserve">
+    <value>使用安全密码短语</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公钥文件</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>接收方的 PGP 公钥，以文件资源形式提供（例如来自项目资源或存储桶）。</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公钥文件</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>发送方的 PGP 公钥，以文件资源形式提供。用于验证签名。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公钥文件</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>接收方的 PGP 公钥，以文件资源形式提供（例如来自项目资源或存储桶）。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公钥文件</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>发送方的 PGP 公钥，以文件资源形式提供。用于验证签名。</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_EncryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供（例如，来自项目资源或存储桶）。用于对加密输出进行签名。仅在启用签名数据时才需要。</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_EncryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供（例如，来自项目资源或存储桶）。用于对加密输出进行签名。仅在启用签名数据时才需要。</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_DecryptText_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供。用于解密消息。</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+  </data>
+  <data name="Activity_DecryptFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源的形式提供。用于解密消息。</value>
+  </data>
   <data name="ContinueOnErrorDisplayName" xml:space="preserve">
     <value>出错时继续</value>
     <comment>property name</comment>
@@ -194,7 +269,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>下拉菜单，用于选择要使用的解密算法。</value>
+    <value>下拉菜单，用于选择要使用的解密算法。输入必须是 UiPath 线路格式的 Base64（salt | IV |密文）；外部工具生成的密文不直接兼容 — 请参阅活动文档了解线路格式规范。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Algorithm_Name" xml:space="preserve">
@@ -242,11 +317,11 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>您要保存已解密文件的路径。</value>
+    <value>解密文件将保存到的完整路径，包括文件名和扩展名。留空时，文件将写入输入文件旁边，名称为“&lt;input-name&gt;_Decrypted&lt;input-extension&gt;”。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>输出文件的名称和位置</value>
+    <value>输出文件路径</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -266,7 +341,7 @@
     <comment>Activity Description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>下拉菜单，用于选择要使用的解密算法。</value>
+    <value>下拉菜单，用于选择要使用的解密算法。输入必须是 UiPath 线路格式的 Base64（salt | IV |密文）；外部工具生成的密文不直接兼容 — 请参阅活动文档了解线路格式规范。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Algorithm_Name" xml:space="preserve">
@@ -282,7 +357,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>用于解释在“密钥”属性中指定的输入文本和密钥的编码。</value>
+    <value>用于解释 Key 属性中指定的密钥/密码的编码。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Encoding_Name" xml:space="preserve">
@@ -297,6 +372,22 @@
     <value>密钥编码</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>用于将解密后的字节转换回文本的编码。默认值为 UTF-8。请将此设置为与生成密文的第三方工具所使用的编码匹配。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>文本编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>用于将解密后的字节转换回文本的编码。默认值为 UTF-8。请将此设置为与生成密文的第三方工具所使用的编码匹配。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>文本编码</value>
+    <comment>Property name</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Input_Description" xml:space="preserve">
     <value>您要解密的文本。</value>
     <comment>Property description</comment>
@@ -306,7 +397,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Description" xml:space="preserve">
-    <value>您想用于解密指定文件的密钥。</value>
+    <value>您要用于解密指定文本的密钥。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Key_Name" xml:space="preserve">
@@ -330,7 +421,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Description" xml:space="preserve">
-    <value>下拉菜单，用于选择要使用的加密算法。</value>
+    <value>下拉菜单，用于选择要使用的加密算法。密文使用 UiPath 特定的线路格式 Base64（salt | IV |密文），并且不与外部工具直接互操作 — 请参阅活动文档了解线路格式规范。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Algorithm_Name" xml:space="preserve">
@@ -402,11 +493,11 @@
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>您要保存已加密文件的路径。</value>
+    <value>加密文件将保存到的完整路径，包括文件名和扩展名。留空时，文件将写入输入文件旁边，名称为“&lt;input-name&gt;_Encrypted&lt;input-extension&gt;”。</value>
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_OutputFilePath_Name" xml:space="preserve">
-    <value>输出文件的名称和位置</value>
+    <value>输出文件路径</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Overwrite_Description" xml:space="preserve">
@@ -426,7 +517,7 @@
     <comment>Activity name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Description" xml:space="preserve">
-    <value>下拉菜单，用于选择要使用的加密算法。</value>
+    <value>下拉菜单，用于选择要使用的加密算法。密文使用 UiPath 特定的线路格式 Base64（salt | IV |密文），并且不与外部工具直接互操作 — 请参阅活动文档了解线路格式规范。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Algorithm_Name" xml:space="preserve">
@@ -442,7 +533,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Description" xml:space="preserve">
-    <value>用于解释在“密钥”属性中指定的输入文本和密钥的编码。</value>
+    <value>用于解释 Key 属性中指定的密钥/密码的编码。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Encoding_Name" xml:space="preserve">
@@ -455,6 +546,22 @@
   </data>
   <data name="Activity_EncryptText_Property_KeyEncodingString_Name" xml:space="preserve">
     <value>密钥编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Description" xml:space="preserve">
+    <value>用于在加密前将输入文本转换为字节的编码。默认值为 UTF-8。请将此设置为与将使用密文的第三方工具所期望的编码匹配。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncoding_Name" xml:space="preserve">
+    <value>文本编码</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Description" xml:space="preserve">
+    <value>用于在加密前将输入文本转换为字节的编码。默认值为 UTF-8。请将此设置为与将使用密文的第三方工具所期望的编码匹配。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PlaintextEncodingString_Name" xml:space="preserve">
+    <value>文本编码</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Input_Description" xml:space="preserve">
@@ -474,7 +581,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Description" xml:space="preserve">
-    <value>您想用于加密指定文件的密钥。</value>
+    <value>您要用于加密指定文本的密钥。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Key_Name" xml:space="preserve">
@@ -770,7 +877,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_EncryptedFile_Name" xml:space="preserve">
-    <value>加密的文件</value>
+    <value>加密文件</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_InputFile_Description" xml:space="preserve">
@@ -786,7 +893,7 @@
     <comment>property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_DecryptedFile_Name" xml:space="preserve">
-    <value>解密的文件</value>
+    <value>解密文件</value>
     <comment>property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_InputFile_Description" xml:space="preserve">
@@ -833,6 +940,14 @@
     <value>选项</value>
     <comment>Category name</comment>
   </data>
+  <data name="Category_Advanced_Name" xml:space="preserve">
+    <value>高级</value>
+    <comment>Category name</comment>
+  </data>
+  <data name="Category_Encoding_Name" xml:space="preserve">
+    <value>编码</value>
+    <comment>Category name</comment>
+  </data>
   <data name="Activity_KeyedHashFile_Property_KeySecureString_SwitchName" xml:space="preserve">
     <value>使用密钥安全字符串</value>
   </data>
@@ -857,6 +972,12 @@
   <data name="KeySecureStringNullError" xml:space="preserve">
     <value>密钥安全字符串不得为 null</value>
   </data>
+  <data name="PassphraseNullError" xml:space="preserve">
+    <value>未提供所需活动参数“Passphrase”的值</value>
+  </data>
+  <data name="PassphraseSecureStringNullError" xml:space="preserve">
+    <value>安全字符串密码短语不能为 null</value>
+  </data>
   <data name="Activity_EncryptFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
     <value>在文件路径和资源之间切换</value>
   </data>
@@ -867,12 +988,6 @@
     <value>在文件路径和资源之间切换</value>
   </data>
   <data name="Activity_DecryptFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
-    <value>文件输入模式切换</value>
-  </data>
-  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
-    <value>在文件路径和资源之间切换</value>
-  </data>
-  <data name="Activity_KeyedHashFile_Property_FileInputModeSwitch_Name" xml:space="preserve">
     <value>文件输入模式切换</value>
   </data>
   <data name="Activity_HashFile_Property_FileInputModeSwitch_Description" xml:space="preserve">
@@ -889,15 +1004,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>用于解密的 PGP 私钥文件的路径。</value>
+    <value>您自己的 PGP 私钥文件的路径，用于解密消息。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_Passphrase_Name" xml:space="preserve">
     <value>密码短语</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>密码短语（安全）</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>用于解锁您自己的私钥以进行解密的密码短语，以安全字符串形式提供。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_DecryptFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 私钥的密码短语。</value>
+    <value>用于解锁您自己的私钥以进行解密的密码短语。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptFile_Property_VerifySignature_Name" xml:space="preserve">
@@ -913,7 +1036,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>用于签名验证的 PGP 公钥文件的路径。</value>
+    <value>发送方的 PGP 公钥文件的路径，用于验证签名。仅在启用“验证签名”时需要。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Name" xml:space="preserve">
@@ -921,15 +1044,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>用于解密的 PGP 私钥文件的路径。</value>
+    <value>您自己的 PGP 私钥文件的路径，用于解密消息。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_Passphrase_Name" xml:space="preserve">
     <value>密码短语</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_DecryptText_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>密码短语（安全）</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>用于解锁您自己的私钥以进行解密的密码短语，以安全字符串形式提供。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_DecryptText_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 私钥的密码短语。</value>
+    <value>用于解锁您自己的私钥以进行解密的密码短语。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_DecryptText_Property_VerifySignature_Name" xml:space="preserve">
@@ -945,7 +1076,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_DecryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>用于签名验证的 PGP 公钥文件的路径。</value>
+    <value>发送方的 PGP 公钥文件的路径，用于验证签名。仅在启用“验证签名”时需要。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Name" xml:space="preserve">
@@ -953,7 +1084,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>用于加密的 PGP 公钥文件的路径。</value>
+    <value>接收方的 PGP 公钥文件的路径。接收方是能够解密输出的人。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_SignData_Name" xml:space="preserve">
@@ -969,15 +1100,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>用于签名的 PGP 私钥文件的路径。</value>
+    <value>您自己的 PGP 私钥文件的路径，用于对加密输出进行签名。仅在启用“签名数据”时需要。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptFile_Property_Passphrase_Name" xml:space="preserve">
     <value>密码短语</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_EncryptFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>密码短语（安全）</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>用于解锁您自己的私钥以进行签名的密码短语，以安全字符串形式提供。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_EncryptFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>用于签名的 PGP 私钥的密码短语。</value>
+    <value>用于解锁您自己的私钥以进行签名的密码短语。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFilePath_Name" xml:space="preserve">
@@ -985,7 +1124,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>用于加密的 PGP 公钥文件的路径。</value>
+    <value>接收方的 PGP 公钥文件的路径。接收方是能够解密输出的人。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_SignData_Name" xml:space="preserve">
@@ -1001,88 +1140,124 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_EncryptText_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>用于签名的 PGP 私钥文件的路径。</value>
+    <value>您自己的 PGP 私钥文件的路径，用于对加密输出进行签名。仅在启用“签名数据”时需要。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_EncryptText_Property_Passphrase_Name" xml:space="preserve">
     <value>密码短语</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
-    <value>用于签名的 PGP 私钥的密码短语。</value>
+  <data name="Activity_EncryptText_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>密码短语（安全）</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>用于解锁您自己的私钥以进行签名的密码短语，以安全字符串形式提供。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Name" xml:space="preserve">
+  <data name="Activity_EncryptText_Property_Passphrase_Description" xml:space="preserve">
+    <value>用于解锁您自己的私钥以进行签名的密码短语。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Name" xml:space="preserve">
     <value>PGP 生成密钥</value>
     <comment>Activity name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Description" xml:space="preserve">
     <value>生成 PGP 公钥/私钥对，并将其保存到指定的文件路径。</value>
     <comment>Activity description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Name" xml:space="preserve">
     <value>公钥输出路径</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFilePath_Description" xml:space="preserve">
     <value>用于保存生成的 PGP 公钥的文件路径。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>私钥输出路径</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFilePath_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFilePath_Description" xml:space="preserve">
     <value>用于保存生成的 PGP 私钥的文件路径。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Name" xml:space="preserve">
-    <value>用户名</value>
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Name" xml:space="preserve">
+    <value>用户 ID</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Username_Description" xml:space="preserve">
-    <value>与生成的密钥对关联的用户名（或电子邮件地址）。</value>
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Description" xml:space="preserve">
+    <value>生成的公钥的 OpenPGP 用户 ID。通常采用 RFC 2822 邮箱格式，形式为“姓名 email@example.com”（例如，“Alice Doe &lt;alice@example.com&gt;”）。接受任何 UTF-8 字符串，但大多数 PGP 工具和密钥服务器期望的是邮箱格式。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_UserId_Hint" xml:space="preserve">
+    <value>您的姓名 &lt;your.email@example.com&gt;</value>
+    <comment>Property placeholder hint shown inside the empty input</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_Password_Name" xml:space="preserve">
     <value>密码短语</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Password_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Password_Description" xml:space="preserve">
     <value>用于保护生成的私钥的密码短语。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>密码短语（安全）</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>用于保护生成的私钥的密码短语，以安全字符串形式提供。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Name" xml:space="preserve">
     <value>覆盖</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_Overwrite_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_Overwrite_Description" xml:space="preserve">
     <value>如果输出路径中已存在文件，则选择此选项会覆盖这些文件。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_KeySize_Name" xml:space="preserve">
+    <value>密钥大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_KeySize_Description" xml:space="preserve">
+    <value>生成的 PGP 密钥对的 RSA 密钥大小（以位为单位）。支持的大小为 2048 位、3072 位和 4096 位。默认使用 4096 位以实现企业级安全性。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Name" xml:space="preserve">
     <value>出错时继续</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_ContinueOnError_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_ContinueOnError_Description" xml:space="preserve">
     <value>指定如果活动引发错误，是否仍应继续自动化。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Name" xml:space="preserve">
     <value>公钥文件</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PublicKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Description" xml:space="preserve">
     <value>作为文件资源的生成公钥。</value>
     <comment>Property description</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Name" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Name" xml:space="preserve">
     <value>私钥文件</value>
     <comment>Property name</comment>
   </data>
-  <data name="Activity_PgpGenerateKeyPair_Property_PrivateKeyFile_Description" xml:space="preserve">
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Description" xml:space="preserve">
     <value>作为文件资源的生成私钥。</value>
     <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PublicKeyFile_Hint" xml:space="preserve">
+    <value>包含公钥的资源</value>
+    <comment>Property hint</comment>
+  </data>
+  <data name="Activity_PgpGenerateKeys_Property_PrivateKeyFile_Hint" xml:space="preserve">
+    <value>包含私钥的资源</value>
+    <comment>Property hint</comment>
   </data>
   <data name="Activity_PgpSignFile_Name" xml:space="preserve">
     <value>PGP 签名文件</value>
@@ -1100,20 +1275,44 @@
     <value>要签名的文件的路径。</value>
     <comment>Property description</comment>
   </data>
+  <data name="Activity_PgpSignFile_Property_InputFile_Name" xml:space="preserve">
+    <value>输入文件</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_InputFile_Description" xml:space="preserve">
+    <value>要签名的文件资源。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
     <value>私钥文件路径</value>
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>用于签名的 PGP 私钥文件的路径。</value>
+    <value>您自己的 PGP 私钥文件的路径，用于对数据进行签名。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源形式提供（例如来自项目资源或存储桶）。用于对数据进行签名。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>密码短语</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_PgpSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>密码短语（安全）</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>用于解锁您自己的私钥以进行签名的密码短语，以安全字符串形式提供。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_PgpSignFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 私钥的密码短语。</value>
+    <value>用于解锁您自己的私钥以进行签名的密码短语。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_OutputFilePath_Name" xml:space="preserve">
@@ -1121,7 +1320,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>用于保存签名文件的路径。</value>
+    <value>签名文件将保存到的完整路径，包括文件名和扩展名。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpSignFile_Property_Overwrite_Name" xml:space="preserve">
@@ -1161,7 +1360,15 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_InputFilePath_Description" xml:space="preserve">
-    <value>要进行明文签名的文件的路径。</value>
+    <value>要明文签名的文件的路径。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Name" xml:space="preserve">
+    <value>输入文件</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_InputFile_Description" xml:space="preserve">
+    <value>表示要签名的文件的资源。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Name" xml:space="preserve">
@@ -1169,15 +1376,31 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_PrivateKeyFilePath_Description" xml:space="preserve">
-    <value>用于签名的 PGP 私钥文件的路径。</value>
+    <value>您自己的 PGP 私钥文件的路径，用于明文签名数据。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Name" xml:space="preserve">
+    <value>私钥文件</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_PrivateKeyFile_Description" xml:space="preserve">
+    <value>您自己的 PGP 私钥，以文件资源形式提供。用于明文签名数据。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_Passphrase_Name" xml:space="preserve">
     <value>密码短语</value>
     <comment>Property name</comment>
   </data>
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Name" xml:space="preserve">
+    <value>密码短语（安全）</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpClearSignFile_Property_PassphraseSecureString_Description" xml:space="preserve">
+    <value>用于解锁您自己的私钥以进行签名的密码短语，以安全字符串形式提供。</value>
+    <comment>Property description</comment>
+  </data>
   <data name="Activity_PgpClearSignFile_Property_Passphrase_Description" xml:space="preserve">
-    <value>PGP 私钥的密码短语。</value>
+    <value>用于解锁您自己的私钥以进行签名的密码短语。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Name" xml:space="preserve">
@@ -1185,7 +1408,7 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_OutputFilePath_Description" xml:space="preserve">
-    <value>用于保存明文签名文件的路径。</value>
+    <value>明文签名文件将保存到的完整路径，包括文件名和扩展名。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpClearSignFile_Property_Overwrite_Name" xml:space="preserve">
@@ -1241,7 +1464,23 @@
     <comment>Property name</comment>
   </data>
   <data name="Activity_PgpVerify_Property_PublicKeyFilePath_Description" xml:space="preserve">
-    <value>用于验证的 PGP 公钥文件的路径。</value>
+    <value>签名者的 PGP 公钥文件的路径。这是生成签名的签名者的公钥。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFile_Name" xml:space="preserve">
+    <value>签名文件</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_InputFile_Description" xml:space="preserve">
+    <value>包含要验证的签名内容的文件资源。对于“签名文件（二进制）”和“明文签名文件（文本）”模式为必需。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFile_Name" xml:space="preserve">
+    <value>公钥文件</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_PgpVerify_Property_PublicKeyFile_Description" xml:space="preserve">
+    <value>签名者的 PGP 公钥，以文件资源形式提供。用于验证签名。</value>
     <comment>Property description</comment>
   </data>
   <data name="Activity_PgpVerify_Property_ContinueOnError_Name" xml:space="preserve">
@@ -1263,4 +1502,174 @@
   <data name="ActivitySynonymCryptography" xml:space="preserve">
     <value>加密</value>
   </data>
+  <data name="RsaKeySize_Rsa2048" xml:space="preserve">
+    <value>2048 位 RSA</value>
+  </data>
+  <data name="RsaKeySize_Rsa3072" xml:space="preserve">
+    <value>3072 位 RSA</value>
+  </data>
+  <data name="RsaKeySize_Rsa4096" xml:space="preserve">
+    <value>4096 位 RSA</value>
+  </data>
+
+  <!-- Third-party-compatible symmetric format properties (Classic/Owasp2026/Raw/OpenSslEnc). -->
+  <data name="Activity_EncryptText_Property_Format_Name" xml:space="preserve">
+    <value>线路格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Format_Description" xml:space="preserve">
+    <value>输出字节布局和密钥派生策略。请参阅 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>密钥字节格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Key（和 IV）字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_Iv_Description" xml:space="preserve">
+    <value>原始格式的初始化向量。以在“密钥字节格式”页面中选择的相同编码提供密钥上方的下拉列表（Hex 或 Base64）。留空以自动生成随机初始化向量。长度必须与算法的初始化变量大小匹配（AES/Rjndael 为 16 个字节，AESGCM/ChaCha20Poly1305 为 12 个字节，DES/TripleDES/RC2 为 8 个字节）。警告：切勿重复使用相同的（密钥，IV）对 — 这破坏了机密性，并且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，攻击者还可利用该模式篡改消息；每一对最多使用一次，留空则每次调用都会生成新的随机初始化向量。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 迭代次数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 迭代次数，仅用于 Owasp2026 和 OpenSslEnc 格式。预填充了格式自带的默认值：Owasp2026 为 1,300,000 (PBKDF2-HMAC-SHA1)，OpenSslEnc 为 600,000 (PBKDF2-HMAC-SHA256)。注意：纯 openssl enc -pbkdf2 -md sha256 出于向后兼容性默认为 10,000 次迭代 — 要与 CLI 互通，您必须在 openssl 端传递 -iter 600000，或将此属性设置为 10000。仅在需要与使用不同次数的对端互通时覆盖。最小值为 1,000。迭代次数不存储在线路格式中 — 加密端和解密端必须使用匹配的值。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 密钥大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES 密钥大小（位）。仅在 Algorithm = AES 且 Format = OpenSslEnc 时适用；否则忽略。必须与对端（例如 openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc）使用的密钥大小匹配。所选密钥大小不存储在线路格式中 — 加密端和解密端必须使用匹配的值。默认值：256 位。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptText_Property_Format_Name" xml:space="preserve">
+    <value>线路格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_Format_Description" xml:space="preserve">
+    <value>输入字节布局和密钥派生策略。必须与生成密文的格式匹配。请参阅 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Name" xml:space="preserve">
+    <value>密钥字节格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Key 字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 迭代次数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_KdfIterations_Description" xml:space="preserve">
+    <value>用于派生密钥的 PBKDF2 迭代次数。必须与加密时使用的值匹配。预填充了所选格式自带的默认值；如果生产者使用了不同的次数，请覆盖以匹配。注意：纯 openssl enc -pbkdf2 -md sha256 默认为 10,000 次迭代 — 当读取未显式传递 -iter 标志生成的 openssl CLI 输出时，请将此属性设置为 10000。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 密钥大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptText_Property_AesKeySize_Description" xml:space="preserve">
+    <value>用于加密输入的 AES 密钥大小（位）。仅在 Algorithm = AES 且 Format = OpenSslEnc 时适用；否则忽略。必须与生产者（例如 openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc）使用的密钥大小匹配。所选密钥大小不存储在线路格式中 — 加密端和解密端必须使用匹配的值。默认值：256 位。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_EncryptFile_Property_Format_Name" xml:space="preserve">
+    <value>线路格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Format_Description" xml:space="preserve">
+    <value>输出字节布局和密钥派生策略。请参阅 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>密钥字节格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Key（和 IV）字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Name" xml:space="preserve">
+    <value>IV</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_Iv_Description" xml:space="preserve">
+    <value>原始格式的初始化向量。以在“密钥字节格式”页面中选择的相同编码提供密钥上方的下拉列表（Hex 或 Base64）。留空以自动生成随机初始化向量。长度必须与算法的初始化变量大小匹配（AES/Rjndael 为 16 个字节，AESGCM/ChaCha20Poly1305 为 12 个字节，DES/TripleDES/RC2 为 8 个字节）。警告：切勿重复使用相同的（密钥，IV）对 — 这破坏了机密性，并且在 AEAD 模式（AES-GCM、ChaCha20-Poly1305）下，攻击者还可利用该模式篡改消息；每一对最多使用一次，留空则每次调用都会生成新的随机初始化向量。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 迭代次数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>PBKDF2 迭代次数，仅用于 Owasp2026 和 OpenSslEnc 格式。预填充了格式自带的默认值：Owasp2026 为 1,300,000 (PBKDF2-HMAC-SHA1)，OpenSslEnc 为 600,000 (PBKDF2-HMAC-SHA256)。注意：纯 openssl enc -pbkdf2 -md sha256 出于向后兼容性默认为 10,000 次迭代 — 要与 CLI 互通，您必须在 openssl 端传递 -iter 600000，或将此属性设置为 10000。仅在需要与使用不同次数的对端互通时覆盖。最小值为 1,000。迭代次数不存储在线路格式中 — 加密端和解密端必须使用匹配的值。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 密钥大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_EncryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>AES 密钥大小（位）。仅在 Algorithm = AES 且 Format = OpenSslEnc 时适用；否则忽略。必须与对端（例如 openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc）使用的密钥大小匹配。所选密钥大小不存储在线路格式中 — 加密端和解密端必须使用匹配的值。默认值：256 位。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <data name="Activity_DecryptFile_Property_Format_Name" xml:space="preserve">
+    <value>线路格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_Format_Description" xml:space="preserve">
+    <value>输入字节布局和密钥派生策略。必须与生成密文的格式匹配。请参阅 docs/symmetric-wire-format.md。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Name" xml:space="preserve">
+    <value>密钥字节格式</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KeyFormat_Description" xml:space="preserve">
+    <value>Key 字符串的编码：Hex（例如 AES-256 密钥为 64 个字符）或 Base64。Base64 输入允许空格、换行、URL 安全字符（- 和 _）以及缺少填充。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Name" xml:space="preserve">
+    <value>KDF 迭代次数</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_KdfIterations_Description" xml:space="preserve">
+    <value>用于派生密钥的 PBKDF2 迭代次数。必须与加密时使用的值匹配。预填充了所选格式自带的默认值；如果生产者使用了不同的次数，请覆盖以匹配。注意：纯 openssl enc -pbkdf2 -md sha256 默认为 10,000 次迭代 — 当读取未显式传递 -iter 标志生成的 openssl CLI 输出时，请将此属性设置为 10000。</value>
+    <comment>Property description</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Name" xml:space="preserve">
+    <value>AES 密钥大小</value>
+    <comment>Property name</comment>
+  </data>
+  <data name="Activity_DecryptFile_Property_AesKeySize_Description" xml:space="preserve">
+    <value>用于加密输入的 AES 密钥大小（位）。仅在 Algorithm = AES 且 Format = OpenSslEnc 时适用；否则忽略。必须与生产者（例如 openssl enc -aes-128-cbc / -aes-192-cbc / -aes-256-cbc）使用的密钥大小匹配。所选密钥大小不存储在线路格式中 — 加密端和解密端必须使用匹配的值。默认值：256 位。</value>
+    <comment>Property description</comment>
+  </data>
+
+  <!-- KdfIterations dynamic display names — the VM swaps these in based on Format value so the
+       user sees which KDF the iteration count actually drives. -->
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha1" xml:space="preserve">
+    <value>KDF 迭代次数 (PBKDF2-HMAC-SHA1)</value>
+    <comment>Dynamic display name when Format = Owasp2026</comment>
+  </data>
+  <data name="Activity_KdfIterations_DisplayName_Pbkdf2Sha256" xml:space="preserve">
+    <value>KDF 迭代次数 (PBKDF2-HMAC-SHA256)</value>
+    <comment>Dynamic display name when Format = OpenSslEnc</comment>
+  </data>
+
 </root>

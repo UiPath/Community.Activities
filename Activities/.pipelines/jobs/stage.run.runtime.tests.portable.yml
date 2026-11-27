@@ -64,6 +64,37 @@ jobs:
     displayName: 'Run tests'
     env: ${{ parameters.environment }}
 
+  - bash: |
+      set +e
+      cd $(Build.SourcesDirectory)/Activities/.pipelines/docker
+      DST="$(System.ArtifactsDirectory)/RobotLogs"
+      mkdir -p "$DST"
+      CID=$(docker-compose ps -a -q robot)
+      if [ -z "$CID" ]; then
+        echo "Robot container not found." > "$DST/no-logs.txt"
+        exit 0
+      fi
+      if docker cp "$CID:/home/robotuser/.local/share/UiPath/Logs/." "$DST"; then
+        if [ -z "$(find "$DST" -type f -print -quit)" ]; then
+          echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST succeeded but staged no files (the container log directory was empty)." > "$DST/no-logs.txt"
+          echo "Container log directory was empty; wrote placeholder."
+        else
+          echo "Copied robot logs from container to $DST"
+        fi
+      else
+        echo "docker cp from $CID:/home/robotuser/.local/share/UiPath/Logs/. to $DST failed (the log directory may not exist in the container, or docker cp failed for another reason)." > "$DST/staging-errors.txt"
+      fi
+    displayName: 'Stage robot logs'
+    condition: always()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish robot logs'
+    condition: always()
+    inputs:
+      PathToPublish: '$(System.ArtifactsDirectory)/RobotLogs'
+      ArtifactName: 'RuntimeTestsLogs_$(System.StageName)_$(System.JobAttempt)'
+      ArtifactType: 'Container'
+
   - ${{ each step in parameters.afterTestsCustomSteps }}:
     - ${{ step }}
 

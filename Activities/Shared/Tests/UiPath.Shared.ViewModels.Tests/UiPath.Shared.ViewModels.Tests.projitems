@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>c50dbc2a-7e3f-4d8a-bc91-e5f87a9b3211</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>UiPath.Shared.ViewModels.Tests</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MetadataChecker\ActivitiesMetadataChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MetadataChecker\MetadataCheckerConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MetadataChecker\IMetadataFixture.cs" />
+  </ItemGroup>
+</Project>

@@ -7,6 +7,8 @@ using System.Security;
 using UiPath.Cryptography.Enums;
 using Xunit;
 
+#pragma warning disable CS0618 // tests intentionally set the obsolete *InputModeSwitch properties to exercise legacy behavior.
+
 namespace UiPath.Cryptography.Activities.Tests
 {
     public class EncryptFileTests
@@ -64,7 +66,7 @@ namespace UiPath.Cryptography.Activities.Tests
             }
             catch (Exception ex)
             {
-                Assert.True(false, ex.ToString());
+                Assert.Fail(ex.ToString());
             }
             finally
             {
@@ -133,5 +135,86 @@ namespace UiPath.Cryptography.Activities.Tests
             // Act + Assert
             Should.Throw(() => WorkflowInvoker.Invoke(encryptFile), typeof(ArgumentNullException));
         }
+
+        [Fact]
+        public void EncryptFile_WithOnlyOutputFileName_WritesToInputDirectoryWithThatName()
+        {
+            // Regression: before the fix, supplying only OutputFileName (with no OutputFilePath)
+            // produced an empty filePath that flowed into File.WriteAllBytes("", ...) and threw
+            // ArgumentException("Empty path name is not legal"). The fix defaults the directory
+            // to the input file's directory.
+            var tempInputFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var inputDir = Path.GetDirectoryName(tempInputFile);
+            var customName = "custom-output-" + Guid.NewGuid().ToString("N") + ".enc";
+            var expectedOutputPath = Path.Combine(inputDir, customName);
+
+            try
+            {
+                File.WriteAllText(tempInputFile, "Hello edge-case world");
+
+                var encryptFile = new EncryptFile
+                {
+                    InputFilePath = new InArgument<string>(tempInputFile),
+                    Key = new InArgument<string>("key"),
+                    Algorithm = EncryptionAlgorithm.AESGCM,
+                    OutputFileName = new InArgument<string>(customName),
+                    KeyInputModeSwitch = KeyInputMode.Key,
+                };
+
+                WorkflowInvoker.Invoke(encryptFile);
+
+                File.Exists(expectedOutputPath).ShouldBeTrue($"expected encrypted output at {expectedOutputPath}");
+                new FileInfo(expectedOutputPath).Length.ShouldBeGreaterThan(0);
+            }
+            finally
+            {
+                if (File.Exists(tempInputFile)) File.Delete(tempInputFile);
+                if (File.Exists(expectedOutputPath)) File.Delete(expectedOutputPath);
+            }
+        }
+
+        [Fact]
+        public void EncryptFile_BadInput_WithContinueOnError_SwallowsException()
+        {
+            // Reference a non-existent input file so Execute throws ArgumentException;
+            // ContinueOnError=true should swallow it and return normally.
+            var missingInput = Path.Combine(Path.GetTempPath(), $"missing_{Guid.NewGuid():N}.txt");
+            var output = Path.Combine(Path.GetTempPath(), $"out_{Guid.NewGuid():N}.bin");
+
+            var activity = new EncryptFile
+            {
+                InputFilePath = new InArgument<string>(missingInput),
+                OutputFilePath = new InArgument<string>(output),
+                Key = new InArgument<string>("key"),
+                Algorithm = EncryptionAlgorithm.AESGCM,
+                KeyInputModeSwitch = KeyInputMode.Key,
+                ContinueOnError = new InArgument<bool>(true),
+            };
+
+            Should.NotThrow(() => WorkflowInvoker.Invoke(activity));
+            File.Exists(output).ShouldBeFalse("no output should have been written when the input is missing");
+        }
+
+        [Fact]
+        public void DecryptFile_BadInput_WithContinueOnError_SwallowsException()
+        {
+            var missingInput = Path.Combine(Path.GetTempPath(), $"missing_{Guid.NewGuid():N}.enc");
+            var output = Path.Combine(Path.GetTempPath(), $"out_{Guid.NewGuid():N}.txt");
+
+            var activity = new DecryptFile
+            {
+                InputFilePath = new InArgument<string>(missingInput),
+                OutputFilePath = new InArgument<string>(output),
+                Key = new InArgument<string>("key"),
+                Algorithm = EncryptionAlgorithm.AESGCM,
+                KeyInputModeSwitch = KeyInputMode.Key,
+                ContinueOnError = new InArgument<bool>(true),
+            };
+
+            Should.NotThrow(() => WorkflowInvoker.Invoke(activity));
+            File.Exists(output).ShouldBeFalse("no output should have been written when the input is missing");
+        }
     }
 }
+
+#pragma warning restore CS0618

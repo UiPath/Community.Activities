@@ -17,31 +17,27 @@
 		<PackageReference Update="UiPath.Workflow.Runtime" Version="6.0.0-20240401-07" />
 		<PackageReference Update="System.Activities.Core.Presentation" Version="6.0.0-20220318.2" />
 		<PackageReference Update="System.Activities.Metadata" Version="6.0.0-20240517.13" PrivateAssets="All"/>
-		<PackageReference Update="System.Activities.ViewModels" Version="1.0.0-20250625.2"/>
+		<PackageReference Update="System.Activities.ViewModels" Version="1.20260609.1"/>
 		<PackageReference Update="System.Activities" Version="5.0.0-20210730-02" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == '$(PortableFramework)' ">
-		<PackageReference Update="System.Security.Cryptography.Cng" Version="4.5.2" />
 	</ItemGroup>
 
 	<ItemGroup>
     <!-- See above, please upgrade in all places-->
-		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
 		<PackageReference Update="UiPath.Telemetry.Client" Version="2.12.0" />
 		<PackageReference Update="UiPath.Platform" Version="25.12.1"/>
-		<PackageReference Update="UiPath.CodedWorkflows" Version="24.10.2"/>
+		<PackageReference Update="UiPath.CodedWorkflows" Version="24.10.3"/>
 
-		<PackageReference Update="System.Drawing.Common" Version="6.0.0" />
-		<PackageReference Update="System.Text.RegularExpressions" Version="4.3.1" />
-		<PackageReference Update="System.Formats.Asn1" Version="8.0.1" />
-		<PackageReference Update="PgpCore" Version="6.5.3" />
+		<PackageReference Update="System.Drawing.Common" Version="8.0.0" />
+		<PackageReference Update="System.Formats.Asn1" Version="10.0.13" />
+		<PackageReference Update="PgpCore" Version="8.1.1" />
+		<PackageReference Update="BouncyCastle.Cryptography" Version="2.7.0" />
+		<PackageReference Update="Newtonsoft.Json" Version="13.0.4" />
 
-		<PackageReference Update="Azure.Identity" Version="1.13.1" />
+		<PackageReference Update="Azure.Identity" Version="1.21.0" />
 
 		<!-- Studio contract-->
 		<PackageReference Update="UiPath.Activities.Contracts" Version="24.10.1" PrivateAssets="All" />
-		<PackageReference Update="UiPath.Activities.Api" PrivateAssets="All" />
+		<PackageReference Update="UiPath.Activities.Api" Version="24.10.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -49,31 +45,28 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
-		<PackageReference Include="Moq" Version="4.18.4" />
+		<PackageReference Include="Moq" Version="4.21.0" />
 		<PackageReference Include="Shouldly" Version="4.3.0" />
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.abstractions" Version="2.0.3" />
-		<PackageReference Include="xunit.analyzers" Version="1.21.0" />
+		<PackageReference Include="xunit.analyzers" Version="1.27.0" />
 		<PackageReference Include="xunit.assert" Version="2.9.3" />
 		<PackageReference Include="xunit.core" Version="2.9.3" />
 		<PackageReference Include="xunit.extensibility.core" Version="2.9.3" />
 		<PackageReference Include="xunit.extensibility.execution" Version="2.9.3" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
+		<PackageReference Include="xunit.runner.visualstudio" Version="4.0.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
 		
-		<PackageReference Update="Xunit.StaFact" Version="2.1.17" />
-		<PackageReference Update="ReflectionMagic" Version="5.0.1" />
-		<PackageReference Update="System.Net.Http" Version="4.3.4" />
-		<PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+		<PackageReference Update="Xunit.StaFact" Version="4.0.24" />
+		<PackageReference Update="ReflectionMagic" Version="6.0.0" />
 	</ItemGroup>
 
 	<!-- For whatever reason, with "Fast UpToDate" VS option ON, changes are not detected properly 
-	Eg. obj/Debug/net6-0/refint/ .. is not copied to /obj/Debug/net6-0/ref even if there are changes
+	Eg. obj/Debug/net8-0/refint/ .. is not copied to /obj/Debug/net8-0/ref even if there are changes
 	This causes package not to be generated even if there are changes (rebuild is necessary)
 	This is very annoying when developing -->
 	<Target Name="UpdateObjRefIfNeeded" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == Debug">

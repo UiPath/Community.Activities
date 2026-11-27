@@ -153,6 +153,8 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
 
         private static IDataSource _ftpsModeDataSource;
 
+        protected override IReadOnlyCollection<string> LocalResourcePathProperties => new[] { nameof(ClientCertificatePath) };
+
         protected override void InitializeModel()
         {
             base.InitializeModel();
@@ -297,6 +299,7 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
             ClientCertificatePath.IsPrincipal = false;
             ClientCertificatePath.OrderIndex = orderIndex++;
             ClientCertificatePath.Category = Resources.Security;
+            WidgetSupportHelper.ApplyLocalResourceWidget(ClientCertificatePath, Services);
 
             ClientCertificatePassword.DisplayName = Resources.Activity_WithFtpSession_Property_ClientCertificatePassword_Name;
             ClientCertificatePassword.Tooltip = Resources.Activity_WithFtpSession_Property_ClientCertificatePassword_Description;

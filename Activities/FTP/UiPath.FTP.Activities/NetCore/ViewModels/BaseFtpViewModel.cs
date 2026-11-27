@@ -1,6 +1,10 @@
 using System.Activities.DesignViewModels;
 using System.Activities.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UiPath.FTP.Activities.Properties;
+using UiPath.Shared.ViewModels.Helpers;
 
 namespace UiPath.FTP.Activities.NetCore.ViewModels
 {
@@ -18,6 +22,23 @@ namespace UiPath.FTP.Activities.NetCore.ViewModels
         /// Specifies if the automation should continue even when the activity throws an error.
         /// </summary>
         public DesignInArgument<bool> ContinueOnError { get; set; } = new DesignInArgument<bool>();
+
+        /// <summary>
+        /// Names of the <c>string</c> arguments that use the LocalResource picker (see <see cref="WidgetSupportHelper"/>).
+        /// </summary>
+        protected virtual IReadOnlyCollection<string> LocalResourcePathProperties => System.Array.Empty<string>();
+
+        // Older Studio versions ignore NoWrap and would store LocalResource.FromPath("...") in a string argument;
+        // unwrap it and keep relative paths portable ('/').
+        public override async ValueTask<UpdateViewModelResult> UpdateAsync(string propertyName, object value)
+        {
+            if (propertyName != null && LocalResourcePathProperties.Contains(propertyName))
+            {
+                value = LocalResourcePathNormalizer.Normalize(value);
+            }
+
+            return await base.UpdateAsync(propertyName, value);
+        }
 
         protected override void InitializeModel()
         {

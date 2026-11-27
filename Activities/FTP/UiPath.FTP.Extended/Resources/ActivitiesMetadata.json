@@ -1,0 +1,86 @@
+{
+  "AssemblyRelativePath": "UiPath.FTP.Activities.Extended.dll",
+  "Activities": [
+    {
+      "FullName": "UiPath.FTP.Activities.Delete",
+      "ShortName": "Delete",
+      "DisplayNameKey": "Activity_Delete_Name",
+      "DisplayNameAliasKeys": [ "ActivitySynonymDeleteFileOrFolder" ],
+      "DescriptionKey": "Activity_Delete_Description",
+      "IconKey": "Delete_file_or_folder.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DeleteViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.FTP.Activities.DirectoryExists",
+      "ShortName": "DirectoryExists",
+      "DisplayNameKey": "Activity_DirectoryExists_Name",
+      "DisplayNameAliasKeys": [ "ActivitySynonymCheckIfFolderExists" ],
+      "DescriptionKey": "Activity_DirectoryExists_Description",
+      "IconKey": "Folder_exists.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DirectoryExistsViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.FTP.Activities.DownloadFiles",
+      "ShortName": "DownloadFiles",
+      "DisplayNameKey": "Activity_DownloadFiles_Name",
+      "DescriptionKey": "Activity_DownloadFiles_Description",
+      "IconKey": "Download_files.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.DownloadFilesViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.FTP.Activities.EnumerateObjects",
+      "ShortName": "EnumerateObjects",
+      "DisplayNameKey": "Activity_EnumerateObjects_Name",
+      "DisplayNameAliasKeys": [ "ActivitySynonymListFilesAndFolders" ],
+      "DescriptionKey": "Activity_EnumerateObjects_Description",
+      "IconKey": "Get_files.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.EnumerateObjectsViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.FTP.Activities.FileExists",
+      "ShortName": "FileExists",
+      "DisplayNameKey": "Activity_FileExists_Name",
+      "DisplayNameAliasKeys": [ "ActivitySynonymCheckIfFileExists" ],
+      "DescriptionKey": "Activity_FileExists_Description",
+      "IconKey": "File_exists.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.FileExistsViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.FTP.Activities.MoveItem",
+      "ShortName": "MoveItem",
+      "DisplayNameKey": "Activity_MoveItem_Name",
+      "DisplayNameAliasKeys": [ "ActivitySynonymMoveFileOrFolder" ],
+      "DescriptionKey": "Activity_MoveItem_Description",
+      "IconKey": "Move_file_or_folder.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.MoveItemViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.FTP.Activities.UploadFiles",
+      "ShortName": "UploadFiles",
+      "DisplayNameKey": "Activity_UploadFiles_Name",
+      "DescriptionKey": "Activity_UploadFiles_Description",
+      "IconKey": "Upload_files.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.UploadFilesViewModel",
+      "Properties": []
+    },
+    {
+      "FullName": "UiPath.FTP.Activities.WithFtpSession",
+      "ShortName": "WithFtpSession",
+      "DisplayNameKey": "Activity_WithFtpSession_Name",
+      "DisplayNameAliasKeys": [ "ActivitySynonymUseFtpConnection" ],
+      "DescriptionKey": "Activity_WithFtpSession_Description",
+      "IconKey": "FTP_Connection.svg",
+      "ViewModelType": "UiPath.FTP.Activities.NetCore.ViewModels.WithFtpSessionViewModel",
+      "Properties": []
+    }
+  ],
+  "DefaultActivityColor": "#526069",
+  "DefaultActivityNameBackgroundColor": "#FFFFFF",
+  "ResourceManagerName": "UiPath.FTP.Activities.Properties.UiPath.FTP.Activities"
+}

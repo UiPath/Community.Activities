@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using UiPath.FTP.Extensibility;
 
 namespace UiPath.FTP
 {
@@ -22,6 +24,19 @@ namespace UiPath.FTP
         public string ProxyUsername { get; set; }
         public string ProxyPassword { get; set; }
         public int? Timeout { get; set; }
+
+        /// <summary>
+        /// Optional extensions that add SFTP algorithms the operating system crypto module cannot provide
+        /// (for example Ed25519 or encrypted OpenSSH keys). Empty by default.
+        /// </summary>
+        public IList<ISftpCryptoExtension> CryptoExtensions { get; } = new List<ISftpCryptoExtension>();
+
+        /// <summary>
+        /// Gets or sets whether SFTP connections also use the extensions that installed packages provide (assemblies that
+        /// declare an <see cref="SftpCryptoExtensionAttribute"/>, such as the extended FTP package). The extensions in
+        /// <see cref="CryptoExtensions"/> come first. Default: <see langword="true"/>.
+        /// </summary>
+        public bool DiscoverCryptoExtensions { get; set; } = true;
 
         public FtpConfiguration(string host)
         {
